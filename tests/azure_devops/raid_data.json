@@ -1,0 +1,242 @@
+{
+ "ORG": "beecker org",
+ "PROJECTS": [
+  "GPO.007",
+  "RAS.001_CR1",
+  "AMK.008",
+  "Otro Proyecto"
+ ],
+ "ACTIVE": "TYM.AMK.010",
+ "ITEMS": {
+  "GPO.007": [
+   {
+    "id": 1,
+    "fields": {
+     "System.WorkItemType": "Risk",
+     "System.State": "Active",
+     "System.Title": " Riesgo alto ",
+     "System.ChangedDate": "2026-09-01T10:00:00Z",
+     "Microsoft.VSTS.Common.Severity": "2 - High",
+     "Custom.Probabilidad": "1"
+    }
+   },
+   {
+    "id": 2,
+    "fields": {
+     "System.WorkItemType": "Risk",
+     "System.State": "Proposed",
+     "System.Title": "Riesgo bajo",
+     "System.ChangedDate": "2026-09-20T10:00:00.123Z",
+     "Microsoft.VSTS.Common.Severity": "4 - Low",
+     "Custom.Probabilidad": "Media"
+    }
+   },
+   {
+    "id": 3,
+    "fields": {
+     "System.WorkItemType": "Risk",
+     "System.State": "Active",
+     "System.Title": "Sin severidad",
+     "System.ChangedDate": "2026-09-25T10:00:00Z",
+     "Custom.SeverityLevel": "Crítica",
+     "Custom.Probabilidad": ""
+    }
+   },
+   {
+    "id": 4,
+    "fields": {
+     "System.WorkItemType": "Opportunity",
+     "System.State": "Active",
+     "System.Title": "Opp",
+     "System.ChangedDate": "2026-09-02T10:00:00Z"
+    }
+   },
+   {
+    "id": 5,
+    "fields": {
+     "System.WorkItemType": "Opportunity",
+     "System.State": "Closed",
+     "System.Title": "Opp cerrada",
+     "System.ChangedDate": "2026-09-02T10:00:00Z"
+    }
+   },
+   {
+    "id": 6,
+    "fields": {
+     "System.WorkItemType": "Risk",
+     "System.State": "Closed",
+     "System.Title": "Cerrado",
+     "System.ChangedDate": "2026-09-02T10:00:00Z"
+    }
+   },
+   {
+    "id": 7,
+    "fields": {
+     "System.WorkItemType": "Risk",
+     "System.State": "Active",
+     "System.Title": "Medio viejo",
+     "System.ChangedDate": "2026-08-01T10:00:00Z",
+     "Microsoft.VSTS.Common.Severity": "3 - Medium",
+     "Custom.Probabilidad": 3
+    }
+   },
+   {
+    "id": 8,
+    "fields": {
+     "System.WorkItemType": "Risk",
+     "System.State": "Active",
+     "System.Title": "Medio nuevo",
+     "System.ChangedDate": "2026-09-30T10:00:00Z",
+     "Microsoft.VSTS.Common.Severity": "3 - Medium",
+     "Custom.Probabilidad": "4"
+    }
+   },
+   {
+    "id": 9,
+    "fields": {
+     "System.WorkItemType": "Risk",
+     "System.State": "Active",
+     "System.Title": "Alto nuevo",
+     "System.ChangedDate": "2026-09-29T10:00:00Z",
+     "Microsoft.VSTS.Common.Severity": "1 - Critical"
+    }
+   },
+   {
+    "id": 10,
+    "fields": {
+     "System.WorkItemType": "Issue",
+     "System.State": "Active",
+     "System.Title": "Issue",
+     "System.ChangedDate": "2026-09-29T10:00:00Z"
+    }
+   },
+   {
+    "id": 11,
+    "fields": {
+     "System.WorkItemType": "Risk",
+     "System.State": "Active",
+     "System.Title": "Sin fecha",
+     "System.ChangedDate": null,
+     "Microsoft.VSTS.Common.Severity": ""
+    }
+   }
+  ],
+  "RAS.001_CR1": [
+   {
+    "id": 21,
+    "fields": {
+     "System.WorkItemType": "Risk",
+     "System.State": "Active",
+     "System.Title": "Riesgo CR",
+     "System.ChangedDate": "2026-07-01T10:00:00Z",
+     "Microsoft.VSTS.Common.Severity": "Media",
+     "Custom.ProbabilityScore": "2"
+    }
+   },
+   {
+    "id": 22,
+    "fields": {
+     "System.WorkItemType": "Opportunity",
+     "System.State": "Proposed",
+     "System.Title": "Opp CR",
+     "System.ChangedDate": "2026-07-01T10:00:00Z"
+    }
+   }
+  ],
+  "TYM.AMK.010": []
+ },
+ "FIELDS": {
+  "GPO.007": [
+   {
+    "name": "Title",
+    "referenceName": "System.Title"
+   },
+   {
+    "name": "Probabilidad",
+    "referenceName": "Custom.Probabilidad"
+   }
+  ],
+  "TYM.AMK.010": [
+   {
+    "name": "Probability Score",
+    "referenceName": "Custom.Nada"
+   }
+  ]
+ },
+ "WIQL_FAIL": [
+  "AMK.008"
+ ],
+ "SHEETS": {
+  "Pendientes_Daily": [
+   [
+    "ID",
+    "Proyecto",
+    "Pendiente",
+    "Estado"
+   ],
+   [
+    "p1",
+    "GPO.007",
+    "a",
+    "Abierto"
+   ],
+   [
+    "p2",
+    "gpo.007_S2",
+    "b",
+    "En progreso"
+   ],
+   [
+    "p3",
+    "GPO.007",
+    "c",
+    "Completado"
+   ],
+   [
+    "p4",
+    "RAS.001_S2",
+    "d",
+    ""
+   ],
+   [
+    "p5",
+    "RAS.001",
+    "e",
+    "COMPLETED"
+   ],
+   [
+    "p6",
+    "",
+    "f",
+    "Abierto"
+   ],
+   [
+    "p7",
+    "RAS.001_CR1",
+    "g",
+    "Abierto"
+   ],
+   [
+    "p8",
+    "TYM.AMK.010",
+    "h",
+    "Abierto"
+   ],
+   [
+    "p9",
+    "Otro",
+    "i",
+    "Abierto"
+   ]
+  ]
+ },
+ "OPERATIONS": [
+  "GPO.007",
+  "RAS.001_S2",
+  "AMK.008_S4",
+  "TYM.AMK.010",
+  "NADA.1",
+  "",
+  " GPO.007_S2 "
+ ]
+}

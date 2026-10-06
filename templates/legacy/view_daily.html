@@ -1,0 +1,451 @@
+<!--
+  view_daily.html
+  Plantilla de la vista "Azure DevOps" (nav-item data-view="azure") +
+  el modal de configuración. Sigue el mismo patrón <template> que
+  view_dashboard.html / view_horas.html / view_minutas.html.
+
+  Se incluye en index.html igual que las demás vistas:
+    <?!= include('view_daily'); ?>
+  ANTES de <?!= include('js_main'); ?> (mismo orden que las otras).
+-->
+
+<template id="tpl-azure">
+  <div class="view-header">
+    <div class="view-title">DAILY — <span class="accent">SEGUIMIENTO INTEGRAL</span></div>
+    <div class="filters">
+      <select id="az-select-proyecto-rapido" class="filter" style="min-width:200px;">
+        <option value="">Conecta tu cuenta primero</option>
+      </select>
+      <span id="az-badge-conexion" style="font-size:12px;color:var(--gris);cursor:pointer;">
+        ⚙️ Configurar cuenta
+      </span>
+      <span id="clockify-badge-conexion" style="font-size:12px;color:var(--gris);cursor:pointer;">
+        ⏱️ Configurar Clockify
+      </span>
+      <button class="btn btn-primary" id="btn-daily-refresh">🔄 Actualizar</button>
+      <button class="btn" id="btn-inspeccionar-campos" style="font-size:11px;">🔍 Inspeccionar campos ToBe</button>
+      <button class="btn" id="btn-diagnostico-clockify" style="font-size:11px;">🩺 Diagnóstico Clockify</button>
+      <button class="btn" id="btn-diagnostico-clockify-completo" style="font-size:11px;">🩺 Diagnóstico Clockify (completo)</button>
+    </div>
+  </div>
+
+  <!-- Resumen Ejecutivo del proyecto vinculado: usa el MISMO render que -->
+  <!-- el Dashboard Ejecutivo original (renderDashboardEjecutivoProyecto), -->
+  <!-- incluyendo el Gantt Plan vs Real con estilo morado/rosa Beecker. -->
+  <div id="az-exec-wrapper" style="display:none;margin-bottom:14px;">
+    <div id="dashboard-proyecto-detalle"></div>
+  </div>
+  <!-- Fin Resumen Ejecutivo -->
+
+  <!-- ============ Registros mal registrados (validación Clockify) ============ -->
+  <div class="card" style="margin-bottom:14px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <h3 style="margin:0;">🚨 Registros mal registrados <span style="font-size:11px;font-weight:400;color:var(--gris);">(validación de Clockify)</span></h3>
+      <button class="btn" id="btn-config-reglas-area" style="font-size:11px;padding:4px 8px;" title="Configurar reglas por área">⚙️</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:12px;margin-bottom:14px;">
+      <div class="kpi-card" style="padding:12px;">
+        <div class="kpi-label" style="color:#8A6D00;">Sin tag</div>
+        <div class="kpi-value" id="kpi-mal-registro-sintag" style="color:var(--amarillo);">—</div>
+      </div>
+      <div class="kpi-card" style="padding:12px;">
+        <div class="kpi-label" style="color:#C62828;">Fuera de horario</div>
+        <div class="kpi-value" id="kpi-mal-registro-horario" style="color:var(--rojo);">—</div>
+      </div>
+      <div class="kpi-card" style="padding:12px;">
+        <div class="kpi-label" style="color:#4A2A94;">Regla de área <span style="font-weight:400;">(próximamente)</span></div>
+        <div class="kpi-value" id="kpi-mal-registro-area" style="color:#4A2A94;">—</div>
+      </div>
+    </div>
+
+    <div id="lista-registros-mal-registrados">
+      <div class="loading">Cargando...</div>
+    </div>
+  </div>
+  <!-- ============ Fin Registros mal registrados ============ -->
+
+  <!-- ================= MODAL: CONFIGURAR REGLAS POR ÁREA ================= -->
+  <div id="modal-reglas-area" class="modal-overlay" style="display:none;">
+    <div class="modal-box" style="max-width:560px;max-height:80vh;display:flex;flex-direction:column;">
+      <div class="modal-header">
+        <h3>⚙️ Reglas de validación por área (prompts para IA)</h3>
+        <button class="modal-close" onclick="cerrarModalReglasArea()">✕</button>
+      </div>
+      <div class="modal-body" style="overflow-y:auto;">
+        <p style="font-size:12px;color:var(--gris);margin-top:0;">
+          Escribe el prompt/instrucción que Claude usará para decidir si un registro de tiempo cumple la regla del área.
+          Ej: "El registro debe mencionar un número de ticket (#1234) y durar al menos 30 minutos."
+          Reusa la misma API key de Claude que ya configuraste para crear riesgos.
+        </p>
+        <div id="config-ia-reglas-estado" style="font-size:11px;color:var(--gris);margin-bottom:10px;"></div>
+
+        <div id="lista-areas-reglas"></div>
+
+        <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:12px;">
+          <label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Nueva área</label>
+          <input type="text" id="nueva-area-nombre" placeholder="ej. Business Analyst" style="width:100%;padding:6px 8px;margin:4px 0 6px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+          <textarea id="nueva-area-regla" rows="3" placeholder="Prompt / regla para esta área..." spellcheck="true" lang="es" style="width:100%;padding:6px 8px;margin-bottom:6px;border:1px solid var(--border);border-radius:6px;font-size:12px;"></textarea>
+          <button class="btn btn-primary" style="width:100%;" onclick="_agregarAreaReglaUI()">+ Agregar área</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <h3>⏱️ Work Items sin seguimiento (+7 días)</h3>
+    <div id="az-sin-seguimiento-container">
+      <div class="loading">Cargando...</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <h3 id="toggle-workitems" style="cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;margin:0;">
+      <span>☁️ Work Items — Azure DevOps (To Be / Change Request)</span>
+      <span id="toggle-workitems-arrow" style="font-size:12px;color:var(--gris);transition:transform .2s;">▶</span>
+    </h3>
+    <div id="az-workitems-container" style="display:none;margin-top:12px;">
+      <div class="loading">Cargando...</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>🛡️ Riesgos Activos
+        <button class="btn" id="btn-daily-nuevo-riesgo" style="float:right;padding:3px 8px;font-size:11px;">+ Crear Riesgo</button>
+      </h3>
+      <div id="az-riesgos-container">
+        <div class="loading">Cargando...</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>💡 Oportunidades Detectadas</h3>
+      <div id="az-oportunidades-container">
+        <div class="loading">Cargando...</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📋 Pendientes
+        <button class="btn" id="btn-daily-nuevo-pendiente" style="float:right;padding:3px 8px;font-size:11px;">+ Nuevo</button>
+      </h3>
+
+      <div id="form-nuevo-pendiente" style="display:none;margin-bottom:12px;padding:10px;border:1px solid var(--border);border-radius:8px;">
+        <input type="text" id="np-descripcion" placeholder="Descripción" spellcheck="true" lang="es" style="width:100%;margin-bottom:6px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+        <input type="text" id="np-responsable" placeholder="Responsable" style="width:100%;margin-bottom:6px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+        <select id="np-prioridad" style="width:100%;margin-bottom:6px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+          <option value="Alta">Alta</option>
+          <option value="Media" selected>Media</option>
+          <option value="Baja">Baja</option>
+        </select>
+        <div style="display:flex;gap:6px;justify-content:flex-end;">
+          <button class="btn" id="btn-daily-cancelar-pendiente">Cancelar</button>
+          <button class="btn btn-primary" id="btn-daily-guardar-pendiente">Guardar</button>
+        </div>
+      </div>
+
+      <div id="pendientes-daily-container">
+        <div class="loading">Cargando...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <h3>📷 Ajustes UAT (Pendientes)
+      <button class="btn" id="btn-daily-nuevo-uat" style="float:right;padding:3px 8px;font-size:11px;">+ Nuevo</button>
+    </h3>
+
+    <div id="form-nuevo-uat" style="display:none;margin-bottom:12px;padding:10px;border:1px solid var(--border);border-radius:8px;max-width:400px;">
+      <input type="text" id="uat-descripcion" placeholder="Descripción del ajuste" spellcheck="true" lang="es" style="width:100%;margin-bottom:6px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+      <input type="number" id="uat-devpct" placeholder="% Dev completado" min="0" max="100" style="width:100%;margin-bottom:6px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+      <div style="display:flex;gap:6px;justify-content:flex-end;">
+        <button class="btn" id="btn-daily-cancelar-uat">Cancelar</button>
+        <button class="btn btn-primary" id="btn-daily-guardar-uat">Guardar</button>
+      </div>
+    </div>
+
+    <div id="ajustes-uat-container">
+      <div class="loading">Cargando...</div>
+    </div>
+  </div>
+</template>
+
+<!-- ===== Modal de configuración de Azure DevOps (fuera del template, vive siempre en el DOM) ===== -->
+<!-- ================= MODAL: CREAR RIESGO CON IA ================= -->
+<div id="modal-crear-riesgo" class="modal-overlay" style="display:none;align-items:flex-start;padding:20px;overflow-y:auto;">
+  <div class="modal-box" style="max-width:1200px;width:100%;margin:0 auto;">
+
+    <!-- Header estilo Azure DevOps, colores Beecker -->
+    <div style="background:linear-gradient(90deg, #4A2A94, #E0298B);border-radius:12px 12px 0 0;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="color:#fff;font-weight:700;font-size:13px;letter-spacing:.5px;">🛡️ NEW RISK</div>
+      <button class="modal-close" onclick="cerrarModalCrearRiesgo()" style="color:#fff;font-size:18px;">✕</button>
+    </div>
+
+    <div class="modal-body" style="padding:20px 24px;">
+
+      <!-- Paso 1: descripción libre -->
+      <div id="riesgo-paso-1">
+        <p style="font-size:12.5px;color:var(--gris);margin-top:0;">
+          Describe el riesgo con tus palabras. Claude va a sugerir todos los campos del formulario de Azure DevOps
+          (plan de mitigación, triggers, contingencia, prioridad, etc.) usando las opciones reales de tu proceso —
+          podrás editar todo antes de crearlo.
+        </p>
+        <textarea id="riesgo-descripcion-libre" rows="4" placeholder="ej. Nos falta acceso al ambiente de pruebas del cliente, puede retrasar el sprint..."
+          spellcheck="true" lang="es" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;"></textarea>
+
+        <div id="riesgo-config-ia" style="font-size:11px;color:var(--gris);margin:8px 0;"></div>
+
+        <div style="margin-bottom:10px;">
+          <a href="#" id="toggle-prompt-personalizado" style="font-size:11px;color:var(--vino);text-decoration:none;">✏️ Personalizar cómo la IA redacta la información</a>
+          <div id="bloque-prompt-personalizado" style="display:none;margin-top:6px;">
+            <textarea id="riesgo-prompt-personalizado" rows="3" placeholder="ej. Sé más formal, siempre menciona el nombre del cliente en la descripción, el plan de mitigación no debe pasar de 2 líneas..."
+              spellcheck="true" lang="es" style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;"></textarea>
+            <div style="display:flex;justify-content:flex-end;margin-top:4px;">
+              <button class="btn" style="padding:3px 8px;font-size:11px;" onclick="_guardarPromptPersonalizadoUI()">Guardar instrucciones</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px;">
+          <button class="btn" onclick="cerrarModalCrearRiesgo()">Cancelar</button>
+          <button class="btn btn-primary" onclick="_generarSugerenciaRiesgoUI(this)">✨ Sugerir con IA</button>
+        </div>
+      </div>
+
+      <!-- Paso 2: layout tipo Azure DevOps, pantalla completa, sin nada encimado -->
+      <div id="riesgo-paso-2" style="display:none;">
+
+        <!-- Título -->
+        <input type="text" id="riesgo-titulo" placeholder="Enter title" spellcheck="true" lang="es"
+          style="width:100%;padding:12px 14px;margin-bottom:12px;border:2px solid #4A2A94;border-radius:8px;font-size:17px;font-weight:600;">
+
+        <!-- Barra State / Reason / Area / Iteration / Responsable -->
+        <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:14px;margin-bottom:20px;padding:12px 16px;background:#FAFAFB;border-radius:10px;border:1px solid var(--border);">
+          <div>
+            <label style="font-size:10px;color:var(--gris);text-transform:uppercase;">State</label>
+            <div style="font-size:13px;font-weight:600;color:var(--gris-oscuro);margin-top:2px;">● Proposed</div>
+          </div>
+          <div>
+            <label style="font-size:10px;color:var(--gris);text-transform:uppercase;">Reason</label>
+            <div style="font-size:13px;font-weight:600;color:var(--gris-oscuro);margin-top:2px;">New</div>
+          </div>
+          <div>
+            <label style="font-size:10px;color:var(--gris);text-transform:uppercase;">Area Path</label>
+            <input type="text" id="riesgo-area-path" style="width:100%;padding:4px 6px;margin-top:2px;border:1px solid var(--border);border-radius:5px;font-size:12px;">
+          </div>
+          <div style="grid-column:span 2;">
+            <label style="font-size:10px;color:var(--gris);text-transform:uppercase;">Iteration Path</label>
+            <input type="text" id="riesgo-iteration-path" autocomplete="off" style="width:100%;padding:4px 6px;margin-top:2px;border:1px solid var(--border);border-radius:5px;font-size:12px;">
+            <div id="sugerencias-iteration" style="display:none;position:relative;"></div>
+          </div>
+        </div>
+
+        <!-- 3 columnas: Description / Planning+Classification / Related Work -->
+        <div style="display:grid;grid-template-columns:1.4fr 1fr 0.9fr;gap:24px;align-items:start;">
+
+          <!-- Columna 1: Description y textos largos -->
+          <div>
+            <h4 style="font-size:12px;font-weight:700;color:var(--gris-oscuro);margin:0 0 4px;">Description</h4>
+            <textarea id="riesgo-descripcion-final" rows="3" spellcheck="true" lang="es"
+              style="width:100%;padding:8px 10px;margin-bottom:16px;border:1px solid var(--border);border-radius:8px;font-size:13px;"></textarea>
+
+            <h4 style="font-size:12px;font-weight:700;color:var(--gris-oscuro);margin:0 0 4px;">Plan de mitigación</h4>
+            <textarea id="riesgo-plan-mitigacion" rows="2" spellcheck="true" lang="es"
+              style="width:100%;padding:8px 10px;margin-bottom:16px;border:1px solid var(--border);border-radius:8px;font-size:13px;"></textarea>
+
+            <h4 style="font-size:12px;font-weight:700;color:var(--gris-oscuro);margin:0 0 4px;">Triggers</h4>
+            <textarea id="riesgo-triggers" rows="2" spellcheck="true" lang="es"
+              style="width:100%;padding:8px 10px;margin-bottom:16px;border:1px solid var(--border);border-radius:8px;font-size:13px;"></textarea>
+
+            <h4 style="font-size:12px;font-weight:700;color:var(--gris-oscuro);margin:0 0 4px;">Contingency Plan</h4>
+            <textarea id="riesgo-contingency-plan" rows="2" spellcheck="true" lang="es"
+              style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;"></textarea>
+          </div>
+
+          <!-- Columna 2: Planning + Classification -->
+          <div>
+            <h4 style="font-size:12px;font-weight:700;color:var(--gris-oscuro);margin:0 0 10px;border-bottom:2px solid #E0298B;padding-bottom:4px;">Planning</h4>
+
+            <label style="font-size:11px;color:var(--gris);">Priority</label>
+            <select id="riesgo-prioridad" style="width:100%;padding:6px 8px;margin:2px 0 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+              <option value="1">1 (Urgente)</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4 (Baja)</option>
+            </select>
+
+            <label style="font-size:11px;color:var(--gris);">Severity</label>
+            <select id="riesgo-nivel" style="width:100%;padding:6px 8px;margin:2px 0 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+              <option value="Alto">Alto</option>
+              <option value="Medio">Medio</option>
+              <option value="Bajo">Bajo</option>
+            </select>
+
+            <label style="font-size:11px;color:var(--gris);">Fecha de seguimiento</label>
+            <input type="date" id="riesgo-fecha-seguimiento" style="width:100%;padding:6px 8px;margin:2px 0 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+
+            <label style="font-size:11px;color:var(--gris);">Escalate</label>
+            <select id="riesgo-escalate" style="width:100%;padding:6px 8px;margin:2px 0 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+
+            <label style="font-size:11px;color:var(--gris);">Persona a la que se escala</label>
+            <input type="text" id="riesgo-persona-escala" placeholder="Buscar por nombre o email..." autocomplete="off" style="width:100%;padding:6px 8px;margin:2px 0;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+            <div id="sugerencias-persona-escala" style="display:none;position:relative;margin-bottom:12px;"></div>
+
+            <label style="font-size:11px;color:var(--gris);">Estrategia de gestión</label>
+            <select id="riesgo-estrategia" style="width:100%;padding:6px 8px;margin:2px 0 16px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+              <option value="Evitar">Evitar</option>
+              <option value="Mitigar">Mitigar</option>
+              <option value="Transferir">Transferir</option>
+              <option value="Aceptar">Aceptar</option>
+            </select>
+
+            <h4 style="font-size:12px;font-weight:700;color:var(--gris-oscuro);margin:0 0 10px;border-bottom:2px solid #E0298B;padding-bottom:4px;">Classification</h4>
+
+            <label style="font-size:11px;color:var(--gris);">Probability</label>
+            <input type="text" id="riesgo-probabilidad" readonly style="width:100%;padding:6px 8px;margin:2px 0 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;background:#F5F5F7;color:var(--gris);" title="Toma el mismo valor que Priority">
+
+            <label style="font-size:11px;color:var(--gris);">Partes interesadas afectada</label>
+            <select id="riesgo-partes-interesadas" style="width:100%;padding:6px 8px;margin:2px 0 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+              <option value="">Sin especificar</option>
+            </select>
+
+            <label style="font-size:11px;color:var(--gris);">Fuente del riesgo</label>
+            <select id="riesgo-fuente" style="width:100%;padding:6px 8px;margin:2px 0 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+              <option value="">Sin especificar</option>
+            </select>
+
+            <label style="font-size:11px;color:var(--gris);">Categoria</label>
+            <select id="riesgo-categoria" style="width:100%;padding:6px 8px;margin:2px 0;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+              <option value="">Sin especificar</option>
+            </select>
+          </div>
+
+          <!-- Columna 3: Responsable + Related Work -->
+          <div>
+            <h4 style="font-size:12px;font-weight:700;color:var(--gris-oscuro);margin:0 0 10px;border-bottom:2px solid #E0298B;padding-bottom:4px;">Responsable</h4>
+            <input type="text" id="riesgo-responsable" placeholder="Buscar por nombre o email..." autocomplete="off" style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+            <div id="sugerencias-responsable" style="display:none;position:relative;margin-bottom:20px;"></div>
+
+            <h4 style="font-size:12px;font-weight:700;color:var(--gris-oscuro);margin:0 0 6px;border-bottom:2px solid #E0298B;padding-bottom:4px;">🔗 Related Work</h4>
+            <p style="font-size:11px;color:var(--gris);margin:2px 0 6px;">ID de un Work Item existente (ej. el requerimiento afectado).</p>
+            <input type="text" id="riesgo-related-work-buscar" placeholder="Buscar por ID o título..." autocomplete="off" style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+            <div id="sugerencias-related-work" style="display:none;position:relative;"></div>
+            <input type="hidden" id="riesgo-related-work">
+            <div id="related-work-seleccionado" style="font-size:11.5px;color:var(--vino);margin-top:6px;display:none;"></div>
+          </div>
+
+        </div>
+
+        <div id="riesgo-mensaje" style="font-size:12.5px;padding:8px 10px;border-radius:8px;margin:16px 0 0;display:none;"></div>
+
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">
+          <button class="btn" onclick="_volverPaso1Riesgo()">← Regenerar</button>
+          <button class="btn btn-primary" onclick="_crearRiesgoEnAzureUI()">💾 Crear en Azure DevOps</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal de configuración de Clockify ===== -->
+<div id="modal-clockify" class="modal-overlay" style="display:none;">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-header">
+      <h3>⏱️ Conectar con Clockify</h3>
+      <button class="modal-close" onclick="cerrarModalClockify()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12.5px;color:var(--gris);margin-top:0;">
+        Tu API key es personal — se guarda solo en tu cuenta. Se usará para traer las horas reales
+        directo de Clockify, usando el rango Discovery→Deployment de cada proyecto.
+      </p>
+
+      <label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">API Key</label>
+      <input type="password" id="clockify-input-apikey" placeholder="Pega tu API key aquí"
+        style="width:100%;padding:8px 10px;margin:4px 0 6px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+      <div id="clockify-apikey-actual" style="font-size:11px;color:var(--gris);margin-bottom:10px;"></div>
+
+      <button class="btn" style="width:100%;margin-bottom:12px;" onclick="_buscarWorkspacesClockifyUI()">
+        🔍 Buscar workspaces
+      </button>
+
+      <label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Workspace</label>
+      <select id="clockify-select-workspace"
+        style="width:100%;padding:8px 10px;margin:4px 0 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+        <option value="">— Pega tu API key y da clic en "Buscar workspaces" —</option>
+      </select>
+
+      <div id="clockify-mensaje" style="font-size:12.5px;padding:8px 10px;border-radius:8px;margin-bottom:12px;display:none;"></div>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button class="btn" onclick="cerrarModalClockify()">Cancelar</button>
+        <button class="btn btn-primary" onclick="_guardarConfigClockifyUI()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-azure-devops" class="modal-overlay" style="display:none;">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-header">
+      <h3>🔗 Conectar con Azure DevOps</h3>
+      <button class="modal-close" onclick="cerrarModalAzureDevOps()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12.5px;color:var(--gris);margin-top:0;">
+        Tu token es personal — se guarda solo en tu cuenta, nadie más lo ve.
+        Necesitas un Personal Access Token con scope <b>Work Items &gt; Read</b>.
+      </p>
+
+      <label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Organización</label>
+      <input type="text" id="az-input-org" placeholder="ej. Proyectos-BeeckerCo"
+        style="width:100%;padding:8px 10px;margin:4px 0 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+
+      <label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Personal Access Token</label>
+      <input type="password" id="az-input-pat" placeholder="Pega tu PAT aquí"
+        style="width:100%;padding:8px 10px;margin:4px 0 6px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+      <div id="az-pat-actual" style="font-size:11px;color:var(--gris);margin-bottom:10px;"></div>
+
+      <button class="btn" style="width:100%;margin-bottom:12px;" onclick="buscarProyectosAzureDevOpsUI()">
+        🔍 Buscar proyectos accesibles
+      </button>
+
+      <label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Proyecto</label>
+      <select id="az-select-proyecto"
+        style="width:100%;padding:8px 10px;margin:4px 0 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+        <option value="">— Escribe la organización y da clic en "Buscar proyectos" —</option>
+      </select>
+
+      <div id="az-mensaje" style="font-size:12.5px;padding:8px 10px;border-radius:8px;margin-bottom:12px;display:none;"></div>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button class="btn" id="az-btn-desconectar" onclick="desconectarAzureDevOpsUI()" style="display:none;color:var(--rojo);">Desconectar</button>
+        <button class="btn" onclick="probarConexionAzureDevOpsUI()">Probar conexión</button>
+        <button class="btn btn-primary" onclick="guardarConfigAzureDevOpsUI()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    display: flex; align-items: center; justify-content: center; z-index: 999;
+  }
+  .modal-box {
+    background: var(--blanco); border-radius: 12px; padding: 0; width: 90%;
+    box-shadow: 0 10px 40px rgba(0,0,0,.2);
+  }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 18px; border-bottom: 1px solid var(--border);
+  }
+  .modal-header h3 { margin: 0; font-size: 15px; color: var(--gris-oscuro); }
+  .modal-close { background: none; border: none; font-size: 16px; cursor: pointer; color: var(--gris); }
+  .modal-body { padding: 18px; }
+</style>

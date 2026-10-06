@@ -1,0 +1,1304 @@
+{
+ "results": [
+  {
+   "ok": true,
+   "configurado": true,
+   "sufijo": "1234",
+   "promptPersonalizado": ""
+  },
+  {
+   "ok": false,
+   "error": "Falta la API key."
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": true,
+   "configurado": true,
+   "sufijo": "1234",
+   "promptPersonalizado": "Sé formal"
+  },
+  {
+   "ok": false,
+   "error": "No se pudo generar la sugerencia: Escribe una descripción del riesgo primero."
+  },
+  {
+   "ok": true,
+   "titulo": "Accesos tardíos",
+   "descripcion": "El proveedor no entrega accesos",
+   "nivel": "Medio",
+   "prioridad": "3",
+   "planMitigacion": "1. a\n2. b",
+   "triggers": "",
+   "contingencyPlan": "",
+   "categoria": "",
+   "fuenteRiesgo": "",
+   "partesInteresadas": "",
+   "estrategiaGestion": "Mitigar",
+   "escalate": "No",
+   "fechaSeguimiento": "2026-10-09"
+  },
+  {
+   "ok": false,
+   "error": "API key de Claude inválida."
+  },
+  {
+   "ok": false,
+   "error": "Claude respondió 500: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  },
+  {
+   "ok": false,
+   "error": "Claude no devolvió texto. Respuesta cruda del servidor: {\"content\":[{\"type\":\"thinking\",\"thinking\":\"x\"}]}"
+  },
+  {
+   "ok": false,
+   "error": "Claude no devolvió un JSON reconocible. Respuesta recibida: \"no hay json aquí...\""
+  },
+  {
+   "ok": false,
+   "error": "Claude no devolvió un JSON reconocible. Respuesta recibida: \"{\"titulo\": \"corto\", ...\""
+  },
+  {
+   "ok": true,
+   "configurado": true,
+   "prompt": "# Prompt para generar incidencias de proyectos RPA – Estructura CMMI\n\nActúa como **Project Manager corporativo especializado en proyectos RPA**, utilizando un enfoque de gestión basado en **CMMI**, control de riesgos, trazabilidad y seguimiento ejecutivo.\n\nVoy a proporcionarte un correo, mensaje, captura o descripción relacionada con una **incidencia, extensión, suspensión, bloqueo, dependencia o desviación de un proyecto RPA**.\n\nTu tarea es analizar la información y generar una incidencia estructurada, profesional, clara y ejecutiva.\n\n## Formato obligatorio de respuesta\n\n### **Título:**\n\nGenera un título breve y específico que indique:\n\n* Proyecto.\n* Motivo principal de la incidencia.\n* Tipo de afectación cuando aplique (extensión, suspensión, retraso, dependencia, etc.).\n\n### **Descripción:**\n\nRedacta una descripción ejecutiva explicando:\n\n* Qué sucedió.\n* Cuál es la causa de la incidencia.\n* Qué etapa del proyecto está afectada.\n* Cómo impacta al plan de trabajo.\n* Qué consecuencia genera en el cronograma.\n* Nueva fecha de cierre o reanudación, si está disponible.\n\nLa descripción debe estar redactada con enfoque de **gestión de incidencias CMMI**, dejando clara la causa, impacto y consecuencia.\n\nNo inventes información que no esté proporcionada.\n\n### **Plan de mitigación:**\n\nGenera entre **5 y 6 acciones concretas**, orientadas a evitar que la incidencia se prolongue o vuelva a ocurrir.\n\nLas acciones deben considerar, cuando aplique:\n\n* Seguimiento con usuarios/clientes.\n* Liberación de accesos, VM, insumos o información.\n* Validaciones técnicas.\n* Replanificación.\n* Coordinación entre Development, QA, Testing, Deployment y negocio.\n* Escalamiento.\n* Control y seguimiento de fechas.\n* Documentación y trazabilidad.\n* Comunicación con stakeholders.\n\nCada punto debe ser una acción concreta, no una explicación genérica. Presenta cada acción como una viñeta independiente, en una línea separada. No redactes un primer seguimiento: el registro todavía no ha sido creado.\n\n## Criterios de redacción\n\n* Tono **corporativo, ejecutivo y profesional**.\n* Redacción clara y directa.\n* No utilizar lenguaje excesivamente técnico si no es necesario.\n* Mantener términos de proyectos RPA como **Development, Discovery, Deployment, UAT, QA, Testing, PDD, FDD, PO, CR, VM, RM**, cuando aparezcan en la información original.\n* No cambiar el significado de la información proporcionada.\n* No inventar fechas, responsables, causas o soluciones.\n* Si existe una fecha actual y una nueva fecha, incluir ambas.\n* Si existe una suspensión, indicar claramente la condición para la reanudación.\n* Si existe una dependencia, identificarla como bloqueo y explicar su impacto.\n* Si existe una aprobación pendiente, indicar quién debe aprobarla únicamente si está especificado.\n* En caso de que la información permita identificar una causa raíz probable, expresarla de forma profesional sin afirmar algo que no esté sustentado.\n* Priorizar siempre **causa → impacto → consecuencia → mitigación**.\n\n## Ejemplo del estilo esperado\n\n**Título:**\nExtensión del proyecto MCC.015 por retraso en resolución de escenario con usuarios\n\n**Descripción:**\nSe presenta una incidencia en el proyecto MCC.015, derivada de que se requirió tiempo adicional para coordinar con los usuarios y atender un escenario que impedía el avance del desarrollo. Esta situación impactó directamente la continuidad de las actividades de la etapa de Development, generando un desfase en el plan de trabajo.\n\nComo resultado, no es posible cerrar la etapa en la fecha originalmente establecida, por lo que se actualiza el cronograma del proyecto, ajustando la fecha de cierre conforme al nuevo plan establecido.\n\n**Plan de mitigación:**\n\n* Dar seguimiento con los usuarios para asegurar disponibilidad oportuna en caso de nuevos escenarios críticos.\n* Documentar el incidente atendido y el impacto generado en el avance del desarrollo.\n* Replanificar las actividades de Development considerando el impacto generado.\n* Mantener visibilidad con los stakeholders sobre el impacto en el cronograma.\n* Escalar en caso de recurrencia del bloqueo.\n* Validar que el roadmap actualizado esté alineado con los involucrados.\n\n---\n\n### Información de entrada:\n\n[Pega aquí el correo, mensaje, captura o descripción de la incidencia]\n\nGenera directamente la respuesta utilizando exactamente la estructura indicada:\n**Título → Descripción → Plan de mitigación.**",
+   "predeterminado": true
+  },
+  {
+   "ok": true,
+   "prompt": "Mi prompt issue",
+   "predeterminado": false
+  },
+  {
+   "ok": true,
+   "configurado": true,
+   "prompt": "Mi prompt issue",
+   "predeterminado": false
+  },
+  {
+   "ok": true,
+   "prompt": "Actúa como Project Manager corporativo especializado en proyectos de automatización RPA.\n\nA partir de la oportunidad que te proporcione, genera la información de manera profesional, ejecutiva, clara y breve.\n\nLa oportunidad debe estar contextualizada a un proyecto de desarrollo e implementación de un RPA y debe considerarse como una oportunidad que se busca aprovechar durante la ejecución del proyecto.\n\nGenera exactamente los siguientes apartados:\n\n### 🟢 Título de oportunidad:\nCrea un título corto, ejecutivo y específico que resuma la oportunidad. No debe ser una copia literal del texto proporcionado.\n\n### Descripción:\nExplica qué oportunidad se identificó, cómo puede aprovecharse durante el proyecto RPA y cuál sería su beneficio para el proyecto.\n\n### Plan de aprovechamiento:\nIndica las acciones necesarias para aprovechar la oportunidad durante la ejecución del proyecto.\nUtiliza viñetas y enfócate en acciones prácticas.\n\n### Señal de alerta:\nIndica las situaciones o condiciones que podrían impedir o dificultar el aprovechamiento de la oportunidad.\nUtiliza viñetas.\n\n### Plan de acción:\nDefine las acciones concretas que deberán realizarse para materializar y dar seguimiento a la oportunidad.\nUtiliza viñetas.\n\nConsideraciones:\n- Mantén una redacción corporativa y ejecutiva.\n- Sé breve y directo.\n- Evita lenguaje excesivamente técnico si no es necesario.\n- Enfoca la oportunidad en beneficios como reutilización, reducción de tiempos, optimización de recursos, estandarización, reducción de errores, mejora de calidad o aceleración del desarrollo.\n- No conviertas la oportunidad en un riesgo.\n- Las acciones deben ser realizables durante el proyecto.\n- No inventes información específica que no haya sido proporcionada.\n- Si la oportunidad está relacionada con código, scripts, bases de datos, IA, TT, CR, componentes o desarrollos previos, considera explícitamente su posible reutilización o aprovechamiento.\n\nEntrada:\n[Escribe aquí la oportunidad]",
+   "predeterminado": true
+  },
+  {
+   "ok": false,
+   "error": "El prompt supera el límite de 8.5 KB permitido para la personalización."
+  },
+  {
+   "ok": false,
+   "error": "Tipo no permitido"
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": true,
+   "configurado": true,
+   "prompt": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+   "error": ""
+  },
+  {
+   "ok": false,
+   "error": "Tipo no permitido"
+  },
+  {
+   "ok": false,
+   "error": "Escribe una descripción de al menos 12 caracteres."
+  },
+  {
+   "ok": true,
+   "sugerencia": {
+    "titulo": "Retraso por accesos",
+    "descripcion": "Desc",
+    "planMitigacion": "• uno\n• dos"
+   },
+   "modelo": "claude-haiku-4-5-20251001"
+  },
+  {
+   "ok": false,
+   "error": "Claude HTTP 429: rate limited"
+  },
+  {
+   "ok": false,
+   "error": "Claude no devolvió JSON para Opportunity."
+  },
+  {
+   "ok": true,
+   "titulo": "Riesgo X",
+   "descripcion": "Riesgo de retraso por proveedor",
+   "nivel": "Alto",
+   "prioridad": "1",
+   "planMitigacion": "",
+   "triggers": "",
+   "contingencyPlan": "",
+   "categoria": "",
+   "fuenteRiesgo": "",
+   "partesInteresadas": "",
+   "estrategiaGestion": "Evitar",
+   "escalate": "No",
+   "fechaSeguimiento": "2026-10-09"
+  },
+  {
+   "ok": false,
+   "error": "Tipo no permitido"
+  },
+  {
+   "ok": true,
+   "analisis": {
+    "hallazgos": [
+     {
+      "titulo": "h"
+     }
+    ]
+   },
+   "evidencias": [],
+   "fecha": "2026-09-25 09:15",
+   "desdeMemoria": true
+  },
+  {
+   "ok": true,
+   "analisis": null
+  },
+  {
+   "ok": true,
+   "analisis": {
+    "resumen": [
+     {
+      "texto": "El proyecto lleva 45.5% de avance [PR-1]",
+      "evidencias": [
+       "PR-1"
+      ],
+      "fuente": "dashboard"
+     },
+     {
+      "texto": "Presupuesto de 100 horas y gasto de 45,25",
+      "evidencias": [
+       "FIN-1"
+      ],
+      "fuente": "dashboard"
+     }
+    ],
+    "hallazgos": [
+     {
+      "titulo": "Tarea 101 vence",
+      "detalle": "fecha 2026-10-05",
+      "prioridad": "Alta",
+      "evidencias": [
+       "WI-101"
+      ],
+      "fuente": "Azure DevOps"
+     }
+    ],
+    "recomendaciones": [],
+    "alertas": [],
+    "estado": "En riesgo yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+   },
+   "evidencias": [
+    {
+     "id": "PR-1",
+     "fuente": "dashboard",
+     "texto": "Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-02; avance 45.5%."
+    },
+    {
+     "id": "FIN-1",
+     "fuente": "dashboard",
+     "texto": "Cumplimiento financiero 92%; presupuesto 100 horas; gasto 45.25 horas."
+    },
+    {
+     "id": "AZ-RES",
+     "fuente": "Azure DevOps",
+     "texto": "Total Work Items 12; sin seguimiento 3; estados {\"Active\":5,\"Closed\":7}; iteraciones {\"GPO.007\\\\S1\":8,\"\":4}."
+    },
+    {
+     "id": "CL-RES",
+     "fuente": "Clockify",
+     "texto": "Horas registradas en el ID 45.25 h; 30 registros."
+    },
+    {
+     "id": "ET-1",
+     "fuente": "planeación",
+     "texto": "Discovery: inicio 2026-08-01, fin 2026-08-15, estado Completado."
+    },
+    {
+     "id": "ET-2",
+     "fuente": "planeación",
+     "texto": "Development: inicio 2026-08-16, fin , estado En curso."
+    },
+    {
+     "id": "REC-1",
+     "fuente": "Recursos / Clockify",
+     "texto": "Ana López; rol Dev; activo; estimadas 40 h; registradas 20.5 h."
+    },
+    {
+     "id": "REC-2",
+     "fuente": "Recursos / Clockify",
+     "texto": "Carlos; rol QA; inactivo; estimadas  h; registradas  h."
+    },
+    {
+     "id": "VAC-1",
+     "fuente": "Planeación",
+     "texto": "Vacaciones Ana: 2026-10-10 a 2026-10-12; estado Aprobada."
+    },
+    {
+     "id": "VAC-2",
+     "fuente": "Planeación",
+     "texto": "Vacaciones Beto: 2026-11-01 a ; estado ."
+    },
+    {
+     "id": "COM-1",
+     "fuente": "Planeación",
+     "texto": "Compromiso Demo: responsable Beto; fecha 2026-10-20; estado ."
+    },
+    {
+     "id": "ACC-a1",
+     "fuente": "Acciones",
+     "texto": "Acción Revisar accesos: Ana; fecha límite 2026-09-30; estado Pendiente."
+    },
+    {
+     "id": "ACC-2",
+     "fuente": "Acciones",
+     "texto": "Acción Sin uid: ; fecha límite ; estado ."
+    },
+    {
+     "id": "RAID-501",
+     "fuente": "RAID",
+     "texto": "Risk #501: Retraso de accesos; estado Active."
+    },
+    {
+     "id": "AZ-AS-1",
+     "fuente": "Azure DevOps",
+     "texto": "10: 1 Work Items asignados."
+    },
+    {
+     "id": "AZ-AS-2",
+     "fuente": "Azure DevOps",
+     "texto": "Ana López: 4 Work Items asignados."
+    },
+    {
+     "id": "AZ-AS-3",
+     "fuente": "Azure DevOps",
+     "texto": "Beto: 2 Work Items asignados."
+    },
+    {
+     "id": "WI-101",
+     "fuente": "Azure DevOps",
+     "texto": "#101 Configurar servidor de pruebas; estado Active; responsable Ana López; etapa S1; fecha límite 2026-10-05."
+    },
+    {
+     "id": "WI-103",
+     "fuente": "Azure DevOps",
+     "texto": "#103 Revisión documentación cliente; estado New; responsable Beto; etapa S2; fecha límite ."
+    },
+    {
+     "id": "WI-7",
+     "fuente": "Azure DevOps",
+     "texto": "#7 Bug menor; estado Resolved; responsable ; etapa ; fecha límite 2026-09-01."
+    },
+    {
+     "id": "CL-DAY-1",
+     "fuente": "Clockify",
+     "texto": "2026-09-30: 8 horas registradas en el proyecto."
+    },
+    {
+     "id": "CL-DAY-2",
+     "fuente": "Clockify",
+     "texto": "2026-10-01: 6.5 horas registradas en el proyecto."
+    },
+    {
+     "id": "CL-1",
+     "fuente": "Clockify",
+     "texto": "Zoe: 3 h registradas, sin asignación del recurso en la tabla."
+    },
+    {
+     "id": "MIN-1",
+     "fuente": "Minutas",
+     "texto": "Kickoff (2026-09-01): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+     "id": "MEM-1",
+     "fuente": "Memoria",
+     "texto": "Corte previo del 2026-09-25 10:00: {\"resumen\":[{\"texto\":\"ok\"}]}"
+    }
+   ],
+   "modelo": "claude-haiku-4-5-20251001",
+   "fecha": "2026-10-02 12:00"
+  },
+  {
+   "ok": true,
+   "analisis": {
+    "resumen": [
+     {
+      "texto": "El proyecto lleva 45.5% de avance [PR-1]",
+      "evidencias": [
+       "PR-1"
+      ],
+      "fuente": "dashboard"
+     },
+     {
+      "texto": "Presupuesto de 100 horas y gasto de 45,25",
+      "evidencias": [
+       "FIN-1"
+      ],
+      "fuente": "dashboard"
+     }
+    ],
+    "hallazgos": [
+     {
+      "titulo": "Tarea 101 vence",
+      "detalle": "fecha 2026-10-05",
+      "prioridad": "Alta",
+      "evidencias": [
+       "WI-101"
+      ],
+      "fuente": "Azure DevOps"
+     }
+    ],
+    "recomendaciones": [],
+    "alertas": [],
+    "estado": "En riesgo yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+   },
+   "evidencias": [
+    {
+     "id": "PR-1",
+     "fuente": "dashboard",
+     "texto": "Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-02; avance 45.5%."
+    },
+    {
+     "id": "FIN-1",
+     "fuente": "dashboard",
+     "texto": "Cumplimiento financiero 92%; presupuesto 100 horas; gasto 45.25 horas."
+    },
+    {
+     "id": "AZ-RES",
+     "fuente": "Azure DevOps",
+     "texto": "Total Work Items 12; sin seguimiento 3; estados {\"Active\":5,\"Closed\":7}; iteraciones {\"GPO.007\\\\S1\":8,\"\":4}."
+    },
+    {
+     "id": "CL-RES",
+     "fuente": "Clockify",
+     "texto": "Horas registradas en el ID 45.25 h; 30 registros."
+    },
+    {
+     "id": "ET-1",
+     "fuente": "planeación",
+     "texto": "Discovery: inicio 2026-08-01, fin 2026-08-15, estado Completado."
+    },
+    {
+     "id": "ET-2",
+     "fuente": "planeación",
+     "texto": "Development: inicio 2026-08-16, fin , estado En curso."
+    },
+    {
+     "id": "REC-1",
+     "fuente": "Recursos / Clockify",
+     "texto": "Ana López; rol Dev; activo; estimadas 40 h; registradas 20.5 h."
+    },
+    {
+     "id": "REC-2",
+     "fuente": "Recursos / Clockify",
+     "texto": "Carlos; rol QA; inactivo; estimadas  h; registradas  h."
+    },
+    {
+     "id": "VAC-1",
+     "fuente": "Planeación",
+     "texto": "Vacaciones Ana: 2026-10-10 a 2026-10-12; estado Aprobada."
+    },
+    {
+     "id": "VAC-2",
+     "fuente": "Planeación",
+     "texto": "Vacaciones Beto: 2026-11-01 a ; estado ."
+    },
+    {
+     "id": "COM-1",
+     "fuente": "Planeación",
+     "texto": "Compromiso Demo: responsable Beto; fecha 2026-10-20; estado ."
+    },
+    {
+     "id": "ACC-a1",
+     "fuente": "Acciones",
+     "texto": "Acción Revisar accesos: Ana; fecha límite 2026-09-30; estado Pendiente."
+    },
+    {
+     "id": "ACC-2",
+     "fuente": "Acciones",
+     "texto": "Acción Sin uid: ; fecha límite ; estado ."
+    },
+    {
+     "id": "RAID-501",
+     "fuente": "RAID",
+     "texto": "Risk #501: Retraso de accesos; estado Active."
+    },
+    {
+     "id": "AZ-AS-1",
+     "fuente": "Azure DevOps",
+     "texto": "10: 1 Work Items asignados."
+    },
+    {
+     "id": "AZ-AS-2",
+     "fuente": "Azure DevOps",
+     "texto": "Ana López: 4 Work Items asignados."
+    },
+    {
+     "id": "AZ-AS-3",
+     "fuente": "Azure DevOps",
+     "texto": "Beto: 2 Work Items asignados."
+    },
+    {
+     "id": "WI-101",
+     "fuente": "Azure DevOps",
+     "texto": "#101 Configurar servidor de pruebas; estado Active; responsable Ana López; etapa S1; fecha límite 2026-10-05."
+    },
+    {
+     "id": "WI-103",
+     "fuente": "Azure DevOps",
+     "texto": "#103 Revisión documentación cliente; estado New; responsable Beto; etapa S2; fecha límite ."
+    },
+    {
+     "id": "WI-7",
+     "fuente": "Azure DevOps",
+     "texto": "#7 Bug menor; estado Resolved; responsable ; etapa ; fecha límite 2026-09-01."
+    },
+    {
+     "id": "CL-DAY-1",
+     "fuente": "Clockify",
+     "texto": "2026-09-30: 8 horas registradas en el proyecto."
+    },
+    {
+     "id": "CL-DAY-2",
+     "fuente": "Clockify",
+     "texto": "2026-10-01: 6.5 horas registradas en el proyecto."
+    },
+    {
+     "id": "CL-1",
+     "fuente": "Clockify",
+     "texto": "Zoe: 3 h registradas, sin asignación del recurso en la tabla."
+    },
+    {
+     "id": "MIN-1",
+     "fuente": "Minutas",
+     "texto": "Kickoff (2026-09-01): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+     "id": "MEM-1",
+     "fuente": "Memoria",
+     "texto": "Corte previo del 2026-09-25 10:00: {\"resumen\":[{\"texto\":\"ok\"}]}"
+    }
+   ],
+   "modelo": "claude-haiku-4-5-20251001",
+   "fecha": "2026-10-02 12:00",
+   "cache": true
+  },
+  {
+   "ok": false,
+   "error": "Datos del proyecto inválidos."
+  },
+  {
+   "ok": false,
+   "error": "La respuesta se interrumpió. Vuelve a generar el análisis.",
+   "motivo": "max_tokens"
+  },
+  {
+   "ok": true,
+   "analisis": {
+    "resumen": [
+     {
+      "texto": "Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-03; avance 45.5%.",
+      "evidencias": [
+       "PR-1"
+      ],
+      "fuente": "dashboard"
+     }
+    ],
+    "hallazgos": [],
+    "recomendaciones": [],
+    "alertas": [],
+    "estado": ""
+   },
+   "evidencias": [
+    {
+     "id": "PR-1",
+     "fuente": "dashboard",
+     "texto": "Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-03; avance 45.5%."
+    },
+    {
+     "id": "FIN-1",
+     "fuente": "dashboard",
+     "texto": "Cumplimiento financiero 92%; presupuesto 100 horas; gasto 45.25 horas."
+    },
+    {
+     "id": "AZ-RES",
+     "fuente": "Azure DevOps",
+     "texto": "Total Work Items 12; sin seguimiento 3; estados {\"Active\":5,\"Closed\":7}; iteraciones {\"GPO.007\\\\S1\":8,\"\":4}."
+    },
+    {
+     "id": "ET-1",
+     "fuente": "planeación",
+     "texto": "Discovery: inicio 2026-08-01, fin 2026-08-15, estado Completado."
+    },
+    {
+     "id": "ET-2",
+     "fuente": "planeación",
+     "texto": "Development: inicio 2026-08-16, fin , estado En curso."
+    },
+    {
+     "id": "REC-1",
+     "fuente": "Recursos / Clockify",
+     "texto": "Ana López; rol Dev; activo; estimadas 40 h; registradas 20.5 h."
+    },
+    {
+     "id": "REC-2",
+     "fuente": "Recursos / Clockify",
+     "texto": "Carlos; rol QA; inactivo; estimadas  h; registradas  h."
+    },
+    {
+     "id": "VAC-1",
+     "fuente": "Planeación",
+     "texto": "Vacaciones Ana: 2026-10-10 a 2026-10-12; estado Aprobada."
+    },
+    {
+     "id": "VAC-2",
+     "fuente": "Planeación",
+     "texto": "Vacaciones Beto: 2026-11-01 a ; estado ."
+    },
+    {
+     "id": "COM-1",
+     "fuente": "Planeación",
+     "texto": "Compromiso Demo: responsable Beto; fecha 2026-10-20; estado ."
+    },
+    {
+     "id": "ACC-a1",
+     "fuente": "Acciones",
+     "texto": "Acción Revisar accesos: Ana; fecha límite 2026-09-30; estado Pendiente."
+    },
+    {
+     "id": "ACC-2",
+     "fuente": "Acciones",
+     "texto": "Acción Sin uid: ; fecha límite ; estado ."
+    },
+    {
+     "id": "RAID-501",
+     "fuente": "RAID",
+     "texto": "Risk #501: Retraso de accesos; estado Active."
+    },
+    {
+     "id": "AZ-AS-1",
+     "fuente": "Azure DevOps",
+     "texto": "10: 1 Work Items asignados."
+    },
+    {
+     "id": "AZ-AS-2",
+     "fuente": "Azure DevOps",
+     "texto": "Ana López: 4 Work Items asignados."
+    },
+    {
+     "id": "AZ-AS-3",
+     "fuente": "Azure DevOps",
+     "texto": "Beto: 2 Work Items asignados."
+    },
+    {
+     "id": "WI-101",
+     "fuente": "Azure DevOps",
+     "texto": "#101 Configurar servidor de pruebas; estado Active; responsable Ana López; etapa S1; fecha límite 2026-10-05."
+    },
+    {
+     "id": "WI-103",
+     "fuente": "Azure DevOps",
+     "texto": "#103 Revisión documentación cliente; estado New; responsable Beto; etapa S2; fecha límite ."
+    },
+    {
+     "id": "WI-7",
+     "fuente": "Azure DevOps",
+     "texto": "#7 Bug menor; estado Resolved; responsable ; etapa ; fecha límite 2026-09-01."
+    },
+    {
+     "id": "CL-DAY-1",
+     "fuente": "Clockify",
+     "texto": "2026-09-30: 8 horas registradas en el proyecto."
+    },
+    {
+     "id": "CL-DAY-2",
+     "fuente": "Clockify",
+     "texto": "2026-10-01: 6.5 horas registradas en el proyecto."
+    },
+    {
+     "id": "CL-1",
+     "fuente": "Clockify",
+     "texto": "Zoe: 3 h registradas, sin asignación del recurso en la tabla."
+    },
+    {
+     "id": "MIN-1",
+     "fuente": "Minutas",
+     "texto": "Kickoff (2026-09-01): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+     "id": "MEM-1",
+     "fuente": "Memoria",
+     "texto": "Corte previo del 2026-09-25 10:00: {\"resumen\":[{\"texto\":\"ok\"}]}"
+    }
+   ],
+   "modelo": "claude-haiku-4-5-20251001",
+   "fecha": "2026-10-02 12:00"
+  },
+  {
+   "ok": true,
+   "analisis": {
+    "resumen": [
+     {
+      "texto": "Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-03; avance 45.5%.",
+      "evidencias": [
+       "PR-1"
+      ],
+      "fuente": "dashboard"
+     }
+    ],
+    "hallazgos": [],
+    "recomendaciones": [],
+    "alertas": [],
+    "estado": ""
+   },
+   "evidencias": [
+    {
+     "id": "PR-1",
+     "fuente": "dashboard",
+     "texto": "Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-03; avance 45.5%."
+    },
+    {
+     "id": "FIN-1",
+     "fuente": "dashboard",
+     "texto": "Cumplimiento financiero 92%; presupuesto 100 horas; gasto 45.25 horas."
+    },
+    {
+     "id": "AZ-RES",
+     "fuente": "Azure DevOps",
+     "texto": "Total Work Items 12; sin seguimiento 3; estados {\"Active\":5,\"Closed\":7}; iteraciones {\"GPO.007\\\\S1\":8,\"\":4}."
+    },
+    {
+     "id": "ET-1",
+     "fuente": "planeación",
+     "texto": "Discovery: inicio 2026-08-01, fin 2026-08-15, estado Completado."
+    },
+    {
+     "id": "ET-2",
+     "fuente": "planeación",
+     "texto": "Development: inicio 2026-08-16, fin , estado En curso."
+    },
+    {
+     "id": "REC-1",
+     "fuente": "Recursos / Clockify",
+     "texto": "Ana López; rol Dev; activo; estimadas 40 h; registradas 20.5 h."
+    },
+    {
+     "id": "REC-2",
+     "fuente": "Recursos / Clockify",
+     "texto": "Carlos; rol QA; inactivo; estimadas  h; registradas  h."
+    },
+    {
+     "id": "VAC-1",
+     "fuente": "Planeación",
+     "texto": "Vacaciones Ana: 2026-10-10 a 2026-10-12; estado Aprobada."
+    },
+    {
+     "id": "VAC-2",
+     "fuente": "Planeación",
+     "texto": "Vacaciones Beto: 2026-11-01 a ; estado ."
+    },
+    {
+     "id": "COM-1",
+     "fuente": "Planeación",
+     "texto": "Compromiso Demo: responsable Beto; fecha 2026-10-20; estado ."
+    },
+    {
+     "id": "ACC-a1",
+     "fuente": "Acciones",
+     "texto": "Acción Revisar accesos: Ana; fecha límite 2026-09-30; estado Pendiente."
+    },
+    {
+     "id": "ACC-2",
+     "fuente": "Acciones",
+     "texto": "Acción Sin uid: ; fecha límite ; estado ."
+    },
+    {
+     "id": "RAID-501",
+     "fuente": "RAID",
+     "texto": "Risk #501: Retraso de accesos; estado Active."
+    },
+    {
+     "id": "AZ-AS-1",
+     "fuente": "Azure DevOps",
+     "texto": "10: 1 Work Items asignados."
+    },
+    {
+     "id": "AZ-AS-2",
+     "fuente": "Azure DevOps",
+     "texto": "Ana López: 4 Work Items asignados."
+    },
+    {
+     "id": "AZ-AS-3",
+     "fuente": "Azure DevOps",
+     "texto": "Beto: 2 Work Items asignados."
+    },
+    {
+     "id": "WI-101",
+     "fuente": "Azure DevOps",
+     "texto": "#101 Configurar servidor de pruebas; estado Active; responsable Ana López; etapa S1; fecha límite 2026-10-05."
+    },
+    {
+     "id": "WI-103",
+     "fuente": "Azure DevOps",
+     "texto": "#103 Revisión documentación cliente; estado New; responsable Beto; etapa S2; fecha límite ."
+    },
+    {
+     "id": "WI-7",
+     "fuente": "Azure DevOps",
+     "texto": "#7 Bug menor; estado Resolved; responsable ; etapa ; fecha límite 2026-09-01."
+    },
+    {
+     "id": "CL-DAY-1",
+     "fuente": "Clockify",
+     "texto": "2026-09-30: 8 horas registradas en el proyecto."
+    },
+    {
+     "id": "CL-DAY-2",
+     "fuente": "Clockify",
+     "texto": "2026-10-01: 6.5 horas registradas en el proyecto."
+    },
+    {
+     "id": "CL-1",
+     "fuente": "Clockify",
+     "texto": "Zoe: 3 h registradas, sin asignación del recurso en la tabla."
+    },
+    {
+     "id": "MIN-1",
+     "fuente": "Minutas",
+     "texto": "Kickoff (2026-09-01): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+     "id": "MEM-1",
+     "fuente": "Memoria",
+     "texto": "Corte previo del 2026-09-25 10:00: {\"resumen\":[{\"texto\":\"ok\"}]}"
+    }
+   ],
+   "fecha": "2026-10-02 12:00"
+  },
+  {
+   "ok": true,
+   "texto": "La tarea 101 vence el 2026-10-05 [WI-101]\nAvance 45.5% [PR-1] [NOPE]",
+   "modelo": "claude-haiku-4-5-20251001"
+  },
+  {
+   "ok": false,
+   "error": "Escribe una pregunta válida para este proyecto."
+  },
+  {
+   "ok": false,
+   "error": "Claude respondió 500: down"
+  },
+  {
+   "ok": true,
+   "actual": {
+    "uid": "m3",
+    "fecha": "2026-09-25 09:15",
+    "snapshot": {
+     "proyecto": "GPO.007",
+     "n": 2
+    },
+    "analisis": {
+     "hallazgos": [
+      {
+       "titulo": "h"
+      }
+     ]
+    }
+   },
+   "anterior": {
+    "uid": "m1",
+    "fecha": "2026-09-01 10:30",
+    "snapshot": {
+     "proyecto": "GPO.007"
+    },
+    "analisis": {
+     "resumen": []
+    }
+   }
+  },
+  {
+   "ok": true,
+   "actual": {
+    "uid": "uuid-1",
+    "fecha": "2026-10-02 12:00",
+    "snapshot": {
+     "proyecto": "GPO.007",
+     "x": 1
+    },
+    "analisis": {
+     "resumen": []
+    }
+   },
+   "anterior": {
+    "uid": "m3",
+    "fecha": "2026-09-25 09:15",
+    "snapshot": {
+     "proyecto": "GPO.007",
+     "n": 2
+    },
+    "analisis": {
+     "hallazgos": [
+      {
+       "titulo": "h"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "ok": false,
+   "error": "El corte no corresponde al proyecto."
+  },
+  {
+   "ok": true,
+   "filas": [
+    {
+     "uid": "n2",
+     "fecha": "2026-09-15",
+     "tema": "",
+     "contenido": "",
+     "guardado": ""
+    },
+    {
+     "uid": "n1",
+     "fecha": "2026-09-01",
+     "tema": "Kickoff",
+     "contenido": "Contenido 1",
+     "guardado": "2026-09-01 18:05"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "filas": [
+    {
+     "uid": "uuid-2",
+     "fecha": "2026-10-02",
+     "tema": "Tema",
+     "contenido": "Contenido",
+     "guardado": "2026-10-02 12:00"
+    },
+    {
+     "uid": "n2",
+     "fecha": "2026-09-15",
+     "tema": "",
+     "contenido": "",
+     "guardado": ""
+    },
+    {
+     "uid": "n1",
+     "fecha": "2026-09-01",
+     "tema": "Kickoff",
+     "contenido": "Contenido 1",
+     "guardado": "2026-09-01 18:05"
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Completa tema, fecha y contenido de la minuta."
+  },
+  {
+   "ok": true,
+   "carpetas": [
+    "FOLDERDOC001"
+   ],
+   "transcripciones": [
+    "FOLDERTRANS1"
+   ],
+   "folderId": "FOLDERDOC001",
+   "url": "https://drive.google.com/drive/folders/FOLDERDOC001"
+  },
+  {
+   "ok": true,
+   "carpetas": [
+    "FOLDERDOC001"
+   ],
+   "transcripciones": [],
+   "folderId": "FOLDERDOC001",
+   "url": "https://drive.google.com/drive/folders/FOLDERDOC001"
+  },
+  {
+   "ok": true,
+   "carpetas": [],
+   "transcripciones": [],
+   "folderId": "",
+   "url": ""
+  },
+  {
+   "ok": true,
+   "nombre": "Docs GPO",
+   "carpetas": [
+    "FOLDERDOC001"
+   ],
+   "transcripciones": []
+  },
+  {
+   "ok": true,
+   "nombre": "Transcripciones",
+   "carpetas": [
+    "FOLDERDOC001"
+   ],
+   "transcripciones": [
+    "FOLDERTRANS1"
+   ]
+  },
+  {
+   "ok": false,
+   "error": "No se pudo conectar la carpeta: Pega el vínculo de una carpeta de Google Drive válida."
+  },
+  {
+   "ok": false,
+   "error": "No se pudo conectar la carpeta: No item with the given ID could be found."
+  },
+  {
+   "ok": true,
+   "carpetas": [],
+   "transcripciones": [
+    "FOLDERTRANS1"
+   ],
+   "folderId": "",
+   "url": ""
+  },
+  {
+   "ok": false,
+   "error": "No hay carpetas configuradas."
+  },
+  {
+   "ok": true,
+   "configured": true,
+   "files": [
+    {
+     "id": "TRANSDOC0001",
+     "nombre": "Transcript 01",
+     "mime": "application/vnd.google-apps.document",
+     "url": "https://docs.google.com/d/TRANSDOC0001",
+     "carpeta": "FOLDERTRANS1",
+     "tipo": "transcripciones",
+     "fecha": "2026-10-02",
+     "legible": true,
+     "minuta": true
+    },
+    {
+     "id": "TXTNOTAS0001",
+     "nombre": "notas.txt",
+     "mime": "text/plain",
+     "url": "https://docs.google.com/d/TXTNOTAS0001",
+     "carpeta": "FOLDERDOC001",
+     "tipo": "documentos",
+     "fecha": "2026-09-30",
+     "legible": true,
+     "minuta": false
+    },
+    {
+     "id": "DOCDISENO001",
+     "nombre": "Diseño",
+     "mime": "application/vnd.google-apps.document",
+     "url": "https://docs.google.com/d/DOCDISENO001",
+     "carpeta": "FOLDERDOC001",
+     "tipo": "documentos",
+     "fecha": "2026-09-25",
+     "legible": true,
+     "minuta": false
+    },
+    {
+     "id": "DOCACTA00001",
+     "nombre": "Acta reunión semanal",
+     "mime": "application/vnd.google-apps.document",
+     "url": "https://docs.google.com/d/DOCACTA00001",
+     "carpeta": "FOLDERTRANS1",
+     "tipo": "transcripciones",
+     "fecha": "2026-09-20",
+     "legible": true,
+     "minuta": true
+    },
+    {
+     "id": "BROKENDOC001",
+     "nombre": "Comité roto",
+     "mime": "application/vnd.google-apps.document",
+     "url": "https://docs.google.com/d/BROKENDOC001",
+     "carpeta": "FOLDERDOC001",
+     "tipo": "documentos",
+     "fecha": "2026-09-02",
+     "legible": true,
+     "minuta": true
+    },
+    {
+     "id": "IMAGEN000001",
+     "nombre": "diagrama.png",
+     "mime": "image/png",
+     "url": "https://docs.google.com/d/IMAGEN000001",
+     "carpeta": "FOLDERDOC001",
+     "tipo": "documentos",
+     "fecha": "2026-09-01",
+     "legible": false,
+     "minuta": false
+    }
+   ],
+   "limited": false
+  },
+  {
+   "ok": true,
+   "configured": false,
+   "files": [],
+   "limited": false
+  },
+  {
+   "ok": true,
+   "nombre": "Acta reunión semanal",
+   "fecha": "2026-09-20",
+   "contenido": "Acta: acuerdos",
+   "url": "https://docs.google.com/d/DOCACTA00001",
+   "truncado": false
+  },
+  {
+   "ok": true,
+   "nombre": "notas.txt",
+   "fecha": "2026-09-30",
+   "contenido": "Notas en texto",
+   "url": "https://docs.google.com/d/TXTNOTAS0001",
+   "truncado": false
+  },
+  {
+   "ok": true,
+   "nombre": "Diseño",
+   "fecha": "2026-09-25",
+   "contenido": "Diseño zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+   "url": "https://docs.google.com/d/DOCDISENO001",
+   "truncado": true
+  },
+  {
+   "ok": false,
+   "error": "Este formato se puede abrir en Drive, pero no extraer como texto. Usa Google Docs o TXT."
+  },
+  {
+   "ok": false,
+   "error": "Archivo inválido."
+  },
+  {
+   "ok": false,
+   "error": "El archivo no pertenece a las carpetas conectadas."
+  },
+  {
+   "ok": false,
+   "error": "No se pudo exportar el documento de Drive (HTTP 403). Comprueba el acceso a la carpeta y vuelve a autorizar el despliegue si cambiaste sus permisos."
+  },
+  {
+   "ok": false,
+   "error": "Conecta primero una carpeta para este proyecto."
+  },
+  {
+   "ok": true,
+   "texto": "Minuta del día\n- Acuerdo según Transcript 01",
+   "fuentes": [
+    "Transcript 01"
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Selecciona únicamente transcripciones legibles de las carpetas vinculadas."
+  },
+  {
+   "ok": false,
+   "error": "Selecciona como máximo cinco transcripciones diferentes."
+  },
+  {
+   "ok": false,
+   "error": "Indica la fecha de la reunión."
+  },
+  {
+   "ok": false,
+   "error": "Selecciona transcripciones o escribe al menos 15 caracteres de apuntes."
+  },
+  {
+   "ok": false,
+   "error": "La respuesta se interrumpió; reduce la selección e inténtalo de nuevo."
+  }
+ ],
+ "posts": [
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1500,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Eres un asistente de gestión de riesgos de proyectos de software (metodología Scrum, formato de Azure DevOps). A partir de esta descripción libre de un riesgo, genera un JSON con EXACTAMENTE estas claves (todas en español, nunca dejes ninguna vacía si es razonable inferirla; si no aplica, usa cadena vacía \"\"):\n- \"titulo\": máximo 8 palabras, claro y accionable\n- \"descripcion\": la descripción original redactada de forma clara y profesional, máximo 3 líneas\n- \"nivel\": solo uno de \"Alto\", \"Medio\", \"Bajo\"\n- \"prioridad\": número del 1 (más urgente) al 4 (menos urgente) — este mismo valor se usará también como \"Probability\"\n- \"planMitigacion\": acciones concretas para reducir la probabilidad o el impacto de este riesgo\n- \"triggers\": señales o eventos que indicarían que el riesgo se está materializando\n- \"contingencyPlan\": qué hacer SI el riesgo ya ocurrió (plan B)\n- \"categoria\": categoría corta del riesgo (ej. \"Técnico\", \"Alcance\", \"Recursos\", \"Terceros\", \"Cronograma\")\n- \"fuenteRiesgo\": de dónde viene el riesgo (ej. \"Cliente\", \"Equipo interno\", \"Proveedor externo\")\n- \"partesInteresadas\": quién se ve afectado si el riesgo ocurre\n- \"estrategiaGestion\": una de \"Evitar\", \"Mitigar\", \"Transferir\", \"Aceptar\"\nIMPORTANTE DE FORMATO: en \"planMitigacion\", \"triggers\" y \"contingencyPlan\", si mencionas varios puntos, sepáralos con un salto de línea real (\\n) entre cada uno, en formato de lista numerada, ej: \"1. Primer punto.\\n2. Segundo punto.\\n3. Tercer punto.\" — nunca los pongas todos seguidos en un solo párrafo.\n\nInstrucciones adicionales del usuario (respétalas siempre que no contradigan el formato JSON pedido):\nSé formal\nResponde ÚNICAMENTE el JSON, sin texto adicional ni markdown.\n\nDescripción del riesgo: El proveedor no entrega accesos"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1500,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Eres un asistente de gestión de riesgos de proyectos de software (metodología Scrum, formato de Azure DevOps). A partir de esta descripción libre de un riesgo, genera un JSON con EXACTAMENTE estas claves (todas en español, nunca dejes ninguna vacía si es razonable inferirla; si no aplica, usa cadena vacía \"\"):\n- \"titulo\": máximo 8 palabras, claro y accionable\n- \"descripcion\": la descripción original redactada de forma clara y profesional, máximo 3 líneas\n- \"nivel\": solo uno de \"Alto\", \"Medio\", \"Bajo\"\n- \"prioridad\": número del 1 (más urgente) al 4 (menos urgente) — este mismo valor se usará también como \"Probability\"\n- \"planMitigacion\": acciones concretas para reducir la probabilidad o el impacto de este riesgo\n- \"triggers\": señales o eventos que indicarían que el riesgo se está materializando\n- \"contingencyPlan\": qué hacer SI el riesgo ya ocurrió (plan B)\n- \"categoria\": categoría corta del riesgo (ej. \"Técnico\", \"Alcance\", \"Recursos\", \"Terceros\", \"Cronograma\")\n- \"fuenteRiesgo\": de dónde viene el riesgo (ej. \"Cliente\", \"Equipo interno\", \"Proveedor externo\")\n- \"partesInteresadas\": quién se ve afectado si el riesgo ocurre\n- \"estrategiaGestion\": una de \"Evitar\", \"Mitigar\", \"Transferir\", \"Aceptar\"\nIMPORTANTE DE FORMATO: en \"planMitigacion\", \"triggers\" y \"contingencyPlan\", si mencionas varios puntos, sepáralos con un salto de línea real (\\n) entre cada uno, en formato de lista numerada, ej: \"1. Primer punto.\\n2. Segundo punto.\\n3. Tercer punto.\" — nunca los pongas todos seguidos en un solo párrafo.\n\nInstrucciones adicionales del usuario (respétalas siempre que no contradigan el formato JSON pedido):\nSé formal\nResponde ÚNICAMENTE el JSON, sin texto adicional ni markdown.\n\nDescripción del riesgo: x1"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1500,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Eres un asistente de gestión de riesgos de proyectos de software (metodología Scrum, formato de Azure DevOps). A partir de esta descripción libre de un riesgo, genera un JSON con EXACTAMENTE estas claves (todas en español, nunca dejes ninguna vacía si es razonable inferirla; si no aplica, usa cadena vacía \"\"):\n- \"titulo\": máximo 8 palabras, claro y accionable\n- \"descripcion\": la descripción original redactada de forma clara y profesional, máximo 3 líneas\n- \"nivel\": solo uno de \"Alto\", \"Medio\", \"Bajo\"\n- \"prioridad\": número del 1 (más urgente) al 4 (menos urgente) — este mismo valor se usará también como \"Probability\"\n- \"planMitigacion\": acciones concretas para reducir la probabilidad o el impacto de este riesgo\n- \"triggers\": señales o eventos que indicarían que el riesgo se está materializando\n- \"contingencyPlan\": qué hacer SI el riesgo ya ocurrió (plan B)\n- \"categoria\": categoría corta del riesgo (ej. \"Técnico\", \"Alcance\", \"Recursos\", \"Terceros\", \"Cronograma\")\n- \"fuenteRiesgo\": de dónde viene el riesgo (ej. \"Cliente\", \"Equipo interno\", \"Proveedor externo\")\n- \"partesInteresadas\": quién se ve afectado si el riesgo ocurre\n- \"estrategiaGestion\": una de \"Evitar\", \"Mitigar\", \"Transferir\", \"Aceptar\"\nIMPORTANTE DE FORMATO: en \"planMitigacion\", \"triggers\" y \"contingencyPlan\", si mencionas varios puntos, sepáralos con un salto de línea real (\\n) entre cada uno, en formato de lista numerada, ej: \"1. Primer punto.\\n2. Segundo punto.\\n3. Tercer punto.\" — nunca los pongas todos seguidos en un solo párrafo.\n\nInstrucciones adicionales del usuario (respétalas siempre que no contradigan el formato JSON pedido):\nSé formal\nResponde ÚNICAMENTE el JSON, sin texto adicional ni markdown.\n\nDescripción del riesgo: x2"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1500,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Eres un asistente de gestión de riesgos de proyectos de software (metodología Scrum, formato de Azure DevOps). A partir de esta descripción libre de un riesgo, genera un JSON con EXACTAMENTE estas claves (todas en español, nunca dejes ninguna vacía si es razonable inferirla; si no aplica, usa cadena vacía \"\"):\n- \"titulo\": máximo 8 palabras, claro y accionable\n- \"descripcion\": la descripción original redactada de forma clara y profesional, máximo 3 líneas\n- \"nivel\": solo uno de \"Alto\", \"Medio\", \"Bajo\"\n- \"prioridad\": número del 1 (más urgente) al 4 (menos urgente) — este mismo valor se usará también como \"Probability\"\n- \"planMitigacion\": acciones concretas para reducir la probabilidad o el impacto de este riesgo\n- \"triggers\": señales o eventos que indicarían que el riesgo se está materializando\n- \"contingencyPlan\": qué hacer SI el riesgo ya ocurrió (plan B)\n- \"categoria\": categoría corta del riesgo (ej. \"Técnico\", \"Alcance\", \"Recursos\", \"Terceros\", \"Cronograma\")\n- \"fuenteRiesgo\": de dónde viene el riesgo (ej. \"Cliente\", \"Equipo interno\", \"Proveedor externo\")\n- \"partesInteresadas\": quién se ve afectado si el riesgo ocurre\n- \"estrategiaGestion\": una de \"Evitar\", \"Mitigar\", \"Transferir\", \"Aceptar\"\nIMPORTANTE DE FORMATO: en \"planMitigacion\", \"triggers\" y \"contingencyPlan\", si mencionas varios puntos, sepáralos con un salto de línea real (\\n) entre cada uno, en formato de lista numerada, ej: \"1. Primer punto.\\n2. Segundo punto.\\n3. Tercer punto.\" — nunca los pongas todos seguidos en un solo párrafo.\n\nInstrucciones adicionales del usuario (respétalas siempre que no contradigan el formato JSON pedido):\nSé formal\nResponde ÚNICAMENTE el JSON, sin texto adicional ni markdown.\n\nDescripción del riesgo: x3"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1500,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Eres un asistente de gestión de riesgos de proyectos de software (metodología Scrum, formato de Azure DevOps). A partir de esta descripción libre de un riesgo, genera un JSON con EXACTAMENTE estas claves (todas en español, nunca dejes ninguna vacía si es razonable inferirla; si no aplica, usa cadena vacía \"\"):\n- \"titulo\": máximo 8 palabras, claro y accionable\n- \"descripcion\": la descripción original redactada de forma clara y profesional, máximo 3 líneas\n- \"nivel\": solo uno de \"Alto\", \"Medio\", \"Bajo\"\n- \"prioridad\": número del 1 (más urgente) al 4 (menos urgente) — este mismo valor se usará también como \"Probability\"\n- \"planMitigacion\": acciones concretas para reducir la probabilidad o el impacto de este riesgo\n- \"triggers\": señales o eventos que indicarían que el riesgo se está materializando\n- \"contingencyPlan\": qué hacer SI el riesgo ya ocurrió (plan B)\n- \"categoria\": categoría corta del riesgo (ej. \"Técnico\", \"Alcance\", \"Recursos\", \"Terceros\", \"Cronograma\")\n- \"fuenteRiesgo\": de dónde viene el riesgo (ej. \"Cliente\", \"Equipo interno\", \"Proveedor externo\")\n- \"partesInteresadas\": quién se ve afectado si el riesgo ocurre\n- \"estrategiaGestion\": una de \"Evitar\", \"Mitigar\", \"Transferir\", \"Aceptar\"\nIMPORTANTE DE FORMATO: en \"planMitigacion\", \"triggers\" y \"contingencyPlan\", si mencionas varios puntos, sepáralos con un salto de línea real (\\n) entre cada uno, en formato de lista numerada, ej: \"1. Primer punto.\\n2. Segundo punto.\\n3. Tercer punto.\" — nunca los pongas todos seguidos en un solo párrafo.\n\nInstrucciones adicionales del usuario (respétalas siempre que no contradigan el formato JSON pedido):\nSé formal\nResponde ÚNICAMENTE el JSON, sin texto adicional ni markdown.\n\nDescripción del riesgo: x4"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1500,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Eres un asistente de gestión de riesgos de proyectos de software (metodología Scrum, formato de Azure DevOps). A partir de esta descripción libre de un riesgo, genera un JSON con EXACTAMENTE estas claves (todas en español, nunca dejes ninguna vacía si es razonable inferirla; si no aplica, usa cadena vacía \"\"):\n- \"titulo\": máximo 8 palabras, claro y accionable\n- \"descripcion\": la descripción original redactada de forma clara y profesional, máximo 3 líneas\n- \"nivel\": solo uno de \"Alto\", \"Medio\", \"Bajo\"\n- \"prioridad\": número del 1 (más urgente) al 4 (menos urgente) — este mismo valor se usará también como \"Probability\"\n- \"planMitigacion\": acciones concretas para reducir la probabilidad o el impacto de este riesgo\n- \"triggers\": señales o eventos que indicarían que el riesgo se está materializando\n- \"contingencyPlan\": qué hacer SI el riesgo ya ocurrió (plan B)\n- \"categoria\": categoría corta del riesgo (ej. \"Técnico\", \"Alcance\", \"Recursos\", \"Terceros\", \"Cronograma\")\n- \"fuenteRiesgo\": de dónde viene el riesgo (ej. \"Cliente\", \"Equipo interno\", \"Proveedor externo\")\n- \"partesInteresadas\": quién se ve afectado si el riesgo ocurre\n- \"estrategiaGestion\": una de \"Evitar\", \"Mitigar\", \"Transferir\", \"Aceptar\"\nIMPORTANTE DE FORMATO: en \"planMitigacion\", \"triggers\" y \"contingencyPlan\", si mencionas varios puntos, sepáralos con un salto de línea real (\\n) entre cada uno, en formato de lista numerada, ej: \"1. Primer punto.\\n2. Segundo punto.\\n3. Tercer punto.\" — nunca los pongas todos seguidos en un solo párrafo.\n\nInstrucciones adicionales del usuario (respétalas siempre que no contradigan el formato JSON pedido):\nSé formal\nResponde ÚNICAMENTE el JSON, sin texto adicional ni markdown.\n\nDescripción del riesgo: x5"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1900,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Mi prompt issue\n\n---\nINSTRUCCIONES DE SALIDA PARA EL FORMULARIO DE AZURE: Respeta la estructura, tono y contenido de los apartados anteriores, pero responde EXCLUSIVAMENTE con un objeto JSON válido (sin markdown externo ni explicación). Claves exactas: {\"titulo\":\"\",\"descripcion\":\"\",\"planMitigacion\":\"\"}. Cada clave representa el apartado de nombre equivalente. Usa saltos de línea y viñetas dentro de las cadenas para las listas. No añadas campos ni inventes información; cuando falte un dato deja el apartado sin afirmaciones específicas. Para Issue, planMitigacion debe tener 5 o 6 acciones concretas, cada una en su propia linea iniciando con una viñeta. No generes primer seguimiento: el Issue aun no se ha creado y no puede tener seguimiento previo. Para Opportunity, descripcion explica el beneficio; planAprovechamiento, senalAlerta y planAccion son apartados independientes con listas breves. El título no debe copiar literalmente la entrada.\n\nInformación REAL de entrada (no uses como hechos el ejemplo del prompt):\nSe retrasó la entrega por accesos wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1350,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Actúa como Project Manager corporativo especializado en proyectos de automatización RPA.\n\nA partir de la oportunidad que te proporcione, genera la información de manera profesional, ejecutiva, clara y breve.\n\nLa oportunidad debe estar contextualizada a un proyecto de desarrollo e implementación de un RPA y debe considerarse como una oportunidad que se busca aprovechar durante la ejecución del proyecto.\n\nGenera exactamente los siguientes apartados:\n\n### 🟢 Título de oportunidad:\nCrea un título corto, ejecutivo y específico que resuma la oportunidad. No debe ser una copia literal del texto proporcionado.\n\n### Descripción:\nExplica qué oportunidad se identificó, cómo puede aprovecharse durante el proyecto RPA y cuál sería su beneficio para el proyecto.\n\n### Plan de aprovechamiento:\nIndica las acciones necesarias para aprovechar la oportunidad durante la ejecución del proyecto.\nUtiliza viñetas y enfócate en acciones prácticas.\n\n### Señal de alerta:\nIndica las situaciones o condiciones que podrían impedir o dificultar el aprovechamiento de la oportunidad.\nUtiliza viñetas.\n\n### Plan de acción:\nDefine las acciones concretas que deberán realizarse para materializar y dar seguimiento a la oportunidad.\nUtiliza viñetas.\n\nConsideraciones:\n- Mantén una redacción corporativa y ejecutiva.\n- Sé breve y directo.\n- Evita lenguaje excesivamente técnico si no es necesario.\n- Enfoca la oportunidad en beneficios como reutilización, reducción de tiempos, optimización de recursos, estandarización, reducción de errores, mejora de calidad o aceleración del desarrollo.\n- No conviertas la oportunidad en un riesgo.\n- Las acciones deben ser realizables durante el proyecto.\n- No inventes información específica que no haya sido proporcionada.\n- Si la oportunidad está relacionada con código, scripts, bases de datos, IA, TT, CR, componentes o desarrollos previos, considera explícitamente su posible reutilización o aprovechamiento.\n\nEntrada:\n[Escribe aquí la oportunidad]\n\n---\nINSTRUCCIONES DE SALIDA PARA EL FORMULARIO DE AZURE: Respeta la estructura, tono y contenido de los apartados anteriores, pero responde EXCLUSIVAMENTE con un objeto JSON válido (sin markdown externo ni explicación). Claves exactas: {\"titulo\":\"\",\"descripcion\":\"\",\"planAprovechamiento\":\"\",\"senalAlerta\":\"\",\"planAccion\":\"\"}. Cada clave representa el apartado de nombre equivalente. Usa saltos de línea y viñetas dentro de las cadenas para las listas. No añadas campos ni inventes información; cuando falte un dato deja el apartado sin afirmaciones específicas. Para Issue, planMitigacion debe tener 5 o 6 acciones concretas, cada una en su propia linea iniciando con una viñeta. No generes primer seguimiento: el Issue aun no se ha creado y no puede tener seguimiento previo. Para Opportunity, descripcion explica el beneficio; planAprovechamiento, senalAlerta y planAccion son apartados independientes con listas breves. El título no debe copiar literalmente la entrada.\n\nInformación REAL de entrada (no uses como hechos el ejemplo del prompt):\nReutilizar componentes de otro bot"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1350,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Actúa como Project Manager corporativo especializado en proyectos de automatización RPA.\n\nA partir de la oportunidad que te proporcione, genera la información de manera profesional, ejecutiva, clara y breve.\n\nLa oportunidad debe estar contextualizada a un proyecto de desarrollo e implementación de un RPA y debe considerarse como una oportunidad que se busca aprovechar durante la ejecución del proyecto.\n\nGenera exactamente los siguientes apartados:\n\n### 🟢 Título de oportunidad:\nCrea un título corto, ejecutivo y específico que resuma la oportunidad. No debe ser una copia literal del texto proporcionado.\n\n### Descripción:\nExplica qué oportunidad se identificó, cómo puede aprovecharse durante el proyecto RPA y cuál sería su beneficio para el proyecto.\n\n### Plan de aprovechamiento:\nIndica las acciones necesarias para aprovechar la oportunidad durante la ejecución del proyecto.\nUtiliza viñetas y enfócate en acciones prácticas.\n\n### Señal de alerta:\nIndica las situaciones o condiciones que podrían impedir o dificultar el aprovechamiento de la oportunidad.\nUtiliza viñetas.\n\n### Plan de acción:\nDefine las acciones concretas que deberán realizarse para materializar y dar seguimiento a la oportunidad.\nUtiliza viñetas.\n\nConsideraciones:\n- Mantén una redacción corporativa y ejecutiva.\n- Sé breve y directo.\n- Evita lenguaje excesivamente técnico si no es necesario.\n- Enfoca la oportunidad en beneficios como reutilización, reducción de tiempos, optimización de recursos, estandarización, reducción de errores, mejora de calidad o aceleración del desarrollo.\n- No conviertas la oportunidad en un riesgo.\n- Las acciones deben ser realizables durante el proyecto.\n- No inventes información específica que no haya sido proporcionada.\n- Si la oportunidad está relacionada con código, scripts, bases de datos, IA, TT, CR, componentes o desarrollos previos, considera explícitamente su posible reutilización o aprovechamiento.\n\nEntrada:\n[Escribe aquí la oportunidad]\n\n---\nINSTRUCCIONES DE SALIDA PARA EL FORMULARIO DE AZURE: Respeta la estructura, tono y contenido de los apartados anteriores, pero responde EXCLUSIVAMENTE con un objeto JSON válido (sin markdown externo ni explicación). Claves exactas: {\"titulo\":\"\",\"descripcion\":\"\",\"planAprovechamiento\":\"\",\"senalAlerta\":\"\",\"planAccion\":\"\"}. Cada clave representa el apartado de nombre equivalente. Usa saltos de línea y viñetas dentro de las cadenas para las listas. No añadas campos ni inventes información; cuando falte un dato deja el apartado sin afirmaciones específicas. Para Issue, planMitigacion debe tener 5 o 6 acciones concretas, cada una en su propia linea iniciando con una viñeta. No generes primer seguimiento: el Issue aun no se ha creado y no puede tener seguimiento previo. Para Opportunity, descripcion explica el beneficio; planAprovechamiento, senalAlerta y planAccion son apartados independientes con listas breves. El título no debe copiar literalmente la entrada.\n\nInformación REAL de entrada (no uses como hechos el ejemplo del prompt):\nReutilizar componentes de otro bot"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 1500,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Eres un asistente de gestión de riesgos de proyectos de software (metodología Scrum, formato de Azure DevOps). A partir de esta descripción libre de un riesgo, genera un JSON con EXACTAMENTE estas claves (todas en español, nunca dejes ninguna vacía si es razonable inferirla; si no aplica, usa cadena vacía \"\"):\n- \"titulo\": máximo 8 palabras, claro y accionable\n- \"descripcion\": la descripción original redactada de forma clara y profesional, máximo 3 líneas\n- \"nivel\": solo uno de \"Alto\", \"Medio\", \"Bajo\"\n- \"prioridad\": número del 1 (más urgente) al 4 (menos urgente) — este mismo valor se usará también como \"Probability\"\n- \"planMitigacion\": acciones concretas para reducir la probabilidad o el impacto de este riesgo\n- \"triggers\": señales o eventos que indicarían que el riesgo se está materializando\n- \"contingencyPlan\": qué hacer SI el riesgo ya ocurrió (plan B)\n- \"categoria\": categoría corta del riesgo (ej. \"Técnico\", \"Alcance\", \"Recursos\", \"Terceros\", \"Cronograma\")\n- \"fuenteRiesgo\": de dónde viene el riesgo (ej. \"Cliente\", \"Equipo interno\", \"Proveedor externo\")\n- \"partesInteresadas\": quién se ve afectado si el riesgo ocurre\n- \"estrategiaGestion\": una de \"Evitar\", \"Mitigar\", \"Transferir\", \"Aceptar\"\nIMPORTANTE DE FORMATO: en \"planMitigacion\", \"triggers\" y \"contingencyPlan\", si mencionas varios puntos, sepáralos con un salto de línea real (\\n) entre cada uno, en formato de lista numerada, ej: \"1. Primer punto.\\n2. Segundo punto.\\n3. Tercer punto.\" — nunca los pongas todos seguidos en un solo párrafo.\n\nInstrucciones adicionales del usuario (respétalas siempre que no contradigan el formato JSON pedido):\nrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr\nResponde ÚNICAMENTE el JSON, sin texto adicional ni markdown.\n\nDescripción del riesgo: Riesgo de retraso por proveedor"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 2300,
+   "temperature": 0,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Actúa como analista de proyecto. Usa exclusivamente HECHOS y cita sus identificadores en CADA afirmación. Devuelve solo JSON: {\"resumen\":[{\"texto\":\"\",\"evidencias\":[\"ID\"]}],\"hallazgos\":[{\"titulo\":\"\",\"detalle\":\"\",\"prioridad\":\"Alta\",\"evidencias\":[\"ID\"]}],\"recomendaciones\":[{\"titulo\":\"\",\"detalle\":\"\",\"evidencias\":[\"ID\"]}],\"alertas\":[{\"titulo\":\"\",\"detalle\":\"\",\"evidencias\":[\"ID\"]}],\"estado\":\"\"}. Máximo 4 elementos por lista, frases breves. No inventes fechas, personas, porcentajes, pronósticos o compromisos. No presentes inferencias como registros. Omite asuntos sin evidencia y evita enumerar información ausente.\nProyecto: GPO.007\nHECHOS: [{\"id\":\"PR-1\",\"fuente\":\"dashboard\",\"texto\":\"Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-02; avance 45.5%.\"},{\"id\":\"FIN-1\",\"fuente\":\"dashboard\",\"texto\":\"Cumplimiento financiero 92%; presupuesto 100 horas; gasto 45.25 horas.\"},{\"id\":\"AZ-RES\",\"fuente\":\"Azure DevOps\",\"texto\":\"Total Work Items 12; sin seguimiento 3; estados {\\\"Active\\\":5,\\\"Closed\\\":7}; iteraciones {\\\"GPO.007\\\\\\\\S1\\\":8,\\\"\\\":4}.\"},{\"id\":\"CL-RES\",\"fuente\":\"Clockify\",\"texto\":\"Horas registradas en el ID 45.25 h; 30 registros.\"},{\"id\":\"ET-1\",\"fuente\":\"planeación\",\"texto\":\"Discovery: inicio 2026-08-01, fin 2026-08-15, estado Completado.\"},{\"id\":\"ET-2\",\"fuente\":\"planeación\",\"texto\":\"Development: inicio 2026-08-16, fin , estado En curso.\"},{\"id\":\"REC-1\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Ana López; rol Dev; activo; estimadas 40 h; registradas 20.5 h.\"},{\"id\":\"REC-2\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Carlos; rol QA; inactivo; estimadas  h; registradas  h.\"},{\"id\":\"VAC-1\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Ana: 2026-10-10 a 2026-10-12; estado Aprobada.\"},{\"id\":\"VAC-2\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Beto: 2026-11-01 a ; estado .\"},{\"id\":\"COM-1\",\"fuente\":\"Planeación\",\"texto\":\"Compromiso Demo: responsable Beto; fecha 2026-10-20; estado .\"},{\"id\":\"ACC-a1\",\"fuente\":\"Acciones\",\"texto\":\"Acción Revisar accesos: Ana; fecha límite 2026-09-30; estado Pendiente.\"},{\"id\":\"ACC-2\",\"fuente\":\"Acciones\",\"texto\":\"Acción Sin uid: ; fecha límite ; estado .\"},{\"id\":\"RAID-501\",\"fuente\":\"RAID\",\"texto\":\"Risk #501: Retraso de accesos; estado Active.\"},{\"id\":\"AZ-AS-1\",\"fuente\":\"Azure DevOps\",\"texto\":\"10: 1 Work Items asignados.\"},{\"id\":\"AZ-AS-2\",\"fuente\":\"Azure DevOps\",\"texto\":\"Ana López: 4 Work Items asignados.\"},{\"id\":\"AZ-AS-3\",\"fuente\":\"Azure DevOps\",\"texto\":\"Beto: 2 Work Items asignados.\"},{\"id\":\"WI-101\",\"fuente\":\"Azure DevOps\",\"texto\":\"#101 Configurar servidor de pruebas; estado Active; responsable Ana López; etapa S1; fecha límite 2026-10-05.\"},{\"id\":\"WI-103\",\"fuente\":\"Azure DevOps\",\"texto\":\"#103 Revisión documentación cliente; estado New; responsable Beto; etapa S2; fecha límite .\"},{\"id\":\"WI-7\",\"fuente\":\"Azure DevOps\",\"texto\":\"#7 Bug menor; estado Resolved; responsable ; etapa ; fecha límite 2026-09-01.\"},{\"id\":\"CL-DAY-1\",\"fuente\":\"Clockify\",\"texto\":\"2026-09-30: 8 horas registradas en el proyecto.\"},{\"id\":\"CL-DAY-2\",\"fuente\":\"Clockify\",\"texto\":\"2026-10-01: 6.5 horas registradas en el proyecto.\"},{\"id\":\"CL-1\",\"fuente\":\"Clockify\",\"texto\":\"Zoe: 3 h registradas, sin asignación del recurso en la tabla.\"},{\"id\":\"MIN-1\",\"fuente\":\"Minutas\",\"texto\":\"Kickoff (2026-09-01): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"},{\"id\":\"MEM-1\",\"fuente\":\"Memoria\",\"texto\":\"Corte previo del 2026-09-25 10:00: {\\\"resumen\\\":[{\\\"texto\\\":\\\"ok\\\"}]}\"}]\n"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 2300,
+   "temperature": 0,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Actúa como analista de proyecto. Usa exclusivamente HECHOS y cita sus identificadores en CADA afirmación. Devuelve solo JSON: {\"resumen\":[{\"texto\":\"\",\"evidencias\":[\"ID\"]}],\"hallazgos\":[{\"titulo\":\"\",\"detalle\":\"\",\"prioridad\":\"Alta\",\"evidencias\":[\"ID\"]}],\"recomendaciones\":[{\"titulo\":\"\",\"detalle\":\"\",\"evidencias\":[\"ID\"]}],\"alertas\":[{\"titulo\":\"\",\"detalle\":\"\",\"evidencias\":[\"ID\"]}],\"estado\":\"\"}. Máximo 4 elementos por lista, frases breves. No inventes fechas, personas, porcentajes, pronósticos o compromisos. No presentes inferencias como registros. Omite asuntos sin evidencia y evita enumerar información ausente.\nProyecto: GPO.007\nHECHOS: [{\"id\":\"PR-1\",\"fuente\":\"dashboard\",\"texto\":\"Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-03; avance 45.5%.\"},{\"id\":\"FIN-1\",\"fuente\":\"dashboard\",\"texto\":\"Cumplimiento financiero 92%; presupuesto 100 horas; gasto 45.25 horas.\"},{\"id\":\"AZ-RES\",\"fuente\":\"Azure DevOps\",\"texto\":\"Total Work Items 12; sin seguimiento 3; estados {\\\"Active\\\":5,\\\"Closed\\\":7}; iteraciones {\\\"GPO.007\\\\\\\\S1\\\":8,\\\"\\\":4}.\"},{\"id\":\"ET-1\",\"fuente\":\"planeación\",\"texto\":\"Discovery: inicio 2026-08-01, fin 2026-08-15, estado Completado.\"},{\"id\":\"ET-2\",\"fuente\":\"planeación\",\"texto\":\"Development: inicio 2026-08-16, fin , estado En curso.\"},{\"id\":\"REC-1\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Ana López; rol Dev; activo; estimadas 40 h; registradas 20.5 h.\"},{\"id\":\"REC-2\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Carlos; rol QA; inactivo; estimadas  h; registradas  h.\"},{\"id\":\"VAC-1\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Ana: 2026-10-10 a 2026-10-12; estado Aprobada.\"},{\"id\":\"VAC-2\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Beto: 2026-11-01 a ; estado .\"},{\"id\":\"COM-1\",\"fuente\":\"Planeación\",\"texto\":\"Compromiso Demo: responsable Beto; fecha 2026-10-20; estado .\"},{\"id\":\"ACC-a1\",\"fuente\":\"Acciones\",\"texto\":\"Acción Revisar accesos: Ana; fecha límite 2026-09-30; estado Pendiente.\"},{\"id\":\"ACC-2\",\"fuente\":\"Acciones\",\"texto\":\"Acción Sin uid: ; fecha límite ; estado .\"},{\"id\":\"RAID-501\",\"fuente\":\"RAID\",\"texto\":\"Risk #501: Retraso de accesos; estado Active.\"},{\"id\":\"AZ-AS-1\",\"fuente\":\"Azure DevOps\",\"texto\":\"10: 1 Work Items asignados.\"},{\"id\":\"AZ-AS-2\",\"fuente\":\"Azure DevOps\",\"texto\":\"Ana López: 4 Work Items asignados.\"},{\"id\":\"AZ-AS-3\",\"fuente\":\"Azure DevOps\",\"texto\":\"Beto: 2 Work Items asignados.\"},{\"id\":\"WI-101\",\"fuente\":\"Azure DevOps\",\"texto\":\"#101 Configurar servidor de pruebas; estado Active; responsable Ana López; etapa S1; fecha límite 2026-10-05.\"},{\"id\":\"WI-103\",\"fuente\":\"Azure DevOps\",\"texto\":\"#103 Revisión documentación cliente; estado New; responsable Beto; etapa S2; fecha límite .\"},{\"id\":\"WI-7\",\"fuente\":\"Azure DevOps\",\"texto\":\"#7 Bug menor; estado Resolved; responsable ; etapa ; fecha límite 2026-09-01.\"},{\"id\":\"CL-DAY-1\",\"fuente\":\"Clockify\",\"texto\":\"2026-09-30: 8 horas registradas en el proyecto.\"},{\"id\":\"CL-DAY-2\",\"fuente\":\"Clockify\",\"texto\":\"2026-10-01: 6.5 horas registradas en el proyecto.\"},{\"id\":\"CL-1\",\"fuente\":\"Clockify\",\"texto\":\"Zoe: 3 h registradas, sin asignación del recurso en la tabla.\"},{\"id\":\"MIN-1\",\"fuente\":\"Minutas\",\"texto\":\"Kickoff (2026-09-01): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"},{\"id\":\"MEM-1\",\"fuente\":\"Memoria\",\"texto\":\"Corte previo del 2026-09-25 10:00: {\\\"resumen\\\":[{\\\"texto\\\":\\\"ok\\\"}]}\"}]\n"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 2300,
+   "temperature": 0,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Actúa como analista de proyecto. Usa exclusivamente HECHOS y cita sus identificadores en CADA afirmación. Devuelve solo JSON: {\"resumen\":[{\"texto\":\"\",\"evidencias\":[\"ID\"]}],\"hallazgos\":[{\"titulo\":\"\",\"detalle\":\"\",\"prioridad\":\"Alta\",\"evidencias\":[\"ID\"]}],\"recomendaciones\":[{\"titulo\":\"\",\"detalle\":\"\",\"evidencias\":[\"ID\"]}],\"alertas\":[{\"titulo\":\"\",\"detalle\":\"\",\"evidencias\":[\"ID\"]}],\"estado\":\"\"}. Máximo 4 elementos por lista, frases breves. No inventes fechas, personas, porcentajes, pronósticos o compromisos. No presentes inferencias como registros. Omite asuntos sin evidencia y evita enumerar información ausente.\nProyecto: GPO.007\nHECHOS: [{\"id\":\"PR-1\",\"fuente\":\"dashboard\",\"texto\":\"Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-03; avance 45.5%.\"},{\"id\":\"FIN-1\",\"fuente\":\"dashboard\",\"texto\":\"Cumplimiento financiero 92%; presupuesto 100 horas; gasto 45.25 horas.\"},{\"id\":\"AZ-RES\",\"fuente\":\"Azure DevOps\",\"texto\":\"Total Work Items 12; sin seguimiento 3; estados {\\\"Active\\\":5,\\\"Closed\\\":7}; iteraciones {\\\"GPO.007\\\\\\\\S1\\\":8,\\\"\\\":4}.\"},{\"id\":\"ET-1\",\"fuente\":\"planeación\",\"texto\":\"Discovery: inicio 2026-08-01, fin 2026-08-15, estado Completado.\"},{\"id\":\"ET-2\",\"fuente\":\"planeación\",\"texto\":\"Development: inicio 2026-08-16, fin , estado En curso.\"},{\"id\":\"REC-1\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Ana López; rol Dev; activo; estimadas 40 h; registradas 20.5 h.\"},{\"id\":\"REC-2\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Carlos; rol QA; inactivo; estimadas  h; registradas  h.\"},{\"id\":\"VAC-1\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Ana: 2026-10-10 a 2026-10-12; estado Aprobada.\"},{\"id\":\"VAC-2\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Beto: 2026-11-01 a ; estado .\"},{\"id\":\"COM-1\",\"fuente\":\"Planeación\",\"texto\":\"Compromiso Demo: responsable Beto; fecha 2026-10-20; estado .\"},{\"id\":\"ACC-a1\",\"fuente\":\"Acciones\",\"texto\":\"Acción Revisar accesos: Ana; fecha límite 2026-09-30; estado Pendiente.\"},{\"id\":\"ACC-2\",\"fuente\":\"Acciones\",\"texto\":\"Acción Sin uid: ; fecha límite ; estado .\"},{\"id\":\"RAID-501\",\"fuente\":\"RAID\",\"texto\":\"Risk #501: Retraso de accesos; estado Active.\"},{\"id\":\"AZ-AS-1\",\"fuente\":\"Azure DevOps\",\"texto\":\"10: 1 Work Items asignados.\"},{\"id\":\"AZ-AS-2\",\"fuente\":\"Azure DevOps\",\"texto\":\"Ana López: 4 Work Items asignados.\"},{\"id\":\"AZ-AS-3\",\"fuente\":\"Azure DevOps\",\"texto\":\"Beto: 2 Work Items asignados.\"},{\"id\":\"WI-101\",\"fuente\":\"Azure DevOps\",\"texto\":\"#101 Configurar servidor de pruebas; estado Active; responsable Ana López; etapa S1; fecha límite 2026-10-05.\"},{\"id\":\"WI-103\",\"fuente\":\"Azure DevOps\",\"texto\":\"#103 Revisión documentación cliente; estado New; responsable Beto; etapa S2; fecha límite .\"},{\"id\":\"WI-7\",\"fuente\":\"Azure DevOps\",\"texto\":\"#7 Bug menor; estado Resolved; responsable ; etapa ; fecha límite 2026-09-01.\"},{\"id\":\"CL-DAY-1\",\"fuente\":\"Clockify\",\"texto\":\"2026-09-30: 8 horas registradas en el proyecto.\"},{\"id\":\"CL-DAY-2\",\"fuente\":\"Clockify\",\"texto\":\"2026-10-01: 6.5 horas registradas en el proyecto.\"},{\"id\":\"CL-1\",\"fuente\":\"Clockify\",\"texto\":\"Zoe: 3 h registradas, sin asignación del recurso en la tabla.\"},{\"id\":\"MIN-1\",\"fuente\":\"Minutas\",\"texto\":\"Kickoff (2026-09-01): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"},{\"id\":\"MEM-1\",\"fuente\":\"Memoria\",\"texto\":\"Corte previo del 2026-09-25 10:00: {\\\"resumen\\\":[{\\\"texto\\\":\\\"ok\\\"}]}\"}]\n"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 800,
+   "temperature": 0,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Responde en español usando solo los HECHOS provistos. Cita [ID] tras cada afirmación verificable. No inventes hechos ni fechas. Si una afirmación no está respaldada, omítela. Responde directamente la pregunta, sin listas de datos faltantes.\nProyecto: GPO.007\nHECHOS: [{\"id\":\"PR-1\",\"fuente\":\"dashboard\",\"texto\":\"Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-02; avance 45.5%.\"},{\"id\":\"FIN-1\",\"fuente\":\"dashboard\",\"texto\":\"Cumplimiento financiero 92%; presupuesto 100 horas; gasto 45.25 horas.\"},{\"id\":\"AZ-RES\",\"fuente\":\"Azure DevOps\",\"texto\":\"Total Work Items 12; sin seguimiento 3; estados {\\\"Active\\\":5,\\\"Closed\\\":7}; iteraciones {\\\"GPO.007\\\\\\\\S1\\\":8,\\\"\\\":4}.\"},{\"id\":\"WI-101\",\"fuente\":\"Azure DevOps\",\"texto\":\"#101 Configurar servidor de pruebas; estado Active; responsable Ana López; etapa S1; fecha límite 2026-10-05.\"},{\"id\":\"CL-RES\",\"fuente\":\"Clockify\",\"texto\":\"Horas registradas en el ID 45.25 h; 30 registros.\"},{\"id\":\"ET-1\",\"fuente\":\"planeación\",\"texto\":\"Discovery: inicio 2026-08-01, fin 2026-08-15, estado Completado.\"},{\"id\":\"ET-2\",\"fuente\":\"planeación\",\"texto\":\"Development: inicio 2026-08-16, fin , estado En curso.\"},{\"id\":\"REC-1\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Ana López; rol Dev; activo; estimadas 40 h; registradas 20.5 h.\"},{\"id\":\"REC-2\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Carlos; rol QA; inactivo; estimadas  h; registradas  h.\"},{\"id\":\"VAC-1\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Ana: 2026-10-10 a 2026-10-12; estado Aprobada.\"},{\"id\":\"VAC-2\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Beto: 2026-11-01 a ; estado .\"},{\"id\":\"COM-1\",\"fuente\":\"Planeación\",\"texto\":\"Compromiso Demo: responsable Beto; fecha 2026-10-20; estado .\"},{\"id\":\"ACC-a1\",\"fuente\":\"Acciones\",\"texto\":\"Acción Revisar accesos: Ana; fecha límite 2026-09-30; estado Pendiente.\"},{\"id\":\"ACC-2\",\"fuente\":\"Acciones\",\"texto\":\"Acción Sin uid: ; fecha límite ; estado .\"},{\"id\":\"RAID-501\",\"fuente\":\"RAID\",\"texto\":\"Risk #501: Retraso de accesos; estado Active.\"},{\"id\":\"AZ-AS-1\",\"fuente\":\"Azure DevOps\",\"texto\":\"10: 1 Work Items asignados.\"},{\"id\":\"AZ-AS-2\",\"fuente\":\"Azure DevOps\",\"texto\":\"Ana López: 4 Work Items asignados.\"},{\"id\":\"AZ-AS-3\",\"fuente\":\"Azure DevOps\",\"texto\":\"Beto: 2 Work Items asignados.\"},{\"id\":\"WI-7\",\"fuente\":\"Azure DevOps\",\"texto\":\"#7 Bug menor; estado Resolved; responsable ; etapa ; fecha límite 2026-09-01.\"},{\"id\":\"CL-DAY-1\",\"fuente\":\"Clockify\",\"texto\":\"2026-09-30: 8 horas registradas en el proyecto.\"},{\"id\":\"CL-DAY-2\",\"fuente\":\"Clockify\",\"texto\":\"2026-10-01: 6.5 horas registradas en el proyecto.\"},{\"id\":\"CL-1\",\"fuente\":\"Clockify\",\"texto\":\"Zoe: 3 h registradas, sin asignación del recurso en la tabla.\"},{\"id\":\"MIN-1\",\"fuente\":\"Minutas\",\"texto\":\"Kickoff (2026-09-01): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"},{\"id\":\"MEM-1\",\"fuente\":\"Memoria\",\"texto\":\"Corte previo del 2026-09-25 10:00: {\\\"resumen\\\":[{\\\"texto\\\":\\\"ok\\\"}]}\"}]\nPregunta: ¿Cómo va la tarea 101 de configurar?"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 800,
+   "temperature": 0,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Responde en español usando solo los HECHOS provistos. Cita [ID] tras cada afirmación verificable. No inventes hechos ni fechas. Si una afirmación no está respaldada, omítela. Responde directamente la pregunta, sin listas de datos faltantes.\nProyecto: GPO.007\nHECHOS: [{\"id\":\"PR-1\",\"fuente\":\"dashboard\",\"texto\":\"Proyecto GPO.007 Bot facturas; fecha de corte 2026-10-02; avance 45.5%.\"},{\"id\":\"FIN-1\",\"fuente\":\"dashboard\",\"texto\":\"Cumplimiento financiero 92%; presupuesto 100 horas; gasto 45.25 horas.\"},{\"id\":\"AZ-RES\",\"fuente\":\"Azure DevOps\",\"texto\":\"Total Work Items 12; sin seguimiento 3; estados {\\\"Active\\\":5,\\\"Closed\\\":7}; iteraciones {\\\"GPO.007\\\\\\\\S1\\\":8,\\\"\\\":4}.\"},{\"id\":\"CL-RES\",\"fuente\":\"Clockify\",\"texto\":\"Horas registradas en el ID 45.25 h; 30 registros.\"},{\"id\":\"ET-1\",\"fuente\":\"planeación\",\"texto\":\"Discovery: inicio 2026-08-01, fin 2026-08-15, estado Completado.\"},{\"id\":\"ET-2\",\"fuente\":\"planeación\",\"texto\":\"Development: inicio 2026-08-16, fin , estado En curso.\"},{\"id\":\"REC-1\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Ana López; rol Dev; activo; estimadas 40 h; registradas 20.5 h.\"},{\"id\":\"REC-2\",\"fuente\":\"Recursos / Clockify\",\"texto\":\"Carlos; rol QA; inactivo; estimadas  h; registradas  h.\"},{\"id\":\"VAC-1\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Ana: 2026-10-10 a 2026-10-12; estado Aprobada.\"},{\"id\":\"VAC-2\",\"fuente\":\"Planeación\",\"texto\":\"Vacaciones Beto: 2026-11-01 a ; estado .\"},{\"id\":\"COM-1\",\"fuente\":\"Planeación\",\"texto\":\"Compromiso Demo: responsable Beto; fecha 2026-10-20; estado .\"},{\"id\":\"ACC-a1\",\"fuente\":\"Acciones\",\"texto\":\"Acción Revisar accesos: Ana; fecha límite 2026-09-30; estado Pendiente.\"},{\"id\":\"ACC-2\",\"fuente\":\"Acciones\",\"texto\":\"Acción Sin uid: ; fecha límite ; estado .\"},{\"id\":\"RAID-501\",\"fuente\":\"RAID\",\"texto\":\"Risk #501: Retraso de accesos; estado Active.\"},{\"id\":\"AZ-AS-1\",\"fuente\":\"Azure DevOps\",\"texto\":\"10: 1 Work Items asignados.\"},{\"id\":\"AZ-AS-2\",\"fuente\":\"Azure DevOps\",\"texto\":\"Ana López: 4 Work Items asignados.\"},{\"id\":\"AZ-AS-3\",\"fuente\":\"Azure DevOps\",\"texto\":\"Beto: 2 Work Items asignados.\"},{\"id\":\"WI-103\",\"fuente\":\"Azure DevOps\",\"texto\":\"#103 Revisión documentación cliente; estado New; responsable Beto; etapa S2; fecha límite .\"},{\"id\":\"WI-101\",\"fuente\":\"Azure DevOps\",\"texto\":\"#101 Configurar servidor de pruebas; estado Active; responsable Ana López; etapa S1; fecha límite 2026-10-05.\"},{\"id\":\"WI-7\",\"fuente\":\"Azure DevOps\",\"texto\":\"#7 Bug menor; estado Resolved; responsable ; etapa ; fecha límite 2026-09-01.\"},{\"id\":\"CL-DAY-1\",\"fuente\":\"Clockify\",\"texto\":\"2026-09-30: 8 horas registradas en el proyecto.\"},{\"id\":\"CL-DAY-2\",\"fuente\":\"Clockify\",\"texto\":\"2026-10-01: 6.5 horas registradas en el proyecto.\"},{\"id\":\"CL-1\",\"fuente\":\"Clockify\",\"texto\":\"Zoe: 3 h registradas, sin asignación del recurso en la tabla.\"},{\"id\":\"MIN-1\",\"fuente\":\"Minutas\",\"texto\":\"Kickoff (2026-09-01): xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"},{\"id\":\"MEM-1\",\"fuente\":\"Memoria\",\"texto\":\"Corte previo del 2026-09-25 10:00: {\\\"resumen\\\":[{\\\"texto\\\":\\\"ok\\\"}]}\"}]\nPregunta: ¿Qué pasa con documentación?"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 2000,
+   "temperature": 0,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Redacta en español una minuta editable del proyecto GPO.007 con tema Daily y fecha 2026-10-02. Usa EXCLUSIVAMENTE los apuntes y las transcripciones adjuntas. Cita el nombre de la transcripción junto a acuerdos y pendientes. No inventes asistentes, acuerdos, responsables ni fechas; omite lo que no conste. Estructura: resumen, acuerdos, pendientes, responsables y próximos pasos solo cuando estén documentados.\nApuntes: apuntes del día\nTranscripciones: [{\"nombre\":\"Transcript 01\",\"texto\":\"Ana: acordamos X\"}]"
+    }
+   ]
+  },
+  {
+   "model": "claude-haiku-4-5-20251001",
+   "max_tokens": 2000,
+   "temperature": 0,
+   "messages": [
+    {
+     "role": "user",
+     "content": "Redacta en español una minuta editable del proyecto GPO.007 con tema Seguimiento y fecha 2026-10-02. Usa EXCLUSIVAMENTE los apuntes y las transcripciones adjuntas. Cita el nombre de la transcripción junto a acuerdos y pendientes. No inventes asistentes, acuerdos, responsables ni fechas; omite lo que no conste. Estructura: resumen, acuerdos, pendientes, responsables y próximos pasos solo cuando estén documentados.\nApuntes: apuntes largos suficientes\nTranscripciones: []"
+    }
+   ]
+  }
+ ],
+ "responsesUsed": 17
+}

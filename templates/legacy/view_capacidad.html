@@ -1,0 +1,142 @@
+<!--
+  view_capacidad.html — Autocontenido (plantilla + CSS + JS).
+  Inclúyelo en index.html igual que tus otras vistas:
+    <?!= include('view_capacidad'); ?>
+  Agrega un .nav-item con data-view="capacidad" que inyecte #tpl-capacidad
+  y llame a renderCapacidadInstalada() al entrar a la vista.
+-->
+<style>
+.capacidad-wrap { padding: 20px; }
+.capacidad-header h2 { color: #9B2427; margin: 0 0 4px 0; font-size: 20px; }
+.capacidad-subtitulo { color: #666; font-size: 13px; margin: 0 0 12px 0; }
+.capacidad-leyenda { display: flex; gap: 16px; margin-bottom: 16px; font-size: 12px; color: #444; }
+.leyenda-item { display: flex; align-items: center; gap: 6px; }
+.dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.dot-libre { background: #E8E8E8; }
+.dot-normal { background: #6FCF97; }
+.dot-ocupado { background: #F2C94C; }
+.dot-sobrecargado { background: #D64545; }
+.capacidad-loading, .capacidad-error { padding: 24px; text-align: center; color: #999; }
+.capacidad-error { color: #D64545; }
+.capacidad-tabla-contenedor { overflow-x: auto; max-height: 70vh; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; }
+.capacidad-tabla { border-collapse: collapse; font-size: 12px; min-width: 100%; }
+.capacidad-tabla th, .capacidad-tabla td { padding: 6px 8px; text-align: center; border: 1px solid #f0f0f0; white-space: nowrap; }
+.capacidad-tabla thead th { background: #9B2427; color: #fff; position: sticky; top: 0; z-index: 2; font-weight: 500; }
+.capacidad-tabla thead th.col-persona { left: 0; z-index: 3; }
+.capacidad-tabla thead th.semana-actual { background: #E0298B; }
+.capacidad-tabla td.col-persona { position: sticky; left: 0; background: #fff; text-align: left; z-index: 1; border-right: 2px solid #9B2427; }
+.capacidad-tabla td.col-persona .nombre-persona { font-weight: 600; color: #333; }
+.capacidad-tabla td.col-persona .posicion-persona { display: block; font-size: 10px; color: #999; }
+.capacidad-celda { cursor: default; min-width: 46px; color: #333; font-weight: 600; }
+.celda-libre { background: #FAFAFA; color: #ccc; }
+.celda-normal { background: #6FCF97; color: #fff; }
+.celda-ocupado { background: #F2C94C; color: #6b5300; }
+.celda-sobrecargado { background: #D64545; color: #fff; }
+.capacidad-celda small { display: block; font-weight: 400; font-size: 9px; opacity: 0.85; }
+</style>
+
+<script type="text/html" id="tpl-capacidad">
+  <div class="capacidad-wrap">
+    <div class="capacidad-header">
+      <h2>Capacidad Instalada</h2>
+      <p class="capacidad-subtitulo">
+        Proyectos activos por persona, semana a semana (traslape de fechas Discovery→Deployment).
+        Compara horas reales (Clockify) vs horas estimadas.
+      </p>
+      <div class="capacidad-leyenda">
+        <span class="leyenda-item"><i class="dot dot-libre"></i> Libre</span>
+        <span class="leyenda-item"><i class="dot dot-normal"></i> 1 proyecto</span>
+        <span class="leyenda-item"><i class="dot dot-ocupado"></i> 2 proyectos</span>
+        <span class="leyenda-item"><i class="dot dot-sobrecargado"></i> 3+ proyectos</span>
+      </div>
+    </div>
+
+    <div id="capacidad-loading" class="capacidad-loading">Cargando capacidad instalada…</div>
+    <div id="capacidad-error" class="capacidad-error" style="display:none;"></div>
+
+    <div id="capacidad-tabla-contenedor" class="capacidad-tabla-contenedor" style="display:none;">
+      <table class="capacidad-tabla">
+        <thead><tr id="capacidad-header-semanas"></tr></thead>
+        <tbody id="capacidad-body"></tbody>
+      </table>
+    </div>
+  </div>
+</script>
+
+<script>
+function renderCapacidadInstalada() {
+  const loading = document.getElementById('capacidad-loading');
+  const errorBox = document.getElementById('capacidad-error');
+  const contenedor = document.getElementById('capacidad-tabla-contenedor');
+  if (!loading) return;
+
+  loading.style.display = 'block';
+  errorBox.style.display = 'none';
+  contenedor.style.display = 'none';
+
+  google.script.run
+    .withSuccessHandler(function (resp) {
+      if (!document.getElementById('capacidad-loading')) return;
+      if (!resp || !resp.ok) {
+        loading.style.display = 'none';
+        errorBox.style.display = 'block';
+        errorBox.textContent = 'Error al cargar capacidad instalada: ' + (resp && resp.error ? resp.error : 'desconocido');
+        return;
+      }
+      _pintarTablaCapacidad(resp.semanas, resp.personas);
+      loading.style.display = 'none';
+      contenedor.style.display = 'block';
+    })
+    .withFailureHandler(function (err) {
+      if (!document.getElementById('capacidad-loading')) return;
+      loading.style.display = 'none';
+      errorBox.style.display = 'block';
+      errorBox.textContent = 'Error: ' + (err && err.message ? err.message : err);
+    })
+    .getCapacidadInstalada(4, 12);
+}
+
+function _pintarTablaCapacidad(semanas, personas) {
+  const headerRow = document.getElementById('capacidad-header-semanas');
+  const body = document.getElementById('capacidad-body');
+
+  let headerHtml = '<th class="col-persona">Persona</th>';
+  semanas.forEach(function (s) {
+    headerHtml += '<th class="' + (s.esSemanaActual ? 'semana-actual' : '') + '">' + s.etiqueta + '</th>';
+  });
+  headerRow.innerHTML = headerHtml;
+
+  let bodyHtml = '';
+  personas.forEach(function (persona) {
+    bodyHtml += '<tr>';
+    bodyHtml += '<td class="col-persona">' +
+      '<span class="nombre-persona">' + _escaparHtmlCapacidad(persona.nombre) + '</span>' +
+      '<span class="posicion-persona">' + _escaparHtmlCapacidad(persona.posicion || '') + '</span>' +
+      '</td>';
+
+    persona.timeline.forEach(function (celda) {
+      const claseNivel = 'celda-' + celda.nivel;
+      const tituloTooltip = celda.proyectos.length
+        ? celda.proyectos.join(', ') + ' — Real: ' + celda.horasReales + 'h / Est: ' + celda.horasEstimadas + 'h'
+        : 'Sin proyectos activos';
+
+      let contenido = celda.proyectosActivos > 0 ? String(celda.proyectosActivos) : '–';
+      if (celda.proyectosActivos > 0) {
+        contenido += '<small>' + celda.horasReales + '/' + celda.horasEstimadas + 'h</small>';
+      }
+
+      bodyHtml += '<td class="capacidad-celda ' + claseNivel + '" title="' + _escaparHtmlCapacidad(tituloTooltip) + '">' +
+        contenido + '</td>';
+    });
+
+    bodyHtml += '</tr>';
+  });
+  body.innerHTML = bodyHtml;
+}
+
+function _escaparHtmlCapacidad(texto) {
+  const div = document.createElement('div');
+  div.textContent = texto == null ? '' : String(texto);
+  return div.innerHTML;
+}
+</script>

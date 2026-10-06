@@ -1,0 +1,29 @@
+# Analisis y pruebas del proyecto (ruff, mypy y pytest con cobertura).
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "3.12"
+
+  - script: |
+      pip install uv==0.12.7
+      uv sync
+    displayName: Instalar dependencias
+
+  - script: |
+      uv run ruff check .
+      uv run ruff format --check .
+    displayName: Ruff
+
+  - script: uv run mypy .
+    displayName: Mypy
+
+  - script: uv run pytest
+    displayName: Pytest
+    env:
+      DJANGO_SECRET_KEY: solo-para-ci

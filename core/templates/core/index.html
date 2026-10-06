@@ -1,0 +1,145 @@
+{% load static %}
+{# Equivale a index.html de Apps Script; las vistas viven en templates/legacy. #}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BEECKER Co.</title>
+  <base target="_top">
+  {% include "legacy/css_main.html" %}
+  <style>
+
+/* Diseño global: aplica a cuentas, proyectos y todas las vistas del panel. */
+html body .app-shell > aside.sidebar,
+html body.bee-account-mode .app-shell > aside.sidebar,
+html body aside.sidebar {display:none!important;width:0!important;min-width:0!important;flex-basis:0!important}
+html body .app-shell,
+html body.bee-account-mode .app-shell {display:block!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important;max-width:none!important;min-width:0!important}
+html body .app-shell > main.content,
+html body.bee-account-mode .app-shell > main.content,
+html body #content {margin-left:0!important;margin-inline-start:0!important;padding-left:24px!important;padding-right:24px!important;width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;flex:1 1 100%!important}
+html body #view-container {width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+@media(max-width:700px){html body #content,html body .app-shell > main.content{padding-left:12px!important;padding-right:12px!important}}
+
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Navegación oculta conservada para las funciones existentes. -->
+<aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">B</div>
+        <div class="brand-name">BEECKER Co.</div>
+      </div>
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active" data-view="dashboard">🏠 Dashboard</a>
+        <a href="#" class="nav-item" data-view="proyectos" data-temporarily-hidden="true" style="display:none">📁 Proyectos</a>
+        <a href="#" class="nav-item" data-view="sprints" data-temporarily-hidden="true" style="display:none">📅 Sprints</a>
+        <a href="#" class="nav-item" data-view="horas" data-temporarily-hidden="true" style="display:none">👥 Recursos</a>
+        <a href="#" class="nav-item" data-view="riesgos" data-temporarily-hidden="true" style="display:none">⚠ Riesgos</a>
+        <a href="#" class="nav-item" data-view="minutas" data-temporarily-hidden="true" style="display:none">📝 Minutas IA</a>
+        <a href="#" class="nav-item" data-view="azure" data-temporarily-hidden="true" style="display:none">🔗 Azure DevOps</a>
+        <a href="#" class="nav-item" data-view="reportes" data-temporarily-hidden="true" style="display:none">📊 Reportes</a>
+        <a href="#" class="nav-item" data-view="config" data-temporarily-hidden="true" style="display:none">⚙ Configuración</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="avatar">CS</div>
+        <div>
+          <div class="user-name">Christian S.</div>
+          <div class="user-role">Scrum Master</div>
+        </div>
+      </div>
+    </aside>
+    <main class="content" id="content">
+      <div id="view-container"></div>
+    </main>
+  </div>
+  {% include "legacy/view_dashboard.html" %}
+  {% include "legacy/view_minutas.html" %}
+  {% include "legacy/view_horas.html" %}
+  {% include "legacy/view_daily.html" %}
+  {% include "legacy/CapacidadInstalada.html" %}
+  <template id="tpl-reportes">
+    <div class="view-header">
+      <div class="view-title">RESUMEN EJECUTIVO — <span class="accent">VISTA DE ALTO NIVEL</span></div>
+      <div class="filters">
+        <select class="filter" id="f-reporte-tipo">
+          <option value="ixbraas">IXB / RaaS</option>
+          <option value="aertym">AER / T&amp;M</option>
+        </select>
+        <button class="btn" id="btn-reporte-refresh">🔄 Actualizar</button>
+      </div>
+    </div>
+    <div id="reporte-loading" class="loading">Cargando...</div>
+<div id="reporte-aertym" style="display:none;">
+        <div class="card" style="margin-bottom:14px; overflow-x:auto;">
+          <h3>FTE POR DELIVERY MANAGER — SERVICIO</h3>
+          <table class="data-table" id="tabla-pivote-aertym-servicio">
+            <thead><tr><th>Delivery Manager</th><th>AER</th><th>T&M</th><th>Total</th></tr></thead>
+            <tbody></tbody><tfoot></tfoot>
+          </table>
+        </div>
+
+        <div class="card" style="margin-bottom:14px; overflow-x:auto;">
+          <h3>FTE POR DELIVERY MANAGER — ROL</h3>
+          <table class="data-table" id="tabla-pivote-aertym-rol">
+            <thead><tr><th>Delivery Manager</th><th>DEV</th><th>ARQ</th><th>IA</th><th>SM</th><th>BA</th><th>TT</th><th>CR</th><th>DM</th><th>Total</th></tr></thead>
+            <tbody></tbody><tfoot></tfoot>
+          </table>
+        </div>
+
+        <div class="card" style="overflow-x:auto;">
+          <h3>PROYECTOS AER / T&M</h3>
+          <table class="data-table" id="tabla-proyectos-aertym">
+            <thead><tr><th>Delivery Manager</th><th>Cliente</th><th>Project ID</th><th>Service</th><th>FTE</th><th>Project Name</th><th>Start</th><th>Finish</th><th>Budget</th><th>Burn</th><th>ETC</th><th>Advance</th><th>Renewal (días)</th></tr></thead>
+            <tbody></tbody><tfoot></tfoot>
+          </table>
+        </div>
+      </div>
+<div id="reporte-ixbraas" style="display:none;">
+        <div class="resumen-grid-top" style="grid-template-columns: 1fr 1fr;">
+          <div class="card" style="overflow-x:auto;">
+            <h3>PROYECTOS POR DELIVERY MANAGER — SERVICIO</h3>
+            <table class="data-table" id="tabla-pivote-ixbraas-servicio">
+              <thead><tr id="tabla-pivote-ixbraas-servicio-header"></tr></thead>
+              <tbody></tbody><tfoot></tfoot>
+            </table>
+          </div>
+          <div class="card" style="overflow-x:auto;">
+            <h3>PROYECTOS POR DELIVERY MANAGER — STATUS</h3>
+            <table class="data-table" id="tabla-pivote-ixbraas-status">
+              <thead><tr><th>Delivery Manager</th><th>Sus</th><th>Dis</th><th>Dev</th><th>Dep</th><th>Total</th></tr></thead>
+              <tbody></tbody><tfoot></tfoot>
+            </table>
+          </div>
+        </div>
+
+        <div class="card" style="overflow-x:auto;">
+          <h3>PROYECTOS IXB / RaaS</h3>
+          <p style="font-size:11px; color:var(--gris); margin-top:-4px;">🤖 Total WI · ✅ Cerrados · ⌛ Pendientes — por etapa (Iteration Path de Azure DevOps)</p>
+          <table class="data-table" id="tabla-proyectos-ixbraas" style="font-size:11.5px;">
+            <thead>
+              <tr>
+                <th rowspan="2">DM</th><th rowspan="2">Project ID</th><th rowspan="2">Service</th><th rowspan="2">Name</th>
+                <th rowspan="2">Status</th><th rowspan="2">Start</th><th rowspan="2">Finish</th><th rowspan="2">Desv. Días</th>
+                <th rowspan="2">Budget</th><th rowspan="2">Burn</th><th rowspan="2">ETC</th><th rowspan="2">Desv. Hrs</th><th rowspan="2">Advance</th>
+                <th colspan="3">Discovery</th><th colspan="3">Development</th><th colspan="3">Deployment</th><th colspan="3">General</th>
+                <th rowspan="2">Risks</th>
+              </tr>
+              <tr>
+                <th>🤖</th><th>✅</th><th>⌛</th>
+                <th>🤖</th><th>✅</th><th>⌛</th>
+                <th>🤖</th><th>✅</th><th>⌛</th>
+                <th>🤖</th><th>✅</th><th>⌛</th>
+              </tr>
+            </thead>
+            <tbody></tbody><tfoot></tfoot>
+          </table>
+        </div>
+      </div>
+  </template>
+  <script src="{% static 'core/js/gas_shim.js' %}"></script>
+  {% include "legacy/js_main.html" %}
+</body>
+</html>

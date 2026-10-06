@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+"""Punto de entrada de los comandos administrativos de Django."""
+
+import os
+import sys
+
+
+def main() -> None:
+    """Ejecuta el comando administrativo recibido por linea de comandos."""
+    os.environ.setdefault(
+        "DJANGO_SETTINGS_MODULE",
+        "config.settings.local",
+    )
+
+    from django.core.management import execute_from_command_line
+
+    execute_from_command_line(sys.argv)
+
+
+if __name__ == "__main__":
+    main()

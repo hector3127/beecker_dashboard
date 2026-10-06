@@ -1,0 +1,1204 @@
+{
+ "results": [
+  {
+   "ok": true,
+   "global": false,
+   "organizacion": "beecker",
+   "proyecto": "RAS.001",
+   "patConfigurado": true,
+   "patSufijo": "1234"
+  },
+  {
+   "ok": true,
+   "mensaje": "Conectado correctamente a \"RAS.001\"."
+  },
+  {
+   "ok": true,
+   "proyectos": [
+    {
+     "id": "p3",
+     "nombre": "Árbol"
+    },
+    {
+     "id": "p6",
+     "nombre": "DETAIL500"
+    },
+    {
+     "id": "p4",
+     "nombre": "ERR401"
+    },
+    {
+     "id": "p5",
+     "nombre": "ERR500"
+    },
+    {
+     "id": "p2",
+     "nombre": "ras.001"
+    },
+    {
+     "id": "p1",
+     "nombre": "RAS.001"
+    },
+    {
+     "id": "p7",
+     "nombre": "WRITE403"
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "No se encontró la organización \"nope\" (404). Revisa el nombre.",
+   "proyectos": []
+  },
+  {
+   "ok": false,
+   "error": "Falta el nombre de la organización.",
+   "proyectos": []
+  },
+  {
+   "ok": true,
+   "proyectos": [
+    {
+     "id": "p3",
+     "nombre": "Árbol"
+    },
+    {
+     "id": "p6",
+     "nombre": "DETAIL500"
+    },
+    {
+     "id": "p4",
+     "nombre": "ERR401"
+    },
+    {
+     "id": "p5",
+     "nombre": "ERR500"
+    },
+    {
+     "id": "p2",
+     "nombre": "ras.001"
+    },
+    {
+     "id": "p1",
+     "nombre": "RAS.001"
+    },
+    {
+     "id": "p7",
+     "nombre": "WRITE403"
+    }
+   ],
+   "proyectoActivo": "RAS.001",
+   "sinPAT": false
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 102,
+     "titulo": "CR-02 Ajuste de reporte",
+     "tipo": "Change Request",
+     "estado": "New",
+     "asignadoA": "Sin asignar",
+     "asignadoEmail": "",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-10-01T09:00:00Z",
+     "fechaLimite": "2026-10-15T00:00:00Z",
+     "tags": "",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/102"
+    },
+    {
+     "id": 201,
+     "titulo": "Riesgo de ambiente",
+     "tipo": "Risk",
+     "estado": "Active",
+     "asignadoA": "luis@beecker.ai",
+     "asignadoEmail": "luis@beecker.ai",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-09-10T08:30:00Z",
+     "fechaLimite": null,
+     "tags": "",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/201"
+    },
+    {
+     "id": 101,
+     "titulo": "REQ-01 Alta de usuarios",
+     "tipo": "To Be",
+     "estado": "Active",
+     "asignadoA": "Ana Pérez",
+     "asignadoEmail": "ana@beecker.ai",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-09-20T15:04:05.123Z",
+     "fechaLimite": null,
+     "tags": "S1; QA",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/101"
+    },
+    {
+     "id": 301,
+     "titulo": "Automatizar cierre",
+     "tipo": "Opportunity",
+     "estado": "Proposed",
+     "asignadoA": "Sin asignar",
+     "asignadoEmail": "",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-09-25T12:00:00Z",
+     "fechaLimite": null,
+     "tags": "",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/301"
+    }
+   ],
+   "sinPAT": false,
+   "error": null
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 102,
+     "titulo": "CR-02 Ajuste de reporte",
+     "tipo": "Change Request",
+     "estado": "New",
+     "asignadoA": "Sin asignar",
+     "asignadoEmail": "",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-10-01T09:00:00Z",
+     "fechaLimite": "2026-10-15T00:00:00Z",
+     "tags": "",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/102"
+    },
+    {
+     "id": 201,
+     "titulo": "Riesgo de ambiente",
+     "tipo": "Risk",
+     "estado": "Active",
+     "asignadoA": "luis@beecker.ai",
+     "asignadoEmail": "luis@beecker.ai",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-09-10T08:30:00Z",
+     "fechaLimite": null,
+     "tags": "",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/201"
+    },
+    {
+     "id": 101,
+     "titulo": "REQ-01 Alta de usuarios",
+     "tipo": "To Be",
+     "estado": "Active",
+     "asignadoA": "Ana Pérez",
+     "asignadoEmail": "ana@beecker.ai",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-09-20T15:04:05.123Z",
+     "fechaLimite": null,
+     "tags": "S1; QA",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/101"
+    },
+    {
+     "id": 301,
+     "titulo": "Automatizar cierre",
+     "tipo": "Opportunity",
+     "estado": "Proposed",
+     "asignadoA": "Sin asignar",
+     "asignadoEmail": "",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-09-25T12:00:00Z",
+     "fechaLimite": null,
+     "tags": "",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/301"
+    }
+   ],
+   "sinPAT": false,
+   "error": null,
+   "deCache": true
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 102,
+     "titulo": "CR-02 Ajuste de reporte",
+     "tipo": "Change Request",
+     "estado": "New",
+     "asignadoA": "Sin asignar",
+     "asignadoEmail": "",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-10-01T09:00:00Z",
+     "fechaLimite": "2026-10-15T00:00:00Z",
+     "tags": "",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/102"
+    },
+    {
+     "id": 201,
+     "titulo": "Riesgo de ambiente",
+     "tipo": "Risk",
+     "estado": "Active",
+     "asignadoA": "luis@beecker.ai",
+     "asignadoEmail": "luis@beecker.ai",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-09-10T08:30:00Z",
+     "fechaLimite": null,
+     "tags": "",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/201"
+    },
+    {
+     "id": 101,
+     "titulo": "REQ-01 Alta de usuarios",
+     "tipo": "To Be",
+     "estado": "Active",
+     "asignadoA": "Ana Pérez",
+     "asignadoEmail": "ana@beecker.ai",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-09-20T15:04:05.123Z",
+     "fechaLimite": null,
+     "tags": "S1; QA",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/101"
+    },
+    {
+     "id": 301,
+     "titulo": "Automatizar cierre",
+     "tipo": "Opportunity",
+     "estado": "Proposed",
+     "asignadoA": "Sin asignar",
+     "asignadoEmail": "",
+     "fechaCreacion": "2026-08-01T10:00:00.12Z",
+     "fechaCambio": "2026-09-25T12:00:00Z",
+     "fechaLimite": null,
+     "tags": "",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/301"
+    }
+   ],
+   "sinPAT": false,
+   "error": null
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 201,
+     "titulo": "Riesgo de ambiente",
+     "estado": "Active",
+     "asignadoA": "luis@beecker.ai",
+     "nivel": "2 - Medium",
+     "fechaCambio": "2026-09-10T08:30:00Z",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/201"
+    }
+   ],
+   "sinPAT": false,
+   "error": null
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 301,
+     "titulo": "Automatizar cierre",
+     "estado": "Proposed",
+     "asignadoA": "Sin asignar",
+     "nivel": 2,
+     "fechaCambio": "2026-09-25T12:00:00Z",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/301"
+    }
+   ],
+   "sinPAT": false,
+   "error": null
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 102,
+     "titulo": "CR-02 Ajuste de reporte",
+     "asignadoA": "Sin asignar",
+     "estado": "New",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/102",
+     "devConstruidoPct": 60,
+     "qaListo": true,
+     "ttProdListo": true,
+     "fechaLimiteDev": "2026-10-20T06:00:00.000Z",
+     "demo": "Demo previa",
+     "avanceTotal": 68
+    },
+    {
+     "id": 101,
+     "titulo": "REQ-01 Alta de usuarios",
+     "asignadoA": "Ana Pérez",
+     "estado": "Active",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/101",
+     "devConstruidoPct": 0,
+     "qaListo": false,
+     "ttProdListo": false,
+     "fechaLimiteDev": null,
+     "demo": "",
+     "avanceTotal": 0
+    }
+   ],
+   "sinPAT": false,
+   "error": null
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 201,
+     "titulo": "Riesgo de ambiente",
+     "tipo": "Risk",
+     "estado": "Active",
+     "asignadoA": "luis@beecker.ai",
+     "iterationPath": "RAS.001\\General_S1",
+     "ultimoSeguimiento": "2026-09-10T08:30:00.000Z",
+     "diasSinActualizar": 22,
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/201"
+    },
+    {
+     "id": 101,
+     "titulo": "REQ-01 Alta de usuarios",
+     "tipo": "To Be",
+     "estado": "Active",
+     "asignadoA": "Ana Pérez",
+     "iterationPath": "RAS.001\\General_S1",
+     "ultimoSeguimiento": "2026-09-20T15:04:05.123Z",
+     "diasSinActualizar": 12,
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/101"
+    }
+   ],
+   "sinPAT": false,
+   "error": null
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 201,
+     "titulo": "Riesgo de ambiente",
+     "tipo": "Risk",
+     "estado": "Active",
+     "asignadoA": "luis@beecker.ai",
+     "iterationPath": "RAS.001\\General_S1",
+     "ultimoSeguimiento": "2026-09-10T08:30:00.000Z",
+     "diasSinActualizar": 22,
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/201"
+    },
+    {
+     "id": 101,
+     "titulo": "REQ-01 Alta de usuarios",
+     "tipo": "To Be",
+     "estado": "Active",
+     "asignadoA": "Ana Pérez",
+     "iterationPath": "RAS.001\\General_S1",
+     "ultimoSeguimiento": "2026-09-20T15:04:05.123Z",
+     "diasSinActualizar": 12,
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/101"
+    }
+   ],
+   "sinPAT": false,
+   "error": null
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 201,
+     "titulo": "Riesgo de ambiente",
+     "tipo": "Risk",
+     "estado": "Active",
+     "asignadoA": "luis@beecker.ai",
+     "iterationPath": "RAS.001\\General_S1",
+     "ultimoSeguimiento": "2026-09-10T08:30:00.000Z",
+     "diasSinActualizar": 22,
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/201"
+    },
+    {
+     "id": 101,
+     "titulo": "REQ-01 Alta de usuarios",
+     "tipo": "To Be",
+     "estado": "Active",
+     "asignadoA": "Ana Pérez",
+     "iterationPath": "RAS.001\\General_S1",
+     "ultimoSeguimiento": "2026-09-20T15:04:05.123Z",
+     "diasSinActualizar": 12,
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/101"
+    }
+   ],
+   "sinPAT": false,
+   "error": null
+  },
+  {
+   "ok": true,
+   "workItemId": 401,
+   "tipo": "Bug",
+   "campos": [
+    {
+     "referenceName": "Custom.Lista",
+     "valor": "[1,2.5,\"x\"]"
+    },
+    {
+     "referenceName": "Custom.Puntos",
+     "valor": "5"
+    },
+    {
+     "referenceName": "System.ChangedDate",
+     "valor": "\"2026-09-30T12:00:00Z\""
+    },
+    {
+     "referenceName": "System.CreatedDate",
+     "valor": "\"2026-08-01T10:00:00.12Z\""
+    },
+    {
+     "referenceName": "System.Id",
+     "valor": "401"
+    },
+    {
+     "referenceName": "System.IterationPath",
+     "valor": "\"RAS.001\\\\General_S1\""
+    },
+    {
+     "referenceName": "System.State",
+     "valor": "\"Active\""
+    },
+    {
+     "referenceName": "System.Title",
+     "valor": "\"Error en login\""
+    },
+    {
+     "referenceName": "System.WorkItemType",
+     "valor": "\"Bug\""
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "No se encontró ningún Work Item de tipo \"Nada\" en este proyecto."
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": false,
+   "error": "Campo desconocido: otro"
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 102,
+     "titulo": "CR-02 Ajuste de reporte",
+     "asignadoA": "Sin asignar",
+     "estado": "New",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/102",
+     "devConstruidoPct": 45.5,
+     "qaListo": true,
+     "ttProdListo": true,
+     "fechaLimiteDev": "2026-10-20T06:00:00.000Z",
+     "demo": "Demo 1",
+     "avanceTotal": 56
+    },
+    {
+     "id": 101,
+     "titulo": "REQ-01 Alta de usuarios",
+     "asignadoA": "Ana Pérez",
+     "estado": "Active",
+     "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/101",
+     "devConstruidoPct": 100,
+     "qaListo": true,
+     "ttProdListo": false,
+     "fechaLimiteDev": null,
+     "demo": "",
+     "avanceTotal": 100
+    }
+   ],
+   "sinPAT": false,
+   "error": null
+  },
+  {
+   "ok": true,
+   "campos": {
+    "severidad": {
+     "referenceName": "Microsoft.VSTS.Common.Severity",
+     "nombreVisible": "Severity",
+     "opciones": [
+      "1 - Critical",
+      "2 - Medium"
+     ]
+    },
+    "prioridad": {
+     "referenceName": "Microsoft.VSTS.Common.Priority",
+     "nombreVisible": "Priority",
+     "opciones": [
+      1,
+      2,
+      3
+     ]
+    },
+    "planMitigacion": {
+     "referenceName": "Custom.PlanMitigacion",
+     "nombreVisible": "Plan de mitigación",
+     "opciones": []
+    },
+    "triggers": {
+     "referenceName": "Custom.Triggers",
+     "nombreVisible": "Triggers",
+     "opciones": []
+    },
+    "contingencyPlan": null,
+    "probabilidad": null,
+    "categoria": {
+     "referenceName": "Custom.Categoria",
+     "nombreVisible": "Categoría",
+     "opciones": [
+      "Tecnico",
+      "Negocio"
+     ]
+    },
+    "fuenteRiesgo": {
+     "referenceName": "Custom.Fuente",
+     "nombreVisible": "Fuente",
+     "opciones": []
+    },
+    "partesInteresadas": null,
+    "personaEscala": null,
+    "estrategiaGestion": null,
+    "fechaSeguimiento": {
+     "referenceName": "Custom.Seguimiento",
+     "nombreVisible": "Fecha de seguimiento",
+     "opciones": []
+    },
+    "escalate": null
+   }
+  },
+  {
+   "ok": true,
+   "iteraciones": [
+    {
+     "path": "RAS.001",
+     "fechaInicio": null,
+     "fechaFin": null
+    },
+    {
+     "path": "RAS.001\\General_S1",
+     "fechaInicio": "2026-08-01T00:00:00.000Z",
+     "fechaFin": "2026-08-31T00:00:00.000Z"
+    },
+    {
+     "path": "RAS.001\\General_S2",
+     "fechaInicio": null,
+     "fechaFin": null
+    },
+    {
+     "path": "RAS.001\\General_S2\\Sprint 1",
+     "fechaInicio": "2026-09-01T00:00:00.500Z",
+     "fechaFin": null
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "iteraciones": [
+    {
+     "path": "RAS.001\\General_S2",
+     "fechaInicio": null,
+     "fechaFin": null
+    },
+    {
+     "path": "RAS.001\\General_S2\\Sprint 1",
+     "fechaInicio": "2026-09-01T00:00:00.500Z",
+     "fechaFin": null
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "usuarios": [
+    {
+     "nombre": "Ana Pérez",
+     "email": "ana@beecker.ai"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "usuarios": [
+    {
+     "nombre": "Ana Pérez",
+     "email": "ana@beecker.ai"
+    },
+    {
+     "nombre": "luis@beecker.ai",
+     "email": "luis@beecker.ai"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 102,
+     "titulo": "CR-02 Ajuste de reporte",
+     "tipo": "Change Request"
+    },
+    {
+     "id": 101,
+     "titulo": "REQ-01 Alta de usuarios",
+     "tipo": "To Be"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "items": [
+    {
+     "id": 201,
+     "titulo": "Riesgo de ambiente",
+     "tipo": "Risk"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "id": 999,
+   "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/999"
+  },
+  {
+   "ok": false,
+   "error": "Falta el título del riesgo."
+  },
+  {
+   "ok": true,
+   "id": 999,
+   "url": "https://dev.azure.com/beecker/RAS.001/_workitems/edit/999"
+  },
+  {
+   "ok": true,
+   "textoPublicado": "02/10/2026 - Revisado con el cliente"
+  },
+  {
+   "ok": false,
+   "error": "Escribe un comentario antes de enviar."
+  },
+  {
+   "ok": true,
+   "proyecto": "WRITE403"
+  },
+  {
+   "ok": false,
+   "error": "Tu token no tiene permiso de escritura. Regenera tu PAT con scope \"Work Items > Read & Write\"."
+  },
+  {
+   "ok": false,
+   "error": "Tu token no tiene permiso de escritura. Regenera tu PAT con scope \"Work Items > Read & Write\"."
+  },
+  {
+   "ok": true,
+   "proyecto": "RAS.001"
+  },
+  {
+   "ok": false,
+   "error": "Elige un proyecto."
+  },
+  {
+   "ok": true,
+   "proyecto": "ERR401"
+  },
+  {
+   "ok": false,
+   "items": [],
+   "sinPAT": false,
+   "error": "Token inválido o expirado. Vuelve a conectar tu cuenta de Azure DevOps."
+  },
+  {
+   "ok": false,
+   "items": [],
+   "sinPAT": false,
+   "error": "Token inválido o expirado."
+  },
+  {
+   "ok": true,
+   "proyecto": "ERR500"
+  },
+  {
+   "ok": false,
+   "items": [],
+   "sinPAT": false,
+   "error": "Azure DevOps (WIQL) respondió 500: boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom "
+  },
+  {
+   "ok": false,
+   "items": [],
+   "sinPAT": false,
+   "error": "WIQL falló: boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom "
+  },
+  {
+   "ok": false,
+   "error": "WIQL falló: boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom boom "
+  },
+  {
+   "ok": true,
+   "proyecto": "DETAIL500"
+  },
+  {
+   "ok": false,
+   "items": [],
+   "sinPAT": false,
+   "error": "Azure DevOps (detalle) respondió 500."
+  },
+  {
+   "ok": false,
+   "items": [],
+   "sinPAT": false,
+   "error": "Azure DevOps (detalle) respondió 500."
+  },
+  {
+   "ok": false,
+   "items": [],
+   "sinPAT": false,
+   "error": "Detalle falló: 500"
+  },
+  {
+   "ok": true,
+   "proyecto": "NOPE"
+  },
+  {
+   "ok": false,
+   "error": "No se encontró el proyecto \"NOPE\" en la organización \"beecker\" (404). Revisa los nombres."
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": true,
+   "global": false,
+   "organizacion": "beecker",
+   "proyecto": "RAS.001",
+   "patConfigurado": true,
+   "patSufijo": "1234"
+  },
+  {
+   "ok": false,
+   "error": "Falta el nombre de la organización."
+  },
+  {
+   "ok": false,
+   "error": "Falta el nombre del proyecto en Azure DevOps."
+  },
+  {
+   "ok": true,
+   "sprints": [
+    {
+     "idProyecto": "RAS.001",
+     "nombre": "RAS.001",
+     "estado": "Cancelado"
+    },
+    {
+     "idProyecto": "RAS.001_CR",
+     "nombre": "RaaS CR",
+     "estado": "Discovery"
+    },
+    {
+     "idProyecto": "RAS.001_S2",
+     "nombre": "RaaS S2",
+     "estado": "Development"
+    },
+    {
+     "idProyecto": "RAS.001_S10",
+     "nombre": "RaaS S10",
+     "estado": "Cerrado"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "sprints": []
+  },
+  {
+   "ok": true,
+   "sprints": []
+  },
+  {
+   "ok": true,
+   "id": "PND-1790964000001"
+  },
+  {
+   "ok": true,
+   "id": "PND-1790964000002"
+  },
+  {
+   "ok": false,
+   "error": "Falta la descripción del pendiente."
+  },
+  {
+   "ok": true,
+   "pendientes": [
+    {
+     "id": "PND-1790964000001",
+     "descripcion": "Revisar ambiente",
+     "proyecto": "RAS.001",
+     "responsable": "Ana",
+     "prioridad": "Alta",
+     "estado": "Abierto",
+     "fechaCreacion": "2026-10-02T18:00:00.000Z",
+     "fechaLimite": null
+    },
+    {
+     "id": "PND-1790964000002",
+     "descripcion": "Llamar cliente",
+     "proyecto": "AMK.008",
+     "responsable": "",
+     "prioridad": "Media",
+     "estado": "Abierto",
+     "fechaCreacion": "2026-10-02T18:00:00.000Z",
+     "fechaLimite": null
+    }
+   ],
+   "total": 2
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": false,
+   "error": "Estado inválido."
+  },
+  {
+   "ok": false,
+   "error": "No se encontró el pendiente con ID NOEXISTE"
+  },
+  {
+   "ok": true,
+   "pendientes": [
+    {
+     "id": "PND-1790964000002",
+     "descripcion": "Llamar cliente",
+     "proyecto": "AMK.008",
+     "responsable": "",
+     "prioridad": "Media",
+     "estado": "Abierto",
+     "fechaCreacion": "2026-10-02T18:00:00.000Z",
+     "fechaLimite": null
+    }
+   ],
+   "total": 1
+  },
+  {
+   "ok": true,
+   "pendientes": [
+    {
+     "id": "PND-1790964000002",
+     "descripcion": "Llamar cliente",
+     "proyecto": "AMK.008",
+     "responsable": "",
+     "prioridad": "Media",
+     "estado": "Abierto",
+     "fechaCreacion": "2026-10-02T18:00:00.000Z",
+     "fechaLimite": null
+    }
+   ],
+   "total": 1
+  },
+  {
+   "ok": true,
+   "id": "ADJ-1790964000003"
+  },
+  {
+   "ok": false,
+   "error": "Falta la descripción del ajuste."
+  },
+  {
+   "ok": true,
+   "id": "ADJ-1790964000004"
+  },
+  {
+   "ok": true,
+   "ajustes": [
+    {
+     "id": "ADJ-1790964000003",
+     "ajuste": "Ajuste uno",
+     "proyecto": "RAS.001",
+     "devPct": 100,
+     "qaListo": false,
+     "fechaCreacion": "2026-10-02T18:00:00.000Z"
+    },
+    {
+     "id": "ADJ-1790964000004",
+     "ajuste": "Ajuste dos",
+     "proyecto": "AMK.008",
+     "devPct": 40,
+     "qaListo": false,
+     "fechaCreacion": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   "total": 2
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": false,
+   "error": "No se encontró el ajuste con ID NO"
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": false,
+   "error": "No se encontró el ajuste con ID NO"
+  },
+  {
+   "ok": true,
+   "ajustes": [
+    {
+     "id": "ADJ-1790964000003",
+     "ajuste": "Ajuste uno",
+     "proyecto": "RAS.001",
+     "devPct": 55,
+     "qaListo": true,
+     "fechaCreacion": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   "total": 1
+  }
+ ],
+ "posts": [
+  {
+   "path": "workitems/$Risk",
+   "body": [
+    {
+     "op": "add",
+     "path": "/fields/System.Title",
+     "value": "Riesgo nuevo"
+    },
+    {
+     "op": "add",
+     "path": "/fields/System.AreaPath",
+     "value": "RAS.001"
+    },
+    {
+     "op": "add",
+     "path": "/fields/System.IterationPath",
+     "value": "RAS.001\\General_S2"
+    },
+    {
+     "op": "add",
+     "path": "/fields/System.Description",
+     "value": "Linea 1<br>Linea 2"
+    },
+    {
+     "op": "add",
+     "path": "/fields/System.AssignedTo",
+     "value": "ana@beecker.ai"
+    },
+    {
+     "op": "add",
+     "path": "/fields/Microsoft.VSTS.Common.Severity",
+     "value": "2 - Medium"
+    },
+    {
+     "op": "add",
+     "path": "/fields/Microsoft.VSTS.Common.Priority",
+     "value": 2
+    },
+    {
+     "op": "add",
+     "path": "/fields/Custom.PlanMitigacion",
+     "value": "Plan A"
+    },
+    {
+     "op": "add",
+     "path": "/fields/Custom.Triggers",
+     "value": "Disparador"
+    },
+    {
+     "op": "add",
+     "path": "/fields/Custom.Categoria",
+     "value": "Tecnico"
+    },
+    {
+     "op": "add",
+     "path": "/fields/Custom.Fuente",
+     "value": "Cliente"
+    },
+    {
+     "op": "add",
+     "path": "/relations/-",
+     "value": {
+      "rel": "System.LinkTypes.Related",
+      "url": "https://dev.azure.com/beecker/_apis/wit/workItems/101"
+     }
+    }
+   ]
+  },
+  {
+   "path": "workitems/$Risk",
+   "body": [
+    {
+     "op": "add",
+     "path": "/fields/System.Title",
+     "value": "Otro"
+    },
+    {
+     "op": "add",
+     "path": "/fields/System.AreaPath",
+     "value": "RAS.001"
+    },
+    {
+     "op": "add",
+     "path": "/fields/System.IterationPath",
+     "value": "RAS.001"
+    }
+   ]
+  },
+  {
+   "path": "workItems/101/comments",
+   "body": {
+    "text": "02/10/2026 - Revisado con el cliente"
+   }
+  },
+  {
+   "path": "workitems/$Risk",
+   "body": [
+    {
+     "op": "add",
+     "path": "/fields/System.Title",
+     "value": "Sin permiso"
+    },
+    {
+     "op": "add",
+     "path": "/fields/System.AreaPath",
+     "value": "WRITE403"
+    },
+    {
+     "op": "add",
+     "path": "/fields/System.IterationPath",
+     "value": "WRITE403"
+    }
+   ]
+  },
+  {
+   "path": "workItems/5/comments",
+   "body": {
+    "text": "02/10/2026 - Hola"
+   }
+  }
+ ],
+ "sheets": {
+  "Proyectos": [
+   [
+    "ID_Proyecto",
+    "Nombre",
+    "Estado"
+   ],
+   [
+    "RAS.001_S2",
+    "RaaS S2",
+    "Development"
+   ],
+   [
+    "RAS.001_S10",
+    "RaaS S10",
+    "Cerrado"
+   ],
+   [
+    "RAS.001",
+    "",
+    "Cancelado"
+   ],
+   [
+    "RAS.001_CR",
+    "RaaS CR",
+    "Discovery"
+   ],
+   [
+    "AMK.008",
+    "AMK",
+    "Development"
+   ]
+  ],
+  "WorkItems_Avance": [
+   [
+    "ID_WorkItem",
+    "Proyecto",
+    "Dev_Pct",
+    "QA_Listo",
+    "TTProd_Listo",
+    "Fecha_Limite_Dev",
+    "Demo"
+   ],
+   [
+    102,
+    "RAS.001",
+    45.5,
+    true,
+    "TRUE",
+    "2026-10-20T06:00:00.000Z",
+    "Demo 1"
+   ],
+   [
+    "101",
+    "RAS.001",
+    100,
+    true,
+    false,
+    "",
+    ""
+   ]
+  ],
+  "Pendientes_Daily": [
+   [
+    "ID",
+    "Descripcion",
+    "Proyecto",
+    "Responsable",
+    "Prioridad",
+    "Estado",
+    "Fecha_Creacion",
+    "Fecha_Limite"
+   ],
+   [
+    "PND-1790964000001",
+    "Revisar ambiente",
+    "RAS.001",
+    "Ana",
+    "Alta",
+    "Completado",
+    "2026-10-02T18:00:00.000Z",
+    ""
+   ],
+   [
+    "PND-1790964000002",
+    "Llamar cliente",
+    "AMK.008",
+    "",
+    "Media",
+    "Abierto",
+    "2026-10-02T18:00:00.000Z",
+    ""
+   ]
+  ],
+  "Ajustes_UAT": [
+   [
+    "ID",
+    "Ajuste",
+    "Proyecto",
+    "Dev_Pct",
+    "QA_Listo",
+    "Fecha_Creacion"
+   ],
+   [
+    "ADJ-1790964000003",
+    "Ajuste uno",
+    "RAS.001",
+    55,
+    true,
+    "2026-10-02T18:00:00.000Z"
+   ]
+  ]
+ }
+}

@@ -1,0 +1,469 @@
+<!--
+  DailyPanelFrontend.html
+  ARCHIVO ÚNICO DE FRONTEND: vista visual del panel Daily + modal de
+  configuración de Azure DevOps + todo el JS, todo en un solo <script>.
+  Pégalo completo dentro de tu index.html (fuera de cualquier otro
+  <div id="view-..."> que ya tengas, para que view-daily no quede anidado).
+  No toca el bloque protegido de .nav-item en js_main.html.
+
+  Para activarla: agrega un nav-item que muestre #view-daily y llame
+  inicializarPanelDaily() (definida al final del <script> de este archivo).
+-->
+
+<!-- ================= VISTA VISUAL: DAILY ================= -->
+<div id="view-daily">
+
+  <div class="view-header">
+    <div class="view-title">DAILY — <span class="accent">SEGUIMIENTO INTEGRAL</span></div>
+    <div class="filters">
+      <span id="az-badge-conexion" style="font-size:12px;color:var(--gris);cursor:pointer;" onclick="abrirModalAzureDevOps()">
+        🔵 Azure DevOps — configurar conexión
+      </span>
+      <button class="btn btn-primary" onclick="inicializarPanelDaily()">🔄 Actualizar</button>
+    </div>
+  </div>
+
+  <!-- KPIs rápidos -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Pendientes Abiertos</div>
+      <div class="kpi-value" id="kpi-pendientes-count">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Work Items Pendientes</div>
+      <div class="kpi-value" id="kpi-workitems-count">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Riesgos Activos</div>
+      <div class="kpi-value" id="kpi-riesgos-count">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Oportunidades</div>
+      <div class="kpi-value" id="kpi-oportunidades-count">—</div>
+    </div>
+  </div>
+
+  <!-- Work Items de Azure DevOps -->
+  <div class="card" style="margin-bottom:14px;">
+    <h3>☁️ Work Items — Azure DevOps (Pendientes)</h3>
+    <div id="az-workitems-container">
+      <div class="loading">Cargando...</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- Riesgos -->
+    <div class="card">
+      <h3>🛡️ Riesgos Activos</h3>
+      <div id="az-riesgos-container">
+        <div class="loading">Cargando...</div>
+      </div>
+    </div>
+
+    <!-- Oportunidades -->
+    <div class="card">
+      <h3>💡 Oportunidades Detectadas</h3>
+      <div id="az-oportunidades-container">
+        <div class="loading">Cargando...</div>
+      </div>
+    </div>
+
+    <!-- Pendientes -->
+    <div class="card">
+      <h3>📋 Pendientes
+        <button class="btn" style="float:right;padding:3px 8px;font-size:11px;" onclick="document.getElementById('form-nuevo-pendiente').style.display='block';">+ Nuevo</button>
+      </h3>
+
+      <div id="form-nuevo-pendiente" style="display:none;margin-bottom:12px;padding:10px;border:1px solid var(--border);border-radius:8px;">
+        <input type="text" id="np-descripcion" placeholder="Descripción" style="width:100%;margin-bottom:6px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+        <input type="text" id="np-proyecto" placeholder="ID de proyecto (ej. GPO.007)" style="width:100%;margin-bottom:6px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+        <input type="text" id="np-responsable" placeholder="Responsable" style="width:100%;margin-bottom:6px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+        <select id="np-prioridad" style="width:100%;margin-bottom:6px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;">
+          <option value="Alta">Alta</option>
+          <option value="Media" selected>Media</option>
+          <option value="Baja">Baja</option>
+        </select>
+        <div style="display:flex;gap:6px;justify-content:flex-end;">
+          <button class="btn" onclick="document.getElementById('form-nuevo-pendiente').style.display='none';">Cancelar</button>
+          <button class="btn btn-primary" onclick="_guardarNuevoPendienteDesdeForm()">Guardar</button>
+        </div>
+      </div>
+
+      <div id="pendientes-daily-container">
+        <div class="loading">Cargando...</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= MODAL: CONFIGURAR AZURE DEVOPS ================= -->
+<div id="modal-azure-devops" class="modal-overlay" style="display:none;">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-header">
+      <h3>🔗 Conectar con Azure DevOps</h3>
+      <button class="modal-close" onclick="cerrarModalAzureDevOps()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12.5px;color:var(--gris);margin-top:0;">
+        Tu token es personal — se guarda solo en tu cuenta, nadie más lo ve.
+        Necesitas un Personal Access Token con scope <b>Work Items &gt; Read</b>.
+      </p>
+
+      <label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Organización</label>
+      <input type="text" id="az-input-org" placeholder="ej. Proyectos-BeeckerCo"
+        style="width:100%;padding:8px 10px;margin:4px 0 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+
+      <label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Proyecto</label>
+      <input type="text" id="az-input-proyecto" placeholder="Nombre exacto del proyecto en Azure DevOps"
+        style="width:100%;padding:8px 10px;margin:4px 0 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+
+      <label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Personal Access Token</label>
+      <input type="password" id="az-input-pat" placeholder="Pega tu PAT aquí"
+        style="width:100%;padding:8px 10px;margin:4px 0 6px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+      <div id="az-pat-actual" style="font-size:11px;color:var(--gris);margin-bottom:12px;"></div>
+
+      <div id="az-mensaje" style="font-size:12.5px;padding:8px 10px;border-radius:8px;margin-bottom:12px;display:none;"></div>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button class="btn" id="az-btn-desconectar" onclick="desconectarAzureDevOpsUI()" style="display:none;color:var(--rojo);">Desconectar</button>
+        <button class="btn" onclick="probarConexionAzureDevOpsUI()">Probar conexión</button>
+        <button class="btn btn-primary" onclick="guardarConfigAzureDevOpsUI()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    display: flex; align-items: center; justify-content: center; z-index: 999;
+  }
+  .modal-box {
+    background: var(--blanco); border-radius: 12px; padding: 0; width: 90%;
+    box-shadow: 0 10px 40px rgba(0,0,0,.2);
+  }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 18px; border-bottom: 1px solid var(--border);
+  }
+  .modal-header h3 { margin: 0; font-size: 15px; color: var(--gris-oscuro); }
+  .modal-close { background: none; border: none; font-size: 16px; cursor: pointer; color: var(--gris); }
+  .modal-body { padding: 18px; }
+</style>
+
+<script>
+  // ---------- Modal de configuración ----------
+
+  function abrirModalAzureDevOps() {
+    document.getElementById('modal-azure-devops').style.display = 'flex';
+    document.getElementById('az-mensaje').style.display = 'none';
+
+    google.script.run
+      .withSuccessHandler(function (cfg) {
+        if (!cfg || !cfg.ok) return;
+        document.getElementById('az-input-org').value = cfg.organizacion || '';
+        document.getElementById('az-input-proyecto').value = cfg.proyecto || '';
+        const actual = document.getElementById('az-pat-actual');
+        const btnDesconectar = document.getElementById('az-btn-desconectar');
+        if (cfg.patConfigurado) {
+          actual.textContent = 'Token guardado terminado en ****' + cfg.patSufijo + '. Deja el campo vacío si no quieres cambiarlo.';
+          btnDesconectar.style.display = 'inline-block';
+        } else {
+          actual.textContent = 'Aún no has conectado tu cuenta.';
+          btnDesconectar.style.display = 'none';
+        }
+      })
+      .withFailureHandler(function (err) { console.error('Error cargando config Azure DevOps:', err); })
+      .obtenerConfigAzureDevOps();
+  }
+
+  function cerrarModalAzureDevOps() {
+    const modal = document.getElementById('modal-azure-devops');
+    if (modal) modal.style.display = 'none';
+  }
+
+  function _mostrarMensajeAzureDevOps(texto, tipo) {
+    const el = document.getElementById('az-mensaje');
+    if (!el) return;
+    el.textContent = texto;
+    el.style.display = 'block';
+    el.style.background = tipo === 'error' ? '#FDECEA' : (tipo === 'ok' ? '#E8F5E9' : '#FFF8E1');
+    el.style.color = tipo === 'error' ? '#C62828' : (tipo === 'ok' ? '#2E7D32' : '#8A6D00');
+  }
+
+  function guardarConfigAzureDevOpsUI() {
+    const org = document.getElementById('az-input-org').value.trim();
+    const proyecto = document.getElementById('az-input-proyecto').value.trim();
+    const patNuevo = document.getElementById('az-input-pat').value.trim();
+
+    if (!org || !proyecto) { _mostrarMensajeAzureDevOps('Completa organización y proyecto.', 'error'); return; }
+    if (!patNuevo) { _mostrarMensajeAzureDevOps('Pega tu Personal Access Token (no se puede dejar vacío la primera vez).', 'error'); return; }
+
+    _mostrarMensajeAzureDevOps('Guardando...', 'info');
+
+    google.script.run
+      .withSuccessHandler(function (res) {
+        if (!res || !res.ok) { _mostrarMensajeAzureDevOps('Error al guardar: ' + (res ? res.error : 'desconocido'), 'error'); return; }
+        _mostrarMensajeAzureDevOps('Guardado. Probando conexión...', 'info');
+        probarConexionAzureDevOpsUI(true);
+      })
+      .withFailureHandler(function (err) { _mostrarMensajeAzureDevOps('Error al guardar: ' + err.message, 'error'); })
+      .guardarConfigAzureDevOps(org, proyecto, patNuevo);
+  }
+
+  function probarConexionAzureDevOpsUI(esDespuesDeGuardar) {
+    if (!esDespuesDeGuardar) _mostrarMensajeAzureDevOps('Probando conexión...', 'info');
+
+    google.script.run
+      .withSuccessHandler(function (res) {
+        if (res && res.ok) {
+          _mostrarMensajeAzureDevOps('✓ ' + res.mensaje, 'ok');
+          document.getElementById('az-input-pat').value = '';
+          if (typeof cargarWorkItemsAzureDevOps === 'function') cargarWorkItemsAzureDevOps(true);
+        } else {
+          _mostrarMensajeAzureDevOps('✗ ' + (res ? res.error : 'No se pudo conectar.'), 'error');
+        }
+      })
+      .withFailureHandler(function (err) { _mostrarMensajeAzureDevOps('Error: ' + err.message, 'error'); })
+      .probarConexionAzureDevOps();
+  }
+
+  function desconectarAzureDevOpsUI() {
+    if (!confirm('¿Desconectar tu cuenta de Azure DevOps? Tendrás que volver a pegar tu token para reconectar.')) return;
+
+    google.script.run
+      .withSuccessHandler(function (res) {
+        if (res && res.ok) {
+          document.getElementById('az-input-org').value = '';
+          document.getElementById('az-input-proyecto').value = '';
+          document.getElementById('az-input-pat').value = '';
+          document.getElementById('az-pat-actual').textContent = 'Aún no has conectado tu cuenta.';
+          document.getElementById('az-btn-desconectar').style.display = 'none';
+          _mostrarMensajeAzureDevOps('Cuenta desconectada.', 'info');
+          if (typeof cargarWorkItemsAzureDevOps === 'function') cargarWorkItemsAzureDevOps(true);
+        }
+      })
+      .desconectarAzureDevOps();
+  }
+
+  // ---------- Sección de Work Items para la vista Daily ----------
+  // Llama cargarWorkItemsAzureDevOps() desde el init de tu vista Daily.
+  // Necesita un <div id="az-workitems-container"></div> en esa vista.
+
+  function cargarWorkItemsAzureDevOps(forzarRefresh) {
+    const cont = document.getElementById('az-workitems-container');
+    if (!cont) return;
+
+    cont.innerHTML = '<div class="loading">Cargando Work Items de Azure DevOps...</div>';
+
+    google.script.run
+      .withSuccessHandler(function (res) {
+        const contActual = document.getElementById('az-workitems-container');
+        if (!contActual) return;
+
+        if (!res || !res.ok) {
+          contActual.innerHTML = '<div class="loading">Error: ' + (res ? res.error : 'desconocido') + '</div>';
+          return;
+        }
+        if (res.sinPAT) {
+          contActual.innerHTML =
+            '<div class="loading" style="text-align:left;">' +
+            '<div style="margin-bottom:10px;">🔌 Conecta tu cuenta de Azure DevOps para ver tus Work Items pendientes.</div>' +
+            '<button class="btn btn-primary" onclick="abrirModalAzureDevOps()">Conectar ahora</button>' +
+            '</div>';
+          return;
+        }
+        if (!res.items.length) {
+          contActual.innerHTML = '<div class="loading">Sin Work Items pendientes 🎉</div>';
+          return;
+        }
+
+        const filas = res.items.map(function (it) {
+          return '<tr>' +
+            '<td>#' + it.id + '</td>' +
+            '<td>' + _escaparHtmlAz(it.titulo) + '</td>' +
+            '<td>' + _escaparHtmlAz(it.tipo) + '</td>' +
+            '<td><span class="badge badge-activo">' + _escaparHtmlAz(it.estado) + '</span></td>' +
+            '<td>' + _escaparHtmlAz(it.asignadoA || 'Sin asignar') + '</td>' +
+            '<td><a href="' + it.url + '" target="_top">Ver ↗</a></td>' +
+            '</tr>';
+        }).join('');
+
+        contActual.innerHTML =
+          '<table class="data-table">' +
+          '<thead><tr><th>#</th><th>Título</th><th>Tipo</th><th>Estado</th><th>Asignado</th><th></th></tr></thead>' +
+          '<tbody>' + filas + '</tbody></table>';
+      })
+      .withFailureHandler(function (err) {
+        const contActual = document.getElementById('az-workitems-container');
+        if (contActual) contActual.innerHTML = '<div class="loading">Error: ' + err.message + '</div>';
+      })
+      .obtenerWorkItemsPendientes(!!forzarRefresh);
+  }
+
+  function _escaparHtmlAz(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // ============================================================
+  // Tarjetas del dashboard Daily: Riesgos, Oportunidades, Pendientes
+  // ============================================================
+
+  const _COLOR_NIVEL = { 'Alto': 'badge-alto', 'Medio': 'badge-medio', 'Bajo': 'badge-bajo',
+    '1': 'badge-alto', '2': 'badge-medio', '3': 'badge-bajo', '4': 'badge-bajo' };
+
+  // ---------- Riesgos (Azure DevOps, tipo "Risk") ----------
+
+  function cargarRiesgosAzureDevOps(forzarRefresh) {
+    const cont = document.getElementById('az-riesgos-container');
+    if (!cont) return;
+    cont.innerHTML = '<div class="loading">Cargando riesgos...</div>';
+
+    google.script.run
+      .withSuccessHandler(function (res) {
+        const c = document.getElementById('az-riesgos-container');
+        if (!c) return;
+        if (!res || !res.ok) { c.innerHTML = '<div class="loading">Error: ' + (res ? res.error : '') + '</div>'; return; }
+        if (res.sinPAT) { c.innerHTML = '<div class="loading">Conecta Azure DevOps para ver riesgos.</div>'; return; }
+        if (!res.items.length) { c.innerHTML = '<div class="loading">Sin riesgos activos 🎉</div>'; return; }
+
+        c.innerHTML = res.items.map(function (r) {
+          const badgeClass = _COLOR_NIVEL[r.nivel] || 'badge-medio';
+          return '<div class="alert-item">' +
+            '<span class="badge ' + badgeClass + '">' + _escaparHtmlAz(r.nivel || '—') + '</span>' +
+            '<a href="' + r.url + '" target="_top" style="flex:1;color:inherit;text-decoration:none;">' + _escaparHtmlAz(r.titulo) + '</a>' +
+            '</div>';
+        }).join('');
+      })
+      .withFailureHandler(function (err) {
+        const c = document.getElementById('az-riesgos-container');
+        if (c) c.innerHTML = '<div class="loading">Error: ' + err.message + '</div>';
+      })
+      .obtenerRiesgosAzureDevOps(!!forzarRefresh);
+  }
+
+  // ---------- Oportunidades (Azure DevOps, tipo "Opportunity") ----------
+
+  function cargarOportunidadesAzureDevOps(forzarRefresh) {
+    const cont = document.getElementById('az-oportunidades-container');
+    if (!cont) return;
+    cont.innerHTML = '<div class="loading">Cargando oportunidades...</div>';
+
+    google.script.run
+      .withSuccessHandler(function (res) {
+        const c = document.getElementById('az-oportunidades-container');
+        if (!c) return;
+        if (!res || !res.ok) { c.innerHTML = '<div class="loading">Error: ' + (res ? res.error : '') + '</div>'; return; }
+        if (res.sinPAT) { c.innerHTML = '<div class="loading">Conecta Azure DevOps para ver oportunidades.</div>'; return; }
+        if (!res.items.length) { c.innerHTML = '<div class="loading">Sin oportunidades detectadas.</div>'; return; }
+
+        c.innerHTML = res.items.map(function (o) {
+          return '<div class="alert-item">' +
+            '<span class="badge badge-activo">' + _escaparHtmlAz(o.estado || '—') + '</span>' +
+            '<a href="' + o.url + '" target="_top" style="flex:1;color:inherit;text-decoration:none;">' + _escaparHtmlAz(o.titulo) + '</a>' +
+            '</div>';
+        }).join('');
+      })
+      .withFailureHandler(function (err) {
+        const c = document.getElementById('az-oportunidades-container');
+        if (c) c.innerHTML = '<div class="loading">Error: ' + err.message + '</div>';
+      })
+      .obtenerOportunidadesAzureDevOps(!!forzarRefresh);
+  }
+
+  // ---------- Pendientes (hoja Sheets propia) ----------
+
+  function cargarPendientesDaily(filtroProyecto) {
+    const cont = document.getElementById('pendientes-daily-container');
+    if (!cont) return;
+    cont.innerHTML = '<div class="loading">Cargando pendientes...</div>';
+
+    google.script.run
+      .withSuccessHandler(function (res) {
+        const c = document.getElementById('pendientes-daily-container');
+        if (!c) return;
+        if (!res || !res.ok) { c.innerHTML = '<div class="loading">Error: ' + (res ? res.error : '') + '</div>'; return; }
+        if (!res.pendientes.length) { c.innerHTML = '<div class="loading">Sin pendientes abiertos 🎉</div>'; return; }
+
+        const filas = res.pendientes.map(function (p) {
+          const badgeClass = p.prioridad === 'Alta' ? 'badge-alto' : (p.prioridad === 'Baja' ? 'badge-bajo' : 'badge-medio');
+          return '<tr>' +
+            '<td>' + _escaparHtmlAz(p.descripcion) + '</td>' +
+            '<td>' + _escaparHtmlAz(p.proyecto) + '</td>' +
+            '<td>' + _escaparHtmlAz(p.responsable) + '</td>' +
+            '<td><span class="badge ' + badgeClass + '">' + p.prioridad + '</span></td>' +
+            '<td><button class="btn" style="padding:3px 8px;font-size:11px;" onclick="completarPendienteDailyUI(\'' + p.id + '\')">✓ Listo</button></td>' +
+            '</tr>';
+        }).join('');
+
+        c.innerHTML = '<table class="data-table">' +
+          '<thead><tr><th>Pendiente</th><th>Proyecto</th><th>Responsable</th><th>Prioridad</th><th></th></tr></thead>' +
+          '<tbody>' + filas + '</tbody></table>';
+      })
+      .withFailureHandler(function (err) {
+        const c = document.getElementById('pendientes-daily-container');
+        if (c) c.innerHTML = '<div class="loading">Error: ' + err.message + '</div>';
+      })
+      .obtenerPendientesDaily(filtroProyecto || null);
+  }
+
+  function completarPendienteDailyUI(id) {
+    google.script.run
+      .withSuccessHandler(function (res) { if (res && res.ok) cargarPendientesDaily(); })
+      .actualizarEstadoPendienteDaily(id, 'Completado');
+  }
+
+  function agregarPendienteDailyUI(descripcion, proyecto, responsable, prioridad, fechaLimiteISO) {
+    google.script.run
+      .withSuccessHandler(function (res) {
+        if (res && res.ok) cargarPendientesDaily();
+        else alert('Error al guardar: ' + (res ? res.error : 'desconocido'));
+      })
+      .agregarPendienteDaily(descripcion, proyecto, responsable, prioridad, fechaLimiteISO);
+  }
+
+  // ---------- Formulario "+ Nuevo" de la tarjeta Pendientes ----------
+
+  function _guardarNuevoPendienteDesdeForm() {
+    const descripcion = document.getElementById('np-descripcion').value.trim();
+    const proyecto = document.getElementById('np-proyecto').value.trim();
+    const responsable = document.getElementById('np-responsable').value.trim();
+    const prioridad = document.getElementById('np-prioridad').value;
+
+    if (!descripcion) { alert('Escribe una descripción.'); return; }
+
+    agregarPendienteDailyUI(descripcion, proyecto, responsable, prioridad, null);
+    document.getElementById('form-nuevo-pendiente').style.display = 'none';
+    document.getElementById('np-descripcion').value = '';
+    document.getElementById('np-proyecto').value = '';
+    document.getElementById('np-responsable').value = '';
+  }
+
+  // ---------- KPIs de la cabecera de la vista Daily ----------
+  // Cuenta filas ya renderizadas en cada tarjeta tras un pequeño delay
+  // (da tiempo a que las 4 llamadas async de arriba terminen de pintar).
+
+  function actualizarKpisDaily() {
+    setTimeout(function () {
+      const wi = document.querySelectorAll('#az-workitems-container tbody tr').length;
+      const rg = document.querySelectorAll('#az-riesgos-container .alert-item').length;
+      const op = document.querySelectorAll('#az-oportunidades-container .alert-item').length;
+      const pd = document.querySelectorAll('#pendientes-daily-container tbody tr').length;
+      document.getElementById('kpi-workitems-count').textContent = wi;
+      document.getElementById('kpi-riesgos-count').textContent = rg;
+      document.getElementById('kpi-oportunidades-count').textContent = op;
+      document.getElementById('kpi-pendientes-count').textContent = pd;
+    }, 1200);
+  }
+
+  // ---------- Init general: llama las 4 cargas + KPIs de un jalón ----------
+  // Llama esto desde tu nav-item de "Daily" al mostrar la vista.
+  function inicializarPanelDaily() {
+    cargarWorkItemsAzureDevOps();
+    cargarRiesgosAzureDevOps();
+    cargarOportunidadesAzureDevOps();
+    cargarPendientesDaily();
+    actualizarKpisDaily();
+  }
+</script>

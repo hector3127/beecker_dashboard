@@ -1,0 +1,153 @@
+<style>
+.ci-overlay{position:relative;inset:auto;z-index:auto;background:#f5f4fc;color:#17143e;overflow:auto;font-family:inherit}.ci-wrap{padding:24px;min-width:0}.ci-head{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}.ci-title{display:flex;gap:12px;align-items:center}.ci-title h2{margin:0;font-size:25px}.ci-muted{color:#767593;font-size:12px;line-height:1.5}.ci-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:20px 0 14px}.ci-overlay button,.ci-overlay input,.ci-overlay select{font:inherit;font-size:12px}.ci-btn{padding:10px 14px;background:white;border:1px solid #dfdcf7;border-radius:9px;color:#5421cc;font-weight:700;cursor:pointer}.ci-btn.primary{background:linear-gradient(110deg,#4720c4,#8025ea);color:white;border:0}.ci-overlay input,.ci-overlay select{padding:9px 11px;background:white;border:1px solid #dfdcf7;border-radius:8px;min-height:36px;box-sizing:border-box;color:#282247}.ci-toolbar label{font-size:11px;display:grid;gap:4px;color:#74708e}.ci-toolbar .ci-search{flex:1;min-width:180px;max-width:330px}.ci-kpis{display:grid;grid-template-columns:repeat(5,minmax(140px,1fr));gap:12px;margin:15px 0}.ci-card{background:white;border:1px solid #e4e0f7;border-radius:13px;padding:17px}.ci-stat{display:flex;gap:10px;align-items:center}.ci-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:#eee8ff;color:#6829ec;flex:none}.ci-icon svg{width:24px;height:24px}.ci-stat strong{font-size:23px;display:block;margin:4px 0}.ci-stat small{font-size:11px;color:#716d8b}.ci-kpis .ci-card:nth-child(2) .ci-icon{background:#e5f7ee;color:#14a271}.ci-kpis .ci-card:nth-child(3) .ci-icon{background:#e8f1ff;color:#287cf8}.ci-kpis .ci-card:nth-child(4) .ci-icon{background:#e6f8ee;color:#17a675}.ci-kpis .ci-card:nth-child(5) .ci-icon{background:#ffe8ec;color:#f13564}.ci-pills{display:flex;gap:6px;flex-wrap:wrap}.ci-pill{padding:4px 7px;border-radius:11px;font-size:10px;display:inline-block;white-space:nowrap;background:#eee9ff;color:#6030c8}.ci-pill.green{background:#e2f8ec;color:#078658}.ci-pill.red{background:#ffe5eb;color:#d42953}.ci-pill.blue{background:#e7efff;color:#2579e7}.ci-pill.grey{background:#eeeef5;color:#6d6c86}.ci-matrix{overflow:auto;max-height:62vh;border:1px solid #e0ddf5;border-radius:11px;background:white}.ci-table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:11px}.ci-table th,.ci-table td{border-bottom:1px solid #eeecf8;border-right:1px solid #eeecf8;padding:9px 10px;text-align:left;max-width:210px}.ci-table th{position:sticky;top:0;z-index:2;background:#f0ebff;color:#3a2773;font-size:10px;white-space:nowrap}.ci-table td:first-child,.ci-table th:first-child{position:sticky;left:0;background:#fff;z-index:1;min-width:190px;max-width:230px}.ci-table th:first-child{background:#f0ebff;z-index:3}.ci-table td:first-child b{display:block;white-space:normal}.ci-table tbody tr:hover td{background:#faf8ff}.ci-table .ci-day-head{height:88px;width:28px;text-align:center;padding:8px 4px}.ci-day-head span{writing-mode:vertical-rl;transform:rotate(180deg);display:inline-block}.ci-table .ci-day{text-align:center;padding:7px 4px;min-width:32px;color:#526585;background:#eaf3ff;font-variant-numeric:tabular-nums}.ci-table .ci-day.off{background:#fff;color:#c6c3d5}.ci-table .ci-day.over{background:#ffe3e9;color:#d62953;font-weight:700}.ci-table .ci-day.pending{background:#fff6df;color:#b98217}.ci-section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}.ci-section-head h3{margin:0;font-size:15px}.ci-alert{padding:11px 14px;background:#fff5e2;border:1px solid #ffdf9b;border-radius:10px;font-size:12px;line-height:1.5;margin:12px 0;color:#956718}.ci-error{color:#c82b4d}.ci-foot{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}.ci-info{padding:12px 14px;margin-top:16px;background:#eeeafa;border-radius:10px;font-size:11px;line-height:1.6;color:#665b8b}.ci-resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}.ci-resource{padding:12px;border:1px solid #e4e0f5;border-radius:10px;background:#fff}.ci-bar{height:6px;background:#e9e5f6;border-radius:6px;margin-top:10px;overflow:hidden}.ci-bar i{display:block;height:100%;background:#6830e9}.ci-hide{display:none}@media(max-width:900px){.ci-kpis{grid-template-columns:repeat(2,1fr)}.ci-wrap{padding:14px}.ci-title h2{font-size:21px}}
+
+.ci-overlay{background:radial-gradient(ellipse at 20% 0%,#efebff 0,transparent 45%),#f7f6fd}.ci-wrap{padding:24px 30px}.ci-title h2{font-size:30px;font-weight:800;letter-spacing:-.5px}.ci-title>.ci-icon{width:56px;height:56px;border-radius:16px}.ci-title>.ci-icon svg{width:32px;height:32px}.ci-title .ci-muted{font-size:14px}.ci-tabs{display:flex;gap:10px;padding:14px 0;margin:0 0 12px;border-bottom:1px solid #e6e1f6;font-family:inherit}.ci-tabs button{display:inline-flex;gap:8px;align-items:center;justify-content:center;min-width:135px;border:0;border-radius:12px;background:#efecfb;color:#22184e;padding:14px 20px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.ci-tabs button.active{background:linear-gradient(110deg,#4821cc,#7926e8);color:white}.ci-tabs svg{width:18px;height:18px}.ci-filter-card{margin-top:20px;background:rgba(255,255,255,.9);border:1px solid #eee9ff;border-radius:20px;padding:24px;box-shadow:0 8px 25px #4720c408}.ci-toolbar{display:grid;grid-template-columns:1.15fr .7fr 2fr 1.1fr 1.1fr auto auto;gap:16px;margin:0;align-items:end}.ci-toolbar label{font-size:12px;gap:9px;min-width:0}.ci-field{display:flex;align-items:center;background:#fff;border:1px solid #dfdcf7;border-radius:9px;padding:0 12px;height:45px;gap:9px}.ci-field svg{width:18px;height:18px;color:#8b86a7;flex:none}.ci-field input,.ci-field select{border:0;background:transparent;width:100%;min-width:0;padding:8px 0;outline:none;font-size:12px}.ci-toolbar .ci-btn{height:45px;white-space:nowrap;display:flex;align-items:center;gap:7px;justify-content:center}.ci-toolbar .ci-btn svg{width:17px;height:17px}.ci-sourcebar{display:flex;align-items:center;flex-wrap:wrap;gap:12px;border-top:1px solid #ebe7f8;padding-top:18px;margin-top:22px}.ci-sourcechip{background:#f3efff;border-radius:11px;padding:9px 13px;display:flex;align-items:center;gap:7px;color:#73678f;font-size:12px}.ci-sourcechip:first-child{color:#6025e9;font-weight:700}.ci-sourcechip svg{width:17px;height:17px}.ci-sourcebar #ci-status{flex-basis:100%;font-size:11px}.ci-btn:focus-visible,.ci-tabs button:focus-visible{outline:2px solid #7831eb;outline-offset:3px}@media(max-width:1400px){.ci-toolbar{grid-template-columns:1fr .7fr 1.8fr 1fr}.ci-toolbar label:nth-child(5){grid-column:auto}}@media(max-width:800px){.ci-toolbar{grid-template-columns:1fr 1fr}.ci-toolbar label:nth-child(3){grid-column:1/-1}.ci-wrap{padding:15px}.ci-title h2{font-size:23px}}
+.ci-executive-kpis{border:1px solid #e5def8;border-radius:17px;padding:16px;background:rgba(255,255,255,.65);margin:0 0 18px}.ci-executive-kpis>.ci-tabs{margin:0 0 16px;padding:0 0 14px}.ci-executive-kpis>#kpi-grid{margin-top:0}
+
+/* Filtros en una sola fila, como la referencia. */
+.ci-toolbar{grid-template-columns:minmax(150px,1.1fr) minmax(90px,.6fr) minmax(210px,2fr) minmax(145px,1.05fr) minmax(145px,1.05fr) max-content max-content;gap:12px;align-items:end}
+.ci-toolbar>label{grid-column:auto!important;font-size:11px;white-space:nowrap}
+.ci-toolbar>.ci-btn{width:auto;min-width:0;padding:0 12px;font-size:11px;height:45px}
+.ci-field{height:45px;padding:0 10px;gap:8px}.ci-field input,.ci-field select{font-size:11px}.ci-filter-card{padding:20px}.ci-toolbar>label:nth-child(2) input{width:100%}
+@media(max-width:1100px){.ci-toolbar{grid-template-columns:150px 90px minmax(210px,1.5fr) 145px 145px max-content max-content;min-width:1060px}.ci-filter-card{overflow-x:auto}}
+.ci-executive-only{display:none!important}.ci-executive-kpis{min-width:0;overflow:hidden}.ci-overlay{min-width:0;overflow:visible;background:transparent}.ci-wrap{padding:8px 0 0;min-width:0}.ci-toolbar label:first-child{min-width:0}.ci-field{box-sizing:border-box;min-width:0}.ci-field input[type=month]{min-width:0}.ci-filter-card{max-width:100%;box-sizing:border-box}
+</style>
+<script>
+(function(){
+  'use strict';
+  const st={mes:'',base:null,meta:new Map(),request:0,q:'',tecnologia:'',concepto:'',jornada:8,view:'matrix',page:1,size:30,busy:false,progreso:''};
+  const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const fmt=n=>Number(n||0).toLocaleString('es-MX',{maximumFractionDigits:2});
+  const date=d=>d?d.slice(8,10)+'/'+d.slice(5,7)+'/'+d.slice(0,4):'—';
+  const icon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V11m5 9V6m5 14V9m5 11V3" stroke-linecap="round"/></svg>';
+  const key=f=>f.idProyecto+'|'+f.iteration;
+  function days(month){const [y,m]=month.split('-').map(Number),out=[];for(let d=new Date(Date.UTC(y,m-1,1));d.getUTCMonth()===m-1;d.setUTCDate(d.getUTCDate()+1)){if(d.getUTCDay()!==0&&d.getUTCDay()!==6)out.push(d.toISOString().slice(0,10));}return out;}
+  function workdays(a,b){if(!a||!b||a>b)return 0;let n=0;for(let d=new Date(a+'T12:00:00Z'),end=new Date(b+'T12:00:00Z');d<=end;d.setUTCDate(d.getUTCDate()+1)){if(d.getUTCDay()!==0&&d.getUTCDay()!==6)n++;}return n;}
+  function computed(){
+    const d=days(st.mes),all=[],people=new Map();
+    (st.base&&st.base.filas||[]).forEach(f=>{
+      const last=new Date(Date.UTC(Number(st.mes.slice(0,4)),Number(st.mes.slice(5)),0)).toISOString().slice(0,10);
+      const meta=f.idProyecto?st.meta.get(key(f)):{ok:true,inicio:st.mes+'-01',fin:last};
+      if(f.idProyecto&&meta&&(meta.fueraMes||(meta.inicio&&meta.fin&&(meta.fin<st.mes+'-01'||meta.inicio>last))))return;
+      const per=null;
+      const status=!meta?'Consultando Clockify':!meta.ok?meta.error:!f.regla?'Concepto sin regla':null;
+      const values=d.map(day=>!f.idProyecto?0:meta&&meta.ok?Number((meta.daily[norm(f.recurso)]||{})[day]||0):null);
+      const total=values.reduce((n,v)=>n+(v||0),0);
+      const x=Object.assign({},f,{inicio:meta&&meta.inicio,fin:meta&&meta.fin,values,total,status,per});all.push(x);
+      const k=norm(f.recurso).trim();if(!people.has(k))people.set(k,{nombre:f.recurso,tecnologia:f.tecnologia,banda:f.banda,values:d.map(()=>0),total:0,fact:0,carg:0,unknown:false});
+      const p=people.get(k);if(status)p.unknown=true;
+      if(f.regla&&f.regla.afecta){values.forEach((v,i)=>p.values[i]+=v||0);p.total+=total;}
+      if(f.regla&&f.regla.facturable==='Facturable')p.fact+=total;
+      if(f.regla&&f.regla.cargabilidad==='Cargable')p.carg+=total;
+    });
+    (st.base.personas||[]).forEach(p=>{const k=norm(p.nombre).trim();if(people.has(k))return;
+      people.set(k,{nombre:p.nombre,tecnologia:p.rol,banda:p.banda,values:d.map(()=>0),total:0,fact:0,carg:0,unknown:false});
+      all.push({uid:'LIBRE-'+k,recurso:p.nombre,tecnologia:p.rol,banda:p.banda,concepto:'Sin Asignación',regla:{facturable:'No Facturable',cargabilidad:'No Cargable',capacidad:'Afecta Capacidad',afecta:true},idProyecto:'',proyecto:'Sin asignación en el mes',values:d.map(()=>0),total:0,per:null,status:null});
+    });
+    const available=Array.from(people.values()).reduce((n,p)=>n+p.values.reduce((s,v)=>s+Math.max(0,st.jornada-v),0),0);
+    return {days:d,all,people:Array.from(people.values()),available};
+  }
+  window.ciAbrir=function(){
+    if(document.getElementById('ci-panel'))return;
+    const panel=document.createElement('section');panel.id='ci-panel';panel.className='ci-overlay';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-label','Capacidad instalada');
+    const svg=(path)=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">'+path+'</svg>';
+    const calendar=svg('<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4m8-4v4M4 10h16"/>');
+    const clock=svg('<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>');
+    const search=svg('<circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/>');
+    const layers=svg('<path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/>');
+    const field=(label,ico,control)=>'<label>'+label+'<span class="ci-field">'+ico+control+'</span></label>';
+    panel.innerHTML='<div class="ci-wrap"><div class="ci-head"><div class="ci-title"><span class="ci-icon">'+icon+'</span><div><h2>Capacidad instalada</h2><div class="ci-muted">Horas reales del equipo · Recursos + MPB/Azure + Clockify + Bandas/rol</div></div></div><button type="button" class="ci-btn" onclick="ciCerrar()">← Volver al ejecutivo</button></div><div class="ci-filter-card"><div class="ci-toolbar">'+
+    field('Mes',calendar,'<input type="month" id="ci-month" onchange="ciMes(this.value)">')+
+    field('Jornada diaria (h)',clock,'<input id="ci-jornada" type="number" min="1" max="24" step="0.5" value="'+st.jornada+'" onchange="ciJornada(this.value)">')+
+    field('Buscar recurso, proyecto o manager…',search,'<input id="ci-search" placeholder="Buscar recurso, proyecto o manager…" oninput="ciFiltro(\'q\',this.value)">')+
+    field('Tecnologías',layers,'<select id="ci-role" onchange="ciFiltro(\'tecnologia\',this.value)"><option value="">Todas las tecnologías</option></select>')+
+    field('Conceptos',layers,'<select id="ci-concept" onchange="ciFiltro(\'concepto\',this.value)"><option value="">Todos los conceptos</option></select>')+
+    '<button class="ci-btn" onclick="ciRefrescar()">↻ Actualizar datos</button><button class="ci-btn primary" onclick="ciExportar()">↓ Exportar CSV</button></div><div class="ci-sourcebar"><span class="ci-sourcechip" id="ci-monthchip">'+calendar+'Mes</span><span class="ci-sourcechip">'+layers+'Recursos + Bandas/rol</span><span>+</span><span class="ci-sourcechip">'+layers+'MPB / Azure DevOps</span><span>+</span><span class="ci-sourcechip">'+clock+'Clockify</span><span class="ci-sourcechip" id="ci-bandchip">'+layers+'Banda</span><div id="ci-status">Leyendo asignaciones…</div></div></div><div id="ci-content"></div></div>';
+    attach();const host=document.getElementById('ci-executive-kpis');if(!host)return;host.appendChild(panel);ciSepararContenido(true);document.getElementById('kpi-grid').hidden=true;document.getElementById('kpi-grid').style.display='none';document.getElementById('ci-general-tabs').innerHTML=tabs(true);const now=new Date();if(!st.mes)st.mes=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');document.getElementById('ci-month').value=st.mes;load(false);
+  };
+  window.ciCerrar=function(){ciSepararContenido(false);st.request++;document.getElementById('ci-panel')?.remove();const grid=document.getElementById('kpi-grid');if(grid){grid.hidden=false;grid.style.removeProperty('display');}const nav=document.getElementById('ci-general-tabs');if(nav){nav.innerHTML=tabs(false);nav.querySelector('button')?.focus();}};
+  window.ciMes=function(m){if(!/^\d{4}-\d{2}$/.test(m))return;st.mes=m;st.page=1;load(false);};
+  window.ciJornada=function(v){const n=Number(v);if(n>=1&&n<=24){st.jornada=n;paint();}};
+  window.ciFiltro=function(k,v){st[k]=v;st.page=1;paint();};
+  window.ciVista=function(v){st.view=v;st.page=1;paint();};
+  window.ciPagina=function(delta){st.page=Math.max(1,st.page+delta);paint();};
+  window.ciRefrescar=function(){load(true);};
+  function message(s,error){const e=document.getElementById('ci-status');if(e){e.textContent=s;e.classList.toggle('ci-error',!!error);}}
+  function load(force){
+    const token=++st.request;st.busy=true;message('Leyendo Recursos y Bandas/rol…');
+    google.script.run.withSuccessHandler(r=>{
+      if(token!==st.request)return;st.busy=false;if(!r||!r.ok){message(r&&r.error||'No se pudieron leer las hojas.',true);return;}
+      st.base=r;st.mes=r.mes;document.getElementById('ci-monthchip').textContent='▣ Mes '+r.mes;document.getElementById('ci-bandchip').textContent='◇ Banda: '+(r.bandaColumna||'NA');document.getElementById('ci-month').value=r.mes;
+      ['tecnologia','concepto'].forEach(k=>{const el=document.getElementById(k==='tecnologia'?'ci-role':'ci-concept');el.innerHTML='<option value="">'+(k==='tecnologia'?'Todas las tecnologías':'Todos los conceptos')+'</option>'+Array.from(new Set(r.filas.map(f=>f[k]).filter(Boolean))).sort().map(v=>'<option value="'+esc(v)+'">'+esc(v)+'</option>').join('');el.value=st[k];});
+      paint();loadDates(force,token);
+    }).withFailureHandler(e=>{if(token!==st.request)return;st.busy=false;message(e.message||String(e),true);}).capacidadInstaladaBase(st.mes);
+  }
+  function loadDates(force,token){
+    const queue=Array.from(new Map(st.base.filas.filter(f=>f.idProyecto).map(f=>[key(f),f])).values()).filter(f=>force||!st.meta.has(key(f))||st.meta.get(key(f)).mes!==st.mes||!st.meta.get(key(f)).ok);
+    let next=0,completed=0,active=0;
+    function pump(){
+      if(token!==st.request)return;
+      message(queue.length?'MPB/Azure + Clockify: '+completed+' / '+queue.length+' proyectos consultados':'Datos disponibles · '+st.base.filas.length+' asignaciones');
+      while(active<2&&next<queue.length){const f=queue[next++];active++;google.script.run.withSuccessHandler(r=>finish(f,r)).withFailureHandler(e=>finish(f,{ok:false,error:e.message||String(e)})).capacidadInstaladaDatosProyecto(f.idProyecto,f.iteration,st.mes,force);}
+      if(!active&&completed===queue.length){st.busy=false;paint();message('Mes '+st.mes+' · '+st.base.fuentes.join(' + ')+' + Clockify'+' · Banda: '+(st.base.bandaColumna||'NA'));}
+    }
+    function finish(f,r){if(token!==st.request)return;active--;completed++;st.meta.set(key(f),Object.assign({mes:st.mes},r||{ok:false,error:'Clockify no devolvió datos'}));paint();pump();}
+    st.busy=queue.length>0;pump();
+  }
+  function selected(rows){return rows.filter(x=>(!st.tecnologia||x.tecnologia===st.tecnologia)&&(!st.concepto||x.concepto===st.concepto)&&(!st.q||norm([x.recurso,x.idProyecto,x.proyecto,x.manager,x.rol,x.banda].join(' ')).includes(norm(st.q))));}
+  function paint(){
+    const box=document.getElementById('ci-content');if(!box||!st.base)return;
+    const data=computed(),rows=selected(data.all),capacity=data.people.length*data.days.length*st.jornada;
+    const pending=data.all.filter(x=>x.status).length,over=data.people.filter(p=>p.values.some(v=>v>st.jornada+0.001)).length;
+    const fact=data.all.filter(x=>x.regla&&x.regla.facturable==='Facturable').reduce((s,x)=>s+x.total,0),carg=data.all.filter(x=>x.regla&&x.regla.cargabilidad==='Cargable').reduce((s,x)=>s+x.total,0);
+    const stats=[['Recursos',data.people.length,'Personas únicas del mes'],['Capacidad base',fmt(capacity)+' h',data.days.length+' días × '+st.jornada+' h'],['Horas facturables',fmt(fact)+' h','Cargables: '+fmt(carg)+' h'],['Capacidad disponible',pending?'Pendiente':fmt(data.available)+' h',pending?'Hay asignaciones pendientes':'Suma diaria por persona'],['Sobre jornada',over,'Más de '+st.jornada+' h en algún día']];
+    box.innerHTML='<div class="ci-kpis">'+stats.map(x=>'<div class="ci-card ci-stat"><span class="ci-icon">'+icon+'</span><div><small>'+esc(x[0])+'</small><strong>'+esc(x[1])+'</strong><small>'+esc(x[2])+'</small></div></div>').join('')+'</div>'+
+      (st.base.bandasAviso?'<div class="ci-alert">'+esc(st.base.bandasAviso)+'</div>':'')+
+      (pending?'<div class="ci-alert">'+pending+' asignación(es) requieren completar fechas, horas o concepto. Las celdas pendientes se muestran con «—». Los totales de horas son parciales hasta resolverlas.</div>':'')+
+      '<div class="ci-card"><div class="ci-section-head"><h3>Asignación del mes · '+esc(st.mes)+'</h3><div class="ci-pills"><button class="ci-btn '+(st.view==='matrix'?'primary':'')+'" onclick="ciVista(\'matrix\')">Matriz de asignaciones</button><button class="ci-btn '+(st.view==='people'?'primary':'')+'" onclick="ciVista(\'people\')">Capacidad por recurso</button></div></div>'+(st.view==='matrix'?matrix(rows,data):resources(data))+'</div>'+
+      '<div class="ci-info"><b>Cálculo:</b> horas reales registradas en Clockify por persona, proyecto y día del mes seleccionado. No se reparten horas estimadas. La capacidad disponible suma por persona y día: máximo de 0 y (jornada − horas que afectan capacidad). Los excedentes se resaltan en rojo. Las fechas se incluyen completas y los nombres de banda/tecnología se cruzan por nombre normalizado. Fines de semana excluidos; no se descuentan festivos sin calendario. <b>Los indicadores superiores corresponden al mes completo; los filtros actúan sobre la tabla.</b></div>';
+  }
+  function matrix(rows,data){
+    const pages=Math.max(1,Math.ceil(rows.length/st.size));st.page=Math.min(st.page,pages);const shown=rows.slice((st.page-1)*st.size,st.page*st.size);
+    const headings=['Recurso','Banda','Conceptos','Facturable','Cargabilidad','Capacidad Disponible','Tecnología','Delivery Manager','ID Proyecto','Proyecto','Inicio','Fin','Total mes'];
+    const pill=(v,c)=>'<span class="ci-pill '+c+'">'+esc(v||'NA')+'</span>';
+    return '<div class="ci-matrix"><table class="ci-table"><thead><tr>'+headings.map(h=>'<th>'+h+'</th>').join('')+data.days.map(d=>'<th class="ci-day-head"><span>'+date(d)+'</span></th>').join('')+'</tr></thead><tbody>'+shown.map(f=>'<tr><td><b>'+esc(f.recurso)+'</b>'+(f.status?'<small class="ci-muted">'+esc(f.status)+'</small>':'')+'</td><td>'+pill(f.banda,'')+'</td><td>'+pill(f.concepto,'')+'</td><td>'+pill(f.regla&&f.regla.facturable,f.regla&&f.regla.facturable==='Facturable'?'green':'grey')+'</td><td>'+pill(f.regla&&f.regla.cargabilidad,f.regla&&f.regla.cargabilidad==='Cargable'?'blue':'grey')+'</td><td>'+pill(f.regla&&f.regla.capacidad,'')+'</td><td>'+esc(f.tecnologia||'—')+'</td><td>'+esc(f.manager||'—')+'</td><td>'+esc(f.idProyecto||'—')+'</td><td>'+esc(f.proyecto||'—')+'</td><td>'+date(f.inicio)+'</td><td>'+date(f.fin)+'</td><td><b>'+fmt(f.total)+'</b></td>'+f.values.map((v,i)=>{const p=data.people.find(p=>norm(p.nombre).trim()===norm(f.recurso).trim());return '<td class="ci-day '+(v==null?'pending':!v?'off':p&&p.values[i]>st.jornada+0.001?'over':'')+'">'+(v==null?'—':v?fmt(v):'')+'</td>';}).join('')+'</tr>').join('')+'</tbody></table></div><div class="ci-foot"><small class="ci-muted">'+rows.length+' asignaciones · Página '+st.page+' de '+pages+' · '+st.size+' filas por página</small><div><button class="ci-btn" onclick="ciPagina(-1)" '+(st.page===1?'disabled':'')+'>← Anterior</button> <button class="ci-btn" onclick="ciPagina(1)" '+(st.page===pages?'disabled':'')+'>Siguiente →</button></div></div>';
+  }
+  function resources(data){return '<div class="ci-resource-grid">'+data.people.filter(p=>(!st.tecnologia||p.tecnologia===st.tecnologia)&&(!st.q||norm(p.nombre+' '+p.tecnologia).includes(norm(st.q)))).map(p=>{const base=data.days.length*st.jornada,used=p.total,free=p.values.reduce((n,v)=>n+Math.max(0,st.jornada-v),0),over=p.values.some(v=>v>st.jornada+0.001);return '<div class="ci-resource"><b>'+esc(p.nombre)+'</b><div class="ci-muted">'+esc(p.tecnologia||'NA')+' · '+esc(p.banda)+'</div><div class="ci-pills" style="margin-top:9px"><span class="ci-pill '+(over?'red':'green')+'">'+(p.unknown?'Pendiente de datos':over?'Sobre jornada':'Dentro de capacidad')+'</span></div><div class="ci-muted" style="margin-top:9px">Registradas: '+fmt(used)+' h · Base: '+fmt(base)+' h<br>Disponibles: '+(p.unknown?'—':fmt(free)+' h')+'</div><div class="ci-bar"><i style="width:'+Math.min(100,base?used/base*100:0)+'%;background:'+(over?'#f13564':'#6734df')+'"></i></div></div>';}).join('')+'</div>';}
+  window.ciExportar=function(){if(!st.base)return;const data=computed(),rows=selected(data.all),head=['RECURSO','Banda','Conceptos','Facturable','Cargabilidad','Capacidad Disponible','Tecnología','Delivery Manager','ID Proyecto','Proyecto','Inicio','Fin','Total mes',...data.days.map(date)],csv=[head,...rows.map(f=>[f.recurso,f.banda,f.concepto,f.regla&&f.regla.facturable,f.regla&&f.regla.cargabilidad,f.regla&&f.regla.capacidad,f.tecnologia,f.manager,f.idProyecto,f.proyecto,f.inicio,f.fin,f.total,...f.values])].map(row=>row.map(v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Capacidad_instalada_'+st.mes+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+  function tabs(capacity){return '<nav class="ci-tabs" aria-label="Vistas del ejecutivo"><button type="button" class="'+(!capacity?'active':'')+'" onclick="ciCerrar()">'+icon+' Ejecutivo</button><button type="button" class="'+(capacity?'active':'')+'" onclick="ciAbrir()">'+icon+' Capacidad instalada</button></nav>';}
+  function ciSepararContenido(capacity){
+    const host=document.getElementById('ci-executive-kpis');
+    const root=document.getElementById('dashboard-general')||document.getElementById('view-container');
+    document.querySelectorAll('.ci-executive-only').forEach(el=>el.classList.remove('ci-executive-only'));
+    if(!capacity||!host||!root)return;
+    // Todo el contenido ejecutivo posterior pertenece a la pestaña Ejecutivo.
+    let branch=host;
+    while(branch&&branch!==root&&root.contains(branch)){
+      let sibling=branch.nextElementSibling;
+      while(sibling){sibling.classList.add('ci-executive-only');sibling=sibling.nextElementSibling;}
+      branch=branch.parentElement;
+    }
+  }
+  function attach(){
+    const grid=document.getElementById('kpi-grid');
+    if(!grid)return;
+    document.getElementById('btn-capacidad-instalada')?.remove();
+    // El render del dashboard cambia grid.innerHTML: la navegación va en su contenedor.
+    let panel=document.getElementById('ci-executive-kpis');
+    if(!panel||!panel.contains(grid)){
+      panel=document.createElement('section');panel.id='ci-executive-kpis';
+      panel.className='ci-executive-kpis';
+      grid.before(panel);panel.appendChild(grid);
+    }
+    let nav=document.getElementById('ci-general-tabs');
+    if(!nav){nav=document.createElement('div');nav.id='ci-general-tabs';nav.innerHTML=tabs(false);}
+    nav.style.width='100%';nav.style.removeProperty('grid-column');
+    if(nav.parentElement!==panel||panel.firstElementChild!==nav)panel.prepend(nav);
+    if(document.getElementById('ci-panel'))ciSepararContenido(true);
+  }
+  new MutationObserver(attach).observe(document.body,{childList:true,subtree:true});attach();
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('ci-panel'))window.ciCerrar();});
+})();
+</script>

@@ -1,0 +1,3828 @@
+{
+ "NOW": "2026-10-03T18:30:00Z",
+ "API_KEY": "sk-test-aer",
+ "SHEETS": {
+  "Proyectos": [
+   [
+    "ID_Proyecto",
+    "Nombre",
+    "Servicio"
+   ],
+   [
+    "AER.CCO.008",
+    "OXXO",
+    "AER"
+   ],
+   [
+    "TYM.AMK.010",
+    "AMK",
+    "T&M"
+   ],
+   [
+    "IXB.002",
+    "Otro",
+    "IXB"
+   ]
+  ]
+ },
+ "DRIVE": {
+  "F1xxxxxxxxxxxx": {
+   "name": "Minutas Cliente",
+   "files": [
+    {
+     "id": "d1",
+     "name": "Minuta AER.CCO.008 semana 1",
+     "mime": "application/vnd.google-apps.document",
+     "modified": "2026-09-20T18:00:00Z",
+     "content": "Acuerdos:\n  revisar   pendientes del cliente\n\nAna entrega reporte."
+    },
+    {
+     "id": "t1",
+     "name": "Daily Scrum OXXO",
+     "mime": "text/plain",
+     "modified": "2026-09-25T18:00:00Z",
+     "content": "Daily: sin bloqueos. Beto revisa ambiente."
+    },
+    {
+     "id": "p1",
+     "name": "Minuta vieja.pdf",
+     "mime": "application/pdf",
+     "modified": "2026-08-01T18:00:00Z",
+     "content": ""
+    },
+    {
+     "id": "o1",
+     "name": "Otro archivo",
+     "mime": "application/vnd.google-apps.document",
+     "modified": "2026-09-01T18:00:00Z",
+     "content": "nada"
+    }
+   ],
+   "folders": [
+    "F2"
+   ]
+  },
+  "F2": {
+   "name": "AER.CCO.008 Sprint",
+   "files": [
+    {
+     "id": "d2",
+     "name": "Daily notas",
+     "mime": "application/vnd.google-apps.document",
+     "modified": "2026-09-25T18:00:00Z",
+     "content": "Notas del sprint."
+    }
+   ],
+   "folders": []
+  }
+ },
+ "RESPONSES": [
+  {
+   "status": 200,
+   "body": {
+    "content": [
+     {
+      "type": "text",
+      "text": "```json\n{\"resumen\":[\"El proyecto avanza 86%\",\"Sin riesgos nuevos\"],\"recomendaciones\":[{\"titulo\":\"Revisar capacidad\",\"detalle\":\"Ana tiene 8 h libres\",\"area\":\"Recursos\"},\"texto suelto\"],\"riesgo30d\":\"Medio\"}\n```"
+     }
+    ],
+    "usage": {
+     "input_tokens": 1234,
+     "output_tokens": 321
+    }
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "x"
+     },
+     {
+      "type": "text",
+      "text": "Respuesta breve sobre el proyecto."
+     }
+    ],
+    "usage": {
+     "input_tokens": 500,
+     "output_tokens": 200
+    }
+   }
+  },
+  {
+   "status": 401,
+   "body": {
+    "error": "invalid"
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "x"
+     },
+     {
+      "type": "text",
+      "text": "📄 Reporte | AER.CCO.008 – OXXO\n...minuta..."
+     }
+    ],
+    "usage": {
+     "input_tokens": 2000,
+     "output_tokens": 900
+    }
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "x"
+     },
+     {
+      "type": "text",
+      "text": "📄 Reporte desde carpeta"
+     }
+    ],
+    "usage": {
+     "input_tokens": 3000,
+     "output_tokens": 1000
+    }
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "content": [
+     {
+      "type": "thinking",
+      "thinking": "x"
+     },
+     {
+      "type": "text",
+      "text": "***Cliente:*** OXXO\n**Estatus actual:** En progreso"
+     }
+    ],
+    "usage": {
+     "input_tokens": 2500,
+     "output_tokens": 700
+    }
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "content": [
+     {
+      "type": "text",
+      "text": "No es JSON"
+     }
+    ],
+    "usage": {}
+   }
+  },
+  {
+   "status": 500,
+   "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+ ],
+ "OPERATIONS": [
+  [
+   "listarAccionesPartesAER",
+   [
+    "AER.CCO.008"
+   ]
+  ],
+  [
+   "guardarAccionParteAER",
+   [
+    "AER.CCO.008",
+    {
+     "accion": "Revisar ambiente",
+     "responsable": "Proveedor"
+    }
+   ]
+  ],
+  [
+   "guardarAccionParteAER",
+   [
+    "AER.CCO.008",
+    {
+     "accion": " Revisar ambiente QA ",
+     "responsable": "beecker",
+     "fechaLimite": "2026-10-10",
+     "estado": "en progreso",
+     "notas": "Con Ana"
+    }
+   ]
+  ],
+  [
+   "guardarAccionParteAER",
+   [
+    "AER.CCO.008",
+    {
+     "accion": "Aprobar UAT",
+     "responsable": "CLIENTE"
+    }
+   ]
+  ],
+  [
+   "guardarAccionParteAER",
+   [
+    "AER.CCO.008",
+    {
+     "accion": "Fecha mala",
+     "fechaLimite": "2026-02-30"
+    }
+   ]
+  ],
+  [
+   "guardarAccionParteAER",
+   [
+    "AER.CCO.008",
+    {
+     "uid": "uuid-1",
+     "accion": "Revisar ambiente QA y PRD",
+     "responsable": "Beecker",
+     "fechaLimite": "2026-10-08",
+     "proximaRevision": "2026-10-06",
+     "estado": "Detenido"
+    }
+   ]
+  ],
+  [
+   "guardarAccionParteAER",
+   [
+    "AER.CCO.008",
+    {
+     "uid": "nope",
+     "accion": "X"
+    }
+   ]
+  ],
+  [
+   "actualizarCampoAccionParteAER",
+   [
+    "AER.CCO.008",
+    "uuid-2",
+    "estado",
+    "completado"
+   ]
+  ],
+  [
+   "actualizarCampoAccionParteAER",
+   [
+    "AER.CCO.008",
+    "uuid-2",
+    "uid",
+    "x"
+   ]
+  ],
+  [
+   "actualizarCampoAccionParteAER",
+   [
+    "AER.CCO.008",
+    "uuid-2",
+    "accion",
+    "  "
+   ]
+  ],
+  [
+   "actualizarCampoAccionParteAER",
+   [
+    "AER.CCO.008",
+    "uuid-2",
+    "fechaLimite",
+    "2026-10-05"
+   ]
+  ],
+  [
+   "eliminarAccionParteAER",
+   [
+    "AER.CCO.008",
+    "nope"
+   ]
+  ],
+  [
+   "guardarAccionParteAER",
+   [
+    "AER.CCO.008",
+    {
+     "accion": "Tercera",
+     "responsable": "Cliente",
+     "fechaLimite": "2026-10-08"
+    }
+   ]
+  ],
+  [
+   "listarAccionesPartesAER",
+   [
+    "AER.CCO.008"
+   ]
+  ],
+  [
+   "listarAccionesPartesAER",
+   [
+    "IXB.002"
+   ]
+  ],
+  [
+   "listarAccionesPartesAER",
+   [
+    ""
+   ]
+  ],
+  [
+   "obtenerConfigCarpetaMinutasAER",
+   [
+    "AER.CCO.008"
+   ]
+  ],
+  [
+   "obtenerPromptMinutaDefectoAER",
+   [
+    "TYM.AMK.010"
+   ]
+  ],
+  [
+   "buscarMinutasCarpetaAER",
+   [
+    "AER.CCO.008"
+   ]
+  ],
+  [
+   "guardarConfigCarpetaMinutasAER",
+   [
+    "AER.CCO.008",
+    {
+     "folderUrl": "https://example.com/no"
+    }
+   ]
+  ],
+  [
+   "guardarConfigCarpetaMinutasAER",
+   [
+    "AER.CCO.008",
+    {
+     "folderUrl": "https://drive.google.com/drive/folders/F1xxxxxxxxxxxx",
+     "nombreBusqueda": "AE"
+    }
+   ]
+  ],
+  [
+   "guardarConfigCarpetaMinutasAER",
+   [
+    "AER.CCO.008",
+    {
+     "folderUrl": "https://drive.google.com/drive/folders/F1xxxxxxxxxxxx?resourcekey=abc",
+     "nombreFrecuente": "Minuta; Daily",
+     "promptMinuta": "  Plantilla corta {fecha}  "
+    }
+   ]
+  ],
+  [
+   "obtenerConfigCarpetaMinutasAER",
+   [
+    "AER.CCO.008"
+   ]
+  ],
+  [
+   "buscarMinutasCarpetaAER",
+   [
+    "AER.CCO.008"
+   ]
+  ],
+  [
+   "listarMinutasIAProyectoAER",
+   [
+    "AER.CCO.008"
+   ]
+  ],
+  [
+   "guardarMinutaIAProyectoAER",
+   [
+    "AER.CCO.008",
+    {
+     "tema": "",
+     "contenido": "x"
+    }
+   ]
+  ],
+  [
+   "guardarMinutaIAProyectoAER",
+   [
+    "AER.CCO.008",
+    {
+     "tema": "Daily 1",
+     "contenido": "Minuta previa: Ana revisa ambiente.",
+     "fecha": "2026-10-01"
+    }
+   ]
+  ],
+  [
+   "guardarMinutaIAProyectoAER",
+   [
+    "AER.CCO.008",
+    {
+     "tema": "Daily 2",
+     "contenido": "Segunda minuta."
+    }
+   ]
+  ],
+  [
+   "listarMinutasIAProyectoAER",
+   [
+    "AER.CCO.008"
+   ]
+  ],
+  [
+   "obtenerUltimoAnalisisProyectoAER",
+   [
+    "AER.CCO.008",
+    null
+   ]
+  ],
+  [
+   "analizarProyectoClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    false
+   ]
+  ],
+  [
+   "analizarProyectoClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    false
+   ]
+  ],
+  [
+   "obtenerUltimoAnalisisProyectoAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    }
+   ]
+  ],
+  [
+   "preguntarClaudeProyectoAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    "hola"
+   ]
+  ],
+  [
+   "preguntarClaudeProyectoAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    "¿Cuál es el riesgo principal del proyecto esta semana?"
+   ]
+  ],
+  [
+   "preguntarClaudeProyectoAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    "¿Cuál es el riesgo principal del proyecto esta semana?"
+   ]
+  ],
+  [
+   "redactarCorreoClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    "Correo al cliente para pedir accesos"
+   ]
+  ],
+  [
+   "generarBorradorMinutaClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    "Notas: Ana revisó ambiente; pendiente aprobar UAT."
+   ]
+  ],
+  [
+   "generarBorradorMinutaDesdeCarpetaClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    {
+     "ids": [
+      "d1",
+      "t1"
+     ],
+     "tema": "Daily",
+     "fecha": "03/10/2026",
+     "notas": "Resumir"
+    }
+   ]
+  ],
+  [
+   "generarBorradorMinutaDesdeCarpetaClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    {
+     "ids": [
+      "p1"
+     ]
+    }
+   ]
+  ],
+  [
+   "generarBorradorMinutaDesdeCarpetaClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    {
+     "ids": [
+      "d1",
+      "d1"
+     ]
+    }
+   ]
+  ],
+  [
+   "generarResumenEjecutivoClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    {
+     "ids": [
+      "d2"
+     ],
+     "instrucciones": "Enfatiza UAT"
+    }
+   ]
+  ],
+  [
+   "obtenerUltimoResumenEjecutivoAER",
+   [
+    "AER.CCO.008"
+   ]
+  ],
+  [
+   "generarResumenEjecutivoClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    {
+     "ids": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f"
+     ]
+    }
+   ]
+  ],
+  [
+   "analizarProyectoClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.OTRO",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    false
+   ]
+  ],
+  [
+   "analizarProyectoClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    true
+   ]
+  ],
+  [
+   "redactarCorreoClaudeAER",
+   [
+    "AER.CCO.008",
+    {
+     "id": "AER.CCO.008",
+     "fecha": "2026-10-03",
+     "n": "Célula OXXO – soporte evolutivo ñandú",
+     "cliente": "OXXO",
+     "etapa": "En progreso",
+     "k": {
+      "horas": 120.5,
+      "plan": 140,
+      "pct": 86.07
+     },
+     "p": [
+      {
+       "a": "Actividad 0 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "0.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "1.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 2 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "3.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 3 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "4.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 4 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "6.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 5 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "7.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 6 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "9.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 7 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "10.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "12.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 9 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "13.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 10 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "15.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 11 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "16.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 12 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "18.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 13 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "19.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 14 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "21.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 15 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "22.5",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "24.0",
+       "d": "detalle"
+      },
+      {
+       "a": "Actividad 17 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+       "r": "Ana López",
+       "f": "2026-10-10",
+       "e": "En progreso",
+       "z": "25.5",
+       "d": "detalle"
+      }
+     ],
+     "r": [
+      {
+       "a": "Riesgo de capacidad",
+       "i": "Alto",
+       "e": "Abierto",
+       "extra": "no se envía"
+      }
+     ],
+     "a": [
+      {
+       "a": "Acción 1",
+       "r": "Beto",
+       "f": "2026-10-04",
+       "e": "Pendiente"
+      }
+     ],
+     "v": [
+      {
+       "r": "Carla",
+       "i": "2026-10-12",
+       "f": "2026-10-14",
+       "e": "Aprobada"
+      }
+     ],
+     "c": [
+      {
+       "r": "Ana López",
+       "o": "8"
+      },
+      {
+       "r": "Beto",
+       "o": null
+      }
+     ],
+     "b": [
+      {
+       "a": "Entregar evidencia",
+       "o": "Cliente",
+       "f": "",
+       "e": "Pendiente",
+       "n": "😀 nota"
+      }
+     ]
+    },
+    "Otro correo distinto al anterior"
+   ]
+  ],
+  [
+   "eliminarAccionParteAER",
+   [
+    "AER.CCO.008",
+    "uuid-2"
+   ]
+  ],
+  [
+   "listarAccionesPartesAER",
+   [
+    "TYM.AMK.010"
+   ]
+  ]
+ ]
+}

@@ -1,0 +1,25 @@
+<!--
+  Reemplaza el bloque del campo "Proyecto" en tu modal (#modal-azure-devops)
+  por este, que usa un <select> poblado desde Azure DevOps en vez de texto libre.
+-->
+
+<label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Organización</label>
+<input type="text" id="az-input-org" placeholder="ej. Proyectos-BeeckerCo"
+  style="width:100%;padding:8px 10px;margin:4px 0 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+
+<label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Personal Access Token</label>
+<input type="password" id="az-input-pat" placeholder="Pega tu PAT aquí"
+  style="width:100%;padding:8px 10px;margin:4px 0 6px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+<div id="az-pat-actual" style="font-size:11px;color:var(--gris);margin-bottom:10px;"></div>
+
+<button class="btn" style="width:100%;margin-bottom:12px;" onclick="buscarProyectosAzureDevOpsUI()">
+  🔍 Buscar proyectos accesibles
+</button>
+
+<label style="font-size:12px;font-weight:600;color:var(--gris-oscuro);">Proyecto</label>
+<select id="az-select-proyecto"
+  style="width:100%;padding:8px 10px;margin:4px 0 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;">
+  <option value="">— Escribe la organización y da clic en "Buscar proyectos" —</option>
+</select>
+
+<div id="az-mensaje" style="font-size:12.5px;padding:8px 10px;border-radius:8px;margin-bottom:12px;display:none;"></div>

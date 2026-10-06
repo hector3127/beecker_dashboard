@@ -1,0 +1,7929 @@
+{
+ "results": [
+  {
+   "ok": false,
+   "error": "Falta ID de proyecto."
+  },
+  {
+   "ok": false,
+   "error": "No se encontró \"NOPE\" en Proyectos."
+  },
+  {
+   "ok": false,
+   "error": "El proyecto no es AER/T&M. Servicio detectado: IXB"
+  },
+  {
+   "ok": true,
+   "backendVersion": "AER_DASHBOARD_V8_CLIENTE_CONTACTOS",
+   "proyecto": {
+    "id": "AER.001",
+    "nombre": "Bot facturas",
+    "cliente": "ACME",
+    "servicio": "AER",
+    "deliveryManager": "Ana López",
+    "estado": "En curso",
+    "fechaInicio": "2026-08-01T06:00:00.000Z",
+    "fechaFin": "2026-11-30T06:00:00.000Z"
+   },
+   "kpis": {
+    "budgetHoras": 100,
+    "horasTotales": 14.75,
+    "horasFacturables": 5.75,
+    "horasNoFacturables": 9,
+    "balanceHoras": 85.25,
+    "pctFacturables": 39,
+    "pctNoFacturables": 61,
+    "horasFueraHorario": 3.25,
+    "pctFueraHorario": 22,
+    "pctTiempo": 51.2,
+    "consumoPct": 14.8,
+    "desviacionPts": -36.4,
+    "diasRestantes": 59,
+    "costoReal": 84,
+    "healthScore": 70,
+    "healthLabel": "En seguimiento",
+    "healthDimensiones": {
+     "tiempo": 70,
+     "esfuerzo": 70,
+     "costo": 100,
+     "riesgo": 40
+    },
+    "healthFuentes": {
+     "tiempo": true,
+     "esfuerzo": true,
+     "costo": true,
+     "riesgo": true
+    }
+   },
+   "alertas": [
+    {
+     "nivel": "alto",
+     "titulo": "Compromisos vencidos",
+     "detalle": "1 compromiso(s) siguen abiertos después de su fecha.",
+     "fuente": "Planeación"
+    },
+    {
+     "nivel": "medio",
+     "titulo": "Horas no facturables elevadas",
+     "detalle": "61% del total.",
+     "fuente": "Clockify"
+    },
+    {
+     "nivel": "medio",
+     "titulo": "Horas fuera de horario",
+     "detalle": "3.25 h (22%).",
+     "fuente": "Clockify"
+    },
+    {
+     "nivel": "alto",
+     "titulo": "Riesgos críticos abiertos",
+     "detalle": "2 riesgo(s) requieren atención.",
+     "fuente": "Riesgos"
+    },
+    {
+     "nivel": "alto",
+     "titulo": "Acciones vencidas",
+     "detalle": "1 acción(es) vencidas.",
+     "fuente": "Acciones"
+    }
+   ],
+   "tareas": [
+    {
+     "nombre": "2026",
+     "horas": 8
+    },
+    {
+     "nombre": "Desarrollo",
+     "horas": 3.5
+    },
+    {
+     "nombre": "QA",
+     "horas": 2.25
+    },
+    {
+     "nombre": "Sin task / actividad",
+     "horas": 1
+    }
+   ],
+   "capacidad": [
+    {
+     "nombre": "Ana López",
+     "rol": "Dev",
+     "horasEstimadas": 60,
+     "horasReales": 4
+    },
+    {
+     "nombre": "Carlos",
+     "rol": "QA",
+     "horasEstimadas": 20,
+     "horasReales": 2.25
+    }
+   ],
+   "detalleRecursos": [
+    {
+     "recurso": "Zoe",
+     "rol": "",
+     "horasTotales": 8,
+     "facturables": 0,
+     "noFacturables": 8,
+     "fueraHorario": 0,
+     "costo": 44,
+     "pctTotal": 54.2
+    },
+    {
+     "recurso": "Ana López",
+     "rol": "",
+     "horasTotales": 4,
+     "facturables": 3,
+     "noFacturables": 1,
+     "fueraHorario": 1,
+     "costo": 40,
+     "pctTotal": 27.1
+    },
+    {
+     "recurso": "carlos",
+     "rol": "",
+     "horasTotales": 2.25,
+     "facturables": 2.25,
+     "noFacturables": 0,
+     "fueraHorario": 2.25,
+     "costo": 0,
+     "pctTotal": 15.3
+    },
+    {
+     "recurso": "Sin recurso",
+     "rol": "",
+     "horasTotales": 0.5,
+     "facturables": 0.5,
+     "noFacturables": 0,
+     "fueraHorario": 0,
+     "costo": 0,
+     "pctTotal": 3.4
+    }
+   ],
+   "tendenciaMensual": [
+    {
+     "mes": "2026-08",
+     "horas": 8,
+     "acumulado": 8
+    },
+    {
+     "mes": "2026-09",
+     "horas": 6.25,
+     "acumulado": 14.25
+    },
+    {
+     "mes": "2026-10",
+     "horas": 0.5,
+     "acumulado": 14.75
+    }
+   ],
+   "registros": [
+    {
+     "fecha": "2026-10-01",
+     "recurso": "",
+     "actividad": "Desarrollo",
+     "descripcion": "x",
+     "inicio": "",
+     "fin": "",
+     "duracion": 0.5,
+     "billable": true,
+     "fueraHorario": false
+    },
+    {
+     "fecha": "2026-09-30",
+     "recurso": "carlos",
+     "actividad": "QA",
+     "descripcion": "Pruebas",
+     "inicio": "",
+     "fin": "",
+     "duracion": 2.25,
+     "billable": true,
+     "fueraHorario": true
+    },
+    {
+     "fecha": "2026-09-02",
+     "recurso": "Ana López",
+     "actividad": "Sin task",
+     "descripcion": "",
+     "inicio": "",
+     "fin": "",
+     "duracion": 1,
+     "billable": false,
+     "fueraHorario": true
+    },
+    {
+     "fecha": "2026-09-01",
+     "recurso": "Ana López",
+     "actividad": "Desarrollo",
+     "descripcion": "Diseño",
+     "inicio": "",
+     "fin": "",
+     "duracion": 3,
+     "billable": true,
+     "fueraHorario": false
+    },
+    {
+     "fecha": "2026-08-15",
+     "recurso": "Zoe",
+     "actividad": "2026",
+     "descripcion": "Kickoff",
+     "inicio": "",
+     "fin": "",
+     "duracion": 8,
+     "billable": false,
+     "fueraHorario": false
+    }
+   ],
+   "plan": {
+    "filas": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 10
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 40,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 3
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 6
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Detenido",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Detenida",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "",
+      "_row": 8
+     }
+    ],
+    "actividades": [
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 40,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 3
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Detenido",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Detenida",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "",
+      "_row": 8
+     }
+    ],
+    "hitos": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 10,
+      "statusCalculado": "Atrasado"
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 6,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "avancePlan": 92.63,
+    "avanceReal": 35,
+    "desviacion": -57.63,
+    "hitosCumplidos": 0,
+    "hitosTotal": 3,
+    "proximosHitos": [
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 6,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "compromisosTotal": 7,
+    "cerradosTotal": 2,
+    "cerradosATiempo": 1,
+    "vencidosAbiertos": 1,
+    "vencenHoy": 0,
+    "vencidosDetalle": [
+     {
+      "uid": "p4",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "fecha": "2026-09-25",
+      "estado": "Por iniciar"
+     }
+    ],
+    "vencenHoyDetalle": [],
+    "proximosCompromisos": [
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 40,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 3
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 6
+     }
+    ],
+    "pctCerrados": 28.6,
+    "pctCerradosATiempo": 50,
+    "tieneDatos": true,
+    "avancePlanReferencia": 92.63
+   },
+   "riesgos": {
+    "filas": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Alto",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "Escalar",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r5",
+      "riesgo": "Rotación",
+      "impacto": "Bajo",
+      "probabilidad": "Baja",
+      "responsable": "Carlos",
+      "fechaLimite": "2026-11-01",
+      "accion": "",
+      "estado": "Cerrado",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "activos": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Alto",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "Escalar",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "criticos": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Alto",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "Escalar",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "score": 40,
+    "tieneDatos": true
+   },
+   "acciones": {
+    "filas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "revisar accesos",
+      "responsable": "ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "",
+      "estado": "En progreso",
+      "dependencia": "Cliente",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "nota",
+      "notas": "nota",
+      "actualizado": ""
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     }
+    ],
+    "abiertas": [
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "revisar accesos",
+      "responsable": "ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "",
+      "estado": "En progreso",
+      "dependencia": "Cliente",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "nota",
+      "notas": "nota",
+      "actualizado": ""
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     }
+    ],
+    "vencidas": [
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "revisar accesos",
+      "responsable": "ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "",
+      "estado": "En progreso",
+      "dependencia": "Cliente",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "nota",
+      "notas": "nota",
+      "actualizado": ""
+     }
+    ],
+    "completadas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     }
+    ],
+    "detenidas": [
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     }
+    ],
+    "tieneDatos": true
+   },
+   "vacaciones": {
+    "filas": []
+   },
+   "evaluaciones": {
+    "filas": [
+     {
+      "uid": "e2",
+      "recurso": "Carlos",
+      "fechaEvaluacion": "2026-09-15",
+      "periodo": "",
+      "evaluador": "Beto",
+      "score": 65,
+      "calidad": 0,
+      "cumplimiento": 0,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 0,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "e1",
+      "recurso": "Ana",
+      "fechaEvaluacion": "2026-09-01",
+      "periodo": "Sep 2026",
+      "evaluador": "Beto",
+      "score": 87,
+      "calidad": 90,
+      "cumplimiento": 80,
+      "comunicacion": 70,
+      "colaboracion": 100,
+      "autonomia": 95,
+      "categoria": "Sólido",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     }
+    ]
+   },
+   "cliente": {
+    "contactos": [
+     {
+      "uid": "c2",
+      "nombre": "Álvaro",
+      "cargo": "PO",
+      "rol": "PO",
+      "area": "Finanzas",
+      "correo": "",
+      "telefono": "",
+      "nivelDecision": "Bajo",
+      "estado": "Inactivo",
+      "esDecisor": false,
+      "canal": "Correo; Teams",
+      "alcance": "",
+      "requerimientos": false,
+      "aprueba": false,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "notas": ""
+     },
+     {
+      "uid": "c1",
+      "nombre": "Zoe",
+      "cargo": "CTO",
+      "rol": "Sponsor",
+      "area": "TI",
+      "correo": "z@x.com",
+      "telefono": "",
+      "nivelDecision": "Alto",
+      "estado": "Activo",
+      "esDecisor": true,
+      "canal": "Teams",
+      "alcance": "",
+      "requerimientos": true,
+      "aprueba": true,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "notas": ""
+     }
+    ],
+    "info": {
+     "uid": "i1",
+     "areaPrincipal": "TI",
+     "sponsor": "Zoe",
+     "productOwner": "Álvaro",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "2026-10-07",
+     "tipoReunion": "Comité",
+     "cliente": "ACME",
+     "deliveryManager": "Ana López"
+    },
+    "gobierno": [
+     {
+      "uid": "",
+      "reunion": "Seguimiento semanal",
+      "frecuencia": "Semanal",
+      "participantes": "PO + Delivery + Cliente",
+      "canal": "Teams",
+      "notas": ""
+     },
+     {
+      "uid": "",
+      "reunion": "Comité operativo",
+      "frecuencia": "Quincenal",
+      "participantes": "Sponsor + PO + Delivery",
+      "canal": "Correo",
+      "notas": ""
+     },
+     {
+      "uid": "",
+      "reunion": "Comité ejecutivo",
+      "frecuencia": "Mensual",
+      "participantes": "Sponsor + Dirección",
+      "canal": "Teams",
+      "notas": ""
+     }
+    ],
+    "documentos": [
+     {
+      "uid": "d1",
+      "nombre": "Contrato",
+      "tipo": "Legal",
+      "url": "https://x",
+      "accion": "Abrir",
+      "notas": ""
+     }
+    ],
+    "resumen": {
+     "contactosClave": 1,
+     "decisores": 1,
+     "areas": 2,
+     "canales": 2,
+     "proximaReunion": "2026-10-07"
+    }
+   },
+   "clockify": {
+    "ok": true,
+    "proyectoClockify": "AER-001 Bot",
+    "rango": {
+     "fechaInicio": "2026-08-01",
+     "fechaFin": "2026-10-02",
+     "fuente": "MPB"
+    },
+    "error": null
+   }
+  },
+  {
+   "ok": true,
+   "backendVersion": "AER_DASHBOARD_V8_CLIENTE_CONTACTOS",
+   "proyecto": {
+    "id": "TYM.002",
+    "nombre": "Soporte",
+    "cliente": "Globex",
+    "servicio": "T&M",
+    "deliveryManager": "",
+    "estado": "En curso",
+    "fechaInicio": "2026-09-01T06:00:00.000Z",
+    "fechaFin": "2026-12-31T06:00:00.000Z"
+   },
+   "kpis": {
+    "budgetHoras": 0,
+    "horasTotales": 0,
+    "horasFacturables": 0,
+    "horasNoFacturables": 0,
+    "balanceHoras": 0,
+    "pctFacturables": 0,
+    "pctNoFacturables": 0,
+    "horasFueraHorario": 0,
+    "pctFueraHorario": 0,
+    "pctTiempo": 25.6,
+    "consumoPct": 0,
+    "desviacionPts": -25.6,
+    "diasRestantes": 90,
+    "costoReal": 0,
+    "healthScore": 89,
+    "healthLabel": "Saludable",
+    "healthDimensiones": {
+     "tiempo": 85,
+     "esfuerzo": 100,
+     "costo": 100,
+     "riesgo": 64
+    },
+    "healthFuentes": {
+     "tiempo": true,
+     "esfuerzo": true,
+     "costo": true,
+     "riesgo": true
+    }
+   },
+   "alertas": [
+    {
+     "nivel": "alto",
+     "titulo": "Compromisos vencidos",
+     "detalle": "1 compromiso(s) siguen abiertos después de su fecha.",
+     "fuente": "Planeación"
+    },
+    {
+     "nivel": "alto",
+     "titulo": "Riesgos críticos abiertos",
+     "detalle": "1 riesgo(s) requieren atención.",
+     "fuente": "Riesgos"
+    }
+   ],
+   "tareas": [],
+   "capacidad": [],
+   "detalleRecursos": [],
+   "tendenciaMensual": [],
+   "registros": [],
+   "plan": {
+    "filas": [
+     {
+      "uid": "p8",
+      "idProyecto": "TYM.002",
+      "tipo": "Actividad",
+      "actividad": "Otro",
+      "responsable": "X",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-09-05",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9
+     }
+    ],
+    "actividades": [
+     {
+      "uid": "p8",
+      "idProyecto": "TYM.002",
+      "tipo": "Actividad",
+      "actividad": "Otro",
+      "responsable": "X",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-09-05",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9
+     }
+    ],
+    "hitos": [],
+    "avancePlan": 100,
+    "avanceReal": 0,
+    "desviacion": -100,
+    "hitosCumplidos": 0,
+    "hitosTotal": 0,
+    "proximosHitos": [],
+    "compromisosTotal": 1,
+    "cerradosTotal": 0,
+    "cerradosATiempo": 0,
+    "vencidosAbiertos": 1,
+    "vencenHoy": 0,
+    "vencidosDetalle": [
+     {
+      "uid": "p8",
+      "actividad": "Otro",
+      "responsable": "X",
+      "fecha": "2026-09-05",
+      "estado": "Por iniciar"
+     }
+    ],
+    "vencenHoyDetalle": [],
+    "proximosCompromisos": [],
+    "pctCerrados": 0,
+    "pctCerradosATiempo": 0,
+    "tieneDatos": true,
+    "avancePlanReferencia": 100
+   },
+   "riesgos": {
+    "filas": [
+     {
+      "uid": "r6",
+      "riesgo": "Otro",
+      "impacto": "Alto",
+      "probabilidad": "Alta",
+      "responsable": "X",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "activos": [
+     {
+      "uid": "r6",
+      "riesgo": "Otro",
+      "impacto": "Alto",
+      "probabilidad": "Alta",
+      "responsable": "X",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "criticos": [
+     {
+      "uid": "r6",
+      "riesgo": "Otro",
+      "impacto": "Alto",
+      "probabilidad": "Alta",
+      "responsable": "X",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "score": 64,
+    "tieneDatos": true
+   },
+   "acciones": {
+    "filas": [],
+    "abiertas": [],
+    "vencidas": [],
+    "completadas": [],
+    "detenidas": [],
+    "tieneDatos": false
+   },
+   "vacaciones": {
+    "filas": []
+   },
+   "evaluaciones": {
+    "filas": []
+   },
+   "cliente": {
+    "contactos": [],
+    "info": {
+     "uid": "",
+     "areaPrincipal": "",
+     "sponsor": "",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "cliente": "Globex",
+     "deliveryManager": ""
+    },
+    "gobierno": [
+     {
+      "uid": "",
+      "reunion": "Seguimiento semanal",
+      "frecuencia": "Semanal",
+      "participantes": "PO + Delivery + Cliente",
+      "canal": "Teams",
+      "notas": ""
+     },
+     {
+      "uid": "",
+      "reunion": "Comité operativo",
+      "frecuencia": "Quincenal",
+      "participantes": "Sponsor + PO + Delivery",
+      "canal": "Correo",
+      "notas": ""
+     },
+     {
+      "uid": "",
+      "reunion": "Comité ejecutivo",
+      "frecuencia": "Mensual",
+      "participantes": "Sponsor + Dirección",
+      "canal": "Teams",
+      "notas": ""
+     }
+    ],
+    "documentos": [],
+    "resumen": {
+     "contactosClave": 0,
+     "decisores": 0,
+     "areas": 0,
+     "canales": 0,
+     "proximaReunion": ""
+    }
+   },
+   "clockify": {
+    "ok": false,
+    "proyectoClockify": "",
+    "rango": null,
+    "error": "Clockify no encontró el proyecto."
+   }
+  },
+  {
+   "ok": true,
+   "backendVersion": "AER_DASHBOARD_V8_CLIENTE_CONTACTOS",
+   "proyecto": {
+    "id": "AER.004",
+    "nombre": "Cerrado",
+    "cliente": "ACME",
+    "servicio": "AER",
+    "deliveryManager": "Beto",
+    "estado": "Cerrado",
+    "fechaInicio": "2026-06-01T06:00:00.000Z",
+    "fechaFin": "2026-09-30T06:00:00.000Z"
+   },
+   "kpis": {
+    "budgetHoras": 10,
+    "horasTotales": 30,
+    "horasFacturables": 0,
+    "horasNoFacturables": 30,
+    "balanceHoras": -20,
+    "pctFacturables": 0,
+    "pctNoFacturables": 100,
+    "horasFueraHorario": 0,
+    "pctFueraHorario": 0,
+    "pctTiempo": 100,
+    "consumoPct": 300,
+    "desviacionPts": 200,
+    "diasRestantes": -2,
+    "costoReal": 30,
+    "healthScore": 51,
+    "healthLabel": "En riesgo",
+    "healthDimensiones": {
+     "tiempo": 60,
+     "esfuerzo": 45,
+     "costo": 0,
+     "riesgo": 100
+    },
+    "healthFuentes": {
+     "tiempo": true,
+     "esfuerzo": true,
+     "costo": true,
+     "riesgo": false
+    }
+   },
+   "alertas": [
+    {
+     "nivel": "alto",
+     "titulo": "Presupuesto de horas excedido",
+     "detalle": "200% por encima del budget.",
+     "fuente": "Clockify"
+    },
+    {
+     "nivel": "medio",
+     "titulo": "Horas no facturables elevadas",
+     "detalle": "100% del total.",
+     "fuente": "Clockify"
+    }
+   ],
+   "tareas": [
+    {
+     "nombre": "Soporte",
+     "horas": 30
+    }
+   ],
+   "capacidad": [],
+   "detalleRecursos": [
+    {
+     "recurso": "Beto",
+     "rol": "",
+     "horasTotales": 30,
+     "facturables": 0,
+     "noFacturables": 30,
+     "fueraHorario": 0,
+     "costo": 30,
+     "pctTotal": 100
+    }
+   ],
+   "tendenciaMensual": [
+    {
+     "mes": "2026-07",
+     "horas": 30,
+     "acumulado": 30
+    }
+   ],
+   "registros": [
+    {
+     "fecha": "2026-07-01",
+     "recurso": "Beto",
+     "actividad": "Soporte",
+     "descripcion": "",
+     "inicio": "",
+     "fin": "",
+     "duracion": 30,
+     "billable": false,
+     "fueraHorario": false
+    }
+   ],
+   "plan": {
+    "filas": [],
+    "actividades": [],
+    "hitos": [],
+    "avancePlan": 0,
+    "avanceReal": 0,
+    "desviacion": 0,
+    "hitosCumplidos": 0,
+    "hitosTotal": 0,
+    "proximosHitos": [],
+    "compromisosTotal": 0,
+    "cerradosTotal": 0,
+    "cerradosATiempo": 0,
+    "vencidosAbiertos": 0,
+    "vencenHoy": 0,
+    "vencidosDetalle": [],
+    "vencenHoyDetalle": [],
+    "proximosCompromisos": [],
+    "pctCerrados": 0,
+    "pctCerradosATiempo": 0,
+    "tieneDatos": false,
+    "avancePlanReferencia": 100
+   },
+   "riesgos": {
+    "filas": [],
+    "activos": [],
+    "criticos": [],
+    "score": 100,
+    "tieneDatos": false
+   },
+   "acciones": {
+    "filas": [],
+    "abiertas": [],
+    "vencidas": [],
+    "completadas": [],
+    "detenidas": [],
+    "tieneDatos": false
+   },
+   "vacaciones": {
+    "filas": []
+   },
+   "evaluaciones": {
+    "filas": []
+   },
+   "cliente": {
+    "contactos": [],
+    "info": {
+     "uid": "",
+     "areaPrincipal": "",
+     "sponsor": "",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "cliente": "ACME",
+     "deliveryManager": "Beto"
+    },
+    "gobierno": [
+     {
+      "uid": "",
+      "reunion": "Seguimiento semanal",
+      "frecuencia": "Semanal",
+      "participantes": "PO + Delivery + Cliente",
+      "canal": "Teams",
+      "notas": ""
+     },
+     {
+      "uid": "",
+      "reunion": "Comité operativo",
+      "frecuencia": "Quincenal",
+      "participantes": "Sponsor + PO + Delivery",
+      "canal": "Correo",
+      "notas": ""
+     },
+     {
+      "uid": "",
+      "reunion": "Comité ejecutivo",
+      "frecuencia": "Mensual",
+      "participantes": "Sponsor + Dirección",
+      "canal": "Teams",
+      "notas": ""
+     }
+    ],
+    "documentos": [],
+    "resumen": {
+     "contactosClave": 0,
+     "decisores": 0,
+     "areas": 0,
+     "canales": 0,
+     "proximaReunion": ""
+    }
+   },
+   "clockify": {
+    "ok": true,
+    "proyectoClockify": "AER-004",
+    "rango": {
+     "fechaInicio": "2026-06-01",
+     "fechaFin": "2026-09-30",
+     "fuente": "MPB"
+    },
+    "error": null
+   }
+  },
+  {
+   "ok": true,
+   "desde": "2026-09-01",
+   "hasta": "2026-09-30",
+   "total": 3,
+   "registros": [
+    {
+     "fecha": "2026-09-30",
+     "recurso": "carlos",
+     "actividad": "QA",
+     "descripcion": "Pruebas",
+     "inicio": "",
+     "fin": "",
+     "duracion": 2.25,
+     "billable": true,
+     "fueraHorario": true
+    },
+    {
+     "fecha": "2026-09-02",
+     "recurso": "Ana López",
+     "actividad": "Sin task",
+     "descripcion": "",
+     "inicio": "",
+     "fin": "",
+     "duracion": 1,
+     "billable": false,
+     "fueraHorario": true
+    },
+    {
+     "fecha": "2026-09-01",
+     "recurso": "Ana López",
+     "actividad": "Desarrollo",
+     "descripcion": "Diseño",
+     "inicio": "",
+     "fin": "",
+     "duracion": 3,
+     "billable": true,
+     "fueraHorario": false
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "La fecha Hasta no puede ser menor que Desde."
+  },
+  {
+   "ok": false,
+   "error": "Selecciona fecha desde y hasta."
+  },
+  {
+   "ok": false,
+   "error": "Clockify no encontró el proyecto."
+  },
+  {
+   "ok": false,
+   "error": "Falta Actividad/Hito."
+  },
+  {
+   "ok": true,
+   "uid": "uuid-1",
+   "duplicadosEliminados": 0,
+   "plan": {
+    "filas": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 10
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 40,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 3
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 6
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Detenido",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Detenida",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "",
+      "_row": 8
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     }
+    ],
+    "actividades": [
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 40,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 3
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Detenido",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Detenida",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "",
+      "_row": 8
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     }
+    ],
+    "hitos": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 10,
+      "statusCalculado": "Atrasado"
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 6,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "avancePlan": 74.1,
+    "avanceReal": 28,
+    "desviacion": -46.1,
+    "hitosCumplidos": 0,
+    "hitosTotal": 3,
+    "proximosHitos": [
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 6,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "compromisosTotal": 8,
+    "cerradosTotal": 2,
+    "cerradosATiempo": 1,
+    "vencidosAbiertos": 1,
+    "vencenHoy": 0,
+    "vencidosDetalle": [
+     {
+      "uid": "p4",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "fecha": "2026-09-25",
+      "estado": "Por iniciar"
+     }
+    ],
+    "vencenHoyDetalle": [],
+    "proximosCompromisos": [
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 40,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 3
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 6
+     }
+    ],
+    "pctCerrados": 25,
+    "pctCerradosATiempo": 50
+   }
+  },
+  {
+   "ok": true,
+   "uid": "p2",
+   "duplicadosEliminados": 1,
+   "plan": {
+    "filas": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 6
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Detenido",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Detenida",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     }
+    ],
+    "actividades": [
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 6
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Detenido",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Detenida",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     }
+    ],
+    "hitos": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9,
+      "statusCalculado": "Atrasado"
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3,
+      "statusCalculado": "En tiempo"
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "avancePlan": 75,
+    "avanceReal": 25,
+    "desviacion": -50,
+    "hitosCumplidos": 1,
+    "hitosTotal": 4,
+    "proximosHitos": [
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "compromisosTotal": 8,
+    "cerradosTotal": 3,
+    "cerradosATiempo": 2,
+    "vencidosAbiertos": 1,
+    "vencenHoy": 0,
+    "vencidosDetalle": [
+     {
+      "uid": "p4",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "fecha": "2026-09-25",
+      "estado": "Por iniciar"
+     }
+    ],
+    "vencenHoyDetalle": [],
+    "proximosCompromisos": [
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 2,
+      "esfuerzo": 2,
+      "actualizado": "",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 5
+     }
+    ],
+    "pctCerrados": 37.5,
+    "pctCerradosATiempo": 66.7
+   }
+  },
+  {
+   "ok": true,
+   "recibidos": 5,
+   "guardados": 3,
+   "nuevos": 1,
+   "actualizados": 2,
+   "omitidos": 2,
+   "duplicadosEliminados": 0
+  },
+  {
+   "ok": false,
+   "error": "No se recibieron filas para importar."
+  },
+  {
+   "ok": true,
+   "uid": "p5",
+   "esfuerzo": 4,
+   "plan": {
+    "filas": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Detenido",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Detenida",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     }
+    ],
+    "actividades": [
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Detenido",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Detenida",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "",
+      "_row": 7
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     }
+    ],
+    "hitos": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9,
+      "statusCalculado": "Atrasado"
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3,
+      "statusCalculado": "En tiempo"
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "avancePlan": 60,
+    "avanceReal": 40,
+    "desviacion": -20,
+    "hitosCumplidos": 1,
+    "hitosTotal": 4,
+    "proximosHitos": [
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "compromisosTotal": 9,
+    "cerradosTotal": 4,
+    "cerradosATiempo": 2,
+    "vencidosAbiertos": 1,
+    "vencenHoy": 0,
+    "vencidosDetalle": [
+     {
+      "uid": "p4",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "fecha": "2026-09-25",
+      "estado": "Por iniciar"
+     }
+    ],
+    "vencenHoyDetalle": [],
+    "proximosCompromisos": [
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5
+     }
+    ],
+    "pctCerrados": 44.4,
+    "pctCerradosATiempo": 50
+   }
+  },
+  {
+   "ok": false,
+   "error": "No se encontró la actividad seleccionada."
+  },
+  {
+   "ok": false,
+   "error": "Falta UID."
+  },
+  {
+   "ok": true,
+   "uid": "p7",
+   "estado": "Completado",
+   "fechaCierre": "2026-10-02",
+   "filasActualizadas": 1,
+   "duplicadosEliminados": 0,
+   "plan": {
+    "filas": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Resuelta",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 7
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     }
+    ],
+    "actividades": [
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Resuelta",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 7
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     }
+    ],
+    "hitos": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9,
+      "statusCalculado": "Atrasado"
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3,
+      "statusCalculado": "En tiempo"
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "avancePlan": 60,
+    "avanceReal": 60,
+    "desviacion": 0,
+    "hitosCumplidos": 1,
+    "hitosTotal": 4,
+    "proximosHitos": [
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "compromisosTotal": 9,
+    "cerradosTotal": 5,
+    "cerradosATiempo": 2,
+    "vencidosAbiertos": 1,
+    "vencenHoy": 0,
+    "vencidosDetalle": [
+     {
+      "uid": "p4",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "fecha": "2026-09-25",
+      "estado": "Por iniciar"
+     }
+    ],
+    "vencenHoyDetalle": [],
+    "proximosCompromisos": [
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5
+     }
+    ],
+    "pctCerrados": 55.6,
+    "pctCerradosATiempo": 40
+   }
+  },
+  {
+   "ok": true,
+   "uid": "p7",
+   "estado": "En progreso",
+   "fechaCierre": "",
+   "filasActualizadas": 1,
+   "duplicadosEliminados": 0,
+   "plan": {
+    "filas": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 7
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     }
+    ],
+    "actividades": [
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 7
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     }
+    ],
+    "hitos": [
+     {
+      "uid": "p9",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Kickoff",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-02",
+      "inicioReal": "",
+      "finReal": "2026-08-05",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "",
+      "_row": 9,
+      "statusCalculado": "Atrasado"
+     },
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3,
+      "statusCalculado": "En tiempo"
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "avancePlan": 60,
+    "avanceReal": 40,
+    "desviacion": -20,
+    "hitosCumplidos": 1,
+    "hitosTotal": 4,
+    "proximosHitos": [
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "compromisosTotal": 9,
+    "cerradosTotal": 4,
+    "cerradosATiempo": 2,
+    "vencidosAbiertos": 2,
+    "vencenHoy": 0,
+    "vencidosDetalle": [
+     {
+      "uid": "p4",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "fecha": "2026-09-25",
+      "estado": "Por iniciar"
+     },
+     {
+      "uid": "p7",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "fecha": "2026-09-20",
+      "estado": "En progreso"
+     }
+    ],
+    "vencenHoyDetalle": [],
+    "proximosCompromisos": [
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 10
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 11
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5
+     }
+    ],
+    "pctCerrados": 44.4,
+    "pctCerradosATiempo": 50
+   }
+  },
+  {
+   "ok": true,
+   "uid": "p6",
+   "cerrado": true,
+   "fechaCierre": "2026-10-02"
+  },
+  {
+   "ok": true,
+   "uid": "p6",
+   "cerrado": false,
+   "fechaCierre": ""
+  },
+  {
+   "ok": true,
+   "uid": "p5",
+   "cerrado": false,
+   "fechaCierre": ""
+  },
+  {
+   "ok": false,
+   "error": "Falta UID."
+  },
+  {
+   "ok": false,
+   "error": "No se encontró el registro."
+  },
+  {
+   "ok": true,
+   "eliminados": 1
+  },
+  {
+   "ok": true,
+   "eliminados": 0,
+   "eliminadosFisicos": 0,
+   "gruposEliminados": 0,
+   "solicitados": 0,
+   "omitidos": 0,
+   "mensaje": "No había filas seleccionadas."
+  },
+  {
+   "ok": true,
+   "eliminados": 1,
+   "eliminadosFisicos": 1,
+   "gruposEliminados": 1,
+   "solicitados": 3,
+   "omitidos": 2,
+   "uidsNoEncontrados": [
+    "nope",
+    "[object Object]"
+   ],
+   "mensaje": "Se eliminaron 1 fila(s) física(s) de 1 elemento(s) seleccionado(s)."
+  },
+  {
+   "ok": false,
+   "error": "Falta ID_Proyecto."
+  },
+  {
+   "ok": false,
+   "error": "Falta Riesgo."
+  },
+  {
+   "ok": true,
+   "uid": "r1",
+   "duplicadosEliminados": 0,
+   "riesgos": {
+    "filas": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r5",
+      "riesgo": "Rotación",
+      "impacto": "Bajo",
+      "probabilidad": "Baja",
+      "responsable": "Carlos",
+      "fechaLimite": "2026-11-01",
+      "accion": "",
+      "estado": "Cerrado",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "activos": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "criticos": [
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "score": 48
+   }
+  },
+  {
+   "ok": true,
+   "uid": "uuid-3",
+   "duplicadosEliminados": 0,
+   "riesgos": {
+    "filas": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r5",
+      "riesgo": "Rotación",
+      "impacto": "Bajo",
+      "probabilidad": "Baja",
+      "responsable": "Carlos",
+      "fechaLimite": "2026-11-01",
+      "accion": "",
+      "estado": "Cerrado",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "activos": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "criticos": [
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "score": 24
+   }
+  },
+  {
+   "ok": true,
+   "riesgos": {
+    "filas": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r5",
+      "riesgo": "Rotación",
+      "impacto": "Bajo",
+      "probabilidad": "Baja",
+      "responsable": "Carlos",
+      "fechaLimite": "2026-11-01",
+      "accion": "",
+      "estado": "Cerrado",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "activos": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "criticos": [
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "score": 24
+   }
+  },
+  {
+   "ok": false,
+   "error": "Falta proyecto."
+  },
+  {
+   "ok": true,
+   "eliminados": 0,
+   "riesgos": {
+    "filas": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r5",
+      "riesgo": "Rotación",
+      "impacto": "Bajo",
+      "probabilidad": "Baja",
+      "responsable": "Carlos",
+      "fechaLimite": "2026-11-01",
+      "accion": "",
+      "estado": "Cerrado",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "activos": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "criticos": [
+     {
+      "uid": "r4",
+      "riesgo": "Cambio de alcance",
+      "impacto": "Crítico",
+      "probabilidad": "Alta",
+      "responsable": "Beto",
+      "fechaLimite": "",
+      "accion": "Comité",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "score": 24
+   }
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": false
+  },
+  {
+   "ok": true,
+   "uid": "a2",
+   "acciones": {
+    "filas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     }
+    ],
+    "abiertas": [
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     }
+    ],
+    "vencidas": [],
+    "completadas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "detenidas": [
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "uid": "uuid-4",
+   "acciones": {
+    "filas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "abiertas": [
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "vencidas": [],
+    "completadas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "detenidas": [
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "acciones": {
+    "filas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "abiertas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "vencidas": [],
+    "completadas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "detenidas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "acciones": {
+    "filas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "En progreso",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "abiertas": [
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "",
+      "estado": "En progreso",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "vencidas": [],
+    "completadas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "detenidas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "acciones": {
+    "filas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-01",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "abiertas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "vencidas": [],
+    "completadas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-01",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "detenidas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ]
+   }
+  },
+  {
+   "ok": false,
+   "error": "Campo no permitido: otro"
+  },
+  {
+   "ok": false,
+   "error": "No se encontró la acción."
+  },
+  {
+   "ok": true,
+   "acciones": {
+    "filas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-01",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "abiertas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "vencidas": [],
+    "completadas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-01",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "detenidas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "eliminados": 0,
+   "acciones": {
+    "filas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-01",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "abiertas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "vencidas": [],
+    "completadas": [
+     {
+      "uid": "a4",
+      "idProyecto": "AER.001",
+      "accion": "Cerrar UAT",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-01",
+      "fechaReal": "2026-09-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": ""
+     },
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-01",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "detenidas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ]
+   }
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": true,
+   "uid": "uuid-5",
+   "vacaciones": {
+    "filas": [
+     {
+      "uid": "uuid-5",
+      "recurso": "Ana",
+      "inicio": "2026-10-09",
+      "fin": "2026-10-14",
+      "dias": 4,
+      "estado": "Aprobada",
+      "comentarios": "",
+      "registradoPor": "",
+      "fechaRegistro": "2026-10-02"
+     }
+    ]
+   }
+  },
+  {
+   "ok": false,
+   "error": "Fin no puede ser menor que Inicio."
+  },
+  {
+   "ok": false,
+   "error": "Falta recurso."
+  },
+  {
+   "ok": false,
+   "vacaciones": {
+    "filas": [
+     {
+      "uid": "uuid-5",
+      "recurso": "Ana",
+      "inicio": "2026-10-09",
+      "fin": "2026-10-14",
+      "dias": 4,
+      "estado": "Aprobada",
+      "comentarios": "",
+      "registradoPor": "",
+      "fechaRegistro": "2026-10-02"
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "uid": "uuid-6",
+   "evaluaciones": {
+    "filas": [
+     {
+      "uid": "uuid-6",
+      "recurso": "Carlos",
+      "fechaEvaluacion": "2026-10-02",
+      "periodo": "Oct 2026",
+      "evaluador": "",
+      "score": 52,
+      "calidad": 88,
+      "cumplimiento": 100,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 70,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "e2",
+      "recurso": "Carlos",
+      "fechaEvaluacion": "2026-09-15",
+      "periodo": "",
+      "evaluador": "Beto",
+      "score": 65,
+      "calidad": 0,
+      "cumplimiento": 0,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 0,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "e1",
+      "recurso": "Ana",
+      "fechaEvaluacion": "2026-09-01",
+      "periodo": "Sep 2026",
+      "evaluador": "Beto",
+      "score": 87,
+      "calidad": 90,
+      "cumplimiento": 80,
+      "comunicacion": 70,
+      "colaboracion": 100,
+      "autonomia": 95,
+      "categoria": "Sólido",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "uid": "uuid-7",
+   "evaluaciones": {
+    "filas": [
+     {
+      "uid": "uuid-6",
+      "recurso": "Carlos",
+      "fechaEvaluacion": "2026-10-02",
+      "periodo": "Oct 2026",
+      "evaluador": "",
+      "score": 52,
+      "calidad": 88,
+      "cumplimiento": 100,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 70,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "e2",
+      "recurso": "Carlos",
+      "fechaEvaluacion": "2026-09-15",
+      "periodo": "",
+      "evaluador": "Beto",
+      "score": 65,
+      "calidad": 0,
+      "cumplimiento": 0,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 0,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "e1",
+      "recurso": "Ana",
+      "fechaEvaluacion": "2026-09-01",
+      "periodo": "Sep 2026",
+      "evaluador": "Beto",
+      "score": 87,
+      "calidad": 90,
+      "cumplimiento": 80,
+      "comunicacion": 70,
+      "colaboracion": 100,
+      "autonomia": 95,
+      "categoria": "Sólido",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "uuid-7",
+      "recurso": "Zoe",
+      "fechaEvaluacion": "2026-08-20",
+      "periodo": "Q3",
+      "evaluador": "",
+      "score": 0,
+      "calidad": 0,
+      "cumplimiento": 0,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 0,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "evaluaciones": {
+    "filas": [
+     {
+      "uid": "uuid-6",
+      "recurso": "Carlos",
+      "fechaEvaluacion": "2026-10-02",
+      "periodo": "Oct 2026",
+      "evaluador": "",
+      "score": 52,
+      "calidad": 88,
+      "cumplimiento": 100,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 70,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "e1",
+      "recurso": "Ana",
+      "fechaEvaluacion": "2026-09-01",
+      "periodo": "Sep 2026",
+      "evaluador": "Beto",
+      "score": 87,
+      "calidad": 90,
+      "cumplimiento": 80,
+      "comunicacion": 70,
+      "colaboracion": 100,
+      "autonomia": 95,
+      "categoria": "Sólido",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "uuid-7",
+      "recurso": "Zoe",
+      "fechaEvaluacion": "2026-08-20",
+      "periodo": "Q3",
+      "evaluador": "",
+      "score": 0,
+      "calidad": 0,
+      "cumplimiento": 0,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 0,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "uid": "uuid-8",
+   "cliente": {
+    "contactos": [
+     {
+      "uid": "c2",
+      "nombre": "Álvaro",
+      "cargo": "PO",
+      "rol": "PO",
+      "area": "Finanzas",
+      "correo": "",
+      "telefono": "",
+      "nivelDecision": "Bajo",
+      "estado": "Inactivo",
+      "esDecisor": false,
+      "canal": "Correo; Teams",
+      "alcance": "",
+      "requerimientos": false,
+      "aprueba": false,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "notas": ""
+     },
+     {
+      "uid": "uuid-8",
+      "nombre": "Beatriz",
+      "cargo": "",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "",
+      "nivelDecision": "Bajo",
+      "estado": "Activo",
+      "esDecisor": true,
+      "canal": "WhatsApp",
+      "alcance": "",
+      "requerimientos": false,
+      "aprueba": true,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "notas": ""
+     },
+     {
+      "uid": "c1",
+      "nombre": "Zoe",
+      "cargo": "CTO",
+      "rol": "Sponsor",
+      "area": "TI",
+      "correo": "z@x.com",
+      "telefono": "",
+      "nivelDecision": "Alto",
+      "estado": "Activo",
+      "esDecisor": true,
+      "canal": "Teams",
+      "alcance": "",
+      "requerimientos": true,
+      "aprueba": true,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "notas": ""
+     }
+    ]
+   }
+  },
+  {
+   "ok": false,
+   "error": "Captura el nombre del contacto."
+  },
+  {
+   "ok": true,
+   "cliente": {
+    "contactos": [
+     {
+      "uid": "uuid-8",
+      "nombre": "Beatriz",
+      "cargo": "",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "",
+      "nivelDecision": "Bajo",
+      "estado": "Activo",
+      "esDecisor": true,
+      "canal": "WhatsApp",
+      "alcance": "",
+      "requerimientos": false,
+      "aprueba": true,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "notas": ""
+     },
+     {
+      "uid": "c1",
+      "nombre": "Zoe",
+      "cargo": "CTO",
+      "rol": "Sponsor",
+      "area": "TI",
+      "correo": "z@x.com",
+      "telefono": "",
+      "nivelDecision": "Alto",
+      "estado": "Activo",
+      "esDecisor": true,
+      "canal": "Teams",
+      "alcance": "",
+      "requerimientos": true,
+      "aprueba": true,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "notas": ""
+     }
+    ]
+   }
+  },
+  {
+   "ok": true,
+   "uid": "i1"
+  },
+  {
+   "ok": true,
+   "uid": "uuid-9"
+  },
+  {
+   "ok": true,
+   "gobierno": [
+    {
+     "uid": "uuid-10",
+     "reunion": "Daily",
+     "frecuencia": "Diaria",
+     "participantes": "",
+     "canal": "",
+     "notas": ""
+    },
+    {
+     "uid": "uuid-11",
+     "reunion": "Semanal",
+     "frecuencia": "",
+     "participantes": "",
+     "canal": "Teams",
+     "notas": ""
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Falta ID_Proyecto."
+  },
+  {
+   "ok": true,
+   "uid": "uuid-12",
+   "documentos": [
+    {
+     "uid": "d1",
+     "nombre": "Contrato",
+     "tipo": "Legal",
+     "url": "https://x",
+     "accion": "Abrir",
+     "notas": ""
+    },
+    {
+     "uid": "uuid-12",
+     "nombre": "SOW",
+     "tipo": "Referencia",
+     "url": "https://sow",
+     "accion": "Abrir",
+     "notas": ""
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Captura la URL o vínculo."
+  },
+  {
+   "ok": true,
+   "documentos": [
+    {
+     "uid": "uuid-12",
+     "nombre": "SOW",
+     "tipo": "Referencia",
+     "url": "https://sow",
+     "accion": "Abrir",
+     "notas": ""
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "backendVersion": "AER_DASHBOARD_V8_CLIENTE_CONTACTOS",
+   "proyecto": {
+    "id": "AER.001",
+    "nombre": "Bot facturas",
+    "cliente": "ACME",
+    "servicio": "AER",
+    "deliveryManager": "Ana López",
+    "estado": "En curso",
+    "fechaInicio": "2026-08-01T06:00:00.000Z",
+    "fechaFin": "2026-11-30T06:00:00.000Z"
+   },
+   "kpis": {
+    "budgetHoras": 100,
+    "horasTotales": 14.75,
+    "horasFacturables": 5.75,
+    "horasNoFacturables": 9,
+    "balanceHoras": 85.25,
+    "pctFacturables": 39,
+    "pctNoFacturables": 61,
+    "horasFueraHorario": 3.25,
+    "pctFueraHorario": 22,
+    "pctTiempo": 51.2,
+    "consumoPct": 14.8,
+    "desviacionPts": -36.4,
+    "diasRestantes": 59,
+    "costoReal": 84,
+    "healthScore": 74,
+    "healthLabel": "En seguimiento",
+    "healthDimensiones": {
+     "tiempo": 70,
+     "esfuerzo": 70,
+     "costo": 100,
+     "riesgo": 60
+    },
+    "healthFuentes": {
+     "tiempo": true,
+     "esfuerzo": true,
+     "costo": true,
+     "riesgo": true
+    }
+   },
+   "alertas": [
+    {
+     "nivel": "alto",
+     "titulo": "Compromisos vencidos",
+     "detalle": "2 compromiso(s) siguen abiertos después de su fecha.",
+     "fuente": "Planeación"
+    },
+    {
+     "nivel": "medio",
+     "titulo": "Horas no facturables elevadas",
+     "detalle": "61% del total.",
+     "fuente": "Clockify"
+    },
+    {
+     "nivel": "medio",
+     "titulo": "Horas fuera de horario",
+     "detalle": "3.25 h (22%).",
+     "fuente": "Clockify"
+    },
+    {
+     "nivel": "alto",
+     "titulo": "Riesgos críticos abiertos",
+     "detalle": "1 riesgo(s) requieren atención.",
+     "fuente": "Riesgos"
+    }
+   ],
+   "tareas": [
+    {
+     "nombre": "2026",
+     "horas": 8
+    },
+    {
+     "nombre": "Desarrollo",
+     "horas": 3.5
+    },
+    {
+     "nombre": "QA",
+     "horas": 2.25
+    },
+    {
+     "nombre": "Sin task / actividad",
+     "horas": 1
+    }
+   ],
+   "capacidad": [
+    {
+     "nombre": "Ana López",
+     "rol": "Dev",
+     "horasEstimadas": 60,
+     "horasReales": 4
+    },
+    {
+     "nombre": "Carlos",
+     "rol": "QA",
+     "horasEstimadas": 20,
+     "horasReales": 2.25
+    }
+   ],
+   "detalleRecursos": [
+    {
+     "recurso": "Zoe",
+     "rol": "",
+     "horasTotales": 8,
+     "facturables": 0,
+     "noFacturables": 8,
+     "fueraHorario": 0,
+     "costo": 44,
+     "pctTotal": 54.2
+    },
+    {
+     "recurso": "Ana López",
+     "rol": "",
+     "horasTotales": 4,
+     "facturables": 3,
+     "noFacturables": 1,
+     "fueraHorario": 1,
+     "costo": 40,
+     "pctTotal": 27.1
+    },
+    {
+     "recurso": "carlos",
+     "rol": "",
+     "horasTotales": 2.25,
+     "facturables": 2.25,
+     "noFacturables": 0,
+     "fueraHorario": 2.25,
+     "costo": 0,
+     "pctTotal": 15.3
+    },
+    {
+     "recurso": "Sin recurso",
+     "rol": "",
+     "horasTotales": 0.5,
+     "facturables": 0.5,
+     "noFacturables": 0,
+     "fueraHorario": 0,
+     "costo": 0,
+     "pctTotal": 3.4
+    }
+   ],
+   "tendenciaMensual": [
+    {
+     "mes": "2026-08",
+     "horas": 8,
+     "acumulado": 8
+    },
+    {
+     "mes": "2026-09",
+     "horas": 6.25,
+     "acumulado": 14.25
+    },
+    {
+     "mes": "2026-10",
+     "horas": 0.5,
+     "acumulado": 14.75
+    }
+   ],
+   "registros": [
+    {
+     "fecha": "2026-10-01",
+     "recurso": "",
+     "actividad": "Desarrollo",
+     "descripcion": "x",
+     "inicio": "",
+     "fin": "",
+     "duracion": 0.5,
+     "billable": true,
+     "fueraHorario": false
+    },
+    {
+     "fecha": "2026-09-30",
+     "recurso": "carlos",
+     "actividad": "QA",
+     "descripcion": "Pruebas",
+     "inicio": "",
+     "fin": "",
+     "duracion": 2.25,
+     "billable": true,
+     "fueraHorario": true
+    },
+    {
+     "fecha": "2026-09-02",
+     "recurso": "Ana López",
+     "actividad": "Sin task",
+     "descripcion": "",
+     "inicio": "",
+     "fin": "",
+     "duracion": 1,
+     "billable": false,
+     "fueraHorario": true
+    },
+    {
+     "fecha": "2026-09-01",
+     "recurso": "Ana López",
+     "actividad": "Desarrollo",
+     "descripcion": "Diseño",
+     "inicio": "",
+     "fin": "",
+     "duracion": 3,
+     "billable": true,
+     "fueraHorario": false
+    },
+    {
+     "fecha": "2026-08-15",
+     "recurso": "Zoe",
+     "actividad": "2026",
+     "descripcion": "Kickoff",
+     "inicio": "",
+     "fin": "",
+     "duracion": 8,
+     "billable": false,
+     "fueraHorario": false
+    }
+   ],
+   "plan": {
+    "filas": [
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3
+     },
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 9
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 7
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 8
+     }
+    ],
+    "actividades": [
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 9
+     },
+     {
+      "uid": "p1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Ana",
+      "inicioPlan": "2026-08-01",
+      "finPlan": "2026-08-31",
+      "inicioReal": "",
+      "finReal": "2026-08-30",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 1,
+      "esfuerzo": 1,
+      "actualizado": "",
+      "_row": 2
+     },
+     {
+      "uid": "p7",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-09-10",
+      "finPlan": "2026-09-20",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Cliente",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 7
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 8
+     }
+    ],
+    "hitos": [
+     {
+      "uid": "p2",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Desarrollo",
+      "responsable": "Ana",
+      "inicioPlan": "2026-09-01",
+      "finPlan": "2026-10-15",
+      "inicioReal": "",
+      "finReal": "2026-10-02",
+      "avance": 100,
+      "estado": "Completado",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 3,
+      "statusCalculado": "En tiempo"
+     },
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "avancePlan": 60,
+    "avanceReal": 20,
+    "desviacion": -40,
+    "hitosCumplidos": 1,
+    "hitosTotal": 3,
+    "proximosHitos": [
+     {
+      "uid": "p4",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "inicioPlan": "2026-09-20",
+      "finPlan": "2026-09-25",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 3,
+      "esfuerzo": 3,
+      "actualizado": "",
+      "_row": 4,
+      "statusCalculado": "Riesgo"
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5,
+      "statusCalculado": "Pendiente"
+     }
+    ],
+    "compromisosTotal": 8,
+    "cerradosTotal": 2,
+    "cerradosATiempo": 2,
+    "vencidosAbiertos": 2,
+    "vencenHoy": 0,
+    "vencidosDetalle": [
+     {
+      "uid": "p4",
+      "actividad": "Entrega UAT",
+      "responsable": "Beto",
+      "fecha": "2026-09-25",
+      "estado": "Por iniciar"
+     },
+     {
+      "uid": "p7",
+      "actividad": "Documentar",
+      "responsable": "Carlos",
+      "fecha": "2026-09-20",
+      "estado": "En progreso"
+     }
+    ],
+    "vencenHoyDetalle": [],
+    "proximosCompromisos": [
+     {
+      "uid": "p6",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Pruebas",
+      "responsable": "",
+      "inicioPlan": "2026-10-01",
+      "finPlan": "2026-10-02",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por validar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 6
+     },
+     {
+      "uid": "uuid-1",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Nueva tarea",
+      "responsable": "Carlos",
+      "inicioPlan": "2026-10-05",
+      "finPlan": "2026-10-09",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "En progreso",
+      "dependencia": "Accesos",
+      "estadoDependencia": "Abierta",
+      "notas": "",
+      "orden": 6,
+      "esfuerzo": 6,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 8
+     },
+     {
+      "uid": "uuid-2",
+      "idProyecto": "AER.001",
+      "tipo": "Actividad",
+      "actividad": "Lote 1",
+      "responsable": "ana",
+      "inicioPlan": "2026-10-10",
+      "finPlan": "2026-10-12",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "otra vez",
+      "orden": 0,
+      "esfuerzo": 0,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 9
+     },
+     {
+      "uid": "p5",
+      "idProyecto": "AER.001",
+      "tipo": "Hito",
+      "actividad": "Go Live",
+      "responsable": "Beto",
+      "inicioPlan": "2026-11-01",
+      "finPlan": "2026-11-15",
+      "inicioReal": "",
+      "finReal": "",
+      "avance": 0,
+      "estado": "Por iniciar",
+      "dependencia": "",
+      "estadoDependencia": "",
+      "notas": "",
+      "orden": 4,
+      "esfuerzo": 4,
+      "actualizado": "2026-10-02 12:00:00",
+      "_row": 5
+     }
+    ],
+    "pctCerrados": 25,
+    "pctCerradosATiempo": 100,
+    "tieneDatos": true,
+    "avancePlanReferencia": 60
+   },
+   "riesgos": {
+    "filas": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "r5",
+      "riesgo": "Rotación",
+      "impacto": "Bajo",
+      "probabilidad": "Baja",
+      "responsable": "Carlos",
+      "fechaLimite": "2026-11-01",
+      "accion": "",
+      "estado": "Cerrado",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "activos": [
+     {
+      "uid": "r1",
+      "riesgo": "Accesos tardíos",
+      "impacto": "Medio",
+      "probabilidad": "Media",
+      "responsable": "Ana",
+      "fechaLimite": "2026-10-10",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "criticos": [
+     {
+      "uid": "uuid-3",
+      "riesgo": "Nuevo riesgo",
+      "impacto": "Alta",
+      "probabilidad": "Media",
+      "responsable": "",
+      "fechaLimite": "",
+      "accion": "",
+      "estado": "Abierto",
+      "notas": ""
+     }
+    ],
+    "score": 60,
+    "tieneDatos": true
+   },
+   "acciones": {
+    "filas": [
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-01",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "abiertas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "vencidas": [],
+    "completadas": [
+     {
+      "uid": "a2",
+      "idProyecto": "AER.001",
+      "accion": "Revisar accesos",
+      "responsable": "Ana",
+      "fechaInicio": "",
+      "fechaLimite": "2026-09-30",
+      "fechaReal": "2026-10-02",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     },
+     {
+      "uid": "a3",
+      "idProyecto": "AER.001",
+      "accion": "Firmar contrato",
+      "responsable": "Beto",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-20",
+      "fechaReal": "2026-10-01",
+      "estado": "Completado",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "detenidas": [
+     {
+      "uid": "uuid-4",
+      "idProyecto": "AER.001",
+      "accion": "Nueva acción",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "",
+      "fechaReal": "",
+      "estado": "Detenido",
+      "dependencia": "",
+      "prioridad": "Media",
+      "riesgoUid": "",
+      "comentarios": "",
+      "notas": "",
+      "actualizado": "2026-10-02 12:00:00"
+     }
+    ],
+    "tieneDatos": true
+   },
+   "vacaciones": {
+    "filas": [
+     {
+      "uid": "uuid-5",
+      "recurso": "Ana",
+      "inicio": "2026-10-09",
+      "fin": "2026-10-14",
+      "dias": 4,
+      "estado": "Aprobada",
+      "comentarios": "",
+      "registradoPor": "",
+      "fechaRegistro": "2026-10-02"
+     }
+    ]
+   },
+   "evaluaciones": {
+    "filas": [
+     {
+      "uid": "uuid-6",
+      "recurso": "Carlos",
+      "fechaEvaluacion": "2026-10-02",
+      "periodo": "Oct 2026",
+      "evaluador": "",
+      "score": 52,
+      "calidad": 88,
+      "cumplimiento": 100,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 70,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "e1",
+      "recurso": "Ana",
+      "fechaEvaluacion": "2026-09-01",
+      "periodo": "Sep 2026",
+      "evaluador": "Beto",
+      "score": 87,
+      "calidad": 90,
+      "cumplimiento": 80,
+      "comunicacion": 70,
+      "colaboracion": 100,
+      "autonomia": 95,
+      "categoria": "Sólido",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     },
+     {
+      "uid": "uuid-7",
+      "recurso": "Zoe",
+      "fechaEvaluacion": "2026-08-20",
+      "periodo": "Q3",
+      "evaluador": "",
+      "score": 0,
+      "calidad": 0,
+      "cumplimiento": 0,
+      "comunicacion": 0,
+      "colaboracion": 0,
+      "autonomia": 0,
+      "categoria": "Crítico",
+      "comentario": "",
+      "planAccion": "",
+      "proximaEvaluacion": ""
+     }
+    ]
+   },
+   "cliente": {
+    "contactos": [
+     {
+      "uid": "uuid-8",
+      "nombre": "Beatriz",
+      "cargo": "",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "",
+      "nivelDecision": "Bajo",
+      "estado": "Activo",
+      "esDecisor": true,
+      "canal": "WhatsApp",
+      "alcance": "",
+      "requerimientos": false,
+      "aprueba": true,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "notas": ""
+     },
+     {
+      "uid": "c1",
+      "nombre": "Zoe",
+      "cargo": "CTO",
+      "rol": "Sponsor",
+      "area": "TI",
+      "correo": "z@x.com",
+      "telefono": "",
+      "nivelDecision": "Alto",
+      "estado": "Activo",
+      "esDecisor": true,
+      "canal": "Teams",
+      "alcance": "",
+      "requerimientos": true,
+      "aprueba": true,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "notas": ""
+     }
+    ],
+    "info": {
+     "uid": "i1",
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "Teams, Correo",
+     "proximaReunion": "2026-10-14",
+     "tipoReunion": "",
+     "cliente": "ACME",
+     "deliveryManager": "Ana López"
+    },
+    "gobierno": [
+     {
+      "uid": "uuid-10",
+      "reunion": "Daily",
+      "frecuencia": "Diaria",
+      "participantes": "",
+      "canal": "",
+      "notas": ""
+     },
+     {
+      "uid": "uuid-11",
+      "reunion": "Semanal",
+      "frecuencia": "",
+      "participantes": "",
+      "canal": "Teams",
+      "notas": ""
+     }
+    ],
+    "documentos": [
+     {
+      "uid": "uuid-12",
+      "nombre": "SOW",
+      "tipo": "Referencia",
+      "url": "https://sow",
+      "accion": "Abrir",
+      "notas": ""
+     }
+    ],
+    "resumen": {
+     "contactosClave": 2,
+     "decisores": 2,
+     "areas": 1,
+     "canales": 2,
+     "proximaReunion": "2026-10-14"
+    }
+   },
+   "clockify": {
+    "ok": true,
+    "proyectoClockify": "AER-001 Bot",
+    "rango": {
+     "fechaInicio": "2026-08-01",
+     "fechaFin": "2026-10-02",
+     "fuente": "MPB"
+    },
+    "error": null
+   }
+  }
+ ],
+ "sheets": {
+  "Proyectos": [
+   [
+    "ID_Proyecto",
+    "Nombre",
+    "Cliente",
+    "Servicio",
+    "Estado",
+    "Fecha_Inicio",
+    "Fecha_Fin_Estimada",
+    "Budget_Hrs",
+    "Delivery Manager"
+   ],
+   [
+    "AER.001",
+    "Bot facturas",
+    "ACME",
+    "AER",
+    "En curso",
+    {
+     "date": "2026-08-01T06:00:00.000Z"
+    },
+    {
+     "date": "2026-11-30T06:00:00.000Z"
+    },
+    100,
+    "Ana López"
+   ],
+   [
+    "TYM.002",
+    "Soporte",
+    "Globex",
+    "tym",
+    "En curso",
+    {
+     "date": "2026-09-01T06:00:00.000Z"
+    },
+    {
+     "date": "2026-12-31T06:00:00.000Z"
+    },
+    0,
+    ""
+   ],
+   [
+    "IXB.003",
+    "Integración",
+    "ACME",
+    "IXB",
+    "En curso",
+    "",
+    "",
+    10,
+    ""
+   ],
+   [
+    "AER.004",
+    "Cerrado",
+    "ACME",
+    "AER",
+    "Cerrado",
+    {
+     "date": "2026-06-01T06:00:00.000Z"
+    },
+    {
+     "date": "2026-09-30T06:00:00.000Z"
+    },
+    10,
+    "Beto"
+   ]
+  ],
+  "Recursos": [
+   [
+    "Proyecto",
+    "Posición",
+    "Nombre del recurso",
+    "Horas Estimadas"
+   ],
+   [
+    "AER.001",
+    "Dev",
+    "Ana López",
+    60
+   ],
+   [
+    "AER.001",
+    "QA",
+    "Carlos",
+    20
+   ],
+   [
+    "AER.002",
+    "Dev",
+    "Otro",
+    5
+   ],
+   [
+    "AER.001",
+    "PM",
+    "",
+    3
+   ]
+  ],
+  "AER_Planeacion": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Tipo",
+    "Actividad",
+    "Responsable",
+    "Inicio_Plan",
+    "Fin_Plan",
+    "Inicio_Real",
+    "Fin_Real",
+    "Avance",
+    "Estado",
+    "Dependencia",
+    "Estado_Dependencia",
+    "Notas",
+    "Orden",
+    "Actualizado"
+   ],
+   [
+    "p1",
+    "AER.001",
+    "Actividad",
+    "Diseño",
+    "Ana",
+    {
+     "date": "2026-08-01T06:00:00.000Z"
+    },
+    {
+     "date": "2026-08-31T06:00:00.000Z"
+    },
+    "",
+    {
+     "date": "2026-08-30T06:00:00.000Z"
+    },
+    100,
+    "Completado",
+    "",
+    "",
+    "",
+    1,
+    ""
+   ],
+   [
+    "p2",
+    "AER.001",
+    "Hito",
+    "Desarrollo",
+    "Ana",
+    {
+     "date": "2026-09-01T06:00:00.000Z"
+    },
+    {
+     "date": "2026-10-15T06:00:00.000Z"
+    },
+    "",
+    {
+     "date": "2026-10-02T06:00:00.000Z"
+    },
+    100,
+    "Completado",
+    "",
+    "",
+    "",
+    0,
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "p4",
+    "AER.001",
+    "Hito",
+    "Entrega UAT",
+    "Beto",
+    {
+     "date": "2026-09-20T06:00:00.000Z"
+    },
+    {
+     "date": "2026-09-25T06:00:00.000Z"
+    },
+    "",
+    "",
+    0,
+    "",
+    "",
+    "",
+    "",
+    3,
+    ""
+   ],
+   [
+    "p5",
+    "AER.001",
+    "Hito",
+    "Go Live",
+    "Beto",
+    {
+     "date": "2026-11-01T06:00:00.000Z"
+    },
+    {
+     "date": "2026-11-15T06:00:00.000Z"
+    },
+    "",
+    "",
+    0,
+    "Por iniciar",
+    "",
+    "",
+    "",
+    4,
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "p6",
+    "AER.001",
+    "Actividad",
+    "Pruebas",
+    "",
+    {
+     "date": "2026-10-01T06:00:00.000Z"
+    },
+    {
+     "date": "2026-10-02T06:00:00.000Z"
+    },
+    "",
+    "",
+    0,
+    "Por validar",
+    "",
+    "",
+    "",
+    0,
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "p7",
+    "AER.001",
+    "Actividad",
+    "Documentar",
+    "Carlos",
+    {
+     "date": "2026-09-10T06:00:00.000Z"
+    },
+    {
+     "date": "2026-09-20T06:00:00.000Z"
+    },
+    "",
+    "",
+    0,
+    "En progreso",
+    "Cliente",
+    "",
+    "",
+    4,
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "uuid-1",
+    "AER.001",
+    "Actividad",
+    "Nueva tarea",
+    "Carlos",
+    {
+     "date": "2026-10-05T06:00:00.000Z"
+    },
+    {
+     "date": "2026-10-09T06:00:00.000Z"
+    },
+    "",
+    "",
+    0,
+    "En progreso",
+    "Accesos",
+    "Abierta",
+    "",
+    6,
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "uuid-2",
+    "AER.001",
+    "Actividad",
+    "Lote 1",
+    "ana",
+    {
+     "date": "2026-10-10T06:00:00.000Z"
+    },
+    {
+     "date": "2026-10-12T06:00:00.000Z"
+    },
+    "",
+    "",
+    0,
+    "Por iniciar",
+    "",
+    "",
+    "otra vez",
+    0,
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ]
+  ],
+  "AER_Riesgos": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Riesgo",
+    "Impacto",
+    "Probabilidad",
+    "Responsable",
+    "Fecha_Limite",
+    "Accion",
+    "Estado",
+    "Notas",
+    "Actualizado"
+   ],
+   [
+    "r1",
+    "AER.001",
+    "Accesos tardíos",
+    "Medio",
+    "",
+    "Ana",
+    {
+     "date": "2026-10-10T06:00:00.000Z"
+    },
+    "",
+    "Abierto",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "r3",
+    "AER.001",
+    "Accesos tardíos",
+    "",
+    "",
+    "",
+    {
+     "date": "2026-10-10T06:00:00.000Z"
+    },
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "r5",
+    "AER.001",
+    "Rotación",
+    "Bajo",
+    "Baja",
+    "Carlos",
+    {
+     "date": "2026-11-01T06:00:00.000Z"
+    },
+    "",
+    "Cerrado",
+    "",
+    ""
+   ],
+   [
+    "r6",
+    "TYM.002",
+    "Otro",
+    "Alto",
+    "Alta",
+    "X",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "uuid-3",
+    "AER.001",
+    "Nuevo riesgo",
+    "Alta",
+    "Media",
+    "",
+    "",
+    "",
+    "",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ]
+  ],
+  "AER_Acciones": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Accion",
+    "Responsable",
+    "Fecha_Inicio",
+    "Fecha_Limite",
+    "Fecha_Real",
+    "Estado",
+    "Dependencia",
+    "Prioridad",
+    "Riesgo_UID",
+    "Notas",
+    "Actualizado"
+   ],
+   [
+    "a2",
+    "AER.001",
+    "Revisar accesos",
+    "Ana",
+    "",
+    {
+     "date": "2026-09-30T06:00:00.000Z"
+    },
+    {
+     "date": "2026-10-02T06:00:00.000Z"
+    },
+    "Completado",
+    "",
+    "Media",
+    "",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "a3",
+    "AER.001",
+    "Firmar contrato",
+    "Beto",
+    "",
+    {
+     "date": "2026-10-20T06:00:00.000Z"
+    },
+    {
+     "date": "2026-10-01T06:00:00.000Z"
+    },
+    "Completado",
+    "",
+    "",
+    "",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "uuid-4",
+    "AER.001",
+    "Nueva acción",
+    "",
+    "",
+    "",
+    "",
+    "Detenido",
+    "",
+    "Media",
+    "",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ]
+  ],
+  "AER_Evaluaciones": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Recurso",
+    "Fecha_Evaluacion",
+    "Periodo",
+    "Evaluador",
+    "Score",
+    "Calidad",
+    "Cumplimiento",
+    "Comunicacion",
+    "Colaboracion",
+    "Autonomia",
+    "Categoria",
+    "Comentario",
+    "Plan_Accion",
+    "Proxima_Evaluacion",
+    "Actualizado"
+   ],
+   [
+    "e1",
+    "AER.001",
+    "Ana",
+    {
+     "date": "2026-09-01T06:00:00.000Z"
+    },
+    "Sep 2026",
+    "Beto",
+    "",
+    90,
+    80,
+    70,
+    100,
+    95,
+    "",
+    ""
+   ],
+   [
+    "uuid-6",
+    "AER.001",
+    "Carlos",
+    {
+     "date": "2026-10-02T06:00:00.000Z"
+    },
+    "Oct 2026",
+    "",
+    52,
+    88,
+    100,
+    0,
+    0,
+    70,
+    "Crítico",
+    "",
+    "",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "uuid-7",
+    "AER.001",
+    "Zoe",
+    {
+     "date": "2026-08-20T06:00:00.000Z"
+    },
+    "Q3",
+    "",
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    "Crítico",
+    "",
+    "",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ]
+  ],
+  "AER_Contactos": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Nombre",
+    "Cargo",
+    "Rol",
+    "Area",
+    "Correo",
+    "Telefono",
+    "Nivel_Decision",
+    "Estado",
+    "Es_Decisor",
+    "Canal",
+    "Alcance",
+    "Requerimientos",
+    "Aprueba",
+    "Valida",
+    "Decide",
+    "Informado",
+    "Notas",
+    "Actualizado"
+   ],
+   [
+    "c1",
+    "AER.001",
+    "Zoe",
+    "CTO",
+    "Sponsor",
+    "TI",
+    "z@x.com",
+    "",
+    "Alto",
+    "Activo",
+    true,
+    "Teams",
+    "",
+    "sí",
+    "x",
+    "",
+    "FALSE",
+    "",
+    "",
+    " "
+   ],
+   [
+    "uuid-8",
+    "AER.001",
+    "Beatriz",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Bajo",
+    "Activo",
+    true,
+    "WhatsApp",
+    "",
+    false,
+    true,
+    false,
+    false,
+    false,
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ]
+  ],
+  "AER_ClienteInfo": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Area_Principal",
+    "Sponsor",
+    "Product_Owner",
+    "Correo_Distribucion",
+    "Ruta_Escalamiento",
+    "Canales",
+    "Proxima_Reunion",
+    "Tipo_Reunion",
+    "Actualizado"
+   ],
+   [
+    "i1",
+    "AER.001",
+    "",
+    "Nuevo",
+    "",
+    "",
+    "",
+    "Teams, Correo",
+    {
+     "date": "2026-10-14T06:00:00.000Z"
+    },
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "uuid-9",
+    "TYM.002",
+    "",
+    "S",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ]
+  ],
+  "AER_ClienteDocs": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Nombre",
+    "Tipo",
+    "URL",
+    "Accion",
+    "Notas",
+    "Actualizado"
+   ],
+   [
+    "d2",
+    "AER.001",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "uuid-12",
+    "AER.001",
+    "SOW",
+    "Referencia",
+    "https://sow",
+    "Abrir",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ]
+  ],
+  "AER_Vacaciones": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Recurso",
+    "Inicio",
+    "Fin",
+    "Estado",
+    "Comentarios",
+    "Registrado_Por",
+    "Fecha_Registro",
+    "Actualizado"
+   ],
+   [
+    "uuid-5",
+    "AER.001",
+    "Ana",
+    {
+     "date": "2026-10-09T06:00:00.000Z"
+    },
+    {
+     "date": "2026-10-14T06:00:00.000Z"
+    },
+    "Aprobada",
+    "",
+    "",
+    {
+     "date": "2026-10-02T06:00:00.000Z"
+    },
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ]
+  ],
+  "AER_ClienteGobierno": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Reunion",
+    "Frecuencia",
+    "Participantes",
+    "Canal",
+    "Notas",
+    "Actualizado"
+   ],
+   [
+    "uuid-10",
+    "AER.001",
+    "Daily",
+    "Diaria",
+    "",
+    "",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ],
+   [
+    "uuid-11",
+    "AER.001",
+    "Semanal",
+    "",
+    "",
+    "Teams",
+    "",
+    {
+     "date": "2026-10-02T18:00:00.000Z"
+    }
+   ]
+  ]
+ }
+}

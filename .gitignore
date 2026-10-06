@@ -1,0 +1,19 @@
+# Entorno y secretos (manual MCR_PY 4.8).
+.env
+key.json
+*.json.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Django
+db.sqlite3
+.cache/
+staticfiles/

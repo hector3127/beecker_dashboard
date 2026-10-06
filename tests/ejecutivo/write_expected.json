@@ -1,0 +1,315 @@
+{
+ "results": [
+  [
+   "Go Live",
+   "Kickoff"
+  ],
+  {
+   "ok": true,
+   "hitos": [
+    {
+     "tipo": "Go Live",
+     "indice": 0,
+     "fecha": "2026-11-15",
+     "observacion": "Salida"
+    },
+    {
+     "tipo": "Go Live",
+     "indice": 1,
+     "fecha": "2026-12-01",
+     "observacion": ""
+    },
+    {
+     "tipo": "Go Live",
+     "indice": 2,
+     "fecha": "20/11/2026",
+     "observacion": "/"
+    },
+    {
+     "tipo": "Kickoff",
+     "indice": 0,
+     "fecha": "2026-07-01",
+     "observacion": "Inicio"
+    },
+    {
+     "tipo": "🎯 Nuevo",
+     "indice": 0,
+     "fecha": "01/12/2026",
+     "observacion": "/"
+    },
+    {
+     "tipo": "🎯 Nuevo",
+     "indice": 1,
+     "fecha": "sin fecha",
+     "observacion": "/"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "hitos": [
+    {
+     "tipo": "Kickoff",
+     "indice": 0,
+     "fecha": "01/09/2026",
+     "observacion": "/"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "hitos": [
+    {
+     "tipo": "Go Live",
+     "indice": 0,
+     "fecha": "2026-11-15",
+     "observacion": "Salida"
+    },
+    {
+     "tipo": "Go Live",
+     "indice": 1,
+     "fecha": "05/12/2026",
+     "observacion": "/"
+    },
+    {
+     "tipo": "Go Live",
+     "indice": 2,
+     "fecha": "20/11/2026",
+     "observacion": "/"
+    },
+    {
+     "tipo": "Kickoff",
+     "indice": 0,
+     "fecha": "2026-07-01",
+     "observacion": "Inicio"
+    },
+    {
+     "tipo": "🎯 Nuevo",
+     "indice": 0,
+     "fecha": "01/12/2026",
+     "observacion": "/"
+    },
+    {
+     "tipo": "🎯 Nuevo",
+     "indice": 1,
+     "fecha": "sin fecha",
+     "observacion": "/"
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "No se encontró la entrada a editar (índice fuera de rango).",
+   "hitos": []
+  },
+  {
+   "ok": true,
+   "hitos": [
+    {
+     "tipo": "Go Live",
+     "indice": 0,
+     "fecha": "05/12/2026",
+     "observacion": "/"
+    },
+    {
+     "tipo": "Go Live",
+     "indice": 1,
+     "fecha": "20/11/2026",
+     "observacion": "/"
+    },
+    {
+     "tipo": "Kickoff",
+     "indice": 0,
+     "fecha": "2026-07-01",
+     "observacion": "Inicio"
+    },
+    {
+     "tipo": "🎯 Nuevo",
+     "indice": 0,
+     "fecha": "01/12/2026",
+     "observacion": "/"
+    },
+    {
+     "tipo": "🎯 Nuevo",
+     "indice": 1,
+     "fecha": "sin fecha",
+     "observacion": "/"
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "No se encontró el tipo de hito \"No existe\".",
+   "hitos": []
+  },
+  {
+   "ok": false,
+   "error": "No se encontró la entrada a eliminar (índice fuera de rango).",
+   "hitos": []
+  },
+  {
+   "ok": false,
+   "error": "No se encontró el proyecto \"NOEXISTE\" en la hoja Proyectos.",
+   "hitos": []
+  },
+  {
+   "ok": false,
+   "error": "Falta el ID de proyecto.",
+   "hitos": []
+  },
+  {
+   "ok": false,
+   "error": "No hay hitos para guardar.",
+   "hitos": []
+  },
+  {
+   "ok": true
+  },
+  {
+   "ok": false,
+   "error": "Impacto inválido."
+  },
+  {
+   "ok": false,
+   "error": "Falta la descripción del riesgo."
+  },
+  {
+   "ok": false,
+   "error": "Falta el ID de proyecto."
+  },
+  [
+   "Go Live",
+   "Kickoff",
+   "🎯 Nuevo"
+  ]
+ ],
+ "sheets": {
+  "Proyectos": [
+   [
+    "ID_Proyecto",
+    "Nombre",
+    "Cliente",
+    "Estado",
+    "Servicio",
+    "Budget_Hrs",
+    "Fecha_Inicio",
+    "Fecha_Fin_Estimada",
+    "Sponsor",
+    "Scrum_Master",
+    "Extra",
+    "Go Live",
+    "Kickoff",
+    "🎯 Nuevo"
+   ],
+   [
+    "AMK.008",
+    "Robot AMK",
+    "ACME",
+    "Development",
+    "T&M",
+    100,
+    46204,
+    46387,
+    "Laura",
+    "Pedro SM",
+    "",
+    "05/12/2026::/ | 20/11/2026::/",
+    "2026-07-01::Inicio",
+    "01/12/2026::/ | sin fecha::/"
+   ],
+   [
+    "RAS.001_S2",
+    "RaaS Uno",
+    "Beta",
+    "Development",
+    "RaaS",
+    "80",
+    46266,
+    46305,
+    "",
+    "",
+    "",
+    "",
+    "01/09/2026::/"
+   ],
+   [
+    "CLS.001",
+    "",
+    "",
+    "Cancelado",
+    "IXB",
+    0,
+    "",
+    ""
+   ],
+   [
+    "SUS.001",
+    "Suspendido",
+    "",
+    "Suspendido",
+    "Otro",
+    10,
+    46023,
+    46310
+   ],
+   [
+    "OVR.001",
+    "Sobreconsumo",
+    "",
+    "Development",
+    "AER",
+    5,
+    46023,
+    46266
+   ],
+   [
+    "PAC.001",
+    "Ritmo",
+    "",
+    "Development",
+    "AER",
+    1000,
+    46235,
+    46356
+   ]
+  ],
+  "Riesgos": [
+   [
+    "ID_Riesgo",
+    "ID_Proyecto",
+    "Descripcion",
+    "Impacto",
+    "Probabilidad",
+    "Estado",
+    "Responsable",
+    "Fecha_Deteccion",
+    "Origen"
+   ],
+   [
+    "RSK-AMK.008-1790964000000",
+    "AMK.008",
+    "Riesgo nuevo",
+    "Alto",
+    "Media",
+    "Abierto",
+    "Ana",
+    "DATE",
+    "Manual-Dashboard"
+   ]
+  ],
+  "Historico_Riesgos": [
+   [
+    "Timestamp",
+    "ID_Riesgo",
+    "Impacto",
+    "Origen"
+   ],
+   [
+    "DATE",
+    "RSK-AMK.008-1790964000000",
+    "Alto",
+    "Manual-Dashboard"
+   ]
+  ]
+ }
+}

@@ -1,0 +1,107 @@
+[project]
+name = "beecker-dashboard"
+version = "0.1.0"
+description = "Migracion a Django del dashboard Beecker construido en Apps Script."
+readme = "README.md"
+requires-python = "==3.12.*"
+dependencies = [
+    "Django==5.2.3",
+    "djangorestframework==3.16.0",
+    "gunicorn==25.3.0",
+    "whitenoise==6.9.0",
+    "python-dotenv==1.0.1",
+    "requests==2.32.4",
+    "anthropic==0.84.0",
+    "google-api-python-client==2.200.0",
+    "google-auth==2.57.1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff==0.16.7",
+    "mypy==2.3.1",
+    "django-stubs==6.1.0",
+    "djangorestframework-stubs==3.18.1",
+    "pytest==9.1.1",
+    "pytest-django==4.14.0",
+    "pytest-cov==7.1.0",
+    "pytest-mock==3.15.1",
+    "freezegun==1.5.5",
+]
+
+[tool.ruff]
+# Manual MCR_PY 5.8: ninguna linea debe pasar de 80 caracteres.
+line-length = 80
+target-version = "py312"
+extend-exclude = ["templates", "core/static"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle (E111, E117, E127, E128, E129 del manual)
+    "W",   # Espacios en blanco al final de linea.
+    "F",   # pyflakes
+    "I",   # Orden y agrupacion de importaciones (manual 4.5 y 6.1).
+    "N",   # Nomenclatura PEP 8 (manual seccion 5).
+    "UP",  # Sintaxis moderna, incluido el uso de f-strings (manual 6.7).
+    "B",   # Errores comunes.
+    "BLE", # Prohibe "except Exception" generico (manual 6.3.2).
+    "TID", # Prohibe importaciones relativas (manual 6.1).
+    "COM", # Comas finales (manual 6.6).
+    "D",   # Docstrings en modulos, clases y funciones.
+    "S105",
+    "S106", # Credenciales escritas en el codigo (manual 4.8).
+]
+ignore = [
+    "COM812",
+    # El manual MCR_PY escribe el resumen en la linea siguiente a """.
+    "D212",
+    "D105",
+    "D107",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D", "S105", "S106"]
+"**/migrations/**" = ["D", "E501"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.isort]
+known-first-party = ["apps", "config", "core"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+
+[[tool.mypy.overrides]]
+module = [
+    "googleapiclient.*",
+    "google.oauth2.*",
+    "google.auth.*",
+    "requests.*",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# Las pruebas no exigen anotaciones de tipo en cada funcion.
+module = ["tests.*"]
+disallow_untyped_defs = false
+disallow_untyped_calls = false
+disallow_incomplete_defs = false
+# Los datos de prueba se escriben como literales sin anotar.
+disable_error_code = ["arg-type", "var-annotated", "dict-item"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings.local"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py"]
+addopts = "--cov=core --cov=apps --cov-report=term-missing --cov-fail-under=80"
+
+[tool.coverage.run]
+omit = ["*/migrations/*", "config/*", "manage.py"]

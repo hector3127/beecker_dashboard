@@ -1,0 +1,596 @@
+{
+ "parsed": [
+  {
+   "proyecto": "MCC.026",
+   "resumen": "El equipo revisó el avance del sprint. Se acordó priorizar las pruebas.",
+   "asistentes": [
+    "Ana Pérez",
+    "Luis Gómez"
+   ],
+   "pendientes": [
+    {
+     "responsable": "Ana Pérez",
+     "descripcion": "Configurar ambiente: Solicitar permisos a TI."
+    },
+    {
+     "responsable": "",
+     "descripcion": "Documentar los resultados de pruebas para el cliente"
+    }
+   ],
+   "riesgos": [
+    "Bloqueo en ambiente: El ambiente de QA está en espera de permisos."
+   ],
+   "acuerdos": [
+    "Avance de desarrollo: Se terminó el módulo de accesos. (00:01:10)",
+    "Revisión de pruebas: Se validaron los casos críticos del sprint."
+   ]
+  },
+  {
+   "proyecto": "RAS.001_S2",
+   "resumen": "Se habló del Robot RaaS Uno y del riesgo de retraso en la entrega final.",
+   "asistentes": [
+    "Pedro"
+   ],
+   "pendientes": [
+    {
+     "responsable": "",
+     "descripcion": "Revisar plan con el cliente esta semana"
+    }
+   ],
+   "riesgos": [
+    "Riesgo de retraso: La entrega final podría moverse una semana."
+   ],
+   "acuerdos": []
+  },
+  {
+   "proyecto": "",
+   "resumen": "",
+   "asistentes": [],
+   "pendientes": [],
+   "riesgos": [],
+   "acuerdos": []
+  }
+ ],
+ "views": [
+  {
+   "minutas": [
+    {
+     "id": "MIN-old00001",
+     "proyecto": "AMK.008",
+     "fecha": "2026-09-30T06:00:00.000Z",
+     "asistentes": "Ana",
+     "resumen": "Resumen viejo",
+     "acuerdos": [
+      "Acuerdo A",
+      "Acuerdo B"
+     ],
+     "docUrl": "https://docs.google.com/document/d/old",
+     "pendientes": [
+      {
+       "ID_Pendiente": "MIN-old00001-P0",
+       "ID_Minuta": "MIN-old00001",
+       "ID_Proyecto": "AMK.008",
+       "Descripcion": "Pendiente viejo",
+       "Responsable": "Ana",
+       "Fecha_Compromiso": "",
+       "Prioridad": "Media",
+       "Estado": "Abierto"
+      }
+     ],
+     "riesgos": [
+      {
+       "ID_Riesgo": "MIN-old00001-R0",
+       "ID_Proyecto": "AMK.008",
+       "Descripcion": "Riesgo viejo",
+       "Impacto": "Medio",
+       "Probabilidad": "Media",
+       "Estado": "Abierto",
+       "Responsable": "",
+       "Fecha_Deteccion": "",
+       "Fecha_Revision": "",
+       "Plan_Mitigacion": "",
+       "Origen": "Regla-Minuta"
+      }
+     ]
+    },
+    {
+     "id": "MIN-old00002",
+     "proyecto": "",
+     "fecha": "",
+     "asistentes": "",
+     "resumen": "Sin fecha",
+     "acuerdos": [],
+     "docUrl": "",
+     "pendientes": [],
+     "riesgos": []
+    },
+    {
+     "id": "MIN-doc-mcc-",
+     "proyecto": "MCC.026",
+     "fecha": "2026-10-02T15:00:00.000Z",
+     "asistentes": "Ana Pérez, Luis Gómez",
+     "resumen": "El equipo revisó el avance del sprint. Se acordó priorizar las pruebas.",
+     "acuerdos": [
+      "Avance de desarrollo: Se terminó el módulo de accesos. (00:01:10)",
+      "Revisión de pruebas: Se validaron los casos críticos del sprint."
+     ],
+     "docUrl": "https://docs.google.com/document/d/doc-mcc-0001xyz/edit?usp=drivesdk",
+     "pendientes": [
+      {
+       "ID_Pendiente": "MIN-doc-mcc--P0",
+       "ID_Minuta": "MIN-doc-mcc-",
+       "ID_Proyecto": "MCC.026",
+       "Descripcion": "Configurar ambiente: Solicitar permisos a TI.",
+       "Responsable": "Ana Pérez",
+       "Fecha_Compromiso": "",
+       "Prioridad": "Media",
+       "Estado": "Abierto"
+      },
+      {
+       "ID_Pendiente": "MIN-doc-mcc--P1",
+       "ID_Minuta": "MIN-doc-mcc-",
+       "ID_Proyecto": "MCC.026",
+       "Descripcion": "Documentar los resultados de pruebas para el cliente",
+       "Responsable": "",
+       "Fecha_Compromiso": "",
+       "Prioridad": "Media",
+       "Estado": "Abierto"
+      }
+     ],
+     "riesgos": [
+      {
+       "ID_Riesgo": "MIN-doc-mcc--R0",
+       "ID_Proyecto": "MCC.026",
+       "Descripcion": "Bloqueo en ambiente: El ambiente de QA está en espera de permisos.",
+       "Impacto": "Medio",
+       "Probabilidad": "Media",
+       "Estado": "Abierto",
+       "Responsable": "",
+       "Fecha_Deteccion": "2026-10-02T18:00:00.000Z",
+       "Fecha_Revision": "",
+       "Plan_Mitigacion": "",
+       "Origen": "Regla-Minuta"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minutas": [
+    {
+     "id": "MIN-old00001",
+     "proyecto": "AMK.008",
+     "fecha": "2026-09-30T06:00:00.000Z",
+     "asistentes": "Ana",
+     "resumen": "Resumen viejo",
+     "acuerdos": [
+      "Acuerdo A",
+      "Acuerdo B"
+     ],
+     "docUrl": "https://docs.google.com/document/d/old",
+     "pendientes": [
+      {
+       "ID_Pendiente": "MIN-old00001-P0",
+       "ID_Minuta": "MIN-old00001",
+       "ID_Proyecto": "AMK.008",
+       "Descripcion": "Pendiente viejo",
+       "Responsable": "Ana",
+       "Fecha_Compromiso": "",
+       "Prioridad": "Media",
+       "Estado": "Abierto"
+      }
+     ],
+     "riesgos": [
+      {
+       "ID_Riesgo": "MIN-old00001-R0",
+       "ID_Proyecto": "AMK.008",
+       "Descripcion": "Riesgo viejo",
+       "Impacto": "Medio",
+       "Probabilidad": "Media",
+       "Estado": "Abierto",
+       "Responsable": "",
+       "Fecha_Deteccion": "",
+       "Fecha_Revision": "",
+       "Plan_Mitigacion": "",
+       "Origen": "Regla-Minuta"
+      }
+     ]
+    },
+    {
+     "id": "MIN-old00002",
+     "proyecto": "",
+     "fecha": "",
+     "asistentes": "",
+     "resumen": "Sin fecha",
+     "acuerdos": [],
+     "docUrl": "",
+     "pendientes": [],
+     "riesgos": []
+    },
+    {
+     "id": "MIN-doc-mcc-",
+     "proyecto": "MCC.026",
+     "fecha": "2026-10-02T15:00:00.000Z",
+     "asistentes": "Ana Pérez, Luis Gómez",
+     "resumen": "El equipo revisó el avance del sprint. Se acordó priorizar las pruebas.",
+     "acuerdos": [
+      "Avance de desarrollo: Se terminó el módulo de accesos. (00:01:10)",
+      "Revisión de pruebas: Se validaron los casos críticos del sprint."
+     ],
+     "docUrl": "https://docs.google.com/document/d/doc-mcc-0001xyz/edit?usp=drivesdk",
+     "pendientes": [
+      {
+       "ID_Pendiente": "MIN-doc-mcc--P0",
+       "ID_Minuta": "MIN-doc-mcc-",
+       "ID_Proyecto": "MCC.026",
+       "Descripcion": "Configurar ambiente: Solicitar permisos a TI.",
+       "Responsable": "Ana Pérez",
+       "Fecha_Compromiso": "",
+       "Prioridad": "Media",
+       "Estado": "Abierto"
+      },
+      {
+       "ID_Pendiente": "MIN-doc-mcc--P1",
+       "ID_Minuta": "MIN-doc-mcc-",
+       "ID_Proyecto": "MCC.026",
+       "Descripcion": "Documentar los resultados de pruebas para el cliente",
+       "Responsable": "",
+       "Fecha_Compromiso": "",
+       "Prioridad": "Media",
+       "Estado": "Abierto"
+      }
+     ],
+     "riesgos": [
+      {
+       "ID_Riesgo": "MIN-doc-mcc--R0",
+       "ID_Proyecto": "MCC.026",
+       "Descripcion": "Bloqueo en ambiente: El ambiente de QA está en espera de permisos.",
+       "Impacto": "Medio",
+       "Probabilidad": "Media",
+       "Estado": "Abierto",
+       "Responsable": "",
+       "Fecha_Deteccion": "2026-10-02T18:00:00.000Z",
+       "Fecha_Revision": "",
+       "Plan_Mitigacion": "",
+       "Origen": "Regla-Minuta"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minutas": [
+    {
+     "id": "MIN-doc-mcc-",
+     "proyecto": "MCC.026",
+     "fecha": "2026-10-02T15:00:00.000Z",
+     "asistentes": "Ana Pérez, Luis Gómez",
+     "resumen": "El equipo revisó el avance del sprint. Se acordó priorizar las pruebas.",
+     "acuerdos": [
+      "Avance de desarrollo: Se terminó el módulo de accesos. (00:01:10)",
+      "Revisión de pruebas: Se validaron los casos críticos del sprint."
+     ],
+     "docUrl": "https://docs.google.com/document/d/doc-mcc-0001xyz/edit?usp=drivesdk",
+     "pendientes": [
+      {
+       "ID_Pendiente": "MIN-doc-mcc--P0",
+       "ID_Minuta": "MIN-doc-mcc-",
+       "ID_Proyecto": "MCC.026",
+       "Descripcion": "Configurar ambiente: Solicitar permisos a TI.",
+       "Responsable": "Ana Pérez",
+       "Fecha_Compromiso": "",
+       "Prioridad": "Media",
+       "Estado": "Abierto"
+      },
+      {
+       "ID_Pendiente": "MIN-doc-mcc--P1",
+       "ID_Minuta": "MIN-doc-mcc-",
+       "ID_Proyecto": "MCC.026",
+       "Descripcion": "Documentar los resultados de pruebas para el cliente",
+       "Responsable": "",
+       "Fecha_Compromiso": "",
+       "Prioridad": "Media",
+       "Estado": "Abierto"
+      }
+     ],
+     "riesgos": [
+      {
+       "ID_Riesgo": "MIN-doc-mcc--R0",
+       "ID_Proyecto": "MCC.026",
+       "Descripcion": "Bloqueo en ambiente: El ambiente de QA está en espera de permisos.",
+       "Impacto": "Medio",
+       "Probabilidad": "Media",
+       "Estado": "Abierto",
+       "Responsable": "",
+       "Fecha_Deteccion": "2026-10-02T18:00:00.000Z",
+       "Fecha_Revision": "",
+       "Plan_Mitigacion": "",
+       "Origen": "Regla-Minuta"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minutas": [
+    {
+     "id": "MIN-old00001",
+     "proyecto": "AMK.008",
+     "fecha": "2026-09-30T06:00:00.000Z",
+     "asistentes": "Ana",
+     "resumen": "Resumen viejo",
+     "acuerdos": [
+      "Acuerdo A",
+      "Acuerdo B"
+     ],
+     "docUrl": "https://docs.google.com/document/d/old",
+     "pendientes": [
+      {
+       "ID_Pendiente": "MIN-old00001-P0",
+       "ID_Minuta": "MIN-old00001",
+       "ID_Proyecto": "AMK.008",
+       "Descripcion": "Pendiente viejo",
+       "Responsable": "Ana",
+       "Fecha_Compromiso": "",
+       "Prioridad": "Media",
+       "Estado": "Abierto"
+      }
+     ],
+     "riesgos": [
+      {
+       "ID_Riesgo": "MIN-old00001-R0",
+       "ID_Proyecto": "AMK.008",
+       "Descripcion": "Riesgo viejo",
+       "Impacto": "Medio",
+       "Probabilidad": "Media",
+       "Estado": "Abierto",
+       "Responsable": "",
+       "Fecha_Deteccion": "",
+       "Fecha_Revision": "",
+       "Plan_Mitigacion": "",
+       "Origen": "Regla-Minuta"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "minutas": []
+  }
+ ],
+ "proyectos": [
+  "Todos los proyectos",
+  "MCC.026",
+  "AMK.008"
+ ],
+ "sheets": {
+  "Proyectos": [
+   [
+    "ID_Proyecto",
+    "Nombre"
+   ],
+   [
+    "MCC.026",
+    "Control de Accesos CCURE 2"
+   ],
+   [
+    "RAS.001_S2",
+    "Robot RaaS Uno"
+   ],
+   [
+    "AMK.008",
+    "Robot AMK"
+   ]
+  ],
+  "Minutas": [
+   [
+    "ID_Minuta",
+    "ID_Proyecto",
+    "ID_Sprint",
+    "Fecha_Reunion",
+    "Fuente",
+    "Doc_URL",
+    "Asistentes",
+    "Resumen_IA",
+    "Riesgos_Detectados",
+    "Pendientes",
+    "Acuerdos",
+    "WorkItems_Mencionados",
+    "Sentimiento_Reunion",
+    "Procesado"
+   ],
+   [
+    "MIN-old00001",
+    "AMK.008",
+    "",
+    "2026-09-30T06:00:00.000Z",
+    "Google Meet / Gemini",
+    "https://docs.google.com/document/d/old",
+    "Ana",
+    "Resumen viejo",
+    "",
+    "",
+    "Acuerdo A | Acuerdo B",
+    "",
+    "Neutral",
+    true
+   ],
+   [
+    "MIN-old00002",
+    "",
+    "",
+    "",
+    "Manual",
+    "",
+    "",
+    "Sin fecha",
+    "",
+    "",
+    "",
+    "",
+    "",
+    false
+   ],
+   [
+    "MIN-doc-mcc-",
+    "MCC.026",
+    "",
+    "2026-10-02T15:00:00.000Z",
+    "Google Meet / Gemini",
+    "https://docs.google.com/document/d/doc-mcc-0001xyz/edit?usp=drivesdk",
+    "Ana Pérez, Luis Gómez",
+    "El equipo revisó el avance del sprint. Se acordó priorizar las pruebas.",
+    "",
+    "",
+    "Avance de desarrollo: Se terminó el módulo de accesos. (00:01:10) | Revisión de pruebas: Se validaron los casos críticos del sprint.",
+    "",
+    "Neutral",
+    true
+   ]
+  ],
+  "Pendientes_Minutas": [
+   [
+    "ID_Pendiente",
+    "ID_Minuta",
+    "ID_Proyecto",
+    "Descripcion",
+    "Responsable",
+    "Fecha_Compromiso",
+    "Prioridad",
+    "Estado"
+   ],
+   [
+    "MIN-old00001-P0",
+    "MIN-old00001",
+    "AMK.008",
+    "Pendiente viejo",
+    "Ana",
+    "",
+    "Media",
+    "Abierto"
+   ],
+   [
+    "MIN-doc-mcc--P0",
+    "MIN-doc-mcc-",
+    "MCC.026",
+    "Configurar ambiente: Solicitar permisos a TI.",
+    "Ana Pérez",
+    "",
+    "Media",
+    "Abierto"
+   ],
+   [
+    "MIN-doc-mcc--P1",
+    "MIN-doc-mcc-",
+    "MCC.026",
+    "Documentar los resultados de pruebas para el cliente",
+    "",
+    "",
+    "Media",
+    "Abierto"
+   ]
+  ],
+  "Riesgos": [
+   [
+    "ID_Riesgo",
+    "ID_Proyecto",
+    "Descripcion",
+    "Impacto",
+    "Probabilidad",
+    "Estado",
+    "Responsable",
+    "Fecha_Deteccion",
+    "Fecha_Revision",
+    "Plan_Mitigacion",
+    "Origen"
+   ],
+   [
+    "MIN-old00001-R0",
+    "AMK.008",
+    "Riesgo viejo",
+    "Medio",
+    "Media",
+    "Abierto",
+    "",
+    "",
+    "",
+    "",
+    "Regla-Minuta"
+   ],
+   [
+    "",
+    "AMK.008",
+    "Fila vacia",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "IA-Minuta"
+   ],
+   [
+    "RSK-1",
+    "AMK.008",
+    "Manual",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Manual"
+   ],
+   [
+    "MIN-doc-mcc--R0",
+    "MCC.026",
+    "Bloqueo en ambiente: El ambiente de QA está en espera de permisos.",
+    "Medio",
+    "Media",
+    "Abierto",
+    "",
+    "2026-10-02T18:00:00.000Z",
+    "",
+    "",
+    "Regla-Minuta"
+   ]
+  ],
+  "Historico_Riesgos": [
+   [
+    "Timestamp",
+    "ID_Riesgo",
+    "Origen"
+   ],
+   [
+    "2026-10-02T18:00:00.000Z",
+    "MIN-doc-mcc--R0",
+    "Regla-Minuta"
+   ]
+  ],
+  "Log_Automatizaciones": [
+   [
+    "Fecha",
+    "Proceso",
+    "Resultado",
+    "Detalle",
+    "Ms"
+   ],
+   [
+    "2026-10-02T18:00:00.000Z",
+    "procesarMinuta",
+    "ERROR",
+    "No se pudo leer \"Sin permiso\" (doc-fail-0004xy): Export fallo con status 403",
+    ""
+   ],
+   [
+    "2026-10-02T18:00:00.000Z",
+    "escanearMinutasNuevas",
+    "OK",
+    "4 minutas nuevas procesadas",
+    ""
+   ]
+  ]
+ }
+}

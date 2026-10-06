@@ -1,0 +1,3130 @@
+{
+ "results": [
+  {
+   "ok": false,
+   "error": "ID de proyecto inválido."
+  },
+  {
+   "ok": false,
+   "error": "ID de proyecto inválido."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Luis",
+      "uid": "c1"
+     }
+    ],
+    "info": {
+     "sponsor": "X",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Semanal",
+      "uid": "g1"
+     },
+     {
+      "reunion": "Diaria",
+      "uid": "g3"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": []
+  },
+  {
+   "ok": true,
+   "proyectoId": "SINDATOS.001",
+   "cliente": {
+    "contactos": [],
+    "info": {},
+    "gobierno": [],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [],
+    "abiertas": [],
+    "vencidas": [],
+    "detenidas": []
+   },
+   "partes": []
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Luis",
+      "uid": "c1"
+     },
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "sponsor": "X",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Semanal",
+      "uid": "g1"
+     },
+     {
+      "reunion": "Diaria",
+      "uid": "g3"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": [],
+   "uid": "uuid-1"
+  },
+  {
+   "ok": false,
+   "error": "Escribe el nombre del contacto."
+  },
+  {
+   "ok": false,
+   "error": "Tipo inválido."
+  },
+  {
+   "ok": false,
+   "error": "Escribe la acción."
+  },
+  {
+   "ok": false,
+   "error": "Registro no encontrado en este proyecto."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Luis 2",
+      "cargo": "",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": false,
+      "aprueba": false,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "esDecisor": false,
+      "uid": "c1"
+     },
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "sponsor": "X",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Semanal",
+      "uid": "g1"
+     },
+     {
+      "reunion": "Diaria",
+      "uid": "g3"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": [],
+   "uid": "c1"
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Luis 2",
+      "cargo": "",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": false,
+      "aprueba": false,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "esDecisor": false,
+      "uid": "c1"
+     },
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Semanal",
+      "uid": "g1"
+     },
+     {
+      "reunion": "Diaria",
+      "uid": "g3"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": [],
+   "uid": "i1"
+  },
+  {
+   "ok": true,
+   "proyectoId": "MCC.026",
+   "cliente": {
+    "contactos": [],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Otro",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "uuid-2"
+    },
+    "gobierno": [
+     {
+      "reunion": "Mensual",
+      "uid": "g2"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Otro",
+      "uid": "a6"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Otro",
+      "uid": "a6"
+     }
+    ],
+    "vencidas": [],
+    "detenidas": []
+   },
+   "partes": [],
+   "uid": "uuid-2"
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Luis 2",
+      "cargo": "",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": false,
+      "aprueba": false,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "esDecisor": false,
+      "uid": "c1"
+     },
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Semanal",
+      "uid": "g1"
+     },
+     {
+      "reunion": "Diaria",
+      "uid": "g3"
+     }
+    ],
+    "documentos": [
+     {
+      "nombre": "Contrato",
+      "tipo": "",
+      "url": "https://x",
+      "accion": "",
+      "notas": "",
+      "uid": "uuid-3"
+     }
+    ],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": [],
+   "uid": "uuid-3",
+   "documentos": [
+    {
+     "nombre": "Contrato",
+     "tipo": "",
+     "url": "https://x",
+     "accion": "",
+     "notas": "",
+     "uid": "uuid-3"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Luis 2",
+      "cargo": "",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": false,
+      "aprueba": false,
+      "valida": false,
+      "decide": false,
+      "informado": false,
+      "esDecisor": false,
+      "uid": "c1"
+     },
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Semanal",
+      "uid": "g1"
+     },
+     {
+      "reunion": "Diaria",
+      "uid": "g3"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": [],
+   "documentos": []
+  },
+  {
+   "ok": false,
+   "error": "Registro no encontrado en este proyecto."
+  },
+  {
+   "ok": false,
+   "error": "Registro no encontrado en este proyecto."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Semanal",
+      "uid": "g1"
+     },
+     {
+      "reunion": "Diaria",
+      "uid": "g3"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": []
+  },
+  {
+   "ok": false,
+   "error": "Registro no encontrado en este proyecto."
+  },
+  {
+   "ok": false,
+   "error": "Tipo de registro inválido."
+  },
+  {
+   "ok": false,
+   "error": "Lista de reuniones inválida."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Kickoff",
+      "frecuencia": "Única",
+      "participantes": "3",
+      "canal": "",
+      "uid": "uuid-4"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": [],
+   "gobierno": [
+    {
+     "reunion": "Kickoff",
+     "frecuencia": "Única",
+     "participantes": "3",
+     "canal": "",
+     "uid": "uuid-4"
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Kickoff",
+      "frecuencia": "Única",
+      "participantes": "3",
+      "canal": "",
+      "uid": "uuid-4"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": [],
+   "uid": "uuid-5"
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Kickoff",
+      "frecuencia": "Única",
+      "participantes": "3",
+      "canal": "",
+      "uid": "uuid-4"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1",
+      "notas": "12",
+      "comentarios": "12"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1",
+      "notas": "12",
+      "comentarios": "12"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "uid": "a8"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1",
+      "notas": "12",
+      "comentarios": "12"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": []
+  },
+  {
+   "ok": false,
+   "error": "Campo no editable."
+  },
+  {
+   "ok": false,
+   "error": "Acción no encontrada."
+  },
+  {
+   "ok": false,
+   "error": "Registro no encontrado en este proyecto."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Kickoff",
+      "frecuencia": "Única",
+      "participantes": "3",
+      "canal": "",
+      "uid": "uuid-4"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1",
+      "notas": "12",
+      "comentarios": "12"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8",
+      "estado": "Completado"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1",
+      "notas": "12",
+      "comentarios": "12"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1",
+      "notas": "12",
+      "comentarios": "12"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": []
+  },
+  {
+   "ok": false,
+   "error": "Unexpected token 'o', \"not json\" is not valid JSON"
+  },
+  {
+   "ok": true,
+   "proyectoId": "MCC.026",
+   "cliente": {
+    "contactos": [],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Otro",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "uuid-2"
+    },
+    "gobierno": [
+     {
+      "reunion": "Mensual",
+      "uid": "g2"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Otro",
+      "uid": "a6"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Otro",
+      "uid": "a6"
+     }
+    ],
+    "vencidas": [],
+    "detenidas": []
+   },
+   "partes": [],
+   "eliminados": 0
+  },
+  {
+   "ok": true,
+   "proyectoId": "MCC.026",
+   "cliente": {
+    "contactos": [],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Otro",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "uuid-2"
+    },
+    "gobierno": [
+     {
+      "reunion": "Mensual",
+      "uid": "g2"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [],
+    "abiertas": [],
+    "vencidas": [],
+    "detenidas": []
+   },
+   "partes": []
+  },
+  {
+   "ok": true,
+   "filas": []
+  },
+  {
+   "ok": true,
+   "filas": [
+    {
+     "accion": "Enviar",
+     "responsable": "Ana",
+     "fechaLimite": "",
+     "proximaRevision": "2026-10-10",
+     "estado": "Pendiente",
+     "notas": "",
+     "uid": "uuid-6"
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Escribe la acción."
+  },
+  {
+   "ok": true,
+   "filas": [
+    {
+     "accion": "Enviar",
+     "responsable": "Ana",
+     "fechaLimite": "",
+     "proximaRevision": "2026-10-10",
+     "estado": "Listo",
+     "notas": "",
+     "uid": "uuid-6"
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Campo no editable."
+  },
+  {
+   "ok": true,
+   "filas": []
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "cliente": {
+    "contactos": [
+     {
+      "nombre": "Mario",
+      "cargo": "CTO",
+      "rol": "",
+      "area": "",
+      "correo": "",
+      "telefono": "5512345678",
+      "nivelDecision": "",
+      "estado": "",
+      "canal": "",
+      "alcance": "",
+      "notas": "",
+      "requerimientos": true,
+      "aprueba": false,
+      "valida": true,
+      "decide": false,
+      "informado": true,
+      "esDecisor": true,
+      "uid": "uuid-1"
+     }
+    ],
+    "info": {
+     "areaPrincipal": "",
+     "sponsor": "Nuevo",
+     "productOwner": "",
+     "correoDistribucion": "",
+     "rutaEscalamiento": "",
+     "canales": "",
+     "proximaReunion": "",
+     "tipoReunion": "",
+     "uid": "i1"
+    },
+    "gobierno": [
+     {
+      "reunion": "Kickoff",
+      "frecuencia": "Única",
+      "participantes": "3",
+      "canal": "",
+      "uid": "uuid-4"
+     }
+    ],
+    "documentos": [],
+    "resumen": {}
+   },
+   "acciones": {
+    "filas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1",
+      "notas": "12",
+      "comentarios": "12"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Firmar",
+      "estado": "Completado parcial",
+      "fechaLimite": "2026-01-01",
+      "uid": "a3"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Cancel",
+      "estado": "Ya cancelado",
+      "fechaLimite": "2026-01-01",
+      "uid": "a7"
+     },
+     {
+      "uid": "a8",
+      "estado": "Completado"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "abiertas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1",
+      "notas": "12",
+      "comentarios": "12"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "vencidas": [
+     {
+      "accion": "Revisar",
+      "responsable": "Ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "Pendiente",
+      "prioridad": "Alta",
+      "uid": "a1",
+      "notas": "12",
+      "comentarios": "12"
+     },
+     {
+      "accion": "revisar ",
+      "responsable": "ana",
+      "fechaLimite": "2026-09-30",
+      "estado": "En curso",
+      "uid": "a2"
+     },
+     {
+      "accion": "Vieja",
+      "estado": "",
+      "fechaLimite": "2026-10-01T10:00",
+      "uid": "a9"
+     },
+     {
+      "accion": "Nueva",
+      "responsable": "",
+      "fechaInicio": "",
+      "fechaLimite": "2026-10-01",
+      "fechaReal": "",
+      "estado": "Pendiente",
+      "dependencia": "",
+      "prioridad": "Media",
+      "notas": "n",
+      "comentarios": "n",
+      "uid": "uuid-5"
+     }
+    ],
+    "detenidas": [
+     {
+      "accion": "Pagar",
+      "estado": "Detenido",
+      "fechaLimite": "2026-12-01",
+      "uid": "a4"
+     }
+    ]
+   },
+   "partes": []
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "filas": [
+    {
+     "nombre": "Ana López",
+     "rol": "Lead",
+     "horasEstimadas": 20,
+     "activo": false
+    },
+    {
+     "nombre": "Beto",
+     "rol": "QA",
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "nombre": "Carla",
+     "rol": "Dev",
+     "horasEstimadas": 0,
+     "activo": false
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "proyectoId": "MCC.026",
+   "filas": [
+    {
+     "nombre": "Zoe",
+     "rol": "PM",
+     "horasEstimadas": 10,
+     "activo": true
+    },
+    {
+     "nombre": "Nuevo",
+     "rol": "PM",
+     "horasEstimadas": 8,
+     "activo": true
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "filas": [
+    {
+     "nombre": "Ana López",
+     "rol": "Lead",
+     "horasEstimadas": 20,
+     "activo": false
+    },
+    {
+     "nombre": "Beto",
+     "rol": "QA",
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "nombre": "Carla",
+     "rol": "Dev",
+     "horasEstimadas": 0,
+     "activo": false
+    },
+    {
+     "nombre": "Dana",
+     "rol": "QA",
+     "horasEstimadas": 12.5,
+     "activo": true
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "filas": [
+    {
+     "nombre": "ana  lópez",
+     "rol": "Lead",
+     "horasEstimadas": 0,
+     "activo": false
+    },
+    {
+     "nombre": "Beto",
+     "rol": "QA",
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "nombre": "Carla",
+     "rol": "Dev",
+     "horasEstimadas": 0,
+     "activo": false
+    },
+    {
+     "nombre": "Dana",
+     "rol": "QA",
+     "horasEstimadas": 12.5,
+     "activo": true
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Las horas estimadas deben ser un número válido."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "filas": [
+    {
+     "nombre": "ana  lópez",
+     "rol": "Lead",
+     "horasEstimadas": 0,
+     "activo": false
+    },
+    {
+     "nombre": "Beto",
+     "rol": "QA",
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "nombre": "Carla",
+     "rol": "Dev",
+     "horasEstimadas": 0,
+     "activo": false
+    },
+    {
+     "nombre": "Dana",
+     "rol": "QA",
+     "horasEstimadas": 12.5,
+     "activo": true
+    },
+    {
+     "nombre": "Eva",
+     "rol": "QA",
+     "horasEstimadas": 0,
+     "activo": true
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Las horas estimadas deben ser un número válido."
+  },
+  {
+   "ok": false,
+   "error": "Escribe un nombre válido."
+  },
+  {
+   "ok": false,
+   "error": "Escribe el rol del recurso."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "vacaciones": [],
+   "compromisos": []
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "vacaciones": [
+    {
+     "recurso": "Ana",
+     "inicio": "2026-10-10",
+     "fin": "2026-10-12",
+     "estado": "Pendiente",
+     "comentarios": "",
+     "registradoPor": "",
+     "uid": "uuid-7"
+    }
+   ],
+   "compromisos": []
+  },
+  {
+   "ok": false,
+   "error": "Indica recurso y fechas válidas."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "vacaciones": [
+    {
+     "recurso": "Ana",
+     "inicio": "2026-10-10",
+     "fin": "2026-10-12",
+     "estado": "Pendiente",
+     "comentarios": "",
+     "registradoPor": "",
+     "uid": "uuid-7"
+    }
+   ],
+   "compromisos": [
+    {
+     "actividad": "Demo",
+     "fecha": "2026-10-20",
+     "responsable": "Beto",
+     "estado": "Pendiente",
+     "tipo": "Actividad",
+     "uid": "uuid-8"
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Indica actividad y fecha válida."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "vacaciones": [
+    {
+     "recurso": "Ana",
+     "inicio": "2026-10-11",
+     "fin": "2026-10-13",
+     "estado": "Aprobada",
+     "comentarios": "",
+     "registradoPor": "",
+     "uid": "uuid-7"
+    }
+   ],
+   "compromisos": [
+    {
+     "actividad": "Demo",
+     "fecha": "2026-10-20",
+     "responsable": "Beto",
+     "estado": "Pendiente",
+     "tipo": "Actividad",
+     "uid": "uuid-8"
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Registro no encontrado en este proyecto."
+  },
+  {
+   "ok": false,
+   "error": "Tipo de registro inválido."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "vacaciones": [
+    {
+     "recurso": "Ana",
+     "inicio": "2026-10-11",
+     "fin": "2026-10-13",
+     "estado": "Aprobada",
+     "comentarios": "",
+     "registradoPor": "",
+     "uid": "uuid-7"
+    }
+   ],
+   "compromisos": []
+  },
+  {
+   "ok": false,
+   "error": "Registro inválido."
+  },
+  {
+   "ok": false,
+   "error": "Registro no encontrado en este proyecto."
+  },
+  {
+   "ok": true,
+   "proyectoId": "GPO.007",
+   "vacaciones": [
+    {
+     "recurso": "Ana",
+     "inicio": "2026-10-11",
+     "fin": "2026-10-13",
+     "estado": "Aprobada",
+     "comentarios": "",
+     "registradoPor": "",
+     "uid": "uuid-7"
+    }
+   ],
+   "compromisos": []
+  },
+  {
+   "ok": true,
+   "comunicados": [
+    {
+     "uid": "u3",
+     "fecha": "2026-09-28",
+     "titulo": "Cambio importante",
+     "resumen": "",
+     "contenido": "c3",
+     "categoria": "Cambio",
+     "importante": true,
+     "proyecto": "",
+     "autor": "Beto",
+     "puntosClave": ""
+    },
+    {
+     "uid": "u1",
+     "fecha": "2026-09-25",
+     "titulo": "Aviso 1",
+     "resumen": "res",
+     "contenido": "cont",
+     "categoria": "Aviso",
+     "importante": true,
+     "proyecto": "GPO",
+     "autor": "Ana",
+     "puntosClave": ""
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "comunicados": [
+    {
+     "uid": "uuid-9",
+     "fecha": "2026-10-02",
+     "titulo": "Nuevo",
+     "resumen": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+     "contenido": "Texto",
+     "categoria": "Aviso",
+     "importante": false,
+     "proyecto": "",
+     "autor": "",
+     "puntosClave": "p"
+    },
+    {
+     "uid": "u3",
+     "fecha": "2026-09-28",
+     "titulo": "Cambio importante",
+     "resumen": "",
+     "contenido": "c3",
+     "categoria": "Cambio",
+     "importante": true,
+     "proyecto": "",
+     "autor": "Beto",
+     "puntosClave": ""
+    },
+    {
+     "uid": "u1",
+     "fecha": "2026-09-25",
+     "titulo": "Aviso 1",
+     "resumen": "res",
+     "contenido": "cont",
+     "categoria": "Aviso",
+     "importante": true,
+     "proyecto": "GPO",
+     "autor": "Ana",
+     "puntosClave": ""
+    }
+   ]
+  },
+  {
+   "ok": true,
+   "comunicados": [
+    {
+     "uid": "uuid-9",
+     "fecha": "2026-10-02",
+     "titulo": "Nuevo",
+     "resumen": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+     "contenido": "Texto",
+     "categoria": "Aviso",
+     "importante": false,
+     "proyecto": "",
+     "autor": "",
+     "puntosClave": "p"
+    },
+    {
+     "uid": "u3",
+     "fecha": "2026-09-28",
+     "titulo": "Cambio importante",
+     "resumen": "",
+     "contenido": "c3",
+     "categoria": "Cambio",
+     "importante": true,
+     "proyecto": "",
+     "autor": "Beto",
+     "puntosClave": ""
+    },
+    {
+     "uid": "u1",
+     "fecha": "2026-09-25",
+     "titulo": "Editado",
+     "resumen": "",
+     "contenido": "C",
+     "categoria": "Lineamiento",
+     "importante": true,
+     "proyecto": "",
+     "autor": "",
+     "puntosClave": ""
+    }
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Categoría inválida."
+  },
+  {
+   "ok": false,
+   "error": "Escribe un título y contenido válidos."
+  },
+  {
+   "ok": false,
+   "error": "Comunicado no encontrado."
+  }
+ ],
+ "sheets": {
+  "IXS_Acciones": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "DatosJSON",
+    "Actualizado"
+   ],
+   [
+    "a1",
+    "GPO.007",
+    "{\"accion\":\"Revisar\",\"responsable\":\"Ana\",\"fechaLimite\":\"2026-09-30\",\"estado\":\"Pendiente\",\"prioridad\":\"Alta\",\"uid\":\"a1\",\"notas\":\"12\",\"comentarios\":\"12\"}",
+    "2026-10-02T18:30:00.000Z"
+   ],
+   [
+    "a2",
+    "GPO.007",
+    "{\"accion\":\"revisar \",\"responsable\":\"ana\",\"fechaLimite\":\"2026-09-30\",\"estado\":\"En curso\"}",
+    ""
+   ],
+   [
+    "a3",
+    "GPO.007",
+    "{\"accion\":\"Firmar\",\"estado\":\"Completado parcial\",\"fechaLimite\":\"2026-01-01\"}",
+    ""
+   ],
+   [
+    "a4",
+    " GPO.007 ",
+    "{\"accion\":\"Pagar\",\"estado\":\"Detenido\",\"fechaLimite\":\"2026-12-01\"}",
+    ""
+   ],
+   [
+    "a5",
+    "GPO.007",
+    "not json",
+    ""
+   ],
+   [
+    "a7",
+    "GPO.007",
+    "{\"accion\":\"Cancel\",\"estado\":\"Ya cancelado\",\"fechaLimite\":\"2026-01-01\"}",
+    ""
+   ],
+   [
+    "a8",
+    "GPO.007",
+    "{\"uid\":\"a8\",\"estado\":\"Completado\"}",
+    "2026-10-02T18:30:00.000Z"
+   ],
+   [
+    "a9",
+    "GPO.007",
+    "{\"accion\":\"Vieja\",\"estado\":\"\",\"fechaLimite\":\"2026-10-01T10:00\"}",
+    ""
+   ],
+   [
+    "uuid-5",
+    "GPO.007",
+    "{\"accion\":\"Nueva\",\"responsable\":\"\",\"fechaInicio\":\"\",\"fechaLimite\":\"2026-10-01\",\"fechaReal\":\"\",\"estado\":\"Pendiente\",\"dependencia\":\"\",\"prioridad\":\"Media\",\"notas\":\"n\",\"comentarios\":\"n\"}",
+    "2026-10-02T18:30:00.000Z"
+   ]
+  ],
+  "IXS_Cliente_Contactos": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "DatosJSON",
+    "Actualizado"
+   ],
+   [
+    "uuid-1",
+    "GPO.007",
+    "{\"nombre\":\"Mario\",\"cargo\":\"CTO\",\"rol\":\"\",\"area\":\"\",\"correo\":\"\",\"telefono\":\"5512345678\",\"nivelDecision\":\"\",\"estado\":\"\",\"canal\":\"\",\"alcance\":\"\",\"notas\":\"\",\"requerimientos\":true,\"aprueba\":false,\"valida\":true,\"decide\":false,\"informado\":true,\"esDecisor\":true}",
+    "2026-10-02T18:30:00.000Z"
+   ]
+  ],
+  "IXS_Cliente_Info": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "DatosJSON",
+    "Actualizado"
+   ],
+   [
+    "i1",
+    "GPO.007",
+    "{\"areaPrincipal\":\"\",\"sponsor\":\"Nuevo\",\"productOwner\":\"\",\"correoDistribucion\":\"\",\"rutaEscalamiento\":\"\",\"canales\":\"\",\"proximaReunion\":\"\",\"tipoReunion\":\"\"}",
+    "2026-10-02T18:30:00.000Z"
+   ],
+   [
+    "uuid-2",
+    "MCC.026",
+    "{\"areaPrincipal\":\"\",\"sponsor\":\"Otro\",\"productOwner\":\"\",\"correoDistribucion\":\"\",\"rutaEscalamiento\":\"\",\"canales\":\"\",\"proximaReunion\":\"\",\"tipoReunion\":\"\"}",
+    "2026-10-02T18:30:00.000Z"
+   ]
+  ],
+  "IXS_Cliente_Gobierno": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "DatosJSON",
+    "Actualizado"
+   ],
+   [
+    "g2",
+    "MCC.026",
+    "{\"reunion\":\"Mensual\"}",
+    ""
+   ],
+   [
+    "uuid-4",
+    "GPO.007",
+    "{\"reunion\":\"Kickoff\",\"frecuencia\":\"Única\",\"participantes\":\"3\",\"canal\":\"\"}",
+    "2026-10-02T18:30:00.000Z"
+   ]
+  ],
+  "Recursos": [
+   [
+    "Proyecto",
+    "Posición",
+    "Nombre del Recurso",
+    "Horas Estimadas",
+    "Otra",
+    "Estado"
+   ],
+   [
+    "GPO.007",
+    "Lead",
+    "ana  lópez",
+    0,
+    "x",
+    "Inactivo"
+   ],
+   [
+    "gpo.007 ",
+    "QA",
+    "Beto",
+    "abc",
+    ""
+   ],
+   [
+    "MCC.026",
+    "PM",
+    "Zoe",
+    10,
+    ""
+   ],
+   [
+    "GPO.007",
+    "Dev",
+    "",
+    5,
+    ""
+   ],
+   [
+    "GPO.007",
+    "Dev",
+    "Carla",
+    0,
+    "",
+    "Inactivo"
+   ],
+   [
+    "MCC.026",
+    "PM",
+    "Nuevo",
+    8,
+    "",
+    "Activo"
+   ],
+   [
+    "GPO.007",
+    "QA",
+    "Dana",
+    12.5,
+    "",
+    "Activo"
+   ],
+   [
+    "GPO.007",
+    "QA",
+    "Eva",
+    0,
+    "",
+    "Activo"
+   ]
+  ],
+  "Comunicados": [
+   [
+    "UID",
+    "Fecha",
+    "Título",
+    "Resumen",
+    "Contenido",
+    "Categoría",
+    "Importante",
+    "Proyecto",
+    "Publicado por",
+    "Puntos clave"
+   ],
+   [
+    "u1",
+    {
+     "date": "2026-09-25T06:00:00.000Z"
+    },
+    "Editado",
+    "",
+    "C",
+    "Lineamiento",
+    true,
+    "",
+    "",
+    ""
+   ],
+   [
+    "u2",
+    "texto",
+    "",
+    "r",
+    "c",
+    "Cambio",
+    false,
+    "",
+    ""
+   ],
+   [
+    "u3",
+    {
+     "date": "2026-09-28T21:00:00.000Z"
+    },
+    "Cambio importante",
+    "",
+    "c3",
+    "Cambio",
+    true,
+    "",
+    "Beto"
+   ],
+   [
+    "",
+    {
+     "date": "2026-09-01T06:00:00.000Z"
+    },
+    "sin uid",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "uuid-9",
+    {
+     "date": "2026-10-02T18:30:00.000Z"
+    },
+    "Nuevo",
+    "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+    "Texto",
+    "Aviso",
+    false,
+    "",
+    "",
+    "p"
+   ]
+  ],
+  "IXS_Cliente_Documentos": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "DatosJSON",
+    "Actualizado"
+   ]
+  ],
+  "IXS_Acciones_Partes": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "DatosJSON",
+    "Actualizado"
+   ]
+  ],
+  "IXS_Planeacion": [
+   [
+    "UID",
+    "ID_Proyecto",
+    "Tipo",
+    "DatosJSON",
+    "Actualizado"
+   ],
+   [
+    "uuid-7",
+    "GPO.007",
+    "vacacion",
+    "{\"recurso\":\"Ana\",\"inicio\":\"2026-10-11\",\"fin\":\"2026-10-13\",\"estado\":\"Aprobada\",\"comentarios\":\"\",\"registradoPor\":\"\"}",
+    "2026-10-02T18:30:00.000Z"
+   ]
+  ]
+ }
+}

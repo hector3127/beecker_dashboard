@@ -1,0 +1,9 @@
+Django==5.2.3
+djangorestframework==3.16.0
+gunicorn==25.3.0
+whitenoise==6.9.0
+python-dotenv==1.0.1
+requests==2.32.4
+anthropic==0.84.0
+google-api-python-client==2.200.0
+google-auth==2.57.1

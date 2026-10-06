@@ -1,0 +1,25 @@
+"""Nombres de las hojas del Spreadsheet, tomados de Config.gs."""
+
+"""BKD.004.001 - Catalogo de hojas
+Centraliza los nombres de hoja para no repetir textos en el codigo.
+"""
+
+SHEET_PROJECTS = "Proyectos"
+SHEET_PROJECTS_HISTORY = "Historico_Proyectos"
+SHEET_SPRINTS = "Sprints"
+SHEET_SPRINTS_HISTORY = "Historico_Sprints"
+SHEET_RESOURCES = "Recursos"
+SHEET_RESOURCE_LOAD_HISTORY = "Historico_Carga_Recursos"
+SHEET_RISKS = "Riesgos"
+SHEET_RISKS_HISTORY = "Historico_Riesgos"
+SHEET_MINUTES = "Minutas"
+SHEET_MINUTES_PENDING = "Pendientes_Minutas"
+SHEET_AZURE_WORK_ITEMS = "WorkItems_Azure"
+SHEET_AZURE_SYNC_HISTORY = "Historico_Sync_Azure"
+SHEET_DASHBOARD_KPIS = "KPIs_Dashboard"
+SHEET_CONFIGURATION = "Configuracion"
+SHEET_AUTOMATION_LOG = "Log_Automatizaciones"
+SHEET_TIME_ENTRIES = "Registros_Tiempo"
+SHEET_SALARY_BANDS = "Banda salarial"
+SHEET_MASTER_RATES = "Master rates"
+SHEET_DASHBOARD_KPI_HISTORY = "Dashboard_Historico_KPIs"

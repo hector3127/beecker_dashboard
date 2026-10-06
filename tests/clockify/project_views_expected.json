@@ -1,0 +1,506 @@
+[
+ {
+  "ok": true,
+  "fechaInicio": "2026-01-06T00:00:00.000Z",
+  "fechaFin": "2026-03-15T00:00:00.000Z"
+ },
+ {
+  "ok": true,
+  "fechaInicio": "2026-04-05T00:00:00.000Z",
+  "fechaFin": "2026-05-30T00:00:00.000Z"
+ },
+ {
+  "ok": true,
+  "fechaInicio": "2026-09-01T00:00:00.000Z",
+  "fechaFin": "2026-10-03T00:00:00.000Z"
+ },
+ {
+  "ok": true,
+  "fechaInicio": "2026-01-06",
+  "fechaFin": "2026-03-15",
+  "hitos": [
+   {
+    "nombre": "Discovery",
+    "fechaInicioPlan": "2026-01-05",
+    "fechaFinPlan": "2026-01-20"
+   },
+   {
+    "nombre": "Development",
+    "fechaInicioPlan": "2026-01-22",
+    "fechaFinPlan": "2026-02-28"
+   },
+   {
+    "nombre": "Deployment",
+    "fechaInicioPlan": "2026-03-01",
+    "fechaFinPlan": "2026-03-15"
+   }
+  ],
+  "historialCompleto": [
+   {
+    "fase": "Discovery",
+    "fechaInicio": "2026-01-06",
+    "fechaFin": "2026-01-21",
+    "enCurso": false
+   },
+   {
+    "fase": "Development",
+    "fechaInicio": "2026-01-22",
+    "fechaFin": "",
+    "enCurso": true
+   }
+  ],
+  "suspensiones": [
+   {
+    "fechaInicio": "2026-02-01",
+    "fechaFin": "2026-02-05"
+   }
+  ]
+ },
+ {
+  "ok": true,
+  "fechaInicio": "2026-04-05",
+  "fechaFin": "2026-05-30",
+  "hitos": [],
+  "historialCompleto": [
+   {
+    "fase": "Discovery",
+    "fechaInicio": "2026-04-05",
+    "fechaFin": "2026-04-20",
+    "enCurso": false
+   },
+   {
+    "fase": "Deployment",
+    "fechaInicio": "2026-05-02",
+    "fechaFin": "2026-05-30",
+    "enCurso": false
+   }
+  ],
+  "suspensiones": []
+ },
+ {
+  "ok": false,
+  "error": "No se encontraron etapas de este ID en Historico_Proyectos A:I."
+ },
+ {
+  "ok": true,
+  "fechaInicio": "2026-01-01",
+  "fechaFin": "2026-10-03",
+  "hitos": [],
+  "historialCompleto": [
+   {
+    "fase": "Discovery",
+    "fechaInicio": "2026-01-01",
+    "fechaFin": "",
+    "enCurso": true
+   }
+  ],
+  "suspensiones": []
+ },
+ {
+  "ok": true,
+  "registros": [
+   {
+    "id": "a1",
+    "fecha": "2026-01-10",
+    "recurso": "Ana López",
+    "actividad": "S1 Desarrollo",
+    "descripcion": "Desarrollo login",
+    "inicio": "09:00",
+    "fin": "11:30",
+    "duracion": 2.5,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "a2",
+    "fecha": "2026-01-11",
+    "recurso": "Ana López",
+    "actividad": "General",
+    "descripcion": "",
+    "inicio": "08:00",
+    "fin": "09:00",
+    "duracion": 1,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "a4",
+    "fecha": "2026-01-12",
+    "recurso": "Beto Ruiz",
+    "actividad": "Sin task",
+    "descripcion": "Junta",
+    "inicio": "07:00",
+    "fin": "07:45",
+    "duracion": 0.75,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "a5",
+    "fecha": "2026-01-13",
+    "recurso": "Carla",
+    "actividad": "S1 Viejo",
+    "descripcion": "Tarea vieja",
+    "inicio": "17:30",
+    "fin": "19:00",
+    "duracion": 1.5,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "a6",
+    "fecha": "2026-01-15",
+    "recurso": "Carla",
+    "actividad": "S1 Desarrollo",
+    "descripcion": "Cero",
+    "inicio": "10:00",
+    "fin": "10:00",
+    "duracion": 0,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "a8",
+    "fecha": "2026-01-17",
+    "recurso": "Ana López",
+    "actividad": "S1 Extra",
+    "descripcion": "Task fuera de catalogo",
+    "inicio": "10:00",
+    "fin": "10:20",
+    "duracion": 0.33,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "a9",
+    "fecha": "2026-04-08",
+    "recurso": "Beto Ruiz",
+    "actividad": "Sin task",
+    "descripcion": "CR sin tag",
+    "inicio": "09:00",
+    "fin": "10:00",
+    "duracion": 1,
+    "billable": true,
+    "fueraHorario": null
+   }
+  ],
+  "rango": {
+   "fechaInicio": "2026-01-06",
+   "fechaFin": "2026-03-15",
+   "hitos": [
+    {
+     "nombre": "Discovery",
+     "fechaInicioPlan": "2026-01-05",
+     "fechaFinPlan": "2026-01-20"
+    },
+    {
+     "nombre": "Development",
+     "fechaInicioPlan": "2026-01-22",
+     "fechaFinPlan": "2026-02-28"
+    },
+    {
+     "nombre": "Deployment",
+     "fechaInicioPlan": "2026-03-01",
+     "fechaFinPlan": "2026-03-15"
+    }
+   ],
+   "historialCompleto": [
+    {
+     "fase": "Discovery",
+     "fechaInicio": "2026-01-06",
+     "fechaFin": "2026-01-21",
+     "enCurso": false
+    },
+    {
+     "fase": "Development",
+     "fechaInicio": "2026-01-22",
+     "fechaFin": "",
+     "enCurso": true
+    }
+   ],
+   "suspensiones": [
+    {
+     "fechaInicio": "2026-02-01",
+     "fechaFin": "2026-02-05"
+    }
+   ]
+  },
+  "nomenclatura": "S1"
+ },
+ {
+  "ok": true,
+  "registros": [
+   {
+    "id": "a2",
+    "fecha": "2026-01-11",
+    "recurso": "Ana López",
+    "actividad": "General",
+    "descripcion": "",
+    "inicio": "08:00",
+    "fin": "09:00",
+    "duracion": 1,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "a3",
+    "fecha": "2026-04-07",
+    "recurso": "Beto Ruiz",
+    "actividad": "CR1 Ajustes",
+    "descripcion": "Ajuste CR",
+    "inicio": "10:00",
+    "fin": "12:15",
+    "duracion": 2.25,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "a4",
+    "fecha": "2026-01-12",
+    "recurso": "Beto Ruiz",
+    "actividad": "Sin task",
+    "descripcion": "Junta",
+    "inicio": "07:00",
+    "fin": "07:45",
+    "duracion": 0.75,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "a9",
+    "fecha": "2026-04-08",
+    "recurso": "Beto Ruiz",
+    "actividad": "Sin task",
+    "descripcion": "CR sin tag",
+    "inicio": "09:00",
+    "fin": "10:00",
+    "duracion": 1,
+    "billable": true,
+    "fueraHorario": null
+   }
+  ],
+  "rango": {
+   "fechaInicio": "2026-04-05",
+   "fechaFin": "2026-05-30",
+   "hitos": [],
+   "historialCompleto": [
+    {
+     "fase": "Discovery",
+     "fechaInicio": "2026-04-05",
+     "fechaFin": "2026-04-20",
+     "enCurso": false
+    },
+    {
+     "fase": "Deployment",
+     "fechaInicio": "2026-05-02",
+     "fechaFin": "2026-05-30",
+     "enCurso": false
+    }
+   ],
+   "suspensiones": []
+  },
+  "nomenclatura": "CR1"
+ },
+ {
+  "ok": true,
+  "registros": [
+   {
+    "id": "b1",
+    "fecha": "2026-09-02",
+    "recurso": "Dora",
+    "actividad": "Soporte",
+    "descripcion": "Soporte AER",
+    "inicio": "09:00",
+    "fin": "13:00",
+    "duracion": 4,
+    "billable": true,
+    "fueraHorario": null
+   },
+   {
+    "id": "b2",
+    "fecha": "2026-09-03",
+    "recurso": "Dora",
+    "actividad": "Sin task",
+    "descripcion": "Preventa",
+    "inicio": "09:00",
+    "fin": "10:30",
+    "duracion": 1.5,
+    "billable": true,
+    "fueraHorario": null
+   }
+  ],
+  "rango": {
+   "fechaInicio": "2026-09-01",
+   "fechaFin": "2026-10-03",
+   "fuente": "MPB"
+  },
+  "nomenclatura": null
+ },
+ {
+  "ok": false,
+  "registros": [],
+  "error": "No se encontró el rango de fechas en Historico_Proyectos para SAS.002."
+ },
+ {
+  "ok": true,
+  "proyectoClockify": "RAS.001 - Cliente",
+  "nomenclatura": "S1",
+  "rango": {
+   "fechaInicio": "2026-01-06",
+   "fechaFin": "2026-03-15",
+   "hitos": [
+    {
+     "nombre": "Discovery",
+     "fechaInicioPlan": "2026-01-05",
+     "fechaFinPlan": "2026-01-20"
+    },
+    {
+     "nombre": "Development",
+     "fechaInicioPlan": "2026-01-22",
+     "fechaFinPlan": "2026-02-28"
+    },
+    {
+     "nombre": "Deployment",
+     "fechaInicioPlan": "2026-03-01",
+     "fechaFinPlan": "2026-03-15"
+    }
+   ],
+   "historialCompleto": [
+    {
+     "fase": "Discovery",
+     "fechaInicio": "2026-01-06",
+     "fechaFin": "2026-01-21",
+     "enCurso": false
+    },
+    {
+     "fase": "Development",
+     "fechaInicio": "2026-01-22",
+     "fechaFin": "",
+     "enCurso": true
+    }
+   ],
+   "suspensiones": [
+    {
+     "fechaInicio": "2026-02-01",
+     "fechaFin": "2026-02-05"
+    }
+   ]
+  },
+  "rangoConsulta": {
+   "inicio": "2026-01-06T00:00:00-06:00",
+   "fin": "2026-03-15T23:59:59-06:00"
+  },
+  "tasks": [
+   {
+    "id": "t1",
+    "nombre": "S1 Desarrollo",
+    "horas": 2.5
+   },
+   {
+    "id": "",
+    "nombre": "Sin task",
+    "horas": 1.75
+   }
+  ],
+  "totalHoras": 4.25,
+  "invOperativa": 0.75,
+  "invComercial": 0.75,
+  "totalEntriesRaw": 9,
+  "totalEntriesUnicas": 9,
+  "taskIdsPermitidas": [
+   "t1",
+   "t5"
+  ]
+ },
+ {
+  "ok": true,
+  "proyectoClockify": "RAS.001 - Cliente",
+  "nomenclatura": "CR1",
+  "rango": {
+   "fechaInicio": "2026-04-05",
+   "fechaFin": "2026-05-30",
+   "hitos": [],
+   "historialCompleto": [
+    {
+     "fase": "Discovery",
+     "fechaInicio": "2026-04-05",
+     "fechaFin": "2026-04-20",
+     "enCurso": false
+    },
+    {
+     "fase": "Deployment",
+     "fechaInicio": "2026-05-02",
+     "fechaFin": "2026-05-30",
+     "enCurso": false
+    }
+   ],
+   "suspensiones": []
+  },
+  "rangoConsulta": {
+   "inicio": "2026-04-05T00:00:00-06:00",
+   "fin": "2026-05-30T23:59:59-06:00"
+  },
+  "tasks": [
+   {
+    "id": "t2",
+    "nombre": "CR1 Ajustes",
+    "horas": 2.25
+   },
+   {
+    "id": "",
+    "nombre": "Sin task",
+    "horas": 1.75
+   }
+  ],
+  "totalHoras": 4,
+  "invOperativa": 0.75,
+  "invComercial": 0.75,
+  "totalEntriesRaw": 9,
+  "totalEntriesUnicas": 9,
+  "taskIdsPermitidas": [
+   "t2"
+  ]
+ },
+ {
+  "ok": true,
+  "proyectoClockify": "AER.AWN.001",
+  "nomenclatura": null,
+  "rango": {
+   "fechaInicio": "2026-09-01",
+   "fechaFin": "2026-10-03",
+   "fuente": "MPB"
+  },
+  "rangoConsulta": {
+   "inicio": "2026-09-01T00:00:00-06:00",
+   "fin": "2026-10-03T23:59:59-06:00"
+  },
+  "tasks": [
+   {
+    "id": "t20",
+    "nombre": "Soporte",
+    "horas": 4
+   },
+   {
+    "id": "",
+    "nombre": "Sin task",
+    "horas": 1.5
+   }
+  ],
+  "totalHoras": 5.5,
+  "invOperativa": 0,
+  "invComercial": 1.5,
+  "totalEntriesRaw": 2,
+  "totalEntriesUnicas": 2,
+  "taskIdsPermitidas": [
+   "t20"
+  ]
+ },
+ {
+  "ok": false,
+  "tasks": [],
+  "invOperativa": 0,
+  "invComercial": 0,
+  "totalHoras": 0,
+  "error": "No se encontró el rango de fechas en Historico_Proyectos para SAS.002."
+ }
+]

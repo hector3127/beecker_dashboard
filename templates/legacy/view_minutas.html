@@ -1,0 +1,15 @@
+<template id="tpl-minutas">
+  <div class="view-header">
+    <div class="view-title">MINUTAS <span class="accent">CON IA</span></div>
+    <div class="filters">
+      <input type="date" class="filter" id="f-fecha-minuta">
+      <select class="filter" id="f-proyecto-minuta"></select>
+      <button class="btn" id="btn-limpiar-filtros">Limpiar</button>
+      <button class="btn btn-primary" id="btn-actualizar-minuta">🔄 Actualizar Dashboard desde última minuta</button>
+    </div>
+  </div>
+
+  <div id="minutas-lista">
+    <div class="loading">Cargando minutas...</div>
+  </div>
+</template>

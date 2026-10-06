@@ -1,0 +1,582 @@
+{
+ "NOW": "2026-10-03T18:00:00Z",
+ "SHEETS": {
+  "Proyectos": [
+   [
+    "ID_Proyecto",
+    "Nombre",
+    "Servicio"
+   ],
+   [
+    "RAS.001",
+    "Cliente RaaS",
+    "RAAS"
+   ],
+   [
+    "RAS.001_CR1",
+    "Cliente RaaS CR",
+    "RAAS"
+   ],
+   [
+    "AER.AWN.001",
+    "Cliente AER",
+    "AER"
+   ],
+   [
+    "SAS.002",
+    "Otro",
+    "SAAS"
+   ]
+  ],
+  "Historico_Proyectos": [
+   [
+    "Historico",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "Project ID",
+    "Nombre",
+    "Status",
+    "Start",
+    "Finish",
+    "",
+    "",
+    "",
+    "x"
+   ],
+   [
+    "RAS.001",
+    "",
+    "Discovery EST",
+    {
+     "d": "2026-01-05"
+    },
+    {
+     "d": "2026-01-20"
+    },
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "RAS.001",
+    "",
+    "Discovery",
+    {
+     "d": "2026-01-06"
+    },
+    {
+     "d": "2026-01-21"
+    },
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "RAS.001",
+    "",
+    "Development EST",
+    {
+     "d": "2026-01-22"
+    },
+    {
+     "d": "2026-02-28"
+    },
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "RAS.001",
+    "",
+    "Development",
+    {
+     "d": "2026-01-22"
+    },
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "RAS.001",
+    "",
+    "Suspendido",
+    {
+     "d": "2026-02-01"
+    },
+    {
+     "d": "2026-02-05"
+    },
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "RAS.001",
+    "",
+    "Deployment EST",
+    {
+     "d": "2026-03-01"
+    },
+    {
+     "d": "2026-03-15"
+    },
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "RAS.001_CR1",
+    "",
+    "Discovery",
+    "05/04/26",
+    "20/04/2026",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "RAS.001_CR1",
+    "",
+    "Deployment",
+    {
+     "d": "2026-05-02"
+    },
+    {
+     "d": "2026-05-30"
+    },
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "OTRO.1",
+    "",
+    "Discovery",
+    {
+     "d": "2026-01-01"
+    },
+    "",
+    "",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "MPB": [
+   [
+    "Portafolio",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "ID",
+    "Cliente",
+    "Service",
+    "Inicio",
+    "Fin",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "AER.AWN.001",
+    "AWN",
+    "AER",
+    {
+     "d": "2026-09-01"
+    },
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   [
+    "AER.AWN.001",
+    "AWN",
+    "IXB",
+    {
+     "d": "2025-01-01"
+    },
+    {
+     "d": "2025-02-01"
+    },
+    "",
+    "",
+    "",
+    ""
+   ]
+  ],
+  "Recursos": [
+   [
+    "Proyecto",
+    "Nombre del recurso",
+    "Posición"
+   ]
+  ]
+ },
+ "PROJECTS": [
+  {
+   "id": "p1",
+   "name": "RAS.001 - Cliente"
+  },
+  {
+   "id": "p2",
+   "name": "AER.AWN.001"
+  },
+  {
+   "id": "p3",
+   "name": "Sin relacion"
+  }
+ ],
+ "REPORT": {
+  "p1": [
+   {
+    "_id": "a1",
+    "projectId": "p1",
+    "userName": "Ana López",
+    "description": "Desarrollo login",
+    "timeInterval": {
+     "start": "2026-01-10T15:00:00Z",
+     "end": "2026-01-10T17:30:00Z",
+     "duration": 9000
+    },
+    "tags": [
+     {
+      "name": "S1"
+     }
+    ],
+    "billable": true,
+    "taskId": "t1",
+    "taskName": "S1 Desarrollo"
+   },
+   {
+    "_id": "a2",
+    "projectId": "p1",
+    "userName": "Ana López",
+    "description": "",
+    "timeInterval": {
+     "start": "2026-01-11T14:00:00Z",
+     "end": "2026-01-11T15:00:00Z",
+     "duration": "PT1H"
+    },
+    "tags": [
+     {
+      "name": "INV_Operativa"
+     }
+    ],
+    "billable": true,
+    "taskId": "t3",
+    "taskName": "General"
+   },
+   {
+    "_id": "a3",
+    "projectId": "p1",
+    "userName": "Beto Ruiz",
+    "description": "Ajuste CR",
+    "timeInterval": {
+     "start": "2026-04-07T16:00:00Z",
+     "end": "2026-04-07T18:15:00Z",
+     "duration": "PT2H15M"
+    },
+    "tags": [
+     {
+      "name": "CR1"
+     }
+    ],
+    "billable": true,
+    "taskId": "t2",
+    "taskName": "CR1 Ajustes"
+   },
+   {
+    "_id": "a4",
+    "projectId": "p1",
+    "userName": "Beto Ruiz",
+    "description": "Junta",
+    "timeInterval": {
+     "start": "2026-01-12T13:00:00Z",
+     "end": "2026-01-12T13:45:00Z",
+     "duration": 2700
+    },
+    "tags": [
+     {
+      "name": "inv_comercial"
+     },
+     {
+      "name": "INV_Operativa"
+     }
+    ],
+    "billable": true
+   },
+   {
+    "_id": "a5",
+    "projectId": "p1",
+    "userName": "Carla",
+    "description": "Tarea vieja",
+    "timeInterval": {
+     "start": "2026-01-13T23:30:00Z",
+     "end": "2026-01-14T01:00:00Z",
+     "duration": 5400
+    },
+    "tags": [],
+    "billable": true,
+    "taskId": "t4",
+    "taskName": "S1 Viejo"
+   },
+   {
+    "_id": "a6",
+    "projectId": "p1",
+    "userName": "Carla",
+    "description": "Cero",
+    "timeInterval": {
+     "start": "2026-01-15T16:00:00Z",
+     "end": "2026-01-15T16:00:00Z",
+     "duration": 0
+    },
+    "tags": [
+     {
+      "name": "S1"
+     }
+    ],
+    "billable": true,
+    "taskId": "t1",
+    "taskName": "S1 Desarrollo"
+   },
+   {
+    "_id": "a7",
+    "projectId": "p1",
+    "userName": "Carla",
+    "description": "Otra fase",
+    "timeInterval": {
+     "start": "2026-01-16T16:00:00Z",
+     "end": "2026-01-16T17:00:00Z",
+     "duration": 3600
+    },
+    "tags": [
+     {
+      "name": "S2"
+     }
+    ],
+    "billable": false
+   },
+   {
+    "_id": "a8",
+    "projectId": "p1",
+    "userName": "Ana López",
+    "description": "Task fuera de catalogo",
+    "timeInterval": {
+     "start": "2026-01-17T16:00:00Z",
+     "end": "2026-01-17T16:20:00Z",
+     "duration": "PT20M"
+    },
+    "tags": [],
+    "billable": true,
+    "taskId": "t9",
+    "taskName": "S1 Extra"
+   },
+   {
+    "_id": "a9",
+    "projectId": "p1",
+    "userName": "Beto Ruiz",
+    "description": "CR sin tag",
+    "timeInterval": {
+     "start": "2026-04-08T15:00:00Z",
+     "end": "2026-04-08T16:00:00Z",
+     "duration": 3600
+    },
+    "tags": [],
+    "billable": true
+   }
+  ],
+  "p2": [
+   {
+    "_id": "b1",
+    "projectId": "p2",
+    "userName": "Dora",
+    "description": "Soporte AER",
+    "timeInterval": {
+     "start": "2026-09-02T15:00:00Z",
+     "end": "2026-09-02T19:00:00Z",
+     "duration": 14400
+    },
+    "tags": [
+     {
+      "name": "Soporte"
+     }
+    ],
+    "billable": true,
+    "taskId": "t20",
+    "taskName": "Soporte"
+   },
+   {
+    "_id": "b2",
+    "projectId": "p2",
+    "userName": "Dora",
+    "description": "Preventa",
+    "timeInterval": {
+     "start": "2026-09-03T15:00:00Z",
+     "end": "2026-09-03T16:30:00Z",
+     "duration": "PT1H30M"
+    },
+    "tags": [
+     {
+      "name": "INV_Comercial"
+     }
+    ],
+    "billable": true
+   }
+  ]
+ },
+ "TASKS": {
+  "p1": [
+   {
+    "id": "t1",
+    "name": "S1 Desarrollo",
+    "status": "ACTIVE"
+   },
+   {
+    "id": "t2",
+    "name": "CR1 Ajustes",
+    "status": "ACTIVE"
+   },
+   {
+    "id": "t3",
+    "name": "General",
+    "status": "ACTIVE"
+   },
+   {
+    "id": "t4",
+    "name": "S1 Viejo",
+    "status": "DONE"
+   },
+   {
+    "id": "t5",
+    "name": "S1 Pruebas",
+    "status": "ACTIVE"
+   }
+  ],
+  "p2": [
+   {
+    "id": "t20",
+    "name": "Soporte",
+    "status": "ACTIVE"
+   }
+  ]
+ },
+ "OPERATIONS": [
+  [
+   "obtenerRangoClockifyProyecto",
+   [
+    "RAS.001"
+   ]
+  ],
+  [
+   "obtenerRangoClockifyProyecto",
+   [
+    "RAS.001_CR1"
+   ]
+  ],
+  [
+   "obtenerRangoClockifyProyecto",
+   [
+    "AER.AWN.001"
+   ]
+  ],
+  [
+   "obtenerEtapasHistoricoAIProyecto",
+   [
+    "RAS.001"
+   ]
+  ],
+  [
+   "obtenerEtapasHistoricoAIProyecto",
+   [
+    " ras.001_cr1 "
+   ]
+  ],
+  [
+   "obtenerEtapasHistoricoAIProyecto",
+   [
+    "AER.AWN.001"
+   ]
+  ],
+  [
+   "obtenerEtapasHistoricoAIProyecto",
+   [
+    "OTRO.1"
+   ]
+  ],
+  [
+   "getRegistrosClockifyProyecto",
+   [
+    "RAS.001"
+   ]
+  ],
+  [
+   "getRegistrosClockifyProyecto",
+   [
+    "RAS.001_CR1"
+   ]
+  ],
+  [
+   "getRegistrosClockifyProyecto",
+   [
+    "AER.AWN.001"
+   ]
+  ],
+  [
+   "getRegistrosClockifyProyecto",
+   [
+    "SAS.002"
+   ]
+  ],
+  [
+   "obtenerResumenTasksTagsClockifyProyecto",
+   [
+    "RAS.001"
+   ]
+  ],
+  [
+   "obtenerResumenTasksTagsClockifyProyecto",
+   [
+    "RAS.001_CR1"
+   ]
+  ],
+  [
+   "obtenerResumenTasksTagsClockifyProyecto",
+   [
+    "AER.AWN.001"
+   ]
+  ],
+  [
+   "obtenerResumenTasksTagsClockifyProyecto",
+   [
+    "SAS.002"
+   ]
+  ]
+ ]
+}

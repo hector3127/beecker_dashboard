@@ -1,0 +1,848 @@
+{
+ "base": [
+  {
+   "ok": true,
+   "mes": "2026-10",
+   "actual": "2026-10",
+   "filas": [
+    {
+     "uid": "R2",
+     "recurso": "Ana Pérez",
+     "banda": "B3",
+     "rol": "QA",
+     "concepto": "Proyecto",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "QA",
+     "manager": "Juan DM",
+     "idProyecto": "RAS.001_S2",
+     "proyecto": "Robot RAS",
+     "iteration": "",
+     "horasDiarias": 8,
+     "horasEstimadas": 160,
+     "activo": true
+    },
+    {
+     "uid": "R4",
+     "recurso": "María López",
+     "banda": "B4",
+     "rol": "PM",
+     "concepto": "Proyecto",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "PM",
+     "manager": "Mgr A",
+     "idProyecto": "AER.010",
+     "proyecto": "Soporte AER",
+     "iteration": "",
+     "horasDiarias": null,
+     "horasEstimadas": null,
+     "activo": false
+    },
+    {
+     "uid": "R6",
+     "recurso": "Nuevo Recurso",
+     "banda": "NA",
+     "rol": "",
+     "concepto": "Interno",
+     "tipo": "Becario",
+     "regla": {
+      "cargabilidad": "No Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "NA",
+     "manager": "Laura DM",
+     "idProyecto": "GPO.007",
+     "proyecto": "GPO.007",
+     "iteration": "Proj\\Iter",
+     "horasDiarias": null,
+     "horasEstimadas": 0,
+     "activo": false
+    },
+    {
+     "uid": "R7",
+     "recurso": "Ana Pérez",
+     "banda": "B3",
+     "rol": "QA",
+     "concepto": "Pre Ventas",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "QA",
+     "manager": "",
+     "idProyecto": "XYZ.1",
+     "proyecto": "Manual",
+     "iteration": "",
+     "horasDiarias": 2.5,
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "uid": "R9",
+     "recurso": "Pedro Ruiz",
+     "banda": "B2",
+     "rol": "DEV",
+     "concepto": "Laboratorio Beecker",
+     "tipo": "Residente",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "DEV",
+     "manager": "",
+     "idProyecto": "TYM.002",
+     "proyecto": "TYM.002",
+     "iteration": "",
+     "horasDiarias": null,
+     "horasEstimadas": null,
+     "activo": true
+    },
+    {
+     "uid": "R10",
+     "recurso": "Sofía Díaz",
+     "banda": "NA",
+     "rol": "",
+     "concepto": "Concepto raro",
+     "tipo": "Empleado",
+     "regla": null,
+     "tecnologia": "NA",
+     "manager": "",
+     "idProyecto": "NOP.001",
+     "proyecto": "Sin Azure",
+     "iteration": "",
+     "horasDiarias": 16,
+     "horasEstimadas": 10,
+     "activo": true
+    }
+   ],
+   "personas": [
+    {
+     "nombre": "Ana Pérez",
+     "banda": "B3",
+     "rol": "QA",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Empleado"
+    },
+    {
+     "nombre": "María López",
+     "banda": "B4",
+     "rol": "PM",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Empleado"
+    },
+    {
+     "nombre": "Pedro Ruiz",
+     "banda": "B2",
+     "rol": "DEV",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Residente"
+    }
+   ],
+   "bandasAviso": "",
+   "bandaColumna": "octubre 2026",
+   "fuentes": [
+    "Recursos",
+    "Bandas/rol",
+    "Azure DevOps"
+   ]
+  },
+  {
+   "ok": true,
+   "mes": "2026-01",
+   "actual": "2026-10",
+   "filas": [
+    {
+     "uid": "R2",
+     "recurso": "Ana Pérez",
+     "banda": "B1",
+     "rol": "QA",
+     "concepto": "Proyecto",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "QA",
+     "manager": "Juan DM",
+     "idProyecto": "RAS.001_S2",
+     "proyecto": "Robot RAS",
+     "iteration": "",
+     "horasDiarias": 8,
+     "horasEstimadas": 160,
+     "activo": true
+    },
+    {
+     "uid": "R4",
+     "recurso": "María López",
+     "banda": "NA",
+     "rol": "PM",
+     "concepto": "Proyecto",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "PM",
+     "manager": "Mgr A",
+     "idProyecto": "AER.010",
+     "proyecto": "Soporte AER",
+     "iteration": "",
+     "horasDiarias": null,
+     "horasEstimadas": null,
+     "activo": false
+    },
+    {
+     "uid": "R5",
+     "recurso": "Luis Gómez",
+     "banda": "NA",
+     "rol": "DEV",
+     "concepto": "Vacaciones",
+     "tipo": "Becario",
+     "regla": {
+      "cargabilidad": "No Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "No Afecta Capacidad",
+      "afecta": false
+     },
+     "tecnologia": "DEV",
+     "manager": "",
+     "idProyecto": "",
+     "proyecto": "",
+     "iteration": "",
+     "horasDiarias": 8,
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "uid": "R6",
+     "recurso": "Nuevo Recurso",
+     "banda": "NA",
+     "rol": "",
+     "concepto": "Interno",
+     "tipo": "Becario",
+     "regla": {
+      "cargabilidad": "No Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "NA",
+     "manager": "Laura DM",
+     "idProyecto": "GPO.007",
+     "proyecto": "GPO.007",
+     "iteration": "Proj\\Iter",
+     "horasDiarias": null,
+     "horasEstimadas": 0,
+     "activo": false
+    },
+    {
+     "uid": "R7",
+     "recurso": "Ana Pérez",
+     "banda": "B1",
+     "rol": "QA",
+     "concepto": "Pre Ventas",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "QA",
+     "manager": "",
+     "idProyecto": "XYZ.1",
+     "proyecto": "Manual",
+     "iteration": "",
+     "horasDiarias": 2.5,
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "uid": "R9",
+     "recurso": "Pedro Ruiz",
+     "banda": "B2",
+     "rol": "DEV",
+     "concepto": "Laboratorio Beecker",
+     "tipo": "Residente",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "DEV",
+     "manager": "",
+     "idProyecto": "TYM.002",
+     "proyecto": "TYM.002",
+     "iteration": "",
+     "horasDiarias": null,
+     "horasEstimadas": null,
+     "activo": true
+    },
+    {
+     "uid": "R10",
+     "recurso": "Sofía Díaz",
+     "banda": "NA",
+     "rol": "",
+     "concepto": "Concepto raro",
+     "tipo": "Empleado",
+     "regla": null,
+     "tecnologia": "NA",
+     "manager": "",
+     "idProyecto": "NOP.001",
+     "proyecto": "Sin Azure",
+     "iteration": "",
+     "horasDiarias": 16,
+     "horasEstimadas": 10,
+     "activo": true
+    }
+   ],
+   "personas": [
+    {
+     "nombre": "Ana Pérez",
+     "banda": "B1",
+     "rol": "QA",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Empleado"
+    },
+    {
+     "nombre": "Pedro Ruiz",
+     "banda": "B2",
+     "rol": "DEV",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Residente"
+    }
+   ],
+   "bandasAviso": "",
+   "bandaColumna": "Enero 2026",
+   "fuentes": [
+    "Recursos",
+    "Bandas/rol",
+    "Azure DevOps"
+   ]
+  },
+  {
+   "ok": true,
+   "mes": "2026-03",
+   "actual": "2026-10",
+   "filas": [
+    {
+     "uid": "R2",
+     "recurso": "Ana Pérez",
+     "banda": "B2",
+     "rol": "QA",
+     "concepto": "Proyecto",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "QA",
+     "manager": "Juan DM",
+     "idProyecto": "RAS.001_S2",
+     "proyecto": "Robot RAS",
+     "iteration": "",
+     "horasDiarias": 8,
+     "horasEstimadas": 160,
+     "activo": true
+    },
+    {
+     "uid": "R4",
+     "recurso": "María López",
+     "banda": "B4",
+     "rol": "PM",
+     "concepto": "Proyecto",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "PM",
+     "manager": "Mgr A",
+     "idProyecto": "AER.010",
+     "proyecto": "Soporte AER",
+     "iteration": "",
+     "horasDiarias": null,
+     "horasEstimadas": null,
+     "activo": false
+    },
+    {
+     "uid": "R5",
+     "recurso": "Luis Gómez",
+     "banda": "B1",
+     "rol": "DEV",
+     "concepto": "Vacaciones",
+     "tipo": "Becario",
+     "regla": {
+      "cargabilidad": "No Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "No Afecta Capacidad",
+      "afecta": false
+     },
+     "tecnologia": "DEV",
+     "manager": "",
+     "idProyecto": "",
+     "proyecto": "",
+     "iteration": "",
+     "horasDiarias": 8,
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "uid": "R6",
+     "recurso": "Nuevo Recurso",
+     "banda": "NA",
+     "rol": "",
+     "concepto": "Interno",
+     "tipo": "Becario",
+     "regla": {
+      "cargabilidad": "No Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "NA",
+     "manager": "Laura DM",
+     "idProyecto": "GPO.007",
+     "proyecto": "GPO.007",
+     "iteration": "Proj\\Iter",
+     "horasDiarias": null,
+     "horasEstimadas": 0,
+     "activo": false
+    },
+    {
+     "uid": "R7",
+     "recurso": "Ana Pérez",
+     "banda": "B2",
+     "rol": "QA",
+     "concepto": "Pre Ventas",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "QA",
+     "manager": "",
+     "idProyecto": "XYZ.1",
+     "proyecto": "Manual",
+     "iteration": "",
+     "horasDiarias": 2.5,
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "uid": "R9",
+     "recurso": "Pedro Ruiz",
+     "banda": "B2",
+     "rol": "DEV",
+     "concepto": "Laboratorio Beecker",
+     "tipo": "Residente",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "DEV",
+     "manager": "",
+     "idProyecto": "TYM.002",
+     "proyecto": "TYM.002",
+     "iteration": "",
+     "horasDiarias": null,
+     "horasEstimadas": null,
+     "activo": true
+    },
+    {
+     "uid": "R10",
+     "recurso": "Sofía Díaz",
+     "banda": "NA",
+     "rol": "",
+     "concepto": "Concepto raro",
+     "tipo": "Empleado",
+     "regla": null,
+     "tecnologia": "NA",
+     "manager": "",
+     "idProyecto": "NOP.001",
+     "proyecto": "Sin Azure",
+     "iteration": "",
+     "horasDiarias": 16,
+     "horasEstimadas": 10,
+     "activo": true
+    }
+   ],
+   "personas": [
+    {
+     "nombre": "Ana Pérez",
+     "banda": "B2",
+     "rol": "QA",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Empleado"
+    },
+    {
+     "nombre": "Luis Gómez",
+     "banda": "B1",
+     "rol": "DEV",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Becario"
+    },
+    {
+     "nombre": "María López",
+     "banda": "B4",
+     "rol": "PM",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Empleado"
+    },
+    {
+     "nombre": "Pedro Ruiz",
+     "banda": "B2",
+     "rol": "DEV",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Residente"
+    }
+   ],
+   "bandasAviso": "",
+   "bandaColumna": "Banda",
+   "fuentes": [
+    "Recursos",
+    "Bandas/rol",
+    "Azure DevOps"
+   ]
+  },
+  {
+   "ok": true,
+   "mes": "2026-10",
+   "actual": "2026-10",
+   "filas": [
+    {
+     "uid": "R2",
+     "recurso": "Ana Pérez",
+     "banda": "B3",
+     "rol": "QA",
+     "concepto": "Proyecto",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "QA",
+     "manager": "Juan DM",
+     "idProyecto": "RAS.001_S2",
+     "proyecto": "Robot RAS",
+     "iteration": "",
+     "horasDiarias": 8,
+     "horasEstimadas": 160,
+     "activo": true
+    },
+    {
+     "uid": "R4",
+     "recurso": "María López",
+     "banda": "B4",
+     "rol": "PM",
+     "concepto": "Proyecto",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "PM",
+     "manager": "Mgr A",
+     "idProyecto": "AER.010",
+     "proyecto": "Soporte AER",
+     "iteration": "",
+     "horasDiarias": null,
+     "horasEstimadas": null,
+     "activo": false
+    },
+    {
+     "uid": "R6",
+     "recurso": "Nuevo Recurso",
+     "banda": "NA",
+     "rol": "",
+     "concepto": "Interno",
+     "tipo": "Becario",
+     "regla": {
+      "cargabilidad": "No Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "NA",
+     "manager": "Laura DM",
+     "idProyecto": "GPO.007",
+     "proyecto": "GPO.007",
+     "iteration": "Proj\\Iter",
+     "horasDiarias": null,
+     "horasEstimadas": 0,
+     "activo": false
+    },
+    {
+     "uid": "R7",
+     "recurso": "Ana Pérez",
+     "banda": "B3",
+     "rol": "QA",
+     "concepto": "Pre Ventas",
+     "tipo": "Empleado",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "QA",
+     "manager": "",
+     "idProyecto": "XYZ.1",
+     "proyecto": "Manual",
+     "iteration": "",
+     "horasDiarias": 2.5,
+     "horasEstimadas": 0,
+     "activo": true
+    },
+    {
+     "uid": "R9",
+     "recurso": "Pedro Ruiz",
+     "banda": "B2",
+     "rol": "DEV",
+     "concepto": "Laboratorio Beecker",
+     "tipo": "Residente",
+     "regla": {
+      "cargabilidad": "Cargable",
+      "facturable": "No Facturable",
+      "capacidad": "Afecta Capacidad",
+      "afecta": true
+     },
+     "tecnologia": "DEV",
+     "manager": "",
+     "idProyecto": "TYM.002",
+     "proyecto": "TYM.002",
+     "iteration": "",
+     "horasDiarias": null,
+     "horasEstimadas": null,
+     "activo": true
+    },
+    {
+     "uid": "R10",
+     "recurso": "Sofía Díaz",
+     "banda": "NA",
+     "rol": "",
+     "concepto": "Concepto raro",
+     "tipo": "Empleado",
+     "regla": null,
+     "tecnologia": "NA",
+     "manager": "",
+     "idProyecto": "NOP.001",
+     "proyecto": "Sin Azure",
+     "iteration": "",
+     "horasDiarias": 16,
+     "horasEstimadas": 10,
+     "activo": true
+    }
+   ],
+   "personas": [
+    {
+     "nombre": "Ana Pérez",
+     "banda": "B3",
+     "rol": "QA",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Empleado"
+    },
+    {
+     "nombre": "María López",
+     "banda": "B4",
+     "rol": "PM",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Empleado"
+    },
+    {
+     "nombre": "Pedro Ruiz",
+     "banda": "B2",
+     "rol": "DEV",
+     "baja": false,
+     "vigente": true,
+     "tipo": "Residente"
+    }
+   ],
+   "bandasAviso": "",
+   "bandaColumna": "octubre 2026",
+   "fuentes": [
+    "Recursos",
+    "Bandas/rol",
+    "Azure DevOps"
+   ]
+  },
+  {
+   "ok": false,
+   "error": "Selecciona un mes válido."
+  }
+ ],
+ "projects": [
+  {
+   "ok": true,
+   "inicio": "2026-01-01",
+   "fin": "2026-12-31",
+   "azureAviso": "",
+   "daily": {
+    "maria lopez": {
+     "2026-10-01": 3.75
+    },
+    "ana perez": {
+     "2026-10-03": 0.30000000000000004
+    }
+   },
+   "aviso": "A"
+  },
+  {
+   "ok": true,
+   "fueraMes": true,
+   "inicio": "2026-01-15",
+   "fin": "2026-12-31",
+   "daily": {}
+  },
+  {
+   "ok": false,
+   "inicio": "",
+   "fin": "",
+   "error": "No se encontró el ID AER/TYM en MPB: TYM.999"
+  },
+  {
+   "ok": true,
+   "inicio": "2026-09-10",
+   "fin": "2026-11-30",
+   "azureAviso": "",
+   "daily": {
+    "ana perez": {
+     "2026-10-02": 3,
+     "2026-10-05": 2
+    },
+    "pedro ruiz": {
+     "2026-10-08": 0.5
+    }
+   },
+   "aviso": "A"
+  },
+  {
+   "ok": true,
+   "inicio": "2026-02-01",
+   "fin": "2026-05-30",
+   "azureAviso": "",
+   "daily": {},
+   "aviso": "A"
+  },
+  {
+   "ok": false,
+   "inicio": "",
+   "fin": "",
+   "error": "Iteration Path no encontrado: Proj\\Iter"
+  },
+  {
+   "ok": false,
+   "inicio": "2026-09-20",
+   "fin": "2026-10-05",
+   "error": "Registro Clockify sin persona, fecha o duración válida"
+  },
+  {
+   "ok": true,
+   "inicio": "2026-09-20",
+   "fin": "2026-11-30",
+   "azureAviso": "",
+   "daily": {},
+   "aviso": "A"
+  },
+  {
+   "ok": false,
+   "inicio": "2025-01-01",
+   "fin": "2026-11-30",
+   "error": "Registro Clockify sin persona, fecha o duración válida"
+  },
+  {
+   "ok": false,
+   "inicio": "",
+   "fin": "",
+   "error": "Iteration Path no encontrado: Missing\\Path"
+  },
+  {
+   "ok": false,
+   "inicio": "",
+   "fin": "",
+   "error": "No se pudo resolver el Team Project de Azure para NOP.001."
+  },
+  {
+   "ok": false,
+   "inicio": "",
+   "fin": "",
+   "error": "No se encontraron iteraciones CR1 para RAS.001_CR1."
+  },
+  {
+   "ok": false,
+   "inicio": "",
+   "fin": "",
+   "error": "Azure no tiene inicio y fin válidos para BAD.001."
+  },
+  {
+   "ok": false,
+   "inicio": "",
+   "fin": "",
+   "error": "Hay varias etapas con sufijo; especifica el ID _S o Iteration Path en Recursos para ONE.001."
+  },
+  {
+   "ok": true,
+   "inicio": "2026-10-01",
+   "fin": "2026-10-31",
+   "azureAviso": "",
+   "daily": {},
+   "aviso": "A"
+  },
+  {
+   "ok": false,
+   "error": "Mes inválido"
+  },
+  {
+   "ok": false,
+   "inicio": "",
+   "fin": "",
+   "error": "No se pudo resolver el Team Project de Azure para IXB.001."
+  }
+ ]
+}

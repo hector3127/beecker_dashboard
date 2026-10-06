@@ -1,0 +1,57 @@
+<template id="tpl-dashboard">
+  <div class="view-header">
+    <div>
+      <div class="view-title">RESUMEN EJECUTIVO <span class="accent">— VISTA DE ALTO NIVEL</span></div>
+      <div style="font-size:11px;color:var(--gris);margin-top:3px;">Beecker Co. · Salud, rentabilidad, capacidad y seguimiento del portafolio</div>
+    </div>
+    <div class="filters">
+      <select class="filter" id="f-proyecto"></select>
+      <select class="filter" id="f-cliente"></select>
+      <span id="ultima-act" style="font-size:10.5px;color:var(--gris);"></span>
+      <button class="btn" id="btn-refresh" title="Actualizar">⟳</button>
+    </div>
+  </div>
+
+  <div style="height:5px;border-radius:999px;background:var(--brand-gradient);margin-bottom:18px;box-shadow:0 5px 16px rgba(100,41,216,.16);"></div>
+
+  <div id="dashboard-general">
+    <div class="kpi-grid" id="kpi-grid" style="grid-template-columns:repeat(6,1fr);">
+      <div class="loading">Cargando KPIs...</div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>RESUMEN DE SALUD DEL PORTAFOLIO</h3>
+        <div id="salud-portafolio" style="text-align:center;"></div>
+      </div>
+      <div class="card">
+        <h3>RENTABILIDAD POR PROYECTO <span style="font-size:10.5px;color:var(--gris);font-weight:400;">(estimado a la fecha)</span></h3>
+        <div id="rentabilidad-scatter"></div>
+      </div>
+      <div class="card">
+        <h3>TOP RIESGOS DEL PORTAFOLIO</h3>
+        <div id="top-riesgos-lista"></div>
+      </div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>ESTADO DE PROYECTOS</h3>
+        <div id="dona-estado"></div>
+      </div>
+      <div class="card">
+        <h3>AVANCE PROMEDIO POR PROYECTO</h3>
+        <div id="avance-lista"></div>
+      </div>
+      <div class="card">
+        <h3>ALERTAS AUTOMÁTICAS</h3>
+        <div id="alertas-lista"></div>
+      </div>
+    </div>
+
+    <!-- La tabla antigua RESUMEN DE PROYECTOS se eliminó por solicitud.
+         js_main inyecta debajo el Resumen Ejecutivo AER/T&M + IXB/RaaS. -->
+  </div>
+
+  <div id="dashboard-proyecto-detalle" style="display:none;"></div>
+</template>
