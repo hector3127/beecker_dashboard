@@ -9,7 +9,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.utils import timezone
 
-from apps.azure_devops.gateway import AzureDevOpsGateway
+from apps.azure_devops.gateway import AzureDevOpsGateway, clear_raid_cache
 from apps.azure_devops.services.project_resolver import (
     normalize_azure_name,
     resolve_azure_project,
@@ -151,6 +151,8 @@ def create_raid_record(
         # vuelven a consultar con el registro nuevo.
         with contextlib.suppress(DashboardError):
             risk_form.clear_work_item_cache(build_daily_azure())
+
+        clear_raid_cache()
 
     return result
 

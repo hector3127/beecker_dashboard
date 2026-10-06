@@ -40,6 +40,8 @@ TASKS_MAX_PAGES: Final[int] = 100
 SINGLE_RETRY_WAIT_SECONDS: Final[float] = 1.5
 PROJECT_REPORT_CACHE_SECONDS: Final[int] = 21600
 EMPTY_REPORT_CACHE_SECONDS: Final[int] = 1800
+# Proyecto cuyo rango ya termino: sus horas ya no cambian.
+CLOSED_REPORT_CACHE_SECONDS: Final[int] = 86400
 ALL_ENTRIES_CACHE_SECONDS: Final[int] = 900
 BACKUP_CACHE_SECONDS: Final[int] = 21600
 

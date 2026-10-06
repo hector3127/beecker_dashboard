@@ -15,6 +15,7 @@ from core.exceptions import (
     SheetsError,
     SpreadsheetNotFoundError,
 )
+from core.sheets.read_cache import SheetReadCache
 from core.utils.cell_types import CellValue, SheetRow
 from core.utils.dates import format_sheet_datetime
 from core.utils.text import to_text
@@ -46,11 +47,17 @@ ALPHABET_SIZE: Final[int] = 26
 
 
 class GoogleSheetRepository:
-    """Acceso a un Spreadsheet con cache de lecturas por instancia."""
+    """Acceso a un Spreadsheet con cache por instancia y compartida."""
 
-    def __init__(self, service: Any, spreadsheet_id: str) -> None:
+    def __init__(
+        self,
+        service: Any,
+        spreadsheet_id: str,
+        read_cache: SheetReadCache | None = None,
+    ) -> None:
         self._service = service
         self._spreadsheet_id = spreadsheet_id
+        self._shared_cache = read_cache or SheetReadCache(spreadsheet_id, 0)
         self._sheet_ids: dict[str, int] | None = None
         self._values_by_sheet: dict[str, list[list[CellValue]]] = {}
 
@@ -82,6 +89,8 @@ class GoogleSheetRepository:
             and sheet_name not in self._values_by_sheet
         ]
 
+        pending_names = self._take_shared_hits(pending_names)
+
         if not pending_names:
             return
 
@@ -103,10 +112,9 @@ class GoogleSheetRepository:
             value_ranges,
             strict=True,
         ):
-            self._values_by_sheet[sheet_name] = value_range.get(
-                "values",
-                [],
-            )
+            values = value_range.get("values", [])
+            self._values_by_sheet[sheet_name] = values
+            self._shared_cache.set_values(sheet_name, values)
 
     def list_sheet_names(self) -> list[str]:
         """
@@ -259,7 +267,7 @@ class GoogleSheetRepository:
             ),
         )
 
-        self._values_by_sheet.pop(sheet_name, None)
+        self._forget(sheet_name)
 
     def upsert_row(
         self,
@@ -311,7 +319,7 @@ class GoogleSheetRepository:
             ),
         )
 
-        self._values_by_sheet.pop(sheet_name, None)
+        self._forget(sheet_name)
 
     def write_cell(
         self,
@@ -341,7 +349,7 @@ class GoogleSheetRepository:
             ),
         )
 
-        self._values_by_sheet.pop(sheet_name, None)
+        self._forget(sheet_name)
 
     def write_row(
         self,
@@ -368,7 +376,7 @@ class GoogleSheetRepository:
             ),
         )
 
-        self._values_by_sheet.pop(sheet_name, None)
+        self._forget(sheet_name)
 
     def delete_sheet(self, sheet_name: str) -> None:
         """
@@ -397,7 +405,8 @@ class GoogleSheetRepository:
         )
 
         del sheet_ids[sheet_name]
-        self._values_by_sheet.pop(sheet_name, None)
+        self._shared_cache.invalidate_sheet_ids()
+        self._forget(sheet_name)
 
     def delete_row_range(
         self,
@@ -444,7 +453,7 @@ class GoogleSheetRepository:
             ),
         )
 
-        self._values_by_sheet.pop(sheet_name, None)
+        self._forget(sheet_name)
 
     def delete_row(self, sheet_name: str, row_number: int) -> None:
         """
@@ -482,10 +491,13 @@ class GoogleSheetRepository:
             ),
         )
 
-        self._values_by_sheet.pop(sheet_name, None)
+        self._forget(sheet_name)
 
     def _load_sheet_ids(self) -> dict[str, int]:
         """Lee una sola vez los nombres e IDs de las hojas existentes."""
+        if self._sheet_ids is None:
+            self._sheet_ids = self._shared_cache.get_sheet_ids()
+
         if self._sheet_ids is None:
             response = self._execute(
                 self._service.spreadsheets().get(
@@ -498,8 +510,36 @@ class GoogleSheetRepository:
                 sheet["properties"]["title"]: sheet["properties"]["sheetId"]
                 for sheet in response.get("sheets", [])
             }
+            self._shared_cache.set_sheet_ids(self._sheet_ids)
 
         return self._sheet_ids
+
+    def _take_shared_hits(self, sheet_names: list[str]) -> list[str]:
+        """
+        Carga desde la cache compartida las hojas que ya estan guardadas.
+
+        Args:
+            sheet_names: Hojas pendientes de leer.
+
+        Returns:
+            Las hojas que todavia hay que pedir a Google.
+        """
+        missing: list[str] = []
+
+        for sheet_name in sheet_names:
+            shared_values = self._shared_cache.get_values(sheet_name)
+
+            if shared_values is None:
+                missing.append(sheet_name)
+            else:
+                self._values_by_sheet[sheet_name] = shared_values
+
+        return missing
+
+    def _forget(self, sheet_name: str) -> None:
+        """Descarta las lecturas de una hoja tras escribir en ella."""
+        self._values_by_sheet.pop(sheet_name, None)
+        self._shared_cache.invalidate_values(sheet_name)
 
     def _add_sheet(self, sheet_name: str) -> None:
         """Crea una hoja nueva con la fila 1 congelada."""
@@ -526,6 +566,8 @@ class GoogleSheetRepository:
         new_properties = response["replies"][0]["addSheet"]["properties"]
         self._load_sheet_ids()[sheet_name] = new_properties["sheetId"]
         self._values_by_sheet[sheet_name] = []
+        self._shared_cache.invalidate_sheet_ids()
+        self._shared_cache.invalidate_values(sheet_name)
 
     def _write_headers(
         self,
@@ -558,7 +600,7 @@ class GoogleSheetRepository:
             ),
         )
 
-        self._values_by_sheet.pop(sheet_name, None)
+        self._forget(sheet_name)
 
     def _execute(self, request: Any) -> Any:
         """

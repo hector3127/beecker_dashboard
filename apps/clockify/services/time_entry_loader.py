@@ -7,9 +7,7 @@ from datetime import date
 from zoneinfo import ZoneInfo
 
 from apps.clockify.constants import (
-    EMPTY_REPORT_CACHE_SECONDS,
     MAX_PARALLEL_REPORTS,
-    PROJECT_REPORT_CACHE_SECONDS,
     PROJECTS_CACHE_SECONDS,
     REPORT_TIMEZONE,
     SHEET_PROJECT_LINKS,
@@ -29,6 +27,7 @@ from apps.clockify.services.project_matcher import (
     normalize_link_key,
     resolve_clockify_project,
 )
+from apps.clockify.services.report_cache import report_cache_seconds
 from apps.clockify.services.report_mapper import build_time_entry_from_report
 from core.exceptions import SheetNotFoundError, TimeEntrySourceError
 from core.sheets import sheet_names
@@ -274,9 +273,7 @@ class ClockifyTimeEntryLoader:
         self._cache_store.set(
             cache_key,
             entries,
-            PROJECT_REPORT_CACHE_SECONDS
-            if entries
-            else EMPTY_REPORT_CACHE_SECONDS,
+            report_cache_seconds(bool(entries), plan.end_date, self._today),
         )
         project = next(
             (
@@ -429,9 +426,7 @@ class ClockifyTimeEntryLoader:
         self._cache_store.set(
             cache_key,
             report,
-            PROJECT_REPORT_CACHE_SECONDS
-            if entries
-            else EMPTY_REPORT_CACHE_SECONDS,
+            report_cache_seconds(bool(entries), plan.end_date, self._today),
         )
 
         return report
@@ -544,10 +539,10 @@ class ClockifyTimeEntryLoader:
             return cached_entries
 
         project_entries, _ = self._download_report(plan, rates)
-        cache_seconds = (
-            PROJECT_REPORT_CACHE_SECONDS
-            if project_entries
-            else EMPTY_REPORT_CACHE_SECONDS
+        cache_seconds = report_cache_seconds(
+            bool(project_entries),
+            plan.end_date,
+            self._today,
         )
         self._cache_store.set(cache_key, project_entries, cache_seconds)
 

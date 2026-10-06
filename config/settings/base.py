@@ -228,6 +228,11 @@ DASHBOARD_CACHE_TTL_SECONDS = read_int_env(
     360,
 )
 
+# Segundos que se reutiliza una hoja leida de Sheets entre peticiones.
+# Las escrituras de la app la invalidan; los cambios manuales en el
+# Spreadsheet se ven al vencer. 0 apaga la cache.
+SHEETS_READ_CACHE_SECONDS = read_int_env("SHEETS_READ_CACHE_SECONDS", 900)
+
 # Credenciales de integraciones que se migran en fases siguientes.
 CLOCKIFY_API_KEY = os.getenv("CLOCKIFY_API_KEY", "").strip()
 

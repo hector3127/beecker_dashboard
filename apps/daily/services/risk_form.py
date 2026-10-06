@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Any
 
 from apps.azure_devops.services.azure_client import encode_url_part
+from apps.azure_devops.services.raid_cache import clear_raid_cache
 from apps.daily.constants import (
     AZURE_BASE_URL,
     ERROR_BODY_CHARS,
@@ -799,6 +800,8 @@ def clear_work_item_cache(azure: DailyAzure) -> None:
 
     for suffix in ("", "_tobe_cr_base", "_tipo_Risk", "_tipo_Opportunity"):
         azure.cache.delete(f"{prefix}{suffix}")
+
+    clear_raid_cache(azure.cache)
 
 
 def add_work_item_comment(

@@ -253,14 +253,27 @@ el Apps Script. Para acelerarla:
 - Clockify descarga 3 reportes a la vez y Azure 4 consultas a la vez;
   cada hilo usa su propia conexion HTTP.
 - Todo queda en la cache de Django (`.cache/`): reportes de Clockify
-  6 h, horas del portafolio 15 min, dashboard 6 min, Azure 15 min.
-- `python manage.py warm_cache` consulta todas las vistas para llenar la
-  cache; `--refresh` la borra antes. En Windows se programa cada 15
-  minutos con el Programador de tareas:
+  6 h (24 h si el rango del proyecto ya terminó), horas del portafolio
+  15 min, dashboard 6 min, work items de Azure 15 min y lista de Team
+  Projects 1 h.
+- Las hojas de Sheets se guardan 15 min entre peticiones
+  (`SHEETS_READ_CACHE_SECONDS`, 0 la apaga). Cada escritura de la app
+  invalida su hoja; un cambio hecho a mano en el Spreadsheet se ve al
+  vencer ese tiempo.
+- El RAID ejecutivo de cada Team Project se guarda 15 min. Crear un
+  riesgo desde el Daily o el IXS lo invalida.
+- `python manage.py warm_cache` consulta todo en este orden: hojas de
+  Sheets, dashboard, resumen de Recursos, riesgos de Azure, IXBRaaS, RAID
+  de cada Team Project y consumos AER. Solo lee; no escribe en Sheets,
+  Azure ni Clockify. En Windows se programa cada 10 minutos con el
+  Programador de tareas:
 
 ```powershell
-schtasks /Create /SC MINUTE /MO 15 /TN "BeeckerWarmCache" /TR "C:\beecker_dashboard\.venv\Scripts\python.exe C:\beecker_dashboard\manage.py warm_cache"
+schtasks /Create /SC MINUTE /MO 10 /TN "BeeckerWarmCache" /TR "C:\beecker_dashboard\.venv\Scripts\python.exe C:\beecker_dashboard\manage.py warm_cache"
 ```
+
+- No programes `--refresh`: borra toda la cache, incluidos el proyecto
+  activo del Daily y las respuestas de Claude. Usalo solo a mano.
 
 ## Ejemplo de uso
 
@@ -288,6 +301,7 @@ Agrupados en estándar, terceros y locales, siempre absolutos
 | `GOOGLE_MINUTES_FOLDER_ID` | Carpeta de Drive con las notas de Gemini (antes `CARPETA_MINUTAS_ID`). |
 | `TIME_ENTRY_SOURCE` | `sheet` o `clockify`. |
 | `DASHBOARD_CACHE_TTL_SECONDS` | Duración de la cache del dashboard (360). |
+| `SHEETS_READ_CACHE_SECONDS` | Segundos que se reutiliza una hoja leída de Sheets (900; 0 = sin cache). |
 | `CLOCKIFY_API_KEY`, `CLOCKIFY_WORKSPACE_ID` | Horas reales desde Clockify. |
 | `AZURE_DEVOPS_ORGANIZATION`, `AZURE_DEVOPS_PAT` | Riesgos y work items de Azure DevOps. El panel Daily crea riesgos y comentarios: el PAT necesita "Work Items > Read & Write". |
 | `AZURE_DEVOPS_PROJECT` | Team Project inicial del panel Daily. |
@@ -390,6 +404,17 @@ Diferencias intencionales con el Apps Script:
     usa el resourcekey de la URL. Las fechas de las hojas AER_IA_* se
     regresan como `yyyy-MM-dd` o `yyyy-MM-dd HH:mm:ss`, igual que se
     escriben.
+23. Velocidad: Apps Script leia las hojas en cada llamada; Django las
+    guarda `SHEETS_READ_CACHE_SECONDS` entre peticiones y el RAID
+    ejecutivo 15 min (el original lo pedia a Azure en cada consulta).
+    Por eso un cambio manual en una hoja puede tardar hasta ese tiempo en
+    verse; los cambios hechos desde el dashboard se ven de inmediato.
+    `warm_cache` amplia la precarga con las hojas, Recursos y el RAID.
+24. Cache larga: la lista de Team Projects de Azure se guarda 1 h (un
+    proyecto nuevo puede tardar hasta 1 h en aparecer) y el reporte de
+    Clockify de un proyecto cuyo rango termino antes de hoy se guarda
+    24 h; si alguien corrige horas de un proyecto cerrado se ven al
+    vencer ese tiempo. Para verlas antes se borra `.cache/`.
 
 ## Unit Tests
 

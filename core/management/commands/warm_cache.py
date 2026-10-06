@@ -10,23 +10,48 @@ from django.core.management.base import BaseCommand, CommandParser
 
 from core.exceptions import DashboardError
 from core.rpc.registry import get_rpc_function
+from core.sheets import sheet_names
+from core.sheets.factory import build_sheet_repository
+from core.utils.parallel import map_in_parallel
 
 """BKD.006.008 - Precalentar cache
 Equivale a dejar un trigger en Apps Script: consulta las vistas para que
-el primer usuario no espere a Clockify ni a Azure.
+el primer usuario no espere a Clockify, Azure ni Sheets. Todo es de solo
+lectura. Orden: hojas de Sheets, vistas, RAID de cada Team Project y
+consumos AER; cada paso deja datos para el siguiente.
 Uso: python manage.py warm_cache [--refresh]
 """
 
+# Hojas que mas leen las vistas; la cache compartida las reutiliza.
+HOT_SHEETS: tuple[str, ...] = (
+    sheet_names.SHEET_PROJECTS,
+    sheet_names.SHEET_PROJECTS_HISTORY,
+    sheet_names.SHEET_RESOURCES,
+    sheet_names.SHEET_RISKS,
+    sheet_names.SHEET_SPRINTS,
+    sheet_names.SHEET_SALARY_BANDS,
+    sheet_names.SHEET_MASTER_RATES,
+    sheet_names.SHEET_DASHBOARD_KPI_HISTORY,
+    sheet_names.SHEET_MINUTES_PENDING,
+    "Clockify_Vinculos",
+    "MPB",
+    "ROC",
+)
+
 WARM_FUNCTIONS: tuple[str, ...] = (
     "getDashboardData",
+    "getResumenRecursos",
     "obtenerTopRiesgosPortafolioAzure",
     "obtenerResumenAERTYMMPB",
     "obtenerResumenIXBRaaS",
 )
 
+SHEETS_STEP = "hojas de Sheets"
+RAID_STEP = "RAID de Azure por proyecto"
 AER_CONSUMPTION_FUNCTION = "obtenerConsumosResumenAERTYMMPB"
 AER_SUMMARY_FUNCTION = "obtenerResumenAERTYMMPB"
 CONSUMPTION_BATCH_SIZE = 2
+RAID_WORKERS = 4
 
 
 class Command(BaseCommand):
@@ -48,9 +73,12 @@ class Command(BaseCommand):
             cache.clear()
             self.stdout.write("Cache borrada.")
 
+        self.run_step(SHEETS_STEP, warm_sheets)
+
         for function_name in WARM_FUNCTIONS:
             self.run_step(function_name, functools.partial(call, function_name))
 
+        self.run_step(RAID_STEP, warm_raid)
         self.run_step(AER_CONSUMPTION_FUNCTION, warm_aer_consumption)
 
     def run_step(self, label: str, step: Callable[[], object]) -> None:
@@ -103,6 +131,62 @@ def call(function_name: str, *args: object) -> object:
         raise DashboardError(f"La funcion {function_name} no esta registrada.")
 
     return rpc_function(*args)
+
+
+def warm_sheets() -> object:
+    """
+    Lee las hojas mas usadas en una sola llamada y las deja en cache.
+
+    Returns:
+        {"ok": True} cuando termina.
+    """
+    build_sheet_repository().prefetch(HOT_SHEETS)
+
+    return {"ok": True}
+
+
+def warm_raid() -> object:
+    """
+    Descarga el RAID de cada Team Project de Azure, de cuatro en cuatro.
+
+    Returns:
+        {"ok": True}, o un error con los proyectos que fallaron.
+
+    Raises:
+        DashboardError: Cuando Azure no esta configurado o no responde.
+    """
+    from apps.azure_devops.gateway import AzureDevOpsGateway
+    from apps.azure_devops.services.portfolio_risks import (
+        group_projects_by_azure,
+    )
+
+    gateway = AzureDevOpsGateway()
+    project_rows = build_sheet_repository().read_as_objects(
+        sheet_names.SHEET_PROJECTS,
+    )
+    groups = group_projects_by_azure(
+        project_rows,
+        gateway.list_project_names(),
+    )
+
+    def load(azure_project: str) -> str:
+        try:
+            gateway.list_raid(azure_project)
+        except DashboardError as error:
+            return f"{azure_project}: {error.detail}"
+
+        return ""
+
+    failures = [
+        failure
+        for failure in map_in_parallel(load, list(groups), RAID_WORKERS)
+        if failure
+    ]
+
+    if failures:
+        return {"ok": False, "error": "; ".join(failures)}
+
+    return {"ok": True}
 
 
 def warm_aer_consumption() -> object:

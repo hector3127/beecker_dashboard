@@ -30,12 +30,14 @@ class FakeSession:
 class DictCache:
     def __init__(self):
         self.values = {}
+        self.timeouts = {}
 
     def get(self, key):
         return self.values.get(key)
 
     def set(self, key, value, timeout):
         self.values[key] = value
+        self.timeouts[key] = timeout
 
 
 class FakeClockifyClient:

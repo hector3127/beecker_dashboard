@@ -158,14 +158,46 @@ def test_warm_cache_runs_every_view(repository, settings, monkeypatch):
         "apps.ejecutivo.rpc.build_sheet_repository",
         lambda: repository,
     )
+    monkeypatch.setattr(
+        "apps.recursos.rpc.build_sheet_repository",
+        lambda: repository,
+    )
+    monkeypatch.setattr(
+        "core.management.commands.warm_cache.build_sheet_repository",
+        lambda: repository,
+    )
     output = StringIO()
 
     call_command("warm_cache", stdout=output)
 
     text = output.getvalue()
+    assert "hojas de Sheets: listo" in text
     assert "getDashboardData: listo" in text
+    assert "getResumenRecursos: " in text
     assert "obtenerTopRiesgosPortafolioAzure: " in text
+    assert "RAID de Azure por proyecto: " in text
     assert "obtenerResumenIXBRaaS: listo" in text
+
+
+def test_warm_cache_keeps_going_when_azure_is_not_configured(
+    repository, settings, monkeypatch
+):
+    from io import StringIO
+
+    from django.core.management import call_command
+
+    settings.AZURE_DEVOPS_ORGANIZATION = ""
+    monkeypatch.setattr(
+        "core.management.commands.warm_cache.build_sheet_repository",
+        lambda: repository,
+    )
+    output = StringIO()
+
+    call_command("warm_cache", stdout=output)
+
+    text = output.getvalue()
+    assert "RAID de Azure por proyecto: Falta configurar" in text
+    assert "obtenerConsumosResumenAERTYMMPB: " in text
 
 
 def test_ixs_rpcs_are_registered(client, settings):

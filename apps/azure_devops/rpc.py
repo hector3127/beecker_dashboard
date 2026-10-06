@@ -109,23 +109,8 @@ def get_project_raid(*args: object) -> JsonObject:
 def build_raid_loader(
     gateway: AzureDevOpsGateway,
 ) -> Callable[[str], tuple[list[JsonObject], list[JsonObject]]]:
-    """Work items RAID y campos de Risk de un Team Project."""
-
-    def load_items(
-        azure_project: str,
-    ) -> tuple[list[JsonObject], list[JsonObject]]:
-        client = gateway.create_client()
-        items = client.list_raid_items(azure_project)
-
-        try:
-            fields = client.list_risk_fields(azure_project)
-        except DashboardError as error:
-            logger.info("Campos de Risk no disponibles: %s", error.detail)
-            fields = []
-
-        return items, fields
-
-    return load_items
+    """Work items RAID y campos de Risk de un Team Project, con cache."""
+    return gateway.list_raid
 
 
 def active_daily_project() -> str:

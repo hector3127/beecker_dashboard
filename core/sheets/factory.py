@@ -10,6 +10,7 @@ from core.sheets.client import (
     build_sheets_service,
     load_service_account_credentials,
 )
+from core.sheets.read_cache import SheetReadCache
 from core.sheets.repository import GoogleSheetRepository
 
 """BKD.004.007 - Fabrica del repositorio
@@ -56,4 +57,5 @@ def build_sheet_repository() -> GoogleSheetRepository:
     return GoogleSheetRepository(
         build_sheets_service(get_credentials(settings.GOOGLE_CREDENTIALS_FILE)),
         spreadsheet_id,
+        SheetReadCache(spreadsheet_id, settings.SHEETS_READ_CACHE_SECONDS),
     )

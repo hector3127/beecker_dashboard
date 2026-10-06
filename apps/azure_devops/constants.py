@@ -29,7 +29,8 @@ WORK_ITEM_FIELDS: Final[tuple[str, ...]] = (
 ITERATIONS_DEPTH: Final[int] = 15
 ITERATIONS_CACHE_SECONDS: Final[int] = 900
 
-PROJECTS_CACHE_SECONDS: Final[int] = 900
+# Los Team Projects casi no cambian: una hora.
+PROJECTS_CACHE_SECONDS: Final[int] = 3600
 # El original guardaba 5 minutos; con 15 el comando warm_cache alcanza a
 # mantener la cache llena entre ejecuciones.
 WORK_ITEMS_CACHE_SECONDS: Final[int] = 900

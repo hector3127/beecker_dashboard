@@ -22,6 +22,9 @@ GOOGLE_SPREADSHEET_ID = "spreadsheet-de-pruebas"
 
 TIME_ENTRY_SOURCE = "sheet"
 
+# Las pruebas leen datos distintos en cada caso: sin cache de hojas.
+SHEETS_READ_CACHE_SECONDS = 0
+
 PORTAL_LOGIN_REQUIRED = False
 
 REST_FRAMEWORK = {

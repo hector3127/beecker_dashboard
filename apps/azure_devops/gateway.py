@@ -17,6 +17,7 @@ from apps.azure_devops.exceptions import (
     AzureDevOpsConfigurationError,
     AzureDevOpsRequestError,
 )
+from apps.azure_devops.services import raid_cache
 from apps.azure_devops.services.azure_client import (
     AzureDevOpsClient,
     JsonObject,
@@ -30,6 +31,16 @@ paralelo sin compartir conexiones entre hilos.
 """
 
 logger = logging.getLogger(__name__)
+
+
+def clear_raid_cache() -> None:
+    """
+    Invalida el RAID guardado de todos los Team Projects.
+
+    Se llama despues de crear un registro RAID para que el dashboard
+    ejecutivo lo muestre en la siguiente consulta.
+    """
+    raid_cache.clear_raid_cache(cache)
 
 
 class AzureDevOpsGateway:
@@ -89,6 +100,23 @@ class AzureDevOpsGateway:
         cache.set(cache_key, work_items, WORK_ITEMS_CACHE_SECONDS)
 
         return work_items
+
+    def list_raid(self, project_name: str) -> raid_cache.RaidData:
+        """
+        Lee los work items RAID y los campos de Risk, con cache.
+
+        Args:
+            project_name: Nombre del Team Project.
+
+        Returns:
+            Los work items RAID y los campos de Risk.
+        """
+        return raid_cache.read_raid(
+            cache,
+            self._cache_prefix,
+            self._build_client,
+            project_name,
+        )
 
     def list_iterations(
         self,
