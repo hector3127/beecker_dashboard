@@ -108,13 +108,11 @@ class SheetReadCache:
 
     def invalidate_values(self, sheet_name: str) -> None:
         """Borra los valores guardados de una hoja."""
-        if self.enabled:
-            self._cache().delete(self._values_key(sheet_name))
+        self._delete(self._values_key(sheet_name))
 
     def invalidate_sheet_ids(self) -> None:
         """Borra los nombres de hojas (se creo o elimino una pestana)."""
-        if self.enabled:
-            self._cache().delete(f"{self._prefix}:{SHEET_IDS_KEY}")
+        self._delete(f"{self._prefix}:{SHEET_IDS_KEY}")
 
     def _cache(self) -> CacheStore:
         """El almacen configurado o la cache de Django."""
@@ -128,9 +126,29 @@ class SheetReadCache:
 
     def _get(self, key: str) -> Any:
         """Lee una llave si la cache esta encendida."""
-        return self._cache().get(key) if self.enabled else None
+        if not self.enabled:
+            return None
+        try:
+            return self._cache().get(key)
+        except OSError:
+            # Windows niega borrar o leer un archivo que otro proceso tiene
+            # abierto; se toma como falla de cache y se lee de Google.
+            return None
 
     def _set(self, key: str, value: object) -> None:
         """Guarda una llave si la cache esta encendida."""
-        if self.enabled:
+        if not self.enabled:
+            return
+        try:
             self._cache().set(key, value, self._seconds)
+        except OSError:
+            return
+
+    def _delete(self, key: str) -> None:
+        """Borra una llave; un archivo bloqueado no detiene la peticion."""
+        if not self.enabled:
+            return
+        try:
+            self._cache().delete(key)
+        except OSError:
+            return

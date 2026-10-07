@@ -192,3 +192,27 @@ def test_forget_reads_forces_a_new_read_from_google():
     repository.read_values("Otra")
 
     assert batch_get_count(service) == 3
+
+
+class LockedStore(PickleStore):
+    """Cache cuyos archivos Windows niega abrir o borrar (WinError 5)."""
+
+    def get(self, key):
+        raise PermissionError(5, "Acceso denegado")
+
+    def set(self, key, value, timeout):
+        raise PermissionError(5, "Acceso denegado")
+
+    def delete(self, key):
+        raise PermissionError(5, "Acceso denegado")
+
+
+def test_locked_cache_files_do_not_break_reads():
+    cache = SheetReadCache("sheet-id", 900, store=LockedStore())
+
+    assert cache.get_values("Hoja") is None
+    assert cache.get_sheet_ids() is None
+    cache.set_values("Hoja", [["a"]])
+    cache.set_sheet_ids({"Hoja": 1})
+    cache.invalidate_values("Hoja")
+    cache.invalidate_sheet_ids()
