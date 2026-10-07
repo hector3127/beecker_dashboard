@@ -72,6 +72,8 @@ python manage.py runserver
 | `ClockifyService.gs` (horas por proyecto, reporte detallado, `obtenerConfigClockify`, `listarWorkspacesClockify`) | `apps/clockify/` | Migrado (sin la consulta alterna por usuario cuando el reporte da 403) |
 | `MinutasService.gs`, `MinutasViewService.gs` | `apps/minutas/` + `python manage.py scan_minutes` | Migrado |
 | `CapacidadInstaladaService.gs` (`capacidadInstaladaBase`, `capacidadInstaladaDatosProyecto`) | `apps/capacidad/` | Migrado |
+| `GSEService.gs` (lecturas: `gseObtenerAreas`, `gseObtenerMes`, `gseObtenerAnoBase`, `gseObtenerLoteBase`, `gseLeerResultadoCache`, `gseGuardarResultadoCache`) y `CapacidadInstalada.html` con la pestana GSE | `apps/gse/` | Migrado (la descarga por API Clockify no guarda todavia la base en Sheets) |
+| `GSEService.gs` (`gseBaseGuardar_`) y `ClockifyIDsService.gs` (`gseObtenerIDsClockify`) | `apps/gse/` | Pendiente (escriben en Sheets) |
 | `ResumenAltoNivelService.gs` (`obtenerTopRiesgosPortafolioAzure`, `obtenerRaidProyectoEjecutivoAzure`) | `apps/azure_devops/` | Migrado |
 | `DailyPanelService.gs` (`obtenerResumenAERTYMMPB`, `obtenerConsumosResumenAERTYMMPB`) | `apps/ejecutivo/` | Migrado |
 | `ResumenAltoNivelService.gs` (`obtenerResumenIXBRaaS`) y `calcularHitosProyecto` | `apps/ejecutivo/` | Migrado |
@@ -245,6 +247,34 @@ Cada archivo de `services/` tiene una sola responsabilidad (manual 4.1):
   coincidencia estricta (`load_strict_project_report`).
 - `orchestrator.py`: coordina ambas consultas.
 
+### GSE: horas por area (`apps/gse`)
+
+Pestana GSE de `CapacidadInstalada.html`: horas de Clockify por area (ROL
+de `Bandas/rol`), persona y categoria.
+
+- `cells.py`: `gseNorm_`, `gseBaseFecha_` y lectura de celdas que pueden
+  faltar al final de una fila.
+- `catalog.py`: ficha de `CatalagoProyectos` y categorias de cada
+  registro (`gseCatalogo_`, `gseFichaCatalogo_`, `gseCategorias_`).
+- `roster.py`: personas, areas y banda del mes de `Bandas/rol`
+  (`gseObtenerAreas`).
+- `base_store.py`: lee la base `08.Base Clockify AAAA` y su cobertura en
+  `GSE_Base_Control` (`gseBaseLeer_`, `gseBaseMes_`). La llave de
+  conexion se calcula igual que en Apps Script (workspace + huella de la
+  API key), asi que lee la base que ya guardo el Apps Script.
+- `month_report.py`: `gseObtenerMes` (fuente `sheet` o API).
+- `year_base.py` y `batch_read.py`: `gseObtenerAnoBase` y
+  `gseObtenerLoteBase` (bloques de 1,500 filas, las mas recientes
+  primero).
+- `clockify_month.py`: reporte detallado de todo el workspace
+  (`gseReporteMes_`), con la base guardada y la cache de 1 h por delante.
+- `result_cache.py`: resultado anual 6 h (`gseLeerResultadoCache`,
+  `gseGuardarResultadoCache`).
+
+Diferencias con el original: no existe el corte a los 40 s con
+`pending` (la consulta se hace en una sola llamada) y la cache es la de
+Django, compartida entre usuarios.
+
 ## Velocidad y cache
 
 La primera carga consulta Clockify y Azure por cada proyecto, igual que
@@ -415,6 +445,11 @@ Diferencias intencionales con el Apps Script:
     Clockify de un proyecto cuyo rango termino antes de hoy se guarda
     24 h; si alguien corrige horas de un proyecto cerrado se ven al
     vencer ese tiempo. Para verlas antes se borra `.cache/`.
+25. GSE: la consulta del mes por API Clockify se hace en una sola llamada
+    (sin el corte a los 40 s con `pending`), el resultado anual se guarda
+    en la cache de Django compartida entre usuarios (en Apps Script era
+    por usuario) y un `ID Registro` repetido o un mes sin cobertura
+    produce el mismo mensaje que el original.
 
 ## Unit Tests
 
@@ -432,6 +467,10 @@ mypy .
 - `tests/capacidad`: `test_parity.py` compara contra la salida del
   `CapacidadInstaladaService.gs` original (`expected_results.json`) con
   los datos de `sample_data.py`.
+- `tests/gse`: `test_parity.py` compara 53 casos (areas, mes, ano y
+  bloques de la base) contra el `GSEService.gs` original
+  (`expected_results.json`, bloques de 4 filas); `test_units.py` cubre
+  la cache del resultado, la cobertura vencida y el reporte de Clockify.
 - `tests/daily/test_daily_parity.py`: compara 79 operaciones del panel
   Daily contra el original con una organizacion de Azure simulada
   (`expected_results.json`).

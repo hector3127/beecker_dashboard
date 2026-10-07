@@ -52,6 +52,7 @@ class ClockifyProject:
 
     project_id: str
     name: str
+    client_id: str = ""
 
 
 class ClockifyClient:
@@ -124,6 +125,7 @@ class ClockifyClient:
                 ClockifyProject(
                     project_id=str(item.get("id", "")),
                     name=str(item.get("name", "")),
+                    client_id=str(item.get("clientId") or ""),
                 )
                 for item in page_items
             )
@@ -365,6 +367,34 @@ class ClockifyClient:
                 return request_count
 
             page_number += 1
+
+    def post_workspace_report(
+        self,
+        workspace_id: str,
+        payload: JsonObject,
+    ) -> requests.Response:
+        """
+        Pide una pagina del reporte detallado de todo el workspace.
+
+        Reintenta cuando Clockify limita peticiones o falla; quien llama
+        interpreta el estatus de la respuesta.
+
+        Args:
+            workspace_id: ID del workspace de Clockify.
+            payload: Cuerpo del reporte detallado.
+
+        Returns:
+            La respuesta HTTP de Clockify.
+
+        Raises:
+            ClockifyRequestError: Cuando no hay conexion.
+        """
+        url = (
+            f"{CLOCKIFY_REPORTS_URL}/workspaces/{quote(workspace_id)}"
+            "/reports/detailed"
+        )
+
+        return self._send_with_retries(url, payload)
 
     def _send_with_retries(
         self,

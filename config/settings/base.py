@@ -103,6 +103,7 @@ INSTALLED_APPS = [
     "apps.azure_devops.apps.AzureDevopsConfig",
     "apps.ejecutivo.apps.EjecutivoConfig",
     "apps.capacidad.apps.CapacidadConfig",
+    "apps.gse.apps.GseConfig",
     "apps.minutas.apps.MinutasConfig",
     "apps.daily.apps.DailyConfig",
     "apps.aer.apps.AerConfig",

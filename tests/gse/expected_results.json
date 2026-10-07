@@ -1,0 +1,2857 @@
+{
+ "areas": {
+  "main": {
+   "ok": true,
+   "areas": [
+    "Desarrollo",
+    "QA"
+   ]
+  },
+  "no_catalog": {
+   "ok": true,
+   "areas": [
+    "Desarrollo",
+    "QA"
+   ]
+  },
+  "contradiction": {
+   "ok": true,
+   "areas": [
+    "Desarrollo",
+    "QA"
+   ]
+  },
+  "legacy": {
+   "ok": true,
+   "areas": [
+    "Desarrollo",
+    "QA"
+   ]
+  },
+  "legacy_bad": {
+   "ok": true,
+   "areas": [
+    "Desarrollo",
+    "QA"
+   ]
+  },
+  "no_base": {
+   "ok": true,
+   "areas": [
+    "Desarrollo",
+    "QA"
+   ]
+  },
+  "contradictory_suffix": {
+   "ok": true,
+   "areas": [
+    "Desarrollo",
+    "QA"
+   ]
+  },
+  "bad_schema": {
+   "ok": true,
+   "areas": [
+    "Desarrollo",
+    "QA"
+   ]
+  },
+  "no_roster": {
+   "ok": false,
+   "error": "Falta Bandas/rol."
+  },
+  "duplicate_id": {
+   "ok": true,
+   "areas": [
+    "Desarrollo",
+    "QA"
+   ]
+  }
+ },
+ "months": [
+  {
+   "ok": true,
+   "mes": "2026-09",
+   "idsPendientes": [
+    "Pedro Ruiz"
+   ],
+   "filtradoPorIDs": false,
+   "detalle": [
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Optimización",
+     "tipo": "Facturable",
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 7.5
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Laboratorio",
+     "tipo": "No Facturable",
+     "proyecto": "LAB.001",
+     "servicio": "NA",
+     "horas": 8
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Vacaciones",
+     "tipo": "NA",
+     "proyecto": "Vacaciones",
+     "servicio": "NA",
+     "horas": 8
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Internos",
+     "tipo": "NA",
+     "proyecto": "000-Interno",
+     "servicio": "NA",
+     "horas": 2
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Administrativas",
+     "tipo": "NA",
+     "proyecto": "Administrative Activities",
+     "servicio": "NA",
+     "horas": 1.25
+    },
+    {
+     "recurso": "Pedro Ruiz",
+     "area": "Desarrollo",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "ZZZ.999_S2",
+     "servicio": "NA",
+     "horas": 6
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Pre-Venta",
+     "tipo": "NA",
+     "proyecto": "pre venta",
+     "servicio": "NA",
+     "horas": 1.5
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Inversión Operaciones",
+     "tipo": "NA",
+     "proyecto": "Investigación",
+     "servicio": "NA",
+     "horas": 2
+    },
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Delivery",
+     "tipo": "Facturable",
+     "proyecto": "XYZ.010_CR1",
+     "servicio": "Svc CR",
+     "horas": 1
+    },
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "XYZ.010_CR2",
+     "servicio": "NA",
+     "horas": 2
+    }
+   ],
+   "catalogoAviso": "",
+   "sinCatalogo": [
+    "Vacaciones",
+    "000-Interno",
+    "Administrative Activities",
+    "ZZZ.999",
+    "pre venta",
+    "Investigación",
+    "XYZ.010_CR2"
+   ],
+   "areas": [
+    {
+     "area": "QA",
+     "recursos": 2,
+     "horas": 28.5,
+     "categorias": {
+      "Facturable": 8.5,
+      "Optimización": 7.5,
+      "Laboratorio": 8,
+      "Vacaciones": 8,
+      "Inversión Operaciones": 2,
+      "Administrativo Operaciones": 2
+     },
+     "personas": [
+      {
+       "nombre": "Ana Pérez",
+       "horas": 10.5,
+       "baja": false
+      },
+      {
+       "nombre": "Luis Gómez",
+       "horas": 18,
+       "baja": false
+      }
+     ]
+    },
+    {
+     "area": "Desarrollo",
+     "recursos": 2,
+     "horas": 10.75,
+     "categorias": {
+      "No Facturables": 2,
+      "Internos": 2,
+      "Administrativas": 1.25,
+      "Pre-Venta": 1.5,
+      "Administrativo Operaciones": 0
+     },
+     "personas": [
+      {
+       "nombre": "María Núñez",
+       "horas": 4.75,
+       "baja": false
+      },
+      {
+       "nombre": "Pedro Ruiz",
+       "horas": 6,
+       "baja": false
+      }
+     ]
+    }
+   ],
+   "sinArea": [
+    "Desconocido Z"
+   ],
+   "banda": "Septiembre 2026",
+   "source": "Base Clockify en Sheets",
+   "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+  },
+  {
+   "ok": true,
+   "mes": "2026-09",
+   "idsPendientes": [],
+   "filtradoPorIDs": false,
+   "detalle": [
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Optimización",
+     "tipo": "Facturable",
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 7.5
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Laboratorio",
+     "tipo": "No Facturable",
+     "proyecto": "LAB.001",
+     "servicio": "NA",
+     "horas": 8
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Vacaciones",
+     "tipo": "NA",
+     "proyecto": "Vacaciones",
+     "servicio": "NA",
+     "horas": 8
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Inversión Operaciones",
+     "tipo": "NA",
+     "proyecto": "Investigación",
+     "servicio": "NA",
+     "horas": 2
+    },
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Delivery",
+     "tipo": "Facturable",
+     "proyecto": "XYZ.010_CR1",
+     "servicio": "Svc CR",
+     "horas": 1
+    },
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "XYZ.010_CR2",
+     "servicio": "NA",
+     "horas": 2
+    }
+   ],
+   "catalogoAviso": "",
+   "sinCatalogo": [
+    "Vacaciones",
+    "Investigación",
+    "XYZ.010_CR2"
+   ],
+   "areas": [
+    {
+     "area": "QA",
+     "recursos": 2,
+     "horas": 28.5,
+     "categorias": {
+      "Facturable": 8.5,
+      "Optimización": 7.5,
+      "Laboratorio": 8,
+      "Vacaciones": 8,
+      "Inversión Operaciones": 2,
+      "Administrativo Operaciones": 2
+     },
+     "personas": [
+      {
+       "nombre": "Ana Pérez",
+       "horas": 10.5,
+       "baja": false
+      },
+      {
+       "nombre": "Luis Gómez",
+       "horas": 18,
+       "baja": false
+      }
+     ]
+    }
+   ],
+   "sinArea": [],
+   "banda": "Septiembre 2026",
+   "source": "Base Clockify en Sheets",
+   "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+  },
+  {
+   "ok": true,
+   "mes": "2026-09",
+   "idsPendientes": [
+    "Pedro Ruiz"
+   ],
+   "filtradoPorIDs": false,
+   "detalle": [
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Internos",
+     "tipo": "NA",
+     "proyecto": "000-Interno",
+     "servicio": "NA",
+     "horas": 2
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Administrativas",
+     "tipo": "NA",
+     "proyecto": "Administrative Activities",
+     "servicio": "NA",
+     "horas": 1.25
+    },
+    {
+     "recurso": "Pedro Ruiz",
+     "area": "Desarrollo",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "ZZZ.999_S2",
+     "servicio": "NA",
+     "horas": 6
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Pre-Venta",
+     "tipo": "NA",
+     "proyecto": "pre venta",
+     "servicio": "NA",
+     "horas": 1.5
+    }
+   ],
+   "catalogoAviso": "",
+   "sinCatalogo": [
+    "000-Interno",
+    "Administrative Activities",
+    "ZZZ.999",
+    "pre venta"
+   ],
+   "areas": [
+    {
+     "area": "Desarrollo",
+     "recursos": 2,
+     "horas": 10.75,
+     "categorias": {
+      "No Facturables": 2,
+      "Internos": 2,
+      "Administrativas": 1.25,
+      "Pre-Venta": 1.5,
+      "Administrativo Operaciones": 0
+     },
+     "personas": [
+      {
+       "nombre": "María Núñez",
+       "horas": 4.75,
+       "baja": false
+      },
+      {
+       "nombre": "Pedro Ruiz",
+       "horas": 6,
+       "baja": false
+      }
+     ]
+    }
+   ],
+   "sinArea": [],
+   "banda": "Septiembre 2026",
+   "source": "Base Clockify en Sheets",
+   "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+  },
+  {
+   "ok": true,
+   "mes": "2026-10",
+   "idsPendientes": [],
+   "filtradoPorIDs": false,
+   "detalle": [
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B3",
+     "categoria": "Optimización",
+     "tipo": "Facturable",
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 5
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "Baja",
+     "categoria": "Agentes Autónomos",
+     "tipo": "Facturable",
+     "proyecto": "AGT.003",
+     "servicio": "Svc B",
+     "horas": 3
+    }
+   ],
+   "catalogoAviso": "",
+   "sinCatalogo": [],
+   "areas": [
+    {
+     "area": "QA",
+     "recursos": 2,
+     "horas": 8,
+     "categorias": {
+      "Facturable": 8,
+      "Optimización": 5,
+      "Agentes Autónomos": 3,
+      "Administrativo Operaciones": 0
+     },
+     "personas": [
+      {
+       "nombre": "Ana Pérez",
+       "horas": 5,
+       "baja": false
+      },
+      {
+       "nombre": "Luis Gómez",
+       "horas": 3,
+       "baja": true
+      }
+     ]
+    }
+   ],
+   "sinArea": [],
+   "banda": "Octubre 2026",
+   "source": "Base Clockify en Sheets",
+   "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+  },
+  {
+   "ok": false,
+   "mes": "2026-10",
+   "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+  },
+  {
+   "ok": false,
+   "mes": "2026-08",
+   "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+  },
+  {
+   "ok": false,
+   "mes": "2026-13",
+   "error": "Mes inválido."
+  },
+  {
+   "ok": false,
+   "mes": "2026-09",
+   "error": "El área seleccionada no tiene personas en Bandas/rol."
+  },
+  {
+   "ok": true,
+   "mes": "2026-09",
+   "idsPendientes": [
+    "Pedro Ruiz"
+   ],
+   "filtradoPorIDs": false,
+   "detalle": [
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "AMK.008_S4",
+     "servicio": "NA",
+     "horas": 7.5
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "LAB.001",
+     "servicio": "NA",
+     "horas": 8
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Vacaciones",
+     "tipo": "NA",
+     "proyecto": "Vacaciones",
+     "servicio": "NA",
+     "horas": 8
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Internos",
+     "tipo": "NA",
+     "proyecto": "000-Interno",
+     "servicio": "NA",
+     "horas": 2
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Administrativas",
+     "tipo": "NA",
+     "proyecto": "Administrative Activities",
+     "servicio": "NA",
+     "horas": 1.25
+    },
+    {
+     "recurso": "Pedro Ruiz",
+     "area": "Desarrollo",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "ZZZ.999_S2",
+     "servicio": "NA",
+     "horas": 6
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Pre-Venta",
+     "tipo": "NA",
+     "proyecto": "pre venta",
+     "servicio": "NA",
+     "horas": 1.5
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Inversión Operaciones",
+     "tipo": "NA",
+     "proyecto": "Investigación",
+     "servicio": "NA",
+     "horas": 2
+    },
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "XYZ.010_CR1",
+     "servicio": "NA",
+     "horas": 1
+    },
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "XYZ.010_CR2",
+     "servicio": "NA",
+     "horas": 2
+    }
+   ],
+   "catalogoAviso": "No se encontró CatalagoProyectos.",
+   "sinCatalogo": [],
+   "areas": [
+    {
+     "area": "QA",
+     "recursos": 2,
+     "horas": 28.5,
+     "categorias": {
+      "Vacaciones": 8,
+      "Inversión Operaciones": 2,
+      "Facturable": null,
+      "Optimización": null,
+      "Agentes Autónomos": null,
+      "Continuos Improvement": null,
+      "Laboratorio": null,
+      "Administrativo Operaciones": 2
+     },
+     "personas": [
+      {
+       "nombre": "Ana Pérez",
+       "horas": 10.5,
+       "baja": false
+      },
+      {
+       "nombre": "Luis Gómez",
+       "horas": 18,
+       "baja": false
+      }
+     ]
+    },
+    {
+     "area": "Desarrollo",
+     "recursos": 2,
+     "horas": 10.75,
+     "categorias": {
+      "No Facturables": 2,
+      "Internos": 2,
+      "Administrativas": 1.25,
+      "Pre-Venta": 1.5,
+      "Facturable": null,
+      "Optimización": null,
+      "Agentes Autónomos": null,
+      "Continuos Improvement": null,
+      "Laboratorio": null,
+      "Administrativo Operaciones": 0
+     },
+     "personas": [
+      {
+       "nombre": "María Núñez",
+       "horas": 4.75,
+       "baja": false
+      },
+      {
+       "nombre": "Pedro Ruiz",
+       "horas": 6,
+       "baja": false
+      }
+     ]
+    }
+   ],
+   "sinArea": [
+    "Desconocido Z"
+   ],
+   "banda": "Septiembre 2026",
+   "source": "Base Clockify en Sheets",
+   "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+  },
+  {
+   "ok": true,
+   "mes": "2026-09",
+   "idsPendientes": [
+    "Pedro Ruiz"
+   ],
+   "filtradoPorIDs": false,
+   "detalle": [
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "AMK.008_S4",
+     "servicio": "NA",
+     "horas": 7.5
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "LAB.001",
+     "servicio": "NA",
+     "horas": 8
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Vacaciones",
+     "tipo": "NA",
+     "proyecto": "Vacaciones",
+     "servicio": "NA",
+     "horas": 8
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Internos",
+     "tipo": "NA",
+     "proyecto": "000-Interno",
+     "servicio": "NA",
+     "horas": 2
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Administrativas",
+     "tipo": "NA",
+     "proyecto": "Administrative Activities",
+     "servicio": "NA",
+     "horas": 1.25
+    },
+    {
+     "recurso": "Pedro Ruiz",
+     "area": "Desarrollo",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "ZZZ.999_S2",
+     "servicio": "NA",
+     "horas": 6
+    },
+    {
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "categoria": "Pre-Venta",
+     "tipo": "NA",
+     "proyecto": "pre venta",
+     "servicio": "NA",
+     "horas": 1.5
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Inversión Operaciones",
+     "tipo": "NA",
+     "proyecto": "Investigación",
+     "servicio": "NA",
+     "horas": 2
+    },
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "XYZ.010_CR1",
+     "servicio": "NA",
+     "horas": 1
+    },
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Sin clasificación",
+     "tipo": "NA",
+     "proyecto": "XYZ.010_CR2",
+     "servicio": "NA",
+     "horas": 2
+    }
+   ],
+   "catalogoAviso": "Clasificación contradictoria en catálogo para AMK.008 (fila 9).",
+   "sinCatalogo": [],
+   "areas": [
+    {
+     "area": "QA",
+     "recursos": 2,
+     "horas": 28.5,
+     "categorias": {
+      "Vacaciones": 8,
+      "Inversión Operaciones": 2,
+      "Facturable": null,
+      "Optimización": null,
+      "Agentes Autónomos": null,
+      "Continuos Improvement": null,
+      "Laboratorio": null,
+      "Administrativo Operaciones": 2
+     },
+     "personas": [
+      {
+       "nombre": "Ana Pérez",
+       "horas": 10.5,
+       "baja": false
+      },
+      {
+       "nombre": "Luis Gómez",
+       "horas": 18,
+       "baja": false
+      }
+     ]
+    },
+    {
+     "area": "Desarrollo",
+     "recursos": 2,
+     "horas": 10.75,
+     "categorias": {
+      "No Facturables": 2,
+      "Internos": 2,
+      "Administrativas": 1.25,
+      "Pre-Venta": 1.5,
+      "Facturable": null,
+      "Optimización": null,
+      "Agentes Autónomos": null,
+      "Continuos Improvement": null,
+      "Laboratorio": null,
+      "Administrativo Operaciones": 0
+     },
+     "personas": [
+      {
+       "nombre": "María Núñez",
+       "horas": 4.75,
+       "baja": false
+      },
+      {
+       "nombre": "Pedro Ruiz",
+       "horas": 6,
+       "baja": false
+      }
+     ]
+    }
+   ],
+   "sinArea": [
+    "Desconocido Z"
+   ],
+   "banda": "Septiembre 2026",
+   "source": "Base Clockify en Sheets",
+   "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+  },
+  {
+   "ok": true,
+   "mes": "2026-09",
+   "idsPendientes": [
+    "Pedro Ruiz"
+   ],
+   "filtradoPorIDs": false,
+   "detalle": [
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B2",
+     "categoria": "Optimización",
+     "tipo": "Facturable",
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 4.5
+    },
+    {
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "categoria": "Laboratorio",
+     "tipo": "No Facturable",
+     "proyecto": "LAB.001",
+     "servicio": "NA",
+     "horas": 8
+    }
+   ],
+   "catalogoAviso": "",
+   "sinCatalogo": [],
+   "areas": [
+    {
+     "area": "QA",
+     "recursos": 2,
+     "horas": 12.5,
+     "categorias": {
+      "Facturable": 4.5,
+      "Optimización": 4.5,
+      "Laboratorio": 8,
+      "Administrativo Operaciones": 0
+     },
+     "personas": [
+      {
+       "nombre": "Ana Pérez",
+       "horas": 4.5,
+       "baja": false
+      },
+      {
+       "nombre": "Luis Gómez",
+       "horas": 8,
+       "baja": false
+      }
+     ]
+    },
+    {
+     "area": "Desarrollo",
+     "recursos": 0,
+     "horas": 0,
+     "categorias": {
+      "Administrativo Operaciones": 0
+     },
+     "personas": []
+    }
+   ],
+   "sinArea": [
+    "Desconocido"
+   ],
+   "banda": "Septiembre 2026",
+   "source": "Base Clockify en Sheets",
+   "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+  },
+  {
+   "ok": true,
+   "mes": "2026-10",
+   "idsPendientes": [],
+   "filtradoPorIDs": false,
+   "detalle": [
+    {
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B3",
+     "categoria": "Delivery",
+     "tipo": "Facturable",
+     "proyecto": "AMK.008",
+     "servicio": "Svc Base",
+     "horas": 3
+    }
+   ],
+   "catalogoAviso": "",
+   "sinCatalogo": [],
+   "areas": [
+    {
+     "area": "QA",
+     "recursos": 1,
+     "horas": 3,
+     "categorias": {
+      "Facturable": 3,
+      "Administrativo Operaciones": 0
+     },
+     "personas": [
+      {
+       "nombre": "Ana Pérez",
+       "horas": 3,
+       "baja": false
+      }
+     ]
+    }
+   ],
+   "sinArea": [],
+   "banda": "Octubre 2026",
+   "source": "Base Clockify en Sheets",
+   "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+  },
+  {
+   "ok": false,
+   "mes": "2026-09",
+   "error": "Duración no numérica en fila 7"
+  },
+  {
+   "ok": false,
+   "mes": "2026-09",
+   "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+  },
+  {
+   "ok": false,
+   "mes": "2026-09",
+   "error": "Task con sufijos contradictorios: a_S1 b_S2 (AMK.008)."
+  },
+  {
+   "ok": false,
+   "mes": "2026-09",
+   "error": "La hoja 08.Base Clockify 2026 ya existe con otro formato. Renómbrala antes de crear la base GSE para conservarla."
+  },
+  {
+   "ok": false,
+   "mes": "2026-09",
+   "error": "Falta Bandas/rol."
+  },
+  {
+   "ok": false,
+   "mes": "2026-09",
+   "error": "ID Clockify repetido en Bandas/rol: Otra Persona"
+  }
+ ],
+ "batches": [
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [
+    {
+     "recurso": "Ana Pérez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B2",
+      "B3",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "Luis Gómez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B1",
+      "Baja",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "María Núñez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B4",
+      "B4",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "Pedro Ruiz",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B2",
+      "B2",
+      "NA",
+      "NA"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "id": "r19",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "XYZ.010_CR2",
+     "servicio": "NA",
+     "horas": 2,
+     "categorias": [],
+     "categoria": "Sin clasificación",
+     "tipo": "NA"
+    },
+    {
+     "id": "r18",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "XYZ.010_CR1",
+     "servicio": "Svc CR",
+     "horas": 1,
+     "categorias": [
+      "Facturable"
+     ],
+     "categoria": "Delivery",
+     "tipo": "Facturable"
+    },
+    {
+     "id": "r17",
+     "mes": "2026-09",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "baja": false,
+     "proyecto": "Investigación",
+     "servicio": "NA",
+     "horas": 2,
+     "categorias": [
+      "Inversión Operaciones"
+     ],
+     "categoria": "Inversión Operaciones",
+     "tipo": "NA"
+    }
+   ],
+   "total": 19,
+   "cursor": 4,
+   "done": false,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": ""
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [],
+   "records": [
+    {
+     "id": "r15",
+     "mes": "2026-09",
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "baja": false,
+     "proyecto": "pre venta",
+     "servicio": "NA",
+     "horas": 1.5,
+     "categorias": [
+      "Pre-Venta"
+     ],
+     "categoria": "Pre-Venta",
+     "tipo": "NA"
+    },
+    {
+     "id": "r14",
+     "mes": "2026-10",
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "baja": false,
+     "proyecto": "Pre-Venta Acme",
+     "servicio": "NA",
+     "horas": 2.5,
+     "categorias": [
+      "Inversión Comercial"
+     ],
+     "categoria": "Inversión Comercial",
+     "tipo": "NA"
+    },
+    {
+     "id": "r13",
+     "mes": "2026-10",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 7,
+     "categorias": [
+      "Facturable",
+      "Optimización"
+     ],
+     "categoria": "Optimización",
+     "tipo": "Facturable"
+    },
+    {
+     "id": "r12",
+     "mes": "2026-10",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "Baja",
+     "baja": true,
+     "proyecto": "AGT.003",
+     "servicio": "Svc B",
+     "horas": 3,
+     "categorias": [
+      "Facturable",
+      "Agentes Autónomos"
+     ],
+     "categoria": "Agentes Autónomos",
+     "tipo": "Facturable"
+    }
+   ],
+   "total": 19,
+   "cursor": 8,
+   "done": false,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": ""
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [],
+   "records": [
+    {
+     "id": "r11",
+     "mes": "2026-10",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 5,
+     "categorias": [
+      "Facturable",
+      "Optimización"
+     ],
+     "categoria": "Optimización",
+     "tipo": "Facturable"
+    },
+    {
+     "id": "r1",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 4.5,
+     "categorias": [
+      "Facturable",
+      "Optimización"
+     ],
+     "categoria": "Optimización",
+     "tipo": "Facturable"
+    }
+   ],
+   "total": 19,
+   "cursor": 12,
+   "done": false,
+   "invalid": 0,
+   "unmatched": 1,
+   "catalogoAviso": ""
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [],
+   "records": [
+    {
+     "id": "r7",
+     "mes": "2026-09",
+     "recurso": "Pedro Ruiz",
+     "area": "Desarrollo",
+     "banda": "B2",
+     "baja": false,
+     "proyecto": "ZZZ.999_S2",
+     "servicio": "NA",
+     "horas": 6,
+     "categorias": [],
+     "categoria": "Sin clasificación",
+     "tipo": "NA"
+    },
+    {
+     "id": "r6",
+     "mes": "2026-09",
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "baja": false,
+     "proyecto": "Administrative Activities",
+     "servicio": "NA",
+     "horas": 1.25,
+     "categorias": [
+      "Administrativas"
+     ],
+     "categoria": "Administrativas",
+     "tipo": "NA"
+    },
+    {
+     "id": "r5",
+     "mes": "2026-09",
+     "recurso": "María Núñez",
+     "area": "Desarrollo",
+     "banda": "B4",
+     "baja": false,
+     "proyecto": "000-Interno",
+     "servicio": "NA",
+     "horas": 2,
+     "categorias": [
+      "No Facturables",
+      "Internos"
+     ],
+     "categoria": "Internos",
+     "tipo": "NA"
+    },
+    {
+     "id": "r4",
+     "mes": "2026-09",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "baja": false,
+     "proyecto": "Vacaciones",
+     "servicio": "NA",
+     "horas": 8,
+     "categorias": [
+      "Vacaciones"
+     ],
+     "categoria": "Vacaciones",
+     "tipo": "NA"
+    }
+   ],
+   "total": 19,
+   "cursor": 16,
+   "done": false,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": ""
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [],
+   "records": [
+    {
+     "id": "r3",
+     "mes": "2026-09",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "baja": false,
+     "proyecto": "LAB.001",
+     "servicio": "NA",
+     "horas": 8,
+     "categorias": [
+      "Laboratorio"
+     ],
+     "categoria": "Laboratorio",
+     "tipo": "No Facturable"
+    },
+    {
+     "id": "r2",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 3,
+     "categorias": [
+      "Facturable",
+      "Optimización"
+     ],
+     "categoria": "Optimización",
+     "tipo": "Facturable"
+    },
+    {
+     "id": "r1",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 4.5,
+     "categorias": [
+      "Facturable",
+      "Optimización"
+     ],
+     "categoria": "Optimización",
+     "tipo": "Facturable"
+    }
+   ],
+   "total": 19,
+   "cursor": 19,
+   "done": true,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": ""
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [],
+   "records": [],
+   "total": 19,
+   "cursor": 20,
+   "done": true,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": ""
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [
+    {
+     "recurso": "Ana Pérez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B2",
+      "B3",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "Luis Gómez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B1",
+      "Baja",
+      "NA",
+      "NA"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "id": "r19",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "XYZ.010_CR2",
+     "servicio": "NA",
+     "horas": 2,
+     "categorias": [],
+     "categoria": "Sin clasificación",
+     "tipo": "NA"
+    },
+    {
+     "id": "r18",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "XYZ.010_CR1",
+     "servicio": "Svc CR",
+     "horas": 1,
+     "categorias": [
+      "Facturable"
+     ],
+     "categoria": "Delivery",
+     "tipo": "Facturable"
+    },
+    {
+     "id": "r17",
+     "mes": "2026-09",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "baja": false,
+     "proyecto": "Investigación",
+     "servicio": "NA",
+     "horas": 2,
+     "categorias": [
+      "Inversión Operaciones"
+     ],
+     "categoria": "Inversión Operaciones",
+     "tipo": "NA"
+    }
+   ],
+   "total": 19,
+   "cursor": 4,
+   "done": false,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": ""
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [],
+   "records": [
+    {
+     "id": "r13",
+     "mes": "2026-10",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 7,
+     "categorias": [
+      "Facturable",
+      "Optimización"
+     ],
+     "categoria": "Optimización",
+     "tipo": "Facturable"
+    },
+    {
+     "id": "r12",
+     "mes": "2026-10",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "Baja",
+     "baja": true,
+     "proyecto": "AGT.003",
+     "servicio": "Svc B",
+     "horas": 3,
+     "categorias": [
+      "Facturable",
+      "Agentes Autónomos"
+     ],
+     "categoria": "Agentes Autónomos",
+     "tipo": "Facturable"
+    }
+   ],
+   "total": 19,
+   "cursor": 8,
+   "done": false,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": ""
+  },
+  {
+   "ok": false,
+   "error": "La base cambió durante la consulta. Pulsa Consultar año para leerla nuevamente.",
+   "version": "GSE-BASE-BLOQUES-2026-10-06"
+  },
+  {
+   "ok": false,
+   "error": "Año o posición inválidos.",
+   "version": "GSE-BASE-BLOQUES-2026-10-06"
+  },
+  {
+   "ok": false,
+   "error": "Año o posición inválidos.",
+   "version": "GSE-BASE-BLOQUES-2026-10-06"
+  },
+  {
+   "ok": false,
+   "error": "No existe 08.Base Clockify 2025.",
+   "version": "GSE-BASE-BLOQUES-2026-10-06"
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [
+    {
+     "recurso": "Ana Pérez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B2",
+      "B3",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "Luis Gómez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B1",
+      "Baja",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "María Núñez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B4",
+      "B4",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "Pedro Ruiz",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B2",
+      "B2",
+      "NA",
+      "NA"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "id": "r19",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "XYZ.010_CR2",
+     "servicio": "NA",
+     "horas": 2,
+     "categorias": [],
+     "categoria": "Sin clasificación",
+     "tipo": "NA"
+    },
+    {
+     "id": "r18",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "XYZ.010_CR1",
+     "servicio": "NA",
+     "horas": 1,
+     "categorias": [],
+     "categoria": "Sin clasificación",
+     "tipo": "NA"
+    },
+    {
+     "id": "r17",
+     "mes": "2026-09",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "baja": false,
+     "proyecto": "Investigación",
+     "servicio": "NA",
+     "horas": 2,
+     "categorias": [
+      "Inversión Operaciones"
+     ],
+     "categoria": "Inversión Operaciones",
+     "tipo": "NA"
+    }
+   ],
+   "total": 19,
+   "cursor": 4,
+   "done": false,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": "No se encontró CatalagoProyectos."
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [
+    {
+     "recurso": "Ana Pérez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B2",
+      "B3",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "Luis Gómez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B1",
+      "Baja",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "María Núñez",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B4",
+      "B4",
+      "NA",
+      "NA"
+     ]
+    },
+    {
+     "recurso": "Pedro Ruiz",
+     "bandas": [
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "NA",
+      "B2",
+      "B2",
+      "NA",
+      "NA"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "id": "r19",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "XYZ.010_CR2",
+     "servicio": "NA",
+     "horas": 2,
+     "categorias": [],
+     "categoria": "Sin clasificación",
+     "tipo": "NA"
+    },
+    {
+     "id": "r18",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "XYZ.010_CR1",
+     "servicio": "NA",
+     "horas": 1,
+     "categorias": [],
+     "categoria": "Sin clasificación",
+     "tipo": "NA"
+    },
+    {
+     "id": "r17",
+     "mes": "2026-09",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "baja": false,
+     "proyecto": "Investigación",
+     "servicio": "NA",
+     "horas": 2,
+     "categorias": [
+      "Inversión Operaciones"
+     ],
+     "categoria": "Inversión Operaciones",
+     "tipo": "NA"
+    }
+   ],
+   "total": 19,
+   "cursor": 4,
+   "done": false,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": "Clasificación contradictoria en catálogo para AMK.008 (fila 9)."
+  },
+  {
+   "ok": true,
+   "version": "GSE-BASE-BANDAS-2026-10-06",
+   "bandas": [],
+   "records": [
+    {
+     "id": "r4",
+     "mes": "2026-09",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "baja": false,
+     "proyecto": "Vacaciones",
+     "servicio": "NA",
+     "horas": 8,
+     "categorias": [
+      "Vacaciones"
+     ],
+     "categoria": "Vacaciones",
+     "tipo": "NA"
+    },
+    {
+     "id": "r3",
+     "mes": "2026-09",
+     "recurso": "Luis Gómez",
+     "area": "QA",
+     "banda": "B1",
+     "baja": false,
+     "proyecto": "LAB.001",
+     "servicio": "NA",
+     "horas": 8,
+     "categorias": [
+      "Laboratorio"
+     ],
+     "categoria": "Laboratorio",
+     "tipo": "No Facturable"
+    },
+    {
+     "id": "r2",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 3,
+     "categorias": [
+      "Facturable",
+      "Optimización"
+     ],
+     "categoria": "Optimización",
+     "tipo": "Facturable"
+    },
+    {
+     "id": "r1",
+     "mes": "2026-09",
+     "recurso": "Ana Pérez",
+     "area": "QA",
+     "banda": "B9",
+     "baja": false,
+     "proyecto": "AMK.008_S4",
+     "servicio": "Servicio A",
+     "horas": 4.5,
+     "categorias": [
+      "Facturable",
+      "Optimización"
+     ],
+     "categoria": "Optimización",
+     "tipo": "Facturable"
+    }
+   ],
+   "total": 20,
+   "cursor": 20,
+   "done": true,
+   "invalid": 0,
+   "unmatched": 0,
+   "catalogoAviso": ""
+  },
+  {
+   "ok": false,
+   "error": "La base requiere el formato GSE de 12 columnas mostrado en tu captura.",
+   "version": "GSE-BASE-BLOQUES-2026-10-06"
+  },
+  {
+   "ok": false,
+   "error": "La base requiere el formato GSE de 12 columnas mostrado en tu captura.",
+   "version": "GSE-BASE-BLOQUES-2026-10-06"
+  },
+  {
+   "ok": false,
+   "error": "Falta Bandas/rol.",
+   "version": "GSE-BASE-BLOQUES-2026-10-06"
+  },
+  {
+   "ok": false,
+   "error": "ID Clockify duplicado en Bandas/rol.",
+   "version": "GSE-BASE-BLOQUES-2026-10-06"
+  }
+ ],
+ "years": [
+  {
+   "ok": true,
+   "data": {
+    "2026-01": {
+     "ok": false,
+     "mes": "2026-01",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-02": {
+     "ok": false,
+     "mes": "2026-02",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-03": {
+     "ok": false,
+     "mes": "2026-03",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-04": {
+     "ok": false,
+     "mes": "2026-04",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-05": {
+     "ok": false,
+     "mes": "2026-05",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-06": {
+     "ok": false,
+     "mes": "2026-06",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-07": {
+     "ok": false,
+     "mes": "2026-07",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-08": {
+     "ok": false,
+     "mes": "2026-08",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-09": {
+     "ok": true,
+     "mes": "2026-09",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [
+      {
+       "recurso": "Ana Pérez",
+       "area": "QA",
+       "banda": "B2",
+       "categoria": "Optimización",
+       "tipo": "Facturable",
+       "proyecto": "AMK.008_S4",
+       "servicio": "Servicio A",
+       "horas": 7.5
+      },
+      {
+       "recurso": "Luis Gómez",
+       "area": "QA",
+       "banda": "B1",
+       "categoria": "Laboratorio",
+       "tipo": "No Facturable",
+       "proyecto": "LAB.001",
+       "servicio": "NA",
+       "horas": 8
+      },
+      {
+       "recurso": "Luis Gómez",
+       "area": "QA",
+       "banda": "B1",
+       "categoria": "Vacaciones",
+       "tipo": "NA",
+       "proyecto": "Vacaciones",
+       "servicio": "NA",
+       "horas": 8
+      },
+      {
+       "recurso": "María Núñez",
+       "area": "Desarrollo",
+       "banda": "B4",
+       "categoria": "Internos",
+       "tipo": "NA",
+       "proyecto": "000-Interno",
+       "servicio": "NA",
+       "horas": 2
+      },
+      {
+       "recurso": "María Núñez",
+       "area": "Desarrollo",
+       "banda": "B4",
+       "categoria": "Administrativas",
+       "tipo": "NA",
+       "proyecto": "Administrative Activities",
+       "servicio": "NA",
+       "horas": 1.25
+      },
+      {
+       "recurso": "Pedro Ruiz",
+       "area": "Desarrollo",
+       "banda": "B2",
+       "categoria": "Sin clasificación",
+       "tipo": "NA",
+       "proyecto": "ZZZ.999_S2",
+       "servicio": "NA",
+       "horas": 6
+      },
+      {
+       "recurso": "María Núñez",
+       "area": "Desarrollo",
+       "banda": "B4",
+       "categoria": "Pre-Venta",
+       "tipo": "NA",
+       "proyecto": "pre venta",
+       "servicio": "NA",
+       "horas": 1.5
+      },
+      {
+       "recurso": "Luis Gómez",
+       "area": "QA",
+       "banda": "B1",
+       "categoria": "Inversión Operaciones",
+       "tipo": "NA",
+       "proyecto": "Investigación",
+       "servicio": "NA",
+       "horas": 2
+      },
+      {
+       "recurso": "Ana Pérez",
+       "area": "QA",
+       "banda": "B2",
+       "categoria": "Delivery",
+       "tipo": "Facturable",
+       "proyecto": "XYZ.010_CR1",
+       "servicio": "Svc CR",
+       "horas": 1
+      },
+      {
+       "recurso": "Ana Pérez",
+       "area": "QA",
+       "banda": "B2",
+       "categoria": "Sin clasificación",
+       "tipo": "NA",
+       "proyecto": "XYZ.010_CR2",
+       "servicio": "NA",
+       "horas": 2
+      }
+     ],
+     "catalogoAviso": "",
+     "sinCatalogo": [
+      "Vacaciones",
+      "000-Interno",
+      "Administrative Activities",
+      "ZZZ.999",
+      "pre venta",
+      "Investigación",
+      "XYZ.010_CR2"
+     ],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 2,
+       "horas": 28.5,
+       "categorias": {
+        "Facturable": 8.5,
+        "Optimización": 7.5,
+        "Laboratorio": 8,
+        "Vacaciones": 8,
+        "Inversión Operaciones": 2,
+        "Administrativo Operaciones": 2
+       },
+       "personas": [
+        {
+         "nombre": "Ana Pérez",
+         "horas": 10.5,
+         "baja": false
+        },
+        {
+         "nombre": "Luis Gómez",
+         "horas": 18,
+         "baja": false
+        }
+       ]
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 2,
+       "horas": 10.75,
+       "categorias": {
+        "No Facturables": 2,
+        "Internos": 2,
+        "Administrativas": 1.25,
+        "Pre-Venta": 1.5,
+        "Administrativo Operaciones": 0
+       },
+       "personas": [
+        {
+         "nombre": "María Núñez",
+         "horas": 4.75,
+         "baja": false
+        },
+        {
+         "nombre": "Pedro Ruiz",
+         "horas": 6,
+         "baja": false
+        }
+       ]
+      }
+     ],
+     "sinArea": [
+      "Desconocido Z"
+     ],
+     "banda": "Septiembre 2026",
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-10": {
+     "ok": false,
+     "mes": "2026-10",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    }
+   }
+  },
+  {
+   "ok": true,
+   "data": {
+    "2026-01": {
+     "ok": false,
+     "mes": "2026-01",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-02": {
+     "ok": false,
+     "mes": "2026-02",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-03": {
+     "ok": false,
+     "mes": "2026-03",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-04": {
+     "ok": false,
+     "mes": "2026-04",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-05": {
+     "ok": false,
+     "mes": "2026-05",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-06": {
+     "ok": false,
+     "mes": "2026-06",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-07": {
+     "ok": false,
+     "mes": "2026-07",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-08": {
+     "ok": false,
+     "mes": "2026-08",
+     "error": "Mes sin cobertura completa para estas personas en la base. Selecciona API Clockify para extraerlo."
+    },
+    "2026-09": {
+     "ok": true,
+     "mes": "2026-09",
+     "idsPendientes": [],
+     "filtradoPorIDs": false,
+     "detalle": [
+      {
+       "recurso": "Ana Pérez",
+       "area": "QA",
+       "banda": "B2",
+       "categoria": "Optimización",
+       "tipo": "Facturable",
+       "proyecto": "AMK.008_S4",
+       "servicio": "Servicio A",
+       "horas": 7.5
+      },
+      {
+       "recurso": "Luis Gómez",
+       "area": "QA",
+       "banda": "B1",
+       "categoria": "Laboratorio",
+       "tipo": "No Facturable",
+       "proyecto": "LAB.001",
+       "servicio": "NA",
+       "horas": 8
+      },
+      {
+       "recurso": "Luis Gómez",
+       "area": "QA",
+       "banda": "B1",
+       "categoria": "Vacaciones",
+       "tipo": "NA",
+       "proyecto": "Vacaciones",
+       "servicio": "NA",
+       "horas": 8
+      },
+      {
+       "recurso": "Luis Gómez",
+       "area": "QA",
+       "banda": "B1",
+       "categoria": "Inversión Operaciones",
+       "tipo": "NA",
+       "proyecto": "Investigación",
+       "servicio": "NA",
+       "horas": 2
+      },
+      {
+       "recurso": "Ana Pérez",
+       "area": "QA",
+       "banda": "B2",
+       "categoria": "Delivery",
+       "tipo": "Facturable",
+       "proyecto": "XYZ.010_CR1",
+       "servicio": "Svc CR",
+       "horas": 1
+      },
+      {
+       "recurso": "Ana Pérez",
+       "area": "QA",
+       "banda": "B2",
+       "categoria": "Sin clasificación",
+       "tipo": "NA",
+       "proyecto": "XYZ.010_CR2",
+       "servicio": "NA",
+       "horas": 2
+      }
+     ],
+     "catalogoAviso": "",
+     "sinCatalogo": [
+      "Vacaciones",
+      "Investigación",
+      "XYZ.010_CR2"
+     ],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 2,
+       "horas": 28.5,
+       "categorias": {
+        "Facturable": 8.5,
+        "Optimización": 7.5,
+        "Laboratorio": 8,
+        "Vacaciones": 8,
+        "Inversión Operaciones": 2,
+        "Administrativo Operaciones": 2
+       },
+       "personas": [
+        {
+         "nombre": "Ana Pérez",
+         "horas": 10.5,
+         "baja": false
+        },
+        {
+         "nombre": "Luis Gómez",
+         "horas": 18,
+         "baja": false
+        }
+       ]
+      }
+     ],
+     "sinArea": [],
+     "banda": "Septiembre 2026",
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-10": {
+     "ok": true,
+     "mes": "2026-10",
+     "idsPendientes": [],
+     "filtradoPorIDs": false,
+     "detalle": [
+      {
+       "recurso": "Ana Pérez",
+       "area": "QA",
+       "banda": "B3",
+       "categoria": "Optimización",
+       "tipo": "Facturable",
+       "proyecto": "AMK.008_S4",
+       "servicio": "Servicio A",
+       "horas": 5
+      },
+      {
+       "recurso": "Luis Gómez",
+       "area": "QA",
+       "banda": "Baja",
+       "categoria": "Agentes Autónomos",
+       "tipo": "Facturable",
+       "proyecto": "AGT.003",
+       "servicio": "Svc B",
+       "horas": 3
+      }
+     ],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 2,
+       "horas": 8,
+       "categorias": {
+        "Facturable": 8,
+        "Optimización": 5,
+        "Agentes Autónomos": 3,
+        "Administrativo Operaciones": 0
+       },
+       "personas": [
+        {
+         "nombre": "Ana Pérez",
+         "horas": 5,
+         "baja": false
+        },
+        {
+         "nombre": "Luis Gómez",
+         "horas": 3,
+         "baja": true
+        }
+       ]
+      }
+     ],
+     "sinArea": [],
+     "banda": "Octubre 2026",
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    }
+   }
+  },
+  {
+   "ok": true,
+   "data": {
+    "2025-01": {
+     "ok": false,
+     "mes": "2025-01",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-02": {
+     "ok": false,
+     "mes": "2025-02",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-03": {
+     "ok": false,
+     "mes": "2025-03",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-04": {
+     "ok": false,
+     "mes": "2025-04",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-05": {
+     "ok": false,
+     "mes": "2025-05",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-06": {
+     "ok": false,
+     "mes": "2025-06",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-07": {
+     "ok": false,
+     "mes": "2025-07",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-08": {
+     "ok": false,
+     "mes": "2025-08",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-09": {
+     "ok": false,
+     "mes": "2025-09",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-10": {
+     "ok": false,
+     "mes": "2025-10",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-11": {
+     "ok": false,
+     "mes": "2025-11",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    },
+    "2025-12": {
+     "ok": false,
+     "mes": "2025-12",
+     "error": "No existe la base del año. Selecciona API Clockify para extraerla primero."
+    }
+   }
+  },
+  {
+   "ok": true,
+   "data": {}
+  },
+  {
+   "ok": false,
+   "error": "Año inválido."
+  },
+  {
+   "ok": true,
+   "data": {
+    "2026-01": {
+     "ok": true,
+     "mes": "2026-01",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [],
+     "banda": null,
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-02": {
+     "ok": true,
+     "mes": "2026-02",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [],
+     "banda": null,
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-03": {
+     "ok": true,
+     "mes": "2026-03",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [],
+     "banda": null,
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-04": {
+     "ok": true,
+     "mes": "2026-04",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [],
+     "banda": null,
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-05": {
+     "ok": true,
+     "mes": "2026-05",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [],
+     "banda": null,
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-06": {
+     "ok": true,
+     "mes": "2026-06",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [],
+     "banda": null,
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-07": {
+     "ok": true,
+     "mes": "2026-07",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [],
+     "banda": null,
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-08": {
+     "ok": true,
+     "mes": "2026-08",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [],
+     "banda": null,
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-09": {
+     "ok": true,
+     "mes": "2026-09",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [
+      {
+       "recurso": "Ana Pérez",
+       "area": "QA",
+       "banda": "B2",
+       "categoria": "Optimización",
+       "tipo": "Facturable",
+       "proyecto": "AMK.008_S4",
+       "servicio": "Servicio A",
+       "horas": 4.5
+      },
+      {
+       "recurso": "Luis Gómez",
+       "area": "QA",
+       "banda": "B1",
+       "categoria": "Laboratorio",
+       "tipo": "No Facturable",
+       "proyecto": "LAB.001",
+       "servicio": "NA",
+       "horas": 8
+      }
+     ],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 2,
+       "horas": 12.5,
+       "categorias": {
+        "Facturable": 4.5,
+        "Optimización": 4.5,
+        "Laboratorio": 8,
+        "Administrativo Operaciones": 0
+       },
+       "personas": [
+        {
+         "nombre": "Ana Pérez",
+         "horas": 4.5,
+         "baja": false
+        },
+        {
+         "nombre": "Luis Gómez",
+         "horas": 8,
+         "baja": false
+        }
+       ]
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [
+      "Desconocido"
+     ],
+     "banda": "Septiembre 2026",
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    },
+    "2026-10": {
+     "ok": true,
+     "mes": "2026-10",
+     "idsPendientes": [
+      "Pedro Ruiz"
+     ],
+     "filtradoPorIDs": false,
+     "detalle": [
+      {
+       "recurso": "Ana Pérez",
+       "area": "QA",
+       "banda": "B3",
+       "categoria": "Delivery",
+       "tipo": "Facturable",
+       "proyecto": "AMK.008",
+       "servicio": "Svc Base",
+       "horas": 3
+      }
+     ],
+     "catalogoAviso": "",
+     "sinCatalogo": [],
+     "areas": [
+      {
+       "area": "QA",
+       "recursos": 1,
+       "horas": 3,
+       "categorias": {
+        "Facturable": 3,
+        "Administrativo Operaciones": 0
+       },
+       "personas": [
+        {
+         "nombre": "Ana Pérez",
+         "horas": 3,
+         "baja": false
+        }
+       ]
+      },
+      {
+       "area": "Desarrollo",
+       "recursos": 0,
+       "horas": 0,
+       "categorias": {
+        "Administrativo Operaciones": 0
+       },
+       "personas": []
+      }
+     ],
+     "sinArea": [],
+     "banda": "Octubre 2026",
+     "source": "Base Clockify en Sheets",
+     "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual."
+    }
+   }
+  }
+ ]
+}
