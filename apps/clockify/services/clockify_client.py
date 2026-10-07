@@ -368,6 +368,32 @@ class ClockifyClient:
 
             page_number += 1
 
+    def get_users_page(
+        self,
+        workspace_id: str,
+        page_number: int,
+        page_size: int,
+    ) -> requests.Response:
+        """
+        Pide una pagina de los usuarios activos del workspace.
+
+        Args:
+            workspace_id: ID del workspace de Clockify.
+            page_number: Pagina (base 1).
+            page_size: Usuarios por pagina.
+
+        Returns:
+            La respuesta HTTP; quien llama interpreta el estatus.
+
+        Raises:
+            ClockifyRequestError: Cuando no hay conexion.
+        """
+        return self._send(
+            "GET",
+            f"{CLOCKIFY_BASE_URL}/workspaces/{quote(workspace_id)}/users",
+            params={"page": page_number, "page-size": page_size},
+        )
+
     def post_workspace_report(
         self,
         workspace_id: str,

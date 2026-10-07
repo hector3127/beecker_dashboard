@@ -522,3 +522,119 @@ YEAR_SCENARIOS = [
     ("main", 1999, ""),
     ("legacy", 2026, ""),
 ]
+
+
+# Registros que se guardan en la base (formato del Apps Script).
+NEW_RECORDS = [
+    {
+        "id": "n1",
+        "userId": "u1",
+        "recurso": "Ana Pérez",
+        "proyecto": "AMK.008_S4",
+        "task": "dev",
+        "tags": ["a", "b"],
+        "billable": True,
+        "fecha": "2026-09-14",
+        "horas": 2.5,
+    },
+    {
+        "id": "n2",
+        "userId": "u2",
+        "recurso": "Luis Gómez",
+        "proyecto": "LAB.001",
+        "task": "",
+        "tags": [],
+        "billable": False,
+        "fecha": "2026-09-15",
+        "horas": 8,
+    },
+    {
+        "id": "n3",
+        "userId": "",
+        "recurso": "Pedro Ruiz",
+        "proyecto": "ZZZ.999",
+        "task": "Plan_S2",
+        "tags": ["x"],
+        "billable": True,
+        "fecha": "2026-10-03",
+        "horas": 1.25,
+    },
+]
+
+ROSTER_WITH_BAND_IN_D = [
+    ["Nombre", "Correo", "ROL", "Banda", "Notas"],
+    ["Ana Pérez", "a@x", "QA", "B2", "n1"],
+    ["Luis Gómez", "l@x", "QA", "B3", ""],
+    ["Pedro Ruiz", "p@x", "Desarrollo", "", ""],
+    ["Pedro Ruiz", "dup", "Desarrollo", "", ""],
+    ["Nuevo Ingreso", "n@x", "QA", "", ""],
+    ["Sin Id", "s@x", "QA", "", ""],
+]
+ROSTER_WITHOUT_D = [
+    ["Nombre", "Correo", "ROL"],
+    ["Ana Pérez", "a@x", "QA"],
+    ["Pedro Ruiz", "p@x", "Desarrollo"],
+]
+
+
+def build_write_datasets():
+    """Variantes de hojas para las pruebas de escritura."""
+    datasets = build_datasets()
+    empty = copy.deepcopy(SHEETS)
+    del empty["08.Base Clockify 2026"]
+    del empty["GSE_Base_Control"]
+    ids_with_d = copy.deepcopy(SHEETS)
+    ids_with_d["Bandas/rol"] = copy.deepcopy(ROSTER_WITH_BAND_IN_D)
+    ids_without_d = copy.deepcopy(SHEETS)
+    ids_without_d["Bandas/rol"] = copy.deepcopy(ROSTER_WITHOUT_D)
+    datasets["empty"] = empty
+    datasets["ids_with_d"] = ids_with_d
+    datasets["ids_without_d"] = ids_without_d
+
+    return datasets
+
+
+# (conjunto de hojas, mes, IDs de usuario)
+SAVE_SCENARIOS = [
+    ("main", "2026-09", None),
+    ("main", "2026-10", ["u2", "u1", "u2"]),
+    ("main", "2026-10", None),
+    ("main", "2026-09", ["u3"]),
+    ("main", "2026-07", None),
+    ("no_base", "2026-09", None),
+    ("empty", "2026-09", None),
+    ("empty", "2027-01", ["u1"]),
+    ("bad_schema", "2026-09", None),
+]
+
+# Respuestas de la lista de usuarios, una por pagina.
+USER_LIST = [
+    {"name": "Pedro Ruiz", "id": "uP"},
+    {"name": "Ana Pérez", "id": "uA"},
+    {"name": "Ana Pérez", "id": "uB"},
+    {"name": "Nuevo Ingreso", "id": "u10"},
+    {"name": "Luis Gómez", "id": "uL"},
+    {"name": "Sin Id", "id": ""},
+]
+USER_SCRIPTS = {
+    "ok": [{"status": 200, "body": USER_LIST}],
+    "object": [{"status": 200, "body": {"users": USER_LIST}}],
+    "forbidden": [{"status": 403, "body": {}}],
+    "error": [{"status": 500, "body": {}}],
+    "invalid": [{"status": 200, "body": {"x": 1}}],
+}
+
+# (conjunto de hojas, mes, solo reporte, respuesta de usuarios)
+IDS_SCENARIOS = [
+    ("ids_with_d", "2026-09", False, "ok"),
+    ("ids_with_d", "2026-09", False, "object"),
+    ("ids_without_d", "2026-09", False, "ok"),
+    ("main", "2026-09", False, "ok"),
+    ("main", "2026-09", False, "forbidden"),
+    ("main", "2026-09", True, "ok"),
+    ("ids_without_d", "2026-09", True, "ok"),
+    ("main", "2026-09", False, "error"),
+    ("main", "2026-09", False, "invalid"),
+    ("main", "2026-13", False, "ok"),
+    ("no_roster", "2026-09", False, "ok"),
+]

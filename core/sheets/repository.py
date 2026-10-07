@@ -45,6 +45,11 @@ NOT_FOUND_STATUS: Final[int] = 404
 
 ALPHABET_SIZE: Final[int] = 26
 
+# Filas por escritura y celdas de texto por batchUpdate (limite de tamano).
+ROWS_PER_WRITE: Final[int] = 5000
+
+TEXT_CELLS_PER_REQUEST: Final[int] = 500
+
 
 class GoogleSheetRepository:
     """Acceso a un Spreadsheet con cache por instancia y compartida."""
@@ -378,6 +383,141 @@ class GoogleSheetRepository:
 
         self._forget(sheet_name)
 
+    def replace_rows(
+        self,
+        sheet_name: str,
+        first_row: int,
+        rows: Sequence[Sequence[CellValue | datetime]],
+        text_columns: Sequence[int] = (),
+    ) -> None:
+        """
+        Reemplaza todo lo que hay desde una fila con las filas dadas.
+
+        Equivale a clearContent() de las filas de datos seguido de
+        getRange(...).setValues(): borra las celdas, agrega filas si
+        faltan y escribe los valores sin interpretarlos. Escribe en
+        bloques para no pasar el limite de tamano de la API.
+
+        Args:
+            sheet_name: Nombre de la hoja.
+            first_row: Primera fila a reemplazar (base 1).
+            rows: Filas nuevas, todas con el mismo ancho.
+            text_columns: Columnas (base 1) con formato de texto plano.
+
+        Raises:
+            SheetNotFoundError: Cuando la hoja no existe.
+        """
+        sheet_ids = self._load_sheet_ids()
+
+        if sheet_name not in sheet_ids:
+            raise SheetNotFoundError(f"Hoja no encontrada: {sheet_name}")
+
+        quoted_name = quote_sheet_name(sheet_name)
+
+        self._execute(
+            self._service.spreadsheets()
+            .values()
+            .clear(
+                spreadsheetId=self._spreadsheet_id,
+                range=f"{quoted_name}!A{first_row}:ZZZ",
+                body={},
+            ),
+        )
+
+        if rows:
+            self._write_row_blocks(
+                (sheet_name, sheet_ids[sheet_name], first_row),
+                rows,
+                text_columns,
+            )
+
+        self._forget(sheet_name)
+
+    def insert_column_after(
+        self,
+        sheet_name: str,
+        column_number: int,
+    ) -> None:
+        """
+        Inserta una columna vacia a la derecha de otra.
+
+        Equivale a sheet.insertColumnAfter(columna).
+
+        Args:
+            sheet_name: Nombre de la hoja.
+            column_number: Columna (base 1) despues de la cual se inserta.
+
+        Raises:
+            SheetNotFoundError: Cuando la hoja no existe.
+        """
+        sheet_ids = self._load_sheet_ids()
+
+        if sheet_name not in sheet_ids:
+            raise SheetNotFoundError(f"Hoja no encontrada: {sheet_name}")
+
+        self._execute(
+            self._service.spreadsheets().batchUpdate(
+                spreadsheetId=self._spreadsheet_id,
+                body={
+                    "requests": [
+                        {
+                            "insertDimension": {
+                                "range": {
+                                    "sheetId": sheet_ids[sheet_name],
+                                    "dimension": "COLUMNS",
+                                    "startIndex": column_number,
+                                    "endIndex": column_number + 1,
+                                },
+                                "inheritFromBefore": True,
+                            },
+                        },
+                    ],
+                },
+            ),
+        )
+
+        self._forget(sheet_name)
+
+    def write_text_cells(
+        self,
+        sheet_name: str,
+        cells: Sequence[tuple[int, int, str]],
+    ) -> None:
+        """
+        Escribe celdas como texto plano, como setNumberFormat('@').setValue().
+
+        Args:
+            sheet_name: Nombre de la hoja.
+            cells: (fila, columna, texto) en base 1.
+
+        Raises:
+            SheetNotFoundError: Cuando la hoja no existe.
+        """
+        sheet_ids = self._load_sheet_ids()
+
+        if sheet_name not in sheet_ids:
+            raise SheetNotFoundError(f"Hoja no encontrada: {sheet_name}")
+
+        for start in range(0, len(cells), TEXT_CELLS_PER_REQUEST):
+            block = cells[start : start + TEXT_CELLS_PER_REQUEST]
+
+            self._execute(
+                self._service.spreadsheets().batchUpdate(
+                    spreadsheetId=self._spreadsheet_id,
+                    body={
+                        "requests": [
+                            build_text_cell_request(
+                                sheet_ids[sheet_name],
+                                cell,
+                            )
+                            for cell in block
+                        ],
+                    },
+                ),
+            )
+
+        self._forget(sheet_name)
+
     def delete_sheet(self, sheet_name: str) -> None:
         """
         Elimina una hoja completa, como ss.deleteSheet().
@@ -492,6 +632,96 @@ class GoogleSheetRepository:
         )
 
         self._forget(sheet_name)
+
+    def _write_row_blocks(
+        self,
+        target: tuple[str, int, int],
+        rows: Sequence[Sequence[CellValue | datetime]],
+        text_columns: Sequence[int],
+    ) -> None:
+        """Agrega filas si faltan, da formato de texto y escribe por bloques."""
+        sheet_name, sheet_id, first_row = target
+        last_row = first_row - 1 + len(rows)
+        self._ensure_row_capacity(sheet_name, sheet_id, last_row)
+
+        for column_number in text_columns:
+            self._execute(
+                self._service.spreadsheets().batchUpdate(
+                    spreadsheetId=self._spreadsheet_id,
+                    body={
+                        "requests": [
+                            build_text_format_request(
+                                sheet_id,
+                                (first_row - 1, last_row),
+                                column_number - 1,
+                            ),
+                        ],
+                    },
+                ),
+            )
+
+        quoted_name = quote_sheet_name(sheet_name)
+
+        for start in range(0, len(rows), ROWS_PER_WRITE):
+            block = rows[start : start + ROWS_PER_WRITE]
+
+            self._execute(
+                self._service.spreadsheets()
+                .values()
+                .update(
+                    spreadsheetId=self._spreadsheet_id,
+                    range=f"{quoted_name}!A{first_row + start}",
+                    valueInputOption="RAW",
+                    body={"values": [serialize_row(row) for row in block]},
+                ),
+            )
+
+    def _ensure_row_capacity(
+        self,
+        sheet_name: str,
+        sheet_id: int,
+        row_count: int,
+    ) -> None:
+        """Agrega filas a la cuadricula cuando la hoja es mas corta."""
+        response = self._execute(
+            self._service.spreadsheets().get(
+                spreadsheetId=self._spreadsheet_id,
+                fields="sheets.properties(sheetId,gridProperties.rowCount)",
+            ),
+        )
+        current = next(
+            (
+                sheet["properties"]["gridProperties"]["rowCount"]
+                for sheet in response.get("sheets", [])
+                if sheet["properties"]["sheetId"] == sheet_id
+            ),
+            row_count,
+        )
+
+        if current >= row_count:
+            return
+
+        logger.info(
+            "Se agregan %s filas a la hoja %s",
+            row_count - current,
+            sheet_name,
+        )
+        self._execute(
+            self._service.spreadsheets().batchUpdate(
+                spreadsheetId=self._spreadsheet_id,
+                body={
+                    "requests": [
+                        {
+                            "appendDimension": {
+                                "sheetId": sheet_id,
+                                "dimension": "ROWS",
+                                "length": row_count - current,
+                            },
+                        },
+                    ],
+                },
+            ),
+        )
 
     def _load_sheet_ids(self) -> dict[str, int]:
         """Lee una sola vez los nombres e IDs de las hojas existentes."""
@@ -804,5 +1034,78 @@ def build_header_format_request(
                 },
             },
             "fields": ("userEnteredFormat(backgroundColor,textFormat)"),
+        },
+    }
+
+
+def build_text_format_request(
+    sheet_id: int,
+    row_range: tuple[int, int],
+    column_index: int,
+) -> dict[str, Any]:
+    """
+    Construye el formato de texto plano de una columna (setNumberFormat('@')).
+
+    Args:
+        sheet_id: ID numerico de la hoja.
+        row_range: Fila inicial y final (base 0, final excluida).
+        column_index: Columna en base 0.
+
+    Returns:
+        La peticion repeatCell para batchUpdate.
+    """
+    return {
+        "repeatCell": {
+            "range": {
+                "sheetId": sheet_id,
+                "startRowIndex": row_range[0],
+                "endRowIndex": row_range[1],
+                "startColumnIndex": column_index,
+                "endColumnIndex": column_index + 1,
+            },
+            "cell": {
+                "userEnteredFormat": {"numberFormat": {"type": "TEXT"}},
+            },
+            "fields": "userEnteredFormat.numberFormat",
+        },
+    }
+
+
+def build_text_cell_request(
+    sheet_id: int,
+    cell: tuple[int, int, str],
+) -> dict[str, Any]:
+    """
+    Construye la escritura de una celda de texto plano.
+
+    Args:
+        sheet_id: ID numerico de la hoja.
+        cell: Fila, columna (base 1) y texto.
+
+    Returns:
+        La peticion updateCells para batchUpdate.
+    """
+    row_number, column_number, text = cell
+
+    return {
+        "updateCells": {
+            "rows": [
+                {
+                    "values": [
+                        {
+                            "userEnteredValue": {"stringValue": text},
+                            "userEnteredFormat": {
+                                "numberFormat": {"type": "TEXT"},
+                            },
+                        },
+                    ],
+                },
+            ],
+            "fields": "userEnteredValue,userEnteredFormat.numberFormat",
+            "start": {
+                "sheetId": sheet_id,
+                "rowIndex": row_number - 1,
+                "columnIndex": column_number - 1,
+            },
         },
     }

@@ -7,8 +7,11 @@ from django.conf import settings
 from django.core.cache import cache
 from django.utils import timezone
 
+from apps.clockify.services.clockify_client import ClockifyClient
 from apps.gse.services.base_store import BaseStore, build_connection
+from apps.gse.services.base_writer import BaseWriter, SheetStore
 from apps.gse.services.batch_read import get_batch
+from apps.gse.services.clockify_ids import IdsContext, get_clockify_ids
 from apps.gse.services.clockify_month import MonthReportLoader
 from apps.gse.services.month_report import GseContext, get_month
 from apps.gse.services.result_cache import ResultCache
@@ -17,7 +20,6 @@ from apps.gse.services.year_base import get_year
 from core.exceptions import DashboardError, describe_error
 from core.rpc.registry import register_rpc
 from core.sheets.factory import build_sheet_repository
-from core.sheets.protocols import SheetReader
 
 """BKD.100.013 - RPC de GSE
 Registra gseObtenerAreas, gseObtenerMes, gseObtenerAnoBase,
@@ -30,7 +32,7 @@ logger = logging.getLogger(__name__)
 JsonObject = dict[str, Any]
 
 
-def build_context(reader: SheetReader) -> GseContext:
+def build_context(reader: SheetStore) -> GseContext:
     """
     Arma las hojas, la base guardada y la fuente de Clockify.
 
@@ -52,6 +54,7 @@ def build_context(reader: SheetReader) -> GseContext:
             settings.TIME_ZONE,
         ),
         (store, connection, cache),
+        BaseWriter(reader, connection, timezone.now()).save_month,
     )
 
     return GseContext(reader, store, loader)
@@ -203,3 +206,39 @@ def save_gse_result_cache(
         {"ok": True, "savedAt"} o {"ok": False, "error"}.
     """
     return build_result_cache().save(year, area, result)
+
+
+@register_rpc("gseObtenerIDsClockify")
+def get_gse_clockify_ids(
+    month: object = "",
+    report_only: object = False,
+) -> JsonObject:
+    """
+    Busca los IDs de Clockify y los guarda en la columna de Bandas/rol.
+
+    Args:
+        month: Mes YYYY-MM para el reporte cuando no se puede listar.
+        report_only: Salta la lista de usuarios y usa solo el reporte.
+
+    Returns:
+        {"ok", "guardados", "pendientes", "fuente", "aviso"} o
+        {"ok": False, "error"}.
+    """
+    try:
+        sheets = build_sheet_repository()
+        context = build_context(sheets)
+    except DashboardError as error:
+        return {"ok": False, "error": describe_error(error)}
+
+    api_key = settings.CLOCKIFY_API_KEY
+
+    return get_clockify_ids(
+        IdsContext(
+            sheets,
+            ClockifyClient(api_key) if api_key else None,
+            settings.CLOCKIFY_WORKSPACE_ID,
+            context.load_api_hours,
+        ),
+        month,
+        report_only,
+    )

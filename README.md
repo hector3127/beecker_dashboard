@@ -72,8 +72,8 @@ python manage.py runserver
 | `ClockifyService.gs` (horas por proyecto, reporte detallado, `obtenerConfigClockify`, `listarWorkspacesClockify`) | `apps/clockify/` | Migrado (sin la consulta alterna por usuario cuando el reporte da 403) |
 | `MinutasService.gs`, `MinutasViewService.gs` | `apps/minutas/` + `python manage.py scan_minutes` | Migrado |
 | `CapacidadInstaladaService.gs` (`capacidadInstaladaBase`, `capacidadInstaladaDatosProyecto`) | `apps/capacidad/` | Migrado |
-| `GSEService.gs` (lecturas: `gseObtenerAreas`, `gseObtenerMes`, `gseObtenerAnoBase`, `gseObtenerLoteBase`, `gseLeerResultadoCache`, `gseGuardarResultadoCache`) y `CapacidadInstalada.html` con la pestana GSE | `apps/gse/` | Migrado (la descarga por API Clockify no guarda todavia la base en Sheets) |
-| `GSEService.gs` (`gseBaseGuardar_`) y `ClockifyIDsService.gs` (`gseObtenerIDsClockify`) | `apps/gse/` | Pendiente (escriben en Sheets) |
+| `GSEService.gs` (lecturas: `gseObtenerAreas`, `gseObtenerMes`, `gseObtenerAnoBase`, `gseObtenerLoteBase`, `gseLeerResultadoCache`, `gseGuardarResultadoCache`) y `CapacidadInstalada.html` con la pestana GSE | `apps/gse/` | Migrado |
+| `GSEService.gs` (`gseBaseGuardar_`, `gseBaseSheet_`, `gseBaseControl_`) y `ClockifyIDsService.gs` (`gseObtenerIDsClockify`, `gseIdsGuardar_`) | `apps/gse/` | Migrado (probado solo en local; `gseObtenerIDsClockify` escribe en `Bandas/rol` y la descarga por API escribe la base) |
 | `ResumenAltoNivelService.gs` (`obtenerTopRiesgosPortafolioAzure`, `obtenerRaidProyectoEjecutivoAzure`) | `apps/azure_devops/` | Migrado |
 | `DailyPanelService.gs` (`obtenerResumenAERTYMMPB`, `obtenerConsumosResumenAERTYMMPB`) | `apps/ejecutivo/` | Migrado |
 | `ResumenAltoNivelService.gs` (`obtenerResumenIXBRaaS`) y `calcularHitosProyecto` | `apps/ejecutivo/` | Migrado |
@@ -270,10 +270,23 @@ de `Bandas/rol`), persona y categoria.
   (`gseReporteMes_`), con la base guardada y la cache de 1 h por delante.
 - `result_cache.py`: resultado anual 6 h (`gseLeerResultadoCache`,
   `gseGuardarResultadoCache`).
+- `base_writer.py`: guarda el mes descargado de Clockify en
+  `08.Base Clockify AAAA` y su cobertura en `GSE_Base_Control`
+  (`gseBaseGuardar_`). Marca la cobertura anterior como incompleta antes
+  de reemplazar filas, conserva otras conexiones y meses e invalida las
+  coberturas que se traslapan. Candado de 10 s.
+- `clockify_ids.py`: `gseObtenerIDsClockify`. Lista los usuarios del
+  workspace (o, si la clave da 403, usa el reporte del mes) y escribe el
+  `ID Clockify` en `Bandas/rol`; solo coincidencias unicas por nombre,
+  nunca sobreescribe un ID y agrega la columna D si falta.
 
 Diferencias con el original: no existe el corte a los 40 s con
-`pending` (la consulta se hace en una sola llamada) y la cache es la de
-Django, compartida entre usuarios.
+`pending` (la consulta se hace en una sola llamada), la cache es la de
+Django, compartida entre usuarios, la hoja nueva de la base usa el
+encabezado oscuro del repositorio (no el morado `#6725de`) y los textos
+de fecha y control se escriben como texto (RAW con formato de texto).
+Las escrituras usan tres metodos nuevos de `SheetsRepository`:
+`replace_rows`, `insert_column_after` y `write_text_cells`.
 
 ## Velocidad y cache
 
@@ -450,6 +463,9 @@ Diferencias intencionales con el Apps Script:
     en la cache de Django compartida entre usuarios (en Apps Script era
     por usuario) y un `ID Registro` repetido o un mes sin cobertura
     produce el mismo mensaje que el original.
+26. GSE: la descarga por API ahora guarda la base como el original; la
+    hoja nueva se crea con el encabezado oscuro estandar y no con el
+    color morado de Apps Script.
 
 ## Unit Tests
 
@@ -470,7 +486,10 @@ mypy .
 - `tests/gse`: `test_parity.py` compara 53 casos (areas, mes, ano y
   bloques de la base) contra el `GSEService.gs` original
   (`expected_results.json`, bloques de 4 filas); `test_units.py` cubre
-  la cache del resultado, la cobertura vencida y el reporte de Clockify.
+  la cache del resultado, la cobertura vencida y el reporte de Clockify;
+  `test_writes.py` compara 20 escenarios de guardado de la base y de
+  IDs (`expected_writes.json`, salida del `.gs` original con hojas
+  editables simuladas) y cubre candado, paginacion y limite de 40 s.
 - `tests/daily/test_daily_parity.py`: compara 79 operaciones del panel
   Daily contra el original con una organizacion de Azure simulada
   (`expected_results.json`).

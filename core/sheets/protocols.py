@@ -92,6 +92,32 @@ class SheetWriter(Protocol):
         """Escribe una fila desde la columna A (fila en base 1)."""
         ...
 
+    def replace_rows(
+        self,
+        sheet_name: str,
+        first_row: int,
+        rows: Sequence[Sequence[CellValue | datetime]],
+        text_columns: Sequence[int] = (),
+    ) -> None:
+        """Reemplaza todo lo que hay desde una fila (base 1)."""
+        ...
+
+    def insert_column_after(
+        self,
+        sheet_name: str,
+        column_number: int,
+    ) -> None:
+        """Inserta una columna vacia despues de la columna dada."""
+        ...
+
+    def write_text_cells(
+        self,
+        sheet_name: str,
+        cells: Sequence[tuple[int, int, str]],
+    ) -> None:
+        """Escribe celdas (fila, columna, texto) como texto plano."""
+        ...
+
     def delete_sheet(self, sheet_name: str) -> None:
         """Elimina una hoja completa."""
         ...

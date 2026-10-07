@@ -15,6 +15,7 @@ class InMemorySheetRepository:
     def __init__(self, sheets: dict[str, list[list[CellValue]]]) -> None:
         self.sheets = sheets
         self.appended_rows: list[tuple[str, list[object]]] = []
+        self.replaced_rows: list[tuple[str, int, int]] = []
 
     def sheet_exists(self, sheet_name: str) -> bool:
         return sheet_name in self.sheets
@@ -145,6 +146,38 @@ class InMemorySheetRepository:
             row.append("")
 
         row[: len(values)] = list(values)
+
+    def replace_rows(
+        self,
+        sheet_name: str,
+        first_row: int,
+        rows: Sequence[Sequence[CellValue | datetime]],
+        text_columns: Sequence[int] = (),
+    ) -> None:
+        if sheet_name not in self.sheets:
+            raise SheetNotFoundError(f"Hoja no encontrada: {sheet_name}")
+
+        kept = self.sheets[sheet_name][: first_row - 1]
+        self.sheets[sheet_name] = kept + [list(row) for row in rows]
+        self.replaced_rows.append((sheet_name, first_row, len(rows)))
+
+    def insert_column_after(self, sheet_name: str, column_number: int) -> None:
+        if sheet_name not in self.sheets:
+            raise SheetNotFoundError(f"Hoja no encontrada: {sheet_name}")
+
+        for row in self.sheets[sheet_name]:
+            while len(row) < column_number:
+                row.append("")
+
+            row.insert(column_number, "")
+
+    def write_text_cells(
+        self,
+        sheet_name: str,
+        cells: Sequence[tuple[int, int, str]],
+    ) -> None:
+        for row_number, column_number, text in cells:
+            self.write_cell(sheet_name, row_number, column_number, text)
 
     def delete_sheet(self, sheet_name: str) -> None:
         if sheet_name not in self.sheets:

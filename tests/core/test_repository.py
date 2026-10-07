@@ -256,3 +256,133 @@ def test_delete_row_range_uses_one_request():
         "startIndex": 1,
         "endIndex": 6,
     }
+
+
+def build_grid_service(row_count):
+    service = build_service({"Base": [["A"]], "Otra": [["A"]]})
+    service.spreadsheets.return_value.get.return_value.execute.return_value = {
+        "sheets": [
+            {
+                "properties": {
+                    "title": "Base",
+                    "sheetId": 0,
+                    "gridProperties": {"rowCount": row_count},
+                },
+            },
+            {
+                "properties": {
+                    "title": "Otra",
+                    "sheetId": 1,
+                    "gridProperties": {"rowCount": 10},
+                },
+            },
+        ],
+    }
+    return service
+
+
+def test_replace_rows_clears_grows_formats_and_writes_in_blocks(monkeypatch):
+    monkeypatch.setattr("core.sheets.repository.ROWS_PER_WRITE", 2)
+    service = build_grid_service(3)
+    repository = GoogleSheetRepository(service, "sheet-id")
+    spreadsheets = service.spreadsheets.return_value
+
+    repository.replace_rows(
+        "Base",
+        2,
+        [["a", 1], ["b", 2], ["c", None]],
+        text_columns=[1],
+    )
+
+    values = spreadsheets.values.return_value
+    assert values.clear.call_args.kwargs["range"] == "'Base'!A2:ZZZ"
+    requests = [
+        call.kwargs["body"]["requests"][0]
+        for call in spreadsheets.batchUpdate.call_args_list
+    ]
+    assert requests[0] == {
+        "appendDimension": {"sheetId": 0, "dimension": "ROWS", "length": 1},
+    }
+    text_format = requests[1]["repeatCell"]
+    assert text_format["range"]["startRowIndex"] == 1
+    assert text_format["range"]["endRowIndex"] == 4
+    assert text_format["range"]["startColumnIndex"] == 0
+    assert text_format["cell"]["userEnteredFormat"]["numberFormat"] == {
+        "type": "TEXT",
+    }
+    updates = values.update.call_args_list
+    assert [call.kwargs["range"] for call in updates] == [
+        "'Base'!A2",
+        "'Base'!A4",
+    ]
+    assert updates[0].kwargs["valueInputOption"] == "RAW"
+    assert updates[1].kwargs["body"] == {"values": [["c", ""]]}
+
+
+def test_replace_rows_without_rows_only_clears():
+    service = build_grid_service(50)
+    repository = GoogleSheetRepository(service, "sheet-id")
+
+    repository.replace_rows("Base", 2, [])
+
+    spreadsheets = service.spreadsheets.return_value
+    assert spreadsheets.values.return_value.clear.called
+    assert not spreadsheets.values.return_value.update.called
+    assert not spreadsheets.batchUpdate.called
+
+
+def test_replace_rows_does_not_grow_a_large_enough_grid():
+    service = build_grid_service(50)
+    repository = GoogleSheetRepository(service, "sheet-id")
+
+    repository.replace_rows("Base", 2, [["a"]])
+
+    assert not service.spreadsheets.return_value.batchUpdate.called
+
+
+def test_insert_column_after_inserts_to_the_right():
+    service = build_grid_service(5)
+    repository = GoogleSheetRepository(service, "sheet-id")
+
+    repository.insert_column_after("Otra", 3)
+
+    request = service.spreadsheets.return_value.batchUpdate.call_args.kwargs[
+        "body"
+    ]["requests"][0]
+    assert request["insertDimension"]["range"] == {
+        "sheetId": 1,
+        "dimension": "COLUMNS",
+        "startIndex": 3,
+        "endIndex": 4,
+    }
+
+
+def test_write_text_cells_batches_requests(monkeypatch):
+    monkeypatch.setattr("core.sheets.repository.TEXT_CELLS_PER_REQUEST", 2)
+    service = build_grid_service(5)
+    repository = GoogleSheetRepository(service, "sheet-id")
+
+    repository.write_text_cells(
+        "Base", [(2, 4, "x1"), (3, 4, "x2"), (4, 4, "x3")]
+    )
+
+    calls = service.spreadsheets.return_value.batchUpdate.call_args_list
+    assert [len(call.kwargs["body"]["requests"]) for call in calls] == [2, 1]
+    first = calls[0].kwargs["body"]["requests"][0]["updateCells"]
+    assert first["start"] == {"sheetId": 0, "rowIndex": 1, "columnIndex": 3}
+    cell = first["rows"][0]["values"][0]
+    assert cell["userEnteredValue"] == {"stringValue": "x1"}
+    assert cell["userEnteredFormat"]["numberFormat"] == {"type": "TEXT"}
+
+
+def test_new_write_methods_reject_unknown_sheets():
+    repository = GoogleSheetRepository(build_grid_service(5), "sheet-id")
+
+    with pytest.raises(SheetNotFoundError):
+        repository.replace_rows("No existe", 2, [])
+
+    with pytest.raises(SheetNotFoundError):
+        repository.insert_column_after("No existe", 1)
+
+    with pytest.raises(SheetNotFoundError):
+        repository.write_text_cells("No existe", [])

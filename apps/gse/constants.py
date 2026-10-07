@@ -11,7 +11,22 @@ SHEET_ROSTER: Final[str] = "Bandas/rol"
 BASE_SHEET_PREFIX: Final[str] = "08.Base Clockify "
 CONTROL_SHEET: Final[str] = "GSE_Base_Control"
 
-# Encabezados de la base compartida (12 columnas, ya normalizados).
+# Encabezados con los que se crea la hoja de la base.
+BASE_HEADER_TITLES: Final[tuple[str, ...]] = (
+    "Project",
+    "User",
+    "Start Date",
+    "Duration (decimal)",
+    "Task",
+    "Tags",
+    "Billable",
+    "ID Registro",
+    "ID Clockify",
+    "Workspace",
+    "Conexión GSE",
+    "Actualizado",
+)
+# Encabezados normalizados de la base compartida (12 columnas).
 BASE_COLUMNS: Final[int] = 12
 BASE_REQUIRED_HEADERS: Final[tuple[str, ...]] = (
     "project",
@@ -35,6 +50,14 @@ BATCH_REQUIRED_HEADERS: Final[tuple[str, ...]] = (
     "task",
     "id registro",
     "id clockify",
+)
+
+CONTROL_HEADERS: Final[tuple[str, ...]] = (
+    "Clave",
+    "Mes",
+    "IDs JSON",
+    "Actualizado",
+    "Registros",
 )
 
 CATALOG_SHEET_KEYS: Final[frozenset[str]] = frozenset(
