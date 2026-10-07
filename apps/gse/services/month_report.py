@@ -266,12 +266,17 @@ def index_by_clockify_id(roster: dict[str, Person]) -> dict[str, Person]:
     return by_id
 
 
+DetailKey = tuple[str, str, str, str, tuple[str, ...]]
+
+
 @dataclass(slots=True)
 class MonthTotals:
     """Acumulados del mes antes de armar la respuesta."""
 
-    detail: dict[tuple[str, str, str, str], JsonObject] = field(
-        default_factory=dict,
+    detail: dict[tuple[str, str, str, str, tuple[str, ...]], JsonObject] = (
+        field(
+            default_factory=dict,
+        )
     )
     unmatched: dict[str, None] = field(default_factory=dict)
     missing_projects: dict[str, None] = field(default_factory=dict)
@@ -367,7 +372,13 @@ def add_record(
         catalog,
     )
     category, kind = classify(match, categories)
-    key = (norm(person.name), norm(project), category, kind)
+    key = (
+        norm(person.name),
+        norm(project),
+        category,
+        kind,
+        tuple(categories),
+    )
 
     if key not in totals.detail:
         totals.detail[key] = {
@@ -378,6 +389,7 @@ def add_record(
             "tipo": kind,
             "proyecto": project,
             "servicio": (match.entry.service if match else "") or NOT_AVAILABLE,
+            "categorias": list(categories),
             "horas": 0.0,
         }
 

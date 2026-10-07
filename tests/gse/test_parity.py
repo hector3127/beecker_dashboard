@@ -15,6 +15,7 @@ import pytest
 from apps.gse.services import batch_read
 from apps.gse.services.base_store import BaseStore, Connection
 from apps.gse.services.batch_read import get_batch
+from apps.gse.services.cells import norm
 from apps.gse.services.month_report import GseContext, get_month
 from apps.gse.services.roster import list_areas
 from apps.gse.services.year_base import get_year
@@ -39,6 +40,44 @@ def build_context(dataset):
         raise AssertionError("La fuente sheet no debe llamar a Clockify")
 
     return GseContext(reader, BaseStore(reader, connection, NOW), no_api)
+
+
+def without_categories(value):
+    """
+    Quita `categorias` del detalle y junta las filas que quedan iguales.
+
+    El detalle de Django conserva las categorias de cada registro (el
+    original no), asi que se compara contra el original sin ese campo.
+    """
+    if isinstance(value, list):
+        return [without_categories(item) for item in value]
+
+    if not isinstance(value, dict):
+        return value
+
+    result = {key: without_categories(item) for key, item in value.items()}
+    detail = result.get("detalle")
+
+    if isinstance(detail, list):
+        merged = {}
+
+        for item in detail:
+            item = {k: v for k, v in item.items() if k != "categorias"}
+            key = (
+                norm(item["recurso"]),
+                norm(item["proyecto"]),
+                item["categoria"],
+                item["tipo"],
+            )
+
+            if key in merged:
+                merged[key]["horas"] += item["horas"]
+            else:
+                merged[key] = item
+
+        result["detalle"] = list(merged.values())
+
+    return result
 
 
 @pytest.fixture(autouse=True)
@@ -69,7 +108,7 @@ def test_month_matches_original(scenario, expected):
 
     result = get_month(build_context(dataset), (month, source, force, area))
 
-    assert json.loads(json.dumps(result)) == expected
+    assert without_categories(json.loads(json.dumps(result))) == expected
 
 
 @pytest.mark.parametrize(
@@ -98,4 +137,4 @@ def test_year_matches_original(scenario, expected):
     result = get_year(build_context(dataset), (year, area), TODAY)
     result.pop("milliseconds", None)
 
-    assert json.loads(json.dumps(result)) == expected
+    assert without_categories(json.loads(json.dumps(result))) == expected

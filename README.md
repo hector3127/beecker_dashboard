@@ -466,6 +466,14 @@ Diferencias intencionales con el Apps Script:
 26. GSE: la descarga por API ahora guarda la base como el original; la
     hoja nueva se crea con el encabezado oscuro estandar y no con el
     color morado de Apps Script.
+27. GSE: el `detalle` de `gseObtenerMes` incluye `categorias` (calculadas
+    con los tags de la columna F: `INV_operativa`, `Inv_comercial`, etc.)
+    y separa filas con distintas categorias. El original no las traia y
+    la tabla "Anual empleado" mostraba Inv. operativa/comercial en 0.
+28. GSE (pantalla): al consultar el ano ninguna area se despliega sola y
+    los iconos de las pestanas General/Detalle/KPIs/% Recurso heredan el
+    color del boton (antes `.gm-brand svg` los pintaba morados sobre el
+    morado de la pestana activa).
 
 ## Unit Tests
 

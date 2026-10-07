@@ -20,6 +20,7 @@ from apps.gse.services.clockify_month import (
     raise_for_report_status,
     read_report_entry,
 )
+from apps.gse.services.month_report import GseContext, get_month
 from apps.gse.services.result_cache import ResultCache
 from apps.gse.services.year_base import last_month, parse_year
 from tests.fakes import InMemorySheetRepository
@@ -383,3 +384,63 @@ def test_loader_stops_after_too_many_pages(monkeypatch):
 
     with pytest.raises(GseError, match="Demasiadas páginas"):
         loader("2026-11", False, None)
+
+
+def test_month_detail_keeps_investment_categories_from_tags():
+    sheets = copy.deepcopy(sample_data.build_datasets()["main"])
+    base = sheets["08.Base Clockify 2026"]
+    base.append(
+        sample_data.base_row(
+            [
+                "AMK.008_S4",
+                "Ana Pérez",
+                "2026-09-05",
+                2,
+                "dev",
+                "INV_operativa, x",
+                "Yes",
+                "inv1",
+                "u1",
+            ],
+        ),
+    )
+    base.append(
+        sample_data.base_row(
+            [
+                "AMK.008_S4",
+                "Ana Pérez",
+                "2026-09-06",
+                1.5,
+                "dev",
+                "Inv_comercial",
+                "Yes",
+                "inv2",
+                "u1",
+            ],
+        ),
+    )
+    reader = InMemorySheetRepository(sheets)
+    connection = Connection(sample_data.WORKSPACE, sample_data.CONNECTION)
+    context = GseContext(
+        reader,
+        BaseStore(reader, connection, datetime(2026, 10, 2, 18, tzinfo=UTC)),
+        lambda *_: [],
+    )
+
+    result = get_month(context, ("2026-09", "sheet", False, ""))
+
+    rows = [
+        item for item in result["detalle"] if item["recurso"] == "Ana Pérez"
+    ]
+    operational = sum(
+        item["horas"]
+        for item in rows
+        if "Inversión Operaciones" in item["categorias"]
+    )
+    commercial = sum(
+        item["horas"]
+        for item in rows
+        if "Inversión Comercial" in item["categorias"]
+    )
+    assert operational == 2
+    assert commercial == 1.5
