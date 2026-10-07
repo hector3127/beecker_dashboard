@@ -21,6 +21,7 @@ from apps.gse.services.clockify_month import (
     read_report_entry,
 )
 from apps.gse.services.month_report import GseContext, get_month
+from apps.gse.services.refresh import refresh_sheet_reads
 from apps.gse.services.result_cache import ResultCache
 from apps.gse.services.year_base import last_month, parse_year
 from tests.fakes import InMemorySheetRepository
@@ -444,3 +445,37 @@ def test_month_detail_keeps_investment_categories_from_tags():
     )
     assert operational == 2
     assert commercial == 1.5
+
+
+class ForgetRecorder:
+    def __init__(self, names):
+        self.names = names
+        self.forgotten = []
+
+    def list_sheet_names(self):
+        return self.names
+
+    def forget_reads(self, names):
+        self.forgotten = list(names)
+
+
+def test_refresh_sheet_reads_only_forgets_gse_sheets():
+    reader = ForgetRecorder(
+        [
+            "Bandas/rol",
+            "CatalagoProyectos ",
+            "GSE_Base_Control",
+            "08.Base Clockify 2026",
+            "08.Base Clockify 2025",
+            "Otra hoja",
+        ],
+    )
+
+    refresh_sheet_reads(reader, 2026)
+
+    assert sorted(reader.forgotten) == [
+        "08.Base Clockify 2026",
+        "Bandas/rol",
+        "CatalagoProyectos ",
+        "GSE_Base_Control",
+    ]

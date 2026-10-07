@@ -743,7 +743,6 @@
     }
 
     agregarBotonExportarImagen();
-    agregarBotonConfigurarAPIs();
     eliminarResumenProyectosDashboard();
     inyectarResumenAltoNivelEnDashboard();
 
@@ -779,20 +778,6 @@
     btnRefresh.parentNode.insertBefore(btnImg, btnRefresh.nextSibling);
   }
 
-  // Accesible desde Dashboard aunque la navegación de Daily esté oculta.
-  function agregarBotonConfigurarAPIs() {
-    const btnImagen = document.getElementById('btn-exportar-imagen');
-    if (!btnImagen || document.getElementById('btn-configurar-apis')) return;
-    const btn = document.createElement('button');
-    btn.id = 'btn-configurar-apis';
-    btn.type = 'button';
-    btn.className = 'btn';
-    btn.textContent = '⚙ Configurar APIs';
-    btn.title = 'Configurar Azure DevOps, Clockify y Claude';
-    btn.onclick = abrirConfigAPIsDashboard;
-    btnImagen.after(btn);
-  }
-
   let beeApiConfig = { azure: null, clockify: null, claude: null, tab: 'azure' };
   function beeApiMensaje(texto, error) {
     const el = document.getElementById('bee-api-mensaje');
@@ -802,7 +787,6 @@
   }
   function beeApiCerrar() {
     document.getElementById('bee-api-modal')?.remove();
-    document.getElementById('btn-configurar-apis')?.focus();
   }
   function beeApiTab(tab) {
     beeApiConfig.tab = tab;
@@ -1230,16 +1214,11 @@
         const detalle = document.createElement('p');
         detalle.style.cssText = 'margin:8px 0 12px;white-space:normal;overflow-wrap:anywhere;';
         detalle.textContent = err && err.message ? err.message : String(err);
-        const configurar = document.createElement('button');
-        configurar.type = 'button'; configurar.className = 'btn';
-        configurar.textContent = '⚙ Configurar APIs';
-        configurar.onclick = abrirConfigAPIsDashboard;
         const reintentar = document.createElement('button');
         reintentar.type = 'button'; reintentar.className = 'btn';
-        reintentar.style.marginLeft = '8px';
         reintentar.textContent = 'Reintentar';
         reintentar.onclick = loadDashboard;
-        caja.append(titulo, detalle, configurar, reintentar);
+        caja.append(titulo, detalle, reintentar);
       }
     };
 
@@ -4825,7 +4804,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       .ixs-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:11px 0}
       .ixs-minirow{padding:7px 0;border-bottom:1px solid #f0effa;font-size:10px}.ixs-minirow .top{display:flex;justify-content:space-between;gap:8px;line-height:1.3}.ixs-minirow .top b{white-space:nowrap}
       .ixs-minirow .ixs-track{height:6px;margin-top:5px}.ixs-minirow .ixs-track i{background:linear-gradient(90deg,#5025cf,#ad56ef)}
-      .ixs-more summary{cursor:pointer;padding:8px 0;color:#6336cb;font-size:10px;text-align:center;list-style:none;font-weight:750}.ixs-more summary::-webkit-details-marker{display:none}
+      .ixs-more summary{cursor:pointer;padding:8px 0;color:#6336cb;font-size:10px;text-align:center;list-style:none;font-weight:750}.ixs-more-btn{display:block;width:100%;cursor:pointer;padding:8px 0;color:#6336cb;font-size:10px;text-align:center;font-weight:750;background:none;border:0;font-family:inherit}.ixs-more-btn:hover{text-decoration:underline}.ixs-more summary::-webkit-details-marker{display:none}
       .ixs-raid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.ixs-raid .box{padding:9px;border-radius:9px;text-align:center;background:#f2eeff}
       .ixs-raid b{display:block;font-size:17px}.ixs-raid small{font-size:9px;color:#61647e}
       .ixs-bottom{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(0,.87fr);gap:11px}.ixs-listrow{padding:8px 0;border-bottom:1px solid var(--ix-line);display:flex;gap:8px;align-items:center;font-size:10px}
@@ -5521,7 +5500,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     const max=Math.max(1,...data.map(x=>Math.max(Number(x.horasReales||0),Number(x.horasEstimadas||0))));
     const render=x=>`<div class="ixs-minirow"><div class="top"><span>${_ixsTxt(x.nombre)}</span><b>${_ixsNum(x.horasReales,2)} / ${_ixsNum(x.horasEstimadas,2)} h</b></div>
       <div class="ixs-track"><i style="width:${_ixsLimit(100*Number(x.horasEstimadas||0)/max)}%;background:#cfd2e1"></i></div><div class="ixs-track" style="margin-top:3px"><i style="width:${_ixsLimit(100*Number(x.horasReales||0)/max)}%"></i></div></div>`;
-    return data.slice(0,5).map(render).join('')+(data.length>5?`<details class="ixs-more"><summary>Ver todos (${data.length-5} más) ↓</summary>${data.slice(5).map(render).join('')}</details>`:'')||'<div class="ixs-empty">Sin información disponible.</div>';
+    return data.slice(0,5).map(render).join('')+(data.length>5?`<div class="ixs-more"><div class="ixs-more-rows" hidden>${data.slice(5).map(render).join('')}</div><button type="button" class="ixs-more-btn" onclick="const r=this.previousElementSibling;r.hidden=!r.hidden;this.textContent=r.hidden?'Ver todos (${data.length-5} más) ↓':'Ver menos ↑';">Ver todos (${data.length-5} más) ↓</button></div>`:'')||'<div class="ixs-empty">Sin información disponible.</div>';
   }
 
   function _ixsKpi(icon,title,value,desc,percent,accent=''){

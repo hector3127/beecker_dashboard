@@ -14,6 +14,7 @@ from apps.gse.services.batch_read import get_batch
 from apps.gse.services.clockify_ids import IdsContext, get_clockify_ids
 from apps.gse.services.clockify_month import MonthReportLoader
 from apps.gse.services.month_report import GseContext, get_month
+from apps.gse.services.refresh import refresh_sheet_reads
 from apps.gse.services.result_cache import ResultCache
 from apps.gse.services.roster import list_areas
 from apps.gse.services.year_base import get_year
@@ -105,7 +106,12 @@ def get_gse_month(
         El resultado del mes o {"ok": False, "mes", "error"}.
     """
     try:
-        context = build_context(build_sheet_repository())
+        reader = build_sheet_repository()
+
+        if force_refresh:
+            refresh_sheet_reads(reader, str(month)[:4])
+
+        context = build_context(reader)
     except DashboardError as error:
         return {"ok": False, "mes": month, "error": describe_error(error)}
 
@@ -144,6 +150,7 @@ def get_gse_batch(
     selected_area: object = "",
     cursor: object = 0,
     expected_rows: object = None,
+    force_refresh: object = False,
 ) -> JsonObject:
     """
     Lee un bloque de la base anual (las filas mas recientes primero).
@@ -153,12 +160,19 @@ def get_gse_batch(
         selected_area: Area elegida; vacio para todas.
         cursor: Filas ya leidas.
         expected_rows: Filas que tenia la base en el primer bloque.
+        force_refresh: En el primer bloque, vuelve a leer las hojas del
+            Spreadsheet en lugar de usar la cache de lecturas.
 
     Returns:
         El bloque con sus registros o {"ok": False, "error"}.
     """
     try:
-        context = build_context(build_sheet_repository())
+        reader = build_sheet_repository()
+
+        if force_refresh and not cursor:
+            refresh_sheet_reads(reader, year)
+
+        context = build_context(reader)
     except DashboardError as error:
         return {"ok": False, "error": describe_error(error)}
 

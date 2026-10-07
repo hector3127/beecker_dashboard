@@ -52,7 +52,7 @@ from core.utils.text import to_text
 
 """BKD.100.010 - Lotes de la base de GSE
 Equivale a gseObtenerLoteBase(): devuelve las horas del ano en bloques
-de 1,500 filas, de las mas recientes a las mas antiguas.
+de 5,000 filas, de las mas recientes a las mas antiguas.
 """
 
 logger = logging.getLogger(__name__)

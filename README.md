@@ -264,10 +264,12 @@ de `Bandas/rol`), persona y categoria.
   API key), asi que lee la base que ya guardo el Apps Script.
 - `month_report.py`: `gseObtenerMes` (fuente `sheet` o API).
 - `year_base.py` y `batch_read.py`: `gseObtenerAnoBase` y
-  `gseObtenerLoteBase` (bloques de 1,500 filas, las mas recientes
+  `gseObtenerLoteBase` (bloques de 5,000 filas (el original usa 1,500), las mas recientes
   primero).
 - `clockify_month.py`: reporte detallado de todo el workspace
   (`gseReporteMes_`), con la base guardada y la cache de 1 h por delante.
+- `refresh.py`: descarta las lecturas guardadas de las hojas de GSE
+  (boton Actualizar sin cache).
 - `result_cache.py`: resultado anual 6 h (`gseLeerResultadoCache`,
   `gseGuardarResultadoCache`).
 - `base_writer.py`: guarda el mes descargado de Clockify en
@@ -286,7 +288,8 @@ Django, compartida entre usuarios, la hoja nueva de la base usa el
 encabezado oscuro del repositorio (no el morado `#6725de`) y los textos
 de fecha y control se escriben como texto (RAW con formato de texto).
 Las escrituras usan tres metodos nuevos de `SheetsRepository`:
-`replace_rows`, `insert_column_after` y `write_text_cells`.
+`replace_rows`, `insert_column_after`, `write_text_cells` y
+`forget_reads`.
 
 ## Velocidad y cache
 
@@ -474,6 +477,32 @@ Diferencias intencionales con el Apps Script:
     los iconos de las pestanas General/Detalle/KPIs/% Recurso heredan el
     color del boton (antes `.gm-brand svg` los pintaba morados sobre el
     morado de la pestana activa).
+29. GSE (pantalla): nueva pestana "Detalle HRS" con el diseno de la
+    planeacion mensual por recurso: tarjetas resumen (icono, cifra y barra de avance), filtros (Rol,
+    Servicio, buscador, Exportar CSV) y tabla con ROL y Recurso fijos. El
+    total del ano muestra Total, AER, Servicios, TYM, IxB, SaaS y RaaS;
+    cada mes muestra Total, AER y Servicios (suma de TYM, IxB, SaaS y
+    RaaS) con un boton para desplegar los cuatro servicios. Pie con
+    "Total de horas" y "% del total". Usa el detalle mensual, sin
+    llamadas nuevas.
+30. GSE (pantalla): en Detalle HRS, KPIs (tablas por empleado) y % Recurso,
+    quien tenga banda `BAJA` en algun mes (en `Bandas/rol`) se marca con
+    el nombre en rojo y tachado; si la tabla muestra el rol, tambien va
+    en rojo y tachado. Las horas se muestran completas.
+31. Dashboard: se quito el boton "Configurar APIs" del encabezado y del
+    aviso de error al actualizar (las conexiones ya no se configuran desde
+    la pantalla).
+32. GSE (pantalla): la pestana KPIs ya no muestra el boton "Cerrar" al
+    cambiar el mes o el empleado.
+33. GSE (pantalla): se muestra el boton "Actualizar sin cache". Con la
+    fuente Base Clockify en Sheets vuelve a leer `Bandas/rol`,
+    `CatalagoProyectos`, `GSE_Base_Control` y la base del ano sin usar la
+    cache de lecturas de 15 min ni el resultado guardado (`apps/gse/
+    services/refresh.py`). Con la fuente API vuelve a descargar de
+    Clockify y guarda la base.
+34. GSE: la lectura de la base por bloques usa 5,000 filas por llamada (en
+    Apps Script eran 1,500), lo que reduce las llamadas para completar el
+    ano.
 
 ## Unit Tests
 

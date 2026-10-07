@@ -175,3 +175,20 @@ def test_sheet_names_with_accents_get_distinct_keys():
 
     assert cache.get_values("Histórico") == [["a"]]
     assert cache.get_values("Historico") == [["b"]]
+
+
+def test_forget_reads_forces_a_new_read_from_google():
+    store = PickleStore()
+    service = build_service(
+        {"Proyectos": [["ID"], ["P-1"]], "Otra": [["ID"], ["O-1"]]},
+    )
+    build_repository(service, store).read_values("Proyectos")
+    build_repository(service, store).read_values("Otra")
+    assert batch_get_count(service) == 2
+
+    repository = build_repository(service, store)
+    repository.forget_reads(["Proyectos"])
+    repository.read_values("Proyectos")
+    repository.read_values("Otra")
+
+    assert batch_get_count(service) == 3

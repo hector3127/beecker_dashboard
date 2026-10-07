@@ -71,7 +71,7 @@ CATALOG_SERVICE_COLUMN: Final[int] = 8
 ROLE_COLUMN: Final[int] = 2
 
 HEADER_SEARCH_ROWS: Final[int] = 20
-BATCH_SIZE: Final[int] = 1500
+BATCH_SIZE: Final[int] = 5000
 MIN_YEAR: Final[int] = 2000
 MAX_YEAR: Final[int] = 2100
 

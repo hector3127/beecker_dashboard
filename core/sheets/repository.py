@@ -766,6 +766,19 @@ class GoogleSheetRepository:
 
         return missing
 
+    def forget_reads(self, sheet_names: Iterable[str]) -> None:
+        """
+        Descarta las lecturas guardadas de varias hojas.
+
+        La siguiente lectura vuelve a pedirlas a Google, asi se ven los
+        cambios hechos a mano en el Spreadsheet sin esperar el vencimiento.
+
+        Args:
+            sheet_names: Nombres de las hojas.
+        """
+        for sheet_name in sheet_names:
+            self._forget(sheet_name)
+
     def _forget(self, sheet_name: str) -> None:
         """Descarta las lecturas de una hoja tras escribir en ella."""
         self._values_by_sheet.pop(sheet_name, None)
