@@ -108,6 +108,7 @@ INSTALLED_APPS = [
     "apps.daily.apps.DailyConfig",
     "apps.aer.apps.AerConfig",
     "apps.recursos.apps.RecursosConfig",
+    "apps.gmail.apps.GmailConfig",
 ]
 
 MIDDLEWARE = [
@@ -248,6 +249,27 @@ AZURE_DEVOPS_PAT = os.getenv("AZURE_DEVOPS_PAT", "").strip()
 # Team Project inicial del panel Daily (AZURE_DEVOPS_PROJECT del original);
 # el selector del panel lo cambia sin tocar el .env.
 AZURE_DEVOPS_PROJECT = os.getenv("AZURE_DEVOPS_PROJECT", "").strip()
+
+# Inicio de sesion con Google para responder en los hilos de Gmail. El
+# cliente se crea en Google Cloud (tipo "Aplicacion web") y la direccion
+# http://127.0.0.1:8000/gmail/oauth/callback/ se registra como autorizada.
+GOOGLE_OAUTH_CLIENT_ID = os.getenv("GOOGLE_OAUTH_CLIENT_ID", "").strip()
+
+GOOGLE_OAUTH_CLIENT_SECRET = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET", "").strip()
+
+# Solo si la direccion de regreso no se puede deducir de la peticion.
+GOOGLE_OAUTH_REDIRECT_URI = os.getenv("GOOGLE_OAUTH_REDIRECT_URI", "").strip()
+
+# Dominios de correo autorizados, separados por coma (vacio = cualquiera).
+GOOGLE_OAUTH_ALLOWED_DOMAINS = [
+    domain.strip().lower()
+    for domain in os.getenv("GOOGLE_OAUTH_ALLOWED_DOMAINS", "").split(",")
+    if domain.strip()
+]
+
+# draft: crea el borrador en el hilo para revisarlo en Gmail (por defecto).
+# send: envia el correo directamente.
+GMAIL_DELIVERY_MODE = os.getenv("GMAIL_DELIVERY_MODE", "draft").strip().lower()
 
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "").strip()
 

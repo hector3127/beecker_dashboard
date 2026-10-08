@@ -5460,7 +5460,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       .ixe-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;min-width:0}
       .ixe-card-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
       .ixe-num{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#4a28cf,#7c3cf2);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-      .ixe-card-head h3{margin:0;font-size:16px;font-weight:800}.ixe-card-head .hint{margin-left:auto;display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px;text-align:right}.ixe-card-head .hint .ixe-svg{width:14px;height:14px}
+      .ixe-card-head h3{margin:0;font-size:16px;font-weight:800;white-space:nowrap}.ixe-card-head .hint{margin-left:auto;display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px;text-align:right}.ixe-card-head .hint .ixe-svg{width:14px;height:14px}
       .ixe-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ixe-grid .full{grid-column:1/-1}
       .ixe-field{display:block;font-size:12px;font-weight:700;color:#2a2b5c}.ixe-field em{color:#e53051;font-style:normal}
       .ixe-input{margin-top:6px;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #d8d3f2;border-radius:10px;padding:0 12px;height:40px;color:var(--muted)}
@@ -5493,10 +5493,111 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       .ixe-foot .grow{flex:1}.ixe-foot .sep{width:1px;height:32px;background:var(--line)}
       .ixe-toast{position:absolute;left:50%;bottom:78px;transform:translateX(-50%);background:#241a66;color:#fff;border-radius:10px;padding:9px 16px;font-size:12.5px;box-shadow:0 8px 24px rgba(20,10,80,.35);display:none;z-index:2}
       .ixe-toast.show{display:block}
+      .ixe-conn{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f6f3ff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;color:#3a3d6b}.ixe-conn span{display:flex;align-items:center;gap:8px;min-width:0}.ixe-conn.ok{background:#eefaf3;border-color:#cdeedb}.ixe-conn.ok .ixe-svg{color:#1ca66d}
+      .ixe-tsearch{display:flex;gap:8px;align-items:center;margin:10px 0}.ixe-tsearch .ixe-input{flex:1;margin-top:0;height:36px}
+      .ixe-threads{display:grid;gap:8px;max-height:300px;overflow:auto;padding-right:2px}
+      .ixe-thread{display:flex;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;background:#fff;align-items:flex-start}.ixe-thread:hover{background:#faf8ff}.ixe-thread.sel{border-color:#7a3df0;background:#f6f1ff;box-shadow:0 0 0 2px rgba(122,61,240,.12)}
+      .ixe-thread input{margin-top:3px;accent-color:#5a2ee0}.ixe-thread .body{display:grid;gap:3px;min-width:0;flex:1}.ixe-thread .top{display:flex;align-items:center;gap:8px;min-width:0}.ixe-thread .top b{font-size:12.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .ixe-thread small{color:var(--muted);font-size:11.5px}.ixe-thread .tag{font-style:normal;font-size:10px;font-weight:800;border-radius:20px;padding:2px 8px;flex-shrink:0}.ixe-thread .tag.sug{background:#e6f8ee;color:#16844f}.ixe-thread .tag.mem{background:#ece6ff;color:#5a2ee0}
+      .ixe-thread .rcp{display:block;margin-top:6px;border-top:1px dashed #d5caf7;padding-top:6px;font-size:11.5px;color:#3a3d6b;line-height:1.5;overflow-wrap:anywhere}
+      .ixe-empty{padding:14px;text-align:center;color:var(--muted);font-size:12.5px;background:#faf9ff;border-radius:10px}
+      .ixe-err{margin-top:10px;background:#fff0f2;border:1px solid #ffd3da;color:#b3263f;border-radius:10px;padding:9px 12px;font-size:12.5px}
+      .ixe-okbox{display:flex;gap:9px;align-items:center;margin-top:10px;background:#eefaf3;border:1px solid #cdeedb;color:#16603d;border-radius:10px;padding:10px 12px;font-size:12.5px}.ixe-okbox a{color:var(--p);font-weight:800}
       @media(max-width:900px){.ixe-summary{grid-template-columns:1fr 1fr}.ixe-body{grid-template-columns:1fr}.ixe-grid{grid-template-columns:1fr}}
     `;
     document.head.appendChild(st);
   }
+  /* Gmail: conectar cuenta, elegir hilo y crear el borrador o enviar. */
+  ixeState.gmail={configured:true,connected:false,email:'',mode:'draft',threads:[],selected:'',loading:false,error:'',result:null,query:'',sending:false,poll:0};
+  function _ixeCsrf(){const m=document.cookie.match(/(?:^|; )csrftoken=([^;]+)/);return m?decodeURIComponent(m[1]):'';}
+  function _ixeJson(url,opts){return fetch(url,Object.assign({credentials:'same-origin',headers:{'X-CSRFToken':_ixeCsrf()}},opts||{})).then(r=>r.json().catch(()=>({ok:false,error:'Respuesta inválida del servidor.'})));}
+  function _ixeFmtDate(iso){if(!iso)return '';const d=new Date(iso);return isNaN(d)?'':d.toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'});}
+  function _ixeShortAddr(a){const m=String(a||'').match(/^\s*"?([^"<]*?)"?\s*<([^>]+)>/);return m?(m[1].trim()||m[2]):String(a||'').trim();}
+  function _ixeGmailPintar(){
+    const box=document.getElementById('ixe-gmail');if(!box)return;const g=ixeState.gmail;
+    let html='<div class="ixe-card-head"><span class="ixe-num">4</span><h3>Hilo de Gmail</h3><span class="hint">'+ixeIcon('info')+'Se responde a todos en el hilo del proyecto.</span></div>';
+    if(!g.configured){html+='<div class="ixe-note">'+ixeIcon('info')+'Falta configurar el inicio de sesión con Google (GOOGLE_OAUTH_CLIENT_ID y GOOGLE_OAUTH_CLIENT_SECRET en el .env).</div>';box.innerHTML=html;return;}
+    if(!g.connected){html+='<div class="ixe-conn"><span>'+ixeIcon('mail')+'Conecta tu cuenta de Beecker para ver los hilos y crear el correo desde tu Gmail.</span><button type="button" class="ixe-btn primary" onclick="ixeGmailConectar()">Conectar con Google</button></div>'+(g.error?'<div class="ixe-err">'+_ixsTxt(g.error)+'</div>':'');box.innerHTML=html;return;}
+    html+='<div class="ixe-conn ok"><span>'+ixeIcon('check')+'Conectado como <b>'+_ixsTxt(g.email)+'</b></span><button type="button" class="ixe-btn small" onclick="ixeGmailDesconectar()">Cambiar cuenta</button></div>';
+    html+='<div class="ixe-tsearch"><span class="ixe-input">'+ixeIcon('search')+'<input id="ixe-tq" value="'+_ixsTxt(g.query)+'" placeholder="Filtrar hilos por nombre…" autocomplete="off"></span><button type="button" class="ixe-btn small" onclick="ixeGmailBuscar()">Buscar</button></div>';
+    if(g.error)html+='<div class="ixe-err">'+_ixsTxt(g.error)+'</div>';
+    if(g.loading)html+='<div class="ixe-empty">Buscando hilos "Inicio de ..." en tu Gmail…</div>';
+    else if(!g.threads.length)html+='<div class="ixe-empty">No se encontraron hilos. Prueba con otro nombre.</div>';
+    else html+='<div class="ixe-threads">'+g.threads.map(t=>{const sel=g.selected===t.id;return '<label class="ixe-thread'+(sel?' sel':'')+'"><input type="radio" name="ixe-thread" value="'+_ixsTxt(t.id)+'" '+(sel?'checked':'')+' onchange="ixeGmailElegir(this.value)"><span class="body"><span class="top"><b>'+_ixsTxt(t.subject)+'</b>'+(t.remembered?'<i class="tag mem">Usado antes</i>':t.suggested?'<i class="tag sug">Sugerido</i>':'')+'</span><small>'+_ixsTxt(_ixeFmtDate(t.lastDate))+' · '+_ixsTxt(_ixeShortAddr(t.lastFrom))+' · '+t.participants+' personas · '+t.messageCount+' mensajes</small>'+(sel?'<span class="rcp"><b>Para:</b> '+_ixsTxt((t.replyTo||[]).map(_ixeShortAddr).join(', ')||'—')+'<br><b>Cc:</b> '+_ixsTxt((t.replyCc||[]).map(_ixeShortAddr).join(', ')||'—')+'</span>':'')+'</span></label>';}).join('')+'</div>';
+    if(g.result)html+='<div class="ixe-okbox">'+ixeIcon('check')+'<span>'+(g.result.mode==='send'?'Correo enviado en el hilo.':'Borrador creado en tu Gmail.')+' <a href="'+_ixsTxt(g.result.link)+'" target="_blank" rel="noopener noreferrer">'+(g.result.mode==='send'?'Abrir hilo':'Abrir borrador')+'</a></span></div>';
+    box.innerHTML=html;const q=document.getElementById('ixe-tq');if(q)q.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();ixeGmailBuscar();}};
+    const btn=document.getElementById('ixe-send');if(btn)btn.title=g.mode==='send'?'Envía la respuesta en el hilo elegido':'Crea el borrador en el hilo elegido (no envía)';
+  }
+  function ixeGmailEstado(){
+    _ixeJson('/gmail/status/').then(r=>{const g=ixeState.gmail;if(!document.getElementById('ixe-gmail'))return;if(r&&r.ok){const was=g.connected;Object.assign(g,r.result);g.error='';if(g.connected&&!was){ixeGmailBuscar();}else _ixeGmailPintar();}else{g.error=(r&&r.error)||'No se pudo consultar el estado de Gmail.';_ixeGmailPintar();}}).catch(()=>{ixeState.gmail.error='No se pudo contactar al servidor.';_ixeGmailPintar();});
+  }
+  function ixeGmailConectar(){
+    const g=ixeState.gmail;g.error='';const w=window.open('/gmail/oauth/start/','gmail-oauth','width=520,height=680');
+    if(!w){g.error='El navegador bloqueó la ventana. Permite ventanas emergentes para este sitio.';_ixeGmailPintar();return;}
+    clearInterval(g.poll);let tries=0;g.poll=setInterval(()=>{tries++;if(w.closed||tries>240){clearInterval(g.poll);ixeGmailEstado();}},1000);
+  }
+  function ixeGmailDesconectar(){_ixeJson('/gmail/disconnect/',{method:'POST'}).then(()=>{const g=ixeState.gmail;g.connected=false;g.email='';g.threads=[];g.selected='';g.result=null;_ixeGmailPintar();_ixePintar();});}
+  function ixeGmailBuscar(){
+    const g=ixeState.gmail,qi=document.getElementById('ixe-tq');if(qi)g.query=qi.value.trim();
+    g.loading=true;g.error='';g.result=null;_ixeGmailPintar();
+    const d=(typeof ixsProyectoActual!=='undefined'&&ixsProyectoActual&&ixsProyectoActual.proyecto)||{};
+    const id=(document.getElementById('ixe-id')||{}).value||'';
+    const qs='project='+encodeURIComponent(id.trim())+'&projectName='+encodeURIComponent(String(d.nombre||''))+'&q='+encodeURIComponent(g.query);
+    _ixeJson('/gmail/threads/?'+qs).then(r=>{g.loading=false;if(r&&r.ok){g.threads=r.result.threads||[];g.email=r.result.email||g.email;const pre=g.threads.find(t=>t.remembered)||g.threads.find(t=>t.suggested);if(!g.threads.some(t=>t.id===g.selected))g.selected=pre?pre.id:'';}else{g.threads=[];g.error=(r&&r.error)||'No se pudieron leer los hilos.';if(r&&r.code==='ERR_GMAIL_NOT_CONNECTED'){g.connected=false;}}_ixeGmailPintar();_ixePintar();}).catch(()=>{g.loading=false;g.error='No se pudo contactar al servidor.';_ixeGmailPintar();});
+  }
+  function ixeGmailElegir(id){ixeState.gmail.selected=id;ixeState.gmail.result=null;_ixeGmailPintar();_ixePintar();}
+  const IXE_STAGES=['Discovery','Development','Deployment'];
+  function _ixeIso(d){const ms=_ixsDateMs(d);if(!Number.isFinite(ms))return '';const x=new Date(ms),z=n=>String(n).padStart(2,'0');return x.getFullYear()+'-'+z(x.getMonth()+1)+'-'+z(x.getDate());}
+  function _ixeStageOf(name){const m=String(name||'').match(/discovery|development|deployment/i);return m?IXE_STAGES.find(x=>x.toLowerCase()===m[0].toLowerCase()):'';}
+  /* Etapa en curso y fecha de cierre de cada etapa, tomadas del mismo Gantt. */
+  function _ixeAuto(data){
+    const d=data||{},fases=_ixsFases(d),plan=d.hitos||[],closes={};
+    IXE_STAGES.forEach(st=>{
+      const real=fases.filter(f=>_ixeStageOf(f.name)===st).sort((a,b)=>_ixsDateMs(b.end)-_ixsDateMs(a.end))[0];
+      const p=plan.filter(h=>_ixeStageOf(h.nombre)===st&&h.fechaFinPlan).sort((a,b)=>_ixsDateMs(b.fechaFinPlan)-_ixsDateMs(a.fechaFinPlan))[0];
+      const raw=real&&!real.active?real.end:(p?p.fechaFinPlan:(real?real.end:''));
+      closes[st]=_ixeIso(raw);
+    });
+    const hoy=new Date();hoy.setHours(12,0,0,0);
+    const inRange=f=>_ixsDateMs(f.start)<=hoy.getTime()&&hoy.getTime()<=_ixsDateMs(f.end||f.start);
+    const known=fases.filter(f=>_ixeStageOf(f.name));
+    const cur=known.find(f=>f.active)||known.find(inRange)||known.slice().sort((a,b)=>_ixsDateMs(b.end||b.start)-_ixsDateMs(a.end||a.start))[0];
+    return {stage:cur?_ixeStageOf(cur.name):'',closes};
+  }
+  function ixeEtapaCambio(){
+    const st=(document.getElementById('ixe-stage')||{}).value,from=document.getElementById('ixe-from');
+    if(from&&st&&ixeState.auto&&ixeState.auto.closes[st])from.value=ixeState.auto.closes[st];
+    _ixePintar();
+  }
+  function _ixeAutoLlenar(){
+    const d=(typeof ixsProyectoActual!=='undefined'&&ixsProyectoActual)||null;if(!d)return;
+    ixeState.auto=_ixeAuto(d);const a=ixeState.auto,sel=document.getElementById('ixe-stage'),from=document.getElementById('ixe-from');
+    if(sel&&!sel.value&&a.stage)sel.value=a.stage;
+    if(from&&!from.value&&sel&&sel.value&&a.closes[sel.value])from.value=a.closes[sel.value];
+    _ixePintar();
+  }
+  function ixeEnviar(){
+    const g=ixeState.gmail,v=id=>(document.getElementById(id)||{}).value||'';
+    if(g.sending)return;
+    if(!g.connected){ixeMsg('Conecta tu cuenta de Google primero.');return;}
+    const miss=[['ixe-id','el proyecto'],['ixe-stage','la etapa'],['ixe-from','la fecha actual de cierre'],['ixe-to','la nueva fecha'],['ixe-reason','el motivo'],['ixe-link','el link del roadmap']].find(x=>!v(x[0]).trim());
+    if(miss){ixeMsg('Falta '+miss[1]+'.');return;}
+    if(!g.selected){ixeMsg('Elige el hilo donde se va a responder.');return;}
+    const t=g.threads.find(x=>x.id===g.selected)||{};
+    const fd=new FormData();fd.append('project',v('ixe-id').trim());fd.append('stage',v('ixe-stage'));fd.append('currentDate',v('ixe-from'));fd.append('newDate',v('ixe-to'));fd.append('reason',v('ixe-reason').trim());fd.append('roadmapLink',v('ixe-link').trim());fd.append('threadId',g.selected);
+    ixeState.files.forEach(f=>fd.append('files',f,f.name));
+    const ok=g.mode==='send'?window.confirm('Se enviará un correo a '+(((t.replyTo||[]).length)+((t.replyCc||[]).length))+' destinatarios del hilo. ¿Continuar?'):true;if(!ok)return;
+    g.sending=true;const btn=document.getElementById('ixe-send');if(btn)btn.disabled=true;
+    _ixeJson('/gmail/reply/',{method:'POST',body:fd}).then(r=>{g.sending=false;if(btn)btn.disabled=false;if(r&&r.ok){g.result=r.result;ixeMsg(r.result.mode==='send'?'Correo enviado en el hilo.':'Borrador creado en tu Gmail.');}else{g.error=(r&&r.error)||'No se pudo crear el correo.';if(r&&r.code==='ERR_GMAIL_NOT_CONNECTED')g.connected=false;ixeMsg(g.error);}_ixeGmailPintar();}).catch(()=>{g.sending=false;if(btn)btn.disabled=false;ixeMsg('No se pudo contactar al servidor.');});
+  }
+  function ixeCopiar(){
+    const el=document.getElementById('ixe-p-body');if(!el)return;const text=el.innerText.trim();
+    const done=()=>ixeMsg('Texto copiado.');
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(()=>ixeMsg('No se pudo copiar; selecciona el texto manualmente.'));return;}
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){ixeMsg('No se pudo copiar.');}ta.remove();
+  }
+  function ixeMsg(t){const e=document.getElementById('ixe-toast');if(!e)return;e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),3200);}
+  window.addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.type==='gmail-oauth'){clearInterval(ixeState.gmail.poll);if(!e.data.ok)ixeState.gmail.error=e.data.message||'No se pudo conectar.';ixeGmailEstado();}});
   function ixsAbrirExtension(){
     _ixeStyles();ixsCerrarExtension();ixeState.files=[];
     const pid=(typeof ixsPlanState!=='undefined'&&ixsPlanState.proyectoId)||'';
@@ -5515,7 +5616,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
           <section class="ixe-card"><div class="ixe-card-head"><span class="ixe-num">1</span><h3>Datos base</h3><span class="hint">${ixeIcon('info')}El resto del texto del comunicado se genera automáticamente.</span></div>
             <div class="ixe-grid">
               <label class="ixe-field">Proyecto / ID <em>*</em><span class="ixe-input">${ixeIcon('search')}<input id="ixe-id" value="${_ixsTxt(pid)}" placeholder="Ej. MCC.015_S3" autocomplete="off"></span></label>
-              <label class="ixe-field">Etapa <em>*</em><span class="ixe-input"><select id="ixe-stage"><option value="">Selecciona…</option><option>Discovery</option><option>Development</option><option>Deployment</option></select></span></label>
+              <label class="ixe-field">Etapa <em>*</em><span class="ixe-input"><select id="ixe-stage" onchange="ixeEtapaCambio()"><option value="">Selecciona…</option><option>Discovery</option><option>Development</option><option>Deployment</option></select></span></label>
               <label class="ixe-field">Fecha actual de cierre <em>*</em><span class="ixe-input">${ixeIcon('calendar')}<input id="ixe-from" type="date"></span></label>
               <label class="ixe-field">Nueva fecha <em>*</em><span class="ixe-input">${ixeIcon('calendar')}<input id="ixe-to" type="date"></span></label>
               <div class="full"><label class="ixe-field">Motivo de la extensión <em>*</em><span class="ixe-input area"><textarea id="ixe-reason" maxlength="500" placeholder="Describe brevemente por qué se requiere la extensión"></textarea></span></label><div class="ixe-count"><span id="ixe-count">0</span>/500</div></div>
@@ -5530,9 +5631,9 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
             <div class="ixe-files" id="ixe-files"></div></section>
         </div>
         <div class="ixe-col"><section class="ixe-card"><div class="ixe-prev-head"><span class="ixe-ico">${ixeIcon('eye')}</span><h3>Vista previa del comunicado</h3><button type="button" class="ixe-btn small" onclick="ixeSoon('Editar plantilla')">${ixeIcon('edit')}Editar plantilla</button></div>
-          <div class="ixe-preview"><div class="ixe-subject"><span>Asunto:</span><span class="v" id="ixe-p-subject"></span></div><div id="ixe-p-body"></div><div class="ixe-attached" id="ixe-p-attached" hidden></div></div></section></div>
+          <div class="ixe-preview"><div class="ixe-subject"><span>Asunto:</span><span class="v" id="ixe-p-subject"></span></div><div id="ixe-p-body"></div><div class="ixe-attached" id="ixe-p-attached" hidden></div></div></section><section class="ixe-card" id="ixe-gmail"></section></div>
       </div>
-      <div class="ixe-foot"><button type="button" class="ixe-btn" onclick="ixeLimpiar()">${ixeIcon('trash')}Limpiar</button><span class="grow"></span><button type="button" class="ixe-btn" onclick="ixeSoon('Sugerir redacción con IA')">${ixeIcon('spark')}Sugerir redacción con IA</button><span class="sep"></span><button type="button" class="ixe-btn" onclick="ixeSoon('Copiar texto')">${ixeIcon('copy')}Copiar texto</button><button type="button" class="ixe-btn" onclick="ixeSoon('Enviar por correo')">${ixeIcon('mail')}Enviar por correo</button><button type="button" class="ixe-btn primary" onclick="ixeSoon('Generar comunicado')">${ixeIcon('send')}Generar comunicado</button></div>
+      <div class="ixe-foot"><button type="button" class="ixe-btn" onclick="ixeLimpiar()">${ixeIcon('trash')}Limpiar</button><span class="grow"></span><button type="button" class="ixe-btn" onclick="ixeSoon('Sugerir redacción con IA')">${ixeIcon('spark')}Sugerir redacción con IA</button><span class="sep"></span><button type="button" class="ixe-btn" onclick="ixeCopiar()">${ixeIcon('copy')}Copiar texto</button><button type="button" class="ixe-btn primary" id="ixe-send" onclick="ixeEnviar()">${ixeIcon('send')}<span>Generar comunicado</span></button></div>
       <div class="ixe-toast" id="ixe-toast"></div></div>`;
     m.addEventListener('mousedown',e=>{m._down=e.target===m;});m.addEventListener('click',e=>{if(e.target===m&&m._down)ixsCerrarExtension();});
     document.body.appendChild(m);
@@ -5542,7 +5643,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     drop.ondragover=e=>{e.preventDefault();drop.classList.add('over');};drop.ondragleave=()=>drop.classList.remove('over');
     drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');_ixeAgregar(e.dataTransfer.files);};
     inp.onchange=()=>{_ixeAgregar(inp.files);inp.value='';};
-    document.addEventListener('keydown',_ixeEsc);_ixePintar();
+    document.addEventListener('keydown',_ixeEsc);Object.assign(ixeState.gmail,{threads:[],selected:'',error:'',result:null,loading:false,query:'',sending:false});_ixeGmailPintar();ixeGmailEstado();_ixeAutoLlenar();
   }
   function _ixeEsc(e){if(e.key==='Escape')ixsCerrarExtension();}
   function ixsCerrarExtension(){const m=document.getElementById('ixe-overlay');if(m)m.remove();document.removeEventListener('keydown',_ixeEsc);}
@@ -5565,7 +5666,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     g('ixe-s-files').textContent=ixeState.files.length+(ixeState.files.length===1?' archivo':' archivos');
     g('ixe-s-road').textContent=link?'Con link':'Sin link';g('ixe-linkok').style.visibility=link?'visible':'hidden';
     const ph=t=>`<span class="ph">${t}</span>`,B=t=>`<b>${_ixsTxt(t)}</b>`;
-    g('ixe-p-subject').textContent='Extensión de proyecto: '+(id||'—');
+    {const th=ixeState.gmail.threads.find(x=>x.id===ixeState.gmail.selected);g('ixe-p-subject').textContent=th?'Re: '+th.subject.replace(/^\s*(re|rv)\s*:\s*/i,''):'Selecciona un hilo de Gmail';}
     g('ixe-p-body').innerHTML=`<p>Hola estimados,</p>
       <p>Informo la extensión del proyecto ${id?B(id):ph('[proyecto]')}${reason?' debido a que '+_ixsTxt(reason.charAt(0).toLowerCase()+reason.slice(1)).replace(/\.$/,''):' '+ph('debido a [motivo de la extensión]')}.</p>
       <p>Esta situación impide cerrar la etapa ${stage?B(stage):ph('[etapa]')} en la fecha originalmente establecida.</p>
@@ -5577,9 +5678,9 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     att.innerHTML=ixeState.files.length?'Archivos adjuntos en el correo:'+ixeState.files.map(f=>`<div class="ixe-file">${_ixeBadge(f.name)}<span class="name">${_ixsTxt(f.name)}</span><span class="size">${_ixeSize(f.size)}</span></div>`).join(''):'';
     g('ixe-files').innerHTML=ixeState.files.map((f,i)=>`<div class="ixe-file">${_ixeBadge(f.name)}<span class="name">${_ixsTxt(f.name)}</span><span class="size">${_ixeSize(f.size)}</span><button type="button" onclick="ixeQuitarArchivo(${i})" aria-label="Quitar archivo">${ixeIcon('trash')}</button></div>`).join('');
   }
-  function ixeLimpiar(){['ixe-stage','ixe-from','ixe-to','ixe-reason','ixe-link'].forEach(i=>{const e=document.getElementById(i);if(e)e.value='';});ixeState.files=[];_ixePintar();}
+  function ixeLimpiar(){['ixe-stage','ixe-from','ixe-to','ixe-reason','ixe-link'].forEach(i=>{const e=document.getElementById(i);if(e)e.value='';});ixeState.files=[];_ixeAutoLlenar();}
   function ixeAbrirLink(){const v=(document.getElementById('ixe-link').value||'').trim();if(!/^https?:\/\//i.test(v)){ixeSoon('Escribe un link válido que empiece con https://');return;}window.open(v,'_blank','noopener,noreferrer');}
-  function ixeSoon(t){const e=document.getElementById('ixe-toast');if(!e)return;e.textContent=/válido|archivo/.test(t)?t:t+': funcionalidad pendiente de conectar.';e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2600);}
+  function ixeSoon(t){ixeMsg(/válido|archivo/.test(t)?t:t+': funcionalidad pendiente de conectar.');}
   function ixsAbrirPlanEditor(tipo,encoded,tipoInicial){
     const st=ixsPlanState,uid=encoded?decodeURIComponent(encoded):'',x=(tipo==='vacacion'?st.vacaciones:st.compromisos).find(v=>v.uid===uid)||{};
     if(!uid&&tipoInicial)x.tipo=tipoInicial;

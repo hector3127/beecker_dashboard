@@ -353,6 +353,10 @@ Agrupados en estándar, terceros y locales, siempre absolutos
 | `AZURE_DEVOPS_PROJECT` | Team Project inicial del panel Daily. |
 | `ANTHROPIC_API_KEY` | API key de Claude para las sugerencias de RAID y la IA IXS. Solo se configura aqui; el panel muestra sus ultimos 4 caracteres. |
 | `CLAUDE_MODEL` | Modelo de Claude (vacio: `claude-haiku-4-5-20251001`, el del original). |
+| `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET` | Cliente OAuth tipo "Aplicacion web" para que cada usuario inicie sesion con Google y responda en Gmail (Extension de proyecto). Redireccion autorizada: `http://127.0.0.1:8000/gmail/oauth/callback/`. |
+| `GOOGLE_OAUTH_ALLOWED_DOMAINS` | Dominios de correo que pueden conectarse, separados por coma (por ejemplo `beecker.ai`). Vacio: cualquiera. |
+| `GOOGLE_OAUTH_REDIRECT_URI` | Solo si la direccion de regreso no se puede deducir de la peticion. |
+| `GMAIL_DELIVERY_MODE` | `draft` (por defecto): crea el borrador en el hilo para revisarlo en Gmail. `send`: envia directo, con confirmacion en pantalla. |
 
 ## Error Handling
 
@@ -503,6 +507,18 @@ Diferencias intencionales con el Apps Script:
 34. GSE: la lectura de la base por bloques usa 5,000 filas por llamada (en
     Apps Script eran 1,500), lo que reduce las llamadas para completar el
     ano.
+35. Extension de proyecto (`apps/gmail`, nuevo; no existia en Apps Script):
+    en la linea de tiempo de los proyectos IxB, RaaS y SaaS, el boton
+    "Extension" abre la pantalla para capturar proyecto, etapa, fechas,
+    motivo, link del roadmap y archivos. El DM (o quien lo cubra) conecta
+    su cuenta con Google; la aplicacion lista los hilos "Inicio de ..."
+    (proyecto, agente, T&M, etc.) de su Gmail, el usuario elige uno y se crea el borrador
+    (o el envio) como "Responder a todos" en ese hilo, con los
+    encabezados que mantienen la conversacion. Permisos de Gmail:
+    `gmail.readonly` y `gmail.compose`. El acceso se guarda en la sesion y
+    dura una hora: no se guarda refresh token. No hay validacion por DM:
+    solo se limita el dominio (`GOOGLE_OAUTH_ALLOWED_DOMAINS`) y cada envio
+    queda en el log `gmail.audit`. Por defecto solo se crea el borrador.
 
 ## Unit Tests
 

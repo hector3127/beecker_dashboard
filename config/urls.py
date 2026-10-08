@@ -17,6 +17,10 @@ urlpatterns = [
         include("core.rpc.urls"),
     ),
     path(
+        "gmail/",
+        include("apps.gmail.urls"),
+    ),
+    path(
         "",
         include("core.urls"),
     ),
