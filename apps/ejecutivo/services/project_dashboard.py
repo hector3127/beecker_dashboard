@@ -306,10 +306,28 @@ def read_history_block_rows(sources: ExecutiveSources) -> list[SheetRow]:
         Las filas A:I como diccionarios; las filas por encabezado
         originales cuando no hay valores crudos.
     """
-    values = sources.history_values
+    return build_history_block_rows(
+        sources.history_values,
+        sources.history_rows,
+    )
 
+
+def build_history_block_rows(
+    values: Sequence[Sequence[CellValue]],
+    fallback_rows: Sequence[SheetRow],
+) -> list[SheetRow]:
+    """
+    Convierte la matriz del historico en filas A:I por posicion.
+
+    Args:
+        values: Celdas crudas de Historico_Proyectos.
+        fallback_rows: Filas por encabezado si no hay celdas suficientes.
+
+    Returns:
+        Un diccionario encabezado -> valor por cada fila con datos.
+    """
     if len(values) < MIN_HISTORY_ROWS:
-        return list(sources.history_rows)
+        return list(fallback_rows)
 
     headers = [to_text(header) for header in values[0][:HISTORY_BLOCK_WIDTH]]
 

@@ -1,14 +1,20 @@
 """Valores esperados obtenidos al ejecutar el obtenerResumenIXBRaaS()
 original con los mismos datos de ixb_sample_data.py."""
 
+from datetime import date
+
 from apps.azure_devops.services.azure_client import flatten_iterations
 from apps.clockify.exceptions import ClockifyProjectError
 from apps.ejecutivo.services.ixb_rules import (
     calculate_exact_burn,
     extract_nomenclature,
+    is_finished_in_history,
     sort_project_ids,
 )
 from apps.ejecutivo.services.ixb_summary import IxbSources, build_ixb_summary
+from apps.ejecutivo.services.project_dashboard import (
+    build_history_block_rows,
+)
 from apps.ejecutivo.services.project_milestones import (
     calculate_project_milestones,
 )
@@ -99,8 +105,7 @@ def test_ixb_summary_matches_original():
     summary = build_summary(FakeAzure())
     rows = rows_by_id(summary)
 
-    assert set(rows) == {"SAS.004", "RAS.001_CR1", "IXB.002_S2", "POC.003"}
-    assert rows["POC.003"]["status"] == "Completed"
+    assert list(rows) == ["SAS.004", "RAS.001_CR1", "IXB.002_S2"]
 
     cr_row = rows["RAS.001_CR1"]
     assert cr_row["deliveryManager"] == "Laura"
@@ -148,7 +153,7 @@ def test_ixb_pivots():
     summary = build_summary(FakeAzure())
 
     assert summary["pivoteServicio"] == [
-        {"deliveryManager": "Ana", "total": 2, "POC": 1, "SAAS": 1},
+        {"deliveryManager": "Ana", "total": 1, "SAAS": 1},
         {"deliveryManager": "Laura", "total": 1, "RAAS": 1},
         {"deliveryManager": "Mario", "total": 1, "IXB": 1},
     ]
@@ -158,7 +163,7 @@ def test_ixb_pivots():
         "Dis": 0,
         "Dev": 1,
         "Dep": 0,
-        "total": 2,
+        "total": 1,
     }
 
 
@@ -174,3 +179,110 @@ def test_ixb_summary_without_azure():
     summary = build_summary(azure=None)
 
     assert rows_by_id(summary)["RAS.001_CR1"]["status"] == "Development"
+
+
+def test_completed_project_closes_only_after_its_date_has_passed():
+    completed = [
+        {
+            "Project ID": "ZZZ.001",
+            "Status": "Suspendido",
+            "Start": date(2026, 9, 1),
+            "Finish": date(2026, 9, 10),
+        },
+        {
+            "Project ID": "ZZZ.001",
+            "Status": "Completed",
+            "Start": date(2026, 10, 2),
+            "Finish": date(2026, 10, 2),
+        },
+    ]
+
+    assert not is_finished_in_history(
+        completed,
+        "ZZZ.001",
+        "ZZZ",
+        date(2026, 10, 2),
+    )
+    assert not is_finished_in_history(
+        completed,
+        "ZZZ.001",
+        "ZZZ",
+        date(2026, 10, 1),
+    )
+    assert is_finished_in_history(
+        completed,
+        "ZZZ.001",
+        "ZZZ",
+        date(2026, 10, 3),
+    )
+
+
+def test_active_suspension_keeps_a_completed_project_visible():
+    rows = [
+        {
+            "Project ID": "AMK.004_CR",
+            "Status": "Suspendido",
+            "Start": date(2026, 9, 25),
+            "Finish": date(2026, 10, 9),
+        },
+        {
+            "Project ID": "AMK.004_CR",
+            "Status": "Completed",
+            "Start": date(2026, 9, 25),
+            "Finish": date(2026, 9, 25),
+        },
+    ]
+
+    assert not is_finished_in_history(
+        rows,
+        "AMK.004_CR",
+        "AMK.004",
+        date(2026, 10, 9),
+    )
+    assert is_finished_in_history(
+        rows,
+        "AMK.004_CR",
+        "AMK.004",
+        date(2026, 10, 10),
+    )
+
+
+def test_history_block_ignores_the_projects_table_next_to_it():
+    values = [
+        [
+            "",
+            "",
+            "Project ID",
+            "",
+            "",
+            "",
+            "Status",
+            "Start",
+            "Finish",
+            "",
+            "Project ID",
+        ],
+        [
+            "",
+            "",
+            "GPO.007",
+            "",
+            "",
+            "",
+            "Completed",
+            46300,
+            46300,
+            "",
+            "OTRO.001",
+        ],
+    ]
+
+    rows = build_history_block_rows(values, [])
+
+    assert rows[0]["Project ID"] == "GPO.007"
+    assert is_finished_in_history(
+        rows,
+        "GPO.007",
+        "GPO",
+        date(2026, 10, 9),
+    )

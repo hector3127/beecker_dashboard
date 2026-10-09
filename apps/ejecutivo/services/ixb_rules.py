@@ -40,7 +40,6 @@ CLOSED_PROJECT_STATES = frozenset(
     },
 )
 COMPLETED_STATES = frozenset({"COMPLETED", "COMPLETADO"})
-HIDDEN_PROJECT_STATES = CLOSED_PROJECT_STATES - COMPLETED_STATES
 SUSPENDED_STATES = frozenset({"SUSPENDIDO", "SUSPENDED"})
 
 HISTORY_ID_COLUMNS = ["Project ID", "Project_ID", "Proyecto", "ID_Proyecto"]
@@ -58,7 +57,6 @@ PROJECT_MANAGER_COLUMNS = [
 ]
 
 STATUS_SUSPENDED = "Suspendido"
-STATUS_COMPLETED = "Completed"
 STATUS_PENDING = "Pendiente"
 STATUS_GRACE_DAYS = 1
 
@@ -128,21 +126,6 @@ def read_project_id(row: SheetRow) -> str:
         El ID sin espacios externos.
     """
     return to_text(row.get("ID_Proyecto")).strip()
-
-
-def read_project_state(row: SheetRow) -> str:
-    """
-    Lee el estado de una fila de Proyectos, normalizado.
-
-    Args:
-        row: Fila de la hoja Proyectos.
-
-    Returns:
-        El estado en mayusculas y sin acentos.
-    """
-    return normalize_azure_name(
-        to_text(get_flexible_value(row, ["Estado", "Status"])),
-    )
 
 
 def select_current_row(rows: Sequence[SheetRow], base_id: str) -> SheetRow:
@@ -322,7 +305,10 @@ def is_finished_in_history(
     Indica si el proyecto ya esta Completed en el historico.
 
     Un ID con sufijo solo se cierra con su propia fila Completed:
-    RAS.001 Completed no cierra RAS.001_CR1.
+    RAS.001 Completed no cierra RAS.001_CR1. El dia del Completed el
+    proyecto sigue visible; se cierra cuando esa fecha ya paso. Una
+    suspension que ya termino no lo mantiene abierto, pero una que
+    sigue vigente hoy lo deja visible como Suspendido.
 
     Args:
         history_rows: Filas de Historico_Proyectos.
@@ -331,7 +317,7 @@ def is_finished_in_history(
         today: Fecha local de hoy.
 
     Returns:
-        True si hoy ya alcanzo la fecha del Completed.
+        True si la fecha del Completed ya paso (es menor a hoy).
     """
     rows = select_history_rows(
         history_rows,
@@ -339,6 +325,19 @@ def is_finished_in_history(
         base_id,
         allow_base="_" not in project_id,
     )
+
+    has_active_suspension = any(
+        read_history_status(row) in SUSPENDED_STATES
+        and is_active_period(
+            read_history_date(row, HISTORY_START_COLUMNS),
+            read_history_date(row, HISTORY_FINISH_COLUMNS),
+            today,
+        )
+        for row in rows
+    )
+
+    if has_active_suspension:
+        return False
 
     for row in rows:
         if read_history_status(row) not in COMPLETED_STATES:
@@ -349,7 +348,7 @@ def is_finished_in_history(
             HISTORY_FINISH_COLUMNS,
         ) or read_history_date(row, HISTORY_START_COLUMNS)
 
-        if closing_date is not None and today >= closing_date:
+        if closing_date is not None and closing_date < today:
             return True
 
     return False

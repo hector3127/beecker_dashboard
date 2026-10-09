@@ -26,6 +26,9 @@ from apps.ejecutivo.services.ixb_summary import (
     build_ixb_summary,
     group_by_base,
 )
+from apps.ejecutivo.services.project_dashboard import (
+    build_history_block_rows,
+)
 from apps.ejecutivo.services.project_detail import build_error_detail
 from apps.ejecutivo.services.project_orchestrator import (
     load_executive_dashboard,
@@ -148,7 +151,10 @@ def get_ixb_raas_summary() -> JsonObject:
     try:
         repository = build_sheet_repository()
         history_rows = (
-            repository.read_as_objects(sheet_names.SHEET_PROJECTS_HISTORY)
+            build_history_block_rows(
+                repository.read_values(sheet_names.SHEET_PROJECTS_HISTORY),
+                [],
+            )
             if repository.sheet_exists(sheet_names.SHEET_PROJECTS_HISTORY)
             else []
         )

@@ -17,15 +17,11 @@ from apps.ejecutivo.services.azure_stages import (
     list_open_risk_titles,
 )
 from apps.ejecutivo.services.ixb_rules import (
-    COMPLETED_STATES,
-    HIDDEN_PROJECT_STATES,
-    STATUS_COMPLETED,
     calculate_exact_burn,
     find_delivery_manager,
     is_finished_in_history,
     read_project_id,
     read_project_manager,
-    read_project_state,
     resolve_ixb_status,
     select_current_row,
     select_history_rows,
@@ -189,8 +185,7 @@ def build_group_row(
         now: Fecha y hora local actual.
 
     Returns:
-        La fila, o None si el proyecto esta cerrado (los Completed se
-        muestran con ese estado).
+        La fila, o None si el proyecto ya termino.
     """
     representative = select_current_row(group_rows, base_id)
     reference_id = read_project_id(representative) or base_id
@@ -198,17 +193,13 @@ def build_group_row(
         row for row in group_rows if read_project_id(row) == reference_id
     ]
 
-    if read_project_state(representative) in HIDDEN_PROJECT_STATES:
-        return None
-
-    is_completed = read_project_state(
-        representative,
-    ) in COMPLETED_STATES or is_finished_in_history(
+    if is_finished_in_history(
         sources.history_rows,
         reference_id,
         base_id,
         now.date(),
-    )
+    ):
+        return None
 
     budget = sum(to_number(row.get("Budget_Hrs")) for row in reference_rows)
     burn = load_burn(sources, reference_id)
@@ -239,21 +230,17 @@ def build_group_row(
             get_flexible_value(representative, ["Cliente", "Account"]),
         ),
         "nombre": to_text(representative.get("Nombre")) or base_id,
-        "status": (
-            STATUS_COMPLETED
-            if is_completed
-            else resolve_ixb_status(
-                stage_range.current_stage,
-                stage_range.finish,
-                select_history_rows(
-                    sources.history_rows,
-                    reference_id,
-                    base_id,
-                    allow_base=True,
-                ),
-                milestones,
-                now,
-            )
+        "status": resolve_ixb_status(
+            stage_range.current_stage,
+            stage_range.finish,
+            select_history_rows(
+                sources.history_rows,
+                reference_id,
+                base_id,
+                allow_base=True,
+            ),
+            milestones,
+            now,
         ),
         "proyectoAzure": stage_range.azure_project,
         "fechaInicio": to_iso_or_none(stage_range.start),
