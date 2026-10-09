@@ -186,7 +186,8 @@ def load_stage_work_items(
         project: Fila de Proyectos.
 
     Returns:
-        Etapa en minusculas -> (cerrados, total); vacio sin Azure.
+        Etapa en minusculas (y "general") -> (cerrados, total); vacio
+        sin Azure.
     """
     service = to_text(project.get("Servicio") or project.get("Service"))
 
@@ -206,7 +207,7 @@ def load_stage_work_items(
 
     return {
         stage: (counts[stage]["cerrados"], counts[stage]["total"])
-        for stage in ("discovery", "development", "deployment")
+        for stage in ("discovery", "development", "deployment", "general")
     }
 
 

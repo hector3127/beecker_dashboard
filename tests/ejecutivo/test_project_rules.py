@@ -4,11 +4,15 @@ from apps.ejecutivo.services.additional_milestones import (
     read_additional_milestones,
 )
 from apps.ejecutivo.services.history_stages import (
+    calculate_work_item_progress,
     estimate_stage_progress,
     read_history_stages,
     stage_day,
 )
-from apps.ejecutivo.services.project_dashboard import build_extra_kpis
+from apps.ejecutivo.services.project_dashboard import (
+    build_extra_kpis,
+    limit_by_work_items,
+)
 from apps.ejecutivo.services.project_detail import (
     build_error_detail,
     categorize_role,
@@ -161,7 +165,7 @@ def test_history_with_repeated_headers_reads_only_the_a_to_i_block():
     assert estimate_stage_progress(after["lista"], next_day).pct == 100
 
 
-def test_open_stage_averages_days_with_closed_work_items():
+def test_progress_is_the_lower_of_dates_and_work_items():
     phases = [
         {"nombre": "Discovery", "estado": "Completado"},
         {"nombre": "Development", "estado": "Completado"},
@@ -172,21 +176,13 @@ def test_open_stage_averages_days_with_closed_work_items():
             "fechaFinReal": "2026-10-09",
         },
     ]
-    last_day = datetime(2026, 10, 9, 11)
+    by_dates = estimate_stage_progress(phases, datetime(2026, 10, 9, 11))
 
-    plain = estimate_stage_progress(phases, last_day)
-    mixed = estimate_stage_progress(
-        phases,
-        last_day,
-        {"deployment": (6, 10)},
-    )
-    all_closed = estimate_stage_progress(
-        phases,
-        last_day,
-        {"deployment": (10, 10)},
-    )
-
-    assert plain.pct == 97.8
-    assert mixed.pct == 78.9
-    assert all_closed.pct == 98.9
-    assert mixed.current_stage_pct == 78.9
+    assert by_dates.pct == 97.8
+    assert limit_by_work_items(by_dates, None).pct == 97.8
+    assert limit_by_work_items(by_dates, {"general": (0, 0)}).pct == 97.8
+    assert limit_by_work_items(by_dates, {"general": (149, 200)}).pct == 74.5
+    assert limit_by_work_items(by_dates, {"general": (200, 200)}).pct == 97.8
+    assert calculate_work_item_progress(149, 200) == 74.5
+    assert calculate_work_item_progress(0, 0) is None
+    assert calculate_work_item_progress(1, 2, open_points=99) == 99.5

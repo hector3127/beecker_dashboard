@@ -12,8 +12,10 @@ from apps.ejecutivo.services.additional_milestones import (
     read_additional_milestones,
 )
 from apps.ejecutivo.services.history_stages import (
+    GENERAL_WORK_ITEMS,
     STATE_COMPLETED,
     StageProgress,
+    calculate_work_item_progress,
     estimate_stage_progress,
     milestones_from_stages,
     read_history_stages,
@@ -341,6 +343,35 @@ def build_history_block_rows(
     ]
 
 
+def limit_by_work_items(
+    stage_progress: StageProgress,
+    work_items: Mapping[str, tuple[int, int]] | None,
+) -> StageProgress:
+    """
+    Limita el avance por fechas con el avance de work items.
+
+    El avance final es el menor de los dos; sin work items se queda el
+    avance por fechas.
+
+    Args:
+        stage_progress: Avance por fechas.
+        work_items: Work items (cerrados, total) por etapa y "general".
+
+    Returns:
+        El avance con el porcentaje final.
+    """
+    closed, total = (work_items or {}).get(GENERAL_WORK_ITEMS, (0, 0))
+    work_item_pct = calculate_work_item_progress(closed, total)
+
+    if work_item_pct is None or stage_progress.pct is None:
+        return stage_progress
+
+    return StageProgress(
+        pct=min(stage_progress.pct, work_item_pct),
+        current_stage_pct=stage_progress.current_stage_pct,
+    )
+
+
 def calculate_progress(
     project: SheetRow,
     milestones: JsonObject,
@@ -358,7 +389,8 @@ def calculate_progress(
         phases: Lista de hitos.
         consumption: Porcentaje ejecutado (tope 100) y consumo real.
         now: Fecha y hora local actual.
-        work_items: Work items (cerrados, total) por etapa en Azure.
+        work_items: Work items (cerrados, total) en Azure; la clave
+            "general" cuenta todos los del proyecto.
 
     Returns:
         El avance y sus indices.
@@ -368,7 +400,7 @@ def calculate_progress(
         MILESTONE_SERVICES.match(read_service(project, milestones)),
     )
     stage_progress = (
-        estimate_stage_progress(phases, now, work_items)
+        limit_by_work_items(estimate_stage_progress(phases, now), work_items)
         if uses_milestones
         else None
     )

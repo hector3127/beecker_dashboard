@@ -3,7 +3,7 @@
 import collections
 import math
 import re
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from typing import Any
@@ -44,6 +44,7 @@ ISO_DAY = re.compile(r"^(\d{4})-(\d{1,2})-(\d{1,2})")
 DAY_MONTH_YEAR = re.compile(r"^(\d{1,2})/(\d{1,2})/(\d{4})")
 UPCOMING_WINDOW_DAYS = 60
 MAX_OPEN_PCT = 99
+GENERAL_WORK_ITEMS = "general"
 FULL_PCT = 100
 
 STATE_PENDING = "Pendiente"
@@ -316,29 +317,31 @@ def milestones_from_stages(
     }
 
 
-def blend_work_items(
-    day_fraction: float,
-    work_items: Mapping[str, tuple[int, int]] | None,
-    stage: str,
-) -> float:
+def calculate_work_item_progress(
+    closed: int,
+    total: int,
+    open_points: float = 0.0,
+) -> float | None:
     """
-    Promedia el avance por dias con el de work items cerrados.
+    Avance por work items: cada WI pesa lo mismo.
+
+    Un WI cerrado aporta 100 puntos; los abiertos aportan sus puntos de
+    avance registrados (0 si no hay), con tope de 99 por WI.
 
     Args:
-        day_fraction: Fraccion de la etapa transcurrida por fechas.
-        work_items: Work items (cerrados, total) por etapa.
-        stage: Etapa en minusculas.
+        closed: Work items cerrados.
+        total: Work items totales.
+        open_points: Suma de puntos de avance de los WIs abiertos.
 
     Returns:
-        La fraccion combinada (tope 99%: la etapa sigue abierta); sin
-        work items, la de dias tal cual.
+        El porcentaje (0 a 100), o None si no hay work items.
     """
-    closed, total = (work_items or {}).get(stage, (0, 0))
-
     if total <= 0:
-        return day_fraction
+        return None
 
-    return min((day_fraction + closed / total) / 2, MAX_OPEN_PCT / FULL_PCT)
+    points = FULL_PCT * closed + open_points
+
+    return min(FULL_PCT, math.floor(points / total * 10) / 10)
 
 
 def pick_real_event(
@@ -431,19 +434,17 @@ def day_ms(moment: datetime | None) -> float:
 def estimate_stage_progress(
     phases: Sequence[JsonObject],
     now: datetime,
-    work_items: Mapping[str, tuple[int, int]] | None = None,
 ) -> StageProgress:
     """
     Estima el avance por etapas a la fecha de corte.
 
-    La etapa en curso promedia los dias transcurridos con los work
-    items cerrados de esa etapa (si hay) y no pasa de 99% mientras siga
-    abierta.
+    Cada etapa completada aporta una unidad; la etapa en curso aporta
+    la fraccion transcurrida de su duracion (incluido el dia final) y
+    no pasa de 99% mientras siga abierta.
 
     Args:
         phases: Hitos del proyecto.
         now: Fecha y hora local de corte.
-        work_items: Work items (cerrados, total) por etapa en minusculas.
 
     Returns:
         El avance total y el de la etapa en curso.
@@ -483,11 +484,6 @@ def estimate_stage_progress(
                 (now - start).total_seconds()
                 / (exclusive_end - start).total_seconds(),
             ),
-        )
-        fraction = blend_work_items(
-            fraction,
-            work_items,
-            phase_key(phase.get("nombre")),
         )
         progress_sum += fraction
         current_pct = (
