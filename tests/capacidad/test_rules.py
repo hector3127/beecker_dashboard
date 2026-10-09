@@ -16,7 +16,6 @@ from apps.capacidad.services.daily_hours import (
     parse_report_range,
     read_base_id,
 )
-from apps.capacidad.services.error_text import describe_error
 from apps.capacidad.services.mpb_projects import format_mpb_day
 from apps.capacidad.services.orchestrator import (
     load_capacity_base,
@@ -24,7 +23,11 @@ from apps.capacidad.services.orchestrator import (
 )
 from apps.clockify.services.clockify_client import ClockifyProject
 from apps.clockify.services.project_matcher import resolve_clockify_project
-from core.exceptions import ConfigurationError, DashboardError
+from core.exceptions import (
+    ConfigurationError,
+    DashboardError,
+    describe_error,
+)
 from core.time_entries.models import TimeEntry
 from tests.capacidad import sample_data
 from tests.capacidad.fakes import FakeAzureSource, build_report_loader

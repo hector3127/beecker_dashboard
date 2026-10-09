@@ -99,7 +99,8 @@ def test_ixb_summary_matches_original():
     summary = build_summary(FakeAzure())
     rows = rows_by_id(summary)
 
-    assert list(rows) == ["SAS.004", "RAS.001_CR1", "IXB.002_S2"]
+    assert set(rows) == {"SAS.004", "RAS.001_CR1", "IXB.002_S2", "POC.003"}
+    assert rows["POC.003"]["status"] == "Completed"
 
     cr_row = rows["RAS.001_CR1"]
     assert cr_row["deliveryManager"] == "Laura"
@@ -147,7 +148,7 @@ def test_ixb_pivots():
     summary = build_summary(FakeAzure())
 
     assert summary["pivoteServicio"] == [
-        {"deliveryManager": "Ana", "total": 1, "SAAS": 1},
+        {"deliveryManager": "Ana", "total": 2, "POC": 1, "SAAS": 1},
         {"deliveryManager": "Laura", "total": 1, "RAAS": 1},
         {"deliveryManager": "Mario", "total": 1, "IXB": 1},
     ]
@@ -157,7 +158,7 @@ def test_ixb_pivots():
         "Dis": 0,
         "Dev": 1,
         "Dep": 0,
-        "total": 1,
+        "total": 2,
     }
 
 

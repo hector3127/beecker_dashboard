@@ -93,7 +93,20 @@ disallow_untyped_defs = false
 disallow_untyped_calls = false
 disallow_incomplete_defs = false
 # Los datos de prueba se escriben como literales sin anotar.
-disable_error_code = ["arg-type", "var-annotated", "dict-item"]
+disable_error_code = [
+    "arg-type",
+    "var-annotated",
+    "dict-item",
+    # Los dobles de prueba no heredan de la clase real que sustituyen.
+    "attr-defined",
+    "index",
+    "list-item",
+    "misc",
+    "operator",
+    "return-value",
+    "type-arg",
+    "union-attr",
+]
 
 [tool.django-stubs]
 django_settings_module = "config.settings.local"

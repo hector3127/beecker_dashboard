@@ -21,8 +21,8 @@ from apps.gmail.services.reply_builder import (
 
 """BKD.110.007 - Selector de hilos
 Detecta los hilos "Inicio de ..." (proyecto, agente, T&M, etc.) y los
-resume para que el usuario elija en cual responder. Los que coinciden con el nombre del
-proyecto abierto se marcan como sugeridos.
+resume para que el usuario elija en cual responder. Los que coinciden con el
+nombre del proyecto abierto se marcan como sugeridos.
 """
 
 JsonObject = dict[str, Any]

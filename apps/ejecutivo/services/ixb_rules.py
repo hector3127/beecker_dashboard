@@ -40,6 +40,7 @@ CLOSED_PROJECT_STATES = frozenset(
     },
 )
 COMPLETED_STATES = frozenset({"COMPLETED", "COMPLETADO"})
+HIDDEN_PROJECT_STATES = CLOSED_PROJECT_STATES - COMPLETED_STATES
 SUSPENDED_STATES = frozenset({"SUSPENDIDO", "SUSPENDED"})
 
 HISTORY_ID_COLUMNS = ["Project ID", "Project_ID", "Proyecto", "ID_Proyecto"]
@@ -57,6 +58,7 @@ PROJECT_MANAGER_COLUMNS = [
 ]
 
 STATUS_SUSPENDED = "Suspendido"
+STATUS_COMPLETED = "Completed"
 STATUS_PENDING = "Pendiente"
 STATUS_GRACE_DAYS = 1
 
@@ -126,6 +128,21 @@ def read_project_id(row: SheetRow) -> str:
         El ID sin espacios externos.
     """
     return to_text(row.get("ID_Proyecto")).strip()
+
+
+def read_project_state(row: SheetRow) -> str:
+    """
+    Lee el estado de una fila de Proyectos, normalizado.
+
+    Args:
+        row: Fila de la hoja Proyectos.
+
+    Returns:
+        El estado en mayusculas y sin acentos.
+    """
+    return normalize_azure_name(
+        to_text(get_flexible_value(row, ["Estado", "Status"])),
+    )
 
 
 def select_current_row(rows: Sequence[SheetRow], base_id: str) -> SheetRow:

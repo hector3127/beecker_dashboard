@@ -20,11 +20,11 @@ acceso dura una hora y no hay refresh token que proteger.
 class SessionLike(Protocol):
     """Lo que se usa de la sesion de Django."""
 
-    def get(self, key: str, default: Any = None) -> Any:
+    def get(self, key: str) -> Any:
         """Lee una llave."""
         ...
 
-    def pop(self, key: str, default: Any = None) -> Any:
+    def pop(self, key: str, default: Any) -> Any:
         """Quita una llave."""
         ...
 

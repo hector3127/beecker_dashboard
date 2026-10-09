@@ -60,7 +60,8 @@
   function workdays(a,b){if(!a||!b||a>b)return 0;let n=0;for(let d=new Date(a+'T12:00:00Z'),end=new Date(b+'T12:00:00Z');d<=end;d.setUTCDate(d.getUTCDate()+1)){if(d.getUTCDay()!==0&&d.getUTCDay()!==6)n++;}return n;}
   function computed(){
     const d=days(st.mes),all=[],people=new Map();
-    (st.base&&st.base.filas||[]).forEach(f=>{
+    /* Quien esta "Sin Asignación" no cuenta como recurso del mes. */
+    (st.base&&st.base.filas||[]).filter(f=>norm(f.concepto)!=='sin asignacion').forEach(f=>{
       const last=new Date(Date.UTC(Number(st.mes.slice(0,4)),Number(st.mes.slice(5)),0)).toISOString().slice(0,10);
       const meta=f.idProyecto?st.meta.get(key(f)):{ok:true,inicio:st.mes+'-01',fin:last};
       if(f.idProyecto&&meta&&(meta.fueraMes||(meta.inicio&&meta.fin&&(meta.fin<st.mes+'-01'||meta.inicio>last))))return;
@@ -74,10 +75,6 @@
       if(f.regla&&f.regla.afecta){values.forEach((v,i)=>p.values[i]+=v||0);p.total+=total;}
       if(f.regla&&f.regla.facturable==='Facturable')p.fact+=total;
       if(f.regla&&f.regla.cargabilidad==='Cargable')p.carg+=total;
-    });
-    (st.base.personas||[]).forEach(p=>{const k=norm(p.nombre).trim();if(people.has(k))return;
-      people.set(k,{nombre:p.nombre,tecnologia:p.rol,banda:p.banda,values:d.map(()=>0),total:0,fact:0,carg:0,unknown:false});
-      all.push({uid:'LIBRE-'+k,recurso:p.nombre,tecnologia:p.rol,banda:p.banda,concepto:'Sin Asignación',regla:{facturable:'No Facturable',cargabilidad:'No Cargable',capacidad:'Afecta Capacidad',afecta:true},idProyecto:'',proyecto:'Sin asignación en el mes',values:d.map(()=>0),total:0,per:null,status:null});
     });
     const available=Array.from(people.values()).reduce((n,p)=>n+p.values.reduce((s,v)=>s+Math.max(0,st.jornada-v),0),0);
     return {days:d,all,people:Array.from(people.values()),available};

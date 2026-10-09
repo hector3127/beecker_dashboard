@@ -307,7 +307,7 @@ def reply(request: HttpRequest) -> JsonResponse:
         credentials = require_credentials(request.session)
         uploads = request.FILES.getlist("files")
 
-        if any(upload.size > MAX_FILE_BYTES for upload in uploads):
+        if any((upload.size or 0) > MAX_FILE_BYTES for upload in uploads):
             raise ReplyValidationError("Un archivo pesa mas de 10 MB.")
 
         files = [(upload.name or "", upload.read()) for upload in uploads]

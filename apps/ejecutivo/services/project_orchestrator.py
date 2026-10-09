@@ -5,7 +5,18 @@ from collections.abc import Callable
 from datetime import datetime
 from typing import Any
 
+from apps.azure_devops.services.project_resolver import resolve_azure_project
+from apps.ejecutivo.services.azure_stages import (
+    count_work_items,
+    infer_sprint,
+)
+from apps.ejecutivo.services.ixb_summary import (
+    AzureLookup,
+    list_azure_projects,
+    load_work_items,
+)
 from apps.ejecutivo.services.project_dashboard import (
+    MILESTONE_SERVICES,
     ExecutiveSources,
     build_executive_dashboard,
 )
@@ -30,6 +41,7 @@ from core.sheets.protocols import SheetReader
 from core.time_entries.models import TimeEntry
 from core.time_entries.resource_rates import load_band_info_by_resource
 from core.utils.cell_types import SheetRow
+from core.utils.text import to_text
 
 """BKD.040.014 - Orquestador del proyecto
 Equivale a getDetalleProyectoCompleto(id) y a
@@ -92,6 +104,7 @@ def load_executive_dashboard(
     project_id: str,
     loaders: tuple[ProjectEntriesLoader, PortfolioLoader],
     now: datetime,
+    azure: AzureLookup | None = None,
 ) -> JsonObject:
     """
     Calcula el dashboard ejecutivo del proyecto.
@@ -101,6 +114,7 @@ def load_executive_dashboard(
         project_id: ID exacto del proyecto.
         loaders: Horas de un proyecto y horas de todo el portafolio.
         now: Fecha y hora local actual.
+        azure: Acceso a Azure DevOps, si esta configurado.
 
     Returns:
         El dashboard, o {"errorServidor", "proyecto": None}.
@@ -110,7 +124,9 @@ def load_executive_dashboard(
     try:
         project_rows = reader.read_as_objects(sheet_names.SHEET_PROJECTS)
 
-        if find_project_row(project_rows, project_id) is None:
+        project_row = find_project_row(project_rows, project_id)
+
+        if project_row is None:
             raise InvalidRequestError(
                 f'No se encontro el proyecto "{project_id}" en la hoja '
                 "Proyectos.",
@@ -141,12 +157,57 @@ def load_executive_dashboard(
                 reader,
                 sheet_names.SHEET_MINUTES_PENDING,
             ),
+            stage_work_items=load_stage_work_items(
+                azure,
+                project_id,
+                project_row,
+            ),
         )
 
         return build_executive_dashboard(project_id, sources, now)
     except DashboardError as error:
         logger.warning("Ejecutivo de %s no disponible: %s", project_id, error)
         return {"errorServidor": describe_error(error), "proyecto": None}
+
+
+def load_stage_work_items(
+    azure: AzureLookup | None,
+    project_id: str,
+    project: SheetRow,
+) -> dict[str, tuple[int, int]]:
+    """
+    Cuenta los work items cerrados y totales por etapa en Azure.
+
+    Solo consulta Azure en servicios con etapas (IxB, RaaS, SaaS).
+
+    Args:
+        azure: Acceso a Azure DevOps, si esta configurado.
+        project_id: ID exacto del proyecto.
+        project: Fila de Proyectos.
+
+    Returns:
+        Etapa en minusculas -> (cerrados, total); vacio sin Azure.
+    """
+    service = to_text(project.get("Servicio") or project.get("Service"))
+
+    if azure is None or not MILESTONE_SERVICES.match(service.strip().lower()):
+        return {}
+
+    azure_project = resolve_azure_project(
+        project_id,
+        list_azure_projects(azure),
+    )
+    work_items = load_work_items(azure, azure_project)
+
+    if not work_items:
+        return {}
+
+    counts = count_work_items(work_items, [infer_sprint(project_id)])
+
+    return {
+        stage: (counts[stage]["cerrados"], counts[stage]["total"])
+        for stage in ("discovery", "development", "deployment")
+    }
 
 
 def read_optional_rows(reader: SheetReader, sheet_name: str) -> list[SheetRow]:

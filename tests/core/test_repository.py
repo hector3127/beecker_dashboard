@@ -143,7 +143,7 @@ def test_append_row_serializes_dates():
 def test_http_errors_are_translated(status, expected_error):
     service = MagicMock()
     service.spreadsheets.return_value.get.return_value.execute.side_effect = (
-        HttpError(SimpleNamespace(status=status), b"")
+        HttpError(SimpleNamespace(status=status, reason="error"), b"")
     )
     repository = GoogleSheetRepository(service, "sheet-id")
 

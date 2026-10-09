@@ -1,8 +1,9 @@
 """Etapas del Gantt IXB/RaaS desde Historico_Proyectos A:I."""
 
+import collections
 import math
 import re
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from typing import Any
@@ -257,6 +258,10 @@ def milestones_from_stages(
     """
     today_start = datetime(today.year, today.month, today.day)
     used_by_stage: dict[str, int] = {}
+    planned_count = collections.Counter(
+        phase_key(planned.get("nombre") or "Fase")
+        for planned in stages.milestones
+    )
     milestones: list[JsonObject] = []
 
     for order, planned in enumerate(stages.milestones, start=1):
@@ -272,7 +277,7 @@ def milestones_from_stages(
             ),
             key=lambda event: day_ms(stage_day(event["fechaInicio"])),
         )
-        real = events[occurrence] if occurrence < len(events) else None
+        real = pick_real_event(events, occurrence, planned_count[key])
         real_start = real["fechaInicio"] if real else ""
         real_finish = (real["fechaFin"] if real else "") or ""
         milestones.append(
@@ -309,6 +314,59 @@ def milestones_from_stages(
             if suspension["fechaInicio"]
         ],
     }
+
+
+def blend_work_items(
+    day_fraction: float,
+    work_items: Mapping[str, tuple[int, int]] | None,
+    stage: str,
+) -> float:
+    """
+    Promedia el avance por dias con el de work items cerrados.
+
+    Args:
+        day_fraction: Fraccion de la etapa transcurrida por fechas.
+        work_items: Work items (cerrados, total) por etapa.
+        stage: Etapa en minusculas.
+
+    Returns:
+        La fraccion combinada (tope 99%: la etapa sigue abierta); sin
+        work items, la de dias tal cual.
+    """
+    closed, total = (work_items or {}).get(stage, (0, 0))
+
+    if total <= 0:
+        return day_fraction
+
+    return min((day_fraction + closed / total) / 2, MAX_OPEN_PCT / FULL_PCT)
+
+
+def pick_real_event(
+    events: Sequence[JsonObject],
+    occurrence: int,
+    planned_total: int,
+) -> JsonObject | None:
+    """
+    Elige el evento real de una fase planeada.
+
+    La ultima aparicion planeada toma el ultimo evento real: una fase
+    que se reanuda despues de una suspension cuenta con su ultimo tramo.
+
+    Args:
+        events: Eventos reales de la fase, por fecha de inicio.
+        occurrence: Posicion de esta fase entre las planeadas iguales.
+        planned_total: Cuantas veces se planeo esa fase.
+
+    Returns:
+        El evento real, o None si todavia no hay.
+    """
+    if occurrence >= len(events):
+        return None
+
+    if occurrence == planned_total - 1:
+        return events[-1]
+
+    return events[occurrence]
 
 
 def milestone_state(
@@ -373,13 +431,19 @@ def day_ms(moment: datetime | None) -> float:
 def estimate_stage_progress(
     phases: Sequence[JsonObject],
     now: datetime,
+    work_items: Mapping[str, tuple[int, int]] | None = None,
 ) -> StageProgress:
     """
     Estima el avance por etapas a la fecha de corte.
 
+    La etapa en curso promedia los dias transcurridos con los work
+    items cerrados de esa etapa (si hay) y no pasa de 99% mientras siga
+    abierta.
+
     Args:
         phases: Hitos del proyecto.
         now: Fecha y hora local de corte.
+        work_items: Work items (cerrados, total) por etapa en minusculas.
 
     Returns:
         El avance total y el de la etapa en curso.
@@ -419,6 +483,11 @@ def estimate_stage_progress(
                 (now - start).total_seconds()
                 / (exclusive_end - start).total_seconds(),
             ),
+        )
+        fraction = blend_work_items(
+            fraction,
+            work_items,
+            phase_key(phase.get("nombre")),
         )
         progress_sum += fraction
         current_pct = (

@@ -46,7 +46,8 @@ def load_service_account_credentials(credentials_file: str) -> Credentials:
         )
 
     try:
-        return Credentials.from_service_account_file(
+        # La libreria de Google no tiene tipos para este constructor.
+        return Credentials.from_service_account_file(  # type: ignore[no-any-return,no-untyped-call]
             str(credentials_path),
             scopes=GOOGLE_SCOPES,
         )

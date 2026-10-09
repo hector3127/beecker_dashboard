@@ -55,7 +55,7 @@ def test_portal_serves_legacy_panel_with_shim(client):
 
 
 def test_function_not_migrated_returns_controlled_error(client):
-    response = call_rpc(client, "obtenerVistaCuentaBeecker", "ACME")
+    response = call_rpc(client, "funcionQueNoExiste")
 
     assert response.status_code == 404
     assert response.json()["code"] == "ERR_RPC_NOT_MIGRATED"

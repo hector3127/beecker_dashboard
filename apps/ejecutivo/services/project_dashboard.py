@@ -1,8 +1,8 @@
 """Dashboard ejecutivo de un solo proyecto."""
 
 import re
-from collections.abc import Sequence
-from dataclasses import dataclass
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
@@ -53,6 +53,8 @@ RISK_CONSUMPTION_INDEX = 1.3
 WARNING_CONSUMPTION_INDEX = 1.1
 MIN_ELAPSED_FOR_PACE = 20
 SLOW_PACE_INDEX = 0.9
+HISTORY_BLOCK_WIDTH = 9
+MIN_HISTORY_ROWS = 2
 DATE_RISK_WARNING_DAYS = 15
 SECONDS_PER_DAY = 86400
 
@@ -69,6 +71,9 @@ class ExecutiveSources:
     detail: JsonObject
     risk_rows: Sequence[SheetRow]
     pending_rows: Sequence[SheetRow]
+    stage_work_items: Mapping[str, tuple[int, int]] = field(
+        default_factory=dict,
+    )
 
 
 @dataclass(slots=True)
@@ -133,6 +138,7 @@ def build_executive_dashboard(
         phases,
         (executed_pct, raw_consumption_pct),
         now,
+        sources.stage_work_items,
     )
     general_status, status_color = calculate_general_status(
         project,
@@ -266,7 +272,7 @@ def load_milestones(
         Los hitos con la forma de calcularHitosProyecto().
     """
     milestones = calculate_project_milestones(
-        sources.history_rows,
+        read_history_block_rows(sources),
         project_id,
         now,
     ).to_json()
@@ -285,12 +291,45 @@ def load_milestones(
     return milestones_from_stages(stages, milestones, now.date())
 
 
+def read_history_block_rows(sources: ExecutiveSources) -> list[SheetRow]:
+    """
+    Filas del historico solo con las columnas A:I, por posicion.
+
+    La hoja comparte espacio con la tabla de proyectos (columnas K en
+    adelante, con Project ID y Service repetidos). Si se leyera toda la
+    fila por encabezado, esos valores pisarian a los del historico.
+
+    Args:
+        sources: Datos ya leidos.
+
+    Returns:
+        Las filas A:I como diccionarios; las filas por encabezado
+        originales cuando no hay valores crudos.
+    """
+    values = sources.history_values
+
+    if len(values) < MIN_HISTORY_ROWS:
+        return list(sources.history_rows)
+
+    headers = [to_text(header) for header in values[0][:HISTORY_BLOCK_WIDTH]]
+
+    return [
+        {
+            header: row[index] if index < len(row) else ""
+            for index, header in enumerate(headers)
+        }
+        for row in values[1:]
+        if any(cell not in ("", None) for cell in row[:HISTORY_BLOCK_WIDTH])
+    ]
+
+
 def calculate_progress(
     project: SheetRow,
     milestones: JsonObject,
     phases: list[JsonObject],
     consumption: tuple[float, float],
     now: datetime,
+    work_items: Mapping[str, tuple[int, int]] | None = None,
 ) -> ProgressInfo:
     """
     Calcula avance, tiempo transcurrido e indices de ritmo y consumo.
@@ -301,6 +340,7 @@ def calculate_progress(
         phases: Lista de hitos.
         consumption: Porcentaje ejecutado (tope 100) y consumo real.
         now: Fecha y hora local actual.
+        work_items: Work items (cerrados, total) por etapa en Azure.
 
     Returns:
         El avance y sus indices.
@@ -310,7 +350,9 @@ def calculate_progress(
         MILESTONE_SERVICES.match(read_service(project, milestones)),
     )
     stage_progress = (
-        estimate_stage_progress(phases, now) if uses_milestones else None
+        estimate_stage_progress(phases, now, work_items)
+        if uses_milestones
+        else None
     )
     progress_pct = (
         stage_progress.pct if stage_progress is not None else executed_pct
@@ -451,17 +493,17 @@ def build_extra_kpis(
     totals = detail.get("totales")
     kpis: JsonObject = {"recursosAsignados": len(resource_rows)}
 
-    for field in (
+    for key in (
         "costoEstimado",
         "costoReal",
         "pctCumplimientoFinanciero",
         "horasNoFact",
     ):
         if totals is None:
-            kpis[field] = 0
-        elif field in totals:
+            kpis[key] = 0
+        elif key in totals:
             # El original omitia la llave cuando el detalle no la traia.
-            kpis[field] = totals[field]
+            kpis[key] = totals[key]
 
     return kpis
 

@@ -246,6 +246,7 @@ def get_executive_dashboard(project_id: object = "") -> JsonObject:
         clean_id,
         (LazyProjectEntries(repository), load_portfolio_entries),
         timezone.localtime().replace(tzinfo=None),
+        build_optional_azure_gateway(),
     )
 
 

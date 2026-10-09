@@ -133,6 +133,7 @@ def calculate_project_milestones(
         real_history,
         last_event,
         is_completed,
+        now.date(),
     )
     suspensions = [
         marker for marker in markers if SUSPENDED_MARKER.match(marker.phase)
@@ -175,6 +176,7 @@ def build_milestones(
     real_history: Sequence[HistoryEvent],
     last_event: HistoryEvent | None,
     is_completed: bool,
+    today: date,
 ) -> list[JsonObject]:
     """
     Combina el plan con la ejecucion real de cada fase.
@@ -184,6 +186,7 @@ def build_milestones(
         real_history: Ejecucion real ordenada por inicio.
         last_event: Ultimo evento cronologico del proyecto.
         is_completed: Indica si existe el marcador Completed.
+        today: Dia local de hoy; una fase con fin hoy sigue en curso.
 
     Returns:
         Los hitos con fechas plan, fechas reales y estado.
@@ -203,7 +206,8 @@ def build_milestones(
             is_last_overall = last_occurrence is last_event
             state = (
                 STATE_IN_PROGRESS
-                if not last_occurrence.finish and is_last_overall
+                if (not last_occurrence.finish and is_last_overall)
+                or finishes_today_or_later(last_occurrence, today)
                 else STATE_COMPLETED
             )
 
@@ -229,6 +233,22 @@ def build_milestones(
         )
 
     return milestones
+
+
+def finishes_today_or_later(event: HistoryEvent, today: date) -> bool:
+    """
+    Indica si la fase termina hoy o despues (todavia no se cierra).
+
+    Args:
+        event: Evento real de la fase.
+        today: Dia local de hoy.
+
+    Returns:
+        True cuando el fin es hoy o una fecha futura.
+    """
+    finish = to_datetime(event.finish)
+
+    return finish is not None and finish.date() >= today
 
 
 def select_upcoming(
