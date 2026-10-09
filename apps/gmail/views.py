@@ -114,6 +114,8 @@ def _popup_page(ok: bool, message: str, origin: str) -> HttpResponse:
         f"<p>{html.escape(message)}</p><p>Puedes cerrar esta ventana.</p>"
         "<script>try{window.opener&&window.opener.postMessage("
         f"{safe_event},{target});}}catch(e){{}}"
+        "try{var c=new BroadcastChannel('gmail-oauth');"
+        f"c.postMessage({safe_event});c.close();}}catch(e){{}}"
         "setTimeout(function(){window.close();},400);</script>"
     )
 

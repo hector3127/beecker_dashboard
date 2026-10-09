@@ -5496,7 +5496,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       .ixe-conn{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f6f3ff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;color:#3a3d6b}.ixe-conn span{display:flex;align-items:center;gap:8px;min-width:0}.ixe-conn.ok{background:#eefaf3;border-color:#cdeedb}.ixe-conn.ok .ixe-svg{color:#1ca66d}
       .ixe-tsearch{display:flex;gap:8px;align-items:center;margin:10px 0}.ixe-tsearch .ixe-input{flex:1;margin-top:0;height:36px}
       .ixe-threads{display:grid;gap:8px;max-height:300px;overflow:auto;padding-right:2px}
-      .ixe-thread{display:flex;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;background:#fff;align-items:flex-start}.ixe-thread:hover{background:#faf8ff}.ixe-thread.sel{border-color:#7a3df0;background:#f6f1ff;box-shadow:0 0 0 2px rgba(122,61,240,.12)}
+      .ixe-thread[hidden]{display:none}.ixe-thread{display:flex;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;background:#fff;align-items:flex-start}.ixe-thread:hover{background:#faf8ff}.ixe-thread.sel{border-color:#7a3df0;background:#f6f1ff;box-shadow:0 0 0 2px rgba(122,61,240,.12)}
       .ixe-thread input{margin-top:3px;accent-color:#5a2ee0}.ixe-thread .body{display:grid;gap:3px;min-width:0;flex:1}.ixe-thread .top{display:flex;align-items:center;gap:8px;min-width:0}.ixe-thread .top b{font-size:12.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
       .ixe-thread small{color:var(--muted);font-size:11.5px}.ixe-thread .tag{font-style:normal;font-size:10px;font-weight:800;border-radius:20px;padding:2px 8px;flex-shrink:0}.ixe-thread .tag.sug{background:#e6f8ee;color:#16844f}.ixe-thread .tag.mem{background:#ece6ff;color:#5a2ee0}
       .ixe-thread .rcp{display:block;margin-top:6px;border-top:1px dashed #d5caf7;padding-top:6px;font-size:11.5px;color:#3a3d6b;line-height:1.5;overflow-wrap:anywhere}
@@ -5523,10 +5523,20 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     if(g.error)html+='<div class="ixe-err">'+_ixsTxt(g.error)+'</div>';
     if(g.loading)html+='<div class="ixe-empty">Buscando hilos "Inicio de ..." en tu Gmail…</div>';
     else if(!g.threads.length)html+='<div class="ixe-empty">No se encontraron hilos. Prueba con otro nombre.</div>';
-    else html+='<div class="ixe-threads">'+g.threads.map(t=>{const sel=g.selected===t.id;return '<label class="ixe-thread'+(sel?' sel':'')+'"><input type="radio" name="ixe-thread" value="'+_ixsTxt(t.id)+'" '+(sel?'checked':'')+' onchange="ixeGmailElegir(this.value)"><span class="body"><span class="top"><b>'+_ixsTxt(t.subject)+'</b>'+(t.remembered?'<i class="tag mem">Usado antes</i>':t.suggested?'<i class="tag sug">Sugerido</i>':'')+'</span><small>'+_ixsTxt(_ixeFmtDate(t.lastDate))+' · '+_ixsTxt(_ixeShortAddr(t.lastFrom))+' · '+t.participants+' personas · '+t.messageCount+' mensajes</small>'+(sel?'<span class="rcp"><b>Para:</b> '+_ixsTxt((t.replyTo||[]).map(_ixeShortAddr).join(', ')||'—')+'<br><b>Cc:</b> '+_ixsTxt((t.replyCc||[]).map(_ixeShortAddr).join(', ')||'—')+'</span>':'')+'</span></label>';}).join('')+'</div>';
+    else html+='<div class="ixe-threads">'+g.threads.map(t=>{const sel=g.selected===t.id;return '<label class="ixe-thread'+(sel?' sel':'')+'" data-s="'+_ixsTxt(_ixeNorm(t.subject+' '+t.lastFrom))+'"><input type="radio" name="ixe-thread" value="'+_ixsTxt(t.id)+'" '+(sel?'checked':'')+' onchange="ixeGmailElegir(this.value)"><span class="body"><span class="top"><b>'+_ixsTxt(t.subject)+'</b>'+(t.remembered?'<i class="tag mem">Usado antes</i>':t.suggested?'<i class="tag sug">Sugerido</i>':'')+'</span><small>'+_ixsTxt(_ixeFmtDate(t.lastDate))+' · '+_ixsTxt(_ixeShortAddr(t.lastFrom))+' · '+t.participants+' personas · '+t.messageCount+' mensajes</small>'+(sel?'<span class="rcp"><b>Para:</b> '+_ixsTxt((t.replyTo||[]).map(_ixeShortAddr).join(', ')||'—')+'<br><b>Cc:</b> '+_ixsTxt((t.replyCc||[]).map(_ixeShortAddr).join(', ')||'—')+'</span>':'')+'</span></label>';}).join('')+'</div>';
     if(g.result)html+='<div class="ixe-okbox">'+ixeIcon('check')+'<span>'+(g.result.mode==='send'?'Correo enviado en el hilo.':'Borrador creado en tu Gmail.')+' <a href="'+_ixsTxt(g.result.link)+'" target="_blank" rel="noopener noreferrer">'+(g.result.mode==='send'?'Abrir hilo':'Abrir borrador')+'</a></span></div>';
-    box.innerHTML=html;const q=document.getElementById('ixe-tq');if(q)q.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();ixeGmailBuscar();}};
+    box.innerHTML=html;const q=document.getElementById('ixe-tq');if(q){q.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();ixeGmailBuscar();}};q.oninput=ixeGmailFiltrar;ixeGmailFiltrar();}
     const btn=document.getElementById('ixe-send');if(btn)btn.title=g.mode==='send'?'Envía la respuesta en el hilo elegido':'Crea el borrador en el hilo elegido (no envía)';
+  }
+  function _ixeNorm(t){return String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+  /* Filtra al escribir: oculta los hilos que no contienen todas las palabras escritas. */
+  function ixeGmailFiltrar(){
+    const q=document.getElementById('ixe-tq'),list=document.querySelector('#ixe-gmail .ixe-threads');if(!q||!list)return;
+    const words=_ixeNorm(q.value).split(/\s+/).filter(Boolean);let shown=0;
+    list.querySelectorAll('.ixe-thread').forEach(el=>{const hay=el.getAttribute('data-s')||'',ok=words.every(w=>hay.indexOf(w)>=0);el.hidden=!ok;if(ok)shown++;});
+    let none=document.getElementById('ixe-nomatch');
+    if(!shown){if(!none){none=document.createElement('div');none.id='ixe-nomatch';none.className='ixe-empty';none.textContent='Ningún hilo coincide. Pulsa Buscar para buscar en todo tu Gmail.';list.appendChild(none);}}
+    else if(none)none.remove();
   }
   function ixeGmailEstado(){
     _ixeJson('/gmail/status/').then(r=>{const g=ixeState.gmail;if(!document.getElementById('ixe-gmail'))return;if(r&&r.ok){const was=g.connected;Object.assign(g,r.result);g.error='';if(g.connected&&!was){ixeGmailBuscar();}else _ixeGmailPintar();}else{g.error=(r&&r.error)||'No se pudo consultar el estado de Gmail.';_ixeGmailPintar();}}).catch(()=>{ixeState.gmail.error='No se pudo contactar al servidor.';_ixeGmailPintar();});
@@ -5534,7 +5544,9 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   function ixeGmailConectar(){
     const g=ixeState.gmail;g.error='';const w=window.open('/gmail/oauth/start/','gmail-oauth','width=520,height=680');
     if(!w){g.error='El navegador bloqueó la ventana. Permite ventanas emergentes para este sitio.';_ixeGmailPintar();return;}
-    clearInterval(g.poll);let tries=0;g.poll=setInterval(()=>{tries++;if(w.closed||tries>240){clearInterval(g.poll);ixeGmailEstado();}},1000);
+    /* w.closed no es confiable con la ventana de Google (COOP): se consulta el estado hasta que conecte. */
+    clearInterval(g.poll);let tries=0;g.poll=setInterval(()=>{tries++;if(tries>180||!document.getElementById('ixe-gmail')){clearInterval(g.poll);return;}
+      _ixeJson('/gmail/status/').then(r=>{if(r&&r.ok&&r.result.connected){clearInterval(g.poll);ixeGmailEstado();}}).catch(()=>{});},1500);
   }
   function ixeGmailDesconectar(){_ixeJson('/gmail/disconnect/',{method:'POST'}).then(()=>{const g=ixeState.gmail;g.connected=false;g.email='';g.threads=[];g.selected='';g.result=null;_ixeGmailPintar();_ixePintar();});}
   function ixeGmailBuscar(){
@@ -5597,7 +5609,10 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){ixeMsg('No se pudo copiar.');}ta.remove();
   }
   function ixeMsg(t){const e=document.getElementById('ixe-toast');if(!e)return;e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),3200);}
-  window.addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.type==='gmail-oauth'){clearInterval(ixeState.gmail.poll);if(!e.data.ok)ixeState.gmail.error=e.data.message||'No se pudo conectar.';ixeGmailEstado();}});
+  function _ixeOauthListo(d){if(!d||d.type!=='gmail-oauth')return;clearInterval(ixeState.gmail.poll);if(!d.ok)ixeState.gmail.error=d.message||'No se pudo conectar.';ixeGmailEstado();}
+  window.addEventListener('message',e=>{if(e.origin===location.origin)_ixeOauthListo(e.data);});
+  try{new BroadcastChannel('gmail-oauth').onmessage=e=>_ixeOauthListo(e.data);}catch(err){}
+  window.addEventListener('focus',()=>{const g=ixeState.gmail;if(g&&!g.connected&&document.getElementById('ixe-gmail'))ixeGmailEstado();});
   function ixsAbrirExtension(){
     _ixeStyles();ixsCerrarExtension();ixeState.files=[];
     const pid=(typeof ixsPlanState!=='undefined'&&ixsPlanState.proyectoId)||'';
