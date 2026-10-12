@@ -101,39 +101,39 @@ def test_milestones_mark_phase_in_progress():
     assert milestones.delivery_manager == "Ana"
 
 
-def test_ixb_summary_matches_original():
+def test_ixb_summary_uses_history_per_nomenclature():
     summary = build_summary(FakeAzure())
     rows = rows_by_id(summary)
 
-    assert list(rows) == ["SAS.004", "RAS.001_CR1", "IXB.002_S2"]
+    assert list(rows) == ["SAS.004", "RAS.001_CR1", "IXB.002", "IXB.002_S2"]
 
     cr_row = rows["RAS.001_CR1"]
     assert cr_row["deliveryManager"] == "Laura"
     assert cr_row["budget"] == 40
     assert cr_row["burn"] == 15.5
     assert cr_row["avance"] == 38.8
-    assert cr_row["status"] == "Development / Deployment"
+    assert cr_row["status"] == "Development"
     assert cr_row["proyectoAzure"] == "RAS.001"
-    assert cr_row["fechaInicio"] == "2026-08-01T00:00:00.000Z"
-    assert cr_row["fechaFin"] == "2026-11-30T00:00:00.000Z"
-    assert cr_row["desviacionDias"] == 58
+    assert cr_row["fechaInicio"] == "2026-08-01T06:00:00.000Z"
+    assert cr_row["fechaFin"] is None
+    assert cr_row["desviacionDias"] is None
     assert cr_row["wi"]["general"] == {
-        "total": 7,
-        "cerrados": 3,
-        "pendientes": 4,
+        "total": 2,
+        "cerrados": 1,
+        "pendientes": 1,
     }
     assert cr_row["wi"]["development"] == {
         "total": 1,
         "cerrados": 0,
         "pendientes": 1,
     }
-    assert cr_row["wi"]["deployment"]["total"] == 1
+    assert cr_row["wi"]["deployment"]["total"] == 0
     assert cr_row["etapas"] == {
         "discovery": {"cerrada": True},
         "development": {"cerrada": False},
         "deployment": {"cerrada": False},
     }
-    assert cr_row["riesgos"] == ["Riesgo abierto"]
+    assert cr_row["riesgos"] == []
 
     s2_row = rows["IXB.002_S2"]
     assert s2_row["status"] == "Suspendido"
@@ -155,7 +155,7 @@ def test_ixb_pivots():
     assert summary["pivoteServicio"] == [
         {"deliveryManager": "Ana", "total": 1, "SAAS": 1},
         {"deliveryManager": "Laura", "total": 1, "RAAS": 1},
-        {"deliveryManager": "Mario", "total": 1, "IXB": 1},
+        {"deliveryManager": "Mario", "total": 2, "IXB": 2},
     ]
     assert summary["pivoteStatus"][0] == {
         "deliveryManager": "Ana",

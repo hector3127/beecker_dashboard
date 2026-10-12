@@ -274,6 +274,34 @@ def empty_work_item_counts() -> JsonObject:
     }
 
 
+def filter_work_items_by_sprints(
+    work_items: Sequence[JsonObject],
+    sprints: Sequence[str],
+) -> list[JsonObject]:
+    """
+    Deja solo los work items de la nomenclatura exacta y sus subiteraciones.
+
+    Args:
+        work_items: Work items del Team Project.
+        sprints: Nomenclaturas del ID, por ejemplo S4 o CR1.
+
+    Returns:
+        Los work items cuya iteracion corresponde a la nomenclatura.
+    """
+    return [
+        item
+        for item in work_items
+        if any(
+            path_matches_sprint(
+                to_text((item.get("fields") or {}).get("System.IterationPath")),
+                sprint,
+            )
+            for sprint in sprints
+            if to_text(sprint).strip()
+        )
+    ]
+
+
 def count_work_items(
     work_items: Sequence[JsonObject],
     sprints: Sequence[str],
@@ -290,7 +318,7 @@ def count_work_items(
     """
     counts = empty_work_item_counts()
 
-    for work_item in work_items:
+    for work_item in filter_work_items_by_sprints(work_items, sprints):
         fields = work_item.get("fields") or {}
         path = to_text(fields.get("System.IterationPath"))
         is_closed = (
@@ -302,13 +330,6 @@ def count_work_items(
         stage = stage_from_path(path)
 
         if not stage:
-            continue
-
-        # Si la ruta trae S#/CR, se respeta; si no, el work item cuenta
-        # como respaldo para la etapa.
-        if PATH_SPRINT_CODE.search(path) and not any(
-            path_matches_sprint(path, sprint) for sprint in sprints
-        ):
             continue
 
         add_to_count(counts[stage.lower()], is_closed)

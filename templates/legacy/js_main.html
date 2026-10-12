@@ -504,9 +504,10 @@
       else if (s.includes('suspend')) bg = '#E53935';
       return `<span style="display:inline-block;padding:3px 8px;border-radius:6px;color:#fff;font-weight:600;background:${bg};">${txt || '-'}</span>`;
     };
-    const celdaPct = (pct) => {
-      const n = Number(pct || 0);
-      const color = n >= 80 ? '#2E7D32' : n >= 50 ? '#558B2F' : n >= 1 ? '#C62828' : '#757575';
+    const celdaPct = (fila) => {
+      const n = Number(fila.avance || 0);
+      const color = fila.avanceSemaforo === 'atrasado' ? '#C62828'
+        : fila.avanceSemaforo === 'en_rango' ? '#2E7D32' : '#757575';
       return `<td style="background:${color};color:#fff;font-weight:700;text-align:center;">${n}%</td>`;
     };
     const wiCells = (obj, etapaInfo) => {
@@ -524,7 +525,7 @@
         <td>${f.deliveryManager || ''}</td><td>${f.idProyecto || ''}</td><td>${f.servicio || ''}</td><td>${f.nombre || ''}</td>
         <td>${badgeEstado(f.status)}</td><td>${fmtFecha(f.fechaInicio)}</td><td>${fmtFecha(f.fechaFin)}</td>
         <td>${f.desviacionDias != null ? f.desviacionDias : '-'}</td><td>${f.budget || 0}</td><td>${f.burn || 0}</td><td>${f.etc || 0}</td><td>${f.desviacionHoras || 0}</td>
-        ${celdaPct(f.avance)}
+        ${celdaPct(f)}
         ${wiCells((f.wi || {}).discovery, (f.etapas || {}).discovery)}
         ${wiCells((f.wi || {}).development, (f.etapas || {}).development)}
         ${wiCells((f.wi || {}).deployment, (f.etapas || {}).deployment)}

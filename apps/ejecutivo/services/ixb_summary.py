@@ -13,21 +13,16 @@ from apps.ejecutivo.services.azure_stages import (
     build_stage_range,
     count_work_items,
     empty_work_item_counts,
+    filter_work_items_by_sprints,
     infer_sprint,
     list_open_risk_titles,
 )
+from apps.ejecutivo.services.ixb_history import resolve_history_period
 from apps.ejecutivo.services.ixb_rules import (
     calculate_exact_burn,
     find_delivery_manager,
-    is_finished_in_history,
     read_project_id,
     read_project_manager,
-    resolve_ixb_status,
-    select_current_row,
-    select_history_rows,
-)
-from apps.ejecutivo.services.project_milestones import (
-    calculate_project_milestones,
 )
 from core.exceptions import DashboardError
 from core.time_entries.models import TimeEntry
@@ -42,9 +37,9 @@ from core.utils.text import (
 )
 
 """BKD.040.010 - Resumen IXB/RaaS
-Equivale a obtenerResumenIXBRaaS(): agrupa los proyectos IXB, RaaS, SaaS
-y POC por ID base, toma la nomenclatura vigente, calcula horas con
-Clockify y etapas con Azure, y arma los pivotes por Delivery Manager.
+Equivale a obtenerResumenIXBRaaS(): muestra cada nomenclatura activa de
+IXB, RaaS, SaaS y POC segun el historico, calcula horas con Clockify y
+work items con Azure, y arma los pivotes por Delivery Manager.
 """
 
 logger = logging.getLogger(__name__)
@@ -121,7 +116,15 @@ def build_ixb_summary(sources: IxbSources, now: datetime) -> JsonObject:
             include_iterations=True,
         )
 
-    for base_id, group_rows in groups.items():
+    nomenclatures: dict[str, list[SheetRow]] = {}
+    for group_rows in groups.values():
+        for row in group_rows:
+            nomenclatures.setdefault(
+                read_project_id(row).casefold(), []
+            ).append(row)
+
+    for group_rows in nomenclatures.values():
+        base_id = extract_base_id(read_project_id(group_rows[0]))
         summary_row = build_group_row(
             base_id,
             group_rows,
@@ -185,20 +188,20 @@ def build_group_row(
         now: Fecha y hora local actual.
 
     Returns:
-        La fila, o None si el proyecto ya termino.
+        La fila de la nomenclatura, o None si no esta activa en el historico.
     """
-    representative = select_current_row(group_rows, base_id)
+    representative = group_rows[0]
     reference_id = read_project_id(representative) or base_id
     reference_rows = [
-        row for row in group_rows if read_project_id(row) == reference_id
+        row
+        for row in group_rows
+        if read_project_id(row).casefold() == reference_id.casefold()
     ]
 
-    if is_finished_in_history(
-        sources.history_rows,
-        reference_id,
-        base_id,
-        now.date(),
-    ):
+    period = resolve_history_period(
+        sources.history_rows, reference_id, now.date()
+    )
+    if not period.active:
         return None
 
     budget = sum(to_number(row.get("Budget_Hrs")) for row in reference_rows)
@@ -209,14 +212,12 @@ def build_group_row(
         ),
     ) or ["S1"]
     azure_project = resolve_azure_project(base_id, azure_projects)
-    stage_range = load_stage_range(sources.azure, azure_project, sprints, now)
-    work_items = load_work_items(sources.azure, azure_project)
-    milestones = calculate_project_milestones(
-        sources.history_rows,
-        reference_id or base_id,
-        now,
+    work_items = filter_work_items_by_sprints(
+        load_work_items(sources.azure, azure_project),
+        sprints,
     )
-
+    advance = round_half_up_int(burn / budget * 1000) / 10 if budget else 0
+    progress_color = hours_consumption_color(burn, budget)
     return {
         "deliveryManager": (
             find_delivery_manager(sources.history_rows, reference_rows, base_id)
@@ -230,29 +231,17 @@ def build_group_row(
             get_flexible_value(representative, ["Cliente", "Account"]),
         ),
         "nombre": to_text(representative.get("Nombre")) or base_id,
-        "status": resolve_ixb_status(
-            stage_range.current_stage,
-            stage_range.finish,
-            select_history_rows(
-                sources.history_rows,
-                reference_id,
-                base_id,
-                allow_base=True,
-            ),
-            milestones,
-            now,
-        ),
-        "proyectoAzure": stage_range.azure_project,
-        "fechaInicio": to_iso_or_none(stage_range.start),
-        "fechaFin": to_iso_or_none(stage_range.finish),
-        "desviacionDias": days_until(stage_range.finish, now),
+        "status": period.status,
+        "proyectoAzure": azure_project,
+        "fechaInicio": to_iso_or_none(period.start),
+        "fechaFin": to_iso_or_none(period.finish),
+        "desviacionDias": days_until(period.finish, now),
         "budget": round_half_up(budget, 2),
         "burn": round_half_up(burn, 2),
         "etc": round_half_up(budget - burn, 2),
         "desviacionHoras": round_half_up(budget - burn, 2),
-        "avance": (
-            round_half_up_int(burn / budget * 1000) / 10 if budget else 0
-        ),
+        "avance": advance,
+        "avanceSemaforo": progress_color,
         "wi": (
             count_work_items(work_items, sprints)
             if work_items
@@ -260,7 +249,7 @@ def build_group_row(
         ),
         "etapas": {
             stage: {"cerrada": is_closed}
-            for stage, is_closed in stage_range.closed_stages.items()
+            for stage, is_closed in (period.closed_stages or {}).items()
         },
         "riesgos": list_open_risk_titles(work_items),
     }
@@ -499,3 +488,10 @@ def locale_key(text: str) -> tuple[str, str]:
         La llave de orden.
     """
     return strip_accents(text or "").lower(), text or ""
+
+
+def hours_consumption_color(consumed: float, budget: float) -> str:
+    """Verde dentro del presupuesto de horas; rojo al excederlo."""
+    if budget <= 0:
+        return "sin_presupuesto"
+    return "atrasado" if consumed > budget else "en_rango"
