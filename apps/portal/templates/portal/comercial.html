@@ -1,0 +1,102 @@
+{% extends 'portal/base.html' %}
+{% block title %}Comercial{% endblock %}
+{% block css %}body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#F7F5FF;color:#1B1A4A}
+a{color:#4B25C9;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:12px 36px;background:#fff;border-bottom:1px solid #ECE8FA}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:25px;letter-spacing:-.02em}
+.nav{display:flex;gap:6px}
+.nav a{padding:8px 18px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
+.nav a.on{background:#EDE7FF;color:#4B25C9}
+.fresh{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:#4A4872}
+.dot{width:8px;height:8px;border-radius:50%;background:#1B9A55}
+.page{max-width:1368px;margin:0 auto;padding:22px 36px 40px}
+.crumb{font-size:13.5px;color:#55537F;margin-bottom:8px}
+h1{margin:0;font-size:34px;font-weight:800;letter-spacing:-.025em}
+.sub{margin:4px 0 20px;color:#55537F;font-size:16px}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.kc{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:18px 24px}
+.kl{font-size:14px;font-weight:700;color:#3A3870}
+.kv{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1.2;font-variant-numeric:tabular-nums}
+.pill{display:inline-flex;align-items:center;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:800}
+.p-g{background:#E1F5E9;color:#13693B}
+.p-a{background:#FFF0D3;color:#7A4D00}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:22px 26px}
+.card h2{margin:0 0 2px;font-size:20px}
+.hs{font-size:14px;color:#55537F;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:11px 12px;text-align:left;border-top:1px solid #F0EDF8}
+th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#4A4872;border-top:0}
+td.r,th.r{text-align:right}
+.num{font-variant-numeric:tabular-nums}
+.bar{position:relative;height:8px;background:#EEEAFB;border-radius:4px;min-width:90px}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.age{display:grid;grid-template-columns:110px 1fr 60px;gap:12px;align-items:center;padding:8px 0;font-size:14px}
+.age b{text-align:right;font-variant-numeric:tabular-nums}
+.tr2{position:relative;height:12px;background:#EEEAFB;border-radius:6px}
+.tr2 i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.note{margin-top:14px;font-size:12.5px;color:#55537F}
+
+.bk{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;font-weight:700;font-size:14px;background:#fff;border:1px solid #ECE8FA;border-radius:10px;padding:7px 14px}
+.ban{display:flex;align-items:center;gap:22px;border-radius:20px;padding:22px 32px;background:linear-gradient(100deg,#4B25C9 0%,#7A3FE0 55%,#B03FD0 100%);color:#fff;margin-bottom:14px}
+.ban h1{color:#fff;font-size:38px}
+.ban .q{margin-left:auto;border:1px solid rgba(255,255,255,.5);border-radius:14px;padding:12px 26px;font-size:16px;line-height:1.55;background:rgba(255,255,255,.1)}
+.fl3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.fi{display:flex;align-items:center;justify-content:space-between;border:1px solid #E1DCF3;border-radius:12px;padding:13px 18px;font-size:15px;font-weight:700;color:#1B1A4A;background:#fff}
+.k4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.kx{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:18px 22px;display:flex;gap:16px;align-items:center;position:relative}
+.ki{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;color:#fff}
+.kx .l{font-size:16px;font-weight:700;color:#1B1A9E}
+.kx .l small{font-size:12px;font-weight:600;color:#8A81B8;margin-left:4px}
+.kx .v{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.15;color:#14125E}
+.kx .d{font-size:14px;font-weight:700;color:#17924B}
+.kx .d span{font-weight:500;color:#55537F;font-size:12.5px;margin-left:4px}
+.kx .sp{position:absolute;right:16px;bottom:14px}
+.g3{display:grid;grid-template-columns:1.55fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.card h2{display:flex;align-items:center;gap:10px}
+.etp{display:grid;grid-template-columns:110px 1fr 70px 90px;gap:14px;align-items:center;padding:9px 0;font-size:15px}
+.etp.h{font-size:12.5px;color:#55537F;padding:0 0 4px}
+.etp .tr{height:30px;border-radius:8px;position:relative;background:#F4F1FD}
+.etp .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:8px}
+.etp .tr b{position:absolute;top:50%;transform:translateY(-50%);font-size:14px}
+.etp .n{text-align:center;font-variant-numeric:tabular-nums}
+.etp .m{text-align:right;font-weight:800;font-size:16px;color:#14125E;font-variant-numeric:tabular-nums}
+table.t2 th{font-size:12px;text-transform:none;letter-spacing:0;color:#55537F;font-weight:600;padding:8px 8px}
+table.t2 td{padding:9px 8px;font-size:14px}
+.more{display:flex;align-items:center;justify-content:center;gap:8px;background:#F1ECFD;border-radius:10px;padding:10px;font-weight:700;font-size:14px;margin-top:10px}
+.lg{display:grid;grid-template-columns:auto auto;gap:9px 18px;font-size:14px;align-items:center}
+.lg i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px}
+.lg b{text-align:right}
+.pg2{display:flex;align-items:center;gap:6px;justify-content:space-between;margin-top:14px;font-size:13.5px;color:#55537F}
+.pg2 span.p{display:inline-flex;gap:6px}
+.pg2 span.p i{font-style:normal;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#4A4872}
+.pg2 span.p i.on{background:#E4DAFF;color:#4B25C9}
+.st{display:inline-block;border-radius:999px;padding:2px 12px;font-size:12.5px;font-weight:700}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:0;align-items:center;background:#EDE8FD;border-radius:18px;padding:18px 26px;margin-bottom:6px}
+.foot>div{padding:0 22px;display:flex;gap:16px;align-items:center}
+.foot>div+div{border-left:1px solid #D4CBF2}
+.foot b{display:block;font-size:16px;color:#1B1A9E}
+.foot span.t{font-size:13.5px;color:#4A4872;line-height:1.4;display:block}
+.fi2{width:54px;height:54px;border-radius:50%;background:#E0D8FB;color:#5B2FD6;display:flex;align-items:center;justify-content:center;flex:none}{% endblock %}
+{% block content %}
+<main class="page">
+<div class="crumb"><a href="{% url 'portal:ejecutiva' %}">Lista general del proyecto</a> › Comercial</div>
+<a class="bk" href="{% url 'portal:ejecutiva' %}">← Volver a Ejecutiva</a>
+<section class="ban"><span style="display:flex"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18M11 13v2h2v-2"/></svg></span><div><h1>Comercial</h1><div style="font-size:22px;font-weight:500;opacity:.95">Crecimiento y rentabilidad</div></div><div class="q">¿Qué vende?<br>¿Cómo lo vende?<br>¿Qué compromete?</div></section>
+<section class="fl3"><div class="fi">Todos los clientes <span>⌄</span></div><div class="fi">Todas las etapas <span>⌄</span></div><div class="fi">01-ene-2026 &nbsp;→&nbsp; 31-dic-2026 <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span></div></section>
+<section class="k4"><div class="kx"><div class="ki" style="background:linear-gradient(135deg,#7A3FE0,#A855F7)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div><div class="l">Ventas cerradas<small>Booking</small></div><div class="v">US$15.2M</div><div class="d">▲ +12%</div><div style="font-size:12.5px;color:#55537F">vs período anterior</div></div><div class="sp"><svg width="84" height="36" viewBox="0 0 84 36"><path d="M2.0,32.0 L15.3,27.9 L28.7,30.4 L42.0,20.6 L55.3,23.9 L68.7,12.5 L82.0,6.0 L82,36 L2,36 Z" fill="#8B3FE0" opacity=".13"/><path d="M2.0,32.0 L15.3,27.9 L28.7,30.4 L42.0,20.6 L55.3,23.9 L68.7,12.5 L82.0,6.0" fill="none" stroke="#8B3FE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><div class="kx"><div class="ki" style="background:linear-gradient(135deg,#2D6BE8,#4B8BF5)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8v6l-4 2v-8L3 4z"/></svg></div><div><div class="l">Oportunidades abiertas<small>Pipeline</small></div><div class="v">US$8.7M</div><div class="d">▲ +6%</div><div style="font-size:12.5px;color:#55537F">vs período anterior</div></div><div class="sp"><svg width="84" height="36" viewBox="0 0 84 36"><path d="M2.0,32.0 L15.3,23.9 L28.7,27.1 L42.0,19.0 L55.3,22.2 L68.7,12.5 L82.0,6.0 L82,36 L2,36 Z" fill="#2D6BE8" opacity=".13"/><path d="M2.0,32.0 L15.3,23.9 L28.7,27.1 L42.0,19.0 L55.3,22.2 L68.7,12.5 L82.0,6.0" fill="none" stroke="#2D6BE8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><div class="kx"><div class="ki" style="background:linear-gradient(135deg,#2D6BE8,#4B8BF5)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c3 0 5 2 5 5"/></svg></div><div><div class="l">Clientes activos<small></small></div><div class="v">23</div><div class="d">▲ +3</div><div style="font-size:12.5px;color:#55537F">vs mes anterior</div></div><div class="sp"><svg width="84" height="36" viewBox="0 0 84 36"><path d="M2.0,32.0 L15.3,28.5 L28.7,25.1 L42.0,26.8 L55.3,18.1 L68.7,12.9 L82.0,6.0 L82,36 L2,36 Z" fill="#2D6BE8" opacity=".13"/><path d="M2.0,32.0 L15.3,28.5 L28.7,25.1 L42.0,26.8 L55.3,18.1 L68.7,12.9 L82.0,6.0" fill="none" stroke="#2D6BE8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><div class="kx"><div class="ki" style="background:linear-gradient(135deg,#7A3FE0,#A855F7)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></div><div><div class="l">Oportunidades<small></small></div><div class="v">42</div><div class="d">▲ +6</div><div style="font-size:12.5px;color:#55537F">vs mes anterior</div></div><div class="sp"><svg width="84" height="36" viewBox="0 0 84 36"><path d="M2.0,32.0 L15.3,27.4 L28.7,21.3 L42.0,24.4 L55.3,16.7 L68.7,12.1 L82.0,6.0 L82,36 L2,36 Z" fill="#D63FA0" opacity=".13"/><path d="M2.0,32.0 L15.3,27.4 L28.7,21.3 L42.0,24.4 L55.3,16.7 L68.7,12.1 L82.0,6.0" fill="none" stroke="#D63FA0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></section>
+<section class="g3">
+<div class="card"><h2><span style="color:#F26A21;display:flex"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><path d="M14.5 10l3-2.5M9.8 14l-3 2.6M12 9V4"/></svg></span>Oportunidades por etapa <span style="font-size:13px;font-weight:600;color:#8A81B8">Pipeline · HubSpot</span></h2><div class="hs">Qué porcentaje del total, cuántas oportunidades y qué monto hay en cada etapa</div><div class="etp h"><span>Etapa</span><span style="text-align:right;padding-right:6px">% del total</span><span class="n"># oportunidades</span><span style="text-align:right">Monto</span></div><div class="etp"><span>Discovery</span><div class="tr"><i style="width:80%;background:linear-gradient(90deg,#7A4DF0,#B58BF8)"></i><b style="left:calc(80% + 10px);color:#6B50F5">32%</b></div><span class="n">18</span><span class="m">US$3.1M</span></div><div class="etp"><span>Development</span><div class="tr"><i style="width:57%;background:linear-gradient(90deg,#8B5CF6,#C39BF8)"></i><b style="left:calc(57% + 10px);color:#7A3FE0">23%</b></div><span class="n">16</span><span class="m">US$2.6M</span></div><div class="etp"><span>Deployment</span><div class="tr"><i style="width:55%;background:linear-gradient(90deg,#A855F7,#D7A8F8)"></i><b style="left:calc(55% + 10px);color:#9A3FE0">22%</b></div><span class="n">12</span><span class="m">US$1.8M</span></div><div class="etp"><span>Propuesta</span><div class="tr"><i style="width:30%;background:linear-gradient(90deg,#F25C9A,#F9A8C9)"></i><b style="left:calc(30% + 10px);color:#E0245E">12%</b></div><span class="n">7</span><span class="m">US$1.0M</span></div><div class="etp"><span>Cierre</span><div class="tr"><i style="width:15%;background:linear-gradient(90deg,#F25C9A,#F9A8C9)"></i><b style="left:calc(15% + 10px);color:#E0245E">6%</b></div><span class="n">4</span><span class="m">US$0.2M</span></div></div>
+<div class="card"><h2><span style="color:#5B2FD6;display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l8-2v18M12 9h8v12M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2"/></svg></span>Cuentas con más pipeline</h2><div class="hs">Las 5 cuentas con más oportunidades abiertas</div>
+<table class="t2"><thead><tr><th>Cuenta</th><th style="text-align:center"># oportunidades</th><th style="text-align:right">Monto</th></tr></thead><tbody><tr><td>AcceloMetal</td><td style="text-align:center">4</td><td style="text-align:right;font-weight:700">US$2.1M</td></tr><tr><td>Grupo Alfa</td><td style="text-align:center">4</td><td style="text-align:right;font-weight:700">US$1.4M</td></tr><tr><td>Helixion</td><td style="text-align:center">3</td><td style="text-align:right;font-weight:700">US$1.0M</td></tr><tr><td>PetríCo</td><td style="text-align:center">3</td><td style="text-align:right;font-weight:700">US$1.0M</td></tr><tr><td>Marineron</td><td style="text-align:center">2</td><td style="text-align:right;font-weight:700">US$0.9M</td></tr></tbody></table><a class="more" href="#" data-pronto="1">Ver todas las cuentas →</a></div>
+<div class="card"><h2><span style="color:#5B2FD6;display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9h9"/></svg></span>Oportunidades por servicio</h2><div class="hs">Cómo se reparten las 42 oportunidades</div><div style="display:flex;align-items:center;gap:16px;justify-content:space-between"><div><svg width="190" height="190" viewBox="0 0 190 190"><g fill="none" stroke-width="30" transform="rotate(-90 95.0 95.0)"><circle cx="95.0" cy="95.0" r="70" stroke="#F25CC0" stroke-dasharray="140.7 299.1" stroke-dashoffset="0.0"/><circle cx="95.0" cy="95.0" r="70" stroke="#6B50F5" stroke-dasharray="105.6 334.3" stroke-dashoffset="-140.7"/><circle cx="95.0" cy="95.0" r="70" stroke="#A855F7" stroke-dasharray="79.2 360.7" stroke-dashoffset="-246.3"/><circle cx="95.0" cy="95.0" r="70" stroke="#F5B82E" stroke-dasharray="61.6 378.2" stroke-dashoffset="-325.5"/><circle cx="95.0" cy="95.0" r="70" stroke="#C9C6E8" stroke-dasharray="35.2 404.6" stroke-dashoffset="-387.0"/><circle cx="95.0" cy="95.0" r="70" stroke="#DDDAF0" stroke-dasharray="17.6 422.2" stroke-dashoffset="-422.2"/></g><text x="95.0" y="99.0" text-anchor="middle" font-size="34" font-weight="800" fill="#14125E">42</text><text x="95.0" y="119.0" text-anchor="middle" font-size="12" fill="#55537F">Oportunidades</text></svg></div><div class="lg"><span><i style="background:#F25CC0"></i>K8</span><b>32%</b><span><i style="background:#6B50F5"></i>RaaS</span><b>24%</b><span><i style="background:#A855F7"></i>SaaS</span><b>18%</b><span><i style="background:#F5B82E"></i>AER</span><b>14%</b><span><i style="background:#C9C6E8"></i>T&amp;M</span><b>8%</b><span><i style="background:#DDDAF0"></i>Otros</span><b>4%</b></div></div></div>
+</section>
+<section class="card" style="margin-bottom:14px"><h2><span style="color:#5B2FD6;display:flex"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span>Detalle de oportunidades <span style="font-size:13px;font-weight:600;color:#8A81B8">HubSpot</span></h2><div class="hs">Cada oportunidad con su cuenta, Delivery Manager, etapa, fecha de cierre y horas</div>
+<table class="t2"><thead><tr><th>Cuenta</th><th>Oportunidad</th><th>Delivery Manager</th><th>Etapa</th><th>Fecha de cierre</th><th>Servicio</th><th class="r">Horas totales</th></tr></thead><tbody><tr><td><b>AcceloMetal</b></td><td>AM-2026 Plataforma Analítica</td><td>Alberto C. Rodríguez</td><td><span class="st" style="background:#EDE7FF;color:#5B2FD6">Discovery</span></td><td>14/03/2026</td><td>SaaS</td><td class="r num">1,200</td></tr><tr><td><b>Helixion</b></td><td>HX-008-01 Transformación Digital</td><td>José P. Ochoa</td><td><span class="st" style="background:#F1E4FF;color:#8A2FC8">Development</span></td><td>15/06/2026</td><td>K8</td><td class="r num">800</td></tr><tr><td><b>Grupo Alfa</b></td><td>GA-2026-03 Modernización Core</td><td>Enrique Y. Badillo</td><td><span class="st" style="background:#FFF0D3;color:#7A4D00">Propuesta</span></td><td>30/09/2026</td><td>AER</td><td class="r num">600</td></tr><tr><td><b>PetríCo</b></td><td>PC-IA-01 Asistente Operativo</td><td>Beatriz L. Santos</td><td><span class="st" style="background:#FBE3F1;color:#B52A78">Deployment</span></td><td>12/08/2026</td><td>RaaS</td><td class="r num">400</td></tr><tr><td><b>Marineron</b></td><td>MN-2026 Crecimiento LATAM</td><td>Tomás R. Castillo</td><td><span class="st" style="background:#EDE7FF;color:#5B2FD6">Discovery</span></td><td>20/11/2026</td><td>T&amp;M</td><td class="r num">320</td></tr></tbody></table>
+<div class="pg2"><span>Mostrando 5 de 42 oportunidades</span><span class="p"><i>‹</i><i class="on">1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>›</i></span></div></section>
+<section class="foot"><div><span style="color:#F26A21;display:flex"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><path d="M14.5 10l3-2.5M9.8 14l-3 2.6M12 9V4"/></svg></span><div><b style="font-size:20px">Vista Comercial integrada con HubSpot</b><span class="t">Pipeline y oportunidades en tiempo real desde HubSpot.</span></div></div>
+<div><span class="fi2"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></span><div><b>1. Mayor foco en oportunidades</b><span class="t">Identifica qué cuentas y servicios impulsan el crecimiento del negocio.</span></div></div>
+<div><span class="fi2"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></span><div><b>2. Convierte pipeline en resultados</b><span class="t">Da seguimiento al avance por etapa, monto y fecha de cierre, todo desde HubSpot.</span></div></div></section>
+<p class="note">Cifras de ejemplo, basadas en la vista comercial propuesta. Esta pantalla se conectará a HubSpot en una entrega posterior.</p>
+</main>
+{% endblock %}

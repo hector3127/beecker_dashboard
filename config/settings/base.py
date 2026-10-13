@@ -109,6 +109,7 @@ INSTALLED_APPS = [
     "apps.aer.apps.AerConfig",
     "apps.recursos.apps.RecursosConfig",
     "apps.gmail.apps.GmailConfig",
+    "apps.portal.apps.PortalConfig",
 ]
 
 MIDDLEWARE = [

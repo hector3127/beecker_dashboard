@@ -1,10 +1,12 @@
 """Pruebas de integracion con Django (requieren pytest-django)."""
 
 import copy
+from datetime import UTC, datetime
 
 import pytest
 
 from apps.dashboard.cache import clear_cached_dashboard
+from apps.portal.services.portfolio_loader import PortfolioLoad
 from tests.dashboard.sample_data import SHEETS
 from tests.fakes import InMemorySheetRepository
 
@@ -47,11 +49,27 @@ def repository(monkeypatch):
 
 
 def test_portal_serves_legacy_panel_with_shim(client):
-    response = client.get("/")
+    response = client.get("/legacy/")
 
     assert response.status_code == 200
     assert b"gas_shim.js" in response.content
     assert b"tpl-dashboard" in response.content
+
+
+def test_root_serves_the_new_executive_view(client, monkeypatch):
+    monkeypatch.setattr(
+        "apps.portal.views.load_portfolio",
+        lambda: PortfolioLoad(
+            projects=(),
+            error="",
+            loaded_at=datetime(2026, 10, 12, 10, 24, tzinfo=UTC),
+        ),
+    )
+    response = client.get("/")
+
+    assert response.status_code == 200
+    assert b"Visi\xc3\xb3n estrat\xc3\xa9gica" in response.content
+    assert b"gas_shim.js" not in response.content
 
 
 def test_function_not_migrated_returns_controlled_error(client):

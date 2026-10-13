@@ -117,6 +117,32 @@ Cada archivo de `services/` tiene una sola responsabilidad (manual 4.1):
 - `response_builder.py`: arma el JSON con las llaves originales.
 - `orchestrator.py`: coordina todo (equivale a `getDashboardData`).
 
+### Portal nuevo: Ejecutiva, Operativa y Comercial (`apps/portal`)
+
+Las pantallas del diseño aprobado por Gera sustituyen la portada anterior.
+El panel anterior (con Capacidad instalada, GSE, Daily, Minutas y
+Recursos) **no se eliminó**: sigue completo en `/legacy/` y se abre desde
+el enlace «Panel anterior» del menú.
+
+| Ruta | Pantalla | Datos |
+| --- | --- | --- |
+| `/` | Ejecutiva | Reales: «Requieren decisión», avance en horas y horas por terminar. Ejemplo: Financiera, Comercial, Presupuesto usado, Rentabilidad y Top cuentas |
+| `/operativa/` | Operativa | Reales: en ejecución, suspendidos, en tiempo, salud del portafolio y tarjetas por Delivery Manager (filtros `?servicio=` y `?cuenta=`). Ejemplo: Inversión, EVA, Operations y Capacidad instalada |
+| `/comercial/` | Comercial | Ejemplo (pendiente de HubSpot) |
+| `/legacy/` | Panel anterior | Sin cambios |
+
+- Todo es **solo lectura**: `services/portfolio_source.py` reutiliza los
+  cálculos del dashboard pero no guarda el snapshot de KPIs ni escribe en
+  Sheets, Azure DevOps o Clockify.
+- Lo que aún no tiene fuente se muestra con la etiqueta «Ejemplo»; los
+  enlaces a pantallas que todavía no existen avisan «llega en la siguiente
+  entrega».
+- Servicio y Cuenta filtran solo en Operativa (decisión de la reunión).
+- `portfolio_loader.py` guarda el portafolio 5 minutos en cache y, si
+  Sheets falla, la pantalla se muestra con un aviso en vez de error 500.
+- Las plantillas parten del diseño aprobado (`templates/portal/`); cada
+  pantalla nueva se agrega con su vista, su ruta y su plantilla.
+
 ### Proyecto ejecutivo (`apps/ejecutivo`)
 
 - `project_detail.py`: filas por recurso, totales, roles, areas e
@@ -567,4 +593,6 @@ mypy .
   hitos y riesgos contra el original (`write_expected.json`).
 - `tests/ejecutivo/test_project_parity.py`: compara el detalle y el
   dashboard ejecutivo contra el original (`project_expected.json`).
+- `tests/portal`: fuente de solo lectura, resúmenes, decisiones, filtros,
+  periodo, carga con cache y las tres vistas.
 - `tests/test_api.py`: integración con Django (portal y endpoint RPC).
