@@ -125,6 +125,7 @@ class ProjectRow:
     etc_hours: int
     risk_label: str
     row_class: str
+    client_slug: str = ""
 
 
 @dataclass(frozen=True, slots=True)
@@ -155,6 +156,33 @@ class ManagerDetail:
 
 
 @dataclass(frozen=True, slots=True)
+class AccountRow:
+    """Renglon de la tabla de proyectos de una cuenta."""
+
+    project_id: str
+    name: str
+    delivery_manager: str
+    status_label: str
+    status_code: str
+    detail: str
+    progress_percent: int
+    row_class: str
+
+
+@dataclass(frozen=True, slots=True)
+class AccountDetail:
+    """Detalle completo de una cuenta (cliente)."""
+
+    name: str
+    total: int
+    in_progress: int
+    paused: int
+    health: HealthCount
+    rows: tuple[AccountRow, ...]
+    shares: tuple[ShareRow, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class SuspendedRow:
     """Un proyecto suspendido."""
 
@@ -164,6 +192,7 @@ class SuspendedRow:
     delivery_manager: str
     progress_percent: int
     etc_hours: int
+    client_slug: str = ""
 
 
 @dataclass(frozen=True, slots=True)

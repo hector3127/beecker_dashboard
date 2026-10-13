@@ -54,7 +54,7 @@ td.r,th.r{text-align:right}
 <table>
 <thead><tr><th>Proyecto</th><th>Delivery Manager</th><th class="r">Avance</th><th class="r">ETC</th><th>Motivo</th><th class="r">Días suspendido</th><th class="r">Revenue en pausa</th><th>Para retomarlo</th></tr></thead>
 <tbody>
-{% for r in suspended.rows %}<tr><td><b>{{ r.name }}</b><small>{{ r.client }}</small></td><td>{{ r.delivery_manager }}</td><td class="r num">{{ r.progress_percent }}%</td><td class="r num">{{ r.etc_hours|floatformat:"0g" }} h</td><td><span style="color:#8A81B8">—</span></td><td class="r"><span style="color:#8A81B8">—</span></td><td class="r"><span style="color:#8A81B8">—</span></td><td><span style="color:#8A81B8">—</span></td></tr>
+{% for r in suspended.rows %}<tr><td><b>{{ r.name }}</b><small>{% if r.client_slug %}<a href="{% url 'portal:cuenta' r.client_slug %}">{{ r.client }}</a>{% else %}{{ r.client }}{% endif %}</small></td><td>{{ r.delivery_manager }}</td><td class="r num">{{ r.progress_percent }}%</td><td class="r num">{{ r.etc_hours|floatformat:"0g" }} h</td><td><span style="color:#8A81B8">—</span></td><td class="r"><span style="color:#8A81B8">—</span></td><td class="r"><span style="color:#8A81B8">—</span></td><td><span style="color:#8A81B8">—</span></td></tr>
 {% empty %}<tr><td colspan="8" class="vacio">{% if error %}No se pudo leer el portafolio.{% else %}No hay proyectos suspendidos.{% endif %}</td></tr>{% endfor %}
 </tbody>
 </table>

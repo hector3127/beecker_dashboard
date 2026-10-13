@@ -63,7 +63,7 @@ td small{display:block;color:#55537F;font-size:12.5px}
 <table>
 <thead><tr><th>Proyecto</th><th>Cuenta</th><th>Estado</th><th>Avance</th><th>ETC</th><th>Riesgo abierto</th></tr></thead>
 <tbody>
-{% for r in detail.rows %}<tr{% if r.row_class %} class="{{ r.row_class }}"{% endif %}><td><b><a href="#" data-pronto="1">{{ r.name }}</a></b></td><td>{{ r.client }}</td><td><span class="st s-{{ r.status_code }}"><i></i>{{ r.status_label }}</span>{% if r.detail %}<small>{{ r.detail }}</small>{% endif %}</td><td><div class="pb"><div class="tr"><i style="width:{{ r.progress_percent }}%"></i></div><span class="num">{{ r.progress_percent }}%</span></div></td><td class="num">{{ r.etc_hours|floatformat:"0g" }} h</td><td class="num">{{ r.risk_label }}</td></tr>
+{% for r in detail.rows %}<tr{% if r.row_class %} class="{{ r.row_class }}"{% endif %}><td><b><a href="#" data-pronto="1">{{ r.name }}</a></b></td><td>{% if r.client_slug %}<a href="{% url 'portal:cuenta' r.client_slug %}">{{ r.client }}</a>{% else %}{{ r.client }}{% endif %}</td><td><span class="st s-{{ r.status_code }}"><i></i>{{ r.status_label }}</span>{% if r.detail %}<small>{{ r.detail }}</small>{% endif %}</td><td><div class="pb"><div class="tr"><i style="width:{{ r.progress_percent }}%"></i></div><span class="num">{{ r.progress_percent }}%</span></div></td><td class="num">{{ r.etc_hours|floatformat:"0g" }} h</td><td class="num">{{ r.risk_label }}</td></tr>
 {% empty %}<tr><td colspan="6" class="vacio">Este Delivery Manager no tiene proyectos en ejecución ni suspendidos.</td></tr>{% endfor %}
 </tbody>
 </table>

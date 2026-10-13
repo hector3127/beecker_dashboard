@@ -7,6 +7,7 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_GET
 
+from apps.portal.services.account import build_account_detail, find_account
 from apps.portal.services.decisions import build_decisions
 from apps.portal.services.eva_loader import load_eva1, load_eva2
 from apps.portal.services.filters import (
@@ -181,6 +182,44 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
     )
 
     return render(request, "portal/delivery_manager.html", context)
+
+
+@require_GET
+def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
+    """
+    Muestra una cuenta (cliente) con todos sus proyectos.
+
+    Args:
+        request: Peticion HTTP.
+        slug: Nombre de la cuenta escrito para la URL.
+
+    Returns:
+        La pagina de la cuenta.
+
+    Raises:
+        Http404: Cuando ningun proyecto es de esa cuenta.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    load = load_portfolio()
+    found = find_account(load.projects, slug)
+
+    if found is None:
+        if load.error:
+            return redirect("portal:operativa")
+
+        raise Http404("No existe esa cuenta.")
+
+    context = _base_context(load)
+    context.update(
+        {
+            "active": "operativa",
+            "account": build_account_detail(*found),
+        },
+    )
+
+    return render(request, "portal/cuenta.html", context)
 
 
 @require_GET

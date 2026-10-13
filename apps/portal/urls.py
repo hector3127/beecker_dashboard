@@ -22,6 +22,7 @@ urlpatterns = [
     ),
     path("operativa/eva-1/", views.eva1, name="eva1"),
     path("operativa/eva-2/", views.eva2, name="eva2"),
+    path("cuenta/<slug:slug>/", views.cuenta, name="cuenta"),
     path(
         "operativa/delivery-manager/<slug:slug>/",
         views.delivery_manager,

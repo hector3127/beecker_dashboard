@@ -155,6 +155,7 @@ def build_project_row(project: ProjectView) -> ProjectRow:
         etc_hours=round_half_up_int(project.etc_hours),
         risk_label=project.risk_level or NO_RISK_LABEL,
         row_class=ROW_CLASSES.get(status_code, ""),
+        client_slug=build_slug(project.client) if project.client else "",
     )
 
 
@@ -197,7 +198,7 @@ def build_manager_detail(
         high_risk=len(high_risk),
         high_risk_note=_describe_risks(high_risk),
         rows=tuple(build_project_row(item) for item in listed),
-        shares=_build_shares(health.on_time, health.at_risk, health.critical),
+        shares=build_shares(health.on_time, health.at_risk, health.critical),
     )
 
 
@@ -216,7 +217,7 @@ def _describe_risks(projects: Sequence[ProjectView]) -> str:
     return f"En {text}"
 
 
-def _build_shares(
+def build_shares(
     on_time: int, at_risk: int, critical: int
 ) -> tuple[ShareRow, ...]:
     """Reparto de proyectos en ejecucion por estado."""
@@ -277,6 +278,7 @@ def summarize_suspended(projects: Sequence[ProjectView]) -> SuspendedSummary:
                 delivery_manager=item.delivery_manager,
                 progress_percent=item.progress_percent,
                 etc_hours=round_half_up_int(item.etc_hours),
+                client_slug=build_slug(item.client) if item.client else "",
             )
             for item in paused
         ),

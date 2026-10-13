@@ -381,3 +381,48 @@ def test_operational_eva_cards_link_to_eva2(client, monkeypatch):
     html = client.get("/operativa/").content.decode()
 
     assert 'href="/operativa/eva-2/"' in html
+
+
+def test_account_page_lists_its_projects(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    response = client.get("/cuenta/clinica-sur/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["account"].name == "Clinica Sur"
+    assert "Portal Pacientes" in html
+    assert "12 días atrasado" in html
+    assert "Con proyectos críticos" in html
+    assert 'href="/operativa/"' in html
+
+
+def test_unknown_account_is_404_or_goes_back_when_data_fails(
+    client,
+    monkeypatch,
+):
+    stub_portfolio(monkeypatch, portfolio())
+
+    assert client.get("/cuenta/nadie/").status_code == 404
+
+    stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
+    response = client.get("/cuenta/acme/")
+
+    assert response.status_code == 302
+    assert response.url == "/operativa/"
+
+
+def test_manager_and_suspended_pages_link_to_the_account(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    manager = client.get("/operativa/delivery-manager/alberto/")
+    suspended = client.get("/operativa/suspendidos/")
+
+    assert 'href="/cuenta/clinica-sur/"' in manager.content.decode()
+    assert 'href="/cuenta/acme/"' in suspended.content.decode()
+
+
+def test_account_page_requires_login_when_configured(client, settings):
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    assert client.get("/cuenta/acme/").status_code == 302
