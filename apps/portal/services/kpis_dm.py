@@ -2,6 +2,7 @@
 
 from collections.abc import Sequence
 
+from apps.portal.constants import NO_DELIVERY_MANAGER
 from apps.portal.schemas import KpiManagerRow, KpiView, ProjectView
 from apps.portal.services.portfolio_summary import (
     count_health,
@@ -14,7 +15,8 @@ from apps.portal.services.time_cost import summarize_time_cost
 """BKD.120.022 - KPIs de Delivery Managers
 Por cada Delivery Manager: total de proyectos en ejecucion (TP), T
 (desviacion promedio en dias), C (avance promedio) y su salud. El mejor
-y el peor se eligen por el porcentaje de proyectos en tiempo. El
+y el peor se eligen por el porcentaje de proyectos en tiempo, sin contar
+los proyectos sin Delivery Manager. El
 historico por trimestre y por mes necesita guardar un corte cada mes.
 """
 
@@ -54,7 +56,7 @@ def build_kpi_view(projects: Sequence[ProjectView]) -> KpiView:
         time_cost=summarize_time_cost(in_progress),
     )
     ranked = sorted(
-        rows,
+        (row for row in rows if row.name != NO_DELIVERY_MANAGER),
         key=lambda row: (-row.on_time_percent, -row.total, row.name),
     )
 

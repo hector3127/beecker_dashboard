@@ -1,0 +1,348 @@
+{
+  "reference_count": 59,
+  "active_count": 74,
+  "common": 52,
+  "missing": [
+    {
+      "name": "Karina Marmol",
+      "role": "DEV"
+    }
+  ],
+  "excluded": [
+    {
+      "name": "Alfredo Miranda Alvarez",
+      "role": "DEV",
+      "source": {
+        "name": "Alfredo Miranda Alvarez",
+        "role": "DEV",
+        "band": "BAJA"
+      }
+    },
+    {
+      "name": "Carlos Jair Montiel Uribe",
+      "role": "ROC",
+      "source": {
+        "name": "Carlos Jair Montiel Uribe",
+        "role": "DEV",
+        "band": "BAJA"
+      }
+    },
+    {
+      "name": "Diego Vladimir Albavera Alvarez",
+      "role": "DEV",
+      "source": {
+        "name": "Diego Vladimir Albavera Alvarez",
+        "role": "DEV",
+        "band": "BAJA"
+      }
+    },
+    {
+      "name": "Everest Daniel Gutierrez Andrade",
+      "role": "DEV",
+      "source": {
+        "name": "Everest Daniel Gutierrez Andrade",
+        "role": "",
+        "band": "BAJA"
+      }
+    },
+    {
+      "name": "Giovanni Garcia Ferrari",
+      "role": "DEV",
+      "source": {
+        "name": "Giovanni Garcia Ferrari",
+        "role": "DEV",
+        "band": "BAJA"
+      }
+    },
+    {
+      "name": "Javier Adrian Vallejo Marquez",
+      "role": "DEV",
+      "source": {
+        "name": "Javier Adrian Vallejo Marquez",
+        "role": "DEV",
+        "band": "BAJA"
+      }
+    }
+  ],
+  "extra": [
+    {
+      "name": "Andres Felipe Paloma Collazos",
+      "role": "ROC",
+      "band": "A4"
+    },
+    {
+      "name": "Cesar Meza Hernandez",
+      "role": "DEV",
+      "band": "R"
+    },
+    {
+      "name": "Claudia Ximena Mazon Vera",
+      "role": "QA",
+      "band": "B3"
+    },
+    {
+      "name": "Diana Arali Evangelista Carmona",
+      "role": "ROC",
+      "band": "B2"
+    },
+    {
+      "name": "Enrique Yael Badillo Gutierrez",
+      "role": "DEV",
+      "band": "B3"
+    },
+    {
+      "name": "Felipe de Jesus Diaz Bolaños",
+      "role": "ROC",
+      "band": "A1"
+    },
+    {
+      "name": "Hector Misael Lopez Franco",
+      "role": "ROC",
+      "band": "B2"
+    },
+    {
+      "name": "Isaac Yael Arango Garcia",
+      "role": "ROC",
+      "band": "A2"
+    },
+    {
+      "name": "Jaciel Omar Cruz Chavez",
+      "role": "ROC",
+      "band": "A2"
+    },
+    {
+      "name": "Jose Bernabe Ortiz Baizano",
+      "role": "ROC",
+      "band": "B1"
+    },
+    {
+      "name": "Jose David Sanchez Morales",
+      "role": "BA",
+      "band": "R"
+    },
+    {
+      "name": "Juan Eduardo Tenorio Mina",
+      "role": "ROC",
+      "band": "B1"
+    },
+    {
+      "name": "Karla Itzel Castelan Salgado",
+      "role": "SM",
+      "band": "p"
+    },
+    {
+      "name": "Luis Enrique Garcia Rivera",
+      "role": "DEV",
+      "band": "C1"
+    },
+    {
+      "name": "Martin Gervacio Rodriguez Vaquero",
+      "role": "DEV",
+      "band": "R"
+    },
+    {
+      "name": "Nadia Lopez Franco",
+      "role": "SM",
+      "band": "P"
+    },
+    {
+      "name": "Octavio Ibarra Xicotencatl",
+      "role": "QA",
+      "band": "R"
+    },
+    {
+      "name": "Rosa Salas Torres",
+      "role": "DEV",
+      "band": "R"
+    },
+    {
+      "name": "Rossio Del Pilar Diaz Horta",
+      "role": "ROC",
+      "band": "A3"
+    },
+    {
+      "name": "Samuel\tNuñez\tElizalde",
+      "role": "DEV",
+      "band": "R"
+    },
+    {
+      "name": "Samuel Villanueva Aguero",
+      "role": "DEV",
+      "band": "R"
+    },
+    {
+      "name": "Zaira Elizabeth Nicho Escobar",
+      "role": "BA",
+      "band": "P"
+    }
+  ],
+  "role_changes": [
+    {
+      "reference": {
+        "name": "Adolfo Cesar Vidal Espino",
+        "role": "ROC"
+      },
+      "source": {
+        "name": "Adolfo Cesar Vidal Espino",
+        "role": "DEV",
+        "band": "A4"
+      }
+    },
+    {
+      "reference": {
+        "name": "Alan Eduardo Vega Mora",
+        "role": "DEV"
+      },
+      "source": {
+        "name": "Alan Eduardo Vega Mora",
+        "role": "ROC",
+        "band": "B2"
+      }
+    },
+    {
+      "reference": {
+        "name": "Alvaro Andres Quintero Diaz",
+        "role": "ROC"
+      },
+      "source": {
+        "name": "Alvaro Andres Quintero Diaz",
+        "role": "DEV",
+        "band": "A2"
+      }
+    },
+    {
+      "reference": {
+        "name": "Carlos Jair Montiel Uribe",
+        "role": "ROC"
+      },
+      "source": {
+        "name": "Carlos Jair Montiel Uribe",
+        "role": "DEV",
+        "band": "BAJA"
+      }
+    },
+    {
+      "reference": {
+        "name": "Dagoberto Walles Bahamon",
+        "role": "DEV"
+      },
+      "source": {
+        "name": "Dagoberto Walles Bahamon",
+        "role": "ROC",
+        "band": "A3"
+      }
+    },
+    {
+      "reference": {
+        "name": "Diana Laura Gutierrez Alvarez",
+        "role": "ROC"
+      },
+      "source": {
+        "name": "Diana Laura Gutierrez Alvarez",
+        "role": "DEV",
+        "band": "B3"
+      }
+    },
+    {
+      "reference": {
+        "name": "Everest Daniel Gutierrez Andrade",
+        "role": "DEV"
+      },
+      "source": {
+        "name": "Everest Daniel Gutierrez Andrade",
+        "role": "",
+        "band": "BAJA"
+      }
+    },
+    {
+      "reference": {
+        "name": "Jhoan Ahumada Rivera",
+        "role": "DEV"
+      },
+      "source": {
+        "name": "Jhoan Ahumada Rivera",
+        "role": "ROC",
+        "band": "A4"
+      }
+    },
+    {
+      "reference": {
+        "name": "Johan Ortiz Hernandez",
+        "role": "DEV"
+      },
+      "source": {
+        "name": "Johan Ortiz Hernandez",
+        "role": "ROC",
+        "band": "A3"
+      }
+    },
+    {
+      "reference": {
+        "name": "Johan Slam Caceres Briñez",
+        "role": "DEV"
+      },
+      "source": {
+        "name": "Johan Slam Caceres Briñez",
+        "role": "ROC",
+        "band": "A1"
+      }
+    },
+    {
+      "reference": {
+        "name": "Jorge Andres Barrios Popoca",
+        "role": "ROC"
+      },
+      "source": {
+        "name": "Jorge Andres Barrios Popoca",
+        "role": "DEV",
+        "band": "B2"
+      }
+    },
+    {
+      "reference": {
+        "name": "Miguel Angel Gallardo Saucedo",
+        "role": "DEV"
+      },
+      "source": {
+        "name": "Miguel Angel Gallardo Saucedo",
+        "role": "ROC",
+        "band": "A3"
+      }
+    },
+    {
+      "reference": {
+        "name": "Rafael Oviedo Pascuas",
+        "role": "DEV"
+      },
+      "source": {
+        "name": "Rafael Oviedo Pascuas",
+        "role": "ROC",
+        "band": "B2"
+      }
+    }
+  ],
+  "roles_reference": {
+    "SM": 2,
+    "BA": 3,
+    "ARQ": 4,
+    "ROC": 6,
+    "DEV": 37,
+    "QA": 7
+  },
+  "roles_sheet": {
+    "DEV": 35,
+    "ROC": 17,
+    "QA": 9,
+    "SM": 4,
+    "ARQ": 4,
+    "BA": 5
+  },
+  "metrics": {
+    "resources": 74,
+    "capacity": 12432.0,
+    "aer": 4606.416666666667,
+    "variable": 3877.247222222223,
+    "global": 68.24,
+    "error": ""
+  }
+}

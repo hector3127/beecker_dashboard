@@ -44,9 +44,9 @@ def resolve_history_period(
         events.append((status, start, finish))
 
     completed = [
-        finish or start
+        day
         for status, start, finish in events
-        if status in COMPLETED_STATES and (finish or start)
+        if status in COMPLETED_STATES and (day := finish or start) is not None
     ]
     if any(day < today for day in completed):
         return HistoryPeriod()

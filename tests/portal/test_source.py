@@ -54,3 +54,26 @@ def test_never_writes_to_sheets():
 
     assert repository.appended_rows == []
     assert repository.replaced_rows == []
+
+
+def test_manager_lookup_prefers_mpb_then_history():
+    from apps.capacidad.services.mpb_projects import MpbProject  # noqa: PLC0415
+    from apps.portal.services.portfolio_source import (  # noqa: PLC0415
+        ManagerLookup,
+    )
+
+    mpb = {
+        "aer awn 001": MpbProject(
+            "AER.AWN.001", "aer", "", "", "Soporte", "Ana"
+        ),
+        "tym x 001": MpbProject("TYM.X.001", "tym", "", "", "X", " "),
+    }
+    history = {"AMK.008": "Luis", "TYM.X.001": "Eva", "IXB.002": "Pedro"}
+    lookup = ManagerLookup(mpb, history)
+
+    assert lookup.find("AER.AWN.001") == "Ana"
+    assert lookup.find("TYM.X.001") == "Eva"
+    assert lookup.find("AMK.008_S4") == "Luis"
+    assert lookup.find("ixb.002") == "Pedro"
+    assert lookup.find("NADA") == ""
+    assert lookup.as_mapping(["AER.AWN.001", "NADA"]) == {"AER.AWN.001": "Ana"}

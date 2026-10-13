@@ -18,7 +18,7 @@ from apps.capacidad.services.daily_hours import (
     build_project_daily_hours,
     is_valid_month,
 )
-from apps.capacidad.services.mpb_projects import load_mpb_projects
+from apps.capacidad.services.mpb_projects import load_optional_mpb_projects
 from apps.capacidad.services.project_range import (
     AzureIterationSource,
     resolve_project_range,
@@ -73,6 +73,7 @@ def load_capacity_base(
                 SHEET_MPB,
             ],
         )
+        mpb_projects, mpb_notice = load_optional_mpb_projects(reader)
         sources = CapacitySources(
             bands=read_sheet_table(reader, SHEET_BANDS, BAND_HEADERS),
             resources=read_sheet_table(
@@ -82,10 +83,10 @@ def load_capacity_base(
             ),
             projects=read_optional_projects(reader),
             delivery_managers=load_delivery_managers(reader),
-            mpb_projects=load_mpb_projects(reader),
+            mpb_projects=mpb_projects,
         )
 
-        return build_capacity_base(
+        result = build_capacity_base(
             sources,
             month_text,
             today.strftime("%Y-%m"),
@@ -93,6 +94,12 @@ def load_capacity_base(
     except DashboardError as error:
         logger.warning("Capacidad instalada no disponible: %s", error.detail)
         return {"ok": False, "error": describe_error(error)}
+
+    if mpb_notice:
+        logger.warning("Capacidad instalada sin MPB: %s", mpb_notice)
+        result["mpbAviso"] = mpb_notice
+
+    return result
 
 
 def load_project_data(
@@ -132,7 +139,7 @@ def load_project_data(
         project_text,
         to_argument_text(iteration_path),
         should_refresh,
-        lambda: load_mpb_projects(reader),
+        lambda: load_optional_mpb_projects(reader)[0],
         build_azure_source,
     )
 

@@ -45,13 +45,14 @@ def read_required_env(name: str) -> str:
     return value
 
 
-def read_int_env(name: str, default: int) -> int:
+def read_int_env(name: str, default: int, *, allow_zero: bool = False) -> int:
     """
     Lee una variable de entorno entera y positiva.
 
     Args:
         name: Nombre de la variable de entorno.
         default: Valor usado cuando la variable no existe.
+        allow_zero: Permite cero para desactivar una funcionalidad.
 
     Returns:
         El valor entero configurado.
@@ -68,9 +69,10 @@ def read_int_env(name: str, default: int) -> int:
             f"La variable {name} debe ser un numero entero.",
         ) from error
 
-    if value <= 0:
+    if value < 0 or (value == 0 and not allow_zero):
+        requirement = "cero o mayor" if allow_zero else "mayor que cero"
         raise ImproperlyConfigured(
-            f"La variable {name} debe ser mayor que cero.",
+            f"La variable {name} debe ser {requirement}.",
         )
 
     return value
@@ -234,7 +236,9 @@ DASHBOARD_CACHE_TTL_SECONDS = read_int_env(
 # Segundos que se reutiliza una hoja leida de Sheets entre peticiones.
 # Las escrituras de la app la invalidan; los cambios manuales en el
 # Spreadsheet se ven al vencer. 0 apaga la cache.
-SHEETS_READ_CACHE_SECONDS = read_int_env("SHEETS_READ_CACHE_SECONDS", 900)
+SHEETS_READ_CACHE_SECONDS = read_int_env(
+    "SHEETS_READ_CACHE_SECONDS", 900, allow_zero=True,
+)
 
 # Credenciales de integraciones que se migran en fases siguientes.
 CLOCKIFY_API_KEY = os.getenv("CLOCKIFY_API_KEY", "").strip()

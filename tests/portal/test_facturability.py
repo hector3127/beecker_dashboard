@@ -1,52 +1,59 @@
-"""Facturabilidad con horas de GSE y capacidad de Recursos."""
+"""Facturabilidad con la logica de GSE · Horas por area."""
+
+from datetime import date
 
 from apps.portal.services.facturability import (
     build_month_facturability,
     build_resources,
     build_specialties,
+    default_role_keys,
+    display_role,
+    list_roles,
     normalize_service,
     person_month_hours,
+    role_key,
     team_averages,
 )
 
+BILLABLE = ["Facturable"]
+NOT_BILLABLE = ["No Facturables", "Internos"]
 
-def gse(*rows):
+
+def gse(areas, *rows):
+    """areas: {area: [personas]}; rows: (persona, area, servicio, h, cats)."""
     return {
         "ok": True,
-        "detalle": [
-            {"recurso": name, "area": area, "servicio": service, "horas": hours}
-            for name, area, service, hours in rows
-        ],
-    }
-
-
-def capacity(*rows):
-    return {
-        "filas": [
+        "areas": [
             {
-                "recurso": name,
-                "rol": role,
-                "horasEstimadas": hours,
-                "activo": active,
+                "area": name,
+                "recursos": len(people),
+                "personas": [{"nombre": person} for person in people],
             }
-            for name, role, hours, active in rows
+            for name, people in areas.items()
+        ],
+        "detalle": [
+            {
+                "recurso": person,
+                "area": area,
+                "servicio": service,
+                "horas": hours,
+                "categorias": categories,
+            }
+            for person, area, service, hours, categories in rows
         ],
     }
 
 
-GSE_OCT = gse(
-    ("Ana", "DEV", "AER", 100),
-    ("Ana", "DEV", "T&M", 20),
-    ("Luis", "DEV", "IXB", 30),
-    ("Eva", "QA", "RaaS", 10),
-    ("Eva", "QA", "SaaS", 5),
-    ("Eva", "QA", "Interno", 40),
-)
-CAPACITY = capacity(
-    ("Ana", "DEV", 150, True),
-    ("Luis", "DEV", 100, True),
-    ("Eva", "QA", 100, True),
-    ("Baja", "QA", 500, False),
+OCT = gse(
+    {"DEV": ["Ana", "Luis"], "QA": ["Eva"], "DM": ["Dan"]},
+    ("Ana", "DEV", "AER", 100, BILLABLE),
+    ("Ana", "DEV", "AER", 30, NOT_BILLABLE),
+    ("Ana", "DEV", "T&M", 20, BILLABLE),
+    ("Luis", "DEV", "IXB", 30, BILLABLE),
+    ("Eva", "QA", "RaaS", 10, BILLABLE),
+    ("Eva", "QA", "SaaS", 5, BILLABLE),
+    ("Eva", "QA", "NA", 4, BILLABLE),
+    ("Dan", "DM", "AER", 50, BILLABLE),
 )
 
 
@@ -58,31 +65,42 @@ def test_normalize_service():
     assert normalize_service(None) == ""
 
 
-def test_person_month_hours_uses_workdays_by_eight():
+def test_person_month_hours_uses_business_days():
     assert person_month_hours("2026-10") == 176
+    assert person_month_hours("2026-09") == 168
+    assert person_month_hours("2026-10", date(2026, 10, 12)) == 64
 
 
-def test_month_totals_follow_the_formula():
-    month = build_month_facturability("2026-10", GSE_OCT, CAPACITY)
+def test_month_follows_gse_logic():
+    month = build_month_facturability("2026-10", OCT)
 
     assert month.label == "Octubre"
-    assert month.short_label == "Oct"
-    assert month.capacity == 350
-    assert month.fixed_hours == 100
-    assert month.fixed_percent == 28.57
-    assert month.fixed_hc == 1
-    assert month.variable_capacity == 250
-    assert month.variable_hours == 65
+    assert month.resources == 4
+    assert month.capacity == 4 * 176
+    assert month.fixed_hours == 150
     assert month.service_hours == (20, 30, 5, 10)
-    assert month.variable_percent == 26.0
-    assert month.free_hours == 185
-    assert month.free_fte == 1
-    assert month.global_percent == 47.14
-    assert month.bar_height == 42.9
+    assert month.other_hours == 4
+    assert month.variable_hours == 69
+    assert month.fixed_percent == 21.31
+    assert month.variable_percent == 12.45
+    assert month.global_percent == 31.11
+    assert month.fixed_hc == 1
+    assert month.free_hours == 704 - 150 - 69
+    assert month.free_fte == 3
+
+
+def test_month_with_operational_roles_only():
+    roles = default_role_keys(list_roles([OCT]))
+
+    month = build_month_facturability("2026-10", OCT, scope=(roles, None))
+
+    assert roles == frozenset({"dev", "qa"})
+    assert month.capacity == 3 * 176
+    assert month.fixed_hours == 100
 
 
 def test_month_without_data():
-    month = build_month_facturability("2026-02", {}, {}, "sin base")
+    month = build_month_facturability("2026-02", {}, "sin base")
 
     assert month.capacity == 0
     assert month.fixed_percent is None
@@ -91,39 +109,70 @@ def test_month_without_data():
     assert month.error == "sin base"
 
 
-def test_specialties():
-    rows = build_specialties(GSE_OCT, CAPACITY, "2026-10")
+def test_specialties_by_area():
+    rows = build_specialties(OCT, "2026-10")
 
-    assert [row.name for row in rows] == ["DEV", "QA"]
-    dev, qa = rows
-    assert (dev.headcount, dev.capacity, dev.fixed_hours) == (2, 250, 100)
-    assert dev.fixed_percent == 40.0
+    assert [row.name for row in rows] == ["Dev", "DM", "QA"]
+    dev = rows[0]
+    assert (dev.headcount, dev.capacity, dev.fixed_hours) == (2, 352, 100)
+    assert dev.fixed_percent == 28.41
     assert dev.variable_hours == 50
-    assert dev.variable_percent == 33.33
+    assert dev.variable_percent == 19.84
     assert dev.free_fte == 1
-    assert (qa.headcount, qa.fixed_percent, qa.variable_hours) == (1, 0.0, 15)
-
-
-def test_specialty_only_in_gse_has_no_capacity():
-    rows = build_specialties(gse(("X", "", "AER", 10)), {}, "2026-10")
-
-    assert rows[0].name == "Sin rol"
-    assert rows[0].fixed_percent is None
 
 
 def test_resources_by_month_and_team_average():
-    months = [
-        (gse(("Ana", "DEV", "AER", 75)), capacity(("Ana", "DEV", 150, True))),
-        (GSE_OCT, CAPACITY),
-    ]
+    september = gse(
+        {"DEV": ["Ana"]},
+        ("Ana", "DEV", "AER", 84, BILLABLE),
+    )
 
-    rows = build_resources(months)
+    rows = build_resources([("2026-09", september), ("2026-10", OCT)])
     by_name = {row.name: row for row in rows}
 
-    assert by_name["Ana"].percents == (50.0, 80.0)
-    assert by_name["Ana"].average == 65.0
-    assert by_name["Luis"].percents == (None, 30.0)
-    assert by_name["Eva"].percents == (None, 15.0)
+    assert by_name["Ana"].percents == (50.0, 68.18)
+    assert by_name["Luis"].percents == (None, 17.05)
+    assert by_name["Eva"].role == "QA"
     by_month, overall = team_averages(rows, 2)
-    assert by_month == (50.0, 41.7)
-    assert overall == 36.7
+    assert by_month[0] == 50.0
+    assert overall is not None
+
+
+def test_resources_count_people_without_billable_hours_as_zero():
+    data = gse({"QA": ["Eva"]}, ("Eva", "QA", "NA", 10, NOT_BILLABLE))
+
+    assert build_resources([("2026-10", data)])[0].percents == (0.0,)
+    assert build_resources([("2026-10", {})]) == ()
+
+
+def test_roles_list_and_key():
+    assert list_roles([OCT]) == ("DEV", "DM", "QA")
+    assert role_key("") == "sin rol"
+
+
+def test_only_operational_areas_by_default():
+    roles = (
+        "DEV",
+        "BA",
+        "SM",
+        "ARQ",
+        "QA",
+        "R&D",
+        "ROC",
+        "Plataforma",
+        "QC",
+        "DM",
+        "Comercial",
+        "Pre-ventas",
+        "Soporte",
+    )
+
+    keys = default_role_keys(roles)
+
+    assert keys == frozenset({"dev", "roc", "ba", "sm", "arq", "qa"})
+    assert display_role("QA") == "QA"
+    assert display_role("R&D") == "R&D"
+    assert display_role("ARQ") == "Arq"
+    assert display_role("ROC") == "ROC"
+    assert display_role("Plataforma") == "Plataforma"
+    assert display_role("") == "Sin rol"

@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_GET
 
-from apps.portal.schemas import CapacityFilters, InvestmentView
+from apps.portal.schemas import CapacityFilters, InvestmentView, RoleOption
 from apps.portal.services.account import build_account_detail, find_account
 from apps.portal.services.account_ranking import rank_accounts
 from apps.portal.services.capacity import (
@@ -28,9 +28,14 @@ from apps.portal.services.facturability import (
     build_month_facturability,
     build_resources,
     build_specialties,
+    default_role_keys,
+    display_role,
+    list_roles,
+    role_key,
     team_averages,
 )
 from apps.portal.services.facturability_loader import (
+    MonthSources,
     load_month_sources,
     load_year_sources,
     peek_month_sources,
@@ -40,12 +45,17 @@ from apps.portal.services.filters import (
     list_clients,
     list_services,
 )
+from apps.portal.services.holidays import count_business_days
 from apps.portal.services.investment import build_investment_view
 from apps.portal.services.kpis_dm import build_kpi_view
 from apps.portal.services.manager_detail import (
     build_manager_detail,
     find_manager,
     summarize_suspended,
+)
+from apps.portal.services.operations_summary import (
+    build_operations_summary,
+    last_closed_month,
 )
 from apps.portal.services.periods import current_quarter
 from apps.portal.services.portfolio_loader import (
@@ -561,13 +571,52 @@ def _facturability_context(month: str, tab: str) -> dict[str, object]:
     }
 
 
+def _role_scope(
+    request: HttpRequest,
+    sources: list[MonthSources],
+) -> tuple[tuple[frozenset[str], None], list[RoleOption]]:
+    """
+    Roles elegidos (?roles=1&rol=DEV&rol=QA) o, si no hay, los operativos.
+
+    Args:
+        request: Peticion HTTP.
+        sources: Meses leidos, para saber que roles existen.
+
+    Returns:
+        ((claves de roles, hoy), opciones para el filtro).
+    """
+    all_roles = list_roles(item.gse for item in sources)
+    allowed = default_role_keys(all_roles)
+    available = tuple(name for name in all_roles if role_key(name) in allowed)
+
+    if request.GET.get("roles") == "1":
+        chosen = frozenset(
+            role_key(name) for name in request.GET.getlist("rol")
+            if role_key(name) in allowed
+        )
+    else:
+        chosen = default_role_keys(available)
+
+    options = [
+        RoleOption(
+            label=name,
+            key=role_key(name),
+            checked=role_key(name) in chosen,
+            display=display_role(name),
+        )
+        for name in available
+    ]
+
+    return (chosen, None), options
+
+
 @require_GET
 def facturabilidad(request: HttpRequest) -> HttpResponse:
     """
     Muestra la facturabilidad de enero al mes elegido.
 
     Args:
-        request: Peticion HTTP; acepta ?mes=YYYY-MM.
+        request: Peticion HTTP; acepta ?mes=YYYY-MM y el filtro de roles.
 
     Returns:
         La pagina de Facturabilidad.
@@ -576,11 +625,11 @@ def facturabilidad(request: HttpRequest) -> HttpResponse:
         return redirect_to_login(request.get_full_path())
 
     month = _facturability_month(request)
+    sources = load_year_sources(month)
+    scope, role_options = _role_scope(request, sources)
     months = [
-        build_month_facturability(
-            item.month, item.gse, item.capacity, item.error
-        )
-        for item in load_year_sources(month)
+        build_month_facturability(item.month, item.gse, item.error, scope)
+        for item in sources
     ]
     context = _facturability_context(month, "general")
     context.update(
@@ -589,6 +638,8 @@ def facturabilidad(request: HttpRequest) -> HttpResponse:
             "selected": months[-1],
             "first": months[0],
             "errors": [item for item in months if item.error],
+            "notices": [item for item in months if item.notice],
+            "role_options": role_options,
         },
     )
 
@@ -601,7 +652,7 @@ def facturabilidad_especialidad(request: HttpRequest) -> HttpResponse:
     Muestra la facturabilidad del mes por especialidad.
 
     Args:
-        request: Peticion HTTP; acepta ?mes=YYYY-MM.
+        request: Peticion HTTP; acepta ?mes=YYYY-MM y el filtro de roles.
 
     Returns:
         La pagina por especialidad.
@@ -611,12 +662,13 @@ def facturabilidad_especialidad(request: HttpRequest) -> HttpResponse:
 
     month = _facturability_month(request)
     sources = load_month_sources(month)
-    specialties = build_specialties(sources.gse, sources.capacity, month)
+    scope, role_options = _role_scope(request, [sources])
+    specialties = build_specialties(sources.gse, month, scope)
     selected = build_month_facturability(
         month,
         sources.gse,
-        sources.capacity,
         sources.error,
+        scope,
     )
     context = _facturability_context(month, "especialidad")
     context.update(
@@ -633,6 +685,7 @@ def facturabilidad_especialidad(request: HttpRequest) -> HttpResponse:
                 None,
             ),
             "error": sources.error,
+            "role_options": role_options,
         },
     )
 
@@ -645,7 +698,7 @@ def facturabilidad_recurso(request: HttpRequest) -> HttpResponse:
     Muestra la facturabilidad de cada persona, de enero al mes elegido.
 
     Args:
-        request: Peticion HTTP; acepta ?mes=YYYY-MM.
+        request: Peticion HTTP; acepta ?mes=YYYY-MM y el filtro de roles.
 
     Returns:
         La pagina por recurso.
@@ -655,21 +708,31 @@ def facturabilidad_recurso(request: HttpRequest) -> HttpResponse:
 
     month = _facturability_month(request)
     sources = load_year_sources(month)
-    rows = build_resources([(item.gse, item.capacity) for item in sources])
+    scope, role_options = _role_scope(request, sources)
+    rows = build_resources(
+        [(item.month, item.gse) for item in sources],
+        scope,
+    )
     by_month, overall = team_averages(rows, len(sources))
     context = _facturability_context(month, "recurso")
     context.update(
         {
             "labels": [
-                build_month_facturability(item.month, {}, {}).short_label
+                build_month_facturability(item.month, {}).short_label
                 for item in sources
             ],
+            "workdays": [count_business_days(item.month) for item in sources],
             "rows": rows,
             "team_by_month": by_month,
             "team_average": overall,
+            "notices": [
+                item.gse["plantillaAviso"]
+                for item in sources if item.gse.get("plantillaAviso")
+            ],
             "error": " · ".join(
                 f"{item.month}: {item.error}" for item in sources if item.error
             ),
+            "role_options": role_options,
         },
     )
 
@@ -712,3 +775,46 @@ def inversion(request: HttpRequest) -> HttpResponse:
     )
 
     return render(request, "portal/inversion.html", context)
+
+
+@require_GET
+def operations_resumen(request: HttpRequest) -> HttpResponse:
+    """
+    Fragmento de la tarjeta Operations; Operativa lo carga aparte.
+
+    Lee GSE y Recursos de enero al ultimo mes cerrado. Va separado para
+    que esa lectura no haga lenta la pagina Operativa.
+
+    Args:
+        request: Peticion HTTP.
+
+    Returns:
+        El HTML de la tarjeta (sin la pagina completa).
+    """
+    if _needs_login(request):
+        return HttpResponse(status=401)
+
+    today = timezone.localdate()
+    month = last_closed_month(today)
+    sources = load_year_sources(month)
+    roles = default_role_keys(list_roles(item.gse for item in sources))
+    months = [
+        build_month_facturability(
+            item.month,
+            item.gse,
+            item.error,
+            (roles, None),
+        )
+        for item in sources
+    ]
+
+    return render(
+        request,
+        "portal/_operations_summary.html",
+        {
+            "ops": build_operations_summary(
+                months,
+                month_closed=month != str(today.strftime("%Y-%m")),
+            ),
+        },
+    )

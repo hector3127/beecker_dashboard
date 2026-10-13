@@ -68,10 +68,15 @@ tfoot td{font-weight:800;background:#FAF8FF}
 .cal .gd i{font-style:normal;padding:4px 0;border-radius:6px;color:#2A2D7A}
 .cal .gd i.h{color:#8A81B8;font-weight:700}.cal .gd i.in{background:#EDE7FF}.cal .gd i.en{background:#4B25C9;color:#fff;font-weight:800}
 .per .hint{font-size:13.5px;color:#4A4D86}
-.err{margin:0 0 12px;padding:12px 18px;border-radius:12px;background:#FBE3E7;color:#A31B33;font-size:14.5px;font-weight:600}.mf input:focus{outline:2px solid #B9A6F5}{% endblock %}
+.err{margin:0 0 12px;padding:12px 18px;border-radius:12px;background:#FBE3E7;color:#A31B33;font-size:14.5px;font-weight:600}.mf input:focus{outline:2px solid #B9A6F5}
+.mf{flex-wrap:wrap}.rf{position:relative}.rf summary{cursor:pointer;list-style:none;border:1px solid #D9D0F5;border-radius:10px;padding:8px 14px;background:#fff;font-weight:700;color:#4B25C9}
+.rf[open] .rfl,.rf[open] .rfb{position:relative}.rfl{display:grid;grid-template-columns:repeat(3,minmax(140px,1fr));gap:6px 16px;margin-top:8px;background:#fff;border:1px solid #ECE8FA;border-radius:12px;padding:12px 14px}
+.rfl label{display:flex;gap:6px;align-items:center;font-size:13.5px;color:#1B1A4A}.rfb{display:flex;gap:12px;align-items:center;margin-top:8px}
+.rfb button{font:inherit;font-weight:700;background:#4B25C9;color:#fff;border:0;border-radius:10px;padding:8px 16px;cursor:pointer}.rfb a{font-weight:700;color:#4B25C9}{% endblock %}
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer todo: {{ error }}</div>{% endif %}
+{% if selected.notice %}<div class="note" role="status">{{ selected.notice }}</div>{% endif %}
 <div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Operations</div>
 <div class="eb">Operations</div>
 <h1>Facturabilidad por especialidad</h1>
@@ -79,16 +84,16 @@ tfoot td{font-weight:800;background:#FAF8FF}
 
 <div class="tabs"><a href="{% url 'portal:facturabilidad' %}">Facturabilidad</a><a class="on" href="{% url 'portal:facturabilidad_especialidad' %}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers</a></div>
 
-<form method="get" class="mf" style="display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:14px;color:#3A3870"><label for="mes" style="font-weight:700">Mes</label><input id="mes" type="month" name="mes" value="{{ month }}" onchange="this.form.submit()" style="font:inherit;border:1px solid #E1DCF3;border-radius:10px;padding:8px 12px;background:#fff"><span style="color:#55537F">Se lee de enero a ese mes. Horas de la base de GSE en Sheets y capacidad de la hoja Recursos (solo lectura).</span></form>
+<form method="get" class="mf" style="display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:14px;color:#3A3870"><label for="mes" style="font-weight:700">Mes</label><input id="mes" type="month" name="mes" value="{{ month }}" onchange="this.form.submit()" style="font:inherit;border:1px solid #E1DCF3;border-radius:10px;padding:8px 12px;background:#fff"><span style="color:#55537F">Se lee de enero a ese mes. Horas de Clockify con la lógica de GSE · Horas por área (solo lectura).</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="?mes={{ month }}">Solo operativas</a></div></details>{% endif %}</form>
 <section class="kp">
-<div class="kc"><div class="kl">HC total</div><div class="kv">{{ headcount }}</div><div class="ke">Personas en Recursos, {{ selected.label|lower }}</div></div>
+<div class="kc"><div class="kl">HC total</div><div class="kv">{{ headcount }}</div><div class="ke">Personas con horas en {{ selected.label|lower }}</div></div>
 <div class="kc"><div class="kl">HC variable</div><div class="kv">{{ selected.variable_hc }}</div><div class="ke">Personas equivalentes en TYM, IXB, SaaS y RaaS</div></div>
 <div class="kc"><div class="kl">Libre total</div><div class="kv{% if selected.free_fte < 0 %} neg{% endif %}">{{ selected.free_fte }}</div><div class="ke">{% if selected.free_fte < 0 %}Déficit de personas{% else %}Personas equivalentes libres{% endif %}</div></div>
 <div class="kc"><div class="kl">Libre en Dev</div><div class="kv{% if dev_free is not None and dev_free < 0 %} neg{% endif %}">{% if dev_free is not None %}{{ dev_free }}{% else %}—{% endif %}</div><div class="ke">{% if dev_free is not None and dev_free < 0 %}Déficit en Desarrollo{% else %}Personas equivalentes libres{% endif %}</div></div>
 </section>
 <section class="card">
 <h2>Por especialidad · {{ selected.label }}</h2>
-<div class="hs">HC T: personas en Recursos. Fijo: horas AER ÷ capacidad. Variable: horas de TYM, IXB, SaaS y RaaS ÷ capacidad que queda. Libre: personas equivalentes sin asignar (negativo = déficit).</div>
+<div class="hs">HC T: personas vigentes en Bandas/rol con horas registradas; si falta la columna del mes, personas con horas de GSE. Capacidad: HC T × días hábiles × 8 h. Fijo: facturables AER ÷ capacidad. Variable: demás facturables ÷ capacidad que queda. Libre: personas equivalentes sin asignar (negativo = déficit).</div>
 <table>
 <thead><tr><th>Especialidad</th><th>HC T</th><th>Capacidad</th><th>Hrs fijo</th><th>Fijo</th><th>Hrs variable</th><th>Variable</th><th>Libre</th></tr></thead>
 <tbody>
@@ -98,6 +103,6 @@ tfoot td{font-weight:800;background:#FAF8FF}
 <tfoot><tr><td>Total</td><td class="g">{{ headcount }}</td><td>{{ selected.capacity|floatformat:"0g" }}</td><td>{{ selected.fixed_hours|floatformat:"0g" }}</td><td>{% if selected.fixed_percent is not None %}{{ selected.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ selected.variable_hours|floatformat:"0g" }}</td><td>{% if selected.variable_percent is not None %}{{ selected.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td class="{% if selected.free_fte < 0 %}df{% endif %}">{{ selected.free_fte }}</td></tr></tfoot>
 </table>
 </section>
-<p class="note">Fórmula: horas fijo = horas con servicio AER en GSE; capacidad = horas estimadas de todos los recursos (hoja Recursos); % fijo = horas AER ÷ capacidad; HC = horas ÷ horas de una persona en el mes (días hábiles × 8 h, sin feriados). Variable = TYM, IXB, SaaS y RaaS sobre la capacidad que queda; libre = lo que sobra. La especialidad es el ROL de Bandas/rol. Las gráficas de evolución por trimestre se agregarán después.</p>
+<p class="note">Misma lógica que GSE · Horas por área: horas = registros de Clockify con categoría «Facturable»; fijo = las del servicio AER; variable = las demás (TYM, IXB, SaaS, RaaS y otras). Capacidad = personas vigentes en Bandas/rol con horas registradas × días hábiles (lunes a viernes sin festivos de México) × 8 h. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona en el mes; libre = lo que sobra. Por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM; cámbialo en «Áreas mostradas». La especialidad es el ROL de Bandas/rol. Las gráficas de evolución por trimestre se agregarán después.</p>
 </main>
 {% endblock %}

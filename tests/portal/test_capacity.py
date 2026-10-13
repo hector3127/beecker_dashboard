@@ -78,7 +78,7 @@ def test_parse_workday_hours(text, expected):
 
 def test_workdays_and_month_label():
     assert count_workdays("2026-10") == 22
-    assert count_workdays("2026-02") == 20
+    assert count_workdays("2026-02") == 19
     assert format_month("2026-10") == "Octubre 2026"
 
 
@@ -188,3 +188,11 @@ def test_csv_has_header_rules_and_blank_when_no_rule():
     assert lines[0].startswith("Recurso,Banda,Concepto")
     assert lines[1].endswith(",4.0,100.0,Si,Si,Si")
     assert lines[2].endswith(",4.0,100.0,,,")
+
+
+def test_mpb_notice_is_passed_through():
+    data = make_data(mpbAviso="No se reconocen los encabezados de MPB.")
+
+    view = build_capacity_view(data, make_filters())
+
+    assert view.mpb_notice.startswith("No se reconocen")

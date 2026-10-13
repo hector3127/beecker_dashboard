@@ -1,12 +1,18 @@
 """Proyectos AER y T&M de la hoja MPB."""
 
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import datetime
 
 from apps.capacidad.constants import MPB_SERVICES, SHEET_MPB
+from apps.capacidad.exceptions import CapacityError
 from apps.capacidad.services.capacity_text import normalize_capacity_text
-from apps.capacidad.services.sheet_table import read_sheet_table
+from apps.capacidad.services.sheet_table import (
+    SheetTable,
+    read_cell,
+    read_sheet_table,
+)
 from core.sheets.protocols import SheetReader
 from core.utils.cell_types import CellValue
 from core.utils.dates import to_datetime
@@ -16,6 +22,18 @@ from core.utils.text import to_text
 Equivale a ciProyectoMPB_(): los proyectos AER/T&M toman inicio, fin,
 nombre y Delivery Manager de la hoja MPB.
 """
+
+# Nombres posibles de cada columna de MPB (ya normalizados: "ID_Proyecto"
+# queda como "id proyecto").
+MPB_ID_ALIASES = ("id", "id proyecto", "id del proyecto", "project id")
+MPB_SERVICE_ALIASES = ("service", "servicio")
+MPB_START_ALIASES = ("inicio", "fecha inicio", "fecha de inicio", "start")
+MPB_END_ALIASES = ("fin", "fecha fin", "fecha de fin", "end")
+# Sin encabezado FIN, la fecha fin es la columna I (base 0 = 8), igual que
+# en el resumen AER/T&M y en el rango de fechas de Clockify.
+MPB_END_FALLBACK_INDEX = 8
+MPB_NAME_ALIASES = ("nombre", "nombre proyecto", "nombre del proyecto")
+MPB_MANAGER_ALIASES = ("delivery manager", "dm")
 
 ISO_DAY_PREFIX = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 MONTH_DAY_YEAR = re.compile(
@@ -54,19 +72,25 @@ def load_mpb_projects(reader: SheetReader) -> dict[str, MpbProject]:
     table = read_sheet_table(
         reader,
         SHEET_MPB,
-        [["id"], ["service"], ["inicio"], ["fin"]],
+        [
+            MPB_ID_ALIASES,
+            MPB_SERVICE_ALIASES,
+            MPB_START_ALIASES,
+        ],
     )
     projects: dict[str, MpbProject] = {}
 
     for row in table.rows:
         service = normalize_capacity_text(
-            table.read_field(row, ["SERVICE"]),
+            table.read_field(row, MPB_SERVICE_ALIASES),
         ).replace(" ", "")
 
         if service not in MPB_SERVICES:
             continue
 
-        project_id = to_text(table.read_field(row, ["ID"]) or "").strip()
+        project_id = to_text(
+            table.read_field(row, MPB_ID_ALIASES) or ""
+        ).strip()
 
         if not project_id:
             continue
@@ -74,15 +98,46 @@ def load_mpb_projects(reader: SheetReader) -> dict[str, MpbProject]:
         projects[normalize_capacity_text(project_id)] = MpbProject(
             project_id=project_id,
             service=service,
-            start=format_mpb_day(table.read_field(row, ["INICIO"])),
-            finish=format_mpb_day(table.read_field(row, ["FIN"])),
-            name=to_text(table.read_field(row, ["NOMBRE"]) or project_id),
+            start=format_mpb_day(table.read_field(row, MPB_START_ALIASES)),
+            finish=format_mpb_day(_read_end(table, row)),
+            name=to_text(table.read_field(row, MPB_NAME_ALIASES) or project_id),
             manager=to_text(
-                table.read_field(row, ["Delivery Manager", "DM"]) or "",
+                table.read_field(row, MPB_MANAGER_ALIASES) or "",
             ),
         )
 
     return projects
+
+
+def _read_end(table: SheetTable, row: Sequence[CellValue]) -> CellValue:
+    """Fecha fin: columna FIN, o la columna I si ese encabezado no existe."""
+    column = table.find_column(MPB_END_ALIASES)
+
+    return read_cell(row, column if column >= 0 else MPB_END_FALLBACK_INDEX)
+
+
+def load_optional_mpb_projects(
+    reader: SheetReader,
+) -> tuple[dict[str, MpbProject], str]:
+    """
+    Lee MPB sin detener Capacidad instalada si sus encabezados cambiaron.
+
+    MPB solo completa nombre, fechas y Delivery Manager de los proyectos
+    AER/T&M; sin ella las asignaciones de Recursos siguen siendo validas.
+
+    Args:
+        reader: Repositorio de lectura de Sheets.
+
+    Returns:
+        (proyectos, aviso); el aviso queda vacio cuando MPB se leyo bien.
+    """
+    try:
+        return load_mpb_projects(reader), ""
+    except CapacityError as error:
+        return {}, (
+            f"{error.detail} Se muestran las asignaciones sin los datos de "
+            "MPB (nombre, fechas y Delivery Manager de AER/T&M)."
+        )
 
 
 def find_mpb_project(

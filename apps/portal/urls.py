@@ -29,6 +29,11 @@ urlpatterns = [
     path("operativa/eva-1/", views.eva1, name="eva1"),
     path("operativa/inversion/", views.inversion, name="inversion"),
     path(
+        "operativa/operations-resumen/",
+        views.operations_resumen,
+        name="operations_resumen",
+    ),
+    path(
         "operativa/facturabilidad/",
         views.facturabilidad,
         name="facturabilidad",

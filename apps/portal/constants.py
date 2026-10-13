@@ -116,7 +116,7 @@ SERVICE_LABELS: Final[dict[str, str]] = {
     "SAAS": "SaaS",
     "RAAS": "RaaS",
 }
-FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v1:"
+FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v7:"
 FACTURABILITY_CACHE_SECONDS: Final[int] = 600
 BILLABLE_HIGH_PERCENT: Final[int] = 80
 BILLABLE_LOW_PERCENT: Final[int] = 50
@@ -132,3 +132,14 @@ OPERATIONAL_CATEGORIES: Final[tuple[str, ...]] = (
 )
 INVESTMENT_TOP_ITEMS: Final[int] = 6
 OTHERS_LABEL: Final[str] = "Otros"
+FACTURABILITY_TARGET_PERCENT: Final[float] = 70.0
+# Areas operativas (ROL de Bandas/rol en GSE) -> nombre que se muestra.
+# Solo estas entran por defecto a Facturabilidad y a la tarjeta Operations.
+OPERATIONAL_ROLES: Final[dict[str, str]] = {
+    "DEV": "Dev",
+    "ROC": "ROC",
+    "BA": "BA",
+    "SM": "SM",
+    "ARQ": "Arq",
+    "QA": "QA",
+}

@@ -6,6 +6,7 @@ from django.core.cache import cache
 from apps.portal.constants import (
     CAPACITY_CACHE_PREFIX,
     EVA2_CACHE_KEY,
+    FACTURABILITY_CACHE_PREFIX,
     PORTFOLIO_CACHE_KEY,
     PROJECT_CACHE_PREFIX,
 )
@@ -17,6 +18,7 @@ from apps.portal.services import (
     project_loader,
 )
 from core.exceptions import ConfigurationError
+from tests.fakes import InMemorySheetRepository
 from tests.portal.builders import make_project
 
 
@@ -278,49 +280,122 @@ def test_project_loader_caches_and_reports_errors(monkeypatch):
     )
 
 
-def test_facturability_loader_reads_sheet_base_and_caches(monkeypatch):
-    key = "portal:facturability:v1:2026-10"
+def test_facturability_loader_reads_gse_and_caches(monkeypatch):
+    key = f"{FACTURABILITY_CACHE_PREFIX}2026-10"
     cache.delete(key)
     calls = []
 
-    def fake_gse(month, source, force, area):
-        calls.append((month, source, force, area))
-        return {"ok": True, "detalle": []}
+    def fake_gse(month):
+        calls.append(month)
+        return {"ok": True, "areas": [], "detalle": []}
 
-    monkeypatch.setattr(facturability_loader, "get_gse_month", fake_gse)
-    monkeypatch.setattr(
-        facturability_loader,
-        "load_capacity",
-        lambda month: capacity_loader.CapacityLoad(data={"filas": []}),
-    )
+    monkeypatch.setattr(facturability_loader, "read_gse_month", fake_gse)
 
     first = facturability_loader.load_month_sources("2026-10")
     facturability_loader.load_month_sources("2026-10")
 
     assert first.error == ""
-    assert calls == [("2026-10", "sheet", False, "")]
+    assert first.gse["ok"] is True
+    assert first.gse["areas"] == []
+    assert calls == ["2026-10"]
+    assert cache.get(key) == first
     cache.delete(key)
 
 
 def test_facturability_loader_reports_errors_without_cache(monkeypatch):
-    cache.delete("portal:facturability:v1:2026-09")
+    key = f"{FACTURABILITY_CACHE_PREFIX}2026-09"
+    cache.delete(key)
     monkeypatch.setattr(
         facturability_loader,
-        "get_gse_month",
-        lambda *args: {"ok": False, "error": "No existe la base del año."},
-    )
-    monkeypatch.setattr(
-        facturability_loader,
-        "load_capacity",
-        lambda month: capacity_loader.CapacityLoad(error="Sin Recursos."),
+        "read_gse_month",
+        lambda month: {"ok": False, "error": "Clockify no está configurado."},
     )
 
     result = facturability_loader.load_month_sources("2026-09")
 
-    assert "GSE: No existe la base del año." in result.error
-    assert "Recursos: Sin Recursos." in result.error
+    assert result.error == "GSE: Clockify no está configurado."
     assert result.gse == {}
-    assert cache.get("portal:facturability:v1:2026-09") is None
+    assert cache.get(key) is None
+
+
+def test_facturability_keeps_gse_data_without_capacity_roster(monkeypatch):
+    key = f"{FACTURABILITY_CACHE_PREFIX}2026-01"
+    cache.delete(key)
+    gse = {
+        "ok": True,
+        "areas": [{"area": "DEV", "recursos": 1}],
+        "detalle": [{"recurso": "Ana", "area": "DEV", "horas": 84}],
+    }
+    monkeypatch.setattr(
+        facturability_loader, "read_gse_month", lambda month: gse,
+    )
+
+    def unavailable_capacity(*args, **kwargs):
+        raise AssertionError("Facturabilidad no depende de Capacidad.")
+
+    monkeypatch.setattr(
+        capacity_loader, "get_capacity_base", unavailable_capacity,
+    )
+
+    try:
+        result = facturability_loader.load_month_sources("2026-01")
+        assert result.error == ""
+        assert result.gse == gse
+    finally:
+        cache.delete(key)
+
+
+def test_facturability_applies_bands_roster_without_capacity_loader(
+    monkeypatch,
+):
+    key = f"{FACTURABILITY_CACHE_PREFIX}2026-09"
+    cache.delete(key)
+    monkeypatch.setattr(
+        facturability_loader,
+        "read_gse_month",
+        lambda month: {
+            "ok": True,
+            "areas": [],
+            "detalle": [],
+            "plantilla": [{"nombre": "Ana", "rol": "DEV"}],
+        },
+    )
+    try:
+        result = facturability_loader.load_month_sources("2026-09")
+        assert result.error == ""
+        assert result.gse["areas"] == []
+    finally:
+        cache.delete(key)
+
+
+def test_read_gse_month_never_saves_to_sheets(monkeypatch):
+    captured = {}
+
+    class FakeLoader:
+        def __init__(self, settings_tuple, sources, persist="unset"):
+            captured["persist"] = persist
+
+    reader = InMemorySheetRepository({
+        "Bandas/rol": [["Nombre", "ROL", "Octubre"], ["Ana", "DEV", "B1"]],
+    })
+    monkeypatch.setattr(
+        facturability_loader, "build_sheet_repository", lambda: reader,
+    )
+    monkeypatch.setattr(facturability_loader, "BaseStore", lambda *args: None)
+    monkeypatch.setattr(facturability_loader, "MonthReportLoader", FakeLoader)
+    monkeypatch.setattr(
+        facturability_loader,
+        "get_month",
+        lambda context, request: {"ok": True, "request": request},
+    )
+
+    result = facturability_loader.read_gse_month("2026-10")
+
+    assert captured["persist"] is None
+    assert result["request"] == ("2026-10", "api", False, "")
+    assert result["plantilla"] == [{"nombre": "Ana", "rol": "DEV"}]
+    assert reader.appended_rows == []
+    assert reader.replaced_rows == []
 
 
 def test_year_months():

@@ -127,7 +127,7 @@ el enlace «Panel anterior» del menú.
 | Ruta | Pantalla | Datos |
 | --- | --- | --- |
 | `/` | Ejecutiva | Reales: «Requieren decisión», avance en horas, horas por terminar y Top cuentas sanas y no sanas (por la salud de sus proyectos; ingresos y margen pendientes). Ejemplo: Financiera, Comercial, Presupuesto usado y Rentabilidad |
-| `/operativa/` | Operativa | Reales: en ejecución, suspendidos, en tiempo, salud del portafolio y tarjetas por Delivery Manager (filtros `?servicio=` y `?cuenta=`). Reales también las tarjetas EVA 1 (TP y C) y EVA 2 (TP, T y C, cuando EVA 2 ya está en cache). Ejemplo: EVA 3 y Operations |
+| `/operativa/` | Operativa | Reales: en ejecución, suspendidos, en tiempo, salud del portafolio y tarjetas por Delivery Manager (filtros `?servicio=` y `?cuenta=`). Reales también las tarjetas EVA 1 (TP y C) y EVA 2 (TP, T y C, cuando EVA 2 ya está en cache). La tarjeta Operations (facturabilidad global del último mes cerrado contra la meta de 70%, AER, PRJ y gráfica de enero a ese mes) se carga aparte desde `/operativa/operations-resumen/` para no hacer lenta la página. Ejemplo: EVA 3 |
 | `/comercial/` | Comercial | Ejemplo (pendiente de HubSpot) |
 | `/operativa/delivery-manager/<slug>/` | Detalle de Delivery Manager | Reales: proyectos en ejecución y suspendidos (los que necesitan atención primero), estado, avance, ETC, riesgo y reparto por estado. T (desviación promedio en días) y C (avance promedio). Pendiente: inversión y cumplimiento por mes |
 | `/operativa/eva-1/` | EVA 1 (AER y T&M) | Reales, de la hoja MPB (`apps/ejecutivo`): proyectos y personas por Delivery Manager y rol, presupuesto, consumo, horas por terminar, avance y días para renovar. C = avance promedio. Pendiente: T, porque MPB no registra desviación en días |
@@ -137,14 +137,15 @@ el enlace «Panel anterior» del menú.
 | `/cuenta/<slug>/` | Cuenta | Reales: proyectos de la cuenta en ejecución y suspendidos con Delivery Manager, estado y avance en horas; se abre desde el nombre de la cuenta en el detalle de Delivery Manager y en Suspendidos. Pendiente (no existe en Sheets): Revenue, Gross Margin, Collections, revenue por mes e historial |
 | `/operativa/en-ejecucion/` | En ejecución por Delivery Manager | Reales: tarjetas por Delivery Manager y sus proyectos en ejecución agrupados (cuenta, proyecto, estado, avance, horas por terminar y riesgo), con T y C por Delivery Manager; se abre desde la tarjeta En ejecución de Operativa |
 | `/operativa/en-tiempo/` | En tiempo por Delivery Manager | Igual que la anterior, solo con los proyectos que van en tiempo; se abre desde la tarjeta En tiempo de Operativa |
-| `/operativa/inversion/` | Inversión operativa y comercial | Reales, en horas, de la base de GSE en Sheets (solo lectura) para el mes `?mes=`: comercial = categorías «Inversión Comercial» y «Pre-Venta»; operativa = «Inversión Operaciones» e «Internos». Por especialidad (GSE no trae el Delivery Manager), comercial por tipo y operativa por proyecto. Las tarjetas de Operativa muestran el mes actual cuando ya se leyó (cache de 10 minutos) |
-| `/operativa/facturabilidad/` | Facturabilidad | Reales, solo lectura: horas de la base de GSE en Sheets (nunca la API ni escritura) y capacidad de la hoja Recursos, de enero al mes `?mes=`. Fórmula: horas fijo = servicio AER; capacidad = horas estimadas de todos los recursos; % fijo = horas AER ÷ capacidad; HC = horas ÷ (días hábiles × 8 h). Variable = TYM, IXB, SaaS y RaaS sobre la capacidad restante; libre y global. Cache de 10 minutos por mes |
-| `/operativa/facturabilidad/especialidad/` | Facturabilidad por especialidad | Mismo cálculo del mes elegido por ROL de Bandas/rol: HC, capacidad, fijo, variable y libre (negativo = déficit) |
-| `/operativa/facturabilidad/recurso/` | Facturabilidad por recurso | Por persona y mes: horas facturadas (AER y variable) ÷ sus horas estimadas en Recursos, con promedio del equipo |
+| `/operativa/inversion/` | Inversión operativa y comercial | Reales, en horas, de Clockify con las categorías de GSE (solo lectura) para el mes `?mes=`: comercial = categorías «Inversión Comercial» y «Pre-Venta»; operativa = «Inversión Operaciones» e «Internos». Por especialidad (GSE no trae el Delivery Manager), comercial por tipo y operativa por proyecto. Las tarjetas de Operativa muestran el mes actual cuando ya se leyó (cache de 10 minutos) |
+| `/operativa/facturabilidad/` | Facturabilidad | Reales, misma lógica que GSE · Horas por área, de enero al mes `?mes=`: horas de Clockify con categoría «Facturable» (lee la base de Clockify en Sheets si cubre el mes y si no la API; nunca guarda en Sheets). Fijo = AER; variable = el resto (TYM, IXB, SaaS, RaaS y otras). Capacidad = personas con horas en el mes × días hábiles sin festivos de México × 8 h. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona. Filtro «Áreas mostradas»; por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM, definidas en `OPERATIONAL_ROLES`. Cache de 10 minutos por mes |
+| `/operativa/facturabilidad/especialidad/` | Facturabilidad por especialidad | Mismo cálculo del mes elegido por área (ROL de Bandas/rol): HC (personas con horas), capacidad, fijo, variable y libre (negativo = déficit) |
+| `/operativa/facturabilidad/recurso/` | Facturabilidad por recurso | Por persona y mes, como la hoja Facturabilidad Mensual: horas facturables en Clockify ÷ (días laborables × 8 h), con la fila de días laborables y el promedio del equipo |
 | `/operativa/kpis-delivery-managers/` | KPIs de Delivery Managers | Reales, corte actual: TP, T, C, % en tiempo, en riesgo y críticos por Delivery Manager, total, mejor y menor cumplimiento. Pendiente: trimestres y meses anteriores (hace falta guardar un corte mensual) y las pestañas de Facturabilidad |
 | `/operativa/suspendidos/` | Suspendidos | Reales: proyecto, Delivery Manager, avance y ETC. Pendiente (no existe en Sheets): motivo, días suspendido, revenue en pausa y plan para retomar |
 | `/legacy/` | Panel anterior | Sin cambios |
 
+- **Delivery Manager**: AER y T&M lo toman de MPB; el resto de Historico_Proyectos (ID exacto, normalizado o sin la variante _S2/_CR1), igual que Capacidad instalada y GSE. «Sin Delivery Manager» no entra al mejor/peor de KPIs.
 - **T y C** (fórmula confirmada): T = promedio de la desviación en días de los
   proyectos y C = promedio del avance (%). Se calculan en `services/time_cost.py`
   para EVA 2, las tarjetas y el detalle de Delivery Manager; en EVA 1 solo C,
@@ -156,6 +157,15 @@ el enlace «Panel anterior» del menú.
   enlaces a pantallas que todavía no existen avisan «llega en la siguiente
   entrega».
 - Servicio y Cuenta filtran solo en Operativa (decisión de la reunión).
+- Facturabilidad obtiene las personas y el rol directamente de
+  **Bandas/rol**, usando la banda mensual: incluye personas con banda
+  vigente y horas registradas positivas (facturables o no facturables),
+  y excluye BAJA, NA, banda vacía y personas sin horas en el mes.
+  No depende de Recursos ni MPB. Si no hay columna para el mes, conserva
+  las personas con horas de GSE y muestra un aviso de falta de histórico.
+  Las horas salen de **GSE · Horas por área** y se filtran las áreas
+  operativas por defecto. La capacidad sigue usando jornada completa,
+  no estimados individuales de la hoja del jefe.
 - `portfolio_loader.py` guarda el portafolio 5 minutos en cache y, si
   Sheets falla, la pantalla se muestra con un aviso en vez de error 500.
 - Las plantillas parten del diseño aprobado (`templates/portal/`); cada

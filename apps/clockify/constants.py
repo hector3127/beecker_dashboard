@@ -55,3 +55,6 @@ SHEET_PROJECT_LINKS: Final[str] = "Clockify_Vinculos"
 HEADER_SEARCH_ROWS: Final[int] = 12
 HISTORY_COLUMN_COUNT: Final[int] = 9
 MPB_COLUMN_COUNT: Final[int] = 9
+# Si la hoja ya no tiene el encabezado FIN, la fecha fin es la columna I
+# (base 0 = 8), la misma posicion de respaldo que usa el resumen AER/T&M.
+MPB_END_FALLBACK_INDEX: Final[int] = 8

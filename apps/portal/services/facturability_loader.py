@@ -1,49 +1,97 @@
-"""Carga de GSE y Recursos para Facturabilidad (solo lectura)."""
+"""Carga de GSE (Clockify) para Facturabilidad, sin escribir nada."""
 
 import logging
 from dataclasses import dataclass, field
 from typing import Any
 
+from django.conf import settings
 from django.core.cache import cache
+from django.utils import timezone
 
-from apps.gse.rpc import get_gse_month
+from apps.gse.services.base_store import BaseStore, build_connection
+from apps.gse.services.clockify_month import MonthReportLoader
+from apps.gse.services.month_report import GseContext, get_month
 from apps.portal.constants import (
     FACTURABILITY_CACHE_PREFIX,
     FACTURABILITY_CACHE_SECONDS,
 )
-from apps.portal.services.capacity_loader import load_capacity
+from apps.portal.services.roster import apply_roster, attach_month_roster
+from core.exceptions import DashboardError, describe_error
+from core.sheets.factory import build_sheet_repository
 
 """BKD.120.024 - Cargador de Facturabilidad
-Por cada mes lee las horas de GSE desde su base en Sheets (fuente "sheet":
-nunca llama a la API de Clockify ni escribe) y las asignaciones de
-Recursos. El resultado correcto se guarda 10 minutos por mes.
+Lee cada mes igual que GSE con la fuente "API Clockify": usa la base de
+Clockify guardada en Sheets cuando cubre el mes y, si no, descarga el
+reporte de Clockify. La plantilla se lee directamente de Bandas/rol para
+el mes, sin exigir Recursos ni MPB. Si falta la columna mensual se usan
+las personas con horas de GSE con un aviso. Nunca guarda lo
+descargado en Sheets (persist=None): solo lectura. El resultado correcto
+se guarda 10 minutos por mes en la cache de Django.
 """
 
 logger = logging.getLogger(__name__)
 
-GSE_SOURCE_SHEET = "sheet"
+GSE_SOURCE_API = "api"
 FIRST_MONTH = 1
 
 
 @dataclass(frozen=True, slots=True)
 class MonthSources:
-    """Horas de GSE y capacidad de un mes."""
+    """Horas de GSE (por area, persona y categoria) de un mes."""
 
     month: str
     gse: dict[str, Any] = field(default_factory=dict)
-    capacity: dict[str, Any] = field(default_factory=dict)
     error: str = ""
 
 
-def load_month_sources(month: str) -> MonthSources:
+def read_gse_month(month: str) -> dict[str, Any]:
     """
-    Lee GSE y Recursos de un mes.
+    Lee un mes de GSE desde Clockify sin escribir en Sheets.
 
     Args:
         month: Mes valido YYYY-MM.
 
     Returns:
-        Los datos del mes; con error si alguna fuente fallo.
+        El resultado de gseObtenerMes o {"ok": False, "error"}.
+    """
+    try:
+        reader = build_sheet_repository()
+        connection = build_connection(
+            settings.CLOCKIFY_API_KEY,
+            settings.CLOCKIFY_WORKSPACE_ID,
+        )
+        store = BaseStore(reader, connection, timezone.now())
+        loader = MonthReportLoader(
+            (
+                settings.CLOCKIFY_API_KEY,
+                settings.CLOCKIFY_WORKSPACE_ID,
+                settings.TIME_ZONE,
+            ),
+            (store, connection, cache),
+            persist=None,
+        )
+        context = GseContext(reader, store, loader)
+    except DashboardError as error:
+        return {"ok": False, "mes": month, "error": describe_error(error)}
+
+    result = get_month(context, (month, GSE_SOURCE_API, False, ""))
+    if result.get("ok") is not True:
+        return result
+    try:
+        return attach_month_roster(result, reader, month)
+    except DashboardError as error:
+        return {"ok": False, "mes": month, "error": describe_error(error)}
+
+
+def load_month_sources(month: str) -> MonthSources:
+    """
+    Lee las horas de GSE de un mes.
+
+    Args:
+        month: Mes valido YYYY-MM.
+
+    Returns:
+        Los datos del mes; con error si GSE no se pudo leer.
     """
     key = f"{FACTURABILITY_CACHE_PREFIX}{month}"
     cached = cache.get(key)
@@ -51,27 +99,19 @@ def load_month_sources(month: str) -> MonthSources:
     if isinstance(cached, MonthSources):
         return cached
 
-    gse = get_gse_month(month, GSE_SOURCE_SHEET, False, "")
-    capacity = load_capacity(month)
-    errors = []
+    gse = read_gse_month(month)
 
     if gse.get("ok") is not True:
-        errors.append(f"GSE: {gse.get('error') or 'sin datos'}")
+        error = f"GSE: {gse.get('error') or 'sin datos'}"
+        logger.warning("Facturabilidad %s incompleta: %s", month, error)
 
-    if capacity.error:
-        errors.append(f"Recursos: {capacity.error}")
+        return MonthSources(month=month, error=error)
 
-    result = MonthSources(
-        month=month,
-        gse=gse if gse.get("ok") is True else {},
-        capacity=capacity.data,
-        error=" · ".join(errors),
-    )
-
-    if errors:
-        logger.warning("Facturabilidad %s incompleta: %s", month, result.error)
-    else:
-        cache.set(key, result, FACTURABILITY_CACHE_SECONDS)
+    people = gse.get("plantilla")
+    if isinstance(people, list):
+        gse = apply_roster(gse, people)
+    result = MonthSources(month=month, gse=gse)
+    cache.set(key, result, FACTURABILITY_CACHE_SECONDS)
 
     return result
 

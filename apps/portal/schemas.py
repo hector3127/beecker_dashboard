@@ -369,6 +369,7 @@ class CapacityView:
     concepts: tuple[str, ...]
     band_notice: str
     band_column: str
+    mpb_notice: str = ""
 
 
 @dataclass(frozen=True, slots=True)
@@ -509,6 +510,9 @@ class MonthFacturability:
     global_percent: float | None
     bar_height: float = 0.0
     error: str = ""
+    other_hours: float = 0.0
+    resources: int = 0
+    notice: str = ""
 
 
 @dataclass(frozen=True, slots=True)
@@ -568,3 +572,42 @@ class InvestmentView:
     by_area: tuple[InvestmentRow, ...]
     commercial_by_type: tuple[HoursBar, ...]
     operational_by_project: tuple[HoursBar, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class ChartBar:
+    """Una barra de la grafica de Operations en Operativa (SVG)."""
+
+    x: float
+    y: float
+    width: float
+    height: float
+    center: float
+    text_y: float
+    value_text: str
+    label: str
+    current: bool
+
+
+@dataclass(frozen=True, slots=True)
+class OperationsSummary:
+    """Resumen de facturabilidad para la tarjeta Operations."""
+
+    selected: MonthFacturability | None
+    month_label: str
+    target: float
+    gap: float | None
+    gap_abs: float | None
+    bars: tuple[ChartBar, ...]
+    errors: tuple[str, ...]
+    month_closed: bool = True
+
+
+@dataclass(frozen=True, slots=True)
+class RoleOption:
+    """Un rol en el filtro de Facturabilidad."""
+
+    label: str
+    key: str
+    checked: bool
+    display: str = ""

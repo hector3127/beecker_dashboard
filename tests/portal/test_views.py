@@ -4,7 +4,9 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 import pytest
+from django.core.cache import cache
 
+from apps.portal.constants import FACTURABILITY_CACHE_PREFIX
 from apps.portal.services.capacity_loader import CapacityLoad
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
@@ -315,7 +317,8 @@ def test_eva1_shows_projects_and_alerts(client, monkeypatch):
     assert "Laura Vega" in html
     assert "20/10/26" in html
     assert 'class="bd bad"' in html
-    assert "Definición por confirmar" in html
+    assert "MPB no registra desviación en días" in html
+    assert "Avance promedio de los proyectos" in html
 
 
 def test_eva1_without_projects_and_with_error(client, monkeypatch):
@@ -747,33 +750,45 @@ def test_operational_eva_cards_use_real_numbers(client, monkeypatch):
     assert 'href="/operativa/kpis-delivery-managers/"' in html
 
 
-def stub_facturability(monkeypatch):
-    sources = {
-        "gse": {
-            "ok": True,
-            "detalle": [
-                {
-                    "recurso": "Ana",
-                    "area": "DEV",
-                    "servicio": "AER",
-                    "horas": 80,
-                },
-            ],
-        },
-        "capacity": {
-            "filas": [
-                {"recurso": "Ana", "rol": "DEV", "horasEstimadas": 160},
-            ],
-        },
+def facturable_gse(*rows):
+    areas = {}
+
+    for person, area, _service, _hours in rows:
+        areas.setdefault(area, set()).add(person)
+
+    return {
+        "ok": True,
+        "areas": [
+            {
+                "area": area,
+                "recursos": len(people),
+                "personas": [{"nombre": name} for name in sorted(people)],
+            }
+            for area, people in areas.items()
+        ],
+        "detalle": [
+            {
+                "recurso": person,
+                "area": area,
+                "servicio": service,
+                "horas": hours,
+                "categorias": ["Facturable"],
+            }
+            for person, area, service, hours in rows
+        ],
     }
+
+
+def stub_facturability(monkeypatch):
+    january = facturable_gse(("Ana", "DEV", "AER", 84))
     monkeypatch.setattr(
         "apps.portal.views.load_month_sources",
-        lambda month: MonthSources(month=month, **sources),
+        lambda month: MonthSources(month=month, gse=january),
     )
     monkeypatch.setattr(
         "apps.portal.views.load_year_sources",
         lambda month: [
-            MonthSources(month="2026-01", **sources),
+            MonthSources(month="2026-01", gse=january),
             MonthSources(month="2026-02", error="GSE: sin base"),
         ],
     )
@@ -790,9 +805,13 @@ def test_facturability_pages(client, monkeypatch):
     assert general.context["first"].fixed_percent == 50.0
     assert general.context["selected"].error == "GSE: sin base"
     assert "Meses sin datos completos" in general.content.decode()
-    assert specialty.context["specialties"][0].name == "DEV"
+    assert specialty.context["specialties"][0].name == "Dev"
     assert specialty.context["headcount"] == 1
     assert resource.context["rows"][0].percents == (50.0, None)
+    assert resource.context["workdays"] == [21, 19]
+    assert [option.label for option in general.context["role_options"]] == [
+        "DEV",
+    ]
     assert "Facturabilidad por recurso" in resource.content.decode()
 
 
@@ -802,6 +821,41 @@ def test_facturability_month_never_goes_past_today(client, monkeypatch):
     response = client.get("/operativa/facturabilidad/especialidad/?mes=2999-12")
 
     assert response.context["month"] < "2999-12"
+
+
+def test_facturability_loads_every_month_with_only_operational_areas(
+    client, monkeypatch,
+):
+    months = [f"2026-{number:02d}" for number in range(1, 9)]
+    keys = [f"{FACTURABILITY_CACHE_PREFIX}{month}" for month in months]
+    calls = []
+    gse = facturable_gse(
+        ("Ana", "DEV", "AER", 84),
+        ("Eva", "QA", "IXB", 42),
+        ("Dan", "DM", "AER", 100),
+    )
+
+    def read_gse(month):
+        calls.append(month)
+        return gse
+
+    monkeypatch.setattr(
+        "apps.portal.services.facturability_loader.read_gse_month", read_gse,
+    )
+    cache.delete_many(keys)
+    try:
+        response = client.get("/operativa/facturabilidad/?mes=2026-08")
+        assert response.status_code == 200
+        assert calls == months
+        assert response.context["errors"] == []
+        assert [item.month for item in response.context["months"]] == months
+        for item in response.context["months"]:
+            assert item.resources == 2
+            assert item.fixed_hours == 84
+            assert item.variable_hours == 42
+        assert "sin personas vigentes" not in response.content.decode()
+    finally:
+        cache.delete_many(keys)
 
 
 def test_facturability_requires_login_when_configured(client, settings):
@@ -872,3 +926,62 @@ def test_investment_requires_login_when_configured(client, settings):
     settings.PORTAL_LOGIN_REQUIRED = True
 
     assert client.get("/operativa/inversion/").status_code == 302
+
+
+def test_operations_summary_fragment(client, monkeypatch):
+    gse = facturable_gse(("Ana", "DEV", "AER", 134.4))
+    monkeypatch.setattr(
+        "apps.portal.views.load_year_sources",
+        lambda month: [MonthSources(month="2026-09", gse=gse)],
+    )
+
+    response = client.get("/operativa/operations-resumen/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["ops"].gap == 10.0
+    assert "80%" in html
+    assert "puntos arriba de la meta" in html
+    assert "<html" not in html
+
+
+def test_operational_page_loads_operations_apart(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    html = client.get("/operativa/").content.decode()
+
+    assert 'data-src="/operativa/operations-resumen/"' in html
+    assert 'href="/operativa/facturabilidad/"' in html
+    assert 'href="/operativa/facturabilidad/especialidad/"' in html
+    assert 'href="/operativa/facturabilidad/recurso/"' in html
+
+
+def test_operations_fragment_without_login(client, settings):
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    assert client.get("/operativa/operations-resumen/").status_code == 401
+
+
+def test_facturability_role_filter(client, monkeypatch):
+    gse = facturable_gse(
+        ("Ana", "DEV", "AER", 40),
+        ("Dan", "DM", "AER", 60),
+        ("Eva", "R&D", "AER", 80),
+    )
+    monkeypatch.setattr(
+        "apps.portal.views.load_month_sources",
+        lambda month: MonthSources(month=month, gse=gse),
+    )
+
+    default = client.get("/operativa/facturabilidad/especialidad/")
+    chosen = client.get(
+        "/operativa/facturabilidad/especialidad/",
+        {"roles": "1", "rol": ["DEV", "DM", "R&D"]},
+    )
+
+    assert [row.name for row in default.context["specialties"]] == ["Dev"]
+    assert default.context["selected"].fixed_hours == 40
+    assert "Áreas mostradas" in default.content.decode()
+    assert len(chosen.context["specialties"]) == 1
+    assert chosen.context["selected"].fixed_hours == 40
+    assert [r.label for r in chosen.context["role_options"]] == ["DEV"]

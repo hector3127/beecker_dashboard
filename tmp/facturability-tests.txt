@@ -1,0 +1,294 @@
+........................................................................ [  6%]
+........................................................................ [ 13%]
+........................................................................ [ 20%]
+........................................................................ [ 27%]
+........................................................................ [ 34%]
+........................................................................ [ 41%]
+........................................................................ [ 48%]
+........................................................................ [ 55%]
+........................................................................ [ 62%]
+........................................................................ [ 69%]
+........................................................................ [ 76%]
+........................................................................ [ 82%]
+........................................................................ [ 89%]
+........................................................................ [ 96%]
+.................................                                        [100%]
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.12.10-final-0 _______________
+
+Name                                                       Stmts   Miss  Cover   Missing
+----------------------------------------------------------------------------------------
+apps\__init__.py                                               0      0   100%
+apps\aer\__init__.py                                           0      0   100%
+apps\aer\ai_rpc.py                                            28      5    82%   30-42, 59
+apps\aer\apps.py                                               8      0   100%
+apps\aer\constants.py                                         20      0   100%
+apps\aer\rpc.py                                               28      1    96%   36
+apps\aer\services\__init__.py                                  0      0   100%
+apps\aer\services\aer_values.py                              115     44    62%   113-125, 130, 135-168, 176-192, 225-226
+apps\aer\services\ai_claude.py                               240     56    77%   59, 75-78, 132, 137, 223, 269-270, 288, 295-296, 315-316, 363-364, 372, 396, 400-401, 419-422, 425-426, 435-466, 486-488, 513, 548, 579, 599-601
+apps\aer\services\ai_common.py                               105      5    95%   103, 106, 148, 186, 251
+apps\aer\services\ai_functions.py                             10      0   100%
+apps\aer\services\ai_minutes.py                              225     26    88%   78, 99-100, 167-168, 177-178, 209-215, 249, 275, 313, 318, 336, 362-363, 394, 400, 433, 442, 468, 482, 496
+apps\aer\services\ai_parts.py                                120      7    94%   77, 90, 153, 218, 223, 226, 261
+apps\aer\services\dashboard.py                               243     16    93%   241, 287, 292, 300, 305, 344, 362, 369, 410, 433, 681, 718-723
+apps\aer\services\manual_store.py                            116      2    98%   176, 181
+apps\aer\services\people_client.py                           178     14    92%   89, 129, 356, 359, 411-415, 456, 490, 507, 515, 547, 550
+apps\aer\services\plan.py                                    332     28    92%   116, 119, 196, 203, 219, 238, 243, 486, 520, 558, 571-579, 584-585, 594, 612, 656, 690, 695, 752, 801, 804, 874, 877, 895, 990, 1003, 1051
+apps\aer\services\risks_actions.py                           189     11    94%   89, 102, 115, 154, 369, 375-378, 396, 467, 519
+apps\azure_devops\__init__.py                                  0      0   100%
+apps\azure_devops\apps.py                                      7      0   100%
+apps\azure_devops\constants.py                                21      0   100%
+apps\azure_devops\exceptions.py                               12      0   100%
+apps\azure_devops\gateway.py                                  67     39    42%   43, 59-63, 72-81, 93-102, 114, 136-145, 149, 166-177, 181, 197-202
+apps\azure_devops\rpc.py                                      52     22    58%   45-54, 79-99, 113, 118
+apps\azure_devops\services\__init__.py                         0      0   100%
+apps\azure_devops\services\azure_client.py                    90     30    67%   62-68, 134-180, 192-202, 216-227, 269-270, 282-283, 288
+apps\azure_devops\services\portfolio_risks.py                 79      5    94%   72, 237, 255-257, 260
+apps\azure_devops\services\project_raid.py                   112      3    97%   302-304
+apps\azure_devops\services\project_resolver.py                15      0   100%
+apps\azure_devops\services\raid_cache.py                      33      0   100%
+apps\azure_devops\services\risk_severity.py                   20      0   100%
+apps\capacidad\__init__.py                                     0      0   100%
+apps\capacidad\apps.py                                         7      0   100%
+apps\capacidad\azure_source.py                                17      2    88%   39, 59
+apps\capacidad\constants.py                                   20      0   100%
+apps\capacidad\exceptions.py                                   9      1    89%   26
+apps\capacidad\rpc.py                                         27      2    93%   99-101
+apps\capacidad\services\__init__.py                            0      0   100%
+apps\capacidad\services\azure_range.py                        46      0   100%
+apps\capacidad\services\capacity_base.py                     114      6    95%   106, 136, 419, 450-452
+apps\capacidad\services\capacity_text.py                      45      0   100%
+apps\capacidad\services\daily_hours.py                        85      0   100%
+apps\capacidad\services\mpb_projects.py                       72      1    99%   96
+apps\capacidad\services\orchestrator.py                       47      0   100%
+apps\capacidad\services\project_range.py                      30      1    97%   81
+apps\capacidad\services\sheet_table.py                        37      0   100%
+apps\clockify\__init__.py                                      0      0   100%
+apps\clockify\apps.py                                          9      0   100%
+apps\clockify\constants.py                                    38      0   100%
+apps\clockify\exceptions.py                                   19      0   100%
+apps\clockify\management\__init__.py                           0      0   100%
+apps\clockify\management\commands\__init__.py                  0      0   100%
+apps\clockify\management\commands\clockify_workspaces.py      17     17     0%   3-35
+apps\clockify\project_rpc.py                                  67     31    54%   51-58, 69, 76-88, 95-97, 107-110, 118, 129, 145-165, 172-177, 188
+apps\clockify\provider.py                                     55     20    64%   78-101, 118, 167-176
+apps\clockify\rpc.py                                          20      8    60%   49-63
+apps\clockify\services\__init__.py                             0      0   100%
+apps\clockify\services\clockify_client.py                    157     18    89%   82, 120, 136, 208, 225, 287, 332, 358, 391, 418-423, 477, 504-512, 524-525, 627
+apps\clockify\services\connection_panel.py                   118     13    89%   59-60, 134, 156-157, 193, 197-198, 221, 235-236, 265, 272
+apps\clockify\services\date_ranges.py                        131      4    97%   107, 149, 292, 381
+apps\clockify\services\diagnostics.py                        189     25    87%   58, 87, 113, 136-140, 143-144, 181, 196, 250-251, 260-263, 270, 301-302, 311-312, 344, 359, 368, 463, 471, 476
+apps\clockify\services\duration_parser.py                     25      2    92%   38, 56
+apps\clockify\services\entry_validation.py                   164      7    96%   173-174, 268-269, 272, 285-286
+apps\clockify\services\project_matcher.py                     36      0   100%
+apps\clockify\services\project_views.py                      140      3    98%   69, 367-368
+apps\clockify\services\report_cache.py                         9      0   100%
+apps\clockify\services\report_mapper.py                       49      4    92%   146-147, 174-177
+apps\clockify\services\time_entry_loader.py                  201     43    79%   179-193, 255-293, 298, 302, 306, 312, 319, 326-328, 346, 445-464, 539, 615, 622, 652-654, 681-692
+apps\clockify\validation_rpc.py                               23      3    87%   29-31, 42
+apps\daily\__init__.py                                         0      0   100%
+apps\daily\ai_rpc.py                                          49      3    94%   43-45, 50
+apps\daily\apps.py                                             9      0   100%
+apps\daily\constants.py                                       25      0   100%
+apps\daily\exceptions.py                                      21      0   100%
+apps\daily\ixs_rpc.py                                         67     12    82%   52-65, 119, 128, 152-155
+apps\daily\rpc.py                                            151     60    60%   59-61, 73-75, 97-101, 114, 124, 130, 136, 142, 148, 154, 163, 174, 184, 194, 205-212, 222, 232, 245-247, 263-270, 279-304, 313, 328, 343, 356, 372, 386, 400, 411, 436, 442, 448, 454, 460, 466
+apps\daily\services\__init__.py                                0      0   100%
+apps\daily\services\azure_config.py                          101     11    89%   187, 201-202, 213, 235, 245, 322, 336-337, 356, 368
+apps\daily\services\azure_connection.py                       38      0   100%
+apps\daily\services\bee_com.py                                57      0   100%
+apps\daily\services\claude_assist.py                         144      9    94%   234, 280-281, 288, 433, 469-472
+apps\daily\services\daily_azure_client.py                     79      5    94%   299-300, 308, 342-343
+apps\daily\services\daily_sheets.py                          153      9    94%   115, 160, 325-338, 520, 622
+apps\daily\services\ixs_ai.py                                251     25    90%   162, 201, 263, 362-365, 375, 406-409, 431, 456-457, 478, 528-532, 570-574, 612, 642-643
+apps\daily\services\ixs_ai_facts.py                          167      2    99%   222, 434
+apps\daily\services\ixs_client.py                            172      3    98%   545, 569-570
+apps\daily\services\ixs_drive.py                             282     50    82%   126, 130-142, 146, 150-159, 163-174, 177-203, 208-211, 216-223, 288-289, 292, 329-330, 404, 449, 458-459, 502-503, 598-599, 637, 657, 669, 692, 708
+apps\daily\services\ixs_functions.py                          47      0   100%
+apps\daily\services\ixs_panel.py                             158      3    98%   204, 266-267
+apps\daily\services\ixs_planning.py                          181      6    97%   127, 152, 332, 336-337, 340
+apps\daily\services\ixs_raid.py                              426      9    98%   206, 209, 528, 975, 1115, 1134, 1143-1144, 1147
+apps\daily\services\ixs_store.py                              47      0   100%
+apps\daily\services\project_links.py                          39      0   100%
+apps\daily\services\risk_form.py                             235     35    85%   154, 162-163, 202, 254, 284, 291-292, 354-355, 387, 425-426, 429, 437-438, 452, 463-464, 512, 540, 556-557, 594, 664, 679-691, 736, 775-781, 833, 847-853
+apps\daily\services\work_items.py                            189     16    92%   167, 213, 285, 518, 589-592, 610-611, 632, 650-651, 662-668
+apps\dashboard\__init__.py                                     0      0   100%
+apps\dashboard\apps.py                                         7      0   100%
+apps\dashboard\cache.py                                       20      2    90%   34-35
+apps\dashboard\constants.py                                   42      0   100%
+apps\dashboard\rpc.py                                         29      0   100%
+apps\dashboard\schemas\__init__.py                             0      0   100%
+apps\dashboard\schemas\dashboard_filters.py                   20      0   100%
+apps\dashboard\schemas\dashboard_models.py                    61      0   100%
+apps\dashboard\schemas\records.py                             35      0   100%
+apps\dashboard\services\__init__.py                            0      0   100%
+apps\dashboard\services\alerts.py                             23      0   100%
+apps\dashboard\services\delivery_managers.py                  22      3    86%   36-38
+apps\dashboard\services\filters.py                            26      0   100%
+apps\dashboard\services\kpi_calculator.py                     35      2    94%   154, 197
+apps\dashboard\services\kpi_history.py                        64      6    91%   67-74, 132-135, 161
+apps\dashboard\services\orchestrator.py                       48      0   100%
+apps\dashboard\services\portfolio_costs.py                    33      0   100%
+apps\dashboard\services\portfolio_health.py                   15      0   100%
+apps\dashboard\services\project_metrics.py                    60      0   100%
+apps\dashboard\services\project_status.py                     18      0   100%
+apps\dashboard\services\record_reader.py                      13      0   100%
+apps\dashboard\services\response_builder.py                   30      0   100%
+apps\dashboard\services\top_risks.py                          10      0   100%
+apps\dashboard\services\weekly_hours.py                       26      0   100%
+apps\ejecutivo\__init__.py                                     0      0   100%
+apps\ejecutivo\account_rpc.py                                 48     18    62%   39-41, 47-56, 85-108
+apps\ejecutivo\apps.py                                         9      0   100%
+apps\ejecutivo\constants.py                                   12      0   100%
+apps\ejecutivo\rpc.py                                        115     35    70%   90-105, 129, 134-140, 203-212, 231-250, 269-272, 307
+apps\ejecutivo\services\__init__.py                            0      0   100%
+apps\ejecutivo\services\account_actions.py                   123      5    96%   120, 271-272, 333-334
+apps\ejecutivo\services\account_view.py                      270     11    96%   136, 244, 268, 310, 325, 362, 489, 506, 663, 679, 705
+apps\ejecutivo\services\additional_milestones.py              40      1    98%   126
+apps\ejecutivo\services\aer_tym_consumption.py                31      3    90%   76, 85-86
+apps\ejecutivo\services\aer_tym_summary.py                    62      2    97%   199-201
+apps\ejecutivo\services\azure_stages.py                       97     20    79%   114, 142-176, 202-236, 255-261
+apps\ejecutivo\services\history_stages.py                    157      5    97%   147, 238-239, 372, 476
+apps\ejecutivo\services\ixb_history.py                        54      1    98%   100
+apps\ejecutivo\services\ixb_rules.py                         159     46    71%   93-98, 142-154, 260, 372, 375, 394-405, 422-444, 470-498
+apps\ejecutivo\services\ixb_summary.py                       138     15    89%   297-299, 320-333, 355-361, 477
+apps\ejecutivo\services\manual_risks.py                       37      3    92%   60, 101, 106
+apps\ejecutivo\services\milestone_writer.py                  124      1    99%   184
+apps\ejecutivo\services\mpb_values.py                         46      1    98%   47
+apps\ejecutivo\services\project_dashboard.py                 148      4    97%   115, 332, 466, 469
+apps\ejecutivo\services\project_detail.py                    125      0   100%
+apps\ejecutivo\services\project_hours.py                      36      0   100%
+apps\ejecutivo\services\project_milestones.py                116      4    97%   215, 323, 381-382
+apps\ejecutivo\services\project_orchestrator.py               60      9    85%   197-208, 227-229
+apps\ejecutivo\write_rpc.py                                   56     26    54%   46-53, 71-73, 97, 124, 151, 182-198, 211-218
+apps\gmail\__init__.py                                         0      0   100%
+apps\gmail\apps.py                                             5      0   100%
+apps\gmail\constants.py                                       24      0   100%
+apps\gmail\exceptions.py                                      30      0   100%
+apps\gmail\services\__init__.py                                0      0   100%
+apps\gmail\services\communique.py                             32      1    97%   53
+apps\gmail\services\credentials_store.py                      38      2    95%   101, 133
+apps\gmail\services\extension_reply.py                        85      4    95%   146, 194, 207, 234
+apps\gmail\services\gmail_api.py                              41      5    88%   111, 134-135, 153-154
+apps\gmail\services\oauth_client.py                           54      8    85%   118-119, 150-151, 156, 165-166, 185
+apps\gmail\services\reply_builder.py                          91      5    95%   42, 47, 67, 245-246
+apps\gmail\services\thread_finder.py                          91      5    95%   223, 254, 281-282, 288
+apps\gmail\services\thread_memory.py                          17      0   100%
+apps\gmail\urls.py                                             5      0   100%
+apps\gmail\views.py                                          121     83    31%   56, 64-70, 75-84, 89-91, 98-101, 108-122, 136-153, 169-195, 209-216, 243-250, 264-282, 301-331, 336-338
+apps\gse\__init__.py                                           0      0   100%
+apps\gse\apps.py                                               7      0   100%
+apps\gse\constants.py                                         43      0   100%
+apps\gse\exceptions.py                                         9      1    89%   26
+apps\gse\rpc.py                                               78     40    49%   46-61, 66, 81-86, 108-118, 139-144, 169-179, 202, 222, 241-249
+apps\gse\services\__init__.py                                  0      0   100%
+apps\gse\services\base_store.py                              171      4    98%   278, 392, 445, 451
+apps\gse\services\base_writer.py                              82      1    99%   226
+apps\gse\services\batch_read.py                              164      5    97%   261, 312-314, 363, 434
+apps\gse\services\catalog.py                                 100      1    99%   156
+apps\gse\services\cells.py                                    46      2    96%   97, 121
+apps\gse\services\clockify_ids.py                            132      4    97%   176, 188-189, 218
+apps\gse\services\clockify_month.py                          125      1    99%   322
+apps\gse\services\month_report.py                            169      2    99%   344, 460
+apps\gse\services\refresh.py                                  10      0   100%
+apps\gse\services\result_cache.py                             57      0   100%
+apps\gse\services\roster.py                                   67      4    94%   78, 94, 98, 128
+apps\gse\services\year_base.py                                28      0   100%
+apps\minutas\__init__.py                                       0      0   100%
+apps\minutas\apps.py                                           7      0   100%
+apps\minutas\constants.py                                     16      0   100%
+apps\minutas\exceptions.py                                     7      0   100%
+apps\minutas\management\__init__.py                            0      0   100%
+apps\minutas\management\commands\__init__.py                   0      0   100%
+apps\minutas\management\commands\scan_minutes.py               9      9     0%   3-23
+apps\minutas\rpc.py                                           21      7    67%   34-43, 59-61, 78-80
+apps\minutas\scanner_factory.py                               15      6    60%   24-40
+apps\minutas\services\__init__.py                              0      0   100%
+apps\minutas\services\drive_folder.py                         59      1    98%   113
+apps\minutas\services\minute_scanner.py                       53      0   100%
+apps\minutas\services\minutes_view.py                         54      1    98%   87
+apps\minutas\services\rule_parser.py                          79      0   100%
+apps\portal\__init__.py                                        0      0   100%
+apps\portal\apps.py                                            5      0   100%
+apps\portal\constants.py                                      55      0   100%
+apps\portal\schemas.py                                       421      0   100%
+apps\portal\services\__init__.py                               0      0   100%
+apps\portal\services\account.py                               21      0   100%
+apps\portal\services\account_ranking.py                       18      0   100%
+apps\portal\services\capacity.py                              78      0   100%
+apps\portal\services\capacity_loader.py                       25      0   100%
+apps\portal\services\decisions.py                             33      0   100%
+apps\portal\services\eva1.py                                  26      0   100%
+apps\portal\services\eva2.py                                  44      0   100%
+apps\portal\services\eva_loader.py                            49      0   100%
+apps\portal\services\facturability.py                        158      4    97%   372, 409, 453, 466
+apps\portal\services\facturability_loader.py                  62      5    92%   74-75, 79, 82-83
+apps\portal\services\filters.py                                9      0   100%
+apps\portal\services\holidays.py                              28      0   100%
+apps\portal\services\investment.py                            57      0   100%
+apps\portal\services\kpis_dm.py                               14      0   100%
+apps\portal\services\manager_detail.py                        64      0   100%
+apps\portal\services\operations_summary.py                    43      0   100%
+apps\portal\services\periods.py                               15      0   100%
+apps\portal\services\portfolio_loader.py                      31      0   100%
+apps\portal\services\portfolio_source.py                      50      0   100%
+apps\portal\services\portfolio_summary.py                     64      0   100%
+apps\portal\services\project_groups.py                        32      0   100%
+apps\portal\services\project_loader.py                        29      2    93%   50-51
+apps\portal\services\project_page.py                         109      0   100%
+apps\portal\services\roster.py                                45      1    98%   84
+apps\portal\services\slugs.py                                  8      0   100%
+apps\portal\services\time_cost.py                             15      0   100%
+apps\portal\urls.py                                            5      0   100%
+apps\portal\views.py                                         234      0   100%
+apps\recursos\__init__.py                                      0      0   100%
+apps\recursos\apps.py                                          7      0   100%
+apps\recursos\rpc.py                                          49     17    65%   34, 61, 67, 73-82, 88-97
+apps\recursos\services\__init__.py                             0      0   100%
+apps\recursos\services\person_detail.py                       80      3    96%   48-49, 237
+apps\recursos\services\resource_records.py                    52      1    98%   81
+apps\recursos\services\summary.py                            103      4    96%   50-51, 64-65
+core\__init__.py                                               0      0   100%
+core\apps.py                                                   5      0   100%
+core\exceptions.py                                            56      0   100%
+core\integrations\__init__.py                                  0      0   100%
+core\integrations\claude_client.py                            35      0   100%
+core\management\__init__.py                                    0      0   100%
+core\management\commands\__init__.py                           0      0   100%
+core\management\commands\init_sheets.py                       18     18     0%   3-43
+core\management\commands\warm_cache.py                        84     17    80%   73-74, 131, 164-189, 208-209
+core\rpc\__init__.py                                           0      0   100%
+core\rpc\registry.py                                          16      0   100%
+core\rpc\urls.py                                               5      0   100%
+core\rpc\views.py                                             39      2    95%   86, 91
+core\sheets\__init__.py                                        0      0   100%
+core\sheets\audit.py                                          31      5    84%   45-50, 60, 89
+core\sheets\client.py                                         23      5    78%   44, 54-57, 72
+core\sheets\factory.py                                        16      1    94%   53
+core\sheets\protocols.py                                      24      0   100%
+core\sheets\read_cache.py                                     63      3    95%   39-43
+core\sheets\repository.py                                    243      8    97%   153, 216, 571, 574, 876-879, 907
+core\sheets\sheet_names.py                                    20      0   100%
+core\sheets\sheet_schema.py                                    3      3     0%   3-10
+core\time_entries\__init__.py                                  0      0   100%
+core\time_entries\factory.py                                  16      1    94%   43
+core\time_entries\models.py                                   25      0   100%
+core\time_entries\protocols.py                                 5      0   100%
+core\time_entries\resource_rates.py                           43      1    98%   171
+core\time_entries\sheet_provider.py                           18      0   100%
+core\urls.py                                                   5      0   100%
+core\utils\__init__.py                                         0      0   100%
+core\utils\cache_store.py                                      5      0   100%
+core\utils\cell_types.py                                       3      0   100%
+core\utils\dates.py                                           51      0   100%
+core\utils\js_values.py                                      111     16    86%   57, 63, 84, 87, 90, 99, 105-107, 139, 144, 149-150, 195, 236, 249
+core\utils\locks.py                                           17      0   100%
+core\utils\numbers.py                                         27      0   100%
+core\utils\parallel.py                                         8      0   100%
+core\utils\text.py                                            39      0   100%
+core\views.py                                                 13      1    92%   28
+----------------------------------------------------------------------------------------
+TOTAL                                                      15723   1326    92%
+Required test coverage of 80% reached. Total coverage: 91.57%
+1041 passed, 77 warnings in 24.44s

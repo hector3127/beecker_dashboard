@@ -9,6 +9,7 @@ from apps.clockify.constants import (
     HEADER_SEARCH_ROWS,
     HISTORY_COLUMN_COUNT,
     MPB_COLUMN_COUNT,
+    MPB_END_FALLBACK_INDEX,
     MPB_PROJECT_PREFIXES,
     MPB_SERVICES,
     SHEET_MPB,
@@ -89,11 +90,16 @@ class ProjectDateRangeResolver:
         return self._resolve_from_history(project_id)
 
     def _resolve_from_mpb(self, project_id: str) -> ProjectDateRange:
-        """Lee INICIO y FIN de la hoja MPB."""
+        """
+        Lee INICIO y FIN de la hoja MPB.
+
+        Si el encabezado FIN ya no existe (la hoja actual tiene
+        "FIN ORIGINAL" en H), la fecha fin se toma de la columna I.
+        """
         rows = self._read_first_columns(SHEET_MPB, MPB_COLUMN_COUNT)
         header_index = find_header_row(
             rows,
-            ("ID", "SERVICE", "INICIO", "FIN"),
+            ("ID", "SERVICE", "INICIO"),
             normalize_mpb_text,
         )
 
@@ -104,7 +110,9 @@ class ProjectDateRangeResolver:
         id_column = headers.index("ID")
         service_column = headers.index("SERVICE")
         start_column = headers.index("INICIO")
-        end_column = headers.index("FIN")
+        end_column = (
+            headers.index("FIN") if "FIN" in headers else MPB_END_FALLBACK_INDEX
+        )
         normalized_id = normalize_mpb_text(project_id)
         first_data_row = header_index + 1
 

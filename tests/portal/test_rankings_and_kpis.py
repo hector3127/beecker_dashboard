@@ -117,3 +117,17 @@ def test_eva2_card_only_uses_the_cache():
     assert card.time_cost.time_days == -4.0
     assert card.time_cost.cost_percent == 60.0
     cache.delete(EVA2_CACHE_KEY)
+
+
+def test_kpi_best_and_worst_ignore_projects_without_manager():
+    projects = [
+        make_project(project_id="1", delivery_manager="Sin Delivery Manager"),
+        make_project(project_id="2", health="Crítica"),
+        make_project(project_id="3", delivery_manager="Ana"),
+    ]
+
+    view = build_kpi_view(projects)
+
+    assert "Sin Delivery Manager" in [row.name for row in view.rows]
+    assert view.best.name == "Ana"
+    assert view.worst.name == "Laura Vega"

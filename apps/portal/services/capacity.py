@@ -1,6 +1,5 @@
 """Pantalla de Capacidad instalada: asignaciones y capacidad base."""
 
-import calendar
 import csv
 import io
 import re
@@ -13,15 +12,15 @@ from apps.capacidad.services.capacity_text import normalize_capacity_text
 from apps.portal.constants import (
     DEFAULT_WORKDAY_HOURS,
     MAX_WORKDAY_HOURS,
-    WEEKDAYS_PER_WEEK,
 )
 from apps.portal.schemas import CapacityFilters, CapacityRow, CapacityView
+from apps.portal.services.holidays import count_business_days
 
 """BKD.120.015 - Capacidad instalada del portal
 Arma la pantalla con las asignaciones del mes que ya calcula
 apps/capacidad (Recursos + Bandas/rol + MPB): recursos, capacidad base
-(dias habiles por jornada) y horas diarias asignadas. Las horas reales de
-Clockify y Azure DevOps se quedan en el panel anterior.
+(dias habiles sin festivos por jornada) y horas diarias asignadas. Las
+horas reales de Clockify y Azure DevOps se quedan en el panel anterior.
 """
 
 MONTH_FORMAT = re.compile(r"^\d{4}-(0[1-9]|1[0-2])$")
@@ -83,7 +82,7 @@ def parse_workday_hours(text: str) -> float:
 
 def count_workdays(month: str) -> int:
     """
-    Cuenta los dias de lunes a viernes de un mes (sin feriados).
+    Cuenta los dias habiles del mes (lunes a viernes sin festivos).
 
     Args:
         month: Mes valido YYYY-MM.
@@ -91,14 +90,7 @@ def count_workdays(month: str) -> int:
     Returns:
         La cantidad de dias habiles.
     """
-    year, month_number = int(month[:4]), int(month[5:7])
-    days_in_month = calendar.monthrange(year, month_number)[1]
-
-    return sum(
-        1
-        for day in range(1, days_in_month + 1)
-        if date(year, month_number, day).weekday() < WEEKDAYS_PER_WEEK
-    )
+    return count_business_days(month)
 
 
 def format_month(month: str) -> str:
@@ -157,6 +149,7 @@ def build_capacity_view(
         concepts=tuple(sorted({row.concept for row in all_rows})),
         band_notice=_text(data.get("bandasAviso")),
         band_column=_text(data.get("bandaColumna")),
+        mpb_notice=_text(data.get("mpbAviso")),
     )
 
 

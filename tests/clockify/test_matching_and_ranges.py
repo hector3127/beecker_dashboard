@@ -109,3 +109,40 @@ def test_mpb_range_for_tym_projects():
     assert tym_range.start_date == date(2026, 3, 1)
     assert tym_range.end_date == date(2026, 10, 2)
     assert wrong_service.start_date is None
+
+
+def test_mpb_without_fin_header_uses_column_i():
+    current_mpb = [
+        ["Reporte MPB"],
+        [
+            "#",
+            "CLIENTE",
+            "ID",
+            "ID Planilla",
+            "NOMBRE",
+            "SERVICE ",
+            "INICIO",
+            "FIN ORIGINAL",
+            "n ",
+        ],
+        [
+            1,
+            "ACME",
+            "AER.AWN.001",
+            "",
+            "Soporte",
+            "AER",
+            "01/03/2026",
+            "01/04/2026",
+            "30/09/2026",
+        ],
+    ]
+    resolver = ProjectDateRangeResolver(
+        InMemorySheetRepository({"MPB": current_mpb}),
+        date(2026, 10, 2),
+    )
+
+    date_range = resolver.resolve("AER.AWN.001")
+
+    assert date_range.start_date == date(2026, 3, 1)
+    assert date_range.end_date == date(2026, 9, 30)

@@ -16,7 +16,11 @@ from apps.capacidad.services.daily_hours import (
     parse_report_range,
     read_base_id,
 )
-from apps.capacidad.services.mpb_projects import format_mpb_day
+from apps.capacidad.services.mpb_projects import (
+    format_mpb_day,
+    load_mpb_projects,
+    load_optional_mpb_projects,
+)
 from apps.capacidad.services.orchestrator import (
     load_capacity_base,
     load_project_data,
@@ -271,3 +275,103 @@ def test_strict_clockify_match_ignores_links(internal_id, expected):
     )
 
     assert (project.project_id if project else None) == expected
+
+
+def build_mpb_sheets(header):
+    sheets = dict(sample_data.SHEETS)
+    sheets["MPB"] = [
+        ["Reporte MPB"],
+        header,
+        ["C1", "AER.010", "Soporte AER", "AER", 46023, "2026-12-31", "Mgr A"],
+    ]
+
+    return sheets
+
+
+def test_mpb_accepts_other_header_names():
+    sheets = build_mpb_sheets(
+        [
+            "CLIENTE",
+            "ID_Proyecto",
+            "Nombre del proyecto",
+            "Servicio",
+            "Fecha inicio",
+            "Fecha fin",
+            "DM",
+        ],
+    )
+
+    projects = load_mpb_projects(InMemorySheetRepository(sheets))
+
+    assert projects["aer 010"].start == "2026-01-01"
+    assert projects["aer 010"].finish == "2026-12-31"
+    assert projects["aer 010"].manager == "Mgr A"
+
+
+def test_unrecognized_mpb_does_not_stop_capacity():
+    sheets = build_mpb_sheets(["Otra", "Cosa"])
+
+    result = load_capacity_base(
+        lambda: InMemorySheetRepository(sheets),
+        "2026-10",
+        date(2026, 10, 2),
+    )
+
+    assert result["ok"] is True
+    assert result["filas"]
+    assert result["mpbAviso"].startswith(
+        "No se reconocen los encabezados de MPB.",
+    )
+
+
+def test_optional_mpb_reports_notice():
+    sheets = build_mpb_sheets(["Otra"])
+
+    projects, notice = load_optional_mpb_projects(
+        InMemorySheetRepository(sheets),
+    )
+
+    assert projects == {}
+    assert "sin los datos de MPB" in notice
+
+
+def test_mpb_current_headers_take_end_from_column_i():
+    sheets = dict(sample_data.SHEETS)
+    sheets["MPB"] = [
+        ["Reporte MPB"],
+        [
+            "#",
+            "CLIENTE",
+            "ID",
+            "ID Planilla",
+            "NOMBRE",
+            "SERVICE ",
+            "INICIO",
+            "FIN ORIGINAL",
+            "n ",
+            "S",
+            "Delivery Manager",
+        ],
+        [
+            1,
+            "C1",
+            "AER.010",
+            "",
+            "Soporte",
+            "AER",
+            46023,
+            46100,
+            46387,
+            "",
+            "Mgr",
+        ],
+    ]
+
+    projects, notice = load_optional_mpb_projects(
+        InMemorySheetRepository(sheets),
+    )
+
+    assert notice == ""
+    assert projects["aer 010"].start == "2026-01-01"
+    assert projects["aer 010"].finish == "2026-12-31"
+    assert projects["aer 010"].manager == "Mgr"

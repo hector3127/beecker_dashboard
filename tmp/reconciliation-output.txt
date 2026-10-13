@@ -1,0 +1,49 @@
+{
+  "boss_count": 59,
+  "boss_positive_capacity": 42,
+  "own_count": 58,
+  "common": 49,
+  "boss_totals_detail": {
+    "AER": 5138.0,
+    "TYM": 374.0,
+    "IXB": 342.0,
+    "SAAS": 23.0,
+    "RAAS": 676.0,
+    "OTROS": 0
+  },
+  "own_totals": {
+    "AER": 4606.416666666667,
+    "TYM": 307.0833333333333,
+    "IXB": 397.51666666666665,
+    "SAAS": 88.20944444444443,
+    "RAAS": 1012.8844444444445,
+    "OTROS": 2071.5533333333337
+  },
+  "boss_capacity_breakdown": {
+    "168.0": 37,
+    "0": 17,
+    "80.0": 2,
+    "96.0": 3
+  },
+  "boss_detail_capacity": 6664.0,
+  "boss_stored_totals": {
+    "FC115": 6664.0,
+    "FD115": 5213.0,
+    "FE115": 1774.0,
+    "FF115": 374.0,
+    "FG115": 342.0,
+    "FH115": 358.0,
+    "FI115": 701.0
+  },
+  "boss_summary": {
+    "S15": 6664.0,
+    "T15": 5213.0,
+    "Y15": 1416.0,
+    "AK15": 0.9948
+  }
+}
+SOLO TU SHEET [('Cesar Meza Hernandez', 'DEV', 0.0), ('Andres Felipe Paloma Collazos', 'ROC', 218.4), ('Felipe de Jesus Diaz Bolaños', 'ROC', 137.75), ('Hector Misael Lopez Franco', 'ROC', 99.92), ('Isaac Yael Arango Garcia', 'ROC', 221.75), ('Jaciel Omar Cruz Chavez', 'ROC', 176.0), ('Jose Bernabe Ortiz Baizano', 'ROC', 232.75), ('Juan Eduardo Tenorio Mina', 'ROC', 174.35), ('Rossio Del Pilar Diaz Horta', 'ROC', 129.23)]
+SOLO JEFE [('Alfredo Miranda Alvarez', 0, 0), ('Carlos Jair Montiel Uribe', 0, 0), ('Diego Vladimir Albavera Alvarez', 0, 0), ('Everest Daniel Gutierrez Andrade', 0, 0), ('Giovanni Garcia Ferrari', 0, 0), ('Heidy Cabieles Martinez', 0, 0), ('Isis Michelle Gonzalez Castro', 0, 0), ('Javier Adrian Vallejo Marquez', 0, 0), ('Karina Marmol', 0, 0), ('Kevin Rafael Cano Perez', 0, 0)]
+DIFERENCIAS MAYORES [{'name': 'Jorge Luis Alcantara Villegas', 'row': 62, 'boss_role': 'ROC', 'own_role': 'ROC', 'boss_capacity': 0, 'own_capacity': 168, 'boss_hours': {'AER': 0, 'TYM': 0, 'IXB': 0, 'SAAS': 0, 'RAAS': 0}, 'own_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 0.0, 'RAAS': 27.5, 'OTROS': 202.75000000000043}, 'delta_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 0.0, 'RAAS': 27.5, 'OTROS': 202.75000000000043}, 'delta_total': 230.25000000000043}, {'name': 'Miguel Angel Gallardo Saucedo', 'row': 70, 'boss_role': 'DEV', 'own_role': 'ROC', 'boss_capacity': 0, 'own_capacity': 168, 'boss_hours': {'AER': 0, 'TYM': 0, 'IXB': 0, 'SAAS': 0, 'RAAS': 0}, 'own_hours': {'AER': 8.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 0.0, 'RAAS': 0.0, 'OTROS': 220.25}, 'delta_hours': {'AER': 8.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 0.0, 'RAAS': 0.0, 'OTROS': 220.25}, 'delta_total': 228.25}, {'name': 'Diego Ovadid Acevedo Cruz', 'row': 36, 'boss_role': 'DEV', 'own_role': 'DEV', 'boss_capacity': 0, 'own_capacity': 168, 'boss_hours': {'AER': 0, 'TYM': 0, 'IXB': 0, 'SAAS': 0, 'RAAS': 0}, 'own_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 0.0, 'RAAS': 0.0, 'OTROS': 171.0}, 'delta_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 0.0, 'RAAS': 0.0, 'OTROS': 171.0}, 'delta_total': 171.0}, {'name': 'Johan Slam Caceres Briñez', 'row': 59, 'boss_role': 'DEV', 'own_role': 'ROC', 'boss_capacity': 0, 'own_capacity': 168, 'boss_hours': {'AER': 0, 'TYM': 0, 'IXB': 0, 'SAAS': 0, 'RAAS': 0}, 'own_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 32.58333333333333, 'RAAS': 0.0, 'OTROS': 114.66666666666669}, 'delta_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 32.58333333333333, 'RAAS': 0.0, 'OTROS': 114.66666666666669}, 'delta_total': 147.25}, {'name': 'Dagoberto Walles Bahamon', 'row': 31, 'boss_role': 'DEV', 'own_role': 'ROC', 'boss_capacity': 0, 'own_capacity': 168, 'boss_hours': {'AER': 0, 'TYM': 0, 'IXB': 0, 'SAAS': 0, 'RAAS': 0}, 'own_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 1.25, 'RAAS': 0.0, 'OTROS': 112.75}, 'delta_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 0.0, 'SAAS': 1.25, 'RAAS': 0.0, 'OTROS': 112.75}, 'delta_total': 114.0}, {'name': 'Alan Eduardo Vega Mora', 'row': 22, 'boss_role': 'DEV', 'own_role': 'ROC', 'boss_capacity': 0, 'own_capacity': 168, 'boss_hours': {'AER': 0, 'TYM': 0, 'IXB': 0, 'SAAS': 0, 'RAAS': 0}, 'own_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 8.5, 'SAAS': 0.0, 'RAAS': 18.0, 'OTROS': 86.83333333333333}, 'delta_hours': {'AER': 0.0, 'TYM': 0.0, 'IXB': 8.5, 'SAAS': 0.0, 'RAAS': 18.0, 'OTROS': 86.83333333333333}, 'delta_total': 113.33333333333333}, {'name': 'Angel Maximiliano Arenas Muñiz', 'row': 8, 'boss_role': 'BA', 'own_role': 'BA', 'boss_capacity': 168.0, 'own_capacity': 168, 'boss_hours': {'AER': 18.0, 'TYM': 46.0, 'IXB': 2.0, 'SAAS': 2.0, 'RAAS': 7.0}, 'own_hours': {'AER': 63.75, 'TYM': 45.666666666666664, 'IXB': 5.0, 'SAAS': 1.5, 'RAAS': 42.08333333333333, 'OTROS': 6.916666666666666}, 'delta_hours': {'AER': 45.75, 'TYM': -0.3333333333333357, 'IXB': 3.0, 'SAAS': -0.5, 'RAAS': 35.08333333333333, 'OTROS': 6.916666666666666}, 'delta_total': 89.91666666666666}, {'name': 'Dante Emanuel Galicia Martinez', 'row': 16, 'boss_role': 'ARQ', 'own_role': 'ARQ', 'boss_capacity': 168.0, 'own_capacity': 168, 'boss_hours': {'AER': 0, 'TYM': 1.0, 'IXB': 18.0, 'SAAS': 0, 'RAAS': 45.0}, 'own_hours': {'AER': 0.0, 'TYM': 0.5, 'IXB': 18.25, 'SAAS': 0.0, 'RAAS': 45.0, 'OTROS': 78.0}, 'delta_hours': {'AER': 0.0, 'TYM': -0.5, 'IXB': 0.25, 'SAAS': 0.0, 'RAAS': 0.0, 'OTROS': 78.0}, 'delta_total': 77.75}]
+C:\beecker_dashboard\docs\conciliacion-excel-jefe-septiembre-2026.md
+C:\beecker_dashboard\docs\comparacion-horas-septiembre-2026.csv
