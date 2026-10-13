@@ -47,6 +47,25 @@ def build_decisions(projects: Sequence[ProjectView]) -> list[DecisionItem]:
     return [_to_decision(item) for item in candidates[:DECISION_LIMIT]]
 
 
+def decision_for(project: ProjectView) -> DecisionItem | None:
+    """
+    Explica la decision que necesita un proyecto, si la necesita.
+
+    Args:
+        project: Proyecto a revisar.
+
+    Returns:
+        La decision, o None si no esta en ejecucion o va en tiempo.
+    """
+    if not select_in_progress([project]):
+        return None
+
+    if project.health not in (HEALTH_CRITICAL, HEALTH_AT_RISK):
+        return None
+
+    return _to_decision(project)
+
+
 def _to_decision(project: ProjectView) -> DecisionItem:
     """Convierte un proyecto en su renglon de decision."""
     used = budget_used_percent(project)

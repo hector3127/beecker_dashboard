@@ -32,6 +32,7 @@ from apps.portal.services.portfolio_summary import (
     select_in_progress,
 )
 from apps.portal.services.slugs import build_slug
+from apps.portal.services.time_cost import summarize_time_cost
 from core.utils.numbers import round_half_up_int
 
 """BKD.120.013 - Detalle de Delivery Manager y suspendidos
@@ -199,6 +200,7 @@ def build_manager_detail(
         high_risk_note=_describe_risks(high_risk),
         rows=tuple(build_project_row(item) for item in listed),
         shares=build_shares(health.on_time, health.at_risk, health.critical),
+        time_cost=summarize_time_cost(in_progress),
     )
 
 

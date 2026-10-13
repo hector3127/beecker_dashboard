@@ -52,7 +52,7 @@ td small{display:block;color:#55537F;font-size:12.5px}
 <div class="kc"><div class="kl">Proyectos</div><div class="kv">{{ detail.total }}</div><div class="ke">{{ detail.in_progress }} en ejecución y {{ detail.paused }} suspendido{{ detail.paused|pluralize }}</div></div>
 <div class="kc"><div class="kl">En tiempo</div><div class="kv">{{ detail.health.on_time }}</div><div class="ke">{{ detail.health.at_risk }} en riesgo y {{ detail.health.critical }} crítico{{ detail.health.critical|pluralize }}</div></div>
 <div class="kc"><div class="kl">Riesgos altos abiertos</div><div class="kv">{{ detail.high_risk }}</div><div class="ke">{{ detail.high_risk_note }}</div></div>
-<div class="kc"><div class="kl">En tiempo · En costo</div><div class="kv"><span style="color:#8A81B8">—</span></div><div class="ke">Se calcula con EVA<span class="ej">Pendiente</span></div></div>
+<div class="kc"><div class="kl">En tiempo · En costo</div><div class="kv"><span style="font-size:28px">{% if detail.time_cost.time_days is not None %}{{ detail.time_cost.time_days|floatformat:"-1" }} d{% else %}—{% endif %} · {% if detail.time_cost.cost_percent is not None %}{{ detail.time_cost.cost_percent|floatformat:"-1" }}%{% else %}—{% endif %}</span></div><div class="ke">T: desviación promedio en días · C: avance promedio</div></div>
 <div class="kc"><div class="kl">Inversión comercial</div><div class="kv"><span style="color:#8A81B8">—</span></div><div class="ke">Preventa y propuestas<span class="ej">Pendiente</span></div></div>
 <div class="kc"><div class="kl">Inversión operativa</div><div class="kv"><span style="color:#8A81B8">—</span></div><div class="ke">Horas no facturables<span class="ej">Pendiente</span></div></div>
 </section>
@@ -63,7 +63,7 @@ td small{display:block;color:#55537F;font-size:12.5px}
 <table>
 <thead><tr><th>Proyecto</th><th>Cuenta</th><th>Estado</th><th>Avance</th><th>ETC</th><th>Riesgo abierto</th></tr></thead>
 <tbody>
-{% for r in detail.rows %}<tr{% if r.row_class %} class="{{ r.row_class }}"{% endif %}><td><b><a href="#" data-pronto="1">{{ r.name }}</a></b></td><td>{% if r.client_slug %}<a href="{% url 'portal:cuenta' r.client_slug %}">{{ r.client }}</a>{% else %}{{ r.client }}{% endif %}</td><td><span class="st s-{{ r.status_code }}"><i></i>{{ r.status_label }}</span>{% if r.detail %}<small>{{ r.detail }}</small>{% endif %}</td><td><div class="pb"><div class="tr"><i style="width:{{ r.progress_percent }}%"></i></div><span class="num">{{ r.progress_percent }}%</span></div></td><td class="num">{{ r.etc_hours|floatformat:"0g" }} h</td><td class="num">{{ r.risk_label }}</td></tr>
+{% for r in detail.rows %}<tr{% if r.row_class %} class="{{ r.row_class }}"{% endif %}><td><b><a href="{% url 'portal:proyecto' r.project_id %}">{{ r.name }}</a></b></td><td>{% if r.client_slug %}<a href="{% url 'portal:cuenta' r.client_slug %}">{{ r.client }}</a>{% else %}{{ r.client }}{% endif %}</td><td><span class="st s-{{ r.status_code }}"><i></i>{{ r.status_label }}</span>{% if r.detail %}<small>{{ r.detail }}</small>{% endif %}</td><td><div class="pb"><div class="tr"><i style="width:{{ r.progress_percent }}%"></i></div><span class="num">{{ r.progress_percent }}%</span></div></td><td class="num">{{ r.etc_hours|floatformat:"0g" }} h</td><td class="num">{{ r.risk_label }}</td></tr>
 {% empty %}<tr><td colspan="6" class="vacio">Este Delivery Manager no tiene proyectos en ejecución ni suspendidos.</td></tr>{% endfor %}
 </tbody>
 </table>
@@ -77,6 +77,6 @@ td small{display:block;color:#55537F;font-size:12.5px}
 {% endfor %}
 </tbody></table></div>
 </section>
-<p class="note">Proyectos, estado, avance, ETC y riesgo son datos reales (solo lectura). T y C por Delivery Manager, la inversión y el cumplimiento por mes se conectarán en una entrega posterior. El detalle de cada proyecto llega después.</p>
+<p class="note">Proyectos, estado, avance, ETC y riesgo son datos reales (solo lectura). T es la desviación promedio en días y C el avance promedio de sus proyectos en ejecución. La inversión y el cumplimiento por mes se conectarán en una entrega posterior.</p>
 </main>
 {% endblock %}

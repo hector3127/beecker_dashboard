@@ -10,6 +10,7 @@ from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
 from apps.portal.services.eva_loader import Eva1Load, Eva2Load
 from apps.portal.services.portfolio_loader import PortfolioLoad
+from apps.portal.services.project_loader import ProjectDashboardLoad
 from tests.portal.builders import make_project
 
 pytestmark = pytest.mark.django_db
@@ -17,6 +18,15 @@ pytestmark = pytest.mark.django_db
 LOADED_AT = datetime(
     2026, 10, 12, 10, 24, tzinfo=ZoneInfo("America/Mexico_City")
 )
+
+
+@pytest.fixture(autouse=True)
+def no_real_eva1(monkeypatch):
+    """Operativa lee EVA 1; en pruebas nunca se consulta la hoja MPB."""
+    monkeypatch.setattr(
+        "apps.portal.views.load_eva1",
+        lambda: Eva1Load(view=build_eva1_view([]), error="Sin MPB."),
+    )
 
 
 def stub_portfolio(monkeypatch, projects=(), error=""):
@@ -540,3 +550,197 @@ def test_operational_page_links_to_capacity(client, monkeypatch):
     html = client.get("/operativa/").content.decode()
 
     assert 'href="/operativa/capacidad-instalada/"' in html
+
+
+def stub_project(monkeypatch, data=None, error=""):
+    load = ProjectDashboardLoad(data=data or {}, error=error)
+    monkeypatch.setattr(
+        "apps.portal.views.load_project_dashboard",
+        lambda project_id: load,
+    )
+
+
+def test_project_page_shows_real_numbers_and_decision(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+    stub_project(
+        monkeypatch,
+        {
+            "proyecto": {"fechaFinEstimada": "2026-10-28T00:00:00.000Z"},
+            "riesgosCriticos": [
+                {"descripcion": "Sin acceso", "impacto": "Alto"},
+            ],
+        },
+    )
+
+    response = client.get("/proyecto/3/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["page"].name == "HIS"
+    assert "Requiere decisión de dirección" in html
+    assert "Sin acceso" in html
+    assert "28/10/2026" in html
+    assert 'href="/cuenta/acme/"' in html
+
+
+def test_project_page_without_detail_shows_notice(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+    stub_project(monkeypatch, error="Sin Clockify.")
+
+    html = client.get("/proyecto/1/").content.decode()
+
+    assert "Sin Clockify." in html
+    assert "Sin riesgos abiertos." in html
+
+
+def test_unknown_project_is_404_or_goes_back_when_data_fails(
+    client,
+    monkeypatch,
+):
+    stub_portfolio(monkeypatch, portfolio())
+
+    assert client.get("/proyecto/nadie/").status_code == 404
+
+    stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
+
+    assert client.get("/proyecto/1/").url == "/operativa/"
+
+
+def test_other_pages_link_to_the_project(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    executive = client.get("/").content.decode()
+    manager = client.get(
+        "/operativa/delivery-manager/alberto/"
+    ).content.decode()
+    account = client.get("/cuenta/clinica-sur/").content.decode()
+    suspended = client.get("/operativa/suspendidos/").content.decode()
+
+    assert 'href="/proyecto/3/"' in executive
+    assert 'href="/proyecto/3/"' in manager
+    assert 'href="/proyecto/2/"' in account
+    assert 'href="/proyecto/4/"' in suspended
+
+
+def test_project_page_requires_login_when_configured(client, settings):
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    assert client.get("/proyecto/1/").status_code == 302
+
+
+def test_in_progress_page_groups_by_manager(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    response = client.get("/operativa/en-ejecucion/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["listed"] == 3
+    assert [group.name for group in response.context["groups"]] == [
+        "Alberto",
+        "Laura Vega",
+    ]
+    assert "Proyectos en ejecución por Delivery Manager" in html
+    assert 'href="/proyecto/3/"' in html
+    assert 'href="/cuenta/clinica-sur/"' in html
+    assert 'href="/operativa/delivery-manager/alberto/"' in html
+
+
+def test_on_time_page_lists_only_on_time(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    response = client.get("/operativa/en-tiempo/")
+    html = response.content.decode()
+
+    assert response.context["listed"] == 1
+    assert "Proyectos en tiempo por Delivery Manager" in html
+    assert 'href="/proyecto/1/"' in html
+    assert 'href="/proyecto/3/"' not in html
+
+
+def test_group_pages_without_projects_and_login(client, monkeypatch, settings):
+    stub_portfolio(monkeypatch)
+
+    assert "No hay proyectos en tiempo." in (
+        client.get("/operativa/en-tiempo/").content.decode()
+    )
+    assert "No hay proyectos en ejecución." in (
+        client.get("/operativa/en-ejecucion/").content.decode()
+    )
+
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    assert client.get("/operativa/en-ejecucion/").status_code == 302
+    assert client.get("/operativa/en-tiempo/").status_code == 302
+
+
+def test_operational_cards_link_to_grouped_pages(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    html = client.get("/operativa/").content.decode()
+
+    assert 'href="/operativa/en-ejecucion/"' in html
+    assert 'href="/operativa/en-tiempo/"' in html
+
+
+def test_manager_cards_show_time_and_cost(client, monkeypatch):
+    stub_portfolio(
+        monkeypatch,
+        [
+            make_project(project_id="1", delay_days=4, progress_percent=40),
+            make_project(project_id="2", delay_days=0, progress_percent=80),
+        ],
+    )
+
+    operational = client.get("/operativa/").content.decode()
+    detail = client.get("/operativa/delivery-manager/laura-vega/")
+
+    assert "2 d · 60%" in operational
+    assert "2 d · 60%" in detail.content.decode()
+
+
+def test_executive_top_accounts_are_real(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    response = client.get("/")
+    healthy, unhealthy = response.context["top_accounts"]
+    html = response.content.decode()
+
+    assert healthy == ()
+    assert [item.name for item in unhealthy] == ["Clinica Sur", "ACME"]
+    assert "Ninguna cuenta tiene todos sus proyectos en tiempo." in html
+    assert 'href="/cuenta/acme/"' in html
+    assert 'href="/cuenta/clinica-sur/"' in html
+
+
+def test_kpis_page_shows_managers_and_totals(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    response = client.get("/operativa/kpis-delivery-managers/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["kpis"].totals.total == 3
+    assert "KPIs de Delivery Managers" in html
+    assert 'href="/operativa/delivery-manager/alberto/"' in html
+
+
+def test_kpis_page_requires_login_when_configured(client, settings):
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    assert client.get("/operativa/kpis-delivery-managers/").status_code == 302
+
+
+def test_operational_eva_cards_use_real_numbers(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+    load = Eva1Load(view=build_eva1_view([eva_row(avance=40)]), error="")
+    monkeypatch.setattr("apps.portal.views.load_eva1", lambda: load)
+
+    response = client.get("/operativa/")
+    html = response.content.decode()
+
+    assert response.context["eva1_card"].total_projects == 1
+    assert response.context["eva1_card"].time_cost.cost_percent == 40.0
+    assert response.context["eva2_card"].available is False
+    assert "40%" in html
+    assert 'href="/operativa/kpis-delivery-managers/"' in html

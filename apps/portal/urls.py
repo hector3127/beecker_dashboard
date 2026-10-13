@@ -20,7 +20,18 @@ urlpatterns = [
         views.suspendidos,
         name="suspendidos",
     ),
+    path(
+        "operativa/en-ejecucion/",
+        views.en_ejecucion,
+        name="en_ejecucion",
+    ),
+    path("operativa/en-tiempo/", views.en_tiempo, name="en_tiempo"),
     path("operativa/eva-1/", views.eva1, name="eva1"),
+    path(
+        "operativa/kpis-delivery-managers/",
+        views.kpis_delivery_managers,
+        name="kpis_dm",
+    ),
     path("operativa/eva-2/", views.eva2, name="eva2"),
     path(
         "operativa/capacidad-instalada/",
@@ -33,6 +44,7 @@ urlpatterns = [
         name="capacidad_csv",
     ),
     path("cuenta/<slug:slug>/", views.cuenta, name="cuenta"),
+    path("proyecto/<str:project_id>/", views.proyecto, name="proyecto"),
     path(
         "operativa/delivery-manager/<slug:slug>/",
         views.delivery_manager,

@@ -126,17 +126,25 @@ el enlace «Panel anterior» del menú.
 
 | Ruta | Pantalla | Datos |
 | --- | --- | --- |
-| `/` | Ejecutiva | Reales: «Requieren decisión», avance en horas y horas por terminar. Ejemplo: Financiera, Comercial, Presupuesto usado, Rentabilidad y Top cuentas |
-| `/operativa/` | Operativa | Reales: en ejecución, suspendidos, en tiempo, salud del portafolio y tarjetas por Delivery Manager (filtros `?servicio=` y `?cuenta=`). Ejemplo: Inversión, EVA, Operations y Capacidad instalada |
+| `/` | Ejecutiva | Reales: «Requieren decisión», avance en horas, horas por terminar y Top cuentas sanas y no sanas (por la salud de sus proyectos; ingresos y margen pendientes). Ejemplo: Financiera, Comercial, Presupuesto usado y Rentabilidad |
+| `/operativa/` | Operativa | Reales: en ejecución, suspendidos, en tiempo, salud del portafolio y tarjetas por Delivery Manager (filtros `?servicio=` y `?cuenta=`). Reales también las tarjetas EVA 1 (TP y C) y EVA 2 (TP, T y C, cuando EVA 2 ya está en cache). Ejemplo: Inversión, EVA 3 y Operations |
 | `/comercial/` | Comercial | Ejemplo (pendiente de HubSpot) |
-| `/operativa/delivery-manager/<slug>/` | Detalle de Delivery Manager | Reales: proyectos en ejecución y suspendidos (los que necesitan atención primero), estado, avance, ETC, riesgo y reparto por estado. Pendiente: T y C, inversión y cumplimiento por mes |
-| `/operativa/eva-1/` | EVA 1 (AER y T&M) | Reales, de la hoja MPB (`apps/ejecutivo`): proyectos y personas por Delivery Manager y rol, presupuesto, consumo, horas por terminar, avance y días para renovar. Pendiente: T y C (falta confirmar la fórmula) |
-| `/operativa/eva-2/` | EVA 2 (IXB y RaaS) | Reales, solo lectura (`get_ixb_raas_summary` de `apps/ejecutivo`: hoja Proyectos, horas de Clockify y tareas de Azure DevOps): proyectos por Delivery Manager y servicio o estatus, etapas con tareas totales, cerradas y pendientes (rojo si una etapa cerrada tiene pendientes), presupuesto, consumo, avance y riesgos. La primera carga puede tardar y se guarda 10 minutos. Pendiente: T y C |
+| `/operativa/delivery-manager/<slug>/` | Detalle de Delivery Manager | Reales: proyectos en ejecución y suspendidos (los que necesitan atención primero), estado, avance, ETC, riesgo y reparto por estado. T (desviación promedio en días) y C (avance promedio). Pendiente: inversión y cumplimiento por mes |
+| `/operativa/eva-1/` | EVA 1 (AER y T&M) | Reales, de la hoja MPB (`apps/ejecutivo`): proyectos y personas por Delivery Manager y rol, presupuesto, consumo, horas por terminar, avance y días para renovar. C = avance promedio. Pendiente: T, porque MPB no registra desviación en días |
+| `/operativa/eva-2/` | EVA 2 (IXB y RaaS) | Reales, solo lectura (`get_ixb_raas_summary` de `apps/ejecutivo`: hoja Proyectos, horas de Clockify y tareas de Azure DevOps): proyectos por Delivery Manager y servicio o estatus, etapas con tareas totales, cerradas y pendientes (rojo si una etapa cerrada tiene pendientes), presupuesto, consumo, avance y riesgos. T = desviación promedio en días y C = avance promedio. La primera carga puede tardar y se guarda 10 minutos |
+| `/proyecto/<id>/` | Proyecto | Reales, solo lectura (`getDashboardEjecutivoProyecto` de `apps/ejecutivo`: Sheets y Clockify): presupuesto usado, avance, ETC, tiempo transcurrido, decisión requerida, riesgos abiertos, equipo por rol e historial de hitos; se abre desde el nombre del proyecto en Requieren decisión, Delivery Manager, Cuenta y Suspendidos. La primera carga puede tardar y se guarda 10 minutos. Pendiente (no existe en Sheets): dinero en USD, Gross Margin, responsable y días abierto de cada riesgo |
 | `/operativa/capacidad-instalada/` | Capacidad instalada | Reales, solo lectura, de Sheets (`apps/capacidad`: Recursos, Bandas/rol y MPB): recursos, capacidad base (días de lunes a viernes × jornada, sin feriados), horas diarias asignadas, sobre jornada, filtros (`?mes=`, `?jornada=`, `?buscar=`, `?tecnologia=`, `?concepto=`) y CSV en `/operativa/capacidad-instalada/exportar/`. Pendiente: horas reales por día (Clockify y Azure DevOps), facturables y capacidad disponible, que siguen en el panel anterior |
 | `/cuenta/<slug>/` | Cuenta | Reales: proyectos de la cuenta en ejecución y suspendidos con Delivery Manager, estado y avance en horas; se abre desde el nombre de la cuenta en el detalle de Delivery Manager y en Suspendidos. Pendiente (no existe en Sheets): Revenue, Gross Margin, Collections, revenue por mes e historial |
+| `/operativa/en-ejecucion/` | En ejecución por Delivery Manager | Reales: tarjetas por Delivery Manager y sus proyectos en ejecución agrupados (cuenta, proyecto, estado, avance, horas por terminar y riesgo), con T y C por Delivery Manager; se abre desde la tarjeta En ejecución de Operativa |
+| `/operativa/en-tiempo/` | En tiempo por Delivery Manager | Igual que la anterior, solo con los proyectos que van en tiempo; se abre desde la tarjeta En tiempo de Operativa |
+| `/operativa/kpis-delivery-managers/` | KPIs de Delivery Managers | Reales, corte actual: TP, T, C, % en tiempo, en riesgo y críticos por Delivery Manager, total, mejor y menor cumplimiento. Pendiente: trimestres y meses anteriores (hace falta guardar un corte mensual) y las pestañas de Facturabilidad |
 | `/operativa/suspendidos/` | Suspendidos | Reales: proyecto, Delivery Manager, avance y ETC. Pendiente (no existe en Sheets): motivo, días suspendido, revenue en pausa y plan para retomar |
 | `/legacy/` | Panel anterior | Sin cambios |
 
+- **T y C** (fórmula confirmada): T = promedio de la desviación en días de los
+  proyectos y C = promedio del avance (%). Se calculan en `services/time_cost.py`
+  para EVA 2, las tarjetas y el detalle de Delivery Manager; en EVA 1 solo C,
+  porque MPB no registra la desviación en días.
 - Todo es **solo lectura**: `services/portfolio_source.py` reutiliza los
   cálculos del dashboard pero no guarda el snapshot de KPIs ni escribe en
   Sheets, Azure DevOps o Clockify.

@@ -9,6 +9,7 @@ from django.views.decorators.http import require_GET
 
 from apps.portal.schemas import CapacityFilters
 from apps.portal.services.account import build_account_detail, find_account
+from apps.portal.services.account_ranking import rank_accounts
 from apps.portal.services.capacity import (
     build_capacity_csv,
     build_capacity_view,
@@ -17,12 +18,18 @@ from apps.portal.services.capacity import (
 )
 from apps.portal.services.capacity_loader import load_capacity
 from apps.portal.services.decisions import build_decisions
-from apps.portal.services.eva_loader import load_eva1, load_eva2
+from apps.portal.services.eva_loader import (
+    build_eva1_card,
+    load_eva1,
+    load_eva2,
+    peek_eva2_card,
+)
 from apps.portal.services.filters import (
     filter_projects,
     list_clients,
     list_services,
 )
+from apps.portal.services.kpis_dm import build_kpi_view
 from apps.portal.services.manager_detail import (
     build_manager_detail,
     find_manager,
@@ -35,10 +42,17 @@ from apps.portal.services.portfolio_loader import (
 )
 from apps.portal.services.portfolio_summary import (
     build_donut_segments,
+    select_in_progress,
     summarize_delivery_managers,
     summarize_hours,
     summarize_portfolio,
 )
+from apps.portal.services.project_groups import (
+    build_project_groups,
+    select_on_time,
+)
+from apps.portal.services.project_loader import load_project_dashboard
+from apps.portal.services.project_page import build_project_page
 
 """BKD.120.010 - Vistas del portal
 Reemplazan la portada anterior. Leen datos reales cuando existen y
@@ -84,6 +98,7 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
             "decisions": build_decisions(load.projects),
             "hours": summarize_hours(load.projects),
             "has_projects": bool(load.projects),
+            "top_accounts": rank_accounts(load.projects),
         },
     )
 
@@ -126,6 +141,8 @@ def operativa(request: HttpRequest) -> HttpResponse:
             "selected_service": selected_service,
             "selected_client": selected_client,
             "has_projects": bool(projects),
+            "eva1_card": build_eva1_card(load_eva1()),
+            "eva2_card": peek_eva2_card(),
         },
     )
 
@@ -228,6 +245,53 @@ def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
     )
 
     return render(request, "portal/cuenta.html", context)
+
+
+@require_GET
+def proyecto(request: HttpRequest, project_id: str) -> HttpResponse:
+    """
+    Muestra el detalle de un proyecto.
+
+    Args:
+        request: Peticion HTTP.
+        project_id: ID del proyecto en la hoja Proyectos.
+
+    Returns:
+        La pagina del proyecto.
+
+    Raises:
+        Http404: Cuando el portafolio no tiene ese proyecto.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    load = load_portfolio()
+    project = next(
+        (item for item in load.projects if item.project_id == project_id),
+        None,
+    )
+
+    if project is None:
+        if load.error:
+            return redirect("portal:operativa")
+
+        raise Http404("No existe ese proyecto.")
+
+    detail = load_project_dashboard(project_id)
+    context = _base_context(load)
+    context.update(
+        {
+            "active": "operativa",
+            "page": build_project_page(
+                project,
+                detail.data,
+                timezone.localdate(),
+            ),
+            "detail_error": detail.error,
+        },
+    )
+
+    return render(request, "portal/proyecto.html", context)
 
 
 @require_GET
@@ -384,3 +448,81 @@ def capacidad_instalada_csv(request: HttpRequest) -> HttpResponse:
     )
 
     return response
+
+
+def _render_groups(request: HttpRequest, only_on_time: bool) -> HttpResponse:
+    """Pantalla de proyectos agrupados por Delivery Manager."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    load = load_portfolio()
+    context = _base_context(load)
+    context.update(
+        {
+            "active": "operativa",
+            "only_on_time": only_on_time,
+            "managers": summarize_delivery_managers(load.projects),
+            "groups": build_project_groups(load.projects, only_on_time),
+            "listed": len(
+                select_on_time(load.projects)
+                if only_on_time
+                else select_in_progress(load.projects),
+            ),
+        },
+    )
+
+    return render(request, "portal/en_ejecucion.html", context)
+
+
+@require_GET
+def en_ejecucion(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra los proyectos en ejecucion agrupados por Delivery Manager.
+
+    Args:
+        request: Peticion HTTP.
+
+    Returns:
+        La pagina de proyectos en ejecucion.
+    """
+    return _render_groups(request, only_on_time=False)
+
+
+@require_GET
+def en_tiempo(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra los proyectos que van en tiempo agrupados por Delivery Manager.
+
+    Args:
+        request: Peticion HTTP.
+
+    Returns:
+        La pagina de proyectos en tiempo.
+    """
+    return _render_groups(request, only_on_time=True)
+
+
+@require_GET
+def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra TP, T y C de cada Delivery Manager con el corte actual.
+
+    Args:
+        request: Peticion HTTP.
+
+    Returns:
+        La pagina de KPIs de Delivery Managers.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    load = load_portfolio()
+    context = _base_context(load)
+    context.update(
+        {
+            "active": "operativa",
+            "kpis": build_kpi_view(load.projects),
+        },
+    )
+
+    return render(request, "portal/kpis_dm.html", context)

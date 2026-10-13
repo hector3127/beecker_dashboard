@@ -7,7 +7,7 @@ from django.core.cache import cache
 
 from apps.ejecutivo.rpc import get_ixb_raas_summary, load_aer_tym_summary
 from apps.portal.constants import EVA2_CACHE_KEY, EVA2_CACHE_SECONDS
-from apps.portal.schemas import Eva1View, Eva2View
+from apps.portal.schemas import Eva1View, Eva2View, EvaCard, TimeCost
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
 from core.exceptions import DashboardError
@@ -88,4 +88,49 @@ def load_eva2() -> Eva2Load:
     return Eva2Load(
         view=build_eva2_view(rows if isinstance(rows, list) else []),
         error="",
+    )
+
+
+def build_eva1_card(load: Eva1Load) -> EvaCard:
+    """
+    Cifras de la tarjeta EVA 1 en Operativa.
+
+    Args:
+        load: Resultado de load_eva1().
+
+    Returns:
+        TP y C; sin datos cuando no se pudo leer MPB.
+    """
+    if load.error:
+        return EvaCard(available=False)
+
+    return EvaCard(
+        available=True,
+        total_projects=load.view.total_projects,
+        time_cost=TimeCost(cost_percent=load.view.cost_percent),
+    )
+
+
+def peek_eva2_card() -> EvaCard:
+    """
+    Cifras de la tarjeta EVA 2 solo si ya estan en cache.
+
+    EVA 2 consulta Azure DevOps y Clockify; para no hacer lenta la pagina
+    Operativa, la tarjeta solo usa el resultado guardado al abrir EVA 2.
+
+    Returns:
+        TP, T y C, o una tarjeta sin datos si no hay cache.
+    """
+    summary = cache.get(EVA2_CACHE_KEY)
+
+    if not isinstance(summary, dict) or summary.get("ok") is not True:
+        return EvaCard(available=False)
+
+    rows = summary.get("filas")
+    view = build_eva2_view(rows if isinstance(rows, list) else [])
+
+    return EvaCard(
+        available=True,
+        total_projects=view.total_projects,
+        time_cost=view.time_cost,
     )

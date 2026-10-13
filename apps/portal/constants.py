@@ -95,3 +95,13 @@ CAPACITY_CACHE_SECONDS: Final[int] = 300
 DEFAULT_WORKDAY_HOURS: Final[float] = 8.0
 MAX_WORKDAY_HOURS: Final[float] = 24.0
 WEEKDAYS_PER_WEEK: Final[int] = 5
+
+# Pantalla de Proyecto
+PROJECT_CACHE_PREFIX: Final[str] = "portal:project:v1:"
+PROJECT_CACHE_SECONDS: Final[int] = 600
+PROJECT_BAR_SCALE_PERCENT: Final[int] = 150
+
+# Ranking de cuentas y KPIs de Delivery Managers
+TOP_ACCOUNTS: Final[int] = 3
+KPI_LOW_PERCENT: Final[int] = 40
+KPI_HIGH_PERCENT: Final[int] = 80

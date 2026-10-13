@@ -70,6 +70,17 @@ class PortfolioSummary:
 
 
 @dataclass(frozen=True, slots=True)
+class TimeCost:
+    """T y C: promedio de desviacion en dias y promedio de avance."""
+
+    time_days: float | None = None
+    cost_percent: float | None = None
+
+
+NO_TIME_COST = TimeCost()
+
+
+@dataclass(frozen=True, slots=True)
 class DeliveryManagerSummary:
     """Resumen de un Delivery Manager para su tarjeta."""
 
@@ -83,6 +94,7 @@ class DeliveryManagerSummary:
     on_time_width: float
     at_risk_width: float
     critical_width: float
+    time_cost: TimeCost = NO_TIME_COST
 
 
 @dataclass(frozen=True, slots=True)
@@ -153,6 +165,7 @@ class ManagerDetail:
     high_risk_note: str
     rows: tuple[ProjectRow, ...]
     shares: tuple[ShareRow, ...]
+    time_cost: TimeCost = NO_TIME_COST
 
 
 @dataclass(frozen=True, slots=True)
@@ -249,6 +262,7 @@ class Eva1View:
     managers: tuple[EvaManagerRow, ...]
     totals: EvaManagerRow
     projects: tuple[EvaProject, ...]
+    cost_percent: float | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -305,6 +319,7 @@ class Eva2View:
     status_rows: tuple[Eva2Row, ...]
     status_totals: Eva2Row
     projects: tuple[Eva2Project, ...]
+    time_cost: TimeCost = NO_TIME_COST
 
 
 @dataclass(frozen=True, slots=True)
@@ -354,3 +369,119 @@ class CapacityView:
     concepts: tuple[str, ...]
     band_notice: str
     band_column: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProjectRisk:
+    """Un riesgo abierto del proyecto."""
+
+    description: str
+    impact: str
+    probability: str
+
+
+@dataclass(frozen=True, slots=True)
+class TeamRole:
+    """Personas y horas registradas de un rol del proyecto."""
+
+    role: str
+    people: int
+    hours: int
+
+
+@dataclass(frozen=True, slots=True)
+class TimelineEvent:
+    """Un hito del historial del proyecto."""
+
+    date_text: str
+    title: str
+    text: str
+    done: bool
+
+
+@dataclass(frozen=True, slots=True)
+class BarValue:
+    """Una barra de la comparacion presupuesto contra avance."""
+
+    label: str
+    percent_text: str
+    width: float
+    color: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProjectPage:
+    """Pantalla completa de un proyecto."""
+
+    project_id: str
+    name: str
+    client: str
+    delivery_manager: str
+    client_slug: str
+    end_date: str
+    status_label: str
+    status_code: str
+    decision: DecisionItem | None
+    budget_used: int
+    budget_hours: int
+    burn_hours: int
+    progress: int
+    etc_hours: int
+    bars: tuple[BarValue, ...]
+    marker_left: float
+    summary: str
+    risks: tuple[ProjectRisk, ...]
+    team: tuple[TeamRole, ...]
+    events: tuple[TimelineEvent, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class ProjectGroup:
+    """Proyectos de un Delivery Manager para las listas agrupadas."""
+
+    name: str
+    slug: str
+    summary: str
+    rows: tuple[ProjectRow, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class AccountRank:
+    """Una cuenta en el ranking por salud de sus proyectos."""
+
+    name: str
+    slug: str
+    in_progress: int
+    health: HealthCount
+    on_time_percent: int
+
+
+@dataclass(frozen=True, slots=True)
+class KpiManagerRow:
+    """Un Delivery Manager en la tabla de KPIs."""
+
+    name: str
+    slug: str
+    total: int
+    health: HealthCount
+    on_time_percent: int
+    time_cost: TimeCost
+
+
+@dataclass(frozen=True, slots=True)
+class KpiView:
+    """Pantalla KPIs de Delivery Managers (corte actual)."""
+
+    rows: tuple[KpiManagerRow, ...]
+    totals: KpiManagerRow
+    best: KpiManagerRow | None
+    worst: KpiManagerRow | None
+
+
+@dataclass(frozen=True, slots=True)
+class EvaCard:
+    """Cifras reales de una tarjeta EVA en Operativa."""
+
+    available: bool
+    total_projects: int = 0
+    time_cost: TimeCost = NO_TIME_COST

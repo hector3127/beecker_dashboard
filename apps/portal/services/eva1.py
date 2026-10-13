@@ -10,6 +10,7 @@ from apps.portal.constants import (
     RENEWAL_ALERT_DAYS,
 )
 from apps.portal.schemas import Eva1View, EvaManagerRow, EvaProject
+from apps.portal.services.time_cost import average
 
 """BKD.120.014 - EVA 1
 Toma el resumen AER/T&M que ya calcula apps/ejecutivo (hoja MPB, solo
@@ -113,6 +114,7 @@ def build_eva1_view(rows: Sequence[JsonObject]) -> Eva1View:
         managers=managers,
         totals=_build_manager_row("Total", projects, roles),
         projects=tuple(projects),
+        cost_percent=average(item.progress for item in projects),
     )
 
 

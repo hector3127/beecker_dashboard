@@ -169,6 +169,10 @@ def _summarize_manager(
     projects: Sequence[ProjectView],
 ) -> DeliveryManagerSummary:
     """Resume los proyectos de un solo Delivery Manager."""
+    from apps.portal.services.time_cost import (
+        summarize_time_cost,  # noqa: PLC0415
+    )
+
     in_progress = select_in_progress(projects)
     health = count_health(in_progress)
     total = health.total
@@ -188,6 +192,7 @@ def _summarize_manager(
         on_time_width=_width(health.on_time, total),
         at_risk_width=_width(health.at_risk, total),
         critical_width=_width(health.critical, total),
+        time_cost=summarize_time_cost(in_progress),
     )
 
 

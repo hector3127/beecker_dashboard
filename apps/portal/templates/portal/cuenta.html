@@ -73,7 +73,7 @@ td a{color:#3B1FA8;font-weight:600;text-decoration:none}td a:hover{text-decorati
 <table>
 <thead><tr><th>Proyecto</th><th>Delivery Manager</th><th>Estado</th><th>Avance en horas</th><th class="r">Revenue</th><th class="r">Margen</th></tr></thead>
 <tbody>
-{% for r in account.rows %}<tr{% if r.row_class %} class="{{ r.row_class }}"{% endif %}><td><b>{{ r.name }}</b></td><td>{{ r.delivery_manager }}</td><td><span class="st s-{{ r.status_code }}"><i></i>{{ r.status_label }}</span>{% if r.detail %}<small>{{ r.detail }}</small>{% endif %}</td><td><div class="pb"><div class="tr"><i style="width:{{ r.progress_percent }}%"></i></div><span class="num">{{ r.progress_percent }}%</span></div></td><td class="r num"><span style="color:#8A81B8">—</span></td><td class="r num"><span style="color:#8A81B8">—</span></td></tr>
+{% for r in account.rows %}<tr{% if r.row_class %} class="{{ r.row_class }}"{% endif %}><td><b><a href="{% url 'portal:proyecto' r.project_id %}">{{ r.name }}</a></b></td><td>{{ r.delivery_manager }}</td><td><span class="st s-{{ r.status_code }}"><i></i>{{ r.status_label }}</span>{% if r.detail %}<small>{{ r.detail }}</small>{% endif %}</td><td><div class="pb"><div class="tr"><i style="width:{{ r.progress_percent }}%"></i></div><span class="num">{{ r.progress_percent }}%</span></div></td><td class="r num"><span style="color:#8A81B8">—</span></td><td class="r num"><span style="color:#8A81B8">—</span></td></tr>
 {% empty %}<tr><td colspan="6" class="vacio">Esta cuenta no tiene proyectos en ejecución ni suspendidos.</td></tr>{% endfor %}
 </tbody>
 </table>

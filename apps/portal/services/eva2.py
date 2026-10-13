@@ -18,6 +18,7 @@ from apps.portal.schemas import (
     StageCount,
 )
 from apps.portal.services.eva1 import format_short_date
+from apps.portal.services.time_cost import build_time_cost
 
 """BKD.120.016 - EVA 2
 Toma el resumen IXB/RaaS que ya calcula apps/ejecutivo (hoja Proyectos,
@@ -204,4 +205,8 @@ def build_eva2_view(rows: Sequence[JsonObject]) -> Eva2View:
         status_rows=status_rows,
         status_totals=status_totals,
         projects=projects,
+        time_cost=build_time_cost(
+            (item.deviation_days for item in projects),
+            (item.progress for item in projects),
+        ),
     )

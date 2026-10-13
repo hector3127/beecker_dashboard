@@ -7,8 +7,14 @@ from apps.portal.constants import (
     CAPACITY_CACHE_PREFIX,
     EVA2_CACHE_KEY,
     PORTFOLIO_CACHE_KEY,
+    PROJECT_CACHE_PREFIX,
 )
-from apps.portal.services import capacity_loader, eva_loader, portfolio_loader
+from apps.portal.services import (
+    capacity_loader,
+    eva_loader,
+    portfolio_loader,
+    project_loader,
+)
 from core.exceptions import ConfigurationError
 from tests.portal.builders import make_project
 
@@ -225,4 +231,47 @@ def test_capacity_loader_reports_errors_and_does_not_cache_them(monkeypatch):
 
     assert "No se pudo leer Capacidad instalada" in (
         capacity_loader.load_capacity("2026-09").error
+    )
+
+
+def test_project_loader_caches_and_reports_errors(monkeypatch):
+    key = f"{PROJECT_CACHE_PREFIX}HIS-1"
+    cache.delete(key)
+    calls = []
+
+    def fake_dashboard(project_id):
+        calls.append(project_id)
+        return {"proyecto": {"id": project_id}}
+
+    monkeypatch.setattr(
+        project_loader, "get_executive_dashboard", fake_dashboard
+    )
+
+    first = project_loader.load_project_dashboard("HIS-1")
+    project_loader.load_project_dashboard("HIS-1")
+
+    assert first.error == ""
+    assert first.data["proyecto"]["id"] == "HIS-1"
+    assert calls == ["HIS-1"]
+    cache.delete(key)
+
+    monkeypatch.setattr(
+        project_loader,
+        "get_executive_dashboard",
+        lambda project_id: {"errorServidor": "Sin Clockify.", "proyecto": None},
+    )
+    failed = project_loader.load_project_dashboard("HIS-1")
+
+    assert failed.error == "Sin Clockify."
+    assert failed.data == {}
+    assert cache.get(key) is None
+
+    monkeypatch.setattr(
+        project_loader,
+        "get_executive_dashboard",
+        lambda project_id: {},
+    )
+
+    assert "No se pudo leer el detalle" in (
+        project_loader.load_project_dashboard("HIS-1").error
     )
