@@ -88,3 +88,10 @@ EVA2_STAGE_KEYS: Final[tuple[str, ...]] = (
 )
 EVA2_CACHE_KEY: Final[str] = "portal:eva2:v1"
 EVA2_CACHE_SECONDS: Final[int] = 600
+
+# Capacidad instalada
+CAPACITY_CACHE_PREFIX: Final[str] = "portal:capacity:v1:"
+CAPACITY_CACHE_SECONDS: Final[int] = 300
+DEFAULT_WORKDAY_HOURS: Final[float] = 8.0
+MAX_WORKDAY_HOURS: Final[float] = 24.0
+WEEKDAYS_PER_WEEK: Final[int] = 5

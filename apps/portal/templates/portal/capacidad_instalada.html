@@ -1,0 +1,117 @@
+{% extends 'portal/base.html' %}
+{% block title %}Capacidad instalada{% endblock %}
+{% block css %}body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#F7F5FF;color:#1B1A4A}
+a{color:#4B25C9;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:12px 36px;background:#fff;border-bottom:1px solid #ECE8FA}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:25px;letter-spacing:-.02em}
+.nav{display:flex;gap:6px}
+.nav a{padding:8px 18px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
+.nav a.on{background:#EDE7FF;color:#4B25C9}
+.fresh{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:#4A4872}
+.dot{width:8px;height:8px;border-radius:50%;background:#1B9A55}
+.page{max-width:1368px;margin:0 auto;padding:22px 36px 40px}
+.crumb{font-size:13.5px;color:#55537F;margin-bottom:8px}
+.eb{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#4B25C9}
+h1{margin:2px 0 0;font-size:34px;font-weight:800;letter-spacing:-.025em}
+.sub{margin:4px 0 18px;color:#55537F;font-size:16px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;background:#fff;border:1px solid #ECE8FA;border-radius:14px;padding:6px}
+.tabs a{padding:10px 20px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
+.tabs a.on{background:#4B25C9;color:#fff}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.kc{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:18px 24px}
+.kl{font-size:14px;font-weight:700;color:#3A3870}
+.kv{font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1.2;font-variant-numeric:tabular-nums}
+.kv span{color:#8A81B8;font-weight:600}
+.ke{font-size:13px;color:#55537F;line-height:1.4}
+.pill{display:inline-flex;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:800;background:#FBE3E7;color:#A31B33}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:22px 26px}
+.card h2{margin:0 0 2px;font-size:20px}
+.hs{font-size:14px;color:#55537F;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:10px 8px;text-align:center;border-top:1px solid #F0EDF8}
+th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#4A4872;border-top:0}
+th.q{background:#F1ECFD;color:#2B1B8F;border-left:2px solid #fff;font-size:13px}
+td:first-child,th:first-child{text-align:left}
+td.g{border-left:2px solid #F1ECFD}
+td.na{background:#EEEAFB;color:#8A81B8}
+td.lo{color:#A31B33;font-weight:700}
+td.hi{color:#13693B;font-weight:700}
+tfoot td{font-weight:800;background:#FAF8FF}
+.num{font-variant-numeric:tabular-nums}
+.note{margin-top:6px;font-size:12.5px;color:#55537F;line-height:1.5}
+
+.page{max-width:1368px}
+.bk{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;font-weight:700;font-size:14px;background:#fff;border:1px solid #ECE8FA;border-radius:10px;padding:7px 14px}
+.hd{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.hi{width:56px;height:56px;border-radius:14px;background:#EDE7FF;color:#5B2FD6;display:flex;align-items:center;justify-content:center}
+.fl{display:grid;grid-template-columns:150px 130px 1.15fr 1.15fr 1.15fr auto auto;gap:14px;align-items:end}
+.fl label{display:block;font-size:12px;color:#55537F;margin-bottom:5px;font-weight:600}
+.fi{display:flex;align-items:center;gap:8px;border:1px solid #E1DCF3;border-radius:10px;padding:10px 12px;font-size:13.5px;color:#1B1A4A;background:#fff;height:20px;white-space:nowrap}
+.fi span{color:#8A81B8;display:flex}
+.fi .dd{margin-left:auto}
+.btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border-radius:10px;padding:0 16px;height:42px;font-weight:700;font-size:13.5px;border:1px solid #D9D0F5;background:#fff;color:#4B25C9;box-sizing:border-box}
+.btn.p{background:#4B25C9;border-color:#4B25C9;color:#fff}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid #F0EDF8}
+.cp{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;background:#F1ECFD;color:#55537F}
+.cp.on{background:#E4DAFF;color:#4B25C9;font-weight:800}
+.pl{color:#8A81B8;font-weight:700}
+.kp5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:14px 0}
+.kx{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:20px 22px;display:flex;gap:14px;align-items:center}
+.ki{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none}
+.kx .l{font-size:12.5px;color:#55537F}
+.kx .v{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.15;color:#14125E}
+.kx .s{font-size:12.5px;color:#55537F}
+.th2{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.th2 h2{margin:0;font-size:20px}
+.tg{margin-left:auto;display:flex;gap:8px}
+.tw{overflow-x:auto;border:1px solid #ECE8FA;border-radius:12px}
+table.cp2{border-collapse:collapse;font-size:12px;width:100%;table-layout:fixed}
+table.cp2 th{background:#F1ECFD;color:#2B1B8F;font-size:11px;text-transform:none;letter-spacing:0;text-align:left;padding:12px 7px;white-space:nowrap;border-top:0;vertical-align:bottom}
+table.cp2 td{padding:8px 7px;border-top:1px solid #F0EDF8;white-space:nowrap;text-align:left;line-height:1.7}
+table.cp2 td.w{white-space:normal;line-height:1.35}
+table.cp2 td.r{white-space:normal;line-height:1.3}
+table.cp2 td.r{font-weight:800;color:#14125E;position:sticky;left:0;background:#fff;box-shadow:1px 0 0 #ECE8FA}
+table.cp2 th.r{position:sticky;left:0;z-index:2;box-shadow:1px 0 0 #E4DAFF}
+table.cp2 th.d{writing-mode:vertical-rl;transform:rotate(180deg);padding:10px 2px;font-size:10px;text-align:left;height:76px;white-space:nowrap}
+table.cp2 td.d{padding:9px 0;text-align:center;border-left:1px solid #F5F2FC;font-size:11.5px;color:#4A4872}
+table.cp2 td.d.v{background:#E6EEFD;color:#2A4FA8}
+table.cp2 td.d.o{background:#FBE3E7;color:#A31B33;font-weight:800}
+.t{display:inline-block;border-radius:999px;padding:1px 8px;font-size:10.5px;font-weight:600}
+.t.b{background:#EDE7FF;color:#5B2FD6}.t.g{background:#DDF3E6;color:#13693B}.t.u{background:#E0ECFF;color:#2A4FA8}.t.a{background:#F5E6FB;color:#8A2FA8}
+.fi{height:auto;min-height:20px;font:inherit;font-size:13.5px;width:100%;box-sizing:border-box}select.fi{height:42px;padding:0 10px}input.fi{height:42px;padding:0 12px}
+.t.n{background:#ECEBF7;color:#4A4872}table.cp2 td.n{text-align:right}table.cp2.cs{table-layout:auto}table.cp2.cs th{font-size:12px}
+.fl{grid-template-columns:150px 130px 1.15fr 1.15fr 1.15fr auto auto}{% endblock %}
+{% block content %}
+<main class="page">
+{% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
+<div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Capacidad instalada</div>
+<a class="bk" href="{% url 'portal:operativa' %}">← Volver a Operativa</a>
+<div class="hd"><div class="hi"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><h1 style="font-size:32px;margin:0">Capacidad instalada</h1><div class="sub" style="margin:2px 0 0">Horas reales del equipo · Recursos + MPB/Azure + Clockify + Bandas/rol</div></div></div>
+<section class="card" style="margin-bottom:0;padding:22px 26px">
+<form method="get" action="{% url 'portal:capacidad' %}" id="capf">
+<div class="fl">
+<div><label>Mes</label><input class="fi" type="month" name="mes" value="{{ filters.month }}" onchange="this.form.submit()"></div><div><label>Jornada diaria (h)</label><input class="fi" type="number" name="jornada" min="1" max="24" step="0.5" value="{{ filters.workday_hours|floatformat:"-1" }}" onchange="this.form.submit()"></div><div><label>Buscar recurso, proyecto o manager…</label><input class="fi" type="search" name="buscar" value="{{ filters.search }}" placeholder="Buscar recurso, proyecto o manager…"></div><div><label>Tecnologías</label><select class="fi" name="tecnologia" onchange="this.form.submit()"><option value="">Todas las tecnologías</option>{% for t in capacity.technologies %}<option value="{{ t }}"{% if t == filters.technology %} selected{% endif %}>{{ t }}</option>{% endfor %}</select></div><div><label>Conceptos</label><select class="fi" name="concepto" onchange="this.form.submit()"><option value="">Todos los conceptos</option>{% for c in capacity.concepts %}<option value="{{ c }}"{% if c == filters.concept %} selected{% endif %}>{{ c }}</option>{% endfor %}</select></div><a class="btn" href="?mes={{ filters.month|urlencode }}&amp;jornada={{ filters.workday_hours|floatformat:"-1"|urlencode }}&amp;buscar={{ filters.search|urlencode }}&amp;tecnologia={{ filters.technology|urlencode }}&amp;concepto={{ filters.concept|urlencode }}&amp;actualizar=1">↻ Actualizar datos</a><a class="btn p" href="{% url 'portal:capacidad_csv' %}?mes={{ filters.month|urlencode }}&amp;jornada={{ filters.workday_hours|floatformat:"-1"|urlencode }}&amp;buscar={{ filters.search|urlencode }}&amp;tecnologia={{ filters.technology|urlencode }}&amp;concepto={{ filters.concept|urlencode }}">↓ Exportar CSV</a>
+</div>
+</form>
+<div class="chips"><span class="cp on">▤ Mes {{ filters.month }}</span><span class="cp">Recursos + Bandas/rol</span><span class="pl">+</span><span class="cp">MPB</span>{% if capacity.band_column %}<span class="cp">◇ Banda: {{ capacity.band_column }}</span>{% endif %}<span class="cp" style="background:#FFF3D6;color:#8A5600">Clockify y Azure DevOps: en el panel anterior</span></div>
+{% if capacity.band_notice %}<div class="nd" style="margin-top:10px">{{ capacity.band_notice }}</div>{% endif %}
+</section>
+<section class="kp5">
+<div class="kx"><div class="ki" style="background:#EDE7FF;color:#5B2FD6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Recursos</div><div class="v">{{ capacity.resources }}</div><div class="s">Personas únicas del mes</div></div></div>
+<div class="kx"><div class="ki" style="background:#DDF3E6;color:#13693B"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Capacidad base</div><div class="v">{{ capacity.base_hours|floatformat:"0g" }} h</div><div class="s">{{ capacity.workdays }} días × {{ capacity.workday_hours|floatformat:"-1" }} h por persona, sin feriados</div></div></div>
+<div class="kx"><div class="ki" style="background:#E0ECFF;color:#2A4FA8"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Asignadas por día</div><div class="v">{{ capacity.assigned_daily_hours|floatformat:"-1" }} h</div><div class="s">Suma de horas diarias de las asignaciones</div></div></div>
+<div class="kx"><div class="ki" style="background:#FBE3E7;color:#A31B33"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Sobre jornada</div><div class="v">{{ capacity.over_workday }}</div><div class="s">Con más de {{ capacity.workday_hours|floatformat:"-1" }} h asignadas al día</div></div></div>
+<div class="kx"><div class="ki" style="background:#F5E6FB;color:#8A2FA8"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Horas reales</div><div class="v"><span style="color:#8A81B8">—</span></div><div class="s">Clockify, facturables y disponibles<span class="ej">Pendiente</span></div></div></div>
+</section>
+<section class="card" style="padding:22px 26px">
+<div class="th2"><h2>Asignación del mes · {{ capacity.month_label }}</h2><div class="tg"><a class="btn" href="{% url 'core:home' %}">Horas reales en el panel anterior</a></div></div>
+<div class="tw"><table class="cp2 cs"><thead><tr><th class="r" style="width:190px">Recurso</th><th style="width:46px">Banda</th><th style="width:230px">Clasificación</th><th style="width:70px">Tec.</th><th style="width:130px">Delivery Manager</th><th style="width:90px">ID proyecto</th><th style="width:180px">Proyecto</th><th style="width:70px">H. diarias</th><th style="width:80px">H. estimadas</th></tr></thead>
+<tbody>
+{% for r in capacity.rows %}<tr><td class="r">{{ r.resource }}</td><td><span class="t b">{{ r.band }}</span></td><td class="w"><span class="t b">{{ r.concept }}</span>{% if r.has_rule %} <span class="t {% if r.billable %}g{% else %}n{% endif %}">{% if r.billable %}Facturable{% else %}No facturable{% endif %}</span><br><span class="t {% if r.chargeable %}u{% else %}n{% endif %}">{% if r.chargeable %}Cargable{% else %}No cargable{% endif %}</span> <span class="t {% if r.affects_capacity %}a{% else %}n{% endif %}">{% if r.affects_capacity %}Afecta capacidad{% else %}No afecta capacidad{% endif %}</span>{% endif %}</td><td>{{ r.technology }}</td><td class="w">{{ r.manager }}</td><td>{{ r.project_id }}</td><td class="w">{{ r.project }}</td><td class="n"><b>{{ r.daily_hours|floatformat:"-2" }}</b></td><td class="n">{{ r.estimated_hours|floatformat:"-2" }}</td></tr>
+{% empty %}<tr><td colspan="9" class="vacio">{% if error %}No se pudo leer Capacidad instalada.{% else %}No hay asignaciones con esos filtros.{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="note">Recursos, capacidad base, horas diarias asignadas y sobre jornada son datos reales de Sheets (solo lectura). La capacidad base usa días de lunes a viernes sin descontar feriados. Las horas reales por día (Clockify y Azure DevOps), las facturables y la capacidad disponible siguen en el panel anterior y llegarán a esta pantalla en una entrega posterior.</p>
+</section>
+</main>
+{% endblock %}

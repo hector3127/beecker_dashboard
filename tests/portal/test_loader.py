@@ -3,8 +3,12 @@
 import pytest
 from django.core.cache import cache
 
-from apps.portal.constants import EVA2_CACHE_KEY, PORTFOLIO_CACHE_KEY
-from apps.portal.services import eva_loader, portfolio_loader
+from apps.portal.constants import (
+    CAPACITY_CACHE_PREFIX,
+    EVA2_CACHE_KEY,
+    PORTFOLIO_CACHE_KEY,
+)
+from apps.portal.services import capacity_loader, eva_loader, portfolio_loader
 from core.exceptions import ConfigurationError
 from tests.portal.builders import make_project
 
@@ -177,3 +181,48 @@ def test_eva2_loader_uses_default_message_when_error_is_empty(monkeypatch):
     )
 
     assert "No se pudo leer IXB y RaaS" in eva_loader.load_eva2().error
+
+
+def test_capacity_loader_caches_per_month_and_can_refresh(monkeypatch):
+    cache.delete(f"{CAPACITY_CACHE_PREFIX}2026-10")
+    calls = []
+
+    def fake_base(month):
+        calls.append(month)
+        return {"ok": True, "mes": month, "filas": []}
+
+    monkeypatch.setattr(capacity_loader, "get_capacity_base", fake_base)
+
+    first = capacity_loader.load_capacity("2026-10")
+    capacity_loader.load_capacity("2026-10")
+    capacity_loader.load_capacity("2026-10", refresh=True)
+
+    assert first.error == ""
+    assert first.data["mes"] == "2026-10"
+    assert calls == ["2026-10", "2026-10"]
+    cache.delete(f"{CAPACITY_CACHE_PREFIX}2026-10")
+
+
+def test_capacity_loader_reports_errors_and_does_not_cache_them(monkeypatch):
+    cache.delete(f"{CAPACITY_CACHE_PREFIX}2026-09")
+    monkeypatch.setattr(
+        capacity_loader,
+        "get_capacity_base",
+        lambda month: {"ok": False, "error": "Falta la hoja Recursos."},
+    )
+
+    result = capacity_loader.load_capacity("2026-09")
+
+    assert result.error == "Falta la hoja Recursos."
+    assert result.data == {}
+    assert cache.get(f"{CAPACITY_CACHE_PREFIX}2026-09") is None
+
+    monkeypatch.setattr(
+        capacity_loader,
+        "get_capacity_base",
+        lambda month: {"ok": False},
+    )
+
+    assert "No se pudo leer Capacidad instalada" in (
+        capacity_loader.load_capacity("2026-09").error
+    )

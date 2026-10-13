@@ -7,7 +7,15 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_GET
 
+from apps.portal.schemas import CapacityFilters
 from apps.portal.services.account import build_account_detail, find_account
+from apps.portal.services.capacity import (
+    build_capacity_csv,
+    build_capacity_view,
+    normalize_month,
+    parse_workday_hours,
+)
+from apps.portal.services.capacity_loader import load_capacity
 from apps.portal.services.decisions import build_decisions
 from apps.portal.services.eva_loader import load_eva1, load_eva2
 from apps.portal.services.filters import (
@@ -302,3 +310,77 @@ def eva2(request: HttpRequest) -> HttpResponse:
             "eva": load.view,
         },
     )
+
+
+def _read_capacity_filters(request: HttpRequest) -> CapacityFilters:
+    """Lee mes, jornada y filtros de la direccion web."""
+    return CapacityFilters(
+        month=normalize_month(
+            request.GET.get("mes", ""),
+            timezone.localdate(),
+        ),
+        workday_hours=parse_workday_hours(request.GET.get("jornada", "")),
+        search=request.GET.get("buscar", "").strip(),
+        technology=request.GET.get("tecnologia", ""),
+        concept=request.GET.get("concepto", ""),
+    )
+
+
+@require_GET
+def capacidad_instalada(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra las asignaciones y la capacidad base de un mes.
+
+    Args:
+        request: Peticion HTTP con mes, jornada y filtros opcionales.
+
+    Returns:
+        La pagina de Capacidad instalada.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    filters = _read_capacity_filters(request)
+    load = load_capacity(
+        filters.month, refresh=bool(request.GET.get("actualizar"))
+    )
+
+    return render(
+        request,
+        "portal/capacidad_instalada.html",
+        {
+            "active": "operativa",
+            "loaded_at": timezone.localtime(),
+            "error": load.error,
+            "capacity": build_capacity_view(load.data, filters),
+            "filters": filters,
+        },
+    )
+
+
+@require_GET
+def capacidad_instalada_csv(request: HttpRequest) -> HttpResponse:
+    """
+    Descarga en CSV las asignaciones que muestra la pantalla.
+
+    Args:
+        request: Peticion HTTP con los mismos filtros de la pantalla.
+
+    Returns:
+        El archivo CSV (con BOM para abrirlo bien en Excel).
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    filters = _read_capacity_filters(request)
+    load = load_capacity(filters.month)
+    view = build_capacity_view(load.data, filters)
+    response = HttpResponse(
+        "\ufeff" + build_capacity_csv(view.rows),
+        content_type="text/csv; charset=utf-8",
+    )
+    response["Content-Disposition"] = (
+        f'attachment; filename="capacidad-instalada-{filters.month}.csv"'
+    )
+
+    return response

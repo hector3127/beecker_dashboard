@@ -305,3 +305,52 @@ class Eva2View:
     status_rows: tuple[Eva2Row, ...]
     status_totals: Eva2Row
     projects: tuple[Eva2Project, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class CapacityFilters:
+    """Filtros de la pantalla de Capacidad instalada."""
+
+    month: str
+    workday_hours: float
+    search: str = ""
+    technology: str = ""
+    concept: str = ""
+
+
+@dataclass(frozen=True, slots=True)
+class CapacityRow:
+    """Una asignacion de un recurso a un proyecto o concepto."""
+
+    resource: str
+    band: str
+    concept: str
+    technology: str
+    manager: str
+    project_id: str
+    project: str
+    daily_hours: float
+    estimated_hours: float
+    has_rule: bool
+    chargeable: bool
+    billable: bool
+    affects_capacity: bool
+
+
+@dataclass(frozen=True, slots=True)
+class CapacityView:
+    """Pantalla de Capacidad instalada para un mes."""
+
+    month: str
+    month_label: str
+    workdays: int
+    workday_hours: float
+    resources: int
+    base_hours: float
+    assigned_daily_hours: float
+    over_workday: int
+    rows: tuple[CapacityRow, ...]
+    technologies: tuple[str, ...]
+    concepts: tuple[str, ...]
+    band_notice: str
+    band_column: str

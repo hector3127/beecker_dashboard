@@ -22,6 +22,16 @@ urlpatterns = [
     ),
     path("operativa/eva-1/", views.eva1, name="eva1"),
     path("operativa/eva-2/", views.eva2, name="eva2"),
+    path(
+        "operativa/capacidad-instalada/",
+        views.capacidad_instalada,
+        name="capacidad",
+    ),
+    path(
+        "operativa/capacidad-instalada/exportar/",
+        views.capacidad_instalada_csv,
+        name="capacidad_csv",
+    ),
     path("cuenta/<slug:slug>/", views.cuenta, name="cuenta"),
     path(
         "operativa/delivery-manager/<slug:slug>/",
