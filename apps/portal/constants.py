@@ -105,3 +105,18 @@ PROJECT_BAR_SCALE_PERCENT: Final[int] = 150
 TOP_ACCOUNTS: Final[int] = 3
 KPI_LOW_PERCENT: Final[int] = 40
 KPI_HIGH_PERCENT: Final[int] = 80
+
+# Facturabilidad
+FIXED_SERVICE: Final[str] = "AER"
+VARIABLE_SERVICES: Final[tuple[str, ...]] = ("TYM", "IXB", "SAAS", "RAAS")
+SERVICE_LABELS: Final[dict[str, str]] = {
+    "AER": "AER",
+    "TYM": "TYM",
+    "IXB": "IXB",
+    "SAAS": "SaaS",
+    "RAAS": "RaaS",
+}
+FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v1:"
+FACTURABILITY_CACHE_SECONDS: Final[int] = 600
+BILLABLE_HIGH_PERCENT: Final[int] = 80
+BILLABLE_LOW_PERCENT: Final[int] = 50

@@ -24,6 +24,16 @@ from apps.portal.services.eva_loader import (
     load_eva2,
     peek_eva2_card,
 )
+from apps.portal.services.facturability import (
+    build_month_facturability,
+    build_resources,
+    build_specialties,
+    team_averages,
+)
+from apps.portal.services.facturability_loader import (
+    load_month_sources,
+    load_year_sources,
+)
 from apps.portal.services.filters import (
     filter_projects,
     list_clients,
@@ -526,3 +536,138 @@ def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
     )
 
     return render(request, "portal/kpis_dm.html", context)
+
+
+def _facturability_month(request: HttpRequest) -> str:
+    """Mes elegido (?mes=YYYY-MM), nunca posterior al actual."""
+    today = timezone.localdate()
+    month = normalize_month(request.GET.get("mes", ""), today)
+
+    current = str(today.strftime("%Y-%m"))
+
+    return min(month, current)
+
+
+def _facturability_context(month: str, tab: str) -> dict[str, object]:
+    """Datos comunes de las pestanas de Facturabilidad."""
+    return {
+        "active": "operativa",
+        "loaded_at": timezone.localtime(),
+        "month": month,
+        "tab": tab,
+    }
+
+
+@require_GET
+def facturabilidad(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra la facturabilidad de enero al mes elegido.
+
+    Args:
+        request: Peticion HTTP; acepta ?mes=YYYY-MM.
+
+    Returns:
+        La pagina de Facturabilidad.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    month = _facturability_month(request)
+    months = [
+        build_month_facturability(
+            item.month, item.gse, item.capacity, item.error
+        )
+        for item in load_year_sources(month)
+    ]
+    context = _facturability_context(month, "general")
+    context.update(
+        {
+            "months": months,
+            "selected": months[-1],
+            "first": months[0],
+            "errors": [item for item in months if item.error],
+        },
+    )
+
+    return render(request, "portal/facturabilidad.html", context)
+
+
+@require_GET
+def facturabilidad_especialidad(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra la facturabilidad del mes por especialidad.
+
+    Args:
+        request: Peticion HTTP; acepta ?mes=YYYY-MM.
+
+    Returns:
+        La pagina por especialidad.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    month = _facturability_month(request)
+    sources = load_month_sources(month)
+    specialties = build_specialties(sources.gse, sources.capacity, month)
+    selected = build_month_facturability(
+        month,
+        sources.gse,
+        sources.capacity,
+        sources.error,
+    )
+    context = _facturability_context(month, "especialidad")
+    context.update(
+        {
+            "selected": selected,
+            "specialties": specialties,
+            "headcount": sum(row.headcount for row in specialties),
+            "dev_free": next(
+                (
+                    row.free_fte
+                    for row in specialties
+                    if "dev" in row.name.lower()
+                ),
+                None,
+            ),
+            "error": sources.error,
+        },
+    )
+
+    return render(request, "portal/facturabilidad_especialidad.html", context)
+
+
+@require_GET
+def facturabilidad_recurso(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra la facturabilidad de cada persona, de enero al mes elegido.
+
+    Args:
+        request: Peticion HTTP; acepta ?mes=YYYY-MM.
+
+    Returns:
+        La pagina por recurso.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    month = _facturability_month(request)
+    sources = load_year_sources(month)
+    rows = build_resources([(item.gse, item.capacity) for item in sources])
+    by_month, overall = team_averages(rows, len(sources))
+    context = _facturability_context(month, "recurso")
+    context.update(
+        {
+            "labels": [
+                build_month_facturability(item.month, {}, {}).short_label
+                for item in sources
+            ],
+            "rows": rows,
+            "team_by_month": by_month,
+            "team_average": overall,
+            "error": " · ".join(
+                f"{item.month}: {item.error}" for item in sources if item.error
+            ),
+        },
+    )
+
+    return render(request, "portal/facturabilidad_recurso.html", context)

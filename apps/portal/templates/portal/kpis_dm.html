@@ -78,7 +78,7 @@ td a{color:inherit;text-decoration:none}td a:hover{text-decoration:underline}{% 
 <h1>KPIs de Delivery Managers</h1>
 <p class="sub">Carga y cumplimiento de cada Delivery Manager con los proyectos en ejecución de hoy</p>
 
-<div class="tabs"><a href="#" data-pronto="1">Facturabilidad</a><a href="#" data-pronto="1">Facturabilidad por especialidad</a><a href="#" data-pronto="1">Facturabilidad por recurso</a><a class="on" href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers</a></div>
+<div class="tabs"><a href="{% url 'portal:facturabilidad' %}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}">Facturabilidad por recurso</a><a class="on" href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers</a></div>
 
 <div class="hint" style="margin:0 0 14px">Corte actual ({{ loaded_at|date:"d/m/Y" }}). Los trimestres y meses anteriores aparecerán cuando se guarde un corte cada mes. <span class="ej">Pendiente</span></div>
 <section class="kp">

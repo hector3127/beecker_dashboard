@@ -9,6 +9,7 @@ from apps.portal.services.capacity_loader import CapacityLoad
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
 from apps.portal.services.eva_loader import Eva1Load, Eva2Load
+from apps.portal.services.facturability_loader import MonthSources
 from apps.portal.services.portfolio_loader import PortfolioLoad
 from apps.portal.services.project_loader import ProjectDashboardLoad
 from tests.portal.builders import make_project
@@ -744,3 +745,71 @@ def test_operational_eva_cards_use_real_numbers(client, monkeypatch):
     assert response.context["eva2_card"].available is False
     assert "40%" in html
     assert 'href="/operativa/kpis-delivery-managers/"' in html
+
+
+def stub_facturability(monkeypatch):
+    sources = {
+        "gse": {
+            "ok": True,
+            "detalle": [
+                {
+                    "recurso": "Ana",
+                    "area": "DEV",
+                    "servicio": "AER",
+                    "horas": 80,
+                },
+            ],
+        },
+        "capacity": {
+            "filas": [
+                {"recurso": "Ana", "rol": "DEV", "horasEstimadas": 160},
+            ],
+        },
+    }
+    monkeypatch.setattr(
+        "apps.portal.views.load_month_sources",
+        lambda month: MonthSources(month=month, **sources),
+    )
+    monkeypatch.setattr(
+        "apps.portal.views.load_year_sources",
+        lambda month: [
+            MonthSources(month="2026-01", **sources),
+            MonthSources(month="2026-02", error="GSE: sin base"),
+        ],
+    )
+
+
+def test_facturability_pages(client, monkeypatch):
+    stub_facturability(monkeypatch)
+
+    general = client.get("/operativa/facturabilidad/?mes=2026-02")
+    specialty = client.get("/operativa/facturabilidad/especialidad/")
+    resource = client.get("/operativa/facturabilidad/recurso/")
+
+    assert general.status_code == 200
+    assert general.context["first"].fixed_percent == 50.0
+    assert general.context["selected"].error == "GSE: sin base"
+    assert "Meses sin datos completos" in general.content.decode()
+    assert specialty.context["specialties"][0].name == "DEV"
+    assert specialty.context["headcount"] == 1
+    assert resource.context["rows"][0].percents == (50.0, None)
+    assert "Facturabilidad por recurso" in resource.content.decode()
+
+
+def test_facturability_month_never_goes_past_today(client, monkeypatch):
+    stub_facturability(monkeypatch)
+
+    response = client.get("/operativa/facturabilidad/especialidad/?mes=2999-12")
+
+    assert response.context["month"] < "2999-12"
+
+
+def test_facturability_requires_login_when_configured(client, settings):
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    for path in (
+        "/operativa/facturabilidad/",
+        "/operativa/facturabilidad/especialidad/",
+        "/operativa/facturabilidad/recurso/",
+    ):
+        assert client.get(path).status_code == 302

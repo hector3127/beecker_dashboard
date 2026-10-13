@@ -28,6 +28,21 @@ urlpatterns = [
     path("operativa/en-tiempo/", views.en_tiempo, name="en_tiempo"),
     path("operativa/eva-1/", views.eva1, name="eva1"),
     path(
+        "operativa/facturabilidad/",
+        views.facturabilidad,
+        name="facturabilidad",
+    ),
+    path(
+        "operativa/facturabilidad/especialidad/",
+        views.facturabilidad_especialidad,
+        name="facturabilidad_especialidad",
+    ),
+    path(
+        "operativa/facturabilidad/recurso/",
+        views.facturabilidad_recurso,
+        name="facturabilidad_recurso",
+    ),
+    path(
         "operativa/kpis-delivery-managers/",
         views.kpis_delivery_managers,
         name="kpis_dm",

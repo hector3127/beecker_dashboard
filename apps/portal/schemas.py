@@ -485,3 +485,51 @@ class EvaCard:
     available: bool
     total_projects: int = 0
     time_cost: TimeCost = NO_TIME_COST
+
+
+@dataclass(frozen=True, slots=True)
+class MonthFacturability:
+    """Facturabilidad de un mes: trabajo fijo, variable y libre."""
+
+    month: str
+    label: str
+    short_label: str
+    person_hours: float
+    capacity: float
+    fixed_hours: float
+    fixed_percent: float | None
+    fixed_hc: int
+    variable_capacity: float
+    variable_hours: float
+    variable_percent: float | None
+    variable_hc: int
+    service_hours: tuple[float, ...]
+    free_hours: float
+    free_fte: int
+    global_percent: float | None
+    bar_height: float = 0.0
+    error: str = ""
+
+
+@dataclass(frozen=True, slots=True)
+class SpecialtyRow:
+    """Facturabilidad de una especialidad (ROL de Bandas/rol)."""
+
+    name: str
+    headcount: int
+    capacity: float
+    fixed_hours: float
+    fixed_percent: float | None
+    variable_hours: float
+    variable_percent: float | None
+    free_fte: int
+
+
+@dataclass(frozen=True, slots=True)
+class ResourceRow:
+    """Facturabilidad mensual de una persona."""
+
+    name: str
+    role: str
+    percents: tuple[float | None, ...]
+    average: float | None

@@ -12,6 +12,7 @@ from apps.portal.constants import (
 from apps.portal.services import (
     capacity_loader,
     eva_loader,
+    facturability_loader,
     portfolio_loader,
     project_loader,
 )
@@ -275,3 +276,56 @@ def test_project_loader_caches_and_reports_errors(monkeypatch):
     assert "No se pudo leer el detalle" in (
         project_loader.load_project_dashboard("HIS-1").error
     )
+
+
+def test_facturability_loader_reads_sheet_base_and_caches(monkeypatch):
+    key = "portal:facturability:v1:2026-10"
+    cache.delete(key)
+    calls = []
+
+    def fake_gse(month, source, force, area):
+        calls.append((month, source, force, area))
+        return {"ok": True, "detalle": []}
+
+    monkeypatch.setattr(facturability_loader, "get_gse_month", fake_gse)
+    monkeypatch.setattr(
+        facturability_loader,
+        "load_capacity",
+        lambda month: capacity_loader.CapacityLoad(data={"filas": []}),
+    )
+
+    first = facturability_loader.load_month_sources("2026-10")
+    facturability_loader.load_month_sources("2026-10")
+
+    assert first.error == ""
+    assert calls == [("2026-10", "sheet", False, "")]
+    cache.delete(key)
+
+
+def test_facturability_loader_reports_errors_without_cache(monkeypatch):
+    cache.delete("portal:facturability:v1:2026-09")
+    monkeypatch.setattr(
+        facturability_loader,
+        "get_gse_month",
+        lambda *args: {"ok": False, "error": "No existe la base del año."},
+    )
+    monkeypatch.setattr(
+        facturability_loader,
+        "load_capacity",
+        lambda month: capacity_loader.CapacityLoad(error="Sin Recursos."),
+    )
+
+    result = facturability_loader.load_month_sources("2026-09")
+
+    assert "GSE: No existe la base del año." in result.error
+    assert "Recursos: Sin Recursos." in result.error
+    assert result.gse == {}
+    assert cache.get("portal:facturability:v1:2026-09") is None
+
+
+def test_year_months():
+    assert facturability_loader.year_months("2026-03") == [
+        "2026-01",
+        "2026-02",
+        "2026-03",
+    ]

@@ -1,0 +1,103 @@
+{% extends 'portal/base.html' %}
+{% block title %}Facturabilidad por especialidad{% endblock %}
+{% block css %}body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#F7F5FF;color:#1B1A4A}
+a{color:#4B25C9;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:12px 36px;background:#fff;border-bottom:1px solid #ECE8FA}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:25px;letter-spacing:-.02em}
+.nav{display:flex;gap:6px}
+.nav a{padding:8px 18px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
+.nav a.on{background:#EDE7FF;color:#4B25C9}
+.fresh{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:#4A4872}
+.dot{width:8px;height:8px;border-radius:50%;background:#1B9A55}
+.page{max-width:1368px;margin:0 auto;padding:22px 36px 40px}
+.crumb{font-size:13.5px;color:#55537F;margin-bottom:8px}
+.eb{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#4B25C9}
+h1{margin:2px 0 0;font-size:34px;font-weight:800;letter-spacing:-.025em}
+.sub{margin:4px 0 18px;color:#55537F;font-size:16px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;background:#fff;border:1px solid #ECE8FA;border-radius:14px;padding:6px}
+.tabs a{padding:10px 20px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
+.tabs a.on{background:#4B25C9;color:#fff}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.kc{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:18px 24px}
+.kl{font-size:14px;font-weight:700;color:#3A3870}
+.kv{font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1.2;font-variant-numeric:tabular-nums}
+.kv span{color:#8A81B8;font-weight:600}
+.kv .neg{color:#A31B33;font-weight:800}
+.pill{display:inline-flex;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:800;background:#FBE3E7;color:#A31B33}
+.card{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:22px 26px;margin-bottom:14px}
+.card h2{margin:0 0 2px;font-size:20px}
+.hs{font-size:14px;color:#55537F;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:10px 8px;text-align:right;border-top:1px solid #F0EDF8;font-variant-numeric:tabular-nums}
+th{font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:#4A4872;border-top:0}
+th.q{text-align:center;background:#F1ECFD;color:#2B1B8F;border-left:2px solid #fff;font-size:13px}
+td:first-child,th:first-child{text-align:left}
+td.g{border-left:2px solid #F1ECFD}
+td.fr{background:#FFF7E0}
+td.df{background:#FBE3E7;color:#A31B33;font-weight:800}
+tfoot td{font-weight:800;background:#FAF8FF}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.two .card{margin-bottom:0}
+.note{margin-top:14px;font-size:12.5px;color:#55537F;line-height:1.5}
+
+
+
+
+
+.per{position:relative;margin:0 0 16px;display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px}
+.per>input{position:absolute;opacity:0;pointer-events:none}
+.per .f{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #E4E6F8;border-radius:12px;padding:12px 18px;font-size:17px;color:#2A2D7A;width:560px;box-sizing:border-box;white-space:nowrap;cursor:pointer}
+.per .f .e{margin-left:auto;display:flex}
+.per .ft{display:none}
+#pa:checked ~ .f .fa,#pq:checked ~ .f .fq,#pm:checked ~ .f .fm,#pr:checked ~ .f .fr{display:inline}
+#pd:checked ~ .f{border-color:#7A4DF0;box-shadow:0 0 0 3px #EDE7FF}
+.per .menu{display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:6;width:560px;box-sizing:border-box;background:#fff;border:1px solid #D9D2F4;border-radius:12px;padding:12px;box-shadow:0 8px 24px rgba(75,37,201,.18)}
+#pd:checked ~ .menu{display:block}
+.per .pt{display:flex;align-items:center;gap:6px;background:#F1ECFD;border-radius:12px;padding:4px;margin-bottom:12px}
+.per .pt label{flex:1;text-align:center;padding:8px 10px;border-radius:9px;font-size:14px;font-weight:700;color:#4A4872;cursor:pointer}
+#pa:checked ~ .menu .pt label[for=pa],#pq:checked ~ .menu .pt label[for=pq],#pm:checked ~ .menu .pt label[for=pm],#pr:checked ~ .menu .pt label[for=pr]{background:#4B25C9;color:#fff}
+.per .pn{display:none;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;color:#2A2D7A}
+#pa:checked ~ .menu .pna,#pq:checked ~ .menu .pnq,#pm:checked ~ .menu .pnm,#pr:checked ~ .menu .pnr{display:flex}
+.per .ch{border:1px solid #D9D2F4;border-radius:9px;padding:6px 12px;font-weight:600;background:#fff;font-size:13.5px}
+.per .ch.on{background:#EDE7FF;border-color:#7A4DF0;color:#4B25C9;font-weight:800}
+.per .fd{display:flex;align-items:center;gap:8px;border:1px solid #D9D2F4;border-radius:10px;padding:7px 12px;font-weight:700;background:#fff}
+.per .cal{display:none;margin-top:12px;border-top:1px solid #F0EDF8;padding-top:10px;width:236px}
+#pr:checked ~ .menu .cal{display:block}
+.cal .ct2{font-weight:800;font-size:13.5px;color:#1B1A9E;text-align:center;margin-bottom:6px}
+.cal .gd{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:12px}
+.cal .gd i{font-style:normal;padding:4px 0;border-radius:6px;color:#2A2D7A}
+.cal .gd i.h{color:#8A81B8;font-weight:700}.cal .gd i.in{background:#EDE7FF}.cal .gd i.en{background:#4B25C9;color:#fff;font-weight:800}
+.per .hint{font-size:13.5px;color:#4A4D86}
+.err{margin:0 0 12px;padding:12px 18px;border-radius:12px;background:#FBE3E7;color:#A31B33;font-size:14.5px;font-weight:600}.mf input:focus{outline:2px solid #B9A6F5}{% endblock %}
+{% block content %}
+<main class="page">
+{% if error %}<div class="err">No se pudo leer todo: {{ error }}</div>{% endif %}
+<div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Operations</div>
+<div class="eb">Operations</div>
+<h1>Facturabilidad por especialidad</h1>
+<p class="sub">Cuánta gente hay, cuánta está en trabajo fijo o variable y cuánta queda libre, por especialidad</p>
+
+<div class="tabs"><a href="{% url 'portal:facturabilidad' %}">Facturabilidad</a><a class="on" href="{% url 'portal:facturabilidad_especialidad' %}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers</a></div>
+
+<form method="get" class="mf" style="display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:14px;color:#3A3870"><label for="mes" style="font-weight:700">Mes</label><input id="mes" type="month" name="mes" value="{{ month }}" onchange="this.form.submit()" style="font:inherit;border:1px solid #E1DCF3;border-radius:10px;padding:8px 12px;background:#fff"><span style="color:#55537F">Se lee de enero a ese mes. Horas de la base de GSE en Sheets y capacidad de la hoja Recursos (solo lectura).</span></form>
+<section class="kp">
+<div class="kc"><div class="kl">HC total</div><div class="kv">{{ headcount }}</div><div class="ke">Personas en Recursos, {{ selected.label|lower }}</div></div>
+<div class="kc"><div class="kl">HC variable</div><div class="kv">{{ selected.variable_hc }}</div><div class="ke">Personas equivalentes en TYM, IXB, SaaS y RaaS</div></div>
+<div class="kc"><div class="kl">Libre total</div><div class="kv{% if selected.free_fte < 0 %} neg{% endif %}">{{ selected.free_fte }}</div><div class="ke">{% if selected.free_fte < 0 %}Déficit de personas{% else %}Personas equivalentes libres{% endif %}</div></div>
+<div class="kc"><div class="kl">Libre en Dev</div><div class="kv{% if dev_free is not None and dev_free < 0 %} neg{% endif %}">{% if dev_free is not None %}{{ dev_free }}{% else %}—{% endif %}</div><div class="ke">{% if dev_free is not None and dev_free < 0 %}Déficit en Desarrollo{% else %}Personas equivalentes libres{% endif %}</div></div>
+</section>
+<section class="card">
+<h2>Por especialidad · {{ selected.label }}</h2>
+<div class="hs">HC T: personas en Recursos. Fijo: horas AER ÷ capacidad. Variable: horas de TYM, IXB, SaaS y RaaS ÷ capacidad que queda. Libre: personas equivalentes sin asignar (negativo = déficit).</div>
+<table>
+<thead><tr><th>Especialidad</th><th>HC T</th><th>Capacidad</th><th>Hrs fijo</th><th>Fijo</th><th>Hrs variable</th><th>Variable</th><th>Libre</th></tr></thead>
+<tbody>
+{% for r in specialties %}<tr><td><b>{{ r.name }}</b></td><td class="g">{{ r.headcount }}</td><td>{{ r.capacity|floatformat:"0g" }}</td><td>{{ r.fixed_hours|floatformat:"0g" }}</td><td>{% if r.fixed_percent is not None %}{{ r.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ r.variable_hours|floatformat:"0g" }}</td><td>{% if r.variable_percent is not None %}{{ r.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td class="{% if r.free_fte < 0 %}df{% else %}fr{% endif %}">{{ r.free_fte }}</td></tr>
+{% empty %}<tr><td colspan="8" style="text-align:center;color:#4A4D86;padding:20px">Sin datos de ese mes.</td></tr>{% endfor %}
+</tbody>
+<tfoot><tr><td>Total</td><td class="g">{{ headcount }}</td><td>{{ selected.capacity|floatformat:"0g" }}</td><td>{{ selected.fixed_hours|floatformat:"0g" }}</td><td>{% if selected.fixed_percent is not None %}{{ selected.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ selected.variable_hours|floatformat:"0g" }}</td><td>{% if selected.variable_percent is not None %}{{ selected.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td class="{% if selected.free_fte < 0 %}df{% endif %}">{{ selected.free_fte }}</td></tr></tfoot>
+</table>
+</section>
+<p class="note">Fórmula: horas fijo = horas con servicio AER en GSE; capacidad = horas estimadas de todos los recursos (hoja Recursos); % fijo = horas AER ÷ capacidad; HC = horas ÷ horas de una persona en el mes (días hábiles × 8 h, sin feriados). Variable = TYM, IXB, SaaS y RaaS sobre la capacidad que queda; libre = lo que sobra. La especialidad es el ROL de Bandas/rol. Las gráficas de evolución por trimestre se agregarán después.</p>
+</main>
+{% endblock %}
