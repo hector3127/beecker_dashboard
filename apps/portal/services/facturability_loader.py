@@ -102,3 +102,18 @@ def load_year_sources(month: str) -> list[MonthSources]:
         Los datos de cada mes, en orden.
     """
     return [load_month_sources(item) for item in year_months(month)]
+
+
+def peek_month_sources(month: str) -> MonthSources | None:
+    """
+    Datos de un mes solo si ya estan en cache (no lee Sheets).
+
+    Args:
+        month: Mes valido YYYY-MM.
+
+    Returns:
+        Los datos guardados, o None.
+    """
+    cached = cache.get(f"{FACTURABILITY_CACHE_PREFIX}{month}")
+
+    return cached if isinstance(cached, MonthSources) else None

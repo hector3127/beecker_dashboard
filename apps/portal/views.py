@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_GET
 
-from apps.portal.schemas import CapacityFilters
+from apps.portal.schemas import CapacityFilters, InvestmentView
 from apps.portal.services.account import build_account_detail, find_account
 from apps.portal.services.account_ranking import rank_accounts
 from apps.portal.services.capacity import (
@@ -33,12 +33,14 @@ from apps.portal.services.facturability import (
 from apps.portal.services.facturability_loader import (
     load_month_sources,
     load_year_sources,
+    peek_month_sources,
 )
 from apps.portal.services.filters import (
     filter_projects,
     list_clients,
     list_services,
 )
+from apps.portal.services.investment import build_investment_view
 from apps.portal.services.kpis_dm import build_kpi_view
 from apps.portal.services.manager_detail import (
     build_manager_detail,
@@ -153,6 +155,7 @@ def operativa(request: HttpRequest) -> HttpResponse:
             "has_projects": bool(projects),
             "eva1_card": build_eva1_card(load_eva1()),
             "eva2_card": peek_eva2_card(),
+            "investment": _peek_investment(),
         },
     )
 
@@ -671,3 +674,41 @@ def facturabilidad_recurso(request: HttpRequest) -> HttpResponse:
     )
 
     return render(request, "portal/facturabilidad_recurso.html", context)
+
+
+def _peek_investment() -> InvestmentView | None:
+    """Inversion del mes actual solo si ya se leyo (para Operativa)."""
+    month = str(timezone.localdate().strftime("%Y-%m"))
+    sources = peek_month_sources(month)
+
+    if sources is None:
+        return None
+
+    return build_investment_view(sources.gse, month)
+
+
+@require_GET
+def inversion(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra las horas de inversion comercial y operativa del mes.
+
+    Args:
+        request: Peticion HTTP; acepta ?mes=YYYY-MM.
+
+    Returns:
+        La pagina de inversion.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    month = _facturability_month(request)
+    sources = load_month_sources(month)
+    context = _facturability_context(month, "inversion")
+    context.update(
+        {
+            "investment": build_investment_view(sources.gse, month),
+            "error": sources.error,
+        },
+    )
+
+    return render(request, "portal/inversion.html", context)

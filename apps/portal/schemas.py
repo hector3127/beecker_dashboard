@@ -533,3 +533,38 @@ class ResourceRow:
     role: str
     percents: tuple[float | None, ...]
     average: float | None
+
+
+@dataclass(frozen=True, slots=True)
+class InvestmentRow:
+    """Horas de inversion comercial y operativa de un grupo."""
+
+    name: str
+    commercial: float
+    operational: float
+
+    @property
+    def total(self) -> float:
+        """Comercial mas operativa."""
+        return self.commercial + self.operational
+
+
+@dataclass(frozen=True, slots=True)
+class HoursBar:
+    """Una barra horizontal de horas."""
+
+    label: str
+    hours: float
+    width: float
+
+
+@dataclass(frozen=True, slots=True)
+class InvestmentView:
+    """Pantalla de inversion operativa y comercial de un mes."""
+
+    month: str
+    label: str
+    totals: InvestmentRow
+    by_area: tuple[InvestmentRow, ...]
+    commercial_by_type: tuple[HoursBar, ...]
+    operational_by_project: tuple[HoursBar, ...]

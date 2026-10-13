@@ -120,3 +120,15 @@ FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v1:"
 FACTURABILITY_CACHE_SECONDS: Final[int] = 600
 BILLABLE_HIGH_PERCENT: Final[int] = 80
 BILLABLE_LOW_PERCENT: Final[int] = 50
+
+# Inversion operativa y comercial (categorias de GSE)
+COMMERCIAL_CATEGORIES: Final[tuple[str, ...]] = (
+    "Inversión Comercial",
+    "Pre-Venta",
+)
+OPERATIONAL_CATEGORIES: Final[tuple[str, ...]] = (
+    "Inversión Operaciones",
+    "Internos",
+)
+INVESTMENT_TOP_ITEMS: Final[int] = 6
+OTHERS_LABEL: Final[str] = "Otros"

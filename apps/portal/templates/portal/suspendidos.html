@@ -40,7 +40,7 @@ td.r,th.r{text-align:right}
 <h1>Proyectos suspendidos</h1>
 <p class="sub">Proyectos detenidos, por qué se detuvieron y qué falta para retomarlos</p>
 
-<div class="tabs"><a href="{% url 'portal:kpis_dm' %}">EVA 1</a><a href="{% url 'portal:kpis_dm' %}">EVA 2</a><a href="{% url 'portal:kpis_dm' %}">EVA 3</a><a href="{% url 'portal:operativa' %}">Proyectos en ejecución</a><a class="on" href="{% url 'portal:suspendidos' %}">Suspendidos</a><a href="#" data-pronto="1">Inversión operativa y comercial</a></div>
+<div class="tabs"><a href="{% url 'portal:kpis_dm' %}">EVA 1</a><a href="{% url 'portal:kpis_dm' %}">EVA 2</a><a href="{% url 'portal:kpis_dm' %}">EVA 3</a><a href="{% url 'portal:operativa' %}">Proyectos en ejecución</a><a class="on" href="{% url 'portal:suspendidos' %}">Suspendidos</a><a href="{% url 'portal:inversion' %}">Inversión operativa y comercial</a></div>
 
 <section class="kp">
 <div class="kc"><div class="kl">Proyectos suspendidos</div><div class="kv">{{ suspended.count }}</div><div class="ke">{% for name, total in suspended.by_manager %}{{ name }}: {{ total }}{% if not forloop.last %} · {% endif %}{% empty %}Sin Delivery Managers{% endfor %}</div></div>

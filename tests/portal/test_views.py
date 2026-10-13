@@ -813,3 +813,62 @@ def test_facturability_requires_login_when_configured(client, settings):
         "/operativa/facturabilidad/recurso/",
     ):
         assert client.get(path).status_code == 302
+
+
+def test_investment_page_reads_gse_categories(client, monkeypatch):
+    gse = {
+        "ok": True,
+        "detalle": [
+            {
+                "area": "DEV",
+                "proyecto": "Preventa",
+                "categorias": ["Pre-Venta"],
+                "horas": 12,
+            },
+            {
+                "area": "QA",
+                "proyecto": "Interno",
+                "categorias": ["Internos"],
+                "horas": 8,
+            },
+        ],
+    }
+    monkeypatch.setattr(
+        "apps.portal.views.load_month_sources",
+        lambda month: MonthSources(month=month, gse=gse),
+    )
+
+    response = client.get("/operativa/inversion/?mes=2026-09")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["investment"].totals.total == 20
+    assert response.context["month"] == "2026-09"
+    assert "Inversión operativa y comercial" in html
+    assert "Pre-Venta" in html
+
+
+def test_operational_investment_cards_use_cache_only(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+    monkeypatch.setattr("apps.portal.views.peek_month_sources", lambda m: None)
+
+    response = client.get("/operativa/")
+
+    assert response.context["investment"] is None
+    assert 'href="/operativa/inversion/"' in response.content.decode()
+
+    gse = {"detalle": [{"categorias": ["Internos"], "horas": 7}]}
+    monkeypatch.setattr(
+        "apps.portal.views.peek_month_sources",
+        lambda month: MonthSources(month=month, gse=gse),
+    )
+
+    response = client.get("/operativa/")
+
+    assert response.context["investment"].totals.operational == 7
+
+
+def test_investment_requires_login_when_configured(client, settings):
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    assert client.get("/operativa/inversion/").status_code == 302
