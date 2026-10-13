@@ -38,3 +38,17 @@ DECISION_LIMIT: Final[int] = 5
 
 # Dias de retraso que se consideran un problema de plazo.
 DECISION_DELAY_DAYS: Final[int] = 1
+
+# Estado de un proyecto en las tablas: codigo de clase CSS y color.
+STATUS_ON_TIME: Final[str] = "g"
+STATUS_AT_RISK: Final[str] = "a"
+STATUS_CRITICAL: Final[str] = "r"
+STATUS_PAUSED: Final[str] = "x"
+
+SHARE_COLORS: Final[dict[str, str]] = {
+    STATUS_ON_TIME: "#1B9A55",
+    STATUS_AT_RISK: "#E88F0C",
+    STATUS_CRITICAL: "#D6304B",
+}
+
+NO_RISK_LABEL: Final[str] = "—"

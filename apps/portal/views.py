@@ -2,8 +2,8 @@
 
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.http import Http404, HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET
 
 from apps.portal.services.decisions import build_decisions
@@ -11,6 +11,11 @@ from apps.portal.services.filters import (
     filter_projects,
     list_clients,
     list_services,
+)
+from apps.portal.services.manager_detail import (
+    build_manager_detail,
+    find_manager,
+    summarize_suspended,
 )
 from apps.portal.services.periods import current_quarter
 from apps.portal.services.portfolio_loader import (
@@ -136,3 +141,67 @@ def comercial(request: HttpRequest) -> HttpResponse:
     }
 
     return render(request, "portal/comercial.html", context)
+
+
+@require_GET
+def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
+    """
+    Muestra el detalle de un Delivery Manager con todos sus proyectos.
+
+    Args:
+        request: Peticion HTTP.
+        slug: Nombre del Delivery Manager escrito para la URL.
+
+    Returns:
+        La pagina del Delivery Manager.
+
+    Raises:
+        Http404: Cuando ningun proyecto tiene a ese Delivery Manager.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    load = load_portfolio()
+    found = find_manager(load.projects, slug)
+
+    if found is None:
+        if load.error:
+            return redirect("portal:operativa")
+
+        raise Http404("No existe ese Delivery Manager.")
+
+    context = _base_context(load)
+    context.update(
+        {
+            "active": "operativa",
+            "detail": build_manager_detail(*found),
+        },
+    )
+
+    return render(request, "portal/delivery_manager.html", context)
+
+
+@require_GET
+def suspendidos(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra los proyectos suspendidos de todo el portafolio.
+
+    Args:
+        request: Peticion HTTP.
+
+    Returns:
+        La pagina de suspendidos.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    load = load_portfolio()
+    context = _base_context(load)
+    context.update(
+        {
+            "active": "operativa",
+            "suspended": summarize_suspended(load.projects),
+        },
+    )
+
+    return render(request, "portal/suspendidos.html", context)

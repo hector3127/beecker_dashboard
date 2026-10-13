@@ -15,4 +15,14 @@ urlpatterns = [
     path("", views.ejecutiva, name="ejecutiva"),
     path("operativa/", views.operativa, name="operativa"),
     path("comercial/", views.comercial, name="comercial"),
+    path(
+        "operativa/suspendidos/",
+        views.suspendidos,
+        name="suspendidos",
+    ),
+    path(
+        "operativa/delivery-manager/<slug:slug>/",
+        views.delivery_manager,
+        name="delivery_manager",
+    ),
 ]

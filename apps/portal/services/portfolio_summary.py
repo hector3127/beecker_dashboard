@@ -26,6 +26,7 @@ from apps.portal.schemas import (
     PortfolioSummary,
     ProjectView,
 )
+from apps.portal.services.slugs import build_slug
 from core.utils.numbers import round_half_up_int
 
 """BKD.120.005 - Resumen del portafolio
@@ -174,6 +175,7 @@ def _summarize_manager(
 
     return DeliveryManagerSummary(
         name=name,
+        slug=build_slug(name),
         initials=build_initials(name),
         in_progress=len(in_progress),
         paused=sum(
@@ -257,3 +259,19 @@ def summarize_hours(projects: Sequence[ProjectView]) -> HoursSummary:
         etc_hours=round_half_up_int(etc),
         progress_percent=progress,
     )
+
+
+def budget_used_percent(project: ProjectView) -> int:
+    """
+    Calcula el porcentaje del presupuesto en horas que ya se uso.
+
+    Args:
+        project: Proyecto a evaluar.
+
+    Returns:
+        El porcentaje usado; 0 cuando no hay presupuesto.
+    """
+    if project.budget_hours <= 0:
+        return 0
+
+    return round_half_up_int(project.burn_hours * 100 / project.budget_hours)

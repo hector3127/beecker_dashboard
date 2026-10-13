@@ -1,0 +1,82 @@
+{% extends 'portal/base.html' %}
+{% block title %}Delivery Manager{% endblock %}
+{% block css %}body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#F7F5FF;color:#1B1A4A}
+a{color:#4B25C9;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:12px 36px;background:#fff;border-bottom:1px solid #ECE8FA}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:25px;letter-spacing:-.02em}
+.nav{display:flex;gap:6px}
+.nav a{padding:8px 18px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
+.nav a.on{background:#EDE7FF;color:#4B25C9}
+.fresh{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:#4A4872}
+.dot{width:8px;height:8px;border-radius:50%;background:#1B9A55}
+.page{max-width:1368px;margin:0 auto;padding:22px 36px 40px}
+.crumb{font-size:13.5px;color:#55537F;margin-bottom:8px}
+.hd{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.av{width:56px;height:56px;border-radius:50%;background:#4B25C9;color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;flex:none}
+h1{margin:0;font-size:34px;font-weight:800;letter-spacing:-.025em}
+.sub{margin:2px 0 0;color:#55537F;font-size:16px}
+.kp{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:14px}
+.kc{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:16px 20px}
+.kl{font-size:13px;font-weight:700;color:#3A3870}
+.kv{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.2;font-variant-numeric:tabular-nums}
+.ke{font-size:12.5px;color:#55537F;line-height:1.4}
+.card{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:22px 26px;margin-bottom:14px}
+.card h2{margin:0 0 2px;font-size:20px}
+.hs{font-size:14px;color:#55537F;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:11px 12px;text-align:left;border-top:1px solid #F0EDF8;vertical-align:middle}
+th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#4A4872;border-top:0}
+td small{display:block;color:#55537F;font-size:12.5px}
+.num{font-variant-numeric:tabular-nums}
+.st{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700}
+.st i{width:10px;height:10px;border-radius:50%}
+.s-g{color:#13693B}.s-g i{background:#1B9A55}
+.s-a{color:#7A4D00}.s-a i{background:#E88F0C}
+.s-r{color:#A31B33}.s-r i{background:#D6304B}
+.s-x{color:#4A4872}.s-x i{background:#8A81B8}
+.pb{display:flex;align-items:center;gap:10px}
+.tr{position:relative;height:8px;width:100px;background:#EEEAFB;border-radius:4px}
+.tr i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:#5B2FD6}
+.rs{box-shadow:inset 4px 0 0 #D6304B}
+.ra{box-shadow:inset 4px 0 0 #E88F0C}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two .card{margin-bottom:14px}
+.note{margin-top:6px;font-size:12.5px;color:#55537F}{% endblock %}
+{% block content %}
+<main class="page">
+{% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
+<div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Proyectos en ejecución › {{ detail.name }}</div>
+{% if detail %}<div class="hd"><div class="av">{{ detail.initials }}</div><div><h1>{{ detail.name }}</h1><p class="sub">Delivery Manager · {{ detail.total }} proyecto{{ detail.total|pluralize }} asignado{{ detail.total|pluralize }}</p></div></div>{% endif %}
+
+<section class="kp">
+<div class="kc"><div class="kl">Proyectos</div><div class="kv">{{ detail.total }}</div><div class="ke">{{ detail.in_progress }} en ejecución y {{ detail.paused }} suspendido{{ detail.paused|pluralize }}</div></div>
+<div class="kc"><div class="kl">En tiempo</div><div class="kv">{{ detail.health.on_time }}</div><div class="ke">{{ detail.health.at_risk }} en riesgo y {{ detail.health.critical }} crítico{{ detail.health.critical|pluralize }}</div></div>
+<div class="kc"><div class="kl">Riesgos altos abiertos</div><div class="kv">{{ detail.high_risk }}</div><div class="ke">{{ detail.high_risk_note }}</div></div>
+<div class="kc"><div class="kl">En tiempo · En costo</div><div class="kv"><span style="color:#8A81B8">—</span></div><div class="ke">Se calcula con EVA<span class="ej">Pendiente</span></div></div>
+<div class="kc"><div class="kl">Inversión comercial</div><div class="kv"><span style="color:#8A81B8">—</span></div><div class="ke">Preventa y propuestas<span class="ej">Pendiente</span></div></div>
+<div class="kc"><div class="kl">Inversión operativa</div><div class="kv"><span style="color:#8A81B8">—</span></div><div class="ke">Horas no facturables<span class="ej">Pendiente</span></div></div>
+</section>
+
+<section class="card">
+<h2>Proyectos de {{ detail.name }}</h2>
+<div class="hs">Los que necesitan atención aparecen primero</div>
+<table>
+<thead><tr><th>Proyecto</th><th>Cuenta</th><th>Estado</th><th>Avance</th><th>ETC</th><th>Riesgo abierto</th></tr></thead>
+<tbody>
+{% for r in detail.rows %}<tr{% if r.row_class %} class="{{ r.row_class }}"{% endif %}><td><b><a href="#" data-pronto="1">{{ r.name }}</a></b></td><td>{{ r.client }}</td><td><span class="st s-{{ r.status_code }}"><i></i>{{ r.status_label }}</span>{% if r.detail %}<small>{{ r.detail }}</small>{% endif %}</td><td><div class="pb"><div class="tr"><i style="width:{{ r.progress_percent }}%"></i></div><span class="num">{{ r.progress_percent }}%</span></div></td><td class="num">{{ r.etc_hours|floatformat:"0g" }} h</td><td class="num">{{ r.risk_label }}</td></tr>
+{% empty %}<tr><td colspan="6" class="vacio">Este Delivery Manager no tiene proyectos en ejecución ni suspendidos.</td></tr>{% endfor %}
+</tbody>
+</table>
+</section>
+
+<section class="two">
+<div class="card"><h2>Cumplimiento por mes, últimos 6 meses</h2><div class="hs">Misma medida que la pantalla KPIs de Delivery Managers.</div><div class="vacio">Se calculará con EVA en una entrega posterior. <span class="ej">Pendiente</span></div></div>
+<div class="card"><h2>Estado de sus proyectos</h2><div class="hs">{{ detail.in_progress }} proyecto{{ detail.in_progress|pluralize }} en ejecución</div>
+<table><thead><tr><th>Estado</th><th>Proyectos</th><th>Participación</th></tr></thead><tbody>
+{% for sh in detail.shares %}<tr><td><span class="st s-{{ sh.status_code }}"><i></i>{{ sh.label }}</span></td><td class="num">{{ sh.count }}</td><td><div class="pb"><div class="tr" style="width:160px"><i style="width:{{ sh.percent }}%;background:{{ sh.color }}"></i></div><span class="num">{{ sh.percent }}%</span></div></td></tr>
+{% endfor %}
+</tbody></table></div>
+</section>
+<p class="note">Proyectos, estado, avance, ETC y riesgo son datos reales (solo lectura). T y C por Delivery Manager, la inversión y el cumplimiento por mes se conectarán en una entrega posterior. El detalle de cada proyecto llega después.</p>
+</main>
+{% endblock %}

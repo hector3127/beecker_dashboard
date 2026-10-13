@@ -184,3 +184,78 @@ def test_login_is_required_when_configured(client, settings):
 
 def test_only_get_is_allowed(client):
     assert client.post("/operativa/").status_code == 405
+
+
+def test_delivery_manager_page_lists_real_projects(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    response = client.get("/operativa/delivery-manager/alberto/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["detail"].name == "Alberto"
+    assert "Portal Pacientes" in html
+    assert "Presupuesto usado: 125%" in html
+    assert "12 días atrasado" in html
+    assert 'href="/operativa/"' in html
+
+
+def test_operational_cards_link_to_manager_and_suspended_pages(
+    client,
+    monkeypatch,
+):
+    stub_portfolio(monkeypatch, portfolio())
+
+    html = client.get("/operativa/").content.decode()
+
+    assert 'href="/operativa/delivery-manager/alberto/"' in html
+    assert 'href="/operativa/delivery-manager/laura-vega/"' in html
+    assert 'href="/operativa/suspendidos/"' in html
+
+
+def test_unknown_delivery_manager_is_404(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    assert client.get("/operativa/delivery-manager/nadie/").status_code == 404
+
+
+def test_delivery_manager_page_without_data_goes_back_to_operational(
+    client,
+    monkeypatch,
+):
+    stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
+
+    response = client.get("/operativa/delivery-manager/alberto/")
+
+    assert response.status_code == 302
+    assert response.url == "/operativa/"
+
+
+def test_suspended_page_lists_paused_projects(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    response = client.get("/operativa/suspendidos/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["suspended"].count == 1
+    assert "Proyectos suspendidos" in html
+    assert "Laura Vega" in html
+
+
+def test_suspended_page_without_projects(client, monkeypatch):
+    stub_portfolio(monkeypatch)
+
+    html = client.get("/operativa/suspendidos/").content.decode()
+
+    assert "No hay proyectos suspendidos." in html
+
+
+def test_new_pages_require_login_when_configured(client, settings):
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    for path in (
+        "/operativa/suspendidos/",
+        "/operativa/delivery-manager/alberto/",
+    ):
+        assert client.get(path).status_code == 302

@@ -129,6 +129,8 @@ el enlace «Panel anterior» del menú.
 | `/` | Ejecutiva | Reales: «Requieren decisión», avance en horas y horas por terminar. Ejemplo: Financiera, Comercial, Presupuesto usado, Rentabilidad y Top cuentas |
 | `/operativa/` | Operativa | Reales: en ejecución, suspendidos, en tiempo, salud del portafolio y tarjetas por Delivery Manager (filtros `?servicio=` y `?cuenta=`). Ejemplo: Inversión, EVA, Operations y Capacidad instalada |
 | `/comercial/` | Comercial | Ejemplo (pendiente de HubSpot) |
+| `/operativa/delivery-manager/<slug>/` | Detalle de Delivery Manager | Reales: proyectos en ejecución y suspendidos (los que necesitan atención primero), estado, avance, ETC, riesgo y reparto por estado. Pendiente: T y C, inversión y cumplimiento por mes |
+| `/operativa/suspendidos/` | Suspendidos | Reales: proyecto, Delivery Manager, avance y ETC. Pendiente (no existe en Sheets): motivo, días suspendido, revenue en pausa y plan para retomar |
 | `/legacy/` | Panel anterior | Sin cambios |
 
 - Todo es **solo lectura**: `services/portfolio_source.py` reutiliza los

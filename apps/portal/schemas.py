@@ -74,6 +74,7 @@ class DeliveryManagerSummary:
     """Resumen de un Delivery Manager para su tarjeta."""
 
     name: str
+    slug: str
     initials: str
     in_progress: int
     paused: int
@@ -108,3 +109,68 @@ class DecisionItem:
     is_critical: bool
     reason: str
     action: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProjectRow:
+    """Renglon de la tabla de proyectos de un Delivery Manager."""
+
+    project_id: str
+    name: str
+    client: str
+    status_label: str
+    status_code: str
+    detail: str
+    progress_percent: int
+    etc_hours: int
+    risk_label: str
+    row_class: str
+
+
+@dataclass(frozen=True, slots=True)
+class ShareRow:
+    """Cuantos proyectos en ejecucion hay en cada estado."""
+
+    label: str
+    status_code: str
+    color: str
+    count: int
+    percent: int
+
+
+@dataclass(frozen=True, slots=True)
+class ManagerDetail:
+    """Detalle completo de un Delivery Manager."""
+
+    name: str
+    initials: str
+    total: int
+    in_progress: int
+    paused: int
+    health: HealthCount
+    high_risk: int
+    high_risk_note: str
+    rows: tuple[ProjectRow, ...]
+    shares: tuple[ShareRow, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class SuspendedRow:
+    """Un proyecto suspendido."""
+
+    project_id: str
+    name: str
+    client: str
+    delivery_manager: str
+    progress_percent: int
+    etc_hours: int
+
+
+@dataclass(frozen=True, slots=True)
+class SuspendedSummary:
+    """Resumen de los proyectos suspendidos."""
+
+    count: int
+    by_manager: tuple[tuple[str, int], ...]
+    etc_hours: int
+    rows: tuple[SuspendedRow, ...]
