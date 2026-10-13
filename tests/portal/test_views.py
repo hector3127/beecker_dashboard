@@ -5,6 +5,9 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
+from apps.portal.services.eva1 import build_eva1_view
+from apps.portal.services.eva2 import build_eva2_view
+from apps.portal.services.eva_loader import Eva1Load, Eva2Load
 from apps.portal.services.portfolio_loader import PortfolioLoad
 from tests.portal.builders import make_project
 
@@ -259,3 +262,122 @@ def test_new_pages_require_login_when_configured(client, settings):
         "/operativa/delivery-manager/alberto/",
     ):
         assert client.get(path).status_code == 302
+
+
+def stub_eva1(monkeypatch, rows=(), error=""):
+    load = Eva1Load(view=build_eva1_view(list(rows)), error=error)
+    monkeypatch.setattr("apps.portal.views.load_eva1", lambda: load)
+
+
+def eva_row(**overrides):
+    row = {
+        "idProyecto": "AER.001",
+        "cliente": "ACME",
+        "servicio": "AER",
+        "nombre": "Backlog",
+        "deliveryManager": "Laura Vega",
+        "fte": 2,
+        "ftePorRol": {"DEV": 2},
+        "fechaInicio": "2026-01-01",
+        "fechaFin": "2026-10-20",
+        "budget": 1000,
+        "burn": 1100.5,
+        "avance": 110.1,
+        "renewalDias": 8,
+        "etc": -100.5,
+    }
+    row.update(overrides)
+
+    return row
+
+
+def test_eva1_shows_projects_and_alerts(client, monkeypatch):
+    stub_eva1(monkeypatch, [eva_row()])
+
+    response = client.get("/operativa/eva-1/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["eva"].total_projects == 1
+    assert "AER.001" in html
+    assert "Laura Vega" in html
+    assert "20/10/26" in html
+    assert 'class="bd bad"' in html
+    assert "Definición por confirmar" in html
+
+
+def test_eva1_without_projects_and_with_error(client, monkeypatch):
+    stub_eva1(monkeypatch, error="Falta configurar el dashboard.")
+
+    html = client.get("/operativa/eva-1/").content.decode()
+
+    assert "No se pudo leer Google Sheets" in html
+    assert "No hay proyectos AER o T&amp;M en progreso." in html
+
+
+def test_operational_eva_cards_link_to_eva1(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    html = client.get("/operativa/").content.decode()
+
+    assert 'href="/operativa/eva-1/"' in html
+
+
+def test_eva1_requires_login_when_configured(client, settings):
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    assert client.get("/operativa/eva-1/").status_code == 302
+
+
+def test_eva2_shows_stages_and_pivots(client, monkeypatch):
+    row = {
+        "deliveryManager": "Laura Vega",
+        "idProyecto": "AMK.008_S4",
+        "servicio": "RAAS",
+        "nombre": "Alertas",
+        "status": "Deployment",
+        "fechaInicio": "2026-08-28T00:00:00",
+        "fechaFin": "2026-10-13T00:00:00",
+        "desviacionDias": 1,
+        "budget": 141,
+        "burn": 167.59,
+        "etc": -26.59,
+        "avance": 118.8,
+        "wi": {"development": {"total": 56, "cerrados": 50, "pendientes": 6}},
+        "etapas": {"development": {"cerrada": True}},
+        "riesgos": ["R1"],
+    }
+    load = Eva2Load(view=build_eva2_view([row]), error="")
+    monkeypatch.setattr("apps.portal.views.load_eva2", lambda: load)
+
+    response = client.get("/operativa/eva-2/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["eva"].total_projects == 1
+    assert "AMK.008_S4" in html
+    assert "RaaS" in html
+    assert "<span class=pd>6</span>" in html
+    assert 'class="bd bad"' in html
+
+
+def test_eva2_with_error_and_login(client, monkeypatch, settings):
+    load = Eva2Load(view=build_eva2_view([]), error="Azure no responde.")
+    monkeypatch.setattr("apps.portal.views.load_eva2", lambda: load)
+
+    html = client.get("/operativa/eva-2/").content.decode()
+
+    assert "Azure no responde." in html
+    assert "No hay proyectos IXB o RaaS vigentes." in html
+
+    settings.PORTAL_LOGIN_REQUIRED = True
+
+    assert client.get("/operativa/eva-2/").status_code == 302
+
+
+def test_operational_eva_cards_link_to_eva2(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    html = client.get("/operativa/").content.decode()
+
+    assert 'href="/operativa/eva-2/"' in html

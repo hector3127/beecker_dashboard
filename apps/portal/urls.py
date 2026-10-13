@@ -20,6 +20,8 @@ urlpatterns = [
         views.suspendidos,
         name="suspendidos",
     ),
+    path("operativa/eva-1/", views.eva1, name="eva1"),
+    path("operativa/eva-2/", views.eva2, name="eva2"),
     path(
         "operativa/delivery-manager/<slug:slug>/",
         views.delivery_manager,

@@ -3,8 +3,8 @@
 import pytest
 from django.core.cache import cache
 
-from apps.portal.constants import PORTFOLIO_CACHE_KEY
-from apps.portal.services import portfolio_loader
+from apps.portal.constants import EVA2_CACHE_KEY, PORTFOLIO_CACHE_KEY
+from apps.portal.services import eva_loader, portfolio_loader
 from core.exceptions import ConfigurationError
 from tests.portal.builders import make_project
 
@@ -61,3 +61,119 @@ def test_missing_configuration_returns_message_and_is_not_cached(monkeypatch):
     assert "Falta configurar el dashboard." in result.error
     assert "GOOGLE_SPREADSHEET_ID" in result.error
     assert cache.get(PORTFOLIO_CACHE_KEY) is None
+
+
+def test_eva1_loader_builds_the_view(monkeypatch):
+    monkeypatch.setattr(eva_loader, "build_sheet_repository", lambda: object())
+    monkeypatch.setattr(
+        eva_loader,
+        "load_aer_tym_summary",
+        lambda reader: {
+            "ok": True,
+            "filas": [
+                {
+                    "idProyecto": "AER.001",
+                    "servicio": "AER",
+                    "deliveryManager": "Laura",
+                    "fte": 1,
+                    "budget": 100,
+                },
+            ],
+        },
+    )
+
+    result = eva_loader.load_eva1()
+
+    assert result.error == ""
+    assert result.view.total_projects == 1
+
+
+def test_eva1_loader_ignores_a_malformed_summary(monkeypatch):
+    monkeypatch.setattr(eva_loader, "build_sheet_repository", lambda: object())
+    monkeypatch.setattr(
+        eva_loader,
+        "load_aer_tym_summary",
+        lambda reader: {"ok": True},
+    )
+
+    assert eva_loader.load_eva1().view.total_projects == 0
+
+
+def test_eva1_loader_returns_message_when_sheets_fail(monkeypatch):
+    def broken():
+        raise ConfigurationError("Define GOOGLE_SPREADSHEET_ID.")
+
+    monkeypatch.setattr(eva_loader, "build_sheet_repository", broken)
+
+    result = eva_loader.load_eva1()
+
+    assert "Falta configurar el dashboard." in result.error
+    assert result.view.total_projects == 0
+
+
+def test_eva2_loader_builds_the_view_and_caches(monkeypatch):
+    cache.delete(EVA2_CACHE_KEY)
+    calls = []
+
+    def fake_summary():
+        calls.append(1)
+        return {
+            "ok": True,
+            "filas": [
+                {
+                    "idProyecto": "AMK.015",
+                    "servicio": "IXB",
+                    "deliveryManager": "Laura",
+                    "status": "Discovery",
+                },
+            ],
+        }
+
+    monkeypatch.setattr(eva_loader, "get_ixb_raas_summary", fake_summary)
+
+    first = eva_loader.load_eva2()
+    second = eva_loader.load_eva2()
+
+    assert first.error == ""
+    assert first.view.total_projects == 1
+    assert second.view.total_projects == 1
+    assert len(calls) == 1
+    cache.delete(EVA2_CACHE_KEY)
+
+
+def test_eva2_loader_reports_errors_and_does_not_cache_them(monkeypatch):
+    cache.delete(EVA2_CACHE_KEY)
+    monkeypatch.setattr(
+        eva_loader,
+        "get_ixb_raas_summary",
+        lambda: {"ok": False, "error": "Azure no responde."},
+    )
+
+    result = eva_loader.load_eva2()
+
+    assert result.error == "Azure no responde."
+    assert result.view.total_projects == 0
+    assert cache.get(EVA2_CACHE_KEY) is None
+
+
+def test_eva2_loader_with_malformed_summary(monkeypatch):
+    cache.delete(EVA2_CACHE_KEY)
+    monkeypatch.setattr(
+        eva_loader,
+        "get_ixb_raas_summary",
+        lambda: {"ok": True},
+    )
+
+    assert eva_loader.load_eva2().view.total_projects == 0
+    cache.delete(EVA2_CACHE_KEY)
+
+
+def test_eva2_loader_uses_default_message_when_error_is_empty(monkeypatch):
+    cache.delete(EVA2_CACHE_KEY)
+    monkeypatch.setattr(
+        eva_loader,
+        "get_ixb_raas_summary",
+        lambda: {"ok": False},
+    )
+
+    assert "No se pudo leer IXB y RaaS" in eva_loader.load_eva2().error

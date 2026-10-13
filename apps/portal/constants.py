@@ -52,3 +52,39 @@ SHARE_COLORS: Final[dict[str, str]] = {
 }
 
 NO_RISK_LABEL: Final[str] = "—"
+
+# EVA 1: en rojo si faltan menos de estos dias para renovar.
+RENEWAL_ALERT_DAYS: Final[int] = 30
+PROGRESS_ALERT_PERCENT: Final[int] = 100
+EVA1_SERVICES: Final[tuple[str, ...]] = ("AER", "T&M")
+
+# EVA 2: como se escribe cada servicio y color de cada etapa.
+EVA2_SERVICE_LABELS: Final[dict[str, str]] = {
+    "IXB": "IXB",
+    "RAAS": "RaaS",
+    "RAAS+": "RaaS+",
+    "SAAS": "SaaS",
+    "IXB Y RAAS": "IXB y RaaS",
+    "POC": "POC",
+}
+EVA2_SERVICE_ORDER: Final[tuple[str, ...]] = ("IXB", "RAAS")
+EVA2_STATUS_COLUMNS: Final[tuple[tuple[str, str], ...]] = (
+    ("sus", "Sus"),
+    ("dis", "Dis"),
+    ("dev", "Dev"),
+    ("dep", "Dep"),
+)
+EVA2_STATUS_WORDS: Final[tuple[tuple[str, str], ...]] = (
+    ("suspend", "sus"),
+    ("deployment", "dep"),
+    ("development", "dev"),
+    ("discovery", "dis"),
+)
+EVA2_STAGE_KEYS: Final[tuple[str, ...]] = (
+    "discovery",
+    "development",
+    "deployment",
+    "general",
+)
+EVA2_CACHE_KEY: Final[str] = "portal:eva2:v1"
+EVA2_CACHE_SECONDS: Final[int] = 600

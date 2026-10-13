@@ -1,0 +1,79 @@
+{% extends 'portal/base.html' %}
+{% block title %}EVA 1{% endblock %}
+{% block css %}body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#F7F5FF;color:#1B1A4A}
+a{color:#4B25C9;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:12px 36px;background:#fff;border-bottom:1px solid #ECE8FA}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:25px;letter-spacing:-.02em}
+.nav{display:flex;gap:6px}
+.nav a{padding:8px 18px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
+.nav a.on{background:#EDE7FF;color:#4B25C9}
+.fresh{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:#4A4872}
+.dot{width:8px;height:8px;border-radius:50%;background:#1B9A55}
+.page{max-width:1368px;margin:0 auto;padding:22px 36px 40px}
+.crumb{font-size:13.5px;color:#55537F;margin-bottom:8px}
+.eb{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#4B25C9}
+h1{margin:2px 0 0;font-size:34px;font-weight:800;letter-spacing:-.025em}
+.sub{margin:4px 0 18px;color:#55537F;font-size:16px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;background:#fff;border:1px solid #ECE8FA;border-radius:14px;padding:6px}
+.tabs a{padding:10px 20px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
+.tabs a.on{background:#4B25C9;color:#fff}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.kc{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:18px 24px}
+.kl{font-size:14px;font-weight:700;color:#3A3870}
+.kv{font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1.2;font-variant-numeric:tabular-nums}
+.kv span{color:#8A81B8;font-weight:600}
+.ke{font-size:13px;color:#55537F;line-height:1.4}
+.pill{display:inline-flex;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:800;background:#FBE3E7;color:#A31B33}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:22px 26px}
+.card h2{margin:0 0 2px;font-size:20px}
+.hs{font-size:14px;color:#55537F;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:10px 8px;text-align:center;border-top:1px solid #F0EDF8}
+th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#4A4872;border-top:0}
+th.q{background:#F1ECFD;color:#2B1B8F;border-left:2px solid #fff;font-size:13px}
+td:first-child,th:first-child{text-align:left}
+td.g{border-left:2px solid #F1ECFD}
+td.na{background:#EEEAFB;color:#8A81B8}
+td.lo{color:#A31B33;font-weight:700}
+td.hi{color:#13693B;font-weight:700}
+tfoot td{font-weight:800;background:#FAF8FF}
+.num{font-variant-numeric:tabular-nums}
+.note{margin-top:6px;font-size:12.5px;color:#55537F;line-height:1.5}
+
+.tw{overflow-x:auto}
+table.w{font-size:12.5px}
+table.d.w th,table.d.w td{padding:9px 5px}
+table.d.w th{font-size:10.5px;letter-spacing:.02em;white-space:normal}
+table.d.w td.s{padding:9px 3px}
+table.w .bd{min-width:0;padding:3px 7px;font-size:12px}
+table.w .st{font-size:11.5px;padding:3px 8px}
+table.d{font-size:13.5px}
+table.d th{font-size:11.5px;white-space:nowrap}
+table.d td{padding:11px 8px;text-align:left}
+table.d th{text-align:left}
+table.d td.n,table.d th.n{text-align:right;font-variant-numeric:tabular-nums}
+table.d td.c,table.d th.c{text-align:center}
+.bd{display:inline-block;min-width:44px;text-align:center;border-radius:8px;padding:3px 9px;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
+.ok{background:#DDF3E6;color:#13693B}.bad{background:#FBE3E7;color:#A31B33}
+.st{display:inline-block;border-radius:6px;padding:3px 10px;font-weight:800;font-size:12.5px;color:#fff}
+.gh{background:#F1ECFD;color:#2B1B8F!important;text-align:center!important;border-left:2px solid #fff;font-size:12px!important}
+.pd{background:#FBE3E7;color:#A31B33;font-weight:800;border-radius:6px;padding:3px 8px;display:inline-block;min-width:22px;text-align:center}
+.two2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.kp4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+tr.tot td{font-weight:800;background:#FAF8FF}
+.bk{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;font-weight:700;font-size:14px;background:#fff;border:1px solid #ECE8FA;border-radius:10px;padding:7px 14px}{% endblock %}
+{% block content %}
+<main class="page">
+{% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
+<div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › EVA 1</div>
+<a class="bk" href="{% url 'portal:operativa' %}">← Volver a Operativa</a>
+<div class="eb">EVA 1</div>
+<h1>EVA 1 · Proyectos AER y T&amp;M</h1>
+<p class="sub">Proyectos por Delivery Manager, con el equipo asignado, el avance y los días para renovar</p>
+<div class="tabs"><a class="on" href="{% url 'portal:eva1' %}">EVA 1 · AER y T&amp;M</a><a class="" href="#" data-pronto="1">EVA 2 · IXB y RaaS</a><span title="Sin vista por ahora" style="padding:10px 20px;border-radius:10px;font-size:14.5px;font-weight:700;color:#A9A6C8;cursor:default">EVA 3</span><a class="" href="#" data-pronto="1">KPIs de Delivery Managers</a></div><section class="kp4"><div class="kc"><div class="kl">Proyectos (TP)</div><div class="kv">{{ eva.total_projects }}</div><div class="ke">AER y T&amp;M en progreso (hoja MPB)</div></div><div class="kc"><div class="kl">Personas asignadas (FTE)</div><div class="kv">{{ eva.total_fte|floatformat:"-1" }}</div><div class="ke">Entre {{ eva.managers|length }} Delivery Manager{{ eva.managers|length|pluralize:"s" }}</div></div><div class="kc"><div class="kl">En tiempo (T)</div><div class="kv"><span style="color:#8A81B8">—</span></div><div class="ke">Definición por confirmar<span class="ej">Pendiente</span></div></div><div class="kc"><div class="kl">En costo (C)</div><div class="kv"><span style="color:#8A81B8">—</span></div><div class="ke">Definición por confirmar<span class="ej">Pendiente</span></div></div></section><section class="card" style="margin-bottom:14px"><h2>Proyectos y personas por Delivery Manager</h2><div class="hs">Proyectos por servicio (AER, T&amp;M) y personas por rol (DEV, ARQ, IA, SM, BA, TT, CR, DM). Las siglas de rol se confirman con el equipo.</div>
+<table class="d"><thead><tr><th>Delivery Manager</th>{% for name in eva.services %}<th class="n">{{ name }}</th>{% endfor %}{% for name in eva.roles %}<th class="n">{{ name }}</th>{% endfor %}<th class="n">Total FTE</th></tr></thead><tbody>{% for dm in eva.managers %}<tr><td>{{ dm.name }}</td>{% for n in dm.services %}<td class="n">{{ n }}</td>{% endfor %}{% for n in dm.roles %}<td class="n">{{ n|floatformat:"-1" }}</td>{% endfor %}<td class="n"><b>{{ dm.total_fte|floatformat:"-1" }}</b></td></tr>{% empty %}<tr><td colspan="12" class="vacio">No hay proyectos AER o T&amp;M en progreso.</td></tr>{% endfor %}{% if eva.managers %}<tr class="tot"><td>Total</td>{% for n in eva.totals.services %}<td class="n">{{ n }}</td>{% endfor %}{% for n in eva.totals.roles %}<td class="n">{{ n|floatformat:"-1" }}</td>{% endfor %}<td class="n">{{ eva.totals.total_fte|floatformat:"-1" }}</td></tr>{% endif %}</tbody></table></section>
+<section class="card"><h2>Proyectos AER / T&amp;M</h2><div class="hs">Se ordena por días para renovar. En rojo: presupuesto agotado, avance mayor a 100% o menos de 30 días para renovar.</div>
+<div class="tw"><table class="d w"><thead><tr><th>Delivery Manager</th><th>Cliente</th><th>ID del proyecto</th><th>Servicio</th><th class="n">FTE</th><th>Nombre del proyecto</th><th>Inicio</th><th>Fin</th><th class="n">Presupuesto</th><th class="n">Consumo</th><th class="c">Horas por terminar</th><th class="c">Avance</th><th class="c">Renovación (días)</th></tr></thead><tbody>{% for p in eva.projects %}<tr><td>{{ p.manager }}</td><td>{{ p.client }}</td><td>{{ p.project_id }}</td><td>{{ p.service }}</td><td class="n">{{ p.fte|floatformat:"-1" }}</td><td>{{ p.name }}</td><td>{{ p.start }}</td><td>{{ p.end }}</td><td class="n">{{ p.budget|floatformat:"-2g" }}</td><td class="n">{% if p.burn is not None %}{{ p.burn|floatformat:"-2g" }}{% else %}—{% endif %}</td><td class="c">{% if p.etc is not None %}<span class="bd {% if p.etc_bad %}bad{% else %}ok{% endif %}">{{ p.etc|floatformat:"-2g" }}</span>{% else %}—{% endif %}</td><td class="c">{% if p.progress is not None %}<span class="bd {% if p.progress_bad %}bad{% else %}ok{% endif %}">{{ p.progress|floatformat:"-1" }}%</span>{% else %}—{% endif %}</td><td class="c">{% if p.renewal_days is not None %}<span class="bd {% if p.renewal_bad %}bad{% else %}ok{% endif %}">{{ p.renewal_days }}</span>{% else %}—{% endif %}</td></tr>{% empty %}<tr><td colspan="13" class="vacio">No hay proyectos AER o T&amp;M en progreso.</td></tr>{% endfor %}</tbody></table></div></section><p class="note">Datos reales de la hoja MPB (solo lectura): presupuesto, consumo y horas por terminar están en horas; ETC se lee como horas por terminar (falta confirmarlo). El consumo es el que está guardado en MPB. En rojo: horas por terminar en cero o negativas, avance mayor a 100% o menos de 30 días para renovar. T y C se calcularán cuando se confirme su fórmula.</p>
+</main>
+{% endblock %}

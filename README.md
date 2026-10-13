@@ -130,6 +130,8 @@ el enlace «Panel anterior» del menú.
 | `/operativa/` | Operativa | Reales: en ejecución, suspendidos, en tiempo, salud del portafolio y tarjetas por Delivery Manager (filtros `?servicio=` y `?cuenta=`). Ejemplo: Inversión, EVA, Operations y Capacidad instalada |
 | `/comercial/` | Comercial | Ejemplo (pendiente de HubSpot) |
 | `/operativa/delivery-manager/<slug>/` | Detalle de Delivery Manager | Reales: proyectos en ejecución y suspendidos (los que necesitan atención primero), estado, avance, ETC, riesgo y reparto por estado. Pendiente: T y C, inversión y cumplimiento por mes |
+| `/operativa/eva-1/` | EVA 1 (AER y T&M) | Reales, de la hoja MPB (`apps/ejecutivo`): proyectos y personas por Delivery Manager y rol, presupuesto, consumo, horas por terminar, avance y días para renovar. Pendiente: T y C (falta confirmar la fórmula) |
+| `/operativa/eva-2/` | EVA 2 (IXB y RaaS) | Reales, solo lectura (`get_ixb_raas_summary` de `apps/ejecutivo`: hoja Proyectos, horas de Clockify y tareas de Azure DevOps): proyectos por Delivery Manager y servicio o estatus, etapas con tareas totales, cerradas y pendientes (rojo si una etapa cerrada tiene pendientes), presupuesto, consumo, avance y riesgos. La primera carga puede tardar y se guarda 10 minutos. Pendiente: T y C |
 | `/operativa/suspendidos/` | Suspendidos | Reales: proyecto, Delivery Manager, avance y ETC. Pendiente (no existe en Sheets): motivo, días suspendido, revenue en pausa y plan para retomar |
 | `/legacy/` | Panel anterior | Sin cambios |
 

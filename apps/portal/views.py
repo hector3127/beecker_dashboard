@@ -4,9 +4,11 @@ from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
+from django.utils import timezone
 from django.views.decorators.http import require_GET
 
 from apps.portal.services.decisions import build_decisions
+from apps.portal.services.eva_loader import load_eva1, load_eva2
 from apps.portal.services.filters import (
     filter_projects,
     list_clients,
@@ -205,3 +207,59 @@ def suspendidos(request: HttpRequest) -> HttpResponse:
     )
 
     return render(request, "portal/suspendidos.html", context)
+
+
+@require_GET
+def eva1(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra EVA 1: proyectos AER y T&M por Delivery Manager.
+
+    Args:
+        request: Peticion HTTP.
+
+    Returns:
+        La pagina EVA 1 con los datos de la hoja MPB.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    load = load_eva1()
+
+    return render(
+        request,
+        "portal/eva1.html",
+        {
+            "active": "operativa",
+            "loaded_at": timezone.localtime(),
+            "error": load.error,
+            "eva": load.view,
+        },
+    )
+
+
+@require_GET
+def eva2(request: HttpRequest) -> HttpResponse:
+    """
+    Muestra EVA 2: proyectos IXB y RaaS con su avance en Azure DevOps.
+
+    Args:
+        request: Peticion HTTP.
+
+    Returns:
+        La pagina EVA 2 con el resumen IXB/RaaS.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    load = load_eva2()
+
+    return render(
+        request,
+        "portal/eva2.html",
+        {
+            "active": "operativa",
+            "loaded_at": timezone.localtime(),
+            "error": load.error,
+            "eva": load.view,
+        },
+    )
