@@ -17,15 +17,20 @@
 a[data-pronto]{cursor:help}
 #toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#1B1A6B;color:#fff;padding:10px 20px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s}
 </style>
+<link rel="stylesheet" href="{% static 'portal/css/accessibility.css' %}">
+{% block extra_head %}{% endblock %}
 </head>
 <body>
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
 <div>
 <header class="top">
 <div class="logo"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="16" width="7" height="14" rx="2" fill="#5B2FD6"/><rect x="12" y="8" width="7" height="22" rx="2" fill="#7A52E8"/><rect x="22" y="2" width="7" height="28" rx="2" fill="#A98BF0"/></svg>Beecker</div>
-<nav class="nav"><a{% if active == "ejecutiva" %} class="on"{% endif %} href="{% url 'portal:ejecutiva' %}">Ejecutiva</a><a{% if active == "operativa" %} class="on"{% endif %} href="{% url 'portal:operativa' %}">Operativa</a><a{% if active == "comercial" %} class="on"{% endif %} href="{% url 'portal:comercial' %}">Comercial</a><a class="old" href="{% url 'core:home' %}">Panel anterior</a></nav>
-<div class="fresh"><span class="dot"></span>{% if loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Cifras de ejemplo{% endif %}</div>
+<nav class="nav" aria-label="Navegación principal"><a{% if active == "ejecutiva" %} class="on" aria-current="page"{% endif %} href="{% url 'portal:ejecutiva' %}">Ejecutiva</a><a{% if active == "operativa" %} class="on" aria-current="page"{% endif %} href="{% url 'portal:operativa' %}">Operativa</a><a{% if active == "comercial" %} class="on" aria-current="page"{% endif %} href="{% url 'portal:comercial' %}">Comercial</a><a class="old" href="{% url 'core:home' %}">Panel anterior</a></nav>
+<div class="fresh" id="portal-freshness" data-state="{% if error %}error{% elif source_errors %}partial{% else %}neutral{% endif %}"><span class="dot" aria-hidden="true"></span><span id="portal-freshness-text">{% if loading %}Cargando datos{% elif error %}Fuente no disponible{% elif loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span></div>
 </header>
+<main id="main-content" tabindex="-1">
 {% block content %}{% endblock %}
+</main>
 </div>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -40,5 +45,6 @@ document.addEventListener('click', function (event) {
   window.portalToastTimer = setTimeout(function () { toast.style.opacity = 0; }, 2400);
 });
 </script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

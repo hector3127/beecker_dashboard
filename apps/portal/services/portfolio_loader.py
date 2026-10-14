@@ -41,8 +41,8 @@ def load_portfolio() -> PortfolioLoad:
     now = timezone.localtime()
     cached = cache.get(PORTFOLIO_CACHE_KEY)
 
-    if isinstance(cached, tuple):
-        return PortfolioLoad(projects=cached, error="", loaded_at=now)
+    if isinstance(cached, PortfolioLoad):
+        return cached
 
     try:
         repository = build_sheet_repository()
@@ -60,6 +60,7 @@ def load_portfolio() -> PortfolioLoad:
             loaded_at=now,
         )
 
-    cache.set(PORTFOLIO_CACHE_KEY, projects, PORTFOLIO_CACHE_SECONDS)
+    result = PortfolioLoad(projects=projects, error="", loaded_at=now)
+    cache.set(PORTFOLIO_CACHE_KEY, result, PORTFOLIO_CACHE_SECONDS)
 
-    return PortfolioLoad(projects=projects, error="", loaded_at=now)
+    return result

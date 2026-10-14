@@ -2,14 +2,20 @@
 
 import logging
 from dataclasses import dataclass
+from typing import Any
 
 from django.core.cache import cache
 
-from apps.ejecutivo.rpc import get_ixb_raas_summary, load_aer_tym_summary
+from apps.ejecutivo.rpc import (
+    get_aer_tym_consumption,
+    get_ixb_raas_summary,
+    load_aer_tym_summary,
+)
 from apps.portal.constants import EVA2_CACHE_KEY, EVA2_CACHE_SECONDS
 from apps.portal.schemas import Eva1View, Eva2View, EvaCard, TimeCost
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
+from apps.portal.services.time_cost import average
 from core.exceptions import DashboardError
 from core.sheets.factory import build_sheet_repository
 
@@ -29,7 +35,7 @@ class Eva1Load:
     error: str
 
 
-def load_eva1() -> Eva1Load:
+def load_eva1(enrich: bool = True) -> Eva1Load:
     """
     Carga EVA 1 desde la hoja MPB.
 
@@ -43,7 +49,47 @@ def load_eva1() -> Eva1Load:
 
         return Eva1Load(view=build_eva1_view([]), error=error.build_message())
 
-    rows = summary.get("filas")
+    raw_rows = summary.get("filas")
+    rows = (
+        [dict(row) for row in raw_rows if isinstance(row, dict)]
+        if isinstance(raw_rows, list)
+        else []
+    )
+    for offset in range(0, len(rows) if enrich else 0, 2):
+        batch = rows[offset : offset + 2]
+        missing = [row for row in batch if row.get("burn") is None]
+        if not missing:
+            continue
+        ids = [row["idProyecto"] for row in missing]
+        key = "portal:eva3:consumption:" + "|".join(ids)
+        result = cache.get(key)
+        if result is None:
+            result = get_aer_tym_consumption(ids)
+            if result.get("ok") and all(
+                isinstance(item.get("burn"), (int, float))
+                for item in result.get("items", [])
+            ):
+                cache.set(key, result, 300)
+        for row in missing:
+            item: dict[str, Any] = next(
+                (
+                    item
+                    for item in result.get("items", [])
+                    if str(item.get("id", "")).casefold()
+                    == row["idProyecto"].casefold()
+                ),
+                {},
+            )
+            if isinstance(item.get("burn"), (int, float)):
+                row["burn"] = item["burn"]
+                row["etc"] = round(
+                    float(row.get("budget") or 0) - item["burn"], 2
+                )
+                row["avance"] = (
+                    round(item["burn"] / float(row["budget"]) * 100, 1)
+                    if row.get("budget")
+                    else None
+                )
 
     return Eva1Load(
         view=build_eva1_view(rows if isinstance(rows, list) else []),
@@ -107,7 +153,10 @@ def build_eva1_card(load: Eva1Load) -> EvaCard:
     return EvaCard(
         available=True,
         total_projects=load.view.total_projects,
-        time_cost=TimeCost(cost_percent=load.view.cost_percent),
+        time_cost=TimeCost(
+            time_days=average(p.renewal_days for p in load.view.projects),
+            cost_percent=load.view.cost_percent,
+        ),
     )
 
 

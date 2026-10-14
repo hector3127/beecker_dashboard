@@ -97,7 +97,7 @@ def test_eva1_card():
     assert ok.available is True
     assert ok.total_projects == 3
     assert ok.time_cost.cost_percent == 72.5
-    assert ok.time_cost.time_days is None
+    assert ok.time_cost.time_days == 80.0
     assert failed.available is False
 
 

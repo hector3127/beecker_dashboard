@@ -17,3 +17,6 @@ htmlcov/
 db.sqlite3
 .cache/
 staticfiles/
+
+# Respaldos y copias temporales usados en revisiones locales.
+tmp/

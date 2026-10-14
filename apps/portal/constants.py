@@ -15,6 +15,9 @@ Operativa y Comercial.
 
 PORTFOLIO_CACHE_KEY: Final[str] = "portal:portfolio:v1"
 PORTFOLIO_CACHE_SECONDS: Final[int] = 300
+KPI_HISTORY_CACHE_KEY: Final[str] = "portal:kpi-history:v1"
+KPI_HISTORY_CACHE_SECONDS: Final[int] = 600
+KPI_HISTORY_CHART_MANAGERS: Final[int] = 6
 
 NO_DELIVERY_MANAGER: Final[str] = "Sin Delivery Manager"
 

@@ -33,7 +33,7 @@ dev = [
 # Manual MCR_PY 5.8: ninguna linea debe pasar de 80 caracteres.
 line-length = 80
 target-version = "py312"
-extend-exclude = ["templates", "core/static"]
+extend-exclude = ["templates", "core/static", "tmp"]
 
 [tool.ruff.lint]
 select = [
@@ -112,6 +112,7 @@ disable_error_code = [
 django_settings_module = "config.settings.local"
 
 [tool.pytest.ini_options]
+testpaths = ["tests"]
 DJANGO_SETTINGS_MODULE = "config.settings.test"
 python_files = ["test_*.py"]
 addopts = "--cov=core --cov=apps --cov-report=term-missing --cov-fail-under=80"

@@ -312,6 +312,111 @@ def build_resources(
     return tuple(sorted(rows, key=lambda row: (row.role, row.name)))
 
 
+def combine_months(
+    months: Sequence[MonthFacturability],
+    key: str,
+    label: str,
+) -> MonthFacturability:
+    """
+    Junta varios meses (trimestre o ano) en una sola cifra.
+
+    Las horas y la capacidad se suman y los porcentajes se calculan sobre
+    esas sumas; el headcount es el promedio de los meses.
+
+    Args:
+        months: Meses del periodo, en orden.
+        key: Clave del periodo (se guarda en ``month``).
+        label: Nombre del periodo (por ejemplo "T3 2026").
+
+    Returns:
+        El mismo mes si el periodo es uno solo; si no, el acumulado.
+    """
+    if len(months) == 1:
+        return months[0]
+
+    count = max(len(months), 1)
+    capacity = sum(item.capacity for item in months)
+    fixed = sum(item.fixed_hours for item in months)
+    variable = sum(item.variable_hours for item in months)
+    variable_capacity = sum(item.variable_capacity for item in months)
+    global_percent = _percent(fixed + variable, capacity)
+    errors = dict.fromkeys(item.error for item in months if item.error)
+    width = max((len(item.service_hours) for item in months), default=0)
+
+    return MonthFacturability(
+        month=key,
+        label=label,
+        short_label=label,
+        person_hours=sum(item.person_hours for item in months) / count,
+        capacity=capacity,
+        fixed_hours=fixed,
+        fixed_percent=_percent(fixed, capacity),
+        fixed_hc=_mean_int(item.fixed_hc for item in months),
+        variable_capacity=variable_capacity,
+        variable_hours=variable,
+        variable_percent=_percent(variable, variable_capacity),
+        variable_hc=_mean_int(item.variable_hc for item in months),
+        service_hours=tuple(
+            sum(item.service_hours[index] for item in months)
+            for index in range(width)
+        ),
+        free_hours=sum(item.free_hours for item in months),
+        free_fte=_mean_int(item.free_fte for item in months),
+        global_percent=global_percent,
+        bar_height=_bar_height(global_percent),
+        error=" · ".join(errors),
+        other_hours=sum(item.other_hours for item in months),
+        resources=_mean_int(item.resources for item in months),
+    )
+
+
+def merge_specialties(
+    per_month: Sequence[tuple[SpecialtyRow, ...]],
+) -> tuple[SpecialtyRow, ...]:
+    """
+    Junta las especialidades de varios meses.
+
+    Args:
+        per_month: Filas por especialidad de cada mes del periodo.
+
+    Returns:
+        Una fila por especialidad: capacidad y horas sumadas, porcentajes
+        sobre esas sumas y headcount y FTE libre promedio.
+    """
+    if len(per_month) == 1:
+        return per_month[0]
+
+    grouped: dict[str, list[SpecialtyRow]] = {}
+
+    for rows in per_month:
+        for row in rows:
+            grouped.setdefault(row.name, []).append(row)
+
+    merged = []
+
+    for name, group in grouped.items():
+        capacity = sum(row.capacity for row in group)
+        fixed = sum(row.fixed_hours for row in group)
+        variable = sum(row.variable_hours for row in group)
+        variable_capacity = sum(
+            max(row.capacity - row.fixed_hours, 0.0) for row in group
+        )
+        merged.append(
+            SpecialtyRow(
+                name=name,
+                headcount=_mean_int(row.headcount for row in group),
+                capacity=capacity,
+                fixed_hours=fixed,
+                fixed_percent=_percent(fixed, capacity),
+                variable_hours=variable,
+                variable_percent=_percent(variable, variable_capacity),
+                free_fte=_mean_int(row.free_fte for row in group),
+            ),
+        )
+
+    return tuple(sorted(merged, key=lambda row: (-row.headcount, row.name)))
+
+
 def team_averages(
     rows: Sequence[ResourceRow],
     month_count: int,
@@ -445,6 +550,16 @@ def _bar_height(percent: float | None) -> float:
         return 0.0
 
     return round(min(max(percent, 0.0), BAR_SCALE) * 100 / BAR_SCALE, 1)
+
+
+def _mean_int(values: Iterable[int]) -> int:
+    """Promedio entero (media hacia arriba) de los valores."""
+    numbers = list(values)
+
+    if not numbers:
+        return 0
+
+    return round_half_up_int(sum(numbers) / len(numbers))
 
 
 def _headcount(hours: float, month_hours: float) -> int:

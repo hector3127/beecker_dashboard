@@ -295,6 +295,8 @@ class Eva2Project:
     progress_bad: bool
     stages: tuple[StageCount, ...]
     risks: int
+    client: str = ""
+    risk_titles: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -611,3 +613,92 @@ class RoleOption:
     key: str
     checked: bool
     display: str = ""
+
+
+@dataclass(frozen=True, slots=True)
+class KpiCut:
+    """KPIs de todos los Delivery Managers en una fecha de corte."""
+
+    key: str
+    label: str
+    cut_label: str
+    view: KpiView
+    partial: bool
+
+
+@dataclass(frozen=True, slots=True)
+class KpiHistory:
+    """KPIs reconstruidos por mes y por trimestre del ano en curso."""
+
+    months: tuple[KpiCut, ...]
+    quarters: tuple[KpiCut, ...]
+    managers: tuple[tuple[str, str], ...]
+
+
+@dataclass(frozen=True, slots=True)
+class KpiMatrixRow:
+    """Un Delivery Manager con su KPI en cada corte (None sin proyectos)."""
+
+    name: str
+    slug: str
+    cells: tuple[KpiManagerRow | None, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class KpiMatrix:
+    """Tabla de cortes: encabezados, una fila por DM y la fila de totales."""
+
+    headers: tuple[str, ...]
+    partial: tuple[bool, ...]
+    rows: tuple[KpiMatrixRow, ...]
+    totals: tuple[KpiManagerRow, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class Period:
+    """Periodo elegido: un mes, un trimestre o un ano (hasta el mes actual)."""
+
+    kind: str
+    year: int
+    quarter: int
+    months: tuple[str, ...]
+    label: str
+
+    @property
+    def end_month(self) -> str:
+        """Ultimo mes del periodo (YYYY-MM)."""
+        return self.months[-1]
+
+
+@dataclass(frozen=True, slots=True)
+class PickerLink:
+    """Una opcion del selector de periodo."""
+
+    label: str
+    href: str
+    active: bool = False
+    disabled: bool = False
+
+
+@dataclass(frozen=True, slots=True)
+class PickerYear:
+    """Trimestres y meses elegibles de un ano."""
+
+    year: int
+    quarters: tuple[PickerLink, ...]
+    months: tuple[PickerLink, ...]
+    active: bool = False
+
+
+@dataclass(frozen=True, slots=True)
+class PeriodPicker:
+    """Opciones del selector de periodo, ya con sus enlaces."""
+
+    label: str
+    kind: str
+    kind_label: str
+    years: tuple[PickerLink, ...]
+    by_year: tuple[PickerYear, ...]
+    hidden: tuple[tuple[str, str], ...]
+    query: str
+    reset_href: str

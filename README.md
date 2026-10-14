@@ -119,6 +119,28 @@ Cada archivo de `services/` tiene una sola responsabilidad (manual 4.1):
 
 ### Portal nuevo: Ejecutiva, Operativa y Comercial (`apps/portal`)
 
+Actualización integrada desde el RAR del compañero (13 de octubre de 2026):
+
+- Operativa abre el último corte guardado y actualiza sus indicadores en
+  `/operativa/datos/`, con bloques separados para inversión, capacidad y
+  EVA 3. Se conserva la navegación entre proyectos, cuentas y managers.
+- Comercial lee `Backlog_Proyectos`, con filtros, paginación, pipeline por
+  probabilidad y conversión de importes a USD cuando hay cotización válida.
+- La navegación EVA incorpora `/operativa/eva-3/` para AER/T&M; EVA 1 y
+  EVA 2 utilizan el resumen IXB/RaaS de la copia recibida.
+- Cuenta y Delivery Manager incorporan sus nuevas vistas de consumo,
+  presupuesto, riesgos e inversión; el historial del manager considera
+  proyectos cerrados que se cruzan con el periodo.
+- Facturabilidad conserva las reglas acordadas localmente: DEV, QA, ROC,
+  ARQ, BA y SM; únicamente personas vigentes con horas registradas en el
+  mes. Se mantiene la lectura de Bandas/rol y los festivos.
+- MPB admite el formato completo de EVA y equivalencias únicas de IDs
+  AER/TYM para fechas de Clockify, conservando los encabezados alternos y
+  el respaldo de fecha fin de la columna I.
+
+El resumen de Operations está en `/operations/resumen/`; se conserva
+`/operativa/operations-resumen/` como dirección compatible.
+
 Las pantallas del diseño aprobado por Gera sustituyen la portada anterior.
 El panel anterior (con Capacidad instalada, GSE, Daily, Minutas y
 Recursos) **no se eliminó**: sigue completo en `/legacy/` y se abre desde
@@ -135,15 +157,24 @@ el enlace «Panel anterior» del menú.
 | `/proyecto/<id>/` | Proyecto | Reales, solo lectura (`getDashboardEjecutivoProyecto` de `apps/ejecutivo`: Sheets y Clockify): presupuesto usado, avance, ETC, tiempo transcurrido, decisión requerida, riesgos abiertos, equipo por rol e historial de hitos; se abre desde el nombre del proyecto en Requieren decisión, Delivery Manager, Cuenta y Suspendidos. La primera carga puede tardar y se guarda 10 minutos. Pendiente (no existe en Sheets): dinero en USD, Gross Margin, responsable y días abierto de cada riesgo |
 | `/operativa/capacidad-instalada/` | Capacidad instalada | Reales, solo lectura, de Sheets (`apps/capacidad`: Recursos, Bandas/rol y MPB): recursos, capacidad base (días de lunes a viernes × jornada, sin feriados), horas diarias asignadas, sobre jornada, filtros (`?mes=`, `?jornada=`, `?buscar=`, `?tecnologia=`, `?concepto=`) y CSV en `/operativa/capacidad-instalada/exportar/`. Pendiente: horas reales por día (Clockify y Azure DevOps), facturables y capacidad disponible, que siguen en el panel anterior |
 | `/cuenta/<slug>/` | Cuenta | Reales: proyectos de la cuenta en ejecución y suspendidos con Delivery Manager, estado y avance en horas; se abre desde el nombre de la cuenta en el detalle de Delivery Manager y en Suspendidos. Pendiente (no existe en Sheets): Revenue, Gross Margin, Collections, revenue por mes e historial |
-| `/operativa/en-ejecucion/` | En ejecución por Delivery Manager | Reales: tarjetas por Delivery Manager y sus proyectos en ejecución agrupados (cuenta, proyecto, estado, avance, horas por terminar y riesgo), con T y C por Delivery Manager; se abre desde la tarjeta En ejecución de Operativa |
-| `/operativa/en-tiempo/` | En tiempo por Delivery Manager | Igual que la anterior, solo con los proyectos que van en tiempo; se abre desde la tarjeta En tiempo de Operativa |
 | `/operativa/inversion/` | Inversión operativa y comercial | Reales, en horas, de Clockify con las categorías de GSE (solo lectura) para el mes `?mes=`: comercial = categorías «Inversión Comercial» y «Pre-Venta»; operativa = «Inversión Operaciones» e «Internos». Por especialidad (GSE no trae el Delivery Manager), comercial por tipo y operativa por proyecto. Las tarjetas de Operativa muestran el mes actual cuando ya se leyó (cache de 10 minutos) |
 | `/operativa/facturabilidad/` | Facturabilidad | Reales, misma lógica que GSE · Horas por área, de enero al mes `?mes=`: horas de Clockify con categoría «Facturable» (lee la base de Clockify en Sheets si cubre el mes y si no la API; nunca guarda en Sheets). Fijo = AER; variable = el resto (TYM, IXB, SaaS, RaaS y otras). Capacidad = personas con horas en el mes × días hábiles sin festivos de México × 8 h. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona. Filtro «Áreas mostradas»; por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM, definidas en `OPERATIONAL_ROLES`. Cache de 10 minutos por mes |
 | `/operativa/facturabilidad/especialidad/` | Facturabilidad por especialidad | Mismo cálculo del mes elegido por área (ROL de Bandas/rol): HC (personas con horas), capacidad, fijo, variable y libre (negativo = déficit) |
 | `/operativa/facturabilidad/recurso/` | Facturabilidad por recurso | Por persona y mes, como la hoja Facturabilidad Mensual: horas facturables en Clockify ÷ (días laborables × 8 h), con la fila de días laborables y el promedio del equipo |
-| `/operativa/kpis-delivery-managers/` | KPIs de Delivery Managers | Reales, corte actual: TP, T, C, % en tiempo, en riesgo y críticos por Delivery Manager, total, mejor y menor cumplimiento. Pendiente: trimestres y meses anteriores (hace falta guardar un corte mensual) y las pestañas de Facturabilidad |
-| `/operativa/suspendidos/` | Suspendidos | Reales: proyecto, Delivery Manager, avance y ETC. Pendiente (no existe en Sheets): motivo, días suspendido, revenue en pausa y plan para retomar |
+| `/operativa/kpis-delivery-managers/` | KPIs de Delivery Managers | Reales: corte actual (TP, T, C, % en tiempo, en riesgo y críticos por Delivery Manager, total, mejor y menor cumplimiento) e histórico del año por mes y trimestre reconstruido con Proyectos, Riesgos, MPB, Historico_Proyectos y las horas de Clockify hasta cada fecha (riesgos y Delivery Manager son los de hoy; solo lectura, sin guardar cortes) |
+
 | `/legacy/` | Panel anterior | Sin cambios |
+
+**Filtro de periodo (Facturabilidad, por especialidad, por recurso, KPIs de
+Delivery Managers):** selector estilo Clockify con atajos (este mes, mes
+pasado, este trimestre, trimestre pasado, este año, año pasado) y listas de
+año, trimestre y mes. Parámetros de la URL: `?periodo=anio&anio=2026`,
+`?periodo=trimestre&anio=2026&trim=3` o `?periodo=mes&mes=2026-09` (`?mes=`
+sigue funcionando; sin parámetros es el mes actual). Un periodo no pasa del
+mes actual. En Facturabilidad las tarjetas acumulan el periodo (horas y
+capacidad sumadas, porcentajes sobre esas sumas, HC promedio) y la tabla
+marca sus meses; por especialidad se acumula igual; en KPIs el corte es el
+último mes del periodo y los históricos muestran sus meses y trimestres.
 
 - **Delivery Manager**: AER y T&M lo toman de MPB; el resto de Historico_Proyectos (ID exacto, normalizado o sin la variante _S2/_CR1), igual que Capacidad instalada y GSE. «Sin Delivery Manager» no entra al mejor/peor de KPIs.
 - **T y C** (fórmula confirmada): T = promedio de la desviación en días de los

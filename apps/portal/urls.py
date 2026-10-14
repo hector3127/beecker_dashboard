@@ -12,27 +12,22 @@ Capacidad instalada, GSE, Daily, Minutas y Recursos) sigue en /legacy/.
 app_name = "portal"
 
 urlpatterns = [
-    path("", views.ejecutiva, name="ejecutiva"),
-    path("operativa/", views.operativa, name="operativa"),
-    path("comercial/", views.comercial, name="comercial"),
-    path(
-        "operativa/suspendidos/",
-        views.suspendidos,
-        name="suspendidos",
-    ),
-    path(
-        "operativa/en-ejecucion/",
-        views.en_ejecucion,
-        name="en_ejecucion",
-    ),
-    path("operativa/en-tiempo/", views.en_tiempo, name="en_tiempo"),
-    path("operativa/eva-1/", views.eva1, name="eva1"),
-    path("operativa/inversion/", views.inversion, name="inversion"),
     path(
         "operativa/operations-resumen/",
         views.operations_resumen,
+        name="operations_resumen_legacy",
+    ),
+    path(
+        "operations/resumen/",
+        views.operations_resumen,
         name="operations_resumen",
     ),
+    path("", views.ejecutiva, name="ejecutiva"),
+    path("operativa/", views.operativa, name="operativa"),
+    path("operativa/datos/", views.operativa_datos, name="operativa_datos"),
+    path("comercial/", views.comercial, name="comercial"),
+    path("operativa/eva-1/", views.eva1, name="eva1"),
+    path("operativa/inversion/", views.inversion, name="inversion"),
     path(
         "operativa/facturabilidad/",
         views.facturabilidad,
@@ -54,6 +49,7 @@ urlpatterns = [
         name="kpis_dm",
     ),
     path("operativa/eva-2/", views.eva2, name="eva2"),
+    path("operativa/eva-3/", views.eva3, name="eva3"),
     path(
         "operativa/capacidad-instalada/",
         views.capacidad_instalada,

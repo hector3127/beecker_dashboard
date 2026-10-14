@@ -96,7 +96,14 @@ class ProjectDateRangeResolver:
         Si el encabezado FIN ya no existe (la hoja actual tiene
         "FIN ORIGINAL" en H), la fecha fin se toma de la columna I.
         """
-        rows = self._read_first_columns(SHEET_MPB, MPB_COLUMN_COUNT)
+        from apps.ejecutivo.constants import (
+            MPB_COLUMN_COUNT as EVA_MPB_COLUMNS,
+        )
+
+        rows = self._read_first_columns(
+            SHEET_MPB,
+            max(MPB_COLUMN_COUNT, EVA_MPB_COLUMNS),
+        )
         header_index = find_header_row(
             rows,
             ("ID", "SERVICE", "INICIO"),
@@ -133,6 +140,26 @@ class ProjectDateRangeResolver:
                     source=SHEET_MPB,
                 )
 
+        suffix = re.sub(r"^(?:AER|TYM)\.", "", normalized_id)
+        aliases = [
+            row
+            for row in rows[first_data_row:]
+            if normalize_mpb_text(read_cell(row, service_column))
+            in MPB_SERVICES
+            and re.sub(
+                r"^(?:AER|TYM)\.",
+                "",
+                normalize_mpb_text(read_cell(row, id_column)),
+            )
+            == suffix
+        ]
+        if len(aliases) == 1:
+            row = aliases[0]
+            return ProjectDateRange(
+                parse_sheet_date(read_cell(row, start_column)),
+                parse_sheet_date(read_cell(row, end_column)) or self._today,
+                SHEET_MPB + " (ID equivalente AER/TYM)",
+            )
         return ProjectDateRange(None, None, SHEET_MPB)
 
     def _resolve_from_history(self, project_id: str) -> ProjectDateRange:

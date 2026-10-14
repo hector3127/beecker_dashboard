@@ -278,16 +278,7 @@ def filter_work_items_by_sprints(
     work_items: Sequence[JsonObject],
     sprints: Sequence[str],
 ) -> list[JsonObject]:
-    """
-    Deja solo los work items de la nomenclatura exacta y sus subiteraciones.
-
-    Args:
-        work_items: Work items del Team Project.
-        sprints: Nomenclaturas del ID, por ejemplo S4 o CR1.
-
-    Returns:
-        Los work items cuya iteracion corresponde a la nomenclatura.
-    """
+    """Incluye la nomenclatura exacta y sus subiteraciones."""
     return [
         item
         for item in work_items

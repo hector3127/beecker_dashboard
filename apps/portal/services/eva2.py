@@ -114,6 +114,8 @@ def build_eva2_project(row: JsonObject) -> Eva2Project:
             _stage_count(work_items, stages, key) for key in EVA2_STAGE_KEYS
         ),
         risks=len(row.get("riesgos") or []),
+        risk_titles=tuple(str(title) for title in row.get("riesgos") or []),
+        client=str(row.get("cliente") or row.get("account") or ""),
     )
 
 

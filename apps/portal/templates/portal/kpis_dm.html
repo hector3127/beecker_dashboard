@@ -78,9 +78,9 @@ td a{color:inherit;text-decoration:none}td a:hover{text-decoration:underline}{% 
 <h1>KPIs de Delivery Managers</h1>
 <p class="sub">Carga y cumplimiento de cada Delivery Manager con los proyectos en ejecución de hoy</p>
 
-<div class="tabs"><a href="{% url 'portal:facturabilidad' %}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}">Facturabilidad por recurso</a><a class="on" href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers</a></div>
+<div class="tabs"><a href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a class="on" href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a></div>
 
-<div class="hint" style="margin:0 0 14px">Corte actual ({{ loaded_at|date:"d/m/Y" }}). Los trimestres y meses anteriores aparecerán cuando se guarde un corte cada mes. <span class="ej">Pendiente</span></div>
+<form method="get" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 14px;font-size:14px;color:#3A3870">{% include 'portal/_period_picker.html' %}<span class="hint">{% if cut_is_current %}Corte actual ({{ cut_label }}).{% else %}Corte al {{ cut_label }}, reconstruido con las horas de Clockify hasta esa fecha.{% endif %} Los demás meses y trimestres se reconstruyen igual.</span></form>
 <section class="kp">
 <div class="kc"><div class="kl">Cumplimiento total (C)</div><div class="kv">{% if kpis.totals.time_cost.cost_percent is not None %}{{ kpis.totals.time_cost.cost_percent|floatformat:"-1" }}%{% else %}—{% endif %}</div><div class="ke">Avance promedio · T: {% if kpis.totals.time_cost.time_days is not None %}{{ kpis.totals.time_cost.time_days|floatformat:"-1" }} días{% else %}—{% endif %}</div></div>
 <div class="kc"><div class="kl">Carga total (TP)</div><div class="kv">{{ kpis.totals.total }}</div><div class="ke">{{ kpis.totals.on_time_percent }}% en tiempo</div></div>
@@ -104,10 +104,60 @@ td a{color:inherit;text-decoration:none}td a:hover{text-decoration:underline}{% 
 </div>
 <div class="card">
 <h2>Cumplimiento por mes</h2>
-<div class="hs">Por Delivery Manager</div>
-<div style="padding:30px;text-align:center;color:#4A4D86">Se mostrará cuando se guarde un corte del portafolio cada mes. <span class="ej">Pendiente</span></div>
+<div class="hs">C (avance promedio) por Delivery Manager · de enero a {{ period.end_month }}; el periodo elegido ({{ period.label }}) va sombreado</div>
+{% if month_matrix %}
+{{ chart|json_script:"kpi-chart-data" }}
+<svg id="kpi-chart" viewBox="0 0 560 240" role="img" aria-label="Cumplimiento (C) por mes de cada Delivery Manager"></svg>
+<div id="kpi-legend" class="kpi-legend"></div>
+{% else %}
+<div style="padding:30px;text-align:center;color:#4A4D86">No se pudo reconstruir el histórico. {{ history_error }}</div>
+{% endif %}
 </div>
 </section>
-<p class="note">Datos reales del portafolio (solo lectura) con la fórmula confirmada: T es la desviación promedio en días y C el avance promedio. Facturabilidad y sus pestañas llegarán cuando exista la fuente de horas facturables por especialidad.</p>
+
+{% if month_matrix %}
+<section class="card" style="margin-bottom:14px">
+<h2>Histórico por mes</h2>
+<div class="hs">Cada celda: C (avance promedio) y, debajo, el % de proyectos en tiempo. El mes en curso va hasta hoy.</div>
+<div class="table-scroll"><table>
+<thead><tr><th>DM</th>{% for label in month_matrix.headers %}<th class="q">{{ label }}</th>{% endfor %}</tr></thead>
+<tbody>
+{% for row in month_matrix.rows %}<tr><td><b><a href="{% url 'portal:delivery_manager' row.slug %}">{{ row.name }}</a></b></td>{% for cell in row.cells %}{% if cell %}<td class="num g">{% if cell.time_cost.cost_percent is not None %}{{ cell.time_cost.cost_percent|floatformat:"-1" }}%{% else %}—{% endif %}<br><small{% if cell.on_time_percent < 40 %} class="lo"{% elif cell.on_time_percent >= 80 %} class="hi"{% endif %}>{{ cell.on_time_percent }}% en tiempo · {{ cell.total }} TP</small></td>{% else %}<td class="na g">—</td>{% endif %}{% endfor %}</tr>
+{% endfor %}
+</tbody>
+<tfoot><tr><td>Total</td>{% for cell in month_matrix.totals %}<td class="num g">{% if cell.time_cost.cost_percent is not None %}{{ cell.time_cost.cost_percent|floatformat:"-1" }}%{% else %}—{% endif %}<br><small>{{ cell.on_time_percent }}% en tiempo · {{ cell.total }} TP</small></td>{% endfor %}</tr></tfoot>
+</table></div>
+</section>
+<section class="card" style="margin-bottom:14px">
+<h2>Histórico por trimestre</h2>
+<div class="hs">Corte del último mes de cada trimestre. El trimestre en curso (*) llega hasta hoy.</div>
+<div class="table-scroll"><table>
+<thead><tr><th>DM</th>{% for label in quarter_matrix.headers %}<th class="q" colspan="3">{{ label }}</th>{% endfor %}</tr>
+<tr><th></th>{% for label in quarter_matrix.headers %}<th>TP</th><th>T</th><th>C</th>{% endfor %}</tr></thead>
+<tbody>
+{% for row in quarter_matrix.rows %}<tr><td><b><a href="{% url 'portal:delivery_manager' row.slug %}">{{ row.name }}</a></b></td>{% for cell in row.cells %}{% if cell %}<td class="num g">{{ cell.total }}</td><td class="num">{% if cell.time_cost.time_days is not None %}{{ cell.time_cost.time_days|floatformat:"-1" }} d{% else %}—{% endif %}</td><td class="num">{% if cell.time_cost.cost_percent is not None %}{{ cell.time_cost.cost_percent|floatformat:"-1" }}%{% else %}—{% endif %}</td>{% else %}<td class="na g">—</td><td class="na">—</td><td class="na">—</td>{% endif %}{% endfor %}</tr>
+{% endfor %}
+</tbody>
+<tfoot><tr><td>Total</td>{% for cell in quarter_matrix.totals %}<td class="num g">{{ cell.total }}</td><td class="num">{% if cell.time_cost.time_days is not None %}{{ cell.time_cost.time_days|floatformat:"-1" }} d{% else %}—{% endif %}</td><td class="num">{% if cell.time_cost.cost_percent is not None %}{{ cell.time_cost.cost_percent|floatformat:"-1" }}%{% else %}—{% endif %}</td>{% endfor %}</tr></tfoot>
+</table></div>
+</section>
+<p class="note">Cada corte usa las horas facturables de Clockify hasta esa fecha y las fechas fin de los proyectos; riesgos y Delivery Manager son los de hoy porque las hojas no guardan historia. Un proyecto cuenta como en ejecución si ya había iniciado y hoy está activo, o está cerrado y su fecha fin aún no había pasado.</p>
+<script>
+(function(){
+const source=document.getElementById('kpi-chart-data');if(!source)return;
+const data=JSON.parse(source.textContent),svg=document.getElementById('kpi-chart'),legend=document.getElementById('kpi-legend');
+const colors=['#6347ed','#18ad78','#f5b326','#e0457b','#2a9fd6','#8a7eae'],left=40,right=540,top=14,bottom=206;
+const values=data.series.flatMap(s=>s.values).filter(v=>v!==null),max=Math.max(100,...values);
+const ns='http://www.w3.org/2000/svg';
+function node(tag,attrs,text){const el=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;svg.appendChild(el);return el;}
+const count=data.labels.length,step=count>1?(right-left)/(count-1):0,x0=count>1?left:(left+right)/2,y=v=>bottom-(v/max)*(bottom-top);
+[0,25,50,75,100].forEach(t=>{if(t>max)return;node('line',{x1:left,x2:right,y1:y(t),y2:y(t),stroke:'#e4def4','stroke-dasharray':'3 4'});node('text',{x:left-6,y:y(t)+4,'text-anchor':'end',fill:'#8a7eae','font-size':10},t+'%');});
+const marked=data.highlight||[];data.labels.forEach((label,i)=>{if(marked.includes(label)){const w=count>1?step:80;node('rect',{x:x0+i*step-w/2,y:top,width:w,height:bottom-top,fill:'#6347ed','fill-opacity':.07,rx:4});}});
+data.labels.forEach((label,i)=>node('text',{x:x0+i*step,y:226,'text-anchor':'middle',fill:'#8a7eae','font-size':11},label));
+data.series.forEach((serie,index)=>{const color=colors[index%colors.length];let path='';serie.values.forEach((v,i)=>{if(v===null)return;path+=(path&&serie.values[i-1]!==null?'L':'M')+(x0+i*step)+' '+y(v);});node('path',{d:path,fill:'none',stroke:color,'stroke-width':2.5,'stroke-linejoin':'round'});serie.values.forEach((v,i)=>{if(v===null)return;const c=node('circle',{cx:x0+i*step,cy:y(v),r:3.5,fill:color});const t=document.createElementNS(ns,'title');t.textContent=serie.name+' · '+data.labels[i]+': '+v+'%';c.appendChild(t);});const item=document.createElement('span');item.style.cssText='display:inline-flex;align-items:center;gap:6px;margin:4px 14px 0 0;font-size:12.5px';const dot=document.createElement('i');dot.style.cssText='width:10px;height:10px;border-radius:50%;background:'+color;item.append(dot,serie.name);legend.append(item);});
+})();
+</script>
+{% endif %}
+<p class="note">Datos reales del portafolio (solo lectura) con la fórmula confirmada: T es la desviación promedio en días y C el avance promedio. </p>
 </main>
 {% endblock %}

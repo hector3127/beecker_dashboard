@@ -85,16 +85,16 @@ tr.cur td.free{background:#FFEFC2}
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer todo: {{ error }}</div>{% endif %}
-{% for m in notices %}<div class="note" role="status">{{ m.notice }}</div>{% endfor %}
 <div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Operations</div>
 <div class="eb">Operations</div>
 <h1>Facturabilidad</h1>
 <p class="sub">Qué parte de la capacidad del equipo se factura, mes por mes, en trabajo fijo y trabajo variable</p>
 
-<div class="tabs"><a class="on" href="{% url 'portal:facturabilidad' %}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers</a></div><div style="margin:-6px 0 16px;font-size:13.5px;color:#55537F">Más detalle: <a href="#" data-pronto="1" style="font-weight:700">Capacidad y demanda por servicio →</a></div>
+<div class="tabs"><a class="on" href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a></div><div style="margin:-6px 0 16px;font-size:13.5px;color:#55537F">Más detalle: <a href="#" data-pronto="1" style="font-weight:700">Capacidad y demanda por servicio →</a></div>
 
-<form method="get" class="mf" style="display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:14px;color:#3A3870"><label for="mes" style="font-weight:700">Mes</label><input id="mes" type="month" name="mes" value="{{ month }}" onchange="this.form.submit()" style="font:inherit;border:1px solid #E1DCF3;border-radius:10px;padding:8px 12px;background:#fff"><span style="color:#55537F">Se lee de enero a ese mes. Horas de Clockify con la lógica de GSE · Horas por área (solo lectura).</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="?mes={{ month }}">Solo operativas</a></div></details>{% endif %}</form>
+<form method="get" class="mf" style="display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:14px;color:#3A3870">{% include 'portal/_period_picker.html' %}<span style="color:#55537F">Horas de Clockify con la lógica de GSE · Horas por área (solo lectura).</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="{{ picker.reset_href }}">Solo operativas</a></div></details>{% endif %}</form>
 {% if errors %}<div class="err">Meses sin datos completos: {% for m in errors %}{{ m.label }} ({{ m.error }}){% if not forloop.last %}; {% endif %}{% endfor %}</div>{% endif %}
+<style>tr.hl td{background:#F3EEFF}</style>
 <section class="hero">
 <div class="kc"><div class="kl">AER (trabajo fijo)</div><div class="kv">{% if selected.fixed_percent is not None %}{{ selected.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</div><div class="ke">{{ selected.label }}.{% if first.month != selected.month %} Era {% if first.fixed_percent is not None %}{{ first.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %} en {{ first.label|lower }}.{% endif %}</div></div>
 <div class="kc"><div class="kl">PRJ (trabajo variable)</div><div class="kv">{% if selected.variable_percent is not None %}{{ selected.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</div><div class="ke">TYM, IXB, SaaS y RaaS sobre la capacidad que queda</div></div>
@@ -110,7 +110,7 @@ tr.cur td.free{background:#FFEFC2}
 <tr><th>Capacidad</th><th>Hrs AER</th><th>% fijo</th><th>HC</th><th>Capacidad</th><th>Hrs</th><th>% variable</th><th>HC</th><th>TYM</th><th>IXB</th><th>SaaS</th><th>RaaS</th><th>Otros</th><th>Libre</th><th>FTE libre</th><th>Global</th></tr>
 </thead>
 <tbody>
-{% for m in months %}<tr><td>{{ m.label }}</td><td class="b">{{ m.capacity|floatformat:"0g" }}</td><td>{{ m.fixed_hours|floatformat:"0g" }}</td><td>{% if m.fixed_percent is not None %}{{ m.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ m.fixed_hc }}</td><td class="b">{{ m.variable_capacity|floatformat:"0g" }}</td><td>{{ m.variable_hours|floatformat:"0g" }}</td><td>{% if m.variable_percent is not None %}{{ m.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ m.variable_hc }}</td>{% for h in m.service_hours %}<td>{{ h|floatformat:"0g" }}</td>{% endfor %}<td>{{ m.other_hours|floatformat:"0g" }}</td><td class="free b">{{ m.free_hours|floatformat:"0g" }}</td><td class="free">{{ m.free_fte }}</td><td class="gl">{% if m.global_percent is not None %}{{ m.global_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td></tr>
+{% for m in months %}<tr{% if m.month in in_period %} class="hl"{% endif %}><td>{{ m.label }}</td><td class="b">{{ m.capacity|floatformat:"0g" }}</td><td>{{ m.fixed_hours|floatformat:"0g" }}</td><td>{% if m.fixed_percent is not None %}{{ m.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ m.fixed_hc }}</td><td class="b">{{ m.variable_capacity|floatformat:"0g" }}</td><td>{{ m.variable_hours|floatformat:"0g" }}</td><td>{% if m.variable_percent is not None %}{{ m.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ m.variable_hc }}</td>{% for h in m.service_hours %}<td>{{ h|floatformat:"0g" }}</td>{% endfor %}<td>{{ m.other_hours|floatformat:"0g" }}</td><td class="free b">{{ m.free_hours|floatformat:"0g" }}</td><td class="free">{{ m.free_fte }}</td><td class="gl">{% if m.global_percent is not None %}{{ m.global_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td></tr>
 {% endfor %}</tbody>
 </table>
 </div>
@@ -119,9 +119,10 @@ tr.cur td.free{background:#FFEFC2}
 <h2>Facturabilidad global por mes</h2>
 <div class="hs">Porcentaje de la capacidad que se factura</div>
 <div class="bars" style="grid-template-columns:repeat({{ months|length }},1fr)">
-{% for m in months %}<div class="bc{% if forloop.last %} cu{% endif %}"><b>{% if m.global_percent is not None %}{{ m.global_percent|floatformat:"1" }}%{% else %}—{% endif %}</b><i style="height:{{ m.bar_height }}%"></i>{{ m.short_label }}</div>
+{% for m in months %}<div class="bc{% if m.month in in_period %} cu{% endif %}"><b>{% if m.global_percent is not None %}{{ m.global_percent|floatformat:"1" }}%{% else %}—{% endif %}</b><i style="height:{{ m.bar_height }}%"></i>{{ m.short_label }}</div>
 {% endfor %}</div>
 </section>
+{% if no_roster %}<p class="note">Bandas/rol no trae banda para: {{ no_roster }}. En esos meses la capacidad usa a las personas con horas en GSE, porque no se conoce la plantilla vigente.</p>{% endif %}
 <p class="note">Misma lógica que GSE · Horas por área: horas = registros de Clockify con categoría «Facturable»; fijo = las del servicio AER; variable = las demás (TYM, IXB, SaaS, RaaS y otras). Capacidad = personas vigentes en Bandas/rol con horas registradas × días hábiles (lunes a viernes sin festivos de México) × 8 h. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona en el mes; libre = lo que sobra. Por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM; cámbialo en «Áreas mostradas».</p>
 </main>
 {% endblock %}

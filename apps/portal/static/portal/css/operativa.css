@@ -1,0 +1,79 @@
+.ops-refresh {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+  color: #55537f;
+  font-size: 13px;
+  min-height: 36px;
+}
+.ops-refresh button, .ops-retry {
+  font: inherit;
+  font-weight: 700;
+  border: 1px solid #c4b0ed;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #f0ebff;
+  color: #4b25c9;
+  cursor: pointer;
+}
+.ops-refresh button:disabled { opacity: .65; cursor: wait; }
+.ops-filter-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 12px 4px;
+  font-size: 13px;
+  color: #55537f;
+}
+.ops-filter-context a { font-weight: 700; text-decoration: underline; }
+.ops-warning {
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border: 1px solid #e7cf93;
+  border-radius: 10px;
+  background: #fff8e6;
+  color: #735009;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.ops-status-note { color: #55537f; font-size: 13px; line-height: 1.5; }
+.ops-dashboard .ban { flex-wrap: wrap; }
+.ops-dashboard .ban form { flex-wrap: wrap; }
+.ops-dashboard .ban form > * { min-width: 0 !important; }
+.ops-dashboard .ban form label { flex: 1 1 170px; }
+.ops-dashboard .ban form select { min-height: 28px; }
+.ops-dashboard .g > *, .ops-dashboard .kp > * { min-width: 0; }
+.ops-dashboard .sh { flex-wrap: wrap; }
+.ops-health-chart { min-width: 0; }
+.ops-health-chart svg { flex-shrink: 0; }
+#facturability-summary > div { grid-template-columns: minmax(190px, 270px) minmax(0, 1fr) !important; }
+@media (max-width: 1200px) {
+  #ops-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  #ops-health { grid-template-columns: minmax(180px, 1fr) minmax(0, 2fr) !important; gap: 20px !important; }
+  #ops-health > div:last-child { grid-column: 1 / -1; }
+  .ops-dashboard .ban form { width: 100%; margin-left: 0 !important; }
+}
+@media (max-width: 900px) {
+  #ops-evas > .g { grid-template-columns: 1fr !important; }
+  .ops-dashboard .ops-strip { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 650px) {
+  .ops-dashboard.pg { padding: 12px 16px 24px; }
+  .ops-dashboard .ban { padding: 16px !important; gap: 12px; }
+  .ops-dashboard .ban .bi { display: none; }
+  .ops-dashboard .ban h1 { font-size: 30px !important; }
+  .ops-dashboard .ban p { font-size: 15px !important; }
+  .ops-dashboard .ban form { padding: 8px !important; gap: 8px !important; box-sizing: border-box; }
+  .ops-dashboard .ban form > div { width: 100%; }
+  #ops-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  #ops-metrics .ci { display: none; }
+  #ops-metrics .c > div:first-child { font-size: 14px !important; }
+  #ops-health { grid-template-columns: 1fr !important; padding: 18px !important; }
+  #ops-health > div:last-child { grid-column: auto; }
+  .ops-health-chart { flex-wrap: wrap; gap: 16px !important; }
+  .ops-health-chart .lg { flex-basis: 100%; }
+  #facturability-summary > div { grid-template-columns: 1fr !important; gap: 18px !important; }
+}

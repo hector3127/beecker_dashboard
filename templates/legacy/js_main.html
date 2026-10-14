@@ -753,6 +753,29 @@
     google.script.run
       .withSuccessHandler((data) => {
         populateFiltros(data);
+        const account = new URLSearchParams(window.location.search).get('cuenta');
+        if (account) {
+          const select = document.getElementById('f-cliente');
+          const project = document.getElementById('f-proyecto');
+          if (select) {
+            const match = [...select.options].find(option => option.value.trim().toLocaleLowerCase('es') === account.trim().toLocaleLowerCase('es'));
+            if (match) select.value = match.value;
+            else { select.add(new Option(account, account)); select.value = account; }
+          }
+          if (project) project.value = 'Todos los proyectos';
+        }
+        const projectId = new URLSearchParams(window.location.search).get('proyecto');
+        if (projectId) {
+          const project = document.getElementById('f-proyecto');
+          const client = document.getElementById('f-cliente');
+          if (project) {
+            const wanted = projectId.trim().toLocaleLowerCase('es');
+            const match = [...project.options].find(option => option.value.trim().toLocaleLowerCase('es') === wanted);
+            if (match) project.value = match.value;
+            else { project.add(new Option(projectId, projectId)); project.value = projectId; }
+          }
+          if (client && client.options.length) client.selectedIndex = 0;
+        }
         loadDashboard();
       })
       .withFailureHandler((err) => {
