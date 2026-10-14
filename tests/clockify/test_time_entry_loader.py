@@ -57,12 +57,10 @@ def test_entries_are_mapped_and_deduplicated():
     assert entry.duration_hours == 1.5
     assert entry.costing_rate == 15
     assert entry.entry_date == datetime(2026, 9, 30)
-    # Los reportes se piden en paralelo; el orden de llamada puede variar.
-    assert sorted(call[1] for call in client.report_calls) == [
-        date(2026, 1, 1),
-        date(2026, 2, 1),
-        date(2026, 3, 1),
-    ]
+    # Las variantes del mismo proyecto comparten los meses descargados.
+    assert len(client.report_calls) == 18
+    assert len(set(client.report_calls)) == 18
+    assert all(start.day == 1 for _, start, _ in client.report_calls)
 
 
 def test_any_failing_project_stops_the_load():

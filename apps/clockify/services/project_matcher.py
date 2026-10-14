@@ -4,6 +4,7 @@ import re
 from collections.abc import Mapping, Sequence
 
 from apps.clockify.services.clockify_client import ClockifyProject
+from apps.clockify.services.cr_hours import canonical_cr_id, cr_nomenclature
 from core.utils.text import extract_base_id, strip_accents, to_text
 
 """BKD.020.006 - Resolucion de proyectos de Clockify
@@ -50,7 +51,7 @@ def resolve_clockify_project(
         El proyecto encontrado, o None si no hay coincidencia unica.
     """
     clean_id = internal_id.strip()
-    base_id = extract_base_id(clean_id)
+    base_id = extract_base_id(canonical_cr_id(clean_id))
     linked_id = linked_project_ids.get(
         normalize_link_key(clean_id),
     ) or linked_project_ids.get(normalize_link_key(base_id))
@@ -78,8 +79,21 @@ def resolve_clockify_project(
     if exact_match is not None:
         return exact_match
 
+    # Match spelling variants of the same exact CR/S nomenclature only.
+    def canonical(value: str) -> str:
+        return re.sub(r"[\s|_-]+", "", normalize_clockify_name(value))
+    variant_matches = [
+        project
+        for project in projects
+        if canonical(project.name) == canonical(clean_id)
+    ]
+    if len(variant_matches) == 1:
+        return variant_matches[0]
     if strict:
-        return find_unique_prefix_match(normalized_id, projects)
+        match = find_unique_prefix_match(normalized_id, projects)
+        if match is None and cr_nomenclature(clean_id):
+            return resolve_clockify_project(base_id, projects, {}, strict=True)
+        return match
 
     normalized_base = normalize_clockify_name(base_id)
     base_candidates = [

@@ -167,6 +167,10 @@ def test_capacity_rpcs_are_registered(client, monkeypatch, settings):
 
 
 def test_warm_cache_runs_every_view(repository, settings, monkeypatch):
+    monkeypatch.setattr(
+        "core.management.commands.warm_cache.warm_portal",
+        lambda: {"ok": True},
+    )
     from io import StringIO
 
     from django.core.management import call_command
@@ -186,7 +190,7 @@ def test_warm_cache_runs_every_view(repository, settings, monkeypatch):
     )
     output = StringIO()
 
-    call_command("warm_cache", stdout=output)
+    call_command("warm_cache", legacy=True, stdout=output)
 
     text = output.getvalue()
     assert "hojas de Sheets: listo" in text
@@ -200,6 +204,10 @@ def test_warm_cache_runs_every_view(repository, settings, monkeypatch):
 def test_warm_cache_keeps_going_when_azure_is_not_configured(
     repository, settings, monkeypatch
 ):
+    monkeypatch.setattr(
+        "core.management.commands.warm_cache.warm_portal",
+        lambda: {"ok": True},
+    )
     from io import StringIO
 
     from django.core.management import call_command
@@ -211,7 +219,7 @@ def test_warm_cache_keeps_going_when_azure_is_not_configured(
     )
     output = StringIO()
 
-    call_command("warm_cache", stdout=output)
+    call_command("warm_cache", legacy=True, stdout=output)
 
     text = output.getvalue()
     assert "RAID de Azure por proyecto: Falta configurar" in text

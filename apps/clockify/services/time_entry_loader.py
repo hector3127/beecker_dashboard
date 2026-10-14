@@ -1,9 +1,12 @@
 """Extraccion de las horas de todo el portafolio desde Clockify."""
 
+import calendar
+import hashlib
 import logging
+import threading
 from collections.abc import Callable
-from dataclasses import dataclass
-from datetime import date
+from dataclasses import dataclass, replace
+from datetime import date, timedelta
 from zoneinfo import ZoneInfo
 
 from apps.clockify.constants import (
@@ -19,6 +22,7 @@ from apps.clockify.services.clockify_client import (
     ClockifyProject,
     JsonObject,
 )
+from apps.clockify.services.cr_hours import cr_nomenclature, matches_cr_task
 from apps.clockify.services.date_ranges import (
     ProjectDateRange,
     ProjectDateRangeResolver,
@@ -28,7 +32,10 @@ from apps.clockify.services.project_matcher import (
     resolve_clockify_project,
 )
 from apps.clockify.services.report_cache import report_cache_seconds
-from apps.clockify.services.report_mapper import build_time_entry_from_report
+from apps.clockify.services.report_mapper import (
+    build_time_entry_from_report,
+    parse_entry_day,
+)
 from core.exceptions import SheetNotFoundError, TimeEntrySourceError
 from core.sheets import sheet_names
 from core.sheets.protocols import SheetReader
@@ -47,6 +54,9 @@ solo las descargas de Clockify se hacen en paralelo.
 
 logger = logging.getLogger(__name__)
 
+# Striped locks coalesce identical report downloads within each worker.
+_REPORT_LOCKS = [threading.RLock() for _ in range(64)]
+
 
 @dataclass(frozen=True, slots=True)
 class ReportPlan:
@@ -56,6 +66,8 @@ class ReportPlan:
     clockify_project_id: str
     start_date: date
     end_date: date
+    task_nomenclature: str = ""
+    empty_range: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -120,7 +132,7 @@ class ClockifyTimeEntryLoader:
         for internal_id in collect_project_ids(self._reader):
             try:
                 plans.append(
-                    plan_report(
+                    self._plan_report(
                         internal_id,
                         range_resolver.resolve(internal_id),
                         lookups,
@@ -131,11 +143,13 @@ class ClockifyTimeEntryLoader:
 
         entries_by_key: dict[str, TimeEntry] = {}
 
-        for plan, outcome in zip(
-            plans,
-            self._fetch_many(plans, rates),
-            strict=True,
-        ):
+        outcomes = list(zip(plans, self._fetch_many(plans, rates), strict=True))
+        # Los CR compartidos reclaman primero sus registros. Asi el proyecto
+        # base no absorbe esas horas ni se cuentan dos veces en el portafolio.
+        outcomes.sort(
+            key=lambda item: bool(item[0].task_nomenclature), reverse=True
+        )
+        for plan, outcome in outcomes:
             if isinstance(outcome, TimeEntrySourceError):
                 errors.append(f"{plan.internal_id}: {outcome.detail}")
                 continue
@@ -188,7 +202,7 @@ class ClockifyTimeEntryLoader:
                 "Rango solicitado",
             )
 
-        plan = plan_report(internal_id, date_range, self._load_lookups())
+        plan = self._plan_report(internal_id, date_range, self._load_lookups())
 
         return self._fetch_report(
             plan,
@@ -216,7 +230,7 @@ class ClockifyTimeEntryLoader:
             self._today,
         ).resolve(internal_id)
         lookups = self._load_lookups()
-        plan = plan_report(internal_id, date_range, lookups)
+        plan = self._plan_report(internal_id, date_range, lookups)
         project = next(
             (
                 item
@@ -232,7 +246,7 @@ class ClockifyTimeEntryLoader:
                 load_costing_rate_by_resource(self._reader),
             ),
             project_name=project.name if project else "",
-            date_range=date_range,
+            date_range=self._effective_range(plan, date_range),
             project_id=plan.clockify_project_id,
         )
 
@@ -257,7 +271,7 @@ class ClockifyTimeEntryLoader:
             self._today,
         ).resolve(internal_id)
         projects = self._load_clockify_projects(force_refresh=True)
-        plan = plan_report(
+        plan = self._plan_report(
             internal_id,
             date_range,
             (projects, load_project_links(self._reader)),
@@ -268,7 +282,7 @@ class ClockifyTimeEntryLoader:
         )
         cache_key = (
             f"{self._cache_prefix}:report:{plan.clockify_project_id}:"
-            f"{plan.internal_id}:{plan.start_date}:{plan.end_date}"
+            f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
         )
         self._cache_store.set(
             cache_key,
@@ -286,7 +300,7 @@ class ClockifyTimeEntryLoader:
         hours = ProjectHours(
             entries=entries,
             project_name=project.name if project else "",
-            date_range=date_range,
+            date_range=self._effective_range(plan, date_range),
             project_id=plan.clockify_project_id,
         )
 
@@ -382,29 +396,21 @@ class ClockifyTimeEntryLoader:
             self._load_clockify_projects(force_refresh),
             load_project_links(self._reader),
         )
-        project = resolve_clockify_project(
+        start_date, end_date = date_range
+        plan = self._plan_report(
             internal_id,
-            lookups[0],
-            lookups[1],
+            ProjectDateRange(start_date, end_date, "Rango solicitado"),
+            lookups,
             strict=True,
         )
-
-        if project is None:
-            raise ClockifyProjectError(
-                f"No se encontró una coincidencia única para {internal_id}. "
-                "Revisa el vínculo con el ID de Clockify.",
-            )
-
-        start_date, end_date = date_range
-        plan = ReportPlan(
-            internal_id=internal_id,
-            clockify_project_id=project.project_id,
-            start_date=start_date,
-            end_date=end_date,
+        project = next(
+            item
+            for item in lookups[0]
+            if item.project_id == plan.clockify_project_id
         )
         cache_key = (
             f"{self._cache_prefix}:strict_report:{plan.clockify_project_id}"
-            f":{plan.internal_id}:{plan.start_date}:{plan.end_date}"
+            f":{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
         )
         cached_report = self._cache_store.get(cache_key)
 
@@ -415,6 +421,7 @@ class ClockifyTimeEntryLoader:
             entries, request_count = self._download_report(
                 plan,
                 load_costing_rate_by_resource(self._reader),
+                use_raw_cache=not force_refresh,
             )
         except TimeEntrySourceError as error:
             raise type(error)(
@@ -448,7 +455,7 @@ class ClockifyTimeEntryLoader:
         for internal_id in dict.fromkeys(internal_ids):
             try:
                 plans.append(
-                    plan_report(
+                    self._plan_report(
                         internal_id,
                         range_resolver.resolve(internal_id),
                         lookups,
@@ -462,6 +469,54 @@ class ClockifyTimeEntryLoader:
                 )
 
         self._fetch_many(plans, load_costing_rate_by_resource(self._reader))
+
+    def _plan_report(
+        self,
+        internal_id: str,
+        date_range: ProjectDateRange,
+        lookups: ProjectLookups,
+        strict: bool = False,
+    ) -> ReportPlan:
+        """Limita los CR compartidos al historico de su ID completo."""
+        plan = plan_report(internal_id, date_range, lookups, strict=strict)
+        if not plan.task_nomenclature:
+            return plan
+        history = ProjectDateRangeResolver(
+            self._reader, self._today
+        ).resolve_from_history(internal_id)
+        if history.start_date is None or history.end_date is None:
+            raise ClockifyProjectError(
+                f"No se encontro el rango de {internal_id} en {history.source}."
+            )
+        if history.start_date > history.end_date:
+            raise ClockifyProjectError(
+                f"El periodo historico de {internal_id} tiene "
+                "la fecha de inicio posterior a la de fin."
+            )
+        start = max(plan.start_date, history.start_date)
+        finish = min(plan.end_date, history.end_date)
+        if start > finish:
+            return replace(plan, empty_range=True)
+        return ReportPlan(
+            internal_id,
+            plan.clockify_project_id,
+            start,
+            finish,
+            plan.task_nomenclature,
+        )
+
+    @staticmethod
+    def _effective_range(
+        plan: ReportPlan, original: ProjectDateRange
+    ) -> ProjectDateRange:
+        """Describe el rango realmente usado por un CR compartido."""
+        if plan.task_nomenclature:
+            return ProjectDateRange(
+                plan.start_date,
+                plan.end_date,
+                sheet_names.SHEET_PROJECTS_HISTORY,
+            )
+        return original
 
     def _load_lookups(self) -> ProjectLookups:
         """Lee los proyectos de Clockify y los vinculos manuales."""
@@ -529,16 +584,20 @@ class ClockifyTimeEntryLoader:
         Returns:
             Los registros del proyecto.
         """
+        if plan.empty_range:
+            return []
         cache_key = (
             f"{self._cache_prefix}:report:{plan.clockify_project_id}:"
-            f"{plan.internal_id}:{plan.start_date}:{plan.end_date}"
+            f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
         )
         cached_entries = self._cache_store.get(cache_key)
 
         if isinstance(cached_entries, list):
             return cached_entries
 
-        project_entries, _ = self._download_report(plan, rates)
+        project_entries, _ = self._download_report(
+            plan, rates, use_raw_cache=True
+        )
         cache_seconds = report_cache_seconds(
             bool(project_entries),
             plan.end_date,
@@ -552,25 +611,24 @@ class ClockifyTimeEntryLoader:
         self,
         plan: ReportPlan,
         rates: dict[str, float],
+        use_raw_cache: bool = False,
     ) -> tuple[list[TimeEntry], int]:
         """
-        Descarga el reporte de un plan sin usar la cache.
+        Obtiene un reporte y aplica las reglas del proyecto interno.
 
         Args:
             plan: Descarga pendiente.
             rates: Costing rate por recurso.
+            use_raw_cache: Reutiliza los meses entre IDs y rangos. Si es
+                falso, vuelve a descargarlos y actualiza la cache mensual.
 
         Returns:
             Los registros y el numero de solicitudes enviadas.
         """
-        report_entries, request_count = (
-            self._client_factory().fetch_detailed_report_counted(
-                self._workspace_id,
-                plan.clockify_project_id,
-                plan.start_date,
-                plan.end_date,
-                REPORT_TIMEZONE,
-            )
+        if plan.empty_range:
+            return [], 0
+        report_entries, request_count = self._monthly_report(
+            plan, use_raw_cache
         )
         project_entries = [
             build_time_entry_from_report(
@@ -581,14 +639,133 @@ class ClockifyTimeEntryLoader:
             )
             for report_entry in report_entries
         ]
+        if plan.task_nomenclature:
+            if any(
+                entry.task_id and not entry.task_name
+                for entry in project_entries
+            ):
+                task_names = {
+                    to_text(task.get("id")): to_text(task.get("name"))
+                    for task in self.load_project_tasks(
+                        plan.clockify_project_id
+                    )
+                }
+                project_entries = [
+                    replace(entry, task_name=task_names.get(entry.task_id, ""))
+                    if entry.task_id and not entry.task_name
+                    else entry
+                    for entry in project_entries
+                ]
+            project_entries = [
+                entry
+                for entry in project_entries
+                if matches_cr_task(entry.task_name, plan.task_nomenclature)
+                and entry.entry_date is not None
+                and plan.start_date <= entry.entry_date.date() <= plan.end_date
+            ]
 
         return project_entries, request_count
+
+    def _monthly_report(
+        self, plan: ReportPlan, use_cache: bool
+    ) -> tuple[list[JsonObject], int]:
+        """Reutiliza meses completos y recorta al rango solicitado."""
+        month = plan.start_date.replace(day=1)
+        result: list[JsonObject] = []
+        seen: set[str] = set()
+        requests = 0
+        client: ClockifyClient | None = None
+        while month <= plan.end_date:
+            month_end = month.replace(
+                day=calendar.monthrange(month.year, month.month)[1]
+            )
+            # El mes actual crece cada dia: la cobertura es parte de la clave.
+            coverage_end = min(month_end, max(self._today, plan.end_date))
+            month_key = (
+                f"{self._cache_prefix}:raw-month:v1:"
+                f"{plan.clockify_project_id}:{REPORT_TIMEZONE}:"
+                f"{month}:"
+            )
+            key = month_key + str(coverage_end)
+            full_key = month_key + str(month_end)
+            lock = _REPORT_LOCKS[
+                int(hashlib.sha256(month_key.encode()).hexdigest()[:8], 16)
+                % len(_REPORT_LOCKS)
+            ]
+            with lock:
+                cached = self._cache_store.get(key) if use_cache else None
+                if not isinstance(cached, list) and use_cache:
+                    cached = self._cache_store.get(full_key)
+                    if isinstance(cached, list):
+                        coverage_end = month_end
+                if isinstance(cached, list):
+                    rows = cached
+                else:
+                    if client is None:
+                        client = self._client_factory()
+                    rows, count = (
+                        client.fetch_detailed_report_counted(
+                            self._workspace_id,
+                            plan.clockify_project_id,
+                            month,
+                            coverage_end,
+                            REPORT_TIMEZONE,
+                        )
+                    )
+                    requests += count
+                    self._cache_store.set(
+                        key,
+                        rows,
+                        report_cache_seconds(
+                            bool(rows), coverage_end, self._today
+                        ),
+                    )
+            query_start = max(month, plan.start_date)
+            query_end = min(coverage_end, plan.end_date)
+            if (query_start, query_end) != (month, coverage_end) and any(
+                parse_entry_day(
+                    (row.get("timeInterval") or {}).get("start"),
+                    self._timezone,
+                ) is None
+                for row in rows
+            ):
+                # Sin fecha no podemos recortar un mes con seguridad.
+                if client is None:
+                    client = self._client_factory()
+                rows, count = (
+                    client.fetch_detailed_report_counted(
+                        self._workspace_id,
+                        plan.clockify_project_id,
+                        query_start,
+                        query_end,
+                        REPORT_TIMEZONE,
+                    )
+                )
+                requests += count
+            for row in rows:
+                day = parse_entry_day(
+                    (row.get("timeInterval") or {}).get("start"),
+                    self._timezone,
+                )
+                if day is not None and not (
+                    plan.start_date <= day.date() <= plan.end_date
+                ):
+                    continue
+                entry_id = to_text(row.get("_id") or row.get("id"))
+                if entry_id and entry_id in seen:
+                    continue
+                if entry_id:
+                    seen.add(entry_id)
+                result.append(row)
+            month = month_end + timedelta(days=1)
+        return result, requests
 
 
 def plan_report(
     internal_id: str,
     date_range: ProjectDateRange,
     lookups: ProjectLookups,
+    strict: bool = False,
 ) -> ReportPlan:
     """
     Valida el rango y ubica el proyecto de Clockify de un ID interno.
@@ -597,6 +774,7 @@ def plan_report(
         internal_id: ID interno del proyecto.
         date_range: Rango de fechas a consultar.
         lookups: Proyectos de Clockify y vinculos manuales.
+        strict: Conserva la coincidencia estricta salvo el respaldo CR base.
 
     Returns:
         La descarga pendiente.
@@ -616,11 +794,14 @@ def plan_report(
             "La fecha de inicio es posterior a la de fin.",
         )
 
-    project = resolve_clockify_project(internal_id, projects, linked_ids)
+    project = resolve_clockify_project(
+        internal_id, projects, linked_ids, strict=strict
+    )
 
     if project is None:
         raise ClockifyProjectError(
-            "No se encontro una coincidencia unica en Clockify. "
+            f"No se encontro una coincidencia unica para {internal_id} "
+            "en Clockify. "
             f"Vinculalo en la hoja {SHEET_PROJECT_LINKS}.",
         )
 
@@ -629,6 +810,12 @@ def plan_report(
         clockify_project_id=project.project_id,
         start_date=date_range.start_date,
         end_date=date_range.end_date,
+        task_nomenclature=(
+            cr_nomenclature(internal_id)
+            if cr_nomenclature(internal_id)
+            and not matches_cr_task(project.name, cr_nomenclature(internal_id))
+            else ""
+        ),
     )
 
 

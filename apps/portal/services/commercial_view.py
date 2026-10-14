@@ -53,6 +53,8 @@ def build_commercial_context(params: Any) -> Any:
     account = params.get("cliente", "")
     stage = params.get("etapa", "")
     start = params.get("desde", "")
+    if start == "ejecutiva":
+        start = ""
     end = params.get("hasta", "")
     query = params.get("q", "").strip()
     rows = [

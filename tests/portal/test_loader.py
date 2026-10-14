@@ -77,6 +77,13 @@ def test_missing_configuration_returns_message_and_is_not_cached(monkeypatch):
 
 
 def test_eva1_loader_builds_the_view(monkeypatch):
+    monkeypatch.setattr(
+        eva_loader, "get_aer_tym_consumption",
+        lambda ids: {
+            "ok": True,
+            "items": [{"id": project_id, "burn": 0} for project_id in ids],
+        },
+    )
     monkeypatch.setattr(eva_loader, "build_sheet_repository", lambda: object())
     monkeypatch.setattr(
         eva_loader,

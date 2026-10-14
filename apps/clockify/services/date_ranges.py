@@ -14,6 +14,7 @@ from apps.clockify.constants import (
     MPB_SERVICES,
     SHEET_MPB,
 )
+from apps.clockify.services.cr_hours import canonical_cr_id, cr_nomenclature
 from core.sheets import sheet_names
 from core.sheets.protocols import SheetReader
 from core.utils.cell_types import CellValue
@@ -69,6 +70,8 @@ class ProjectDateRangeResolver:
         Returns:
             El rango de fechas; las fechas son None si no se encontro.
         """
+        if cr_nomenclature(project_id):
+            return self._resolve_from_history(project_id)
         if project_id.strip().upper().startswith(MPB_PROJECT_PREFIXES):
             return self._resolve_from_mpb(project_id)
 
@@ -188,6 +191,44 @@ class ProjectDateRangeResolver:
             if normalize_project_id(read_cell(row, id_column)) == normalized_id
         ]
 
+        terminal_rows = [
+            row
+            for row in matches
+            if normalize_history_text(read_cell(row, status_column))
+            in {"completed", "completado", "cancelled", "canceled", "cancelado"}
+        ]
+        terminal_dates = [
+            day
+            for row in terminal_rows
+            if (
+                day := parse_sheet_date(read_cell(row, finish_column))
+                or parse_sheet_date(read_cell(row, start_column))
+            )
+            is not None
+        ]
+        if terminal_dates:
+            finish = max(terminal_dates)
+            operational_starts = [
+                day
+                for row in matches
+                if normalize_history_text(read_cell(row, status_column))
+                == "discovery op"
+                and (day := parse_sheet_date(read_cell(row, start_column)))
+                is not None
+                and day <= finish
+            ]
+            real_starts = [
+                day
+                for row in matches
+                if normalize_history_text(read_cell(row, status_column))
+                == "discovery"
+                and (day := parse_sheet_date(read_cell(row, start_column)))
+                is not None
+                and day <= finish
+            ]
+            starts = operational_starts or real_starts
+            if starts:
+                return ProjectDateRange(min(starts), finish, source)
         discovery_start = pick_stage_date(
             matches,
             STAGE_DISCOVERY,
@@ -388,7 +429,7 @@ def normalize_project_id(value: CellValue) -> str:
     Returns:
         El ID normalizado.
     """
-    return re.sub(r"\s+", "", to_text(value).strip().upper())
+    return re.sub(r"\s+", "", canonical_cr_id(to_text(value)).upper())
 
 
 def read_cell(row: Sequence[CellValue], column_index: int) -> CellValue:

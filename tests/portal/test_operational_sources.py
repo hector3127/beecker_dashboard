@@ -1,11 +1,13 @@
 """Regression checks for the operational sources used by EVA cards."""
 
 import warnings
+from datetime import date
 from types import SimpleNamespace
 from unittest.mock import patch
 
 from django.core.cache import cache
 from django.core.cache.backends.base import CacheKeyWarning
+from django.utils import timezone
 
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
@@ -73,6 +75,39 @@ def test_manager_cache_accepts_spaces_and_keeps_managers_separate():
             == "second"
         )
         assert investment.call_count == 2
+        today = timezone.localdate()
+        year, month = divmod(today.year * 12 + today.month - 6, 12)
+        assert investment.call_args.kwargs["date_range"] == (
+            date(year, month + 1, 1), today
+        )
+
+
+def test_graph_limits_downloads_without_changing_full_investment_scope():
+    cache.clear()
+    project = SimpleNamespace(
+        project_id="TEST", start="2025-01-01", end="2026-12-31"
+    )
+    expired = SimpleNamespace(
+        project_id="OLD", start="2025-01-01", end="2025-12-31"
+    )
+    bounds = (date(2026, 5, 1), date(2026, 10, 14))
+    with (
+        patch("apps.portal.services.operational_sources.build_sheet_repository"),
+        patch("apps.portal.services.operational_sources.build_clockify_loader") as factory,
+    ):
+        loader = factory.return_value
+        loader.load_project.return_value = []
+        tagged_investment([project, expired], date_range=bounds)
+        loader.load_project.assert_called_once_with("TEST", bounds)
+        tagged_investment([project, expired], date_range=bounds)
+        assert loader.load_project.call_count == 1
+        tagged_investment([project])
+        assert loader.load_project.call_count == 2
+        loader.load_project.assert_called_with(
+            "TEST", (date(2025, 1, 1), date(2026, 12, 31))
+        )
+        assert project.start == "2025-01-01"
+        assert project.end == "2026-12-31"
 
 
 def test_eva_renewal_and_health_population():

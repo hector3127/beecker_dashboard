@@ -63,7 +63,19 @@ class FakeClockifyClient:
         self.report_calls.append((project_id, start_date, end_date))
         if project_id in self.failing:
             raise ClockifyReportForbiddenError("HTTP 403")
-        return self.entries_by_project.get(project_id, [])
+        from zoneinfo import ZoneInfo
+
+        from apps.clockify.services.report_mapper import parse_entry_day
+
+        rows = []
+        for entry in self.entries_by_project.get(project_id, []):
+            day = parse_entry_day(
+                (entry.get("timeInterval") or {}).get("start"),
+                ZoneInfo(timezone_name),
+            )
+            if day is None or start_date <= day.date() <= end_date:
+                rows.append(entry)
+        return rows
 
     def fetch_detailed_report_counted(
         self,

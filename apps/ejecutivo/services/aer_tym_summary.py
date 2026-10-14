@@ -125,6 +125,7 @@ def build_summary_row(
     row: Sequence[CellValue],
     columns: dict[str, int],
     today: date,
+    closed_year: int | None = None,
 ) -> JsonObject | None:
     """
     Convierte una fila de MPB si es AER/T&M en progreso.
@@ -144,8 +145,15 @@ def build_summary_row(
     if not AER_TYM_SERVICE.match(service):
         return None
 
-    if not IN_PROGRESS_STATUS.match(status) or not project_id:
+    if not project_id:
         return None
+    if closed_year is None:
+        if not IN_PROGRESS_STATUS.match(status):
+            return None
+    else:
+        finish = parse_mpb_date(read_cell(row, columns["end"]))
+        if status not in {"finalizado", "finalizada", "completed", "completado", "cerrado", "finished", "cancelado", "cancelada", "cancelled", "canceled"} or not finish.startswith(str(closed_year) + "-"):
+            return None
 
     budget = parse_mpb_hours(read_cell(row, columns["budget"]))
     stored_burn = parse_mpb_number(read_cell(row, columns["burn"]))
@@ -154,6 +162,7 @@ def build_summary_row(
     manager = to_text(read_cell(row, columns["manager"])).strip()
 
     return {
+        "estadoHistorico": "Cancelado" if status in {"cancelado", "cancelada", "cancelled", "canceled"} else "Finalizado",
         "idProyecto": project_id,
         "cliente": to_text(read_cell(row, columns["client"])).strip(),
         "servicio": SERVICE_AER if service == "aer" else SERVICE_TYM,

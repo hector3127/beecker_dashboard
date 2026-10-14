@@ -1251,7 +1251,10 @@
       if (elGeneral) elGeneral.style.display = 'none';
       if (elDetalle) {
         elDetalle.style.display = 'block';
-        elDetalle.innerHTML = '<div class="loading">Cargando información del proyecto...</div>';
+        const meta = mapaMetaProyectosDashboard[String(proyectoSel)] || {};
+        const esc = value => String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        const selectedOption = document.getElementById('f-proyecto')?.selectedOptions?.[0];
+        elDetalle.innerHTML = '<div class="card" style="padding:22px"><h2 style="margin:0 0 10px">'+esc(selectedOption?.textContent || proyectoSel)+'</h2><div style="display:flex;gap:20px;flex-wrap:wrap"><span><b>ID:</b> '+esc(proyectoSel)+'</span><span><b>Servicio:</b> '+esc(meta.servicio || 'Pendiente')+'</span></div><p class="loading" role="status">Consultando horas y etapas del proyecto...</p></div>';
       }
 
       if (_esProyectoAERTYM(proyectoSel)) {

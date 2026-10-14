@@ -57,7 +57,20 @@ def test_report_cache_seconds(has_entries, end_date, expected):
 def build_loader(cache):
     client = FakeClockifyClient(
         [ClockifyProject("c1", "AMK.008"), ClockifyProject("c2", "IXB.002")],
-        {"c1": [REPORT_ENTRY], "c2": [REPORT_ENTRY]},
+        {
+            "c1": [REPORT_ENTRY],
+            "c2": [
+                REPORT_ENTRY,
+                {
+                    **REPORT_ENTRY,
+                    "_id": "e2",
+                    "timeInterval": {
+                        "start": "2026-10-01T15:00:00Z",
+                        "duration": 3600,
+                    },
+                },
+            ],
+        },
     )
 
     return ClockifyTimeEntryLoader(

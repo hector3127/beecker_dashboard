@@ -15,7 +15,7 @@ para que el panel cargue al instante.
 
 logger = logging.getLogger(__name__)
 
-DASHBOARD_CACHE_KEY: Final[str] = "dashboard:general:v1"
+DASHBOARD_CACHE_KEY: Final[str] = "dashboard:general:v2"
 
 
 def read_cached_dashboard() -> JsonObject | None:

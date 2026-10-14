@@ -113,6 +113,52 @@ def test_matches_original(index):
     result = json.loads(json.dumps(run(name, *args)))
     expected = EXPECTED[index]
 
+    # El harness original devolvia abril incluso al pedir enero-marzo.
+    # El recorte local del cache mensual respeta ahora el rango de la API.
+    if index == 7:
+        assert result == {
+            **expected,
+            "registros": [
+                row for row in expected["registros"]
+                if row["id"] not in {"a3", "a9"}
+            ],
+        }
+        return
+    if index == 11:
+        assert result == {
+            **expected,
+            "tasks": [
+                {"id": "t1", "nombre": "S1 Desarrollo", "horas": 2.5},
+                {"id": "", "nombre": "Sin task", "horas": 0.75},
+            ],
+            "totalHoras": 3.25,
+            "totalEntriesRaw": 7,
+            "totalEntriesUnicas": 7,
+        }
+        return
+
+    # Los CR alojados en el proyecto base ahora exigen task y periodo.
+    # Se conserva el snapshot original como referencia del cambio acordado.
+    if index == 8:
+        assert result == {
+            **expected,
+            "registros": [
+                row for row in expected["registros"] if row["id"] == "a3"
+            ],
+        }
+        return
+    if index == 12:
+        assert result == {
+            **expected,
+            "tasks": [{"id": "t2", "nombre": "CR1 Ajustes", "horas": 2.25}],
+            "totalHoras": 2.25,
+            "invOperativa": 0.0,
+            "invComercial": 0.0,
+            "totalEntriesRaw": 1,
+            "totalEntriesUnicas": 1,
+        }
+        return
+
     if index in MESSAGE_ONLY_DIFFERS:
         assert result["ok"] is False
         assert {**result, "error": ""} == {**expected, "error": ""}

@@ -28,7 +28,7 @@ si Clockify falla.
 logger = logging.getLogger(__name__)
 
 # Cambia la version al modificar TimeEntry para no leer datos viejos.
-CACHE_VERSION: Final[str] = "v5"
+CACHE_VERSION: Final[str] = "v6"
 
 
 def build_clockify_loader(reader: SheetReader) -> ClockifyTimeEntryLoader:

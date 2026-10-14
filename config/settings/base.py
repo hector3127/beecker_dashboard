@@ -159,6 +159,7 @@ CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
         "LOCATION": BASE_DIR / ".cache",
+        "OPTIONS": {"MAX_ENTRIES": 10000, "CULL_FREQUENCY": 3},
     },
 }
 

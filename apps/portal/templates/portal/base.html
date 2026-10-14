@@ -22,7 +22,7 @@ a[data-pronto]{cursor:help}
 <link rel="stylesheet" href="{% static 'portal/css/accessibility.css' %}">
 {% block extra_head %}{% endblock %}
 </head>
-<body class="{% block body_class %}{% endblock %}">
+<body data-portal-ready="{% if error or fx_error %}false{% else %}true{% endif %}" class="{% block body_class %}{% endblock %}">
 <a class="skip-link" href="#main-content">Saltar al contenido</a>
 <div>
 <header class="top">

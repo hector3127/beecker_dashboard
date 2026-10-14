@@ -13,6 +13,18 @@ app_name = "portal"
 
 urlpatterns = [
     path(
+        "ejecutiva/costos/detalle/", views.costos_detalle,
+        name="costos_detalle",
+    ),
+    path(
+        "ejecutiva/rentabilidad/", views.rentabilidad_mensual,
+        name="rentabilidad_mensual",
+    ),
+    path("ejecutiva/costos/", views.costos_revenue, name="costos_revenue"),
+    path("ejecutiva/ingresos/", views.ingresos, name="ingresos"),
+    path("operativa/eva3/cerrados/burn/", views.eva3_cerrados_burn, name="eva3_cerrados_burn"),
+    path("operativa/eva3/cerrados/", views.eva3_cerrados, name="eva3_cerrados"),
+    path(
         "operativa/operations-resumen/",
         views.operations_resumen,
         name="operations_resumen_legacy",

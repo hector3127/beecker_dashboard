@@ -62,20 +62,21 @@ function deferred() {
   return {promise, resolve};
 }
 function harness(options = {}) {
-  const live = {root: dashboard()};
+  const live = {root: dashboard(options.initial)};
   live.root.live = live;
   const listeners = {};
   const requests = [];
   const freshness = new Node('portal-freshness-text');
   const document = {
     activeElement: null,
+    querySelectorAll: () => [],
     getElementById: id => id === 'portal-freshness-text' ? freshness
       : id === 'ops-dashboard' ? live.root : live.root.nodes.get(id),
     addEventListener: (name, callback) => { listeners[name] = callback; }
   };
   vm.runInNewContext(source, {
-    document, location: {search: '', assign() {}},
-    window: {addEventListener() {}}, URLSearchParams, AbortController, setTimeout, clearTimeout,
+    document, location: {search: '', href: 'http://localhost/operativa/', origin: 'http://localhost', assign() {}},
+    window: {addEventListener() {}}, URL, URLSearchParams, AbortController, setTimeout, clearTimeout,
     matchMedia: () => ({matches: false}),
     DOMParser: class {parseFromString(value) { return value; }},
     fetch: async url => {
@@ -167,4 +168,35 @@ test('repeated clicks during a refresh do not duplicate requests', async () => {
   h.listeners.click(click);
   await settled();
   assert.equal(h.requests.length, 10);
+});
+
+test('fresh navigation makes no requests and manual refresh still updates all blocks', async () => {
+  const h = harness({initial: {async: 'false', summaryFresh: 'true'}});
+  await settled();
+  assert.equal(h.requests.length, 0);
+  assert.equal(h.document.getElementById('ops-refresh-button').hidden, false);
+  h.listeners.click({target: {closest: selector => selector === '#ops-refresh-button' ? {} : null}});
+  await settled();
+  assert.equal(h.requests.length, 5);
+  assert.ok(h.requests.includes('/operations/resumen/?actualizar=1'));
+});
+
+test('only stale facturability loads when the portfolio is fresh', async () => {
+  const h = harness({initial: {async: 'false', summaryFresh: 'false'}});
+  await settled();
+  assert.deepEqual(h.requests, ['/operations/resumen/']);
+});
+
+test('entering Operativa does not prefetch manager details', async () => {
+  const h = harness({initial: {async: 'false', summaryFresh: 'true'}});
+  await settled();
+  assert.equal(h.requests.length, 0);
+  assert.equal(h.listeners.pointerover, undefined);
+  assert.equal(h.listeners.focusin, undefined);
+});
+
+test('automatic refresh requests only expired blocks', async () => {
+  const h = harness({initial: {pendingBlocks: 'capacidad', summaryFresh: 'true'}});
+  await settled();
+  assert.deepEqual(h.requests, ['/operativa/datos/?', '/operativa/datos/?bloque=capacidad']);
 });

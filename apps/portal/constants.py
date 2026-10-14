@@ -13,7 +13,7 @@ Colores, etiquetas y claves de cache de las pantallas Ejecutiva,
 Operativa y Comercial.
 """
 
-PORTFOLIO_CACHE_KEY: Final[str] = "portal:portfolio:v1"
+PORTFOLIO_CACHE_KEY: Final[str] = "portal:portfolio:v2"
 PORTFOLIO_CACHE_SECONDS: Final[int] = 300
 KPI_HISTORY_CACHE_KEY: Final[str] = "portal:kpi-history:v1"
 KPI_HISTORY_CACHE_SECONDS: Final[int] = 600
@@ -89,19 +89,19 @@ EVA2_STAGE_KEYS: Final[tuple[str, ...]] = (
     "deployment",
     "general",
 )
-EVA2_CACHE_KEY: Final[str] = "portal:eva2:v1"
+EVA2_CACHE_KEY: Final[str] = "portal:eva2:active-status:v2"
 EVA2_CACHE_SECONDS: Final[int] = 600
-EVA2_CLOSED_CACHE_KEY: Final[str] = "portal:eva2:closed:v1"
+EVA2_CLOSED_CACHE_KEY: Final[str] = "portal:eva2:closed:historico:v5"
 
 # Capacidad instalada
-CAPACITY_CACHE_PREFIX: Final[str] = "portal:capacity:v1:"
+CAPACITY_CACHE_PREFIX: Final[str] = "portal:capacity:v2:"
 CAPACITY_CACHE_SECONDS: Final[int] = 300
 DEFAULT_WORKDAY_HOURS: Final[float] = 8.0
 MAX_WORKDAY_HOURS: Final[float] = 24.0
 WEEKDAYS_PER_WEEK: Final[int] = 5
 
 # Pantalla de Proyecto
-PROJECT_CACHE_PREFIX: Final[str] = "portal:project:v1:"
+PROJECT_CACHE_PREFIX: Final[str] = "portal:project:v2:"
 PROJECT_CACHE_SECONDS: Final[int] = 600
 PROJECT_BAR_SCALE_PERCENT: Final[int] = 150
 

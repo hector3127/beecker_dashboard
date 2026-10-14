@@ -1,6 +1,7 @@
 """Comando que precalienta la cache de las vistas del panel."""
 
 import functools
+import logging
 import time
 from collections.abc import Callable
 from typing import Any
@@ -17,9 +18,9 @@ from core.utils.parallel import map_in_parallel
 """BKD.006.008 - Precalentar cache
 Equivale a dejar un trigger en Apps Script: consulta las vistas para que
 el primer usuario no espere a Clockify, Azure ni Sheets. Todo es de solo
-lectura. Orden: hojas de Sheets, vistas, RAID de cada Team Project y
-consumos AER; cada paso deja datos para el siguiente.
-Uso: python manage.py warm_cache [--refresh]
+lectura. Prepara Ejecutiva, Operativa, Comercial y sus componentes.
+El panel anterior solo se incluye si se solicita explicitamente --legacy.
+Uso: python manage.py warm_cache [--base-only] [--legacy] [--refresh]
 """
 
 # Hojas que mas leen las vistas; la cache compartida las reutiliza.
@@ -52,15 +53,31 @@ AER_CONSUMPTION_FUNCTION = "obtenerConsumosResumenAERTYMMPB"
 AER_SUMMARY_FUNCTION = "obtenerResumenAERTYMMPB"
 CONSUMPTION_BATCH_SIZE = 2
 RAID_WORKERS = 4
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
     """Consulta las vistas principales para llenar la cache."""
 
-    help = "Precalienta la cache del dashboard, Azure y Clockify."
+    help = "Prepara Ejecutiva, Operativa y Comercial con sus componentes."
 
     def add_arguments(self, parser: CommandParser) -> None:
         """Agrega la opcion --refresh."""
+        parser.add_argument(
+            "--base-only",
+            action="store_true",
+            help="Prepara los proyectos de Operativa solo desde Sheets.",
+        )
+        parser.add_argument(
+            "--legacy",
+            action="store_true",
+            help="Incluye tambien la precarga completa del panel anterior.",
+        )
+        parser.add_argument(
+            "--portal-only",
+            action="store_true",
+            help="Prepara las tres paginas principales (opcion compatible).",
+        )
         parser.add_argument(
             "--refresh",
             action="store_true",
@@ -72,6 +89,16 @@ class Command(BaseCommand):
         if options["refresh"]:
             cache.clear()
             self.stdout.write("Cache borrada.")
+
+        if options["base_only"]:
+            self.run_step(
+                "Operativa: proyectos y estados",
+                functools.partial(warm_portal, base_only=True),
+            )
+            return
+        self.run_step("portal", warm_portal)
+        if options["portal_only"] or not options["legacy"]:
+            return
 
         self.run_step(SHEETS_STEP, warm_sheets)
 
@@ -109,6 +136,114 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.SUCCESS(f"{label}: listo en {elapsed_seconds:.1f} s"),
         )
+
+
+def warm_portal(base_only: bool = False) -> object:
+    """Prepara los mismos cortes que consulta el navegador, sin borrar cache."""
+    from django.contrib.auth.models import User
+    from django.test import RequestFactory
+
+    from apps.portal import views
+
+    factory = RequestFactory()
+    failures = []
+    blocks = ("",) if base_only else ("", "eva3", "inversion", "capacidad")
+    for block in blocks:
+        started = time.perf_counter()
+        logger.info("Preparando Operativa: %s", block or "proyectos y estados")
+        request = factory.get("/operativa/datos/", {"bloque": block})
+        request.user = User(username="cache-warmer")
+        response = views.operativa_datos(request)
+        if (
+            response.status_code != 200
+            or b'data-block-error=""' not in response.content
+            or b'data-source-errors="0"' not in response.content
+        ):
+            failures.append(block or "portafolio")
+        logger.info(
+            "Operativa %s: %.1f s",
+            block or "proyectos y estados",
+            time.perf_counter() - started,
+        )
+    if base_only:
+        return {"ok": not failures, "error": ", ".join(failures)}
+
+    started = time.perf_counter()
+    logger.info("Preparando Operativa: facturabilidad")
+    request = factory.get("/operations/resumen/", {"actualizar": "1"})
+    request.user = User(username="cache-warmer")
+    response = views.operations_resumen(request)
+    if (
+        response.status_code != 200
+        or b'data-partial="true"' in response.content
+    ):
+        failures.append("facturabilidad")
+    logger.info("Facturabilidad: %.1f s", time.perf_counter() - started)
+    for name, path, page in (
+        ("ejecutiva", "/", views.ejecutiva),
+        ("comercial", "/comercial/", views.comercial),
+    ):
+        started = time.perf_counter()
+        logger.info("Preparando %s y sus componentes", name)
+        request = factory.get(path)
+        request.user = User(username="cache-warmer")
+        response = page(request)
+        if (
+            response.status_code != 200
+            or b'data-portal-ready="true"' not in response.content
+        ):
+            failures.append(name)
+        logger.info("%s: %.1f s", name, time.perf_counter() - started)
+    manager_result = warm_delivery_managers()
+    manager_error = read_failure(manager_result)
+    if manager_error:
+        failures.append("Delivery Managers: " + manager_error)
+    from apps.portal.services.financial_cache import warm_financial
+
+    started = time.perf_counter()
+    logger.info("Preparando Financiera: ingresos, costos y rentabilidad")
+    financial_error = read_failure(warm_financial())
+    if financial_error:
+        failures.append("Financiera: " + financial_error)
+    logger.info("Financiera: %.1f s", time.perf_counter() - started)
+    return {"ok": not failures, "error": ", ".join(failures)}
+
+
+def warm_delivery_managers() -> object:
+    """Prepara los detalles y el grafico de seis meses de cada manager."""
+    from django.contrib.auth.models import User
+    from django.test import RequestFactory
+
+    from apps.portal import views
+
+    factory = RequestFactory()
+    snapshot = views._operativa_snapshot(factory.get("/operativa/"))
+    if not snapshot:
+        return {"ok": True}
+    failures = []
+    for manager in snapshot.get("managers", []):
+        started = time.perf_counter()
+        logger.info("Preparando detalle y consumo mensual: %s", manager.name)
+        for stage in ("base", "inv", "horas"):
+            request = factory.get(
+                "/operativa/delivery-manager/" + manager.slug + "/",
+                {"bloque": stage},
+            )
+            request.user = User(username="cache-warmer")
+            response = views.delivery_manager(request, manager.slug)
+            saved = cache.get(views._dm_key(manager.slug, stage))
+            if response.status_code != 200 or saved is None:
+                failures.append(manager.name + ": " + stage)
+            elif stage == "horas" and not saved.get("complete"):
+                failures.append(manager.name + ": consumo mensual incompleto")
+            elif stage == "inv" and not saved.get("investment", {}).get(
+                "complete"
+            ):
+                failures.append(manager.name + ": inversion incompleta")
+        logger.info(
+            "Detalle %s: %.1f s", manager.name, time.perf_counter() - started
+        )
+    return {"ok": not failures, "error": "; ".join(failures)}
 
 
 def call(function_name: str, *args: object) -> object:

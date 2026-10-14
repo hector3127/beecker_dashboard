@@ -148,7 +148,8 @@ el enlace «Panel anterior» del menú.
 
 | Ruta | Pantalla | Datos |
 | --- | --- | --- |
-| `/` | Ejecutiva | Reales: «Requieren decisión», avance en horas, horas por terminar y Top cuentas sanas y no sanas (por la salud de sus proyectos; ingresos y margen pendientes). Ejemplo: Financiera, Comercial, Presupuesto usado y Rentabilidad |
+| `/` | Ejecutiva | Reales: ingresos, costos, margen bruto, cobranza y rentabilidad mensual de Finanzas 2026; decisiones, horas y ranking de cuentas por salud. Las cifras comerciales de esta pantalla y Presupuesto usado siguen como ejemplo |
+| `/ejecutiva/costos/detalle/` | Detalle de costos | Costos por proyecto y persona, con horas, banda, mes de banda, tarifa y estado del cálculo |
 | `/operativa/` | Operativa | Reales: en ejecución, suspendidos, en tiempo, salud del portafolio y tarjetas por Delivery Manager (filtros `?servicio=` y `?cuenta=`). Reales también las tarjetas EVA 1 (TP y C) y EVA 2 (TP, T y C, cuando EVA 2 ya está en cache). La tarjeta Operations (facturabilidad global del último mes cerrado contra la meta de 70%, AER, PRJ y gráfica de enero a ese mes) se carga aparte desde `/operativa/operations-resumen/` para no hacer lenta la página. Ejemplo: EVA 3 |
 | `/comercial/` | Comercial | Ejemplo (pendiente de HubSpot) |
 | `/operativa/delivery-manager/<slug>/` | Detalle de Delivery Manager | Reales: proyectos en ejecución y suspendidos (los que necesitan atención primero), estado, avance, ETC, riesgo y reparto por estado. T (desviación promedio en días) y C (avance promedio). Pendiente: inversión y cumplimiento por mes |
@@ -393,10 +394,39 @@ el Apps Script. Para acelerarla:
   vencer ese tiempo.
 - El RAID ejecutivo de cada Team Project se guarda 15 min. Crear un
   riesgo desde el Daily o el IXS lo invalida.
-- `python manage.py warm_cache` consulta todo en este orden: hojas de
-  Sheets, dashboard, resumen de Recursos, riesgos de Azure, IXBRaaS, RAID
-  de cada Team Project y consumos AER. Solo lee; no escribe en Sheets,
-  Azure ni Clockify. En Windows se programa cada 10 minutos con el
+- `python manage.py warm_cache` prepara primero los proyectos y estados de
+  Operativa, guarda ese corte y luego completa consumo/salud, inversión,
+  capacidad y facturabilidad. Después prepara Ejecutiva y Comercial.
+  Ejecutiva guarda decisiones, resumen de horas y ranking de cuentas;
+  Comercial guarda tarjetas, gráficas, pipeline, datos de sus detalles y
+  la tabla inicial. Las tres páginas reutilizan los resultados preparados.
+  También prepara los detalles de los Delivery Managers visibles en Operativa,
+  incluyendo inversión, riesgos y el gráfico de consumo de los últimos seis
+  meses. Esos datos se guardan en las mismas claves que leen sus páginas.
+  El gráfico consulta solo la intersección de esos seis meses con las
+  fechas de cada proyecto; la inversión total conserva el periodo completo.
+  Los reportes de Clockify comparten una caché por proyecto y mes entre
+  consumo, inversión y gráficos. Se recortan a las fechas solicitadas antes
+  de aplicar las reglas de tareas CR y eliminar duplicados. Los meses
+  cerrados duran 24 horas; el mes actual dura 6 horas con registros o
+  30 minutos si está vacío. Al cambiar de día se amplía su cobertura.
+  La primera descarga consulta meses completos y puede incluir los días
+  adicionales de los meses inicial y final; las siguientes consultas los
+  reutilizan. Una actualización forzada vuelve a descargarlos.
+  Finanzas se prepara también: ingresos de DataRevenue H, IDs de E y fechas
+  de G del ejercicio 2026; costos de todas las horas de Clockify por tarifa
+  de Master rates A/D y banda vigente de Bandas/rol. Para personas con Baja
+  se recupera la última banda válida del año. Los ROC con sufijo .MM usan
+  ese mes; el ROC base usa enero cuando tiene variantes mensuales.
+  El total de costos y el gráfico eliminan registros de Clockify duplicados.
+  Cobranza usa cobrado / facturado, incluyendo factoring. Rentabilidad muestra
+  los seis meses cerrados y marca el margen provisional cuando faltan costos.
+  Los costos completos duran 24 horas; los parciales y el corte financiero
+  duran 5 minutos. Ejecutiva lee el corte guardado sin consultar fuentes;
+  cuando falta, mantiene la carga progresiva y el cálculo de pendientes.
+  No precarga el dashboard antiguo, Recursos ni el RAID general de Azure;
+  para incluir esos módulos usa `--legacy`. Solo lee las fuentes y
+  escribe la caché local. En Windows se programa cada 10 minutos con el
   Programador de tareas:
 
 ```powershell
@@ -405,6 +435,43 @@ schtasks /Create /SC MINUTE /MO 10 /TN "BeeckerWarmCache" /TR "C:\beecker_dashbo
 
 - No programes `--refresh`: borra toda la cache, incluidos el proyecto
   activo del Daily y las respuestas de Claude. Usalo solo a mano.
+
+- Operativa muestra los conteos, estados y managers después de leer Sheets,
+  sin esperar a Clockify o Azure. Salud y consumo permanecen pendientes
+  hasta completar sus fuentes; no se presentan ceros como resultados.
+  Cada bloque se guarda independientemente y se reutiliza durante 5 minutos.
+  Facturabilidad tiene su propia vigencia y se entrega en el HTML inicial
+  cuando hay un corte guardado. Al vencer se actualizan en el navegador;
+  el botón «Actualizar datos» permite consultar antes de ese plazo. Las
+  consultas conservan las cachés de cada integración: el botón no garantiza
+  una descarga nueva desde Clockify, Azure o Sheets.
+- Para preparar únicamente los proyectos y estados de Operativa, usa
+  `python manage.py warm_cache --base-only`: no descarga horas de Clockify,
+  no consulta Azure y no prepara otras pantallas. `--portal-only` conserva
+  compatibilidad y equivale al precalentamiento nuevo por defecto. El proceso
+  reutiliza las fuentes disponibles y conserva los cortes válidos cuando
+  falla una fuente. Ejecútalo con la configuración y ubicación de caché
+  del servidor web. Una tarea periódica puede usar este comando cada
+  4 minutos; evita ejecuciones solapadas si la carga tarda más que el
+  intervalo. No crees una segunda tarea si ya precalientas todo el panel.
+- Los detalles de Delivery Managers solo se consultan cuando se abre su
+  página; pasar el cursor no genera solicitudes ni nuevos reportes.
+  Una base que ya está en caché se reutiliza durante 5 minutos.
+
+- Cuando un ID CR (`AIN.002_CR`, por ejemplo) comparte el proyecto base
+  `AIN.002` en Clockify, sus fechas se obtienen de `Historico_Proyectos`
+  buscando el ID completo del CR. Solo cuentan registros cuya tarea
+  contenga la nomenclatura exacta `CR`; para `_CR1` se exige `CR1`.
+  Las tareas sin CR, los tags o descripciones por sí solos y los registros
+  fuera del período no se asignan al CR. Si el reporte solo trae el ID de
+  la tarea, se consulta su nombre en el catálogo de tareas de Clockify.
+  Los rangos personalizados se intersectan con el período histórico;
+  si el período solicitado no se cruza con el histórico, las horas son cero
+  y no se descarga un reporte.
+  Sin un período válido del CR se informa el error, sin usar las fechas
+  del proyecto base. La carga del portafolio asigna primero estas horas
+  al CR y elimina los duplicados por ID de registro. Los proyectos CR
+  con proyecto propio en Clockify conservan su comportamiento anterior.
 
 ## Ejemplo de uso
 

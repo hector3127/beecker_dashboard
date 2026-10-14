@@ -122,7 +122,11 @@ def eva_projects(ixb: Any, aer: Any) -> Any:
     return result
 
 
-def tagged_investment(projects: Any, include_suspended: Any = False) -> Any:
+def tagged_investment(
+    projects: Any,
+    include_suspended: Any = False,
+    date_range: tuple[date, date] | None = None,
+) -> Any:
     """Suma inversion por etiquetas sin duplicar registros."""
     selected = {
         p.project_id: p
@@ -142,10 +146,10 @@ def tagged_investment(projects: Any, include_suspended: Any = False) -> Any:
                 for pid in ids
             ],
             ensure_ascii=True,
-        ).encode("utf-8")
+        ).encode("utf-8") + str(date_range).encode("ascii")
     ).hexdigest()
     key = (
-        "portal:tagged-investment:v8:"
+        "portal:tagged-investment:v10:"
         + timezone.localdate().isoformat()
         + ":"
         + signature
@@ -203,6 +207,11 @@ def tagged_investment(projects: Any, include_suspended: Any = False) -> Any:
                     parse_day(getattr(project, "start", "")),
                     parse_day(getattr(project, "end", "")),
                 )
+                if date_range:
+                    start = max(start or date_range[0], date_range[0])
+                    end = min(end or date_range[1], date_range[1])
+                    if start > end:
+                        continue
                 entries = (
                     loader.load_project(project_id, (start, end))
                     if start and end
@@ -325,7 +334,7 @@ def tagged_investment(projects: Any, include_suspended: Any = False) -> Any:
 
 def legacy_capacity(month: Any) -> Any:
     """Calcula capacidad diaria desde las fuentes del panel."""
-    key = "portal:legacy-capacity:v2:" + month
+    key = "portal:legacy-capacity:v3:" + month
     cached = cache.get(key)
     if cached is not None:
         return cached
@@ -442,7 +451,7 @@ def manager_monthly_history(manager: Any, current_projects: Any) -> Any:
     first = date(year, month + 1, 1)
     manager_signature = hashlib.sha256(manager.encode("utf-8")).hexdigest()
     cache_key = (
-        "portal:dm-monthly-history:v6:"
+        "portal:dm-monthly-history:v8:"
         + manager_signature
         + ":"
         + today.isoformat()
@@ -577,7 +586,11 @@ def manager_monthly_history(manager: Any, current_projects: Any) -> Any:
             if pid not in CLOCKIFY_EXCLUDED_PROJECTS
         }
         result = deepcopy(
-            tagged_investment(list(candidates.values()), include_suspended=True)
+            tagged_investment(
+                list(candidates.values()),
+                include_suspended=True,
+                date_range=(first, today),
+            )
         )
 
         def day(value: Any) -> Any:

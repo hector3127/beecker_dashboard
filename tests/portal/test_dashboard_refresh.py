@@ -24,7 +24,7 @@ def clean_cache():
 
 
 def request(path="/operativa/datos/", **params):
-    result = RequestFactory().get(path, params)
+    result = RequestFactory().get(path, {"actualizar": "1", **params})
     result.user = User(username="dashboard-test")
     return result
 
@@ -32,7 +32,7 @@ def request(path="/operativa/datos/", **params):
 def stub_eva(monkeypatch, error=""):
     monkeypatch.setattr(
         views, "load_eva2",
-        lambda: Eva2Load(build_eva2_view([]), error),
+        lambda **kwargs: Eva2Load(build_eva2_view([]), error),
     )
     monkeypatch.setattr(
         views, "load_eva1",
@@ -43,7 +43,7 @@ def stub_eva(monkeypatch, error=""):
 def test_failed_refresh_reports_failure_and_keeps_snapshot(monkeypatch):
     stub_eva(monkeypatch)
     refresh = request()
-    views.operativa_datos(refresh)
+    views.operativa_datos(request(bloque="eva3"))
     key = views._operativa_key(refresh)
     saved = cache.get(key)
     stub_eva(monkeypatch, "Azure y Sheets no responden.")
@@ -71,7 +71,7 @@ def test_failed_first_refresh_does_not_cache_fake_zero_totals(monkeypatch):
 def test_failed_eva3_enrichment_keeps_previous_portfolio(monkeypatch):
     stub_eva(monkeypatch)
     refresh = request()
-    views.operativa_datos(refresh)
+    views.operativa_datos(request(bloque="eva3"))
     saved = cache.get(views._operativa_key(refresh))
     stub_eva(monkeypatch, "Clockify no responde.")
 
@@ -124,7 +124,7 @@ def test_failed_secondary_block_preserves_saved_cut(
 ):
     stub_eva(monkeypatch)
     refresh = request()
-    views.operativa_datos(refresh)
+    views.operativa_datos(request(bloque="eva3"))
     key = views._operativa_key(refresh)
     saved = cache.get(key)
     monkeypatch.setattr(

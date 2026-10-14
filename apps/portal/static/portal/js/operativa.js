@@ -37,9 +37,10 @@
     }
   }
 
-  async function dashboard(block) {
+  async function dashboard(block, force = false) {
     const query = new URLSearchParams(params);
     if (block) query.set('bloque', block);
+    if (force) query.set('actualizar', '1');
     const doc = await read(endpoint + '?' + query);
     const next = doc.getElementById('ops-dashboard');
     if (!next) throw new Error('Respuesta incompleta');
@@ -83,11 +84,11 @@
     }
   }
 
-  async function refreshSummary() {
+  async function refreshSummary(force = false) {
     const target = document.getElementById('facturability-summary');
     target.setAttribute('aria-busy', 'true');
     try {
-      const doc = await read(summaryEndpoint);
+      const doc = await read(summaryEndpoint + (force ? '?actualizar=1' : ''));
       const summary = doc.querySelector('[data-operations-summary]');
       if (!summary) throw new Error('Respuesta incompleta');
       target.replaceChildren(summary);
@@ -102,22 +103,24 @@
     }
   }
 
-  async function refreshPortfolio(failures) {
+  async function refreshPortfolio(failures, force) {
     try {
-      const doc = await dashboard('');
+      const pending = root().dataset.pendingBlocks;
+      const needed = force || typeof pending !== 'string' ? null : pending.split(',');
+      const doc = await dashboard('', force);
       const next = doc.getElementById('ops-dashboard');
       replaceDashboard(doc);
       busy(true);
       if (Number(next.dataset.sourceErrors) > 0) failures.push('fuentes del portafolio');
-      status('Actualizando consumo, inversión y capacidad…');
+      status('Proyectos y estados disponibles. Actualizando consumo, inversión y capacidad…');
       const blocks = [
         ['inversion', 'inversión', ['ops-investment-operational', 'ops-investment-commercial']],
         ['capacidad', 'capacidad', ['ops-capacity']],
         ['eva3', 'EVA 3', ['ops-metric-progress', 'ops-metric-paused', 'ops-metric-on-time', 'ops-health', 'ops-managers', 'ops-evas']]
       ];
-      await Promise.all(blocks.map(async ([block, label, ids]) => {
+      await Promise.all(blocks.filter(([block]) => !needed || needed.includes(block)).map(async ([block, label, ids]) => {
         try {
-          const updated = await dashboard(block);
+          const updated = await dashboard(block, force);
           replaceSections(updated, ids);
         } catch (error) {
           failures.push(label);
@@ -128,20 +131,7 @@
     }
   }
 
-  // Deja listo el primer paso de cada Delivery Manager para que su pagina abra llena.
-  async function warmManagers() {
-    const links = Array.from(document.querySelectorAll('#ops-managers a.m2[href]'));
-    for (const link of links) {
-      try {
-        const url = new URL(link.getAttribute('href'), location.href);
-        await fetch(url.pathname + '?bloque=base', {credentials: 'same-origin'});
-      } catch (error) {
-        return;
-      }
-    }
-  }
-
-  async function refresh() {
+  async function refresh(force = false) {
     if (refreshing) return;
     refreshing = true;
     busy(true);
@@ -149,8 +139,10 @@
     const failures = [];
     try {
       await Promise.all([
-        refreshPortfolio(failures),
-        refreshSummary().catch(() => failures.push('facturabilidad'))
+        refreshPortfolio(failures, force),
+        (force || root().dataset.summaryFresh !== 'true'
+          ? refreshSummary(force).catch(() => failures.push('facturabilidad'))
+          : Promise.resolve())
       ]);
       status(failures.length
         ? 'Actualización parcial: no se pudo actualizar ' + failures.join(', ') + '. Se conserva la información disponible. Puedes reintentar.'
@@ -161,12 +153,12 @@
       refreshing = false;
       busy(false);
     }
-    if (!failures.length) warmManagers();
   }
+
 
   document.addEventListener('click', function (event) {
     const button = event.target.closest('#ops-refresh-button');
-    if (button) { refresh(); return; }
+    if (button) { refresh(true); return; }
     const stepButton = event.target.closest('[data-dm-step]');
     if (!stepButton) return;
     const track = stepButton.closest('.dm-carousel').querySelector('.dm-carousel-track');
@@ -191,5 +183,7 @@
   window.addEventListener('pagehide', () => controllers.forEach(controller => controller.abort()));
   busy(false);
   if (root().dataset.async === 'true') refresh();
-  else refreshSummary().catch(() => status('No se pudo completar facturabilidad. Consulta el detalle.'));
+  else if (root().dataset.summaryFresh !== 'true') {
+    refreshSummary().catch(() => status('No se pudo completar facturabilidad. Consulta el detalle.'));
+  }
 })();

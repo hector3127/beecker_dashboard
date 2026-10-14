@@ -43,11 +43,12 @@ def resolve_history_period(
         finish = read_history_date(row, HISTORY_FINISH_COLUMNS)
         events.append((status, start, finish))
 
-    completed = [
-        day
-        for status, start, finish in events
-        if status in COMPLETED_STATES and (day := finish or start) is not None
-    ]
+    cancelled_states = {"CANCELLED", "CANCELED", "CANCELADO"}
+    if any(status in cancelled_states and (finish or start) is None for status, start, finish in events):
+        return HistoryPeriod()
+    if any(status in cancelled_states and (finish or start) <= today for status, start, finish in events if finish or start):
+        return HistoryPeriod()
+    completed = [day for status, start, finish in events if status in COMPLETED_STATES and (day := finish or start) is not None]
     if any(day < today for day in completed):
         return HistoryPeriod()
 
@@ -59,7 +60,7 @@ def resolve_history_period(
             status.endswith(" EST"),
         )
         for status, start, finish in events
-        if status not in COMPLETED_STATES | SUSPENDED_STATES and start
+        if re.sub(r"\s+(EST|OP)$", "", status) in {"DISCOVERY", "DEVELOPMENT", "DEPLOYMENT"} and start
     ]
     real = [event for event in phases if not event[3]]
     planned = [event for event in phases if event[3]]
@@ -153,10 +154,11 @@ def resolve_closed_period(
         for row in rows
         if read_history_id(row).casefold() == project_id.strip().casefold()
     ]
+    terminal_states = COMPLETED_STATES | {"CANCELLED", "CANCELED", "CANCELADO"}
     completed = [
         day
         for row in own
-        if read_history_status(row) in COMPLETED_STATES
+        if read_history_status(row) in terminal_states
         and (
             day := read_history_date(row, HISTORY_FINISH_COLUMNS)
             or read_history_date(row, HISTORY_START_COLUMNS)
@@ -171,15 +173,18 @@ def resolve_closed_period(
         [
             row
             for row in own
-            if read_history_status(row) not in COMPLETED_STATES
+            if read_history_status(row) not in terminal_states
         ],
         project_id,
         closing,
     )
 
+    operational_starts = [day for row in own if read_history_status(row) == "DISCOVERY OP" and (day := read_history_date(row, HISTORY_START_COLUMNS)) is not None and day <= closing]
+    if operational_starts:
+        before.start = datetime.combine(min(operational_starts), datetime.min.time())
     return HistoryPeriod(
         active=True,
-        status="Cerrado",
+        status="Cancelado" if any(read_history_status(row) in {"CANCELLED", "CANCELED", "CANCELADO"} and (read_history_date(row, HISTORY_FINISH_COLUMNS) or read_history_date(row, HISTORY_START_COLUMNS)) == closing for row in own) else "Cerrado",
         start=before.start,
         finish=datetime.combine(closing, datetime.min.time()),
         closed_stages={

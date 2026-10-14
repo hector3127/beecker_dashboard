@@ -27,9 +27,14 @@
   }
 
   async function callServer(functionName, args) {
-    const response = await fetch(
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 90000);
+    let response;
+    try {
+    response = await fetch(
       RPC_BASE_URL + encodeURIComponent(functionName) + "/",
       {
+        signal: controller.signal,
         method: "POST",
         credentials: "same-origin",
         headers: {
@@ -39,6 +44,11 @@
         body: JSON.stringify({ args: args }),
       },
     );
+
+    } catch (error) {
+      if (error.name === "AbortError") throw buildServerError("La consulta tardo demasiado. Intenta nuevamente.", "ERR_TIMEOUT");
+      throw error;
+    } finally { clearTimeout(timeout); }
 
     let payload = null;
 

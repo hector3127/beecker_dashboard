@@ -112,7 +112,7 @@ def build_ixb_summary(
         {"ok", "filas", "pivoteServicio", "pivoteStatus"}.
     """
     azure_projects = list_azure_projects(sources.azure)
-    groups = group_by_base(sources.project_rows)
+    groups = group_by_base(sources.project_rows, include_saas=closed)
     rows: list[JsonObject] = []
 
     if sources.azure is not None:
@@ -157,6 +157,7 @@ def build_ixb_summary(
 
 def group_by_base(
     project_rows: Sequence[SheetRow],
+    include_saas: bool = False,
 ) -> dict[str, list[SheetRow]]:
     """
     Agrupa los proyectos IXB/RaaS por su ID base.
@@ -173,7 +174,7 @@ def group_by_base(
         service = read_service(row)
         project_id = read_project_id(row)
 
-        if service in IXB_RAAS_SERVICES and project_id:
+        if (service in IXB_RAAS_SERVICES or include_saas and service == "SAAS") and project_id:
             groups.setdefault(extract_base_id(project_id), []).append(row)
 
     return groups

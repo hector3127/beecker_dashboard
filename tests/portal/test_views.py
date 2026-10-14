@@ -37,7 +37,7 @@ def no_real_eva1(monkeypatch):
     )
     monkeypatch.setattr(
         "apps.portal.views.load_eva2",
-        lambda: Eva2Load(view=build_eva2_view([]), error=""),
+        lambda **kwargs: Eva2Load(view=build_eva2_view([]), error=""),
     )
     cache.clear()
 
@@ -71,7 +71,7 @@ def stub_portfolio(monkeypatch, projects=(), error=""):
     )
     monkeypatch.setattr(
         "apps.portal.views.load_eva2",
-        lambda: SimpleNamespace(
+        lambda **kwargs: SimpleNamespace(
             view=SimpleNamespace(
                 projects=source_projects,
                 total_projects=len(source_projects),
@@ -194,7 +194,7 @@ def test_executive_shows_sheets_error_without_failing(client, monkeypatch):
 def test_operational_counts_real_projects(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    response = client.get("/operativa/datos/")
+    response = client.get("/operativa/datos/", {"bloque": "eva3"})
     html = response.content.decode()
 
     assert response.status_code == 200
@@ -213,9 +213,9 @@ def test_operational_counts_real_projects(client, monkeypatch):
 def test_operational_filters_by_service_and_client(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    by_service = client.get("/operativa/datos/", {"servicio": "T&M"})
-    by_client = client.get("/operativa/datos/", {"cuenta": "Clinica Sur"})
-    nothing = client.get("/operativa/datos/", {"servicio": "IXB"})
+    by_service = client.get("/operativa/datos/", {"servicio": "T&M", "bloque": "eva3"})
+    by_client = client.get("/operativa/datos/", {"cuenta": "Clinica Sur", "bloque": "eva3"})
+    nothing = client.get("/operativa/datos/", {"servicio": "IXB", "bloque": "eva3"})
 
     assert by_service.context["summary"].in_progress == 1
     assert by_client.context["summary"].in_progress == 1
@@ -229,7 +229,7 @@ def test_operational_filters_by_service_and_client(client, monkeypatch):
 def test_operational_without_projects(client, monkeypatch):
     stub_portfolio(monkeypatch)
 
-    html = client.get("/operativa/datos/").content.decode()
+    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
     assert "Sin proyectos que mostrar todavía." in html
 
@@ -238,7 +238,7 @@ def test_operational_shows_sheets_error(client, monkeypatch):
     stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
 
     assert "Falta configurar el dashboard." in (
-        client.get("/operativa/datos/").content.decode()
+        client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
     )
 
 
@@ -269,7 +269,7 @@ def test_navigation_links_to_all_views_and_the_legacy_panel(
 ):
     stub_portfolio(monkeypatch, portfolio())
 
-    html = client.get("/operativa/datos/").content.decode()
+    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
     assert 'href="/"' in html
     assert 'href="/operativa/"' in html
@@ -280,7 +280,7 @@ def test_navigation_links_to_all_views_and_the_legacy_panel(
 def test_screens_without_view_yet_say_coming_soon(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    html = client.get("/operativa/datos/").content.decode()
+    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
     assert "data-pronto" in html
     assert ".dc.html" not in html
@@ -303,7 +303,7 @@ def test_only_get_is_allowed(client):
 def test_delivery_manager_page_lists_real_projects(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    response = client.get("/operativa/delivery-manager/alberto/")
+    response = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
     html = response.content.decode()
 
     assert response.status_code == 200
@@ -320,10 +320,10 @@ def test_operational_cards_keep_manager_links(
 ):
     stub_portfolio(monkeypatch, portfolio())
 
-    html = client.get("/operativa/datos/").content.decode()
+    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
-    assert 'href="/operativa/delivery-manager/alberto/"' in html
-    assert 'href="/operativa/delivery-manager/laura-vega/"' in html
+    assert 'href="/operativa/delivery-manager/alberto/?nombre=Alberto"' in html
+    assert 'href="/operativa/delivery-manager/laura-vega/?nombre=Laura%20Vega"' in html
     for path in (
         "/operativa/en-ejecucion/",
         "/operativa/en-tiempo/",
@@ -336,7 +336,7 @@ def test_operational_cards_keep_manager_links(
 def test_unknown_delivery_manager_is_404(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    assert client.get("/operativa/delivery-manager/nadie/").status_code == 404
+    assert client.get("/operativa/delivery-manager/nadie/?bloque=inv").status_code == 404
 
 
 def test_delivery_manager_page_without_data_goes_back_to_operational(
@@ -345,7 +345,7 @@ def test_delivery_manager_page_without_data_goes_back_to_operational(
 ):
     stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
 
-    response = client.get("/operativa/delivery-manager/alberto/")
+    response = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
 
     assert response.status_code == 302
     assert response.url == "/operativa/"
@@ -416,7 +416,7 @@ def test_eva1_without_projects_and_with_error(client, monkeypatch):
 def test_operational_eva_cards_link_to_eva1(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    html = client.get("/operativa/datos/").content.decode()
+    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
     assert 'href="/operativa/eva-1/"' in html
 
@@ -481,7 +481,7 @@ def test_eva2_with_error_and_login(client, monkeypatch, settings):
 def test_operational_eva_cards_link_to_eva2(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    html = client.get("/operativa/datos/").content.decode()
+    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
     assert 'href="/operativa/eva-2/"' in html
 
@@ -518,7 +518,7 @@ def test_unknown_account_is_404_or_goes_back_when_data_fails(
 def test_manager_page_links_to_the_account(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    manager = client.get("/operativa/delivery-manager/alberto/")
+    manager = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
 
     assert 'href="/cuenta/clinica-sur/"' in manager.content.decode()
 
@@ -637,7 +637,7 @@ def test_capacity_pages_require_login_when_configured(client, settings):
 def test_operational_page_links_to_capacity(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    html = client.get("/operativa/datos/").content.decode()
+    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
     assert 'href="/legacy/#capacidad-instalada"' in html
 
@@ -701,7 +701,7 @@ def test_other_pages_link_to_the_project(client, monkeypatch):
 
     executive = client.get("/").content.decode()
     manager = client.get(
-        "/operativa/delivery-manager/alberto/"
+        "/operativa/delivery-manager/alberto/?bloque=inv"
     ).content.decode()
     account = client.get("/cuenta/clinica-sur/").content.decode()
 
@@ -726,8 +726,8 @@ def test_manager_cards_show_time_and_cost(client, monkeypatch):
         ],
     )
 
-    operational = client.get("/operativa/datos/").content.decode()
-    detail = client.get("/operativa/delivery-manager/laura-vega/")
+    operational = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
+    detail = client.get("/operativa/delivery-manager/laura-vega/?bloque=inv")
 
     assert "2 d · 60%" in operational
     assert detail.context["detail"].time_cost.time_days == 2
@@ -848,7 +848,7 @@ def test_operational_eva_cards_use_real_numbers(client, monkeypatch):
         "apps.portal.views.load_eva1", lambda *args, **kwargs: load
     )
 
-    response = client.get("/operativa/datos/")
+    response = client.get("/operativa/datos/", {"bloque": "eva3"})
     html = response.content.decode()
 
     assert response.context["eva3_card"].total_projects == 1
@@ -1016,19 +1016,19 @@ def test_operational_investment_cards_use_cache_only(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
     monkeypatch.setattr("apps.portal.views.peek_month_sources", lambda m: None)
 
-    response = client.get("/operativa/datos/")
+    response = client.get("/operativa/datos/?actualizar=1")
 
     assert response.context["investment"]["loading"] is True
 
     cache.set(
-        "portal:ops:investment",
+        "portal:ops:investment:v2",
         {
             "complete": True,
             "totals": {"operational": 7, "commercial": 0},
         },
     )
 
-    response = client.get("/operativa/datos/")
+    response = client.get("/operativa/datos/?actualizar=1")
 
     assert response.context["investment"]["totals"]["operational"] == 7
 
@@ -1082,7 +1082,7 @@ def test_operations_summary_fragment(client, monkeypatch):
 def test_operational_page_loads_operations_apart(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    html = client.get("/operativa/datos/").content.decode()
+    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
     assert 'data-summary-endpoint="/operations/resumen/"' in html
     assert 'src="/static/portal/js/operativa.js"' in html
