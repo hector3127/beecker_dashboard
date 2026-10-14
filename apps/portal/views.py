@@ -34,6 +34,7 @@ from apps.portal.services.eva_loader import (
     build_eva1_card,
     load_eva1,
     load_eva2,
+    load_eva2_closed,
 )
 from apps.portal.services.facturability import (
     build_month_facturability as build_month_facturability,
@@ -156,7 +157,7 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
 def _operativa_key(request: Any) -> Any:
     filters = "|".join(request.GET.get(k, "") for k in ("servicio", "cuenta"))
     return (
-        "portal:operativa:snapshot:v4:"
+        "portal:operativa:snapshot:v5:"
         + timezone.localdate().isoformat()
         + ":"
         + hashlib.sha256(filters.encode()).hexdigest()
@@ -369,7 +370,36 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
     elif block == "eva3":
         aer = load_eva1()
         context["eva3_card"] = build_eva1_card(aer)
-    context["loading"] = False
+        projects = filter_projects(
+            eva_projects(ixb, aer), selected_service, selected_client
+        )
+        enriched = summarize_portfolio(projects)
+        context.update(
+            {
+                "summary": enriched,
+                "health": enriched.health,
+                "donut": build_donut_segments(enriched.health),
+                "managers": summarize_delivery_managers(projects),
+                "has_projects": bool(projects),
+            }
+        )
+    if saved and not block:
+        # Esta carga rapida no trae el consumo completo de EVA 3; se conserva
+        # lo ya calculado con el para que la salud no cambie al refrescar.
+        context.update(
+            {
+                key: saved[key]
+                for key in (
+                    "managers",
+                    "summary",
+                    "health",
+                    "donut",
+                    "eva3_card",
+                )
+                if key in saved
+            }
+        )
+    context["loading"] = not saved and not block
     if saved and (ixb.error or aer.error) and not block:
         return render(
             request,
@@ -381,6 +411,13 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
             },
         )
     if ixb.error or aer.error:
+        return render(
+            request,
+            "portal/operativa.html",
+            {**context, "refresh_block": block},
+        )
+    if context["loading"]:
+        # Sin corte guardado: las cifras de salud esperan al bloque eva3.
         return render(
             request,
             "portal/operativa.html",
@@ -414,37 +451,22 @@ def comercial(request: HttpRequest) -> HttpResponse:
     return render(request, "portal/comercial.html", context)
 
 
-@require_GET
-def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
-    """
-    Muestra el detalle de un Delivery Manager con todos sus proyectos.
+_DM_SECONDS = 300
 
-    Args:
-        request: Peticion HTTP.
-        slug: Nombre del Delivery Manager escrito para la URL.
 
-    Returns:
-        La pagina del Delivery Manager.
+def _dm_key(slug: str, stage: str) -> str:
+    return "portal:delivery_manager:v2:" + slug + ":" + stage
 
-    Raises:
-        Http404: Cuando ningun proyecto tiene a ese Delivery Manager.
-    """
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
 
-    from apps.portal.services.operational_sources import (
-        aer_open_risks,
-        eva_projects,
-        manager_monthly_history,
-        remaining_days,
-        tagged_investment,
-    )
+def _dm_base(slug: str) -> dict[str, Any] | HttpResponse:
+    """Paso 1: proyectos y estados del Delivery Manager (sin Clockify)."""
+    from apps.portal.services.operational_sources import eva_projects
 
     ixb, aer = load_eva2(), load_eva1()
     load = PortfolioLoad(
         projects=eva_projects(ixb, aer),
         loaded_at=timezone.localtime(),
-        error=" · ".join(e for e in (ixb.error, aer.error) if e),
+        error=" \u00b7 ".join(e for e in (ixb.error, aer.error) if e),
     )
     found = find_manager(load.projects, slug)
 
@@ -454,12 +476,35 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
 
         raise Http404("No existe ese Delivery Manager.")
 
-    from dataclasses import asdict
-
     detail = build_manager_detail(*found)
     all_sources: list[Any] = list(ixb.view.projects)
     all_sources.extend(aer.view.projects)
     sources = {p.project_id: p for p in all_sources if p.manager == found[0]}
+    base = _base_context(load)
+    base.update(
+        {
+            "active": "operativa",
+            "detail": detail,
+            "dm_name": detail.name,
+            "dm_initials": detail.initials,
+            "manager_name": found[0],
+            "sources": sources,
+        }
+    )
+    if not load.error:
+        cache.set(_dm_key(slug, "base"), base, _DM_SECONDS)
+
+    return base
+
+
+def _dm_investment(base: dict[str, Any]) -> dict[str, Any]:
+    """Paso 2: inversion por etiquetas de Clockify y riesgos abiertos."""
+    from apps.portal.services.operational_sources import (
+        aer_open_risks,
+        tagged_investment,
+    )
+
+    sources = base["sources"]
     risks = aer_open_risks(
         [
             pid
@@ -470,8 +515,23 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
     investment = tagged_investment(
         list(sources.values()), include_suspended=True
     )
-    project_rows = []
-    for row in detail.rows:
+
+    return {"investment": investment, "risks": risks}
+
+
+def _dm_rows(base: dict[str, Any], extra: dict[str, Any] | None) -> list[Any]:
+    """Arma las filas; inversion y riesgo llegan en el paso 2."""
+    from dataclasses import asdict
+
+    from apps.portal.services.operational_sources import remaining_days
+
+    sources = base["sources"]
+    investment: dict[str, Any] = (
+        extra["investment"] if extra else {"complete": False}
+    )
+    risks: dict[str, Any] = extra["risks"] if extra else {}
+    rows = []
+    for row in base["detail"].rows:
         source = sources.get(row.project_id)
         if source is None:
             continue
@@ -490,7 +550,9 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
                 "renewal_days": remaining_days(source),
                 "risk_label": len(source.risk_titles)
                 if hasattr(source, "risk_titles")
-                else risks.get(row.project_id, "No disponible"),
+                else risks.get(
+                    row.project_id, "\u2026" if not extra else "No disponible"
+                ),
             }
         )
         days = data["renewal_days"]
@@ -506,23 +568,94 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
             )
         hours = investment.get("by_project", {}).get(row.project_id, {})
         data["investment_operational"] = (
-            hours.get("operational") if investment["complete"] else None
+            hours.get("operational") if investment.get("complete") else None
         )
         data["investment_commercial"] = (
-            hours.get("commercial") if investment["complete"] else None
+            hours.get("commercial") if investment.get("complete") else None
         )
-        project_rows.append(data)
-    context = _base_context(load)
+        rows.append(data)
+
+    return rows
+
+
+@require_GET
+def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
+    """
+    Muestra el detalle de un Delivery Manager con todos sus proyectos.
+
+    La pagina abre al instante y se llena en tres pasos: proyectos y
+    estados, inversion y riesgos, y consumo de horas (?bloque=base|inv|horas).
+
+    Args:
+        request: Peticion HTTP.
+        slug: Nombre del Delivery Manager escrito para la URL.
+
+    Returns:
+        La pagina del Delivery Manager.
+
+    Raises:
+        Http404: Cuando ningun proyecto tiene a ese Delivery Manager.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    from apps.portal.services.operational_sources import (
+        manager_monthly_history,
+    )
+
+    stage = request.GET.get("bloque", "")
+    base = cache.get(_dm_key(slug, "base"))
+    if stage == "base" or (stage in ("inv", "horas") and base is None):
+        computed = _dm_base(slug)
+        if isinstance(computed, HttpResponse):
+            return computed
+        base = computed
+    extra = cache.get(_dm_key(slug, "inv"))
+    hours = cache.get(_dm_key(slug, "horas"))
+    if base is not None and stage == "inv" and extra is None:
+        extra = _dm_investment(base)
+        cache.set(_dm_key(slug, "inv"), extra, _DM_SECONDS)
+    if base is not None and stage == "horas" and hours is None:
+        hours = manager_monthly_history(
+            base["manager_name"], list(base["sources"].values())
+        )
+        cache.set(_dm_key(slug, "horas"), hours, _DM_SECONDS)
+
+    if base is None:
+        name = (
+            request.GET.get("nombre", "").strip()
+            or slug.replace("-", " ").title()
+        )
+        context: dict[str, Any] = {
+            "active": "operativa",
+            "dm_name": name,
+            "dm_initials": "".join(w[0] for w in name.split()[:2]).upper(),
+        }
+    else:
+        context = {k: v for k, v in base.items() if k != "sources"}
+        context.update(
+            {
+                "project_rows": _dm_rows(base, extra),
+                "investment": extra["investment"] if extra else {},
+                "monthly_history": hours or {},
+            }
+        )
+    pending = [
+        name
+        for name, ready in (
+            ("base", base is not None),
+            ("inv", extra is not None),
+            ("horas", hours is not None),
+        )
+        if not ready
+    ]
     context.update(
         {
-            "active": "operativa",
-            "detail": detail,
-            "project_rows": project_rows,
-            "monthly_history": manager_monthly_history(
-                found[0], list(sources.values())
-            ),
-            "investment": investment,
-        },
+            "pend_base": base is None,
+            "pend_inv": extra is None,
+            "pend_hours": hours is None,
+            "dm_pending": ",".join(pending),
+        }
     )
 
     return render(request, "portal/delivery_manager.html", context)
@@ -734,6 +867,29 @@ def proyecto(request: HttpRequest, project_id: str) -> HttpResponse:
     )
 
     return render(request, "portal/proyecto.html", context)
+
+
+@require_GET
+def eva1_cerrados(request: HttpRequest) -> HttpResponse:
+    """
+    Entrega la tabla de proyectos IXB/RaaS cerrados para la tarjeta de EVA 1.
+
+    Args:
+        request: Peticion HTTP.
+
+    Returns:
+        Un fragmento HTML con la tabla del historico de proyectos cerrados.
+    """
+    if _needs_login(request):
+        return HttpResponse(status=401)
+
+    load = load_eva2_closed()
+
+    return render(
+        request,
+        "portal/_eva_closed.html",
+        {"projects": load.view.projects, "error": load.error},
+    )
 
 
 @require_GET

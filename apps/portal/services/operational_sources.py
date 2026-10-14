@@ -13,6 +13,7 @@ from django.utils import timezone
 
 from apps.capacidad.rpc import get_capacity_base, get_capacity_project_data
 from apps.clockify.provider import build_clockify_loader
+from apps.portal.constants import CLOCKIFY_EXCLUDED_PROJECTS
 from apps.portal.schemas import ProjectView
 from core.exceptions import DashboardError
 from core.sheets.factory import build_sheet_repository
@@ -126,7 +127,8 @@ def tagged_investment(projects: Any, include_suspended: Any = False) -> Any:
     selected = {
         p.project_id: p
         for p in projects
-        if include_suspended or getattr(p, "status_code", "") != "sus"
+        if p.project_id not in CLOCKIFY_EXCLUDED_PROJECTS
+        and (include_suspended or getattr(p, "status_code", "") != "sus")
     }
     ids = sorted(selected)
     signature = hashlib.sha256(
@@ -143,7 +145,7 @@ def tagged_investment(projects: Any, include_suspended: Any = False) -> Any:
         ).encode("utf-8")
     ).hexdigest()
     key = (
-        "portal:tagged-investment:v7:"
+        "portal:tagged-investment:v8:"
         + timezone.localdate().isoformat()
         + ":"
         + signature
@@ -440,7 +442,7 @@ def manager_monthly_history(manager: Any, current_projects: Any) -> Any:
     first = date(year, month + 1, 1)
     manager_signature = hashlib.sha256(manager.encode("utf-8")).hexdigest()
     cache_key = (
-        "portal:dm-monthly-history:v5:"
+        "portal:dm-monthly-history:v6:"
         + manager_signature
         + ":"
         + today.isoformat()
@@ -569,6 +571,11 @@ def manager_monthly_history(manager: Any, current_projects: Any) -> Any:
         from copy import deepcopy
         from datetime import datetime
 
+        candidates = {
+            pid: project
+            for pid, project in candidates.items()
+            if pid not in CLOCKIFY_EXCLUDED_PROJECTS
+        }
         result = deepcopy(
             tagged_investment(list(candidates.values()), include_suspended=True)
         )

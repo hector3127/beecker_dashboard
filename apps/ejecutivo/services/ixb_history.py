@@ -127,3 +127,64 @@ def resolve_history_period(
         else None,
         closed_stages=closed,
     )
+
+
+def resolve_closed_period(
+    rows: Sequence[SheetRow],
+    project_id: str,
+    today: date,
+) -> HistoryPeriod:
+    """
+    Vigencia de una nomenclatura ya cerrada (Completed con fecha pasada).
+
+    Es el complemento de resolve_history_period: devuelve el periodo
+    recorrido con estatus "Cerrado" y como fin la fecha del Completed.
+
+    Args:
+        rows: Filas del historico en formato de bloques.
+        project_id: ID de la nomenclatura.
+        today: Fecha local de hoy.
+
+    Returns:
+        El periodo activo y cerrado; uno vacio si el proyecto no esta cerrado.
+    """
+    own = [
+        row
+        for row in rows
+        if read_history_id(row).casefold() == project_id.strip().casefold()
+    ]
+    completed = [
+        day
+        for row in own
+        if read_history_status(row) in COMPLETED_STATES
+        and (
+            day := read_history_date(row, HISTORY_FINISH_COLUMNS)
+            or read_history_date(row, HISTORY_START_COLUMNS)
+        )
+        is not None
+    ]
+    closing = max((day for day in completed if day < today), default=None)
+    if closing is None:
+        return HistoryPeriod()
+
+    before = resolve_history_period(
+        [
+            row
+            for row in own
+            if read_history_status(row) not in COMPLETED_STATES
+        ],
+        project_id,
+        closing,
+    )
+
+    return HistoryPeriod(
+        active=True,
+        status="Cerrado",
+        start=before.start,
+        finish=datetime.combine(closing, datetime.min.time()),
+        closed_stages={
+            "discovery": True,
+            "development": True,
+            "deployment": True,
+        },
+    )

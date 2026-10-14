@@ -91,6 +91,7 @@ EVA2_STAGE_KEYS: Final[tuple[str, ...]] = (
 )
 EVA2_CACHE_KEY: Final[str] = "portal:eva2:v1"
 EVA2_CACHE_SECONDS: Final[int] = 600
+EVA2_CLOSED_CACHE_KEY: Final[str] = "portal:eva2:closed:v1"
 
 # Capacidad instalada
 CAPACITY_CACHE_PREFIX: Final[str] = "portal:capacity:v1:"
@@ -146,3 +147,6 @@ OPERATIONAL_ROLES: Final[dict[str, str]] = {
     "ARQ": "Arq",
     "QA": "QA",
 }
+# Proyectos que no existen en Clockify: se omiten del consumo de horas y de
+# la inversion para que no marquen error ni cuenten presupuesto sin horas.
+CLOCKIFY_EXCLUDED_PROJECTS: Final[frozenset[str]] = frozenset({"ROC.AIN.001"})

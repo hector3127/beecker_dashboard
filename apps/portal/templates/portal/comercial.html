@@ -9,7 +9,7 @@ a{color:#4B25C9;text-decoration:none}
 .nav a.on{background:#EDE7FF;color:#4B25C9}
 .fresh{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:#4A4872}
 .dot{width:8px;height:8px;border-radius:50%;background:#1B9A55}
-.page{max-width:1368px;margin:0 auto;padding:22px 36px 40px}
+.page{max-width:1680px;margin:0 auto;padding:16px 28px 26px;box-sizing:border-box}
 .crumb{font-size:13.5px;color:#55537F;margin-bottom:8px}
 h1{margin:0;font-size:34px;font-weight:800;letter-spacing:-.025em}
 .sub{margin:4px 0 20px;color:#55537F;font-size:16px}
@@ -38,8 +38,9 @@ td.r,th.r{text-align:right}
 .note{margin-top:14px;font-size:12.5px;color:#55537F}
 
 .bk{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;font-weight:700;font-size:14px;background:#fff;border:1px solid #ECE8FA;border-radius:10px;padding:7px 14px}
-.ban{display:flex;align-items:center;gap:22px;border-radius:20px;padding:22px 32px;background:linear-gradient(100deg,#4B25C9 0%,#7A3FE0 55%,#B03FD0 100%);color:#fff;margin-bottom:14px}
+.ban{display:flex;align-items:center;gap:22px;border-radius:20px;padding:22px 32px;background:linear-gradient(90deg,#5B3CFF 0%,#A02DF0 55%,#FF3FA6 100%);color:#fff;margin-bottom:14px}
 .ban h1{color:#fff;font-size:38px}
+.ban .yr{display:flex;flex-direction:column;gap:4px;font-size:13px;min-width:200px}.ban .yr select{font:inherit;font-size:17px;font-weight:600;border:0;border-radius:10px;padding:8px 10px;background:#fff;color:#2A2D7A}
 .ban .q{margin-left:auto;border:1px solid rgba(255,255,255,.5);border-radius:14px;padding:12px 26px;font-size:16px;line-height:1.55;background:rgba(255,255,255,.1)}
 .fl3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
 .fi{display:flex;align-items:center;justify-content:space-between;border:1px solid #E1DCF3;border-radius:12px;padding:13px 18px;font-size:15px;font-weight:700;color:#1B1A4A;background:#fff}
@@ -95,14 +96,14 @@ table.t2 td{padding:9px 8px;font-size:14px}
 
 .g3{align-items:stretch}.g3>.card{height:auto;box-sizing:border-box}.pipeline-table.pipeline-annual{min-width:650px}.pipeline-annual td:first-child{width:45%}
 
-.page{max-width:1800px}.pipeline-grid{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:16px;align-items:stretch}.pipeline-grid>.pipeline-card{min-width:0;margin-bottom:0;padding:18px 16px;display:flex;flex-direction:column}.pipeline-grid .pipeline-head{gap:10px;flex-wrap:wrap;min-height:62px}.pipeline-grid .pipeline-head h3{font-size:17px}.pipeline-grid .pipeline-badge{padding:6px 9px;font-size:10px}.pipeline-grid .pipeline-icon{width:38px;height:38px}.pipeline-grid .pipeline-table{min-width:850px;font-size:10px}.pipeline-grid .pipeline-table th{font-size:10px;padding:9px 5px}.pipeline-grid .pipeline-table td{padding:6px 5px;height:28px;box-sizing:border-box}.pipeline-grid .pipeline-table td:first-child{min-width:200px;padding-left:10px}.pipeline-grid .pipeline-table .hours{padding:4px}.pipeline-grid .probability-pill{min-width:60px;padding:5px}.pipeline-grid .pipeline-table.pipeline-annual{min-width:380px}.pipeline-grid .pipeline-annual td:first-child{min-width:150px;white-space:normal;width:44%}.pipeline-grid .pipeline-pagination{margin-top:auto;padding-top:14px;font-size:10px}.pipeline-grid .pipeline-pagination>div{gap:6px}.pipeline-grid .pipeline-pagination a{padding:7px}.pipeline-grid>.pipeline-card:nth-child(n+3){grid-column:1/-1}
+.page{max-width:1680px}.pipeline-grid{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:16px;align-items:stretch}.pipeline-grid>.pipeline-card{min-width:0;margin-bottom:0;padding:18px 16px;display:flex;flex-direction:column}.pipeline-grid .pipeline-head{gap:10px;flex-wrap:wrap;min-height:62px}.pipeline-grid .pipeline-head h3{font-size:17px}.pipeline-grid .pipeline-badge{padding:6px 9px;font-size:10px}.pipeline-grid .pipeline-icon{width:38px;height:38px}.pipeline-grid .pipeline-table{min-width:850px;font-size:10px}.pipeline-grid .pipeline-table th{font-size:10px;padding:9px 5px}.pipeline-grid .pipeline-table td{padding:6px 5px;height:28px;box-sizing:border-box}.pipeline-grid .pipeline-table td:first-child{min-width:200px;padding-left:10px}.pipeline-grid .pipeline-table .hours{padding:4px}.pipeline-grid .probability-pill{min-width:60px;padding:5px}.pipeline-grid .pipeline-table.pipeline-annual{min-width:380px}.pipeline-grid .pipeline-annual td:first-child{min-width:150px;white-space:normal;width:44%}.pipeline-grid .pipeline-pagination{margin-top:auto;padding-top:14px;font-size:10px}.pipeline-grid .pipeline-pagination>div{gap:6px}.pipeline-grid .pipeline-pagination a{padding:7px}.pipeline-grid>.pipeline-card:nth-child(n+3){grid-column:1/-1}
 @media(max-width:1100px){.pipeline-grid{grid-template-columns:minmax(0,1fr)}.pipeline-grid .pipeline-table{min-width:850px}.pipeline-grid .pipeline-table.pipeline-annual{min-width:500px}}
 {% endblock %}
 {% block content %}
 <main class="page">
 <div class="crumb"><a href="{% url 'portal:ejecutiva' %}">Lista general del proyecto</a> &rsaquo; Comercial</div>
 {% if from_executive %}<a class="bk" href="{% url 'portal:ejecutiva' %}">&larr; Volver a Ejecutiva</a>{% endif %}
-<section class="ban"><span style="display:flex"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18M11 13v2h2v-2"/></svg></span><div><h1>Comercial</h1><div style="font-size:22px;font-weight:500;opacity:.95">Crecimiento y rentabilidad</div></div><div class="q">¿Qué vende?<br>¿Cómo lo vende?<br>¿Qué compromete?</div></section>
+<section class="ban"><span style="display:flex"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18M11 13v2h2v-2"/></svg></span><div><h1>Comercial</h1><div style="font-size:22px;font-weight:500;opacity:.95">Crecimiento y rentabilidad</div></div><label class="q yr">Año<select id="banner-year" aria-label="Año">{% for year in pipeline_years %}<option value="{{ year }}"{% if year == pipeline.year %} selected{% endif %}>{{ year }}</option>{% endfor %}</select></label></section>
 {% if error %}<div class="err" role="alert">{{ error }}</div>{% endif %}
 {% if page %}
 
@@ -131,7 +132,7 @@ table.t2 td{padding:9px 8px;font-size:14px}
 
 {% endif %}
 </main>
-<script>document.getElementById('pipeline-year')?.addEventListener('change',function(){const url=new URL(window.location.href);url.searchParams.set('pipeline_year',this.value);url.hash='commercial-pipeline';window.location.assign(url.href);});</script>
+<script>for(const id of ['pipeline-year','banner-year'])document.getElementById(id)?.addEventListener('change',function(){const url=new URL(window.location.href);url.searchParams.set('pipeline_year',this.value);url.hash='commercial-pipeline';window.location.assign(url.href);});</script>
 
 {{ pipeline_details|json_script:"pipeline-detail-data" }}
 <dialog class="pipeline-dialog" id="pipeline-detail-dialog" aria-labelledby="pipeline-detail-title"><div class="pipeline-dialog-header"><div><h2 id="pipeline-detail-title"></h2><p id="pipeline-detail-subtitle"></p></div><button type="button" class="pipeline-dialog-close" aria-label="Cerrar">&times;</button></div><div class="pipeline-dialog-table"><table><thead><tr><th>Cuenta</th><th>Oportunidad</th><th>Delivery Manager</th><th>Etapa</th><th>Fecha de cierre</th><th>Servicio</th><th>Horas</th><th>Monto USD</th><th>Probabilidad</th><th>Datos adicionales</th></tr></thead><tbody id="pipeline-detail-rows"></tbody></table></div></dialog>

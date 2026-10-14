@@ -10,8 +10,13 @@ from apps.ejecutivo.rpc import (
     get_aer_tym_consumption,
     get_ixb_raas_summary,
     load_aer_tym_summary,
+    load_ixb_raas_summary,
 )
-from apps.portal.constants import EVA2_CACHE_KEY, EVA2_CACHE_SECONDS
+from apps.portal.constants import (
+    EVA2_CACHE_KEY,
+    EVA2_CACHE_SECONDS,
+    EVA2_CLOSED_CACHE_KEY,
+)
 from apps.portal.schemas import Eva1View, Eva2View, EvaCard, TimeCost
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
@@ -127,6 +132,37 @@ def load_eva2() -> Eva2Load:
         return Eva2Load(
             view=build_eva2_view([]),
             error=str(summary.get("error") or "No se pudo leer IXB y RaaS."),
+        )
+
+    rows = summary.get("filas")
+
+    return Eva2Load(
+        view=build_eva2_view(rows if isinstance(rows, list) else []),
+        error="",
+    )
+
+
+def load_eva2_closed() -> Eva2Load:
+    """
+    Carga los proyectos IXB/RaaS que ya estan cerrados en el historico.
+
+    Es el complemento de EVA 2 (que los excluye) y se guarda 10 minutos.
+
+    Returns:
+        La pantalla con solo los proyectos cerrados, o el motivo del error.
+    """
+    summary = cache.get(EVA2_CLOSED_CACHE_KEY)
+
+    if not isinstance(summary, dict):
+        summary = load_ixb_raas_summary(closed=True)
+
+        if summary.get("ok") is True:
+            cache.set(EVA2_CLOSED_CACHE_KEY, summary, EVA2_CACHE_SECONDS)
+
+    if summary.get("ok") is not True:
+        return Eva2Load(
+            view=build_eva2_view([]),
+            error=str(summary.get("error") or "No se pudo leer el historico."),
         )
 
     rows = summary.get("filas")

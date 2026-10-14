@@ -8,7 +8,10 @@
   <title>BEECKER Co.</title>
   <link rel="icon" href="{% static 'core/img/favicon.ico' %}" type="image/x-icon">
   <base target="_top">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   {% include "legacy/css_main.html" %}
+  <link rel="stylesheet" href="{% static 'core/css/legacy_skin.css' %}">
   <style>
 
 /* Diseño global: aplica a cuentas, proyectos y todas las vistas del panel. */
@@ -26,6 +29,10 @@ html body #view-container {width:100%!important;max-width:100%!important;min-wid
   </style>
 </head>
 <body>
+  <header class="pt-top">
+    <a class="pt-logo" href="{% url 'portal:ejecutiva' %}"><img src="{% static 'portal/img/logo.png' %}" alt="Beecker" width="147" height="30" style="display:block;height:30px;width:auto"></a>
+    <nav class="pt-nav" aria-label="Navegación principal"><a href="{% url 'portal:ejecutiva' %}">Ejecutiva</a><a href="{% url 'portal:operativa' %}">Operativa</a><a href="{% url 'portal:comercial' %}">Comercial</a><a class="on" aria-current="page" href="{% url 'core:home' %}">Panel anterior</a></nav>
+  </header>
   <div class="app-shell">
     <!-- Navegación oculta conservada para las funciones existentes. -->
 <aside class="sidebar">

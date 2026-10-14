@@ -128,6 +128,19 @@
     }
   }
 
+  // Deja listo el primer paso de cada Delivery Manager para que su pagina abra llena.
+  async function warmManagers() {
+    const links = Array.from(document.querySelectorAll('#ops-managers a.m2[href]'));
+    for (const link of links) {
+      try {
+        const url = new URL(link.getAttribute('href'), location.href);
+        await fetch(url.pathname + '?bloque=base', {credentials: 'same-origin'});
+      } catch (error) {
+        return;
+      }
+    }
+  }
+
   async function refresh() {
     if (refreshing) return;
     refreshing = true;
@@ -148,6 +161,7 @@
       refreshing = false;
       busy(false);
     }
+    if (!failures.length) warmManagers();
   }
 
   document.addEventListener('click', function (event) {

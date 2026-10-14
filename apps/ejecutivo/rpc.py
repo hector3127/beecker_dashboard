@@ -20,7 +20,10 @@ from apps.ejecutivo.services.aer_tym_consumption import (
     build_consumption_items,
 )
 from apps.ejecutivo.services.aer_tym_summary import build_aer_tym_summary
-from apps.ejecutivo.services.ixb_rules import read_project_id
+from apps.ejecutivo.services.ixb_rules import (
+    is_finished_in_history,
+    read_project_id,
+)
 from apps.ejecutivo.services.ixb_summary import (
     IxbSources,
     build_ixb_summary,
@@ -41,7 +44,7 @@ from core.sheets.factory import build_sheet_repository
 from core.sheets.protocols import SheetReader
 from core.time_entries.factory import build_time_entry_provider
 from core.time_entries.models import TimeEntry
-from core.utils.text import to_text
+from core.utils.text import extract_base_id, to_text
 
 """BKD.040.006 - RPC del resumen ejecutivo
 Registra obtenerResumenAERTYMMPB, obtenerConsumosResumenAERTYMMPB y
@@ -148,6 +151,19 @@ def get_ixb_raas_summary() -> JsonObject:
     Returns:
         {"ok", "filas", "pivoteServicio", "pivoteStatus"} o el error.
     """
+    return load_ixb_raas_summary(closed=False)
+
+
+def load_ixb_raas_summary(closed: bool = False) -> JsonObject:
+    """
+    Arma la tabla IXB/RaaS de proyectos activos o de los ya cerrados.
+
+    Args:
+        closed: True para listar solo los proyectos cerrados en el historico.
+
+    Returns:
+        {"ok", "filas", "pivoteServicio", "pivoteStatus"} o el error.
+    """
     try:
         repository = build_sheet_repository()
         history_rows = (
@@ -177,6 +193,7 @@ def get_ixb_raas_summary() -> JsonObject:
         return build_ixb_summary(
             sources,
             timezone.localtime().replace(tzinfo=None),
+            closed,
         )
     except DashboardError as error:
         logger.warning("Resumen IXB/RaaS no disponible: %s", error.detail)
@@ -247,12 +264,40 @@ def get_executive_dashboard(project_id: object = "") -> JsonObject:
     def load_portfolio_entries() -> tuple[TimeEntry, ...]:
         return build_time_entry_provider(repository).load_time_entries().entries
 
-    return load_executive_dashboard(
+    result = load_executive_dashboard(
         repository,
         clean_id,
         (LazyProjectEntries(repository), load_portfolio_entries),
         timezone.localtime().replace(tzinfo=None),
         build_optional_azure_gateway(),
+    )
+    if result.get("proyecto") is not None and is_closed_in_history(
+        repository,
+        clean_id,
+    ):
+        # Mismo criterio que EVA: Completed en el historico con fecha pasada.
+        result["cerrado"] = True
+
+    return result
+
+
+def is_closed_in_history(repository: SheetReader, project_id: str) -> bool:
+    """True si el historico ya marca el proyecto como Completed (como EVA)."""
+    try:
+        if not repository.sheet_exists(sheet_names.SHEET_PROJECTS_HISTORY):
+            return False
+        history_rows = build_history_block_rows(
+            repository.read_values(sheet_names.SHEET_PROJECTS_HISTORY),
+            [],
+        )
+    except DashboardError:
+        return False
+
+    return is_finished_in_history(
+        history_rows,
+        project_id,
+        extract_base_id(project_id),
+        timezone.localdate(),
     )
 
 

@@ -17,7 +17,10 @@ from apps.ejecutivo.services.azure_stages import (
     infer_sprint,
     list_open_risk_titles,
 )
-from apps.ejecutivo.services.ixb_history import resolve_history_period
+from apps.ejecutivo.services.ixb_history import (
+    resolve_closed_period,
+    resolve_history_period,
+)
 from apps.ejecutivo.services.ixb_rules import (
     calculate_exact_burn,
     find_delivery_manager,
@@ -92,13 +95,18 @@ class IxbSources:
     azure: AzureLookup | None
 
 
-def build_ixb_summary(sources: IxbSources, now: datetime) -> JsonObject:
+def build_ixb_summary(
+    sources: IxbSources,
+    now: datetime,
+    closed: bool = False,
+) -> JsonObject:
     """
     Construye la tabla IXB/RaaS y sus pivotes.
 
     Args:
         sources: Hojas, horas de Clockify y Azure DevOps.
         now: Fecha y hora local actual.
+        closed: True para listar solo las nomenclaturas ya cerradas.
 
     Returns:
         {"ok", "filas", "pivoteServicio", "pivoteStatus"}.
@@ -131,6 +139,7 @@ def build_ixb_summary(sources: IxbSources, now: datetime) -> JsonObject:
             sources,
             azure_projects,
             now,
+            closed,
         )
 
         if summary_row is not None:
@@ -176,6 +185,7 @@ def build_group_row(
     sources: IxbSources,
     azure_projects: list[str],
     now: datetime,
+    closed: bool = False,
 ) -> JsonObject | None:
     """
     Construye la fila de un proyecto base.
@@ -186,9 +196,10 @@ def build_group_row(
         sources: Datos de entrada.
         azure_projects: Team Projects de Azure.
         now: Fecha y hora local actual.
+        closed: Construye la fila de una nomenclatura cerrada, no de una activa.
 
     Returns:
-        La fila de la nomenclatura, o None si no esta activa en el historico.
+        La fila de la nomenclatura, o None si no corresponde a la lista.
     """
     representative = group_rows[0]
     reference_id = read_project_id(representative) or base_id
@@ -198,9 +209,8 @@ def build_group_row(
         if read_project_id(row).casefold() == reference_id.casefold()
     ]
 
-    period = resolve_history_period(
-        sources.history_rows, reference_id, now.date()
-    )
+    resolve = resolve_closed_period if closed else resolve_history_period
+    period = resolve(sources.history_rows, reference_id, now.date())
     if not period.active:
         return None
 

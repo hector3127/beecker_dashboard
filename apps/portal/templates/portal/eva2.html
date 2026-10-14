@@ -1,47 +1,10 @@
 {% extends 'portal/base.html' %}
 {% block title %}EVA 2{% endblock %}
-{% block css %}body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#F7F5FF;color:#1B1A4A}
-a{color:#4B25C9;text-decoration:none}
-.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:12px 36px;background:#fff;border-bottom:1px solid #ECE8FA}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:25px;letter-spacing:-.02em}
-.nav{display:flex;gap:6px}
-.nav a{padding:8px 18px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
-.nav a.on{background:#EDE7FF;color:#4B25C9}
-.fresh{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:#4A4872}
-.dot{width:8px;height:8px;border-radius:50%;background:#1B9A55}
-.page{max-width:1368px;margin:0 auto;padding:22px 36px 40px}
-.crumb{font-size:13.5px;color:#55537F;margin-bottom:8px}
-.eb{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#4B25C9}
-h1{margin:2px 0 0;font-size:34px;font-weight:800;letter-spacing:-.025em}
-.sub{margin:4px 0 18px;color:#55537F;font-size:16px}
-.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;background:#fff;border:1px solid #ECE8FA;border-radius:14px;padding:6px}
-.tabs a{padding:10px 20px;border-radius:10px;font-size:14.5px;font-weight:700;color:#4A4872}
-.tabs a.on{background:#4B25C9;color:#fff}
-.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
-.kc{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:18px 24px}
-.kl{font-size:14px;font-weight:700;color:#3A3870}
-.kv{font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1.2;font-variant-numeric:tabular-nums}
-.kv span{color:#8A81B8;font-weight:600}
-.ke{font-size:13px;color:#55537F;line-height:1.4}
-.pill{display:inline-flex;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:800;background:#FBE3E7;color:#A31B33}
+{% block body_class %}ds{% endblock %}
+{% block css %}th,td{text-align:center}
 .two{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;margin-bottom:14px}
-.card{background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:22px 26px}
-.card h2{margin:0 0 2px;font-size:20px}
-.hs{font-size:14px;color:#55537F;margin-bottom:14px}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:10px 8px;text-align:center;border-top:1px solid #F0EDF8}
-th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#4A4872;border-top:0}
-th.q{background:#F1ECFD;color:#2B1B8F;border-left:2px solid #fff;font-size:13px}
 td:first-child,th:first-child{text-align:left}
-td.g{border-left:2px solid #F1ECFD}
-td.na{background:#EEEAFB;color:#8A81B8}
-td.lo{color:#A31B33;font-weight:700}
-td.hi{color:#13693B;font-weight:700}
-tfoot td{font-weight:800;background:#FAF8FF}
 .num{font-variant-numeric:tabular-nums}
-.note{margin-top:6px;font-size:12.5px;color:#55537F;line-height:1.5}
-
-.tw{overflow-x:auto}
 table.w{font-size:12.5px}
 table.d.w th,table.d.w td{padding:9px 5px}
 table.d.w th{font-size:10.5px;letter-spacing:.02em;white-space:normal}
@@ -55,23 +18,21 @@ table.d th{text-align:left}
 table.d td.n,table.d th.n{text-align:right;font-variant-numeric:tabular-nums}
 table.d td.c,table.d th.c{text-align:center}
 .bd{display:inline-block;min-width:44px;text-align:center;border-radius:8px;padding:3px 9px;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
-.ok{background:#DDF3E6;color:#13693B}.bad{background:#FBE3E7;color:#A31B33}
+.ok{background:#DDF3E6;color:#13693B}
+.bad{background:#FBE3E7;color:#A31B33}
 .st{display:inline-block;border-radius:6px;padding:3px 10px;font-weight:800;font-size:12.5px;color:#fff}
 .gh{background:#F1ECFD;color:#2B1B8F!important;text-align:center!important;border-left:2px solid #fff;font-size:12px!important}
-.pd{background:#FBE3E7;color:#A31B33;font-weight:800;border-radius:6px;padding:3px 8px;display:inline-block;min-width:22px;text-align:center}
 .two2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 .kp4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
-tr.tot td{font-weight:800;background:#FAF8FF}
-.bk{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;font-weight:700;font-size:14px;background:#fff;border:1px solid #ECE8FA;border-radius:10px;padding:7px 14px}@media(max-width:900px){.two2,.kp4{grid-template-columns:1fr 1fr}}@media(max-width:600px){.page{padding:16px}.two2,.kp4{grid-template-columns:1fr}}.card{min-width:0}.card table{white-space:nowrap}.card{overflow:auto}{% endblock %}
+@media(max-width:900px){.two2,.kp4{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.page{padding:16px}.two2,.kp4{grid-template-columns:1fr}}
+{% endblock %}
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">{{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
 <div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › EVA 2</div>
-<a class="bk" href="{% url 'portal:operativa' %}">← Volver a Operativa</a>
-<div class="eb">EVA 2</div>
-<h1>EVA 2 · Proyectos IXB y RaaS</h1>
-<p class="sub">Proyectos por Delivery Manager, etapa del proyecto y avance de tareas en Azure DevOps</p>
-<div class="tabs"><a class="" href="{% url 'portal:eva1' %}">EVA 1 &middot; IXB y RaaS</a><a class="on" href="{% url 'portal:eva2' %}">EVA 2 &middot; IXB y RaaS</a><a class="" href="{% url 'portal:eva3' %}">EVA 3 &middot; AER y T&amp;M</a><a href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers</a></div><section class="kp4"><div class="kc"><div class="kl">Proyectos (TP)</div><div class="kv">{{ eva.total_projects }}</div><div class="ke">IXB y RaaS vigentes</div></div><div class="kc"><div class="kl">Suspendidos</div><div class="kv"{% if eva.suspended_count %} style="color:#A31B33"{% endif %}>{{ eva.suspended_count }}</div><div class="ke">{% if eva.suspended_note %}{{ eva.suspended_note }}{% else %}Ninguno{% endif %}</div></div><div class="kc"><div class="kl">En tiempo (T)</div><div class="kv">{% if eva.time_cost.time_days is not None %}{{ eva.time_cost.time_days|floatformat:"-1" }} d{% else %}—{% endif %}</div><div class="ke">Desviación promedio en días</div></div><div class="kc"><div class="kl">En costo (C)</div><div class="kv">{% if eva.time_cost.cost_percent is not None %}{{ eva.time_cost.cost_percent|floatformat:"-1" }}%{% else %}—{% endif %}</div><div class="ke">Avance promedio de los proyectos</div></div></section><section class="two2"><div class="card"><h2>Proyectos por Delivery Manager · Servicio</h2><div class="hs">Cuántos proyectos de cada servicio lleva cada uno</div><table class="d"><thead><tr><th>Delivery Manager</th>{% for name in eva.services %}<th class="n">{{ name }}</th>{% endfor %}<th class="n">Total</th></tr></thead><tbody>{% for dm in eva.service_rows %}<tr><td>{{ dm.name }}</td>{% for n in dm.counts %}<td class="n">{{ n }}</td>{% endfor %}<td class="n"><b>{{ dm.total }}</b></td></tr>{% empty %}<tr><td colspan="4" class="vacio">No hay proyectos IXB o RaaS vigentes.</td></tr>{% endfor %}{% if eva.service_rows %}<tr class="tot"><td>Total</td>{% for n in eva.service_totals.counts %}<td class="n">{{ n }}</td>{% endfor %}<td class="n">{{ eva.service_totals.total }}</td></tr>{% endif %}</tbody></table></div>
+{% include 'portal/_hero.html' with title="EVA 2 · Proyectos IXB y RaaS" subtitle="Proyectos por Delivery Manager, etapa del proyecto y avance de tareas en Azure DevOps" tone="operations" icon="folder" eyebrow="EVA 2" %}
+<div class="tabs"><a class="" href="{% url 'portal:eva1' %}">EVA 1 &middot; IXB y RaaS</a><a class="on" href="{% url 'portal:eva2' %}">EVA 2 &middot; IXB y RaaS</a><a class="" href="{% url 'portal:eva3' %}">EVA 3 &middot; AER y T&amp;M</a></div><section class="kp4"><div class="kc"><div class="kl">Proyectos (TP)</div><div class="kv">{{ eva.total_projects }}</div><div class="ke">IXB y RaaS vigentes</div></div><div class="kc"><div class="kl">Suspendidos</div><div class="kv"{% if eva.suspended_count %} style="color:#A31B33"{% endif %}>{{ eva.suspended_count }}</div><div class="ke">{% if eva.suspended_note %}{{ eva.suspended_note }}{% else %}Ninguno{% endif %}</div></div><div class="kc"><div class="kl">En tiempo (T)</div><div class="kv">{% if eva.time_cost.time_days is not None %}{{ eva.time_cost.time_days|floatformat:"-1" }} d{% else %}—{% endif %}</div><div class="ke">Desviación promedio en días</div></div><div class="kc"><div class="kl">En costo (C)</div><div class="kv">{% if eva.time_cost.cost_percent is not None %}{{ eva.time_cost.cost_percent|floatformat:"-1" }}%{% else %}—{% endif %}</div><div class="ke">Avance promedio de los proyectos</div></div></section><section class="two2"><div class="card"><h2>Proyectos por Delivery Manager · Servicio</h2><div class="hs">Cuántos proyectos de cada servicio lleva cada uno</div><table class="d"><thead><tr><th>Delivery Manager</th>{% for name in eva.services %}<th class="n">{{ name }}</th>{% endfor %}<th class="n">Total</th></tr></thead><tbody>{% for dm in eva.service_rows %}<tr><td>{{ dm.name }}</td>{% for n in dm.counts %}<td class="n">{{ n }}</td>{% endfor %}<td class="n"><b>{{ dm.total }}</b></td></tr>{% empty %}<tr><td colspan="4" class="vacio">No hay proyectos IXB o RaaS vigentes.</td></tr>{% endfor %}{% if eva.service_rows %}<tr class="tot"><td>Total</td>{% for n in eva.service_totals.counts %}<td class="n">{{ n }}</td>{% endfor %}<td class="n">{{ eva.service_totals.total }}</td></tr>{% endif %}</tbody></table></div>
 <div class="card"><h2>Proyectos por Delivery Manager · Estatus</h2><div class="hs">Sus: suspendido · Dis: discovery · Dev: desarrollo · Dep: despliegue</div><table class="d"><thead><tr><th>Delivery Manager</th><th class="n">Sus</th><th class="n">Dis</th><th class="n">Dev</th><th class="n">Dep</th><th class="n">Total</th></tr></thead><tbody>{% for dm in eva.status_rows %}<tr><td>{{ dm.name }}</td>{% for n in dm.counts %}<td class="n">{{ n }}</td>{% endfor %}<td class="n"><b>{{ dm.total }}</b></td></tr>{% empty %}<tr><td colspan="6" class="vacio">No hay proyectos IXB o RaaS vigentes.</td></tr>{% endfor %}{% if eva.status_rows %}<tr class="tot"><td>Total</td>{% for n in eva.status_totals.counts %}<td class="n">{{ n }}</td>{% endfor %}<td class="n">{{ eva.status_totals.total }}</td></tr>{% endif %}</tbody></table></div></section>
 <section class="card"><h2>Proyectos IXB / RaaS</h2><div class="hs">Presupuesto arriba, consumo abajo. Tareas por etapa (Iteration Path de Azure DevOps): total (Tot.), cerradas (Cer.) y pendientes (Pen.). En rojo: tareas pendientes de una etapa que ya debería estar cerrada, avance mayor a 100%.</div>
 <div class="tw"><table class="d w"><thead>

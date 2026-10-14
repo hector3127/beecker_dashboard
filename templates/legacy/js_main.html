@@ -5230,6 +5230,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     return Array.from(byName.values()).sort((a,b)=>_ixsDateMs(a.start)-_ixsDateMs(b.start));
   }
   function _ixsEtapaActual(data){
+    if((data||{}).cerrado) return {texto:'Cerrado', clase:'green'};
     const fases=_ixsFases(data||{});
     const susp=Array.isArray((data||{}).suspensiones)?data.suspensiones:[];
     const hoy=new Date(); hoy.setHours(0,0,0,0);

@@ -27,12 +27,17 @@ from apps.aer.services.aer_values import (
 from apps.aer.services.manual_store import AerStore
 from apps.aer.services.plan import AerError
 from apps.clockify.services.date_ranges import ProjectDateRange
+from apps.ejecutivo.services.aer_tym_summary import (
+    find_mpb_header,
+    resolve_columns,
+)
+from apps.ejecutivo.services.mpb_values import normalize_mpb, read_cell
 from apps.ejecutivo.services.project_milestones import safe_iso
 from core.exceptions import DashboardError, describe_error
 from core.sheets import sheet_names
 from core.time_entries.models import TimeEntry
 from core.utils.js_values import js_object_keys, js_str, js_truthy
-from core.utils.text import get_flexible_value, normalize_name
+from core.utils.text import get_flexible_value, normalize_name, to_text
 
 """BKD.080.008 - Dashboard AER
 Equivale a getDashboardAERTYMProyecto() y getRegistrosClockifyAERRango():
@@ -551,6 +556,28 @@ def build_kpis(
     }
 
 
+def mpb_finalized(reader: Any, project: str) -> bool:
+    """True cuando la hoja MPB marca el proyecto como Finalizado."""
+    try:
+        if not reader.sheet_exists("MPB"):
+            return False
+        values = reader.read_values("MPB")
+        header = find_mpb_header(values)
+        if header is None:
+            return False
+        columns = resolve_columns(values[header])
+    except DashboardError:
+        return False
+    wanted = normalize_mpb(project)
+    for mpb_row in values[header + 1 :]:
+        found = to_text(read_cell(mpb_row, columns["project_id"])).strip()
+        if normalize_mpb(found) == wanted:
+            status = normalize_mpb(read_cell(mpb_row, columns["status"]))
+            return status.startswith("finaliz")
+
+    return False
+
+
 def build_dashboard(
     store: AerStore,
     project_value: object,
@@ -620,7 +647,9 @@ def build_dashboard(
             "cliente": row.get("Cliente") or "",
             "servicio": "T&M" if service == "TYM" else service,
             "deliveryManager": people_client.delivery_manager(row),
-            "estado": row.get("Estado") or "",
+            "estado": "Cerrado"
+            if mpb_finalized(store.reader, project)
+            else row.get("Estado") or "",
             "fechaInicio": safe_iso(row.get("Fecha_Inicio")),
             "fechaFin": safe_iso(row.get("Fecha_Fin_Estimada")),
         },

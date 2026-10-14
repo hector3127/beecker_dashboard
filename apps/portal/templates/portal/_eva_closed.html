@@ -1,0 +1,1 @@
+{% if error %}<p class="note">{{ error }}</p>{% else %}{% include "portal/_eva_table.html" with closed=True projects=projects table_id="eva-closed-table" empty_text="Todavía no hay proyectos IXB o RaaS cerrados." %}<div class="table-bottom"><span>{{ projects|length }} proyectos cerrados</span></div>{% endif %}

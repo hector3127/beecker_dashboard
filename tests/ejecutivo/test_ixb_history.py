@@ -117,3 +117,29 @@ def test_overdue_remains_active_until_completed_and_plan_is_fallback():
     assert resolve_history_period(history, "X", TODAY).active
     history.append(event("X", "Deployment", "2026-10-14"))
     assert not resolve_history_period(history, "X", TODAY).active
+
+
+def test_closed_summary_lists_only_completed_projects():
+    projects = [
+        {"ID_Proyecto": "GPO.007", "Servicio": "IXB", "Budget_Hrs": 100},
+        {"ID_Proyecto": "AMK.009_S3", "Servicio": "IXB", "Budget_Hrs": 50},
+    ]
+    history = [
+        event("GPO.007", "Discovery", "2026-01-05", "2026-02-01"),
+        event("GPO.007", "Deployment", "2026-02-02", "2026-03-01"),
+        event("GPO.007", "Completed", "2026-03-02"),
+        event("AMK.009_S3", "Development", "2026-09-01", "2026-12-01"),
+    ]
+    now = datetime(2026, 10, 12, 12)
+    sources = IxbSources(projects, history, lambda _: [], None)
+
+    closed = build_ixb_summary(sources, now, closed=True)
+    active = build_ixb_summary(sources, now)
+
+    assert [row["idProyecto"] for row in closed["filas"]] == ["GPO.007"]
+    row = closed["filas"][0]
+    assert row["status"] == "Cerrado"
+    assert row["fechaInicio"].startswith("2026-01-05")
+    assert row["fechaFin"].startswith("2026-03-02")
+    assert row["budget"] == 100
+    assert [row["idProyecto"] for row in active["filas"]] == ["AMK.009_S3"]
