@@ -17,8 +17,10 @@ from apps.ejecutivo.services.mpb_values import (
     read_cell,
 )
 from core.sheets import sheet_names
+from core.sheets.project_year import mpb_previous_year_ids
 from core.sheets.protocols import SheetReader
 from core.utils.cell_types import CellValue
+from core.utils.dates import to_datetime
 from core.utils.js_values import js_null_text, js_or_text
 
 """BKD.040.010 - Vista de cuenta Beecker
@@ -124,6 +126,10 @@ def account_matches(value: object, client: object) -> bool:
     """
     account = normalize_value(client)
     name = normalize_value(value)
+    # DataRevenue uses the country-qualified name; MPB/history/ROC use Heineken.
+    aliases = {"heineken mexico": "heineken"}
+    account = aliases.get(account, account)
+    name = aliases.get(name, name)
 
     return bool(account) and bool(name) and account in name
 
@@ -276,7 +282,7 @@ def mpb_cache_key(client: object) -> str:
         normalize_value(client).encode("utf-8"),
     ).hexdigest()
 
-    return f"bee_mpb_cuenta_v1_{digest}"
+    return f"bee_mpb_cuenta_v3_{digest}"
 
 
 def load_mpb_projects(
@@ -341,6 +347,17 @@ def load_mpb_projects(
         "manager": col("Delivery Manager", 20),
         "horas": col("HORAS", 32),
     }
+    # DataRevenue identifica la cuenta aunque MPB use un nombre regional.
+    revenue_ids = set()
+    for revenue_row in sheet_values(reader, "DataRevenue")[1:]:
+        if normalize_value(read_cell(revenue_row, 1)) != normalize_value(
+            client
+        ):
+            continue
+        revenue_date = to_datetime(read_cell(revenue_row, 6))
+        if revenue_date and revenue_date.year == 2026:
+            revenue_ids.add(normalize_value(read_cell(revenue_row, 4)))
+    revenue_ids.discard("")
     found: dict[str, JsonObject] = {}
 
     for index, row in enumerate(data[at + 1 :]):
@@ -348,7 +365,10 @@ def load_mpb_projects(
         def value(name: str, current: Sequence[CellValue] = row) -> CellValue:
             return read_cell(current, columns[name])
 
-        if not account_matches(value("cliente"), client):
+        if (
+            not account_matches(value("cliente"), client)
+            and normalize_value(value("id")) not in revenue_ids
+        ):
             continue
 
         service = js_or_text(value("service")).strip()
@@ -579,6 +599,8 @@ def read_history_projects(
         item["etapas"].append(
             {
                 "nombre": js_or_text(get(row, "Stage", 6)).strip(),
+                "fechaInicio": parse_mpb_date(get(row, "Actual Start", 10))
+                or parse_mpb_date(get(row, "Plan Start", 8)),
                 "fechaFinReal": parse_mpb_date(get(row, "Actual Finish", 11)),
                 "fechaFinPlan": parse_mpb_date(get(row, "Plan Finish", 9)),
             },
@@ -753,6 +775,7 @@ def build_history_item(
         "estado": project_state(stage_name, base in roc_bot_ids),
         "budget": budget,
         "burn": burn,
+        "clockifyPending": True,
         "nps": project["nps"],
         "diasSuspension": project["diasSuspension"],
         "profitability": project["profitability"],
@@ -765,6 +788,64 @@ def build_history_item(
             for stage in stages
         ),
     }
+
+
+def append_roc_projects(projects, roc, client):
+    """Show closed and active ROC contracts using their own IDs."""
+    existing = {normalize_value(project["id"]) for project in projects}
+    for contract in roc:
+        identity = normalize_value(contract["id"])
+        if identity in existing:
+            continue
+        status = contract.get("estado") or "Sin estado"
+        projects.append(
+            {
+                "id": contract["id"],
+                "nombre": contract.get("proceso") or contract["id"],
+                "cliente": str(client),
+                "servicio": "ROC",
+                "etapa": status,
+                "estado": "Completado"
+                if is_terminal(status)
+                or normalize_value(status)
+                in {"closed", "cerrado", "inactive", "inactivo"}
+                else status,
+                "deliveryManager": contract.get("deliveryManager", ""),
+                "inicio": contract.get("inicio", ""),
+                "fin": contract.get("fin", ""),
+                "budget": None,
+                "burn": None,
+                "clockifyPending": False,
+                "nps": None,
+                "excedido": False,
+                "atrasado": False,
+                "botId": contract.get("botId", ""),
+                "roc_source": True,
+            }
+        )
+        existing.add(identity)
+
+
+def overlaps_account_year(start, end, year):
+    """Keep undated records; exclude periods known to be outside the year."""
+    first, last = to_datetime(start), to_datetime(end)
+    return not ((first and first.year > year) or (last and last.year < year))
+
+
+def history_overlaps_account_year(project, year):
+    """Comprueba si las fechas conocidas del historial cubren el ejercicio."""
+    stages = project.get("etapas", [])
+    starts = [
+        stage.get("fechaInicio") for stage in stages if stage.get("fechaInicio")
+    ]
+    ends = [
+        stage.get("fechaFinReal") or stage.get("fechaFinPlan")
+        for stage in stages
+    ]
+    ends = [value for value in ends if value]
+    return overlaps_account_year(
+        min(starts) if starts else "", max(ends) if ends else "", year
+    )
 
 
 def build_account_view(
@@ -799,7 +880,13 @@ def build_account_view(
     history = sheet_values(reader, sheet_names.SHEET_PROJECTS_HISTORY)
     projects = read_history_projects(history, client)
     roc_values = sheet_values(reader, ROC_SHEET)
-    roc = read_roc(roc_values, client)
+    roc = [
+        item
+        for item in read_roc(roc_values, client)
+        if overlaps_account_year(
+            item.get("inicio"), item.get("fin"), today.year
+        )
+    ]
     roc_bot_ids = {id_base(item["botId"]) for item in roc} - {""}
     statuses = read_project_statuses(
         sheet_values(reader, sheet_names.SHEET_PROJECTS)
@@ -808,6 +895,7 @@ def build_account_view(
     projects_list = [
         build_history_item(project, statuses, roc_bot_ids, today_text)
         for project in projects.values()
+        if history_overlaps_account_year(project, today.year)
     ]
     mpb = load_mpb_projects(reader, client)
 
@@ -841,6 +929,15 @@ def build_account_view(
         else:
             projects_list.append(item)
 
+    append_roc_projects(projects_list, roc, client)
+
+    excluded_ids = mpb_previous_year_ids(reader, today.year)
+    projects_list = [
+        project
+        for project in projects_list
+        if str(project["id"]).strip().casefold() not in excluded_ids
+    ]
+
     with_nps = [
         project for project in projects_list if project["nps"] is not None
     ]
@@ -862,7 +959,7 @@ def build_account_view(
         "modelos": models,
         "proyectos": projects_list,
         "mpbPendientes": sum(
-            1 for project in mpb if project["burnGuardado"] is None
+            1 for project in projects_list if project.get("clockifyPending")
         ),
         "roc": roc,
         "rocActivos": sum(

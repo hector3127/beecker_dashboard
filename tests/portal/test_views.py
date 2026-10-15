@@ -43,6 +43,10 @@ def no_real_eva1(monkeypatch):
 
 
 def stub_portfolio(monkeypatch, projects=(), error=""):
+    monkeypatch.setattr(
+        "apps.portal.services.executive_population.population",
+        lambda: [{"id": p.project_id} for p in projects],
+    )
     load = PortfolioLoad(
         projects=tuple(projects),
         error=error,
@@ -162,7 +166,7 @@ def test_executive_shows_decisions_hours_and_period(client, monkeypatch):
     assert "Portal Pacientes" in html
     assert "excede en 25%" in html
     assert response.context["hours"].budget_hours == 300
-    assert html.count('class="ej"') >= 4
+    assert html.count('class="ej"') >= 3
 
 
 def test_executive_without_projects_shows_empty_messages(client, monkeypatch):
@@ -171,7 +175,7 @@ def test_executive_without_projects_shows_empty_messages(client, monkeypatch):
     html = client.get("/").content.decode()
 
     assert "Sin proyectos que mostrar todavía." in html
-    assert "Sin horas que mostrar todavía." in html
+    assert 'id="executive-ops-budget"' in html
 
 
 def test_executive_without_problem_projects(client, monkeypatch):
@@ -263,7 +267,7 @@ def test_commercial_reads_backlog_without_example_figures(client, monkeypatch):
     assert response.context["count"] == 0
 
 
-def test_navigation_links_to_all_views_and_the_legacy_panel(
+def test_navigation_links_to_current_views_without_legacy_panel(
     client,
     monkeypatch,
 ):
@@ -274,7 +278,7 @@ def test_navigation_links_to_all_views_and_the_legacy_panel(
     assert 'href="/"' in html
     assert 'href="/operativa/"' in html
     assert 'href="/comercial/"' in html
-    assert 'href="/legacy/"' in html
+    assert 'href="/legacy/"' not in html
 
 
 def test_screens_without_view_yet_say_coming_soon(client, monkeypatch):
@@ -396,7 +400,7 @@ def test_eva1_shows_projects_and_alerts(client, monkeypatch):
     assert response.status_code == 200
     assert response.context["eva"].total_projects == 1
     assert "AER.001" in html
-    assert 'href="/legacy/?proyecto=AER.001"' in html
+    assert 'href="/proyectos/AER.001/"' in html
     assert "Laura Vega" in html
     assert "20/10/26" in html
     assert 'class="bd bad"' in html
@@ -456,7 +460,7 @@ def test_eva2_shows_stages_and_pivots(client, monkeypatch):
     assert response.status_code == 200
     assert response.context["eva"].total_projects == 1
     assert "AMK.008_S4" in html
-    assert 'href="/legacy/?proyecto=AMK.008_S4"' in html
+    assert 'href="/proyectos/AMK.008_S4/"' in html
     assert "RaaS" in html
     assert "<span class=pd>6</span>" in html
     assert 'class="bd bad"' in html
@@ -478,12 +482,13 @@ def test_eva2_with_error_and_login(client, monkeypatch, settings):
     assert client.get("/operativa/eva-2/").status_code == 302
 
 
-def test_operational_eva_cards_link_to_eva2(client, monkeypatch):
+def test_operational_eva_cards_link_to_eva4(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
     html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
-    assert 'href="/operativa/eva-2/"' in html
+    assert 'href="/operativa/eva-4/"' in html
+    assert 'href="/operativa/eva-2/"' not in html
 
 
 def test_account_page_lists_its_projects(client, monkeypatch):
@@ -639,7 +644,7 @@ def test_operational_page_links_to_capacity(client, monkeypatch):
 
     html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
-    assert 'href="/legacy/#capacidad-instalada"' in html
+    assert 'href="/capacidad-instalada/">' in html
 
 
 def stub_project(monkeypatch, data=None, error=""):
@@ -705,9 +710,9 @@ def test_other_pages_link_to_the_project(client, monkeypatch):
     ).content.decode()
     account = client.get("/cuenta/clinica-sur/").content.decode()
 
-    assert 'href="/proyecto/3/"' in executive
-    assert 'href="/legacy/?proyecto=3"' in manager
-    assert 'href="/legacy/?proyecto=2"' in account
+    assert 'href="/proyectos/3/"' in executive
+    assert 'href="/proyectos/3/"' in manager
+    assert 'href="/proyectos/2/"' in account
     assert 'href="/proyecto/3/"' not in manager
 
 
@@ -743,9 +748,9 @@ def test_executive_top_accounts_are_real(client, monkeypatch):
 
     assert healthy == ()
     assert [item.name for item in unhealthy] == ["Clinica Sur", "ACME"]
-    assert "Ninguna cuenta tiene todos sus proyectos en tiempo." in html
-    assert 'href="/cuenta/acme/"' in html
-    assert 'href="/cuenta/clinica-sur/"' in html
+    assert 'id="healthy-financial-accounts"' in html
+    assert 'href="/ejecutiva/cuentas/"' in html
+    assert 'id="unhealthy-financial-accounts"' in html
 
 
 def stub_history(monkeypatch, history=None, error=""):
@@ -764,16 +769,16 @@ def stub_history(monkeypatch, history=None, error=""):
 
 
 def test_kpis_page_shows_managers_and_totals(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
+    monkeypatch.setattr("apps.portal.views.load_portfolio", lambda: pytest.fail("Proyectos no se consulta para KPIs"))
     stub_history(monkeypatch)
 
     response = client.get("/operativa/kpis-delivery-managers/")
     html = response.content.decode()
 
     assert response.status_code == 200
-    assert response.context["kpis"].totals.total == 3
+    assert response.context["kpis"].totals.total == 2
     assert "KPIs de Delivery Managers" in html
-    assert 'href="/operativa/delivery-manager/alberto/"' in html
+    assert 'href="/operativa/delivery-manager/ana/"' in html
 
 
 def test_kpis_page_shows_monthly_and_quarterly_history(client, monkeypatch):
@@ -820,6 +825,13 @@ def test_kpis_chart_shows_the_year_with_the_period_highlighted(
         "Ago",
     ]
     assert chart["highlight"] == ["Ago"]
+
+    response = client.get(
+        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-10"
+    )
+    current = response.context["chart"]
+    assert current["labels"][-1] == "Oct*"
+    assert current["highlight"] == ["Oct*"]
 
 
 def test_kpis_page_explains_when_history_fails(client, monkeypatch):

@@ -23,6 +23,10 @@ STATUS_CATEGORY_BY_STATUS: Final[dict[str, str]] = {
     "deployment": CATEGORY_ACTIVE,
     "suspendido": CATEGORY_PAUSED,
     "cancelado": CATEGORY_CLOSED,
+    "cancelled": CATEGORY_CLOSED,
+    "canceled": CATEGORY_CLOSED,
+    "completed": CATEGORY_CLOSED,
+    "completado": CATEGORY_CLOSED,
 }
 
 # Niveles de riesgo e impacto.

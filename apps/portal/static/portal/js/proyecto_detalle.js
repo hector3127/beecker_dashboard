@@ -1,4 +1,11 @@
-<script>
+
+  function projectParams() {
+    const params = new URLSearchParams(window.location.search);
+    const seed = document.getElementById('project-context');
+    if (seed) params.set('proyecto', JSON.parse(seed.textContent).id);
+    return params;
+  }
+
   // ENTREGA CLOCKIFY 2026-09-28-V16: diagnóstico con versión y consumos no disponibles.
   const badgeClass = (nivel) => {
     if (!nivel) return '';
@@ -735,6 +742,8 @@
   }
 
   function initDashboard() {
+    const detailParams = projectParams();
+    if (!detailParams.get('proyecto') && !detailParams.get('cuenta')) return;
     const btnRefresh = document.getElementById('btn-refresh');
     if (btnRefresh) {
       btnRefresh.onclick = () => {
@@ -744,16 +753,13 @@
       };
     }
 
-    agregarBotonExportarImagen();
-    eliminarResumenProyectosDashboard();
-    inyectarResumenAltoNivelEnDashboard();
 
     // Antes se disparaban filtros + dashboard + AER + IXB simultáneamente.
     // Ahora esperamos los filtros y después hacemos UNA carga inicial.
     google.script.run
       .withSuccessHandler((data) => {
         populateFiltros(data);
-        const account = new URLSearchParams(window.location.search).get('cuenta');
+        const account = projectParams().get('cuenta');
         if (account) {
           const select = document.getElementById('f-cliente');
           const project = document.getElementById('f-proyecto');
@@ -764,7 +770,7 @@
           }
           if (project) project.value = 'Todos los proyectos';
         }
-        const projectId = new URLSearchParams(window.location.search).get('proyecto');
+        const projectId = projectParams().get('proyecto');
         if (projectId) {
           const project = document.getElementById('f-proyecto');
           const client = document.getElementById('f-cliente');
@@ -1200,7 +1206,9 @@
   function _esProyectoAERTYM(idProyecto) {
     const meta = mapaMetaProyectosDashboard[String(idProyecto || '')] || {};
     const s = String(meta.servicio || '').toUpperCase().trim();
-    return s === 'AER' || s === 'T&M' || s === 'TYM';
+    if (s) return s === 'AER' || s === 'T&M' || s === 'TYM';
+    // Un enlace directo puede no aparecer en los filtros de Proyectos.
+    return /^(AER|TYM)\./i.test(String(idProyecto || '').trim());
   }
 
   function loadDashboard() {
@@ -1254,7 +1262,7 @@
         const meta = mapaMetaProyectosDashboard[String(proyectoSel)] || {};
         const esc = value => String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
         const selectedOption = document.getElementById('f-proyecto')?.selectedOptions?.[0];
-        elDetalle.innerHTML = '<div class="card" style="padding:22px"><h2 style="margin:0 0 10px">'+esc(selectedOption?.textContent || proyectoSel)+'</h2><div style="display:flex;gap:20px;flex-wrap:wrap"><span><b>ID:</b> '+esc(proyectoSel)+'</span><span><b>Servicio:</b> '+esc(meta.servicio || 'Pendiente')+'</span></div><p class="loading" role="status">Consultando horas y etapas del proyecto...</p></div>';
+        elDetalle.innerHTML = '<div class="legacy-project-head"><div><h2>'+esc(selectedOption?.textContent || proyectoSel)+'</h2><p role="status">Consultando horas y etapas del proyecto…</p></div><span>Consultando…</span></div>';
       }
 
       if (_esProyectoAERTYM(proyectoSel)) {
@@ -1289,14 +1297,9 @@
     if (elDetalle) elDetalle.style.display = 'none';
     if (elGeneral) elGeneral.style.display = 'block';
 
-    google.script.run
-      .withSuccessHandler((res) => {
-        if (requestId !== dashboardRequestSeq) return;
-        document.getElementById('bee-dashboard-error')?.remove();
-        renderDashboard(res);
-      })
-      .withFailureHandler(failure)
-      .getDashboardData(filtros);
+    // El resumen ejecutivo general se retiro; conservar solo las herramientas.
+    document.getElementById('bee-dashboard-error')?.remove();
+    if (typeof window.ciCerrar === 'function') window.ciCerrar();
   }
 
   function renderDashboard(data) {
@@ -11689,4 +11692,3 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   function beeCuentaEsc(value){return String(value==null?'':value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
   renderView('dashboard');
-</script>

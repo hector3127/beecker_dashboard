@@ -17,9 +17,15 @@ function harness(seed) {
       innerHTML: '', showModal() {this.open = true;}, close() {this.open = false;}});
     return nodes.get(id);
   }
-  node('financial-cache').textContent = JSON.stringify(seed);
+  node('financial-cache').textContent = JSON.stringify({...seed,
+    accounts: seed.accounts || {healthy: [], unhealthy: [], pending_accounts: 0}});
+  node('operations-cache').textContent = JSON.stringify({budget: 100, advance: 20,
+    etc: 80, projects: 1, known_projects: 1, missing_budget: 0, partial: false, pending_ids: []});
   const context = {document: {getElementById: node}, window: {
-    addEventListener: (name, fn) => listeners[name] = fn,
+    addEventListener: (name, fn) => {
+      const previous = listeners[name];
+      listeners[name] = () => {previous?.(); fn();};
+    },
     dispatchEvent: event => listeners[event.type]?.(),
     open: () => {},
   }, fetch: async url => {requests.push(url); throw Error('Unexpected download');},
@@ -60,6 +66,7 @@ test('partial costs show provisional margin and refresh the monthly chart', asyn
   assert.equal(h.node('executive-collections').textContent, 'Sin dato');
   h.listeners['financial-costs-updated']();
   await new Promise(resolve => setImmediate(resolve));
-  assert.equal(h.requests.length, 1);
+  assert.equal(h.requests.length, 2);
   assert.match(h.requests[0], /rentabilidad_mensual/);
+  assert.match(h.requests[1], /cuentas_rentabilidad/);
 });

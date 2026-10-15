@@ -1,3 +1,4 @@
+from dataclasses import replace
 from datetime import date, datetime
 
 from apps.dashboard.schemas.records import ProjectRecord
@@ -119,6 +120,71 @@ def test_projects_enter_only_when_they_were_running():
     assert history.months[-1].label == "Oct"
 
 
+def test_completed_projects_do_not_repeat_old_progress_in_future_cuts():
+    records = HistorySources(
+        projects=[
+            project(
+                "old", "Completed", datetime(2025, 1, 1), datetime(2025, 12, 31)
+            ),
+            project(
+                "closing",
+                "Completado",
+                datetime(2026, 1, 1),
+                datetime(2026, 3, 15),
+            ),
+            project(
+                "active",
+                "Deployment",
+                datetime(2026, 1, 1),
+                datetime(2026, 12, 31),
+            ),
+        ],
+        entries=[
+            entry("old", datetime(2025, 12, 10), 100),
+            entry("closing", datetime(2026, 1, 10), 50),
+            entry("active", datetime(2026, 1, 10), 20),
+        ],
+        risks=[],
+        managers={"old": "DM", "closing": "DM", "active": "DM"},
+    )
+    history = build_kpi_history(records, NOW, 2026)
+    january = history.months[0].view.totals
+    assert january.total == 2
+    assert january.time_cost.cost_percent == 35
+    for cut in history.months[2:]:
+        assert cut.view.totals.total == 1
+        assert cut.view.totals.time_cost.cost_percent == 20
+
+
+def test_manager_without_active_projects_has_no_historical_percentage():
+    records = HistorySources(
+        projects=[
+            project(
+                "cancelled",
+                "Cancelled",
+                datetime(2025, 1, 1),
+                datetime(2025, 12, 31),
+            ),
+            project(
+                "completed",
+                "Completed",
+                datetime(2026, 1, 1),
+                datetime(2026, 3, 15),
+            ),
+        ],
+        entries=[entry("cancelled", datetime(2025, 12, 10), 100)],
+        risks=[],
+        managers={"cancelled": "Leidy", "completed": "Leidy"},
+    )
+    history = build_kpi_history(records, NOW, 2026)
+    matrix = build_matrix(history.months, history.managers)
+    assert matrix.rows[0].cells[0].total == 1
+    assert matrix.rows[0].cells[0].time_cost.cost_percent == 0
+    assert matrix.rows[0].cells[-1] is None
+    assert chart_series(matrix, 1)["series"][0]["values"][-1] is None
+    assert history.months[-1].view.totals.total == 0
+
+
 def test_quarters_take_the_last_month_cut():
     history = build_kpi_history(sources(), NOW, 2026)
 
@@ -147,3 +213,43 @@ def test_chart_series_limits_managers():
 
     assert len(chart["series"]) == 1
     assert chart["labels"][0] == "Ene"
+
+
+def test_chart_excludes_managers_without_projects_before_applying_limit():
+    history = build_kpi_history(sources(), NOW, 2026)
+    matrix = build_matrix(history.months, history.managers)
+    populated = matrix.rows[0]
+    empty = replace(
+        populated, name="Sin proyectos", cells=(None,) * len(populated.cells)
+    )
+    zero = replace(
+        populated,
+        name="Cero proyectos",
+        cells=tuple(
+            replace(cell, total=0) if cell else None for cell in populated.cells
+        ),
+    )
+    matrix = replace(matrix, rows=(empty, zero, populated))
+    chart = chart_series(matrix, 1)
+    assert [series["name"] for series in chart["series"]] == [populated.name]
+
+
+def test_manager_with_only_projects_closed_before_year_is_not_in_chart():
+    records = HistorySources(
+        projects=[
+            project(
+                "old", "Completed", datetime(2025, 1, 1), datetime(2025, 12, 31)
+            )
+        ],
+        entries=[],
+        risks=[],
+        managers={"old": "DM anterior"},
+    )
+    history = build_kpi_history(records, NOW, 2026)
+    assert history.managers == ()
+    assert (
+        chart_series(build_matrix(history.months, history.managers), 6)[
+            "series"
+        ]
+        == []
+    )

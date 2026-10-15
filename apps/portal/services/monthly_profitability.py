@@ -5,18 +5,19 @@ from decimal import Decimal, InvalidOperation
 from django.core.cache import cache
 from django.utils import timezone
 
+from apps.portal.services.revenue import REVENUE_STATUSES
 from apps.portal.services.revenue_costs import key, project_ids
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 
 
-def load_monthly_profitability():
+def load_monthly_profitability(reader=None, ids=None):
     """Agrupa los ultimos seis meses cerrados, marcando costos parciales."""
     today = timezone.localdate()
     end = today.year * 12 + today.month - 2
     months = [
         f"{index // 12:04d}-{index % 12 + 1:02d}"
-        for index in range(end - 5, end + 1)
+        for index in range(max(end - 5, 2026 * 12), min(end + 1, 2027 * 12))
     ]
     rows = {
         month: {
@@ -29,8 +30,10 @@ def load_monthly_profitability():
         }
         for month in months
     }
-    reader = build_sheet_repository()
+    reader = reader or build_sheet_repository()
     for row in reader.read_values("DataRevenue")[1:]:
+        if not row or str(row[0]).strip().casefold() not in REVENUE_STATUSES:
+            continue
         if len(row) < 8 or any(
             str(c).strip().casefold()
             in {"total", "grand total", "subtotal", "total general"}
@@ -55,7 +58,7 @@ def load_monthly_profitability():
     complete = True
     pending = 0
     seen = set()
-    for pid in project_ids(reader):
+    for pid in project_ids(reader) if ids is None else ids:
         project = cache.get(key(pid))
         if not project:
             complete = False

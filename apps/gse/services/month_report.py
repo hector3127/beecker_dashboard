@@ -14,7 +14,6 @@ from apps.gse.constants import (
     NO_SUFFIX_VARIANT,
     NON_BILLABLE,
     NOT_AVAILABLE,
-    ROLE_COLUMN,
     SUFFIX_IN_TEXT,
     UNCLASSIFIED,
 )
@@ -218,7 +217,7 @@ def read_month_roster(
 
     for row in sheet.data_rows:
         name = trimmed(cell_at(row, name_column))
-        area = trimmed(cell_at(row, ROLE_COLUMN))
+        area = trimmed(cell_at(row, sheet.role_column))
 
         if not name or not area:
             continue

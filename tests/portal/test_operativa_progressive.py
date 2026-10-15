@@ -81,7 +81,7 @@ def test_fresh_base_navigation_skips_sources_and_keeps_pending_blocks(
     )
     assert views.operativa_datos(request()).status_code == 200
     html = views.operativa(request()).content.decode()
-    assert 'data-pending-blocks="eva3,inversion,capacidad"' in html
+    assert 'data-pending-blocks="eva3,inversion,capacidad,eva4"' in html
 
 
 def test_independent_blocks_survive_stale_base_snapshot_writes():

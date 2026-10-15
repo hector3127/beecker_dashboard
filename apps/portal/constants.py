@@ -13,9 +13,9 @@ Colores, etiquetas y claves de cache de las pantallas Ejecutiva,
 Operativa y Comercial.
 """
 
-PORTFOLIO_CACHE_KEY: Final[str] = "portal:portfolio:v2"
+PORTFOLIO_CACHE_KEY: Final[str] = "portal:portfolio:v3"
 PORTFOLIO_CACHE_SECONDS: Final[int] = 300
-KPI_HISTORY_CACHE_KEY: Final[str] = "portal:kpi-history:v1"
+KPI_HISTORY_CACHE_KEY: Final[str] = "portal:kpi-history:v8"
 KPI_HISTORY_CACHE_SECONDS: Final[int] = 600
 KPI_HISTORY_CHART_MANAGERS: Final[int] = 6
 
@@ -101,7 +101,7 @@ MAX_WORKDAY_HOURS: Final[float] = 24.0
 WEEKDAYS_PER_WEEK: Final[int] = 5
 
 # Pantalla de Proyecto
-PROJECT_CACHE_PREFIX: Final[str] = "portal:project:v2:"
+PROJECT_CACHE_PREFIX: Final[str] = "portal:project:v3:"
 PROJECT_CACHE_SECONDS: Final[int] = 600
 PROJECT_BAR_SCALE_PERCENT: Final[int] = 150
 

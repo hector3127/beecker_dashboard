@@ -46,6 +46,7 @@ class ProjectDetailSources:
     resource_rows: Sequence[SheetRow]
     entries: Sequence[TimeEntry]
     band_info: Mapping[str, tuple[CellValue, float]]
+    include_unassigned: bool = False
 
 
 def build_project_detail(
@@ -266,6 +267,38 @@ def build_resource_rows(
                 ),
                 "estado": resource_status(real_hours, estimated_hours),
             },
+        )
+
+    assigned_names = {normalize_name(row["nombre"]) for row in rows}
+    recorded_names = {
+        normalize_name(entry.resource_name): entry.resource_name
+        for entry in sources.entries
+    }
+    for key, name in (
+        recorded_names.items() if sources.include_unassigned or not rows else []
+    ):
+        if key in assigned_names:
+            continue
+        real_hours = round_half_up(billable.get(key, 0), 2)
+        non_billable_hours = round_half_up(non_billable.get(key, 0), 2)
+        if real_hours == 0 and non_billable_hours == 0:
+            continue
+        band, costing_rate = sources.band_info.get(key, ("", 0.0))
+        rows.append(
+            {
+                "posicion": "Sin asignacion en Recursos",
+                "nombre": name,
+                "banda": band or "",
+                "costingRate": costing_rate or 0,
+                "horasEstimadas": 0,
+                "horasReales": real_hours,
+                "horasNoFact": non_billable_hours,
+                "costoEstimado": 0,
+                "costoReal": round_half_up(real_hours * (costing_rate or 0), 2),
+                "balance": -real_hours,
+                "pctCumplimiento": 0,
+                "estado": "Sin estimacion en Recursos",
+            }
         )
 
     rows.sort(key=lambda row: -row["horasReales"])

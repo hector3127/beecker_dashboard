@@ -3,7 +3,9 @@
 import calendar
 import hashlib
 import re
+from dataclasses import dataclass
 from datetime import date
+from typing import Any
 
 from django.core.cache import cache
 from django.utils import timezone
@@ -11,15 +13,78 @@ from django.utils import timezone
 from apps.clockify.provider import build_clockify_loader
 from apps.gse.services.roster import find_band_column, read_roster_sheet
 from core.sheets.factory import build_sheet_repository
+from core.sheets.project_year import mpb_previous_year_ids
+from core.sheets.protocols import SheetReader
 from core.time_entries.resource_rates import normalize_band, read_rate_by_band
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
 
 
-def project_ids(reader):
+@dataclass(frozen=True)
+class CostContext:
+    """Fuentes y mapas de tarifas compartidos por la precarga financiera."""
+
+    reader: SheetReader
+    ids: list[str]
+    allowed_ids: frozenset[str]
+    today: date
+    rates: dict[str, float]
+    bands: dict[str, tuple[Any, str]]
+
+
+def prepare_cost_context(
+    reader: SheetReader | None = None,
+    ids: list[str] | None = None,
+) -> CostContext:
+    """Prepara IDs, bandas y tarifas una vez antes de iniciar los hilos."""
+    reader = reader or build_sheet_repository()
+    ids = project_ids(reader) if ids is None else ids
+    reader.prefetch(
+        [
+            "Bandas/rol",
+            "Master rates",
+            "Banda salarial",
+            "Proyectos",
+            "Historico_Proyectos",
+            "Recursos",
+            "MPB",
+            "Clockify_Vinculos",
+        ]
+    )
+    roster = read_roster_sheet(reader, "No se puede leer Bandas/rol")
+    today = timezone.localdate()
+    if find_band_column(roster.headers, today.month, str(today.year)) < 0:
+        raise ValueError("Bandas/rol no tiene banda para el mes actual")
+    rates = read_rate_by_band(reader.read_values("Master rates"))
+    bands = {}
+    for row in roster.data_rows:
+        if row:
+            bands[normalize_name(row[0])] = resolve_person_band(
+                row,
+                roster.headers,
+                rates,
+                today,
+            )
+    return CostContext(
+        reader,
+        ids,
+        frozenset(pid.casefold() for pid in ids),
+        today,
+        rates,
+        bands,
+    )
+
+
+def project_ids(reader, account=None):
     """Lista IDs unicos del ejercicio 2026 sin las filas de totales."""
     result = {}
+    excluded = mpb_previous_year_ids(reader)
     for row in reader.read_values("DataRevenue")[1:]:
+        if account and (
+            len(row) < 2
+            or normalize_name(str(row[1] or "")) != normalize_name(account)
+        ):
+            continue
         if any(
             str(cell).strip().casefold()
             in {"total", "grand total", "total general", "subtotal"}
@@ -34,7 +99,8 @@ def project_ids(reader):
             and str(row[4] or "").strip()
         ):
             pid = str(row[4]).strip()
-            result.setdefault(pid.casefold(), pid)
+            if pid.casefold() not in excluded:
+                result.setdefault(pid.casefold(), pid)
     return sorted(result.values(), key=str.casefold)
 
 
@@ -103,11 +169,12 @@ def resolve_cost_scope(pid, ids, today):
     return lookup, start, end, month
 
 
-def calculate_project_cost(pid):
+def calculate_project_cost(pid, context=None):
     """Calcula horas por tarifa usando el cargador compartido de Clockify."""
-    reader = build_sheet_repository()
-    ids = project_ids(reader)
-    if pid.casefold() not in {value.casefold() for value in ids}:
+    reader = context.reader if context else build_sheet_repository()
+    ids = context.ids if context else project_ids(reader)
+    allowed = context.allowed_ids if context else {p.casefold() for p in ids}
+    if pid.casefold() not in allowed:
         raise ValueError("El ID no esta en DataRevenue")
     existing = cache.get(key(pid))
     if existing:
@@ -116,20 +183,8 @@ def calculate_project_cost(pid):
             for k, v in existing.items()
             if k not in {"entries", "entry_months"}
         }
-    roster = read_roster_sheet(reader, "No se puede leer Bandas/rol")
-    today = timezone.localdate()
-    column = find_band_column(roster.headers, today.month, str(today.year))
-    if column < 0:
-        raise ValueError("Bandas/rol no tiene banda para el mes actual")
-    rates = read_rate_by_band(reader.read_values("Master rates"))
-    bands = {}
-    for row in roster.data_rows:
-        if not row:
-            continue
-        band, band_month = resolve_person_band(
-            row, roster.headers, rates, today
-        )
-        bands[normalize_name(row[0])] = (band, band_month)
+    context = context or prepare_cost_context(reader, ids)
+    today, rates, bands = context.today, context.rates, context.bands
     lookup, start, end, month = resolve_cost_scope(pid, ids, today)
     entries = build_clockify_loader(reader).load_project(lookup, (start, end))
     people = {}
@@ -188,9 +243,9 @@ def calculate_project_cost(pid):
     }
 
 
-def cost_summary():
+def cost_summary(ids=None, account=None):
     """Suma costos preparados sin duplicar registros entre proyectos."""
-    ids = project_ids(build_sheet_repository())
+    ids = project_ids(build_sheet_repository(), account) if ids is None else ids
     entries = {}
     projects = []
     pending = 0

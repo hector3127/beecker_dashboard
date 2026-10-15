@@ -39,6 +39,11 @@ html body .view-header #ultima-act { font-size: 12.5px !important; color: #fff !
 html body #view-container > div[style*="height:5px"] { display: none !important; }
 
 /* En proyectos el banner es el encabezado del proyecto; del encabezado general solo queda el boton de la camara. */
+html body[data-legacy-project="true"] #view-container > .view-header { display: none !important; }
+html body .legacy-project-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 26px; margin-bottom: 14px; border-radius: 18px; color: #fff; background: linear-gradient(90deg, #5B3CFF 0%, #A02DF0 55%, #FF3FA6 100%); }
+html body .legacy-project-head h2 { margin: 0; font-size: 28px; }
+html body .legacy-project-head p { margin: 6px 0 0; font-size: 13.5px; }
+html body .legacy-project-head > span { font-size: 12px; padding: 4px 12px; border-radius: 20px; background: rgba(255,255,255,.22); }
 html body #view-container:has(.ixs-head) > .view-header,
 html body #view-container:has(.aer-head) > .view-header {
   display: block !important; position: relative; height: 0; margin: 0 !important; padding: 0 !important;

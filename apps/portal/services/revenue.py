@@ -7,10 +7,20 @@ from django.core.cache import cache
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 
+REVENUE_STATUSES = frozenset(
+    {
+        "confirmed",
+        "invoiced",
+        "invoiced factoring",
+        "collected",
+        "collected factoring",
+    }
+)
+
 
 def load_revenue():
     """Suma ingresos y la proporcion cobrada del ejercicio 2026."""
-    cached = cache.get("portal:revenue:DataRevenue:H:2026:v3")
+    cached = cache.get("portal:revenue:DataRevenue:H:2026:v4")
     if cached is not None:
         return cached
     rows = build_sheet_repository().read_values("DataRevenue")
@@ -20,7 +30,11 @@ def load_revenue():
     invoiced = Decimal("0")
     for row in rows[1:]:
         moment = to_datetime(row[6]) if len(row) > 6 else None
-        if not moment or moment.year != 2026:
+        if (
+            not moment
+            or moment.year != 2026
+            or str(row[0]).strip().casefold() not in REVENUE_STATUSES
+        ):
             continue
         if len(row) < 8 or row[7] in ("", None):
             continue
@@ -57,5 +71,5 @@ def load_revenue():
         else None,
         "source": "DataRevenue · 2026 · H (USD Global Adj)",
     }
-    cache.set("portal:revenue:DataRevenue:H:2026:v3", result, 300)
+    cache.set("portal:revenue:DataRevenue:H:2026:v4", result, 300)
     return result

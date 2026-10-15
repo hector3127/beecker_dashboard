@@ -171,6 +171,36 @@ def load_account_consumption(
     reader, writer = sheets
     client, offset, limit, pending_ids = request
     projects = load_mpb_projects(reader, client, cache)
+    from apps.clockify.services.date_ranges import ProjectDateRangeResolver
+    from apps.ejecutivo.services.account_view import build_account_view
+
+    existing = {normalize_value(p["id"]) for p in projects}
+    resolver = ProjectDateRangeResolver(reader, today)
+    history_projects = build_account_view(reader, client, cache, today).get(
+        "proyectos", []
+    )
+    for project in history_projects:
+        if (
+            normalize_value(project["id"]) in existing
+            or project.get("roc_source")
+        ):
+            continue
+        span = resolver.resolve_from_history(project["id"])
+        projects.append(
+            {
+                "id": project["id"],
+                "inicio": span.start_date.isoformat()
+                if span.start_date
+                else "",
+                "fin": span.end_date.isoformat()
+                if span.end_date
+                else today.isoformat(),
+                "finalizado": True,
+                "burnGuardado": None,
+                "history_source": True,
+            }
+        )
+
     start = max(0.0, number_or_zero(offset))
     size = min(MAX_BATCH, max(1.0, number_or_zero(limit) or DEFAULT_BATCH))
     ids: Sequence[object] = (
@@ -280,6 +310,17 @@ def consumption_item(
     except DashboardError as error:
         return {"id": project_id, "burn": None, "error": error.detail}
 
+    if project.get("history_source"):
+        from apps.clockify.services.cr_hours import canonical_cr_id
+        from apps.ejecutivo.services.ixb_rules import calculate_exact_burn
+
+        return {
+            "id": project_id,
+            "burn": json_number(
+                calculate_exact_burn(entries, canonical_cr_id(project_id))
+            ),
+        }
+
     burn = round_half_up(
         sum(
             entry.duration_hours
@@ -292,7 +333,7 @@ def consumption_item(
         2,
     )
 
-    if project["finalizado"]:
+    if project["finalizado"] and not project.get("history_source"):
         to_save.append((project["mpbFila"], burn))
 
     return {"id": project_id, "burn": json_number(burn)}

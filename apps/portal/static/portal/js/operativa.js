@@ -52,6 +52,11 @@
     const pairs = ids.map(id => [document.getElementById(id), doc.getElementById(id)]);
     if (pairs.some(pair => !pair[0] || !pair[1])) throw new Error('Respuesta incompleta');
     pairs.forEach(([current, next]) => {
+      if (current.id === 'ops-evas') {
+        const liveCard = document.getElementById('ops-eva4-card');
+        const placeholder = next.querySelector('#ops-eva4-card');
+        if (liveCard && placeholder) placeholder.replaceWith(liveCard);
+      }
       const oldTrack = current.querySelector('.dm-carousel-track');
       const scroll = oldTrack ? oldTrack.scrollLeft : 0;
       current.replaceWith(next);
@@ -114,6 +119,7 @@
       if (Number(next.dataset.sourceErrors) > 0) failures.push('fuentes del portafolio');
       status('Proyectos y estados disponibles. Actualizando consumo, inversión y capacidad…');
       const blocks = [
+        ['eva4', 'EVA-04 Report', ['ops-eva4-card']],
         ['inversion', 'inversión', ['ops-investment-operational', 'ops-investment-commercial']],
         ['capacidad', 'capacidad', ['ops-capacity']],
         ['eva3', 'EVA 3', ['ops-metric-progress', 'ops-metric-paused', 'ops-metric-on-time', 'ops-health', 'ops-managers', 'ops-evas']]

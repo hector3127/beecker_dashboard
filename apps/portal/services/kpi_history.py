@@ -1,7 +1,7 @@
 """KPIs de Delivery Managers por mes y trimestre, reconstruidos."""
 
 import calendar
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import date, datetime, time
 
@@ -58,6 +58,8 @@ class HistorySources:
     entries: Sequence[TimeEntry]
     risks: Sequence[RiskRecord]
     managers: Mapping[str, str]
+    resolve_projects: Callable[[date], Sequence[ProjectRecord]] | None = None
+    unavailable_hours: frozenset[str] = frozenset()
 
 
 def month_cuts(year: int, today: date) -> list[tuple[str, date]]:
@@ -161,8 +163,15 @@ def _build_cut(
     burn = calculate_burn_by_project(entries)
     views: list[ProjectView] = []
 
-    for project in sources.projects:
-        at_cut = project if is_today else _project_at(project, cut)
+    resolved = (
+        sources.resolve_projects(cut) if sources.resolve_projects else None
+    )
+    for project in resolved if resolved is not None else sources.projects:
+        at_cut = (
+            project
+            if resolved is not None or is_today
+            else _project_at(project, cut)
+        )
 
         if at_cut is None:
             continue
@@ -174,7 +183,13 @@ def _build_cut(
             EMPTY_COSTS,
             now if is_today else moment,
         )
-        views.append(to_project_view(metrics, dict(sources.managers)))
+        view = to_project_view(metrics, dict(sources.managers))
+        if resolved is not None and (
+            at_cut.budget_hours <= 0
+            or at_cut.project_id in sources.unavailable_hours
+        ):
+            view = replace(view, progress_percent=None)
+        views.append(view)
 
     return KpiCut(
         key=key,
@@ -217,7 +232,7 @@ def _managers(months: Sequence[KpiCut]) -> Roster:
 
     for cut in reversed(months):
         for row in cut.view.rows:
-            if row.name != NO_DELIVERY_MANAGER:
+            if row.name != NO_DELIVERY_MANAGER and row.total > 0:
                 ordered.setdefault(row.name, row.total)
 
     return tuple(
@@ -240,16 +255,23 @@ def chart_series(
     Returns:
         Etiquetas y una serie de C (%) por Delivery Manager.
     """
+    eligible = [
+        row
+        for row in matrix.rows
+        if any(cell is not None and cell.total > 0 for cell in row.cells)
+    ]
     return {
         "labels": list(matrix.headers),
         "series": [
             {
                 "name": row.name,
                 "values": [
-                    cell.time_cost.cost_percent if cell else None
+                    cell.time_cost.cost_percent
+                    if cell and cell.total > 0
+                    else None
                     for cell in row.cells
                 ],
             }
-            for row in matrix.rows[:limit]
+            for row in eligible[:limit]
         ],
     }

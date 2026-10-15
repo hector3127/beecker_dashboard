@@ -1,0 +1,16 @@
+{% extends 'portal/base.html' %}
+{% load static %}
+{% block title %}Capacidad instalada{% endblock %}
+{% block body_class %}ds{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'portal/css/capacidad_instalada.css' %}">{% endblock %}
+{% block content %}
+<div class="capacity-detail-page">
+  <a class="capacity-back" href="{% url 'portal:operativa' %}">← Regresar a Operativa</a>
+  <div id="capacity-detail-root" aria-live="polite"></div>
+  <noscript><p>Consulta las <a href="{% url 'portal:capacidad' %}">asignaciones del mes</a> sin JavaScript.</p></noscript>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'core/js/gas_shim.js' %}"></script>
+<script src="{% static 'portal/js/capacidad_instalada.js' %}"></script>
+{% endblock %}

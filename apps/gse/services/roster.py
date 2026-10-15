@@ -4,7 +4,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field
 
 from apps.capacidad.constants import MONTH_NAMES
-from apps.gse.constants import HEADER_SEARCH_ROWS, ROLE_COLUMN, SHEET_ROSTER
+from apps.gse.constants import HEADER_SEARCH_ROWS, SHEET_ROSTER
 from apps.gse.exceptions import GseError
 from apps.gse.services.cells import (
     SheetValues,
@@ -17,7 +17,7 @@ from core.sheets.protocols import SheetReader
 from core.utils.cell_types import CellValue
 
 """BKD.100.006 - Personas de GSE
-Lee Bandas/rol: area (ROL, columna C), banda del mes e ID de Clockify.
+Lee Bandas/rol: area, banda del mes e ID de Clockify por encabezado.
 """
 
 BAND_ALIASES_TAIL = "banda"
@@ -48,11 +48,15 @@ class RosterSheet:
         """Filas despues de los encabezados."""
         return self.rows[self.header_index + 1 :]
 
+    @property
+    def role_column(self) -> int:
+        """Posicion del encabezado ROL, independiente del orden del Sheet."""
+        return self.headers.index("rol")
+
 
 def read_roster_sheet(
     reader: SheetReader,
     error_text: str,
-    require_role_column: bool = False,
 ) -> RosterSheet:
     """
     Lee Bandas/rol y ubica la fila con Nombre y ROL.
@@ -60,7 +64,6 @@ def read_roster_sheet(
     Args:
         reader: Repositorio de Sheets.
         error_text: Mensaje si no hay fila de encabezados.
-        require_role_column: Exige que ROL este en la columna C.
 
     Returns:
         La hoja con sus encabezados normalizados.
@@ -72,7 +75,7 @@ def read_roster_sheet(
         raise GseError("Falta Bandas/rol.")
 
     rows = reader.read_values(SHEET_ROSTER)
-    header_index = find_header_row(rows, require_role_column)
+    header_index = find_header_row(rows)
 
     if header_index < 0:
         raise GseError(error_text)
@@ -82,15 +85,12 @@ def read_roster_sheet(
     return RosterSheet(rows, header_index, headers)
 
 
-def find_header_row(rows: SheetValues, require_role_column: bool) -> int:
+def find_header_row(rows: SheetValues) -> int:
     """Fila (en las primeras 20) con Nombre y ROL; -1 si no existe."""
     for index, row in enumerate(rows[:HEADER_SEARCH_ROWS]):
         norms = [norm(value) for value in row]
 
         if "nombre" not in norms or "rol" not in norms:
-            continue
-
-        if require_role_column and norm(cell_at(row, ROLE_COLUMN)) != "rol":
             continue
 
         return index
@@ -100,7 +100,7 @@ def find_header_row(rows: SheetValues, require_role_column: bool) -> int:
 
 def list_areas(reader: SheetReader) -> list[str]:
     """
-    Areas unicas (columna C bajo el encabezado ROL), ordenadas.
+    Areas unicas de la columna con encabezado ROL, ordenadas.
 
     Args:
         reader: Repositorio de Sheets.
@@ -111,28 +111,11 @@ def list_areas(reader: SheetReader) -> list[str]:
     Raises:
         GseError: Cuando falta la hoja o el encabezado ROL.
     """
-    if not reader.sheet_exists(SHEET_ROSTER):
-        raise GseError("Falta Bandas/rol.")
-
-    rows = reader.read_values(SHEET_ROSTER)
-    header_index = next(
-        (
-            index
-            for index, row in enumerate(rows)
-            if norm(cell_at(row, ROLE_COLUMN)) == "rol"
-        ),
-        -1,
-    )
-
-    if header_index < 0:
-        raise GseError(
-            "La columna C de Bandas/rol requiere el encabezado ROL.",
-        )
-
+    sheet = read_roster_sheet(reader, "Bandas/rol requiere Nombre y ROL.")
     unique: dict[str, str] = {}
 
-    for row in rows[header_index + 1 :]:
-        value = trimmed(cell_at(row, ROLE_COLUMN))
+    for row in sheet.data_rows:
+        value = trimmed(cell_at(row, sheet.role_column))
         key = norm(value)
 
         if key and key not in unique:

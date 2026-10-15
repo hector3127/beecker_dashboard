@@ -1,11 +1,15 @@
 """Funciones de la vista de cuenta Beecker expuestas al frontend por RPC."""
 
+import hashlib
 import logging
 from datetime import date
 from typing import Any
 
 from django.core.cache import cache
 from django.utils import timezone
+from google.auth.exceptions import TransportError
+from httplib2 import ServerNotFoundError
+from requests.exceptions import RequestException
 
 from apps.clockify.provider import build_clockify_loader
 from apps.clockify.services.time_entry_loader import ClockifyTimeEntryLoader
@@ -29,16 +33,45 @@ JsonObject = dict[str, Any]
 @register_rpc("obtenerVistaCuentaBeecker")
 def get_account_view(client: object = None) -> JsonObject:
     """Proyectos, ROC, MPB y oportunidades de la cuenta."""
+    backup_key = (
+        "account-view:2026:v3:"
+        + hashlib.sha256(
+            str(client or "").strip().casefold().encode("utf-8")
+        ).hexdigest()
+    )
     try:
-        return account_view.build_account_view(
+        result = account_view.build_account_view(
             build_sheet_repository(),
             client,
             cache,
             timezone.localdate(),
         )
-    except DashboardError as error:
-        logger.warning("Vista de cuenta no disponible: %s", error.detail)
-        return {"ok": False, "error": describe_error(error)}
+        if result.get("ok"):
+            cache.set(backup_key, result, 86400)
+        return result
+    except (
+        DashboardError,
+        ServerNotFoundError,
+        TransportError,
+        RequestException,
+        OSError,
+    ) as error:
+        logger.warning(
+            "Vista de cuenta no disponible: %s", type(error).__name__
+        )
+        message = (
+            "No se pudo conectar con Google Sheets. "
+            "Intenta de nuevo en unos momentos."
+        )
+        saved = cache.get(backup_key)
+        if isinstance(saved, dict) and saved.get("ok"):
+            return {
+                **saved,
+                "stale": True,
+                "warning": message
+                + " Se muestra la ultima consulta disponible.",
+            }
+        return {"ok": False, "error": message}
 
 
 @register_rpc("obtenerOportunidadesCuentaBeecker")

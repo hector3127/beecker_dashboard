@@ -38,6 +38,10 @@ def test_status_categories_match_original_mapping():
     assert categorize_project_status("Deployment") == "Activo"
     assert categorize_project_status("Suspendido") == "En Pausa"
     assert categorize_project_status("Cancelado") == "Cerrado"
+    assert categorize_project_status(" Completed ") == "Cerrado"
+    assert categorize_project_status("COMPLETADO") == "Cerrado"
+    assert categorize_project_status("Cancelled") == "Cerrado"
+    assert categorize_project_status("CANCELED") == "Cerrado"
     assert categorize_project_status("Desconocido") == "Activo"
 
 

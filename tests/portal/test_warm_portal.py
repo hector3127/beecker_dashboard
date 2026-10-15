@@ -55,8 +55,12 @@ def test_warmer_uses_all_portal_blocks_and_reports_partial_data(monkeypatch):
         "apps.portal.services.financial_cache.warm_financial",
         lambda: {"ok": True},
     )
+    monkeypatch.setattr(
+        "apps.portal.services.executive_operations.warm_operations",
+        lambda: {"ok": True},
+    )
     result = warm_cache.warm_portal()
-    assert calls == ["", "eva3", "inversion", "capacidad"]
+    assert calls == ["", "eva4", "eva3", "inversion", "capacidad"]
     assert result == {"ok": False, "error": "inversion, facturabilidad"}
 
 

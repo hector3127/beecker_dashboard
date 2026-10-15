@@ -9,7 +9,7 @@ from typing import Any
 from apps.capacidad.constants import MONTH_PATTERN
 from apps.clockify.constants import FORBIDDEN_STATUS, SUCCESS_STATUS_LIMIT
 from apps.clockify.services.clockify_client import ClockifyClient
-from apps.gse.constants import ROLE_COLUMN, SHEET_ROSTER
+from apps.gse.constants import SHEET_ROSTER
 from apps.gse.exceptions import GseError
 from apps.gse.services.base_store import HourRecord
 from apps.gse.services.base_writer import SheetStore
@@ -203,19 +203,18 @@ def item_id(item: JsonObject) -> str:
 
 def find_roster_header(rows: Sequence[Sequence[Any]]) -> int:
     """
-    Fila con Nombre en A y ROL en C.
+    Fila con Nombre en A y ROL en cualquier columna.
 
     Raises:
         GseError: Cuando no existe.
     """
     for index, row in enumerate(rows):
-        if (
-            norm(cell_at(row, 0)) == "nombre"
-            and norm(cell_at(row, ROLE_COLUMN)) == "rol"
-        ):
+        if norm(cell_at(row, 0)) == "nombre" and "rol" in [
+            norm(value) for value in row
+        ]:
             return index
 
-    raise GseError("Se requieren Nombre en A y ROL en C.")
+    raise GseError("Se requieren Nombre en A y ROL.")
 
 
 def save_ids(
@@ -252,12 +251,18 @@ def write_ids(
 
     rows = sheets.read_values(SHEET_ROSTER)
     header_index = find_roster_header(rows)
+    headers = [norm(value) for value in rows[header_index]]
+    id_column = (
+        headers.index(norm(ID_HEADER)) + 1
+        if norm(ID_HEADER) in headers
+        else ID_COLUMN
+    )
 
-    if norm(cell_at(rows[header_index], ID_COLUMN - 1)) != norm(ID_HEADER):
-        if any(trimmed(cell_at(row, ID_COLUMN - 1)) for row in rows):
-            sheets.insert_column_after(SHEET_ROSTER, ID_COLUMN - 1)
+    if norm(cell_at(rows[header_index], id_column - 1)) != norm(ID_HEADER):
+        if any(trimmed(cell_at(row, id_column - 1)) for row in rows):
+            sheets.insert_column_after(SHEET_ROSTER, id_column - 1)
 
-        sheets.write_cell(SHEET_ROSTER, header_index + 1, ID_COLUMN, ID_HEADER)
+        sheets.write_cell(SHEET_ROSTER, header_index + 1, id_column, ID_HEADER)
 
     current = sheets.read_values(SHEET_ROSTER)
     people = current[header_index + 1 :]
@@ -278,7 +283,7 @@ def write_ids(
     for offset, row in enumerate(people):
         name = trimmed(cell_at(row, 0))
 
-        if not name or trimmed(cell_at(row, ID_COLUMN - 1)):
+        if not name or trimmed(cell_at(row, id_column - 1)):
             continue
 
         key = norm(name)
@@ -288,7 +293,7 @@ def write_ids(
             pending.append(name)
             continue
 
-        cells.append((header_index + offset + 2, ID_COLUMN, next(iter(ids))))
+        cells.append((header_index + offset + 2, id_column, next(iter(ids))))
 
     sheets.write_text_cells(SHEET_ROSTER, cells)
 

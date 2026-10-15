@@ -42,7 +42,6 @@ from core.rpc.registry import register_rpc
 from core.sheets import sheet_names
 from core.sheets.factory import build_sheet_repository
 from core.sheets.protocols import SheetReader
-from core.time_entries.factory import build_time_entry_provider
 from core.time_entries.models import TimeEntry
 from core.utils.text import extract_base_id, to_text
 
@@ -175,32 +174,60 @@ def load_ixb_raas_summary(closed: bool = False) -> JsonObject:
             else []
         )
         project_rows = repository.read_as_objects(
-            sheet_names.SHEET_PROJECTS_HISTORY if closed else sheet_names.SHEET_PROJECTS
+            sheet_names.SHEET_PROJECTS_HISTORY
+            if closed
+            else sheet_names.SHEET_PROJECTS
         )
         if closed:
             from core.utils.text import get_flexible_value
+
             normalized = {}
             for row in project_rows:
-                pid = str(get_flexible_value(row, ["Project ID", "ID_Proyecto"] ) or "").strip()
-                status = str(get_flexible_value(row, ["Status", "Estado"] ) or "").strip().upper()
-                if not pid or status not in {"COMPLETED", "COMPLETADO", "CANCELLED", "CANCELED", "CANCELADO"}:
+                pid = str(
+                    get_flexible_value(row, ["Project ID", "ID_Proyecto"]) or ""
+                ).strip()
+                status = (
+                    str(get_flexible_value(row, ["Status", "Estado"]) or "")
+                    .strip()
+                    .upper()
+                )
+                if not pid or status not in {
+                    "COMPLETED",
+                    "COMPLETADO",
+                    "CANCELLED",
+                    "CANCELED",
+                    "CANCELADO",
+                }:
                     continue
                 normalized[pid.casefold()] = {
                     **row,
                     "ID_Proyecto": pid,
-                    "Nombre": get_flexible_value(row, ["Project Name", "Nombre"]),
-                    "Budget_Hrs": get_flexible_value(row, ["Budget", "Budget_Hrs"]),
+                    "Nombre": get_flexible_value(
+                        row, ["Project Name", "Nombre"]
+                    ),
+                    "Budget_Hrs": get_flexible_value(
+                        row, ["Budget", "Budget_Hrs"]
+                    ),
                 }
             project_rows = list(normalized.values())
-        from apps.ejecutivo.services.ixb_history import resolve_history_period, resolve_closed_period
+        from apps.ejecutivo.services.ixb_history import (
+            resolve_closed_period,
+            resolve_history_period,
+        )
+
         resolver = resolve_closed_period if closed else resolve_history_period
         today = timezone.localdate()
         eligible_ids = {
             read_project_id(row).casefold()
             for row in project_rows
-            if read_project_id(row) and resolver(history_rows, read_project_id(row), today).active
+            if read_project_id(row)
+            and resolver(history_rows, read_project_id(row), today).active
         }
-        project_rows = [row for row in project_rows if read_project_id(row).casefold() in eligible_ids]
+        project_rows = [
+            row
+            for row in project_rows
+            if read_project_id(row).casefold() in eligible_ids
+        ]
         project_entries = LazyProjectEntries(repository)
         project_entries.prefetch(
             [
@@ -288,13 +315,12 @@ def get_executive_dashboard(project_id: object = "") -> JsonObject:
     )
 
     project_loader = LazyProjectEntries(repository)
-    selected_entries = None
+    selected_entries = {}
 
     def load_selected_entries(project_id):
-        nonlocal selected_entries
-        if selected_entries is None:
-            selected_entries = project_loader(project_id)
-        return selected_entries
+        if project_id not in selected_entries:
+            selected_entries[project_id] = project_loader(project_id)
+        return selected_entries[project_id]
 
     def load_portfolio_entries() -> tuple[TimeEntry, ...]:
         return tuple(load_selected_entries(clean_id))

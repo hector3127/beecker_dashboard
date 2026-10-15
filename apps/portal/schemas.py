@@ -20,7 +20,7 @@ class ProjectView:
     status_category: str
     health: str
     risk_level: str
-    progress_percent: int
+    progress_percent: int | None
     delay_days: int
     budget_hours: float
     burn_hours: float

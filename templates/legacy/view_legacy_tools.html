@@ -1,0 +1,15 @@
+<template id="tpl-dashboard">
+  <div style="display:none" aria-hidden="true">
+      <select class="filter" id="f-proyecto"><option value="{{ request.GET.proyecto|default:'Todos los proyectos' }}">{{ request.GET.proyecto|default:'Todos los proyectos' }}</option></select>
+      <select class="filter" id="f-cliente"><option value="{{ request.GET.cuenta|default:'Todos los clientes' }}">{{ request.GET.cuenta|default:'Todos los clientes' }}</option></select>
+      <button class="btn" id="btn-refresh" title="Actualizar detalle">⟳</button>
+  </div>
+  <div id="dashboard-general" {% if request.GET.proyecto %}style="display:none"{% endif %}>
+    <div id="kpi-grid"><p style="padding:18px;color:var(--gris);">Selecciona GSE para consultar sus datos.</p></div>
+  </div>
+  <div id="dashboard-proyecto-detalle" style="display:{% if request.GET.proyecto %}block{% else %}none{% endif %};">
+    {% if request.GET.proyecto %}
+    <div class="legacy-project-head"><div><h2>{{ request.GET.proyecto }}</h2><p role="status">Cargando información del proyecto…</p></div><span>Consultando…</span></div>
+    {% endif %}
+  </div>
+</template>

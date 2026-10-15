@@ -1,0 +1,22 @@
+{% extends 'portal/base.html' %}
+{% load static %}
+{% block title %}{{ project_id }} · Proyecto{% endblock %}
+{% block body_class %}ds project-detail-page{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'portal/css/proyecto_detalle.css' %}">{% endblock %}
+{% block content %}
+<div id="view-container"></div>
+<template id="tpl-dashboard">
+  <div style="display:none" aria-hidden="true">
+    <select id="f-proyecto"><option value="{{ project_id }}">{{ project_id }}</option></select>
+    <select id="f-cliente"><option>Todos los clientes</option></select>
+    <button id="btn-refresh" type="button">Actualizar</button>
+  </div>
+  <div id="dashboard-general" style="display:none"></div>
+  <div id="dashboard-proyecto-detalle"><div class="legacy-project-head"><div><h2>{{ project_id }}</h2><p role="status">Cargando información del proyecto…</p></div><span>Consultando…</span></div></div>
+</template>
+{{ project_context|json_script:'project-context' }}
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'core/js/gas_shim.js' %}"></script>
+<script src="{% static 'portal/js/proyecto_detalle.js' %}"></script>
+{% endblock %}

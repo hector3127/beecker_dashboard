@@ -72,7 +72,7 @@ def test_revenue_collections_and_invalid_rows_are_handled(monkeypatch):
     factory = Mock(return_value=reader)
     monkeypatch.setattr(revenue, "build_sheet_repository", factory)
     result = revenue.load_revenue()
-    assert result["total"] == "2400.00"
+    assert result["total"] == "1900.00"  # Forecast no forma parte del revenue.
     assert result["invoiced"] == "1900.00"
     assert result["collected"] == "1200.00"
     assert result["collections_percent"] == 63.16
@@ -217,15 +217,15 @@ def test_precache_preserves_valid_snapshot_when_costs_fail(monkeypatch):
     monkeypatch.setattr(
         financial_cache,
         "calculate_project_cost",
-        lambda pid: (_ for _ in ()).throw(ValueError("No rate")),
+        lambda pid, **kwargs: (_ for _ in ()).throw(ValueError("No rate")),
     )
     monkeypatch.setattr(
-        financial_cache, "cost_summary", lambda: {"complete": False}
+        financial_cache, "cost_summary", lambda **kwargs: {"complete": False}
     )
     monkeypatch.setattr(
         financial_cache,
         "load_monthly_profitability",
-        lambda: {"complete": False},
+        lambda **kwargs: {"complete": False},
     )
     assert financial_cache.warm_financial()["ok"] is False
     assert cache.get(financial_cache.snapshot_key()) == previous

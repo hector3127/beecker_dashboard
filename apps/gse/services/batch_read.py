@@ -18,7 +18,6 @@ from apps.gse.constants import (
     NO_SUFFIX_VARIANT,
     NON_BILLABLE,
     NOT_AVAILABLE,
-    ROLE_COLUMN,
     SUFFIX_IN_TEXT,
     TAG_SEPARATOR,
     UNCLASSIFIED,
@@ -220,8 +219,7 @@ def read_batch_roster(context: GseContext) -> BatchRoster:
     """
     sheet = read_roster_sheet(
         context.reader,
-        "Bandas/rol requiere Nombre y ROL en columna C.",
-        require_role_column=True,
+        "Bandas/rol requiere Nombre y ROL.",
     )
     roster = BatchRoster(sheet.headers)
     name_column = sheet.headers.index("nombre")
@@ -233,7 +231,7 @@ def read_batch_roster(context: GseContext) -> BatchRoster:
 
     for row in sheet.data_rows:
         name = trimmed(cell_at(row, name_column))
-        area = trimmed(cell_at(row, ROLE_COLUMN))
+        area = trimmed(cell_at(row, sheet.role_column))
 
         if not name or not area:
             continue

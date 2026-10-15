@@ -1,5 +1,7 @@
 # Beecker Dashboard (Django)
 
+Integración de Ejecutiva del 14/10/2026: [funciones, fuentes y validación](docs/integracion-ejecutiva-final.md).
+
 Migración a Python/Django del dashboard Beecker que hoy vive en Google
 Apps Script. Los datos **siguen en Google Sheets**; Django reemplaza la
 lógica de los archivos `.gs` y sirve el mismo panel HTML.
@@ -142,9 +144,21 @@ El resumen de Operations está en `/operations/resumen/`; se conserva
 `/operativa/operations-resumen/` como dirección compatible.
 
 Las pantallas del diseño aprobado por Gera sustituyen la portada anterior.
-El panel anterior (con Capacidad instalada, GSE, Daily, Minutas y
-Recursos) **no se eliminó**: sigue completo en `/legacy/` y se abre desde
-el enlace «Panel anterior» del menú.
+GSE está en `/operativa/facturabilidad/area/`, como quinta pestaña de
+Facturabilidad («Facturabilidad por área»), en la misma pestaña del navegador.
+El menú ya no muestra «Panel anterior» y `/legacy/` redirige a esta vista.
+Capacidad instalada y los detalles completos de los proyectos tienen
+sus propias páginas dentro del portal.
+
+Los KPIs de Delivery Managers usan exclusivamente MPB para AER/T&M
+e Historico_Proyectos A:I para los demás servicios. Los datos del proyecto
+y del Delivery Manager salen exclusivamente de A:I; el presupuesto se lee
+de Budget (Hrs) en J, unido por ID exacto, aunque solo esté en una etapa.
+No se consulta el bloque derecho.
+Tabla, tarjetas y gráfica comparten ese catálogo y el corte seleccionado;
+Clockify conserva sus reglas CR y sus reportes mensuales compartidos.
+Proyectos no se consulta para este cálculo. Un presupuesto faltante deja C
+sin dato. La fórmula de C sigue siendo el avance en horas acumuladas.
 
 | Ruta | Pantalla | Datos |
 | --- | --- | --- |
@@ -154,17 +168,21 @@ el enlace «Panel anterior» del menú.
 | `/comercial/` | Comercial | Ejemplo (pendiente de HubSpot) |
 | `/operativa/delivery-manager/<slug>/` | Detalle de Delivery Manager | Reales: proyectos en ejecución y suspendidos (los que necesitan atención primero), estado, avance, ETC, riesgo y reparto por estado. T (desviación promedio en días) y C (avance promedio). Pendiente: inversión y cumplimiento por mes |
 | `/operativa/eva-1/` | EVA 1 (AER y T&M) | Reales, de la hoja MPB (`apps/ejecutivo`): proyectos y personas por Delivery Manager y rol, presupuesto, consumo, horas por terminar, avance y días para renovar. C = avance promedio. Pendiente: T, porque MPB no registra desviación en días |
-| `/operativa/eva-2/` | EVA 2 (IXB y RaaS) | Reales, solo lectura (`get_ixb_raas_summary` de `apps/ejecutivo`: hoja Proyectos, horas de Clockify y tareas de Azure DevOps): proyectos por Delivery Manager y servicio o estatus, etapas con tareas totales, cerradas y pendientes (rojo si una etapa cerrada tiene pendientes), presupuesto, consumo, avance y riesgos. T = desviación promedio en días y C = avance promedio. La primera carga puede tardar y se guarda 10 minutos |
-| `/proyecto/<id>/` | Proyecto | Reales, solo lectura (`getDashboardEjecutivoProyecto` de `apps/ejecutivo`: Sheets y Clockify): presupuesto usado, avance, ETC, tiempo transcurrido, decisión requerida, riesgos abiertos, equipo por rol e historial de hitos; se abre desde el nombre del proyecto en Requieren decisión, Delivery Manager, Cuenta y Suspendidos. La primera carga puede tardar y se guarda 10 minutos. Pendiente (no existe en Sheets): dinero en USD, Gross Margin, responsable y días abierto de cada riesgo |
-| `/operativa/capacidad-instalada/` | Capacidad instalada | Reales, solo lectura, de Sheets (`apps/capacidad`: Recursos, Bandas/rol y MPB): recursos, capacidad base (días de lunes a viernes × jornada, sin feriados), horas diarias asignadas, sobre jornada, filtros (`?mes=`, `?jornada=`, `?buscar=`, `?tecnologia=`, `?concepto=`) y CSV en `/operativa/capacidad-instalada/exportar/`. Pendiente: horas reales por día (Clockify y Azure DevOps), facturables y capacidad disponible, que siguen en el panel anterior |
+| `/operativa/eva-2/` | EVA 2 (IXB y RaaS) | Detalle anterior conservado para enlaces existentes; la tarjeta de Operativa ahora abre EVA-04 Report |
+| `/operativa/eva-4/` | EVA-04 Report | Tres tablas: servicios y estados por cliente, renovaciones y procesos con consumo mensual. Solo lee el Sheet configurado: ROC y 08.Base Clockify AAAA. El selector `?mes=AAAA-MM` separa el consumo y su caché por mes |
+| `/proyectos/<id>/` | Detalle completo del proyecto | Página propia del portal con Ejecutivo, Planeación, Esfuerzo, Recursos, Gestión RAID, Acciones, Cliente, Comunicación, Azure DevOps e IA según el servicio. Abre en la misma pestaña desde cuentas, Delivery Managers y tablas EVA. Reutiliza el motor de proyecto, los RPC y las cachés existentes; conserva el ID exacto, incluyendo CR. Los enlaces `/legacy/?proyecto=...` redirigen aquí |
+| `/proyecto/<id>/` | Resumen de proyecto | Resumen de lectura anterior conservado para sus enlaces existentes |
+| `/capacidad-instalada/` | Capacidad instalada | Página independiente del portal, accesible desde Operativa en la misma pestaña, con el encabezado superior del portal. Conserva asignaciones, horas reales de Clockify, fechas de MPB/Azure, bandas, filtros, jornada, matriz diaria, capacidad por recurso y CSV. Carga progresiva por mes (`?mes=AAAA-MM`) con las mismas fuentes y cachés; los enlaces antiguos `/legacy/#capacidad-instalada` redirigen aquí |
+| `/operativa/capacidad-instalada/` | Asignaciones sin JavaScript | Vista de lectura de Recursos, Bandas/rol y MPB, conservada como alternativa sin JavaScript. CSV en `/operativa/capacidad-instalada/exportar/` |
 | `/cuenta/<slug>/` | Cuenta | Reales: proyectos de la cuenta en ejecución y suspendidos con Delivery Manager, estado y avance en horas; se abre desde el nombre de la cuenta en el detalle de Delivery Manager y en Suspendidos. Pendiente (no existe en Sheets): Revenue, Gross Margin, Collections, revenue por mes e historial |
 | `/operativa/inversion/` | Inversión operativa y comercial | Reales, en horas, de Clockify con las categorías de GSE (solo lectura) para el mes `?mes=`: comercial = categorías «Inversión Comercial» y «Pre-Venta»; operativa = «Inversión Operaciones» e «Internos». Por especialidad (GSE no trae el Delivery Manager), comercial por tipo y operativa por proyecto. Las tarjetas de Operativa muestran el mes actual cuando ya se leyó (cache de 10 minutos) |
 | `/operativa/facturabilidad/` | Facturabilidad | Reales, misma lógica que GSE · Horas por área, de enero al mes `?mes=`: horas de Clockify con categoría «Facturable» (lee la base de Clockify en Sheets si cubre el mes y si no la API; nunca guarda en Sheets). Fijo = AER; variable = el resto (TYM, IXB, SaaS, RaaS y otras). Capacidad = personas con horas en el mes × días hábiles sin festivos de México × 8 h. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona. Filtro «Áreas mostradas»; por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM, definidas en `OPERATIONAL_ROLES`. Cache de 10 minutos por mes |
 | `/operativa/facturabilidad/especialidad/` | Facturabilidad por especialidad | Mismo cálculo del mes elegido por área (ROL de Bandas/rol): HC (personas con horas), capacidad, fijo, variable y libre (negativo = déficit) |
 | `/operativa/facturabilidad/recurso/` | Facturabilidad por recurso | Por persona y mes, como la hoja Facturabilidad Mensual: horas facturables en Clockify ÷ (días laborables × 8 h), con la fila de días laborables y el promedio del equipo |
-| `/operativa/kpis-delivery-managers/` | KPIs de Delivery Managers | Reales: corte actual (TP, T, C, % en tiempo, en riesgo y críticos por Delivery Manager, total, mejor y menor cumplimiento) e histórico del año por mes y trimestre reconstruido con Proyectos, Riesgos, MPB, Historico_Proyectos y las horas de Clockify hasta cada fecha (riesgos y Delivery Manager son los de hoy; solo lectura, sin guardar cortes) |
+| `/operativa/kpis-delivery-managers/` | KPIs de Delivery Managers | Corte actual e histórico por mes y trimestre: AER/T&M desde MPB; otros servicios desde Historico_Proyectos A:I, con etapas desde Discovery OP hasta Completed/Cancelled, sin etapas EST. Budget (Hrs) de J por ID exacto. Riesgos actuales y horas de Clockify hasta cada corte. No consulta Proyectos ni el bloque derecho del histórico; C sin dato cuando falta un presupuesto válido. |
 
-| `/legacy/` | Panel anterior | Sin cambios |
+| `/operativa/facturabilidad/area/` | Facturabilidad por área | GSE en su propia página del portal, quinta pestaña de Facturabilidad: General, Detalle recurso, KPIs, % Recurso y Detalle HRS. Conserva RPC, cachés, filtros y exportación. La entrada solo solicita áreas; las horas se consultan con Consultar año |
+| `/legacy/` | Compatibilidad | Redirige a Facturabilidad por área; los enlaces con proyecto o cuenta redirigen a sus páginas del portal |
 
 **Filtro de periodo (Facturabilidad, por especialidad, por recurso, KPIs de
 Delivery Managers):** selector estilo Clockify con atajos (este mes, mes
@@ -421,8 +439,11 @@ el Apps Script. Para acelerarla:
   El total de costos y el gráfico eliminan registros de Clockify duplicados.
   Cobranza usa cobrado / facturado, incluyendo factoring. Rentabilidad muestra
   los seis meses cerrados y marca el margen provisional cuando faltan costos.
-  Los costos completos duran 24 horas; los parciales y el corte financiero
-  duran 5 minutos. Ejecutiva lee el corte guardado sin consultar fuentes;
+  Los costos completos duran 24 horas; los parciales duran 5 minutos.
+  El corte financiero se conserva 24 horas y su vigencia es de 5 minutos.
+  La precarga comparte IDs, bandas y tarifas entre todos los proyectos;
+  prepara esas fuentes una vez antes de iniciar los dos trabajadores.
+  Ejecutiva lee el corte guardado sin consultar fuentes;
   cuando falta, mantiene la carga progresiva y el cálculo de pendientes.
   No precarga el dashboard antiguo, Recursos ni el RAID general de Azure;
   para incluir esos módulos usa `--legacy`. Solo lee las fuentes y
@@ -435,6 +456,21 @@ schtasks /Create /SC MINUTE /MO 10 /TN "BeeckerWarmCache" /TR "C:\beecker_dashbo
 
 - No programes `--refresh`: borra toda la cache, incluidos el proyecto
   activo del Daily y las respuestas de Claude. Usalo solo a mano.
+
+- Ejecutiva y Comercial conservan el último corte correcto hasta 24 horas
+  dentro de la clave del día, aunque venza su vigencia de 5 minutos. Al
+  entrar muestran ese corte y preparan el siguiente en segundo plano.
+  «Mostrar datos actualizados» recarga el nuevo corte; la consulta de fondo
+  conserva la pantalla y los filtros visibles. Si falla una fuente,
+  mantienen el corte anterior. Esto también refresca el corte financiero
+  vencido; `warm_cache` lo prepara una sola vez al final de su ejecución.
+  Las consultas siguen respetando la vigencia propia de Sheets y Clockify.
+
+- EVA-04 agrega toda la base anual de Sheets en un índice por tarea y mes.
+  Cambiar de mes reutiliza el índice durante 5 minutos, sin recorrer ni
+  descargar de nuevo la base anual. Cada año y archivo tiene su propia
+  clave. Sincronizar la base desde GSE invalida ese índice; los cambios
+  manuales siguen sujetos también a la caché de lectura de Sheets.
 
 - Operativa muestra los conteos, estados y managers después de leer Sheets,
   sin esperar a Clockify o Azure. Salud y consumo permanecen pendientes
@@ -456,6 +492,20 @@ schtasks /Create /SC MINUTE /MO 10 /TN "BeeckerWarmCache" /TR "C:\beecker_dashbo
   intervalo. No crees una segunda tarea si ya precalientas todo el panel.
 - Los detalles de Delivery Managers solo se consultan cuando se abre su
   página; pasar el cursor no genera solicitudes ni nuevos reportes.
+
+- EVA-04 Report se prepara con `warm_cache` en su bloque independiente.
+  Sus horas reales se suman por tarea exacta, etiquetas y mes desde la base
+  Clockify del Sheet, conservando los registros no facturables. Cada ID de
+  registro cuenta una vez por workspace. Un BOT compartido no reparte sus
+  horas a varios procesos; sin coincidencia exacta se muestra «Sin dato».
+  El tope se lee de `Tope Mensual` o `Average Limit` en ROC; alternativamente,
+  de una tabla del mismo Sheet llamada `EVA-04 Report` o
+  `ROC | Desgloce por Bot AAAA`, con identificación de proceso/BOT y tope.
+  No se consulta el Excel local ni se asigna un límite fijo por servicio.
+  El saldo es tope menos consumo y conserva los excesos negativos. Las
+  columnas de paquete permanecen sin dato si no existen en la fuente.
+  El corte dura 24 horas y se considera fresco durante 5 minutos; cambiar
+  de mes crea un corte independiente. Un error conserva el corte previo.
   Una base que ya está en caché se reutiliza durante 5 minutos.
 
 - Cuando un ID CR (`AIN.002_CR`, por ejemplo) comparte el proyecto base

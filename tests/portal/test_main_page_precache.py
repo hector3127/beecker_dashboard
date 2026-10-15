@@ -15,8 +15,12 @@ from tests.portal.builders import make_project
 
 
 @pytest.fixture(autouse=True)
-def clean_cache():
+def clean_cache(monkeypatch):
     cache.clear()
+    monkeypatch.setattr(
+        "apps.portal.services.executive_population.population",
+        lambda: [{"id": make_project().project_id}],
+    )
     yield
     cache.clear()
 
@@ -39,7 +43,7 @@ def test_executive_components_are_reused_after_precache(monkeypatch):
     assert first.content == second.content
     load.assert_called_once_with()
     saved = cache.get(
-        "portal:executiva:context:v1:" + timezone.localdate().isoformat()
+        "portal:executiva:context:v4:" + timezone.localdate().isoformat()
     )
     assert {"decisions", "hours", "top_accounts"} <= saved.keys()
 
@@ -104,9 +108,11 @@ def test_full_warmer_visits_all_components_and_reports_page_errors(monkeypatch):
         "apps.portal.services.financial_cache.warm_financial",
         lambda: {"ok": True},
     )
+    monkeypatch.setattr("apps.portal.services.executive_operations.warm_operations", lambda: {"ok": True})
     assert warm_portal() == {"ok": False, "error": "comercial"}
     assert visited == [
         "base",
+        "eva4",
         "eva3",
         "inversion",
         "capacidad",

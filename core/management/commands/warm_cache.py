@@ -40,9 +40,7 @@ HOT_SHEETS: tuple[str, ...] = (
 )
 
 WARM_FUNCTIONS: tuple[str, ...] = (
-    "getDashboardData",
     "getResumenRecursos",
-    "obtenerTopRiesgosPortafolioAzure",
     "obtenerResumenAERTYMMPB",
     "obtenerResumenIXBRaaS",
 )
@@ -147,7 +145,10 @@ def warm_portal(base_only: bool = False) -> object:
 
     factory = RequestFactory()
     failures = []
-    blocks = ("",) if base_only else ("", "eva3", "inversion", "capacidad")
+    blocks = (
+        ("",) if base_only
+        else ("", "eva4", "eva3", "inversion", "capacidad")
+    )
     for block in blocks:
         started = time.perf_counter()
         logger.info("Preparando Operativa: %s", block or "proyectos y estados")
@@ -185,7 +186,8 @@ def warm_portal(base_only: bool = False) -> object:
     ):
         started = time.perf_counter()
         logger.info("Preparando %s y sus componentes", name)
-        request = factory.get(path)
+        request = factory.get(path, {"actualizar": "1"})
+        setattr(request, "portal_warmer", True)
         request.user = User(username="cache-warmer")
         response = page(request)
         if (
@@ -206,6 +208,17 @@ def warm_portal(base_only: bool = False) -> object:
     if financial_error:
         failures.append("Financiera: " + financial_error)
     logger.info("Financiera: %.1f s", time.perf_counter() - started)
+    from apps.portal.services.executive_operations import warm_operations
+
+    started = time.perf_counter()
+    logger.info("Preparando Operations de Ejecutiva: Budget, avance y ETC")
+    try:
+        operations_error = read_failure(warm_operations())
+    except (DashboardError, ValueError) as error:
+        operations_error = str(error)
+    if operations_error:
+        failures.append("Operations de Ejecutiva: " + operations_error)
+    logger.info("Operations de Ejecutiva: %.1f s", time.perf_counter() - started)
     return {"ok": not failures, "error": ", ".join(failures)}
 
 

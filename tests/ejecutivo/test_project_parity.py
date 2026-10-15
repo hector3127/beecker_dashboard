@@ -1,8 +1,9 @@
-"""Compara el detalle y el dashboard ejecutivo contra el Apps Script.
+"""Compara el detalle y el ejecutivo con la integracion revisada.
 
 project_expected.json es la salida de getDetalleProyectoCompleto() y
 getDashboardEjecutivoProyecto() del .gs original con
-project_sample_data.
+project_sample_data. Se conserva ese original; el resultado integrado
+incluye personas con horas que no tienen asignacion en Recursos.
 """
 
 import copy
@@ -23,7 +24,7 @@ from tests.fakes import InMemorySheetRepository
 
 NOW = datetime(2026, 10, 2, 12, 0)
 EXPECTED = json.loads(
-    (Path(__file__).parent / "project_expected.json").read_text("utf-8"),
+    (Path(__file__).parent / "project_integrated_expected.json").read_text("utf-8"),
 )
 
 

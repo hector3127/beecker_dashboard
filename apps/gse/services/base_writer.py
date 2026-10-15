@@ -134,6 +134,8 @@ class BaseWriter:
             ],
         )
         self._sheets.write_cell(CONTROL_SHEET, row_number, 5, len(records))
+        from apps.portal.services.eva4_index import invalidate_year
+        invalidate_year(int(month[:4]))
 
     def _ensure_base_sheet(self, year: str) -> str:
         """Nombre de la hoja de la base; la crea con encabezados si falta."""

@@ -9,7 +9,7 @@ const source = fs.readFileSync(path.join(__dirname,
 const ids = ['ops-refresh-status', 'ops-refresh-button', 'facturability-summary',
   'ops-investment-operational', 'ops-investment-commercial', 'ops-capacity',
   'ops-metric-progress', 'ops-metric-paused', 'ops-metric-on-time',
-  'ops-health', 'ops-managers', 'ops-evas'];
+  'ops-health', 'ops-managers', 'ops-evas', 'ops-eva4-card'];
 
 class Node {
   constructor(id, parent) {
@@ -115,7 +115,7 @@ test('summary arriving first survives replacement and EVA cannot overwrite inves
   assert.equal(h.document.getElementById('ops-refresh-button').disabled, false);
   assert.equal(h.document.getElementById('ops-refresh-button').hidden, false);
   assert.match(h.document.getElementById('ops-refresh-status').textContent, /Consulta completada/);
-  assert.equal(h.requests.length, 5);
+  assert.equal(h.requests.length, 6);
 });
 
 test('summary arriving after replacement updates the connected node', async () => {
@@ -164,10 +164,10 @@ test('repeated clicks during a refresh do not duplicate requests', async () => {
   assert.equal(h.requests.length, 2);
   release.resolve();
   await settled();
-  assert.equal(h.requests.length, 5);
+  assert.equal(h.requests.length, 6);
   h.listeners.click(click);
   await settled();
-  assert.equal(h.requests.length, 10);
+  assert.equal(h.requests.length, 12);
 });
 
 test('fresh navigation makes no requests and manual refresh still updates all blocks', async () => {
@@ -177,7 +177,7 @@ test('fresh navigation makes no requests and manual refresh still updates all bl
   assert.equal(h.document.getElementById('ops-refresh-button').hidden, false);
   h.listeners.click({target: {closest: selector => selector === '#ops-refresh-button' ? {} : null}});
   await settled();
-  assert.equal(h.requests.length, 5);
+  assert.equal(h.requests.length, 6);
   assert.ok(h.requests.includes('/operations/resumen/?actualizar=1'));
 });
 

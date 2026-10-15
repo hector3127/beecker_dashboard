@@ -77,14 +77,14 @@ def load_project_detail(
     try:
         project_rows = reader.read_as_objects(sheet_names.SHEET_PROJECTS)
 
-        if not reader.sheet_exists(sheet_names.SHEET_RESOURCES):
-            raise InvalidRequestError(
-                'No existe una hoja llamada "Recursos" en el spreadsheet.',
-            )
-
         sources = ProjectDetailSources(
             project_rows=project_rows,
-            resource_rows=reader.read_as_objects(sheet_names.SHEET_RESOURCES),
+            resource_rows=(
+                reader.read_as_objects(sheet_names.SHEET_RESOURCES)
+                if reader.sheet_exists(sheet_names.SHEET_RESOURCES)
+                else []
+            ),
+            include_unassigned=True,
             entries=load_hierarchy_entries(
                 project_id,
                 project_rows,

@@ -48,12 +48,23 @@ def repository(monkeypatch):
     clear_cached_dashboard()
 
 
-def test_portal_serves_legacy_panel_with_shim(client):
+def test_legacy_panel_redirects_to_facturability_area(client):
     response = client.get("/legacy/")
 
-    assert response.status_code == 200
-    assert b"gas_shim.js" in response.content
-    assert b"tpl-dashboard" in response.content
+    assert response.status_code == 302
+    assert response['Location'] == '/operativa/facturabilidad/area/'
+
+
+def test_project_entry_includes_its_loading_header_before_any_rpc(client):
+    old = client.get('/legacy/?proyecto=TYM.AAU.001')
+    assert old.status_code == 302
+    assert old['Location'] == '/proyectos/TYM.AAU.001/'
+    html = client.get(old['Location']).content.decode()
+    assert 'class="ds project-detail-page"' in html
+    assert '<option value="TYM.AAU.001">TYM.AAU.001</option>' in html
+    assert '<h2>TYM.AAU.001</h2>' in html
+    assert 'portal/js/proyecto_detalle.js' in html
+    assert 'legacy_skin.css' not in html
 
 
 def test_root_serves_the_new_executive_view(client, monkeypatch):
@@ -194,9 +205,9 @@ def test_warm_cache_runs_every_view(repository, settings, monkeypatch):
 
     text = output.getvalue()
     assert "hojas de Sheets: listo" in text
-    assert "getDashboardData: listo" in text
+    assert "getDashboardData: listo" not in text
     assert "getResumenRecursos: " in text
-    assert "obtenerTopRiesgosPortafolioAzure: " in text
+    assert "obtenerTopRiesgosPortafolioAzure: " not in text
     assert "RAID de Azure por proyecto: " in text
     assert "obtenerResumenIXBRaaS: listo" in text
 

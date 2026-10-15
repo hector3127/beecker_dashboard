@@ -1,9 +1,10 @@
-"""Compara la vista de cuenta Beecker contra DailyPanelService.gs.
+"""Compara la vista de cuenta con el resultado de la integracion revisada.
 
 account_expected.json es la salida del original (harness de Node con
 SpreadsheetApp, CacheService y Clockify simulados) para las operaciones
 de account_data.json, incluidas las escrituras en el backlog y en la
-columna BL de MPB.
+columna BL de MPB. account_expected.json conserva el resultado original;
+el integrado agrega ROC y consumo historico sin cambiar sus escrituras.
 """
 
 import json
@@ -20,7 +21,7 @@ from tests.fakes import InMemorySheetRepository
 
 HERE = Path(__file__).parent
 DATA = json.loads((HERE / "account_data.json").read_text("utf-8"))
-EXPECTED = json.loads((HERE / "account_expected.json").read_text("utf-8"))
+EXPECTED = json.loads((HERE / "account_integrated_expected.json").read_text("utf-8"))
 TODAY = date.fromisoformat(DATA["TODAY"])
 
 
