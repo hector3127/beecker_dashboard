@@ -57,7 +57,7 @@ td small{display:block;color:#55537F;font-size:12.5px}
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}{% if detail_error %}<div class="err">{{ detail_error }} Se muestran solo los datos del portafolio.</div>{% endif %}
-<div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Proyectos en ejecución › {{ page.name }}</div>
+<div class="crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a> › Proyectos en ejecución › {{ page.name }}</div>
 <div class="hd"><h1>{{ page.name }}</h1><span class="badge" style="background:{% if page.status_code == 'r' %}#C0233E{% elif page.status_code == 'a' %}#B86E00{% elif page.status_code == 'x' %}#8A81B8{% else %}#1B9A55{% endif %}">{{ page.status_label }}</span><p class="sub">{{ page.project_id }}{% if page.client %} · {% if page.client_slug %}<a href="{% url 'portal:cuenta' page.client_slug %}">{{ page.client }}</a>{% else %}{{ page.client }}{% endif %}{% endif %} · Delivery Manager: {{ page.delivery_manager }}{% if page.end_date %} · Entrega estimada: {{ page.end_date }}{% endif %}</p></div>
 
 {% if page.decision %}<section class="dec">

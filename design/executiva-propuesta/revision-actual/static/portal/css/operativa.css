@@ -1,0 +1,205 @@
+.ops-refresh {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+  color: #55537f;
+  font-size: 13px;
+  min-height: 36px;
+}
+.ops-refresh button, .ops-retry {
+  font: inherit;
+  font-weight: 700;
+  border: 1px solid #c4b0ed;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #f0ebff;
+  color: #4b25c9;
+  cursor: pointer;
+}
+.ops-refresh button:disabled { opacity: .65; cursor: wait; }
+.ops-filter-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 12px 4px;
+  font-size: 13px;
+  color: #55537f;
+}
+.ops-filter-context a { font-weight: 700; text-decoration: underline; }
+.ops-warning {
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border: 1px solid #e7cf93;
+  border-radius: 10px;
+  background: #fff8e6;
+  color: #735009;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.ops-status-note { color: #55537f; font-size: 13px; line-height: 1.5; }
+.ops-dashboard .ban { flex-wrap: wrap; }
+.ops-dashboard .ban form { flex-wrap: wrap; }
+.ops-dashboard .ban form > * { min-width: 0 !important; }
+.ops-dashboard .ban form label { flex: 1 1 170px; }
+.ops-dashboard .ban form select { min-height: 28px; }
+.ops-dashboard .g > *, .ops-dashboard .kp > * { min-width: 0; }
+.ops-dashboard .sh { flex-wrap: wrap; }
+.ops-health-chart { min-width: 0; }
+.ops-health-chart svg { flex-shrink: 0; }
+#facturability-summary > div { grid-template-columns: minmax(190px, 270px) minmax(0, 1fr) !important; }
+@media (max-width: 1200px) {
+  #ops-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  #ops-health { grid-template-columns: minmax(180px, 1fr) minmax(0, 2fr) !important; gap: 20px !important; }
+  #ops-health > div:last-child { grid-column: 1 / -1; }
+  .ops-dashboard .ban form { width: 100%; margin-left: 0 !important; }
+}
+@media (max-width: 900px) {
+  #ops-evas > .g { grid-template-columns: 1fr !important; }
+  .ops-dashboard .ops-strip { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 650px) {
+  .ops-dashboard.pg { padding: 12px 16px 24px; }
+  .ops-dashboard .ban { padding: 16px !important; gap: 12px; }
+  .ops-dashboard .ban .bi { display: none; }
+  .ops-dashboard .ban h1 { font-size: 30px !important; }
+  .ops-dashboard .ban p { font-size: 15px !important; }
+  .ops-dashboard .ban form { padding: 8px !important; gap: 8px !important; box-sizing: border-box; }
+  .ops-dashboard .ban form > div { width: 100%; }
+  #ops-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  #ops-metrics .ci { display: none; }
+  #ops-metrics .c > div:first-child { font-size: 14px !important; }
+  #ops-health { grid-template-columns: 1fr !important; padding: 18px !important; }
+  #ops-health > div:last-child { grid-column: auto; }
+  .ops-health-chart { flex-wrap: wrap; gap: 16px !important; }
+  .ops-health-chart .lg { flex-basis: 100%; }
+  #facturability-summary > div { grid-template-columns: 1fr !important; gap: 18px !important; }
+}
+
+/* Current Beecker palette; layout and explanations stay inside their sections. */
+.operations-page *, .operations-page *::before, .operations-page *::after { box-sizing: border-box; }
+.operations-page .pg { width: 100%; }
+.operations-page .ban > div { min-width: 0; }
+.ops-dashboard .ban form { max-width: 100%; }
+.ops-dashboard .ban form > * { flex: 1 1 170px; }
+.ops-dashboard .ban select { max-width: 100%; }
+.ops-dashboard .ops-filter-context { display: block; margin: 0 0 14px; padding: 12px 16px; border: 1px solid #e4e6f8; border-radius: 12px; background: #fff; line-height: 1.6; }
+.ops-filter-context summary, .ops-method summary { cursor: pointer; color: #4b25c9; font-weight: 600; }
+.ops-filter-context > span, .ops-filter-context > a { display: inline-block; margin: 8px 16px 0 0; }
+.ops-dashboard .dm-carousel-track > .c { display: flex; flex-direction: column; }
+.dm-carousel-track > .c > div:first-child { min-height: 78px; }
+.dm-carousel-track .m2 { font-size: 14px; padding: 11px 18px; min-height: 44px; }
+.dm-carousel-track .m2 > span { min-width: 0; }
+.dm-carousel-track .m2 b { font-size: 17px; font-variant-numeric: tabular-nums; }
+.dm-detail-link { display: block; color: #4b25c9; font-size: 12px; font-weight: 600; margin-top: 3px; }
+.dm-investment { margin-top: auto; background: #faf8ff; }
+.dm-investment-method { padding: 10px 18px; color: #55537f; font-size: 12px; line-height: 1.6; }
+.dm-investment-method summary { cursor: pointer; color: #4b25c9; }
+.dm-investment-method p { margin-bottom: 0; }
+.ops-method { padding: 14px 18px; font-size: 12px; color: #55537f; line-height: 1.6; }
+.ops-dashboard .sh h2 { font-size: clamp(20px, 2vw, 23px); }
+@media (max-width: 900px) {
+  .ops-dashboard .ban form { margin-left: 0 !important; width: 100%; }
+  .ops-dashboard .ban h1 { font-size: 34px !important; }
+}
+@media (max-width: 650px) {
+  .ops-dashboard.pg { padding: 12px; }
+  .ops-dashboard .ban form label { flex-basis: 100%; }
+  .ops-dashboard .ban form > div { font-size: 13px; overflow-wrap: anywhere; }
+  .ops-dashboard .sh span { flex-basis: 100%; line-height: 1.5; }
+  .dm-carousel-track .m2 { padding: 11px 14px; font-size: 13px; }
+  .dm-carousel-track > .c > div:first-child { padding: 14px !important; }
+  #ops-managers .dm-carousel-track > .c > div:nth-child(3) { flex-wrap: wrap; gap: 6px 12px !important; }
+  #ops-health .lg { font-size: 14px; }
+  #ops-health .lg div { gap: 8px; flex-wrap: wrap; }
+  #ops-health .lg b { font-size: 16px; }
+  #ops-metrics { gap: 8px !important; }
+  #ops-metrics > :last-child { grid-column: 1 / -1; }
+  #ops-evas > .g > .c { padding: 12px !important; }
+  #ops-evas > .g > .c > div:first-child { flex-wrap: wrap; font-size: 18px !important; }
+  #ops-evas > .g > .c > div:nth-child(2) > div { min-width: 0; }
+  #ops-evas > .g > .c > div:nth-child(2) > div > div { overflow-wrap: anywhere; }
+  #ops-evas > .g > .c > div:nth-child(2) > div > div:last-child { font-size: 23px !important; }
+}
+
+.ops-dashboard .ops-refresh { padding: 12px 16px; background: #fff; border: 1px solid #e4e6f8; border-radius: 12px; }
+.ops-dashboard #ops-evas > .ops-method { margin-bottom: 16px; }
+
+.dm-carousel-controls { flex-wrap: wrap; gap: 10px; }
+.dm-investment-link { margin-left: auto; font-weight: 600; font-size: 12px; }
+
+/* Section cards include their heading, explanations and components. */
+.ops-dashboard .ops-section { padding: 20px; margin: 0 0 24px; min-width: 0; border-color: #ddd6f3; box-shadow: 0 3px 12px rgba(27,26,107,.04); }
+.ops-dashboard .ops-section > .sh { align-items: baseline; margin: 0 0 18px !important; padding: 0 0 14px; border-bottom: 1px solid #e9e3f8; gap: 8px 16px; }
+.ops-dashboard .ops-section > .sh h2 { color: #241568; }
+.ops-dashboard .ops-section > .sh span { color: #625982; font-size: 13px; }
+.ops-dashboard .ops-section > .kp, .ops-dashboard .ops-section > .dm-carousel { margin-bottom: 0; }
+.ops-dashboard .ops-section > .dm-carousel { background: #f8f7fd; border: 0; padding: 12px; }
+.ops-dashboard .ops-section .dm-carousel-track > .c { background: #fff; }
+.ops-dashboard .ops-overview .ops-metric > .c, .ops-dashboard .ops-overview .ops-investment > .c { background: #faf9ff; box-shadow: none; }
+.ops-dashboard #ops-health { margin-bottom: 24px !important; }
+.ops-dashboard .ops-section > .ops-method { background: #faf9ff; box-shadow: none; margin: 12px 0 0 !important; }
+.ops-dashboard .ops-support > .ops-strip { background: #faf9ff; box-shadow: none; margin-bottom: 14px; }
+.ops-dashboard .ops-support > .ops-strip:last-child { margin-bottom: 0; }
+@media(max-width:650px) {
+ .ops-dashboard .ops-section { padding: 14px; margin-bottom: 18px; }
+ .ops-dashboard .ops-section > .sh { margin-bottom: 14px !important; padding-bottom: 12px; }
+ .ops-dashboard .ops-section > .dm-carousel { padding: 6px; }
+ .ops-dashboard .ops-support > .ops-strip { padding: 16px; }
+}
+
+/* Portfolio health: chart and a readable state table share the card. */
+.ops-dashboard #ops-health { display:block; padding:24px; margin-bottom:24px; }
+.ops-health-header { border-bottom:1px solid #e9e3f8; padding-bottom:14px; margin-bottom:20px; }
+.ops-health-header h2 { margin:0; font-size:22px; color:#241568; }
+.ops-health-header p { margin:6px 0 0; font-size:13px; color:#625982; }
+.ops-health-layout { display:grid; grid-template-columns:minmax(240px,.85fr) minmax(0,1.15fr); align-items:center; gap:32px; max-width:1060px; margin:0 auto; }
+.ops-health-figure { margin:0; padding:16px; display:grid; justify-items:center; border-radius:14px; background:#faf9ff; }
+.ops-health-figure svg { display:block; width:240px; max-width:100%; height:auto; }
+.ops-health-figure figcaption { margin-top:2px; font-size:13px; color:#625982; }
+.ops-health-breakdown { min-width:0; }
+#ops-health .ops-health-table { width:100%; border-collapse:separate; border-spacing:0; font-size:15px; }
+.ops-health-table caption { text-align:left; font-size:15px; font-weight:700; color:#241568; padding-bottom:16px; }
+#ops-health .ops-health-table thead th { background:#f2eefd; color:#55447d; padding:12px 14px; font-size:12px; font-weight:600; }
+#ops-health .ops-health-table thead th:first-child { border-radius:10px 0 0 10px; }
+#ops-health .ops-health-table thead th:last-child { border-radius:0 10px 10px 0; }
+#ops-health .ops-health-table tbody th, #ops-health .ops-health-table td { padding:19px 14px; background:transparent; border-top:0; border-bottom:1px solid #eeeafa; font-size:15px; color:#241568; }
+#ops-health .ops-health-table tbody th { font-weight:600; }
+#ops-health .ops-health-table th:not(:first-child), #ops-health .ops-health-table td { text-align:right; font-variant-numeric:tabular-nums; }
+#ops-health .ops-health-table td:nth-child(2) { font-weight:800; font-size:20px; }
+.ops-health-state { display:flex; align-items:center; gap:10px; }
+.ops-health-state i { width:10px; height:10px; border-radius:50%; flex:none; }
+.ops-health-footnote { margin:20px 0 0; padding-top:14px; border-top:1px solid #eeeafa; font-size:12px; line-height:1.6; color:#625982; }
+@media(max-width:700px) {
+ .ops-dashboard #ops-health { padding:18px !important; }
+ .ops-health-layout { grid-template-columns:minmax(0,1fr); gap:22px; }
+ .ops-health-figure { padding:10px; }
+ .ops-health-figure svg { width:210px; }
+ #ops-health .ops-health-table thead th { padding:10px 6px; font-size:11px; }
+ #ops-health .ops-health-table tbody th, #ops-health .ops-health-table td { padding:15px 6px; font-size:13px; }
+ #ops-health .ops-health-table td:nth-child(2) { font-size:18px; }
+ .ops-health-state { gap:6px; }
+}
+
+/* Compact refresh action beside the current cut in the shared header. */
+.operations-page .ops-refresh-status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.ops-header-refresh { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 30px; padding: 6px 10px; border: 1px solid #d8caf6; border-radius: 8px; background: #f4efff; color: #4b25c9; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.ops-header-refresh::before { content: '↻'; font-size: 15px; }
+.ops-header-refresh:hover { background: #ebe1ff; border-color: #a988e9; }
+.ops-header-refresh:focus-visible { outline: 2px solid #7040df; outline-offset: 3px; }
+.ops-header-refresh:disabled { opacity: .65; cursor: wait; }
+@media(max-width:650px) {
+ .operations-page .portal-navigation #portal-freshness { max-width: none !important; flex: 1 1 100%; justify-content: flex-end; }
+}
+/* Month selection stays inside the existing summary card. */
+.billing-chart-title{text-align:center;margin-bottom:12px!important}
+[data-billing-month]{cursor:pointer}
+[data-billing-month]:focus-visible{outline:2px solid #4B25C9;outline-offset:2px}
+[data-billing-month][aria-pressed="true"] text{font-weight:800}
+/* Align the main dashboard container with Business Overview. */
+.pg.ops-dashboard{max-width:1520px;margin:0 auto;padding:24px 28px 36px;box-sizing:border-box;min-width:0}
+
+@media(max-width:1100px){.pg.ops-dashboard{padding:20px}}
+@media(max-width:700px){.pg.ops-dashboard{padding:16px 12px 28px}}

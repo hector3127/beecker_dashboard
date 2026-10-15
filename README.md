@@ -1,5 +1,9 @@
 # Beecker Dashboard (Django)
 
+Actualización del 15/10/2026: [funciones, compatibilidad y respaldo](docs/actualizacion-15-octubre-2026.md).
+
+Rendimiento: [reutilización de horas y actualización en segundo plano](docs/rendimiento-15-octubre-2026.md).
+
 Integración de Ejecutiva del 14/10/2026: [funciones, fuentes y validación](docs/integracion-ejecutiva-final.md).
 
 Migración a Python/Django del dashboard Beecker que hoy vive en Google

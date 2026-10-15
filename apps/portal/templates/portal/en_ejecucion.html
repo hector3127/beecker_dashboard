@@ -87,7 +87,7 @@ a.kcl:hover .c{border-color:#9A7BF5;box-shadow:0 4px 14px rgba(91,47,214,.18)}
 {% block content %}
 <div class="pg" style="padding-top:16px">
 {% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
-<div style="font-size:13.5px;color:#55537F;margin-bottom:8px"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › {% if only_on_time %}Proyectos en tiempo{% else %}Proyectos en ejecución{% endif %} por Delivery Manager</div>
+<div style="font-size:13.5px;color:#55537F;margin-bottom:8px"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a> › {% if only_on_time %}Proyectos en tiempo{% else %}Proyectos en ejecución{% endif %} por Delivery Manager</div>
 <h1 style="margin:0;font-size:34px;font-weight:800;letter-spacing:-.025em;color:#1B1A6B">{% if only_on_time %}Proyectos en tiempo por Delivery Manager{% else %}Proyectos en ejecución por Delivery Manager{% endif %}</h1><p style="margin:4px 0 16px;color:#55537F;font-size:16px">{% if only_on_time %}Los {{ listed }} proyectos que van en tiempo{% else %}Los {{ listed }} proyectos en ejecución{% endif %}, agrupados por Delivery Manager</p>
 <div class="tabs2"><a class="{% if not only_on_time %}on{% endif %}" href="{% url 'portal:en_ejecucion' %}">En ejecución</a><a class="{% if only_on_time %}on{% endif %}" href="{% url 'portal:en_tiempo' %}">En tiempo</a><a href="{% url 'portal:suspendidos' %}">Suspendidos</a><a href="{% url 'portal:inversion' %}">Inversión operativa y comercial</a></div>
 <div class="sh"><h2>Por Delivery Manager</h2><span>Proyectos en ejecución, suspendidos y en tiempo</span></div>

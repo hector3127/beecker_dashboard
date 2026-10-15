@@ -26,7 +26,7 @@ class Node {
     if (selector.startsWith('#')) return this.nodes?.get(selector.slice(1)) || null;
     return null;
   }
-  querySelectorAll() { return []; }
+  querySelectorAll(selector) { return selector === '[data-investment]' ? this.children : []; }
   replaceChildren(node) { this.children = [node]; }
   replaceWith(next) {
     if (this.id === 'ops-dashboard') {
@@ -69,7 +69,8 @@ function harness(options = {}) {
   const freshness = new Node('portal-freshness-text');
   const document = {
     activeElement: null,
-    querySelectorAll: () => [],
+    querySelectorAll: selector => selector === '[data-investment-projects]'
+      ? live.root.nodes.get('ops-managers').children : [],
     getElementById: id => id === 'portal-freshness-text' ? freshness
       : id === 'ops-dashboard' ? live.root : live.root.nodes.get(id),
     addEventListener: (name, callback) => { listeners[name] = callback; }
@@ -200,3 +201,36 @@ test('automatic refresh requests only expired blocks', async () => {
   await settled();
   assert.deepEqual(h.requests, ['/operativa/datos/?', '/operativa/datos/?bloque=capacidad']);
 });
+
+for (const first of ['inversion', 'eva3']) {
+  test(`DM investment survives ${first} finishing before the other block`, async () => {
+    const release = deferred();
+    const second = first === 'inversion' ? 'eva3' : 'inversion';
+    const h = harness({handle: async (url, payload) => {
+      if (url.includes('bloque=' + second)) await release.promise;
+      if (url.includes('bloque=eva3')) {
+        const card = new Node('investment-card');
+        card.dataset.investmentProjects = JSON.stringify(['IXB.1', 'IXB.2']);
+        card.children = ['commercial', 'operational'].map(kind => {
+          const value = new Node(kind); value.dataset.investment = kind; return value;
+        });
+        payload.getElementById('ops-dashboard').nodes.get('ops-managers').children = [card];
+      }
+      if (url.includes('bloque=inversion')) {
+        const data = new Node('ops-investment-data');
+        data.textContent = JSON.stringify({complete: true, by_project: {
+          'IXB.1': {commercial: 2.5, operational: 8},
+          'IXB.2': {commercial: 3, operational: 0},
+          'OTHER': {commercial: 100, operational: 100}
+        }});
+        payload.getElementById('ops-dashboard').nodes.set(data.id, data);
+      }
+      return {ok: true, text: async () => payload};
+    }});
+    await settled(); release.resolve(); await settled();
+    const values = h.document.getElementById('ops-managers').children[0].children;
+    assert.equal(values[0].textContent, '5.5 h');
+    assert.equal(values[1].textContent, '8 h');
+    assert.equal(h.requests.length, 6);
+  });
+}

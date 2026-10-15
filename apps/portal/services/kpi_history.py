@@ -258,7 +258,15 @@ def chart_series(
     eligible = [
         row
         for row in matrix.rows
-        if any(cell is not None and cell.total > 0 for cell in row.cells)
+        if any(
+            first is not None
+            and second is not None
+            and first.total > 0
+            and second.total > 0
+            and first.time_cost.cost_percent is not None
+            and second.time_cost.cost_percent is not None
+            for first, second in zip(row.cells, row.cells[1:])
+        )
     ]
     return {
         "labels": list(matrix.headers),

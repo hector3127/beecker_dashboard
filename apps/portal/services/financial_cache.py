@@ -8,6 +8,7 @@ from django.core.cache import cache
 from django.utils import timezone
 
 from apps.portal.services.account_profitability import account_profitability
+from apps.portal.services.executive_period import cache_suffix
 from apps.portal.services.monthly_profitability import (
     load_monthly_profitability,
 )
@@ -29,7 +30,11 @@ _WARM_LOCK = threading.Lock()
 
 def snapshot_key() -> str:
     """Separa el corte financiero de los otros bloques y de otros dias."""
-    return "portal:financial:snapshot:v2:" + timezone.localdate().isoformat()
+    return (
+        "portal:financial:snapshot:v8:"
+        + timezone.localdate().isoformat()
+        + cache_suffix()
+    )
 
 
 def cached_financial_snapshot() -> dict[str, Any]:
@@ -52,7 +57,16 @@ def _prepare_financial() -> dict[str, Any]:
         revenue = load_revenue()
         reader = build_sheet_repository()
         ids = project_ids(reader)
-        context = prepare_cost_context(reader=reader, ids=ids)
+        # Do not re-read/parse rosters and rates for already prepared costs.
+        pending = [pid for pid in ids if cache.get(key(pid)) is None]
+        context = (
+            prepare_cost_context(reader=reader, ids=ids) if pending else None
+        )
+        logger.info(
+            "Financiera: %s costos reutilizados, %s pendientes",
+            len(ids) - len(pending),
+            len(pending),
+        )
     except (DashboardError, ValueError) as error:
         return {"ok": False, "error": str(error)}
 
@@ -70,17 +84,21 @@ def _prepare_financial() -> dict[str, Any]:
         return ""
 
     failures.extend(
-        error for error in map_in_parallel(prepare, ids, max_workers=2) if error
+        error
+        for error in map_in_parallel(prepare, pending, max_workers=2)
+        if error
     )
     costs = cost_summary(ids=ids)
-    profitability = load_monthly_profitability(reader=context.reader, ids=ids)
+    if not costs["complete"] and not failures:
+        failures.append("Costos incompletos")
+    profitability = load_monthly_profitability(reader=reader, ids=ids)
     if not profitability["complete"] and not failures:
         failures.append("Rentabilidad mensual incompleta")
     snapshot = {
         "revenue": revenue,
         "costs": costs,
         "profitability": profitability,
-        "accounts": account_profitability(reader=context.reader),
+        "accounts": account_profitability(reader=reader),
         "loaded_at": timezone.localtime().isoformat(),
     }
     # Un corte parcial es explicito; nunca reemplaza uno completo vigente.

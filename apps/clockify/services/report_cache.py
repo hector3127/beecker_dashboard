@@ -1,10 +1,11 @@
 """Tiempo de cache de los reportes de horas de Clockify."""
 
-from datetime import date
+from datetime import date, timedelta
 
 from apps.clockify.constants import (
     CLOSED_REPORT_CACHE_SECONDS,
     EMPTY_REPORT_CACHE_SECONDS,
+    HISTORICAL_MONTH_CACHE_SECONDS,
     PROJECT_REPORT_CACHE_SECONDS,
 )
 
@@ -38,3 +39,13 @@ def report_cache_seconds(
         return PROJECT_REPORT_CACHE_SECONDS
 
     return EMPTY_REPORT_CACHE_SECONDS
+
+
+def monthly_cache_seconds(
+    has_entries: bool, end_date: date, today: date
+) -> int:
+    """Keep older raw months longer; recent months retain normal freshness."""
+    previous_month = (today.replace(day=1) - timedelta(days=1)).replace(day=1)
+    if end_date < previous_month:
+        return HISTORICAL_MONTH_CACHE_SECONDS
+    return report_cache_seconds(has_entries, end_date, today)

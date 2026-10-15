@@ -18,7 +18,7 @@ td a:hover{text-decoration:underline}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
 {% if history_notice %}<div class="err" role="status">{{ history_notice }}</div>{% endif %}
-<div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Operations</div>
+<div class="crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a> › Operations</div>
 {% include 'portal/_hero.html' with title="KPIs de Delivery Managers" subtitle="Carga y cumplimiento de cada Delivery Manager · MPB y Historico_Proyectos" tone="operations" icon="target" eyebrow="Operations" %}
 
 <div class="tabs"><a href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a class="on" href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a><a href="{% url 'portal:facturabilidad_area' %}{{ picker.query }}">Facturabilidad por área</a></div>

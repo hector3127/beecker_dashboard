@@ -12,6 +12,7 @@ from django.utils import timezone
 
 from apps.clockify.provider import build_clockify_loader
 from apps.gse.services.roster import find_band_column, read_roster_sheet
+from apps.portal.services.executive_period import bounds, cache_suffix, current
 from core.sheets.factory import build_sheet_repository
 from core.sheets.project_year import mpb_previous_year_ids
 from core.sheets.protocols import SheetReader
@@ -78,7 +79,11 @@ def prepare_cost_context(
 def project_ids(reader, account=None):
     """Lista IDs unicos del ejercicio 2026 sin las filas de totales."""
     result = {}
-    excluded = mpb_previous_year_ids(reader)
+    excluded = (
+        mpb_previous_year_ids(reader, bounds()[0].year)
+        if bounds()[0].year == bounds()[1].year
+        else set()
+    )
     for row in reader.read_values("DataRevenue")[1:]:
         if account and (
             len(row) < 2
@@ -94,23 +99,33 @@ def project_ids(reader, account=None):
         moment = to_datetime(row[6]) if len(row) > 6 else None
         if (
             moment
-            and moment.year == 2026
+            and bounds()[0].year <= moment.year <= bounds()[1].year
             and len(row) > 4
             and str(row[4] or "").strip()
         ):
             pid = str(row[4]).strip()
             if pid.casefold() not in excluded:
                 result.setdefault(pid.casefold(), pid)
+    from apps.portal.services.cost_project_inventory import inventory
+    for identity, project in inventory(reader).items():
+        if identity in excluded:
+            continue
+        if account and normalize_name(account) not in {
+            normalize_name(name) for name in project["accounts"]
+        }:
+            continue
+        result.setdefault(identity, project["id"])
     return sorted(result.values(), key=str.casefold)
 
 
 def key(pid):
     """Identifica el costo por proyecto y mes de la banda vigente."""
     return (
-        "portal:revenue-cost:2026:v5:"
+        "portal:revenue-cost:2026:v8:"
         + timezone.localdate().strftime("%Y-%m")
         + ":"
         + hashlib.sha256(pid.casefold().encode()).hexdigest()
+        + cache_suffix()
     )
 
 
@@ -175,7 +190,7 @@ def calculate_project_cost(pid, context=None):
     ids = context.ids if context else project_ids(reader)
     allowed = context.allowed_ids if context else {p.casefold() for p in ids}
     if pid.casefold() not in allowed:
-        raise ValueError("El ID no esta en DataRevenue")
+        raise ValueError("El ID no pertenece al inventario financiero del periodo")
     existing = cache.get(key(pid))
     if existing:
         return {
@@ -186,13 +201,35 @@ def calculate_project_cost(pid, context=None):
     context = context or prepare_cost_context(reader, ids)
     today, rates, bands = context.today, context.rates, context.bands
     lookup, start, end, month = resolve_cost_scope(pid, ids, today)
-    entries = build_clockify_loader(reader).load_project(lookup, (start, end))
+    if current():
+        selected_start, selected_end = bounds()
+        year = selected_start.year
+        start = date(year, month, 1) if month else date(year, 1, 1)
+        end = (
+            date(year, month, calendar.monthrange(year, month)[1])
+            if month
+            else selected_end
+        )
+        if month and selected_start.year != selected_end.year:
+            start, end = selected_start, selected_end
+        start, end = max(start, selected_start), min(end, selected_end, today)
+    loader = build_clockify_loader(reader)
+    entries = loader.load_project(lookup, (start, end)) if start <= end else []
+    from apps.portal.services.project_task_scope import scope_entries
+    entries = scope_entries(pid, ids, entries, loader, lookup)
     people = {}
     amounts = {}
     entry_months = {}
     missing_hours = 0
     seen = set()
     for entry in entries:
+        if current() and (
+            entry.entry_date is None
+            or not start <= entry.entry_date.date() <= end
+        ):
+            continue
+        if current() and month and entry.entry_date.month != month:
+            continue
         if not entry.entry_id or entry.entry_id in seen:
             continue
         seen.add(entry.entry_id)

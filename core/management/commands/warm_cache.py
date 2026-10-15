@@ -219,6 +219,17 @@ def warm_portal(base_only: bool = False) -> object:
     if operations_error:
         failures.append("Operations de Ejecutiva: " + operations_error)
     logger.info("Operations de Ejecutiva: %.1f s", time.perf_counter() - started)
+    from apps.portal.services.executive_commercial import warm_commercial_summary
+
+    started = time.perf_counter()
+    logger.info("Preparando Comercial de Ejecutiva")
+    try:
+        commercial_error = read_failure(warm_commercial_summary())
+    except (DashboardError, ValueError) as error:
+        commercial_error = str(error)
+    if commercial_error:
+        failures.append("Comercial de Ejecutiva: " + commercial_error)
+    logger.info("Comercial de Ejecutiva: %.1f s", time.perf_counter() - started)
     return {"ok": not failures, "error": ", ".join(failures)}
 
 

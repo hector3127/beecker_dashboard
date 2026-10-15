@@ -193,6 +193,7 @@ def _summarize_manager(
         at_risk_width=_width(health.at_risk, total),
         critical_width=_width(health.critical, total),
         time_cost=summarize_time_cost(in_progress),
+        project_ids=tuple(sorted({item.project_id for item in in_progress})),
     )
 
 

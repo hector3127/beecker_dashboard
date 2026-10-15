@@ -145,7 +145,7 @@ def test_initial_shell_has_real_filter_context_and_no_example_claim():
 
     assert 'value="T&amp;M" selected' in html
     assert 'value="ACME" selected' in html
-    assert "Limpiar filtros" in html
+    assert "Filtros y alcance de los datos" not in html
     assert "Cargando datos" in html
     assert "Cifras de ejemplo" not in html
     assert 'aria-current="page"' in html

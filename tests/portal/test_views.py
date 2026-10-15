@@ -161,8 +161,8 @@ def test_executive_shows_decisions_hours_and_period(client, monkeypatch):
 
     assert response.status_code == 200
     assert "Datos al 12/10/2026, 10:24" in html
-    assert "01-oct-2026" in html
-    assert "31-dic-2026" in html
+    assert "01/01/2026" in html
+    assert "31/12/2026" in html
     assert "Portal Pacientes" in html
     assert "excede en 25%" in html
     assert response.context["hours"].budget_hours == 300
@@ -722,7 +722,7 @@ def test_project_page_requires_login_when_configured(client, settings):
     assert client.get("/proyecto/1/").status_code == 302
 
 
-def test_manager_cards_show_time_and_cost(client, monkeypatch):
+def test_manager_cards_show_investment_and_detail_keeps_time_cost(client, monkeypatch):
     stub_portfolio(
         monkeypatch,
         [
@@ -734,7 +734,9 @@ def test_manager_cards_show_time_and_cost(client, monkeypatch):
     operational = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
     detail = client.get("/operativa/delivery-manager/laura-vega/?bloque=inv")
 
-    assert "2 d · 60%" in operational
+    assert "Días restantes · Avance en horas" not in operational
+    assert "Inversión comercial" in operational
+    assert "Inversión operativa" in operational
     assert detail.context["detail"].time_cost.time_days == 2
     assert detail.context["detail"].time_cost.cost_percent == 60
 
@@ -1033,7 +1035,7 @@ def test_operational_investment_cards_use_cache_only(client, monkeypatch):
     assert response.context["investment"]["loading"] is True
 
     cache.set(
-        "portal:ops:investment:v2",
+        "portal:ops:investment:v3",
         {
             "complete": True,
             "totals": {"operational": 7, "commercial": 0},
@@ -1151,6 +1153,7 @@ def test_kpis_page_filters_a_closed_month_and_a_quarter(client, monkeypatch):
     assert month.context["month_matrix"].headers == ("Feb",)
     assert quarter.context["month_matrix"].headers == ("Ene", "Feb", "Mar")
     assert quarter.context["quarter_matrix"].headers == ("T1",)
+    assert quarter.context["cut_label"] == "31/03/2026"
     assert "?periodo=trimestre&amp;anio=2026&amp;trim=1" in (
         quarter.content.decode()
     )

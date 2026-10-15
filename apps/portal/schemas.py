@@ -95,6 +95,7 @@ class DeliveryManagerSummary:
     at_risk_width: float
     critical_width: float
     time_cost: TimeCost = NO_TIME_COST
+    project_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -589,6 +590,11 @@ class ChartBar:
     value_text: str
     label: str
     current: bool
+    month: str = ""
+    month_label: str = ""
+    global_percent: float | None = None
+    fixed_percent: float | None = None
+    variable_percent: float | None = None
 
 
 @dataclass(frozen=True, slots=True)

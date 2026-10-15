@@ -85,7 +85,7 @@ table.cp2 td.d.o{background:#FBE3E7;color:#A31B33;font-weight:800}
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
-<div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Capacidad instalada</div>
+<div class="crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a> › Capacidad instalada</div>
 <a class="bk" href="{% url 'portal:operativa' %}">← Volver a Operativa</a>
 <div class="hd"><div class="hi"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><h1 style="font-size:32px;margin:0">Capacidad instalada</h1><div class="sub" style="margin:2px 0 0">Horas reales del equipo · Recursos + MPB/Azure + Clockify + Bandas/rol</div></div></div>
 <section class="card" style="margin-bottom:0;padding:22px 26px">

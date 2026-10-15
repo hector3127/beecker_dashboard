@@ -31,7 +31,10 @@ from apps.clockify.services.project_matcher import (
     normalize_link_key,
     resolve_clockify_project,
 )
-from apps.clockify.services.report_cache import report_cache_seconds
+from apps.clockify.services.report_cache import (
+    monthly_cache_seconds,
+    report_cache_seconds,
+)
 from apps.clockify.services.report_mapper import (
     build_time_entry_from_report,
     parse_entry_day,
@@ -716,7 +719,7 @@ class ClockifyTimeEntryLoader:
                     self._cache_store.set(
                         key,
                         rows,
-                        report_cache_seconds(
+                        monthly_cache_seconds(
                             bool(rows), coverage_end, self._today
                         ),
                     )

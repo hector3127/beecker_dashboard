@@ -47,7 +47,7 @@ table.h td:first-child,table.h th:first-child{text-align:left;padding-left:10px}
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer todo: {{ error }}</div>{% endif %}
-<div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Operations</div>
+<div class="crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a> › Operations</div>
 {% include 'portal/_hero.html' with title="Facturabilidad por recurso" subtitle="Qué porcentaje de su tiempo facturó cada persona, mes por mes, con su rol y los días laborables de cada mes" tone="operations" icon="users" eyebrow="Operations" %}
 
 <div class="tabs"><a href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a class="on" href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a><a href="{% url 'portal:facturabilidad_area' %}{{ picker.query }}">Facturabilidad por área</a></div>

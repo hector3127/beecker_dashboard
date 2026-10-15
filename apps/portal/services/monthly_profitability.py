@@ -5,6 +5,7 @@ from decimal import Decimal, InvalidOperation
 from django.core.cache import cache
 from django.utils import timezone
 
+from apps.portal.services.executive_period import bounds, contains, current
 from apps.portal.services.revenue import REVENUE_STATUSES
 from apps.portal.services.revenue_costs import key, project_ids
 from core.sheets.factory import build_sheet_repository
@@ -19,6 +20,14 @@ def load_monthly_profitability(reader=None, ids=None):
         f"{index // 12:04d}-{index % 12 + 1:02d}"
         for index in range(max(end - 5, 2026 * 12), min(end + 1, 2027 * 12))
     ]
+    if current():
+        first, last = bounds()
+        months = [
+            f"{i // 12:04d}-{i % 12 + 1:02d}"
+            for i in range(
+                first.year * 12 + first.month - 1, last.year * 12 + last.month
+            )
+        ]
     rows = {
         month: {
             "month": month,
@@ -43,7 +52,7 @@ def load_monthly_profitability(reader=None, ids=None):
         moment = to_datetime(row[6])
         if (
             not moment
-            or moment.year != 2026
+            or not contains(moment)
             or moment.strftime("%Y-%m") not in rows
         ):
             continue

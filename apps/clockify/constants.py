@@ -42,6 +42,8 @@ PROJECT_REPORT_CACHE_SECONDS: Final[int] = 21600
 EMPTY_REPORT_CACHE_SECONDS: Final[int] = 1800
 # Proyecto cuyo rango ya termino: sus horas ya no cambian.
 CLOSED_REPORT_CACHE_SECONDS: Final[int] = 86400
+# Raw months older than the previous month; explicit refresh still bypasses it.
+HISTORICAL_MONTH_CACHE_SECONDS: Final[int] = 7 * 86400
 ALL_ENTRIES_CACHE_SECONDS: Final[int] = 900
 BACKUP_CACHE_SECONDS: Final[int] = 21600
 

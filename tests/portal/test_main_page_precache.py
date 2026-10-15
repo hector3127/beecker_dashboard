@@ -40,10 +40,15 @@ def test_executive_components_are_reused_after_precache(monkeypatch):
     monkeypatch.setattr(views, "load_portfolio", load)
     first = views.ejecutiva(request("/"))
     second = views.ejecutiva(request("/"))
-    assert first.content == second.content
+    # El formulario de acuerdos genera un token CSRF nuevo por peticion.
+    assert first.status_code == second.status_code == 200
+    assert (
+        b"financial-cache" in first.content
+        and b"financial-cache" in second.content
+    )
     load.assert_called_once_with()
     saved = cache.get(
-        "portal:executiva:context:v4:" + timezone.localdate().isoformat()
+        "portal:executiva:context:v5:" + timezone.localdate().isoformat()
     )
     assert {"decisions", "hours", "top_accounts"} <= saved.keys()
 
@@ -108,7 +113,14 @@ def test_full_warmer_visits_all_components_and_reports_page_errors(monkeypatch):
         "apps.portal.services.financial_cache.warm_financial",
         lambda: {"ok": True},
     )
-    monkeypatch.setattr("apps.portal.services.executive_operations.warm_operations", lambda: {"ok": True})
+    monkeypatch.setattr(
+        "apps.portal.services.executive_operations.warm_operations",
+        lambda: {"ok": True},
+    )
+    monkeypatch.setattr(
+        "apps.portal.services.executive_commercial.warm_commercial_summary",
+        lambda: {"ok": True},
+    )
     assert warm_portal() == {"ok": False, "error": "comercial"}
     assert visited == [
         "base",

@@ -13,7 +13,7 @@ td.r,th.r{text-align:right}
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer todo: {{ error }}</div>{% endif %}
-<div class="crumb"><a href="{% url 'portal:operativa' %}">Operación de proyectos</a> › Inversión operativa y comercial</div>
+<div class="crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a> › Inversión operativa y comercial</div>
 {% include 'portal/_hero.html' with title="Inversión operativa y comercial" subtitle="Horas del equipo que no se facturan a un proyecto, por especialidad y por tipo de trabajo" tone="operations" icon="wallet" %}
 
 <div class="tabs"><a href="{% url 'portal:eva1' %}">EVA 1</a><a href="{% url 'portal:eva2' %}">EVA 2</a><a href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers</a><a class="on" href="{% url 'portal:inversion' %}">Inversión operativa y comercial</a></div>

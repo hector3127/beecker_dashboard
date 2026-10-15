@@ -2,6 +2,7 @@
 
 from collections.abc import Callable, Sequence
 from concurrent.futures import ThreadPoolExecutor
+from contextvars import copy_context
 
 """BKD.003.006 - Consultas en paralelo
 Ejecuta varias consultas HTTP a la vez para reducir la primera carga.
@@ -30,4 +31,7 @@ def map_in_parallel[ItemType, ResultType](
         return [task(item) for item in items]
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        return list(executor.map(task, items))
+        futures = [
+            executor.submit(copy_context().run, task, item) for item in items
+        ]
+        return [future.result() for future in futures]

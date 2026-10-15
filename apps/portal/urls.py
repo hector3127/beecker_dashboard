@@ -12,6 +12,12 @@ proyectos y Facturabilidad por area tienen sus propias paginas del portal.
 app_name = "portal"
 
 urlpatterns = [
+    path(
+        "ejecutiva/actualizacion/", views.actualizacion_ejecutiva,
+        name="actualizacion_ejecutiva",
+    ),
+    path("ejecutiva/comercial/", views.comercial_ejecutiva, name="comercial_ejecutiva"),
+    path("ejecutiva/acuerdos/", views.acuerdos_ejecutivos, name="acuerdos_ejecutivos"),
     path("ejecutiva/cuentas/", views.todas_cuentas, name="todas_cuentas"),
     path("ejecutiva/operations/", views.operaciones_ejecutiva, name="operaciones_ejecutiva"),
     path("cuenta/financiera/", views.cuenta_financiera, name="cuenta_financiera"),

@@ -20,7 +20,10 @@ def build_commercial_context(params: Any) -> Any:
         "active": "comercial",
         "loaded_at": timezone.localtime(),
         "error": "",
-        "from_executive": params.get("desde") == "ejecutiva",
+        "from_executive": (
+            params.get("origen") == "business-overview"
+            or params.get("desde") == "ejecutiva"
+        ),
     }
     try:
         data = commercial_rows(

@@ -109,6 +109,11 @@ def build_chart_bars(
                 value_text=_format_percent(percent),
                 label=month.short_label,
                 current=index == len(months) - 1,
+                month=month.month,
+                month_label=format_month(month.month),
+                global_percent=month.global_percent,
+                fixed_percent=month.fixed_percent,
+                variable_percent=month.variable_percent,
             ),
         )
 

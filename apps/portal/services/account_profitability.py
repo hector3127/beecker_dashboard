@@ -8,6 +8,7 @@ from django.core.cache import cache
 from django.urls import reverse
 from django.utils.text import slugify
 
+from apps.portal.services.executive_period import bounds, contains
 from apps.portal.services.revenue import REVENUE_STATUSES
 from apps.portal.services.revenue_costs import key
 from core.sheets.factory import build_sheet_repository
@@ -30,7 +31,7 @@ def account_profitability(reader=None):
             continue
         day = to_datetime(row[6])
         name = str(row[1] or "").strip()
-        if not day or day.year != 2026 or not name:
+        if not contains(day) or not name:
             continue
         try:
             revenue = Decimal(
@@ -64,6 +65,11 @@ def account_profitability(reader=None):
             account["ids"].add(pid.casefold())
         else:
             account["pending"] += 1
+    from apps.portal.services.cost_project_inventory import inventory
+    for pid, project in inventory(reader).items():
+        for name in project["accounts"]:
+            item = accounts.setdefault(normalize_name(name), {"name": name, "revenue": Decimal(0), "ids": set(), "pending": 0, "entries": {}, "collected": Decimal(0), "invoiced": Decimal(0)})
+            item["ids"].add(pid)
     entry_owners = defaultdict(set)
     for name, account in accounts.items():
         for pid in account["ids"]:
@@ -107,19 +113,19 @@ def account_profitability(reader=None):
         }
         item["classification"] = (
             "pending"
-            if account["pending"] or margin is None
+            if account["pending"] or (margin is None and cost <= 0)
             else "healthy"
-            if margin > 70
+            if margin is not None and margin > 70
             else "unhealthy"
-            if margin < 30
+            if (margin is not None and margin < 30) or (revenue == 0 and cost > 0)
             else "intermediate"
         )
         all_accounts.append(item)
-        if account["pending"] or margin is None:
+        if account["pending"] or (margin is None and cost <= 0):
             pending.append(item)
-        elif margin > 70:
+        elif margin is not None and margin > 70:
             healthy.append(item)
-        elif margin < 30:
+        elif (margin is not None and margin < 30) or (revenue == 0 and cost > 0):
             unhealthy.append(item)
 
     def order(row):
@@ -133,7 +139,7 @@ def account_profitability(reader=None):
         "unhealthy": sorted(unhealthy, key=order),
         "pending_accounts": len(pending),
         "threshold": 70,
-        "year": 2026,
+        "year": bounds()[0].year,
         "accounts": sorted(all_accounts, key=order),
     }
 

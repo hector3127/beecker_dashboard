@@ -10,6 +10,7 @@ from django.utils import timezone
 from apps.clockify.provider import build_clockify_loader
 from apps.clockify.services.cr_hours import canonical_cr_id
 from apps.ejecutivo.services.ixb_rules import calculate_exact_burn
+from apps.portal.services.executive_period import bounds, cache_suffix
 from apps.portal.services.executive_population import population
 from core.sheets.factory import build_sheet_repository
 
@@ -30,6 +31,7 @@ def burn_key(project):
     """Cache por ID exacto y periodo de ejecucion."""
     return (
         "portal:executive-operations:burn:v2:"
+        + cache_suffix()
         + hashlib.sha256(
             str(
                 (project["id"].casefold(), project["start"], project["end"])
@@ -50,6 +52,11 @@ def calculate_burn(pid):
     )
     if project is None:
         raise ValueError("Proyecto fuera de la poblacion de 2026")
+    return _project_burn(project)
+
+
+def _project_burn(project):
+    """Calcula el consumo de un proyecto ya resuelto en la poblacion."""
     result = cache.get(burn_key(project))
     if result is not None:
         return result
@@ -111,7 +118,7 @@ def operations_summary():
         "pending_ids": pending,
         "missing_budget": missing_budget,
         "partial": bool(pending or missing_budget),
-        "year": 2026,
+        "year": bounds()[0].year,
     }
     if not result["partial"]:
         cache.set(operations_snapshot_key(), result, 86400)
@@ -134,7 +141,7 @@ def _prepare_operations():
 
     def prepare(project):
         try:
-            calculate_burn(project["id"])
+            _project_burn(project)
         except (DashboardError, ValueError) as error:
             return project["id"] + ": " + str(error)
         return ""
@@ -155,6 +162,7 @@ def operations_snapshot_key():
     return (
         "portal:executive-operations:snapshot:v2:"
         + timezone.localdate().isoformat()
+        + cache_suffix()
     )
 
 

@@ -145,7 +145,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Los datos de negocio viven en Google Sheets. SQLite solo guarda
-# sesiones y usuarios de Django.
+# sesiones, usuarios y acuerdos ejecutivos de Django.
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -157,7 +157,7 @@ DATABASES = {
 # workers de gunicorn compartan el mismo contenido.
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "BACKEND": "core.cache.ConcurrentFileBasedCache",
         "LOCATION": BASE_DIR / ".cache",
         "OPTIONS": {"MAX_ENTRIES": 10000, "CULL_FREQUENCY": 3},
     },

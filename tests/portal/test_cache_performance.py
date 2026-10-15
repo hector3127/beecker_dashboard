@@ -77,7 +77,7 @@ def test_stale_page_returns_saved_cut_without_source_calls(
     monkeypatch, name, path, prefix
 ):
     key = (
-        f"portal:{prefix}:context:{'v4' if prefix == 'executiva' else 'v1'}:"
+        f"portal:{prefix}:context:{'v5' if prefix == 'executiva' else 'v1'}:"
         + timezone.localdate().isoformat()
     )
     cache.set(key, {"active": name, "marker": "saved"}, 86400)
@@ -145,3 +145,58 @@ def test_finance_prepares_one_context_for_multiple_projects(monkeypatch):
     cache.delete(financial_cache.snapshot_key() + ":fresh")
     assert financial_cache.cached_financial_snapshot()["costs"]["complete"]
     assert financial_cache.cached_financial_snapshot()["loaded_at"]
+
+
+def test_finance_does_not_prepare_tariffs_when_every_cost_is_cached(
+    monkeypatch,
+):
+    reader = repository([revenue_row(pid="A")])
+    cache.set(revenue_costs.key("A"), {"complete": True})
+    monkeypatch.setattr(
+        financial_cache, "build_sheet_repository", lambda: reader
+    )
+    monkeypatch.setattr(financial_cache, "load_revenue", lambda: {})
+    monkeypatch.setattr(
+        financial_cache,
+        "prepare_cost_context",
+        Mock(side_effect=AssertionError("Roster read")),
+    )
+    monkeypatch.setattr(
+        financial_cache,
+        "calculate_project_cost",
+        Mock(side_effect=AssertionError("Cost recalculated")),
+    )
+    monkeypatch.setattr(
+        financial_cache, "cost_summary", lambda **kw: {"complete": True}
+    )
+    monkeypatch.setattr(
+        financial_cache,
+        "load_monthly_profitability",
+        lambda **kw: {"complete": True},
+    )
+    monkeypatch.setattr(
+        financial_cache, "account_profitability", lambda **kw: {}
+    )
+    assert financial_cache.warm_financial()["ok"]
+
+
+def test_operations_resolves_population_once_per_phase_not_per_project(
+    monkeypatch,
+):
+    from apps.portal.services import executive_operations as operations
+
+    projects = [
+        {"id": pid, "budget": 100, "start": "2026-01-01", "end": "2026-09-30"}
+        for pid in ("A", "B", "C")
+    ]
+    population = Mock(return_value=projects)
+    monkeypatch.setattr(operations, "population", population)
+    for project in projects:
+        cache.set(operations.burn_key(project), {"burn": 20})
+    monkeypatch.setattr(
+        operations,
+        "build_sheet_repository",
+        Mock(side_effect=AssertionError("Source read")),
+    )
+    assert operations.warm_operations()["ok"]
+    assert population.call_count == 2  # Work plan and final summary.

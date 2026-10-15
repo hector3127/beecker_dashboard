@@ -3,7 +3,10 @@ from datetime import date
 import pytest
 
 from apps.clockify.services.clockify_client import ClockifyProject
-from apps.clockify.services.report_cache import report_cache_seconds
+from apps.clockify.services.report_cache import (
+    monthly_cache_seconds,
+    report_cache_seconds,
+)
 from apps.clockify.services.time_entry_loader import ClockifyTimeEntryLoader
 from tests.clockify.fakes import DictCache, FakeClockifyClient
 from tests.fakes import InMemorySheetRepository
@@ -52,6 +55,22 @@ REPORT_ENTRY = {
 )
 def test_report_cache_seconds(has_entries, end_date, expected):
     assert report_cache_seconds(has_entries, end_date, TODAY) == expected
+
+
+@pytest.mark.parametrize(
+    ("end", "today", "expected"),
+    [
+        (date(2026, 8, 31), TODAY, 7 * DAY),
+        (date(2026, 9, 30), TODAY, DAY),
+        (TODAY, TODAY, SIX_HOURS),
+        (date(2025, 11, 30), date(2026, 1, 1), 7 * DAY),
+        (date(2025, 12, 31), date(2026, 1, 1), DAY),
+    ],
+)
+def test_old_months_are_reused_longer_but_recent_months_stay_fresh(
+    end, today, expected
+):
+    assert monthly_cache_seconds(True, end, today) == expected
 
 
 def build_loader(cache):

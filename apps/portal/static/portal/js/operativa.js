@@ -10,14 +10,37 @@
   let refreshing = false;
   const controllers = new Set();
 
+  // Keep the latest investment separately: EVA and investment finish independently.
+  let investment = null;
+  function updateManagerInvestment(doc) {
+    const payload = doc && doc.getElementById('ops-investment-data');
+    if (payload) {
+      try { investment = JSON.parse(payload.textContent); } catch (_) { /* Keep current cut. */ }
+    }
+    if (!investment) return;
+    document.querySelectorAll('[data-investment-projects]').forEach(node => {
+      let ids;
+      try { ids = JSON.parse(node.dataset.investmentProjects); } catch (_) { return; }
+      const rows = ids.filter(id => Object.prototype.hasOwnProperty.call(investment.by_project || {}, id))
+        .map(id => investment.by_project[id]);
+      const ready = investment.complete && rows.length > 0;
+      node.querySelectorAll('[data-investment]').forEach(value => {
+        const hours = rows.reduce((sum, row) => sum + (Number(row[value.dataset.investment]) || 0), 0);
+        value.textContent = ready ? hours.toLocaleString('es-MX', {maximumFractionDigits: 1}) + ' h' : '—';
+      });
+    });
+  }
+
   function status(message) {
     const node = document.getElementById('ops-refresh-status');
     if (node) node.textContent = message;
+    const button = document.getElementById('ops-refresh-button');
+    if (button) button.title = message;
   }
 
   function busy(value) {
     const button = document.getElementById('ops-refresh-button');
-    if (button) { button.hidden = false; button.disabled = value; }
+    if (button) { button.hidden = false; button.disabled = value; button.textContent = value ? 'Actualizando…' : 'Actualizar datos'; }
   }
 
   async function read(url) {
@@ -63,6 +86,7 @@
       const newTrack = next.querySelector('.dm-carousel-track');
       if (newTrack) newTrack.scrollLeft = scroll;
     });
+    updateManagerInvestment();
   }
 
   function replaceDashboard(doc) {
@@ -76,6 +100,7 @@
     const focusName = focus && focus.name;
     placeholder.replaceWith(summary);
     root().replaceWith(next);
+    updateManagerInvestment(doc);
     if (focusId) {
       const target = document.getElementById(focusId);
       if (target) target.focus({preventScroll: true});
@@ -128,6 +153,7 @@
         try {
           const updated = await dashboard(block, force);
           replaceSections(updated, ids);
+          if (block === 'inversion') updateManagerInvestment(updated);
         } catch (error) {
           failures.push(label);
         }
@@ -187,6 +213,7 @@
   });
 
   window.addEventListener('pagehide', () => controllers.forEach(controller => controller.abort()));
+  updateManagerInvestment(document);
   busy(false);
   if (root().dataset.async === 'true') refresh();
   else if (root().dataset.summaryFresh !== 'true') {

@@ -4,6 +4,12 @@ from decimal import Decimal, InvalidOperation
 
 from django.core.cache import cache
 
+from apps.portal.services.executive_period import (
+    bounds,
+    cache_suffix,
+    contains,
+    current,
+)
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 
@@ -20,7 +26,7 @@ REVENUE_STATUSES = frozenset(
 
 def load_revenue():
     """Suma ingresos y la proporcion cobrada del ejercicio 2026."""
-    cached = cache.get("portal:revenue:DataRevenue:H:2026:v4")
+    cached = cache.get("portal:revenue:DataRevenue:H:2026:v4" + cache_suffix())
     if cached is not None:
         return cached
     rows = build_sheet_repository().read_values("DataRevenue")
@@ -32,7 +38,7 @@ def load_revenue():
         moment = to_datetime(row[6]) if len(row) > 6 else None
         if (
             not moment
-            or moment.year != 2026
+            or not contains(moment)
             or str(row[0]).strip().casefold() not in REVENUE_STATUSES
         ):
             continue
@@ -59,7 +65,7 @@ def load_revenue():
             elif status in {"invoiced", "invoiced factoring"}:
                 invoiced += amount
             count += 1
-    if not count:
+    if not count and not current():
         raise ValueError("DataRevenue no contiene importes numericos en H")
     result = {
         "total": str(total.quantize(Decimal("0.01"))),
@@ -69,7 +75,12 @@ def load_revenue():
         "collections_percent": round(float(collected / invoiced * 100), 2)
         if invoiced
         else None,
-        "source": "DataRevenue · 2026 · H (USD Global Adj)",
+        "source": (
+            f"DataRevenue · {bounds()[0]:%d/%m/%Y} - "
+            f"{bounds()[1]:%d/%m/%Y} · H (USD Global Adj)"
+        ),
     }
-    cache.set("portal:revenue:DataRevenue:H:2026:v4", result, 300)
+    cache.set(
+        "portal:revenue:DataRevenue:H:2026:v4" + cache_suffix(), result, 300
+    )
     return result
