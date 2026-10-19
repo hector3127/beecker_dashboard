@@ -3,6 +3,7 @@
 import hashlib
 import threading
 from datetime import date
+from typing import Any
 
 from django.core.cache import cache
 from django.utils import timezone
@@ -27,7 +28,7 @@ TERMINAL = {
 }
 
 
-def burn_key(project):
+def burn_key(project: dict[str, Any]) -> str:
     """Cache por ID exacto y periodo de ejecucion."""
     return (
         "portal:executive-operations:burn:v2:"
@@ -40,7 +41,7 @@ def burn_key(project):
     )
 
 
-def calculate_burn(pid):
+def calculate_burn(pid: str) -> dict[str, Any]:
     """Lee el consumo con el cargador y las reglas CR existentes."""
     project = next(
         (
@@ -55,9 +56,9 @@ def calculate_burn(pid):
     return _project_burn(project)
 
 
-def _project_burn(project):
+def _project_burn(project: dict[str, Any]) -> dict[str, Any]:
     """Calcula el consumo de un proyecto ya resuelto en la poblacion."""
-    result = cache.get(burn_key(project))
+    result: dict[str, Any] | None = cache.get(burn_key(project))
     if result is not None:
         return result
     reader = build_sheet_repository()
@@ -84,16 +85,16 @@ def _project_burn(project):
     return result
 
 
-def operations_summary():
+def operations_summary() -> dict[str, Any]:
     """Compone presupuesto, avance y ETC desde consumos preparados."""
     projects = population()
     budget = 0
     burn = 0
     paired_budget = 0
-    pending = []
+    pending: list[str] = []
     known = 0
     missing_budget = 0
-    missing_budget_ids = []
+    missing_budget_ids: list[str] = []
     consumption_projects = 0
     for project in projects:
         planned = project["budget"]
@@ -133,7 +134,7 @@ def operations_summary():
     return result
 
 
-def warm_operations(only_stale=False):
+def warm_operations(only_stale: bool = False) -> dict[str, Any]:
     """Prepara el componente ejecutivo con dos consultas simultaneas."""
     with _WARM_LOCK:
         if only_stale and cache.get(operations_snapshot_key() + ":fresh"):
@@ -141,16 +142,16 @@ def warm_operations(only_stale=False):
         return _prepare_operations()
 
 
-def _prepare_operations():
+def _prepare_operations() -> dict[str, Any]:
     """Prepara consumos y conserva el ultimo resumen disponible."""
     from core.exceptions import DashboardError
     from core.utils.parallel import map_in_parallel
 
-    def prepare(project):
+    def prepare(project: dict[str, Any]) -> str:
         try:
             _project_burn(project)
         except (DashboardError, ValueError) as error:
-            return project["id"] + ": " + str(error)
+            return str(project["id"]) + ": " + str(error)
         return ""
 
     failures = [
@@ -164,7 +165,7 @@ def _prepare_operations():
     return {"ok": not failures, "error": "; ".join(failures)}
 
 
-def operations_snapshot_key():
+def operations_snapshot_key() -> str:
     """Clave del ultimo resumen ejecutivo preparado del dia."""
     return (
         "portal:executive-operations:snapshot:v2:"
@@ -173,6 +174,6 @@ def operations_snapshot_key():
     )
 
 
-def cached_operations_snapshot():
+def cached_operations_snapshot() -> dict[str, Any]:
     """Devuelve el corte preparado sin leer Sheets ni Clockify."""
     return cache.get(operations_snapshot_key()) or {}

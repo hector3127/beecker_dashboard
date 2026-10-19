@@ -1,6 +1,7 @@
 """Operational projects with no booked revenue still generate account costs."""
 
 from collections import defaultdict
+from typing import Any
 
 from django.utils import timezone
 
@@ -9,16 +10,17 @@ from apps.ejecutivo.services.aer_tym_summary import (
     resolve_columns,
 )
 from apps.portal.services.executive_period import bounds
+from core.sheets.protocols import SheetReader
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
 
 
-def inventory(reader):
+def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
     """Find operational projects overlapping the financial period."""
     start, end = bounds()
     today = timezone.localdate()
-    found = {}
-    owners = defaultdict(set)
+    found: dict[str, dict[str, Any]] = {}
+    owners: defaultdict[str, set[str]] = defaultdict(set)
     for row in reader.read_values("DataRevenue")[1:]:
         if (
             len(row) > 4
@@ -45,7 +47,7 @@ def inventory(reader):
             if pid and canonical:
                 historical_owners[pid].add(canonical)
 
-    def add(pid, account, first, last):
+    def add(pid: Any, account: Any, first: Any, last: Any) -> None:
         pid = str(pid or "").strip()
         account = str(account or "").strip()
         a, b = to_datetime(first), to_datetime(last)
@@ -81,7 +83,7 @@ def inventory(reader):
         if names:
             found[pid.casefold()] = {"id": pid, "accounts": set(names)}
 
-    def cell(row, index):
+    def cell(row: list[Any], index: int) -> Any:
         return row[index] if index < len(row) else ""
 
     if reader.sheet_exists("MPB"):
@@ -105,13 +107,13 @@ def inventory(reader):
         for key, rows in events.items():
             if key in found:
                 continue
-            starts = [
+            raw_starts = [
                 to_datetime(cell(r, 7))
                 for r in rows
                 if not str(cell(r, 6)).strip().lower().endswith(" est")
             ]
-            starts = [x for x in starts if x]
-            ends = [
+            starts = [x for x in raw_starts if x]
+            raw_ends = [
                 to_datetime(cell(r, 8)) or to_datetime(cell(r, 7))
                 for r in rows
                 if str(cell(r, 6)).strip().lower()
@@ -123,7 +125,7 @@ def inventory(reader):
                     "cancelado",
                 }
             ]
-            ends = [x for x in ends if x]
+            ends = [x for x in raw_ends if x]
             if starts:
                 add(
                     cell(rows[0], 2),
@@ -138,7 +140,7 @@ def inventory(reader):
         if start.year == end.year
         else set()
     )
-    resolved = {}
+    resolved: dict[str, dict[str, Any]] = {}
     from apps.portal.services.project_task_scope import variant
 
     for pid, item in found.items():

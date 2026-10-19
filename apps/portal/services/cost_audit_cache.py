@@ -1,19 +1,21 @@
 """Reuse prepared costs and account-scoped revenue in the audit table."""
 
+from typing import Any
+
 from django.core.cache import cache
 
 from apps.portal.services.revenue_costs import key
 from core.utils.text import normalize_name
 
 
-def metadata_key(account):
+def metadata_key(account: str | None) -> str:
     """Separate metadata by account, selected period and cost version."""
     return "portal:cost-audit:revenue:v1:" + key(
         "audit:" + normalize_name(account or "")
     )
 
 
-def remember(result, account=None):
+def remember(result: dict[str, Any], account: str | None = None) -> None:
     """Store only revenue for project membership validated by the audit."""
     rows = result.get("projects", [result])
     values = cache.get(metadata_key(account)) or {}
@@ -22,7 +24,9 @@ def remember(result, account=None):
     cache.set(metadata_key(account), values, 86400)
 
 
-def prepared_detail(pid, account=None):
+def prepared_detail(
+    pid: str, account: str | None = None
+) -> dict[str, Any] | None:
     """Read a prepared detail only within the previously verified account."""
     values = cache.get(metadata_key(account))
     if not isinstance(values, dict) or pid.casefold() not in values:
@@ -53,17 +57,19 @@ def prepared_detail(pid, account=None):
     return result
 
 
-def summary_key(account=None):
+def summary_key(account: str | None = None) -> str:
     """Identify a short-lived audit summary for one account and period."""
     return metadata_key(account) + ":summary"
 
 
-def prepared_summary(account=None):
+def prepared_summary(account: str | None = None) -> Any:
     """Read the prepared audit without rebuilding source inventories."""
     return cache.get(summary_key(account))
 
 
-def remember_summary(result, account=None):
+def remember_summary(
+    result: dict[str, Any], account: str | None = None
+) -> dict[str, Any]:
     """Bundle available details with the audit for local expansion."""
     remember(result, account)
     result = dict(result)

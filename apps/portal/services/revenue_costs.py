@@ -3,6 +3,7 @@
 import calendar
 import hashlib
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date
 from typing import Any
@@ -16,6 +17,7 @@ from apps.portal.services.executive_period import bounds, cache_suffix, current
 from core.sheets.factory import build_sheet_repository
 from core.sheets.project_year import mpb_previous_year_ids
 from core.sheets.protocols import SheetReader
+from core.time_entries.models import TimeEntry
 from core.time_entries.resource_rates import normalize_band, read_rate_by_band
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
@@ -76,9 +78,9 @@ def prepare_cost_context(
     )
 
 
-def project_ids(reader, account=None):
+def project_ids(reader: SheetReader, account: str | None = None) -> list[str]:
     """Lista IDs unicos del ejercicio 2026 sin las filas de totales."""
-    result = {}
+    result: dict[str, str] = {}
     excluded = (
         mpb_previous_year_ids(reader, bounds()[0].year)
         if bounds()[0].year == bounds()[1].year
@@ -119,7 +121,7 @@ def project_ids(reader, account=None):
     return sorted(result.values(), key=str.casefold)
 
 
-def key(pid):
+def key(pid: str) -> str:
     """Identifica el costo por proyecto y mes de la banda vigente."""
     return (
         "portal:revenue-cost:2026:v9:"
@@ -130,7 +132,9 @@ def key(pid):
     )
 
 
-def resolve_person_band(row, headers, rates, today):
+def resolve_person_band(
+    row: list[Any], headers: list[Any], rates: dict[str, float], today: date
+) -> tuple[Any, str]:
     """Use current band; for Baja, recover the latest valid monthly band."""
     from apps.gse.services.cells import norm
 
@@ -152,7 +156,9 @@ def resolve_person_band(row, headers, rates, today):
     return "", "Sin banda vigente historica"
 
 
-def resolve_cost_scope(pid, ids, today):
+def resolve_cost_scope(
+    pid: str, ids: Sequence[str], today: date
+) -> tuple[str, date, date, int | None]:
     """ROC base.MM is a month; unsuffixed base is January only with variants."""
     match = re.fullmatch(
         r"(ROC\.[A-Z0-9]+\.\d{3})(?:\.(0[1-9]|1[0-2]))?",
@@ -160,7 +166,7 @@ def resolve_cost_scope(pid, ids, today):
         re.IGNORECASE,
     )
     lookup = pid.strip()
-    month = None
+    month: int | None = None
     if match:
         base, suffix = match.groups()
         lookup = base
@@ -185,7 +191,9 @@ def resolve_cost_scope(pid, ids, today):
     return lookup, start, end, month
 
 
-def calculate_project_cost(pid, context=None):
+def calculate_project_cost(
+    pid: str, context: CostContext | None = None
+) -> dict[str, Any]:
     """Calcula horas por tarifa usando el cargador compartido de Clockify."""
     existing = cache.get(key(pid))
     if (
@@ -221,7 +229,9 @@ def calculate_project_cost(pid, context=None):
             start, end = selected_start, selected_end
         start, end = max(start, selected_start), min(end, selected_end, today)
     loader = build_clockify_loader(reader)
-    entries = loader.load_project(lookup, (start, end)) if start <= end else []
+    entries: Sequence[TimeEntry] = (
+        loader.load_project(lookup, (start, end)) if start <= end else []
+    )
     from apps.portal.services.project_task_scope import scope_entries
 
     entries = scope_entries(pid, ids, entries, loader, lookup)
@@ -252,12 +262,13 @@ def calculate_project_cost(pid, context=None):
             task_details_complete = False
     from apps.portal.services.project_task_scope import task_tokens, variant
 
-    base = variant(pid)[0].upper() if variant(pid) else pid
-    sprint_groups = {}
-    people = {}
+    selected = variant(pid)
+    base = selected[0].upper() if selected else pid
+    sprint_groups: dict[str, dict[str, Any]] = {}
+    people: dict[str, dict[str, Any]] = {}
     amounts = {}
     entry_months = {}
-    missing_hours = 0
+    missing_hours = 0.0
     seen = set()
     for entry in entries:
         if current() and (
@@ -265,7 +276,12 @@ def calculate_project_cost(pid, context=None):
             or not start <= entry.entry_date.date() <= end
         ):
             continue
-        if current() and month and entry.entry_date.month != month:
+        if (
+            current()
+            and month
+            and entry.entry_date
+            and entry.entry_date.month != month
+        ):
             continue
         if not entry.entry_id or entry.entry_id in seen:
             continue
@@ -386,11 +402,13 @@ def calculate_project_cost(pid, context=None):
     }
 
 
-def cost_summary(ids=None, account=None):
+def cost_summary(
+    ids: list[str] | None = None, account: str | None = None
+) -> dict[str, Any]:
     """Suma costos preparados sin duplicar registros entre proyectos."""
     ids = project_ids(build_sheet_repository(), account) if ids is None else ids
-    entries = {}
-    projects = []
+    entries: dict[str, float] = {}
+    projects: list[dict[str, Any]] = []
     pending = 0
     complete = True
     for pid in ids:

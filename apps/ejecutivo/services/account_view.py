@@ -834,9 +834,7 @@ def overlaps_account_year(start: Any, end: Any, year: int) -> bool:
     return not ((first and first.year > year) or (last and last.year < year))
 
 
-def history_overlaps_account_year(
-    project: dict[str, Any], year: int
-) -> bool:
+def history_overlaps_account_year(project: dict[str, Any], year: int) -> bool:
     """Comprueba si las fechas conocidas del historial cubren el ejercicio."""
     stages = project.get("etapas", [])
     starts = [

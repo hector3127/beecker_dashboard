@@ -2,6 +2,7 @@
 
 from collections import defaultdict
 from decimal import Decimal, InvalidOperation
+from typing import Any
 from urllib.parse import urlencode
 
 from django.core.cache import cache
@@ -12,13 +13,16 @@ from apps.portal.services.executive_period import bounds, contains, query_string
 from apps.portal.services.revenue import REVENUE_STATUSES
 from apps.portal.services.revenue_costs import key
 from core.sheets.factory import build_sheet_repository
+from core.sheets.protocols import SheetReader
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
 
 
-def account_profitability(reader=None):
+def account_profitability(
+    reader: SheetReader | None = None,
+) -> dict[str, Any]:
     """Clasifica cuentas con costos disponibles y sin horas duplicadas."""
-    accounts = {}
+    accounts: dict[str, dict[str, Any]] = {}
     reader = reader or build_sheet_repository()
     for row in reader.read_values("DataRevenue")[1:]:
         if len(row) < 8 or any(
@@ -34,12 +38,12 @@ def account_profitability(reader=None):
         if not contains(day) or not name:
             continue
         try:
-            revenue = Decimal(
+            line_revenue = Decimal(
                 str(row[7]).replace(",", "").replace("$", "").strip()
             )
         except InvalidOperation:
             continue
-        if not revenue.is_finite():
+        if not line_revenue.is_finite():
             continue
         account = accounts.setdefault(
             normalize_name(name),
@@ -53,22 +57,34 @@ def account_profitability(reader=None):
                 "invoiced": Decimal(0),
             },
         )
-        account["revenue"] += revenue
+        account["revenue"] += line_revenue
         state = str(row[0]).strip().casefold()
         if state in {"collected", "collected factoring"}:
-            account["collected"] += revenue
-            account["invoiced"] += revenue
+            account["collected"] += line_revenue
+            account["invoiced"] += line_revenue
         elif state in {"invoiced", "invoiced factoring"}:
-            account["invoiced"] += revenue
+            account["invoiced"] += line_revenue
         pid = str(row[4] or "").strip()
         if pid:
             account["ids"].add(pid.casefold())
         else:
             account["pending"] += 1
     from apps.portal.services.cost_project_inventory import inventory
+
     for pid, project in inventory(reader).items():
         for name in project["accounts"]:
-            item = accounts.setdefault(normalize_name(name), {"name": name, "revenue": Decimal(0), "ids": set(), "pending": 0, "entries": {}, "collected": Decimal(0), "invoiced": Decimal(0)})
+            item = accounts.setdefault(
+                normalize_name(name),
+                {
+                    "name": name,
+                    "revenue": Decimal(0),
+                    "ids": set(),
+                    "pending": 0,
+                    "entries": {},
+                    "collected": Decimal(0),
+                    "invoiced": Decimal(0),
+                },
+            )
             item["ids"].add(pid)
     entry_owners = defaultdict(set)
     for name, account in accounts.items():
@@ -118,7 +134,8 @@ def account_profitability(reader=None):
             else "healthy"
             if margin is not None and margin > 70
             else "unhealthy"
-            if (margin is not None and margin < 30) or (revenue == 0 and cost > 0)
+            if (margin is not None and margin < 30)
+            or (revenue == 0 and cost > 0)
             else "intermediate"
         )
         all_accounts.append(item)
@@ -126,10 +143,12 @@ def account_profitability(reader=None):
             pending.append(item)
         elif margin is not None and margin > 70:
             healthy.append(item)
-        elif (margin is not None and margin < 30) or (revenue == 0 and cost > 0):
+        elif (margin is not None and margin < 30) or (
+            revenue == 0 and cost > 0
+        ):
             unhealthy.append(item)
 
-    def order(row):
+    def order(row: dict[str, Any]) -> tuple[float, str]:
         return (-row["revenue"], row["name"])
 
     return {
@@ -145,13 +164,15 @@ def account_profitability(reader=None):
     }
 
 
-def load_account_profitability(refresh=False):
+def load_account_profitability(refresh: bool = False) -> dict[str, Any]:
     """Reutiliza las cuentas de la precarga financiera cuando estan vigentes."""
     from apps.portal.services.financial_cache import (
         cached_financial_snapshot,
     )
 
-    prepared = cached_financial_snapshot().get("accounts")
+    prepared: dict[str, Any] | None = cached_financial_snapshot().get(
+        "accounts"
+    )
     if prepared is not None and not refresh:
         return prepared
     return account_profitability()

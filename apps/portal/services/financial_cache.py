@@ -59,7 +59,7 @@ def _prepare_financial() -> dict[str, Any]:
         ids = project_ids(reader)
 
         # Do not re-read/parse rosters and rates for already prepared costs.
-        def needs_preparation(pid):
+        def needs_preparation(pid: str) -> bool:
             saved = cache.get(key(pid))
             return (
                 not saved

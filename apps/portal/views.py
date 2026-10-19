@@ -12,14 +12,6 @@ from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_http_methods
 
-from apps.portal.services.executive_period import (
-    cache_suffix as executive_cache_suffix,
-    current as executive_period,
-    parse as parse_executive_period,
-    period_view,
-    query_string as executive_query_string,
-)
-
 from apps.portal.constants import KPI_HISTORY_CHART_MANAGERS
 from apps.portal.schemas import (
     CapacityFilters,
@@ -29,6 +21,7 @@ from apps.portal.schemas import (
     RoleOption,
 )
 from apps.portal.services.account import find_account
+from apps.portal.services.account_options import account_names
 from apps.portal.services.account_ranking import rank_accounts
 from apps.portal.services.capacity import (
     build_capacity_csv,
@@ -43,6 +36,21 @@ from apps.portal.services.eva_loader import (
     load_eva1,
     load_eva2,
     load_eva2_closed,
+)
+from apps.portal.services.executive_period import (
+    cache_suffix as executive_cache_suffix,
+)
+from apps.portal.services.executive_period import (
+    current as executive_period,
+)
+from apps.portal.services.executive_period import (
+    parse as parse_executive_period,
+)
+from apps.portal.services.executive_period import (
+    period_view,
+)
+from apps.portal.services.executive_period import (
+    query_string as executive_query_string,
 )
 from apps.portal.services.facturability import (
     build_month_facturability as build_month_facturability,
@@ -83,7 +91,6 @@ from apps.portal.services.kpi_history import (
 )
 from apps.portal.services.kpi_history_loader import load_kpi_history
 from apps.portal.services.kpis_dm import build_kpi_view
-from apps.portal.services.account_options import account_names
 from apps.portal.services.manager_detail import (
     build_manager_detail,
     find_manager,
@@ -149,63 +156,118 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    key = "portal:executiva:context:v5:" + timezone.localdate().isoformat() + executive_cache_suffix()
+    key = (
+        "portal:executiva:context:v5:"
+        + timezone.localdate().isoformat()
+        + executive_cache_suffix()
+    )
     cached = cache.get(key)
     refreshing = request.GET.get("actualizar") == "1"
     from apps.portal.services.financial_cache import (
-        cached_financial_snapshot, snapshot_key, warm_financial,
+        cached_financial_snapshot,
+        snapshot_key,
+        warm_financial,
     )
+
     financial = cached_financial_snapshot()
     from apps.portal.services.executive_operations import (
-        cached_operations_snapshot, operations_snapshot_key, warm_operations,
+        cached_operations_snapshot,
+        operations_snapshot_key,
+        warm_operations,
     )
+
     executive_operations = cached_operations_snapshot()
-    operations_stale = bool(executive_operations) and not cache.get(operations_snapshot_key() + ":fresh")
-    financial_stale = bool(financial) and not cache.get(snapshot_key() + ":fresh")
+    operations_stale = bool(executive_operations) and not cache.get(
+        operations_snapshot_key() + ":fresh"
+    )
+    financial_stale = bool(financial) and not cache.get(
+        snapshot_key() + ":fresh"
+    )
     refresh_failed = False
     if (
-        refreshing and cached is not None
+        refreshing
+        and cached is not None
         and not getattr(request, "portal_warmer", False)
-        and (financial_stale or operations_stale or not cache.get(key + ":fresh"))
+        and (
+            financial_stale or operations_stale or not cache.get(key + ":fresh")
+        )
     ):
         from apps.portal.services.executive_refresh import request_refresh
 
         request_refresh()
-        return render(request, "portal/ejecutiva.html", {
-            **cached, "executive_query": request.GET.urlencode(),
-            "financial_snapshot": financial,
-            "operations_snapshot": executive_operations,
-            "page_stale": True,
-        })
-    if refreshing and financial_stale and not getattr(request, "portal_warmer", False):
+        return render(
+            request,
+            "portal/ejecutiva.html",
+            {
+                **cached,
+                "executive_query": request.GET.urlencode(),
+                "financial_snapshot": financial,
+                "operations_snapshot": executive_operations,
+                "page_stale": True,
+            },
+        )
+    if (
+        refreshing
+        and financial_stale
+        and not getattr(request, "portal_warmer", False)
+    ):
         refresh_failed = not warm_financial(only_stale=True).get("ok")
         financial = cached_financial_snapshot()
-    if refreshing and operations_stale and not getattr(request, "portal_warmer", False):
-        refresh_failed = not warm_operations(only_stale=True).get("ok") or refresh_failed
+    if (
+        refreshing
+        and operations_stale
+        and not getattr(request, "portal_warmer", False)
+    ):
+        refresh_failed = (
+            not warm_operations(only_stale=True).get("ok") or refresh_failed
+        )
         executive_operations = cached_operations_snapshot()
     if cached is not None and (not refreshing or cache.get(key + ":fresh")):
-        return render(request, "portal/ejecutiva.html", {
-            **cached, "executive_query": request.GET.urlencode(), "financial_snapshot": financial,
-            "operations_snapshot": executive_operations,
-            "page_stale": not cache.get(key + ":fresh") or financial_stale or operations_stale,
-            "refresh_failed": refresh_failed,
-        })
+        return render(
+            request,
+            "portal/ejecutiva.html",
+            {
+                **cached,
+                "executive_query": request.GET.urlencode(),
+                "financial_snapshot": financial,
+                "operations_snapshot": executive_operations,
+                "page_stale": not cache.get(key + ":fresh")
+                or financial_stale
+                or operations_stale,
+                "refresh_failed": refresh_failed,
+            },
+        )
     load = load_portfolio()
     annual_projects = list(load.projects)
     operations_source_error = ""
     if annual_projects:
-        from apps.portal.services.executive_population import population
         from apps.clockify.services.cr_hours import canonical_cr_id
+        from apps.portal.services.executive_population import population
         from core.exceptions import DashboardError
+
         try:
-            eligible = {canonical_cr_id(p["id"]).casefold() for p in population()}
-            annual_projects = [p for p in annual_projects if canonical_cr_id(p.project_id).casefold() in eligible]
+            eligible = {
+                canonical_cr_id(p["id"]).casefold() for p in population()
+            }
+            annual_projects = [
+                p
+                for p in annual_projects
+                if canonical_cr_id(p.project_id).casefold() in eligible
+            ]
         except (DashboardError, ValueError) as error:
             operations_source_error = str(error)
     context = _base_context(load)
-    chosen = executive_period() or parse_executive_period({"periodo": "anio", "anio": "2026"})
-    context.update({"executive_selected": chosen, "executive_query": request.GET.urlencode(),
-                    "executive_year": chosen.start.year, "executive_label": chosen.label})
+    chosen = executive_period() or parse_executive_period(
+        {"periodo": "anio", "anio": "2026"}
+    )
+    context.update(
+        {
+            "executive_selected": chosen,
+            "executive_query": request.GET.urlencode(),
+            "executive_year": chosen.start.year,
+            "executive_label": chosen.label,
+        }
+    )
     context.update(
         {
             "active": "ejecutiva",
@@ -223,11 +285,16 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
     elif cached is not None:
         context = cached
         refresh_failed = True
-    return render(request, "portal/ejecutiva.html", {
-        **context, "financial_snapshot": financial,
-        "operations_snapshot": executive_operations,
-        "refresh_failed": refresh_failed,
-    })
+    return render(
+        request,
+        "portal/ejecutiva.html",
+        {
+            **context,
+            "financial_snapshot": financial,
+            "operations_snapshot": executive_operations,
+            "refresh_failed": refresh_failed,
+        },
+    )
 
 
 @require_http_methods(["GET", "POST"])
@@ -266,7 +333,9 @@ _OPS_FRESH_SECONDS = 300
 def _operativa_fresh_key(request: Any, block: str) -> str:
     """Separa la vigencia de cada bloque del corte guardado."""
     return (
-        _operativa_key(request) + ":fresh:" + block
+        _operativa_key(request)
+        + ":fresh:"
+        + block
         + (":v2" if block == "eva4" else "")
     )
 
@@ -284,7 +353,7 @@ def _operations_summary_key() -> str:
 
 
 def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
-    """Compone bloques independientes para evitar perder respuestas paralelas."""
+    """Compone bloques independientes sin perder respuestas paralelas."""
     key = _operativa_key(request)
     saved = cache.get(key)
     if saved is None:
@@ -295,6 +364,7 @@ def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
     for block_key in keys:
         context.update(patches.get(block_key, {}))
     from apps.portal.services.eva4 import cached_eva4
+
     context["eva4"] = cached_eva4()
     context["clients"] = account_names(context.get("clients", ()))
     return context
@@ -329,9 +399,11 @@ def operativa(request: Any) -> Any:
     context = dict(context)
     context["clients"] = account_names(context.get("clients", ()))
     from apps.portal.services.eva4 import cached_eva4
+
     context["eva4"] = cached_eva4()
     context["pending_blocks"] = ",".join(
-        block for block in _OPS_BLOCKS
+        block
+        for block in _OPS_BLOCKS
         if not cache.get(_operativa_fresh_key(request, block))
     )
     context["async_operativa"] = not (
@@ -340,8 +412,7 @@ def operativa(request: Any) -> Any:
     summary_key = _operations_summary_key()
     context["operations_summary_html"] = cache.get(summary_key, "")
     context["summary_fresh"] = bool(
-        context["operations_summary_html"]
-        and cache.get(summary_key + ":fresh")
+        context["operations_summary_html"] and cache.get(summary_key + ":fresh")
     )
     return render(request, "portal/operativa.html", context)
 
@@ -369,7 +440,10 @@ def _operativa_investment(ixb: Any, aer: Any) -> dict[str, Any]:
     errors = [source.error for source in (ixb, aer) if source.error]
     if errors:
         return {"complete": False, "error": "; ".join(errors)}
-    return tagged_investment([*ixb.view.projects, *aer.view.projects])
+    investment: dict[str, Any] = tagged_investment(
+        [*ixb.view.projects, *aer.view.projects]
+    )
+    return investment
 
 
 @require_GET
@@ -392,6 +466,7 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
     saved = _operativa_snapshot(request)
     if block == "eva4":
         from apps.portal.services.eva4 import load_eva4
+
         result = load_eva4()
         context = dict(saved or {})
         context.update({"eva4": result, "refresh_block": block})
@@ -401,7 +476,8 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
             cache.set(_operativa_fresh_key(request, "eva4"), True, 300)
         return render(request, "portal/operativa.html", context)
     if (
-        saved and request.GET.get("actualizar") != "1"
+        saved
+        and request.GET.get("actualizar") != "1"
         and cache.get(_operativa_fresh_key(request, block or "base"))
     ):
         return render(
@@ -448,7 +524,8 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
             context["donut"] = build_donut_segments(context["health"])
             context["consumption_pending"] = False
             context["eva1_card"] = EvaCard(
-                available=True, total_projects=ixb.view.total_projects,
+                available=True,
+                total_projects=ixb.view.total_projects,
                 time_cost=ixb.view.time_cost,
             )
             context["eva2_card"] = context["eva1_card"]
@@ -467,13 +544,20 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
             "inversion": ("investment",),
             "capacidad": ("capacity_live",),
             "eva3": (
-                "managers", "summary", "health", "donut", "eva3_card",
-                "eva1_card", "eva2_card", "consumption_pending",
+                "managers",
+                "summary",
+                "health",
+                "donut",
+                "eva3_card",
+                "eva1_card",
+                "eva2_card",
+                "consumption_pending",
             ),
         }[block]
         cache.set(
             _operativa_key(request) + ":block:" + block,
-            {key: context[key] for key in changed}, 86400,
+            {key: context[key] for key in changed},
+            86400,
         )
         latest = _operativa_snapshot(request) or context
         cache.set(_operativa_key(request), latest, 86400)
@@ -580,7 +664,8 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
     context["loading"] = False
     context["consumption_pending"] = (
         saved.get("consumption_pending", False)
-        if saved and not block else block != "eva3"
+        if saved and not block
+        else block != "eva3"
     )
     if saved and (ixb.error or aer.error) and not block:
         return render(
@@ -646,14 +731,16 @@ def comercial(request: HttpRequest) -> HttpResponse:
     refreshing = filters.pop("actualizar", None) == ["1"]
     cached = cache.get(key) if not filters else None
     if cached is not None and (not refreshing or cache.get(key + ":fresh")):
-        return render(request, "portal/comercial.html", {
-            **cached, "page_stale": not cache.get(key + ":fresh"),
-        })
+        return render(
+            request,
+            "portal/comercial.html",
+            {
+                **cached,
+                "page_stale": not cache.get(key + ":fresh"),
+            },
+        )
     context = build_commercial_context(filters)
-    if (
-        not filters and not context.get("error")
-        and not context.get("fx_error")
-    ):
+    if not filters and not context.get("error") and not context.get("fx_error"):
         cache.set(key, context, 86400)
         cache.set(key + ":fresh", True, 300)
     elif cached is not None:
@@ -908,7 +995,12 @@ def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
         client = found[0]
     if request.GET.get("bloque") == "consumos":
         return JsonResponse(
-            get_account_consumption(client, request.GET.get("offset", 0), 3, request.GET.getlist("pending_id") or None)
+            get_account_consumption(
+                client,
+                request.GET.get("offset", 0),
+                3,
+                request.GET.getlist("pending_id") or None,
+            )
         )
     data = get_account_view(client)
     projects = data.get("proyectos", [])
@@ -1030,9 +1122,13 @@ def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
             1 for p in projects if p.get("estado") == "En desarrollo"
         ),
     }
-    from apps.portal.services.return_navigation import return_context
     from django.urls import reverse
-    context.update(return_context(request, reverse("portal:operativa"), "Operativa"))
+
+    from apps.portal.services.return_navigation import return_context
+
+    context.update(
+        return_context(request, reverse("portal:operativa"), "Operativa")
+    )
     return render(request, "portal/cuenta.html", context)
 
 
@@ -1042,13 +1138,20 @@ def proyecto_detalle(request: HttpRequest, project_id: str) -> HttpResponse:
     """Abre todas las secciones del proyecto dentro del portal."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
-    from apps.portal.services.return_navigation import return_context
     from django.urls import reverse
-    return render(request, "portal/proyecto_detalle.html", {
-        **return_context(request, reverse("portal:operativa"), "Operativa"),
-        "active": "operativa", "project_id": project_id,
-        "project_context": {"id": project_id},
-    })
+
+    from apps.portal.services.return_navigation import return_context
+
+    return render(
+        request,
+        "portal/proyecto_detalle.html",
+        {
+            **return_context(request, reverse("portal:operativa"), "Operativa"),
+            "active": "operativa",
+            "project_id": project_id,
+            "project_context": {"id": project_id},
+        },
+    )
 
 
 @require_GET
@@ -1157,13 +1260,18 @@ def eva4(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
     result = (
-        load_eva4(request.GET["mes"]) if request.GET.get("mes")
-        else load_eva4()
+        load_eva4(request.GET["mes"]) if request.GET.get("mes") else load_eva4()
     )
-    return render(request, "portal/eva4.html", {
-        "active": "operativa", "eva4": result,
-        "loaded_at": result.get("loaded_at"), "error": result.get("error"),
-    })
+    return render(
+        request,
+        "portal/eva4.html",
+        {
+            "active": "operativa",
+            "eva4": result,
+            "loaded_at": result.get("loaded_at"),
+            "error": result.get("error"),
+        },
+    )
 
 
 @require_GET
@@ -1247,11 +1355,15 @@ def facturabilidad_area(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
     period = _period(request)
-    return render(request, "portal/facturabilidad_area.html", {
-        "active": "operativa",
-        "area_year": period.end_month[:4],
-        **_period_context(request, period),
-    })
+    return render(
+        request,
+        "portal/facturabilidad_area.html",
+        {
+            "active": "operativa",
+            "area_year": period.end_month[:4],
+            **_period_context(request, period),
+        },
+    )
 
 
 @require_GET
@@ -1260,7 +1372,9 @@ def capacidad_detalle(request: HttpRequest) -> HttpResponse:
     """Abre la capacidad mensual en su propia pagina, con carga progresiva."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
-    return render(request, "portal/capacidad_detalle.html", {"active": "operativa"})
+    return render(
+        request, "portal/capacidad_detalle.html", {"active": "operativa"}
+    )
 
 
 @require_GET
@@ -1339,7 +1453,9 @@ def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
 
     period = _period(request)
     history = load_kpi_history(period.year)
-    load = PortfolioLoad(projects=(), error=history.error, loaded_at=timezone.localtime())
+    load = PortfolioLoad(
+        projects=(), error=history.error, loaded_at=timezone.localtime()
+    )
     context = _base_context(load)
     context.update(_period_context(request, period))
     context.update(
@@ -1364,12 +1480,12 @@ def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
         )
 
         context.update(
-                {
-                    "kpis": end_cut.view,
-                    "cut_label": end_cut.cut_label,
-                    "cut_is_current": end_cut.partial,
-                },
-            )
+            {
+                "kpis": end_cut.view,
+                "cut_label": end_cut.cut_label,
+                "cut_is_current": end_cut.partial,
+            },
+        )
 
         context.update(
             {
@@ -1398,7 +1514,8 @@ def _kpi_chart(history: KpiHistory, period: Period) -> dict[str, object]:
     )
     chart["highlight"] = [
         f"{cut.label}*" if cut.partial else cut.label
-        for cut in cuts if cut.key in period.months
+        for cut in cuts
+        if cut.key in period.months
     ]
 
     return chart
@@ -1734,10 +1851,15 @@ def eva3_cerrados(request: HttpRequest) -> HttpResponse:
     """Historico AER/T&M finalizado en 2026, exclusivamente desde MPB."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
-    from apps.ejecutivo.services.aer_tym_summary import find_mpb_header, resolve_columns, build_summary_row
+    from apps.ejecutivo.services.aer_tym_summary import (
+        build_summary_row,
+        find_mpb_header,
+        resolve_columns,
+    )
     from apps.portal.services.eva1 import build_eva1_view
     from core.exceptions import DashboardError
     from core.sheets.factory import build_sheet_repository
+
     error = ""
     rows = []
     try:
@@ -1747,19 +1869,33 @@ def eva3_cerrados(request: HttpRequest) -> HttpResponse:
             error = "No se pudieron identificar los encabezados de MPB."
         else:
             columns = resolve_columns(values[header])
-            for row in values[header + 1:]:
-                item = build_summary_row(row, columns, timezone.localdate(), closed_year=2026)
+            for row in values[header + 1 :]:
+                item = build_summary_row(
+                    row, columns, timezone.localdate(), closed_year=2026
+                )
                 if item is not None:
                     rows.append(item)
     except DashboardError as exc:
         error = exc.build_message()
-    return render(request, "portal/_eva3_closed.html", {"projects": build_eva1_view(rows).projects, "historic_rows": rows, "error": error})
+    return render(
+        request,
+        "portal/_eva3_closed.html",
+        {
+            "projects": build_eva1_view(rows).projects,
+            "historic_rows": rows,
+            "error": error,
+        },
+    )
 
 
-def eva3_cerrados_burn(request):
-    from django.http import JsonResponse
-    from apps.portal.services.closed_aer_burn import fill_closed_burn
+def eva3_cerrados_burn(request: HttpRequest) -> HttpResponse:
+    """Rellena el Burn de un proyecto AER cerrado."""
     import json
+
+    from django.http import JsonResponse
+
+    from apps.portal.services.closed_aer_burn import fill_closed_burn
+
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
     if request.method != "POST":
@@ -1769,7 +1905,7 @@ def eva3_cerrados_burn(request):
         if not isinstance(project_id, str) or not project_id.strip():
             raise ValueError("Falta ID")
         return JsonResponse(fill_closed_burn(project_id))
-    except Exception as error:
+    except Exception as error:  # noqa: BLE001
         return JsonResponse({"error": str(error)}, status=502)
 
 
@@ -1788,7 +1924,8 @@ def ingresos(request: HttpRequest) -> HttpResponse:
         return JsonResponse(load_revenue())
     except (DashboardError, ValueError):
         return JsonResponse(
-            {"error": "No se pudo consultar DataRevenue"}, status=502,
+            {"error": "No se pudo consultar DataRevenue"},
+            status=502,
         )
 
 
@@ -1810,7 +1947,14 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
     try:
         pid = request.GET.get("id")
         account = request.GET.get("nombre", "").strip()
-        from apps.portal.services.cost_audit_cache import prepared_detail, remember, prepared_summary, remember_summary, summary_key
+        from apps.portal.services.cost_audit_cache import (
+            prepared_detail,
+            prepared_summary,
+            remember,
+            remember_summary,
+            summary_key,
+        )
+
         if not pid and request.GET.get("actualizar") != "1":
             prepared = prepared_summary(account or None)
             if prepared is not None:
@@ -1822,12 +1966,28 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
         if pid and account:
             from apps.portal.services.revenue_costs import project_ids
             from core.sheets.factory import build_sheet_repository
-            if pid.casefold() not in {p.casefold() for p in project_ids(build_sheet_repository(), account)}:
-                return JsonResponse({"error":"El proyecto no pertenece a esta cuenta"}, status=400)
-        result = calculate_project_cost(pid) if pid else cost_summary(account=account or None)
-        from apps.portal.services.project_profitability import add_project_revenue
+
+            if pid.casefold() not in {
+                p.casefold()
+                for p in project_ids(build_sheet_repository(), account)
+            }:
+                return JsonResponse(
+                    {"error": "El proyecto no pertenece a esta cuenta"},
+                    status=400,
+                )
+        result = (
+            calculate_project_cost(pid)
+            if pid
+            else cost_summary(account=account or None)
+        )
+        from apps.portal.services.project_profitability import (
+            add_project_revenue,
+        )
         from core.sheets.factory import build_sheet_repository
-        result = add_project_revenue(result, build_sheet_repository(), account or None)
+
+        result = add_project_revenue(
+            result, build_sheet_repository(), account or None
+        )
         if pid:
             remember(result, account or None)
             cache.delete(summary_key(account or None))
@@ -1841,7 +2001,6 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
         if request.GET.get("id"):
             cache.set(key(request.GET["id"]) + ":error", message, 300)
         return JsonResponse({"error": message}, status=502)
-
 
 
 @require_GET
@@ -1861,7 +2020,8 @@ def rentabilidad_mensual(request: HttpRequest) -> HttpResponse:
         return JsonResponse(load_monthly_profitability())
     except (DashboardError, ValueError):
         return JsonResponse(
-            {"error": "No se pudo consultar rentabilidad mensual"}, status=502,
+            {"error": "No se pudo consultar rentabilidad mensual"},
+            status=502,
         )
 
 
@@ -1871,118 +2031,208 @@ def costos_detalle(request: HttpRequest) -> HttpResponse:
     """Muestra costos, estados y personas con sus bandas y tarifas."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
+    from urllib.parse import urlencode
+
     from django.urls import reverse
     from django.utils.text import slugify
-    from urllib.parse import urlencode
+
     account = request.GET.get("nombre", "").strip()
-    back = reverse("portal:cuenta", kwargs={"slug":slugify(account) or "cuenta"}) + "?" + urlencode({"nombre":account}) if account else reverse("portal:ejecutiva")
+    back = (
+        reverse("portal:cuenta", kwargs={"slug": slugify(account) or "cuenta"})
+        + "?"
+        + urlencode({"nombre": account})
+        if account
+        else reverse("portal:ejecutiva")
+    )
     if executive_period():
         back += ("&" if "?" in back else "?") + executive_query_string()
     from apps.portal.services.return_navigation import return_context
+
     navigation = return_context(request, back, account or "Business Overview")
-    return render(request, "portal/costos_detalle.html", {
-        "active": "ejecutiva", "loaded_at": timezone.localtime(), "cost_account":account, "cost_back":navigation["back_url"], "cost_back_label":navigation["back_label"], "executive_label": executive_period().label if executive_period() else "2026",
-    })
-
+    return render(
+        request,
+        "portal/costos_detalle.html",
+        {
+            "active": "ejecutiva",
+            "loaded_at": timezone.localtime(),
+            "cost_account": account,
+            "cost_back": navigation["back_url"],
+            "cost_back_label": navigation["back_label"],
+            "executive_label": period.label
+            if (period := executive_period())
+            else "2026",
+        },
+    )
 
 
 @require_GET
 @period_view
-def cuentas_rentabilidad(request):
+def cuentas_rentabilidad(request: HttpRequest) -> HttpResponse:
+    """Devuelve la rentabilidad por cuenta."""
     from django.http import JsonResponse
-    from apps.portal.services.account_profitability import load_account_profitability
+
+    from apps.portal.services.account_profitability import (
+        load_account_profitability,
+    )
+
     if _needs_login(request):
-        return JsonResponse({"error":"Inicia sesion"},status=401)
+        return JsonResponse({"error": "Inicia sesion"}, status=401)
     try:
-        return JsonResponse(load_account_profitability(refresh=request.GET.get("actualizar") == "1"))
-    except Exception:
-        return JsonResponse({"error":"No se pudo consultar rentabilidad por cuenta"},status=502)
-
+        return JsonResponse(
+            load_account_profitability(
+                refresh=request.GET.get("actualizar") == "1"
+            )
+        )
+    except Exception:  # noqa: BLE001
+        return JsonResponse(
+            {"error": "No se pudo consultar rentabilidad por cuenta"},
+            status=502,
+        )
 
 
 @require_GET
 @period_view
-def cuenta_financiera(request):
+def cuenta_financiera(request: HttpRequest) -> HttpResponse:
+    """Devuelve la informacion financiera de una cuenta."""
     from django.http import JsonResponse
-    from apps.portal.services.account_profitability import load_account_profitability
+
+    from apps.portal.services.account_profitability import (
+        load_account_profitability,
+    )
     from core.utils.text import normalize_name
+
     if _needs_login(request):
-        return JsonResponse({"error":"Inicia sesion"},status=401)
+        return JsonResponse({"error": "Inicia sesion"}, status=401)
     name = request.GET.get("nombre", "")
     try:
         accounts = load_account_profitability()["accounts"]
-        account = next((a for a in accounts if normalize_name(a["name"]) == normalize_name(name)), None)
-        return JsonResponse({"account":account,"year":2026})
-    except Exception:
-        return JsonResponse({"error":"No se pudo consultar la informacion financiera"},status=502)
-
+        account = next(
+            (
+                a
+                for a in accounts
+                if normalize_name(a["name"]) == normalize_name(name)
+            ),
+            None,
+        )
+        return JsonResponse({"account": account, "year": 2026})
+    except Exception:  # noqa: BLE001
+        return JsonResponse(
+            {"error": "No se pudo consultar la informacion financiera"},
+            status=502,
+        )
 
 
 @require_GET
 @period_view
-def operaciones_ejecutiva(request):
+def operaciones_ejecutiva(request: HttpRequest) -> HttpResponse:
+    """Resume Operations para la vista ejecutiva."""
     from django.http import JsonResponse
-    from apps.portal.services.executive_operations import operations_summary, calculate_burn
+
+    from apps.portal.services.executive_operations import (
+        calculate_burn,
+        operations_summary,
+    )
+
     if _needs_login(request):
-        return JsonResponse({"error":"Inicia sesion"},status=401)
+        return JsonResponse({"error": "Inicia sesion"}, status=401)
     try:
         pid = request.GET.get("id")
-        return JsonResponse(calculate_burn(pid) if pid else operations_summary())
-    except Exception:
-        return JsonResponse({"error":"No se pudo completar la consulta de Operations"},status=502)
-
+        return JsonResponse(
+            calculate_burn(pid) if pid else operations_summary()
+        )
+    except Exception:  # noqa: BLE001
+        return JsonResponse(
+            {"error": "No se pudo completar la consulta de Operations"},
+            status=502,
+        )
 
 
 @require_GET
 @period_view
-def todas_cuentas(request):
+def todas_cuentas(request: HttpRequest) -> HttpResponse:
     """Full 2026 financial account audit, including intermediate and pending."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
-    from apps.portal.services.account_profitability import load_account_profitability
+    from apps.portal.services.account_profitability import (
+        load_account_profitability,
+    )
+
     try:
         data = load_account_profitability()
-        context = {"active": "ejecutiva", "accounts": data["accounts"], "year": data["year"]}
-    except Exception:
-        context = {"active": "ejecutiva", "accounts": [], "year": 2026,
-                   "error": "No se pudo consultar Google Sheets. Intenta nuevamente."}
+        context = {
+            "active": "ejecutiva",
+            "accounts": data["accounts"],
+            "year": data["year"],
+        }
+    except Exception:  # noqa: BLE001
+        context = {
+            "active": "ejecutiva",
+            "accounts": [],
+            "year": 2026,
+            "error": "No se pudo consultar Google Sheets. Intenta nuevamente.",
+        }
     context["executive_query"] = executive_query_string()
-    context["executive_label"] = executive_period().label if executive_period() else ""
+    period = executive_period()
+    context["executive_label"] = period.label if period else ""
     context["loaded_at"] = timezone.localtime()
     return render(request, "portal/todas_cuentas.html", context)
 
 
-
 @require_http_methods(["GET", "POST"])
-def acuerdos_ejecutivos(request):
+def acuerdos_ejecutivos(request: HttpRequest) -> HttpResponse:
+    """Lista y guarda los acuerdos ejecutivos."""
     from django.http import JsonResponse
-    from apps.portal.models import ExecutiveAgreement
+
     from apps.portal.forms import ExecutiveAgreementForm
+    from apps.portal.models import ExecutiveAgreement
+
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
     if request.method == "POST":
         instance = None
         if request.POST.get("id"):
             try:
-                instance = ExecutiveAgreement.objects.get(pk=int(request.POST["id"]))
+                instance = ExecutiveAgreement.objects.get(
+                    pk=int(request.POST["id"])
+                )
             except (ValueError, ExecutiveAgreement.DoesNotExist):
-                return JsonResponse({"error": "El registro no existe"}, status=404)
+                return JsonResponse(
+                    {"error": "El registro no existe"}, status=404
+                )
         form = ExecutiveAgreementForm(request.POST, instance=instance)
         if not form.is_valid():
-            return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+            return JsonResponse(
+                {"errors": form.errors.get_json_data()}, status=400
+            )
         form.save()
-    rows = list(ExecutiveAgreement.objects.values("id", "title", "kind", "owner", "due_date", "status", "notes", "updated_at"))
+    rows = list(
+        ExecutiveAgreement.objects.values(
+            "id",
+            "title",
+            "kind",
+            "owner",
+            "due_date",
+            "status",
+            "notes",
+            "updated_at",
+        )
+    )
     return JsonResponse({"items": rows})
 
 
 @require_GET
 @period_view
-def comercial_ejecutiva(request):
+def comercial_ejecutiva(request: HttpRequest) -> HttpResponse:
+    """Devuelve el resumen comercial ejecutivo."""
     from django.http import JsonResponse
+
     from apps.portal.services.executive_commercial import commercial_summary
+
     if _needs_login(request):
-        return JsonResponse({"error":"Inicia sesion"},status=401)
+        return JsonResponse({"error": "Inicia sesion"}, status=401)
     try:
         return JsonResponse(commercial_summary())
-    except Exception:
-        return JsonResponse({"error":"No se pudo consultar la fuente comercial"},status=502)
+    except Exception:  # noqa: BLE001
+        return JsonResponse(
+            {"error": "No se pudo consultar la fuente comercial"}, status=502
+        )
