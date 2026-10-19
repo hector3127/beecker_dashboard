@@ -10,6 +10,7 @@ from django.test import RequestFactory
 
 from apps.portal import views
 from apps.portal.services.facturability_loader import MonthSources
+from core.exceptions import DashboardError
 from core.management.commands import warm_cache
 
 
@@ -66,6 +67,44 @@ def test_warmer_uses_all_portal_blocks_and_reports_partial_data(monkeypatch):
     result = warm_cache.warm_portal()
     assert calls == ["", "eva4", "eva3", "inversion", "capacidad"]
     assert result == {"ok": False, "error": "inversion, facturabilidad"}
+
+
+def test_secondary_pages_are_warmed_and_one_failure_does_not_stop_the_other(
+    monkeypatch,
+):
+    visited = []
+
+    def kpis(request):
+        visited.append("kpis")
+        assert request.user.is_authenticated
+        raise DashboardError("Sin Azure")
+
+    def closed(request):
+        visited.append("eva1_cerrados")
+        return HttpResponse(status=200)
+
+    monkeypatch.setattr(views, "kpis_delivery_managers", kpis)
+    monkeypatch.setattr(views, "eva1_cerrados", closed)
+
+    result = warm_cache.warm_secondary_pages()
+
+    assert visited == ["kpis", "eva1_cerrados"]
+    assert result["ok"] is False
+    assert result["error"].startswith("kpis: ")
+
+
+def test_secondary_pages_report_a_non_200_response(monkeypatch):
+    monkeypatch.setattr(
+        views, "kpis_delivery_managers", lambda request: HttpResponse()
+    )
+    monkeypatch.setattr(
+        views, "eva1_cerrados", lambda request: HttpResponse(status=401)
+    )
+
+    assert warm_cache.warm_secondary_pages() == {
+        "ok": False,
+        "error": "eva1_cerrados",
+    }
 
 
 def test_summary_cache_skips_calculation_and_manual_refresh_rebuilds(

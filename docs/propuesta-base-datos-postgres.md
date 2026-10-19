@@ -128,8 +128,27 @@ reemplazo por `clockify_time_entry` queda para una etapa posterior.
 
 Por paso, de 192 s a 78 s: detalle de cada Delivery Manager 100 s → 2-3 s,
 Facturabilidad 126 s → 10 s, Operativa (proyectos y estados) 37 s → 1.9 s.
-Lo que sigue pesando: Operativa EVA-3 (16 s), Financiera (18 s), Ejecutiva
-(13 s) y Facturabilidad (10 s).
+
+Segunda ronda (68 s): los hilos de `map_in_parallel` cierran su conexión a la
+base una sola vez al terminar (en PostgreSQL con SSL cada reconexión cuesta
+~40 ms), las horas se leen con `values_list` y la caché de archivos
+(`ThrottledCullFileCache`) revisa su tamaño cada 100 escrituras en lugar de en
+cada una. Lo que sigue pesando en frío: Operativa EVA-3 (14 s), Financiera
+(15 s), Ejecutiva (12 s) y Facturabilidad (9 s).
+
+### Tiempo de cada pantalla (después de `warm_cache`, 19/10/2026)
+
+Con las dos bases activadas, peticiones reales con el cliente de pruebas de
+Django (sin red ni gunicorn), incluyendo filtros que `warm_cache` no preparó:
+
+- 36 de 40 pantallas y endpoints responden en menos de 0.1 s, también al
+  cambiar mes, periodo, servicio o cuenta.
+- Primera visita tras vaciar la caché de esa pantalla: Facturabilidad del mes
+  actual 0.5 s, Ejecutiva costos 0.55 s, rentabilidad mensual 0.3 s.
+- KPIs de Delivery Managers (2.7 s) y EVA-1 cerrados (3.8 s, 21 lotes de Azure
+  DevOps) ahora también se precalientan (`warm_secondary_pages`): 0.03 s.
+- El tiempo restante de EVA-1 cerrados y de las pantallas de IXB/RaaS es red
+  hacia Azure DevOps; bajará cuando Azure se guarde en la base.
 
 ## Modelo
 

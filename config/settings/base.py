@@ -161,7 +161,7 @@ DATABASES = {
 # workers de gunicorn compartan el mismo contenido.
 CACHES = {
     "default": {
-        "BACKEND": "core.cache.ConcurrentFileBasedCache",
+        "BACKEND": "core.throttled_cache.ThrottledCullFileCache",
         "LOCATION": BASE_DIR / ".cache",
         "OPTIONS": {"MAX_ENTRIES": 10000, "CULL_FREQUENCY": 3},
     },
