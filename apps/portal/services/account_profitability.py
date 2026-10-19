@@ -8,7 +8,7 @@ from django.core.cache import cache
 from django.urls import reverse
 from django.utils.text import slugify
 
-from apps.portal.services.executive_period import bounds, contains
+from apps.portal.services.executive_period import bounds, contains, query_string
 from apps.portal.services.revenue import REVENUE_STATUSES
 from apps.portal.services.revenue_costs import key
 from core.sheets.factory import build_sheet_repository
@@ -96,7 +96,8 @@ def account_profitability(reader=None):
                 kwargs={"slug": slugify(account["name"]) or "cuenta"},
             )
             + "?"
-            + urlencode({"nombre": account["name"]}),
+            + urlencode({"nombre": account["name"]})
+            + ("&" + query_string() if query_string() else ""),
             "revenue": round(revenue, 2),
             "cost": cost,
             "gross_profit": profit,

@@ -31,7 +31,7 @@ _WARM_LOCK = threading.Lock()
 def snapshot_key() -> str:
     """Separa el corte financiero de los otros bloques y de otros dias."""
     return (
-        "portal:financial:snapshot:v8:"
+        "portal:financial:snapshot:v9:"
         + timezone.localdate().isoformat()
         + cache_suffix()
     )
@@ -57,8 +57,17 @@ def _prepare_financial() -> dict[str, Any]:
         revenue = load_revenue()
         reader = build_sheet_repository()
         ids = project_ids(reader)
+
         # Do not re-read/parse rosters and rates for already prepared costs.
-        pending = [pid for pid in ids if cache.get(key(pid)) is None]
+        def needs_preparation(pid):
+            saved = cache.get(key(pid))
+            return (
+                not saved
+                or "sprints" not in saved
+                or any("people" not in group for group in saved["sprints"])
+            )
+
+        pending = [pid for pid in ids if needs_preparation(pid)]
         context = (
             prepare_cost_context(reader=reader, ids=ids) if pending else None
         )

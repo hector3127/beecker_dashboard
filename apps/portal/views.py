@@ -1810,6 +1810,15 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
     try:
         pid = request.GET.get("id")
         account = request.GET.get("nombre", "").strip()
+        from apps.portal.services.cost_audit_cache import prepared_detail, remember, prepared_summary, remember_summary, summary_key
+        if not pid and request.GET.get("actualizar") != "1":
+            prepared = prepared_summary(account or None)
+            if prepared is not None:
+                return JsonResponse(prepared)
+        if pid:
+            prepared = prepared_detail(pid, account or None)
+            if prepared is not None:
+                return JsonResponse(prepared)
         if pid and account:
             from apps.portal.services.revenue_costs import project_ids
             from core.sheets.factory import build_sheet_repository
@@ -1819,6 +1828,11 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
         from apps.portal.services.project_profitability import add_project_revenue
         from core.sheets.factory import build_sheet_repository
         result = add_project_revenue(result, build_sheet_repository(), account or None)
+        if pid:
+            remember(result, account or None)
+            cache.delete(summary_key(account or None))
+        else:
+            result = remember_summary(result, account or None)
         return JsonResponse(result)
     except (DashboardError, ValueError) as error:
         message = (

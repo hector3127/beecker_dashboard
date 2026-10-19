@@ -147,15 +147,18 @@ def inventory(reader):
         child = variant(item["id"])
         # MPB/history variants are not separate financial projects unless
         # DataRevenue also identifies them independently from the base ID.
-        if (
-            child
-            and pid not in owners
-            and child[0] in owners
-            and child[0] not in excluded
-        ):
+        if child and pid not in owners and child[0] not in excluded:
             base = child[0]
             resolved.setdefault(
-                base, {"id": base.upper(), "accounts": set(owners[base])}
+                base,
+                {
+                    "id": found.get(base, {}).get("id", base.upper()),
+                    "accounts": set(
+                        owners.get(base)
+                        or found.get(base, {}).get("accounts")
+                        or item["accounts"]
+                    ),
+                },
             )
         else:
             resolved[pid] = item

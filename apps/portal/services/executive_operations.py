@@ -93,16 +93,21 @@ def operations_summary():
     pending = []
     known = 0
     missing_budget = 0
+    missing_budget_ids = []
+    consumption_projects = 0
     for project in projects:
         planned = project["budget"]
         if planned is None:
             missing_budget += 1
+            missing_budget_ids.append(project["id"])
         else:
             budget += planned
         consumption = cache.get(burn_key(project))
         if consumption is None:
             pending.append(project["id"])
-        elif planned is not None:
+        else:
+            consumption_projects += 1
+        if consumption is not None and planned is not None:
             known += 1
             paired_budget += planned
             burn += consumption["burn"]
@@ -117,6 +122,8 @@ def operations_summary():
         "known_projects": known,
         "pending_ids": pending,
         "missing_budget": missing_budget,
+        "missing_budget_ids": missing_budget_ids,
+        "consumption_projects": consumption_projects,
         "partial": bool(pending or missing_budget),
         "year": bounds()[0].year,
     }
