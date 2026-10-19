@@ -270,6 +270,8 @@ def sync_months(
     workspace_id: str,
     kind: str,
     sleep: Callable[[float], None] = time.sleep,
+    lock_seen: str | None = None,
+    notes: Iterable[str] = (),
 ) -> SyncRun:
     """
     Descarga y guarda varios meses; un mes con error no borra los demas.
@@ -280,11 +282,15 @@ def sync_months(
         workspace_id: ID del workspace.
         kind: Tipo de corrida (daily, backfill, manual_month).
         sleep: Pausa entre paginas.
+        lock_seen: Fecha lockTimeEntries vista al planear la corrida.
+        notes: Por que se eligieron esos meses.
 
     Returns:
         La corrida con su resultado.
     """
-    run = SyncRun.objects.create(kind=kind)
+    run = SyncRun.objects.create(
+        kind=kind, lock_seen=lock_seen, notes="\n".join(notes)
+    )
     errors: list[str] = []
     for month in months:
         try:

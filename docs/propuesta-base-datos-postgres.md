@@ -203,11 +203,19 @@ proyecto base.
   reemplaza completo (borrar e insertar) para reflejar registros borrados.
 - Ventana diaria: los últimos ~10 días (mes actual y, antes del día 10, el
   anterior). 7-20 solicitudes, 15-40 s.
-- Detección de cambios en meses bloqueados:
-  1. Comparar `lockTimeEntries` con el valor anterior; si retrocede, volver a
-     bajar desde esa fecha. 1 solicitud.
-  2. Comparar horas y conteos por mes contra el reporte resumido. Solo se
-     vuelve a bajar el mes que no cuadra. ~12 solicitudes, ~40 s.
+- Detección de cambios en meses bloqueados (implementada en
+  `apps/datastore/services/change_detection.py`, parte de `sync_datastore`):
+  1. Leer `lockTimeEntries`. Todo mes posterior a esa fecha puede cambiar, así
+     que se vuelve a descargar (si Clockify está desbloqueado desde enero,
+     se revisan todos los meses desde enero). 1 solicitud.
+  2. Comparar registros y segundos de cada mes guardado contra el reporte
+     resumido de Clockify. Solo se vuelve a bajar el mes que no cuadra. Una
+     solicitud por mes guardado (26 en la prueba, ~2.5 min). Se omite con
+     `--sin-verificar`.
+  Medido el 19/10/2026: los 26 meses cuadraron con Clockify; al quitar a
+  propósito 3 registros de junio de 2025, la siguiente corrida lo detectó
+  (22,474 contra 22,477 registros) y lo repuso. Cada corrida guarda la fecha
+  de bloqueo vista y las notas de por qué revisó cada mes (`SyncRun`).
 - Botones: «Actualizar datos» (mes actual) y «Recargar mes» para
   administradores.
 - Las páginas muestran «Datos al: fecha y hora» de la versión publicada y usan

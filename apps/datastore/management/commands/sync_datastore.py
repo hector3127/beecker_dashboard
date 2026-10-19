@@ -8,16 +8,16 @@ from django.core.management.base import BaseCommand, CommandError, CommandParser
 from django.utils import timezone
 
 from apps.clockify.services.clockify_client import ClockifyClient
-from apps.datastore.services.clockify_sync import (
-    month_range,
-    sync_months,
-    window_months,
-)
+from apps.datastore.services.change_detection import plan_daily
+from apps.datastore.services.clockify_sync import month_range, sync_months
 
 """BKD.130.005 - Sincronizar la base diaria
-Sin opciones descarga los meses que aun pueden cambiar (ultimos 10 dias).
+Sin opciones descarga los meses que aun pueden cambiar (ultimos 10 dias,
+o desde la fecha de bloqueo de Clockify) y los meses guardados cuyos
+totales ya no cuadran con el reporte resumido.
 --desde AAAA-MM hace la carga inicial; --mes AAAA-MM recarga un mes.
-Uso: python manage.py sync_datastore [--desde AAAA-MM [--hasta AAAA-MM]]
+Uso: python manage.py sync_datastore [--sin-verificar]
+     python manage.py sync_datastore --desde AAAA-MM [--hasta AAAA-MM]
      python manage.py sync_datastore --mes AAAA-MM
 """
 
@@ -51,6 +51,11 @@ class Command(BaseCommand):
         parser.add_argument("--mes", help="Recarga un solo mes (AAAA-MM).")
         parser.add_argument("--desde", help="Carga inicial desde AAAA-MM.")
         parser.add_argument("--hasta", help="Ultimo mes de la carga inicial.")
+        parser.add_argument(
+            "--sin-verificar",
+            action="store_true",
+            help="Omite la comparacion de totales con el reporte resumido.",
+        )
 
     def handle(self, *args: Any, **options: Any) -> None:
         """Elige los meses, sincroniza y muestra el resultado."""
@@ -59,6 +64,10 @@ class Command(BaseCommand):
                 "Configura CLOCKIFY_API_KEY y CLOCKIFY_WORKSPACE_ID en .env.",
             )
         today = timezone.localdate()
+        client = ClockifyClient(settings.CLOCKIFY_API_KEY)
+        workspace_id = settings.CLOCKIFY_WORKSPACE_ID
+        lock_seen: str | None = None
+        notes: list[str] = []
         if options["mes"]:
             months, kind = [parse_month(options["mes"])], "manual_month"
         elif options["desde"]:
@@ -68,13 +77,21 @@ class Command(BaseCommand):
             )
             kind = "backfill"
         else:
-            months, kind = window_months(today), "daily"
+            plan = plan_daily(
+                client, workspace_id, today, not options["sin_verificar"]
+            )
+            months, kind = plan.months, "daily"
+            lock_seen, notes = plan.lock_seen, plan.notes
+            for note in notes:
+                self.stdout.write(self.style.WARNING(note))
 
         run = sync_months(
             months,
-            ClockifyClient(settings.CLOCKIFY_API_KEY),
-            settings.CLOCKIFY_WORKSPACE_ID,
+            client,
+            workspace_id,
             kind,
+            lock_seen=lock_seen,
+            notes=notes,
         )
         finished = run.finished_at or timezone.now()
         seconds = (finished - run.started_at).total_seconds()

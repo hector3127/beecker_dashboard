@@ -422,6 +422,31 @@ class ClockifyClient:
 
         return self._send_with_retries(url, payload)
 
+    def post_workspace_summary(
+        self,
+        workspace_id: str,
+        payload: JsonObject,
+    ) -> requests.Response:
+        """
+        Pide el reporte resumido (totales) de todo el workspace.
+
+        Args:
+            workspace_id: ID del workspace de Clockify.
+            payload: Cuerpo del reporte resumido.
+
+        Returns:
+            La respuesta HTTP de Clockify.
+
+        Raises:
+            ClockifyRequestError: Cuando no hay conexion.
+        """
+        url = (
+            f"{CLOCKIFY_REPORTS_URL}/workspaces/{quote(workspace_id)}"
+            "/reports/summary"
+        )
+
+        return self._send_with_retries(url, payload)
+
     def _send_with_retries(
         self,
         url: str,

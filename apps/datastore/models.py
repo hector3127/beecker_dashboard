@@ -27,6 +27,10 @@ class SyncRun(models.Model):
     entries = models.IntegerField(default=0)
     requests = models.IntegerField(default=0)
     error = models.TextField(blank=True)
+    # Fecha de lockTimeEntries al iniciar ("" = sin bloqueo; None = no se
+    # consulto) y por que se revisaron los meses mas antiguos.
+    lock_seen = models.CharField(max_length=40, null=True, blank=True)
+    notes = models.TextField(blank=True)
 
     class Meta:
         """Las corridas recientes primero."""
