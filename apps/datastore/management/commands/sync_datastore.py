@@ -8,7 +8,10 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError, CommandParser
 from django.utils import timezone
 
+from apps.azure_devops.exceptions import AzureDevOpsConfigurationError
+from apps.azure_devops.gateway import AzureDevOpsGateway
 from apps.clockify.services.clockify_client import ClockifyClient
+from apps.datastore.services.azure_sync import sync_azure
 from apps.datastore.services.catalogs import build_catalogs
 from apps.datastore.services.change_detection import plan_daily
 from apps.datastore.services.clockify_sync import month_range, sync_months
@@ -73,6 +76,16 @@ class Command(BaseCommand):
             help="No guarda las hojas de Sheets.",
         )
         parser.add_argument(
+            "--solo-azure",
+            action="store_true",
+            help="Solo guarda Azure DevOps (work items, RAID, iteraciones).",
+        )
+        parser.add_argument(
+            "--sin-azure",
+            action="store_true",
+            help="No guarda Azure DevOps.",
+        )
+        parser.add_argument(
             "--sin-catalogos",
             action="store_true",
             help="No reconstruye los catalogos de clientes, personas y "
@@ -82,14 +95,50 @@ class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any) -> None:
         """Guarda las hojas y las horas de Clockify; muestra el resultado."""
         failures: list[str] = []
-        if not options["sin_hojas"]:
+        only_sheets, only_azure = options["solo_hojas"], options["solo_azure"]
+        if not options["sin_hojas"] and not only_azure:
             failures.extend(self.sync_sheets())
-        if not options["solo_hojas"]:
+        if not options["sin_azure"] and not only_sheets:
+            failures.extend(self.sync_azure_projects())
+        if not only_sheets and not only_azure:
             failures.extend(self.sync_clockify(options))
-        if not options["sin_catalogos"]:
+        if not options["sin_catalogos"] and not only_azure:
             self.sync_catalogs()
         if failures:
             raise CommandError("\n".join(failures))
+
+    def sync_azure_projects(self) -> list[str]:
+        """
+        Guarda los Team Projects de Azure DevOps en la base.
+
+        Returns:
+            Los errores; lista vacia si todo salio bien o si Azure no esta
+            configurado (se avisa y se omite).
+        """
+        try:
+            result = sync_azure(AzureDevOpsGateway())
+        except AzureDevOpsConfigurationError as error:
+            self.stdout.write(self.style.WARNING(f"Azure: omitido ({error})"))
+            return []
+        except DashboardError as error:
+            self.stdout.write(self.style.WARNING(f"Azure: {error}"))
+            return [f"Azure: {error}"]
+        for failure in result.failed:
+            self.stdout.write(
+                self.style.WARNING(
+                    f"Azure: se conserva la copia anterior de {failure}"
+                )
+            )
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Azure: {result.projects} proyectos, "
+                f"{result.work_items} work items, "
+                f"{result.iterations} iteraciones en {result.seconds:.0f} s"
+            )
+        )
+        if result.projects == 0 and result.failed:
+            return ["Azure: no se pudo leer ningun proyecto"]
+        return []
 
     def sync_sheets(self) -> list[str]:
         """

@@ -112,7 +112,9 @@ reemplazo por `clockify_time_entry` queda para una etapa posterior.
 | Hoja «08.Base Clockify AAAA» sustituida por `clockify_time_entry` | Hecha en Facturabilidad, GSE y el índice de EVA-04 (`StoredBaseStore`, `build_hour_index_from_store`). Resultado idéntico al de la hoja en los meses cerrados (enero a agosto de 2026); septiembre y octubre salen más completos porque la hoja estaba desactualizada |
 | `normalize_name`, `strip_accents` y `get_flexible_value` con memoria | Hecha. Se ejecutaban 26.5 millones y 1 millón de veces en `warm_cache` (más de la mitad del tiempo) |
 | Tablas normalizadas por hoja (`project_stage`, `mpb_contract`, …) | Pendiente. El perfil mostró que el costo estaba en la normalización de texto y en la hoja gigante, no en leer las hojas de entrada; se crearán si una pantalla lo justifica con una medición |
-| Azure DevOps y tipo de cambio | Pendiente |
+| Azure DevOps (work items, RAID, campos de Risk, iteraciones, proyectos) | Hecho (`AZURE_STORE_ENABLED=1`, `sync_datastore --solo-azure`). `AzureDevOpsGateway` lee de la base y, si un proyecto no está guardado, sigue en vivo. 110 proyectos, 39,114 work items y 756 iteraciones se sincronizan en ~46 s. El RAID se invalida cuando la app crea un registro (versión de `raid_cache`). Paridad verificada: los 110 proyectos son idénticos a la lectura en vivo |
+| Panel Daily / IXS (cliente propio `DailyAzureClient`: WIQL por proyecto, creación de riesgos) | Pendiente: escribe en Azure y mantiene su propia caché |
+| Tipo de cambio (open.er-api.com) | Pendiente |
 | Tarea diaria programada | Pendiente (depende del despliegue en Genesis) |
 
 ## Rendimiento medido
@@ -147,8 +149,11 @@ Django (sin red ni gunicorn), incluyendo filtros que `warm_cache` no preparó:
   actual 0.5 s, Ejecutiva costos 0.55 s, rentabilidad mensual 0.3 s.
 - KPIs de Delivery Managers (2.7 s) y EVA-1 cerrados (3.8 s, 21 lotes de Azure
   DevOps) ahora también se precalientan (`warm_secondary_pages`): 0.03 s.
-- El tiempo restante de EVA-1 cerrados y de las pantallas de IXB/RaaS es red
-  hacia Azure DevOps; bajará cuando Azure se guarde en la base.
+- Con Azure DevOps también en la base (`AZURE_STORE_ENABLED=1`): 0 llamadas a
+  Azure durante `warm_cache` y las pantallas (antes 81 y 3, ~25 s acumulados);
+  `warm_cache` 60 s; EVA-3 7.5 s y EVA-1 cerrados 0.8 s en la precarga; ninguna
+  pantalla pasa de 0.6 s en su primera visita. Leer los 110 proyectos cuesta
+  1.5 s desde la base contra 49 s en vivo.
 
 ## Modelo
 

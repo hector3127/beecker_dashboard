@@ -128,6 +128,76 @@ class Project(models.Model):
         return self.internal_id
 
 
+class AzureProject(models.Model):
+    """Team Project de Azure DevOps de la ultima sincronizacion."""
+
+    name = models.CharField(max_length=255, unique=True)
+    # Orden en que Azure entrega los proyectos.
+    position = models.IntegerField(default=0)
+    risk_fields = models.JSONField(default=list)
+    # Los campos de Risk se leyeron bien; si no, el RAID no se da por bueno.
+    risk_fields_ok = models.BooleanField(default=True)
+    # Version del RAID de la cache al sincronizar: si la app crea un
+    # registro (sube la version), este RAID deja de valer.
+    raid_version = models.IntegerField(default=0)
+    synced_at = models.DateTimeField()
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class AzureWorkItem(models.Model):
+    """Un work item; payload es exactamente lo que devolvio Azure."""
+
+    LATEST = "latest"
+    RAID = "raid"
+
+    project = models.ForeignKey(
+        AzureProject, on_delete=models.CASCADE, related_name="work_items"
+    )
+    # latest: los 1,000 mas recientes con los campos del dashboard.
+    # raid: riesgos y oportunidades Active/Proposed con todos los campos.
+    kind = models.CharField(max_length=10)
+    position = models.IntegerField()
+    work_item_id = models.IntegerField()
+    item_type = models.CharField(max_length=60, blank=True)
+    state = models.CharField(max_length=60, blank=True)
+    title = models.CharField(max_length=500, blank=True)
+    iteration_path = models.CharField(max_length=500, blank=True)
+    assigned_to = models.CharField(max_length=255, blank=True)
+    changed_at = models.DateTimeField(null=True, blank=True)
+    payload = models.JSONField()
+
+    class Meta:
+        """Indices de las lecturas por proyecto y de las busquedas por tipo."""
+
+        indexes = [
+            models.Index(fields=["project", "kind", "position"]),
+            models.Index(fields=["project", "kind", "work_item_id"]),
+            models.Index(fields=["item_type", "state"]),
+            models.Index(fields=["changed_at"]),
+        ]
+
+
+class AzureIteration(models.Model):
+    """Iteracion de un Team Project, en el orden del arbol."""
+
+    project = models.ForeignKey(
+        AzureProject, on_delete=models.CASCADE, related_name="iterations"
+    )
+    position = models.IntegerField()
+    name = models.CharField(max_length=255)
+    path = models.CharField(max_length=500)
+    start_date = models.DateTimeField(null=True, blank=True)
+    finish_date = models.DateTimeField(null=True, blank=True)
+    payload = models.JSONField()
+
+    class Meta:
+        """Lectura por proyecto en el orden del arbol."""
+
+        indexes = [models.Index(fields=["project", "position"])]
+
+
 class ClockifyMonthSync(models.Model):
     """Mes de Clockify ya guardado en la base y su resumen."""
 
