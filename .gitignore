@@ -15,6 +15,9 @@ htmlcov/
 
 # Django
 db.sqlite3
+# Archivos auxiliares del modo WAL de SQLite.
+db.sqlite3-shm
+db.sqlite3-wal
 .cache/
 staticfiles/
 
