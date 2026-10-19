@@ -1,5 +1,6 @@
 """Comando que llena la base diaria con las horas de Clockify."""
 
+import time
 from datetime import date, datetime
 from typing import Any
 
@@ -8,8 +9,13 @@ from django.core.management.base import BaseCommand, CommandError, CommandParser
 from django.utils import timezone
 
 from apps.clockify.services.clockify_client import ClockifyClient
+from apps.datastore.services.catalogs import build_catalogs
 from apps.datastore.services.change_detection import plan_daily
 from apps.datastore.services.clockify_sync import month_range, sync_months
+from apps.datastore.services.sheet_sync import sync_sheets
+from core.exceptions import DashboardError
+from core.sheets.factory import build_sheet_repository
+from core.sheets.store_read_cache import STORED_SHEETS, read_snapshot
 
 """BKD.130.005 - Sincronizar la base diaria
 Sin opciones descarga los meses que aun pueden cambiar (ultimos 10 dias,
@@ -56,9 +62,90 @@ class Command(BaseCommand):
             action="store_true",
             help="Omite la comparacion de totales con el reporte resumido.",
         )
+        parser.add_argument(
+            "--solo-hojas",
+            action="store_true",
+            help="Solo guarda las hojas de Sheets (rapido, para cada hora).",
+        )
+        parser.add_argument(
+            "--sin-hojas",
+            action="store_true",
+            help="No guarda las hojas de Sheets.",
+        )
+        parser.add_argument(
+            "--sin-catalogos",
+            action="store_true",
+            help="No reconstruye los catalogos de clientes, personas y "
+            "proyectos.",
+        )
 
     def handle(self, *args: Any, **options: Any) -> None:
-        """Elige los meses, sincroniza y muestra el resultado."""
+        """Guarda las hojas y las horas de Clockify; muestra el resultado."""
+        failures: list[str] = []
+        if not options["sin_hojas"]:
+            failures.extend(self.sync_sheets())
+        if not options["solo_hojas"]:
+            failures.extend(self.sync_clockify(options))
+        if not options["sin_catalogos"]:
+            self.sync_catalogs()
+        if failures:
+            raise CommandError("\n".join(failures))
+
+    def sync_sheets(self) -> list[str]:
+        """
+        Guarda las hojas de entrada en la base.
+
+        Returns:
+            El error si fallo; lista vacia si todo salio bien.
+        """
+        started = time.perf_counter()
+        try:
+            saved = sync_sheets(build_sheet_repository(use_store=False))
+        except DashboardError as error:
+            self.stdout.write(self.style.WARNING("Hojas: " + str(error)))
+            return [f"Hojas: {error}"]
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Hojas: {len(saved)} guardadas en "
+                f"{time.perf_counter() - started:.0f} s"
+            )
+        )
+        return []
+
+    def sync_catalogs(self) -> None:
+        """Reconstruye los catalogos con las hojas ya guardadas."""
+        sheets = {
+            name: rows
+            for name in STORED_SHEETS
+            if isinstance(rows := read_snapshot(name), list)
+        }
+        if not sheets:
+            self.stdout.write(
+                self.style.WARNING("Catalogos: no hay hojas guardadas.")
+            )
+            return
+        result = build_catalogs(sheets)
+        for warning in result.warnings:
+            self.stdout.write(self.style.WARNING(warning))
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Catalogos: {result.clients} clientes, {result.persons} "
+                f"personas, {result.projects} proyectos "
+                f"({len(result.merged_clients)} clientes y "
+                f"{len(result.merged_persons)} personas con variantes unidas)"
+            )
+        )
+
+    def sync_clockify(self, options: dict[str, Any]) -> list[str]:
+        """
+        Descarga los meses de Clockify que corresponden a las opciones.
+
+        Args:
+            options: Opciones del comando.
+
+        Returns:
+            Los errores; lista vacia si todo salio bien.
+        """
         if not settings.CLOCKIFY_API_KEY or not settings.CLOCKIFY_WORKSPACE_ID:
             raise CommandError(
                 "Configura CLOCKIFY_API_KEY y CLOCKIFY_WORKSPACE_ID en .env.",
@@ -101,6 +188,6 @@ class Command(BaseCommand):
         )
         if run.status == "ok":
             self.stdout.write(self.style.SUCCESS(f"Clockify: {summary}"))
-            return
+            return []
         self.stdout.write(self.style.WARNING(f"Clockify: {summary}"))
-        raise CommandError(run.error)
+        return [run.error]

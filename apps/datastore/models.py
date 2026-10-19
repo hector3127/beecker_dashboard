@@ -38,6 +38,96 @@ class SyncRun(models.Model):
         ordering = ["-started_at", "-pk"]
 
 
+class SheetSnapshot(models.Model):
+    """Una hoja de Google Sheets tal como estaba en la ultima sincronizacion.
+
+    Las pantallas la leen desde aqui en lugar de pedirla a Google.
+    """
+
+    name = models.CharField(max_length=150, unique=True)
+    rows = models.JSONField()
+    row_count = models.IntegerField(default=0)
+    synced_at = models.DateTimeField()
+
+
+class Client(models.Model):
+    """Cliente o cuenta, una sola vez aunque cada hoja lo escriba distinto."""
+
+    name = models.CharField(max_length=255)
+    key = models.CharField(max_length=255, unique=True)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class ClientAlias(models.Model):
+    """Forma de escribir un cliente (sin acentos ni mayusculas) y su cliente.
+
+    Para unir dos nombres distintos (GNP y Grupo Nacional Provincial) se
+    cambia el cliente de la variante en el admin: queda como manual y las
+    siguientes sincronizaciones la respetan.
+    """
+
+    key = models.CharField(max_length=255, unique=True)
+    client = models.ForeignKey(
+        Client, on_delete=models.CASCADE, related_name="aliases"
+    )
+    spellings = models.JSONField(default=list)
+    manual = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f"{self.key} -> {self.client}"
+
+
+class Person(models.Model):
+    """Persona (Delivery Manager, recurso, Account Manager, usuario)."""
+
+    name = models.CharField(max_length=255)
+    key = models.CharField(max_length=255, unique=True)
+    clockify_user_id = models.CharField(max_length=40, blank=True)
+    roles = models.JSONField(default=list)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class PersonAlias(models.Model):
+    """Forma de escribir una persona y la persona a la que corresponde."""
+
+    key = models.CharField(max_length=255, unique=True)
+    person = models.ForeignKey(
+        Person, on_delete=models.CASCADE, related_name="aliases"
+    )
+    spellings = models.JSONField(default=list)
+    manual = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f"{self.key} -> {self.person}"
+
+
+class Project(models.Model):
+    """Proyecto por su ID interno.
+
+    Las variantes _S#, _CR# y _QA# apuntan a su proyecto base.
+    """
+
+    internal_id = models.CharField(max_length=80, unique=True)
+    base_id = models.CharField(max_length=80, db_index=True)
+    name = models.CharField(max_length=255, blank=True)
+    service = models.CharField(max_length=60, blank=True)
+    client = models.ForeignKey(
+        Client, null=True, blank=True, on_delete=models.SET_NULL
+    )
+    delivery_manager = models.ForeignKey(
+        Person, null=True, blank=True, on_delete=models.SET_NULL
+    )
+    sources = models.JSONField(default=list)
+    spellings = models.JSONField(default=list)
+
+    def __str__(self) -> str:
+        return self.internal_id
+
+
 class ClockifyMonthSync(models.Model):
     """Mes de Clockify ya guardado en la base y su resumen."""
 

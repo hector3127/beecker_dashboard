@@ -73,6 +73,46 @@ Flexible Server en UAT/PROD y SQLite en local, con `dj-database-url`
 Los festivos se calculan en `apps/portal/services/holidays.py` y no requieren
 tabla.
 
+## Hojas reales (revisadas el 19/10/2026)
+
+El Spreadsheet tiene 60 pestañas. Esto es lo que traen las que lee el portal
+(fila 1 = encabezado; las fechas llegan como números de serie de Excel):
+
+| Hoja | Filas × columnas | Columnas relevantes |
+| --- | --- | --- |
+| Proyectos | 176 × 21 | A ID_Proyecto, B Nombre, C Cliente, D Servicio, E Scrum_Master, F Estado, G Prioridad, H Fecha_Inicio, I Fecha_Fin_Estimada, J Budget_Hrs, K Sponsor; L es el marcador `COL_INICIO_HITOS` y M:U los hitos como `fecha::observación`. **No trae avance, burn ni ETC** (el esquema de `sheet_schema.py` es el del Apps Script original) |
+| Historico_Proyectos | 1,381 × 46 | Dos bloques. A:J: A Delivery Manager, B Account, C Project ID, D Service, E Project Name, G Status (etapa, p. ej. «Discovery EST»), H Start, I Finish, J Budget (Hrs). K:AT (calculadora): K Delivery Manager, L Client, M Project ID, Q Stage, S:V fechas plan/real, AA:AB desviación, AC Budget, AD Burn, AH ETC, AO Profitability, AT NPS |
+| MPB | 821 × 64 | A #, B CLIENTE, C ID, E NOMBRE, F SERVICE, G INICIO, H FIN ORIGINAL, I FIN, R AVANCE, T ESTATUS, U Delivery Manager, W FTE, X:AE horas por rol (DEV, ARQ, IA, SM, BA, TT, CR, DM), AG HORAS, BL Horas consumidas. Encabezados repetidos: DEV (L y X), FTE (W y BG), TECNOLOGÍA (AH y AY) |
+| ROC | 228 × 21 | A Client, B Country, C Market, D ROC ID, E BOT ID, F Service, G Status ROC, H Process Name, K Account Manager, L Delivery Manager, M Start, N Finish, O Hours Consumed, R Risk. **No trae topes mensuales** |
+| DataRevenue | 4,578 × 8 | A Status, B Cliente, C Nombre de la oportunidad, D Service Type, E Project ID, F Horas vendidas, G Fecha Revenue Ajustado, H USD Global Adj |
+| Recursos | 90 × 7 | A Proyecto, B Posición, C Nombre del recurso, D Horas Estimadas, G Estado |
+| Riesgos | 12 × 11 | Como `sheet_schema.py` |
+| Bandas/rol | 247 × 13 | A Nombre, B ROL, C ID Clockify, D:M banda de enero a octubre |
+| Master rates | 11 × 4 | A Banda Salarial, B Costing Rate, D Costing Rate |
+| Banda salarial | 239 × 2 | A Nombre, B Mayo (banda) |
+| Backlog_Proyectos | 1,590 × 22 | A Account Name, B Opportunity Name, C Delivery Manager, D Opportunity Stage, E Fecha de cierre, F Service Type, H Total Hours, J Valor, K Currency, M Fecha inicio; usa `(No value)` como vacío |
+| CatalagoProyectos | 507 × 13 | A #, B Operaciones, C Tipo de Proyecto, D ID_Proyecto, E Budget, F Inicio, G Fin, H Cliente, I Sevicio (sic) |
+
+Pestañas que el código lee y **no existen** en el Spreadsheet: `EVA-04 Report`,
+`ROC | Desgloce por Bot 2026` y `Clockify_Vinculos`. Por eso EVA-04 no tiene
+topes mensuales y los vínculos manuales con Clockify aún no se usan.
+
+`08.Base Clockify 2026`, `GSE_Base_Control` y `Registros_Tiempo` sí existen;
+GSE y EVA-04 todavía las leen (la primera tiene ~164,000 filas). Su
+reemplazo por `clockify_time_entry` queda para una etapa posterior.
+
+## Estado de la implementación
+
+| Pieza | Estado |
+| --- | --- |
+| Horas de Clockify por mes (`clockify_time_entry`, `sync_datastore`) | Hecha y validada contra los reportes por proyecto |
+| Detección de cambios en meses bloqueados | Hecha |
+| Hojas de entrada guardadas en la base (`SheetSnapshot`) | Hecha. La caché de lecturas de `GoogleSheetRepository` las sirve desde la base sin vencimiento (`SHEETS_STORE_ENABLED=1`); una escritura de la app borra la hoja y la siguiente lectura la renueva. 12 hojas = 1.6 MB; se guardan en ~3 s |
+| Catálogos de clientes, personas y proyectos con alias | Hechos; se reconstruyen en cada sincronización y se revisan en el admin |
+| Tablas normalizadas por hoja (`project_stage`, `mpb_contract`, …) | Pendiente: los servicios siguen leyendo la matriz de la hoja |
+| Azure DevOps y tipo de cambio | Pendiente |
+| Tarea diaria programada | Pendiente (depende del despliegue en Genesis) |
+
 ## Modelo
 
 ```text
@@ -251,21 +291,20 @@ Día normal estimado: ~30 solicitudes y 4-5 minutos, una vez al día.
 
 ## Pendiente de verificar
 
-- Columnas reales de cada hoja. Los nombres provienen del código
-  (`ejecutivo/constants.py`, `eva4.py`, `kpi_sources.py`, `revenue.py`,
-  `sheet_schema.py`, `history_stages.py`); hay encabezados alternos, por
-  ejemplo «Tope Mensual» o «Average Limit» en ROC.
-- Columnas de Backlog_Proyectos y CatalagoProyectos.
-- Uso de la hoja `Banda salarial` (está en la precarga de `warm_cache`) y si
-  es distinta de Bandas/rol.
+- Las columnas de la sección «Hojas reales» se revisaron el 19/10/2026. Los
+  catálogos comprueban el encabezado de cada columna antes de leerla y avisan
+  si una hoja cambió de forma.
+- Uso de la hoja `Banda salarial` (columna Mayo): el cálculo de tarifas la usa
+  junto con Master rates; falta decidir si se mezcla con Bandas/rol.
+- Si el equipo quiere crear `EVA-04 Report` o `Clockify_Vinculos`: hoy no
+  existen y las pantallas funcionan sin ellas.
 - Cómo se dispara la tarea diaria en App Service: pipeline programado de
   Azure DevOps, Azure Functions con temporizador o un job de contenedor que
   ejecute `manage.py sync_datastore`.
 - Si la caché de Django en Genesis es compartida entre instancias; si no,
   `precomputed_view` en PostgreSQL sustituye la caché en archivos.
-- Valores de `USE_TZ` y `TIME_ZONE` en `config/settings`.
 - Comportamiento de `lockTimeEntries` cuando un administrador desbloquea:
-  si queda vacío o con otra fecha.
+  si queda vacío o con otra fecha (el código cubre las dos).
 - Si las tarifas de `memberships` de Clockify pueden sustituir alguna fuente.
 - Si se conserva el dashboard anterior (`--legacy`); en ese caso se agregan
   Sprints y Dashboard_Historico_KPIs.

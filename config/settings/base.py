@@ -245,6 +245,10 @@ SHEETS_READ_CACHE_SECONDS = read_int_env(
     "SHEETS_READ_CACHE_SECONDS", 900, allow_zero=True,
 )
 
+# 1: las hojas de entrada del portal (STORED_SHEETS) se leen de la base
+# diaria, sin vencimiento, y se renuevan con sync_datastore.
+SHEETS_STORE_ENABLED = os.getenv("SHEETS_STORE_ENABLED", "").strip() == "1"
+
 # Credenciales de integraciones que se migran en fases siguientes.
 CLOCKIFY_API_KEY = os.getenv("CLOCKIFY_API_KEY", "").strip()
 
