@@ -20,3 +20,14 @@ staticfiles/
 
 # Respaldos y copias temporales usados en revisiones locales.
 tmp/
+
+# Grafo de conocimiento de graphify (se regenera con /graphify).
+graphify-out/
+.graphifyignore
+
+# Descargas y mediciones locales (exportaciones de Clockify, bases de
+# prueba, registros de solicitudes).
+*.csv
+*.pkl
+*.jsonl
+*.xlsx

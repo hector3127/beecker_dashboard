@@ -105,6 +105,18 @@ def test_current_month_coverage_grows_on_the_next_day():
     ]
 
 
+def test_months_after_today_are_not_requested():
+    client = Mock()
+    client.fetch_detailed_report_counted.return_value = ([], 1)
+    loader = build_loader(client)  # hoy: 2026-10-02
+    loader._fetch_report(
+        ReportPlan("A", "c1", date(2026, 9, 1), date(2027, 3, 31)), {}
+    )
+    assert [c.args[2] for c in client.fetch_detailed_report_counted.call_args_list] == [
+        date(2026, 9, 1), date(2026, 10, 1)
+    ]
+
+
 def test_full_current_month_can_serve_a_shorter_current_range():
     client = Mock()
     client.fetch_detailed_report_counted.return_value = ([], 1)

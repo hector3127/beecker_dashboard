@@ -9,6 +9,8 @@ from dataclasses import dataclass, replace
 from datetime import date, timedelta
 from zoneinfo import ZoneInfo
 
+from django.conf import settings
+
 from apps.clockify.constants import (
     MAX_PARALLEL_REPORTS,
     PROJECTS_CACHE_SECONDS,
@@ -114,6 +116,13 @@ class ClockifyTimeEntryLoader:
         self._cache_store = cache_store
         self._cache_prefix = cache_prefix
         self._timezone = ZoneInfo(REPORT_TIMEZONE)
+        # Se calcula aqui (hilo principal): cambia con cada sincronizacion
+        # y deja vencidos los cortes guardados con la base anterior.
+        self._store_stamp = ""
+        if settings.CLOCKIFY_STORE_ENABLED:
+            from apps.datastore.services.clockify_store import store_stamp
+
+            self._store_stamp = store_stamp()
 
     def load_all(self) -> tuple[TimeEntry, ...]:
         """
@@ -286,6 +295,7 @@ class ClockifyTimeEntryLoader:
         cache_key = (
             f"{self._cache_prefix}:report:{plan.clockify_project_id}:"
             f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
+            f"{self._store_stamp}"
         )
         self._cache_store.set(
             cache_key,
@@ -414,6 +424,7 @@ class ClockifyTimeEntryLoader:
         cache_key = (
             f"{self._cache_prefix}:strict_report:{plan.clockify_project_id}"
             f":{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
+            f"{self._store_stamp}"
         )
         cached_report = self._cache_store.get(cache_key)
 
@@ -592,6 +603,7 @@ class ClockifyTimeEntryLoader:
         cache_key = (
             f"{self._cache_prefix}:report:{plan.clockify_project_id}:"
             f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
+            f"{self._store_stamp}"
         )
         cached_entries = self._cache_store.get(cache_key)
 
@@ -669,6 +681,17 @@ class ClockifyTimeEntryLoader:
 
         return project_entries, request_count
 
+    def _stored_month(
+        self, project_id: str, month: date, use_cache: bool
+    ) -> list[JsonObject] | None:
+        """Registros del mes desde la base diaria, si esta sincronizado."""
+        if not (use_cache and settings.CLOCKIFY_STORE_ENABLED):
+            return None
+        # Import diferido: los modelos requieren las apps ya cargadas.
+        from apps.datastore.services.clockify_store import read_month_rows
+
+        return read_month_rows(project_id, month)
+
     def _monthly_report(
         self, plan: ReportPlan, use_cache: bool
     ) -> tuple[list[JsonObject], int]:
@@ -678,7 +701,8 @@ class ClockifyTimeEntryLoader:
         seen: set[str] = set()
         requests = 0
         client: ClockifyClient | None = None
-        while month <= plan.end_date:
+        # Un mes que aun no empieza no tiene registros: no se consulta.
+        while month <= min(plan.end_date, self._today):
             month_end = month.replace(
                 day=calendar.monthrange(month.year, month.month)[1]
             )
@@ -696,7 +720,13 @@ class ClockifyTimeEntryLoader:
                 % len(_REPORT_LOCKS)
             ]
             with lock:
-                cached = self._cache_store.get(key) if use_cache else None
+                cached: object = self._stored_month(
+                    plan.clockify_project_id, month, use_cache
+                )
+                if isinstance(cached, list):
+                    coverage_end = month_end
+                elif use_cache:
+                    cached = self._cache_store.get(key)
                 if not isinstance(cached, list) and use_cache:
                     cached = self._cache_store.get(full_key)
                     if isinstance(cached, list):

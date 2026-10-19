@@ -7,6 +7,7 @@ de variables de entorno cargadas desde el archivo .env.
 import os
 from pathlib import Path
 
+import dj_database_url
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
 
@@ -112,6 +113,7 @@ INSTALLED_APPS = [
     "apps.recursos.apps.RecursosConfig",
     "apps.gmail.apps.GmailConfig",
     "apps.portal.apps.PortalConfig",
+    "apps.datastore.apps.DatastoreConfig",
 ]
 
 MIDDLEWARE = [
@@ -144,13 +146,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# Los datos de negocio viven en Google Sheets. SQLite solo guarda
-# sesiones, usuarios y acuerdos ejecutivos de Django.
+# PostgreSQL en UAT/PROD (DATABASE_URL, igual que Genesis); sin la
+# variable se usa el SQLite local. Guarda sesiones, acuerdos ejecutivos y
+# la base diaria de horas (apps.datastore).
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        ssl_require=os.getenv("DATABASE_SSL_REQUIRE", "").strip() == "1",
+    ),
 }
 
 # Reemplaza a CacheService. Se usa cache en archivos para que los
@@ -245,6 +249,10 @@ SHEETS_READ_CACHE_SECONDS = read_int_env(
 CLOCKIFY_API_KEY = os.getenv("CLOCKIFY_API_KEY", "").strip()
 
 CLOCKIFY_WORKSPACE_ID = os.getenv("CLOCKIFY_WORKSPACE_ID", "").strip()
+
+# 1: las horas se leen de la base diaria (sync_datastore) en los meses
+# ya sincronizados; los demas siguen consultando Clockify.
+CLOCKIFY_STORE_ENABLED = os.getenv("CLOCKIFY_STORE_ENABLED", "").strip() == "1"
 
 AZURE_DEVOPS_ORGANIZATION = os.getenv(
     "AZURE_DEVOPS_ORGANIZATION",
