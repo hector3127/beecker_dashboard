@@ -274,7 +274,12 @@ def test_ixs_sheet_rpcs_are_registered(client, monkeypatch):
     }
 
 
-def test_account_rpcs_are_registered(client):
+def test_account_rpcs_are_registered(client, monkeypatch):
+    # Sin repositorio real: la prueba no debe depender de credenciales locales.
+    monkeypatch.setattr(
+        "apps.ejecutivo.account_rpc.build_sheet_repository",
+        lambda: InMemorySheetRepository({}),
+    )
     view = call_rpc(client, "obtenerVistaCuentaBeecker", "").json()
     opportunity = call_rpc(client, "beeCuentaGuardarOportunidad", "", {}).json()
 
