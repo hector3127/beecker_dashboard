@@ -748,14 +748,12 @@ class ClockifyTimeEntryLoader:
                 else:
                     if client is None:
                         client = self._client_factory()
-                    rows, count = (
-                        client.fetch_detailed_report_counted(
-                            self._workspace_id,
-                            plan.clockify_project_id,
-                            month,
-                            coverage_end,
-                            REPORT_TIMEZONE,
-                        )
+                    rows, count = client.fetch_detailed_report_counted(
+                        self._workspace_id,
+                        plan.clockify_project_id,
+                        month,
+                        coverage_end,
+                        REPORT_TIMEZONE,
                     )
                     requests += count
                     self._cache_store.set(
@@ -771,20 +769,19 @@ class ClockifyTimeEntryLoader:
                 parse_entry_day(
                     (row.get("timeInterval") or {}).get("start"),
                     self._timezone,
-                ) is None
+                )
+                is None
                 for row in rows
             ):
                 # Sin fecha no podemos recortar un mes con seguridad.
                 if client is None:
                     client = self._client_factory()
-                rows, count = (
-                    client.fetch_detailed_report_counted(
-                        self._workspace_id,
-                        plan.clockify_project_id,
-                        query_start,
-                        query_end,
-                        REPORT_TIMEZONE,
-                    )
+                rows, count = client.fetch_detailed_report_counted(
+                    self._workspace_id,
+                    plan.clockify_project_id,
+                    query_start,
+                    query_end,
+                    REPORT_TIMEZONE,
                 )
                 requests += count
             for row in rows:

@@ -147,10 +147,28 @@ def test_closed_summary_lists_only_completed_projects():
 
 def test_cancelled_project_is_never_an_active_phase():
     from datetime import date
+
     from apps.ejecutivo.services.ixb_history import resolve_history_period
+
     rows = [
-        {"Project ID": "MIT.001", "Status": "Development", "Start": "2026-01-05", "Finish": "2026-02-01"},
-        {"Project ID": "MIT.001", "Status": "Cancelled", "Start": "2026-02-24", "Finish": "2026-02-24"},
+        {
+            "Project ID": "MIT.001",
+            "Status": "Development",
+            "Start": "2026-01-05",
+            "Finish": "2026-02-01",
+        },
+        {
+            "Project ID": "MIT.001",
+            "Status": "Cancelled",
+            "Start": "2026-02-24",
+            "Finish": "2026-02-24",
+        },
     ]
-    assert not resolve_history_period(rows, "MIT.001", date(2026, 10, 13)).active
-    assert not resolve_history_period([{"Project ID":"X", "Status":"Unknown", "Start":"2026-01-01"}], "X", date(2026,10,13)).active
+    assert not resolve_history_period(
+        rows, "MIT.001", date(2026, 10, 13)
+    ).active
+    assert not resolve_history_period(
+        [{"Project ID": "X", "Status": "Unknown", "Start": "2026-01-01"}],
+        "X",
+        date(2026, 10, 13),
+    ).active

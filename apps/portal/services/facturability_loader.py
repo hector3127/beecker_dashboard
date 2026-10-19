@@ -157,4 +157,3 @@ def peek_month_sources(month: str) -> MonthSources | None:
     cached = cache.get(f"{FACTURABILITY_CACHE_PREFIX}{month}")
 
     return cached if isinstance(cached, MonthSources) else None
-

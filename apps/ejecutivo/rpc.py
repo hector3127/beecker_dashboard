@@ -2,6 +2,7 @@
 
 import logging
 from datetime import date
+from typing import Any
 
 from django.core.cache import cache
 from django.utils import timezone
@@ -317,7 +318,7 @@ def get_executive_dashboard(project_id: object = "") -> JsonObject:
     project_loader = LazyProjectEntries(repository)
     selected_entries = {}
 
-    def load_selected_entries(project_id):
+    def load_selected_entries(project_id: str) -> Any:
         if project_id not in selected_entries:
             selected_entries[project_id] = project_loader(project_id)
         return selected_entries[project_id]

@@ -4,28 +4,55 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='ExecutiveAgreement',
+            name="ExecutiveAgreement",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('kind', models.CharField(choices=[('agreement', 'Acuerdo'), ('pending', 'Pendiente')], default='pending', max_length=12)),
-                ('owner', models.CharField(blank=True, max_length=150)),
-                ('due_date', models.DateField(blank=True, null=True)),
-                ('status', models.CharField(choices=[('open', 'Abierto'), ('progress', 'En curso'), ('done', 'Completado')], default='open', max_length=12)),
-                ('notes', models.CharField(blank=True, max_length=2000)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                (
+                    "kind",
+                    models.CharField(
+                        choices=[
+                            ("agreement", "Acuerdo"),
+                            ("pending", "Pendiente"),
+                        ],
+                        default="pending",
+                        max_length=12,
+                    ),
+                ),
+                ("owner", models.CharField(blank=True, max_length=150)),
+                ("due_date", models.DateField(blank=True, null=True)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("open", "Abierto"),
+                            ("progress", "En curso"),
+                            ("done", "Completado"),
+                        ],
+                        default="open",
+                        max_length=12,
+                    ),
+                ),
+                ("notes", models.CharField(blank=True, max_length=2000)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
             ],
             options={
-                'ordering': ['-created_at', '-pk'],
+                "ordering": ["-created_at", "-pk"],
             },
         ),
     ]

@@ -1,6 +1,8 @@
 from unittest.mock import Mock
+
 from django.core.cache import cache
 from httplib2 import ServerNotFoundError
+
 from apps.ejecutivo import account_rpc
 
 

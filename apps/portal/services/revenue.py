@@ -1,6 +1,7 @@
 """Ingresos reales: suma de USD Global Adj (DataRevenue, columna H)."""
 
 from decimal import Decimal, InvalidOperation
+from typing import Any
 
 from django.core.cache import cache
 
@@ -24,9 +25,11 @@ REVENUE_STATUSES = frozenset(
 )
 
 
-def load_revenue():
+def load_revenue() -> dict[str, Any]:
     """Suma ingresos y la proporcion cobrada del ejercicio 2026."""
-    cached = cache.get("portal:revenue:DataRevenue:H:2026:v4" + cache_suffix())
+    cached: dict[str, Any] | None = cache.get(
+        "portal:revenue:DataRevenue:H:2026:v4" + cache_suffix()
+    )
     if cached is not None:
         return cached
     rows = build_sheet_repository().read_values("DataRevenue")

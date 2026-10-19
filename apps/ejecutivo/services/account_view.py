@@ -790,7 +790,9 @@ def build_history_item(
     }
 
 
-def append_roc_projects(projects, roc, client):
+def append_roc_projects(
+    projects: list[dict[str, Any]], roc: Any, client: Any
+) -> None:
     """Show closed and active ROC contracts using their own IDs."""
     existing = {normalize_value(project["id"]) for project in projects}
     for contract in roc:
@@ -826,13 +828,15 @@ def append_roc_projects(projects, roc, client):
         existing.add(identity)
 
 
-def overlaps_account_year(start, end, year):
+def overlaps_account_year(start: Any, end: Any, year: int) -> bool:
     """Keep undated records; exclude periods known to be outside the year."""
     first, last = to_datetime(start), to_datetime(end)
     return not ((first and first.year > year) or (last and last.year < year))
 
 
-def history_overlaps_account_year(project, year):
+def history_overlaps_account_year(
+    project: dict[str, Any], year: int
+) -> bool:
     """Comprueba si las fechas conocidas del historial cubren el ejercicio."""
     stages = project.get("etapas", [])
     starts = [

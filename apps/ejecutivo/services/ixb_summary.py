@@ -164,6 +164,8 @@ def group_by_base(
 
     Args:
         project_rows: Filas de la hoja Proyectos.
+        include_saas: Incluye tambien los proyectos del servicio SaaS (los
+            cerrados lo necesitan); por defecto solo IXB y RaaS.
 
     Returns:
         ID base -> filas del grupo.
@@ -174,7 +176,9 @@ def group_by_base(
         service = read_service(row)
         project_id = read_project_id(row)
 
-        if (service in IXB_RAAS_SERVICES or include_saas and service == "SAAS") and project_id:
+        if (
+            service in IXB_RAAS_SERVICES or include_saas and service == "SAAS"
+        ) and project_id:
             groups.setdefault(extract_base_id(project_id), []).append(row)
 
     return groups

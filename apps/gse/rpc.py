@@ -256,4 +256,3 @@ def get_gse_clockify_ids(
         month,
         report_only,
     )
-

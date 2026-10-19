@@ -265,7 +265,7 @@ def chart_series(
             and second.total > 0
             and first.time_cost.cost_percent is not None
             and second.time_cost.cost_percent is not None
-            for first, second in zip(row.cells, row.cells[1:])
+            for first, second in zip(row.cells, row.cells[1:], strict=False)
         )
     ]
     return {

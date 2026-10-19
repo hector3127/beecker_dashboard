@@ -78,7 +78,8 @@ def test_manager_cache_accepts_spaces_and_keeps_managers_separate():
         today = timezone.localdate()
         year, month = divmod(today.year * 12 + today.month - 6, 12)
         assert investment.call_args.kwargs["date_range"] == (
-            date(year, month + 1, 1), today
+            date(year, month + 1, 1),
+            today,
         )
 
 
@@ -92,8 +93,12 @@ def test_graph_limits_downloads_without_changing_full_investment_scope():
     )
     bounds = (date(2026, 5, 1), date(2026, 10, 14))
     with (
-        patch("apps.portal.services.operational_sources.build_sheet_repository"),
-        patch("apps.portal.services.operational_sources.build_clockify_loader") as factory,
+        patch(
+            "apps.portal.services.operational_sources.build_sheet_repository"
+        ),
+        patch(
+            "apps.portal.services.operational_sources.build_clockify_loader"
+        ) as factory,
     ):
         loader = factory.return_value
         loader.load_project.return_value = []

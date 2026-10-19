@@ -12,10 +12,12 @@ from apps.gse.services.base_store import build_base_store, build_connection
 from apps.gse.services.clockify_month import MonthReportLoader
 from apps.gse.services.month_report import GseContext, get_month
 from apps.portal.constants import (
-    FACTURABILITY_CACHE_PREFIX,
     FACTURABILITY_CACHE_SECONDS,
 )
-from apps.portal.services.facturability_roster import apply_roster, attach_month_roster
+from apps.portal.services.facturability_roster import (
+    apply_roster,
+    attach_month_roster,
+)
 from core.exceptions import DashboardError, describe_error
 from core.sheets.factory import build_sheet_repository
 
@@ -157,4 +159,3 @@ def peek_month_sources(month: str) -> MonthSources | None:
     cached = cache.get(f"portal:facturability:imported:v7:{month}")
 
     return cached if isinstance(cached, MonthSources) else None
-

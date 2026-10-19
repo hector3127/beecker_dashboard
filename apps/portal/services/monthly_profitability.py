@@ -1,6 +1,8 @@
 """Ingresos por fecha revenue y costos por fecha real de las horas."""
 
+from collections.abc import Sequence
 from decimal import Decimal, InvalidOperation
+from typing import Any
 
 from django.core.cache import cache
 from django.utils import timezone
@@ -9,10 +11,13 @@ from apps.portal.services.executive_period import bounds, contains, current
 from apps.portal.services.revenue import REVENUE_STATUSES
 from apps.portal.services.revenue_costs import key, project_ids
 from core.sheets.factory import build_sheet_repository
+from core.sheets.protocols import SheetReader
 from core.utils.dates import to_datetime
 
 
-def load_monthly_profitability(reader=None, ids=None):
+def load_monthly_profitability(
+    reader: SheetReader | None = None, ids: Sequence[str] | None = None
+) -> dict[str, Any]:
     """Agrupa los ultimos seis meses cerrados, marcando costos parciales."""
     today = timezone.localdate()
     end = today.year * 12 + today.month - 2
@@ -28,7 +33,7 @@ def load_monthly_profitability(reader=None, ids=None):
                 first.year * 12 + first.month - 1, last.year * 12 + last.month
             )
         ]
-    rows = {
+    rows: dict[str, dict[str, Any]] = {
         month: {
             "month": month,
             "revenue": 0.0,
@@ -66,7 +71,7 @@ def load_monthly_profitability(reader=None, ids=None):
             rows[moment.strftime("%Y-%m")]["revenue"] += float(amount)
     complete = True
     pending = 0
-    seen = set()
+    seen: set[str] = set()
     for pid in project_ids(reader) if ids is None else ids:
         project = cache.get(key(pid))
         if not project:
@@ -83,18 +88,18 @@ def load_monthly_profitability(reader=None, ids=None):
                 complete = False
             if month in rows:
                 rows[month]["cost"] = (rows[month]["cost"] or 0) + amount
-    for row in rows.values():
-        row["revenue"] = round(row["revenue"], 2)
-        row["partial"] = not complete
-        if complete and row["cost"] is None:
-            row["cost"] = 0
-        if row["cost"] is not None:
-            row["cost"] = round(row["cost"], 2)
-        if row["cost"] is not None:
-            row["gross_profit"] = round(row["revenue"] - row["cost"], 2)
-            if row["revenue"] != 0:
-                row["margin"] = round(
-                    row["gross_profit"] / row["revenue"] * 100, 2
+    for item in rows.values():
+        item["revenue"] = round(item["revenue"], 2)
+        item["partial"] = not complete
+        if complete and item["cost"] is None:
+            item["cost"] = 0
+        if item["cost"] is not None:
+            item["cost"] = round(item["cost"], 2)
+        if item["cost"] is not None:
+            item["gross_profit"] = round(item["revenue"] - item["cost"], 2)
+            if item["revenue"] != 0:
+                item["margin"] = round(
+                    item["gross_profit"] / item["revenue"] * 100, 2
                 )
     return {
         "months": list(rows.values()),

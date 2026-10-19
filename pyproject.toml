@@ -77,6 +77,8 @@ known-first-party = ["apps", "config", "core"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
+# Igual que ruff: tmp/ guarda copias locales que duplican los modulos.
+exclude = ["^tmp/"]
 plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 
 [[tool.mypy.overrides]]
@@ -84,6 +86,7 @@ module = [
     "googleapiclient.*",
     "google.oauth2.*",
     "google.auth.*",
+    "httplib2.*",
     "requests.*",
 ]
 ignore_missing_imports = true
@@ -97,6 +100,9 @@ disallow_incomplete_defs = false
 # Los datos de prueba se escriben como literales sin anotar.
 disable_error_code = [
     "arg-type",
+    # request.user = SimpleNamespace(...) y listas.append como efecto.
+    "assignment",
+    "func-returns-value",
     "var-annotated",
     "dict-item",
     # Los dobles de prueba no heredan de la clase real que sustituyen.

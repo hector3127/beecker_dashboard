@@ -5,7 +5,7 @@ from django import forms
 from apps.portal.models import ExecutiveAgreement
 
 
-class ExecutiveAgreementForm(forms.ModelForm):
+class ExecutiveAgreementForm(forms.ModelForm):  # type: ignore[type-arg]
     """Campos editables y limites del registro ejecutivo."""
 
     class Meta:

@@ -18,7 +18,8 @@ def test_portal_only_does_not_clear_cache_or_load_legacy(monkeypatch):
     cache.set("keep-this-cut", "saved")
     monkeypatch.setattr(warm_cache, "warm_portal", lambda: {"ok": True})
     monkeypatch.setattr(
-        warm_cache, "warm_sheets",
+        warm_cache,
+        "warm_sheets",
         lambda: (_ for _ in ()).throw(AssertionError("Legacy read")),
     )
     output = StringIO()
@@ -41,15 +42,18 @@ def test_warmer_uses_all_portal_blocks_and_reports_partial_data(monkeypatch):
 
     monkeypatch.setattr(views, "operativa_datos", load)
     monkeypatch.setattr(
-        views, "operations_resumen",
+        views,
+        "operations_resumen",
         lambda request: HttpResponse('<div data-partial="true"></div>'),
     )
     monkeypatch.setattr(
-        views, "comercial",
+        views,
+        "comercial",
         lambda request: HttpResponse('<body data-portal-ready="true">'),
     )
     monkeypatch.setattr(
-        views, "ejecutiva",
+        views,
+        "ejecutiva",
         lambda request: HttpResponse('<body data-portal-ready="true">'),
     )
     monkeypatch.setattr(
@@ -136,7 +140,8 @@ def test_partial_summary_preserves_previous_valid_cut(monkeypatch):
     key = views._operations_summary_key()
     cache.set(key, "previous-cut")
     monkeypatch.setattr(
-        views, "load_year_sources",
+        views,
+        "load_year_sources",
         lambda month: [MonthSources(month=month, error="Sin conexion")],
     )
     request = RequestFactory().get("/operations/resumen/")

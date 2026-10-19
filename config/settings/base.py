@@ -250,7 +250,9 @@ DASHBOARD_CACHE_TTL_SECONDS = read_int_env(
 # Las escrituras de la app la invalidan; los cambios manuales en el
 # Spreadsheet se ven al vencer. 0 apaga la cache.
 SHEETS_READ_CACHE_SECONDS = read_int_env(
-    "SHEETS_READ_CACHE_SECONDS", 900, allow_zero=True,
+    "SHEETS_READ_CACHE_SECONDS",
+    900,
+    allow_zero=True,
 )
 
 # 1: las hojas de entrada del portal (STORED_SHEETS) se leen de la base
