@@ -109,9 +109,27 @@ reemplazo por `clockify_time_entry` queda para una etapa posterior.
 | Detección de cambios en meses bloqueados | Hecha |
 | Hojas de entrada guardadas en la base (`SheetSnapshot`) | Hecha. La caché de lecturas de `GoogleSheetRepository` las sirve desde la base sin vencimiento (`SHEETS_STORE_ENABLED=1`); una escritura de la app borra la hoja y la siguiente lectura la renueva. 12 hojas = 1.6 MB; se guardan en ~3 s |
 | Catálogos de clientes, personas y proyectos con alias | Hechos; se reconstruyen en cada sincronización y se revisan en el admin |
-| Tablas normalizadas por hoja (`project_stage`, `mpb_contract`, …) | Pendiente: los servicios siguen leyendo la matriz de la hoja |
+| Hoja «08.Base Clockify AAAA» sustituida por `clockify_time_entry` | Hecha en Facturabilidad, GSE y el índice de EVA-04 (`StoredBaseStore`, `build_hour_index_from_store`). Resultado idéntico al de la hoja en los meses cerrados (enero a agosto de 2026); septiembre y octubre salen más completos porque la hoja estaba desactualizada |
+| `normalize_name`, `strip_accents` y `get_flexible_value` con memoria | Hecha. Se ejecutaban 26.5 millones y 1 millón de veces en `warm_cache` (más de la mitad del tiempo) |
+| Tablas normalizadas por hoja (`project_stage`, `mpb_contract`, …) | Pendiente. El perfil mostró que el costo estaba en la normalización de texto y en la hoja gigante, no en leer las hojas de entrada; se crearán si una pantalla lo justifica con una medición |
 | Azure DevOps y tipo de cambio | Pendiente |
 | Tarea diaria programada | Pendiente (depende del despliegue en Genesis) |
+
+## Rendimiento medido
+
+`warm_cache` con la caché de Django vacía (19/10/2026):
+
+| Configuración | Tiempo | Solicitudes a Clockify | Llamadas a Google Sheets |
+| --- | --- | --- | --- |
+| Original | 1,150 s | 2,480 reportes | n/d |
+| Horas de Clockify desde la base | 196 s | 5 | 14 |
+| + hojas de entrada desde la base | 192 s | 5 | 4 |
+| + memoria en la normalización y base de horas en Facturabilidad, GSE y EVA-04 | **78 s** | 5 | **2** |
+
+Por paso, de 192 s a 78 s: detalle de cada Delivery Manager 100 s → 2-3 s,
+Facturabilidad 126 s → 10 s, Operativa (proyectos y estados) 37 s → 1.9 s.
+Lo que sigue pesando: Operativa EVA-3 (16 s), Financiera (18 s), Ejecutiva
+(13 s) y Facturabilidad (10 s).
 
 ## Modelo
 

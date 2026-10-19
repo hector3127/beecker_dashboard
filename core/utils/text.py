@@ -2,6 +2,7 @@
 
 import unicodedata
 from collections.abc import Mapping, Sequence
+from functools import lru_cache
 
 from core.utils.cell_types import CellValue
 
@@ -13,6 +14,12 @@ RecursosDetalleService.gs.
 COMBINING_MARK_START = 0x0300
 
 COMBINING_MARK_END = 0x036F
+
+# Textos distintos que se recuerdan (nombres, encabezados) y juegos de
+# columnas distintos; con esto el uso de memoria queda acotado.
+NORMALIZE_CACHE_SIZE = 131072
+
+HEADER_CACHE_SIZE = 512
 
 
 def to_text(value: CellValue) -> str:
@@ -78,14 +85,47 @@ def normalize_name(value: CellValue) -> str:
     Returns:
         El texto en minusculas, sin espacios externos y sin acentos.
     """
-    lowered_text = to_text(value).strip().lower()
-    decomposed_text = unicodedata.normalize("NFD", lowered_text)
+    return normalize_text(to_text(value))
+
+
+@lru_cache(maxsize=NORMALIZE_CACHE_SIZE)
+def normalize_text(text: str) -> str:
+    """
+    Minusculas, sin espacios externos y sin acentos (resultado en memoria).
+
+    Los mismos nombres y encabezados se normalizan millones de veces al
+    leer las hojas; guardar el resultado evita repetir el trabajo.
+
+    Args:
+        text: Texto a normalizar.
+
+    Returns:
+        El texto normalizado.
+    """
+    decomposed_text = unicodedata.normalize("NFD", text.strip().lower())
 
     return "".join(
         character
         for character in decomposed_text
         if not (COMBINING_MARK_START <= ord(character) <= COMBINING_MARK_END)
     )
+
+
+@lru_cache(maxsize=HEADER_CACHE_SIZE)
+def header_map(headers: tuple[str, ...]) -> dict[str, str]:
+    """
+    Encabezado normalizado -> encabezado real, para un juego de columnas.
+
+    Las filas de una hoja comparten sus columnas, asi que el mapa se arma
+    una vez por hoja y no una vez por celda leida. No se debe modificar.
+
+    Args:
+        headers: Encabezados de la hoja, en orden.
+
+    Returns:
+        El mapa; si dos encabezados normalizan igual gana el ultimo.
+    """
+    return {normalize_name(header): header for header in headers}
 
 
 def get_flexible_value(
@@ -105,7 +145,7 @@ def get_flexible_value(
     Returns:
         El primer valor no vacio encontrado, o cadena vacia.
     """
-    real_key_by_normalized = {normalize_name(header): header for header in row}
+    real_key_by_normalized = header_map(tuple(row))
 
     for candidate_name in candidate_names:
         real_key = real_key_by_normalized.get(normalize_name(candidate_name))
@@ -121,9 +161,10 @@ def get_flexible_value(
     return ""
 
 
+@lru_cache(maxsize=NORMALIZE_CACHE_SIZE)
 def strip_accents(text: str) -> str:
     """
-    Quita los acentos de un texto.
+    Quita los acentos de un texto (resultado en memoria).
 
     Args:
         text: Texto original.

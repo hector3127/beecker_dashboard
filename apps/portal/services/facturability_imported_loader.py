@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.utils import timezone
 
-from apps.gse.services.base_store import BaseStore, build_connection
+from apps.gse.services.base_store import build_base_store, build_connection
 from apps.gse.services.clockify_month import MonthReportLoader
 from apps.gse.services.month_report import GseContext, get_month
 from apps.portal.constants import (
@@ -60,7 +60,7 @@ def read_gse_month(month: str) -> dict[str, Any]:
             settings.CLOCKIFY_API_KEY,
             settings.CLOCKIFY_WORKSPACE_ID,
         )
-        store = BaseStore(reader, connection, timezone.now())
+        store = build_base_store(reader, connection, timezone.now())
         loader = MonthReportLoader(
             (
                 settings.CLOCKIFY_API_KEY,
@@ -157,3 +157,4 @@ def peek_month_sources(month: str) -> MonthSources | None:
     cached = cache.get(f"portal:facturability:imported:v7:{month}")
 
     return cached if isinstance(cached, MonthSources) else None
+

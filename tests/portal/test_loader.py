@@ -388,7 +388,9 @@ def test_read_gse_month_never_saves_to_sheets(monkeypatch):
     monkeypatch.setattr(
         facturability_loader, "build_sheet_repository", lambda: reader,
     )
-    monkeypatch.setattr(facturability_loader, "BaseStore", lambda *args: None)
+    monkeypatch.setattr(
+        facturability_loader, "build_base_store", lambda *args: None
+    )
     monkeypatch.setattr(facturability_loader, "MonthReportLoader", FakeLoader)
     monkeypatch.setattr(
         facturability_loader,
