@@ -1,18 +1,22 @@
 """Project revenue and gross margin for the same scope as costs."""
 
 from decimal import Decimal, InvalidOperation
+from typing import Any
 
 from apps.portal.services.executive_period import contains
 from apps.portal.services.revenue import REVENUE_STATUSES
+from core.sheets.protocols import SheetReader
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
 
 
-def add_project_revenue(result, reader, account=None):
+def add_project_revenue(
+    result: dict[str, Any], reader: SheetReader, account: str | None = None
+) -> dict[str, Any]:
     """Enrich cost results with revenue and margin for the selected period."""
     projects = result.get("projects", [result])
     wanted = {str(p["id"]).strip().casefold() for p in projects}
-    totals = {}
+    totals: dict[str, Decimal] = {}
     for row in reader.read_values("DataRevenue")[1:]:
         if (
             len(row) < 8
@@ -35,7 +39,7 @@ def add_project_revenue(result, reader, account=None):
         if amount.is_finite():
             totals[pid] = totals.get(pid, Decimal(0)) + amount
 
-    def enrich(project):
+    def enrich(project: dict[str, Any]) -> dict[str, Any]:
         item = dict(project)
         revenue = totals.get(str(item["id"]).strip().casefold())
         income = float(revenue) if revenue is not None else 0.0

@@ -8,6 +8,8 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 
+from django.conf import settings
+
 from apps.gse.constants import (
     BASE_REQUIRED_HEADERS,
     BASE_SHEET_PREFIX,
@@ -80,6 +82,33 @@ def build_connection(api_key: str, workspace_id: str) -> Connection:
     fingerprint = hashlib.sha256(api_key.encode()).hexdigest()[:16]
 
     return Connection(workspace_id, f"{safe_workspace}_{fingerprint}")
+
+
+def build_base_store(
+    reader: SheetReader,
+    connection: Connection,
+    now: datetime,
+) -> "BaseStore":
+    """
+    Crea el lector de la base de horas.
+
+    Con CLOCKIFY_STORE_ENABLED lee de la base de datos los meses ya
+    sincronizados (y de la hoja los demas); sin ella, solo de la hoja.
+
+    Args:
+        reader: Repositorio de Sheets.
+        connection: Conexion activa de Clockify.
+        now: Momento actual con zona horaria.
+
+    Returns:
+        El lector de la base.
+    """
+    if settings.CLOCKIFY_STORE_ENABLED:
+        # Import diferido: los modelos requieren las apps ya cargadas.
+        from apps.datastore.services.stored_base import StoredBaseStore
+
+        return StoredBaseStore(reader, connection, now)
+    return BaseStore(reader, connection, now)
 
 
 def base_sheet_title(year: int | str) -> str:

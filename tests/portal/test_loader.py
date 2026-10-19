@@ -78,7 +78,8 @@ def test_missing_configuration_returns_message_and_is_not_cached(monkeypatch):
 
 def test_eva1_loader_builds_the_view(monkeypatch):
     monkeypatch.setattr(
-        eva_loader, "get_aer_tym_consumption",
+        eva_loader,
+        "get_aer_tym_consumption",
         lambda ids: {
             "ok": True,
             "items": [{"id": project_id, "burn": 0} for project_id in ids],
@@ -334,14 +335,18 @@ def test_facturability_keeps_gse_data_without_capacity_roster(monkeypatch):
         "detalle": [{"recurso": "Ana", "area": "DEV", "horas": 84}],
     }
     monkeypatch.setattr(
-        facturability_loader, "read_gse_month", lambda month: gse,
+        facturability_loader,
+        "read_gse_month",
+        lambda month: gse,
     )
 
     def unavailable_capacity(*args, **kwargs):
         raise AssertionError("Facturabilidad no depende de Capacidad.")
 
     monkeypatch.setattr(
-        capacity_loader, "get_capacity_base", unavailable_capacity,
+        capacity_loader,
+        "get_capacity_base",
+        unavailable_capacity,
     )
 
     try:
@@ -382,13 +387,19 @@ def test_read_gse_month_never_saves_to_sheets(monkeypatch):
         def __init__(self, settings_tuple, sources, persist="unset"):
             captured["persist"] = persist
 
-    reader = InMemorySheetRepository({
-        "Bandas/rol": [["Nombre", "ROL", "Octubre"], ["Ana", "DEV", "B1"]],
-    })
-    monkeypatch.setattr(
-        facturability_loader, "build_sheet_repository", lambda: reader,
+    reader = InMemorySheetRepository(
+        {
+            "Bandas/rol": [["Nombre", "ROL", "Octubre"], ["Ana", "DEV", "B1"]],
+        }
     )
-    monkeypatch.setattr(facturability_loader, "BaseStore", lambda *args: None)
+    monkeypatch.setattr(
+        facturability_loader,
+        "build_sheet_repository",
+        lambda: reader,
+    )
+    monkeypatch.setattr(
+        facturability_loader, "build_base_store", lambda *args: None
+    )
     monkeypatch.setattr(facturability_loader, "MonthReportLoader", FakeLoader)
     monkeypatch.setattr(
         facturability_loader,

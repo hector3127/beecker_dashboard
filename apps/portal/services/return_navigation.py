@@ -1,19 +1,39 @@
 """Explicit local return destinations for nested portal details."""
-from urllib.parse import urlsplit, parse_qs, unquote
-from django.urls import resolve, Resolver404
+
+from typing import Any
+from urllib.parse import parse_qs, unquote, urlsplit
+
+from django.http import HttpRequest
+from django.urls import Resolver404, resolve
 
 LABELS = {
-    "portal:ejecutiva": "Business Overview", "portal:todas_cuentas": "Todas las cuentas",
-    "portal:operativa": "Operativa", "portal:comercial": "Comercial",
-    "portal:cuenta": "la cuenta", "portal:delivery_manager": "Delivery Manager",
-    "portal:costos_detalle": "Detalle de costos", "portal:proyecto_detalle": "el proyecto",
-    "portal:eva1": "EVA 1", "portal:eva3": "EVA 3", "portal:eva4": "EVA 4",
+    "portal:ejecutiva": "Business Overview",
+    "portal:todas_cuentas": "Todas las cuentas",
+    "portal:operativa": "Operativa",
+    "portal:comercial": "Comercial",
+    "portal:cuenta": "la cuenta",
+    "portal:delivery_manager": "Delivery Manager",
+    "portal:costos_detalle": "Detalle de costos",
+    "portal:proyecto_detalle": "el proyecto",
+    "portal:eva1": "EVA 1",
+    "portal:eva3": "EVA 3",
+    "portal:eva4": "EVA 4",
 }
 
 
-def return_context(request, default_url, default_label):
+def return_context(
+    request: HttpRequest, default_url: str, default_label: str
+) -> dict[str, Any]:
+    """Destino del boton de regreso: el de ?volver= si es local y conocido."""
     target = request.GET.get("volver", "")
-    if not isinstance(target, str) or len(target) > 8192 or not target.startswith("/") or target.startswith("//") or "\\" in unquote(target) or any(ord(c) < 32 for c in target):
+    if (
+        not isinstance(target, str)
+        or len(target) > 8192
+        or not target.startswith("/")
+        or target.startswith("//")
+        or "\\" in unquote(target)
+        or any(ord(c) < 32 for c in target)
+    ):
         return {"back_url": default_url, "back_label": default_label}
     parts = urlsplit(target)
     try:

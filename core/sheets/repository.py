@@ -121,6 +121,15 @@ class GoogleSheetRepository:
             self._values_by_sheet[sheet_name] = values
             self._shared_cache.set_values(sheet_name, values)
 
+    def sheet_ids(self) -> dict[str, int]:
+        """
+        Nombres e IDs de las hojas del Spreadsheet.
+
+        Returns:
+            Una copia: hoja -> ID.
+        """
+        return dict(self._load_sheet_ids())
+
     def list_sheet_names(self) -> list[str]:
         """
         Nombres de las hojas en el orden de las pestanas (ss.getSheets()).

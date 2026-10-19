@@ -34,7 +34,7 @@ class HoursSummary:
     budget_hours: int
     burn_hours: int
     etc_hours: int
-    progress_percent: int
+    progress_percent: int | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -134,7 +134,7 @@ class ProjectRow:
     status_label: str
     status_code: str
     detail: str
-    progress_percent: int
+    progress_percent: int | None
     etc_hours: int
     risk_label: str
     row_class: str
@@ -179,7 +179,7 @@ class AccountRow:
     status_label: str
     status_code: str
     detail: str
-    progress_percent: int
+    progress_percent: int | None
     row_class: str
 
 
@@ -204,7 +204,7 @@ class SuspendedRow:
     name: str
     client: str
     delivery_manager: str
-    progress_percent: int
+    progress_percent: int | None
     etc_hours: int
     client_slug: str = ""
 
@@ -429,7 +429,7 @@ class ProjectPage:
     budget_used: int
     budget_hours: int
     burn_hours: int
-    progress: int
+    progress: int | None
     etc_hours: int
     bars: tuple[BarValue, ...]
     marker_left: float

@@ -134,6 +134,8 @@ def build_summary_row(
         row: Fila de MPB.
         columns: Indices de columna.
         today: Fecha local de hoy.
+        closed_year: Si se da, en lugar de los proyectos en progreso devuelve
+            los cerrados (no cancelados) cuya fecha de fin cae en ese ano.
 
     Returns:
         La fila del resumen, o None si no aplica.
@@ -152,7 +154,18 @@ def build_summary_row(
             return None
     else:
         finish = parse_mpb_date(read_cell(row, columns["end"]))
-        if status not in {"finalizado", "finalizada", "completed", "completado", "cerrado", "finished", "cancelado", "cancelada", "cancelled", "canceled"} or not finish.startswith(str(closed_year) + "-"):
+        if status not in {
+            "finalizado",
+            "finalizada",
+            "completed",
+            "completado",
+            "cerrado",
+            "finished",
+            "cancelado",
+            "cancelada",
+            "cancelled",
+            "canceled",
+        } or not finish.startswith(str(closed_year) + "-"):
             return None
 
     budget = parse_mpb_hours(read_cell(row, columns["budget"]))
@@ -162,7 +175,9 @@ def build_summary_row(
     manager = to_text(read_cell(row, columns["manager"])).strip()
 
     return {
-        "estadoHistorico": "Cancelado" if status in {"cancelado", "cancelada", "cancelled", "canceled"} else "Finalizado",
+        "estadoHistorico": "Cancelado"
+        if status in {"cancelado", "cancelada", "cancelled", "canceled"}
+        else "Finalizado",
         "idProyecto": project_id,
         "cliente": to_text(read_cell(row, columns["client"])).strip(),
         "servicio": SERVICE_AER if service == "aer" else SERVICE_TYM,

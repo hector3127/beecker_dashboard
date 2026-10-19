@@ -3,6 +3,7 @@
 import calendar
 import hashlib
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date
 from typing import Any
@@ -16,6 +17,7 @@ from apps.portal.services.executive_period import bounds, cache_suffix, current
 from core.sheets.factory import build_sheet_repository
 from core.sheets.project_year import mpb_previous_year_ids
 from core.sheets.protocols import SheetReader
+from core.time_entries.models import TimeEntry
 from core.time_entries.resource_rates import normalize_band, read_rate_by_band
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
@@ -76,9 +78,9 @@ def prepare_cost_context(
     )
 
 
-def project_ids(reader, account=None):
+def project_ids(reader: SheetReader, account: str | None = None) -> list[str]:
     """Lista IDs unicos del ejercicio 2026 sin las filas de totales."""
-    result = {}
+    result: dict[str, str] = {}
     excluded = (
         mpb_previous_year_ids(reader, bounds()[0].year)
         if bounds()[0].year == bounds()[1].year
@@ -107,6 +109,7 @@ def project_ids(reader, account=None):
             if pid.casefold() not in excluded:
                 result.setdefault(pid.casefold(), pid)
     from apps.portal.services.cost_project_inventory import inventory
+
     for identity, project in inventory(reader).items():
         if identity in excluded:
             continue
@@ -118,10 +121,10 @@ def project_ids(reader, account=None):
     return sorted(result.values(), key=str.casefold)
 
 
-def key(pid):
+def key(pid: str) -> str:
     """Identifica el costo por proyecto y mes de la banda vigente."""
     return (
-        "portal:revenue-cost:2026:v8:"
+        "portal:revenue-cost:2026:v9:"
         + timezone.localdate().strftime("%Y-%m")
         + ":"
         + hashlib.sha256(pid.casefold().encode()).hexdigest()
@@ -129,7 +132,9 @@ def key(pid):
     )
 
 
-def resolve_person_band(row, headers, rates, today):
+def resolve_person_band(
+    row: list[Any], headers: list[Any], rates: dict[str, float], today: date
+) -> tuple[Any, str]:
     """Use current band; for Baja, recover the latest valid monthly band."""
     from apps.gse.services.cells import norm
 
@@ -151,7 +156,9 @@ def resolve_person_band(row, headers, rates, today):
     return "", "Sin banda vigente historica"
 
 
-def resolve_cost_scope(pid, ids, today):
+def resolve_cost_scope(
+    pid: str, ids: Sequence[str], today: date
+) -> tuple[str, date, date, int | None]:
     """ROC base.MM is a month; unsuffixed base is January only with variants."""
     match = re.fullmatch(
         r"(ROC\.[A-Z0-9]+\.\d{3})(?:\.(0[1-9]|1[0-2]))?",
@@ -159,7 +166,7 @@ def resolve_cost_scope(pid, ids, today):
         re.IGNORECASE,
     )
     lookup = pid.strip()
-    month = None
+    month: int | None = None
     if match:
         base, suffix = match.groups()
         lookup = base
@@ -184,20 +191,28 @@ def resolve_cost_scope(pid, ids, today):
     return lookup, start, end, month
 
 
-def calculate_project_cost(pid, context=None):
+def calculate_project_cost(
+    pid: str, context: CostContext | None = None
+) -> dict[str, Any]:
     """Calcula horas por tarifa usando el cargador compartido de Clockify."""
-    reader = context.reader if context else build_sheet_repository()
-    ids = context.ids if context else project_ids(reader)
-    allowed = context.allowed_ids if context else {p.casefold() for p in ids}
-    if pid.casefold() not in allowed:
-        raise ValueError("El ID no pertenece al inventario financiero del periodo")
     existing = cache.get(key(pid))
-    if existing:
+    if (
+        existing
+        and "sprints" in existing
+        and all("people" in group for group in existing["sprints"])
+    ):
         return {
             k: v
             for k, v in existing.items()
             if k not in {"entries", "entry_months"}
         }
+    reader = context.reader if context else build_sheet_repository()
+    ids = context.ids if context else project_ids(reader)
+    allowed = context.allowed_ids if context else {p.casefold() for p in ids}
+    if pid.casefold() not in allowed:
+        raise ValueError(
+            "El ID no pertenece al inventario financiero del periodo"
+        )
     context = context or prepare_cost_context(reader, ids)
     today, rates, bands = context.today, context.rates, context.bands
     lookup, start, end, month = resolve_cost_scope(pid, ids, today)
@@ -214,13 +229,46 @@ def calculate_project_cost(pid, context=None):
             start, end = selected_start, selected_end
         start, end = max(start, selected_start), min(end, selected_end, today)
     loader = build_clockify_loader(reader)
-    entries = loader.load_project(lookup, (start, end)) if start <= end else []
+    entries: Sequence[TimeEntry] = (
+        loader.load_project(lookup, (start, end)) if start <= end else []
+    )
     from apps.portal.services.project_task_scope import scope_entries
+
     entries = scope_entries(pid, ids, entries, loader, lookup)
-    people = {}
+    # Resolve names for the audit even when the base ID includes all sprints.
+    task_details_complete = True
+    if any(e.task_id and not e.task_name for e in entries):
+        from dataclasses import replace
+
+        from core.exceptions import DashboardError
+
+        try:
+            project = loader.find_clockify_project(lookup)
+            names = (
+                {
+                    str(t.get("id")): str(t.get("name") or "")
+                    for t in loader.load_project_tasks(project.project_id)
+                }
+                if project
+                else {}
+            )
+            entries = [
+                replace(e, task_name=names.get(e.task_id, ""))
+                if e.task_id and not e.task_name
+                else e
+                for e in entries
+            ]
+        except (DashboardError, ValueError):
+            task_details_complete = False
+    from apps.portal.services.project_task_scope import task_tokens, variant
+
+    selected = variant(pid)
+    base = selected[0].upper() if selected else pid
+    sprint_groups: dict[str, dict[str, Any]] = {}
+    people: dict[str, dict[str, Any]] = {}
     amounts = {}
     entry_months = {}
-    missing_hours = 0
+    missing_hours = 0.0
     seen = set()
     for entry in entries:
         if current() and (
@@ -228,7 +276,12 @@ def calculate_project_cost(pid, context=None):
             or not start <= entry.entry_date.date() <= end
         ):
             continue
-        if current() and month and entry.entry_date.month != month:
+        if (
+            current()
+            and month
+            and entry.entry_date
+            and entry.entry_date.month != month
+        ):
             continue
         if not entry.entry_id or entry.entry_id in seen:
             continue
@@ -251,12 +304,58 @@ def calculate_project_cost(pid, context=None):
             },
         )
         person["hours"] += entry.duration_hours
+        tokens = sorted(task_tokens(entry.task_name))
+        label = (
+            " / ".join(tokens)
+            if tokens
+            else (
+                "Tarea sin identificar"
+                if entry.task_id and not entry.task_name
+                else "Sin sprint"
+            )
+        )
+        if label == "Tarea sin identificar":
+            task_details_complete = False
+        group = sprint_groups.setdefault(
+            label,
+            {
+                "label": label,
+                "project_id": base + "_" + tokens[0]
+                if len(tokens) == 1
+                else pid,
+                "hours": 0,
+                "cost": 0,
+                "missing_hours": 0,
+                "tasks": set(),
+                "people": {},
+            },
+        )
+        group["hours"] += entry.duration_hours
+        group_person = group["people"].setdefault(
+            person_key,
+            {
+                "name": entry.resource_name,
+                "band": str(band),
+                "rate": rate,
+                "band_month": band_month,
+                "hours": 0,
+                "cost": 0,
+                "missing": False,
+            },
+        )
+        group_person["hours"] += entry.duration_hours
+        if entry.task_name:
+            group["tasks"].add(entry.task_name)
         if rate is None or rate <= 0:
             person["missing"] = True
             missing_hours += entry.duration_hours
+            group["missing_hours"] += entry.duration_hours
+            group_person["missing"] = True
             continue
         amount = entry.duration_hours * rate
         person["cost"] += amount
+        group["cost"] += amount
+        group_person["cost"] += amount
         amounts[entry.entry_id] = amount
         if entry.entry_date is not None:
             entry_months[entry.entry_id] = entry.entry_date.strftime("%Y-%m")
@@ -271,6 +370,29 @@ def calculate_project_cost(pid, context=None):
         "missing_hours": round(missing_hours, 2),
         "complete": missing_hours == 0,
         "people": list(people.values()),
+        "sprints": [
+            {
+                **g,
+                "hours": round(g["hours"], 2),
+                "cost": round(g["cost"], 2),
+                "missing_hours": round(g["missing_hours"], 2),
+                "tasks": sorted(g["tasks"]),
+                "people": [
+                    {
+                        **person,
+                        "hours": round(person["hours"], 2),
+                        "cost": round(person["cost"], 2),
+                    }
+                    for person in g["people"].values()
+                ],
+                "complete": g["missing_hours"] == 0,
+            }
+            for g in sorted(sprint_groups.values(), key=lambda g: g["label"])
+        ],
+        "task_details_complete": task_details_complete,
+        "included_ids": sorted(
+            {g["project_id"] for g in sprint_groups.values()}
+        ),
         "entries": amounts,
         "entry_months": entry_months,
     }
@@ -280,11 +402,13 @@ def calculate_project_cost(pid, context=None):
     }
 
 
-def cost_summary(ids=None, account=None):
+def cost_summary(
+    ids: list[str] | None = None, account: str | None = None
+) -> dict[str, Any]:
     """Suma costos preparados sin duplicar registros entre proyectos."""
     ids = project_ids(build_sheet_repository(), account) if ids is None else ids
-    entries = {}
-    projects = []
+    entries: dict[str, float] = {}
+    projects: list[dict[str, Any]] = []
     pending = 0
     complete = True
     for pid in ids:

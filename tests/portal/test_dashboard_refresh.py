@@ -31,11 +31,13 @@ def request(path="/operativa/datos/", **params):
 
 def stub_eva(monkeypatch, error=""):
     monkeypatch.setattr(
-        views, "load_eva2",
+        views,
+        "load_eva2",
         lambda **kwargs: Eva2Load(build_eva2_view([]), error),
     )
     monkeypatch.setattr(
-        views, "load_eva1",
+        views,
+        "load_eva1",
         lambda **kwargs: Eva1Load(build_eva1_view([]), error),
     )
 
@@ -65,7 +67,7 @@ def test_failed_first_refresh_does_not_cache_fake_zero_totals(monkeypatch):
     assert cache.get(views._operativa_key(refresh)) is None
     assert 'data-source-errors="2"' in html
     assert "Información parcial del portafolio." in html
-    assert 'data-loaded-at=' in html
+    assert "data-loaded-at=" in html
 
 
 def test_failed_eva3_enrichment_keeps_previous_portfolio(monkeypatch):
@@ -100,8 +102,12 @@ def test_eva3_updates_totals_and_health_in_the_same_response(monkeypatch):
     assert saved["health"].on_time == 2
     assert saved["managers"][0].in_progress == 2
     for section in (
-        "ops-metric-progress", "ops-metric-paused", "ops-metric-on-time",
-        "ops-health", "ops-managers", "ops-evas",
+        "ops-metric-progress",
+        "ops-metric-paused",
+        "ops-metric-on-time",
+        "ops-health",
+        "ops-managers",
+        "ops-evas",
     ):
         assert html.count(f'id="{section}"') == 1
 
@@ -110,17 +116,25 @@ def test_eva3_updates_totals_and_health_in_the_same_response(monkeypatch):
     ("block", "function", "payload", "message"),
     [
         (
-            "inversion", "tagged_investment",
-            {"complete": False, "error": "Sin Clockify."}, "Sin Clockify.",
+            "inversion",
+            "tagged_investment",
+            {"complete": False, "error": "Sin Clockify."},
+            "Sin Clockify.",
         ),
         (
-            "capacidad", "legacy_capacity", {"pending": 2},
+            "capacidad",
+            "legacy_capacity",
+            {"pending": 2},
             "Capacidad con asignaciones pendientes.",
         ),
     ],
 )
 def test_failed_secondary_block_preserves_saved_cut(
-    monkeypatch, block, function, payload, message,
+    monkeypatch,
+    block,
+    function,
+    payload,
+    message,
 ):
     stub_eva(monkeypatch)
     refresh = request()
@@ -156,10 +170,14 @@ def test_cache_reuse_preserves_time_of_calculation(monkeypatch):
     stamp = timezone.localtime()
     calls = []
     monkeypatch.setattr(
-        portfolio_loader, "build_sheet_repository", lambda: object(),
+        portfolio_loader,
+        "build_sheet_repository",
+        lambda: object(),
     )
     monkeypatch.setattr(
-        portfolio_loader, "build_time_entry_provider", lambda repo: object(),
+        portfolio_loader,
+        "build_time_entry_provider",
+        lambda repo: object(),
     )
 
     def build(*args):
@@ -170,7 +188,8 @@ def test_cache_reuse_preserves_time_of_calculation(monkeypatch):
     monkeypatch.setattr(portfolio_loader.timezone, "localtime", lambda: stamp)
     first = portfolio_loader.load_portfolio()
     monkeypatch.setattr(
-        portfolio_loader.timezone, "localtime",
+        portfolio_loader.timezone,
+        "localtime",
         lambda: stamp + timedelta(minutes=2),
     )
     second = portfolio_loader.load_portfolio()

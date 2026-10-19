@@ -80,11 +80,11 @@ def build_project_page(
         burn_hours=round_half_up_int(project.burn_hours),
         progress=project.progress_percent,
         etc_hours=round_half_up_int(project.etc_hours),
-        bars=_build_bars(used, project.progress_percent, elapsed),
+        bars=_build_bars(used, project.progress_percent or 0, elapsed),
         marker_left=_bar_width(BUDGET_LIMIT_PERCENT),
         summary=_build_summary(
             used,
-            project.progress_percent,
+            project.progress_percent or 0,
             elapsed,
             _days_left(end_date, today),
         ),

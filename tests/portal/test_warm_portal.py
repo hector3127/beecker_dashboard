@@ -10,6 +10,7 @@ from django.test import RequestFactory
 
 from apps.portal import views
 from apps.portal.services.facturability_loader import MonthSources
+from core.exceptions import DashboardError
 from core.management.commands import warm_cache
 
 
@@ -17,7 +18,8 @@ def test_portal_only_does_not_clear_cache_or_load_legacy(monkeypatch):
     cache.set("keep-this-cut", "saved")
     monkeypatch.setattr(warm_cache, "warm_portal", lambda: {"ok": True})
     monkeypatch.setattr(
-        warm_cache, "warm_sheets",
+        warm_cache,
+        "warm_sheets",
         lambda: (_ for _ in ()).throw(AssertionError("Legacy read")),
     )
     output = StringIO()
@@ -40,15 +42,18 @@ def test_warmer_uses_all_portal_blocks_and_reports_partial_data(monkeypatch):
 
     monkeypatch.setattr(views, "operativa_datos", load)
     monkeypatch.setattr(
-        views, "operations_resumen",
+        views,
+        "operations_resumen",
         lambda request: HttpResponse('<div data-partial="true"></div>'),
     )
     monkeypatch.setattr(
-        views, "comercial",
+        views,
+        "comercial",
         lambda request: HttpResponse('<body data-portal-ready="true">'),
     )
     monkeypatch.setattr(
-        views, "ejecutiva",
+        views,
+        "ejecutiva",
         lambda request: HttpResponse('<body data-portal-ready="true">'),
     )
     monkeypatch.setattr(
@@ -66,6 +71,44 @@ def test_warmer_uses_all_portal_blocks_and_reports_partial_data(monkeypatch):
     result = warm_cache.warm_portal()
     assert calls == ["", "eva4", "eva3", "inversion", "capacidad"]
     assert result == {"ok": False, "error": "inversion, facturabilidad"}
+
+
+def test_secondary_pages_are_warmed_and_one_failure_does_not_stop_the_other(
+    monkeypatch,
+):
+    visited = []
+
+    def kpis(request):
+        visited.append("kpis")
+        assert request.user.is_authenticated
+        raise DashboardError("Sin Azure")
+
+    def closed(request):
+        visited.append("eva1_cerrados")
+        return HttpResponse(status=200)
+
+    monkeypatch.setattr(views, "kpis_delivery_managers", kpis)
+    monkeypatch.setattr(views, "eva1_cerrados", closed)
+
+    result = warm_cache.warm_secondary_pages()
+
+    assert visited == ["kpis", "eva1_cerrados"]
+    assert result["ok"] is False
+    assert result["error"].startswith("kpis: ")
+
+
+def test_secondary_pages_report_a_non_200_response(monkeypatch):
+    monkeypatch.setattr(
+        views, "kpis_delivery_managers", lambda request: HttpResponse()
+    )
+    monkeypatch.setattr(
+        views, "eva1_cerrados", lambda request: HttpResponse(status=401)
+    )
+
+    assert warm_cache.warm_secondary_pages() == {
+        "ok": False,
+        "error": "eva1_cerrados",
+    }
 
 
 def test_summary_cache_skips_calculation_and_manual_refresh_rebuilds(
@@ -97,7 +140,8 @@ def test_partial_summary_preserves_previous_valid_cut(monkeypatch):
     key = views._operations_summary_key()
     cache.set(key, "previous-cut")
     monkeypatch.setattr(
-        views, "load_year_sources",
+        views,
+        "load_year_sources",
         lambda month: [MonthSources(month=month, error="Sin conexion")],
     )
     request = RequestFactory().get("/operations/resumen/")

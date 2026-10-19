@@ -95,6 +95,7 @@ class Command(BaseCommand):
             )
             return
         self.run_step("portal", warm_portal)
+        self.run_step("pantallas secundarias", warm_secondary_pages)
         if options["portal_only"] or not options["legacy"]:
             return
 
@@ -146,8 +147,7 @@ def warm_portal(base_only: bool = False) -> object:
     factory = RequestFactory()
     failures = []
     blocks = (
-        ("",) if base_only
-        else ("", "eva4", "eva3", "inversion", "capacidad")
+        ("",) if base_only else ("", "eva4", "eva3", "inversion", "capacidad")
     )
     for block in blocks:
         started = time.perf_counter()
@@ -187,7 +187,7 @@ def warm_portal(base_only: bool = False) -> object:
         started = time.perf_counter()
         logger.info("Preparando %s y sus componentes", name)
         request = factory.get(path, {"actualizar": "1"})
-        setattr(request, "portal_warmer", True)
+        request.portal_warmer = True  # type: ignore[attr-defined]
         request.user = User(username="cache-warmer")
         response = page(request)
         if (
@@ -218,8 +218,12 @@ def warm_portal(base_only: bool = False) -> object:
         operations_error = str(error)
     if operations_error:
         failures.append("Operations de Ejecutiva: " + operations_error)
-    logger.info("Operations de Ejecutiva: %.1f s", time.perf_counter() - started)
-    from apps.portal.services.executive_commercial import warm_commercial_summary
+    logger.info(
+        "Operations de Ejecutiva: %.1f s", time.perf_counter() - started
+    )
+    from apps.portal.services.executive_commercial import (
+        warm_commercial_summary,
+    )
 
     started = time.perf_counter()
     logger.info("Preparando Comercial de Ejecutiva")
@@ -230,6 +234,43 @@ def warm_portal(base_only: bool = False) -> object:
     if commercial_error:
         failures.append("Comercial de Ejecutiva: " + commercial_error)
     logger.info("Comercial de Ejecutiva: %.1f s", time.perf_counter() - started)
+    return {"ok": not failures, "error": ", ".join(failures)}
+
+
+def warm_secondary_pages() -> object:
+    """
+    Prepara las pantallas que no cubre warm_portal y tardan en su primera carga.
+
+    KPIs de Delivery Managers (~3 s) y los proyectos cerrados de EVA 1 (~4 s,
+    leen Azure DevOps). Sin esto, la primera persona tras vencer la cache
+    espera esa carga. Solo lee; una pantalla que falla no detiene a las demas.
+    """
+    from django.contrib.auth.models import User
+    from django.test import RequestFactory
+
+    from apps.portal import views
+
+    factory = RequestFactory()
+    failures = []
+    for name, path, page in (
+        (
+            "kpis",
+            "/operativa/kpis-delivery-managers/",
+            views.kpis_delivery_managers,
+        ),
+        ("eva1_cerrados", "/operativa/eva-1/cerrados/", views.eva1_cerrados),
+    ):
+        started = time.perf_counter()
+        request = factory.get(path)
+        request.user = User(username="cache-warmer")
+        try:
+            response = page(request)
+        except DashboardError as error:
+            failures.append(f"{name}: {error.build_message()}")
+            continue
+        if response.status_code != 200:
+            failures.append(name)
+        logger.info("%s: %.1f s", name, time.perf_counter() - started)
     return {"ok": not failures, "error": ", ".join(failures)}
 
 

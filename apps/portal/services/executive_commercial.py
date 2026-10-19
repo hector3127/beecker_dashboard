@@ -13,7 +13,7 @@ def commercial_summary() -> dict[str, Any]:
     """Resume ventas ganadas y oportunidades del periodo en USD."""
     start, end = bounds()
     key = f"portal:executive-commercial:v1:{start}:{end}"
-    saved = cache.get(key)
+    saved: dict[str, Any] | None = cache.get(key)
     if saved is not None:
         return saved
     params = QueryDict(mutable=True)

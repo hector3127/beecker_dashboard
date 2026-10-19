@@ -132,3 +132,14 @@ test('commercial card uses real totals and does not invent delivery balance',asy
  assert.equal(h.node('commercial-data-state').textContent,'Datos parciales');
  assert.match(h.node('commercial-won-note').textContent,/2 ventas/);
 });
+
+
+test('opening a prepared partial overview does not restart pending cost queries', async () => {
+ const h=harness({revenue:{total:'100'}, costs:{cost:20,complete:false,pending:1,
+   projects:[{id:'P1',cost:20},{id:'P2',cost:null}]},
+   profitability:{months:[],complete:false},
+   accounts:{healthy:[],unhealthy:[],pending_accounts:2}});
+ await new Promise(setImmediate);
+ assert.equal(h.requests.length,0);
+ assert.match(h.node('healthy-financial-accounts').innerHTML,/2 cuentas pendientes/);
+});

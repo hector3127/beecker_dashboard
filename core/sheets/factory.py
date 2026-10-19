@@ -12,6 +12,7 @@ from core.sheets.client import (
 )
 from core.sheets.read_cache import SheetReadCache
 from core.sheets.repository import GoogleSheetRepository
+from core.sheets.store_read_cache import StoredSheetReadCache
 
 """BKD.004.007 - Fabrica del repositorio
 Lee la configuracion de Django y entrega un repositorio por peticion,
@@ -37,9 +38,15 @@ def get_credentials(credentials_file: str) -> Credentials:
     return load_service_account_credentials(credentials_file)
 
 
-def build_sheet_repository() -> GoogleSheetRepository:
+def build_sheet_repository(use_store: bool = True) -> GoogleSheetRepository:
     """
     Crea un repositorio nuevo con su propia cache de lecturas.
+
+    Con SHEETS_STORE_ENABLED las hojas de STORED_SHEETS se leen de la
+    base diaria y no de Google (ver sync_datastore).
+
+    Args:
+        use_store: False lee siempre de Google (lo usa la sincronizacion).
 
     Returns:
         El repositorio listo para usarse en una peticion.
@@ -54,8 +61,17 @@ def build_sheet_repository() -> GoogleSheetRepository:
             "Define GOOGLE_SPREADSHEET_ID en el archivo .env.",
         )
 
+    read_cache: SheetReadCache = (
+        StoredSheetReadCache(spreadsheet_id, settings.SHEETS_READ_CACHE_SECONDS)
+        if use_store and settings.SHEETS_STORE_ENABLED
+        else SheetReadCache(
+            spreadsheet_id,
+            settings.SHEETS_READ_CACHE_SECONDS if use_store else 0,
+        )
+    )
+
     return GoogleSheetRepository(
         build_sheets_service(get_credentials(settings.GOOGLE_CREDENTIALS_FILE)),
         spreadsheet_id,
-        SheetReadCache(spreadsheet_id, settings.SHEETS_READ_CACHE_SECONDS),
+        read_cache,
     )

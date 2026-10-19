@@ -1,16 +1,17 @@
 """Shared MPB year eligibility for account lists and financial costs."""
 
+from core.sheets.protocols import SheetReader
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
 
 
-def mpb_previous_year_ids(reader, year=2026):
+def mpb_previous_year_ids(reader: SheetReader, year: int = 2026) -> set[str]:
     """Exclude IDs whose known MPB periods all ended before 2026."""
     if not reader.sheet_exists("MPB"):
         return set()
     rows = reader.read_values("MPB")
-    periods = {}
-    columns = None
+    periods: dict[str, bool] = {}
+    columns: tuple[int, ...] | None = None
     for row in rows:
         headers = [normalize_name(str(cell or "")) for cell in row]
         if columns is None:

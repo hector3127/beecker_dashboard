@@ -7,6 +7,7 @@ de variables de entorno cargadas desde el archivo .env.
 import os
 from pathlib import Path
 
+import dj_database_url
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
 
@@ -112,6 +113,7 @@ INSTALLED_APPS = [
     "apps.recursos.apps.RecursosConfig",
     "apps.gmail.apps.GmailConfig",
     "apps.portal.apps.PortalConfig",
+    "apps.datastore.apps.DatastoreConfig",
 ]
 
 MIDDLEWARE = [
@@ -144,20 +146,30 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# Los datos de negocio viven en Google Sheets. SQLite solo guarda
-# sesiones, usuarios y acuerdos ejecutivos de Django.
+# PostgreSQL en UAT/PROD (DATABASE_URL, igual que Genesis); sin la
+# variable se usa el SQLite local. Guarda sesiones, acuerdos ejecutivos y
+# la base diaria de horas (apps.datastore).
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        ssl_require=os.getenv("DATABASE_SSL_REQUIRE", "").strip() == "1",
+    ),
 }
+
+if DATABASES["default"]["ENGINE"].endswith("sqlite3"):
+    # SQLite local: las sincronizaciones programadas escriben mientras el
+    # panel lee; WAL permite leer durante una escritura y la espera evita
+    # «database is locked» por unos segundos.
+    DATABASES["default"].setdefault("OPTIONS", {}).update(
+        {"init_command": "PRAGMA journal_mode=WAL;", "timeout": 30}
+    )
 
 # Reemplaza a CacheService. Se usa cache en archivos para que los
 # workers de gunicorn compartan el mismo contenido.
 CACHES = {
     "default": {
-        "BACKEND": "core.cache.ConcurrentFileBasedCache",
+        "BACKEND": "core.throttled_cache.ThrottledCullFileCache",
         "LOCATION": BASE_DIR / ".cache",
         "OPTIONS": {"MAX_ENTRIES": 10000, "CULL_FREQUENCY": 3},
     },
@@ -238,13 +250,27 @@ DASHBOARD_CACHE_TTL_SECONDS = read_int_env(
 # Las escrituras de la app la invalidan; los cambios manuales en el
 # Spreadsheet se ven al vencer. 0 apaga la cache.
 SHEETS_READ_CACHE_SECONDS = read_int_env(
-    "SHEETS_READ_CACHE_SECONDS", 900, allow_zero=True,
+    "SHEETS_READ_CACHE_SECONDS",
+    900,
+    allow_zero=True,
 )
+
+# 1: las hojas de entrada del portal (STORED_SHEETS) se leen de la base
+# diaria, sin vencimiento, y se renuevan con sync_datastore.
+SHEETS_STORE_ENABLED = os.getenv("SHEETS_STORE_ENABLED", "").strip() == "1"
+
+# 1: Azure DevOps (work items, RAID, iteraciones y proyectos) se lee de la
+# base diaria; un proyecto que no esta guardado se consulta en vivo.
+AZURE_STORE_ENABLED = os.getenv("AZURE_STORE_ENABLED", "").strip() == "1"
 
 # Credenciales de integraciones que se migran en fases siguientes.
 CLOCKIFY_API_KEY = os.getenv("CLOCKIFY_API_KEY", "").strip()
 
 CLOCKIFY_WORKSPACE_ID = os.getenv("CLOCKIFY_WORKSPACE_ID", "").strip()
+
+# 1: las horas se leen de la base diaria (sync_datastore) en los meses
+# ya sincronizados; los demas siguen consultando Clockify.
+CLOCKIFY_STORE_ENABLED = os.getenv("CLOCKIFY_STORE_ENABLED", "").strip() == "1"
 
 AZURE_DEVOPS_ORGANIZATION = os.getenv(
     "AZURE_DEVOPS_ORGANIZATION",

@@ -24,7 +24,9 @@ from tests.fakes import InMemorySheetRepository
 
 NOW = datetime(2026, 10, 2, 12, 0)
 EXPECTED = json.loads(
-    (Path(__file__).parent / "project_integrated_expected.json").read_text("utf-8"),
+    (Path(__file__).parent / "project_integrated_expected.json").read_text(
+        "utf-8"
+    ),
 )
 
 

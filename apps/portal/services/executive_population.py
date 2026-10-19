@@ -1,6 +1,7 @@
 """Poblacion anual de Operations con las fuentes corregidas del portal."""
 
-from datetime import datetime
+from datetime import date, datetime
+from typing import Any
 
 from django.core.cache import cache
 from django.utils import timezone
@@ -19,9 +20,10 @@ from apps.portal.services.kpi_sources import (
 )
 from core.sheets.factory import build_sheet_repository
 from core.sheets.project_year import mpb_previous_year_ids
+from core.sheets.protocols import SheetReader
 
 
-def population(reader=None):
+def population(reader: SheetReader | None = None) -> list[dict[str, Any]]:
     """Incluye proyectos que tuvieron actividad en 2026, aun si ya cerraron."""
     today = timezone.localdate()
     cache_key = (
@@ -29,15 +31,22 @@ def population(reader=None):
         + today.isoformat()
         + cache_suffix()
     )
-    cached = cache.get(cache_key)
+    cached: list[dict[str, Any]] | None = cache.get(cache_key)
     if cached is not None:
         return cached
     reader = reader or build_sheet_repository()
     selected_start, selected_end = bounds()
     sources = load_kpi_sources(reader, today)
-    projects = {}
+    projects: dict[str, dict[str, Any]] = {}
 
-    def add(pid, service, budget, start, end, source):
+    def add(
+        pid: str,
+        service: str,
+        budget: Any,
+        start: date | None,
+        end: date | None,
+        source: str,
+    ) -> None:
         end = min(end or today, today)
         if (
             not start
@@ -70,6 +79,8 @@ def population(reader=None):
         if not eligible:
             continue
         project = max(eligible, key=lambda p: p.start_date or datetime.min)
+        if project.start_date is None or project.end_date is None:
+            continue  # ya filtrado en eligible; lo pide el tipo
         add(
             project.project_id,
             str(project.service).upper(),

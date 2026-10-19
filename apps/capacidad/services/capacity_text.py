@@ -2,11 +2,12 @@
 
 import math
 import re
+from functools import lru_cache
 from typing import Any
 
 from apps.capacidad.constants import CONCEPT_RULES, TRAINEE_PATTERN
 from core.utils.cell_types import CellValue
-from core.utils.text import strip_accents, to_text
+from core.utils.text import NORMALIZE_CACHE_SIZE, strip_accents, to_text
 
 """BKD.050.004 - Textos y reglas de Capacidad instalada
 Equivale a ciNorm_(), ciNumero_() y ciRegla_().
@@ -34,7 +35,13 @@ def normalize_capacity_text(value: CellValue) -> str:
     Returns:
         El texto normalizado.
     """
-    lowered_text = strip_accents(to_text(value)).lower()
+    return normalize_capacity_string(to_text(value))
+
+
+@lru_cache(maxsize=NORMALIZE_CACHE_SIZE)
+def normalize_capacity_string(text: str) -> str:
+    """Normaliza un texto (resultado en memoria; se repite mucho)."""
+    lowered_text = strip_accents(text).lower()
 
     return NON_ALPHANUMERIC.sub(" ", lowered_text).strip()
 

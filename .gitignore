@@ -15,8 +15,25 @@ htmlcov/
 
 # Django
 db.sqlite3
+# Archivos auxiliares del modo WAL de SQLite.
+db.sqlite3-shm
+db.sqlite3-wal
 .cache/
 staticfiles/
 
 # Respaldos y copias temporales usados en revisiones locales.
 tmp/
+
+# Bitacoras de las tareas programadas (scripts/schedule_windows.ps1).
+logs/
+
+# Grafo de conocimiento de graphify (se regenera con /graphify).
+graphify-out/
+.graphifyignore
+
+# Descargas y mediciones locales (exportaciones de Clockify, bases de
+# prueba, registros de solicitudes).
+*.csv
+*.pkl
+*.jsonl
+*.xlsx

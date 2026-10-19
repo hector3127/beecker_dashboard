@@ -9,6 +9,8 @@ from dataclasses import dataclass, replace
 from datetime import date, timedelta
 from zoneinfo import ZoneInfo
 
+from django.conf import settings
+
 from apps.clockify.constants import (
     MAX_PARALLEL_REPORTS,
     PROJECTS_CACHE_SECONDS,
@@ -114,6 +116,15 @@ class ClockifyTimeEntryLoader:
         self._cache_store = cache_store
         self._cache_prefix = cache_prefix
         self._timezone = ZoneInfo(REPORT_TIMEZONE)
+        self._projects: list[ClockifyProject] | None = None
+        # Se calcula aqui (hilo principal): cambia con cada sincronizacion
+        # y deja vencidos los cortes guardados con la base anterior.
+        self._store_stamp = ""
+        self._synced_months: frozenset[date] = frozenset()
+        if settings.CLOCKIFY_STORE_ENABLED:
+            from apps.datastore.services.clockify_store import store_state
+
+            self._store_stamp, self._synced_months = store_state()
 
     def load_all(self) -> tuple[TimeEntry, ...]:
         """
@@ -286,6 +297,7 @@ class ClockifyTimeEntryLoader:
         cache_key = (
             f"{self._cache_prefix}:report:{plan.clockify_project_id}:"
             f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
+            f"{self._store_stamp}"
         )
         self._cache_store.set(
             cache_key,
@@ -414,6 +426,7 @@ class ClockifyTimeEntryLoader:
         cache_key = (
             f"{self._cache_prefix}:strict_report:{plan.clockify_project_id}"
             f":{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
+            f"{self._store_stamp}"
         )
         cached_report = self._cache_store.get(cache_key)
 
@@ -558,15 +571,25 @@ class ClockifyTimeEntryLoader:
         self,
         force_refresh: bool = False,
     ) -> list[ClockifyProject]:
-        """Lee los proyectos del workspace, con cache de una hora."""
+        """Lee los proyectos del workspace, con cache de una hora.
+
+        La lista (~1,500 proyectos) tarda en leerse de la cache de archivos;
+        este cargador la conserva para las consultas siguientes de la misma
+        peticion. Una lectura forzada la renueva.
+        """
+        if self._projects is not None and not force_refresh:
+            return self._projects
+
         cache_key = f"{self._cache_prefix}:projects"
         cached_projects = self._cache_store.get(cache_key)
 
         if isinstance(cached_projects, list) and not force_refresh:
+            self._projects = cached_projects
             return cached_projects
 
         projects = self._client_factory().list_projects(self._workspace_id)
         self._cache_store.set(cache_key, projects, PROJECTS_CACHE_SECONDS)
+        self._projects = projects
 
         return projects
 
@@ -592,6 +615,7 @@ class ClockifyTimeEntryLoader:
         cache_key = (
             f"{self._cache_prefix}:report:{plan.clockify_project_id}:"
             f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
+            f"{self._store_stamp}"
         )
         cached_entries = self._cache_store.get(cache_key)
 
@@ -669,6 +693,17 @@ class ClockifyTimeEntryLoader:
 
         return project_entries, request_count
 
+    def _stored_month(
+        self, project_id: str, month: date, use_cache: bool
+    ) -> list[JsonObject] | None:
+        """Registros del mes desde la base diaria, si esta sincronizado."""
+        if not (use_cache and settings.CLOCKIFY_STORE_ENABLED):
+            return None
+        # Import diferido: los modelos requieren las apps ya cargadas.
+        from apps.datastore.services.clockify_store import read_month_rows
+
+        return read_month_rows(project_id, month, self._synced_months)
+
     def _monthly_report(
         self, plan: ReportPlan, use_cache: bool
     ) -> tuple[list[JsonObject], int]:
@@ -678,7 +713,8 @@ class ClockifyTimeEntryLoader:
         seen: set[str] = set()
         requests = 0
         client: ClockifyClient | None = None
-        while month <= plan.end_date:
+        # Un mes que aun no empieza no tiene registros: no se consulta.
+        while month <= min(plan.end_date, self._today):
             month_end = month.replace(
                 day=calendar.monthrange(month.year, month.month)[1]
             )
@@ -696,7 +732,13 @@ class ClockifyTimeEntryLoader:
                 % len(_REPORT_LOCKS)
             ]
             with lock:
-                cached = self._cache_store.get(key) if use_cache else None
+                cached: object = self._stored_month(
+                    plan.clockify_project_id, month, use_cache
+                )
+                if isinstance(cached, list):
+                    coverage_end = month_end
+                elif use_cache:
+                    cached = self._cache_store.get(key)
                 if not isinstance(cached, list) and use_cache:
                     cached = self._cache_store.get(full_key)
                     if isinstance(cached, list):
@@ -706,14 +748,12 @@ class ClockifyTimeEntryLoader:
                 else:
                     if client is None:
                         client = self._client_factory()
-                    rows, count = (
-                        client.fetch_detailed_report_counted(
-                            self._workspace_id,
-                            plan.clockify_project_id,
-                            month,
-                            coverage_end,
-                            REPORT_TIMEZONE,
-                        )
+                    rows, count = client.fetch_detailed_report_counted(
+                        self._workspace_id,
+                        plan.clockify_project_id,
+                        month,
+                        coverage_end,
+                        REPORT_TIMEZONE,
                     )
                     requests += count
                     self._cache_store.set(
@@ -729,20 +769,19 @@ class ClockifyTimeEntryLoader:
                 parse_entry_day(
                     (row.get("timeInterval") or {}).get("start"),
                     self._timezone,
-                ) is None
+                )
+                is None
                 for row in rows
             ):
                 # Sin fecha no podemos recortar un mes con seguridad.
                 if client is None:
                     client = self._client_factory()
-                rows, count = (
-                    client.fetch_detailed_report_counted(
-                        self._workspace_id,
-                        plan.clockify_project_id,
-                        query_start,
-                        query_end,
-                        REPORT_TIMEZONE,
-                    )
+                rows, count = client.fetch_detailed_report_counted(
+                    self._workspace_id,
+                    plan.clockify_project_id,
+                    query_start,
+                    query_end,
+                    REPORT_TIMEZONE,
                 )
                 requests += count
             for row in rows:

@@ -52,19 +52,19 @@ def test_legacy_panel_redirects_to_facturability_area(client):
     response = client.get("/legacy/")
 
     assert response.status_code == 302
-    assert response['Location'] == '/operativa/facturabilidad/area/'
+    assert response["Location"] == "/operativa/facturabilidad/area/"
 
 
 def test_project_entry_includes_its_loading_header_before_any_rpc(client):
-    old = client.get('/legacy/?proyecto=TYM.AAU.001')
+    old = client.get("/legacy/?proyecto=TYM.AAU.001")
     assert old.status_code == 302
-    assert old['Location'] == '/proyectos/TYM.AAU.001/'
-    html = client.get(old['Location']).content.decode()
+    assert old["Location"] == "/proyectos/TYM.AAU.001/"
+    html = client.get(old["Location"]).content.decode()
     assert 'class="ds project-detail-page"' in html
     assert '<option value="TYM.AAU.001">TYM.AAU.001</option>' in html
-    assert '<h2>TYM.AAU.001</h2>' in html
-    assert 'portal/js/proyecto_detalle.js' in html
-    assert 'legacy_skin.css' not in html
+    assert "<h2>TYM.AAU.001</h2>" in html
+    assert "portal/js/proyecto_detalle.js" in html
+    assert "legacy_skin.css" not in html
 
 
 def test_root_serves_the_new_executive_view(client, monkeypatch):
@@ -274,7 +274,12 @@ def test_ixs_sheet_rpcs_are_registered(client, monkeypatch):
     }
 
 
-def test_account_rpcs_are_registered(client):
+def test_account_rpcs_are_registered(client, monkeypatch):
+    # Sin repositorio real: la prueba no debe depender de credenciales locales.
+    monkeypatch.setattr(
+        "apps.ejecutivo.account_rpc.build_sheet_repository",
+        lambda: InMemorySheetRepository({}),
+    )
     view = call_rpc(client, "obtenerVistaCuentaBeecker", "").json()
     opportunity = call_rpc(client, "beeCuentaGuardarOportunidad", "", {}).json()
 

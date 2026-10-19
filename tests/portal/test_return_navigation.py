@@ -1,84 +1,187 @@
 """Return links must resolve to live portal routes without browser history."""
+
 import re
 from pathlib import Path
-from urllib.parse import urlsplit, parse_qs
+from urllib.parse import parse_qs, urlsplit
 
 import pytest
-from django.template import Template, Context
+from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.urls import resolve
 
 ROOT = Path(__file__).resolve().parents[2] / "apps/portal/templates/portal"
 LINKS = []
 for source in ROOT.glob("*.html"):
-    for anchor in re.findall(r"<a\b[^>]*>.*?</a>", source.read_text(encoding="utf-8"), re.S):
+    for anchor in re.findall(
+        r"<a\b[^>]*>.*?</a>", source.read_text(encoding="utf-8"), re.S
+    ):
         text = re.sub(r"<[^>]+>", "", anchor)
-        if any(label in text for label in ("Regresar", "Volver", "Operación de proyectos")):
+        if any(
+            label in text
+            for label in ("Regresar", "Volver", "Operación de proyectos")
+        ):
             LINKS.append((source.name, anchor))
+
 
 @pytest.mark.parametrize("name,anchor", LINKS, ids=[item[0] for item in LINKS])
 def test_return_links_resolve_to_correct_section(name, anchor):
-    html = Template(anchor).render(Context({"cost_back": "/", "executive_query": "periodo=anio&anio=2026"}))
+    html = Template(anchor).render(
+        Context({"cost_back": "/", "executive_query": "periodo=anio&anio=2026"})
+    )
     href = re.search(r'href="([^"]+)"', html).group(1).replace("&amp;", "&")
     assert not urlsplit(href).netloc
     match = resolve(urlsplit(href).path)
-    expected = "portal:ejecutiva" if name in {"comercial.html", "costos_detalle.html", "todas_cuentas.html"} else "portal:operativa"
+    expected = (
+        "portal:ejecutiva"
+        if name
+        in {"comercial.html", "costos_detalle.html", "todas_cuentas.html"}
+        else "portal:operativa"
+    )
     assert match.view_name == expected
     assert "target=" not in html
     assert "history.back" not in html
 
 
 def test_commercial_return_preserves_selected_executive_dates():
-    html = render_to_string("portal/comercial.html", {"from_executive": True, "start":"2026-03-01", "end":"2026-06-30", "error":"Fuente no disponible", "pipeline_details": {}})
-    href = re.search(r'data-portal-back href="([^"]+)"', html).group(1).replace("&amp;", "&")
+    html = render_to_string(
+        "portal/comercial.html",
+        {
+            "from_executive": True,
+            "start": "2026-03-01",
+            "end": "2026-06-30",
+            "error": "Fuente no disponible",
+            "pipeline_details": {},
+        },
+    )
+    href = (
+        re.search(r'data-portal-back href="([^"]+)"', html)
+        .group(1)
+        .replace("&amp;", "&")
+    )
     assert resolve(urlsplit(href).path).view_name == "portal:ejecutiva"
-    assert parse_qs(urlsplit(href).query) == {"periodo":["rango"],"desde":["2026-03-01"],"hasta":["2026-06-30"]}
+    assert parse_qs(urlsplit(href).query) == {
+        "periodo": ["rango"],
+        "desde": ["2026-03-01"],
+        "hasta": ["2026-06-30"],
+    }
 
 
 def test_project_return_is_visible_before_async_dashboard_loads():
-    html = render_to_string("portal/proyecto_detalle.html", {"project_id":"TYM.AAU.001","project_context":{"id":"TYM.AAU.001"}})
-    assert html.index("Regresar a Operativa") < html.index('id="view-container"')
+    html = render_to_string(
+        "portal/proyecto_detalle.html",
+        {"project_id": "TYM.AAU.001", "project_context": {"id": "TYM.AAU.001"}},
+    )
+    assert html.index("Regresar a Operativa") < html.index(
+        'id="view-container"'
+    )
 
 
 @pytest.mark.parametrize("from_executive", [False, True])
 def test_commercial_back_only_for_executive_entry(from_executive):
-    html = render_to_string("portal/comercial.html", {"from_executive": from_executive, "error":"Sin conexión", "pipeline_details":{}})
-    assert ('data-portal-back' in html) is from_executive
+    html = render_to_string(
+        "portal/comercial.html",
+        {
+            "from_executive": from_executive,
+            "error": "Sin conexión",
+            "pipeline_details": {},
+        },
+    )
+    assert ("data-portal-back" in html) is from_executive
 
 
-@pytest.mark.parametrize("query,expected", [("",False),("pipeline_year=2026",False),("origen=business-overview&desde=2026-01-01&hasta=2026-12-31",True),("desde=ejecutiva",True)])
+@pytest.mark.parametrize(
+    "query,expected",
+    [
+        ("", False),
+        ("pipeline_year=2026", False),
+        ("origen=business-overview&desde=2026-01-01&hasta=2026-12-31", True),
+        ("desde=ejecutiva", True),
+    ],
+)
 def test_commercial_origin_flag_survives_date_filters(query, expected):
-    from django.http import QueryDict
     from unittest.mock import Mock, patch
+
+    from django.http import QueryDict
+
     from apps.portal.services.commercial_view import build_commercial_context
+
     reader = Mock()
     reader.read_values.return_value = []
-    with patch("apps.portal.services.commercial_view.build_sheet_repository", return_value=reader):
-        assert build_commercial_context(QueryDict(query))["from_executive"] is expected
+    with patch(
+        "apps.portal.services.commercial_view.build_sheet_repository",
+        return_value=reader,
+    ):
+        assert (
+            build_commercial_context(QueryDict(query))["from_executive"]
+            is expected
+        )
 
 
-@pytest.mark.parametrize("path,label", [("/ejecutiva/cuentas/?periodo=anio&anio=2026&buscar=Heineken&clasificacion=pending", "Todas las cuentas"), ("/?periodo=mes&anio=2026&mes=10", "Business Overview"), ("/cuenta/heineken/?nombre=Heineken+Mexico&volver=%2Fejecutiva%2Fcuentas%2F", "Heineken Mexico")])
+@pytest.mark.parametrize(
+    "path,label",
+    [
+        (
+            "/ejecutiva/cuentas/?periodo=anio&anio=2026&buscar=Heineken&clasificacion=pending",
+            "Todas las cuentas",
+        ),
+        ("/?periodo=mes&anio=2026&mes=10", "Business Overview"),
+        (
+            "/cuenta/heineken/?nombre=Heineken+Mexico&volver=%2Fejecutiva%2Fcuentas%2F",
+            "Heineken Mexico",
+        ),
+    ],
+)
 def test_costs_return_to_immediate_parent(client, settings, path, label):
     settings.PORTAL_LOGIN_REQUIRED = False
-    response = client.get('/ejecutiva/costos/detalle/', {'nombre':'Heineken Mexico','volver':path,'periodo':'anio','anio':2026})
+    response = client.get(
+        "/ejecutiva/costos/detalle/",
+        {
+            "nombre": "Heineken Mexico",
+            "volver": path,
+            "periodo": "anio",
+            "anio": 2026,
+        },
+    )
     assert response.status_code == 200
-    assert response.context['cost_back'] == path
-    assert response.context['cost_back_label'] == label
+    assert response.context["cost_back"] == path
+    assert response.context["cost_back_label"] == label
 
 
-@pytest.mark.parametrize("target", ["https://other.test/", "//other.test/", "/api/rpc/getDashboardData/", "/no-existe/", "/\\other.test/", "/ejecutiva/acuerdos/"])
+@pytest.mark.parametrize(
+    "target",
+    [
+        "https://other.test/",
+        "//other.test/",
+        "/api/rpc/getDashboardData/",
+        "/no-existe/",
+        "/\\other.test/",
+        "/ejecutiva/acuerdos/",
+    ],
+)
 def test_return_rejects_non_page_destinations(target):
     from django.test import RequestFactory
+
     from apps.portal.services.return_navigation import return_context
-    request = RequestFactory().get('/cuenta/heineken/', {'volver':target})
-    assert return_context(request, '/operativa/', 'Operativa') == {'back_url':'/operativa/','back_label':'Operativa'}
+
+    request = RequestFactory().get("/cuenta/heineken/", {"volver": target})
+    assert return_context(request, "/operativa/", "Operativa") == {
+        "back_url": "/operativa/",
+        "back_label": "Operativa",
+    }
 
 
-def test_account_returns_to_account_list_instead_of_operations(client, monkeypatch, settings):
+def test_account_returns_to_account_list_instead_of_operations(
+    client, monkeypatch, settings
+):
     settings.PORTAL_LOGIN_REQUIRED = False
-    monkeypatch.setattr('apps.ejecutivo.account_rpc.get_account_view', lambda name: {'ok':True,'proyectos':[]})
-    parent='/ejecutiva/cuentas/?periodo=anio&anio=2026&buscar=Heineken'
-    response=client.get('/cuenta/heineken/', {'nombre':'Heineken Mexico','volver':parent})
-    assert response.context['back_url'] == parent
-    assert response.context['back_label'] == 'Todas las cuentas'
-    assert 'Regresar a Todas las cuentas' in response.content.decode()
+    monkeypatch.setattr(
+        "apps.ejecutivo.account_rpc.get_account_view",
+        lambda name: {"ok": True, "proyectos": []},
+    )
+    parent = "/ejecutiva/cuentas/?periodo=anio&anio=2026&buscar=Heineken"
+    response = client.get(
+        "/cuenta/heineken/", {"nombre": "Heineken Mexico", "volver": parent}
+    )
+    assert response.context["back_url"] == parent
+    assert response.context["back_label"] == "Todas las cuentas"
+    assert "Regresar a Todas las cuentas" in response.content.decode()

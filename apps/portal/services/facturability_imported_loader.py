@@ -8,14 +8,16 @@ from django.conf import settings
 from django.core.cache import cache
 from django.utils import timezone
 
-from apps.gse.services.base_store import BaseStore, build_connection
+from apps.gse.services.base_store import build_base_store, build_connection
 from apps.gse.services.clockify_month import MonthReportLoader
 from apps.gse.services.month_report import GseContext, get_month
 from apps.portal.constants import (
-    FACTURABILITY_CACHE_PREFIX,
     FACTURABILITY_CACHE_SECONDS,
 )
-from apps.portal.services.facturability_roster import apply_roster, attach_month_roster
+from apps.portal.services.facturability_roster import (
+    apply_roster,
+    attach_month_roster,
+)
 from core.exceptions import DashboardError, describe_error
 from core.sheets.factory import build_sheet_repository
 
@@ -60,7 +62,7 @@ def read_gse_month(month: str) -> dict[str, Any]:
             settings.CLOCKIFY_API_KEY,
             settings.CLOCKIFY_WORKSPACE_ID,
         )
-        store = BaseStore(reader, connection, timezone.now())
+        store = build_base_store(reader, connection, timezone.now())
         loader = MonthReportLoader(
             (
                 settings.CLOCKIFY_API_KEY,

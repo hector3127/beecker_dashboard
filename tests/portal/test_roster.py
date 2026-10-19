@@ -43,16 +43,18 @@ def test_hours_of_people_outside_the_roster_are_dropped() -> None:
 
 
 def test_roster_reads_only_monthly_bands_without_resources_or_mpb():
-    reader = InMemorySheetRepository({
-        "Bandas/rol": [
-            ["Nombre", "Septiembre", "ROL", "Octubre"],
-            ["Magda Perla González Sáenz", "B2", "DEV", "BAJA"],
-            ["Karina Marmol", "B1", "DEV", "B1"],
-            ["Cesar Meza Hernandez", "BAJA", "DEV", "BAJA"],
-            ["No vigente", "NA", "DEV", ""],
-            ["Sin banda", "", "DEV", ""],
-        ],
-    })
+    reader = InMemorySheetRepository(
+        {
+            "Bandas/rol": [
+                ["Nombre", "Septiembre", "ROL", "Octubre"],
+                ["Magda Perla González Sáenz", "B2", "DEV", "BAJA"],
+                ["Karina Marmol", "B1", "DEV", "B1"],
+                ["Cesar Meza Hernandez", "BAJA", "DEV", "BAJA"],
+                ["No vigente", "NA", "DEV", ""],
+                ["Sin banda", "", "DEV", ""],
+            ],
+        }
+    )
     source = attach_month_roster(GSE, reader, "2026-09")
     result = apply_roster(source, source["plantilla"])
     month = build_month_facturability("2026-09", result)
@@ -67,9 +69,14 @@ def test_roster_reads_only_monthly_bands_without_resources_or_mpb():
 
 
 def test_missing_historical_band_keeps_hours_with_notice():
-    reader = InMemorySheetRepository({
-        "Bandas/rol": [["Nombre", "Septiembre", "ROL"], ["Ana", "B1", "DEV"]],
-    })
+    reader = InMemorySheetRepository(
+        {
+            "Bandas/rol": [
+                ["Nombre", "Septiembre", "ROL"],
+                ["Ana", "B1", "DEV"],
+            ],
+        }
+    )
     result = attach_month_roster(GSE, reader, "2026-01")
     assert "plantilla" not in result
     assert result["detalle"] == GSE["detalle"]
@@ -79,10 +86,15 @@ def test_missing_historical_band_keeps_hours_with_notice():
 
 def test_person_with_only_non_billable_hours_counts_for_capacity():
     gse = {
-        "detalle": [{
-            "recurso": "Ana", "area": "DEV", "horas": 10,
-            "servicio": "IXB", "categorias": ["No facturable"],
-        }],
+        "detalle": [
+            {
+                "recurso": "Ana",
+                "area": "DEV",
+                "horas": 10,
+                "servicio": "IXB",
+                "categorias": ["No facturable"],
+            }
+        ],
     }
     result = apply_roster(gse, [{"nombre": "Ana", "rol": "DEV"}])
     month = build_month_facturability("2026-09", result)

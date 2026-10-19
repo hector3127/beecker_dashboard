@@ -33,6 +33,57 @@ paralelo sin compartir conexiones entre hilos.
 logger = logging.getLogger(__name__)
 
 
+def store_enabled() -> bool:
+    """Indica si Azure DevOps se lee de la base diaria."""
+    return bool(settings.AZURE_STORE_ENABLED)
+
+
+def stored_project_names() -> list[str] | None:
+    """Proyectos de la base, o None si esta apagada o vacia."""
+    if not store_enabled():
+        return None
+    # Import diferido: los modelos requieren las apps ya cargadas.
+    from apps.datastore.services import azure_store
+
+    return azure_store.read_project_names()
+
+
+def stored_work_items(project_name: str) -> list[JsonObject] | None:
+    """Work items de la base, o None si no estan."""
+    if not store_enabled():
+        return None
+    from apps.datastore.services import azure_store
+
+    return azure_store.read_work_items(project_name)
+
+
+def stored_raid(project_name: str) -> raid_cache.RaidData | None:
+    """RAID de la base si sigue vigente, o None."""
+    if not store_enabled():
+        return None
+    from apps.datastore.services import azure_store
+
+    return azure_store.read_raid(project_name, raid_cache.read_version(cache))
+
+
+def stored_iterations(project_name: str) -> list[JsonObject] | None:
+    """Iteraciones de la base, o None si no estan."""
+    if not store_enabled():
+        return None
+    from apps.datastore.services import azure_store
+
+    return azure_store.read_iterations(project_name)
+
+
+def is_stored(project_name: str) -> bool:
+    """Indica si el proyecto esta en la base."""
+    if not store_enabled():
+        return False
+    from apps.datastore.services import azure_store
+
+    return azure_store.has_project(project_name)
+
+
 def clear_raid_cache() -> None:
     """
     Invalida el RAID guardado de todos los Team Projects.
@@ -69,6 +120,11 @@ class AzureDevOpsGateway:
         Returns:
             Los nombres de los proyectos.
         """
+        stored = stored_project_names()
+
+        if stored:
+            return stored
+
         cache_key = f"{self._cache_prefix}:projects"
         cached_names = cache.get(cache_key)
 
@@ -90,6 +146,11 @@ class AzureDevOpsGateway:
         Returns:
             Los work items del proyecto.
         """
+        stored = stored_work_items(project_name)
+
+        if stored is not None:
+            return stored
+
         cache_key = f"{self._cache_prefix}:work_items:{project_name}"
         cached_items = cache.get(cache_key)
 
@@ -111,6 +172,11 @@ class AzureDevOpsGateway:
         Returns:
             Los work items RAID y los campos de Risk.
         """
+        stored = stored_raid(project_name)
+
+        if stored is not None:
+            return stored
+
         return raid_cache.read_raid(
             cache,
             self._cache_prefix,
@@ -133,6 +199,11 @@ class AzureDevOpsGateway:
         Returns:
             Las iteraciones en lista plana.
         """
+        stored = None if force_refresh else stored_iterations(project_name)
+
+        if stored is not None:
+            return stored
+
         cache_key = f"{self._cache_prefix}:iterations:{project_name}"
         cached_iterations = cache.get(cache_key)
 
@@ -164,6 +235,10 @@ class AzureDevOpsGateway:
             include_iterations: Tambien precarga las iteraciones.
         """
         unique_names = [name for name in dict.fromkeys(project_names) if name]
+
+        # Lo guardado en la base no necesita precarga; solo lo que falta.
+        unique_names = [name for name in unique_names if not is_stored(name)]
+
         loaders: list[ProjectLoader] = [self.list_work_items]
 
         if include_iterations:

@@ -8,7 +8,7 @@ from django.core.cache import cache
 from django.utils import timezone
 
 from apps.clockify.services.clockify_client import ClockifyClient
-from apps.gse.services.base_store import BaseStore, build_connection
+from apps.gse.services.base_store import build_base_store, build_connection
 from apps.gse.services.base_writer import BaseWriter, SheetStore
 from apps.gse.services.batch_read import get_batch
 from apps.gse.services.clockify_ids import IdsContext, get_clockify_ids
@@ -47,7 +47,7 @@ def build_context(reader: SheetStore) -> GseContext:
         settings.CLOCKIFY_API_KEY,
         settings.CLOCKIFY_WORKSPACE_ID,
     )
-    store = BaseStore(reader, connection, timezone.now())
+    store = build_base_store(reader, connection, timezone.now())
     loader = MonthReportLoader(
         (
             settings.CLOCKIFY_API_KEY,

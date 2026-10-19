@@ -1,0 +1,86 @@
+# PLANTILLA (no probada en Azure DevOps): sincronizaciones programadas del panel
+# con un pipeline. Crea un pipeline nuevo apuntando a este archivo; el CI de
+# pruebas sigue siendo azure-pipelines.yml.
+#
+# Sirve para los pasos que solo escriben en la base (hojas, Azure DevOps,
+# Clockify): el agente solo necesita llegar a PostgreSQL y a las APIs.
+# warm_cache NO va aqui: llena la cache del equipo donde corre, asi que debe
+# correr en el contenedor de la aplicacion (scripts/warm_loop.sh).
+#
+# Antes de usarlo:
+#   1. Variable group "beecker-dashboard-sync" con (marcadas como secretas):
+#        DATABASE_URL, DATABASE_SSL_REQUIRE=1, DJANGO_SECRET_KEY,
+#        GOOGLE_SPREADSHEET_ID, CLOCKIFY_API_KEY, CLOCKIFY_WORKSPACE_ID,
+#        AZURE_DEVOPS_ORGANIZATION, AZURE_DEVOPS_PAT
+#   2. Secure file "key.json" (cuenta de servicio de Google) en Pipelines > Library.
+#   3. El firewall de PostgreSQL Flexible Server debe aceptar al agente.
+#
+# Horarios en UTC. Mexico (sin horario de verano) = UTC-6: 06:00 locales = 12:00 UTC.
+# Si cambias el displayName del horario diario, cambialo tambien en el script.
+
+trigger: none
+pr: none
+
+schedules:
+  - cron: "5 * * * *"
+    displayName: Horario - hojas, Azure DevOps y catalogos
+    branches: { include: [main] }
+    always: true
+  - cron: "0 12 * * *"
+    displayName: Diario - Clockify y catalogos
+    branches: { include: [main] }
+    always: true
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: beecker-dashboard-sync
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "3.12"
+
+  - task: DownloadSecureFile@1
+    name: googleKey
+    inputs:
+      secureFile: key.json
+
+  - script: |
+      cp "$(googleKey.secureFilePath)" key.json
+      pip install uv==0.12.7
+      uv sync --locked --no-dev
+    displayName: Preparar entorno
+
+  # Los pasos se eligen al EJECUTAR (Build.CronSchedule.DisplayName no existe
+  # al compilar el YAML, por eso no se usa una expresion de plantilla). En una
+  # ejecucion manual la variable queda sin valor y corren los pasos del horario.
+  - script: |
+      if [ "$(Build.CronSchedule.DisplayName)" = "Diario - Clockify y catalogos" ]; then
+        STEPS="clockify,catalogos"
+      else
+        STEPS="hojas,azure,catalogos"
+      fi
+      echo "Pasos: $STEPS"
+      uv run python manage.py sync_datastore --pasos "$STEPS"
+    displayName: Sincronizar
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.production
+      DATABASE_URL: $(DATABASE_URL)
+      DATABASE_SSL_REQUIRE: $(DATABASE_SSL_REQUIRE)
+      DJANGO_SECRET_KEY: $(DJANGO_SECRET_KEY)
+      GOOGLE_SPREADSHEET_ID: $(GOOGLE_SPREADSHEET_ID)
+      CLOCKIFY_API_KEY: $(CLOCKIFY_API_KEY)
+      CLOCKIFY_WORKSPACE_ID: $(CLOCKIFY_WORKSPACE_ID)
+      AZURE_DEVOPS_ORGANIZATION: $(AZURE_DEVOPS_ORGANIZATION)
+      AZURE_DEVOPS_PAT: $(AZURE_DEVOPS_PAT)
+
+  # Falla el pipeline (y avisa) si alguna fuente quedo atrasada.
+  - script: uv run python manage.py check_datastore
+    displayName: Revisar frescura
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.production
+      DATABASE_URL: $(DATABASE_URL)
+      DATABASE_SSL_REQUIRE: $(DATABASE_SSL_REQUIRE)
+      DJANGO_SECRET_KEY: $(DJANGO_SECRET_KEY)

@@ -75,7 +75,7 @@ def test_summary_cut_is_embedded_and_its_freshness_is_independent():
     request = RequestFactory().get("/operativa/")
     request.user = SimpleNamespace(is_authenticated=True)
     key = views._operations_summary_key()
-    cache.set(key, '<div data-operations-summary>73%</div>')
+    cache.set(key, "<div data-operations-summary>73%</div>")
     cache.set(key + ":fresh", True)
     html = views.operativa(request).content
     assert b"73%" in html
