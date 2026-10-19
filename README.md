@@ -6,6 +6,8 @@ Rendimiento: [reutilización de horas y actualización en segundo plano](docs/re
 
 Propuesta en revisión: [base de datos PostgreSQL llenada cada día](docs/propuesta-base-datos-postgres.md).
 
+Cómo mantenerla al día: [ejecución programada en Windows y Azure](docs/ejecucion-programada.md).
+
 Integración de Ejecutiva del 14/10/2026: [funciones, fuentes y validación](docs/integracion-ejecutiva-final.md).
 
 Migración a Python/Django del dashboard Beecker que hoy vive en Google

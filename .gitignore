@@ -21,6 +21,9 @@ staticfiles/
 # Respaldos y copias temporales usados en revisiones locales.
 tmp/
 
+# Bitacoras de las tareas programadas (scripts/schedule_windows.ps1).
+logs/
+
 # Grafo de conocimiento de graphify (se regenera con /graphify).
 graphify-out/
 .graphifyignore

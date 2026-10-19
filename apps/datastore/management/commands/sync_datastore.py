@@ -15,20 +15,36 @@ from apps.datastore.services.azure_sync import sync_azure
 from apps.datastore.services.catalogs import build_catalogs
 from apps.datastore.services.change_detection import plan_daily
 from apps.datastore.services.clockify_sync import month_range, sync_months
+from apps.datastore.services.locks import sync_lock
 from apps.datastore.services.sheet_sync import sync_sheets
 from core.exceptions import DashboardError
 from core.sheets.factory import build_sheet_repository
 from core.sheets.store_read_cache import STORED_SHEETS, read_snapshot
 
 """BKD.130.005 - Sincronizar la base diaria
-Sin opciones descarga los meses que aun pueden cambiar (ultimos 10 dias,
-o desde la fecha de bloqueo de Clockify) y los meses guardados cuyos
-totales ya no cuadran con el reporte resumido.
---desde AAAA-MM hace la carga inicial; --mes AAAA-MM recarga un mes.
-Uso: python manage.py sync_datastore [--sin-verificar]
-     python manage.py sync_datastore --desde AAAA-MM [--hasta AAAA-MM]
-     python manage.py sync_datastore --mes AAAA-MM
+Pasos: hojas (Sheets), azure (Azure DevOps), clockify (horas) y catalogos
+(clientes, personas y proyectos). Sin opciones corre todos. En Clockify
+descarga los meses que aun pueden cambiar (ultimos 10 dias, o desde la
+fecha de bloqueo) y los guardados cuyos totales ya no cuadran con el
+reporte resumido. Cada paso toma un candado: si otra ejecucion lo tiene,
+se omite.
+Uso programado (ver docs/ejecucion-programada.md):
+     cada hora:  sync_datastore --pasos hojas,azure,catalogos
+     cada dia:   sync_datastore --pasos clockify,catalogos
+Otros: sync_datastore --desde AAAA-MM [--hasta AAAA-MM]  (carga inicial)
+       sync_datastore --mes AAAA-MM                       (recarga un mes)
+       sync_datastore --sin-verificar                     (sin comparar totales)
 """
+
+STEPS = ("hojas", "azure", "clockify", "catalogos")
+# Despues de este tiempo un candado se considera abandonado (el proceso
+# murio). Clockify admite la carga inicial, que tarda cerca de una hora.
+LOCK_SECONDS = {
+    "hojas": 15 * 60,
+    "azure": 30 * 60,
+    "clockify": 3 * 60 * 60,
+    "catalogos": 15 * 60,
+}
 
 
 def parse_month(text: str) -> date:
@@ -91,19 +107,71 @@ class Command(BaseCommand):
             help="No reconstruye los catalogos de clientes, personas y "
             "proyectos.",
         )
+        parser.add_argument(
+            "--pasos",
+            help="Pasos a correr, separados por coma: "
+            + ", ".join(STEPS)
+            + ". Por defecto todos.",
+        )
+
+    def selected_steps(self, options: dict[str, Any]) -> list[str]:
+        """
+        Pasos que corresponden a las opciones, en su orden de ejecucion.
+
+        Args:
+            options: Opciones del comando.
+
+        Returns:
+            Los pasos a correr.
+
+        Raises:
+            CommandError: Cuando --pasos trae un paso que no existe.
+        """
+        if options["pasos"]:
+            chosen = {
+                p.strip() for p in options["pasos"].split(",") if p.strip()
+            }
+            unknown = chosen - set(STEPS)
+            if unknown:
+                raise CommandError(
+                    f"Paso desconocido: {', '.join(sorted(unknown))}. "
+                    f"Usa: {', '.join(STEPS)}."
+                )
+        elif options["solo_hojas"]:
+            chosen = {"hojas", "catalogos"}
+        elif options["solo_azure"]:
+            chosen = {"azure"}
+        else:
+            chosen = set(STEPS)
+        for flag, step in (
+            ("sin_hojas", "hojas"),
+            ("sin_azure", "azure"),
+            ("sin_catalogos", "catalogos"),
+        ):
+            if options[flag]:
+                chosen.discard(step)
+        return [step for step in STEPS if step in chosen]
 
     def handle(self, *args: Any, **options: Any) -> None:
-        """Guarda las hojas y las horas de Clockify; muestra el resultado."""
+        """Corre los pasos elegidos, cada uno con su candado."""
+        runners = {
+            "hojas": lambda: self.sync_sheets(),
+            "azure": lambda: self.sync_azure_projects(),
+            "clockify": lambda: self.sync_clockify(options),
+            "catalogos": lambda: self.sync_catalogs(),
+        }
         failures: list[str] = []
-        only_sheets, only_azure = options["solo_hojas"], options["solo_azure"]
-        if not options["sin_hojas"] and not only_azure:
-            failures.extend(self.sync_sheets())
-        if not options["sin_azure"] and not only_sheets:
-            failures.extend(self.sync_azure_projects())
-        if not only_sheets and not only_azure:
-            failures.extend(self.sync_clockify(options))
-        if not options["sin_catalogos"] and not only_azure:
-            self.sync_catalogs()
+        for step in self.selected_steps(options):
+            with sync_lock(step, LOCK_SECONDS[step]) as acquired:
+                if not acquired:
+                    self.stdout.write(
+                        self.style.WARNING(
+                            f"{step}: otra sincronizacion sigue en curso; "
+                            "se omite."
+                        )
+                    )
+                    continue
+                failures.extend(runners[step]())
         if failures:
             raise CommandError("\n".join(failures))
 
@@ -161,8 +229,13 @@ class Command(BaseCommand):
         )
         return []
 
-    def sync_catalogs(self) -> None:
-        """Reconstruye los catalogos con las hojas ya guardadas."""
+    def sync_catalogs(self) -> list[str]:
+        """
+        Reconstruye los catalogos con las hojas ya guardadas.
+
+        Returns:
+            Siempre vacia: sin hojas guardadas solo avisa.
+        """
         sheets = {
             name: rows
             for name in STORED_SHEETS
@@ -172,7 +245,7 @@ class Command(BaseCommand):
             self.stdout.write(
                 self.style.WARNING("Catalogos: no hay hojas guardadas.")
             )
-            return
+            return []
         result = build_catalogs(sheets)
         for warning in result.warnings:
             self.stdout.write(self.style.WARNING(warning))
@@ -184,6 +257,7 @@ class Command(BaseCommand):
                 f"{len(result.merged_persons)} personas con variantes unidas)"
             )
         )
+        return []
 
     def sync_clockify(self, options: dict[str, Any]) -> list[str]:
         """

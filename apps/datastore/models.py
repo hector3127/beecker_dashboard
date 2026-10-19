@@ -198,6 +198,14 @@ class AzureIteration(models.Model):
         indexes = [models.Index(fields=["project", "position"])]
 
 
+class SyncLock(models.Model):
+    """Candado de un paso de la sincronizacion: una sola ejecucion a la vez."""
+
+    name = models.CharField(max_length=40, unique=True)
+    holder = models.CharField(max_length=120)
+    locked_at = models.DateTimeField()
+
+
 class ClockifyMonthSync(models.Model):
     """Mes de Clockify ya guardado en la base y su resumen."""
 

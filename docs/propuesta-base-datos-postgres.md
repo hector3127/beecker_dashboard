@@ -115,7 +115,7 @@ reemplazo por `clockify_time_entry` queda para una etapa posterior.
 | Azure DevOps (work items, RAID, campos de Risk, iteraciones, proyectos) | Hecho (`AZURE_STORE_ENABLED=1`, `sync_datastore --solo-azure`). `AzureDevOpsGateway` lee de la base y, si un proyecto no está guardado, sigue en vivo. 110 proyectos, 39,114 work items y 756 iteraciones se sincronizan en ~46 s. El RAID se invalida cuando la app crea un registro (versión de `raid_cache`). Paridad verificada: los 110 proyectos son idénticos a la lectura en vivo |
 | Panel Daily / IXS (cliente propio `DailyAzureClient`: WIQL por proyecto, creación de riesgos) | Pendiente: escribe en Azure y mantiene su propia caché |
 | Tipo de cambio (open.er-api.com) | Pendiente |
-| Tarea diaria programada | Pendiente (depende del despliegue en Genesis) |
+| Ejecución programada | Hecha en código y documentada ([ejecucion-programada.md](ejecucion-programada.md)): pasos por cadencia, candados, reintentos, `check_datastore`, script de Windows y plantillas para Azure. **No instalada** en ningún equipo; la plantilla de Azure DevOps y `warm_loop.sh` no se han probado en Azure |
 
 ## Rendimiento medido
 

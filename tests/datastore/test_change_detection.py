@@ -62,7 +62,7 @@ def test_read_lock_returns_none_instead_of_failing():
     client.get.return_value = ok({}, 500)
     assert detection.read_lock(client, "ws") is None
     client.get.side_effect = ClockifyRequestError("offline")
-    assert detection.read_lock(client, "ws") is None
+    assert detection.read_lock(client, "ws", sleep=lambda _: None) is None
     client.get.side_effect = None
     client.get.return_value = ok(
         {"workspaceSettings": {"lockTimeEntries": None}}

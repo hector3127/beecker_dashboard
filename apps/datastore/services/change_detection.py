@@ -1,6 +1,8 @@
 """Detecta cambios en meses antiguos de Clockify antes de sincronizar."""
 
 import logging
+import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from urllib.parse import quote
@@ -16,6 +18,7 @@ from apps.datastore.services.clockify_sync import (
     month_range,
     window_months,
 )
+from apps.datastore.services.retry import MAX_CONSECUTIVE_FAILURES, with_retries
 from core.utils.text import to_text
 
 """BKD.130.006 - Deteccion de cambios en meses bloqueados
@@ -41,20 +44,27 @@ class DailyPlan:
     notes: list[str] = field(default_factory=list)
 
 
-def read_lock(client: ClockifyClient, workspace_id: str) -> str | None:
+def read_lock(
+    client: ClockifyClient,
+    workspace_id: str,
+    sleep: Callable[[float], None] = time.sleep,
+) -> str | None:
     """
     Lee la fecha lockTimeEntries del workspace.
 
     Args:
         client: Cliente de Clockify.
         workspace_id: ID del workspace.
+        sleep: Espera entre reintentos (se cambia en las pruebas).
 
     Returns:
         La fecha ISO 8601, cadena vacia si no hay bloqueo, o None si no
         se pudo consultar.
     """
     try:
-        response = client.get(f"/workspaces/{quote(workspace_id)}")
+        response = with_retries(
+            lambda: client.get(f"/workspaces/{quote(workspace_id)}"), sleep
+        )
     except ClockifyRequestError as error:
         logger.warning("No se pudo leer lockTimeEntries: %s", error)
         return None
@@ -123,6 +133,7 @@ def fetch_month_totals(
     client: ClockifyClient,
     workspace_id: str,
     month: date,
+    sleep: Callable[[float], None] = time.sleep,
 ) -> tuple[int, int]:
     """
     Registros y segundos de un mes segun el reporte resumido.
@@ -131,6 +142,7 @@ def fetch_month_totals(
         client: Cliente de Clockify.
         workspace_id: ID del workspace.
         month: Primer dia del mes.
+        sleep: Espera entre reintentos (se cambia en las pruebas).
 
     Returns:
         (registros, segundos).
@@ -142,7 +154,9 @@ def fetch_month_totals(
     payload.pop("detailedFilter")
     payload.pop("sortOrder")
     payload["summaryFilter"] = {"groups": ["PROJECT"], "sortColumn": "GROUP"}
-    response = client.post_workspace_summary(workspace_id, payload)
+    response = with_retries(
+        lambda: client.post_workspace_summary(workspace_id, payload), sleep
+    )
     if response.status_code >= SUCCESS_STATUS_LIMIT:
         raise ClockifyRequestError(
             f"Clockify respondio {response.status_code} al resumir "
@@ -161,31 +175,46 @@ def find_changed_months(
     client: ClockifyClient,
     workspace_id: str,
     skip: set[date],
+    sleep: Callable[[float], None] = time.sleep,
 ) -> tuple[list[date], list[str]]:
     """
     Compara cada mes guardado con el reporte resumido de Clockify.
+
+    Si la conexion falla varias veces seguidas se deja de verificar: la
+    verificacion es opcional y no debe alargar la tarea cuando Clockify no
+    responde. El siguiente dia se vuelve a intentar.
 
     Args:
         client: Cliente de Clockify.
         workspace_id: ID del workspace.
         skip: Meses que ya se van a descargar (no se comparan).
+        sleep: Espera entre reintentos (se cambia en las pruebas).
 
     Returns:
         Los meses que no cuadran y las notas con los totales.
     """
     changed: list[date] = []
     notes: list[str] = []
+    failures = 0
     for saved in ClockifyMonthSync.objects.order_by("month"):
         if saved.month in skip:
             continue
         try:
             count, seconds = fetch_month_totals(
-                client, workspace_id, saved.month
+                client, workspace_id, saved.month, sleep
             )
+            failures = 0
         except ClockifyRequestError as error:
             notes.append(
                 f"{saved.month:%Y-%m}: no se pudo verificar ({error})."
             )
+            failures = failures + 1 if not error.status_code else 0
+            if failures >= MAX_CONSECUTIVE_FAILURES:
+                notes.append(
+                    "Clockify no responde: se omite el resto de la "
+                    "verificacion hasta la siguiente corrida."
+                )
+                break
             continue
         if (count, seconds) != (saved.entries_count, saved.total_seconds):
             changed.append(saved.month)

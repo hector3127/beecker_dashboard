@@ -5,6 +5,7 @@ import logging
 import time
 from collections.abc import Callable, Iterable
 from datetime import date, timedelta
+from functools import partial
 from typing import Any
 from zoneinfo import ZoneInfo
 
@@ -29,6 +30,7 @@ from apps.clockify.services.report_mapper import (
     read_task_name,
 )
 from apps.datastore.models import ClockifyMonthSync, ClockifyTimeEntry, SyncRun
+from apps.datastore.services.retry import with_retries
 from core.utils.text import to_text
 
 """BKD.130.003 - Sincronizacion de Clockify
@@ -141,8 +143,13 @@ def download_month(
     for page in range(1, MAX_PAGES + 1):
         if page > 1:
             sleep(PAGE_PAUSE_SECONDS)
-        response = client.post_workspace_report(
-            workspace_id, build_month_payload(month, page)
+        response = with_retries(
+            partial(
+                client.post_workspace_report,
+                workspace_id,
+                build_month_payload(month, page),
+            ),
+            sleep,
         )
         if response.status_code == FORBIDDEN_STATUS:
             raise ClockifyReportForbiddenError(

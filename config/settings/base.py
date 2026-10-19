@@ -157,6 +157,14 @@ DATABASES = {
     ),
 }
 
+if DATABASES["default"]["ENGINE"].endswith("sqlite3"):
+    # SQLite local: las sincronizaciones programadas escriben mientras el
+    # panel lee; WAL permite leer durante una escritura y la espera evita
+    # «database is locked» por unos segundos.
+    DATABASES["default"].setdefault("OPTIONS", {}).update(
+        {"init_command": "PRAGMA journal_mode=WAL;", "timeout": 30}
+    )
+
 # Reemplaza a CacheService. Se usa cache en archivos para que los
 # workers de gunicorn compartan el mismo contenido.
 CACHES = {
