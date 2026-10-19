@@ -333,6 +333,19 @@ Día normal estimado: ~30 solicitudes y 4-5 minutos, una vez al día.
 
 ## Pendiente de verificar
 
+Verificado el 19/10/2026: la rama `feature/base-datos` sola, en una copia limpia
+sin los cambios sin commit del árbol de trabajo, pasa las 1,428 pruebas
+(cobertura 90.7 %). Una prueba (`test_account_rpcs_are_registered`) dependía de
+las credenciales locales y fallaba también en `main` limpio; se corrigió.
+
+- **PostgreSQL no se ha probado.** Todo corrió en SQLite. Falta correr las
+  migraciones y la carga inicial contra un PostgreSQL real (en el equipo de
+  desarrollo no hay Postgres, Docker ni WSL). Límite conocido: PostgreSQL no
+  acepta el carácter NUL (`\u0000`) en texto ni en JSON y un solo registro con
+  él abortaría la transacción de su mes. Hoy hay 0 en las 530,000 horas, los
+  39,000 work items y las 12 hojas, por eso no se agregó código para limpiarlo.
+- CI de este repositorio: `ruff` y `mypy` ya tenían cientos de errores en `main`
+  antes de la base (fuera de `apps/datastore`, que sí pasa limpio).
 - Las columnas de la sección «Hojas reales» se revisaron el 19/10/2026. Los
   catálogos comprueban el encabezado de cada columna antes de leerla y avisan
   si una hoja cambió de forma.
