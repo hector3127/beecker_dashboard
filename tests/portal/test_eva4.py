@@ -130,6 +130,40 @@ def test_page_structure_is_accessible_and_puts_processes_first(monkeypatch):
     assert 'class="eva4-kpis"' not in html
 
 
+def render_eva4(monkeypatch, params=None, today=TODAY):
+    data = eva4.build_eva4([HEADER, row()], TODAY)
+    data["month"] = "2026-10"
+    monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
+    monkeypatch.setattr(eva4.timezone, "localdate", lambda: today)
+    request = RequestFactory().get("/operativa/eva-4/", params or {})
+    return views.eva4(request).content.decode()
+
+
+def test_anterior_view_is_available_until_the_cutoff_date(monkeypatch):
+    html = render_eva4(monkeypatch, {"vista": "anterior"})
+    assert "Estás viendo la pantalla anterior" in html
+    assert "03/11/2026" in html
+    assert "eva4-month-form" in html  # sigue siendo EVA-04
+
+
+def test_new_view_links_to_the_anterior_one_during_validation(monkeypatch):
+    html = render_eva4(monkeypatch)
+    assert "vista=anterior" in html
+    assert "ver la pantalla anterior" in html
+    assert "Estás viendo la pantalla anterior" not in html
+
+
+def test_anterior_param_is_ignored_after_the_cutoff(monkeypatch):
+    html = render_eva4(
+        monkeypatch,
+        {"vista": "anterior"},
+        today=eva4.ANTERIOR_HASTA.replace(day=eva4.ANTERIOR_HASTA.day + 1),
+    )
+    assert "Estás viendo la pantalla anterior" not in html
+    assert "vista=anterior" not in html
+    assert 'id="eva4-processes"' in html
+
+
 def test_renewals_include_overdue_and_exclude_more_than_90_days():
     result = eva4.build_eva4(
         [HEADER, row(finish="2026-10-06"), row("2", finish="2027-06-01")], TODAY

@@ -1159,21 +1159,28 @@ def eva1(request: HttpRequest) -> HttpResponse:
 @require_GET
 def eva4(request: HttpRequest) -> HttpResponse:
     """Muestra clientes, renovaciones y procesos del servicio continuo."""
-    from apps.portal.services.eva4 import load_eva4
+    from apps.portal.services.eva4 import (
+        ANTERIOR_HASTA,
+        anterior_disponible,
+        load_eva4,
+    )
 
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
     result = (
         load_eva4(request.GET["mes"]) if request.GET.get("mes") else load_eva4()
     )
+    available = anterior_disponible()
+    old = available and request.GET.get("vista") == "anterior"
     return render(
         request,
-        "portal/eva4.html",
+        "portal/eva4_anterior.html" if old else "portal/eva4.html",
         {
             "active": "operativa",
             "eva4": result,
             "loaded_at": result.get("loaded_at"),
             "error": result.get("error"),
+            "anterior_hasta": ANTERIOR_HASTA if available else None,
         },
     )
 
