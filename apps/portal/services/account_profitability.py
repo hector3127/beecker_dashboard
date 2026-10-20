@@ -5,22 +5,18 @@ from decimal import Decimal, InvalidOperation
 from typing import Any
 from urllib.parse import urlencode
 
-from django.core.cache import cache
 from django.urls import reverse
 from django.utils.text import slugify
 
 from apps.portal.services.executive_period import bounds, contains, query_string
-from apps.portal.services.revenue import REVENUE_STATUSES
-from apps.portal.services.revenue_costs import key
+from apps.portal.services.revenue import INVOICE_STATUSES
+from apps.portal.services.revenue_costs import cached_project_cost
 from core.sheets.factory import build_sheet_repository
-from core.sheets.protocols import SheetReader
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
 
 
-def account_profitability(
-    reader: SheetReader | None = None,
-) -> dict[str, Any]:
+def account_profitability(reader: Any = None) -> Any:
     """Clasifica cuentas con costos disponibles y sin horas duplicadas."""
     accounts: dict[str, dict[str, Any]] = {}
     reader = reader or build_sheet_repository()
@@ -31,7 +27,7 @@ def account_profitability(
             for c in row[:7]
         ):
             continue
-        if str(row[0]).strip().casefold() not in REVENUE_STATUSES:
+        if str(row[0]).strip().casefold() not in INVOICE_STATUSES:
             continue
         day = to_datetime(row[6])
         name = str(row[1] or "").strip()
@@ -89,7 +85,7 @@ def account_profitability(
     entry_owners = defaultdict(set)
     for name, account in accounts.items():
         for pid in account["ids"]:
-            result = cache.get(key(pid))
+            result = cached_project_cost(pid)
             if not result or not result["complete"]:
                 account["pending"] += 1
             if result:
@@ -148,31 +144,87 @@ def account_profitability(
         ):
             unhealthy.append(item)
 
-    def order(row: dict[str, Any]) -> tuple[float, str]:
+    def order(row: Any) -> Any:
         return (-row["revenue"], row["name"])
 
+    return rank_financial_accounts(all_accounts)
+
+
+def rank_financial_accounts(accounts: Any) -> Any:
+    """Weight two normalized monetary indicators; percentages inform."""
+    all_accounts = [dict(row) for row in accounts]
+    eligible = all_accounts
+    largest_invoice = max((row["revenue"] for row in eligible), default=0) or 1
+    profit_scale = (
+        max((abs(row["gross_profit"]) for row in eligible), default=0) or 1
+    )
+    for row in all_accounts:
+        row["partial"] = bool(row.get("pending"))
+        revenue, cost = row.get("revenue") or 0, row.get("cost") or 0
+        margin = row.get("margin")
+        row["classification"] = (
+            "future"
+            if revenue > 0 and cost <= 0
+            else "unhealthy"
+            if cost > 0 and (revenue <= 0 or margin is not None and margin < 30)
+            else "healthy"
+            if margin is not None and margin > 70
+            else "intermediate"
+            if margin is not None and cost > 0
+            else "pending"
+        )
+        row["profit_points"] = (
+            round(70 * row["gross_profit"] / profit_scale, 4)
+            if row in eligible
+            else None
+        )
+        row["invoice_points"] = (
+            round(30 * row["revenue"] / largest_invoice, 4)
+            if row in eligible
+            else None
+        )
+        row["weighted_score"] = (
+            round(row["profit_points"] + row["invoice_points"], 2)
+            if row in eligible
+            else None
+        )
+    ranked = sorted(
+        eligible,
+        key=lambda row: (
+            -row["weighted_score"],
+            -row["gross_profit"],
+            -row["revenue"],
+            row["name"],
+        ),
+    )
+    split = (len(ranked) + 1) // 2
     return {
-        "healthy": sorted(
-            healthy,
-            key=lambda row: (-row["margin"], -row["revenue"], row["name"]),
-        )[:5],
-        "unhealthy": sorted(unhealthy, key=order),
-        "pending_accounts": len(pending),
-        "threshold": 70,
+        "healthy": ranked[: min(5, split)],
+        "unhealthy": list(reversed(ranked[split:]))[:5],
+        "pending_accounts": sum(
+            bool(row.get("pending")) for row in all_accounts
+        ),
+        "weights": {"gross_profit": 70, "invoiced": 30},
+        "ranking_version": 4,
+        "ranking_method": (
+            "70 × utilidad / mayor utilidad absoluta + 30 × facturación / "
+            "mayor facturación"
+        ),
+        "validation": "Base mensual pendiente de validar con Florencia",
         "year": bounds()[0].year,
-        "accounts": sorted(all_accounts, key=order),
+        "accounts": sorted(
+            all_accounts, key=lambda row: (-row["revenue"], row["name"])
+        ),
     }
 
 
-def load_account_profitability(refresh: bool = False) -> dict[str, Any]:
+def load_account_profitability(refresh: Any = False) -> Any:
     """Reutiliza las cuentas de la precarga financiera cuando estan vigentes."""
     from apps.portal.services.financial_cache import (
         cached_financial_snapshot,
     )
 
-    prepared: dict[str, Any] | None = cached_financial_snapshot().get(
-        "accounts"
-    )
+    prepared = cached_financial_snapshot().get("accounts")
     if prepared is not None and not refresh:
         return prepared
     return account_profitability()

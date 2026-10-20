@@ -111,6 +111,92 @@ def test_tables_use_current_rows_and_do_not_repeat_contract_renewals():
     assert "Tope Mensual" in data["missing_columns"]
 
 
+def test_page_structure_is_accessible_and_puts_processes_first(monkeypatch):
+    data = eva4.build_eva4([HEADER, row(finish="2026-10-20")], TODAY)
+    monkeypatch.setattr(eva4, "load_eva4", lambda: data)
+    html = views.eva4(
+        RequestFactory().get("/operativa/eva-4/")
+    ).content.decode()
+    # base.html ya abre el <main>: la pagina no abre otro.
+    assert html.count("<main") == 1
+    table = html.split('id="eva4-processes"', 1)[1].split("</table>", 1)[0]
+    assert table.count('<th scope="col">') == 15
+    assert "<caption" in table
+    assert html.index('id="eva4-processes"') < html.index('id="eva4-renewals"')
+    assert html.index('id="eva4-renewals"') < html.index('id="eva4-clients"')
+    # Renovaciones y clientes quedan plegados bajo la tabla principal.
+    assert html.count('<details class="eva4-card eva4-fold"') == 2
+    assert 'role="status"' in html and 'id="eva4-count"' in html
+    assert 'class="eva4-kpis"' not in html
+
+
+def render_eva4(monkeypatch, params=None, today=TODAY):
+    data = eva4.build_eva4([HEADER, row()], TODAY)
+    data["month"] = "2026-10"
+    monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
+    monkeypatch.setattr(eva4.timezone, "localdate", lambda: today)
+    request = RequestFactory().get("/operativa/eva-4/", params or {})
+    return views.eva4(request).content.decode()
+
+
+def test_anterior_view_is_available_until_the_cutoff_date(monkeypatch):
+    html = render_eva4(monkeypatch, {"vista": "anterior"})
+    assert "Estás viendo la pantalla anterior" in html
+    assert "03/11/2026" in html
+    assert "eva4-month-form" in html  # sigue siendo EVA-04
+
+
+def test_new_view_does_not_show_a_link_to_the_anterior_one(monkeypatch):
+    html = render_eva4(monkeypatch)
+    assert "ver la pantalla anterior" not in html
+    assert "Validación:" not in html
+    assert "Estás viendo la pantalla anterior" not in html
+
+
+def test_anterior_param_is_ignored_after_the_cutoff(monkeypatch):
+    html = render_eva4(
+        monkeypatch,
+        {"vista": "anterior"},
+        today=eva4.ANTERIOR_HASTA.replace(day=eva4.ANTERIOR_HASTA.day + 1),
+    )
+    assert "Estás viendo la pantalla anterior" not in html
+    assert "vista=anterior" not in html
+    assert 'id="eva4-processes"' in html
+
+
+def test_month_picker_lists_years_months_and_limits():
+    picker = eva4.month_picker("2026-09", TODAY)
+    assert picker["value"] == "2026-09"
+    assert (picker["year"], picker["month"]) == (2026, 9)
+    assert picker["years"] == [2024, 2025, 2026]
+    assert [m["name"] for m in picker["months"]][:2] == ["Enero", "Febrero"]
+    assert len(picker["months"]) == 12
+    assert (picker["min"], picker["max"]) == ("2024-08", "2026-10")
+
+
+@pytest.mark.parametrize("value", [None, "", "wrong", "2026-13"])
+def test_month_picker_falls_back_to_the_current_month(value):
+    assert eva4.month_picker(value, TODAY)["value"] == "2026-10"
+
+
+def test_month_picker_keeps_a_year_outside_the_normal_range():
+    assert eva4.month_picker("2027-02", TODAY)["years"][-1] == 2027
+
+
+def test_month_filter_is_two_selects_with_step_buttons(monkeypatch):
+    html = render_eva4(monkeypatch, {"mes": "2026-09"})
+    form = html.split('class="eva4-month-form"', 1)[1].split("</form>", 1)[0]
+    # Sin <input type="month">: Firefox y Safari lo muestran como texto.
+    assert 'type="month"' not in form
+    assert form.count("<select") == 2
+    assert 'aria-label="Mes anterior"' in form
+    assert 'aria-label="Mes siguiente"' in form
+    assert '<option value="9" selected>Septiembre</option>' in form
+    assert '<option value="2026" selected>2026</option>' in form
+    assert 'name="mes" value="2026-09"' in form
+    assert 'data-min="2024-08"' in html and 'data-max="2026-10"' in html
+
+
 def test_renewals_include_overdue_and_exclude_more_than_90_days():
     result = eva4.build_eva4(
         [HEADER, row(finish="2026-10-06"), row("2", finish="2027-06-01")], TODAY
@@ -147,7 +233,8 @@ def test_detail_renders_three_tables_with_existing_portal_layout(monkeypatch):
     assert "Columnas pendientes de fuente" in html
     assert "Nestlé" in html
     assert "EVA-04 Report" in html
-    assert "Sin dato" in html
+    assert "Sin dato" not in html
+    assert "Sin coincidencia en Clockify" in html
 
 
 def test_eva4_block_prepares_its_own_cache_without_loading_other_sources(
@@ -162,3 +249,19 @@ def test_eva4_block_prepares_its_own_cache_without_loading_other_sources(
     html = views.operativa_datos(req).content.decode()
     assert 'id="ops-eva4-card"' in html
     assert cache.get(views._operativa_fresh_key(req, "eva4")) is True
+
+
+def test_table_shows_only_active_processes(monkeypatch):
+    data = eva4.build_eva4(
+        [HEADER, row("1"), row("2", "Suspendido"), row("3")], TODAY
+    )
+    assert data["total"] == 3 and data["suspended"] == 1
+    assert [p["bot_id"] for p in data["active_processes"]] == ["1", "3"]
+    monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
+    html = views.eva4(
+        RequestFactory().get("/operativa/eva-4/")
+    ).content.decode()
+    table = html.split('id="eva4-processes"', 1)[1].split("</table>", 1)[0]
+    assert table.count('class="eva4-pill active"') == 2
+    assert "suspended" not in table
+    assert "2 de 2 procesos activos" in html

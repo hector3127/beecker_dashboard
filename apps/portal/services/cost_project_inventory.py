@@ -6,6 +6,7 @@ from typing import Any
 from django.utils import timezone
 
 from apps.ejecutivo.services.aer_tym_summary import (
+    AER_TYM_SERVICE,
     find_mpb_header,
     resolve_columns,
 )
@@ -19,8 +20,9 @@ def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
     """Find operational projects overlapping the financial period."""
     start, end = bounds()
     today = timezone.localdate()
-    found: dict[str, dict[str, Any]] = {}
-    owners: defaultdict[str, set[str]] = defaultdict(set)
+    found = {}
+    history_ids = set()
+    owners = defaultdict(set)
     for row in reader.read_values("DataRevenue")[1:]:
         if (
             len(row) > 4
@@ -47,6 +49,15 @@ def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
             if pid and canonical:
                 historical_owners[pid].add(canonical)
 
+    # Exact IDs in the right-hand block disambiguate regional account names.
+    # Prefer a country already set by A:I; never merge by a generic name.
+    for row in history_rows[1:]:
+        if len(row) > 12:
+            pid = str(row[12] or "").strip().casefold()
+            canonical = known_names.get(normalize_name(str(row[11] or "")))
+            if pid and canonical and not historical_owners.get(pid):
+                historical_owners[pid].add(canonical)
+
     def add(pid: Any, account: Any, first: Any, last: Any) -> None:
         pid = str(pid or "").strip()
         account = str(account or "").strip()
@@ -59,7 +70,9 @@ def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
             or (b.date() if b else today) < start
         ):
             return
-        from apps.portal.services.project_task_scope import variant
+        from apps.portal.services.project_task_scope import (
+            financial_variant as variant,
+        )
 
         task_variant = variant(pid)
         names = (
@@ -70,7 +83,8 @@ def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
         if not names and account:
             canonical = {
                 "heineken": "heineken mexico",
-                "arca continental": "arca continental mexico",
+                "oxxo": "cadena comercial oxxo",
+                "cadena comercial oxxo.": "cadena comercial oxxo",
             }.get(normalize_name(account), normalize_name(account))
             names = {
                 known_names.get(
@@ -92,6 +106,10 @@ def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
         if header is not None:
             cols = resolve_columns(rows[header])
             for row in rows[header + 1 :]:
+                if not AER_TYM_SERVICE.match(
+                    normalize_name(str(cell(row, cols["service"]) or ""))
+                ):
+                    continue
                 add(
                     cell(row, cols["project_id"]),
                     cell(row, cols["client"]),
@@ -101,6 +119,12 @@ def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
     if reader.sheet_exists("Historico_Proyectos"):
         events = defaultdict(list)
         for row in history_rows[1:]:
+            if normalize_name(str(cell(row, 3) or "")) not in {
+                "ixb",
+                "raas",
+                "saas",
+            }:
+                continue
             pid = str(cell(row, 2) or "").strip()
             if pid:
                 events[pid.casefold()].append(row)
@@ -127,6 +151,7 @@ def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
             ]
             ends = [x for x in raw_ends if x]
             if starts:
+                history_ids.add(key)
                 add(
                     cell(rows[0], 2),
                     cell(rows[0], 1),
@@ -141,15 +166,21 @@ def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
         else set()
     )
     resolved: dict[str, dict[str, Any]] = {}
-    from apps.portal.services.project_task_scope import variant
+    from apps.portal.services.project_task_scope import (
+        financial_variant as variant,
+    )
 
     for pid, item in found.items():
-        if pid in excluded:
+        if pid in excluded and pid not in history_ids:
             continue
         child = variant(item["id"])
         # MPB/history variants are not separate financial projects unless
         # DataRevenue also identifies them independently from the base ID.
-        if child and pid not in owners and child[0] not in excluded:
+        if (
+            child
+            and pid not in owners
+            and (child[0] not in excluded or pid in history_ids)
+        ):
             base = child[0]
             resolved.setdefault(
                 base,

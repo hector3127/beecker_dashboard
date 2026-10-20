@@ -15,21 +15,19 @@ function harness(failed=false){
  vm.runInNewContext(source,{document:{getElementById:node,createElement:element},fetch:async()=>({ok:!failed,json:async()=>({items})}),FormData:class{}});
  return {node,decision,button,fields};
 }
-test('decisions remain together with global agreements, filters and prefilled follow-up',async()=>{
+test('agreements are grouped by account and edit exposes session metadata',async()=>{
  const h=harness();await new Promise(setImmediate);
  assert.equal(h.node('agreement-rows').children.length,2);
- const row=h.node('agreement-rows').children[1];
- assert.equal(row.children.length,8);
- assert.equal(row.children[0].dataset.label,'Proyecto / cuenta o asunto');
- h.button.listeners.click();assert.equal(h.fields.get('title').value,'Proyecto crítico');
- assert.equal(h.fields.get('owner').value,'Ana');assert.equal(h.fields.get('notes').value,'Revisar presupuesto');
- h.node('agreement-filter').value='progress';h.node('agreement-filter').listeners.change();
- assert.equal(h.decision.hidden,true);
- h.node('agreement-filter').value='';h.node('agreement-search').value='critico';h.node('agreement-search').listeners.input();
- assert.equal(h.decision.hidden,false);assert.equal(h.node('agreement-rows').children.length,1);
+ assert.match(h.node('agreement-rows').children[0].children[0].textContent,/Sin cuenta/);
+ const row=h.node('agreement-rows').children[1];assert.equal(row.children.length,8);
+ assert.match(row.children[1].textContent,/Sesión pendiente/);
+ row.children[7].children[0].onclick();assert.equal(h.fields.get('title').value,'Acuerdo global');
+ h.node('agreement-search').value='inexistente';h.node('agreement-search').listeners.input();
+ assert.match(h.node('agreement-rows').children[0].children[0].textContent,/Sin acuerdos/);
 });
-test('failed agreement requests preserve project decisions and expose a retry message',async()=>{
+
+test('failed agreement requests show an error without injecting technical project alerts',async()=>{
  const h=harness(true);await new Promise(setImmediate);
- assert.equal(h.node('agreement-rows').children[0],h.decision);
- assert.match(h.node('agreement-rows').children.at(-1).children[0].textContent,/Se conservan las decisiones/);
+ assert.match(h.node('agreement-feedback').textContent,/No se pudieron consultar/);
+ assert.equal(h.node('agreement-rows').children.length,0);
 });

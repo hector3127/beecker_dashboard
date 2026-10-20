@@ -61,6 +61,7 @@ document.addEventListener('click', function (event) {
 </script>
 <script src="{% static 'portal/js/return_navigation.js' %}" defer></script>
 {% block scripts %}{% endblock %}
+<script src="{% static 'portal/js/page_capture.js' %}?v=20261016" data-library="{% static 'portal/vendor/html2canvas.min.js' %}" defer></script>
 {% if page_stale %}<script src="{% static 'portal/js/cached_page.js' %}" defer></script>{% endif %}
 </body>
 </html>

@@ -165,7 +165,9 @@ def test_summary_and_monthly_costs_do_not_double_count_shared_entries(
     assert september["cost"] == 20
     assert september["gross_profit"] == 130
     assert september["margin"] == 86.67
+    # El ultimo corte conocido sobrevive a la expiracion: se borra tambien.
     cache.delete(revenue_costs.key("B"))
+    cache.delete(revenue_costs.key("B") + ":last-known")
     assert (
         monthly_profitability.load_monthly_profitability()["months"][-1][
             "partial"

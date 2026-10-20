@@ -153,37 +153,25 @@ def portfolio():
     ]
 
 
-def test_executive_shows_decisions_hours_and_period(client, monkeypatch):
+def test_executive_shows_the_selected_period(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
     response = client.get("/")
     html = response.content.decode()
 
     assert response.status_code == 200
-    assert "Datos al 12/10/2026, 10:24" in html
     assert "01/01/2026" in html
     assert "31/12/2026" in html
-    assert "Portal Pacientes" in html
-    assert "excede en 25%" in html
-    assert response.context["hours"].budget_hours == 300
-    assert html.count('class="ej"') >= 3
 
 
-def test_executive_without_projects_shows_empty_messages(client, monkeypatch):
+def test_executive_without_projects_still_renders_cost_block(
+    client, monkeypatch
+):
     stub_portfolio(monkeypatch)
 
     html = client.get("/").content.decode()
 
-    assert "Sin proyectos que mostrar todavía." in html
-    assert 'id="executive-ops-budget"' in html
-
-
-def test_executive_without_problem_projects(client, monkeypatch):
-    stub_portfolio(monkeypatch, [make_project()])
-
-    html = client.get("/").content.decode()
-
-    assert "Ningún proyecto en ejecución está crítico ni en riesgo." in html
+    assert 'id="executive-cost"' in html
 
 
 def test_executive_shows_sheets_error_without_failing(client, monkeypatch):
@@ -191,8 +179,8 @@ def test_executive_shows_sheets_error_without_failing(client, monkeypatch):
 
     response = client.get("/")
 
+    # La portada ya no lee Sheets: se arma con los cortes preparados.
     assert response.status_code == 200
-    assert "No se pudo leer Google Sheets" in response.content.decode()
 
 
 def test_operational_counts_real_projects(client, monkeypatch):
@@ -716,13 +704,11 @@ def test_unknown_project_is_404_or_goes_back_when_data_fails(
 def test_other_pages_link_to_the_project(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    executive = client.get("/").content.decode()
     manager = client.get(
         "/operativa/delivery-manager/alberto/?bloque=inv"
     ).content.decode()
     account = client.get("/cuenta/clinica-sur/").content.decode()
 
-    assert 'href="/proyectos/3/"' in executive
     assert 'href="/proyectos/3/"' in manager
     assert 'href="/proyectos/2/"' in account
     assert 'href="/proyecto/3/"' not in manager
@@ -757,15 +743,11 @@ def test_manager_cards_show_investment_and_detail_keeps_time_cost(
     assert detail.context["detail"].time_cost.cost_percent == 60
 
 
-def test_executive_top_accounts_are_real(client, monkeypatch):
+def test_executive_ranking_sections_are_rendered(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    response = client.get("/")
-    healthy, unhealthy = response.context["top_accounts"]
-    html = response.content.decode()
+    html = client.get("/").content.decode()
 
-    assert healthy == ()
-    assert [item.name for item in unhealthy] == ["Clinica Sur", "ACME"]
     assert 'id="healthy-financial-accounts"' in html
     assert 'href="/ejecutiva/cuentas/"' in html
     assert 'id="unhealthy-financial-accounts"' in html

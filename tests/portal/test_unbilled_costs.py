@@ -70,7 +70,8 @@ def test_zero_revenue_account_with_costs_is_unhealthy_not_profitable():
         }
     )
     cache.set(key("GIFT"), {"complete": True, "entries": {"gift": 100}})
-    a = account_profitability(r)["unhealthy"][0]
+    a = account_profitability(r)["accounts"][0]
+    assert a["classification"] == "unhealthy"
     assert (
         a["revenue"] == 0 and a["gross_profit"] == -100 and a["margin"] is None
     )
@@ -291,6 +292,10 @@ def test_historical_inventory_uses_only_a_to_i_and_selected_period():
 def test_generic_arca_costs_belong_to_mexico_and_never_peru():
     r = InMemorySheetRepository(
         {
+            "Historico_Proyectos": [
+                [],
+                ["", "Arca Continental Mexico", "GIFT"],
+            ],
             "MPB": [
                 MPB,
                 [
@@ -340,6 +345,72 @@ def test_generic_arca_costs_belong_to_mexico_and_never_peru():
     assert len(accounts) == 2
     mexico = next(a for a in accounts if a["name"] == "Arca Continental Mexico")
     assert mexico["cost"] == 75 and mexico["revenue"] == 200
+    cache.clear()
+
+
+def test_regional_account_fallback_uses_exact_right_hand_project_id():
+    cache.clear()
+    r = InMemorySheetRepository(
+        {
+            "MPB": [
+                MPB,
+                [
+                    "ARCA CONTINENTAL",
+                    "GIFT",
+                    "Gift",
+                    "AER",
+                    "2026-01-01",
+                    "2026-12-31",
+                    "En progreso",
+                    "Ana",
+                    100,
+                ],
+            ],
+            "Historico_Proyectos": [
+                [],
+                [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "Arca Continental Mexico",
+                    "GIFT",
+                ],
+            ],
+            "DataRevenue": [
+                ["Status", "Account", "", "", "ID", "", "Date", "USD"],
+                [
+                    "Collected",
+                    "Arca Continental Mexico",
+                    "",
+                    "",
+                    "MEX",
+                    "",
+                    "2026-01-01",
+                    200,
+                ],
+                [
+                    "Collected",
+                    "Arca Continental Peru",
+                    "",
+                    "",
+                    "PERU",
+                    "",
+                    "2026-01-01",
+                    100,
+                ],
+            ],
+        }
+    )
+    assert project_ids(r, "Arca Continental Mexico") == ["GIFT", "MEX"]
+    assert project_ids(r, "Arca Continental Peru") == ["PERU"]
     cache.clear()
 
 

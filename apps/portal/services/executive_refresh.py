@@ -33,10 +33,12 @@ def refresh_status() -> dict[str, Any]:
     return cache.get(status_key()) or {"state": "idle"}
 
 
-def request_refresh() -> dict[str, Any]:
+def request_refresh(force: bool = False) -> dict[str, Any]:
     """Coalesce duplicate requests and limit queued work in this process."""
     key = status_key()
     query = query_string()
+    if force:
+        query += ("&" if query else "") + "forzar_fuentes=1"
     with _lock:
         if key in _pending:
             return refresh_status()
@@ -46,6 +48,16 @@ def request_refresh() -> dict[str, Any]:
         try:
             cache.set(key, {"state": "queued"}, STATUS_SECONDS)
             _executor.submit(copy_context().run, _run, key, query)
+        except RuntimeError:
+            # A server reload can stop its executor while a page is rendering.
+            # Preserve the available page instead of turning a warm-up into
+            # HTTP 500.
+            _pending.discard(key)
+            cache.set(key, {"state": "failed"}, STATUS_SECONDS)
+            logger.warning(
+                "La precarga no pudo iniciarse durante el reinicio del servidor"
+            )
+            return {"state": "failed"}
         except Exception:
             _pending.discard(key)
             cache.set(key, {"state": "failed"}, STATUS_SECONDS)
@@ -55,6 +67,13 @@ def request_refresh() -> dict[str, Any]:
 
 def _run(key: str, query: str) -> None:
     """Prepare a new cut, preserving existing valid snapshots on failures."""
+    from urllib.parse import parse_qs
+
+    from core.utils.source_refresh import force_sources
+
+    force_token = force_sources.set(
+        parse_qs(query).get("forzar_fuentes") == ["1"]
+    )
     started = time.perf_counter()
     try:
         close_old_connections()
@@ -65,6 +84,7 @@ def _run(key: str, query: str) -> None:
         logger.exception("No se pudo actualizar Ejecutiva en segundo plano")
         cache.set(key, {"state": "failed"}, STATUS_SECONDS)
     finally:
+        force_sources.reset(force_token)
         try:
             close_old_connections()
         finally:
@@ -85,10 +105,38 @@ def _prepare(query: str) -> bool:
     )
     from apps.portal.services.executive_operations import warm_operations
     from apps.portal.services.financial_cache import warm_financial
+    from core.utils.source_refresh import force_sources
 
+    if force_sources.get():
+        from django.conf import settings
+
+        from apps.clockify.provider import (
+            build_cache_prefix,
+            read_clockify_settings,
+        )
+        from core.sheets.read_cache import SheetReadCache
+
+        cache.delete(
+            build_cache_prefix(*read_clockify_settings()) + ":projects"
+        )
+        sheets = SheetReadCache(
+            settings.GOOGLE_SPREADSHEET_ID, settings.SHEETS_READ_CACHE_SECONDS
+        )
+        for name in [
+            "DataRevenue",
+            "Backlog_Proyectos",
+            "Bandas/rol",
+            "Master rates",
+            "MPB",
+            "Historico_Proyectos",
+            "Proyectos",
+            "Recursos",
+            "Clockify_Vinculos",
+        ]:
+            sheets.invalidate_values(name)
     partial = False
     for task in (warm_financial, warm_operations):
-        result = task(only_stale=True)
+        result = task(only_stale=not force_sources.get())
         partial = not result.get("ok", False) or partial
     partial = not warm_commercial_summary().get("ok", False) or partial
     request = RequestFactory().get("/?actualizar=1&" + query)

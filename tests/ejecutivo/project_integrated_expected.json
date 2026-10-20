@@ -757,7 +757,7 @@
       "fechaCorte": "2026-10-02T18:00:00.000Z",
       "fechaInicio": "2026-09-01T06:00:00.000Z",
       "fechaFinEstimada": "2026-10-10T06:00:00.000Z",
-      "estadoGeneral": "ATENCIÓN",
+      "estadoGeneral": "SUSPENDIDO",
       "estadoColor": "amarillo",
       "nivelRiesgoFecha": "Medio"
     },
@@ -962,7 +962,7 @@
       "fechaCorte": "2026-10-02T18:00:00.000Z",
       "fechaInicio": "2026-09-01T06:00:00.000Z",
       "fechaFinEstimada": "2026-10-10T06:00:00.000Z",
-      "estadoGeneral": "ATENCIÓN",
+      "estadoGeneral": "SUSPENDIDO",
       "estadoColor": "amarillo",
       "nivelRiesgoFecha": "Medio"
     },

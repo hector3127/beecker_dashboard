@@ -5302,17 +5302,25 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     return (latest(history,'fechaFin')||{}).fechaFin||(latest(plans,'fechaFinPlan')||{}).fechaFinPlan||'';
   }
 
+  function ixsEditarHitoTimeline(index){
+    if(ixsTabActual!=='planeacion'||!ixsProyectoActual)return;
+    const h=(ixsProyectoActual.hitosAdicionales||[])[index];
+    if(!h)return;
+    idProyectoActualGlobal=ixsProyectoActual.proyecto.id;
+    hitosAdicionalesActuales=ixsProyectoActual.hitosAdicionales||[];
+    editarHitoDesdeCard(h.tipo,h.indice,_ixeIso(h.fecha),h.observacion||'');
+  }
   function _ixsGantt(data){
     const plan=(data.hitos||[]).filter(x=>x.fechaInicioPlan&&x.fechaFinPlan)
       .map(x=>({name:x.nombre+' EST',from:x.fechaInicioPlan,to:x.fechaFinPlan,type:'plan'}));
     const real=_ixsFases(data).map(x=>({name:x.name,from:x.start,to:x.active?new Date():x.end,type:'real',active:x.active,markers:[]}));
     const holds=(data.suspensiones||[]).filter(x=>x.fechaInicio)
       .map(x=>({name:'Suspendido',from:x.fechaInicio,to:x.fechaFin||new Date(),type:'hold'}));
-    const markers=(data.hitosAdicionales||[]).map(h=>{
+    const markers=(data.hitosAdicionales||[]).map((h,sourceIndex)=>{
       const time=_ixsDateMs(h.fecha);
       if(!Number.isFinite(time))return null;
       const cat=categoriaHito(h.tipo);
-      return {time:time,icon:cat.icono||'📌',cls:['demo','qa','prod','uat'].includes(cat.clave)?cat.clave:'other',
+      return {sourceIndex:sourceIndex,time:time,icon:cat.icono||'📌',cls:['demo','qa','prod','uat'].includes(cat.clave)?cat.clave:'other',
         label:nombreLimpioHito(h.tipo)||cat.etiqueta||'Evento',group:cat.etiqueta||'Otros',date:h.fecha};
     }).filter(Boolean);
     const rows=plan.concat(real,holds);
@@ -5346,7 +5354,8 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
         const offset=(index-(same.length-1)/2)*14;
         const pct=_ixsLimit(pos(m.time));
         const title=_ixsTxt(m.label+' · '+fmt(m.date));
-        return `<span class="ixs-time-mark ${m.cls}" style="left:clamp(10px,calc(${pct}% + ${offset}px),calc(100% - 10px))" title="${title}" aria-label="${title}">${_ixsTxt(m.icon)}</span>`;
+        const editable=ixsTabActual==='planeacion',tag=editable?'button':'span';
+        return `<${tag} class="ixs-time-mark ${m.cls}" ${editable?`type="button" onclick="ixsEditarHitoTimeline(${m.sourceIndex})"`:''} style="left:clamp(10px,calc(${pct}% + ${offset}px),calc(100% - 10px));${editable?'cursor:pointer;padding:0;font:inherit;':''}" title="${editable?'Editar hito: ':''}${title}" aria-label="${editable?'Editar hito: ':''}${title}">${_ixsTxt(m.icon)}</${tag}>`;
       }).join('');
       const width=Math.max(.6,r-l);
       return `<div class="ixs-time-row"><div class="ixs-time-label">${_ixsTxt(x.name)}${x.active?' <span class="ixs-badge">En curso</span>':''}<small>${fmt(x.from)} → ${fmt(x.to)}</small></div>
@@ -5381,10 +5390,32 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     </div></div>`;
   }
 
+  function _ixsCargarEstadosRecursos(){
+      const project=ixsProyectoActual;
+      if(!project._resourceStatesLoaded&&!project._resourceStatesLoading){
+        project._resourceStatesLoading=true;
+        google.script.run.withSuccessHandler(result=>{
+          project._resourceStatesLoading=false;
+          if(!result||!result.ok)return;
+          project._resourceStatesLoaded=true;
+          const states=new Map((result.filas||[]).map(x=>[_ixsRecursoClave(x.nombre),x.activo]));
+          (project.filasRecursosCompleto||[]).forEach(x=>{if(states.has(_ixsRecursoClave(x.nombre)))x.activo=states.get(_ixsRecursoClave(x.nombre));});
+          if(ixsProyectoActual===project&&ixsTabActual==='esfuerzo'){
+            const table=document.querySelector('.ixs-effort-compact');
+            if(table)table.innerHTML=_ixsEffortResourceDetail(project.filasRecursosCompleto);
+          }else if(ixsProyectoActual===project&&ixsTabActual==='planeacion'){_ixsPintarPlaneacion();}
+          else if(ixsProyectoActual===project&&ixsTabActual==='resumen'){
+            const table=document.querySelector('[data-resource-workload]');
+            if(table)table.outerHTML=_ixsResourceTable(project);
+          }
+        }).withFailureHandler(()=>{project._resourceStatesLoading=false;}).ixsRecursosLeer(project.proyecto.id);
+      }
+  }
   function ixsCargarPlaneacion(){
     const id=ixsProyectoActual&&ixsProyectoActual.proyecto.id;if(!id)return;
     const st=ixsPlanState,token=++st.requestId;if(st.proyectoId!==id){st.vacaciones=[];st.compromisos=[];}st.proyectoId=id;st.cargando=true;st.error='';
     ixsPlanAzureState.proyectoId=id;ixsPlanAzureState.items=[];ixsPlanAzureState.allItems=[];ixsPlanAzureState.cargando=true;ixsPlanAzureState.error='';_ixsPintarPlaneacion();
+    _ixsCargarEstadosRecursos();
     ixsCargarAzurePlaneacion(id);
     google.script.run.withSuccessHandler(r=>{if(st.requestId!==token||st.proyectoId!==id)return;st.cargando=false;if(!r||!r.ok)st.error=r&&r.error||'No se pudo cargar la planeación.';else{st.vacaciones=r.vacaciones||[];st.compromisos=r.compromisos||[];}_ixsPintarPlaneacion();})
       .withFailureHandler(e=>{if(st.requestId!==token)return;st.cargando=false;st.error=e&&e.message||String(e);_ixsPintarPlaneacion();}).ixsPlanLeer(id);
@@ -5753,11 +5784,17 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       <div>${vals.map((v,i)=>`<div class="ixs-area-row"><i class="sw" style="background:${colors[i%colors.length]}"></i><span class="name">${_ixsTxt(v.nombre)}</span><b>${_ixsNum(v.horas,2)} h</b><small>${_ixsPct(v.pct!=null?v.pct:(total?100*v.horas/total:0))}</small></div>`).join('')||'<div class="ixs-empty">Sin horas por área.</div>'}</div></div>
       <div class="ixs-area-stats"><div class="ixs-area-stat">${_ixsIcon('chart')}<span><b>${vals.length}</b><small>Áreas</small></span></div><div class="ixs-area-stat">${_ixsIcon('people')}<span><b>${members}</b><small>Recursos asignados</small></span></div><div class="ixs-area-stat">${_ixsIcon('clock')}<span><b>${_ixsNum(total,2)} h</b><small>Registradas</small></span></div></div>`;
   }
+  function _ixsBalanceBadge(value){
+    if(value==null||value===''||!Number.isFinite(Number(value)))return '—';
+    const balance=Number(value),tone=balance<0?'red':balance===0?'orange':'green';
+    const label=balance<0?'Horas excedidas':balance===0?'Sin horas disponibles':'Horas disponibles';
+    return `<span class="ixs-badge ${tone}" title="${label}" aria-label="${label}: ${_ixsNum(balance,2)} horas" style="font-weight:700">${_ixsNum(balance,2)}</span>`;
+  }
   function _ixsResourceTable(data){
     const rows=data.filasRecursosCompleto||[],tot=data.totalesRecursos||{};
     const f=x=>_ixsTxt(x),status=x=>/exced|retras/i.test(x)?'red':/riesgo/i.test(x)?'orange':'green';
-    return `<div class="ixs-table-scroll"><table class="ixs-table"><thead><tr><th>Rol</th><th>Recurso</th><th>Banda</th><th>Costing rate</th><th>Estimadas</th><th>Reales</th><th>No fact.</th><th>Balance</th><th>% cumplimiento</th><th>Costo real</th><th>Estado</th></tr></thead><tbody>
-      ${rows.map(x=>`<tr><td>${f(x.posicion)}</td><td>${f(x.nombre)}</td><td>${f(x.banda)||'—'}</td><td>${_ixsMoney(x.costingRate)}</td><td>${_ixsNum(x.horasEstimadas,2)}</td><td>${_ixsNum(x.horasReales,2)}</td><td>${_ixsNum(x.horasNoFact,2)}</td><td>${_ixsNum(x.balance,2)}</td><td>${_ixsPct(x.pctCumplimiento)}</td><td>${_ixsMoney(x.costoReal)}</td><td><span class="ixs-badge ${status(x.estado)}">${f(x.estado)||'—'}</span></td></tr>`).join('')||'<tr><td colspan="11">Sin recursos asignados.</td></tr>'}</tbody><tfoot><tr><td colspan="4">Totales del proyecto</td><td>${_ixsNum(tot.horasEstimadas,2)}</td><td>${_ixsNum(tot.horasReales,2)}</td><td>${_ixsNum(tot.horasNoFact,2)}</td><td>${_ixsNum(tot.balance,2)}</td><td>${_ixsPct(tot.pctCumplimientoHoras)}</td><td>${_ixsMoney(tot.costoReal)}</td><td>${_ixsPct(tot.pctCumplimientoFinanciero)} financiero</td></tr></tfoot></table></div>`;
+    return `<div class="ixs-table-scroll" data-resource-workload><table class="ixs-table"><thead><tr><th>Rol</th><th>Recurso</th><th>Banda</th><th>Costing rate</th><th>Estimadas</th><th>Reales</th><th>No fact.</th><th>Balance</th><th>% cumplimiento</th><th>Costo real</th><th>Estado</th></tr></thead><tbody>
+      ${rows.map(x=>`<tr><td>${f(x.posicion)}</td><td${x.activo===false?' style="color:#d83259;text-decoration:line-through" title="Recurso inactivo en el proyecto"':''}>${f(x.nombre)}</td><td>${f(x.banda)||'—'}</td><td>${_ixsMoney(x.costingRate)}</td><td>${_ixsNum(x.horasEstimadas,2)}</td><td>${_ixsNum(x.horasReales,2)}</td><td>${_ixsNum(x.horasNoFact,2)}</td><td>${_ixsBalanceBadge(x.balance)}</td><td>${_ixsPct(x.pctCumplimiento)}</td><td>${_ixsMoney(x.costoReal)}</td><td><span class="ixs-badge ${status(x.estado)}">${f(x.estado)||'—'}</span></td></tr>`).join('')||'<tr><td colspan="11">Sin recursos asignados.</td></tr>'}</tbody><tfoot><tr><td colspan="4">Totales del proyecto</td><td>${_ixsNum(tot.horasEstimadas,2)}</td><td>${_ixsNum(tot.horasReales,2)}</td><td>${_ixsNum(tot.horasNoFact,2)}</td><td>${_ixsBalanceBadge(tot.balance)}</td><td>${_ixsPct(tot.pctCumplimientoHoras)}</td><td>${_ixsMoney(tot.costoReal)}</td><td>${_ixsPct(tot.pctCumplimientoFinanciero)} financiero</td></tr></tfoot></table></div>`;
   }
   function _ixsRecursoClave(v){return String(v||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').toLowerCase();}
   function ixsCargarRecursos(){
@@ -5790,8 +5827,8 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       ${st.cargando?'<div class="ixs-empty">Consultando asignaciones y Clockify…</div>':''}${st.error?`<div class="ixs-empty" style="color:#a32340">${_ixsTxt(st.error)}</div>`:''}
       ${missing.length?`<div class="ixs-resource-alert"><b>⚠ ${missing.length} recurso(s) con horas en Clockify sin asignación</b>${missing.map(([key,x])=>`<div>${_ixsTxt(x.nombre)} · ${_ixsNum(x.horas,2)} h <button class="ixs-btn" onclick="ixsAbrirEditorRecurso('${encodeURIComponent(x.nombre).replace(/'/g,'%27')}')">Asignar</button></div>`).join('')}</div>`:''}
       ${inactive.length?`<div class="ixs-resource-alert"><b>⚠ ${inactive.length} recurso(s) inactivo(s) con horas registradas en el ID</b></div>`:''}
-      <div class="ixs-table-scroll"><table class="ixs-table"><thead><tr><th>Recurso</th><th>Rol</th><th>Horas estimadas</th><th>Horas en el ID</th><th>Estado</th><th>Acción</th></tr></thead><tbody>${rows.map(([key,x])=>`<tr><td><b>${_ixsTxt(x.nombre)}</b></td><td>${_ixsTxt(x.rol)||'—'}</td><td>${_ixsNum(x.horasEstimadas,2)} h</td><td>${st.cargando?'…':st.error?'—':_ixsNum((hours.get(key)||{}).horas||0,2)+' h'}</td><td><span class="ixs-badge ${x.activo?'green':'orange'}">${x.activo?'Activo':'Inactivo'}</span></td><td><button class="ixs-btn" onclick="ixsAbrirEditorRecurso('${encodeURIComponent(x.nombre).replace(/'/g,'%27')}')">Editar</button></td></tr>`).join('')||'<tr><td colspan="6">Sin recursos asignados. Agrega el primero para este proyecto.</td></tr>'}</tbody></table></div>
-      <small>Las horas de Clockify se suman para todos los registros devueltos de este ID de proyecto. Los cambios de rol, estimación y estado se guardan por proyecto.</small></section>`;
+      <div class="ixs-table-scroll"><table class="ixs-table"><thead><tr><th>Recurso</th><th>Rol</th><th>Horas estimadas</th><th>Horas en el ID</th><th>Horas restantes</th><th>Estado</th><th>Acción</th></tr></thead><tbody>${rows.map(([key,x])=>`<tr><td><b${x.activo?'':' style="color:#d83259;text-decoration:line-through"'}>${_ixsTxt(x.nombre)}</b></td><td>${_ixsTxt(x.rol)||'—'}</td><td>${_ixsNum(x.horasEstimadas,2)} h</td><td>${st.cargando?'…':st.error?'—':_ixsNum((hours.get(key)||{}).horas||0,2)+' h'}</td><td style="color:${Number(x.horasEstimadas||0)-Number((hours.get(key)||{}).horas||0)<0?'#d83259':'#168b67'}">${st.cargando?'…':st.error?'—':_ixsNum(Number(x.horasEstimadas||0)-Number((hours.get(key)||{}).horas||0),2)+' h'}</td><td><span class="ixs-badge ${x.activo?'green':'orange'}">${x.activo?'Activo':'Inactivo'}</span></td><td><button class="ixs-btn" onclick="ixsAbrirEditorRecurso('${encodeURIComponent(x.nombre).replace(/'/g,'%27')}')">Editar</button></td></tr>`).join('')||'<tr><td colspan="7">Sin recursos asignados. Agrega el primero para este proyecto.</td></tr>'}</tbody></table></div>
+      <small>Las horas de Clockify se suman para todos los registros devueltos de este ID de proyecto. Horas restantes = estimadas − horas en el ID; un saldo negativo indica horas excedidas. Los cambios de rol, estimación y estado se guardan por proyecto.</small></section>`;
   }
   function ixsAbrirEditorRecurso(encoded){
     const st=ixsRecursosState,d=ixsProyectoActual;if(!d)return;
@@ -5808,7 +5845,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     const payload={idProyecto:st.proyectoId,nombre:form.elements.nombre.value,rol:form.elements.rol.value,horasEstimadas:form.elements.horas.value,activo:form.elements.activo.value==='true'};
     st.saving=true;btn.disabled=true;btn.textContent='Guardando…';
     const finish=()=>{st.saving=false;btn.disabled=false;btn.textContent='Guardar recurso';};
-    google.script.run.withSuccessHandler(r=>{finish();if(!r||!r.ok){const msg=document.getElementById('ixs-recurso-error');if(msg)msg.textContent=r&&r.error||'No se pudo guardar.';return;}if(r.proyectoId!==st.proyectoId)return;st.filas=r.filas||[];ixsCerrarEditorRecurso();_ixsPintarRecursos();}).withFailureHandler(err=>{finish();const msg=document.getElementById('ixs-recurso-error');if(msg)msg.textContent=err&&err.message||String(err);}).ixsRecursosGuardar(payload);
+    google.script.run.withSuccessHandler(r=>{finish();if(!r||!r.ok){const msg=document.getElementById('ixs-recurso-error');if(msg)msg.textContent=r&&r.error||'No se pudo guardar.';return;}if(r.proyectoId!==st.proyectoId)return;st.filas=r.filas||[];if(ixsProyectoActual)ixsProyectoActual._resourceStatesLoaded=false;ixsCerrarEditorRecurso();_ixsPintarRecursos();}).withFailureHandler(err=>{finish();const msg=document.getElementById('ixs-recurso-error');if(msg)msg.textContent=err&&err.message||String(err);}).ixsRecursosGuardar(payload);
   }
   function _ixsMiniHours(rows){
     const data=(rows||[]).slice().sort((a,b)=>Number(b.horasReales||0)-Number(a.horasReales||0));
@@ -5830,12 +5867,12 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   function _ixsCalcEffort(d){
     const rows=(d&&d.filasRecursosCompleto)||[], tot=(d&&d.totalesRecursos)||{}, ke=(d&&d.kpisExtra)||{};
     const round=x=>Math.round(Number(x||0)*100)/100;
-    const real=Number(tot.horasReales||rows.reduce((a,x)=>a+Number(x.horasReales||0),0)||0);
+    const billable=Number(tot.horasReales||rows.reduce((a,x)=>a+Number(x.horasReales||0),0)||0);
     const estimadas=Number(tot.horasEstimadas||rows.reduce((a,x)=>a+Number(x.horasEstimadas||0),0)||0);
     const noFact=Number(tot.horasNoFact||rows.reduce((a,x)=>a+Number(x.horasNoFact||0),0)||0);
-    const fact=Math.max(0,round(real-noFact));
+    const fact=billable,real=round(billable+noFact);
     const fueraHorario=Number(ke.horasFueraHorario||d.horasFueraHorario||0);
-    const balance=('balance' in tot) ? Number(tot.balance||0) : round(estimadas-real);
+    const balance=round(estimadas-real);
     return {
       real: real,
       estimadas: estimadas,
@@ -5905,8 +5942,75 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   function _ixsEffortResourceDetail(rows){
     rows=rows||[];
     return `<div class="ixs-table-scroll"><table class="ixs-table ixs-effort-resource-table"><thead><tr><th>Recurso</th><th>Rol</th><th>Reales</th><th>Fact.</th><th>No fact.</th><th>Balance</th><th>% cumpl.</th><th>Estado</th></tr></thead><tbody>
-      ${rows.map(x=>{ const fact=Math.max(0, Number(x.horasReales||0)-Number(x.horasNoFact||0)); return `<tr><td>${_ixsTxt(x.nombre||'—')}</td><td>${_ixsTxt(x.posicion||'—')}</td><td>${_ixsNum(x.horasReales,2)}</td><td>${_ixsNum(fact,2)}</td><td>${_ixsNum(x.horasNoFact,2)}</td><td>${_ixsNum(x.balance,2)}</td><td>${_ixsPct(x.pctCumplimiento)}</td><td><span class="ixs-badge ${/exced|retras/i.test(String(x.estado||''))?'red':/riesgo/i.test(String(x.estado||''))?'orange':'green'}">${_ixsTxt(x.estado||'—')}</span></td></tr>`;}).join('')||'<tr><td colspan="8">Sin datos disponibles.</td></tr>'}
+      ${rows.map(x=>{ const fact=Math.max(0, Number(x.horasReales||0)-Number(x.horasNoFact||0)); return `<tr><td${x.activo===false?' style="color:#d83259;text-decoration:line-through" title="Recurso inactivo en el proyecto"':''}>${_ixsTxt(x.nombre||'—')}</td><td>${_ixsTxt(x.posicion||'—')}</td><td>${_ixsNum(x.horasReales,2)}</td><td>${_ixsNum(fact,2)}</td><td>${_ixsNum(x.horasNoFact,2)}</td><td>${_ixsBalanceBadge(x.balance)}</td><td>${_ixsPct(x.pctCumplimiento)}</td><td><span class="ixs-badge ${/exced|retras/i.test(String(x.estado||''))?'red':/riesgo/i.test(String(x.estado||''))?'orange':'green'}">${_ixsTxt(x.estado||'—')}</span></td></tr>`;}).join('')||'<tr><td colspan="8">Sin datos disponibles.</td></tr>'}
     </tbody></table></div>`;
+  }
+  function _ixsExcessByPerson(resources,records){
+    const people=new Map();
+    (resources||[]).forEach(x=>people.set(_ixsRecursoClave(x.nombre),{name:x.nombre,role:x.posicion||'Sin rol',budget:Math.max(0,Number(x.horasEstimadas)||0),used:0,excess:0,records:[]}));
+    const seen=new Set();
+    const ordered=(records||[]).map((x,i)=>({...x,_order:i})).sort((a,b)=>(String(a.fecha||'')+' '+String(a.inicio||'')).localeCompare(String(b.fecha||'')+' '+String(b.inicio||''))||a._order-b._order);
+    ordered.forEach(x=>{
+      if(x.billable!==true)return;
+      if(x.id){if(seen.has(x.id))return;seen.add(x.id);}
+      const key=_ixsRecursoClave(x.recurso),hours=Number(x.duracion);
+      if(!key||!Number.isFinite(hours)||hours<=0)return;
+      if(!people.has(key))people.set(key,{name:x.recurso,role:'Sin asignación',budget:0,used:0,excess:0,records:[]});
+      const person=people.get(key),before=person.used;
+      person.used+=hours;
+      const excess=Math.max(0,person.used-person.budget)-Math.max(0,before-person.budget);
+      if(excess>0.000001){person.excess+=excess;person.records.push({...x,excess:excess,cumulative:person.used});}
+    });
+    return [...people.values()].filter(x=>x.records.length).sort((a,b)=>b.excess-a.excess);
+  }
+  function _ixsFilteredExcess(){
+    const from=(document.getElementById('ixs-excess-from')||{}).value||'',to=(document.getElementById('ixs-excess-to')||{}).value||'';
+    return _ixsExcessByPerson((ixsProyectoActual||{}).filasRecursosCompleto,ixsClockifyState.registros).map(p=>({...p,records:p.records.filter(x=>(!from||x.fecha>=from)&&(!to||x.fecha<=to))})).filter(p=>p.records.length);
+  }
+  let ixsExcessPages={},ixsExcessSort={};
+  function ixsCerrarExcedidas(){const dialog=document.getElementById('ixs-excess-modal');if(dialog)dialog.remove();}
+  function ixsAbrirExcedidas(){
+    ixsCerrarExcedidas();ixsExcessPages={};ixsExcessSort={};
+    const dialog=document.createElement('dialog');dialog.id='ixs-excess-modal';
+    dialog.className='ixs-excess-dialog';
+    const days=(ixsClockifyState.registros||[]).filter(x=>x.billable===true).map(x=>x.fecha).filter(Boolean).sort();
+    dialog.innerHTML=`<header class="ex-header"><div class="ex-heading"><h2><span class="ex-warning">${_ixsIcon('warning')}</span>Registros fuera de las horas estimadas</h2><p>Por persona, en orden de fecha e inicio. Solo horas facturables, incluidas las que no tienen task. El registro que cruza el límite muestra solo su parte excedida.</p></div><div class="ex-controls"><label>Fecha inicio<input id="ixs-excess-from" type="date" value="${days[0]||''}"></label><label>Fecha fin<input id="ixs-excess-to" type="date" value="${days[days.length-1]||''}"></label><button class="ixs-btn primary" onclick="ixsFiltrarExcedidas()">Aplicar fechas</button><button class="ixs-btn" id="ixs-excess-export" onclick="ixsExportarExcedidas()">↓ Exportar CSV</button><button class="ex-close" onclick="ixsCerrarExcedidas()" aria-label="Cerrar ventana">✕</button></div></header><div id="ixs-excess-records"></div>`;
+    document.body.appendChild(dialog);dialog.addEventListener('close',()=>dialog.remove());dialog.showModal();_ixsRenderExcessRecords();
+    if(!Array.isArray(ixsClockifyState.registros))ixsCargarRegistrosClockify();
+  }
+  function ixsFiltrarExcedidas(){
+    const from=document.getElementById('ixs-excess-from').value,to=document.getElementById('ixs-excess-to').value;
+    if(from&&to&&from>to){alert('La fecha de inicio debe ser anterior o igual a la fecha de fin.');return false;}
+    ixsExcessPages={};_ixsRenderExcessRecords();return true;
+  }
+  function _ixsRenderExcessRecords(){
+    const target=document.getElementById('ixs-excess-records');if(!target)return;
+    const st=ixsClockifyState,button=document.getElementById('ixs-excess-export');
+    if(button)button.disabled=st.cargando||!!st.error;
+    if(st.cargando){target.innerHTML='<div class="ixs-empty">Consultando registros…</div>';return;}
+    if(st.error){target.textContent=st.error;return;}
+    const people=_ixsFilteredExcess();
+    if(button)button.disabled=!people.length;
+    const existing=[...target.querySelectorAll('details[data-ex-person]')],opened=new Set(existing.filter(x=>x.open).map(x=>Number(x.dataset.exPerson)));
+    target.innerHTML=people.map((p,i)=>{
+      const sort=ixsExcessSort[i]||{field:'fecha',dir:1},records=[...p.records].sort((a,b)=>sort.dir*String(a[sort.field]||'').localeCompare(String(b[sort.field]||''))||String(a.fecha+' '+a.inicio).localeCompare(String(b.fecha+' '+b.inicio)));
+      const pages=Math.ceil(records.length/8),page=Math.min(pages,Math.max(1,ixsExcessPages[i]||1)),start=(page-1)*8,visible=records.slice(start,start+8);
+      const heading=(label,field)=>`<th aria-sort="${sort.field===field?(sort.dir===1?'ascending':'descending'):'none'}"><button class="ex-sort" onclick="ixsOrdenarExcedidas(${i},'${field}')">${label} <span aria-hidden="true">${sort.field===field?(sort.dir===1?'↑':'↓'):'↕'}</span></button></th>`;
+      const numbers=Array.from({length:pages},(_,n)=>n+1).filter(n=>n===1||n===pages||Math.abs(n-page)<=2);
+      return `<details data-ex-person="${i}" ${existing.length?opened.has(i)?'open':'':i===0?'open':''}><summary><span class="ex-avatar">${_ixsIcon('people')}</span><div class="ex-person"><b>${_ixsTxt(p.name)}</b><small>${_ixsTxt(p.role)}</small></div><span class="ex-metric">${_ixsIcon('clock')} Estimadas <b>${_ixsNum(p.budget,2)} h</b></span><span class="ex-metric">${_ixsIcon('clock')} Consumidas <b>${_ixsNum(p.used,2)} h</b></span><span class="ex-metric ex-bad">${_ixsIcon('warning')} Excedidas en rango <b>${_ixsNum(p.records.reduce((sum,x)=>sum+x.excess,0),2)} h</b></span><span class="ex-chevron">⌄</span></summary><div class="ixs-table-scroll"><table class="ixs-table"><thead><tr>${heading('Fecha','fecha')}${heading('Inicio','inicio')}${heading('Fin','fin')}<th>Task</th><th>Descripción</th><th>Tipo</th><th>Horas del registro</th><th>Excedidas</th><th>Acumulado</th></tr></thead><tbody>${visible.map(x=>`<tr><td>${_ixsDate(x.fecha)}</td><td>${_ixsTxt(x.inicio||'—')}</td><td>${_ixsTxt(x.fin||'—')}</td><td>${_ixsTxt(x.actividad||'Sin task')}</td><td class="ex-description">${_ixsTxt(x.descripcion||'—')}</td><td>${x.billable?'Facturable':'No facturable'}</td><td>${_ixsNum(x.duracion,2)}</td><td class="ex-over">${_ixsNum(x.excess,2)}</td><td>${_ixsNum(x.cumulative,2)}</td></tr>`).join('')}</tbody></table></div><footer class="ex-pagination"><span>Mostrando ${start+1}–${Math.min(start+8,records.length)} de ${records.length} registros</span><nav aria-label="Páginas de registros de ${_ixsTxt(p.name)}"><button ${page===1?'disabled':''} onclick="ixsPaginaExcedidas(${i},${page-1})" aria-label="Página anterior">←</button>${numbers.map((n,j)=>(j&&n>numbers[j-1]+1?'<span>…</span>':'')+`<button class="${n===page?'active':''}" ${n===page?'aria-current="page"':''} onclick="ixsPaginaExcedidas(${i},${n})">${n}</button>`).join('')}<button ${page===pages?'disabled':''} onclick="ixsPaginaExcedidas(${i},${page+1})" aria-label="Página siguiente">→</button></nav></footer></details>`;
+    }).join('')||'<div class="ixs-empty">No hay registros excedidos en las fechas seleccionadas.</div>';
+  }
+  function ixsPaginaExcedidas(person,page){ixsExcessPages[person]=page;_ixsRenderExcessRecords();}
+  function ixsOrdenarExcedidas(person,field){const old=ixsExcessSort[person];ixsExcessSort[person]={field:field,dir:old&&old.field===field?-old.dir:1};ixsExcessPages[person]=1;_ixsRenderExcessRecords();}
+
+  function ixsExportarExcedidas(){
+    if(!ixsFiltrarExcedidas())return;
+    const people=_ixsFilteredExcess();if(!people.length)return;
+    const quote=value=>{let text=String(value??'');if(/^[=+@-]/.test(text))text="'"+text;return '"'+text.replace(/"/g,'""')+'"';};
+    const rows=[['Proyecto','Recurso','Rol','Fecha','Inicio','Fin','Task','Descripción','Tipo','Horas registro','Horas excedidas']];
+    people.forEach(p=>p.records.forEach(x=>rows.push([ixsProyectoActual.proyecto.id,p.name,p.role,String(x.fecha||'').split('-').reverse().join('/'),x.inicio,x.fin,x.actividad||'Sin task',x.descripcion,x.billable?'Facturable':'No facturable',x.duracion,Number(x.excess.toFixed(4))])));
+    const blob=new Blob(['\ufeff'+rows.map(row=>row.map(quote).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),link=document.createElement('a');
+    link.href=url;link.download=String(ixsProyectoActual.proyecto.id).replace(/[^a-z0-9_.-]/gi,'_')+'_horas_excedidas_'+document.getElementById('ixs-excess-from').value+'_'+document.getElementById('ixs-excess-to').value+'.csv';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
   function _ixsRenderEsfuerzo(){
     const d=ixsProyectoActual||{},rows=d.filasRecursosCompleto||[],roles=d.porRol||[],p=d.proyecto||{},eff=_ixsCalcEffort(d);
@@ -6034,6 +6138,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     const chart=document.getElementById('ixs-tendencia-card');
     const logs=document.getElementById('ixs-registros-card');
     if(!activity&&!chart&&!logs)return;
+    _ixsRenderExcessRecords();
     const st=ixsClockifyState,regs=st.registros||[];
     const error=st.error?`<div class="ixs-empty">${_ixsTxt(st.error)}</div>`:'';
     const loading='<div class="ixs-empty">Consultando Clockify…</div>';
@@ -6056,7 +6161,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     }
     if(chart){
       const months=_ixsTrendRows(regs),max=Math.max(1,...months.map(x=>x.horas));
-      chart.innerHTML=`<div class="ixs-section-head"><h3>${_ixsIcon('chart')} Tendencia de horas</h3><small>Evolución mensual del esfuerzo</small></div>`+
+      chart.innerHTML=`<div class="ixs-section-head"><h3>${_ixsIcon('chart')} Tendencia de horas</h3><button class="ixs-btn primary" onclick="ixsAbrirExcedidas()">Ver horas fuera de las estimadas</button></div>`+
         (st.cargando?loading:st.error?error:months.length?`<div class="ixs-effort-trend">${months.map(x=>`<div class="col"><b>${_ixsNum(x.horas,2)}</b><div class="bar" style="height:${Math.max(3,x.horas/max*100)}%"></div><small>${_ixsTxt(x.mes)}</small></div>`).join('')}</div>`:'<div class="ixs-empty">Sin meses registrados.</div>');
     }
     if(logs){
@@ -6618,6 +6723,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       ixsCargarRecursos();return;
     }
     if(ixsTabActual==='esfuerzo'){
+      _ixsCargarEstadosRecursos();
       el.innerHTML=_ixsRenderEsfuerzo();
       _ixsLoadTasks(ixsProyectoActual.proyecto.id,'ixs-tasks-effort');
       ixsCargarRegistrosClockify();
@@ -6642,6 +6748,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       el.innerHTML=`<div class="ixs-card ixs-placeholder">${_ixsIcon('folder')}<h3>${names[ixsTabActual]||'Apartado'}</h3><p>Prepararemos esta pestaña en la siguiente etapa. Puedes consultar los mismos datos en la vista ejecutiva anterior mientras tanto.</p><button class="ixs-btn primary" onclick="ixsCambiarTab('resumen')">Volver al ejecutivo</button> <button class="ixs-btn" onclick="ixsAbrirVistaAnterior()">Consultar vista anterior →</button></div>`;
       return;
     }
+    _ixsCargarEstadosRecursos();
     const d=ixsProyectoActual,p=d.proyecto||{},av=d.avance||{},pr=d.presupuesto||{},ke=d.kpisExtra||{},rt=d.totalesRecursos||{};
     const mainHitos=_ixsHitos(d),fechaSalidaPRD=_ixsFechaSalidaPRD(d),done=mainHitos.filter(h=>!h.extra&&h.state==='Completado').length,totalMain=mainHitos.filter(h=>!h.extra).length;
     const overResources=(d.filasRecursosCompleto||[]).filter(x=>/exced|retras/i.test(String(x.estado||''))||Number(x.balance)<0);
@@ -6700,7 +6807,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
         </section>
       </div>
       <div class="ixs-grid2">
-        <section class="ixs-card"><div class="ixs-section-head"><h3>${_ixsIcon('calendar')} Línea de tiempo — Hitos principales</h3><button class="ixs-btn primary" onclick="abrirModalHito('${_ixsTxt(p.id)}')">+ Agregar hito</button></div><div id="ixs-gantt-historico">${_ixsGantt(d)}</div></section>
+        <section class="ixs-card"><div class="ixs-section-head"><h3>${_ixsIcon('calendar')} Línea de tiempo — Hitos principales</h3></div><div id="ixs-gantt-historico">${_ixsGantt(d)}</div></section>
         <section class="ixs-card"><div class="ixs-section-head"><h3>${_ixsIcon('donut')} Distribución del avance por área</h3></div>${_ixsArea(d)}</section>
       </div>
       <section class="ixs-card" style="margin-bottom:11px"><div class="ixs-section-head"><h3>${_ixsIcon('people')} Carga de trabajo por recurso</h3><small>Clockify + Recursos · datos existentes</small></div>${_ixsResourceTable(d)}</section>

@@ -7,10 +7,36 @@ import requests
 from django.core.paginator import Paginator
 from django.utils import timezone
 
-from apps.portal.services.commercial import commercial_rows
+from apps.portal.services.commercial import commercial_rows, normalize
 from apps.portal.services.commercial_rates import convert_usd, load_rates
+from apps.portal.templatetags.presentation_labels import commercial_stage
 from core.exceptions import DashboardError
 from core.sheets.factory import build_sheet_repository
+
+
+def unique_opportunities(rows: Any) -> Any:
+    """Una oportunidad por ID (o cuenta y nombre); gana el seguimiento."""
+    selected: dict[Any, Any] = {}
+    for row in rows:
+        identity = normalize(row.get("id"))
+        name = normalize(row.get("oportunidad"))
+        key = (
+            ("id", identity)
+            if identity
+            else (
+                ("name", normalize(row.get("cuenta")), name)
+                if name
+                else ("row", row["fila"])
+            )
+        )
+        previous = selected.get(key)
+
+        def priority(r: dict[str, Any]) -> tuple[str, Any]:
+            return (r.get("seguimiento") or "", r["fila"])
+
+        if previous is None or priority(row) > priority(previous):
+            selected[key] = row
+    return list(selected.values())
 
 
 def build_commercial_context(params: Any) -> Any:
@@ -33,6 +59,11 @@ def build_commercial_context(params: Any) -> Any:
         context["error"] = str(error)
         return context
     all_rows = data["filas"]
+    duplicates_removed = 0
+    if params.get("unique_opportunities") == "1":
+        unique = unique_opportunities(all_rows)
+        duplicates_removed = len(all_rows) - len(unique)
+        all_rows = unique
     fx: dict[str, Any] = {"rates": {"USD": 1}, "date": ""}
     fx_error = ""
     if any(
@@ -96,6 +127,9 @@ def build_commercial_context(params: Any) -> Any:
             result.append(
                 {
                     "name": name,
+                    "display_name": commercial_stage(name)
+                    if field == "etapa"
+                    else name,
                     "count": count,
                     "pct": round(count / len(items) * 100, 1),
                     "usd": sum_usd(selected),
@@ -150,6 +184,9 @@ def build_commercial_context(params: Any) -> Any:
                 "total": group["total"],
                 "rows": group["details"],
             }
+        from apps.portal.services.commercial_pipeline import group_services
+
+        section["service_groups"] = group_services(section["rows"])
         section["group_count"] = len(section["rows"])
         parameter = "pipeline_" + section["key"]
         section["row_page"] = Paginator(section["rows"], 10).get_page(
@@ -170,6 +207,7 @@ def build_commercial_context(params: Any) -> Any:
             "start": start,
             "end": end,
             "query": query,
+            "duplicates_removed": duplicates_removed,
             "won_usd": sum_usd(won),
             "open_usd": sum_usd(opened),
             "won_count": len(won),
@@ -199,3 +237,27 @@ def build_commercial_context(params: Any) -> Any:
     filters.pop("pagina", None)
     context["filter_query"] = filters.urlencode()
     return context
+
+
+def present_commercial_context(context: Any) -> Any:
+    """Upgrade prepared contexts without querying sources again."""
+    from apps.portal.services.commercial_pipeline import group_services
+
+    result = dict(context)
+    pipeline = dict(context.get("pipeline", {}))
+    sections = []
+    for original in pipeline.get("sections", []):
+        section = dict(original)
+        section["service_groups"] = group_services(section.get("rows", []))
+        section["title"] = {
+            "confirmed": "Oportunidades de alta probabilidad",
+            "unconfirmed": "Oportunidades en desarrollo",
+        }.get(str(section.get("key")), section.get("title"))
+        sections.append(section)
+    pipeline["sections"] = sections
+    result["pipeline"] = pipeline
+    result["stage_groups"] = [
+        {**g, "display_name": commercial_stage(g["name"])}
+        for g in context.get("stage_groups", [])
+    ]
+    return result

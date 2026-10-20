@@ -146,3 +146,25 @@ def test_mpb_without_fin_header_uses_column_i():
 
     assert date_range.start_date == date(2026, 3, 1)
     assert date_range.end_date == date(2026, 9, 30)
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+def test_repeated_deployment_uses_extended_finish_without_losing_start(reverse):
+    rows = [
+        ["AMK.004_CR", "Discovery OP", "", "07/05/2026", "14/05/2026"],
+        ["AMK.004_CR", "Discovery", "", "09/06/2026", "16/06/2026"],
+        ["AMK.004_CR", "Deployment", "", "11/09/2026", "25/09/2026"],
+        ["AMK.004_CR", "Deployment", "", "15/10/2026", "20/10/2026"],
+        ["AMK.004_CR", "Deployment EST", "", "15/10/2026", "30/10/2026"],
+    ]
+    reader = InMemorySheetRepository(
+        {
+            "Historico_Proyectos": [HISTORY[1]]
+            + (list(reversed(rows)) if reverse else rows)
+        }
+    )
+    result = ProjectDateRangeResolver(reader, date(2026, 10, 16)).resolve(
+        "AMK.004_CR"
+    )
+    assert result.start_date == date(2026, 5, 7)
+    assert result.end_date == date(2026, 10, 20)

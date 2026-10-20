@@ -2,7 +2,7 @@ from apps.portal.services.revenue_costs import project_ids
 from tests.fakes import InMemorySheetRepository
 
 
-def test_costs_exclude_completed_previous_year_mpb_projects():
+def test_explicit_revenue_of_the_year_keeps_projects_with_old_mpb_dates():
     reader = InMemorySheetRepository(
         {
             "MPB": [
@@ -21,9 +21,11 @@ def test_costs_exclude_completed_previous_year_mpb_projects():
             ],
         }
     )
+    # Un registro de DataRevenue del ano sigue valido aunque MPB cierre antes.
     assert project_ids(reader, "Acme") == [
         "ABSENT",
         "CROSS",
         "CURRENT",
+        "OLD",
         "UNKNOWN",
     ]

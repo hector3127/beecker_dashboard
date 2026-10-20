@@ -26,7 +26,7 @@ def use_store(year: int) -> bool:
 def index_key(year: int) -> str:
     """Separa el indice por archivo de Sheets y ano de la base."""
     scope = hashlib.sha256(settings.GOOGLE_SPREADSHEET_ID.encode()).hexdigest()
-    return f"portal:eva4:hours-index:v1:{scope}:{year}"
+    return f"portal:eva4:hours-index:v4:{scope}:{year}"
 
 
 def load_hour_index(reader: SheetReader, year: int) -> dict[str, Any]:
