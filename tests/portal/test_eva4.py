@@ -249,3 +249,19 @@ def test_eva4_block_prepares_its_own_cache_without_loading_other_sources(
     html = views.operativa_datos(req).content.decode()
     assert 'id="ops-eva4-card"' in html
     assert cache.get(views._operativa_fresh_key(req, "eva4")) is True
+
+
+def test_table_shows_only_active_processes(monkeypatch):
+    data = eva4.build_eva4(
+        [HEADER, row("1"), row("2", "Suspendido"), row("3")], TODAY
+    )
+    assert data["total"] == 3 and data["suspended"] == 1
+    assert [p["bot_id"] for p in data["active_processes"]] == ["1", "3"]
+    monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
+    html = views.eva4(
+        RequestFactory().get("/operativa/eva-4/")
+    ).content.decode()
+    table = html.split('id="eva4-processes"', 1)[1].split("</table>", 1)[0]
+    assert table.count('class="eva4-pill active"') == 2
+    assert "suspended" not in table
+    assert "2 de 2 procesos activos" in html

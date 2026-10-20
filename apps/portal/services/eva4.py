@@ -116,7 +116,7 @@ def snapshot_key(month: str | None = None) -> str:
     """Identifica el corte diario, compartido por detalle y Operativa."""
     day = timezone.localdate()
     return (
-        "portal:eva4:snapshot:v7:"
+        "portal:eva4:snapshot:v8:"
         + day.isoformat()
         + ":"
         + resolve_month(month, day).strftime("%Y-%m")
@@ -245,6 +245,10 @@ def build_eva4(values: list[list[Any]], today: date) -> dict[str, Any]:
         "active": statuses["active"],
         "suspended": statuses["suspended"],
         "processes": processes,
+        # La tabla de procesos solo muestra los que estan en estado Activo.
+        "active_processes": [
+            p for p in processes if p["status_code"] == "active"
+        ],
         "renewals": sorted(
             renewals.values(), key=lambda r: (r["due"], str(r["project_id"]))
         ),
