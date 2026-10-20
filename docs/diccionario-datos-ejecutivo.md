@@ -10,7 +10,7 @@ Fuente / estado: Calendario ejecutivo
 
 ## Importes
 
-Dólares estadounidenses. K = mil. Truncado a miles solo de presentación, sin centavos; cálculos con precisión original. Ejemplo: 1,897,644.14 → 1,897K.
+Dólares estadounidenses. K = miles, M = millones, B = mil millones (convención estadounidense). Miles sin decimales; millones y mil millones con hasta dos decimales de escala. Truncado solo de presentación; cálculos con precisión original. Ejemplo: 1,897,644.14 → 1.89M.
 
 Fuente / estado: Financiero y Comercial
 

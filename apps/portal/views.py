@@ -6,13 +6,14 @@ from typing import Any
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.core.cache import cache
-from django.http import Http404, HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.portal.constants import KPI_HISTORY_CHART_MANAGERS
+from apps.portal.models import ExecutiveAgreement
 from apps.portal.schemas import (
     CapacityFilters,
     InvestmentView,
@@ -29,6 +30,7 @@ from apps.portal.services.capacity import (
     parse_workday_hours,
 )
 from apps.portal.services.capacity_loader import load_capacity
+from apps.portal.services.closed_aer_burn import fill_closed_burn
 from apps.portal.services.eva_loader import (
     build_eva1_card,
     load_eva1,
@@ -110,6 +112,7 @@ from apps.portal.services.portfolio_summary import (
 )
 from apps.portal.services.project_loader import load_project_dashboard
 from apps.portal.services.project_page import build_project_page
+from apps.portal.services.return_navigation import return_context
 from apps.portal.services.slugs import build_slug
 from apps.portal.services.time_cost import average
 
@@ -184,6 +187,14 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
             "executive_label": chosen.label,
             "financial_snapshot": financial,
             "operations_snapshot": operations,
+            "agreement_accounts": sorted(
+                {
+                    row["name"]
+                    for row in financial.get("accounts", {}).get("accounts", [])
+                    if row.get("name")
+                },
+                key=str.casefold,
+            ),
             "decisions": [],
             "has_projects": False,
             "page_stale": False,
@@ -628,7 +639,10 @@ def comercial(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    from apps.portal.services.commercial_view import build_commercial_context
+    from apps.portal.services.commercial_view import (
+        build_commercial_context,
+        present_commercial_context,
+    )
 
     key = "portal:commercial:context:v1:" + timezone.localdate().isoformat()
     filters = request.GET.copy()
@@ -639,7 +653,7 @@ def comercial(request: HttpRequest) -> HttpResponse:
             request,
             "portal/comercial.html",
             {
-                **cached,
+                **present_commercial_context(cached),
                 "page_stale": not cache.get(key + ":fresh"),
             },
         )
@@ -649,7 +663,9 @@ def comercial(request: HttpRequest) -> HttpResponse:
         cache.set(key + ":fresh", True, 300)
     elif cached is not None:
         context = {**cached, "refresh_failed": True}
-    return render(request, "portal/comercial.html", context)
+    return render(
+        request, "portal/comercial.html", present_commercial_context(context)
+    )
 
 
 _DM_SECONDS = 300
@@ -1028,8 +1044,6 @@ def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
     }
     from django.urls import reverse
 
-    from apps.portal.services.return_navigation import return_context
-
     context.update(
         return_context(request, reverse("portal:operativa"), "Operativa")
     )
@@ -1043,8 +1057,6 @@ def proyecto_detalle(request: HttpRequest, project_id: str) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
     from django.urls import reverse
-
-    from apps.portal.services.return_navigation import return_context
 
     return render(
         request,
@@ -1808,10 +1820,6 @@ def eva3_cerrados_burn(request: HttpRequest) -> HttpResponse:
     """Rellena el Burn de un proyecto AER cerrado."""
     import json
 
-    from django.http import JsonResponse
-
-    from apps.portal.services.closed_aer_burn import fill_closed_burn
-
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
     if request.method != "POST":
@@ -1860,6 +1868,29 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
 
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
+
+    def prepare_missing(summary: Any) -> Any:
+        if any(
+            p.get("cost") is None and not p.get("future")
+            for p in summary.get("projects", [])
+        ):
+            from apps.portal.services.executive_refresh import (
+                refresh_status,
+                request_refresh,
+            )
+
+            status = (
+                request_refresh()
+                if request.GET.get("actualizar") != "1"
+                else refresh_status()
+            )
+            summary = {
+                **summary,
+                "preparing": status.get("state")
+                in {"queued", "running", "busy"},
+            }
+        return summary
+
     try:
         pid = request.GET.get("id")
         account = request.GET.get("nombre", "").strip()
@@ -1874,7 +1905,7 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
         if not pid and request.GET.get("actualizar") != "1":
             prepared = prepared_summary(account or None)
             if prepared is not None:
-                return JsonResponse(prepared)
+                return JsonResponse(prepare_missing(prepared))
         if pid:
             prepared = prepared_detail(pid, account or None)
             if prepared is not None:
@@ -1908,7 +1939,7 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
             remember(result, account or None)
             cache.delete(summary_key(account or None))
         else:
-            result = remember_summary(result, account or None)
+            result = prepare_missing(remember_summary(result, account or None))
         return JsonResponse(result)
     except (DashboardError, ValueError) as error:
         message = (
@@ -1945,6 +1976,8 @@ def rentabilidad_mensual(request: HttpRequest) -> HttpResponse:
 @period_view
 def costos_detalle(request: HttpRequest) -> HttpResponse:
     """Muestra costos, estados y personas con sus bandas y tarifas."""
+    if request.GET.get("vista") != "proyectos":
+        return oportunidades_financieras(request)
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
     from urllib.parse import urlencode
@@ -2100,7 +2133,6 @@ def acuerdos_ejecutivos(request: HttpRequest) -> HttpResponse:
     from django.http import JsonResponse
 
     from apps.portal.forms import ExecutiveAgreementForm
-    from apps.portal.models import ExecutiveAgreement
 
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
@@ -2168,4 +2200,63 @@ def diccionario_datos(request: HttpRequest) -> HttpResponse:
         request,
         "portal/diccionario_datos.html",
         {"concepts": CONCEPTS, "active": "ejecutiva"},
+    )
+
+
+@require_GET
+@period_view
+def oportunidades_financieras(request: Any) -> Any:
+    """Florencia: margen vendido y real por oportunidad, no por Project ID."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+    from apps.portal.services.executive_refresh import request_refresh
+    from apps.portal.services.financial_cache import (
+        cached_financial_snapshot,
+        snapshot_key,
+    )
+    from apps.portal.services.opportunity_profitability import (
+        build_opportunities,
+        opportunity_summary,
+    )
+
+    snapshot = cached_financial_snapshot()
+    prepared = snapshot.get("opportunities") or cache.get(
+        snapshot_key() + ":opportunities"
+    )
+    if prepared and prepared.get("version") != 5:
+        prepared = None
+    data = prepared or build_opportunities()
+    account_filter = request.GET.get("nombre", "").strip()
+    if account_filter:
+        from apps.ejecutivo.services.account_view import account_matches
+
+        data = {
+            **data,
+            "opportunities": [
+                o
+                for o in data["opportunities"]
+                if account_matches(o["account"], account_filter)
+            ],
+        }
+    preparing = not prepared
+    if preparing:
+        request_refresh()
+    return render(
+        request,
+        "portal/oportunidades_financieras.html",
+        {
+            "active": "ejecutiva",
+            "data": data,
+            "preparing": preparing,
+            "account_filter": account_filter,
+            "summary": opportunity_summary(data["opportunities"]),
+            "selected_year": int(data["start"][:4]),
+            "year_options": range(
+                int(data["start"][:4]) - 2, int(data["start"][:4]) + 2
+            ),
+            "executive_query": executive_query_string(),
+            "executive_label": period.label
+            if (period := executive_period())
+            else "2026",
+        },
     )

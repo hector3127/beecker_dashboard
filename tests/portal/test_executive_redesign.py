@@ -27,7 +27,7 @@ def source():
 
 
 def test_format_uses_thousands_without_cents():
-    assert money_k(1897644.14) == "1,897K"
+    assert money_k(1897644.14) == "1.89M"
     assert money_k(None) == "Pendiente"
     assert money_k(-2413.59) == "-2K"
 
@@ -254,3 +254,31 @@ def test_ranking_includes_accounts_with_partial_and_no_costs():
     assert result["healthy"][0]["partial"] is True
     assert all(a["weighted_score"] is not None for a in result["accounts"])
     assert result["pending_accounts"] == 3
+
+
+def test_classification_uses_available_partial_costs():
+    from apps.portal.services.account_profitability import (
+        rank_financial_accounts,
+    )
+
+    cases = [
+        ("partial healthy", 100, 10, 90, 4, "healthy"),
+        ("partial loss", 100, 150, -50, 2, "unhealthy"),
+        ("middle", 100, 50, 50, 1, "intermediate"),
+        ("future", 100, 0, 100, 3, "future"),
+        ("empty", 0, 0, None, 2, "pending"),
+    ]
+    rows = [
+        {
+            "name": n,
+            "revenue": r,
+            "cost": c,
+            "gross_profit": r - c,
+            "margin": m,
+            "pending": p,
+        }
+        for n, r, c, m, p, _ in cases
+    ]
+    result = rank_financial_accounts(rows)
+    actual = {r["name"]: r["classification"] for r in result["accounts"]}
+    assert actual == {n: expected for n, r, c, m, p, expected in cases}

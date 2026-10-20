@@ -10,7 +10,7 @@ CONCEPTS = [
     ),
     (
         "Importes",
-        "Dólares estadounidenses. K = mil. Truncado a miles solo de presentación, sin centavos; cálculos con precisión original. Ejemplo: 1,897,644.14 → 1,897K.",
+        "Dólares estadounidenses. K = miles, M = millones, B = mil millones (convención estadounidense). Miles sin decimales; millones y mil millones con hasta dos decimales de escala. Truncado solo de presentación; cálculos con precisión original. Ejemplo: 1,897,644.14 → 1.89M.",
         "Financiero y Comercial",
     ),
     (
@@ -104,3 +104,11 @@ CONCEPTS = [
         "Caché por rango",
     ),
 ]
+
+CONCEPTS.append(
+    (
+        "Margen vendido vs. real por oportunidad",
+        "Cruce por DataRevenue B/C, reuniendo todos sus Project IDs de E. Margen vendido = I; margen real = 100 × (revenue de H − costos disponibles) / revenue. Incluye los estados de Finanzas, incluso Confirmed, separado de facturación. Desviación = real − vendido en pp. Solo en esta comparativa se excluyen licencias, SaaS y especializados. Costos parciales marcados con *. IDs compartidos entre oportunidades requieren asignación validada; no se duplica su costo. No se elige un margen arbitrario cuando I presenta valores distintos.",
+        "DataRevenue C/E/G/H/I · Clockify · tarifas internas de banda",
+    )
+)

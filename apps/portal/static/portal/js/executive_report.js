@@ -27,7 +27,7 @@
  set('executive-ops-etc',ops.etc!=null?whole(ops.etc)+' h'+(partial?'*':''):'Pendiente');
  set('executive-ops-advance',ops.advance!=null?pct(ops.advance)+(partial?'*':''):'Pendiente');
  set('executive-ops-fte',ops.fte!=null?Number(ops.fte).toLocaleString('en-US',{maximumFractionDigits:2})+' FTE equivalentes':'FTE pendiente de corte completo');
- set('executive-ops-facturability',ops.facturability==null?'Pendiente':Number(ops.facturability).toLocaleString('en-US',{maximumFractionDigits:2})+'%'+(ops.facturability_partial?'*':''));set('executive-ops-facturability-month',ops.facturability_period?(ops.facturability_partial?'Parcial · ':'')+ops.facturability_period:'');set('executive-ops-investment',ops.investment_operational==null?'Pendiente':whole(ops.investment_operational)+' h');
+ set('executive-ops-facturability',ops.facturability==null?'Pendiente':Number(ops.facturability).toLocaleString('en-US',{maximumFractionDigits:0})+'%'+(ops.facturability_partial?'*':''));set('executive-ops-facturability-month',ops.facturability_period?(ops.facturability_partial?'Parcial · ':'')+ops.facturability_period:'');set('executive-ops-investment',ops.investment_operational==null?'Pendiente':whole(ops.investment_operational)+' h');
  const opsPending=new Map();
  for(const id of ops.missing_budget_ids||[])opsPending.set(id,['Sin presupuesto']);
  for(const id of ops.pending_ids||[])opsPending.set(id,[...(opsPending.get(id)||[]),'Consumo pendiente']);
@@ -44,8 +44,11 @@
  }
  set('executive-ops-note','ETC = presupuesto − consumo. FTE equivalente = ETC ÷ meses del rango ÷ 360 (base solicitada por Dirección). Avance = consumo ÷ presupuesto. Facturabilidad de proyectos = horas facturables ÷ todas las horas de sus registros. Inversión operativa = horas con etiqueta INV_OPERATIVA. No equivale a la facturabilidad global de GSE.');
  const commercial=seed.commercial||{};set('commercial-won',money(commercial.won));set('commercial-won-note',commercial.won_count==null?'Pendiente de corte':whole(commercial.won_count)+' ventas ganadas · booking');
- set('commercial-delivery','Pendiente');set('commercial-delivery-note','Poly: saldo por ejecutar pendiente de validar');
- set('commercial-open','Pendiente');set('commercial-open-note','Luis Enrique: categoría previa al cierre pendiente de definir');set('commercial-data-state','Validaciones pendientes');
+ set('commercial-delivery',money(commercial.delivery));set('commercial-delivery-note',commercial.delivery_note||'Pendiente de corte');
+ const deliveryNode=node('commercial-delivery');if(deliveryNode)deliveryNode.title=commercial.delivery_note||'Revenue futuro Confirmed por fecha de Finanzas';
+ set('commercial-open',money(commercial.open));set('commercial-open-note',commercial.open_note||'Pendiente de corte');
+ const openNode=node('commercial-open');if(openNode)openNode.title=commercial.open_note||'Oportunidades abiertas del periodo';
+ set('commercial-data-state',commercial.open_rule&&commercial.delivery_rule?'Corte preparado':'Validaciones pendientes');
  const savedMonthly=seed.profitability;
  const monthly=savedMonthly?{...savedMonthly,months:(savedMonthly.months||[]).map(row=>({...row,margin:row.cost!=null&&Number(row.revenue)>0?(Number(row.revenue)-Number(row.cost))/Number(row.revenue)*100:null}))}:null,chart=node('monthly-profit-chart');
  if(monthly&&chart){mountExecutiveMonthlyChart(chart,monthly);set('monthly-profit-state',monthly.complete?'Corte preparado':'Margen parcial · costos disponibles');}else if(chart)chart.textContent='El corte del periodo se está preparando. Las cifras no se actualizarán automáticamente.';

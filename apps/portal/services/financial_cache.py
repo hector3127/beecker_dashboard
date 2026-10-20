@@ -16,6 +16,7 @@ from apps.portal.services.revenue import load_revenue
 from apps.portal.services.revenue_costs import (
     calculate_project_cost,
     cost_summary,
+    future_project_month,
     key,
     prepare_cost_context,
     project_ids,
@@ -32,7 +33,7 @@ _WARM_LOCK = threading.Lock()
 def snapshot_key() -> str:
     """Separa el corte financiero de los otros bloques y de otros dias."""
     return (
-        "portal:financial:snapshot:v12:"
+        "portal:financial:snapshot:v13:"
         + timezone.localdate().isoformat()
         + cache_suffix()
     )
@@ -43,7 +44,7 @@ def cached_financial_snapshot() -> dict[str, Any]:
     saved = cache.get(snapshot_key()) or {}
     if (
         saved.get("accounts", {}).get("accounts") is not None
-        and saved["accounts"].get("ranking_version") != 3
+        and saved["accounts"].get("ranking_version") != 4
     ):
         from apps.portal.services.account_profitability import (
             rank_financial_accounts,
@@ -59,7 +60,16 @@ def cached_financial_snapshot() -> dict[str, Any]:
 def warm_financial(only_stale: bool = False) -> dict[str, Any]:
     """Agrupa actualizaciones simultaneas sin ocultar el ultimo corte."""
     with _WARM_LOCK:
-        if only_stale and cache.get(snapshot_key() + ":fresh"):
+        if (
+            only_stale
+            and cache.get(snapshot_key() + ":fresh")
+            and (
+                cached_financial_snapshot().get("opportunities")
+                or cache.get(snapshot_key() + ":opportunities")
+                or {}
+            ).get("version")
+            == 5
+        ):
             return {"ok": True, "error": ""}
         return _prepare_financial()
 
@@ -73,12 +83,14 @@ def _prepare_financial() -> dict[str, Any]:
         ids = project_ids(reader)
 
         # Do not re-read/parse rosters and rates for already prepared costs.
-        def needs_preparation(pid: str) -> bool:
+        def needs_preparation(pid: Any) -> Any:
+            if future_project_month(pid):
+                return False
             saved = cache.get(key(pid))
             return (
                 force_sources.get()
                 or not saved
-                or saved.get("financial_grouping_version") != 2
+                or saved.get("financial_grouping_version") != 3
                 or "sprints" not in saved
                 or any("people" not in group for group in saved["sprints"])
             )
@@ -119,11 +131,17 @@ def _prepare_financial() -> dict[str, Any]:
     profitability = load_monthly_profitability(reader=reader, ids=ids)
     if not profitability["complete"] and not failures:
         failures.append("Rentabilidad mensual incompleta")
+    from apps.portal.services.opportunity_profitability import (
+        build_opportunities,
+    )
+
+    opportunities = build_opportunities(reader)
     snapshot = {
         "revenue": revenue,
         "costs": costs,
         "profitability": profitability,
         "accounts": account_profitability(reader=reader),
+        "opportunities": opportunities,
         "loaded_at": timezone.localtime().isoformat(),
         "query_errors": failures,
     }
@@ -132,4 +150,6 @@ def _prepare_financial() -> dict[str, Any]:
     if not failures or not previous.get("costs", {}).get("complete"):
         cache.set(snapshot_key(), snapshot, 86400)
         cache.set(snapshot_key() + ":fresh", True, 300)
+    if opportunities:
+        cache.set(snapshot_key() + ":opportunities", opportunities, 86400)
     return {"ok": not failures, "error": "; ".join(failures)}

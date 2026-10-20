@@ -129,3 +129,39 @@ def test_unregistered_cr_is_grouped_under_pure_id():
         }
     )
     assert set(inventory(reader)) == {"mcc.014"}
+
+
+def test_explicit_revenue_link_overrides_old_mpb_period_for_detail_membership():
+    from apps.portal.services.revenue_costs import project_ids
+
+    reader = InMemorySheetRepository(
+        {
+            "DataRevenue": [
+                ["Status", "Account", "", "", "ID", "", "Date", "Amount"],
+                [
+                    "Collected",
+                    "Arca Continental México",
+                    "ARC-MX-IXB-001",
+                    "RPA Bots",
+                    "SBM.012",
+                    "",
+                    "2026-08-18",
+                    2000,
+                ],
+            ],
+            "MPB": [
+                MPB,
+                [
+                    "Arca Continental México",
+                    "SBM.012",
+                    "Old contract",
+                    "IxB",
+                    "2025-01-01",
+                    "2025-12-31",
+                    "Finalizado",
+                ],
+            ],
+        }
+    )
+    assert project_ids(reader, "Arca Continental México") == ["SBM.012"]
+    assert project_ids(reader, "Other account") == []
