@@ -146,10 +146,10 @@ def test_anterior_view_is_available_until_the_cutoff_date(monkeypatch):
     assert "eva4-month-form" in html  # sigue siendo EVA-04
 
 
-def test_new_view_links_to_the_anterior_one_during_validation(monkeypatch):
+def test_new_view_does_not_show_a_link_to_the_anterior_one(monkeypatch):
     html = render_eva4(monkeypatch)
-    assert "vista=anterior" in html
-    assert "ver la pantalla anterior" in html
+    assert "ver la pantalla anterior" not in html
+    assert "Validación:" not in html
     assert "Estás viendo la pantalla anterior" not in html
 
 

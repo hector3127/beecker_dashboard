@@ -78,6 +78,6 @@ pero no hay ceros en esos tres. Quedan dos caminos:
 Se puede ver con `?vista=anterior` **hasta el 2026-11-03** (14 días). Después el
 parámetro se ignora. Para retirarla: borrar `ANTERIOR_HASTA` y `anterior_disponible()`
 en `apps/portal/services/eva4.py`, la plantilla `eva4_anterior.html`, el parámetro en
-`views.eva4`, el enlace de «Validación» en `eva4.html` y las pruebas `test_anterior_*`.
+`views.eva4` y las pruebas `test_anterior_*`.
 Criterio: dos Delivery Managers confirman que encuentran sus procesos y su balance
 sin ayuda.
