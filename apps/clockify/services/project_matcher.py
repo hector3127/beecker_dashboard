@@ -82,6 +82,7 @@ def resolve_clockify_project(
     # Match spelling variants of the same exact CR/S nomenclature only.
     def canonical(value: str) -> str:
         return re.sub(r"[\s|_-]+", "", normalize_clockify_name(value))
+
     variant_matches = [
         project
         for project in projects

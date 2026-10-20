@@ -146,7 +146,8 @@ def tagged_investment(
                 for pid in ids
             ],
             ensure_ascii=True,
-        ).encode("utf-8") + str(date_range).encode("ascii")
+        ).encode("utf-8")
+        + str(date_range).encode("ascii")
     ).hexdigest()
     key = (
         "portal:tagged-investment:v10:"

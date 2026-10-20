@@ -157,7 +157,14 @@ def test_repeated_deployment_uses_extended_finish_without_losing_start(reverse):
         ["AMK.004_CR", "Deployment", "", "15/10/2026", "20/10/2026"],
         ["AMK.004_CR", "Deployment EST", "", "15/10/2026", "30/10/2026"],
     ]
-    reader = InMemorySheetRepository({"Historico_Proyectos": [HISTORY[1]] + (list(reversed(rows)) if reverse else rows)})
-    result = ProjectDateRangeResolver(reader, date(2026, 10, 16)).resolve("AMK.004_CR")
+    reader = InMemorySheetRepository(
+        {
+            "Historico_Proyectos": [HISTORY[1]]
+            + (list(reversed(rows)) if reverse else rows)
+        }
+    )
+    result = ProjectDateRangeResolver(reader, date(2026, 10, 16)).resolve(
+        "AMK.004_CR"
+    )
     assert result.start_date == date(2026, 5, 7)
     assert result.end_date == date(2026, 10, 20)

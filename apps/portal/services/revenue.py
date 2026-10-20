@@ -1,4 +1,5 @@
 from core.utils.source_refresh import force_sources
+
 """Ingresos reales: suma de USD Global Adj (DataRevenue, columna H)."""
 
 from decimal import Decimal, InvalidOperation
@@ -14,7 +15,9 @@ from apps.portal.services.executive_period import (
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 
-INVOICE_STATUSES = frozenset({"invoiced", "invoiced factoring", "collected", "collected factoring"})
+INVOICE_STATUSES = frozenset(
+    {"invoiced", "invoiced factoring", "collected", "collected factoring"}
+)
 
 REVENUE_STATUSES = frozenset(
     {

@@ -1,4 +1,5 @@
 from core.utils.source_refresh import force_sources
+
 """Executive commercial figures from the same source and FX as Comercial."""
 
 from typing import Any

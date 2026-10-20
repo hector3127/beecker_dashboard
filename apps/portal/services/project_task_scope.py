@@ -59,5 +59,11 @@ def scope_entries(pid, ids, entries, loader, lookup):
 
 def financial_variant(project_id):
     """Financial identity: unregistered sprint/CR variants belong to the base."""
-    match = re.fullmatch(r"(.*?)[_\s|/-]+(S\d+|CR\d*)", project_id.strip(), re.I)
-    return (match.group(1).strip().casefold(), match.group(2).upper()) if match else None
+    match = re.fullmatch(
+        r"(.*?)[_\s|/-]+(S\d+|CR\d*)", project_id.strip(), re.I
+    )
+    return (
+        (match.group(1).strip().casefold(), match.group(2).upper())
+        if match
+        else None
+    )

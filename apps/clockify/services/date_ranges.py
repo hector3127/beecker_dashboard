@@ -328,7 +328,9 @@ def pick_stage_date(
         return None
 
     if stage == STAGE_DISCOVERY:
-        operational_dates = [day for rank, day in candidates if rank >= RANK_OPERATION]
+        operational_dates = [
+            day for rank, day in candidates if rank >= RANK_OPERATION
+        ]
         if operational_dates:
             return min(operational_dates)
     best_rank = max(rank for rank, _ in candidates)

@@ -174,7 +174,9 @@ def group_by_base(
         service = read_service(row)
         project_id = read_project_id(row)
 
-        if (service in IXB_RAAS_SERVICES or include_saas and service == "SAAS") and project_id:
+        if (
+            service in IXB_RAAS_SERVICES or include_saas and service == "SAAS"
+        ) and project_id:
             groups.setdefault(extract_base_id(project_id), []).append(row)
 
     return groups

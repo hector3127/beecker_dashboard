@@ -1,4 +1,5 @@
 from core.utils.source_refresh import force_sources
+
 """Prepara Finanzas sin consultar Clockify al renderizar la pagina."""
 
 import logging
@@ -41,9 +42,18 @@ def snapshot_key() -> str:
 def cached_financial_snapshot() -> dict[str, Any]:
     """Lee el corte preparado sin llamadas a fuentes externas."""
     saved = cache.get(snapshot_key()) or {}
-    if saved.get("accounts", {}).get("accounts") is not None and saved["accounts"].get("ranking_version") != 3:
-        from apps.portal.services.account_profitability import rank_financial_accounts
-        saved = {**saved, "accounts": rank_financial_accounts(saved["accounts"]["accounts"])}
+    if (
+        saved.get("accounts", {}).get("accounts") is not None
+        and saved["accounts"].get("ranking_version") != 3
+    ):
+        from apps.portal.services.account_profitability import (
+            rank_financial_accounts,
+        )
+
+        saved = {
+            **saved,
+            "accounts": rank_financial_accounts(saved["accounts"]["accounts"]),
+        }
     return saved
 
 
@@ -62,10 +72,18 @@ def _prepare_financial() -> dict[str, Any]:
         revenue = load_revenue()
         reader = build_sheet_repository()
         ids = project_ids(reader)
+
         # Do not re-read/parse rosters and rates for already prepared costs.
         def needs_preparation(pid):
             saved = cache.get(key(pid))
-            return force_sources.get() or not saved or saved.get("financial_grouping_version") != 2 or "sprints" not in saved or any("people" not in group for group in saved["sprints"])
+            return (
+                force_sources.get()
+                or not saved
+                or saved.get("financial_grouping_version") != 2
+                or "sprints" not in saved
+                or any("people" not in group for group in saved["sprints"])
+            )
+
         pending = [pid for pid in ids if needs_preparation(pid)]
         context = (
             prepare_cost_context(reader=reader, ids=ids) if pending else None

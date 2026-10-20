@@ -119,7 +119,8 @@ def test_matches_original(index):
         assert result == {
             **expected,
             "registros": [
-                row for row in expected["registros"]
+                row
+                for row in expected["registros"]
                 if row["id"] not in {"a3", "a9"}
             ],
         }

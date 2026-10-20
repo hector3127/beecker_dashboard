@@ -20,7 +20,9 @@ NO_ROLE = "Sin rol"
 
 
 def attach_month_roster(
-    gse: dict[str, Any], reader: SheetReader, month: str,
+    gse: dict[str, Any],
+    reader: SheetReader,
+    month: str,
 ) -> dict[str, Any]:
     """Adjunta la plantilla de Bandas/rol sin depender de Recursos o MPB."""
     sheet = read_roster_sheet(reader, "Bandas/rol requiere Nombre y ROL.")

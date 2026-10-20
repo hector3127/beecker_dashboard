@@ -59,7 +59,10 @@ def _run(key: str, query: str) -> None:
     """Prepare a new cut, preserving existing valid snapshots on failures."""
     from urllib.parse import parse_qs
     from core.utils.source_refresh import force_sources
-    force_token = force_sources.set(parse_qs(query).get("forzar_fuentes") == ["1"])
+
+    force_token = force_sources.set(
+        parse_qs(query).get("forzar_fuentes") == ["1"]
+    )
     started = time.perf_counter()
     try:
         close_old_connections()
@@ -93,13 +96,32 @@ def _prepare(query: str) -> bool:
     from apps.portal.services.financial_cache import warm_financial
 
     from core.utils.source_refresh import force_sources
+
     if force_sources.get():
         from django.conf import settings
         from core.sheets.read_cache import SheetReadCache
-        from apps.clockify.provider import build_cache_prefix, read_clockify_settings
-        cache.delete(build_cache_prefix(*read_clockify_settings()) + ":projects")
-        sheets = SheetReadCache(settings.GOOGLE_SPREADSHEET_ID, settings.SHEETS_READ_CACHE_SECONDS)
-        for name in ["DataRevenue", "Backlog_Proyectos", "Bandas/rol", "Master rates", "MPB", "Historico_Proyectos", "Proyectos", "Recursos", "Clockify_Vinculos"]:
+        from apps.clockify.provider import (
+            build_cache_prefix,
+            read_clockify_settings,
+        )
+
+        cache.delete(
+            build_cache_prefix(*read_clockify_settings()) + ":projects"
+        )
+        sheets = SheetReadCache(
+            settings.GOOGLE_SPREADSHEET_ID, settings.SHEETS_READ_CACHE_SECONDS
+        )
+        for name in [
+            "DataRevenue",
+            "Backlog_Proyectos",
+            "Bandas/rol",
+            "Master rates",
+            "MPB",
+            "Historico_Proyectos",
+            "Proyectos",
+            "Recursos",
+            "Clockify_Vinculos",
+        ]:
             sheets.invalidate_values(name)
     partial = False
     for task in (warm_financial, warm_operations):

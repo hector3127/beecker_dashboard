@@ -143,7 +143,9 @@ def build_executive_dashboard(
         sources.stage_work_items,
     )
     status_project = dict(project)
-    status_project["Estado"] = current_history_status(project.get("Estado"), milestones, now)
+    status_project["Estado"] = current_history_status(
+        project.get("Estado"), milestones, now
+    )
     general_status, status_color = calculate_general_status(
         status_project,
         raw_consumption_pct,

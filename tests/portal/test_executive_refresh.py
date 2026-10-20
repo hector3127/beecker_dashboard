@@ -74,7 +74,10 @@ def test_queue_is_bounded_and_failure_releases_slot(isolated, monkeypatch):
 
 def test_refresh_get_only_reads_status_and_post_requires_csrf(isolated):
     client = Client(enforce_csrf_checks=True)
-    assert client.get("/ejecutiva/actualizacion/").json() == {"state": "idle", "has_financial_cut": False}
+    assert client.get("/ejecutiva/actualizacion/").json() == {
+        "state": "idle",
+        "has_financial_cut": False,
+    }
     assert client.post("/ejecutiva/actualizacion/").status_code == 403
     isolated.submit.assert_not_called()
 
@@ -129,12 +132,19 @@ def test_refresh_worker_uses_warmer_path_and_preserves_partial_state(
     assert req.GET["mes"] == "9"
 
 
-def test_explicit_refresh_bypasses_source_caches_only_inside_its_worker(isolated, monkeypatch):
+def test_explicit_refresh_bypasses_source_caches_only_inside_its_worker(
+    isolated, monkeypatch
+):
     from core.utils.source_refresh import force_sources
-    observed=[]
-    monkeypatch.setattr(refresh, "_prepare", lambda query: observed.append((force_sources.get(), query)) or False)
+
+    observed = []
+    monkeypatch.setattr(
+        refresh,
+        "_prepare",
+        lambda query: observed.append((force_sources.get(), query)) or False,
+    )
     refresh.request_refresh(force=True)
-    call=isolated.submit.call_args
+    call = isolated.submit.call_args
     call.args[0](*call.args[1:])
     assert observed[0][0] is True and "forzar_fuentes=1" in observed[0][1]
     assert force_sources.get() is False

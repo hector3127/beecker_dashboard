@@ -127,7 +127,11 @@ def account_matches(value: object, client: object) -> bool:
     account = normalize_value(client)
     name = normalize_value(value)
     # DataRevenue uses the country-qualified name; MPB/history/ROC use Heineken.
-    aliases = {"heineken mexico": "heineken", "cadena comercial oxxo": "oxxo", "cadena comercial oxxo.": "oxxo"}
+    aliases = {
+        "heineken mexico": "heineken",
+        "cadena comercial oxxo": "oxxo",
+        "cadena comercial oxxo.": "oxxo",
+    }
     account = aliases.get(account, account)
     name = aliases.get(name, name)
 
@@ -576,7 +580,11 @@ def read_history_projects(
         if not account_matches(client_name, client):
             continue
 
-        if normalize_value(get(row, "Service", 3)) not in {"ixb", "raas", "saas"}:
+        if normalize_value(get(row, "Service", 3)) not in {
+            "ixb",
+            "raas",
+            "saas",
+        }:
             continue
 
         project_id = js_or_text(get(row, "Project ID", 2)).strip()
@@ -660,23 +668,39 @@ def read_history_projects(
         identity = normalize_value(pid)
         item = operational.get(identity)
         if item is None:
-            item = {**projects.get(identity, {}), "id": pid,
-                    "client": js_or_text(read_cell(row, 1)).strip(),
-                    "nombre": js_or_text(read_cell(row, 4)), "servicio": service,
-                    "deliveryManager": js_or_text(read_cell(row, 0)),
-                    "etapas": [],
-                    "budget": projects.get(identity, {}).get("budget"),
-                    "burn": projects.get(identity, {}).get("burn"),
-                    "nps": projects.get(identity, {}).get("nps"),
-                    "diasSuspension": projects.get(identity, {}).get("diasSuspension"),
-                    "profitability": projects.get(identity, {}).get("profitability", "")}
+            item = {
+                **projects.get(identity, {}),
+                "id": pid,
+                "client": js_or_text(read_cell(row, 1)).strip(),
+                "nombre": js_or_text(read_cell(row, 4)),
+                "servicio": service,
+                "deliveryManager": js_or_text(read_cell(row, 0)),
+                "etapas": [],
+                "budget": projects.get(identity, {}).get("budget"),
+                "burn": projects.get(identity, {}).get("burn"),
+                "nps": projects.get(identity, {}).get("nps"),
+                "diasSuspension": projects.get(identity, {}).get(
+                    "diasSuspension"
+                ),
+                "profitability": projects.get(identity, {}).get(
+                    "profitability", ""
+                ),
+            }
             operational[identity] = item
         stage = js_or_text(read_cell(row, 6)).strip()
         estimated = normalize_value(stage).endswith(" est")
-        item["etapas"].append({"nombre": stage,
-            "fechaInicio": parse_mpb_date(read_cell(row, 7)),
-            "fechaFinReal": "" if estimated else parse_mpb_date(read_cell(row, 8)),
-            "fechaFinPlan": parse_mpb_date(read_cell(row, 8)) if estimated else ""})
+        item["etapas"].append(
+            {
+                "nombre": stage,
+                "fechaInicio": parse_mpb_date(read_cell(row, 7)),
+                "fechaFinReal": ""
+                if estimated
+                else parse_mpb_date(read_cell(row, 8)),
+                "fechaFinPlan": parse_mpb_date(read_cell(row, 8))
+                if estimated
+                else "",
+            }
+        )
         budget = parse_mpb_number(read_cell(row, 9))
         if budget is not None:
             item["budget"] = json_number(budget)

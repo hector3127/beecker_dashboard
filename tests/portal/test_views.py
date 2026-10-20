@@ -217,9 +217,15 @@ def test_operational_counts_real_projects(client, monkeypatch):
 def test_operational_filters_by_service_and_client(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    by_service = client.get("/operativa/datos/", {"servicio": "T&M", "bloque": "eva3"})
-    by_client = client.get("/operativa/datos/", {"cuenta": "Clinica Sur", "bloque": "eva3"})
-    nothing = client.get("/operativa/datos/", {"servicio": "IXB", "bloque": "eva3"})
+    by_service = client.get(
+        "/operativa/datos/", {"servicio": "T&M", "bloque": "eva3"}
+    )
+    by_client = client.get(
+        "/operativa/datos/", {"cuenta": "Clinica Sur", "bloque": "eva3"}
+    )
+    nothing = client.get(
+        "/operativa/datos/", {"servicio": "IXB", "bloque": "eva3"}
+    )
 
     assert by_service.context["summary"].in_progress == 1
     assert by_client.context["summary"].in_progress == 1
@@ -327,7 +333,10 @@ def test_operational_cards_keep_manager_links(
     html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
     assert 'href="/operativa/delivery-manager/alberto/?nombre=Alberto"' in html
-    assert 'href="/operativa/delivery-manager/laura-vega/?nombre=Laura%20Vega"' in html
+    assert (
+        'href="/operativa/delivery-manager/laura-vega/?nombre=Laura%20Vega"'
+        in html
+    )
     for path in (
         "/operativa/en-ejecucion/",
         "/operativa/en-tiempo/",
@@ -340,7 +349,10 @@ def test_operational_cards_keep_manager_links(
 def test_unknown_delivery_manager_is_404(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    assert client.get("/operativa/delivery-manager/nadie/?bloque=inv").status_code == 404
+    assert (
+        client.get("/operativa/delivery-manager/nadie/?bloque=inv").status_code
+        == 404
+    )
 
 
 def test_delivery_manager_page_without_data_goes_back_to_operational(
@@ -722,7 +734,9 @@ def test_project_page_requires_login_when_configured(client, settings):
     assert client.get("/proyecto/1/").status_code == 302
 
 
-def test_manager_cards_show_investment_and_detail_keeps_time_cost(client, monkeypatch):
+def test_manager_cards_show_investment_and_detail_keeps_time_cost(
+    client, monkeypatch
+):
     stub_portfolio(
         monkeypatch,
         [
@@ -731,7 +745,9 @@ def test_manager_cards_show_investment_and_detail_keeps_time_cost(client, monkey
         ],
     )
 
-    operational = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
+    operational = client.get(
+        "/operativa/datos/", {"bloque": "eva3"}
+    ).content.decode()
     detail = client.get("/operativa/delivery-manager/laura-vega/?bloque=inv")
 
     assert "Días restantes · Avance en horas" not in operational
@@ -771,7 +787,10 @@ def stub_history(monkeypatch, history=None, error=""):
 
 
 def test_kpis_page_shows_managers_and_totals(client, monkeypatch):
-    monkeypatch.setattr("apps.portal.views.load_portfolio", lambda: pytest.fail("Proyectos no se consulta para KPIs"))
+    monkeypatch.setattr(
+        "apps.portal.views.load_portfolio",
+        lambda: pytest.fail("Proyectos no se consulta para KPIs"),
+    )
     stub_history(monkeypatch)
 
     response = client.get("/operativa/kpis-delivery-managers/")

@@ -219,15 +219,28 @@ def test_chart_requires_consecutive_values_without_removing_table_rows():
     history = build_kpi_history(sources(), NOW, 2026)
     matrix = build_matrix(history.months, history.managers)
     populated = matrix.rows[0]
-    cell = next(cell for cell in populated.cells if cell and cell.time_cost.cost_percent is not None)
+    cell = next(
+        cell
+        for cell in populated.cells
+        if cell and cell.time_cost.cost_percent is not None
+    )
     isolated = replace(populated, name="Un punto", cells=(cell, None, None))
-    separated = replace(populated, name="Puntos separados", cells=(cell, None, cell))
+    separated = replace(
+        populated, name="Puntos separados", cells=(cell, None, cell)
+    )
     continuous = replace(populated, name="Continuo", cells=(cell, cell, None))
     zero = replace(cell, time_cost=replace(cell.time_cost, cost_percent=0))
-    zero_series = replace(populated, name="Cero válido", cells=(zero, zero, None))
-    matrix = replace(matrix, rows=(isolated, separated, continuous, zero_series))
+    zero_series = replace(
+        populated, name="Cero válido", cells=(zero, zero, None)
+    )
+    matrix = replace(
+        matrix, rows=(isolated, separated, continuous, zero_series)
+    )
     chart = chart_series(matrix, 2)
-    assert [series["name"] for series in chart["series"]] == ["Continuo", "Cero válido"]
+    assert [series["name"] for series in chart["series"]] == [
+        "Continuo",
+        "Cero válido",
+    ]
     assert len(matrix.rows) == 4
 
 

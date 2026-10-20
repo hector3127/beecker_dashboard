@@ -68,7 +68,11 @@ def test_shared_cr_uses_full_id_history_and_only_cr_tasks(cr_id):
     hours = build_loader(api, sheets(cr_id, "AIN.002_CR")).load_project_hours(
         cr_id
     )
-    assert [item.entry_id for item in hours.entries] == ["start", "finish", "missing"]
+    assert [item.entry_id for item in hours.entries] == [
+        "start",
+        "finish",
+        "missing",
+    ]
     assert all(item.project_id == cr_id for item in hours.entries)
     assert hours.date_range.source == "Historico_Proyectos"
     assert api.report_calls == [("c1", date(2026, 3, 1), date(2026, 3, 31))]
@@ -198,11 +202,16 @@ def test_cr_fallback_does_not_guess_between_ambiguous_base_projects():
 
 
 def test_taskless_cr_entries_use_history_range_and_keep_both_billing_types():
-    api = client([
-        entry("before", 9, ""), entry("billable", 10, ""),
-        entry("nonbillable", 20, "", billable=False), entry("after", 21, ""),
-        entry("other", 15, "S1"), entry("unknown-task", 15, "", taskId="unresolved"),
-    ])
+    api = client(
+        [
+            entry("before", 9, ""),
+            entry("billable", 10, ""),
+            entry("nonbillable", 20, "", billable=False),
+            entry("after", 21, ""),
+            entry("other", 15, "S1"),
+            entry("unknown-task", 15, "", taskId="unresolved"),
+        ]
+    )
     api.list_project_tasks = lambda workspace, project: []
     records = build_loader(api, sheets()).load_project("AIN.002_CR")
     assert [item.entry_id for item in records] == ["billable", "nonbillable"]

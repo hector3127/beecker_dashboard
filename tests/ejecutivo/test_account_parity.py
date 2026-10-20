@@ -21,7 +21,9 @@ from tests.fakes import InMemorySheetRepository
 
 HERE = Path(__file__).parent
 DATA = json.loads((HERE / "account_data.json").read_text("utf-8"))
-EXPECTED = json.loads((HERE / "account_integrated_expected.json").read_text("utf-8"))
+EXPECTED = json.loads(
+    (HERE / "account_integrated_expected.json").read_text("utf-8")
+)
 TODAY = date.fromisoformat(DATA["TODAY"])
 
 

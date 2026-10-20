@@ -146,8 +146,7 @@ def warm_portal(base_only: bool = False) -> object:
     factory = RequestFactory()
     failures = []
     blocks = (
-        ("",) if base_only
-        else ("", "eva4", "eva3", "inversion", "capacidad")
+        ("",) if base_only else ("", "eva4", "eva3", "inversion", "capacidad")
     )
     for block in blocks:
         started = time.perf_counter()
@@ -218,8 +217,12 @@ def warm_portal(base_only: bool = False) -> object:
         operations_error = str(error)
     if operations_error:
         failures.append("Operations de Ejecutiva: " + operations_error)
-    logger.info("Operations de Ejecutiva: %.1f s", time.perf_counter() - started)
-    from apps.portal.services.executive_commercial import warm_commercial_summary
+    logger.info(
+        "Operations de Ejecutiva: %.1f s", time.perf_counter() - started
+    )
+    from apps.portal.services.executive_commercial import (
+        warm_commercial_summary,
+    )
 
     started = time.perf_counter()
     logger.info("Preparando Comercial de Ejecutiva")

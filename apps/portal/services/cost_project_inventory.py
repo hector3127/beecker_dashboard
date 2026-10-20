@@ -68,7 +68,9 @@ def inventory(reader):
             or (b.date() if b else today) < start
         ):
             return
-        from apps.portal.services.project_task_scope import financial_variant as variant
+        from apps.portal.services.project_task_scope import (
+            financial_variant as variant,
+        )
 
         task_variant = variant(pid)
         names = (
@@ -102,7 +104,9 @@ def inventory(reader):
         if header is not None:
             cols = resolve_columns(rows[header])
             for row in rows[header + 1 :]:
-                if not AER_TYM_SERVICE.match(normalize_name(str(cell(row, cols["service"]) or ""))):
+                if not AER_TYM_SERVICE.match(
+                    normalize_name(str(cell(row, cols["service"]) or ""))
+                ):
                     continue
                 add(
                     cell(row, cols["project_id"]),
@@ -113,7 +117,11 @@ def inventory(reader):
     if reader.sheet_exists("Historico_Proyectos"):
         events = defaultdict(list)
         for row in history_rows[1:]:
-            if normalize_name(str(cell(row, 3) or "")) not in {"ixb", "raas", "saas"}:
+            if normalize_name(str(cell(row, 3) or "")) not in {
+                "ixb",
+                "raas",
+                "saas",
+            }:
                 continue
             pid = str(cell(row, 2) or "").strip()
             if pid:
@@ -156,7 +164,9 @@ def inventory(reader):
         else set()
     )
     resolved = {}
-    from apps.portal.services.project_task_scope import financial_variant as variant
+    from apps.portal.services.project_task_scope import (
+        financial_variant as variant,
+    )
 
     for pid, item in found.items():
         if pid in excluded and pid not in history_ids:
@@ -171,7 +181,15 @@ def inventory(reader):
         ):
             base = child[0]
             resolved.setdefault(
-                base, {"id": found.get(base, {}).get("id", base.upper()), "accounts": set(owners.get(base) or found.get(base, {}).get("accounts") or item["accounts"])}
+                base,
+                {
+                    "id": found.get(base, {}).get("id", base.upper()),
+                    "accounts": set(
+                        owners.get(base)
+                        or found.get(base, {}).get("accounts")
+                        or item["accounts"]
+                    ),
+                },
             )
         else:
             resolved[pid] = item

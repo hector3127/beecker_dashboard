@@ -66,9 +66,21 @@ def account_profitability(reader=None):
         else:
             account["pending"] += 1
     from apps.portal.services.cost_project_inventory import inventory
+
     for pid, project in inventory(reader).items():
         for name in project["accounts"]:
-            item = accounts.setdefault(normalize_name(name), {"name": name, "revenue": Decimal(0), "ids": set(), "pending": 0, "entries": {}, "collected": Decimal(0), "invoiced": Decimal(0)})
+            item = accounts.setdefault(
+                normalize_name(name),
+                {
+                    "name": name,
+                    "revenue": Decimal(0),
+                    "ids": set(),
+                    "pending": 0,
+                    "entries": {},
+                    "collected": Decimal(0),
+                    "invoiced": Decimal(0),
+                },
+            )
             item["ids"].add(pid)
     entry_owners = defaultdict(set)
     for name, account in accounts.items():
@@ -118,7 +130,8 @@ def account_profitability(reader=None):
             else "healthy"
             if margin is not None and margin > 70
             else "unhealthy"
-            if (margin is not None and margin < 30) or (revenue == 0 and cost > 0)
+            if (margin is not None and margin < 30)
+            or (revenue == 0 and cost > 0)
             else "intermediate"
         )
         all_accounts.append(item)
@@ -126,7 +139,9 @@ def account_profitability(reader=None):
             pending.append(item)
         elif margin is not None and margin > 70:
             healthy.append(item)
-        elif (margin is not None and margin < 30) or (revenue == 0 and cost > 0):
+        elif (margin is not None and margin < 30) or (
+            revenue == 0 and cost > 0
+        ):
             unhealthy.append(item)
 
     def order(row):
@@ -140,26 +155,51 @@ def rank_financial_accounts(accounts):
     all_accounts = [dict(row) for row in accounts]
     eligible = all_accounts
     largest_invoice = max((row["revenue"] for row in eligible), default=0) or 1
-    profit_scale = max((abs(row["gross_profit"]) for row in eligible), default=0) or 1
+    profit_scale = (
+        max((abs(row["gross_profit"]) for row in eligible), default=0) or 1
+    )
     for row in all_accounts:
         row["partial"] = bool(row.get("pending"))
-        row["profit_points"] = round(70 * row["gross_profit"] / profit_scale, 4) if row in eligible else None
-        row["invoice_points"] = round(30 * row["revenue"] / largest_invoice, 4) if row in eligible else None
-        row["weighted_score"] = round(row["profit_points"] + row["invoice_points"], 2) if row in eligible else None
-    ranked = sorted(eligible, key=lambda row: (-row["weighted_score"], -row["gross_profit"], -row["revenue"], row["name"]))
+        row["profit_points"] = (
+            round(70 * row["gross_profit"] / profit_scale, 4)
+            if row in eligible
+            else None
+        )
+        row["invoice_points"] = (
+            round(30 * row["revenue"] / largest_invoice, 4)
+            if row in eligible
+            else None
+        )
+        row["weighted_score"] = (
+            round(row["profit_points"] + row["invoice_points"], 2)
+            if row in eligible
+            else None
+        )
+    ranked = sorted(
+        eligible,
+        key=lambda row: (
+            -row["weighted_score"],
+            -row["gross_profit"],
+            -row["revenue"],
+            row["name"],
+        ),
+    )
     split = (len(ranked) + 1) // 2
     return {
-        "healthy": ranked[:min(5, split)],
+        "healthy": ranked[: min(5, split)],
         "unhealthy": list(reversed(ranked[split:]))[:5],
-        "pending_accounts": sum(bool(row.get("pending")) for row in all_accounts),
+        "pending_accounts": sum(
+            bool(row.get("pending")) for row in all_accounts
+        ),
         "weights": {"gross_profit": 70, "invoiced": 30},
         "ranking_version": 3,
         "ranking_method": "70 × utilidad / mayor utilidad absoluta + 30 × facturación / mayor facturación",
         "validation": "Base mensual pendiente de validar con Florencia",
         "year": bounds()[0].year,
-        "accounts": sorted(all_accounts, key=lambda row: (-row["revenue"], row["name"])),
+        "accounts": sorted(
+            all_accounts, key=lambda row: (-row["revenue"], row["name"])
+        ),
     }
-
 
 
 def load_account_profitability(refresh=False):

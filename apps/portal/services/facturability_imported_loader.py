@@ -15,7 +15,10 @@ from apps.portal.constants import (
     FACTURABILITY_CACHE_PREFIX,
     FACTURABILITY_CACHE_SECONDS,
 )
-from apps.portal.services.facturability_roster import apply_roster, attach_month_roster
+from apps.portal.services.facturability_roster import (
+    apply_roster,
+    attach_month_roster,
+)
 from core.exceptions import DashboardError, describe_error
 from core.sheets.factory import build_sheet_repository
 

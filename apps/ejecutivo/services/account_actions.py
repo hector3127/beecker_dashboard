@@ -180,9 +180,8 @@ def load_account_consumption(
         "proyectos", []
     )
     for project in history_projects:
-        if (
-            normalize_value(project["id"]) in existing
-            or project.get("roc_source")
+        if normalize_value(project["id"]) in existing or project.get(
+            "roc_source"
         ):
             continue
         span = resolver.resolve_from_history(project["id"])

@@ -1,9 +1,11 @@
 """Render cached investment hours without querying external sources."""
+
 import json
 from collections.abc import Mapping
 from django import template
 
 register = template.Library()
+
 
 @register.inclusion_tag("portal/_manager_investment.html")
 def manager_investment(manager, investment):
@@ -14,8 +16,12 @@ def manager_investment(manager, investment):
     ready = bool(investment.get("complete") and covered)
     return {
         "project_ids": json.dumps(project_ids),
-        "operational": sum(row.get("operational", 0) for row in covered) if ready else None,
-        "commercial": sum(row.get("commercial", 0) for row in covered) if ready else None,
+        "operational": sum(row.get("operational", 0) for row in covered)
+        if ready
+        else None,
+        "commercial": sum(row.get("commercial", 0) for row in covered)
+        if ready
+        else None,
         "ready": ready,
     }
 
@@ -24,5 +30,7 @@ def manager_investment(manager, investment):
 def investment_payload(investment):
     """Send only the totals needed for updates, excluding monthly chart details."""
     investment = investment if isinstance(investment, Mapping) else {}
-    return {"complete": bool(investment.get("complete")),
-            "by_project": investment.get("by_project", {})}
+    return {
+        "complete": bool(investment.get("complete")),
+        "by_project": investment.get("by_project", {}),
+    }

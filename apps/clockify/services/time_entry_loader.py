@@ -1,4 +1,5 @@
 from core.utils.source_refresh import force_sources
+
 """Extraccion de las horas de todo el portafolio desde Clockify."""
 
 import calendar
@@ -209,9 +210,17 @@ class ClockifyTimeEntryLoader:
         plan = self._plan_report(internal_id, date_range, self._load_lookups())
 
         if force_sources.get():
-            entries, _ = self._download_report(plan, load_costing_rate_by_resource(self._reader), use_raw_cache=False)
+            entries, _ = self._download_report(
+                plan,
+                load_costing_rate_by_resource(self._reader),
+                use_raw_cache=False,
+            )
             cache_key = f"{self._cache_prefix}:report:{plan.clockify_project_id}:{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v3"
-            self._cache_store.set(cache_key, entries, report_cache_seconds(bool(entries), plan.end_date, self._today))
+            self._cache_store.set(
+                cache_key,
+                entries,
+                report_cache_seconds(bool(entries), plan.end_date, self._today),
+            )
             return entries
         return self._fetch_report(
             plan,
@@ -668,8 +677,10 @@ class ClockifyTimeEntryLoader:
             project_entries = [
                 entry
                 for entry in project_entries
-                if (matches_cr_task(entry.task_name, plan.task_nomenclature)
-                    or (not entry.task_id and not entry.task_name.strip()))
+                if (
+                    matches_cr_task(entry.task_name, plan.task_nomenclature)
+                    or (not entry.task_id and not entry.task_name.strip())
+                )
                 and entry.entry_date is not None
                 and plan.start_date <= entry.entry_date.date() <= plan.end_date
             ]
@@ -713,14 +724,12 @@ class ClockifyTimeEntryLoader:
                 else:
                     if client is None:
                         client = self._client_factory()
-                    rows, count = (
-                        client.fetch_detailed_report_counted(
-                            self._workspace_id,
-                            plan.clockify_project_id,
-                            month,
-                            coverage_end,
-                            REPORT_TIMEZONE,
-                        )
+                    rows, count = client.fetch_detailed_report_counted(
+                        self._workspace_id,
+                        plan.clockify_project_id,
+                        month,
+                        coverage_end,
+                        REPORT_TIMEZONE,
                     )
                     requests += count
                     self._cache_store.set(
@@ -736,20 +745,19 @@ class ClockifyTimeEntryLoader:
                 parse_entry_day(
                     (row.get("timeInterval") or {}).get("start"),
                     self._timezone,
-                ) is None
+                )
+                is None
                 for row in rows
             ):
                 # Sin fecha no podemos recortar un mes con seguridad.
                 if client is None:
                     client = self._client_factory()
-                rows, count = (
-                    client.fetch_detailed_report_counted(
-                        self._workspace_id,
-                        plan.clockify_project_id,
-                        query_start,
-                        query_end,
-                        REPORT_TIMEZONE,
-                    )
+                rows, count = client.fetch_detailed_report_counted(
+                    self._workspace_id,
+                    plan.clockify_project_id,
+                    query_start,
+                    query_end,
+                    REPORT_TIMEZONE,
                 )
                 requests += count
             for row in rows:
