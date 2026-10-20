@@ -65,6 +65,24 @@ def bot_tag(value: Any) -> str:
     return str(int(match.group(1))) if match else ""
 
 
+def id_key(value: Any) -> str:
+    """Identificador comparable: minusculas, un espacio, sin ceros iniciales.
+
+    Asi «Mexico12» (ROC) y «Mexico012» (Clockify) son el mismo BOT.
+    """
+    text = " ".join(str(value or "").casefold().split())
+    return re.sub(r"(?<=[^\d])0+(?=\d)", "", text)
+
+
+def task_matches(task: Any, bot: Any) -> bool:
+    """La tarea es el BOT o empieza con el, como «AWN.001 - Payne Nickles»."""
+    task_id, bot_id = id_key(task), id_key(bot)
+    if not bot_id or not task_id.startswith(bot_id):
+        return False
+    rest = task_id[len(bot_id) :]
+    return not rest or not (rest[0].isalnum() or rest[0] == ".")
+
+
 def task_key(value: Any) -> str:
     """Normaliza espacios y mayusculas sin borrar IDs ni signos."""
     return " ".join(str(value or "").strip().casefold().split())
@@ -138,9 +156,9 @@ def build_hour_index(values: list[list[Any]], year: int) -> dict[str, Any]:
             "Start Date y Tags."
         )
     totals: dict[str, dict[str, Decimal]] = {}
-    bot_totals: dict[str, dict[tuple[str, str], Decimal]] = {}
+    project_tasks: dict[str, dict[str, dict[str, Decimal]]] = {}
     tasks: set[str] = set()
-    bots: set[tuple[str, str]] = set()
+    projects: set[str] = set()
     seen: dict[str, set[tuple[str, str]]] = defaultdict(set)
     errors: set[str] = set()
     for row in values[1:]:
@@ -153,9 +171,9 @@ def build_hour_index(values: list[list[Any]], year: int) -> dict[str, Any]:
         if not key:
             continue
         tasks.add(key)
-        bot = (task_key(cell("project")), bot_tag(cell("task")))
-        if all(bot):
-            bots.add(bot)
+        project = task_key(cell("project"))
+        if project:
+            projects.add(project)
         day = to_datetime(cell("day"))
         if day is None or day.year != year:
             continue
@@ -175,27 +193,27 @@ def build_hour_index(values: list[list[Any]], year: int) -> dict[str, Any]:
             seen[month_key].add(identity)
         bucket = totals.setdefault(month_key, {})
         bucket[key] = bucket.get(key, Decimal(0)) + Decimal(str(hours))
-        if all(bot):
-            bot_bucket = bot_totals.setdefault(month_key, {})
-            bot_bucket[bot] = bot_bucket.get(bot, Decimal(0)) + Decimal(
-                str(hours)
+        if project:
+            by_task = project_tasks.setdefault(month_key, {}).setdefault(
+                project, {}
             )
+            by_task[key] = by_task.get(key, Decimal(0)) + Decimal(str(hours))
     return {
         "totals": totals,
         "tasks": tasks,
         "errors": errors,
-        "bot_totals": bot_totals,
-        "bots": bots,
+        "project_tasks": project_tasks,
+        "projects": projects,
     }
 
 
-def index_bots(
+def index_projects(
     index: dict[str, Any], month: date
-) -> tuple[dict[tuple[str, str], Decimal], set[tuple[str, str]]]:
-    """Horas del mes por (proyecto, BOT) y los BOT vistos en el ano."""
+) -> tuple[dict[str, dict[str, Decimal]], set[str]]:
+    """Horas del mes por proyecto y tarea, y los proyectos vistos en el ano."""
     return (
-        index.get("bot_totals", {}).get(month.strftime("%Y-%m"), {}),
-        index.get("bots", set()),
+        index.get("project_tasks", {}).get(month.strftime("%Y-%m"), {}),
+        index.get("projects", set()),
     )
 
 
@@ -209,19 +227,33 @@ def enrich_hours(
     if index is None:
         index = build_hour_index(values, month.year)
     totals, tasks = index_month(index, month)
-    bot_totals, bots = index_bots(index, month)
+    project_tasks, projects = index_projects(index, month)
     bot_counts = Counter(task_key(p["bot_id"]) for p in report["processes"])
     no_task = 0
     missing_limit = 0
     for process in report["processes"]:
         name = task_key(process["process"])
         bot = task_key(process["bot_id"])
-        tag = bot_tag(process["bot_id"]) or bot_tag(process["process"])
         process["bot_label"] = bot_tag(process["bot_id"]) or process["bot_id"]
-        scope = (task_key(process["project_id"]), tag)
-        if all(scope) and scope in bots:
-            # ROC ID + numero del BOT: todas las tareas «3634 - ...».
-            consumed: float | None = float(bot_totals.get(scope, Decimal(0)))
+        project = task_key(process["project_id"])
+        bot_id = process["bot_id"] or process["process"]
+        if project and project in projects and id_key(bot_id):
+            # Proyecto (ROC ID) + BOT: tareas «3634 - ...» o «AMK.001». Si no
+            # hay ninguna, vale el nombre exacto del proceso; si tampoco, 0
+            # (el proyecto existe en Clockify, igual que la suma del Excel).
+            in_project = project_tasks.get(project, {})
+            found = [
+                hours
+                for task, hours in in_project.items()
+                if task_matches(task, bot_id)
+            ]
+            if not found and name in in_project:
+                found = [in_project[name]]
+            consumed: float | None = float(sum(found, Decimal(0)))
+        elif not project:
+            # Sin ROC ID no se sabe de que proyecto son las horas: una tarea
+            # llamada igual en otro cliente (p. ej. «Isa») no cuenta.
+            consumed = None
         else:
             # Un BOT compartido por varios procesos no asigna todo a todos.
             key = (

@@ -12,7 +12,6 @@ from apps.gse.services.cells import norm
 from apps.portal.services.eva4_hours import (
     BASE_TAGS,
     EXTRA_TAGS,
-    bot_tag,
     task_key,
 )
 
@@ -138,14 +137,14 @@ def build_hour_index_from_store(year: int) -> dict[str, Any]:
         meses con horas no numericas (siempre vacio: la base es numerica)}.
     """
     totals: dict[str, dict[str, Decimal]] = {}
-    bot_totals: dict[str, dict[tuple[str, str], Decimal]] = {}
+    project_tasks: dict[str, dict[str, dict[str, Decimal]]] = {}
     tasks: set[str] = set()
-    bots: set[tuple[str, str]] = set()
+    projects: set[str] = set()
     rows = ClockifyTimeEntry.objects.filter(entry_date__year=year).values_list(
         "project_name", "task_name", "tags", "entry_date", "duration_seconds"
     )
     accumulated: dict[tuple[str, str], Decimal] = defaultdict(Decimal)
-    bot_accumulated: dict[tuple[str, tuple[str, str]], Decimal] = defaultdict(
+    project_accumulated: dict[tuple[str, str, str], Decimal] = defaultdict(
         Decimal
     )
     for project_name, task_name, tags, entry_date, seconds in rows.iterator():
@@ -153,9 +152,9 @@ def build_hour_index_from_store(year: int) -> dict[str, Any]:
         if not key or entry_date is None:
             continue
         tasks.add(key)
-        bot = (task_key(project_name), bot_tag(task_name))
-        if all(bot):
-            bots.add(bot)
+        project = task_key(project_name)
+        if project:
+            projects.add(project)
         allowed = BASE_TAGS | (
             EXTRA_TAGS if entry_date.month >= EXTRA_TAGS_FROM_MONTH else set()
         )
@@ -163,16 +162,20 @@ def build_hour_index_from_store(year: int) -> dict[str, Any]:
             continue
         month_key = entry_date.strftime("%Y-%m")
         accumulated[(month_key, key)] += Decimal(str(seconds / 3600))
-        if all(bot):
-            bot_accumulated[(month_key, bot)] += Decimal(str(seconds / 3600))
+        if project:
+            project_accumulated[(month_key, project, key)] += Decimal(
+                str(seconds / 3600)
+            )
     for (month_key, key), hours in accumulated.items():
         totals.setdefault(month_key, {})[key] = hours
-    for (month_key, bot), hours in bot_accumulated.items():
-        bot_totals.setdefault(month_key, {})[bot] = hours
+    for (month_key, project, key), hours in project_accumulated.items():
+        project_tasks.setdefault(month_key, {}).setdefault(project, {})[key] = (
+            hours
+        )
     return {
         "totals": totals,
         "tasks": tasks,
         "errors": set(),
-        "bot_totals": bot_totals,
-        "bots": bots,
+        "project_tasks": project_tasks,
+        "projects": projects,
     }

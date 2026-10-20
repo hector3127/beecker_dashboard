@@ -171,7 +171,7 @@ def test_hour_index_from_the_database_equals_the_one_from_the_sheet():
     assert "vieja" not in from_store["tasks"]
 
 
-def test_hour_index_groups_hours_by_project_and_bot_tag():
+def test_hour_index_groups_hours_by_project_and_task():
     day = date(2026, 10, 5)
     add(
         "1",
@@ -192,10 +192,10 @@ def test_hour_index_groups_hours_by_project_and_bot_tag():
         "4", day, project="ROC.NSC.001", task="3634 - Gestión", tags=["Reunion"]
     )
     index = build_hour_index_from_store(2026)
-    nsc = ("roc.nsc.001", "3634")
-    assert index["bot_totals"]["2026-10"][nsc] == 2
-    assert index["bot_totals"]["2026-10"][("roc.otro.001", "3634")] == 1
-    assert nsc in index["bots"]
+    month = index["project_tasks"]["2026-10"]
+    assert month["roc.nsc.001"] == {"3634 - gestión": 1, "3634 - otra": 1}
+    assert month["roc.otro.001"] == {"3634 - gestión": 1}
+    assert {"roc.nsc.001", "roc.otro.001"} <= index["projects"]
 
 
 def test_eva4_uses_the_database_only_for_synced_years(settings, monkeypatch):

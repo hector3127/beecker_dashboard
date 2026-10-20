@@ -15,6 +15,7 @@ from apps.portal.services.eva4_hours import (
     enrich_hours,
     monthly_hours,
     resolve_month,
+    task_matches,
 )
 from tests.fakes import InMemorySheetRepository
 from tests.portal.test_eva4 import BASE_HEADER, HEADER, TODAY, row
@@ -134,14 +135,40 @@ def test_invested_hours_use_roc_id_and_the_bot_tag_of_the_task():
     assert hours == {"3634": 4, "1386": 3.5, "9999": 0}
 
 
-def test_bot_without_hours_in_the_roc_project_has_no_data():
-    data = bot_report("5555")
+def test_without_roc_id_hours_of_a_same_named_task_elsewhere_do_not_count():
+    values = row()
+    values[2] = ""
+    data = eva4.build_eva4([HEADER, values], TODAY)
+    enrich_hours(data, [BASE_HEADER, entry()], TODAY.replace(day=1))
+    assert data["processes"][0]["invested_hours"] is None
+
+
+def test_bot_in_a_project_without_clockify_hours_has_no_data():
+    data = bot_report("5555", project="ROC.SIN.CLOCKIFY")
     enrich_hours(
         data,
         [BASE_HEADER, entry(task="3634 - Otro BOT", eid="a")],
         TODAY.replace(day=1),
     )
     assert data["processes"][0]["invested_hours"] is None
+
+
+@pytest.mark.parametrize(
+    ("bot", "task", "expected"),
+    [
+        ("Mexico12", "Mexico012", True),
+        ("Mexico012", "mexico12", True),
+        ("AWN.001", "AWN.001 - Payne Nickles", True),
+        ("3634", "3634 - Gestión de transporte", True),
+        ("1386 - Sending VES", "1386 - Sending VES", True),
+        ("AMK.1", "AMK.12", False),
+        ("Mexico24", "Mexico024.1", False),
+        ("1386 - Sending VES", "1386 - Sending Orders", False),
+        ("", "AMK.001", False),
+    ],
+)
+def test_task_matches_the_bot_id(bot, task, expected):
+    assert task_matches(task, bot) is expected
 
 
 def test_bot_column_shows_only_the_tag_and_process_keeps_its_name():
@@ -234,23 +261,34 @@ def test_known_task_without_hours_in_selected_month_is_zero():
     assert data["processes"][0]["hours_balance"] == 30
 
 
-def test_unmatched_task_is_missing_instead_of_a_healthy_zero():
+def test_bot_without_tasks_in_an_existing_project_counts_zero_like_the_excel():
     data = report()
     enrich_hours(
         data, [BASE_HEADER, entry(task="Otro proceso")], TODAY.replace(day=1)
+    )
+    assert data["processes"][0]["invested_hours"] == 0
+    assert data["processes"][0]["hours_balance"] == 30
+
+
+def test_project_missing_in_clockify_is_missing_data_not_zero():
+    values = row()
+    values[2] = "ROC.NO.EXISTE"
+    data = eva4.build_eva4([HEADER, values], TODAY)
+    enrich_hours(
+        data, [BASE_HEADER, entry(task="Otra cosa")], TODAY.replace(day=1)
     )
     assert data["processes"][0]["invested_hours"] is None
     assert data["processes"][0]["hours_balance"] is None
 
 
-def test_shared_bot_does_not_assign_generic_bot_hours_to_both_processes():
+def test_processes_sharing_a_bot_each_show_the_hours_of_that_bot():
     one, two = row("AIN.002"), row("AIN.002")
     one[6], two[6] = "Order Entry", "Invoices"
     data = eva4.build_eva4([HEADER, one, two], TODAY)
     enrich_hours(
         data, [BASE_HEADER, entry(task="AIN.002")], TODAY.replace(day=1)
     )
-    assert all(p["invested_hours"] is None for p in data["processes"])
+    assert [p["invested_hours"] for p in data["processes"]] == [6, 6]
 
 
 def test_unique_bot_can_use_its_exact_task_code():
