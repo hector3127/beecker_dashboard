@@ -30,6 +30,22 @@ EXTRA_TAGS = {
     )
 }
 
+# Tope mensual de horas que fija cada servicio (Average Limit del EVA-04).
+SERVICE_LIMITS = {
+    "ROC": 30.0,
+    "AER": 160.0,
+    "RAAS": 40.0,
+    "SAAS": 80.0,
+    "TM": 160.0,  # norm() convierte «T&M» y «T & M» en «t m»
+    "TYM": 160.0,
+}
+
+
+def service_limit(service: Any) -> float | None:
+    """Tope mensual del servicio; None si el servicio no tiene regla."""
+    key = norm(service).upper().replace(" ", "")
+    return SERVICE_LIMITS.get(key)
+
 
 def task_key(value: Any) -> str:
     """Normaliza espacios y mayusculas sin borrar IDs ni signos."""
@@ -163,7 +179,10 @@ def enrich_hours(
             else (bot if bot_counts[bot] == 1 and bot in tasks else "")
         )
         consumed = float(totals.get(key, Decimal(0))) if key else None
-        limit = number(process["average_limit"])
+        # El servicio manda; el tope del Sheet solo cubre servicios sin regla.
+        limit = service_limit(process["service"])
+        if limit is None:
+            limit = number(process["average_limit"])
         process["invested_hours"] = (
             round(consumed, 2) if consumed is not None else None
         )

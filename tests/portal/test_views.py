@@ -272,7 +272,7 @@ def test_navigation_links_to_current_views_without_legacy_panel(
     assert 'href="/"' in html
     assert 'href="/operativa/"' in html
     assert 'href="/comercial/"' in html
-    assert 'href="/legacy/"' in html
+    assert 'href="/legacy/"' not in html
 
 
 def test_screens_without_view_yet_say_coming_soon(client, monkeypatch):

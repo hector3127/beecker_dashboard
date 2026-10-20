@@ -184,7 +184,7 @@ def test_account_page_and_audit_keep_portal_navigation(client, monkeypatch):
     )
     page = client.get("/ejecutiva/cuentas/")
     assert page.status_code == 200
-    assert "Panel anterior" in page.content.decode()
+    assert "Panel anterior" not in page.content.decode()
     detail = client.get("/ejecutiva/costos/detalle/", {"nombre": "ACME"})
     assert detail.status_code == 200
     assert detail.context["cost_account"] == "ACME"

@@ -208,9 +208,7 @@ def load_eva4(month: str | None = None) -> dict[str, Any]:
         enrich_hours(result, [], selected_month, index=index)
         result["hours_source"] = source
         result["current_month"] = timezone.localdate().strftime("%Y-%m")
-        result["missing_columns"] = (
-            ["Tope Mensual"] if result["missing_limits"] else []
-        )
+        result["missing_columns"] = []
         result["limit_sources"] = ", ".join(["ROC", *limits])
     except (DashboardError, ValueError) as error:
         return {**previous, "error": str(error)}

@@ -12,7 +12,7 @@ def test_area_page_uses_portal_navigation_and_keeps_selected_year(client):
     assert "csrftoken" in response.cookies
     assert "portal/js/facturabilidad_area.js" in html
     assert "core/js/gas_shim.js" in html
-    assert "Panel anterior" in html
+    assert "Panel anterior" not in html
     assert "ciMontarGSE" not in html
     tabs = html.split('<div class="tabs">', 1)[1].split("</div>", 1)[0]
     assert tabs.count("<a ") == 5

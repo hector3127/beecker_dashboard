@@ -30,8 +30,10 @@ def entry(
     return ["ROC.NSC.001", "Ana", day, hours, task, tag, "No", eid, workspace]
 
 
-def report(cap=30):
-    return eva4.build_eva4([HEADER + ["Tope Mensual"], row() + [cap]], TODAY)
+def report(cap=30, service="ROC"):
+    values = row() + [cap]
+    values[4] = service
+    return eva4.build_eva4([HEADER + ["Tope Mensual"], values], TODAY)
 
 
 def test_monthly_hours_respect_date_tag_and_duplicate_entry_id():
@@ -51,19 +53,47 @@ def test_monthly_hours_respect_date_tag_and_duplicate_entry_id():
 
 
 def test_decimal_precision_zero_limit_and_missing_limit():
-    data = report(0)
+    data = report(0, service="Garantía")
     enrich_hours(
         data,
         [BASE_HEADER, entry(0.1), entry(0.2, eid="e2")],
         TODAY.replace(day=1),
     )
     assert data["processes"][0]["hours_balance"] == -0.3
-    data = report("")
+    data = report("", service="Garantía")
     enrich_hours(data, [BASE_HEADER, entry()], TODAY.replace(day=1))
     assert data["processes"][0]["invested_hours"] == 6
     assert data["processes"][0]["average_limit"] is None
     assert data["processes"][0]["hours_balance"] is None
     assert data["missing_limits"] == 1
+
+
+@pytest.mark.parametrize(
+    ("service", "limit"),
+    [
+        ("ROC", 30),
+        ("AER", 160),
+        ("RaaS", 40),
+        ("RAAS", 40),
+        ("SaaS", 80),
+        ("T&M", 160),
+        ("T & M", 160),
+        ("TyM", 160),
+    ],
+)
+def test_average_limit_depends_on_the_service_not_on_the_sheet(service, limit):
+    data = report(999, service=service)
+    enrich_hours(data, [BASE_HEADER, entry()], TODAY.replace(day=1))
+    process = data["processes"][0]
+    assert process["average_limit"] == limit
+    assert process["hours_balance"] == limit - 6
+
+
+def test_service_without_rule_keeps_the_sheet_limit():
+    data = report(50, service="Garantía")
+    enrich_hours(data, [BASE_HEADER, entry()], TODAY.replace(day=1))
+    assert data["processes"][0]["average_limit"] == 50
+    assert data["missing_limits"] == 0
 
 
 def test_each_workspace_preserves_its_own_entry_id():
@@ -182,6 +212,24 @@ def test_loader_and_page_use_month_specific_cache(monkeypatch):
     ).content.decode()
     assert 'value="2026-09"' in html
     assert "EVA-04 Report" in html
-    assert "Tope mensual" in html
+    headers = html.split('id="eva4-processes"', 1)[1].split("</tr>", 1)[0]
+    names = [part.split("</th>", 1)[0] for part in headers.split("<th>")[1:]]
+    assert names == [
+        "Delivery Manager",
+        "Country",
+        "Client",
+        "BOT ID",
+        "Service",
+        "Process Name",
+        "Status ROC",
+        "Start",
+        "Finish",
+        "Average Limit",
+        "Invested Hours",
+        "Hours Balance",
+        "Hours Package Limit",
+        "Available Hours Package",
+        "Risk",
+    ]
     assert "Sin dato" in html
     cache.clear()
