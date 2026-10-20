@@ -1,6 +1,7 @@
 """Ingresos por fecha revenue y costos por fecha real de las horas."""
 
 from collections.abc import Sequence
+from datetime import date
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
@@ -20,15 +21,22 @@ from core.utils.dates import to_datetime
 def load_monthly_profitability(
     reader: SheetReader | None = None, ids: Sequence[str] | None = None
 ) -> dict[str, Any]:
-    """Agrupa los ultimos seis meses cerrados, marcando costos parciales."""
+    """Agrupa por mes el rango elegido o, sin rango, los meses cerrados.
+
+    Sin periodo se muestran todos los meses cerrados del ejercicio 2026
+    (de enero al mes anterior). Es lo mismo que ve quien elige el ano
+    completo, porque ambos comparten el corte preparado.
+    """
     today = timezone.localdate()
     end = today.year * 12 + today.month - 2
     months = [
         f"{index // 12:04d}-{index % 12 + 1:02d}"
-        for index in range(max(end - 5, 2026 * 12), min(end + 1, 2027 * 12))
+        for index in range(2026 * 12, min(end + 1, 2027 * 12))
     ]
-    if current():
-        first, last = bounds()
+    first, last = bounds()
+    # El ano completo elegido a mano equivale al ejercicio predeterminado y
+    # comparte su corte preparado: se muestra igual (meses cerrados).
+    if current() and (first, last) != (date(2026, 1, 1), date(2026, 12, 31)):
         months = [
             f"{i // 12:04d}-{i % 12 + 1:02d}"
             for i in range(
