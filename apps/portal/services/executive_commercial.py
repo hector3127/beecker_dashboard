@@ -7,6 +7,7 @@ from django.http import QueryDict
 
 from apps.portal.services.commercial_view import build_commercial_context
 from apps.portal.services.executive_period import bounds
+from core.utils.source_refresh import force_sources
 
 
 def commercial_summary() -> dict[str, Any]:
@@ -14,7 +15,7 @@ def commercial_summary() -> dict[str, Any]:
     start, end = bounds()
     key = f"portal:executive-commercial:v1:{start}:{end}"
     saved: dict[str, Any] | None = cache.get(key)
-    if saved is not None:
+    if saved is not None and not force_sources.get():
         return saved
     params = QueryDict(mutable=True)
     params.update({"desde": start.isoformat(), "hasta": end.isoformat()})

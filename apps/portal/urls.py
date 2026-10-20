@@ -13,6 +13,9 @@ app_name = "portal"
 
 urlpatterns = [
     path(
+        "diccionario-datos/", views.diccionario_datos, name="diccionario_datos"
+    ),
+    path(
         "ejecutiva/actualizacion/",
         views.actualizacion_ejecutiva,
         name="actualizacion_ejecutiva",

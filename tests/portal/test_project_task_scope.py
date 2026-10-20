@@ -8,6 +8,7 @@ from django.core.cache import cache
 from apps.portal.services import revenue_costs
 from apps.portal.services.project_task_scope import scope_entries
 from core.time_entries.models import TimeEntry
+from tests.fakes import InMemorySheetRepository
 
 
 def entry(key, task, hours=1, task_id=""):
@@ -76,7 +77,7 @@ def test_project_costs_do_not_duplicate_variant_hours(monkeypatch):
     )
     ids = ["AMK.008", "AMK.008_S4"]
     context = SimpleNamespace(
-        reader=object(),
+        reader=InMemorySheetRepository({"DataRevenue": [[]]}),
         ids=ids,
         allowed_ids={p.casefold() for p in ids},
         today=date(2026, 10, 15),
@@ -108,7 +109,7 @@ def test_base_revenue_covers_sprints_and_general_without_allocating_income(
         revenue_costs, "build_clockify_loader", lambda reader: loader
     )
     context = SimpleNamespace(
-        reader=object(),
+        reader=InMemorySheetRepository({"DataRevenue": [[]]}),
         ids=["CCO.002"],
         allowed_ids={"cco.002"},
         today=date(2026, 10, 15),

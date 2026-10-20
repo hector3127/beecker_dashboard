@@ -360,3 +360,31 @@ html body #content, html body .app-shell > main.content { padding: 18px 28px 40p
 }
 
 .project-detail-page #view-container{padding:18px 24px 30px;min-width:0}.project-detail-page .top{position:relative;z-index:10}.project-detail-page #dashboard-general{display:none}
+
+/* Excess records: project report dialog. */
+#ixs-excess-modal{width:calc(100vw - 40px);max-width:1840px;max-height:95vh;box-sizing:border-box;overflow:auto;border:1px solid #e7ddff;border-radius:20px;background:#f8f7ff;padding:18px;color:#211359;font-family:inherit}
+#ixs-excess-modal::backdrop{background:#21104c66}
+#ixs-excess-modal .ex-header{display:flex;gap:22px;align-items:center;justify-content:space-between;background:#ffffffd9;border:1px solid #e5dcff;border-radius:14px;padding:16px 18px;margin-bottom:12px}
+#ixs-excess-modal h2{display:flex;align-items:center;gap:12px;font-size:23px;line-height:1.3;margin:0 0 6px;letter-spacing:-.025em;color:#170c60}
+#ixs-excess-modal .ex-heading{flex:1;min-width:260px}#ixs-excess-modal .ex-heading p{font-size:12px;line-height:1.5;color:#7566a1;margin:0}
+#ixs-excess-modal .ex-warning{color:#6630ff;background:#eee8ff;border-radius:10px;display:grid;place-items:center;width:32px;height:32px;flex:none}
+#ixs-excess-modal svg{width:18px;height:18px;flex:none}
+#ixs-excess-modal .ex-controls{display:flex;align-items:end;gap:10px;flex-wrap:wrap}#ixs-excess-modal label{display:flex;flex-direction:column;gap:5px;font-size:12px}
+#ixs-excess-modal input{border:1px solid #dbcdff;border-radius:8px;background:#fff;padding:10px;color:#211359;font:inherit;min-width:155px}
+#ixs-excess-modal .ixs-btn{border:1px solid #dbcdff;border-radius:9px;background:#fff;color:#6330ef;padding:12px 17px;font-size:13px;white-space:nowrap;cursor:pointer}
+#ixs-excess-modal .ixs-btn.primary{background:linear-gradient(120deg,#6f28ff,#5020ee);color:#fff;border-color:transparent;font-weight:700}
+#ixs-excess-modal .ex-close{border:0;background:transparent;color:#7566a1;cursor:pointer;align-self:flex-start;padding:4px}
+#ixs-excess-modal details{background:#ffffffd9;border:1px solid #e5dcff;border-radius:14px;margin:10px 0;overflow:hidden}
+#ixs-excess-modal summary{display:flex;align-items:center;gap:14px;cursor:pointer;padding:11px 16px;list-style:none}#ixs-excess-modal summary::-webkit-details-marker{display:none}
+#ixs-excess-modal .ex-avatar{width:48px;height:48px;border-radius:50%;background:#eee7ff;color:#6529f5;display:grid;place-items:center;flex:none}#ixs-excess-modal .ex-avatar svg{width:27px;height:27px}
+#ixs-excess-modal .ex-person{flex:1;min-width:230px;font-size:15px;color:#170c60}#ixs-excess-modal .ex-person small{display:block;color:#6f609d;margin-top:4px;font-size:13px}
+#ixs-excess-modal .ex-metric{display:flex;align-items:center;gap:9px;background:#f3efff;color:#412a8f;border-radius:14px;padding:12px 18px;white-space:nowrap;font-size:13px}#ixs-excess-modal .ex-metric b{margin-left:10px;color:#5c20fa;font-size:16px}
+#ixs-excess-modal .ex-bad{background:#ffedf3;color:#dc2456}#ixs-excess-modal .ex-bad b{color:#e02352}
+#ixs-excess-modal .ex-chevron{margin-left:12px;font-weight:700}#ixs-excess-modal details[open] .ex-chevron{transform:rotate(180deg)}
+#ixs-excess-modal .ixs-table-scroll{margin:0 16px;overflow:auto}#ixs-excess-modal table{width:100%;min-width:1120px;border-collapse:collapse;font-size:13px}#ixs-excess-modal th{background:#f0eaff;color:#211359;text-align:left;font-weight:700;padding:10px 14px;white-space:nowrap}
+#ixs-excess-modal td{padding:8px 14px;border-bottom:1px solid #e9e0ff;white-space:nowrap;color:#3f3285;vertical-align:middle}#ixs-excess-modal tbody tr:nth-child(even){background:#faf8ff}#ixs-excess-modal .ex-description{min-width:280px;max-width:560px;white-space:normal;overflow-wrap:anywhere}#ixs-excess-modal td.ex-over{color:#ed245e}
+#ixs-excess-modal .ex-sort{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0;display:flex;gap:10px;align-items:center}
+#ixs-excess-modal .ex-pagination{position:relative;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;color:#65568e;font-size:13px;gap:15px;flex-wrap:wrap}
+#ixs-excess-modal .ex-pagination nav{display:flex;gap:5px;margin-right:auto;margin-left:auto}#ixs-excess-modal .ex-pagination button{border:1px solid #e7dfff;background:#fff;color:#412b91;border-radius:7px;min-width:32px;height:32px;cursor:pointer}#ixs-excess-modal .ex-pagination button.active{background:#6425f8;color:white;border-color:#6425f8}#ixs-excess-modal button:disabled{opacity:.4;cursor:default}
+@media(max-width:1250px){#ixs-excess-modal .ex-header{align-items:flex-start;flex-wrap:wrap}#ixs-excess-modal summary{flex-wrap:wrap}#ixs-excess-modal .ex-person{min-width:200px}#ixs-excess-modal .ex-metric{padding:9px 12px}}
+@media(max-width:650px){#ixs-excess-modal{width:98vw;padding:10px}#ixs-excess-modal h2{font-size:18px}#ixs-excess-modal .ex-controls{gap:8px}#ixs-excess-modal .ex-person{min-width:70%}#ixs-excess-modal .ex-metric{font-size:11px}#ixs-excess-modal .ex-metric b{font-size:13px;margin-left:0}}

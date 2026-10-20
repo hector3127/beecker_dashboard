@@ -20,6 +20,7 @@ from core.sheets.protocols import SheetReader
 from core.time_entries.models import TimeEntry
 from core.time_entries.resource_rates import normalize_band, read_rate_by_band
 from core.utils.dates import to_datetime
+from core.utils.source_refresh import force_sources
 from core.utils.text import normalize_name
 
 
@@ -197,7 +198,9 @@ def calculate_project_cost(
     """Calcula horas por tarifa usando el cargador compartido de Clockify."""
     existing = cache.get(key(pid))
     if (
-        existing
+        not force_sources.get()
+        and existing
+        and existing.get("financial_grouping_version") == 2
         and "sprints" in existing
         and all("people" in group for group in existing["sprints"])
     ):
@@ -235,6 +238,30 @@ def calculate_project_cost(
     from apps.portal.services.project_task_scope import scope_entries
 
     entries = scope_entries(pid, ids, entries, loader, lookup)
+    # A CR absent from DataRevenue belongs to its pure ID; the loader normally
+    # excludes CR records from the base, so load these children explicitly.
+    from apps.portal.services.project_task_scope import financial_variant
+
+    registered = {
+        str(r[4]).strip().casefold()
+        for r in reader.read_values("DataRevenue")[1:]
+        if len(r) > 4
+    }
+    aliases = set()
+    if reader.sheet_exists("Historico_Proyectos"):
+        for row in reader.read_values("Historico_Proyectos")[1:]:
+            child = str(row[2] or "").strip() if len(row) > 2 else ""
+            parsed = financial_variant(child)
+            if (
+                parsed
+                and parsed[0] == pid.strip().casefold()
+                and parsed[1].startswith("CR")
+                and child.casefold() not in registered
+            ):
+                aliases.add(child)
+    entries = list(entries)
+    for child in sorted(aliases):
+        entries.extend(loader.load_project(child, (start, end)))
     # Resolve names for the audit even when the base ID includes all sprints.
     task_details_complete = True
     if any(e.task_id and not e.task_name for e in entries):
@@ -370,6 +397,7 @@ def calculate_project_cost(
         "missing_hours": round(missing_hours, 2),
         "complete": missing_hours == 0,
         "people": list(people.values()),
+        "financial_grouping_version": 2,
         "sprints": [
             {
                 **g,
@@ -422,6 +450,12 @@ def cost_summary(
                     "cost": result["cost"],
                     "hours": result["hours"],
                     "complete": result["complete"],
+                    "missing_hours": result.get("missing_hours", 0),
+                    "missing_people": [
+                        p["name"]
+                        for p in result.get("people", [])
+                        if p.get("missing")
+                    ],
                 }
             )
         else:

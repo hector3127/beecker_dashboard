@@ -66,7 +66,7 @@ def test_agreement_api_requires_login_when_enabled(client):
     assert client.get(reverse("portal:acuerdos_ejecutivos")).status_code == 401
 
 
-def test_unhealthy_ranking_has_no_limit_and_excludes_partial_accounts(
+def test_unhealthy_ranking_shows_five_and_keeps_all_in_account_audit(
     monkeypatch,
 ):
     rows = [["Status", "Account", "", "", "ID", "", "Date", "USD"]]
@@ -83,6 +83,10 @@ def test_unhealthy_ranking_has_no_limit_and_excludes_partial_accounts(
         service.cache, "get", lambda cache_key: results.get(cache_key)
     )
     result = service.account_profitability(r)
-    assert len(result["unhealthy"]) == 7
+    assert 0 < len(result["unhealthy"]) <= 5
+    assert {a["name"] for a in result["unhealthy"]}.isdisjoint(
+        a["name"] for a in result["healthy"]
+    )
+    assert len(result["accounts"]) == 8
     assert all(a["margin"] == 20 for a in result["unhealthy"])
     assert result["pending_accounts"] == 1

@@ -22,7 +22,6 @@ from apps.portal.schemas import (
 )
 from apps.portal.services.account import find_account
 from apps.portal.services.account_options import account_names
-from apps.portal.services.account_ranking import rank_accounts
 from apps.portal.services.capacity import (
     build_capacity_csv,
     build_capacity_view,
@@ -30,15 +29,11 @@ from apps.portal.services.capacity import (
     parse_workday_hours,
 )
 from apps.portal.services.capacity_loader import load_capacity
-from apps.portal.services.decisions import build_decisions
 from apps.portal.services.eva_loader import (
     build_eva1_card,
     load_eva1,
     load_eva2,
     load_eva2_closed,
-)
-from apps.portal.services.executive_period import (
-    cache_suffix as executive_cache_suffix,
 )
 from apps.portal.services.executive_period import (
     current as executive_period,
@@ -111,7 +106,6 @@ from apps.portal.services.portfolio_loader import (
 from apps.portal.services.portfolio_summary import (
     build_donut_segments,
     summarize_delivery_managers,
-    summarize_hours,
     summarize_portfolio,
 )
 from apps.portal.services.project_loader import load_project_dashboard
@@ -156,143 +150,43 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    key = (
-        "portal:executiva:context:v5:"
-        + timezone.localdate().isoformat()
-        + executive_cache_suffix()
-    )
-    cached = cache.get(key)
-    refreshing = request.GET.get("actualizar") == "1"
-    from apps.portal.services.financial_cache import (
-        cached_financial_snapshot,
-        snapshot_key,
-        warm_financial,
-    )
-
-    financial = cached_financial_snapshot()
     from apps.portal.services.executive_operations import (
         cached_operations_snapshot,
-        operations_snapshot_key,
-        warm_operations,
     )
+    from apps.portal.services.executive_refresh import request_refresh
+    from apps.portal.services.financial_cache import cached_financial_snapshot
 
-    executive_operations = cached_operations_snapshot()
-    operations_stale = bool(executive_operations) and not cache.get(
-        operations_snapshot_key() + ":fresh"
-    )
-    financial_stale = bool(financial) and not cache.get(
-        snapshot_key() + ":fresh"
-    )
-    refresh_failed = False
-    if (
-        refreshing
-        and cached is not None
-        and not getattr(request, "portal_warmer", False)
-        and (
-            financial_stale or operations_stale or not cache.get(key + ":fresh")
-        )
-    ):
-        from apps.portal.services.executive_refresh import request_refresh
-
-        request_refresh()
-        return render(
-            request,
-            "portal/ejecutiva.html",
-            {
-                **cached,
-                "executive_query": request.GET.urlencode(),
-                "financial_snapshot": financial,
-                "operations_snapshot": executive_operations,
-                "page_stale": True,
-            },
-        )
-    if (
-        refreshing
-        and financial_stale
-        and not getattr(request, "portal_warmer", False)
-    ):
-        refresh_failed = not warm_financial(only_stale=True).get("ok")
-        financial = cached_financial_snapshot()
-    if (
-        refreshing
-        and operations_stale
-        and not getattr(request, "portal_warmer", False)
-    ):
-        refresh_failed = (
-            not warm_operations(only_stale=True).get("ok") or refresh_failed
-        )
-        executive_operations = cached_operations_snapshot()
-    if cached is not None and (not refreshing or cache.get(key + ":fresh")):
-        return render(
-            request,
-            "portal/ejecutiva.html",
-            {
-                **cached,
-                "executive_query": request.GET.urlencode(),
-                "financial_snapshot": financial,
-                "operations_snapshot": executive_operations,
-                "page_stale": not cache.get(key + ":fresh")
-                or financial_stale
-                or operations_stale,
-                "refresh_failed": refresh_failed,
-            },
-        )
-    load = load_portfolio()
-    annual_projects = list(load.projects)
-    operations_source_error = ""
-    if annual_projects:
-        from apps.clockify.services.cr_hours import canonical_cr_id
-        from apps.portal.services.executive_population import population
-        from core.exceptions import DashboardError
-
-        try:
-            eligible = {
-                canonical_cr_id(p["id"]).casefold() for p in population()
-            }
-            annual_projects = [
-                p
-                for p in annual_projects
-                if canonical_cr_id(p.project_id).casefold() in eligible
-            ]
-        except (DashboardError, ValueError) as error:
-            operations_source_error = str(error)
-    context = _base_context(load)
+    financial = cached_financial_snapshot()
+    operations = cached_operations_snapshot()
     chosen = executive_period() or parse_executive_period(
-        {"periodo": "anio", "anio": "2026"}
+        {"periodo": "anio", "anio": str(timezone.localdate().year)}
     )
-    context.update(
-        {
-            "executive_selected": chosen,
-            "executive_query": request.GET.urlencode(),
-            "executive_year": chosen.start.year,
-            "executive_label": chosen.label,
-        }
-    )
-    context.update(
-        {
-            "active": "ejecutiva",
-            "decisions": build_decisions(annual_projects),
-            "operations_source_error": operations_source_error,
-            "hours": summarize_hours(load.projects),
-            "has_projects": bool(load.projects),
-            "top_accounts": rank_accounts(load.projects),
-        },
-    )
+    if (not financial or request.GET.get("actualizar") == "1") and not getattr(
+        request, "portal_warmer", False
+    ):
+        request_refresh()
+    from django.utils.dateparse import parse_datetime
 
-    if not load.error:
-        cache.set(key, context, 86400)
-        cache.set(key + ":fresh", True, 300)
-    elif cached is not None:
-        context = cached
-        refresh_failed = True
+    cut_time = (
+        parse_datetime(financial["loaded_at"])
+        if financial.get("loaded_at")
+        else None
+    )
     return render(
         request,
         "portal/ejecutiva.html",
         {
-            **context,
+            "active": "ejecutiva",
+            "loaded_at": cut_time,
+            "executive_selected": chosen,
+            "executive_query": executive_query_string(),
+            "executive_year": chosen.start.year,
+            "executive_label": chosen.label,
             "financial_snapshot": financial,
-            "operations_snapshot": executive_operations,
-            "refresh_failed": refresh_failed,
+            "operations_snapshot": operations,
+            "decisions": [],
+            "has_projects": False,
+            "page_stale": False,
         },
     )
 
@@ -310,7 +204,17 @@ def actualizacion_ejecutiva(request: HttpRequest) -> HttpResponse:
 
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
-    status = request_refresh() if request.method == "POST" else refresh_status()
+    status = (
+        request_refresh(force=True)
+        if request.method == "POST"
+        else refresh_status()
+    )
+    from apps.portal.services.financial_cache import cached_financial_snapshot
+
+    status = {
+        **status,
+        "has_financial_cut": bool(cached_financial_snapshot().get("loaded_at")),
+    }
     response = JsonResponse(status)
     response["Cache-Control"] = "no-store"
     return response
@@ -2208,6 +2112,9 @@ def acuerdos_ejecutivos(request: HttpRequest) -> HttpResponse:
     rows = list(
         ExecutiveAgreement.objects.values(
             "id",
+            "account",
+            "meeting_source",
+            "meeting_date",
             "title",
             "kind",
             "owner",
@@ -2236,3 +2143,17 @@ def comercial_ejecutiva(request: HttpRequest) -> HttpResponse:
         return JsonResponse(
             {"error": "No se pudo consultar la fuente comercial"}, status=502
         )
+
+
+@require_GET
+def diccionario_datos(request: HttpRequest) -> HttpResponse:
+    """Muestra el diccionario de datos ejecutivo."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+    from apps.portal.services.data_dictionary import CONCEPTS
+
+    return render(
+        request,
+        "portal/diccionario_datos.html",
+        {"concepts": CONCEPTS, "active": "ejecutiva"},
+    )
