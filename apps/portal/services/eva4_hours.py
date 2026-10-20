@@ -42,10 +42,18 @@ SERVICE_LIMITS = {
 }
 
 
+# Hours Package Limit por defecto cuando la fuente no lo trae.
+DEFAULT_PACKAGE_LIMITS = {"RAAS": 80}
+
+
+def service_key(service: Any) -> str:
+    """Servicio sin acentos, espacios ni mayusculas: «RaaS» -> «RAAS»."""
+    return norm(service).upper().replace(" ", "")
+
+
 def service_limit(service: Any) -> float | None:
     """Tope mensual del servicio; None si el servicio no tiene regla."""
-    key = norm(service).upper().replace(" ", "")
-    return SERVICE_LIMITS.get(key)
+    return SERVICE_LIMITS.get(service_key(service))
 
 
 BOT_TAG = re.compile(r"\s*(\d+)")
@@ -230,6 +238,12 @@ def enrich_hours(
             round(consumed, 2) if consumed is not None else None
         )
         process["average_limit"] = limit
+        if process["package_limit"] in ("", None):
+            default = DEFAULT_PACKAGE_LIMITS.get(
+                service_key(process["service"])
+            )
+            if default is not None:
+                process["package_limit"] = default
         process["hours_balance"] = (
             round(limit - consumed, 2)
             if limit is not None and consumed is not None

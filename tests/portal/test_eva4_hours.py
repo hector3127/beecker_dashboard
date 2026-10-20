@@ -193,6 +193,31 @@ def test_footer_names_the_database_when_hours_come_from_it(monkeypatch):
     assert "08.Base Clockify" not in html
 
 
+def test_raas_has_a_default_package_limit_of_80_and_other_services_none():
+    for service, expected in (("RaaS", 80), ("RAAS", 80), ("ROC", "")):
+        data = report(30, service=service)
+        enrich_hours(data, [BASE_HEADER, entry()], TODAY.replace(day=1))
+        assert data["processes"][0]["package_limit"] == expected
+
+
+def test_package_limit_from_the_source_is_not_overwritten():
+    values = row() + [30, 120]
+    values[4] = "RaaS"
+    data = eva4.build_eva4(
+        [HEADER + ["Tope Mensual", "Hours Package Limit"], values], TODAY
+    )
+    enrich_hours(data, [BASE_HEADER, entry()], TODAY.replace(day=1))
+    assert data["processes"][0]["package_limit"] == 120
+
+
+def test_available_hours_package_is_the_hours_consumed_column_of_roc():
+    values = row()
+    values[HEADER.index("Hours Consumed")] = 26
+    data = eva4.build_eva4([HEADER, values], TODAY)
+    assert data["processes"][0]["package_available"] == 26
+    assert "Available Hours Package" not in data["missing_columns"]
+
+
 def test_each_workspace_preserves_its_own_entry_id():
     totals, _ = monthly_hours(
         [BASE_HEADER, entry(), entry(4, workspace="w2")], TODAY.replace(day=1)

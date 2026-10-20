@@ -64,7 +64,7 @@ FIELDS = {
     "invested_hours": ("Horas Reales", "Invested Hours"),
     "hours_balance": ("Hours Balance",),
     "package_limit": ("Hours Package Limit",),
-    "package_available": ("Available Hours Package",),
+    "package_available": ("Available Hours Package", "Hours Consumed"),
     "risk": ("Risk",),
     "account_manager": ("Account Manager", "AM"),
 }
@@ -115,7 +115,7 @@ def snapshot_key(month: str | None = None) -> str:
     """Identifica el corte diario, compartido por detalle y Operativa."""
     day = timezone.localdate()
     return (
-        "portal:eva4:snapshot:v4:"
+        "portal:eva4:snapshot:v5:"
         + day.isoformat()
         + ":"
         + resolve_month(month, day).strftime("%Y-%m")
