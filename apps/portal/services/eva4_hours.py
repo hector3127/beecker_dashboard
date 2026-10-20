@@ -209,7 +209,7 @@ def enrich_hours(
         name = task_key(process["process"])
         bot = task_key(process["bot_id"])
         tag = bot_tag(process["bot_id"]) or bot_tag(process["process"])
-        process["process_tag"] = tag or process["process"]
+        process["bot_label"] = bot_tag(process["bot_id"]) or process["bot_id"]
         scope = (task_key(process["project_id"]), tag)
         if all(scope) and scope in bots:
             # ROC ID + numero del BOT: todas las tareas «3634 - ...».

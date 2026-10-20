@@ -143,11 +143,16 @@ def test_bot_without_hours_in_the_roc_project_has_no_data():
     assert data["processes"][0]["invested_hours"] is None
 
 
-def test_process_column_shows_only_the_bot_tag():
-    data = eva4.build_eva4([HEADER, row(bot="3708")], TODAY)
-    data["processes"][0]["process"] = "3708 - Temporary Green Coffee"
+def test_bot_column_shows_only_the_tag_and_process_keeps_its_name():
+    data = eva4.build_eva4(
+        [HEADER, row(bot="3708 - Temporary Green Coffee"), row(bot="AIN.002")],
+        TODAY,
+    )
+    for item in data["processes"]:
+        item["process"] = "3708 - Temporary Green Coffee"
     enrich_hours(data, [BASE_HEADER, entry()], TODAY.replace(day=1))
-    assert data["processes"][0]["process_tag"] == "3708"
+    assert [p["bot_label"] for p in data["processes"]] == ["3708", "AIN.002"]
+    assert data["processes"][0]["process"] == "3708 - Temporary Green Coffee"
 
 
 def test_each_workspace_preserves_its_own_entry_id():
