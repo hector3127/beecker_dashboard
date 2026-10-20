@@ -7,7 +7,11 @@ from django.utils import timezone
 
 from apps.portal.services.executive_period import bounds, contains, current
 from apps.portal.services.revenue import INVOICE_STATUSES
-from apps.portal.services.revenue_costs import key, project_ids
+from apps.portal.services.revenue_costs import (
+    cached_project_cost,
+    key,
+    project_ids,
+)
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 
@@ -68,7 +72,7 @@ def load_monthly_profitability(reader=None, ids=None):
     pending = 0
     seen = set()
     for pid in project_ids(reader) if ids is None else ids:
-        project = cache.get(key(pid))
+        project = cached_project_cost(pid)
         if not project:
             complete = False
             pending += 1

@@ -48,6 +48,15 @@ def request_refresh(force: bool = False) -> dict[str, Any]:
         try:
             cache.set(key, {"state": "queued"}, STATUS_SECONDS)
             _executor.submit(copy_context().run, _run, key, query)
+        except RuntimeError:
+            # A server reload can stop its executor while a page is rendering.
+            # Preserve the available page instead of turning a warm-up into HTTP 500.
+            _pending.discard(key)
+            cache.set(key, {"state": "failed"}, STATUS_SECONDS)
+            logger.warning(
+                "La precarga no pudo iniciarse durante el reinicio del servidor"
+            )
+            return {"state": "failed"}
         except Exception:
             _pending.discard(key)
             cache.set(key, {"state": "failed"}, STATUS_SECONDS)

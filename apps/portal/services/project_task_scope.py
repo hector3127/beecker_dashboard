@@ -22,11 +22,12 @@ def task_tokens(name):
 
 def scope_entries(pid, ids, entries, loader, lookup):
     """Partition task variants before aggregating financial costs."""
-    selected = variant(pid)
+    selected = financial_variant(pid)
     excluded = {
         item[1]
         for candidate in ids
-        if (item := variant(candidate)) and item[0] == pid.strip().casefold()
+        if (item := financial_variant(candidate))
+        and item[0] == pid.strip().casefold()
     }
     if not selected and not excluded:
         return entries
@@ -53,8 +54,36 @@ def scope_entries(pid, ids, entries, loader, lookup):
                 "no se pueden separar las horas S# sin duplicarlas"
             )
     if selected:
-        return [e for e in entries if task_tokens(e.task_name) == {selected[1]}]
-    return [e for e in entries if not (task_tokens(e.task_name) & excluded)]
+        return [
+            e
+            for e in entries
+            if financial_task_tokens(e.task_name) == {selected[1]}
+            or (
+                selected[1].startswith("CR")
+                and not e.task_id
+                and not e.task_name.strip()
+            )
+        ]
+    claimed_taskless = set()
+    if any(not e.task_id and not e.task_name.strip() for e in entries):
+        for candidate in ids:
+            child = financial_variant(candidate)
+            if (
+                child
+                and child[0] == pid.strip().casefold()
+                and child[1].startswith("CR")
+            ):
+                claimed_taskless.update(
+                    e.entry_id
+                    for e in loader.load_project(candidate)
+                    if not e.task_id and not e.task_name.strip()
+                )
+    return [
+        e
+        for e in entries
+        if not (financial_task_tokens(e.task_name) & excluded)
+        and e.entry_id not in claimed_taskless
+    ]
 
 
 def financial_variant(project_id):
@@ -67,3 +96,13 @@ def financial_variant(project_id):
         if match
         else None
     )
+
+
+def financial_task_tokens(name):
+    """Recognize S# and CR# as complete task tokens."""
+    return {
+        token.upper()
+        for token in re.findall(
+            r"(?<![A-Z0-9])(S\d+|CR\d*)(?![A-Z0-9])", name or "", re.I
+        )
+    }

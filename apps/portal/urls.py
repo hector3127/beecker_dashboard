@@ -13,6 +13,11 @@ app_name = "portal"
 
 urlpatterns = [
     path(
+        "ejecutiva/oportunidades/",
+        views.oportunidades_financieras,
+        name="oportunidades_financieras",
+    ),
+    path(
         "diccionario-datos/", views.diccionario_datos, name="diccionario_datos"
     ),
     path(

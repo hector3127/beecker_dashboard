@@ -26,13 +26,13 @@ def build_pipeline(rows: Any, year: Any) -> Any:
     sections: list[dict[str, Any]] = [
         {
             "key": "confirmed",
-            "title": "Pipeline confirmado",
+            "title": "Oportunidades de alta probabilidad",
             "subtitle": "Probabilidad de 70% o más · sin firma",
             "rows": [],
         },
         {
             "key": "unconfirmed",
-            "title": "Pipeline no confirmado",
+            "title": "Oportunidades en desarrollo",
             "subtitle": "Probabilidad menor de 70%",
             "rows": [],
         },
@@ -171,7 +171,7 @@ def build_annual_unconfirmed(rows: Any, years: Any) -> Any:
     )
     return {
         "key": "unconfirmed",
-        "title": "Pipeline no confirmado",
+        "title": "Oportunidades en desarrollo",
         "subtitle": "Probabilidad menor de 70%",
         "rows": result,
         "years": years,
@@ -182,3 +182,40 @@ def build_annual_unconfirmed(rows: Any, years: Any) -> Any:
         "total": sum(r["total"] for r in result),
         "records": sum(r["records"] for r in result),
     }
+
+
+def group_services(rows):
+    """All accounts are available inside their service; totals retain original units."""
+    grouped = {}
+    for row in rows:
+        name = row["service"] or "Sin servicio"
+        group = grouped.setdefault(
+            name,
+            {
+                "service": name,
+                "rows": [],
+                "total": 0,
+                "cells": [0.0] * len(row["cells"]),
+            },
+        )
+        group["rows"].append(row)
+        group["total"] += row["total"]
+        for index, value in enumerate(row["cells"]):
+            group["cells"][index] += value or 0
+    for group in grouped.values():
+        probabilities = sorted(
+            {
+                detail["probabilidad"]
+                for row in group["rows"]
+                for detail in row.get("details", [])
+                if detail.get("probabilidad") is not None
+            }
+        )
+        group["probability_label"] = (
+            "Pendiente"
+            if not probabilities
+            else f"{probabilities[0]:g}%"
+            if len(probabilities) == 1
+            else f"{probabilities[0]:g}% - {probabilities[-1]:g}%"
+        )
+    return [grouped[name] for name in sorted(grouped)]

@@ -10,7 +10,7 @@ from django.utils.text import slugify
 
 from apps.portal.services.executive_period import bounds, contains, query_string
 from apps.portal.services.revenue import INVOICE_STATUSES
-from apps.portal.services.revenue_costs import key
+from apps.portal.services.revenue_costs import cached_project_cost, key
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
@@ -85,7 +85,7 @@ def account_profitability(reader=None):
     entry_owners = defaultdict(set)
     for name, account in accounts.items():
         for pid in account["ids"]:
-            result = cache.get(key(pid))
+            result = cached_project_cost(pid)
             if not result or not result["complete"]:
                 account["pending"] += 1
             if result:
@@ -160,6 +160,19 @@ def rank_financial_accounts(accounts):
     )
     for row in all_accounts:
         row["partial"] = bool(row.get("pending"))
+        revenue, cost = row.get("revenue") or 0, row.get("cost") or 0
+        margin = row.get("margin")
+        row["classification"] = (
+            "future"
+            if revenue > 0 and cost <= 0
+            else "unhealthy"
+            if cost > 0 and (revenue <= 0 or margin is not None and margin < 30)
+            else "healthy"
+            if margin is not None and margin > 70
+            else "intermediate"
+            if margin is not None and cost > 0
+            else "pending"
+        )
         row["profit_points"] = (
             round(70 * row["gross_profit"] / profit_scale, 4)
             if row in eligible
@@ -192,7 +205,7 @@ def rank_financial_accounts(accounts):
             bool(row.get("pending")) for row in all_accounts
         ),
         "weights": {"gross_profit": 70, "invoiced": 30},
-        "ranking_version": 3,
+        "ranking_version": 4,
         "ranking_method": "70 × utilidad / mayor utilidad absoluta + 30 × facturación / mayor facturación",
         "validation": "Base mensual pendiente de validar con Florencia",
         "year": bounds()[0].year,

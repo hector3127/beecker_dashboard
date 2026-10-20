@@ -104,8 +104,11 @@ def contains(moment: datetime | None) -> bool:
 
 def cache_suffix() -> str:
     """Sufijo de cache exclusivo de las fechas seleccionadas."""
-    period = current()
-    return ":period:" + period.key if period else ""
+    first, last = bounds()
+    # The default financial exercise and an explicit full-2026 range are identical.
+    if first == date(2026, 1, 1) and last == date(2026, 12, 31):
+        return ""
+    return ":period:" + first.isoformat() + ":" + last.isoformat()
 
 
 def period_view[**P](

@@ -9,7 +9,7 @@ function executiveMonthlyChartSvg(data, viewportWidth) {
   const plot = width - left - right;
   const step = plot / Math.max(1, rows.length);
   const barWidth = Math.max(6, Math.min(36, (step - 12) / 2));
-  const fmt = n => typeof executiveMoney==='function'?executiveMoney(n):Number(n/1000).toLocaleString('en-US',{maximumFractionDigits:0})+'K';
+  const fmt = n => typeof executiveMoney==='function'?executiveMoney(n):Number(Math.abs(n)>=1e9?n/1e9:Math.abs(n)>=1e6?n/1e6:Math.abs(n)>=1e3?n/1e3:n).toLocaleString('en-US',{maximumFractionDigits:Math.abs(n)>=1e6?2:0})+(Math.abs(n)>=1e9?'B':Math.abs(n)>=1e6?'M':Math.abs(n)>=1e3?'K':'');
   const escape = value => String(value).replace(/[&<>"']/g, ch => ({
     '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;',
   }[ch]));
