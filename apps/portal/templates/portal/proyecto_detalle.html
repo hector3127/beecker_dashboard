@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}{{ project_id }} · Proyecto{% endblock %}
 {% block body_class %}ds project-detail-page{% endblock %}
-{% block extra_head %}<link rel="stylesheet" href="{% static 'portal/css/proyecto_detalle.css' %}">{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'portal/css/proyecto_detalle.css' %}?v=20261016-excedidos-facturables">{% endblock %}
 {% block content %}
 <div class="project-return"><a class="portal-back" data-portal-back href="{{ back_url|default:'/operativa/' }}">← Regresar a {{ back_label|default:"Operativa" }}</a></div>
 <div id="view-container"></div>
@@ -19,5 +19,5 @@
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'core/js/gas_shim.js' %}"></script>
-<script src="{% static 'portal/js/proyecto_detalle.js' %}"></script>
+<script src="{% static 'portal/js/proyecto_detalle.js' %}?v=20261016-excedidos-facturables"></script>
 {% endblock %}

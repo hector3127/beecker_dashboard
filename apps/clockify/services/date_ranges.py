@@ -327,9 +327,17 @@ def pick_stage_date(
     if not candidates:
         return None
 
-    candidates.sort(key=lambda candidate: candidate[0], reverse=True)
-
-    return candidates[0][1]
+    if stage == STAGE_DISCOVERY:
+        operational_dates = [
+            day for rank, day in candidates if rank >= RANK_OPERATION
+        ]
+        if operational_dates:
+            return min(operational_dates)
+    best_rank = max(rank for rank, _ in candidates)
+    dates = [day for rank, day in candidates if rank == best_rank]
+    # Repeated stages represent resumptions/extensions. Keep the first
+    # Discovery start and the last Deployment finish, regardless of row order.
+    return max(dates) if stage == STAGE_DEPLOYMENT else min(dates)
 
 
 def rank_stage_status(status: CellValue, stage: str) -> int:

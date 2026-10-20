@@ -6,10 +6,15 @@ from datetime import date
 from decimal import Decimal
 from typing import Any
 
+from apps.clockify.services.clockify_client import ClockifyProject
 from apps.datastore.models import ClockifyMonthSync, ClockifyTimeEntry
 from apps.gse.services.base_store import BaseStore, HourRecord, unique_ids
 from apps.gse.services.cells import norm
-from apps.portal.services.eva4_hours import BASE_TAGS, EXTRA_TAGS, task_key
+from apps.portal.services.eva4_hours import (
+    BASE_TAGS,
+    EXTRA_TAGS,
+    task_key,
+)
 
 """BKD.130.010 - Base de horas desde la base de datos
 Sustituye a la hoja «08.Base Clockify AAAA» (164,000 filas que se recorrian
@@ -133,23 +138,65 @@ def build_hour_index_from_store(year: int) -> dict[str, Any]:
         meses con horas no numericas (siempre vacio: la base es numerica)}.
     """
     totals: dict[str, dict[str, Decimal]] = {}
+    project_tasks: dict[str, dict[str, dict[str, Decimal]]] = {}
     tasks: set[str] = set()
+    projects: set[str] = set()
     rows = ClockifyTimeEntry.objects.filter(entry_date__year=year).values_list(
-        "task_name", "tags", "entry_date", "duration_seconds"
+        "project_name", "task_name", "tags", "entry_date", "duration_seconds"
     )
     accumulated: dict[tuple[str, str], Decimal] = defaultdict(Decimal)
-    for task_name, tags, entry_date, seconds in rows.iterator():
+    project_accumulated: dict[tuple[str, str, str], Decimal] = defaultdict(
+        Decimal
+    )
+    for project_name, task_name, tags, entry_date, seconds in rows.iterator():
         key = task_key(task_name)
         if not key or entry_date is None:
             continue
         tasks.add(key)
+        project = task_key(project_name)
+        if project:
+            projects.add(project)
+        month_key = entry_date.strftime("%Y-%m")
+        # Por proyecto y BOT se cuentan las horas de todas las etiquetas.
+        if project:
+            project_accumulated[(month_key, project, key)] += Decimal(
+                str(seconds / 3600)
+            )
+        # Por nombre de tarea (respaldo) solo las categorias de Horas Reales.
         allowed = BASE_TAGS | (
             EXTRA_TAGS if entry_date.month >= EXTRA_TAGS_FROM_MONTH else set()
         )
-        if norm(TAG_SEPARATOR.join(tags)) not in allowed:
-            continue
-        month_key = entry_date.strftime("%Y-%m")
-        accumulated[(month_key, key)] += Decimal(str(seconds / 3600))
+        if norm(TAG_SEPARATOR.join(tags)) in allowed:
+            accumulated[(month_key, key)] += Decimal(str(seconds / 3600))
     for (month_key, key), hours in accumulated.items():
         totals.setdefault(month_key, {})[key] = hours
-    return {"totals": totals, "tasks": tasks, "errors": set()}
+    for (month_key, project, key), hours in project_accumulated.items():
+        project_tasks.setdefault(month_key, {}).setdefault(project, {})[key] = (
+            hours
+        )
+    return {
+        "totals": totals,
+        "tasks": tasks,
+        "errors": set(),
+        "project_tasks": project_tasks,
+        "projects": projects,
+    }
+
+
+def clockify_projects(year: int) -> list[ClockifyProject]:
+    """
+    Proyectos de Clockify que tienen horas guardadas en el ano.
+
+    Args:
+        year: Ano del reporte.
+
+    Returns:
+        Un proyecto por ID de Clockify, con su nombre.
+    """
+    pairs = (
+        ClockifyTimeEntry.objects.filter(entry_date__year=year)
+        .exclude(project_id="")
+        .values_list("project_id", "project_name")
+        .distinct()
+    )
+    return [ClockifyProject(project_id=i, name=n) for i, n in pairs]

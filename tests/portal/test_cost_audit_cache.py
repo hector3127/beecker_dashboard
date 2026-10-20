@@ -14,6 +14,7 @@ def payload():
         "cost": 20,
         "hours": 2,
         "complete": False,
+        "financial_grouping_version": 3,
         "people": [],
         "sprints": [],
         "entries": {"e": 20},
@@ -89,4 +90,81 @@ def test_prepared_summary_reuses_details_without_reading_sources(monkeypatch):
     data = __import__("json").loads(response.content)
     assert data["prepared_details"]["p1"]["cost"] == 20
     assert data["prepared_details"]["p1"]["revenue"] == 100
+    cache.clear()
+
+
+def test_summary_picks_up_partial_cost_before_any_detail_click(monkeypatch):
+    from apps.portal.services.cost_audit_cache import (
+        prepared_summary,
+        remember_summary,
+    )
+
+    cache.clear()
+    remember_summary(
+        {
+            "projects": [
+                {
+                    "id": "P1",
+                    "revenue": 100,
+                    "cost": None,
+                    "hours": None,
+                    "complete": False,
+                }
+            ],
+            "cost": 0,
+            "pending": 1,
+        },
+        "Acme",
+    )
+    cache.set(key("P1"), payload())
+    monkeypatch.setattr(
+        revenue_costs,
+        "build_sheet_repository",
+        lambda: pytest.fail("Unexpected source read"),
+    )
+    result = prepared_summary("Acme")
+    assert result["projects"][0]["cost"] == 20
+    assert result["projects"][0]["hours"] == 2
+    assert result["projects"][0]["margin"] == 80
+    assert (
+        result["cost"] == 20
+        and result["pending"] == 0
+        and result["consulted"] == 1
+    )
+    assert not result["complete"]
+    assert result["prepared_details"]["p1"]["cost"] == 20
+    cache.clear()
+
+
+def test_reloads_keep_deduplicated_cost_when_live_cache_expires():
+    from apps.portal.services.cost_audit_cache import (
+        prepared_summary,
+        remember_summary,
+    )
+
+    cache.clear()
+    first = payload()
+    second = {
+        **payload(),
+        "id": "P2",
+        "cost": 30,
+        "entries": {"e": 20, "e2": 10},
+    }
+    cache.set(key("P1"), first)
+    cache.set(key("P2"), second)
+    rows = [{"id": pid, "revenue": 100} for pid in ["P1", "P2"]]
+    initial = remember_summary({"projects": rows}, "Acme")
+    assert initial["cost"] == 30 and initial["deduplicated_entries"] == 2
+    cache.delete(key("P1"))
+    cache.delete(key("P2"))
+    later = prepared_summary("Acme")
+    assert (
+        later["cost"] == 30
+        and later["consulted"] == 2
+        and later["pending"] == 0
+    )
+    assert (
+        later["projects"][0]["cost"] == 20
+        and later["projects"][1]["cost"] == 30
+    )
     cache.clear()

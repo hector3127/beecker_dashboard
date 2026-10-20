@@ -203,3 +203,9 @@
 
 @media(max-width:1100px){.pg.ops-dashboard{padding:20px}}
 @media(max-width:700px){.pg.ops-dashboard{padding:16px 12px 28px}}
+
+.ops-health-help{margin-top:16px}
+.ops-health-help>summary{display:grid;place-items:center;width:25px;height:25px;border:1px solid #dcd0fc;border-radius:50%;background:#f2edff;color:#6426d9;font-size:16px;font-weight:800;cursor:pointer;list-style:none}
+.ops-health-help>summary::-webkit-details-marker{display:none}
+.ops-health-help>summary:focus-visible{outline:2px solid #6426d9;outline-offset:3px}
+.ops-health-help .ops-health-footnote{margin-top:10px}

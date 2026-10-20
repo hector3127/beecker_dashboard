@@ -29,7 +29,7 @@ def request(path, **params):
     return RequestFactory().get(path, params)
 
 
-def test_executive_components_are_reused_after_precache(monkeypatch):
+def test_executive_page_does_not_read_sources_after_precache(monkeypatch):
     load = Mock(
         return_value=PortfolioLoad(
             projects=(make_project(),),
@@ -42,15 +42,8 @@ def test_executive_components_are_reused_after_precache(monkeypatch):
     second = views.ejecutiva(request("/"))
     # El formulario de acuerdos genera un token CSRF nuevo por peticion.
     assert first.status_code == second.status_code == 200
-    assert (
-        b"financial-cache" in first.content
-        and b"financial-cache" in second.content
-    )
-    load.assert_called_once_with()
-    saved = cache.get(
-        "portal:executiva:context:v5:" + timezone.localdate().isoformat()
-    )
-    assert {"decisions", "hours", "top_accounts"} <= saved.keys()
+    # La portada se arma con cortes preparados y no consulta el portafolio.
+    load.assert_not_called()
 
 
 def test_commercial_components_are_reused_but_filters_are_independent(

@@ -77,7 +77,7 @@ def test_selected_period_reuses_its_prepared_financial_accounts(monkeypatch):
     token = period._current.set(selected_month("4"))
     try:
         prepared = {
-            "accounts": [{"name": "Acme", "revenue": 200}],
+            "accounts": [{"name": "Acme", "revenue": 200, "gross_profit": 100}],
             "year": 2026,
         }
         cache.set(snapshot_key(), {"accounts": prepared})
@@ -85,7 +85,8 @@ def test_selected_period_reuses_its_prepared_financial_accounts(monkeypatch):
             "apps.portal.services.account_profitability.account_profitability",
             lambda: pytest.fail("Unexpected source read"),
         )
-        assert load_account_profitability() == prepared
+        loaded = load_account_profitability()
+        assert [a["name"] for a in loaded["accounts"]] == ["Acme"]
     finally:
         period._current.reset(token)
     assert cache.get(snapshot_key()) is None

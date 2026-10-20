@@ -3,7 +3,6 @@
 import calendar
 import hashlib
 import re
-from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date
 from typing import Any
@@ -17,9 +16,9 @@ from apps.portal.services.executive_period import bounds, cache_suffix, current
 from core.sheets.factory import build_sheet_repository
 from core.sheets.project_year import mpb_previous_year_ids
 from core.sheets.protocols import SheetReader
-from core.time_entries.models import TimeEntry
 from core.time_entries.resource_rates import normalize_band, read_rate_by_band
 from core.utils.dates import to_datetime
+from core.utils.source_refresh import force_sources
 from core.utils.text import normalize_name
 
 
@@ -78,7 +77,7 @@ def prepare_cost_context(
     )
 
 
-def project_ids(reader: SheetReader, account: str | None = None) -> list[str]:
+def project_ids(reader: Any, account: Any = None) -> Any:
     """Lista IDs unicos del ejercicio 2026 sin las filas de totales."""
     result: dict[str, str] = {}
     excluded = (
@@ -106,8 +105,9 @@ def project_ids(reader: SheetReader, account: str | None = None) -> list[str]:
             and str(row[4] or "").strip()
         ):
             pid = str(row[4]).strip()
-            if pid.casefold() not in excluded:
-                result.setdefault(pid.casefold(), pid)
+            # An explicit financial record in the selected year remains valid
+            # even if MPB says its operational contract ended in a prior year.
+            result.setdefault(pid.casefold(), pid)
     from apps.portal.services.cost_project_inventory import inventory
 
     for identity, project in inventory(reader).items():
@@ -121,10 +121,14 @@ def project_ids(reader: SheetReader, account: str | None = None) -> list[str]:
     return sorted(result.values(), key=str.casefold)
 
 
-def key(pid: str) -> str:
+def key(pid: Any) -> Any:
     """Identifica el costo por proyecto y mes de la banda vigente."""
     return (
-        "portal:revenue-cost:2026:v9:"
+        (
+            "portal:revenue-cost:2026:aer-month-v1:"
+            if pid.strip().upper().startswith("AER.")
+            else "portal:revenue-cost:2026:v9:"
+        )
         + timezone.localdate().strftime("%Y-%m")
         + ":"
         + hashlib.sha256(pid.casefold().encode()).hexdigest()
@@ -132,9 +136,19 @@ def key(pid: str) -> str:
     )
 
 
-def resolve_person_band(
-    row: list[Any], headers: list[Any], rates: dict[str, float], today: date
-) -> tuple[Any, str]:
+def cached_project_cost(pid: Any) -> Any:
+    """Keep the last prepared per-project cut through temporary cache expiry."""
+    cache_key = key(pid)
+    saved = cache.get(cache_key)
+    if saved:
+        if not cache.get(cache_key + ":last-known"):
+            cache.set(cache_key + ":last-known", saved, 604800)
+        return saved
+    saved = cache.get(cache_key + ":last-known")
+    return {**saved, "stale": True} if saved else None
+
+
+def resolve_person_band(row: Any, headers: Any, rates: Any, today: Any) -> Any:
     """Use current band; for Baja, recover the latest valid monthly band."""
     from apps.gse.services.cells import norm
 
@@ -156,23 +170,23 @@ def resolve_person_band(
     return "", "Sin banda vigente historica"
 
 
-def resolve_cost_scope(
-    pid: str, ids: Sequence[str], today: date
-) -> tuple[str, date, date, int | None]:
-    """ROC base.MM is a month; unsuffixed base is January only with variants."""
+def resolve_cost_scope(pid: Any, ids: Any, today: Any) -> Any:
+    """AER/ROC .MM selects a month; ROC keeps its legacy January base rule."""
     match = re.fullmatch(
-        r"(ROC\.[A-Z0-9]+\.\d{3})(?:\.(0[1-9]|1[0-2]))?",
+        r"((?:ROC|AER)\.[A-Z0-9]+\.\d{3})(?:\.(0[1-9]|1[0-2]))?",
         pid.strip(),
         re.IGNORECASE,
     )
-    lookup = pid.strip()
-    month: int | None = None
+    # Sprint IDs may use an underscore, space or hyphen. Clockify stores
+    # their hours under the pure project ID; scope_entries selects the S# task.
+    lookup = re.sub(r"[_\s-]+S\d+$", "", pid.strip(), flags=re.IGNORECASE)
+    month = None
     if match:
         base, suffix = match.groups()
         lookup = base
         if suffix:
             month = int(suffix)
-        elif any(
+        elif base.upper().startswith("ROC.") and any(
             re.fullmatch(
                 re.escape(base) + r"\.(0[1-9]|1[0-2])",
                 candidate.strip(),
@@ -191,13 +205,47 @@ def resolve_cost_scope(
     return lookup, start, end, month
 
 
-def calculate_project_cost(
-    pid: str, context: CostContext | None = None
-) -> dict[str, Any]:
+def partition_aer_months(
+    pid: Any, ids: Any, entries: Any, start: Any, end: Any
+) -> Any:
+    """Reserve explicit .MM months for their own financial ID."""
+    parsed = re.fullmatch(
+        r"(AER\.[A-Z0-9]+\.\d{3})(?:\.(0[1-9]|1[0-2]))?", pid.strip(), re.I
+    )
+    if not parsed:
+        return entries
+    base, suffix = parsed.groups()
+    reserved = {
+        int(m.group(1))
+        for candidate in ids
+        if (
+            m := re.fullmatch(
+                re.escape(base) + r"\.(0[1-9]|1[0-2])", candidate.strip(), re.I
+            )
+        )
+    }
+    result = []
+    for entry in entries:
+        if entry.entry_date is None:
+            raise ValueError(
+                "Registro AER sin fecha: no se puede asignar el mes sin "
+                "duplicarlo"
+            )
+        day = entry.entry_date.date()
+        if start <= day <= end and (
+            day.month == int(suffix) if suffix else day.month not in reserved
+        ):
+            result.append(entry)
+    return result
+
+
+def calculate_project_cost(pid: Any, context: Any = None) -> Any:
     """Calcula horas por tarifa usando el cargador compartido de Clockify."""
     existing = cache.get(key(pid))
     if (
-        existing
+        not force_sources.get()
+        and existing
+        and existing.get("financial_grouping_version") == 3
         and "sprints" in existing
         and all("people" in group for group in existing["sprints"])
     ):
@@ -229,12 +277,35 @@ def calculate_project_cost(
             start, end = selected_start, selected_end
         start, end = max(start, selected_start), min(end, selected_end, today)
     loader = build_clockify_loader(reader)
-    entries: Sequence[TimeEntry] = (
-        loader.load_project(lookup, (start, end)) if start <= end else []
-    )
+    entries = loader.load_project(lookup, (start, end)) if start <= end else []
     from apps.portal.services.project_task_scope import scope_entries
 
     entries = scope_entries(pid, ids, entries, loader, lookup)
+    # A CR absent from DataRevenue belongs to its pure ID; the loader normally
+    # excludes CR records from the base, so load these children explicitly.
+    from apps.portal.services.project_task_scope import financial_variant
+
+    registered = {
+        str(r[4]).strip().casefold()
+        for r in reader.read_values("DataRevenue")[1:]
+        if len(r) > 4
+    }
+    aliases = set()
+    if reader.sheet_exists("Historico_Proyectos"):
+        for row in reader.read_values("Historico_Proyectos")[1:]:
+            child = str(row[2] or "").strip() if len(row) > 2 else ""
+            parsed = financial_variant(child)
+            if (
+                parsed
+                and parsed[0] == pid.strip().casefold()
+                and parsed[1].startswith("CR")
+                and child.casefold() not in registered
+            ):
+                aliases.add(child)
+    entries = list(entries)
+    for child in sorted(aliases):
+        entries.extend(loader.load_project(child, (start, end)))
+    entries = partition_aer_months(pid, ids, entries, start, end)
     # Resolve names for the audit even when the base ID includes all sprints.
     task_details_complete = True
     if any(e.task_id and not e.task_name for e in entries):
@@ -260,10 +331,14 @@ def calculate_project_cost(
             ]
         except (DashboardError, ValueError):
             task_details_complete = False
-    from apps.portal.services.project_task_scope import task_tokens, variant
+    from apps.portal.services.project_task_scope import (
+        financial_task_tokens as task_tokens,
+    )
+    from apps.portal.services.project_task_scope import (
+        financial_variant as variant,
+    )
 
-    selected = variant(pid)
-    base = selected[0].upper() if selected else pid
+    base = variant(pid)[0].upper() if variant(pid) else pid
     sprint_groups: dict[str, dict[str, Any]] = {}
     people: dict[str, dict[str, Any]] = {}
     amounts = {}
@@ -311,7 +386,7 @@ def calculate_project_cost(
             else (
                 "Tarea sin identificar"
                 if entry.task_id and not entry.task_name
-                else "Sin sprint"
+                else "General / sin task"
             )
         )
         if label == "Tarea sin identificar":
@@ -370,6 +445,7 @@ def calculate_project_cost(
         "missing_hours": round(missing_hours, 2),
         "complete": missing_hours == 0,
         "people": list(people.values()),
+        "financial_grouping_version": 3,
         "sprints": [
             {
                 **g,
@@ -396,23 +472,57 @@ def calculate_project_cost(
         "entries": amounts,
         "entry_months": entry_months,
     }
-    cache.set(key(pid), result, 86400 if result["complete"] else 300)
+    cache.set(key(pid), result, 86400)
+    cache.set(key(pid) + ":last-known", result, 604800)
     return {
         k: v for k, v in result.items() if k not in {"entries", "entry_months"}
     }
 
 
-def cost_summary(
-    ids: list[str] | None = None, account: str | None = None
-) -> dict[str, Any]:
+def future_project_month(pid: Any, today: Any = None) -> Any:
+    """Monthly IDs are future only when their whole scope is future."""
+    today = today or timezone.localdate()
+    match = re.fullmatch(
+        r"(?:AER|ROC)\.[A-Z0-9]+\.\d{3}\.(0[1-9]|1[0-2])", pid.strip(), re.I
+    )
+    if not match:
+        return False
+    first, last = bounds()
+    month = int(match.group(1))
+    occurrences = [
+        date(year, month, 1)
+        for year in range(first.year, last.year + 1)
+        if date(year, month, calendar.monthrange(year, month)[1]) >= first
+        and date(year, month, 1) <= last
+    ]
+    return bool(occurrences) and min(occurrences).replace(
+        day=1
+    ) > today.replace(day=1)
+
+
+def cost_summary(ids: Any = None, account: Any = None) -> Any:
     """Suma costos preparados sin duplicar registros entre proyectos."""
     ids = project_ids(build_sheet_repository(), account) if ids is None else ids
-    entries: dict[str, float] = {}
-    projects: list[dict[str, Any]] = []
+    entries = {}
+    projects = []
     pending = 0
     complete = True
+    future = 0
     for pid in ids:
-        result = cache.get(key(pid))
+        if future_project_month(pid):
+            future += 1
+            projects.append(
+                {
+                    "id": pid,
+                    "cost": None,
+                    "hours": None,
+                    "complete": False,
+                    "future": True,
+                    "status": "future",
+                }
+            )
+            continue
+        result = cached_project_cost(pid)
         if result:
             entries.update(result["entries"])
             complete = complete and result["complete"]
@@ -422,6 +532,12 @@ def cost_summary(
                     "cost": result["cost"],
                     "hours": result["hours"],
                     "complete": result["complete"],
+                    "missing_hours": result.get("missing_hours", 0),
+                    "missing_people": [
+                        p["name"]
+                        for p in result.get("people", [])
+                        if p.get("missing")
+                    ],
                 }
             )
         else:
@@ -439,6 +555,8 @@ def cost_summary(
         "projects": projects,
         "cost": round(sum(entries.values()), 2),
         "pending": pending,
+        "future": future,
+        "consulted": len(projects) - pending - future,
         "complete": pending == 0 and complete,
         "band_month": timezone.localdate().strftime("%Y-%m"),
         "deduplicated_entries": len(entries),

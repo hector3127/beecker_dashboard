@@ -136,6 +136,7 @@ def test_costs_return_to_immediate_parent(client, settings, path, label):
     response = client.get(
         "/ejecutiva/costos/detalle/",
         {
+            "vista": "proyectos",
             "nombre": "Heineken Mexico",
             "volver": path,
             "periodo": "anio",

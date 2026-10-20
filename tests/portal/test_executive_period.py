@@ -140,3 +140,16 @@ def test_project_cost_query_clips_clockify_dates(monkeypatch):
     finally:
         period._current.reset(token)
     cache.clear()
+
+
+def test_default_annual_and_explicit_full_year_share_financial_cache():
+    default_key = revenue_costs.key("AER.NEM.001")
+    for query in [
+        {"periodo": "anio", "anio": "2026"},
+        {"periodo": "rango", "desde": "2026-01-01", "hasta": "2026-12-31"},
+    ]:
+        token = period._current.set(period.parse(query))
+        try:
+            assert revenue_costs.key("AER.NEM.001") == default_key
+        finally:
+            period._current.reset(token)

@@ -2,7 +2,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');const vm=require('node:vm');
 let template=fs.readFileSync(require('node:path').join(__dirname,'../../apps/portal/templates/portal/costos_detalle.html'),'utf8');
-const source=template.split('{% block scripts %}<script>')[1].split('</script>')[0]
+const source=(fs.readFileSync(require('node:path').join(__dirname,'../../apps/portal/static/portal/js/executive_numbers.js'),'utf8')+'\n'+[...template.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]).join('\n'))
  .replace('{% url "portal:proyecto_detalle" "project-placeholder" %}','/proyectos/project-placeholder/')
  .replace('{% url "portal:costos_revenue" %}','/ejecutiva/costos/');
 

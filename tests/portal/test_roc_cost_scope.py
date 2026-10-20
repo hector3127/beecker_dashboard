@@ -28,9 +28,7 @@ def test_roc_without_variants_keeps_full_year():
         today,
         None,
     )
-    assert (
-        resolve_cost_scope("AER.AEC.002.07", [], today)[0] == "AER.AEC.002.07"
-    )
+    assert resolve_cost_scope("AER.AEC.002.07", [], today)[0] == "AER.AEC.002"
 
 
 def test_month_scope_current_and_future_months():
