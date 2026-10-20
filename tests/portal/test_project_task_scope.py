@@ -1,3 +1,4 @@
+from tests.fakes import InMemorySheetRepository
 from datetime import date, datetime
 from types import SimpleNamespace
 from unittest.mock import Mock
@@ -76,7 +77,7 @@ def test_project_costs_do_not_duplicate_variant_hours(monkeypatch):
     )
     ids = ["AMK.008", "AMK.008_S4"]
     context = SimpleNamespace(
-        reader=object(),
+        reader=InMemorySheetRepository({"DataRevenue": [[]]}),
         ids=ids,
         allowed_ids={p.casefold() for p in ids},
         today=date(2026, 10, 15),
@@ -90,4 +91,20 @@ def test_project_costs_do_not_duplicate_variant_hours(monkeypatch):
     assert set(cache.get(revenue_costs.key(ids[0]))["entries"]).isdisjoint(
         cache.get(revenue_costs.key(ids[1]))["entries"]
     )
+    cache.clear()
+
+
+def test_base_revenue_covers_sprints_and_general_without_allocating_income(monkeypatch):
+    cache.clear()
+    loader=Mock();loader.load_project.return_value=[entry("base","General",2),entry("s1","S1 - Discovery",10),entry("s2","CCO.002_S2 Development",20),entry("s2","CCO.002_S2 Development",20)]
+    monkeypatch.setattr(revenue_costs,"build_clockify_loader",lambda reader:loader)
+    context=SimpleNamespace(reader=InMemorySheetRepository({"DataRevenue": [[]]}),ids=["CCO.002"],allowed_ids={"cco.002"},today=date(2026,10,15),rates={"A2":7},bands={"ana":("A2","Octubre")})
+    result=revenue_costs.calculate_project_cost("CCO.002",context)
+    groups={g["label"]:g for g in result["sprints"]}
+    assert result["hours"]==32 and result["cost"]==224
+    assert groups["S1"]["hours"]==10 and groups["S1"]["cost"]==70
+    assert groups["S2"]["hours"]==20 and groups["S2"]["cost"]==140
+    assert groups["Sin sprint"]["hours"]==2
+    assert sum(g['hours'] for g in groups.values())==result['hours']
+    assert all('revenue' not in g for g in groups.values())
     cache.clear()

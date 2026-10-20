@@ -6,7 +6,7 @@ from django.core.cache import cache
 from django.utils import timezone
 
 from apps.portal.services.executive_period import bounds, contains, current
-from apps.portal.services.revenue import REVENUE_STATUSES
+from apps.portal.services.revenue import INVOICE_STATUSES
 from apps.portal.services.revenue_costs import key, project_ids
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
@@ -41,7 +41,7 @@ def load_monthly_profitability(reader=None, ids=None):
     }
     reader = reader or build_sheet_repository()
     for row in reader.read_values("DataRevenue")[1:]:
-        if not row or str(row[0]).strip().casefold() not in REVENUE_STATUSES:
+        if not row or str(row[0]).strip().casefold() not in INVOICE_STATUSES:
             continue
         if len(row) < 8 or any(
             str(c).strip().casefold()

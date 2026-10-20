@@ -55,3 +55,9 @@ def scope_entries(pid, ids, entries, loader, lookup):
     if selected:
         return [e for e in entries if task_tokens(e.task_name) == {selected[1]}]
     return [e for e in entries if not (task_tokens(e.task_name) & excluded)]
+
+
+def financial_variant(project_id):
+    """Financial identity: unregistered sprint/CR variants belong to the base."""
+    match = re.fullmatch(r"(.*?)[_\s|/-]+(S\d+|CR\d*)", project_id.strip(), re.I)
+    return (match.group(1).strip().casefold(), match.group(2).upper()) if match else None

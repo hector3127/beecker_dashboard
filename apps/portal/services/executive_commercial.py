@@ -1,3 +1,4 @@
+from core.utils.source_refresh import force_sources
 """Executive commercial figures from the same source and FX as Comercial."""
 
 from typing import Any
@@ -14,7 +15,7 @@ def commercial_summary() -> dict[str, Any]:
     start, end = bounds()
     key = f"portal:executive-commercial:v1:{start}:{end}"
     saved = cache.get(key)
-    if saved is not None:
+    if saved is not None and not force_sources.get():
         return saved
     params = QueryDict(mutable=True)
     params.update({"desde": start.isoformat(), "hasta": end.isoformat()})

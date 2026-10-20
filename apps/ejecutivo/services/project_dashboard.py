@@ -142,8 +142,10 @@ def build_executive_dashboard(
         now,
         sources.stage_work_items,
     )
+    status_project = dict(project)
+    status_project["Estado"] = current_history_status(project.get("Estado"), milestones, now)
     general_status, status_color = calculate_general_status(
-        project,
+        status_project,
         raw_consumption_pct,
         progress,
     )
@@ -431,6 +433,22 @@ def calculate_progress(
             else None
         ),
     )
+
+
+def current_history_status(fallback, milestones, now):
+    """Use resumed real stages instead of a stale suspension in Proyectos."""
+    if categorize_project_status(fallback) == CATEGORY_CLOSED:
+        return fallback
+    events = []
+    for item in milestones.get("historialCompleto", []):
+        start = to_datetime(item.get("fechaInicio"))
+        if start and start.date() <= now.date():
+            events.append((start.date(), 1, item.get("fase") or fallback))
+    for item in milestones.get("suspensiones", []):
+        start = to_datetime(item.get("fechaInicio"))
+        if start and start.date() <= now.date():
+            events.append((start.date(), 0, "Suspendido"))
+    return max(events, key=lambda event: event[:2])[2] if events else fallback
 
 
 def calculate_general_status(

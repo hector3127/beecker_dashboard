@@ -291,6 +291,7 @@ def test_historical_inventory_uses_only_a_to_i_and_selected_period():
 def test_generic_arca_costs_belong_to_mexico_and_never_peru():
     r = InMemorySheetRepository(
         {
+            "Historico_Proyectos": [[], ["", "Arca Continental Mexico", "GIFT"]],
             "MPB": [
                 MPB,
                 [
@@ -341,3 +342,29 @@ def test_generic_arca_costs_belong_to_mexico_and_never_peru():
     mexico = next(a for a in accounts if a["name"] == "Arca Continental Mexico")
     assert mexico["cost"] == 75 and mexico["revenue"] == 200
     cache.clear()
+
+
+def test_regional_account_fallback_uses_exact_right_hand_project_id():
+    cache.clear()
+    r=InMemorySheetRepository({"MPB":[MPB,["ARCA CONTINENTAL","GIFT","Gift","AER","2026-01-01","2026-12-31","En progreso","Ana",100]],
+        "Historico_Proyectos":[[],["", "", "", "", "", "", "", "", "", "", "", "Arca Continental Mexico", "GIFT"]],
+        "DataRevenue":[["Status","Account","","","ID","","Date","USD"],
+                       ["Collected","Arca Continental Mexico","","","MEX","","2026-01-01",200],
+                       ["Collected","Arca Continental Peru","","","PERU","","2026-01-01",100]]})
+    assert project_ids(r,"Arca Continental Mexico")==["GIFT","MEX"]
+    assert project_ids(r,"Arca Continental Peru")==["PERU"]
+    cache.clear()
+
+
+def test_unbilled_variants_collapse_even_without_base_revenue():
+    from apps.portal.services.cost_project_inventory import inventory
+
+    reader = InMemorySheetRepository({
+        "DataRevenue": [[]],
+        "MPB": [MPB] + [
+            ["Acme", pid, "Gift", "AER", "2026-01-01", "2026-12-31", "En progreso", "Ana", 100]
+            for pid in ["MCC.015", "MCC.015_S3", "MCC.015_S4"]
+        ],
+    })
+    assert project_ids(reader, "Acme") == ["MCC.015"]
+    assert inventory(reader)["mcc.015"]["accounts"] == {"Acme"}

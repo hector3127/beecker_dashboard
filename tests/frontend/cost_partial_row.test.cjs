@@ -13,7 +13,7 @@ test('loading a partial breakdown updates hours, cost, margin, state and global 
  let calculated=false;
  const partial={id:'AER.MCC.005',hours:100,cost:700,revenue:10000,margin:93,complete:false,missing_hours:7,people:[{name:'Ana',hours:93,rate:7,band:'A2',cost:651}],scope_start:'2026-01-01',scope_end:'2026-10-15'};
  const summary=()=>({projects:[calculated?partial:{id:partial.id,cost:null,hours:null,revenue:10000,complete:false,error:'Consulta anterior fallida'}],cost:calculated?700:0,complete:false,pending:calculated?0:1,deduplicated_entries:calculated?2:0,band_month:'2026-10'});
- vm.runInNewContext(source,{URL,URLSearchParams,document:{getElementById:node},window:{location:new URL('http://localhost/ejecutiva/costos/detalle/')},fetch:async url=>({ok:true,json:async()=>{if(url.includes('&id=')){calculated=true;return partial;}return summary();}})});
+ vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../../apps/portal/static/portal/js/executive_numbers.js'),'utf8')+'\n'+source,{URL,URLSearchParams,document:{getElementById:node},window:{location:new URL('http://localhost/ejecutiva/costos/detalle/')},fetch:async url=>({ok:true,json:async()=>{if(url.includes('&id=')){calculated=true;return partial;}return summary();}})});
  await new Promise(resolve=>setImmediate(resolve));
  const cells=Array.from({length:7},()=>({textContent:'Pendiente',innerHTML:'',style:{}}));
  const target={textContent:'',innerHTML:'',dataset:{}};

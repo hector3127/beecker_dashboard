@@ -1,3 +1,4 @@
+from core.utils.source_refresh import force_sources
 """Prepara Finanzas sin consultar Clockify al renderizar la pagina."""
 
 import logging
@@ -31,7 +32,7 @@ _WARM_LOCK = threading.Lock()
 def snapshot_key() -> str:
     """Separa el corte financiero de los otros bloques y de otros dias."""
     return (
-        "portal:financial:snapshot:v8:"
+        "portal:financial:snapshot:v12:"
         + timezone.localdate().isoformat()
         + cache_suffix()
     )
@@ -39,7 +40,11 @@ def snapshot_key() -> str:
 
 def cached_financial_snapshot() -> dict[str, Any]:
     """Lee el corte preparado sin llamadas a fuentes externas."""
-    return cache.get(snapshot_key()) or {}
+    saved = cache.get(snapshot_key()) or {}
+    if saved.get("accounts", {}).get("accounts") is not None and saved["accounts"].get("ranking_version") != 3:
+        from apps.portal.services.account_profitability import rank_financial_accounts
+        saved = {**saved, "accounts": rank_financial_accounts(saved["accounts"]["accounts"])}
+    return saved
 
 
 def warm_financial(only_stale: bool = False) -> dict[str, Any]:
@@ -58,7 +63,10 @@ def _prepare_financial() -> dict[str, Any]:
         reader = build_sheet_repository()
         ids = project_ids(reader)
         # Do not re-read/parse rosters and rates for already prepared costs.
-        pending = [pid for pid in ids if cache.get(key(pid)) is None]
+        def needs_preparation(pid):
+            saved = cache.get(key(pid))
+            return force_sources.get() or not saved or saved.get("financial_grouping_version") != 2 or "sprints" not in saved or any("people" not in group for group in saved["sprints"])
+        pending = [pid for pid in ids if needs_preparation(pid)]
         context = (
             prepare_cost_context(reader=reader, ids=ids) if pending else None
         )
@@ -100,6 +108,7 @@ def _prepare_financial() -> dict[str, Any]:
         "profitability": profitability,
         "accounts": account_profitability(reader=reader),
         "loaded_at": timezone.localtime().isoformat(),
+        "query_errors": failures,
     }
     # Un corte parcial es explicito; nunca reemplaza uno completo vigente.
     previous = cached_financial_snapshot()

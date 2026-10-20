@@ -8,8 +8,8 @@ from django.core.cache import cache
 from django.urls import reverse
 from django.utils.text import slugify
 
-from apps.portal.services.executive_period import bounds, contains
-from apps.portal.services.revenue import REVENUE_STATUSES
+from apps.portal.services.executive_period import bounds, contains, query_string
+from apps.portal.services.revenue import INVOICE_STATUSES
 from apps.portal.services.revenue_costs import key
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
@@ -27,7 +27,7 @@ def account_profitability(reader=None):
             for c in row[:7]
         ):
             continue
-        if str(row[0]).strip().casefold() not in REVENUE_STATUSES:
+        if str(row[0]).strip().casefold() not in INVOICE_STATUSES:
             continue
         day = to_datetime(row[6])
         name = str(row[1] or "").strip()
@@ -96,7 +96,8 @@ def account_profitability(reader=None):
                 kwargs={"slug": slugify(account["name"]) or "cuenta"},
             )
             + "?"
-            + urlencode({"nombre": account["name"]}),
+            + urlencode({"nombre": account["name"]})
+            + ("&" + query_string() if query_string() else ""),
             "revenue": round(revenue, 2),
             "cost": cost,
             "gross_profit": profit,
@@ -131,17 +132,34 @@ def account_profitability(reader=None):
     def order(row):
         return (-row["revenue"], row["name"])
 
+    return rank_financial_accounts(all_accounts)
+
+
+def rank_financial_accounts(accounts):
+    """Weight two separately normalized monetary indicators; percentages are informative."""
+    all_accounts = [dict(row) for row in accounts]
+    eligible = all_accounts
+    largest_invoice = max((row["revenue"] for row in eligible), default=0) or 1
+    profit_scale = max((abs(row["gross_profit"]) for row in eligible), default=0) or 1
+    for row in all_accounts:
+        row["partial"] = bool(row.get("pending"))
+        row["profit_points"] = round(70 * row["gross_profit"] / profit_scale, 4) if row in eligible else None
+        row["invoice_points"] = round(30 * row["revenue"] / largest_invoice, 4) if row in eligible else None
+        row["weighted_score"] = round(row["profit_points"] + row["invoice_points"], 2) if row in eligible else None
+    ranked = sorted(eligible, key=lambda row: (-row["weighted_score"], -row["gross_profit"], -row["revenue"], row["name"]))
+    split = (len(ranked) + 1) // 2
     return {
-        "healthy": sorted(
-            healthy,
-            key=lambda row: (-row["margin"], -row["revenue"], row["name"]),
-        )[:5],
-        "unhealthy": sorted(unhealthy, key=order),
-        "pending_accounts": len(pending),
-        "threshold": 70,
+        "healthy": ranked[:min(5, split)],
+        "unhealthy": list(reversed(ranked[split:]))[:5],
+        "pending_accounts": sum(bool(row.get("pending")) for row in all_accounts),
+        "weights": {"gross_profit": 70, "invoiced": 30},
+        "ranking_version": 3,
+        "ranking_method": "70 × utilidad / mayor utilidad absoluta + 30 × facturación / mayor facturación",
+        "validation": "Base mensual pendiente de validar con Florencia",
         "year": bounds()[0].year,
-        "accounts": sorted(all_accounts, key=order),
+        "accounts": sorted(all_accounts, key=lambda row: (-row["revenue"], row["name"])),
     }
+
 
 
 def load_account_profitability(refresh=False):

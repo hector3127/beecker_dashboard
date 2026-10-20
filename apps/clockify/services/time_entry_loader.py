@@ -1,3 +1,4 @@
+from core.utils.source_refresh import force_sources
 """Extraccion de las horas de todo el portafolio desde Clockify."""
 
 import calendar
@@ -207,6 +208,11 @@ class ClockifyTimeEntryLoader:
 
         plan = self._plan_report(internal_id, date_range, self._load_lookups())
 
+        if force_sources.get():
+            entries, _ = self._download_report(plan, load_costing_rate_by_resource(self._reader), use_raw_cache=False)
+            cache_key = f"{self._cache_prefix}:report:{plan.clockify_project_id}:{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v3"
+            self._cache_store.set(cache_key, entries, report_cache_seconds(bool(entries), plan.end_date, self._today))
+            return entries
         return self._fetch_report(
             plan,
             load_costing_rate_by_resource(self._reader),
@@ -285,7 +291,7 @@ class ClockifyTimeEntryLoader:
         )
         cache_key = (
             f"{self._cache_prefix}:report:{plan.clockify_project_id}:"
-            f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
+            f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v3"
         )
         self._cache_store.set(
             cache_key,
@@ -413,7 +419,7 @@ class ClockifyTimeEntryLoader:
         )
         cache_key = (
             f"{self._cache_prefix}:strict_report:{plan.clockify_project_id}"
-            f":{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
+            f":{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v3"
         )
         cached_report = self._cache_store.get(cache_key)
 
@@ -591,7 +597,7 @@ class ClockifyTimeEntryLoader:
             return []
         cache_key = (
             f"{self._cache_prefix}:report:{plan.clockify_project_id}:"
-            f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v2"
+            f"{plan.internal_id}:{plan.start_date}:{plan.end_date}:cr-v3"
         )
         cached_entries = self._cache_store.get(cache_key)
 
@@ -662,7 +668,8 @@ class ClockifyTimeEntryLoader:
             project_entries = [
                 entry
                 for entry in project_entries
-                if matches_cr_task(entry.task_name, plan.task_nomenclature)
+                if (matches_cr_task(entry.task_name, plan.task_nomenclature)
+                    or (not entry.task_id and not entry.task_name.strip()))
                 and entry.entry_date is not None
                 and plan.start_date <= entry.entry_date.date() <= plan.end_date
             ]

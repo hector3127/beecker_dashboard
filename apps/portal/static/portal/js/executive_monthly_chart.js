@@ -9,9 +9,7 @@ function executiveMonthlyChartSvg(data, viewportWidth) {
   const plot = width - left - right;
   const step = plot / Math.max(1, rows.length);
   const barWidth = Math.max(6, Math.min(36, (step - 12) / 2));
-  const fmt = n => 'USD '+Number(n).toLocaleString('es-MX', {
-    notation:'compact', maximumFractionDigits:1,
-  });
+  const fmt = n => typeof executiveMoney==='function'?executiveMoney(n):Number(n/1000).toLocaleString('en-US',{maximumFractionDigits:0})+'K';
   const escape = value => String(value).replace(/[&<>"']/g, ch => ({
     '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;',
   }[ch]));
@@ -45,7 +43,7 @@ function executiveMonthlyChartSvg(data, viewportWidth) {
       return '<rect x="'+xx+'" y="'+yy+'" width="'+barWidth+'" height="'+height+'" rx="3" fill="'+color+'"><title>'+escape(row.month+' · '+kind+': '+fmt(value))+'</title></rect>'+
         (step>=105 ? text(xx+barWidth/2,Math.max(17,yy-7),fmt(value),'#2A2D7A') : '');
     }
-    svg+=bar(x,row.revenue,'#8B5CF6','Ingresos');
+    svg+=bar(x,row.revenue,'#8B5CF6','Facturación');
     svg+=bar(center+2,row.cost,'#C9BDF2','Costos');
     svg+=text(center,250,label);
     if(row.margin!=null) {

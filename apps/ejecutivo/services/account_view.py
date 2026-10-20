@@ -127,7 +127,7 @@ def account_matches(value: object, client: object) -> bool:
     account = normalize_value(client)
     name = normalize_value(value)
     # DataRevenue uses the country-qualified name; MPB/history/ROC use Heineken.
-    aliases = {"heineken mexico": "heineken"}
+    aliases = {"heineken mexico": "heineken", "cadena comercial oxxo": "oxxo", "cadena comercial oxxo.": "oxxo"}
     account = aliases.get(account, account)
     name = aliases.get(name, name)
 
@@ -282,7 +282,7 @@ def mpb_cache_key(client: object) -> str:
         normalize_value(client).encode("utf-8"),
     ).hexdigest()
 
-    return f"bee_mpb_cuenta_v3_{digest}"
+    return f"bee_mpb_cuenta_v5_{digest}"
 
 
 def load_mpb_projects(
@@ -291,7 +291,7 @@ def load_mpb_projects(
     cache: AccountCache | None = None,
 ) -> list[JsonObject]:
     """
-    Proyectos AER/T&M de la cuenta en MPB (beeCuentaMPB_).
+    Proyectos AER y TYM de la cuenta en MPB.
 
     Args:
         reader: Lector de Sheets.
@@ -372,7 +372,6 @@ def load_mpb_projects(
             continue
 
         service = js_or_text(value("service")).strip()
-
         if not MPB_SERVICE.match(service):
             continue
 
@@ -577,6 +576,9 @@ def read_history_projects(
         if not account_matches(client_name, client):
             continue
 
+        if normalize_value(get(row, "Service", 3)) not in {"ixb", "raas", "saas"}:
+            continue
+
         project_id = js_or_text(get(row, "Project ID", 2)).strip()
 
         if not project_id:
@@ -644,6 +646,41 @@ def read_history_projects(
         )
         projects[identity] = item
 
+    # A:J contains the operational timeline; K:AT only complements its metrics.
+    operational = {}
+    for row in values[1:]:
+        if not account_matches(read_cell(row, 1), client):
+            continue
+        service = js_or_text(read_cell(row, 3)).strip()
+        if normalize_value(service) not in {"ixb", "raas", "saas"}:
+            continue
+        pid = js_or_text(read_cell(row, 2)).strip()
+        if not pid:
+            continue
+        identity = normalize_value(pid)
+        item = operational.get(identity)
+        if item is None:
+            item = {**projects.get(identity, {}), "id": pid,
+                    "client": js_or_text(read_cell(row, 1)).strip(),
+                    "nombre": js_or_text(read_cell(row, 4)), "servicio": service,
+                    "deliveryManager": js_or_text(read_cell(row, 0)),
+                    "etapas": [],
+                    "budget": projects.get(identity, {}).get("budget"),
+                    "burn": projects.get(identity, {}).get("burn"),
+                    "nps": projects.get(identity, {}).get("nps"),
+                    "diasSuspension": projects.get(identity, {}).get("diasSuspension"),
+                    "profitability": projects.get(identity, {}).get("profitability", "")}
+            operational[identity] = item
+        stage = js_or_text(read_cell(row, 6)).strip()
+        estimated = normalize_value(stage).endswith(" est")
+        item["etapas"].append({"nombre": stage,
+            "fechaInicio": parse_mpb_date(read_cell(row, 7)),
+            "fechaFinReal": "" if estimated else parse_mpb_date(read_cell(row, 8)),
+            "fechaFinPlan": parse_mpb_date(read_cell(row, 8)) if estimated else ""})
+        budget = parse_mpb_number(read_cell(row, 9))
+        if budget is not None:
+            item["budget"] = json_number(budget)
+    projects.update(operational)
     return projects
 
 
@@ -935,7 +972,8 @@ def build_account_view(
     projects_list = [
         project
         for project in projects_list
-        if str(project["id"]).strip().casefold() not in excluded_ids
+        if normalize_value(project.get("servicio")) in {"ixb", "raas", "saas"}
+        or str(project["id"]).strip().casefold() not in excluded_ids
     ]
 
     with_nps = [

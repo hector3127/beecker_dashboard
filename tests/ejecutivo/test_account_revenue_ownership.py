@@ -42,7 +42,7 @@ def test_account_excludes_previous_year_mpb_project_before_totals(monkeypatch):
     monkeypatch.setattr(view, "load_opportunities", lambda *args: {"items": [], "source": ""})
     monkeypatch.setattr(view, "build_history_item", lambda pid, *args: {
         "id": pid["id"], "nps": 90 if pid["id"] == "OLD" else 80,
-        "servicio": "IxB", "estado": "Completado", "clockifyPending": True})
+        "servicio": "AER", "estado": "Completado", "clockifyPending": True})
     result = view.build_account_view(reader, "Acme", Mock(), date(2026, 10, 14))
     assert [p["id"] for p in result["proyectos"]] == ["CURRENT"]
     assert result["nps"] == 80
@@ -75,3 +75,26 @@ def test_heineken_mexico_uses_history_and_roc_account_name():
     assert account_matches("Heineken", "Heineken Mexico")
     assert account_matches("Heineken Mexico", "Heineken")
     assert not account_matches("Nestle Mexico", "Heineken Mexico")
+
+
+def test_mpb_excludes_ixb_projects_even_for_matching_account():
+    header = ["CLIENTE", "ID", "NOMBRE", "SERVICE", "ESTATUS"]
+    reader = Reader({"MPB": [header,
+        ["OXXO", "CCO.002", "Migracion", "IxB", "Deployment"],
+        ["Other", "OTHER.001", "Other", "IxB", "Deployment"]],
+        "DataRevenue": [["Status", "Account", "", "", "ID", "", "Date"]]})
+    result = load_mpb_projects(reader, "Cadena Comercial Oxxo")
+    assert result == []
+
+
+def test_history_operational_block_provides_ixb_raas_saas_only():
+    from apps.ejecutivo.services.account_view import read_history_projects
+    rows = [["DM", "Client", "Project ID", "Service", "Name", "", "Stage", "Start", "End", "Budget"],
+        ["Ana", "Cadena Comercial Oxxo.", "CCO.002_S1", "IxB", "Migracion", "", "Development", "2026-05-01", "2026-06-01", 435],
+        ["Ana", "OXXO", "CCO.001", "RaaS", "Bot", "", "Completed", "2025-02-01", "2025-02-27", 250],
+        ["Ana", "OXXO", "SAAS.1", "SaaS", "App", "", "Development", "2026-05-01", "2026-10-01"],
+        ["Ana", "OXXO", "AER.1", "AER", "Cell", "", "Development", "2026-05-01", "2026-10-01"]]
+    result = read_history_projects(rows, "Cadena Comercial Oxxo")
+    assert set(result) == {"cco.002_s1", "cco.001", "saas.1"}
+    assert result["cco.002_s1"]["budget"] == 435
+    assert result["cco.002_s1"]["etapas"][0]["fechaFinReal"] == "2026-06-01"

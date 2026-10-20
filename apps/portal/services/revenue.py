@@ -1,3 +1,4 @@
+from core.utils.source_refresh import force_sources
 """Ingresos reales: suma de USD Global Adj (DataRevenue, columna H)."""
 
 from decimal import Decimal, InvalidOperation
@@ -13,6 +14,8 @@ from apps.portal.services.executive_period import (
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 
+INVOICE_STATUSES = frozenset({"invoiced", "invoiced factoring", "collected", "collected factoring"})
+
 REVENUE_STATUSES = frozenset(
     {
         "confirmed",
@@ -26,8 +29,8 @@ REVENUE_STATUSES = frozenset(
 
 def load_revenue():
     """Suma ingresos y la proporcion cobrada del ejercicio 2026."""
-    cached = cache.get("portal:revenue:DataRevenue:H:2026:v4" + cache_suffix())
-    if cached is not None:
+    cached = cache.get("portal:revenue:DataRevenue:H:2026:v5" + cache_suffix())
+    if cached is not None and not force_sources.get():
         return cached
     rows = build_sheet_repository().read_values("DataRevenue")
     total = Decimal("0")
@@ -70,6 +73,9 @@ def load_revenue():
     result = {
         "total": str(total.quantize(Decimal("0.01"))),
         "records": count,
+        "booking_revenue": str(total.quantize(Decimal("0.01"))),
+        "invoice_validation": "Pendiente de validar fechas e importes mensuales con Florencia",
+        "includes_factoring": True,
         "collected": str(collected.quantize(Decimal("0.01"))),
         "invoiced": str(invoiced.quantize(Decimal("0.01"))),
         "collections_percent": round(float(collected / invoiced * 100), 2)
@@ -81,6 +87,6 @@ def load_revenue():
         ),
     }
     cache.set(
-        "portal:revenue:DataRevenue:H:2026:v4" + cache_suffix(), result, 300
+        "portal:revenue:DataRevenue:H:2026:v5" + cache_suffix(), result, 300
     )
     return result

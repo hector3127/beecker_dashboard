@@ -6,6 +6,9 @@ from django.db import models
 class ExecutiveAgreement(models.Model):
     """Acuerdo o pendiente global con responsable y seguimiento."""
 
+    account = models.CharField(max_length=150, blank=True)
+    meeting_source = models.CharField(max_length=12, choices=[("direction", "Dirección"), ("board", "Consejo")], default="direction")
+    meeting_date = models.DateField(null=True, blank=True)
     title = models.CharField(max_length=200)
     kind = models.CharField(
         max_length=12,
