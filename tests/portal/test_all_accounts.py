@@ -2,6 +2,7 @@ from django.test import RequestFactory, override_settings
 
 from apps.portal import views
 from apps.portal.services import account_profitability as service
+from apps.portal.services import revenue_costs
 from tests.fakes import InMemorySheetRepository
 
 
@@ -17,7 +18,7 @@ def test_intermediate_accounts_are_in_full_list(monkeypatch):
     )
     monkeypatch.setattr(service, "build_sheet_repository", lambda: reader)
     monkeypatch.setattr(
-        service.cache,
+        revenue_costs.cache,
         "get",
         lambda key: {"complete": True, "entries": {"entry": 50}},
     )

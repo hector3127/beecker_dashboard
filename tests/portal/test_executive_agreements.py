@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from apps.portal.models import ExecutiveAgreement
 from apps.portal.services import account_profitability as service
+from apps.portal.services import revenue_costs
 from apps.portal.services.revenue_costs import key
 from tests.fakes import InMemorySheetRepository
 
@@ -80,7 +81,7 @@ def test_unhealthy_ranking_shows_five_and_keeps_all_in_account_audit(
             results[key(pid)] = {"complete": True, "entries": {f"E{i}": 80}}
     r = InMemorySheetRepository({"DataRevenue": rows})
     monkeypatch.setattr(
-        service.cache, "get", lambda cache_key: results.get(cache_key)
+        revenue_costs.cache, "get", lambda cache_key: results.get(cache_key)
     )
     result = service.account_profitability(r)
     assert 0 < len(result["unhealthy"]) <= 5

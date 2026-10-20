@@ -149,7 +149,7 @@ def test_finance_does_not_prepare_tariffs_when_every_cost_is_cached(
     reader = repository([revenue_row(pid="A")])
     cache.set(
         revenue_costs.key("A"),
-        {"complete": True, "sprints": [], "financial_grouping_version": 2},
+        {"complete": True, "sprints": [], "financial_grouping_version": 3},
     )
     monkeypatch.setattr(
         financial_cache, "build_sheet_repository", lambda: reader

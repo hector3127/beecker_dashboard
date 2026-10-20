@@ -142,7 +142,7 @@ def test_prepared_accounts_avoid_sheet_queries(monkeypatch):
     assert [a["name"] for a in loaded["accounts"]] == ["A"]
 
 
-def test_account_cost_scope_excludes_old_mpb_contracts_and_other_accounts():
+def test_account_cost_scope_keeps_explicit_revenue_of_the_account():
     r = InMemorySheetRepository(
         {
             "DataRevenue": [
@@ -158,7 +158,8 @@ def test_account_cost_scope_excludes_old_mpb_contracts_and_other_accounts():
             ],
         }
     )
-    assert project_ids(r, "A") == ["NEW"]
+    # Un registro de DataRevenue del ano sigue valido aunque MPB cierre antes.
+    assert project_ids(r, "A") == ["NEW", "OLD"]
 
 
 @override_settings(PORTAL_LOGIN_REQUIRED=True)
@@ -185,7 +186,9 @@ def test_account_page_and_audit_keep_portal_navigation(client, monkeypatch):
     page = client.get("/ejecutiva/cuentas/")
     assert page.status_code == 200
     assert "Panel anterior" not in page.content.decode()
-    detail = client.get("/ejecutiva/costos/detalle/", {"nombre": "ACME"})
+    detail = client.get(
+        "/ejecutiva/costos/detalle/", {"nombre": "ACME", "vista": "proyectos"}
+    )
     assert detail.status_code == 200
     assert detail.context["cost_account"] == "ACME"
     assert detail.context["cost_back"] == "/cuenta/acme/?nombre=ACME"
