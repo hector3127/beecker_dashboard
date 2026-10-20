@@ -6,6 +6,7 @@ from datetime import date
 from decimal import Decimal
 from typing import Any
 
+from apps.clockify.services.clockify_client import ClockifyProject
 from apps.datastore.models import ClockifyMonthSync, ClockifyTimeEntry
 from apps.gse.services.base_store import BaseStore, HourRecord, unique_ids
 from apps.gse.services.cells import norm
@@ -155,17 +156,18 @@ def build_hour_index_from_store(year: int) -> dict[str, Any]:
         project = task_key(project_name)
         if project:
             projects.add(project)
-        allowed = BASE_TAGS | (
-            EXTRA_TAGS if entry_date.month >= EXTRA_TAGS_FROM_MONTH else set()
-        )
-        if norm(TAG_SEPARATOR.join(tags)) not in allowed:
-            continue
         month_key = entry_date.strftime("%Y-%m")
-        accumulated[(month_key, key)] += Decimal(str(seconds / 3600))
+        # Por proyecto y BOT se cuentan las horas de todas las etiquetas.
         if project:
             project_accumulated[(month_key, project, key)] += Decimal(
                 str(seconds / 3600)
             )
+        # Por nombre de tarea (respaldo) solo las categorias de Horas Reales.
+        allowed = BASE_TAGS | (
+            EXTRA_TAGS if entry_date.month >= EXTRA_TAGS_FROM_MONTH else set()
+        )
+        if norm(TAG_SEPARATOR.join(tags)) in allowed:
+            accumulated[(month_key, key)] += Decimal(str(seconds / 3600))
     for (month_key, key), hours in accumulated.items():
         totals.setdefault(month_key, {})[key] = hours
     for (month_key, project, key), hours in project_accumulated.items():
@@ -179,3 +181,22 @@ def build_hour_index_from_store(year: int) -> dict[str, Any]:
         "project_tasks": project_tasks,
         "projects": projects,
     }
+
+
+def clockify_projects(year: int) -> list[ClockifyProject]:
+    """
+    Proyectos de Clockify que tienen horas guardadas en el ano.
+
+    Args:
+        year: Ano del reporte.
+
+    Returns:
+        Un proyecto por ID de Clockify, con su nombre.
+    """
+    pairs = (
+        ClockifyTimeEntry.objects.filter(entry_date__year=year)
+        .exclude(project_id="")
+        .values_list("project_id", "project_name")
+        .distinct()
+    )
+    return [ClockifyProject(project_id=i, name=n) for i, n in pairs]

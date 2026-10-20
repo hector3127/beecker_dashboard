@@ -3,6 +3,7 @@
 import math
 import re
 from collections import Counter, defaultdict
+from collections.abc import Mapping
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from typing import Any
@@ -178,9 +179,6 @@ def build_hour_index(values: list[list[Any]], year: int) -> dict[str, Any]:
         if day is None or day.year != year:
             continue
         month_key = day.strftime("%Y-%m")
-        tags = BASE_TAGS | (EXTRA_TAGS if day.month >= 9 else set())
-        if norm(cell("tags")) not in tags:
-            continue
         entry_id = str(cell("id")).strip()
         identity = (str(cell("workspace")), entry_id)
         if entry_id and identity in seen[month_key]:
@@ -191,13 +189,17 @@ def build_hour_index(values: list[list[Any]], year: int) -> dict[str, Any]:
             continue
         if entry_id:
             seen[month_key].add(identity)
-        bucket = totals.setdefault(month_key, {})
-        bucket[key] = bucket.get(key, Decimal(0)) + Decimal(str(hours))
+        # Por proyecto y BOT se cuentan las horas de todas las etiquetas.
         if project:
             by_task = project_tasks.setdefault(month_key, {}).setdefault(
                 project, {}
             )
             by_task[key] = by_task.get(key, Decimal(0)) + Decimal(str(hours))
+        # Por nombre de tarea (respaldo) solo las categorias de Horas Reales.
+        tags = BASE_TAGS | (EXTRA_TAGS if day.month >= 9 else set())
+        if norm(cell("tags")) in tags:
+            bucket = totals.setdefault(month_key, {})
+            bucket[key] = bucket.get(key, Decimal(0)) + Decimal(str(hours))
     return {
         "totals": totals,
         "tasks": tasks,
@@ -222,8 +224,19 @@ def enrich_hours(
     values: list[list[Any]],
     month: date,
     index: dict[str, Any] | None = None,
+    project_map: Mapping[str, str] | None = None,
 ) -> None:
-    """Cruza tareas exactas y calcula tope menos consumo sin ocultar excesos."""
+    """
+    Cruza proyecto y BOT y calcula tope menos consumo sin ocultar excesos.
+
+    Args:
+        report: Resultado de build_eva4.
+        values: Hoja de horas (solo si no se pasa el indice).
+        month: Mes consultado.
+        index: Indice anual de horas.
+        project_map: ROC ID (task_key) -> nombre del proyecto en Clockify,
+            cuando no se llaman igual (p. ej. por Clockify_Vinculos).
+    """
     if index is None:
         index = build_hour_index(values, month.year)
     totals, tasks = index_month(index, month)
@@ -236,6 +249,7 @@ def enrich_hours(
         bot = task_key(process["bot_id"])
         process["bot_label"] = bot_tag(process["bot_id"]) or process["bot_id"]
         project = task_key(process["project_id"])
+        project = (project_map or {}).get(project, project)
         bot_id = process["bot_id"] or process["process"]
         if project and project in projects and id_key(bot_id):
             # Proyecto (ROC ID) + BOT: tareas «3634 - ...» o «AMK.001». Si no

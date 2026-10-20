@@ -38,7 +38,7 @@ def report(cap=30, service="ROC"):
     return eva4.build_eva4([HEADER + ["Tope Mensual"], values], TODAY)
 
 
-def test_monthly_hours_respect_date_tag_and_duplicate_entry_id():
+def test_hours_respect_date_and_duplicate_entry_id_and_count_all_tags():
     raw = [
         BASE_HEADER,
         entry(),
@@ -49,8 +49,9 @@ def test_monthly_hours_respect_date_tag_and_duplicate_entry_id():
     ]
     data = report()
     enrich_hours(data, raw, TODAY.replace(day=1))
-    assert data["processes"][0]["invested_hours"] == 38
-    assert data["processes"][0]["hours_balance"] == -8
+    # Por proyecto y BOT cuentan todas las etiquetas: 6 + 32 + 999.
+    assert data["processes"][0]["invested_hours"] == 1037
+    assert data["processes"][0]["hours_balance"] == -1007
     assert data["month"] == "2026-10"
 
 
@@ -133,6 +134,45 @@ def test_invested_hours_use_roc_id_and_the_bot_tag_of_the_task():
     enrich_hours(data, raw, TODAY.replace(day=1))
     hours = {p["bot_id"]: p["invested_hours"] for p in data["processes"]}
     assert hours == {"3634": 4, "1386": 3.5, "9999": 0}
+
+
+def test_every_tag_counts_for_the_bot_of_a_project():
+    data = bot_report("3634")
+    raw = [
+        BASE_HEADER,
+        entry(task="3634 - A", tag="Monitoreo", eid="a", hours=1),
+        entry(task="3634 - A", tag="Reunion", eid="b", hours=2),
+        entry(task="3634 - B", tag="", eid="c", hours=4),
+    ]
+    enrich_hours(data, raw, TODAY.replace(day=1))
+    assert data["processes"][0]["invested_hours"] == 7
+
+
+def test_project_map_points_a_roc_id_to_a_differently_named_project():
+    values = row("OPT.011")
+    values[2] = "ROC.OPT.001"
+    data = eva4.build_eva4([HEADER, values], TODAY)
+    raw = [
+        BASE_HEADER,
+        [
+            "TYM.OPT.001",
+            "Ana",
+            "2026-10-01",
+            5,
+            "OPT.011",
+            "Monitoreo",
+            "No",
+            "a",
+            "w1",
+        ],
+    ]
+    enrich_hours(
+        data,
+        raw,
+        TODAY.replace(day=1),
+        project_map={"roc.opt.001": "tym.opt.001"},
+    )
+    assert data["processes"][0]["invested_hours"] == 5
 
 
 def test_without_roc_id_hours_of_a_same_named_task_elsewhere_do_not_count():

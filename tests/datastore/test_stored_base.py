@@ -193,7 +193,8 @@ def test_hour_index_groups_hours_by_project_and_task():
     )
     index = build_hour_index_from_store(2026)
     month = index["project_tasks"]["2026-10"]
-    assert month["roc.nsc.001"] == {"3634 - gestión": 1, "3634 - otra": 1}
+    # Por proyecto y tarea cuentan todas las etiquetas (la «Reunion» tambien).
+    assert month["roc.nsc.001"] == {"3634 - gestión": 2, "3634 - otra": 1}
     assert month["roc.otro.001"] == {"3634 - gestión": 1}
     assert {"roc.nsc.001", "roc.otro.001"} <= index["projects"]
 

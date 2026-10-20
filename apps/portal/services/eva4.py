@@ -12,6 +12,7 @@ from apps.portal.services.eva4_hours import (
     apply_limits,
     enrich_hours,
     resolve_month,
+    task_key,
 )
 from apps.portal.services.eva4_index import load_hour_index, use_store
 from core.exceptions import DashboardError
@@ -115,7 +116,7 @@ def snapshot_key(month: str | None = None) -> str:
     """Identifica el corte diario, compartido por detalle y Operativa."""
     day = timezone.localdate()
     return (
-        "portal:eva4:snapshot:v6:"
+        "portal:eva4:snapshot:v7:"
         + day.isoformat()
         + ":"
         + resolve_month(month, day).strftime("%Y-%m")
@@ -252,6 +253,48 @@ def build_eva4(values: list[list[Any]], today: date) -> dict[str, Any]:
     }
 
 
+def clockify_project_map(
+    reader: Any, report: dict[str, Any], year: int
+) -> dict[str, str]:
+    """
+    ROC ID -> nombre del proyecto de Clockify cuando no se llaman igual.
+
+    Usa la misma resolucion que el resto del portal: primero el vinculo manual
+    de la hoja Clockify_Vinculos, luego el nombre exacto y, al final, un unico
+    nombre que contenga el ID. Sin la base de datos de horas no hay IDs de
+    Clockify que enlazar y se usa el ROC ID tal cual.
+
+    Args:
+        reader: Repositorio de Sheets.
+        report: Resultado de build_eva4.
+        year: Ano de las horas.
+
+    Returns:
+        task_key(ROC ID) -> task_key(nombre del proyecto en Clockify).
+    """
+    if not use_store(year):
+        return {}
+    from apps.clockify.services.project_matcher import (
+        resolve_clockify_project,
+    )
+    from apps.clockify.services.time_entry_loader import load_project_links
+    from apps.datastore.services.stored_base import clockify_projects
+
+    try:
+        links = load_project_links(reader)
+    except DashboardError:
+        links = {}
+    projects = clockify_projects(year)
+    mapping: dict[str, str] = {}
+    for roc_id in {str(p["project_id"]).strip() for p in report["processes"]}:
+        if not roc_id:
+            continue
+        found = resolve_clockify_project(roc_id, projects, links)
+        if found is not None:
+            mapping[task_key(roc_id)] = task_key(found.name)
+    return mapping
+
+
 def load_eva4(month: str | None = None) -> dict[str, Any]:
     """Actualiza el corte desde Sheets y conserva el anterior si falla."""
     try:
@@ -275,7 +318,15 @@ def load_eva4(month: str | None = None) -> dict[str, Any]:
         for name in limits:
             apply_limits(result, reader.read_values(name))
         index = load_hour_index(reader, selected_month.year)
-        enrich_hours(result, [], selected_month, index=index)
+        enrich_hours(
+            result,
+            [],
+            selected_month,
+            index=index,
+            project_map=clockify_project_map(
+                reader, result, selected_month.year
+            ),
+        )
         result["hours_source"] = source
         result["hours_origin"] = (
             "database" if use_store(selected_month.year) else "sheet"
