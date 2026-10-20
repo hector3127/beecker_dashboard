@@ -33,7 +33,7 @@ _WARM_LOCK = threading.Lock()
 def snapshot_key() -> str:
     """Separa el corte financiero de los otros bloques y de otros dias."""
     return (
-        "portal:financial:snapshot:v13:"
+        "portal:financial:snapshot:v15:"
         + timezone.localdate().isoformat()
         + cache_suffix()
     )

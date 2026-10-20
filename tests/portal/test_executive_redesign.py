@@ -1,8 +1,11 @@
+from datetime import date
+
 import pytest
 from django.core.cache import cache
 from django.test import RequestFactory, override_settings
 
 from apps.portal.services import executive_period as period
+from apps.portal.services import monthly_profitability
 from apps.portal.services.account_profitability import account_profitability
 from apps.portal.services.monthly_profitability import (
     load_monthly_profitability,
@@ -47,6 +50,39 @@ def test_ranking_weights_margin_by_invoice_volume():
         a["name"] for a in result["unhealthy"]
     )
     cache.clear()
+
+
+def test_without_a_period_the_chart_shows_every_closed_month_of_the_year(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        monthly_profitability.timezone, "localdate", lambda: date(2026, 10, 20)
+    )
+    months = [
+        m["month"]
+        for m in load_monthly_profitability(source(), ids=[])["months"]
+    ]
+    assert months == [f"2026-{n:02d}" for n in range(1, 10)]
+
+
+def test_choosing_the_whole_year_shows_the_same_months_as_no_period(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        monthly_profitability.timezone, "localdate", lambda: date(2026, 10, 20)
+    )
+    default = load_monthly_profitability(source(), ids=[])["months"]
+    token = period._current.set(
+        period.parse(
+            {"periodo": "rango", "desde": "2026-01-01", "hasta": "2026-12-31"}
+        )
+    )
+    try:
+        chosen = load_monthly_profitability(source(), ids=[])["months"]
+    finally:
+        period._current.reset(token)
+    assert [m["month"] for m in chosen] == [m["month"] for m in default]
+    assert len(chosen) == 9
 
 
 def test_monthly_invoice_excludes_confirmed_and_is_scoped():
