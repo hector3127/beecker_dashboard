@@ -9,14 +9,48 @@
       "cliente": "Acme",
       "fechaCorte": "2026-10-02",
       "modelos": [
-        "AER",
         "IXB",
-        "T & M",
         "SaaS",
+        "AER",
+        "T & M",
         "aer",
         "ROC"
       ],
       "proyectos": [
+        {
+          "id": "IXB.008_S1",
+          "nombre": "Integración",
+          "cliente": "Acme",
+          "servicio": "IXB",
+          "deliveryManager": "Beto",
+          "etapa": "Suspendido",
+          "estado": "Suspendido",
+          "budget": null,
+          "burn": null,
+          "clockifyPending": true,
+          "nps": null,
+          "diasSuspension": null,
+          "profitability": "",
+          "excedido": false,
+          "atrasado": false
+        },
+        {
+          "id": "SAAS.009",
+          "nombre": "Portal",
+          "cliente": "Acme",
+          "servicio": "SaaS",
+          "deliveryManager": "Zoe",
+          "etapa": "Implementación",
+          "estado": "En desarrollo",
+          "budget": null,
+          "burn": null,
+          "clockifyPending": true,
+          "nps": 0.5,
+          "diasSuspension": null,
+          "profitability": "",
+          "excedido": false,
+          "atrasado": false
+        },
         {
           "id": "AER.001",
           "cliente": "ACME Corp",
@@ -39,40 +73,6 @@
           "atrasado": false
         },
         {
-          "id": "AER.007",
-          "nombre": "Bot nómina",
-          "cliente": "acme méxico",
-          "servicio": "AER",
-          "deliveryManager": "Beto",
-          "etapa": "Completed",
-          "estado": "Producción ROC",
-          "budget": 50,
-          "burn": 40,
-          "clockifyPending": true,
-          "nps": 80,
-          "diasSuspension": null,
-          "profitability": "",
-          "excedido": false,
-          "atrasado": false
-        },
-        {
-          "id": "IXB.008_S1",
-          "nombre": "Integración",
-          "cliente": "Acme",
-          "servicio": "IXB",
-          "deliveryManager": "Beto",
-          "etapa": "Suspendido",
-          "estado": "Suspendido",
-          "budget": null,
-          "burn": null,
-          "clockifyPending": true,
-          "nps": null,
-          "diasSuspension": null,
-          "profitability": "",
-          "excedido": false,
-          "atrasado": false
-        },
-        {
           "id": "TYM.002",
           "cliente": "Acme",
           "nombre": "Soporte",
@@ -90,23 +90,6 @@
           "estado": "Completado",
           "burn": null,
           "clockifyPending": true,
-          "excedido": false,
-          "atrasado": false
-        },
-        {
-          "id": "SAAS.009",
-          "nombre": "Portal",
-          "cliente": "Acme",
-          "servicio": "SaaS",
-          "deliveryManager": "Zoe",
-          "etapa": "Implementación",
-          "estado": "En desarrollo",
-          "budget": null,
-          "burn": null,
-          "clockifyPending": true,
-          "nps": 0.5,
-          "diasSuspension": null,
-          "profitability": "",
           "excedido": false,
           "atrasado": false
         },
@@ -212,7 +195,7 @@
           "roc_source": true
         }
       ],
-      "mpbPendientes": 7,
+      "mpbPendientes": 6,
       "roc": [
         {
           "id": "ROC-1",
@@ -236,7 +219,7 @@
         }
       ],
       "rocActivos": 2,
-      "rocProyectosActivos": 1,
+      "rocProyectosActivos": 0,
       "oportunidades": [
         {
           "account": "ACME Corp",
@@ -256,8 +239,8 @@
         }
       ],
       "oportunidadesFuente": "Backlog 2026",
-      "nps": 40,
-      "npsMuestra": 2,
+      "nps": 1,
+      "npsMuestra": 1,
       "fuentes": {
         "historico": true,
         "roc": true,
@@ -269,28 +252,10 @@
       "cliente": "Globex",
       "fechaCorte": "2026-10-02",
       "modelos": [
-        "AER",
         "TyM",
         "ROC"
       ],
       "proyectos": [
-        {
-          "id": "AER.020",
-          "nombre": "Globex bot",
-          "cliente": "Globex",
-          "servicio": "AER",
-          "deliveryManager": "Lia",
-          "etapa": "Cancelled",
-          "estado": "Cancelado",
-          "budget": null,
-          "burn": null,
-          "clockifyPending": true,
-          "nps": null,
-          "diasSuspension": null,
-          "profitability": "",
-          "excedido": false,
-          "atrasado": false
-        },
         {
           "id": "AER.010",
           "cliente": "Globex",
@@ -332,7 +297,7 @@
           "roc_source": true
         }
       ],
-      "mpbPendientes": 2,
+      "mpbPendientes": 1,
       "roc": [
         {
           "id": "ROC-9",
@@ -472,7 +437,7 @@
         }
       ],
       "next": 3,
-      "total": 7
+      "total": 6
     },
     {
       "ok": true,
@@ -483,18 +448,18 @@
           "error": "Clockify no encontró el proyecto AER.006"
         },
         {
-          "id": "AER.007",
+          "id": "IXB.008_S1",
           "burn": null,
           "error": "Sin fecha INICIO en MPB"
         },
         {
-          "id": "IXB.008_S1",
+          "id": "SAAS.009",
           "burn": null,
           "error": "Sin fecha INICIO en MPB"
         }
       ],
       "next": 6,
-      "total": 7
+      "total": 6
     },
     {
       "ok": true,
@@ -541,21 +506,55 @@
         }
       ],
       "next": 4,
-      "total": 7
+      "total": 6
     },
     {
       "ok": true,
       "cliente": "Acme",
       "fechaCorte": "2026-10-02",
       "modelos": [
-        "AER",
         "IXB",
-        "T & M",
         "SaaS",
+        "AER",
+        "T & M",
         "aer",
         "ROC"
       ],
       "proyectos": [
+        {
+          "id": "IXB.008_S1",
+          "nombre": "Integración",
+          "cliente": "Acme",
+          "servicio": "IXB",
+          "deliveryManager": "Beto",
+          "etapa": "Suspendido",
+          "estado": "Suspendido",
+          "budget": null,
+          "burn": null,
+          "clockifyPending": true,
+          "nps": null,
+          "diasSuspension": null,
+          "profitability": "",
+          "excedido": false,
+          "atrasado": false
+        },
+        {
+          "id": "SAAS.009",
+          "nombre": "Portal",
+          "cliente": "Acme",
+          "servicio": "SaaS",
+          "deliveryManager": "Zoe",
+          "etapa": "Implementación",
+          "estado": "En desarrollo",
+          "budget": null,
+          "burn": null,
+          "clockifyPending": true,
+          "nps": 0.5,
+          "diasSuspension": null,
+          "profitability": "",
+          "excedido": false,
+          "atrasado": false
+        },
         {
           "id": "AER.001",
           "cliente": "ACME Corp",
@@ -578,40 +577,6 @@
           "atrasado": false
         },
         {
-          "id": "AER.007",
-          "nombre": "Bot nómina",
-          "cliente": "acme méxico",
-          "servicio": "AER",
-          "deliveryManager": "Beto",
-          "etapa": "Completed",
-          "estado": "Producción ROC",
-          "budget": 50,
-          "burn": 40,
-          "clockifyPending": true,
-          "nps": 80,
-          "diasSuspension": null,
-          "profitability": "",
-          "excedido": false,
-          "atrasado": false
-        },
-        {
-          "id": "IXB.008_S1",
-          "nombre": "Integración",
-          "cliente": "Acme",
-          "servicio": "IXB",
-          "deliveryManager": "Beto",
-          "etapa": "Suspendido",
-          "estado": "Suspendido",
-          "budget": null,
-          "burn": null,
-          "clockifyPending": true,
-          "nps": null,
-          "diasSuspension": null,
-          "profitability": "",
-          "excedido": false,
-          "atrasado": false
-        },
-        {
           "id": "TYM.002",
           "cliente": "Acme",
           "nombre": "Soporte",
@@ -629,23 +594,6 @@
           "estado": "Completado",
           "burn": 10.13,
           "clockifyPending": false,
-          "excedido": false,
-          "atrasado": false
-        },
-        {
-          "id": "SAAS.009",
-          "nombre": "Portal",
-          "cliente": "Acme",
-          "servicio": "SaaS",
-          "deliveryManager": "Zoe",
-          "etapa": "Implementación",
-          "estado": "En desarrollo",
-          "budget": null,
-          "burn": null,
-          "clockifyPending": true,
-          "nps": 0.5,
-          "diasSuspension": null,
-          "profitability": "",
           "excedido": false,
           "atrasado": false
         },
@@ -751,7 +699,7 @@
           "roc_source": true
         }
       ],
-      "mpbPendientes": 6,
+      "mpbPendientes": 5,
       "roc": [
         {
           "id": "ROC-1",
@@ -775,7 +723,7 @@
         }
       ],
       "rocActivos": 2,
-      "rocProyectosActivos": 1,
+      "rocProyectosActivos": 0,
       "oportunidades": [
         {
           "account": "ACME Corp",
@@ -803,8 +751,8 @@
         }
       ],
       "oportunidadesFuente": "Backlog 2026",
-      "nps": 40,
-      "npsMuestra": 2,
+      "nps": 1,
+      "npsMuestra": 1,
       "fuentes": {
         "historico": true,
         "roc": true,
@@ -817,15 +765,10 @@
         {
           "id": "AER.010",
           "burn": 0
-        },
-        {
-          "id": "AER.020",
-          "burn": null,
-          "error": "Sin fecha INICIO en MPB"
         }
       ],
-      "next": 2,
-      "total": 2
+      "next": 1,
+      "total": 1
     }
   ],
   "writes": [

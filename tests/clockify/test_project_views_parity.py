@@ -138,25 +138,31 @@ def test_matches_original(index):
         }
         return
 
-    # Los CR alojados en el proyecto base ahora exigen task y periodo.
-    # Se conserva el snapshot original como referencia del cambio acordado.
+    # Los CR alojados en el proyecto base cuentan por periodo de su historial
+    # y, ademas de las tareas CR, incluyen las horas sin tarea (acuerdo del
+    # equipo): el indice 8 conserva a3 (con tarea CR) y a9 (sin tarea).
     if index == 8:
         assert result == {
             **expected,
             "registros": [
-                row for row in expected["registros"] if row["id"] == "a3"
+                row
+                for row in expected["registros"]
+                if row["id"] in {"a3", "a9"}
             ],
         }
         return
     if index == 12:
         assert result == {
             **expected,
-            "tasks": [{"id": "t2", "nombre": "CR1 Ajustes", "horas": 2.25}],
-            "totalHoras": 2.25,
+            "tasks": [
+                {"id": "t2", "nombre": "CR1 Ajustes", "horas": 2.25},
+                {"id": "", "nombre": "Sin task", "horas": 1.0},
+            ],
+            "totalHoras": 3.25,
             "invOperativa": 0.0,
             "invComercial": 0.0,
-            "totalEntriesRaw": 1,
-            "totalEntriesUnicas": 1,
+            "totalEntriesRaw": 2,
+            "totalEntriesUnicas": 2,
         }
         return
 
