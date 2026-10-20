@@ -164,6 +164,39 @@ def test_anterior_param_is_ignored_after_the_cutoff(monkeypatch):
     assert 'id="eva4-processes"' in html
 
 
+def test_month_picker_lists_years_months_and_limits():
+    picker = eva4.month_picker("2026-09", TODAY)
+    assert picker["value"] == "2026-09"
+    assert (picker["year"], picker["month"]) == (2026, 9)
+    assert picker["years"] == [2024, 2025, 2026]
+    assert [m["name"] for m in picker["months"]][:2] == ["Enero", "Febrero"]
+    assert len(picker["months"]) == 12
+    assert (picker["min"], picker["max"]) == ("2024-08", "2026-10")
+
+
+@pytest.mark.parametrize("value", [None, "", "wrong", "2026-13"])
+def test_month_picker_falls_back_to_the_current_month(value):
+    assert eva4.month_picker(value, TODAY)["value"] == "2026-10"
+
+
+def test_month_picker_keeps_a_year_outside_the_normal_range():
+    assert eva4.month_picker("2027-02", TODAY)["years"][-1] == 2027
+
+
+def test_month_filter_is_two_selects_with_step_buttons(monkeypatch):
+    html = render_eva4(monkeypatch, {"mes": "2026-09"})
+    form = html.split('class="eva4-month-form"', 1)[1].split("</form>", 1)[0]
+    # Sin <input type="month">: Firefox y Safari lo muestran como texto.
+    assert 'type="month"' not in form
+    assert form.count("<select") == 2
+    assert 'aria-label="Mes anterior"' in form
+    assert 'aria-label="Mes siguiente"' in form
+    assert '<option value="9" selected>Septiembre</option>' in form
+    assert '<option value="2026" selected>2026</option>' in form
+    assert 'name="mes" value="2026-09"' in form
+    assert 'data-min="2024-08"' in html and 'data-max="2026-10"' in html
+
+
 def test_renewals_include_overdue_and_exclude_more_than_90_days():
     result = eva4.build_eva4(
         [HEADER, row(finish="2026-10-06"), row("2", finish="2027-06-01")], TODAY

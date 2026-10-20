@@ -24,6 +24,23 @@ from core.utils.dates import to_datetime
 # eva4_anterior.html, el parametro en views.eva4 y las pruebas test_anterior_*.
 ANTERIOR_HASTA = date(2026, 11, 3)
 
+# Primer mes con horas de Clockify en la base: limite inferior del selector.
+FIRST_MONTH = date(2024, 8, 1)
+MONTH_NAMES = (
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+)
+
 SERVICES = ("SAAS", "RAAS", "ROC", "T M", "GARANTIA")
 # norm() convierte «T&M» en «T M»; se vuelve a escribir al mostrarlo.
 LABELS = {
@@ -56,6 +73,42 @@ FIELDS = {
 def anterior_disponible() -> bool:
     """Indica si la pantalla anterior sigue disponible para comparar."""
     return timezone.localdate() <= ANTERIOR_HASTA
+
+
+def month_picker(selected: str | None, today: date) -> dict[str, Any]:
+    """
+    Datos del selector de mes: mes elegido, anos, nombres y limites.
+
+    Args:
+        selected: Mes AAAA-MM de la peticion; si falta o no es valido se usa
+            el mes actual.
+        today: Fecha local de hoy.
+
+    Returns:
+        El mes elegido, los anos y meses a mostrar y los limites AAAA-MM.
+    """
+    last = today.replace(day=1)
+    try:
+        chosen = resolve_month(selected, today)
+    except ValueError:
+        chosen = last
+    return {
+        "value": chosen.strftime("%Y-%m"),
+        "year": chosen.year,
+        "month": chosen.month,
+        "years": list(
+            range(
+                min(FIRST_MONTH.year, chosen.year),
+                max(last.year, chosen.year) + 1,
+            )
+        ),
+        "months": [
+            {"num": number, "name": name}
+            for number, name in enumerate(MONTH_NAMES, start=1)
+        ],
+        "min": FIRST_MONTH.strftime("%Y-%m"),
+        "max": last.strftime("%Y-%m"),
+    }
 
 
 def snapshot_key(month: str | None = None) -> str:

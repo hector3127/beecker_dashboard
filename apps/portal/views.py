@@ -1163,6 +1163,7 @@ def eva4(request: HttpRequest) -> HttpResponse:
         ANTERIOR_HASTA,
         anterior_disponible,
         load_eva4,
+        month_picker,
     )
 
     if _needs_login(request):
@@ -1181,6 +1182,10 @@ def eva4(request: HttpRequest) -> HttpResponse:
             "loaded_at": result.get("loaded_at"),
             "error": result.get("error"),
             "anterior_hasta": ANTERIOR_HASTA if available else None,
+            "picker": month_picker(
+                request.GET.get("mes") or result.get("month"),
+                timezone.localdate(),
+            ),
         },
     )
 

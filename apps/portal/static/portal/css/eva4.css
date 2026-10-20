@@ -11,7 +11,7 @@
 .eva4-banner-title { flex: 1 1 360px; min-width: 0; }
 
 .eva4-month-form {
-  display: flex; align-items: center; gap: 12px; width: 260px; max-width: 100%;
+  display: flex; align-items: center; gap: 12px; width: auto; max-width: 100%;
   margin: 0; padding: 12px 16px; box-sizing: border-box;
   background: var(--card); color: var(--ink);
   border: 1px solid var(--line); border-radius: 14px;
@@ -19,21 +19,27 @@
 }
 .eva4-month-icon { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 11px; background: var(--brand-soft); color: var(--brand); }
 .eva4-month-icon svg { width: 24px; height: 24px; }
-.eva4-month-field { display: grid; gap: 3px; min-width: 0; flex: 1; }
-.eva4-month-field label { font-size: 12px; font-weight: 600; color: var(--muted); }
-.eva4-month-field input {
-  font: inherit; font-size: 19px; font-weight: 800; line-height: 1.2;
-  color: var(--ink-strong); background: transparent; border: 0; padding: 0;
-  min-height: 44px; min-width: 0; width: 100%; box-sizing: border-box;
-  color-scheme: light; cursor: pointer;
+.eva4-month-field { display: grid; gap: 4px; min-width: 0; flex: 1; }
+.eva4-month-title { font-size: 12px; font-weight: 600; color: var(--muted); }
+.eva4-month-controls { display: flex; align-items: center; gap: 6px; }
+.eva4-month-controls select {
+  flex: 1; min-width: 0; min-height: 44px; padding: 0 10px; cursor: pointer;
+  font: inherit; font-size: 13.5px; font-weight: 700; color: var(--ink-strong);
+  background: var(--card); border: 1px solid var(--line); border-radius: 9px;
 }
-.eva4-month-form button {
+.eva4-month-controls select:first-of-type { min-width: 7.5em; }
+.eva4-step {
+  flex: none; width: 44px; height: 44px; padding: 0; cursor: pointer;
+  font: inherit; font-size: 19px; line-height: 1; color: var(--brand);
+  background: var(--card); border: 1px solid var(--line); border-radius: 9px;
+}
+.eva4-step:hover:not(:disabled) { background: var(--brand-soft); }
+.eva4-step:disabled { color: var(--muted); opacity: .45; cursor: not-allowed; }
+.eva4-month-form button[type="submit"] {
   font: inherit; font-size: 13.5px; font-weight: 700; min-height: 44px; padding: 10px 16px;
   border: 1px solid var(--brand); border-radius: 9px;
   background: var(--brand); color: var(--card); cursor: pointer; white-space: nowrap;
 }
-.eva4-month-form button:hover { background: color-mix(in srgb, var(--brand) 85%, black); }
-.eva4-month-form:focus-within { outline: 3px solid color-mix(in srgb, var(--brand) 35%, var(--card)); outline-offset: 3px; }
 
 /* Tarjetas y notas (equivalen a .card y .note de portal.css). */
 .eva4-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 14px; }
@@ -68,7 +74,10 @@ table.eva4 .total { background: var(--th-bg); font-weight: 800; }
 
 @media (max-width: 800px) {
   .eva4-banner-title { flex-basis: 100%; }
-  .eva4-month-form { width: 100%; }
+  .eva4-month-form { width: 100%; box-sizing: border-box; }
+}
+@media (max-width: 450px) {
+  .eva4-month-icon { display: none; }
 }
 
 /* Objetivos tactiles de al menos 44 px en el enlace de regreso. */
