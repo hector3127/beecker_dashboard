@@ -70,7 +70,8 @@ def test_zero_revenue_account_with_costs_is_unhealthy_not_profitable():
         }
     )
     cache.set(key("GIFT"), {"complete": True, "entries": {"gift": 100}})
-    a = account_profitability(r)["unhealthy"][0]
+    a = account_profitability(r)["accounts"][0]
+    assert a["classification"] == "unhealthy"
     assert (
         a["revenue"] == 0 and a["gross_profit"] == -100 and a["margin"] is None
     )

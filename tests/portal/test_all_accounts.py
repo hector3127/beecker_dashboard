@@ -22,7 +22,9 @@ def test_intermediate_accounts_are_in_full_list(monkeypatch):
         lambda key: {"complete": True, "entries": {"entry": 50}},
     )
     result = service.account_profitability()
-    assert result["healthy"] == result["unhealthy"] == []
+    # El ranking pondera todas las cuentas: la unica queda en la mitad alta.
+    assert [a["name"] for a in result["healthy"]] == ["Middle"]
+    assert result["unhealthy"] == []
     assert len(result["accounts"]) == 1
     assert result["accounts"][0]["classification"] == "intermediate"
 

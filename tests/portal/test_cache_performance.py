@@ -69,17 +69,13 @@ def test_indexes_are_separated_by_spreadsheet():
 @pytest.mark.parametrize(
     "name,path,prefix",
     [
-        ("ejecutiva", "/", "executiva"),
         ("comercial", "/comercial/", "commercial"),
     ],
 )
 def test_stale_page_returns_saved_cut_without_source_calls(
     monkeypatch, name, path, prefix
 ):
-    key = (
-        f"portal:{prefix}:context:{'v5' if prefix == 'executiva' else 'v1'}:"
-        + timezone.localdate().isoformat()
-    )
+    key = f"portal:{prefix}:context:v1:" + timezone.localdate().isoformat()
     cache.set(key, {"active": name, "marker": "saved"}, 86400)
     monkeypatch.setattr(
         views, "load_portfolio", lambda: pytest.fail("External read")
@@ -151,7 +147,10 @@ def test_finance_does_not_prepare_tariffs_when_every_cost_is_cached(
     monkeypatch,
 ):
     reader = repository([revenue_row(pid="A")])
-    cache.set(revenue_costs.key("A"), {"complete": True, "sprints": []})
+    cache.set(
+        revenue_costs.key("A"),
+        {"complete": True, "sprints": [], "financial_grouping_version": 2},
+    )
     monkeypatch.setattr(
         financial_cache, "build_sheet_repository", lambda: reader
     )

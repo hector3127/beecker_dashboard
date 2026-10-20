@@ -16,6 +16,7 @@ def payload():
         "complete": False,
         "people": [],
         "sprints": [],
+        "financial_grouping_version": 2,
         "entries": {"e": 20},
         "entry_months": {"e": "2026-01"},
     }

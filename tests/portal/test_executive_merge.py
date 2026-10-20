@@ -83,7 +83,7 @@ def revenue_row(account, pid, status="Collected", amount=100):
     return [status, account, "", "", pid, "", "2026-09-01", amount]
 
 
-def test_accounts_classify_complete_costs_and_keep_pending_out_of_ranking():
+def test_accounts_are_ranked_by_weighted_score_and_flag_pending_ones():
     rows = [
         revenue_row("Healthy", "P1"),
         revenue_row("Unhealthy", "P2"),
@@ -95,12 +95,20 @@ def test_accounts_classify_complete_costs_and_keep_pending_out_of_ranking():
     for pid, cost in [("P1", 20), ("P2", 90), ("P3", 50)]:
         cache.set(key(pid), {"complete": True, "entries": {pid: cost}})
     result = accounts.account_profitability(r)
-    assert [a["name"] for a in result["healthy"]] == ["Healthy"]
-    assert [a["name"] for a in result["unhealthy"]] == ["Unhealthy"]
+    # Pending no tiene costos cargados aun, por eso su utilidad parcial es alta.
+    assert [a["name"] for a in result["healthy"]] == ["Pending", "Healthy"]
+    assert [a["name"] for a in result["unhealthy"]] == [
+        "Unhealthy",
+        "Intermediate",
+    ]
+    assert {a["name"] for a in result["accounts"] if a["partial"]} == {
+        "Pending"
+    }
     assert result["pending_accounts"] == 1
     assert len(result["accounts"]) == 4
-    assert result["healthy"][0]["collections_percent"] == 100
-    assert result["healthy"][0]["url"].startswith("/cuenta/healthy/")
+    healthy = next(a for a in result["accounts"] if a["name"] == "Healthy")
+    assert healthy["collections_percent"] == 100
+    assert healthy["url"].startswith("/cuenta/healthy/")
 
 
 def test_shared_clockify_records_make_both_accounts_pending():
@@ -116,18 +124,22 @@ def test_shared_clockify_records_make_both_accounts_pending():
     for pid in ["P1", "P2"]:
         cache.set(key(pid), {"complete": True, "entries": {"shared": 10}})
     result = accounts.account_profitability(r)
-    assert result["healthy"] == []
     assert result["pending_accounts"] == 2
+    assert all(a["partial"] for a in result["accounts"])
 
 
 def test_prepared_accounts_avoid_sheet_queries(monkeypatch):
-    prepared = {"accounts": [{"name": "A"}], "year": 2026}
+    prepared = {
+        "accounts": [{"name": "A", "revenue": 0, "gross_profit": 0}],
+        "year": 2026,
+    }
     cache.set(snapshot_key(), {"accounts": prepared})
     cache.set(snapshot_key() + ":fresh", True)
     monkeypatch.setattr(
         accounts, "build_sheet_repository", lambda: pytest.fail("External read")
     )
-    assert accounts.load_account_profitability() == prepared
+    loaded = accounts.load_account_profitability()
+    assert [a["name"] for a in loaded["accounts"]] == ["A"]
 
 
 def test_account_cost_scope_excludes_old_mpb_contracts_and_other_accounts():
