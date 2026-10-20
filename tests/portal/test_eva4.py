@@ -166,7 +166,8 @@ def test_detail_renders_three_tables_with_existing_portal_layout(monkeypatch):
     assert "Columnas pendientes de fuente" in html
     assert "Nestlé" in html
     assert "EVA-04 Report" in html
-    assert "Sin dato" in html
+    assert "Sin dato" not in html
+    assert "Sin coincidencia en Clockify" in html
 
 
 def test_eva4_block_prepares_its_own_cache_without_loading_other_sources(

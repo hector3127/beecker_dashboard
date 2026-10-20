@@ -13,13 +13,19 @@ from apps.portal.services.eva4_hours import (
     enrich_hours,
     resolve_month,
 )
-from apps.portal.services.eva4_index import load_hour_index
+from apps.portal.services.eva4_index import load_hour_index, use_store
 from core.exceptions import DashboardError
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 
-SERVICES = ("SAAS", "RAAS", "ROC", "T&M", "GARANTIA")
-LABELS = {"SAAS": "SaaS", "RAAS": "RaaS", "GARANTIA": "Garantía"}
+SERVICES = ("SAAS", "RAAS", "ROC", "T M", "GARANTIA")
+# norm() convierte «T&M» en «T M»; se vuelve a escribir al mostrarlo.
+LABELS = {
+    "SAAS": "SaaS",
+    "RAAS": "RaaS",
+    "T M": "T&M",
+    "GARANTIA": "Garantía",
+}
 FIELDS = {
     "manager": ("Delivery Manager",),
     "country": ("Country",),
@@ -45,7 +51,7 @@ def snapshot_key(month: str | None = None) -> str:
     """Identifica el corte diario, compartido por detalle y Operativa."""
     day = timezone.localdate()
     return (
-        "portal:eva4:snapshot:v3:"
+        "portal:eva4:snapshot:v4:"
         + day.isoformat()
         + ":"
         + resolve_month(month, day).strftime("%Y-%m")
@@ -207,6 +213,9 @@ def load_eva4(month: str | None = None) -> dict[str, Any]:
         index = load_hour_index(reader, selected_month.year)
         enrich_hours(result, [], selected_month, index=index)
         result["hours_source"] = source
+        result["hours_origin"] = (
+            "database" if use_store(selected_month.year) else "sheet"
+        )
         result["current_month"] = timezone.localdate().strftime("%Y-%m")
         result["missing_columns"] = []
         result["limit_sources"] = ", ".join(["ROC", *limits])

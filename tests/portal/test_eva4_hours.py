@@ -156,6 +156,43 @@ def test_bot_column_shows_only_the_tag_and_process_keeps_its_name():
     assert data["processes"][0]["process"] == "3708 - Temporary Green Coffee"
 
 
+def render(data, monkeypatch):
+    monkeypatch.setattr(eva4, "load_eva4", lambda: data)
+    return views.eva4(
+        RequestFactory().get("/operativa/eva-4/")
+    ).content.decode()
+
+
+def test_empty_cells_say_why_and_zero_hours_is_not_missing_data(monkeypatch):
+    rows = []
+    for bot, service in (("1", "ROC"), ("2", "Garantía"), ("3", "ROC")):
+        item = row(bot=bot)
+        item[4] = service
+        item[6] = f"{bot} - Proceso"
+        rows.append(item)
+    data = eva4.build_eva4([HEADER, *rows], TODAY)
+    # BOT 1: 0 horas; BOT 2: servicio sin limite; BOT 3: sin tareas en Clockify.
+    raw = [BASE_HEADER, entry(task="1 - Proceso", day="2026-09-01", eid="s")]
+    enrich_hours(data, raw, TODAY.replace(day=1))
+    data["processes"][0]["invested_hours"] = 0
+    data["processes"][0]["hours_balance"] = 30
+    html = render(data, monkeypatch)
+    assert html.count("Sin límite para este servicio") >= 1
+    assert html.count("Sin coincidencia en Clockify") >= 1
+    assert "Sin dato" not in html
+    first = html.split("<tbody>", 1)[1].split("</tr>", 1)[0]
+    assert '<td class="n">0</td>' in first
+
+
+def test_footer_names_the_database_when_hours_come_from_it(monkeypatch):
+    data = eva4.build_eva4([HEADER, row()], TODAY)
+    data["hours_origin"] = "database"
+    data["hours_source"] = "08.Base Clockify 2026"
+    html = render(data, monkeypatch)
+    assert "horas de Clockify (base de datos)" in html
+    assert "08.Base Clockify" not in html
+
+
 def test_each_workspace_preserves_its_own_entry_id():
     totals, _ = monthly_hours(
         [BASE_HEADER, entry(), entry(4, workspace="w2")], TODAY.replace(day=1)
@@ -291,5 +328,6 @@ def test_loader_and_page_use_month_specific_cache(monkeypatch):
         "Available Hours Package",
         "Risk",
     ]
-    assert "Sin dato" in html
+    assert "Sin dato" not in html
+    assert "Fuentes: ROC (Google Sheets) y horas de Clockify (hoja" in html
     cache.clear()
