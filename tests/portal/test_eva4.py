@@ -111,6 +111,25 @@ def test_tables_use_current_rows_and_do_not_repeat_contract_renewals():
     assert "Tope Mensual" in data["missing_columns"]
 
 
+def test_page_structure_is_accessible_and_puts_processes_first(monkeypatch):
+    data = eva4.build_eva4([HEADER, row(finish="2026-10-20")], TODAY)
+    monkeypatch.setattr(eva4, "load_eva4", lambda: data)
+    html = views.eva4(
+        RequestFactory().get("/operativa/eva-4/")
+    ).content.decode()
+    # base.html ya abre el <main>: la pagina no abre otro.
+    assert html.count("<main") == 1
+    table = html.split('id="eva4-processes"', 1)[1].split("</table>", 1)[0]
+    assert table.count('<th scope="col">') == 15
+    assert "<caption" in table
+    assert html.index('id="eva4-processes"') < html.index('id="eva4-renewals"')
+    assert html.index('id="eva4-renewals"') < html.index('id="eva4-clients"')
+    # Renovaciones y clientes quedan plegados bajo la tabla principal.
+    assert html.count('<details class="eva4-card eva4-fold"') == 2
+    assert 'role="status"' in html and 'id="eva4-count"' in html
+    assert 'class="eva4-kpis"' not in html
+
+
 def test_renewals_include_overdue_and_exclude_more_than_90_days():
     result = eva4.build_eva4(
         [HEADER, row(finish="2026-10-06"), row("2", finish="2027-06-01")], TODAY

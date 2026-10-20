@@ -1,5 +1,6 @@
 """Meses, topes y saldos de EVA-04 se obtienen exclusivamente de Sheets."""
 
+import re
 from datetime import date
 from decimal import Decimal
 
@@ -272,7 +273,7 @@ def test_loader_and_page_use_month_specific_cache(monkeypatch):
     assert 'value="2026-09"' in html
     assert "EVA-04 Report" in html
     headers = html.split('id="eva4-processes"', 1)[1].split("</tr>", 1)[0]
-    names = [part.split("</th>", 1)[0] for part in headers.split("<th>")[1:]]
+    names = re.findall(r"<th(?:\s[^>]*)?>(.*?)</th>", headers)
     assert names == [
         "Delivery Manager",
         "Country",
