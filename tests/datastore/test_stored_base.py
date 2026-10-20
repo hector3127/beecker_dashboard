@@ -171,6 +171,33 @@ def test_hour_index_from_the_database_equals_the_one_from_the_sheet():
     assert "vieja" not in from_store["tasks"]
 
 
+def test_hour_index_groups_hours_by_project_and_bot_tag():
+    day = date(2026, 10, 5)
+    add(
+        "1",
+        day,
+        project="ROC.NSC.001",
+        task="3634 - Gestión",
+        tags=["Monitoreo"],
+    )
+    add("2", day, project="ROC.NSC.001", task="3634 - Otra", tags=["Monitoreo"])
+    add(
+        "3",
+        day,
+        project="ROC.OTRO.001",
+        task="3634 - Gestión",
+        tags=["Monitoreo"],
+    )
+    add(
+        "4", day, project="ROC.NSC.001", task="3634 - Gestión", tags=["Reunion"]
+    )
+    index = build_hour_index_from_store(2026)
+    nsc = ("roc.nsc.001", "3634")
+    assert index["bot_totals"]["2026-10"][nsc] == 2
+    assert index["bot_totals"]["2026-10"][("roc.otro.001", "3634")] == 1
+    assert nsc in index["bots"]
+
+
 def test_eva4_uses_the_database_only_for_synced_years(settings, monkeypatch):
     settings.CLOCKIFY_STORE_ENABLED = True
     add("1", date(2026, 3, 4), tags=["Monitoreo"])

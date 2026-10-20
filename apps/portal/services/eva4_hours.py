@@ -1,6 +1,7 @@
 """Consumo mensual de EVA-04 exclusivamente desde la base de Sheets."""
 
 import math
+import re
 from collections import Counter, defaultdict
 from datetime import date
 from decimal import Decimal, InvalidOperation
@@ -45,6 +46,15 @@ def service_limit(service: Any) -> float | None:
     """Tope mensual del servicio; None si el servicio no tiene regla."""
     key = norm(service).upper().replace(" ", "")
     return SERVICE_LIMITS.get(key)
+
+
+BOT_TAG = re.compile(r"\s*(\d+)")
+
+
+def bot_tag(value: Any) -> str:
+    """Numero del BOT al inicio de un texto: «3634 - Gestion» -> «3634»."""
+    match = BOT_TAG.match(str(value or ""))
+    return str(int(match.group(1))) if match else ""
 
 
 def task_key(value: Any) -> str:
@@ -94,6 +104,7 @@ def index_month(
 def build_hour_index(values: list[list[Any]], year: int) -> dict[str, Any]:
     """Agrega doce meses en un recorrido y conserva los errores por mes."""
     aliases = {
+        "project": ("Project", "Proyecto"),
         "task": ("Task", "Tarea"),
         "duration": ("Duration (decimal)", "Horas"),
         "day": ("Start Date", "Fecha"),
@@ -119,7 +130,9 @@ def build_hour_index(values: list[list[Any]], year: int) -> dict[str, Any]:
             "Start Date y Tags."
         )
     totals: dict[str, dict[str, Decimal]] = {}
+    bot_totals: dict[str, dict[tuple[str, str], Decimal]] = {}
     tasks: set[str] = set()
+    bots: set[tuple[str, str]] = set()
     seen: dict[str, set[tuple[str, str]]] = defaultdict(set)
     errors: set[str] = set()
     for row in values[1:]:
@@ -132,6 +145,9 @@ def build_hour_index(values: list[list[Any]], year: int) -> dict[str, Any]:
         if not key:
             continue
         tasks.add(key)
+        bot = (task_key(cell("project")), bot_tag(cell("task")))
+        if all(bot):
+            bots.add(bot)
         day = to_datetime(cell("day"))
         if day is None or day.year != year:
             continue
@@ -151,7 +167,28 @@ def build_hour_index(values: list[list[Any]], year: int) -> dict[str, Any]:
             seen[month_key].add(identity)
         bucket = totals.setdefault(month_key, {})
         bucket[key] = bucket.get(key, Decimal(0)) + Decimal(str(hours))
-    return {"totals": totals, "tasks": tasks, "errors": errors}
+        if all(bot):
+            bot_bucket = bot_totals.setdefault(month_key, {})
+            bot_bucket[bot] = bot_bucket.get(bot, Decimal(0)) + Decimal(
+                str(hours)
+            )
+    return {
+        "totals": totals,
+        "tasks": tasks,
+        "errors": errors,
+        "bot_totals": bot_totals,
+        "bots": bots,
+    }
+
+
+def index_bots(
+    index: dict[str, Any], month: date
+) -> tuple[dict[tuple[str, str], Decimal], set[tuple[str, str]]]:
+    """Horas del mes por (proyecto, BOT) y los BOT vistos en el ano."""
+    return (
+        index.get("bot_totals", {}).get(month.strftime("%Y-%m"), {}),
+        index.get("bots", set()),
+    )
 
 
 def enrich_hours(
@@ -161,24 +198,30 @@ def enrich_hours(
     index: dict[str, Any] | None = None,
 ) -> None:
     """Cruza tareas exactas y calcula tope menos consumo sin ocultar excesos."""
-    totals, tasks = (
-        index_month(index, month)
-        if index is not None
-        else monthly_hours(values, month)
-    )
+    if index is None:
+        index = build_hour_index(values, month.year)
+    totals, tasks = index_month(index, month)
+    bot_totals, bots = index_bots(index, month)
     bot_counts = Counter(task_key(p["bot_id"]) for p in report["processes"])
     no_task = 0
     missing_limit = 0
     for process in report["processes"]:
         name = task_key(process["process"])
         bot = task_key(process["bot_id"])
-        # Un BOT compartido por varios procesos no asigna su consumo a todos.
-        key = (
-            name
-            if name in tasks
-            else (bot if bot_counts[bot] == 1 and bot in tasks else "")
-        )
-        consumed = float(totals.get(key, Decimal(0))) if key else None
+        tag = bot_tag(process["bot_id"]) or bot_tag(process["process"])
+        process["process_tag"] = tag or process["process"]
+        scope = (task_key(process["project_id"]), tag)
+        if all(scope) and scope in bots:
+            # ROC ID + numero del BOT: todas las tareas «3634 - ...».
+            consumed: float | None = float(bot_totals.get(scope, Decimal(0)))
+        else:
+            # Un BOT compartido por varios procesos no asigna todo a todos.
+            key = (
+                name
+                if name in tasks
+                else (bot if bot_counts[bot] == 1 and bot in tasks else "")
+            )
+            consumed = float(totals.get(key, Decimal(0))) if key else None
         # El servicio manda; el tope del Sheet solo cubre servicios sin regla.
         limit = service_limit(process["service"])
         if limit is None:

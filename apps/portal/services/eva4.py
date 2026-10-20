@@ -45,7 +45,7 @@ def snapshot_key(month: str | None = None) -> str:
     """Identifica el corte diario, compartido por detalle y Operativa."""
     day = timezone.localdate()
     return (
-        "portal:eva4:snapshot:v2:"
+        "portal:eva4:snapshot:v3:"
         + day.isoformat()
         + ":"
         + resolve_month(month, day).strftime("%Y-%m")

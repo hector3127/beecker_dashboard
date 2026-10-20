@@ -96,6 +96,60 @@ def test_service_without_rule_keeps_the_sheet_limit():
     assert data["missing_limits"] == 0
 
 
+def bot_report(*bots, project="ROC.NSC.001"):
+    rows = []
+    for bot in bots:
+        item = row(bot=bot)
+        item[2] = project
+        item[6] = "Nombre sin numero"
+        rows.append(item)
+    return eva4.build_eva4([HEADER, *rows], TODAY)
+
+
+def test_invested_hours_use_roc_id_and_the_bot_tag_of_the_task():
+    data = bot_report("3634", "1386", "9999")
+    raw = [
+        BASE_HEADER,
+        entry(task="3634 - Gestión de transporte", eid="a", hours=4),
+        entry(task="1386 - SubmissionGR", eid="b", hours=1.5),
+        entry(task="1386 - Sending Orders", eid="c", hours=2),
+        # El mismo BOT en otro proyecto no se suma.
+        [
+            "ROC.OTRO.001",
+            "Ana",
+            "2026-10-01",
+            50,
+            "3634 - Otro",
+            "Monitoreo",
+            "No",
+            "d",
+            "w1",
+        ],
+        # El mes anterior no cuenta, pero el BOT existe: queda en cero.
+        entry(task="9999 - Sin horas", day="2026-09-01", eid="e", hours=7),
+    ]
+    enrich_hours(data, raw, TODAY.replace(day=1))
+    hours = {p["bot_id"]: p["invested_hours"] for p in data["processes"]}
+    assert hours == {"3634": 4, "1386": 3.5, "9999": 0}
+
+
+def test_bot_without_hours_in_the_roc_project_has_no_data():
+    data = bot_report("5555")
+    enrich_hours(
+        data,
+        [BASE_HEADER, entry(task="3634 - Otro BOT", eid="a")],
+        TODAY.replace(day=1),
+    )
+    assert data["processes"][0]["invested_hours"] is None
+
+
+def test_process_column_shows_only_the_bot_tag():
+    data = eva4.build_eva4([HEADER, row(bot="3708")], TODAY)
+    data["processes"][0]["process"] = "3708 - Temporary Green Coffee"
+    enrich_hours(data, [BASE_HEADER, entry()], TODAY.replace(day=1))
+    assert data["processes"][0]["process_tag"] == "3708"
+
+
 def test_each_workspace_preserves_its_own_entry_id():
     totals, _ = monthly_hours(
         [BASE_HEADER, entry(), entry(4, workspace="w2")], TODAY.replace(day=1)
