@@ -28,7 +28,10 @@ a[data-pronto]{cursor:help}
 </style>
 <link rel="stylesheet" href="{% static 'portal/css/accessibility.css' %}">
 <link rel="stylesheet" href="{% static 'portal/css/navigation.css' %}">
+<link rel="stylesheet" href="{% static 'portal/css/portal_loading.css' %}?v=20261021">
+<script src="{% static 'portal/js/portal_loading.js' %}?v=20261021" defer></script>
 {% block extra_head %}{% endblock %}
+<link rel="stylesheet" href="{% static 'portal/css/portal_controls.css' %}?v=20261021-navigation">
 </head>
 <body data-portal-ready="{% if error or fx_error or refresh_failed %}false{% else %}true{% endif %}" class="{% block body_class %}{% endblock %}">
 <a class="skip-link" href="#main-content">Saltar al contenido</a>
@@ -59,7 +62,7 @@ document.addEventListener('click', function (event) {
   window.portalToastTimer = setTimeout(function () { toast.style.opacity = 0; }, 2400);
 });
 </script>
-<script src="{% static 'portal/js/return_navigation.js' %}" defer></script>
+<script src="{% static 'portal/js/return_navigation.js' %}?v=20261021-opportunities" defer></script>
 {% block scripts %}{% endblock %}
 <script src="{% static 'portal/js/page_capture.js' %}?v=20261016" data-library="{% static 'portal/vendor/html2canvas.min.js' %}" defer></script>
 {% if page_stale %}<script src="{% static 'portal/js/cached_page.js' %}" defer></script>{% endif %}

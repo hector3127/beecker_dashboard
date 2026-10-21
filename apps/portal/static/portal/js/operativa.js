@@ -44,6 +44,10 @@
   }
 
   async function read(url) {
+    const requestUrl=new URL(url,location.href);
+    const block=requestUrl.searchParams.get('bloque');
+    const targets=requestUrl.pathname===new URL(summaryEndpoint,location.href).pathname?['facturability-summary']:({eva4:['ops-eva4-card'],inversion:['ops-investment-operational','ops-investment-commercial'],capacidad:['ops-capacity'],eva3:['ops-metric-progress','ops-metric-paused','ops-metric-on-time','ops-health','ops-managers','ops-evas']}[block]||['ops-dashboard']);
+    const finishes=targets.map(id=>window.PortalLoading?.begin(document.getElementById(id))).filter(Boolean);
     const controller = new AbortController();
     controllers.add(controller);
     const timer = setTimeout(() => controller.abort(), 120000);
@@ -57,6 +61,7 @@
     } finally {
       clearTimeout(timer);
       controllers.delete(controller);
+      finishes.forEach(finish=>finish());
     }
   }
 

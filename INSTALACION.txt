@@ -1,0 +1,45 @@
+INSTALACION RAPIDA - DASHBOARD BEECKER
+======================================
+Requisito: Python 3.12. Comandos en PowerShell, dentro de la carpeta del proyecto.
+
+0. Descomprime el ZIP y copia de tu copia anterior los archivos .env y key.json
+   a la carpeta nueva (el ZIP no los trae).
+
+1. python -m venv .venv
+
+2. .venv\Scripts\activate
+   (si bloquea: Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned)
+
+3. pip install -r requirements-dev.txt
+
+4. python manage.py migrate
+
+5. python manage.py sync_datastore --pasos hojas,azure,catalogos
+   (cerca de 1 minuto)
+
+6. python manage.py sync_datastore --desde 2024-08
+   (cerca de 1 hora; solo este ano: --desde 2026-01. No lo interrumpas)
+
+7. python manage.py check_datastore
+   (no debe decir VENCIDO)
+
+8. python manage.py runserver
+   Abre http://127.0.0.1:8000/
+
+
+OPCIONAL: que lea de la base (mas rapido)
+-----------------------------------------
+Agrega a .env y reinicia el servidor (solo vale 1):
+  CLOCKIFY_STORE_ENABLED=1
+  SHEETS_STORE_ENABLED=1
+  AZURE_STORE_ENABLED=1
+
+Para mantenerla al dia repite cada hora el paso 5, y cada dia:
+  python manage.py sync_datastore --pasos clockify,catalogos
+
+
+NOTA: en la hoja de Google "Clockify_Vinculos" agrega (ID_Proyecto y
+Clockify_Project_ID):
+  ROC.CAG.001 -> SAAS.CAG.ROC.001
+  ROC.OPT.001 -> TYM.OPT.001
+  GPO.SAAS.ROC.001 -> SAAS.GPO.ROC.001 (confirmalo)

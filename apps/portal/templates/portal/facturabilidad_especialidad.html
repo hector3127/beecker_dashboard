@@ -22,7 +22,7 @@ td.df{background:#FBE3E7;color:#A31B33;font-weight:800}
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer todo: {{ error }}</div>{% endif %}
-<div class="crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a> › Operations</div>
+<div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Operations</span></div>
 {% include 'portal/_hero.html' with title="Facturabilidad por especialidad" subtitle="Cuánta gente hay, cuánta está en trabajo fijo o variable y cuánta queda libre, por especialidad" tone="operations" icon="chart" eyebrow="Operations" %}
 
 <div class="tabs"><a href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a class="on" href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a><a href="{% url 'portal:facturabilidad_area' %}{{ picker.query }}">Facturabilidad por área</a></div>

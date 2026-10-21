@@ -5,6 +5,9 @@ body{background:radial-gradient(ellipse at 50% 0,#f0edff,transparent 65%),#f8f7f
 .opportunity-method{display:block}.opportunity-method>summary{display:flex;align-items:center;gap:13px;list-style:none;cursor:pointer}.opportunity-method>summary::after{content:"⌄";margin-left:auto;color:#6524ff}.opportunity-method[open]>summary::after{content:"⌃"}.opportunity-method-content{padding:12px 0 0 53px}#opportunity-status:empty{display:none}@media(max-width:720px){.opportunity-method-content{padding-left:0}}
 
 /* Keep column labels visible while reading the opportunity list. */
+.opportunity-page .opportunity-title{margin:0 0 18px}
+.opportunity-page .opportunity-filters :is(input,button){min-height:44px;height:auto}
+.opportunity-page :is(button,input):focus-visible{outline:3px solid #4b25c9;outline-offset:3px}
 .opportunity-results>.scroll{overflow:visible}
 .opportunity-results>.scroll>table>thead th{position:sticky;top:0;z-index:10;box-shadow:0 1px 0 #e2d8fa}
 @media(max-width:1200px){

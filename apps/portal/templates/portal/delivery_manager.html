@@ -47,7 +47,7 @@ body{background:radial-gradient(ellipse at 70% 0,#eee9ff,#faf9ff 65%);color:#221
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
-<div class="crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a> › Proyectos en ejecución › {{ dm_name }}</div>
+<div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Proyectos en ejecución › {{ dm_name }}</span></div>
 <div id="dm-live" data-pending="{{ dm_pending }}">
 <div class="hd" id="dm-head"><div class="av">{{ dm_initials }}</div><div><h1>{{ dm_name }}</h1><p class="sub">{% if pend_base %}Delivery Manager · cargando proyectos&hellip;{% else %}Delivery Manager · {{ detail.total }} proyecto{{ detail.total|pluralize }} asignado{{ detail.total|pluralize }}{% endif %}</p></div></div>
 

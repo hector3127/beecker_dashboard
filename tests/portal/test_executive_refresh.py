@@ -77,6 +77,8 @@ def test_refresh_get_only_reads_status_and_post_requires_csrf(isolated):
     assert client.get("/ejecutiva/actualizacion/").json() == {
         "state": "idle",
         "has_financial_cut": False,
+        "has_commercial_cut": False,
+        "has_operations_cut": False,
     }
     assert client.post("/ejecutiva/actualizacion/").status_code == 403
     isolated.submit.assert_not_called()

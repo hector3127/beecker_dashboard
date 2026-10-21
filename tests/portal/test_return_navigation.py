@@ -34,7 +34,13 @@ def test_return_links_resolve_to_correct_section(name, anchor):
     expected = (
         "portal:ejecutiva"
         if name
-        in {"comercial.html", "costos_detalle.html", "todas_cuentas.html"}
+        in {
+            "comercial.html",
+            "costos_detalle.html",
+            "todas_cuentas.html",
+            "diccionario_datos.html",
+            "oportunidades_financieras.html",
+        }
         else "portal:operativa"
     )
     assert match.view_name == expected
@@ -186,3 +192,59 @@ def test_account_returns_to_account_list_instead_of_operations(
     assert response.context["back_url"] == parent
     assert response.context["back_label"] == "Todas las cuentas"
     assert "Regresar a Todas las cuentas" in response.content.decode()
+
+
+@pytest.mark.parametrize("account", ["Heineken Mexico", "Otra cuenta"])
+def test_opportunity_comparison_returns_to_account_after_date_filters(
+    client, monkeypatch, settings, account
+):
+    from urllib.parse import urlencode
+
+    from django.utils.text import slugify
+
+    settings.PORTAL_LOGIN_REQUIRED = False
+    monkeypatch.setattr(
+        "apps.portal.services.financial_cache.cached_financial_snapshot",
+        lambda: {
+            "opportunities": {
+                "version": 5,
+                "start": "2026-01-01",
+                "end": "2026-12-31",
+                "opportunities": [],
+            }
+        },
+    )
+    parent = f"/cuenta/{slugify(account)}/?" + urlencode(
+        {
+            "nombre": account,
+            "volver": "/ejecutiva/cuentas/?buscar=Heineken",
+        }
+    )
+    response = client.get(
+        "/ejecutiva/oportunidades/",
+        {
+            "nombre": account,
+            "volver": parent,
+        },
+    )
+    assert response.context["back_url"] == parent
+    assert response.context["back_label"] == account
+    html = response.content.decode()
+    assert f"Regresar a {account}" in html
+    hidden = re.search(
+        r'<input type="hidden" name="volver" value="([^"]+)"', html
+    )
+    from html import unescape
+
+    response = client.get(
+        "/ejecutiva/oportunidades/",
+        {
+            "nombre": account,
+            "volver": unescape(hidden.group(1)),
+            "periodo": "rango",
+            "desde": "2026-03-01",
+            "hasta": "2026-09-30",
+        },
+    )
+    assert response.context["back_url"] == parent
+    assert response.context["back_label"] == account

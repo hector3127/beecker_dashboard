@@ -36,7 +36,7 @@ td.r,th.r{text-align:right}
 {% block content %}
 <main class="page">
 {% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
-<div class="crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a> › Suspendidos</div>
+<div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Suspendidos</span></div>
 <h1>Proyectos suspendidos</h1>
 <p class="sub">Proyectos detenidos, por qué se detuvieron y qué falta para retomarlos</p>
 

@@ -1,0 +1,11 @@
+/* Skeleton + spinner shared by every dashboard section. */
+.portal-loading-message::before{content:"";display:inline-block;width:72px;max-width:25vw;height:10px;border-radius:20px;margin-right:9px;vertical-align:middle;background:linear-gradient(90deg,#e3d7fc,#f4eeff,#e3d7fc);background-size:200% 100%;animation:portal-shimmer 1.5s linear infinite}
+.portal-loading-message::after{content:"";display:inline-block;box-sizing:border-box;width:17px;height:17px;border:3px solid #e8ddfb;border-top-color:#8144ec;border-radius:50%;margin-left:9px;vertical-align:middle;animation:portal-spin .9s linear infinite}
+.portal-loading-region{position:relative}
+.portal-loading-region::before{content:"";position:absolute;top:5px;left:12px;right:46px;height:4px;z-index:5;border-radius:12px;background:linear-gradient(90deg,#eee5fc,#aa77f4,#eee5fc);background-size:200% 100%;animation:portal-shimmer 1.5s linear infinite;pointer-events:none}
+.portal-loading-region::after{content:"";position:absolute;right:12px;top:12px;width:20px;height:20px;box-sizing:border-box;border:3px solid #e8ddfb;border-top-color:#8144ec;border-radius:50%;animation:portal-spin .9s linear infinite;z-index:5;pointer-events:none}
+#ops-dashboard .portal-loading-region::after{border-top-color:#00ab82}
+@keyframes portal-spin{to{transform:rotate(360deg)}}
+@keyframes portal-shimmer{to{background-position:-200% 0}}
+@media(prefers-reduced-motion:reduce){.portal-loading-message::before,.portal-loading-message::after,.portal-loading-region::before,.portal-loading-region::after{animation:none}}
+@media print{.portal-loading-message::before,.portal-loading-message::after,.portal-loading-region::before,.portal-loading-region::after{display:none}}

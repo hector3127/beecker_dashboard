@@ -21,6 +21,14 @@ test('account to costs preserves the nested list return chain',()=>{
  const url=run(parent,'http://localhost/ejecutiva/costos/detalle/?nombre=A');
  assert.equal(url.searchParams.get('volver'),new URL(parent).pathname+new URL(parent).search);
 });
+
+test('account to opportunity comparison preserves the account and its return chain',()=>{
+ const parent='http://localhost/cuenta/heineken-mexico/?nombre=Heineken+Mexico&volver=%2F&periodo=mes&anio=2026&mes=10';
+ const url=run(parent,'http://localhost/ejecutiva/oportunidades/?nombre=Heineken+Mexico');
+ assert.equal(url.searchParams.get('volver'),new URL(parent).pathname+new URL(parent).search);
+ assert.equal(url.searchParams.get('nombre'),'Heineken Mexico');
+ assert.equal(url.searchParams.get('mes'),'10');
+});
 test('return links and external links are never rewritten',()=>{
  const target='http://localhost/cuenta/a/?nombre=A&volver=%2Fejecutiva%2Fcuentas%2F';
  assert.equal(run('http://localhost/ejecutiva/costos/detalle/',target,true).href,target);

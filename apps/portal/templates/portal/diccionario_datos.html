@@ -1,1 +1,45 @@
-{% extends 'portal/base.html' %}{% block title %}Diccionario de datos{% endblock %}{% block content %}<section style="max-width:1200px;margin:24px auto;padding:20px"><a href="{% url 'portal:ejecutiva' %}">← Business Overview</a><h1>Diccionario de datos</h1><p>Conceptos, fórmulas, fuentes y validaciones pendientes. Actualizado el 19/10/2026.</p><table style="width:100%;border-collapse:collapse;font-size:14px"><thead><tr><th>Concepto</th><th>Definición y cálculo</th><th>Fuente / validación</th></tr></thead><tbody>{% for name,formula,source in concepts %}<tr><th style="padding:14px;text-align:left;vertical-align:top;border-bottom:1px solid #e9e1ff">{{ name }}</th><td style="padding:14px;border-bottom:1px solid #e9e1ff">{{ formula }}</td><td style="padding:14px;border-bottom:1px solid #e9e1ff">{{ source }}</td></tr>{% endfor %}</tbody></table></section>{% endblock %}
+{% extends 'portal/base.html' %}
+{% load static %}
+{% block title %}Diccionario de datos · Beecker{% endblock %}
+{% block body_class %}ds dictionary-page{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'portal/css/data_dictionary.css' %}?v=20261021">{% endblock %}
+{% block content %}
+<section class="dictionary-page-content" aria-labelledby="dictionary-title">
+  <a class="portal-back" data-portal-back href="{% url 'portal:ejecutiva' %}">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m12 5-7 7 7 7M5 12h14"/></svg>
+    Regresar a Business Overview
+  </a>
+  <header class="dictionary-heading">
+    <div><h1 id="dictionary-title">Diccionario de datos</h1><p>Consulta qué significa cada indicador, cómo se calcula y de dónde viene.</p></div>
+    <span class="dictionary-updated">Definiciones al 19/10/2026</span>
+  </header>
+  <div class="dictionary-panel">
+    <div class="dictionary-toolbar">
+      <div class="dictionary-search-field">
+        <label for="dictionary-search">Buscar en el diccionario</label>
+        <div class="dictionary-search-control">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+          <input type="search" id="dictionary-search" name="q" placeholder="Ej. margen, costos o Clockify…" autocomplete="off" spellcheck="false" aria-describedby="dictionary-count">
+        </div>
+      </div>
+      <div class="dictionary-search-actions">
+        <span id="dictionary-count" role="status" aria-live="polite">{{ concepts|length }} conceptos</span>
+        <button type="button" id="dictionary-clear" class="portal-button portal-button-secondary" hidden>Limpiar búsqueda</button>
+      </div>
+    </div>
+    <div class="dictionary-table-wrap">
+      <table class="dictionary-table">
+        <caption class="portal-sr-only">Conceptos, definición y cálculo, y fuente de los indicadores del dashboard.</caption>
+        <thead><tr><th scope="col">Concepto</th><th scope="col">Definición y cálculo</th><th scope="col">Fuente / validación</th></tr></thead>
+        <tbody>
+          {% for name,formula,source in concepts %}
+          <tr data-dictionary-entry><th scope="row">{{ name }}</th><td data-label="Definición y cálculo">{{ formula }}</td><td data-label="Fuente / validación" class="dictionary-source">{{ source }}</td></tr>
+          {% endfor %}
+          <tr id="dictionary-empty" hidden><td colspan="3"><strong>No encontramos coincidencias.</strong><span>Prueba con otro concepto o limpia la búsqueda para ver todas las definiciones.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{% static 'portal/js/data_dictionary.js' %}?v=20261021" defer></script>{% endblock %}

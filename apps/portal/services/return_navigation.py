@@ -14,6 +14,7 @@ LABELS = {
     "portal:cuenta": "la cuenta",
     "portal:delivery_manager": "Delivery Manager",
     "portal:costos_detalle": "Detalle de costos",
+    "portal:oportunidades_financieras": "Comparativa de márgenes",
     "portal:proyecto_detalle": "el proyecto",
     "portal:eva1": "EVA 1",
     "portal:eva3": "EVA 3",

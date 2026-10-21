@@ -1,7 +1,7 @@
 /* Preserve the immediate parent, including its own return chain. */
 (function () {
   'use strict';
-  const targets = /^\/(?:cuenta\/[^/]+\/|proyectos\/[^/]+\/|ejecutiva\/costos\/detalle\/)$/;
+  const targets = /^\/(?:cuenta\/[^/]+\/|proyectos\/[^/]+\/|ejecutiva\/costos\/detalle\/|ejecutiva\/oportunidades\/)$/;
   document.addEventListener('click', function (event) {
     const link = event.target.closest('a[href]');
     if (!link || link.hasAttribute('data-portal-back') || link.classList.contains('cost-back')) return;

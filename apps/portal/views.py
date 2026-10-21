@@ -164,9 +164,12 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
     chosen = executive_period() or parse_executive_period(
         {"periodo": "anio", "anio": str(timezone.localdate().year)}
     )
-    if (not financial or request.GET.get("actualizar") == "1") and not getattr(
-        request, "portal_warmer", False
-    ):
+    if (
+        not financial
+        or not operations
+        or not financial.get("commercial")
+        or request.GET.get("actualizar") == "1"
+    ) and not getattr(request, "portal_warmer", False):
         request_refresh()
     from django.utils.dateparse import parse_datetime
 
@@ -220,11 +223,19 @@ def actualizacion_ejecutiva(request: HttpRequest) -> HttpResponse:
         if request.method == "POST"
         else refresh_status()
     )
+    from apps.portal.services.executive_operations import (
+        cached_operations_snapshot,
+    )
     from apps.portal.services.financial_cache import cached_financial_snapshot
 
+    snapshot = cached_financial_snapshot()
     status = {
         **status,
-        "has_financial_cut": bool(cached_financial_snapshot().get("loaded_at")),
+        "has_financial_cut": bool(snapshot.get("loaded_at")),
+        "has_commercial_cut": bool(snapshot.get("commercial")),
+        "has_operations_cut": (
+            cached_operations_snapshot().get("projects") is not None
+        ),
     }
     response = JsonResponse(status)
     response["Cache-Control"] = "no-store"
@@ -2133,9 +2144,11 @@ def acuerdos_ejecutivos(request: HttpRequest) -> HttpResponse:
     from django.http import JsonResponse
 
     from apps.portal.forms import ExecutiveAgreementForm
+    from apps.portal.services.agreements import agreement_account_key
 
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
+    scope = request.GET.get("account", "").strip()
     if request.method == "POST":
         instance = None
         if request.POST.get("id"):
@@ -2147,12 +2160,37 @@ def acuerdos_ejecutivos(request: HttpRequest) -> HttpResponse:
                 return JsonResponse(
                     {"error": "El registro no existe"}, status=404
                 )
-        form = ExecutiveAgreementForm(request.POST, instance=instance)
-        if not form.is_valid():
-            return JsonResponse(
-                {"errors": form.errors.get_json_data()}, status=400
+        if (
+            scope
+            and instance
+            and (
+                agreement_account_key(instance.account)
+                != agreement_account_key(scope)
             )
-        form.save()
+        ):
+            return JsonResponse(
+                {"error": "El registro no pertenece a esta cuenta"}, status=404
+            )
+        if request.POST.get("action") == "status":
+            if instance is None:
+                return JsonResponse(
+                    {"error": "Indica el registro a actualizar"}, status=400
+                )
+            new_status = request.POST.get("status", "")
+            if new_status not in {"open", "progress", "done"}:
+                return JsonResponse({"error": "Estado no valido"}, status=400)
+            instance.status = new_status
+            instance.save(update_fields=["status", "updated_at"])
+        else:
+            values = request.POST.copy()
+            if scope:
+                values["account"] = scope
+            form = ExecutiveAgreementForm(values, instance=instance)
+            if not form.is_valid():
+                return JsonResponse(
+                    {"errors": form.errors.get_json_data()}, status=400
+                )
+            form.save()
     rows = list(
         ExecutiveAgreement.objects.values(
             "id",
@@ -2168,6 +2206,15 @@ def acuerdos_ejecutivos(request: HttpRequest) -> HttpResponse:
             "updated_at",
         )
     )
+    if scope:
+        rows = [
+            row
+            for row in rows
+            if agreement_account_key(row["account"])
+            == agreement_account_key(scope)
+        ]
+    if request.GET.get("pending_only") == "1":
+        rows = [row for row in rows if row["status"] != "done"]
     return JsonResponse({"items": rows})
 
 
@@ -2209,6 +2256,11 @@ def oportunidades_financieras(request: Any) -> Any:
     """Florencia: margen vendido y real por oportunidad, no por Project ID."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
+    from urllib.parse import urlencode
+
+    from django.urls import reverse
+    from django.utils.text import slugify
+
     from apps.portal.services.executive_refresh import request_refresh
     from apps.portal.services.financial_cache import (
         cached_financial_snapshot,
@@ -2241,10 +2293,26 @@ def oportunidades_financieras(request: Any) -> Any:
     preparing = not prepared
     if preparing:
         request_refresh()
+    back = reverse("portal:ejecutiva")
+    if account_filter:
+        back = (
+            reverse(
+                "portal:cuenta",
+                kwargs={"slug": slugify(account_filter) or "cuenta"},
+            )
+            + "?"
+            + urlencode({"nombre": account_filter})
+        )
+    if executive_period():
+        back += ("&" if "?" in back else "?") + executive_query_string()
+    navigation = return_context(
+        request, back, account_filter or "Business Overview"
+    )
     return render(
         request,
         "portal/oportunidades_financieras.html",
         {
+            **navigation,
             "active": "ejecutiva",
             "data": data,
             "preparing": preparing,

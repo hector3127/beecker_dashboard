@@ -140,6 +140,7 @@ def test_overview_uses_prepared_cut_without_source_calls(monkeypatch):
         lambda: {
             "loaded_at": "2026-10-19T12:00:00",
             "revenue": {"invoiced": "100"},
+            "commercial": {"won": 100, "open": 0, "delivery": 0},
         },
     )
     monkeypatch.setattr(
