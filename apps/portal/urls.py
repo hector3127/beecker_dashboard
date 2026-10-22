@@ -68,16 +68,6 @@ urlpatterns = [
         name="eva3_cerrados_burn",
     ),
     path("operativa/eva3/cerrados/", views.eva3_cerrados, name="eva3_cerrados"),
-    path(
-        "operativa/operations-resumen/",
-        views.operations_resumen,
-        name="operations_resumen_legacy",
-    ),
-    path(
-        "operations/resumen/",
-        views.operations_resumen,
-        name="operations_resumen",
-    ),
     path("", views.ejecutiva, name="ejecutiva"),
     path(
         "proyectos/<str:project_id>/",
@@ -89,8 +79,7 @@ urlpatterns = [
         views.capacidad_detalle,
         name="capacidad_detalle",
     ),
-    path("operativa/", views.operativa, name="operativa"),
-    path("operativa/datos/", views.operativa_datos, name="operativa_datos"),
+    path("operativa/", pages.operativa, name="operativa"),
     path("comercial/", views.comercial, name="comercial"),
     path("operativa/eva-1/", views.eva1, name="eva1"),
     path(

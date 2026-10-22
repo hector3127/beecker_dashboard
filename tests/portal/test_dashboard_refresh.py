@@ -13,6 +13,7 @@ from apps.portal.services import portfolio_loader
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
 from apps.portal.services.eva_loader import Eva1Load, Eva2Load
+from apps.portal.services.operativa_status import block_error
 from tests.portal.builders import make_project
 
 
@@ -45,16 +46,15 @@ def stub_eva(monkeypatch, error=""):
 def test_failed_refresh_reports_failure_and_keeps_snapshot(monkeypatch):
     stub_eva(monkeypatch)
     refresh = request()
-    views.operativa_datos(request(bloque="eva3"))
+    views.operativa_block_context(request(bloque="eva3"))
     key = views._operativa_key(refresh)
     saved = cache.get(key)
     stub_eva(monkeypatch, "Azure y Sheets no responden.")
 
-    html = views.operativa_datos(refresh).content.decode()
+    context = views.operativa_block_context(refresh)
 
-    assert 'data-source-errors="2"' in html
-    assert "No se pudo renovar el corte guardado." in html
-    assert "Azure y Sheets no responden." in html
+    assert context["source_errors"] == ["Azure y Sheets no responden."] * 2
+    assert context["stale"] is True
     assert cache.get(key) == saved
 
 
@@ -62,54 +62,55 @@ def test_failed_first_refresh_does_not_cache_fake_zero_totals(monkeypatch):
     stub_eva(monkeypatch, "Sin conexión.")
     refresh = request()
 
-    html = views.operativa_datos(refresh).content.decode()
+    context = views.operativa_block_context(refresh)
 
     assert cache.get(views._operativa_key(refresh)) is None
-    assert 'data-source-errors="2"' in html
-    assert "Información parcial del portafolio." in html
-    assert "data-loaded-at=" in html
+    assert context["source_errors"] == ["Sin conexión."] * 2
+    assert not context.get("stale")
+    assert context["loaded_at"]
 
 
 def test_failed_eva3_enrichment_keeps_previous_portfolio(monkeypatch):
     stub_eva(monkeypatch)
     refresh = request()
-    views.operativa_datos(request(bloque="eva3"))
+    views.operativa_block_context(request(bloque="eva3"))
     saved = cache.get(views._operativa_key(refresh))
     stub_eva(monkeypatch, "Clockify no responde.")
 
-    html = views.operativa_datos(
-        request(bloque="eva3"),
-    ).content.decode()
+    context = views.operativa_block_context(request(bloque="eva3"))
 
-    assert 'data-block-error="Clockify no responde."' in html
+    assert block_error(context) == "Clockify no responde."
     assert cache.get(views._operativa_key(refresh)) == saved
 
 
 def test_eva3_updates_totals_and_health_in_the_same_response(monkeypatch):
     stub_eva(monkeypatch)
     refresh = request()
-    views.operativa_datos(refresh)
+    views.operativa_block_context(refresh)
     projects = [make_project(), make_project(project_id="P-2")]
     monkeypatch.setattr(
         "apps.portal.services.operational_sources.eva_projects",
         lambda *args: projects,
     )
 
-    html = views.operativa_datos(request(bloque="eva3")).content.decode()
+    context = views.operativa_block_context(request(bloque="eva3"))
     saved = cache.get(views._operativa_key(refresh))
 
     assert saved["summary"].in_progress == 2
     assert saved["health"].on_time == 2
     assert saved["managers"][0].in_progress == 2
-    for section in (
-        "ops-metric-progress",
-        "ops-metric-paused",
-        "ops-metric-on-time",
-        "ops-health",
-        "ops-managers",
-        "ops-evas",
+    # Todo lo que la pantalla repinta llega en la misma respuesta.
+    for key in (
+        "summary",
+        "health",
+        "donut",
+        "managers",
+        "eva1_card",
+        "eva3_card",
+        "consumption_pending",
     ):
-        assert html.count(f'id="{section}"') == 1
+        assert key in context
+    assert context["consumption_pending"] is False
 
 
 @pytest.mark.parametrize(
@@ -138,7 +139,7 @@ def test_failed_secondary_block_preserves_saved_cut(
 ):
     stub_eva(monkeypatch)
     refresh = request()
-    views.operativa_datos(request(bloque="eva3"))
+    views.operativa_block_context(request(bloque="eva3"))
     key = views._operativa_key(refresh)
     saved = cache.get(key)
     monkeypatch.setattr(
@@ -146,24 +147,21 @@ def test_failed_secondary_block_preserves_saved_cut(
         lambda *args: payload,
     )
 
-    html = views.operativa_datos(request(bloque=block)).content.decode()
+    context = views.operativa_block_context(request(bloque=block))
 
-    assert f'data-block-error="{message}"' in html
+    assert block_error(context) == message
     assert cache.get(key) == saved
 
 
-def test_initial_shell_has_real_filter_context_and_no_example_claim():
-    html = views.operativa(
+def test_initial_cut_has_real_filter_context_and_no_example_claim():
+    context = views.operativa_context(
         request("/operativa/", servicio="T&M", cuenta="ACME"),
-    ).content.decode()
+    )
 
-    assert 'value="T&amp;M" selected' in html
-    assert 'value="ACME" selected' in html
-    assert "Filtros y alcance de los datos" not in html
-    assert "Cargando datos" in html
-    assert "Cifras de ejemplo" not in html
-    assert 'aria-current="page"' in html
-    assert 'href="#main-content"' in html
+    assert context["selected_service"] == "T&M"
+    assert context["selected_client"] == "ACME"
+    assert context["loading"] is True
+    assert context["consumption_pending"] is True
 
 
 def test_cache_reuse_preserves_time_of_calculation(monkeypatch):

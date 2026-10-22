@@ -1,0 +1,70 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}Operativa{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/operativa.css' %}">{% endblock %}
+{% block content %}
+<div class="ops" id="ops-dashboard"
+ data-account-url="{% url 'portal:cuenta' slug='account-placeholder' %}"
+ data-manager-url="{% url 'portal:delivery_manager' slug='slug-placeholder' %}"
+ data-investment-url="{% url 'portal:inversion' %}"
+ data-eva1-url="{% url 'portal:eva1' %}"
+ data-eva3-url="{% url 'portal:eva3' %}"
+ data-eva4-url="{% url 'portal:eva4' %}"
+ data-capture-library="{% static 'app/vendor/html2canvas-1.4.1.min.js' %}">
+
+<header class="pgh ops-banner" data-tone="operations">
+<div class="ops-banner-title"><h1>Operativo</h1><p>Ejecución, eficiencia y control</p></div>
+<form class="ops-filters" method="get" action="{% url 'portal:operativa' %}">
+<label class="ops-filter"><span>Servicio</span><select id="ops-service" name="servicio" aria-label="Filtrar portafolio por servicio"><option value="">Todos los servicios</option></select></label>
+<label class="ops-filter"><span>Cuenta · abrir detalle</span><select id="ops-client" name="cuenta" aria-label="Abrir detalle de cuenta"><option value="">Todas las cuentas</option></select></label>
+</form>
+</header>
+
+<div class="ops-refresh">
+<span id="ops-cut" class="ops-cut"></span>
+<span id="ops-refresh-status" class="ops-refresh-status" role="status" aria-live="polite" aria-atomic="true"></span>
+<span id="ops-actions" class="ops-actions"><button id="ops-refresh-button" class="btn btn-ghost" type="button" title="Actualizar los indicadores de Operativa" disabled>Actualizar datos</button></span>
+</div>
+<div id="ops-alerts"></div>
+<noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los indicadores.</div></noscript>
+
+<section class="card ops-section" aria-labelledby="ops-overview-title">
+<div class="ops-head"><h2 id="ops-overview-title">Resumen</h2><span>Estado del portafolio e inversión</span></div>
+<div id="ops-metrics" class="ops-metrics"></div>
+</section>
+
+<section class="card ops-health-card" id="ops-health" aria-labelledby="ops-health-title"></section>
+
+<section class="card ops-section" id="ops-managers" aria-labelledby="ops-managers-title">
+<div class="ops-head"><h2 id="ops-managers-title">Delivery manager</h2><span>Proyectos, salud e inversión</span></div>
+</section>
+
+<section class="card ops-section" id="ops-evas" aria-labelledby="ops-evas-title">
+<div class="ops-head"><h2 id="ops-evas-title">EVA</h2><span>Proyectos, desviación en días y avance en horas</span></div>
+<div id="ops-eva-cards" class="eva-grid"></div>
+</section>
+
+<section class="card ops-section" aria-labelledby="ops-support-title">
+<div class="ops-head"><h2 id="ops-support-title">Facturabilidad</h2><span>Utilización facturable y KPIs del equipo</span></div>
+<div class="ops-strip ops-strip--two">
+<div id="facturability-summary" aria-busy="true"><p class="ops-muted">Cargando facturabilidad...</p></div>
+<div class="ops-links">
+<a class="ops-button" href="{% url 'portal:facturabilidad' %}">Ver facturabilidad →</a>
+<a class="ops-button" href="{% url 'portal:facturabilidad_especialidad' %}">Por especialidad →</a>
+<a class="ops-button" href="{% url 'portal:facturabilidad_recurso' %}">Por recurso →</a>
+<a class="ops-button" href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers →</a>
+{% now "Y-m" as investment_month %}<a class="ops-button" href="{% url 'portal:facturabilidad_area' %}?periodo=mes&amp;mes={{ investment_month }}">Facturabilidad por área →</a>
+</div>
+</div>
+</section>
+
+<section class="card ops-section" aria-labelledby="ops-capacity-title">
+<div class="ops-head"><h2 id="ops-capacity-title">Capacidad del equipo</h2><span>Asignación y horas disponibles</span></div>
+<div class="ops-strip">
+<div id="ops-capacity" class="ops-capacity"></div>
+<div class="ops-links"><a class="ops-button" href="{% url 'portal:capacidad_detalle' %}">Ver capacidad instalada →</a></div>
+</div>
+</section>
+</div>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/operativa/main.js' %}"></script>{% endblock %}

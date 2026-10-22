@@ -2,8 +2,8 @@
 
 from types import SimpleNamespace
 
+from apps.portal.services.manager_investment import manager_investment
 from apps.portal.services.portfolio_summary import summarize_delivery_managers
-from apps.portal.templatetags.manager_investment import manager_investment
 from tests.portal.builders import make_project
 
 

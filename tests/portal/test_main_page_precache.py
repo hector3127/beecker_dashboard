@@ -1,5 +1,6 @@
 """La precarga prepara los componentes de las tres paginas principales."""
 
+from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
@@ -87,7 +88,11 @@ def test_full_warmer_visits_all_components_and_reports_page_errors(monkeypatch):
 
     def operations(req):
         visited.append(req.GET["bloque"] or "base")
-        return HttpResponse('<div data-block-error="" data-source-errors="0">')
+        return {"block_error": "", "source_errors": []}
+
+    def billing(refresh=False):
+        visited.append("facturabilidad")
+        return SimpleNamespace(errors=())
 
     def page(name, ready):
         def load(req):
@@ -96,10 +101,8 @@ def test_full_warmer_visits_all_components_and_reports_page_errors(monkeypatch):
 
         return load
 
-    monkeypatch.setattr(views, "operativa_datos", operations)
-    monkeypatch.setattr(
-        views, "operations_resumen", page("facturabilidad", "true")
-    )
+    monkeypatch.setattr(views, "operativa_block_context", operations)
+    monkeypatch.setattr(views, "operations_summary_data", billing)
     monkeypatch.setattr(views, "ejecutiva", page("ejecutiva", "true"))
     monkeypatch.setattr(views, "comercial", page("comercial", "false"))
     monkeypatch.setattr(

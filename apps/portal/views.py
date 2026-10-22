@@ -280,7 +280,9 @@ def _operativa_is_fresh(request: Any) -> bool:
 
 def _operations_summary_key() -> str:
     """Identifica el resumen por su ultimo mes cerrado."""
-    return "portal:ops:summary:v2:" + last_closed_month(timezone.localdate())
+    return "portal:ops:summary-data:v1:" + last_closed_month(
+        timezone.localdate()
+    )
 
 
 def _scope_operativa_investment(request: Any, context: dict[str, Any]) -> None:
@@ -384,19 +386,11 @@ def operativa_context(request: Any) -> dict[str, Any]:
         context.get("loaded_at") and _operativa_is_fresh(request)
     )
     summary_key = _operations_summary_key()
-    context["operations_summary_html"] = cache.get(summary_key, "")
+    context["operations_summary"] = cache.get(summary_key)
     context["summary_fresh"] = bool(
-        context["operations_summary_html"] and cache.get(summary_key + ":fresh")
+        context["operations_summary"] and cache.get(summary_key + ":fresh")
     )
     return context
-
-
-@require_GET
-def operativa(request: Any) -> Any:
-    """Muestra el corte guardado y carga los datos aparte."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    return render(request, "portal/operativa.html", operativa_context(request))
 
 
 def _operativa_block_error(context: dict[str, Any], block: str) -> str:
@@ -660,16 +654,6 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
             _operativa_fresh_key(request, "base"), True, _OPS_FRESH_SECONDS
         )
     return {**context, "refresh_block": block}
-
-
-@require_GET
-def operativa_datos(request: HttpRequest) -> HttpResponse:
-    """Muestra la pantalla Operativa con filtros de Servicio y Cuenta."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    return render(
-        request, "portal/operativa.html", operativa_block_context(request)
-    )
 
 
 @require_GET
@@ -1775,7 +1759,7 @@ def operations_summary_data(refresh: bool = False) -> Any:
     """
     today = timezone.localdate()
     month = last_closed_month(today)
-    key = "portal:ops:summary-data:v1:" + month
+    key = _operations_summary_key()
     cached = cache.get(key)
     if cached is not None and cache.get(key + ":fresh") and not refresh:
         return cached
@@ -1794,62 +1778,6 @@ def operations_summary_data(refresh: bool = False) -> Any:
         cache.set(key, summary, 86400)
         cache.set(key + ":fresh", True, _OPS_FRESH_SECONDS)
     return summary
-
-
-@require_GET
-def operations_resumen(request: HttpRequest) -> HttpResponse:
-    """
-    Fragmento de la tarjeta Operations; Operativa lo carga aparte.
-
-    Lee GSE y Recursos de enero al ultimo mes cerrado. Va separado para
-    que esa lectura no haga lenta la pagina Operativa.
-
-    Args:
-        request: Peticion HTTP.
-
-    Returns:
-        El HTML de la tarjeta (sin la pagina completa).
-    """
-    if _needs_login(request):
-        return HttpResponse(status=401)
-
-    summary_key = _operations_summary_key()
-    cached = cache.get(summary_key)
-    if (
-        cached
-        and cache.get(summary_key + ":fresh")
-        and request.GET.get("actualizar") != "1"
-    ):
-        return HttpResponse(cached)
-
-    today = timezone.localdate()
-    month = last_closed_month(today)
-    sources = load_year_sources(month)
-    roles = default_role_keys(list_roles(item.gse for item in sources))
-    months = [
-        build_month_facturability(
-            item.month,
-            item.gse,
-            item.error,
-            (roles, None),
-        )
-        for item in sources
-    ]
-
-    response = render(
-        request,
-        "portal/_operations_summary.html",
-        {
-            "ops": build_operations_summary(
-                months,
-                month_closed=month != str(today.strftime("%Y-%m")),
-            ),
-        },
-    )
-    if sources and b'data-partial="true"' not in response.content:
-        cache.set(summary_key, response.content.decode(), 86400)
-        cache.set(summary_key + ":fresh", True, _OPS_FRESH_SECONDS)
-    return response
 
 
 @require_GET

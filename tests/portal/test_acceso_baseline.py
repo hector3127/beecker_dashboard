@@ -43,7 +43,6 @@ def test_sin_sesion_no_se_consultan_datos_ni_acciones(
 
     assert client.post(url, cambio).status_code == 401
     for path in (
-        "/operativa/datos/?bloque=eva3",
         "/cuenta/clinica-sur/?nombre=Clinica+Sur&bloque=consumos",
         "/operativa/delivery-manager/alberto/?bloque=base",
     ):

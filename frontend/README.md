@@ -46,3 +46,4 @@ La página `/guia-de-interfaz/` muestra los componentes y los estados.
 | Pantalla | Página | API |
 |---|---|---|
 | EVA-04 | `templates/pages/eva4.html`, `scripts/pages/eva4/` | `GET /api/v1/screens/eva4/?mes=AAAA-MM` |
+| Operativa | `templates/pages/operativa.html`, `scripts/pages/operativa/` | `GET /api/v1/screens/operativa/` (corte guardado), `.../datos/?bloque=` (base y bloques), `.../facturabilidad/` |

@@ -77,7 +77,7 @@ def test_refresh_keeps_global_cache_and_scopes_filtered_block(monkeypatch):
     monkeypatch.setattr(
         views, "_operativa_investment", lambda *args: investment()
     )
-    assert views.operativa_datos(request).status_code == 200
+    views.operativa_block_context(request)
     assert cache.get("portal:ops:investment:v3")["totals"]["operational"] == 100
     assert views._operativa_snapshot(request)["investment"]["totals"] == {
         "operational": 30,

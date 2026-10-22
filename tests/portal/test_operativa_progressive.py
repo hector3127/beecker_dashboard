@@ -54,15 +54,14 @@ def test_base_reads_only_sheets_and_saves_visible_counts(monkeypatch):
         "load_eva1",
         lambda **kwargs: eva_loader.Eva1Load(build_eva1_view([]), ""),
     )
-    html = views.operativa_datos(request()).content.decode()
+    context = views.operativa_block_context(request())
     saved = views._operativa_snapshot(request())
     assert saved["summary"].in_progress == 1
     assert saved["loading"] is False
     assert saved["consumption_pending"] is True
     assert len(saved["managers"]) == 1
     assert saved["eva1_card"].time_cost.cost_percent is None
-    assert 'data-consumption-pending="true"' in html
-    assert "Calculando consumo y salud" in html
+    assert context["consumption_pending"] is True
     heavy.assert_not_called()
 
 
@@ -75,13 +74,13 @@ def test_fresh_base_navigation_skips_sources_and_keeps_pending_blocks(
         "load_eva1",
         lambda **kwargs: eva_loader.Eva1Load(build_eva1_view([]), ""),
     )
-    views.operativa_datos(request())
+    views.operativa_block_context(request())
     monkeypatch.setattr(
         views, "load_eva2", Mock(side_effect=AssertionError("Repeated read"))
     )
-    assert views.operativa_datos(request()).status_code == 200
-    html = views.operativa(request()).content.decode()
-    assert 'data-pending-blocks="eva3,inversion,capacidad,eva4"' in html
+    assert views.operativa_block_context(request())["loading"] is False
+    context = views.operativa_context(request())
+    assert context["pending_blocks"] == "eva3,inversion,capacidad,eva4"
 
 
 def test_independent_blocks_survive_stale_base_snapshot_writes():

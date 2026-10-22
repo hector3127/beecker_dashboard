@@ -26,7 +26,8 @@ def metric(portal, element_id, label, value):
 
 def test_filtrar_por_servicio_actualiza_indicadores(portal, datos, snapshot):
     portal.goto(f"{portal.base}/operativa/")
-    portal.wait_for_load_state("networkidle")
+    listo = portal.locator("#ops-refresh-button")
+    expect(listo).to_be_enabled(timeout=20000)  # terminaron todos los bloques
     metric(portal, "ops-metric-progress", "Proyectos en ejecución", 3)
     metric(portal, "ops-metric-paused", "Suspendidos", 1)
     todos = {
@@ -37,7 +38,7 @@ def test_filtrar_por_servicio_actualiza_indicadores(portal, datos, snapshot):
     servicio = portal.get_by_label("Filtrar portafolio por servicio")
     servicio.select_option("T&M")
     portal.wait_for_url(re.compile(r"servicio=T%26M"))
-    portal.wait_for_load_state("networkidle")
+    expect(listo).to_be_enabled(timeout=20000)
 
     metric(portal, "ops-metric-progress", "Proyectos en ejecución", 1)
     metric(portal, "ops-metric-paused", "Suspendidos", 0)

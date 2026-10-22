@@ -143,6 +143,7 @@ def warm_portal(base_only: bool = False) -> object:
     from django.test import RequestFactory
 
     from apps.portal import views
+    from apps.portal.services.operativa_status import block_error
 
     factory = RequestFactory()
     failures = []
@@ -154,12 +155,8 @@ def warm_portal(base_only: bool = False) -> object:
         logger.info("Preparando Operativa: %s", block or "proyectos y estados")
         request = factory.get("/operativa/datos/", {"bloque": block})
         request.user = User(username="cache-warmer")
-        response = views.operativa_datos(request)
-        if (
-            response.status_code != 200
-            or b'data-block-error=""' not in response.content
-            or b'data-source-errors="0"' not in response.content
-        ):
+        context = views.operativa_block_context(request)
+        if context.get("source_errors") or block_error(context):
             failures.append(block or "portafolio")
         logger.info(
             "Operativa %s: %.1f s",
@@ -171,13 +168,11 @@ def warm_portal(base_only: bool = False) -> object:
 
     started = time.perf_counter()
     logger.info("Preparando Operativa: facturabilidad")
-    request = factory.get("/operations/resumen/", {"actualizar": "1"})
-    request.user = User(username="cache-warmer")
-    response = views.operations_resumen(request)
-    if (
-        response.status_code != 200
-        or b'data-partial="true"' in response.content
-    ):
+    try:
+        partial = views.operations_summary_data(refresh=True).errors
+    except DashboardError:
+        partial = True
+    if partial:
         failures.append("facturabilidad")
     logger.info("Facturabilidad: %.1f s", time.perf_counter() - started)
     for name, path, page in (

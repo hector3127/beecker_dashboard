@@ -175,6 +175,26 @@ def test_snapshot_returns_the_cut_the_blocks_saved(client):
     assert data["summary"]["in_progress"] == 3
 
 
+def test_snapshot_paints_the_saved_billing_cut_and_its_freshness(client):
+    from apps.portal.services.operations_summary import (
+        build_operations_summary,
+    )
+
+    key = views._operations_summary_key()
+    cache.set(key, build_operations_summary([]))
+
+    stale = client.get(SNAPSHOT).json()["data"]
+    cache.set(key + ":fresh", True)
+    fresh = client.get(SNAPSHOT).json()["data"]
+
+    assert stale["billing"]["target"] and stale["billing_fresh"] is False
+    assert fresh["billing_fresh"] is True
+
+
+def test_snapshot_without_a_billing_cut_has_none(client):
+    assert client.get(SNAPSHOT).json()["data"]["billing"] is None
+
+
 def test_unknown_block_is_rejected_without_loading_anything(client):
     response = client.get(BLOCKS, {"bloque": "todo"})
 

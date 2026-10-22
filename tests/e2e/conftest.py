@@ -78,6 +78,7 @@ def datos(monkeypatch: pytest.MonkeyPatch) -> None:
     from apps.portal.services import opportunity_profitability as opp
     from apps.portal.services.eva1 import build_eva1_view
     from apps.portal.services.eva_loader import Eva1Load
+    from apps.portal.services.facturability_loader import MonthSources
     from tests.portal import test_eva4
     from tests.portal.test_opportunity_profitability import reader
     from tests.portal.test_views import portfolio, stub_portfolio
@@ -94,6 +95,29 @@ def datos(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
     monkeypatch.setattr(eva4.timezone, "localdate", lambda: test_eva4.TODAY)
     monkeypatch.setattr(executive_refresh, "request_refresh", lambda **k: None)
+    monkeypatch.setattr(
+        "apps.portal.services.operational_sources.legacy_capacity",
+        lambda month: {
+            "month": month,
+            "available": 96.0,
+            "registered_people": 4,
+            "estimated": 100.0,
+            "consumed": 64.0,
+            "billable": 64.0,
+            "base": 160.0,
+            "days": 20,
+            "over": 1,
+            "pending": 0,
+        },
+    )
+    monkeypatch.setattr(
+        "apps.portal.views.load_year_sources",
+        lambda month: [MonthSources(month=month)],
+    )
+    monkeypatch.setattr(
+        "apps.portal.services.account_options.load_account_profitability",
+        lambda: {"accounts": [{"name": "ACME"}, {"name": "Clinica Sur"}]},
+    )
     sale = ["Confirmed", "Clinica Sur", "OP.7", "T&M", "2", 0, "2026-03-01"]
     monkeypatch.setattr(
         opp,

@@ -199,8 +199,8 @@ def test_eva4_block_prepares_its_own_cache_without_loading_other_sources(
         views, "load_eva2", lambda **kw: pytest.fail("IXB read")
     )
     req = RequestFactory().get("/operativa/datos/", {"bloque": "eva4"})
-    html = views.operativa_datos(req).content.decode()
-    assert 'id="ops-eva4-card"' in html
+    context = views.operativa_block_context(req)
+    assert context["eva4"]["available"] is True
     assert cache.get(views._operativa_fresh_key(req, "eva4")) is True
 
 

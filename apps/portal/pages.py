@@ -55,3 +55,12 @@ def eva4(request: HttpRequest) -> HttpResponse:
             ),
         },
     )
+
+
+@require_GET
+@require_capability("view_operations")
+def operativa(request: HttpRequest) -> HttpResponse:
+    """Operativa: el JS pinta el ultimo corte y refresca por bloques."""
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    return render(request, "pages/operativa.html", {"active": "operativa"})

@@ -46,7 +46,7 @@ def test_source_stage_keys_have_spanish_display_labels():
 def test_changed_templates_compile():
     for name in [
         "portal/comercial.html",
-        "portal/operativa.html",
+        "pages/operativa.html",
         "portal/ejecutiva.html",
     ]:
         assert get_template(name)

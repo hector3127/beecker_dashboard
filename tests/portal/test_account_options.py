@@ -46,8 +46,8 @@ def test_source_failure_preserves_previous_choices(monkeypatch):
 def test_operativa_header_has_no_reference_period():
     from pathlib import Path
 
-    template = Path("apps/portal/templates/portal/operativa.html").read_text(
+    template = Path("frontend/templates/pages/operativa.html").read_text(
         encoding="utf-8"
     )
     assert "Trimestre de referencia" not in template
-    assert "data-account-navigation" in template
+    assert 'aria-label="Abrir detalle de cuenta"' in template

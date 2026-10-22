@@ -31,6 +31,20 @@
   --bad-soft: #FBE3E7;
   --warn-soft: #FFF3D6;
   --warn-ink: #8A5600;
+  --state-ok: #1FA866;
+  --state-risk: #F5B31C;
+  --state-critical: #F0455E;
+  --donut-critical: #F0489E;
+  --violet: #7A4DF0;
+  --blue: #2D6BE8;
+  --up: #17924B;
+  --down: #C0233E;
+  --bar: #C9B8F7;
+  --meter: #6534DF;
+  --meter-soft: #D3C6F5;
+  --soft-card: #FAF9FF;
+  --chip: #EEF0FC;
+  --eva-head: #F1F2FC;
   --hero: linear-gradient(90deg, #5B3CFF 0%, #A02DF0 55%, #FF3FA6 100%);
   --shadow: 0 1px 3px rgba(27, 26, 107, .05);
 

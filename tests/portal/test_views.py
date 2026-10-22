@@ -5,8 +5,11 @@ from types import SimpleNamespace
 from zoneinfo import ZoneInfo
 
 import pytest
+from django.contrib.auth.models import AnonymousUser
 from django.core.cache import cache
+from django.test import RequestFactory
 
+from apps.portal import views
 from apps.portal.constants import FACTURABILITY_CACHE_PREFIX
 from apps.portal.services.capacity_loader import CapacityLoad
 from apps.portal.services.eva1 import build_eva1_view
@@ -153,6 +156,13 @@ def portfolio():
     ]
 
 
+def operativa_block(params=None):
+    """Contexto que la API de Operativa entrega para un bloque."""
+    request = RequestFactory().get("/operativa/datos/", params or {})
+    request.user = AnonymousUser()
+    return views.operativa_block_context(request)
+
+
 def test_executive_shows_the_selected_period(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
@@ -183,61 +193,57 @@ def test_executive_shows_sheets_error_without_failing(client, monkeypatch):
     assert response.status_code == 200
 
 
-def test_operational_counts_real_projects(client, monkeypatch):
+def test_operational_counts_real_projects(monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    response = client.get("/operativa/datos/", {"bloque": "eva3"})
-    html = response.content.decode()
+    context = operativa_block({"bloque": "eva3"})
 
-    assert response.status_code == 200
-    assert response.context["summary"].in_progress == 3
-    assert response.context["summary"].paused == 1
-    assert [item.name for item in response.context["managers"]] == [
+    assert context["summary"].in_progress == 3
+    assert context["summary"].paused == 1
+    assert [item.name for item in context["managers"]] == [
         "Alberto",
         "Laura Vega",
     ]
-    assert "Salud del portafolio" in html
-    assert "<circle" in html
-    assert 'name="servicio"' in html
-    assert 'value="T&amp;M"' in html
+    assert [segment.label for segment in context["donut"]] == [
+        "En tiempo",
+        "En riesgo",
+        "Críticos",
+    ]
+    assert "T&M" in context["services"]
 
 
-def test_operational_filters_by_service_and_client(client, monkeypatch):
+def test_operational_filters_by_service_and_client(monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    by_service = client.get(
-        "/operativa/datos/", {"servicio": "T&M", "bloque": "eva3"}
-    )
-    by_client = client.get(
-        "/operativa/datos/", {"cuenta": "Clinica Sur", "bloque": "eva3"}
-    )
-    nothing = client.get(
-        "/operativa/datos/", {"servicio": "IXB", "bloque": "eva3"}
-    )
+    by_service = operativa_block({"servicio": "T&M", "bloque": "eva3"})
+    by_client = operativa_block({"cuenta": "Clinica Sur", "bloque": "eva3"})
+    nothing = operativa_block({"servicio": "IXB", "bloque": "eva3"})
 
-    assert by_service.context["summary"].in_progress == 1
-    assert by_client.context["summary"].in_progress == 1
-    assert nothing.context["has_projects"] is False
-    assert "Ningún proyecto coincide con los filtros." in (
-        nothing.content.decode()
-    )
-    assert 'value="T&amp;M" selected' in by_service.content.decode()
+    assert by_service["summary"].in_progress == 1
+    assert by_client["summary"].in_progress == 1
+    assert nothing["has_projects"] is False
+    assert by_service["selected_service"] == "T&M"
+    assert by_client["selected_client"] == "Clinica Sur"
+    # Las opciones de los filtros salen de todo el portafolio, no del filtrado.
+    assert by_service["services"] == nothing["services"] == ["AER", "T&M"]
 
 
-def test_operational_without_projects(client, monkeypatch):
+def test_operational_without_projects(monkeypatch):
     stub_portfolio(monkeypatch)
 
-    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
+    context = operativa_block({"bloque": "eva3"})
 
-    assert "Sin proyectos que mostrar todavía." in html
+    assert context["has_projects"] is False
+    assert context["summary"].in_progress == 0
+    assert context["managers"] == []
 
 
-def test_operational_shows_sheets_error(client, monkeypatch):
+def test_operational_shows_sheets_error(monkeypatch):
     stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
 
-    assert "Falta configurar el dashboard." in (
-        client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
-    )
+    context = operativa_block({"bloque": "eva3"})
+
+    assert "Falta configurar el dashboard." in context["source_errors"]
 
 
 def test_commercial_reads_backlog_without_example_figures(client, monkeypatch):
@@ -259,29 +265,6 @@ def test_commercial_reads_backlog_without_example_figures(client, monkeypatch):
     assert response.status_code == 200
     assert "Cifras de ejemplo" not in html
     assert response.context["count"] == 0
-
-
-def test_navigation_links_to_current_views_without_legacy_panel(
-    client,
-    monkeypatch,
-):
-    stub_portfolio(monkeypatch, portfolio())
-
-    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
-
-    assert 'href="/"' in html
-    assert 'href="/operativa/"' in html
-    assert 'href="/comercial/"' in html
-    assert 'href="/legacy/"' not in html
-
-
-def test_screens_without_view_yet_say_coming_soon(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-
-    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
-
-    assert "data-pronto" in html
-    assert ".dc.html" not in html
 
 
 def test_login_is_required_when_configured(client, settings):
@@ -312,25 +295,14 @@ def test_delivery_manager_page_lists_real_projects(client, monkeypatch):
     assert 'href="/operativa/"' in html
 
 
-def test_operational_cards_keep_manager_links(
-    client,
-    monkeypatch,
-):
+def test_unlisted_operational_paths_are_404(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
-
-    assert 'href="/operativa/delivery-manager/alberto/?nombre=Alberto"' in html
-    assert (
-        'href="/operativa/delivery-manager/laura-vega/?nombre=Laura%20Vega"'
-        in html
-    )
     for path in (
         "/operativa/en-ejecucion/",
         "/operativa/en-tiempo/",
         "/operativa/suspendidos/",
     ):
-        assert f'href="{path}"' not in html
         assert client.get(path).status_code == 404
 
 
@@ -417,14 +389,6 @@ def test_eva1_without_projects_and_with_error(client, monkeypatch):
     assert "No hay proyectos AER o T&amp;M en progreso." in html
 
 
-def test_operational_eva_cards_link_to_eva1(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-
-    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
-
-    assert 'href="/operativa/eva-1/"' in html
-
-
 def test_eva1_requires_login_when_configured(client, settings):
     settings.PORTAL_LOGIN_REQUIRED = True
 
@@ -480,15 +444,6 @@ def test_eva2_with_error_and_login(client, monkeypatch, settings):
     settings.PORTAL_LOGIN_REQUIRED = True
 
     assert client.get("/operativa/eva-2/").status_code == 302
-
-
-def test_operational_eva_cards_link_to_eva4(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-
-    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
-
-    assert 'href="/operativa/eva-4/"' in html
-    assert 'href="/operativa/eva-2/"' not in html
 
 
 def test_account_page_lists_its_projects(client, monkeypatch):
@@ -639,14 +594,6 @@ def test_capacity_pages_require_login_when_configured(client, settings):
         assert client.get(path).status_code == 302
 
 
-def test_operational_page_links_to_capacity(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-
-    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
-
-    assert 'href="/capacidad-instalada/">' in html
-
-
 def stub_project(monkeypatch, data=None, error=""):
     load = ProjectDashboardLoad(data=data or {}, error=error)
     monkeypatch.setattr(
@@ -720,9 +667,7 @@ def test_project_page_requires_login_when_configured(client, settings):
     assert client.get("/proyecto/1/").status_code == 302
 
 
-def test_manager_cards_show_investment_and_detail_keeps_time_cost(
-    client, monkeypatch
-):
+def test_manager_detail_keeps_time_cost(client, monkeypatch):
     stub_portfolio(
         monkeypatch,
         [
@@ -731,14 +676,8 @@ def test_manager_cards_show_investment_and_detail_keeps_time_cost(
         ],
     )
 
-    operational = client.get(
-        "/operativa/datos/", {"bloque": "eva3"}
-    ).content.decode()
     detail = client.get("/operativa/delivery-manager/laura-vega/?bloque=inv")
 
-    assert "Días restantes · Avance en horas" not in operational
-    assert "Inversión comercial" in operational
-    assert "Inversión operativa" in operational
     assert detail.context["detail"].time_cost.time_days == 2
     assert detail.context["detail"].time_cost.cost_percent == 60
 
@@ -856,21 +795,18 @@ def test_kpis_page_requires_login_when_configured(client, settings):
     assert client.get("/operativa/kpis-delivery-managers/").status_code == 302
 
 
-def test_operational_eva_cards_use_real_numbers(client, monkeypatch):
+def test_operational_eva_cards_use_real_numbers(monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
     load = Eva1Load(view=build_eva1_view([eva_row(avance=40)]), error="")
     monkeypatch.setattr(
         "apps.portal.views.load_eva1", lambda *args, **kwargs: load
     )
 
-    response = client.get("/operativa/datos/", {"bloque": "eva3"})
-    html = response.content.decode()
+    context = operativa_block({"bloque": "eva3"})
 
-    assert response.context["eva3_card"].total_projects == 1
-    assert response.context["eva3_card"].time_cost.cost_percent == 40.0
-    assert response.context["eva2_card"].available is True
-    assert "40%" in html
-    assert 'href="/operativa/kpis-delivery-managers/"' in html
+    assert context["eva3_card"].total_projects == 1
+    assert context["eva3_card"].time_cost.cost_percent == 40.0
+    assert context["eva2_card"].available is True
 
 
 def facturable_gse(*rows):
@@ -1027,13 +963,13 @@ def test_investment_page_reads_gse_categories(client, monkeypatch):
     assert "Pre-Venta" in html
 
 
-def test_operational_investment_cards_use_cache_only(client, monkeypatch):
+def test_operational_investment_cards_use_cache_only(monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
     monkeypatch.setattr("apps.portal.views.peek_month_sources", lambda m: None)
 
-    response = client.get("/operativa/datos/?actualizar=1")
+    context = operativa_block({"actualizar": "1"})
 
-    assert response.context["investment"]["loading"] is True
+    assert context["investment"]["loading"] is True
 
     cache.set(
         "portal:ops:investment:v3",
@@ -1043,9 +979,9 @@ def test_operational_investment_cards_use_cache_only(client, monkeypatch):
         },
     )
 
-    response = client.get("/operativa/datos/?actualizar=1")
+    context = operativa_block({"actualizar": "1"})
 
-    assert response.context["investment"]["totals"]["operational"] == 7
+    assert context["investment"]["totals"]["operational"] == 7
 
 
 def test_missing_roster_months_show_one_note_at_the_end(client, monkeypatch):
@@ -1077,40 +1013,36 @@ def test_investment_requires_login_when_configured(client, settings):
     assert client.get("/operativa/inversion/").status_code == 302
 
 
-def test_operations_summary_fragment(client, monkeypatch):
+def test_operations_summary_data(monkeypatch):
     gse = facturable_gse(("Ana", "DEV", "AER", 134.4))
     monkeypatch.setattr(
         "apps.portal.views.load_year_sources",
         lambda month: [MonthSources(month="2026-09", gse=gse)],
     )
 
-    response = client.get("/operativa/operations-resumen/")
-    html = response.content.decode()
+    summary = views.operations_summary_data()
 
-    assert response.status_code == 200
-    assert response.context["ops"].gap == 10.0
-    assert "80%" in html
-    assert "puntos arriba de la meta" in html
-    assert "<html" not in html
+    assert summary.gap == 10.0
+    assert summary.selected.global_percent == 80
+    assert summary.bars[-1].value_text == "80%"
+    assert not summary.errors
 
 
-def test_operational_page_loads_operations_apart(client, monkeypatch):
+def test_operational_page_is_a_shell_that_loads_its_data_apart(
+    client, monkeypatch
+):
     stub_portfolio(monkeypatch, portfolio())
 
-    html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
+    html = client.get("/operativa/").content.decode()
 
-    assert 'data-summary-endpoint="/operations/resumen/"' in html
-    # El ?v= cambia con cada version del script; basta con que se cargue.
-    assert 'src="/static/portal/js/operativa.js' in html
+    assert 'id="ops-dashboard"' in html
+    assert (
+        'type="module" src="/static/app/scripts/pages/operativa/main.js' in html
+    )
     assert 'href="/operativa/facturabilidad/"' in html
     assert 'href="/operativa/facturabilidad/especialidad/"' in html
     assert 'href="/operativa/facturabilidad/recurso/"' in html
-
-
-def test_operations_fragment_without_login(client, settings):
-    settings.PORTAL_LOGIN_REQUIRED = True
-
-    assert client.get("/operativa/operations-resumen/").status_code == 401
+    assert "Proyectos en ejecución" not in html  # los datos llegan por la API
 
 
 def test_facturability_role_filter(client, monkeypatch):

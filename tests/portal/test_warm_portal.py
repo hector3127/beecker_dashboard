@@ -6,7 +6,6 @@ from types import SimpleNamespace
 from django.core.cache import cache
 from django.core.management import call_command
 from django.http import HttpResponse
-from django.test import RequestFactory
 
 from apps.portal import views
 from apps.portal.services.facturability_loader import MonthSources
@@ -36,15 +35,13 @@ def test_warmer_uses_all_portal_blocks_and_reports_partial_data(monkeypatch):
         assert request.user.is_authenticated
         calls.append(request.GET["bloque"])
         error = "Sin Clockify" if request.GET["bloque"] == "inversion" else ""
-        return HttpResponse(
-            f'<div data-block-error="{error}" data-source-errors="0"></div>'
-        )
+        return {"block_error": error, "source_errors": []}
 
-    monkeypatch.setattr(views, "operativa_datos", load)
+    monkeypatch.setattr(views, "operativa_block_context", load)
     monkeypatch.setattr(
         views,
-        "operations_resumen",
-        lambda request: HttpResponse('<div data-partial="true"></div>'),
+        "operations_summary_data",
+        lambda refresh=False: SimpleNamespace(errors=("Sin conexion",)),
     )
     monkeypatch.setattr(
         views,
@@ -122,15 +119,10 @@ def test_summary_cache_skips_calculation_and_manual_refresh_rebuilds(
         return [MonthSources(month=month)]
 
     monkeypatch.setattr(views, "load_year_sources", sources)
-    factory = RequestFactory()
-    request = factory.get("/operations/resumen/")
-    request.user = SimpleNamespace(is_authenticated=True)
-    first = views.operations_resumen(request)
-    assert views.operations_resumen(request).content == first.content
+    first = views.operations_summary_data()
+    assert views.operations_summary_data() == first
     assert len(calls) == 1
-    request.GET = request.GET.copy()
-    request.GET["actualizar"] = "1"
-    views.operations_resumen(request)
+    views.operations_summary_data(refresh=True)
     assert len(calls) == 2
     cache.clear()
 
@@ -144,9 +136,7 @@ def test_partial_summary_preserves_previous_valid_cut(monkeypatch):
         "load_year_sources",
         lambda month: [MonthSources(month=month, error="Sin conexion")],
     )
-    request = RequestFactory().get("/operations/resumen/")
-    request.user = SimpleNamespace(is_authenticated=True)
-    assert b'data-partial="true"' in views.operations_resumen(request).content
+    assert views.operations_summary_data(refresh=True).errors
     assert cache.get(key) == "previous-cut"
     assert cache.get(key + ":fresh") is None
     cache.clear()

@@ -11,6 +11,9 @@ from apps.portal import views
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
 from apps.portal.services.eva_loader import Eva1Load, Eva2Load
+from apps.portal.services.operations_summary import (
+    build_operations_summary,
+)
 
 
 def test_open_is_cache_first_and_refresh_saves_snapshot():
@@ -29,8 +32,7 @@ def test_open_is_cache_first_and_refresh_saves_snapshot():
             side_effect=AssertionError("Blocking Azure call"),
         ),
     ):
-        response = views.operativa(request)
-        assert response.status_code == 200 and b"Calculando" in response.content
+        assert views.operativa_context(request)["loading"] is True
     refresh = RequestFactory().get("/operativa/datos/", {"bloque": "eva3"})
     refresh.user = request.user
     with (
@@ -41,14 +43,14 @@ def test_open_is_cache_first_and_refresh_saves_snapshot():
             views, "load_eva1", return_value=Eva1Load(build_eva1_view([]), "")
         ),
     ):
-        assert views.operativa_datos(refresh).status_code == 200
+        views.operativa_block_context(refresh)
     assert cache.get(views._operativa_key(request))
     with patch.object(
         views,
         "load_eva2",
         side_effect=AssertionError("Cached navigation contacted Azure"),
     ):
-        assert views.operativa(request).status_code == 200
+        assert views.operativa_context(request)["loading"] is False
 
 
 def test_only_complete_fresh_blocks_skip_automatic_refresh():
@@ -60,13 +62,13 @@ def test_only_complete_fresh_blocks_skip_automatic_refresh():
     )
     for block in views._OPS_BLOCKS:
         cache.set(views._operativa_fresh_key(request, block), True)
-    assert b'data-async="false"' in views.operativa(request).content
+    assert views.operativa_context(request)["async_operativa"] is False
 
     cache.delete(views._operativa_fresh_key(request, "capacidad"))
-    assert b'data-async="true"' in views.operativa(request).content
+    assert views.operativa_context(request)["async_operativa"] is True
     other = RequestFactory().get("/operativa/", {"cuenta": "OTRA"})
     other.user = request.user
-    assert b'data-async="true"' in views.operativa(other).content
+    assert views.operativa_context(other)["async_operativa"] is True
     cache.clear()
 
 
@@ -75,15 +77,16 @@ def test_summary_cut_is_embedded_and_its_freshness_is_independent():
     request = RequestFactory().get("/operativa/")
     request.user = SimpleNamespace(is_authenticated=True)
     key = views._operations_summary_key()
-    cache.set(key, "<div data-operations-summary>73%</div>")
+    saved = build_operations_summary([])
+    cache.set(key, saved)
     cache.set(key + ":fresh", True)
-    html = views.operativa(request).content
-    assert b"73%" in html
-    assert b'data-summary-fresh="true"' in html
+    context = views.operativa_context(request)
+    assert context["operations_summary"] == saved
+    assert context["summary_fresh"] is True
     cache.delete(key + ":fresh")
-    html = views.operativa(request).content
-    assert b"73%" in html
-    assert b'data-summary-fresh="false"' in html
+    context = views.operativa_context(request)
+    assert context["operations_summary"] == saved
+    assert context["summary_fresh"] is False
     cache.clear()
 
 

@@ -40,6 +40,15 @@ y proyectos. Reglas:
 - Un detalle fuera de alcance responde **404**, no 403, para no confirmar que
   existe.
 
+### Cifras del equipo completo
+
+Con un alcance limitado, Operativa **no muestra** lo que no se puede recortar
+por cuenta: las tarjetas EVA 1 y EVA 3, la capacidad instalada y la
+facturabilidad global (la API de facturabilidad responde 403). El resto
+(proyectos, salud, Delivery Managers, inversión, EVA-4 y las opciones de los
+filtros) se calcula solo con lo permitido, y cada alcance tiene su propio corte
+guardado.
+
 ## Cómo se aplica
 
 | Dónde | Cómo |

@@ -23,10 +23,12 @@ def test_relative_imports_between_modules_get_the_hashed_name(
         ignore_patterns=["admin", "rest_framework", "portal", "core"],
     )
 
-    page = tmp_path / "app/scripts/pages/eva4"
-    main = next(page.glob("main.*.js")).read_text("utf-8")
-    # Django reescribe el import con comillas dobles y la huella en el nombre.
-    assert re.search(r'from "\./sections/processes\.[0-9a-f]{12}\.js";', main)
-    # Los nombres estables del importmap no se tocan: el HTML los traduce.
-    assert "from '#app/data/api-client.js'" in main
-    assert list((page / "sections").glob("processes.*.js"))
+    for name, section in (("eva4", "processes"), ("operativa", "metrics")):
+        page = tmp_path / "app/scripts/pages" / name
+        main = next(page.glob("main.*.js")).read_text("utf-8")
+        # Django reescribe el import: comillas dobles y huella en el nombre.
+        pattern = rf'from "\./sections/{section}\.[0-9a-f]{{12}}\.js";'
+        assert re.search(pattern, main), name
+        # Los nombres estables del importmap no se tocan: el HTML los traduce.
+        assert "from '#app/data/api-client.js'" in main
+        assert list((page / "sections").glob(f"{section}.*.js"))

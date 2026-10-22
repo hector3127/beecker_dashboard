@@ -5,7 +5,8 @@ from typing import Any
 
 from django.conf import settings
 
-from apps.portal.templatetags.manager_investment import manager_investment
+from apps.portal.services.manager_investment import manager_investment
+from apps.portal.services.operativa_status import block_error
 
 """BKD.120.015 - Contratos de pantalla
 Cada funcion arma {"data": ..., "meta": ...} para una pantalla. Los
@@ -211,20 +212,6 @@ def _eva4_card(report: Any) -> dict[str, Any]:
     }
 
 
-def block_error(context: dict[str, Any]) -> str:
-    """Motivo por el que el bloque pedido no llego completo ('' si llego)."""
-    if context.get("block_error"):
-        return str(context["block_error"])
-    refreshed = context.get("refresh_block")
-    if refreshed == "inversion":
-        return str((context.get("investment") or {}).get("error") or "")
-    if refreshed == "capacidad":
-        return str((context.get("capacity_live") or {}).get("error") or "")
-    if refreshed == "eva3" and not context["eva3_card"].available:
-        return "EVA 3 no disponible"
-    return ""
-
-
 def operativa_screen(
     context: dict[str, Any], *, unrestricted: bool, snapshot: bool = False
 ) -> dict[str, Any]:
@@ -291,6 +278,12 @@ def operativa_screen(
         data["pending_blocks"] = [b for b in pending.split(",") if b]
         data["async"] = bool(context.get("async_operativa"))
         data["billing_fresh"] = bool(context.get("summary_fresh"))
+        # El ultimo corte de facturabilidad se pinta de inmediato; la
+        # actualizacion decide aparte si ya caduco.
+        saved = context.get("operations_summary")
+        data["billing"] = (
+            billing_screen(saved)["data"] if saved and unrestricted else None
+        )
     return {"data": data, "meta": {}}
 
 

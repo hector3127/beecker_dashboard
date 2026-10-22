@@ -20,3 +20,22 @@ export function el(tag, props = {}, ...children) {
   node.append(...children);
   return node;
 }
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+/**
+ * Crea un nodo SVG con atributos; igual que `el`, pero en el espacio de nombres SVG.
+ * @param {string} tag
+ * @param {Record<string, any>} [attrs]
+ * @param {...(Node|string)} children
+ * @returns {SVGElement}
+ */
+export function svg(tag, attrs = {}, ...children) {
+  const node = document.createElementNS(SVG_NS, tag);
+  for (const [key, value] of Object.entries(attrs)) {
+    if (value !== undefined && value !== null && value !== false) node.setAttribute(key, String(value));
+  }
+  node.append(...children);
+  return node;
+}
+
