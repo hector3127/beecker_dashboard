@@ -1,6 +1,7 @@
 // @ts-check
 // Comparativa de margenes: une el periodo de la URL, la API y las secciones.
 import { apiGet, apiSend } from '#app/data/api-client.js';
+import { withReturn } from '#app/data/navigation.js';
 import { readParams } from '#app/data/url-state.js';
 import { el } from '#app/lib/dom.js';
 import { clearState, showError, showLoading } from '#app/ui/states.js';
@@ -15,6 +16,8 @@ const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
 const content = byId('mg-content');
 const status = byId('mg-status');
 const excluded = byId('mg-excluded');
+const projectsLink = /** @type {HTMLAnchorElement} */ (byId('mg-projects-link'));
+projectsLink.href = withReturn(projectsLink.href);
 const refresh = /** @type {HTMLButtonElement} */ (byId('mg-refresh'));
 
 /** El periodo y la cuenta viajan en la URL de la pagina; la API recibe los mismos. */

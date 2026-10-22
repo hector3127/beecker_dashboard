@@ -5,7 +5,7 @@
 {% block content %}
 <div class="toolbar">
 <a class="back" data-portal-back href="{{ back_url }}">← Regresar a {{ back_label }}</a>
-<a class="btn btn-ghost" href="{% url 'portal:costos_detalle' %}?vista=proyectos{% if account %}&amp;nombre={{ account|urlencode }}{% endif %}{% if period_query %}&amp;{{ period_query }}{% endif %}&amp;volver={{ request.get_full_path|urlencode }}">Ver lista por proyecto</a>
+<a class="btn btn-ghost" id="mg-projects-link" href="{% url 'portal:costos_detalle' %}?vista=proyectos{% if account %}&amp;nombre={{ account|urlencode }}{% endif %}">Ver lista por proyecto</a>
 </div>
 <header class="pgh" data-tone="finance"><div><h1>Margen vendido vs. real{% if account %} · {{ account }}{% endif %}</h1></div></header>
 <form method="get" class="card mg-filters" id="mg-dates">

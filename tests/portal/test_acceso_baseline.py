@@ -2,10 +2,8 @@
 
 Los acuerdos ya estan resueltos: sus pruebas viven en test_agreements_api.py.
 
-Lo que hoy se rechaza debe seguir rechazandose. Lo que todavia no existe
-(permisos por accion y alcance por cuenta) queda como xfail estricto: el
-dia que la fase de accesos lo resuelva, estas pruebas pasan y obligan a
-quitar la marca.
+Lo que hoy se rechaza debe seguir rechazandose. Los permisos por accion y
+el alcance por cuenta ya estan resueltos en la comparativa y la cuenta.
 """
 
 import pytest
@@ -15,10 +13,6 @@ from apps.portal.models import ExecutiveAgreement
 from tests.portal.test_views import portfolio, stub_portfolio
 
 pytestmark = pytest.mark.django_db
-
-PENDIENTE = pytest.mark.xfail(
-    strict=True, reason="Fase 2: permisos y alcance por usuario (app access)"
-)
 
 
 @pytest.fixture
@@ -94,9 +88,8 @@ def test_sin_permiso_de_costos_no_se_ve_la_comparativa(sesion, settings):
     assert sesion.get("/ejecutiva/oportunidades/").status_code == 403
 
 
-@PENDIENTE
-def test_cuenta_fuera_de_alcance_no_existe(sesion, settings, monkeypatch):
+def test_sin_permiso_no_se_ve_la_cuenta(sesion, settings, monkeypatch):
     settings.ACCESS_ENFORCED = True
     stub_portfolio(monkeypatch, portfolio())
 
-    assert sesion.get("/cuenta/clinica-sur/").status_code == 404
+    assert sesion.get("/cuenta/clinica-sur/").status_code == 403

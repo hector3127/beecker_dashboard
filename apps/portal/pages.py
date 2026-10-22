@@ -11,11 +11,7 @@ from django.views.decorators.http import require_GET
 from apps.access.checks import require_capability, scope_for
 from apps.portal import views
 from apps.portal.services.eva4 import anterior_disponible, month_picker
-from apps.portal.services.executive_period import (
-    bounds,
-    period_view,
-    query_string,
-)
+from apps.portal.services.executive_period import bounds, period_view
 from apps.portal.services.return_navigation import (
     account_back_url,
     return_context,
@@ -98,6 +94,5 @@ def margenes(request: HttpRequest) -> HttpResponse:
             "account": account,
             "start": start.isoformat(),
             "end": end.isoformat(),
-            "period_query": query_string(),
         },
     )

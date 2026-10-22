@@ -6,6 +6,7 @@ from typing import Any
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.core.cache import cache
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -944,6 +945,14 @@ def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
                 return redirect("portal:operativa")
             raise Http404("No existe esa cuenta.")
         client = found[0]
+    access = resolve(request)
+    if not access.scope.allows_account(client):
+        # Una cuenta ajena no existe para esta persona.
+        raise Http404("No existe esa cuenta.")
+    if access.enforced and not (
+        access.can("view_operations") or access.can("view_agreements")
+    ):
+        raise PermissionDenied
     if request.GET.get("bloque") == "consumos":
         return JsonResponse(
             get_account_consumption(
@@ -2063,6 +2072,11 @@ def cuenta_financiera(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
     name = request.GET.get("nombre", "")
+    access = resolve(request)
+    if access.enforced and not access.can("view_costs"):
+        return JsonResponse({"error": "Sin acceso a costos"}, status=403)
+    if not access.scope.allows_account(name):
+        return JsonResponse({"error": "No existe esa cuenta"}, status=404)
     try:
         accounts = load_account_profitability()["accounts"]
         account = next(

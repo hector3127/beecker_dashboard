@@ -80,11 +80,8 @@ def test_limited_scope_does_not_see_another_accounts_agreements(
 ):
     enforced("ana", caps=BOTH, scope=AccessScope.limited(accounts=["ACME"]))
     browser_session(portal, client)
-    portal.goto(portal.base + CUENTA)
-
-    section = portal.locator("#executive-agreements")
-    expect(section).to_contain_text("Sin acuerdos")
-    expect(section).not_to_contain_text("Revisar fase 2")
+    # La cuenta ajena ya no abre; tampoco se puede leer por el endpoint.
+    assert portal.request.get(portal.base + CUENTA).status == 404
     # Ni siquiera pidiendo el endpoint con la cuenta ajena en la direccion.
     body = portal.request.get(
         portal.base + "/ejecutiva/acuerdos/?account=Clinica+Sur"

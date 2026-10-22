@@ -16,7 +16,7 @@ respuestas; la migración del frontend sí avanza.
 | 4 | Operativa: API por bloques, filtro por servicio, alcance y permiso | Hecha |
 | 5 | Acuerdos: API de lectura y escritura con permisos y alcance | Hecha |
 | 6 | Línea base de lo nuevo (cambios del 22/10) | Hecha |
-| **7** | **Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso** | **En curso: 7a hecha** |
+| **7** | **Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso** | **En curso: 7a hecha, 7b en parte** |
 | 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Pendiente |
 | 9 | Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos) | Pendiente |
 | 10 | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | Pendiente |
@@ -182,7 +182,19 @@ Lo que se planeaba para esta fase:
   eso `data/navigation.js` se hará con la cuenta (7b), que es quien enlaza.
 - Pruebas: `test_margins_api.py`, `tests/e2e/test_margenes.py` y el recorrido
   «Cuenta → comparativa → regresar» (el snapshot solo cambia el ícono ↗).
-- Quedan en xfail la cuenta fuera de alcance (7b).
+
+## Fase 7b: alcance de la cuenta y `data/navigation.js` (en parte)
+
+- Hecho: `/cuenta/` (y su bloque de consumos) devuelve 404 para una cuenta fuera
+  del alcance y 403 sin `view_operations` ni `view_agreements`;
+  `cuenta/financiera/` exige `view_costs` y alcance. Ya no hay xfail de acceso.
+- Hecho: `data/navigation.js` (`withReturn`) con pruebas; la comparativa lo usa.
+- **Pendiente:** reescribir la página de la cuenta (≈ 50 líneas de plantilla con
+  CSS y JS en línea, modales, NPS, consumos MPB, `account_view.py` de 1,000
+  líneas) como `pages/cuenta` con API propia. Es del tamaño de Operativa; se
+  hace en pasos: contrato y KPIs, tabla de proyectos, modales, consumos.
+- Pendiente: `/api/rpc/obtenerVistaCuentaBeecker` sigue entregando cualquier
+  cuenta a quien tenga sesión; desaparece con la fase 10.
 
 ## Fases siguientes con lo nuevo integrado
 
