@@ -23,6 +23,9 @@ steps:
   - script: uv run mypy .
     displayName: Mypy
 
+  - script: uv run playwright install --with-deps chromium
+    displayName: Navegador para pruebas e2e
+
   - script: uv run pytest
     displayName: Pytest
     env:

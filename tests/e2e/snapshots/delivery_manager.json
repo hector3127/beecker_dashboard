@@ -1,0 +1,7 @@
+{
+  "proyectos": [
+    "ID DEL PROYECTO PROYECTO CUENTA SERVICIO INICIO FIN PRESUPUESTO (H) CONSUMO (H) INV. OPERATIVA (H) INV. COMERCIAL (H) ESTADO AVANCE ETC (H) RENOVACIÓN (DÍAS) RIESGO ABIERTO",
+    "2 Portal Pacientes Clinica Sur T&M 01/01/26 31/12/26 100 40 — — Crítico 12 días de vencido 50% 60 -12 0",
+    "3 HIS ACME AER 01/01/26 31/12/26 100 125 — — Crítico Presupuesto usado: 125% 50% 60 0 0"
+  ]
+}
