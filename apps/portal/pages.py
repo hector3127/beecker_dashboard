@@ -14,7 +14,11 @@ from apps.access.checks import require_capability, resolve, scope_for
 from apps.portal import views
 from apps.portal.services.account import find_account
 from apps.portal.services.eva4 import anterior_disponible, month_picker
-from apps.portal.services.executive_period import bounds, period_view
+from apps.portal.services.executive_period import (
+    bounds,
+    period_view,
+    query_string,
+)
 from apps.portal.services.return_navigation import (
     account_back_url,
     return_context,
@@ -180,4 +184,45 @@ def diccionario(request: HttpRequest) -> HttpResponse:
     )
     return render(
         request, "pages/diccionario.html", {**navigation, "active": "ejecutiva"}
+    )
+
+
+@require_GET
+@ensure_csrf_cookie  # el JS firma con ella los cambios de acuerdos
+@period_view
+def ejecutiva(request: HttpRequest) -> HttpResponse:
+    """Business Overview: el JS pinta el corte que entrega la API.
+
+    Mientras se completa la migracion, ?vista=nueva abre la pagina nueva y
+    sin ella sigue la anterior (views.ejecutiva).
+    """
+    if request.GET.get("vista") != "nueva":
+        return views.ejecutiva(request)
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    return _executive_page(request)
+
+
+@require_capability("view_executive")
+def _executive_page(request: HttpRequest) -> HttpResponse:
+    from apps.portal.services.executive_period import current, parse
+    from apps.portal.services.executive_refresh import request_refresh
+    from apps.portal.services.financial_cache import cached_financial_snapshot
+
+    chosen = current() or parse(
+        {"periodo": "anio", "anio": str(timezone.localdate().year)}
+    )
+    if not cached_financial_snapshot():
+        request_refresh()
+    return render(
+        request,
+        "pages/executive.html",
+        {
+            "active": "ejecutiva",
+            "label": chosen.label,
+            "year": chosen.start.year,
+            "start": chosen.start.isoformat(),
+            "end": chosen.end.isoformat(),
+            "period_query": query_string(),
+        },
     )

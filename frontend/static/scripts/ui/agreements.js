@@ -16,10 +16,12 @@ const field = (label, control) => el('label', {}, label, control);
 const select = (name, options) => el('select', { name }, ...options.map(([value, text]) => el('option', { value, text })));
 
 /**
+ * Con `account` la lista se limita a esa cuenta (solo pendientes abiertos); sin
+ * ella muestra todas las del alcance, agrupadas, y la alta pide la cuenta.
  * @param {HTMLElement} container
- * @param {{account: string}} options Cuenta a la que se limita la lista.
+ * @param {{account?: string, accounts?: string[]}} options
  */
-export function mountAgreements(container, { account }) {
+export function mountAgreements(container, { account = '', accounts = [] }) {
   /** @type {any[]} */
   let items = [];
   let canEdit = false;
@@ -28,10 +30,17 @@ export function mountAgreements(container, { account }) {
 
   const feedback = el('span', { id: 'agreement-feedback', role: 'status', 'aria-live': 'polite' });
   const search = /** @type {HTMLInputElement} */ (
-    el('input', { type: 'search', id: 'agreement-search', placeholder: 'Buscar pendiente o acuerdo…', 'aria-label': 'Buscar decisiones, acuerdos o pendientes' })
+    el('input', { type: 'search', id: 'agreement-search', placeholder: account ? 'Buscar pendiente o acuerdo…' : 'Buscar cuenta o acuerdo…', 'aria-label': 'Buscar decisiones, acuerdos o pendientes' })
   );
   const filter = /** @type {HTMLSelectElement} */ (
-    el('select', { id: 'agreement-filter', 'aria-label': 'Filtrar por estado' }, el('option', { value: '', text: 'Todos los pendientes' }), el('option', { value: 'open', text: 'Abiertos / por atender' }), el('option', { value: 'progress', text: 'En curso' }))
+    el(
+      'select',
+      { id: 'agreement-filter', 'aria-label': 'Filtrar por estado' },
+      el('option', { value: '', text: account ? 'Todos los pendientes' : 'Todos los estados' }),
+      el('option', { value: 'open', text: 'Abiertos / por atender' }),
+      el('option', { value: 'progress', text: 'En curso' }),
+      ...(account ? [] : [el('option', { value: 'done', text: 'Completados' })]),
+    )
   );
   const body = el('tbody', { id: 'agreement-rows' });
   const add = /** @type {HTMLButtonElement} */ (el('button', { type: 'button', class: 'btn', id: 'agreement-new', hidden: true, text: '+ Agregar acuerdo o pendiente' }));
@@ -39,6 +48,9 @@ export function mountAgreements(container, { account }) {
     el(
       'form',
       { id: 'agreement-form', class: 'agreement-form', hidden: true },
+      ...(account
+        ? []
+        : [field('Cuenta', el('select', { name: 'account', required: true }, el('option', { value: '', text: 'Selecciona una cuenta' }), ...accounts.map((name) => el('option', { value: name, text: name }))))]),
       field('Origen', select('meeting_source', [['direction', 'Dirección'], ['board', 'Consejo']])),
       field('Fecha de sesión', el('input', { name: 'meeting_date', type: 'date', required: true })),
       field('Título', el('input', { name: 'title', maxlength: 200, required: true })),
@@ -60,11 +72,16 @@ export function mountAgreements(container, { account }) {
   function draw() {
     const needle = plain(search.value);
     const shown = items
-      .filter((x) => x.status !== 'done' && (!filter.value || x.status === filter.value) && plain([x.title, x.notes].join(' ')).includes(needle))
-      .sort((a, b) => String(b.meeting_date || '').localeCompare(String(a.meeting_date || '')));
+      .filter((x) => (!account || x.status !== 'done') && (!filter.value || x.status === filter.value) && plain([x.account, x.title, x.notes].join(' ')).includes(needle))
+      .sort((a, b) => String(a.account || '~').localeCompare(String(b.account || '~')) || String(b.meeting_date || '').localeCompare(String(a.meeting_date || '')));
+    let previous = null;
     body.replaceChildren(
       ...(shown.length
-        ? shown.map(row)
+        ? shown.flatMap((item) => {
+            const heading = !account && item.account !== previous ? [el('tr', { class: 'agreement-group' }, el('th', { colspan: HEADERS.length, scope: 'colgroup', text: item.account || 'Sin cuenta · pendiente de clasificar' }))] : [];
+            previous = item.account;
+            return [...heading, row(item)];
+          })
         : [el('tr', {}, el('td', { colspan: HEADERS.length, text: 'Sin acuerdos de dirección o consejo registrados para esta búsqueda.' }))]),
     );
   }
@@ -118,7 +135,7 @@ export function mountAgreements(container, { account }) {
   function edit(item) {
     form.reset();
     editing = item ? item.id : null;
-    for (const name of FIELDS) {
+    for (const name of [...FIELDS, 'account']) {
       const control = /** @type {HTMLInputElement | null} */ (form.elements.namedItem(name));
       if (control && item && item[name] != null) control.value = item[name];
     }
@@ -135,7 +152,7 @@ export function mountAgreements(container, { account }) {
     /** @type {HTMLButtonElement} */ (save).disabled = true;
     const values = Object.fromEntries(new FormData(form));
     try {
-      const { data } = editing === null ? await apiSend('POST', 'agreements/', { ...values, account }) : await apiSend('PATCH', `agreements/${editing}/`, values);
+      const { data } = editing === null ? await apiSend('POST', 'agreements/', { ...values, account: account || values.account }) : await apiSend('PATCH', `agreements/${editing}/`, values);
       items = editing === null ? [...items, data] : items.map((x) => (x.id === data.id ? data : x));
       form.hidden = true;
       say('Guardado.');
@@ -151,7 +168,7 @@ export function mountAgreements(container, { account }) {
     el(
       'section',
       { class: 'card agreements', id: 'executive-agreements', 'aria-labelledby': 'followup-title' },
-      el('div', { class: 'agreements-heading' }, el('div', {}, el('h2', { id: 'followup-title', text: 'Decisiones y seguimiento' }), el('p', { class: 'note', text: `Pendientes y acuerdos abiertos o en curso de ${account}.` })), add),
+      el('div', { class: 'agreements-heading' }, el('div', {}, el('h2', { id: 'followup-title', text: 'Decisiones y seguimiento' }), el('p', { class: 'note', text: account ? `Pendientes y acuerdos abiertos o en curso de ${account}.` : 'Acuerdos de sesiones de dirección y consejo, organizados por cuenta.' })), add),
       form,
       el('div', { class: 'cuenta-toolbar' }, search, filter, feedback),
       el('div', { class: 'cuenta-scroll' }, el('table', {}, el('thead', {}, el('tr', {}, ...HEADERS.map((h) => el('th', { scope: 'col', text: h })))), body)),
@@ -159,7 +176,7 @@ export function mountAgreements(container, { account }) {
   );
   body.append(el('tr', {}, el('td', { colspan: HEADERS.length, text: 'Consultando acuerdos de dirección y consejo…' })));
 
-  apiGet('agreements/', { account, pending_only: 1 })
+  apiGet('agreements/', account ? { account, pending_only: 1 } : {})
     .then(({ data }) => {
       items = data.items;
       canEdit = data.can_edit;

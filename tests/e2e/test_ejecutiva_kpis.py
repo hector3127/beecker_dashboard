@@ -63,13 +63,13 @@ def groups(portal):
 def test_glossary_opens_with_the_three_groups_and_the_dictionary_link(
     portal, executive, snapshot
 ):
-    portal.goto(portal.base + "/")
-    glossary = portal.locator(".executive-glossary")
-    expect(glossary.locator(".executive-glossary-grid")).to_be_hidden()
+    portal.goto(portal.base + "/?vista=nueva")
+    glossary = portal.locator(".glossary")
+    expect(glossary.locator(".glossary-grid")).to_be_hidden()
 
     glossary.get_by_text("¿Qué significa cada indicador?").click()
 
-    expect(glossary.locator(".executive-glossary-grid")).to_be_visible()
+    expect(glossary.locator(".glossary-grid")).to_be_visible()
     assert glossary.locator("h2").all_inner_texts() == [
         "Financiera",
         "Operaciones",
@@ -85,7 +85,7 @@ def test_glossary_opens_with_the_three_groups_and_the_dictionary_link(
 def test_account_comparison_searches_sorts_and_keeps_the_url(
     portal, executive, snapshot
 ):
-    portal.goto(portal.base + "/")
+    portal.goto(portal.base + "/?vista=nueva")
     coverage = portal.locator("#ranking-coverage")
     expect(coverage).to_contain_text("5 cuentas comparadas por utilidad bruta")
     assert (
@@ -145,7 +145,7 @@ def test_comparison_state_is_restored_from_the_url(portal, executive):
 def test_entering_an_account_and_coming_back_keeps_search_and_order(
     portal, executive
 ):
-    portal.goto(portal.base + "/")
+    portal.goto(portal.base + "/?vista=nueva")
     portal.get_by_label("Comparar cuentas por").select_option("revenue")
     portal.get_by_label("Buscar cuenta").fill("mexico")
     expect(portal.locator("#ranking-coverage")).to_contain_text(
@@ -155,7 +155,7 @@ def test_entering_an_account_and_coming_back_keeps_search_and_order(
     portal.locator("#healthy-financial-accounts").get_by_role(
         "link", name=re.compile("Heineken")
     ).click()
-    portal.wait_for_url(re.compile(r"/cuenta/heineken/"))
+    portal.wait_for_url(re.compile(r"/cuenta/heineken-mexico/"))
     assert "volver=" in portal.url
 
     portal.get_by_role("link", name=re.compile("^← Regresar a")).click()
@@ -172,7 +172,7 @@ def test_without_the_full_list_the_comparison_says_it_is_pending(
         "apps.portal.services.financial_cache.cached_financial_snapshot",
         lambda: {"loaded_at": "2026-10-22T10:00:00-06:00"},
     )
-    portal.goto(portal.base + "/")
+    portal.goto(portal.base + "/?vista=nueva")
 
     expect(portal.locator("#ranking-coverage")).to_contain_text(
         "pendiente de preparar"

@@ -122,3 +122,33 @@ def test_the_capability_is_required(client, enforced):
 
 def test_an_invalid_period_is_a_400(client):
     assert client.get(URL, {"periodo": "siglo"}).status_code == 400
+
+
+def test_refresh_reports_state_and_which_blocks_exist(client, monkeypatch):
+    from apps.portal.services import executive_refresh
+
+    monkeypatch.setattr(
+        executive_refresh, "refresh_status", lambda: {"state": "running"}
+    )
+    monkeypatch.setattr(
+        executive_refresh,
+        "request_refresh",
+        lambda force=False: {"state": "queued", "partial": True},
+    )
+
+    status = client.get(URL + "actualizar/").json()["data"]
+    started = client.post(URL + "actualizar/").json()["data"]
+
+    assert status["state"] == "running"
+    assert started["state"] == "queued" and started["partial"] is True
+    assert status["blocks"] == {
+        "financial": True,
+        "commercial": True,
+        "operations": True,
+    }
+
+
+def test_refresh_needs_the_capability(client, enforced):
+    enforced("sin", caps=frozenset({"view_operations"}))
+
+    assert client.post(URL + "actualizar/").status_code == 403

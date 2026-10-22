@@ -63,7 +63,7 @@ urlpatterns = [
         name="eva3_cerrados_burn",
     ),
     path("operativa/eva3/cerrados/", views.eva3_cerrados, name="eva3_cerrados"),
-    path("", views.ejecutiva, name="ejecutiva"),
+    path("", pages.ejecutiva, name="ejecutiva"),
     path(
         "proyectos/<str:project_id>/",
         views.proyecto_detalle,

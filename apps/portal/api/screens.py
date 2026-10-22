@@ -22,7 +22,12 @@ from apps.portal.api.serializers import (
 )
 from apps.portal.services import eva4
 from apps.portal.services import executive_screen as executive_data
-from apps.portal.services.executive_period import applied, bounds, parse
+from apps.portal.services.executive_period import (
+    ExecutivePeriod,
+    applied,
+    bounds,
+    parse,
+)
 from apps.portal.services.margins_screen import load_margins
 
 """BKD.120.016 - Pantallas de la API v1
@@ -208,6 +213,15 @@ class ManagerScreenView(APIView):
         return Response(manager_screen(base, extra, hours, rows))
 
 
+def requested_period(request: Request) -> ExecutivePeriod | None:
+    """El periodo de ?periodo=...; 400 si no es valido."""
+    query = request.query_params
+    try:
+        return parse(query) if "periodo" in query else None
+    except (ValueError, TypeError, OverflowError) as error:
+        raise ParseError(str(error)) from error
+
+
 class ExecutiveScreenView(APIView):
     """Business Overview: el ultimo corte preparado, sin consultar fuentes."""
 
@@ -225,11 +239,7 @@ class ExecutiveScreenView(APIView):
             cached_financial_snapshot,
         )
 
-        query = request.query_params
-        try:
-            period = parse(query) if "periodo" in query else None
-        except (ValueError, TypeError, OverflowError) as error:
-            raise ParseError(str(error)) from error
+        period = requested_period(request)
         scope = scope_for(request)
         with applied(period):
             financial = cached_financial_snapshot()
@@ -250,3 +260,48 @@ class ExecutiveScreenView(APIView):
             },
         }
         return Response(executive_screen(figures, accounts, meta))
+
+
+class ExecutiveRefreshView(APIView):
+    """Prepara el corte de Business Overview sin esperar a las fuentes."""
+
+    permission_classes = ExecutiveScreenView.permission_classes
+
+    @staticmethod
+    def _state(status: dict[str, Any]) -> Response:
+        from apps.portal.services.executive_operations import (
+            cached_operations_snapshot,
+        )
+        from apps.portal.services.financial_cache import (
+            cached_financial_snapshot,
+        )
+
+        financial = cached_financial_snapshot()
+        operations = cached_operations_snapshot()
+        return Response(
+            {
+                "data": {
+                    "state": status.get("state"),
+                    "partial": bool(status.get("partial")),
+                    "blocks": {
+                        "financial": bool(financial.get("loaded_at")),
+                        "commercial": bool(financial.get("commercial")),
+                        "operations": operations.get("projects") is not None,
+                    },
+                }
+            }
+        )
+
+    def get(self, request: Request) -> Response:
+        """Estado de la preparacion del periodo."""
+        from apps.portal.services.executive_refresh import refresh_status
+
+        with applied(requested_period(request)):
+            return self._state(refresh_status())
+
+    def post(self, request: Request) -> Response:
+        """Inicia la preparacion del periodo; responde de inmediato."""
+        from apps.portal.services.executive_refresh import request_refresh
+
+        with applied(requested_period(request)):
+            return self._state(request_refresh(force=True))

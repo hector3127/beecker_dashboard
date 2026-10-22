@@ -51,3 +51,10 @@ test('percentages keep two decimals and a missing value stays pending', async ()
   assert.equal(formatPercent(-5, ' pp'), '-5.00 pp');
   assert.equal(formatPercent(null), 'Pendiente');
 });
+
+test('the compact figure has no currency symbol and shares the rules of money', async () => {
+  const { formatCompact } = await import('../../frontend/static/scripts/lib/format.js');
+  assert.equal(formatCompact(1_897_644.14), '1.89M');
+  assert.equal(formatCompact(-1500), '-1K');
+  assert.equal(formatCompact(null), 'Pendiente');
+});

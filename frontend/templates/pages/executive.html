@@ -1,0 +1,25 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}Business Overview{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/executive.css' %}">{% endblock %}
+{% block content %}
+<div id="exec-root"
+ data-label="{{ label }}" data-year="{{ year }}" data-start="{{ start }}" data-end="{{ end }}"
+ data-dictionary-url="{% url 'portal:diccionario_datos' %}"
+ data-all-accounts-url="{% url 'portal:todas_cuentas' %}{% if period_query %}?{{ period_query }}{% endif %}"
+ data-account-url="{% url 'portal:cuenta' slug='ACCOUNT_SLUG' %}"
+ data-costs-url="{% url 'portal:costos_detalle' %}{% if period_query %}?{{ period_query }}{% endif %}"
+ data-operations-url="{% url 'portal:operativa' %}"
+ data-commercial-url="{% url 'portal:comercial' %}?origen=business-overview">
+<div class="exec-tools"><span id="exec-status" role="status" aria-live="polite"></span><div class="exec-actions"><a class="btn btn-ghost" href="{% url 'portal:diccionario_datos' %}">Glosario de indicadores</a><button type="button" class="btn" id="exec-refresh">Actualizar datos</button></div></div>
+<header class="pgh" data-tone="finance"><div><h1>Business Overview</h1><p>Visión estratégica y toma de decisiones</p></div><div class="pgh-s" id="exec-period"></div></header>
+<div id="exec-error" aria-live="polite"></div>
+<div id="exec-glossary"></div>
+<div id="exec-cards" class="exec-cards"></div>
+<section class="card" id="exec-monthly"></section>
+<div id="exec-accounts"></div>
+<div id="exec-agreements"></div>
+</div>
+<noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/executive/main.js' %}"></script>{% endblock %}
