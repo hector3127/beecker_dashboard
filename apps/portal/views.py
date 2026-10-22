@@ -12,6 +12,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_http_methods
 
+from apps.access.checks import scope_for
 from apps.portal.constants import KPI_HISTORY_CHART_MANAGERS
 from apps.portal.models import ExecutiveAgreement
 from apps.portal.schemas import (
@@ -244,6 +245,10 @@ def actualizacion_ejecutiva(request: HttpRequest) -> HttpResponse:
 
 def _operativa_key(request: Any) -> str:
     filters = "|".join(request.GET.get(k, "") for k in ("servicio", "cuenta"))
+    scope = scope_for(request)
+    if not scope.unrestricted:
+        # Cada alcance tiene su propio corte: nunca se comparte con otro.
+        filters += "|" + scope.signature()
     return (
         "portal:operativa:snapshot:v10:"
         + timezone.localdate().isoformat()
@@ -280,7 +285,7 @@ def _operations_summary_key() -> str:
 
 def _scope_operativa_investment(request: Any, context: dict[str, Any]) -> None:
     """Limit displayed investment to the projects in the filtered portfolio."""
-    if not any(
+    if scope_for(request).unrestricted and not any(
         request.GET.get(key, "").strip() for key in ("servicio", "cuenta")
     ):
         return
@@ -306,6 +311,22 @@ def _scope_operativa_investment(request: Any, context: dict[str, Any]) -> None:
     }
 
 
+def _in_scope(request: Any, projects: Any) -> list[Any]:
+    """Los proyectos que la persona de la peticion puede ver."""
+    return scope_for(request).filter_projects(
+        projects, lambda p: p.project_id, lambda p: p.client
+    )
+
+
+def _scoped_eva4(request: Any) -> dict[str, Any]:
+    """Corte de EVA-04 con solo lo que el alcance permite."""
+    from apps.portal.services import eva4
+
+    return eva4.restrict(
+        eva4.cached_eva4(), scope_for(request), timezone.localdate()
+    )
+
+
 def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
     """Compone bloques independientes sin perder respuestas paralelas."""
     key = _operativa_key(request)
@@ -317,9 +338,7 @@ def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
     patches = cache.get_many(keys)
     for block_key in keys:
         context.update(patches.get(block_key, {}))
-    from apps.portal.services.eva4 import cached_eva4
-
-    context["eva4"] = cached_eva4()
+    context["eva4"] = _scoped_eva4(request)
     context["clients"] = account_names(context.get("clients", ()))
     _scope_operativa_investment(request, context)
     return context
@@ -350,9 +369,7 @@ def operativa_context(request: Any) -> dict[str, Any]:
         }
     context = dict(context)
     context["clients"] = account_names(context.get("clients", ()))
-    from apps.portal.services.eva4 import cached_eva4
-
-    context["eva4"] = cached_eva4()
+    context["eva4"] = _scoped_eva4(request)
     context["pending_blocks"] = ",".join(
         block
         for block in _OPS_BLOCKS
@@ -464,7 +481,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
             from apps.portal.services.operational_sources import eva_projects
 
             population = filter_projects(
-                eva_projects(ixb, aer),
+                _in_scope(request, eva_projects(ixb, aer)),
                 request.GET.get("servicio", ""),
                 request.GET.get("cuenta", ""),
             )
@@ -523,7 +540,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
 
     ixb = load_eva2(enrich=block == "eva3")
     aer = load_eva1(enrich=False)
-    eva_population = eva_projects(ixb, aer)
+    eva_population = _in_scope(request, eva_projects(ixb, aer))
     projects = filter_projects(
         eva_population,
         selected_service,
@@ -576,7 +593,9 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
         aer = load_eva1()
         context["eva3_card"] = build_eva1_card(aer)
         projects = filter_projects(
-            eva_projects(ixb, aer), selected_service, selected_client
+            _in_scope(request, eva_projects(ixb, aer)),
+            selected_service,
+            selected_client,
         )
         enriched = summarize_portfolio(projects)
         context.update(
@@ -1740,6 +1759,36 @@ def _role_scope(
     ]
 
     return (chosen, None), options
+
+
+def operations_summary_data(refresh: bool = False) -> Any:
+    """Facturabilidad global de enero al ultimo mes cerrado.
+
+    Lee GSE y Recursos; por eso se guarda aparte y solo se vuelve a leer
+    cuando el corte caduca o se pide actualizar. Un resumen parcial no se
+    guarda para no fijar un error.
+    """
+    today = timezone.localdate()
+    month = last_closed_month(today)
+    key = "portal:ops:summary-data:v1:" + month
+    cached = cache.get(key)
+    if cached is not None and cache.get(key + ":fresh") and not refresh:
+        return cached
+    sources = load_year_sources(month)
+    roles = default_role_keys(list_roles(item.gse for item in sources))
+    months = [
+        build_month_facturability(
+            item.month, item.gse, item.error, (roles, None)
+        )
+        for item in sources
+    ]
+    summary = build_operations_summary(
+        months, month_closed=month != str(today.strftime("%Y-%m"))
+    )
+    if sources and not summary.errors:
+        cache.set(key, summary, 86400)
+        cache.set(key + ":fresh", True, _OPS_FRESH_SECONDS)
+    return summary
 
 
 @require_GET

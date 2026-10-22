@@ -2,7 +2,12 @@
 
 from django.urls import path
 
-from apps.portal.api.screens import Eva4ScreenView
+from apps.portal.api.screens import (
+    Eva4ScreenView,
+    OperativaBillingView,
+    OperativaBlockView,
+    OperativaView,
+)
 from apps.portal.api.views import MeView, PingView
 
 """BKD.120.013 - Rutas de la API v1
@@ -15,4 +20,15 @@ urlpatterns = [
     path("me/", MeView.as_view(), name="me"),
     path("ping/", PingView.as_view(), name="ping"),
     path("screens/eva4/", Eva4ScreenView.as_view(), name="eva4"),
+    path("screens/operativa/", OperativaView.as_view(), name="operativa"),
+    path(
+        "screens/operativa/datos/",
+        OperativaBlockView.as_view(),
+        name="operativa_datos",
+    ),
+    path(
+        "screens/operativa/facturabilidad/",
+        OperativaBillingView.as_view(),
+        name="operativa_billing",
+    ),
 ]

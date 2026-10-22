@@ -1,5 +1,6 @@
 """Alcance de datos: sobre que cuentas y proyectos puede actuar una persona."""
 
+import hashlib
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from typing import Literal, TypeVar
@@ -51,6 +52,17 @@ class AccessScope:
             accounts=frozenset(filter(None, map(account_key, accounts))),
             projects=frozenset(filter(None, map(project_key, projects))),
         )
+
+    def signature(self) -> str:
+        """Huella estable del alcance, para separar cortes guardados."""
+        raw = "|".join(
+            [
+                "all" if self.unrestricted else "limited",
+                ",".join(sorted(self.accounts)),
+                ",".join(sorted(self.projects)),
+            ]
+        )
+        return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
     @property
     def kind(self) -> Literal["all", "limited"]:
