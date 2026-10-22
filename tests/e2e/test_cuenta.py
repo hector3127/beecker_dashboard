@@ -112,3 +112,38 @@ def test_una_cuenta_que_no_carga_dice_por_que(portal, datos, monkeypatch):
         re.search(r"proyectos", visible(portal.locator("#cuenta-content")))
         is None
     )
+
+
+def test_ver_mas_de_presupuesto_filtra_por_servicio(portal, cuenta):
+    portal.goto(portal.base + URL)
+    portal.locator("#cuenta-page-label").wait_for()
+
+    portal.get_by_role("button", name="Ver más ↗").nth(1).click()
+    dialog = portal.get_by_role("dialog", name="Presupuesto vs consumo")
+    expect(dialog).to_contain_text("800 h")  # presupuesto de los 8 proyectos
+    expect(dialog).to_contain_text("1 de 8")  # excedidos
+
+    dialog.get_by_role("button", name="Todos").click()
+    dialog.get_by_label("Buscar proyecto").fill("proyecto 2")
+    expect(dialog).to_contain_text("1 de 1")
+    dialog.get_by_role("button", name="Cerrar").click()
+    expect(dialog).to_be_hidden()
+
+
+def test_ver_mas_de_oportunidades_y_nps(portal, cuenta):
+    portal.goto(portal.base + URL)
+    portal.locator("#cuenta-page-label").wait_for()
+
+    portal.locator("#cuenta-opportunities").get_by_role("button").click()
+    backlog = portal.get_by_role("dialog", name="Backlog de la cuenta")
+    expect(backlog).to_contain_text("OP.7")
+    backlog.get_by_label("Buscar cuenta o proyecto…").fill("zzz")
+    expect(backlog).to_contain_text("0 registros")
+    backlog.get_by_role("button", name="Cerrar").click()
+
+    portal.get_by_role("heading", name="Satisfacción del cliente").get_by_role(
+        "button"
+    ).click()
+    expect(
+        portal.get_by_role("dialog", name=re.compile("NPS por proyecto"))
+    ).to_contain_text("P1")

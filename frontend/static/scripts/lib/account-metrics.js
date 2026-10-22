@@ -2,6 +2,7 @@
 // Totales de lo que la cuenta muestra, calculados sobre sus proyectos. Las
 // horas llegan por lotes despues de abrir la pagina, asi que se recalculan
 // aqui con las mismas reglas cada vez. Sin DOM: se prueba con node.
+import { plain } from '#app/lib/format.js';
 
 /**
  * @typedef {object} AccountProject
@@ -117,4 +118,39 @@ export function pageOf(items, page, size) {
   const current = Math.max(1, Math.min(page, pages));
   const from = (current - 1) * size;
   return { items: items.slice(from, from + size), page: current, pages, from: items.length ? from + 1 : 0, to: Math.min(from + size, items.length) };
+}
+
+/**
+ * Lo que muestra el analisis de presupuesto contra consumo: solo proyectos con
+ * horas ya leidas, filtrados por servicio y busqueda.
+ * @param {AccountProject[]} projects
+ * @param {{service?: string, search?: string, by?: 'service' | 'project'}} [options]
+ */
+export function budgetView(projects, { service = '', search = '', by = 'service' } = {}) {
+  const needle = plain(search);
+  const selected = projects.filter(
+    (p) => !p.clockify_pending && p.burn != null && (!service || serviceName(p) === service) && plain(`${p.id} ${p.name || ''}`).includes(needle),
+  );
+  const totals = hourTotals(selected);
+  /** @param {(p: AccountProject) => string} key */
+  const group = (key) => {
+    /** @type {Map<string, {name: string, budget: number, burn: number}>} */
+    const found = new Map();
+    for (const p of selected) {
+      const name = key(p);
+      const item = found.get(name) || { name, budget: 0, burn: 0 };
+      item.budget += Number(p.budget || 0);
+      item.burn += Number(p.burn || 0);
+      found.set(name, item);
+    }
+    return [...found.values()].sort((a, b) => a.name.localeCompare(b.name, 'es'));
+  };
+  const services = group(serviceName).map((s) => ({ ...s, percent: totals.burn ? (s.burn / totals.burn) * 100 : 0 }));
+  return {
+    selected,
+    totals,
+    exceeded: selected.filter(isOverBudget).length,
+    groups: by === 'service' ? services : group((p) => p.id),
+    services,
+  };
 }

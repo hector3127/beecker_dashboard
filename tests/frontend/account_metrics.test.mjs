@@ -74,3 +74,19 @@ test('paging clamps the page and reports the visible range', () => {
   assert.equal(pageOf(items, 99, 6).page, 3);
   assert.deepEqual(pageOf([], 1, 6), { items: [], page: 1, pages: 1, from: 0, to: 0 });
 });
+
+test('the budget analysis ignores projects whose hours are not read yet', async () => {
+  const { budgetView } = await import('../../frontend/static/scripts/lib/account-metrics.js');
+  const view = budgetView(projects);
+  assert.deepEqual(view.selected.map((p) => p.id), ['A', 'B', 'C']);
+  assert.equal(view.exceeded, 1);
+  assert.deepEqual(view.services.map((s) => [s.name, s.burn]), [['IxB', 50], ['RaaS', 190]]);
+  assert.equal(Math.round(view.services[1].percent), 79);
+});
+
+test('the budget analysis filters by service and search, and can group by project', async () => {
+  const { budgetView } = await import('../../frontend/static/scripts/lib/account-metrics.js');
+  assert.deepEqual(budgetView(projects, { service: 'RaaS' }).selected.map((p) => p.id), ['B', 'C']);
+  assert.deepEqual(budgetView(projects, { search: 'b' }).selected.map((p) => p.id), ['B']);
+  assert.deepEqual(budgetView(projects, { by: 'project' }).groups.map((g) => g.name), ['A', 'B', 'C']);
+});

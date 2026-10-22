@@ -7,6 +7,7 @@ import { formatDate } from '#app/lib/format.js';
 import { clearState, showError, showLoading } from '#app/ui/states.js';
 import { renderAlerts, renderOpportunities } from './sections/alerts.js';
 import { renderCharts } from './sections/charts.js';
+import { openBacklog, openBudget, openNps, openRoc } from './sections/dialogs.js';
 import { renderKpis } from './sections/kpis.js';
 import { createProjectsTable } from './sections/projects.js';
 
@@ -29,10 +30,10 @@ function render(data) {
   const top = el('div', { class: 'cuenta-top' });
   const grid = el('div', { class: 'cuenta-grid' });
   const list = el('div');
-  renderKpis(top, data, projects);
-  renderCharts(grid, projects);
+  renderKpis(top, data, projects, () => openRoc(data.roc));
+  renderCharts(grid, projects, { budget: () => openBudget(projects), nps: () => openNps(projects) });
   renderAlerts(grid, projects);
-  renderOpportunities(grid, data.opportunities);
+  renderOpportunities(grid, data.opportunities, () => openBacklog(data.opportunities));
   content.append(top, grid, list);
   table = createProjectsTable(list, /** @type {string} */ (content.dataset.projectUrl));
   table.update(projects);

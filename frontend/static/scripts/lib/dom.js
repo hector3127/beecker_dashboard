@@ -22,6 +22,14 @@ export function el(tag, props = {}, ...children) {
   return node;
 }
 
+/**
+ * Boton de texto «Ver más» que abre un detalle.
+ * @param {() => void} onclick
+ */
+export function moreButton(onclick) {
+  return el('button', { type: 'button', class: 'more', onclick, text: 'Ver más ↗' });
+}
+
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
 /**

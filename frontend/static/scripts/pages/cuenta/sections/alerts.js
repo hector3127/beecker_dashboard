@@ -1,6 +1,6 @@
 // @ts-check
 // Alertas de la cuenta y lista de oportunidades abiertas.
-import { el } from '#app/lib/dom.js';
+import { el, moreButton } from '#app/lib/dom.js';
 import { alerts } from '#app/lib/account-metrics.js';
 
 /**
@@ -25,13 +25,14 @@ export function renderAlerts(container, projects) {
 /**
  * @param {HTMLElement} container
  * @param {any[]} opportunities
+ * @param {() => void} onMore
  */
-export function renderOpportunities(container, opportunities) {
+export function renderOpportunities(container, opportunities, onMore) {
   container.append(
     el(
       'section',
       { class: 'card cuenta-panel', id: 'cuenta-opportunities' },
-      el('h2', { text: 'Oportunidades de la cuenta' }),
+      el('h2', {}, 'Oportunidades de la cuenta ', moreButton(onMore)),
       ...(opportunities.length
         ? opportunities.map((o) => el('div', { class: 'opportunity-row' }, el('span', { text: o.name }), el('span', { class: 'badge', text: o.stage })))
         : [el('p', { class: 'note', text: 'Sin oportunidades abiertas.' })]),

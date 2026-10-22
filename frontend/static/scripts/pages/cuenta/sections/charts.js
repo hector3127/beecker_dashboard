@@ -1,6 +1,6 @@
 // @ts-check
 // Graficas de la cuenta: avance por modelo, horas por servicio, estados y NPS.
-import { el, svg } from '#app/lib/dom.js';
+import { el, moreButton, svg } from '#app/lib/dom.js';
 import { formatNumber } from '#app/lib/format.js';
 import { DONUT, donutArcs } from '#app/lib/charts.js';
 import { byService, npsAverage, npsProjects, stateCounts } from '#app/lib/account-metrics.js';
@@ -9,6 +9,9 @@ const hours = (/** @type {number} */ value) => `${formatNumber(value, 1)} h`;
 
 /** @param {string} title @param {...(Node|string)} body */
 const panel = (title, ...body) => el('section', { class: 'card cuenta-panel' }, el('h2', { text: title }), ...body);
+/** @param {string} title @param {() => void} onMore @param {...(Node|string)} body */
+const panelWithMore = (title, onMore, ...body) =>
+  el('section', { class: 'card cuenta-panel' }, el('h2', {}, title, ' ', moreButton(onMore)), ...body);
 
 /** Porcentaje de cada modelo: completados, otras etapas y con alertas. */
 function modelProgress(/** @type {ReturnType<typeof byService>} */ groups) {
@@ -30,12 +33,13 @@ function modelProgress(/** @type {ReturnType<typeof byService>} */ groups) {
 }
 
 /** Presupuesto contra consumo por servicio, con la barra mas alta como escala. */
-function serviceHours(/** @type {ReturnType<typeof byService>} */ groups) {
+function serviceHours(/** @type {ReturnType<typeof byService>} */ groups, /** @type {() => void} */ onMore) {
   const scale = Math.max(1, ...groups.flatMap((g) => [g.budget, g.burn]));
   const bar = (/** @type {string} */ kind, /** @type {number} */ value) =>
     el('i', { class: `bar ${kind}`, style: { height: `${(value / scale) * 100}%` }, title: `${kind === 'budget' ? 'Presupuesto' : 'Consumo'} ${hours(value)}` });
-  return panel(
+  return panelWithMore(
     'Consumo de horas vs. presupuesto',
+    onMore,
     el(
       'div',
       { class: 'service-chart' },
@@ -84,7 +88,7 @@ function stateDonut(projects) {
 }
 
 /** NPS por proyecto: promedio y puntos de los primeros seis. */
-function satisfaction(/** @type {import('#app/lib/account-metrics.js').AccountProject[]} */ projects) {
+function satisfaction(/** @type {import('#app/lib/account-metrics.js').AccountProject[]} */ projects, /** @type {() => void} */ onMore) {
   const rated = npsProjects(projects);
   const average = npsAverage(projects);
   const first = rated.slice(0, 6);
@@ -96,8 +100,9 @@ function satisfaction(/** @type {import('#app/lib/account-metrics.js').AccountPr
   }
   line.append(svg('polyline', { class: 'nps-line', fill: 'none', points: first.map((p, i) => `${x(i)},${y(Number(p.nps))}`).join(' ') }));
   first.forEach((p, i) => line.append(svg('circle', { class: 'nps-dot', cx: x(i), cy: y(Number(p.nps)), r: 3 }), svg('text', { class: 'axis', x: x(i), y: 137, 'text-anchor': 'middle' }, p.id)));
-  return panel(
+  return panelWithMore(
     'Satisfacción del cliente',
+    onMore,
     rated.length
       ? el(
           'div',
@@ -113,8 +118,9 @@ function satisfaction(/** @type {import('#app/lib/account-metrics.js').AccountPr
 /**
  * @param {HTMLElement} container
  * @param {import('#app/lib/account-metrics.js').AccountProject[]} projects
+ * @param {{budget: () => void, nps: () => void}} open Abren los detalles.
  */
-export function renderCharts(container, projects) {
+export function renderCharts(container, projects, open) {
   const groups = byService(projects);
-  container.append(modelProgress(groups), serviceHours(groups), stateDonut(projects), satisfaction(projects));
+  container.append(modelProgress(groups), serviceHours(groups, open.budget), stateDonut(projects), satisfaction(projects, open.nps));
 }
