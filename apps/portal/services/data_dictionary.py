@@ -54,9 +54,9 @@ CONCEPTS = [
         "Facturación mensual pendiente con Florencia",
     ),
     (
-        "Ranking 70/30",
-        "Puntuación = 70 × utilidad de cuenta / mayor utilidad absoluta + 30 × facturación de cuenta / mayor facturación. Son dos indicadores monetarios normalizados por separado: utilidad (70%) y facturación (30%). El porcentaje de margen se muestra como información adicional. No premia 100% de una cuenta pequeña frente a una contribución material mayor. Incluye todas las cuentas con los costos disponibles; los resultados con costos pendientes se marcan como parciales (*). Dos grupos sin duplicados, hasta 5 por grupo.",
-        "Ponderación confirmada por el usuario; base contable pendiente",
+        "Comparación de cuentas",
+        "En Business Overview se elige facturación, utilidad bruta o margen bruto, sin ponderación 70/30. Se comparan todas las cuentas del corte con dato para ese indicador, se separan en mitad superior e inferior y se muestran hasta 5 por grupo. La búsqueda limita las cuentas comparadas; cada encabezado permite invertir el orden dentro del grupo. Un porcentaje no aplicable no equivale a cero. * indica costos y márgenes parciales. Los nombres de los grupos representan posiciones relativas, no una evaluación integral de salud.",
+        "Corte financiero del periodo · base contable pendiente",
     ),
     (
         "Tarifa de costo vendida (costing rate)",

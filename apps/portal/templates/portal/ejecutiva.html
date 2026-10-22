@@ -1,6 +1,6 @@
 {% extends 'portal/base.html' %}
 {% load static %}
-{% block extra_head %}<link rel="stylesheet" href="{% static 'portal/css/executive_calendar.css' %}"><link rel="stylesheet" href="{% static 'portal/css/executive_cards.css' %}?v=20261021-loading"><link rel="stylesheet" href="{% static 'portal/css/executive_rankings.css' %}"><link rel="stylesheet" href="{% static 'portal/css/executive_layout.css' %}"><link rel="stylesheet" href="{% static 'portal/css/executive_methods.css' %}?v=20261021">{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'portal/css/executive_calendar.css' %}"><link rel="stylesheet" href="{% static 'portal/css/executive_cards.css' %}?v=20261021-loading"><link rel="stylesheet" href="{% static 'portal/css/executive_rankings.css' %}?v=20261022"><link rel="stylesheet" href="{% static 'portal/css/executive_layout.css' %}"><link rel="stylesheet" href="{% static 'portal/css/executive_methods.css' %}?v=20261021">{% endblock %}
 {% block title %}Business Overview{% endblock %}
 {% block body_class %}executive-page{% endblock %}
 {% block css %}
@@ -109,8 +109,19 @@ details.mr[open] .ch2{transform:rotate(90deg)}
 <div class="m2 kx"><span class="executive-metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 9v6l-4 2v-8z"/></svg></span><div style="flex:1;min-width:0"><div style="font-size:15.5px;font-weight:700;color:#2B2FA8;line-height:1.25"><a href="{% url 'portal:comercial' %}" style="color:inherit">Previas al cierre</a> </div></div><div style="text-align:right;flex:none;max-width:215px"><b id="commercial-open" style="display:block;font-size:22px;color:#14125E;line-height:1.1;letter-spacing:-.01em">—</b></div></div>
 <a href="{% url 'portal:comercial' %}?origen=business-overview" class="executive-detail-link"><span>Ver detalle de Comercial</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div>
 <div class="g executive-monthly" style="grid-template-columns:1fr"><div class="c p"><div class="ti"><h3>Rentabilidad mensual · {{ executive_year|default:2026 }}</h3><span class="ej" id="monthly-profit-state">Consultando</span><div class="executive-chart-legend"><span style="color:#8B5CF6">&#9679; Facturación</span><span style="color:#C9BDF2">&#9679; Costos</span><span style="color:#F0489E">&#9679; Margen bruto (%)</span></div></div><div id="monthly-profit-chart" style="overflow:auto">Consultando DataRevenue...</div><details class="kpi-method"><summary>Fuentes y cálculo</summary><p id="monthly-profit-note">Ingresos por fecha de Revenue; costos por fecha de las horas en Clockify.</p></details></div></div>
-<section class="c p ranking-section" aria-labelledby="ranking-section-title"><div class="ranking-section-heading"><h2 id="ranking-section-title">Rentabilidad por cuenta</h2><a class="ranking-all" href="{% url 'portal:todas_cuentas' %}{% if executive_query %}?{{ executive_query }}{% endif %}">Ver todas las cuentas →</a></div><div class="g executive-rankings"><section class="c p ranking-card healthy"><div class="ranking-heading"><span class="ranking-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 3 7-9M14 5h6v6M5 21v-3m5 3v-5m5 5v-3m5 3v-7"/></svg></span><div class="ranking-title"><h3>Cuentas sanas · {{ executive_label|default:2026 }}</h3><p>70% utilidad bruta en dinero + 30% facturación.</p></div><span class="ranking-count" id="healthy-account-count" aria-live="polite">— cuentas</span></div><div class="ranking-scroll"><table><thead><tr><th>#</th><th>Cuenta</th><th>Facturación · 30%</th><th>Utilidad bruta · 70%</th><th>Margen bruto (%)</th></tr></thead><tbody id="healthy-financial-accounts"><tr><td colspan="5">Consultando…</td></tr></tbody></table></div></section><section class="c p ranking-card unhealthy"><div class="ranking-heading"><span class="ranking-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4 2 19a1 1 0 0 0 1 2h18a1 1 0 0 0 1-2L14 4a2 2 0 0 0-4 0ZM12 9v5m0 3v1"/></svg></span><div class="ranking-title"><h3>Cuentas no sanas · {{ executive_label|default:2026 }}</h3><p>Cuentas con menor puntuación conjunta. Incluye costos disponibles; * indica corte parcial.</p></div><span class="ranking-count" id="unhealthy-account-count" aria-live="polite">— cuentas</span></div><div class="ranking-scroll"><table><thead><tr><th>#</th><th>Cuenta</th><th>Facturación · 30%</th><th>Utilidad bruta · 70%</th><th>Margen bruto (%)</th></tr></thead><tbody id="unhealthy-financial-accounts"><tr><td colspan="5">Consultando…</td></tr></tbody></table></div></section></div></section>
-
+<section class="c p ranking-section" aria-labelledby="ranking-section-title">
+ <div class="ranking-section-heading"><h2 id="ranking-section-title">Rentabilidad por cuenta</h2><a class="ranking-all" href="{% url 'portal:todas_cuentas' %}{% if executive_query %}?{{ executive_query }}{% endif %}">Ver todas las cuentas →</a></div>
+ <div class="ranking-controls" id="account-ranking-controls">
+  <div><label for="ranking-search">Buscar cuenta</label><input id="ranking-search" type="search" placeholder="Nombre de la cuenta…" autocomplete="off"></div>
+  <div><label for="ranking-sort">Comparar cuentas por</label><select id="ranking-sort"><option value="gross_profit">Utilidad bruta ($)</option><option value="revenue">Facturación ($)</option><option value="margin">Margen bruto (%)</option></select></div>
+  <p id="ranking-coverage" role="status" aria-live="polite"></p>
+ </div>
+ <div class="g executive-rankings">
+  {% include 'portal/_executive_ranking_card.html' with kind="healthy" title="Cuentas sanas" %}
+  {% include 'portal/_executive_ranking_card.html' with kind="unhealthy" title="Cuentas no sanas" %}
+ </div>
+ <p class="ranking-explanation">Los grupos indican posiciones relativas según el criterio elegido, no una evaluación integral de la cuenta. Haz clic en una columna para cambiar el orden. * Costos y márgenes parciales sujetos a cambios.</p>
+</section>
 
 {% include 'portal/_executive_agreements.html' %}
 
@@ -158,5 +169,6 @@ details.mr[open] .ch2{transform:rotate(90deg)}
 {{ financial_snapshot|json_script:"financial-cache" }}
 {{ operations_snapshot|json_script:"operations-cache" }}
 <script src="{% static 'portal/js/executive_report.js' %}?v=20261021-context" defer></script>
+<script src="{% static 'portal/js/executive_rankings.js' %}?v=20261022" defer></script>
 <script src="{% static 'portal/js/executive_methods.js' %}?v=20261021" defer></script>
 {% endblock %}
