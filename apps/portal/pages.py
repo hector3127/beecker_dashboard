@@ -2,15 +2,17 @@
 
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET
 
-from apps.access.checks import require_capability, scope_for
+from apps.access.checks import require_capability, resolve, scope_for
 from apps.portal import views
+from apps.portal.services.account import find_account
 from apps.portal.services.eva4 import anterior_disponible, month_picker
 from apps.portal.services.executive_period import bounds, period_view
 from apps.portal.services.return_navigation import (
@@ -99,18 +101,38 @@ def margenes(request: HttpRequest) -> HttpResponse:
     )
 
 
-@require_GET
-def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
-    """Cuenta: el JS pinta los datos de la API.
+def authorized_account(request: HttpRequest, slug: str) -> str | HttpResponse:
+    """Nombre de la cuenta pedida, o la respuesta si no puede abrirse.
 
-    Mientras se completa la migracion, ?vista=nueva abre la pagina nueva y
-    sin ella sigue la anterior (views.cuenta).
+    Una cuenta fuera del alcance no existe (404); sin permiso para leer
+    cuentas, 403. Si el portafolio no carga, vuelve a Operativa.
     """
-    if request.GET.get("vista") != "nueva" or request.GET.get("bloque"):
-        return views.cuenta(request, slug)
+    client = request.GET.get("nombre", "").strip()
+    if not client:
+        portfolio = views.load_portfolio()
+        found = find_account(portfolio.projects, slug)
+        if found is None:
+            if portfolio.error:
+                return redirect("portal:operativa")
+            raise Http404("No existe esa cuenta.")
+        client = found[0]
+    access = resolve(request)
+    if not access.scope.allows_account(client):
+        raise Http404("No existe esa cuenta.")
+    if access.enforced and not (
+        access.can("view_operations") or access.can("view_agreements")
+    ):
+        raise PermissionDenied
+    return client
+
+
+@require_GET
+@ensure_csrf_cookie  # el JS firma con ella los cambios de acuerdos
+def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
+    """Cuenta: el JS pinta los datos de la API."""
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    client = views.authorized_account(request, slug)
+    client = authorized_account(request, slug)
     if isinstance(client, HttpResponse):
         return client
     navigation = return_context(

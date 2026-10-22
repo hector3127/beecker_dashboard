@@ -6,7 +6,6 @@ from typing import Any
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.core.cache import cache
-from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -22,7 +21,6 @@ from apps.portal.schemas import (
     Period,
     RoleOption,
 )
-from apps.portal.services.account import find_account
 from apps.portal.services.account_options import account_names
 from apps.portal.services.capacity import (
     build_capacity_csv,
@@ -105,7 +103,9 @@ from apps.portal.services.period_filter import (
 from apps.portal.services.periods import current_quarter
 from apps.portal.services.portfolio_loader import (
     PortfolioLoad,
-    load_portfolio,
+)
+from apps.portal.services.portfolio_loader import (
+    load_portfolio as load_portfolio,  # pages.cuenta lo llama por aqui
 )
 from apps.portal.services.portfolio_summary import (
     build_donut_segments,
@@ -909,196 +909,6 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
     )
 
     return render(request, "portal/delivery_manager.html", context)
-
-
-def authorized_account(request: HttpRequest, slug: str) -> str | HttpResponse:
-    """Nombre de la cuenta pedida, o la respuesta si no puede abrirse.
-
-    Una cuenta fuera del alcance no existe (404); sin permiso para leer
-    cuentas, 403. Si el portafolio no carga, vuelve a Operativa.
-    """
-    client = request.GET.get("nombre", "").strip()
-    if not client:
-        portfolio = load_portfolio()
-        found = find_account(portfolio.projects, slug)
-        if found is None:
-            if portfolio.error:
-                return redirect("portal:operativa")
-            raise Http404("No existe esa cuenta.")
-        client = found[0]
-    access = resolve(request)
-    if not access.scope.allows_account(client):
-        raise Http404("No existe esa cuenta.")
-    if access.enforced and not (
-        access.can("view_operations") or access.can("view_agreements")
-    ):
-        raise PermissionDenied
-    return client
-
-
-@require_GET
-def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
-    """
-    Muestra una cuenta (cliente) con todos sus proyectos.
-
-    Args:
-        request: Peticion HTTP.
-        slug: Nombre de la cuenta escrito para la URL.
-
-    Returns:
-        La pagina de la cuenta.
-
-    Raises:
-        Http404: Cuando ningun proyecto es de esa cuenta.
-    """
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-
-    from django.http import JsonResponse
-
-    from apps.ejecutivo.account_rpc import (
-        get_account_consumption,
-        get_account_view,
-    )
-
-    client = authorized_account(request, slug)
-    if isinstance(client, HttpResponse):
-        return client
-    if request.GET.get("bloque") == "consumos":
-        return JsonResponse(
-            get_account_consumption(
-                client,
-                request.GET.get("offset", 0),
-                3,
-                request.GET.getlist("pending_id") or None,
-            )
-        )
-    data = get_account_view(client)
-    projects = data.get("proyectos", [])
-    groups: dict[str, dict[str, Any]] = {}
-    for project in projects:
-        group = groups.setdefault(
-            project.get("servicio") or "Sin servicio",
-            {
-                "name": project.get("servicio") or "Sin servicio",
-                "budget": 0,
-                "burn": 0,
-            },
-        )
-        group["budget"] += project.get("budget") or 0
-        group["burn"] += project.get("burn") or 0
-    budget = sum(p.get("budget") or 0 for p in projects)
-    burn = sum(p.get("burn") or 0 for p in projects)
-    maximum = max([1, *[max(g["budget"], g["burn"]) for g in groups.values()]])
-    for group in groups.values():
-        group["budget_width"] = group["budget"] / maximum * 100
-        group["burn_width"] = group["burn"] / maximum * 100
-    states: dict[str, int] = {}
-    for project in projects:
-        state = project.get("estado") or "Sin estado"
-        states[state] = states.get(state, 0) + 1
-    known = [
-        p
-        for p in projects
-        if p.get("budget")
-        and p.get("burn") is not None
-        and not p.get("clockifyPending")
-    ]
-    progress = (
-        sum(p["burn"] / p["budget"] * 100 for p in known) / len(known)
-        if known
-        else None
-    )
-    risky = sum(1 for p in projects if p.get("excedido") or p.get("atrasado"))
-    for group in groups.values():
-        subset = [
-            p
-            for p in projects
-            if (p.get("servicio") or "Sin servicio") == group["name"]
-        ]
-        group["count"] = len(subset)
-        group["completed"] = (
-            round(
-                sum(
-                    1
-                    for p in subset
-                    if str(p.get("etapa", "")).lower()
-                    in ("completed", "completado")
-                    and not p.get("excedido")
-                    and not p.get("atrasado")
-                )
-                / len(subset)
-                * 100
-            )
-            if subset
-            else 0
-        )
-        group["risk"] = (
-            round(
-                sum(1 for p in subset if p.get("excedido") or p.get("atrasado"))
-                / len(subset)
-                * 100
-            )
-            if subset
-            else 0
-        )
-        group["other"] = max(0, 100 - group["completed"] - group["risk"])
-    palette = ["#24bc86", "#6540ed", "#f5b326", "#ec4d79", "#b1abc4"]
-    state_rows = []
-    running = 0.0
-    for index, (name, count) in enumerate(states.items()):
-        percent = count / len(projects) * 100 if projects else 0
-        state_rows.append(
-            {
-                "name": name,
-                "count": count,
-                "percent": round(percent),
-                "dash": percent,
-                "offset": -running,
-                "color": palette[index % len(palette)],
-            }
-        )
-        running += percent
-    context = {
-        "active": "operativa",
-        "loaded_at": timezone.localtime(),
-        "data": data,
-        "client": client,
-        "projects": projects,
-        "total": len(projects),
-        "budget": budget,
-        "burn": burn,
-        "groups": list(groups.values()),
-        "states": [
-            {
-                "name": key,
-                "count": value,
-                "percent": round(value / len(projects) * 100)
-                if projects
-                else 0,
-            }
-            for key, value in states.items()
-        ],
-        "alerts": [
-            p for p in projects if p.get("excedido") or p.get("atrasado")
-        ],
-        "progress": progress,
-        "risk_percent": round(risky / len(projects) * 100) if projects else 0,
-        "risk_count": risky,
-        "cost_variance": round((burn - budget) / budget * 100, 1)
-        if budget
-        else None,
-        "state_chart": state_rows,
-        "development": sum(
-            1 for p in projects if p.get("estado") == "En desarrollo"
-        ),
-    }
-    from django.urls import reverse
-
-    context.update(
-        return_context(request, reverse("portal:operativa"), "Operativa")
-    )
-    return render(request, "portal/cuenta.html", context)
 
 
 @require_GET
@@ -2065,43 +1875,6 @@ def cuentas_rentabilidad(request: HttpRequest) -> HttpResponse:
     except Exception:  # noqa: BLE001
         return JsonResponse(
             {"error": "No se pudo consultar rentabilidad por cuenta"},
-            status=502,
-        )
-
-
-@require_GET
-@period_view
-def cuenta_financiera(request: HttpRequest) -> HttpResponse:
-    """Devuelve la informacion financiera de una cuenta."""
-    from django.http import JsonResponse
-
-    from apps.portal.services.account_profitability import (
-        load_account_profitability,
-    )
-    from core.utils.text import normalize_name
-
-    if _needs_login(request):
-        return JsonResponse({"error": "Inicia sesion"}, status=401)
-    name = request.GET.get("nombre", "")
-    access = resolve(request)
-    if access.enforced and not access.can("view_costs"):
-        return JsonResponse({"error": "Sin acceso a costos"}, status=403)
-    if not access.scope.allows_account(name):
-        return JsonResponse({"error": "No existe esa cuenta"}, status=404)
-    try:
-        accounts = load_account_profitability()["accounts"]
-        account = next(
-            (
-                a
-                for a in accounts
-                if normalize_name(a["name"]) == normalize_name(name)
-            ),
-            None,
-        )
-        return JsonResponse({"account": account, "year": 2026})
-    except Exception:  # noqa: BLE001
-        return JsonResponse(
-            {"error": "No se pudo consultar la informacion financiera"},
             status=502,
         )
 

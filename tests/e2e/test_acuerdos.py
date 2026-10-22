@@ -13,6 +13,15 @@ READ = frozenset({"view_agreements"})
 BOTH = frozenset({"view_agreements", "edit_agreements"})
 
 
+@pytest.fixture(autouse=True)
+def account_view(monkeypatch):
+    """La cuenta abre con un corte minimo; aqui solo importan los acuerdos."""
+    monkeypatch.setattr(
+        "apps.ejecutivo.account_rpc.get_account_view",
+        lambda client: {"ok": True, "proyectos": [], "roc": []},
+    )
+
+
 def browser_session(portal, client):
     """Pasa la sesion de la persona firmada al navegador."""
     portal.context.add_cookies(

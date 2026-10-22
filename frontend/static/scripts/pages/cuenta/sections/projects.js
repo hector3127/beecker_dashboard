@@ -20,7 +20,7 @@ const badge = (text) => el('span', { class: `badge ${stageTone(text)}`, text: te
  */
 function row(project, projectUrl) {
   const link = withReturn(projectUrl.replace('PROJECT_ID', encodeURIComponent(project.id)));
-  const burn = project.clockify_pending ? 'Consultando…' : project.burn == null ? 'Sin datos' : hours(project.burn);
+  const burn = project.clockify_pending ? 'Consultando…' : project.clockify_error ? 'No disponible' : hours(project.burn);
   return el(
     'tr',
     { dataset: { project: project.id } },
@@ -42,10 +42,11 @@ function row(project, projectUrl) {
  * @param {string} projectUrl
  */
 export function createProjectsTable(container, projectUrl) {
+  let template = projectUrl;
   const search = /** @type {HTMLInputElement} */ (
     el('input', { id: 'cuenta-search', type: 'search', placeholder: 'Buscar proyecto, DM o servicio…', 'aria-label': 'Buscar proyecto' })
   );
-  const state = /** @type {HTMLSelectElement} */ (el('select', { id: 'cuenta-state', 'aria-label': 'Filtrar por estado' }));
+  const state = /** @type {HTMLSelectElement} */ (el('select', { id: 'cuenta-state', 'aria-label': 'Filtrar proyectos por estado' }));
   const body = el('tbody');
   const label = el('span', { id: 'cuenta-page-label', role: 'status', 'aria-live': 'polite' });
   const prev = /** @type {HTMLButtonElement} */ (el('button', { type: 'button', class: 'btn btn-ghost', 'aria-label': 'Página anterior', text: '←' }));
@@ -72,7 +73,7 @@ export function createProjectsTable(container, projectUrl) {
     );
     const view = pageOf(matches, page, PAGE_SIZE);
     page = view.page;
-    body.replaceChildren(...(view.items.length ? view.items.map((p) => row(p, projectUrl)) : [el('tr', {}, el('td', { colspan: HEADERS.length, text: 'Sin proyectos registrados.' }))]));
+    body.replaceChildren(...(view.items.length ? view.items.map((p) => row(p, template)) : [el('tr', {}, el('td', { colspan: HEADERS.length, text: 'Sin proyectos registrados.' }))]));
     label.textContent = `Mostrando ${view.from}–${view.to} de ${matches.length} proyectos`;
     prev.disabled = view.page === 1;
     next.disabled = view.page === view.pages;
@@ -84,6 +85,10 @@ export function createProjectsTable(container, projectUrl) {
   next.addEventListener('click', () => (page++, draw()));
 
   return {
+    /** @param {string} url Plantilla del enlace al proyecto, con PROJECT_ID. */
+    setProjectUrl(url) {
+      template = url;
+    },
     /** @param {import('#app/lib/account-metrics.js').AccountProject[]} next */
     update(next) {
       projects = next;

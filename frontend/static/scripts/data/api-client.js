@@ -69,7 +69,8 @@ async function failure(response) {
 async function request(method, path, options = {}) {
   const url = new URL(config.apiBase + path, location.origin);
   for (const [key, value] of Object.entries(options.params || {})) {
-    if (value !== null && value !== undefined && value !== '') url.searchParams.set(key, String(value));
+    if (Array.isArray(value)) for (const item of value) url.searchParams.append(key, String(item));
+    else if (value !== null && value !== undefined && value !== '') url.searchParams.set(key, String(value));
   }
   const headers = /** @type {Record<string, string>} */ ({ Accept: 'application/json' });
   if (method !== 'GET') {

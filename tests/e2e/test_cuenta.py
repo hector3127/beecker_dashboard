@@ -1,4 +1,4 @@
-"""Cuenta nueva (?vista=nueva) en el navegador: indicadores, tabla y regreso."""
+"""Cuenta en el navegador: indicadores, tabla, ventanas y regreso."""
 
 import re
 
@@ -9,9 +9,7 @@ from tests.e2e.conftest import visible
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
-URL = (
-    "/cuenta/clinica-sur/?nombre=Clinica+Sur&vista=nueva&volver=%2Foperativa%2F"
-)
+URL = "/cuenta/clinica-sur/?nombre=Clinica+Sur&volver=%2Foperativa%2F"
 
 
 def project(index, **extra):
@@ -55,7 +53,7 @@ VIEW = {
 @pytest.fixture
 def cuenta(monkeypatch, datos):
     monkeypatch.setattr(
-        "apps.portal.services.account_screen.get_account_view", lambda c: VIEW
+        "apps.ejecutivo.account_rpc.get_account_view", lambda c: VIEW
     )
 
 
@@ -82,7 +80,9 @@ def test_la_tabla_pagina_y_busca_sin_acentos(portal, cuenta):
     expect(label).to_have_text("Mostrando 1–1 de 1 proyectos")
 
     portal.get_by_label("Buscar proyecto").fill("")
-    portal.get_by_label("Filtrar por estado").select_option("Producción")
+    portal.get_by_label("Filtrar proyectos por estado").select_option(
+        "Producción"
+    )
     expect(label).to_have_text("Mostrando 1–1 de 1 proyectos")
 
 
@@ -100,7 +100,7 @@ def test_los_enlaces_llevan_el_regreso(portal, cuenta):
 
 def test_una_cuenta_que_no_carga_dice_por_que(portal, datos, monkeypatch):
     monkeypatch.setattr(
-        "apps.portal.services.account_screen.get_account_view",
+        "apps.ejecutivo.account_rpc.get_account_view",
         lambda c: {"ok": False, "error": "Sin conexión con Sheets"},
     )
     portal.goto(portal.base + URL)

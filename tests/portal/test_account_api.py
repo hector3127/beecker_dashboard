@@ -3,7 +3,7 @@
 import pytest
 
 from apps.access.scope import AccessScope
-from apps.portal.services import account_screen
+from apps.ejecutivo import account_rpc
 
 pytestmark = pytest.mark.django_db
 
@@ -51,9 +51,9 @@ VIEW = {
 
 @pytest.fixture(autouse=True)
 def source(monkeypatch):
-    monkeypatch.setattr(account_screen, "get_account_view", lambda c: VIEW)
+    monkeypatch.setattr(account_rpc, "get_account_view", lambda c: VIEW)
     monkeypatch.setattr(
-        account_screen,
+        account_rpc,
         "get_account_consumption",
         lambda c, offset, limit, ids: {
             "ok": True,
@@ -89,7 +89,7 @@ def test_an_unreadable_account_is_available_false_with_the_reason(
     client, monkeypatch
 ):
     monkeypatch.setattr(
-        account_screen,
+        account_rpc,
         "get_account_view",
         lambda c: {"ok": False, "error": "Sin Sheets"},
     )
@@ -126,7 +126,7 @@ def test_without_operations_or_agreements_nothing_is_read(
     client, enforced, monkeypatch
 ):
     enforced("sin", caps=COSTS)
-    monkeypatch.setattr(account_screen, "get_account_view", lambda c: 1 / 0)
+    monkeypatch.setattr(account_rpc, "get_account_view", lambda c: 1 / 0)
 
     assert client.get(URL, {"nombre": "Clinica Sur"}).status_code == 403
 

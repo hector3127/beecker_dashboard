@@ -16,7 +16,7 @@ respuestas; la migración del frontend sí avanza.
 | 4 | Operativa: API por bloques, filtro por servicio, alcance y permiso | Hecha |
 | 5 | Acuerdos: API de lectura y escritura con permisos y alcance | Hecha |
 | 6 | Línea base de lo nuevo (cambios del 22/10) | Hecha |
-| **7** | **Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso** | **En curso: 7a hecha, 7b en parte** |
+| **7** | **Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso** | **En curso: 7a y 7b hechas** |
 | 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Pendiente |
 | 9 | Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos) | Pendiente |
 | 10 | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | Pendiente |
@@ -189,10 +189,16 @@ Lo que se planeaba para esta fase:
   del alcance y 403 sin `view_operations` ni `view_agreements`;
   `cuenta/financiera/` exige `view_costs` y alcance. Ya no hay xfail de acceso.
 - Hecho: `data/navigation.js` (`withReturn`) con pruebas; la comparativa lo usa.
-- **Pendiente:** reescribir la página de la cuenta (≈ 50 líneas de plantilla con
-  CSS y JS en línea, modales, NPS, consumos MPB, `account_view.py` de 1,000
-  líneas) como `pages/cuenta` con API propia. Es del tamaño de Operativa; se
-  hace en pasos: contrato y KPIs, tabla de proyectos, modales, consumos.
+- Hecho: la página de la cuenta es `pages/cuenta` con API propia
+  (`screens/cuenta/`, `/consumos/`, `/finanzas/`): indicadores, gráficas,
+  alertas, tabla, ventanas «Ver más» (`ui/detail-dialog`, `ui/filtered-table`),
+  finanzas (solo con `view_costs`), horas de Clockify por lotes y acuerdos
+  (`ui/agreements`, sobre `/api/v1/agreements/`). Los totales de pantalla se
+  calculan en `lib/account-metrics.js` porque las horas llegan por lotes.
+  Se retiraron la plantilla, la vista y el endpoint financiero anteriores.
+- Diferencias menores respecto a la anterior: una alerta de consumo exige
+  presupuesto mayor que cero; la distribución del consumo en la ventana de
+  presupuesto es una lista (sin dona).
 - Pendiente: `/api/rpc/obtenerVistaCuentaBeecker` sigue entregando cualquier
   cuenta a quien tenga sesión; desaparece con la fase 10.
 

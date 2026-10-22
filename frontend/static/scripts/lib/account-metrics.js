@@ -17,6 +17,7 @@ import { plain } from '#app/lib/format.js';
  * @property {number | null} [nps]
  * @property {boolean} [clockify_pending]
  * @property {boolean} [late]
+ * @property {boolean} [clockify_error] Las horas no se pudieron leer.
  */
 
 /** IxB se escribe distinto en cada hoja. @param {AccountProject} project */

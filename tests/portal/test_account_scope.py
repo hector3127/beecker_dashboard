@@ -49,15 +49,3 @@ def test_account_needs_operations_or_agreements(client, enforced):
     assert (
         client.get("/cuenta/clinica-sur/?nombre=Clinica+Sur").status_code == 403
     )
-
-
-def test_account_finance_follows_scope_and_costs_capability(client, enforced):
-    url = "/cuenta/financiera/?nombre=Clinica+Sur"
-    enforced("ana", COSTS, AccessScope.limited(accounts=["Otra"]))
-    assert client.get(url).status_code == 404
-
-    enforced("beto", OPS, AccessScope.limited(accounts=["Clinica Sur"]))
-    assert client.get(url).status_code == 403
-
-    enforced("cris", COSTS, AccessScope.limited(accounts=["Clinica Sur"]))
-    assert client.get(url).status_code == 200

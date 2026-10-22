@@ -43,9 +43,6 @@ urlpatterns = [
         name="operaciones_ejecutiva",
     ),
     path(
-        "cuenta/financiera/", views.cuenta_financiera, name="cuenta_financiera"
-    ),
-    path(
         "ejecutiva/cuentas/rentabilidad/",
         views.cuentas_rentabilidad,
         name="cuentas_rentabilidad",

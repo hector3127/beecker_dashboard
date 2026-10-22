@@ -446,18 +446,19 @@ def test_eva2_with_error_and_login(client, monkeypatch, settings):
     assert client.get("/operativa/eva-2/").status_code == 302
 
 
-def test_account_page_lists_its_projects(client, monkeypatch):
+def test_account_page_and_api_list_its_projects(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    response = client.get("/cuenta/clinica-sur/")
-    html = response.content.decode()
+    page = client.get("/cuenta/clinica-sur/")
+    api = client.get("/api/v1/screens/cuenta/", {"nombre": "Clinica Sur"})
+    projects = api.json()["data"]["projects"]
 
-    assert response.status_code == 200
-    assert response.context["client"] == "Clinica Sur"
-    assert "Portal Pacientes" in html
-    assert response.context["alerts"][0]["id"] == "2"
-    assert response.context["risk_count"] == 1
-    assert 'href="/operativa/"' in html
+    assert page.status_code == 200
+    assert page.context["client"] == "Clinica Sur"
+    assert 'href="/operativa/"' in page.content.decode()
+    assert "Portal Pacientes" in [p["name"] for p in projects]
+    flagged = [p["id"] for p in projects if p["exceeded"] or p["late"]]
+    assert flagged == ["2"]
 
 
 def test_unknown_account_is_404_or_goes_back_when_data_fails(
@@ -657,7 +658,8 @@ def test_other_pages_link_to_the_project(client, monkeypatch):
     account = client.get("/cuenta/clinica-sur/").content.decode()
 
     assert 'href="/proyectos/3/"' in manager
-    assert 'href="/proyectos/2/"' in account
+    # La cuenta arma sus enlaces en el navegador con esta plantilla.
+    assert 'data-project-url="/proyectos/PROJECT_ID/"' in account
     assert 'href="/proyecto/3/"' not in manager
 
 

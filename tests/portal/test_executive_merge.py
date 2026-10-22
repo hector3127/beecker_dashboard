@@ -167,7 +167,6 @@ def test_account_cost_scope_keeps_explicit_revenue_of_the_account():
     "view",
     [
         views.cuentas_rentabilidad,
-        views.cuenta_financiera,
         views.operaciones_ejecutiva,
     ],
 )

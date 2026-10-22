@@ -9,3 +9,6 @@ body {
 a { color: var(--brand); text-decoration: none; }
 main { min-width: 0; }
 img { max-width: 100%; }
+
+/* Un elemento con [hidden] se oculta aunque su clase le ponga display. */
+[hidden] { display: none !important; }
