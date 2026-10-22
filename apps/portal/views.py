@@ -318,6 +318,11 @@ def _in_scope(request: Any, projects: Any) -> list[Any]:
     )
 
 
+def _account_options(request: Any, fallback: Any) -> list[str]:
+    """Cuentas del selector: el catalogo financiero, solo las permitidas."""
+    return scope_for(request).filter_accounts(account_names(fallback))
+
+
 def _scoped_eva4(request: Any) -> dict[str, Any]:
     """Corte de EVA-04 con solo lo que el alcance permite."""
     from apps.portal.services import eva4
@@ -339,7 +344,7 @@ def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
     for block_key in keys:
         context.update(patches.get(block_key, {}))
     context["eva4"] = _scoped_eva4(request)
-    context["clients"] = account_names(context.get("clients", ()))
+    context["clients"] = _account_options(request, context.get("clients", ()))
     _scope_operativa_investment(request, context)
     return context
 
@@ -368,7 +373,7 @@ def operativa_context(request: Any) -> dict[str, Any]:
             "selected_client": request.GET.get("cuenta", ""),
         }
     context = dict(context)
-    context["clients"] = account_names(context.get("clients", ()))
+    context["clients"] = _account_options(request, context.get("clients", ()))
     context["eva4"] = _scoped_eva4(request)
     context["pending_blocks"] = ",".join(
         block
@@ -556,7 +561,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
             "donut": build_donut_segments(summary.health),
             "managers": summarize_delivery_managers(projects),
             "services": list_services(eva_population),
-            "clients": account_names(list_clients(eva_population)),
+            "clients": _account_options(request, list_clients(eva_population)),
             "selected_service": selected_service,
             "selected_client": selected_client,
             "has_projects": bool(projects),

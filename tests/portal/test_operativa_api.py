@@ -34,6 +34,17 @@ def served(monkeypatch):
         lambda **k: Eva2Load(view=build_eva2_view([]), error=""),
     )
     stub_portfolio(monkeypatch, portfolio())
+    # El catalogo financiero trae todas las cuentas, no solo las del alcance.
+    monkeypatch.setattr(
+        "apps.portal.services.account_options.load_account_profitability",
+        lambda: {
+            "accounts": [
+                {"name": "ACME"},
+                {"name": "Clinica Sur"},
+                {"name": "Cagsa"},
+            ]
+        },
+    )
     yield
     cache.clear()
 
@@ -269,6 +280,30 @@ def test_limited_scope_only_sees_its_accounts_everywhere(client, enforced):
     assert data["summary"]["in_progress"] == 2  # los de ACME; Clinica Sur no
     assert data["options"]["clients"] == ["ACME"]
     assert "Clinica" not in response.content.decode()
+
+
+def test_account_selector_never_lists_accounts_outside_the_scope(
+    client, enforced
+):
+    """El catalogo financiero lista todas las cuentas; el selector no."""
+    enforced("ana", scope=AccessScope.limited(accounts=["ACME"]))
+
+    for url, params in (
+        (SNAPSHOT, {}),
+        (BLOCKS, {}),
+        (BLOCKS, {"bloque": "eva3"}),
+    ):
+        body = client.get(url, params).content.decode()
+        assert "Cagsa" not in body and "Clinica" not in body, (url, params)
+    assert data_of(client)["options"]["clients"] == ["ACME"]
+
+
+def test_account_selector_lists_the_whole_catalogue_without_restriction(client):
+    assert data_of(client)["options"]["clients"] == [
+        "ACME",
+        "Cagsa",
+        "Clinica Sur",
+    ]
 
 
 def test_limited_scope_hides_the_team_wide_figures(client, enforced):
