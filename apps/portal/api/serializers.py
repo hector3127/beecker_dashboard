@@ -480,3 +480,82 @@ def account_finance(account: dict[str, Any] | None) -> dict[str, Any]:
     )
     data = {key: account.get(key) for key in keys} if account else None
     return {"data": {"account": data}, "meta": {"year": 2026}}
+
+
+def _manager_row(row: dict[str, Any]) -> dict[str, Any]:
+    keys = (
+        "project_id",
+        "name",
+        "client",
+        "service",
+        "start",
+        "end",
+        "budget",
+        "burn",
+        "status_code",
+        "status_label",
+        "detail",
+        "progress_percent",
+        "etc_hours",
+        "renewal_days",
+        "investment_operational",
+        "investment_commercial",
+    )
+    return {
+        **{key: _blank(row.get(key)) for key in keys},
+        "account_slug": row["account_slug"] if row.get("client") else None,
+        "risk": str(row["risk_label"]),
+    }
+
+
+def manager_screen(
+    base: dict[str, Any],
+    extra: dict[str, Any] | None,
+    hours: dict[str, Any] | None,
+    rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Delivery Manager: resumen, proyectos, inversion y horas por mes.
+
+    La inversion y las horas llegan en pasos; mientras no estan, su estado es
+    pending y sus cifras vienen vacias (nunca cero).
+    """
+    detail = base["detail"]
+    investment = extra["investment"] if extra else {}
+    ready = bool(investment.get("complete"))
+    totals = investment.get("totals", {}) if ready else {}
+    months = (hours or {}).get("monthly") or []
+    return {
+        "data": {
+            "name": detail.name,
+            "initials": detail.initials,
+            "summary": {
+                "total": detail.total,
+                "in_progress": detail.in_progress,
+                "paused": detail.paused,
+                "health": {
+                    "on_time": detail.health.on_time,
+                    "at_risk": detail.health.at_risk,
+                    "critical": detail.health.critical,
+                },
+            },
+            "rows": [_manager_row(row) for row in rows],
+            "investment": {
+                "state": "pending"
+                if extra is None
+                else ("ready" if ready else "unavailable"),
+                "commercial": totals.get("commercial"),
+                "operational": totals.get("operational"),
+                "error": investment.get("error") or "",
+            },
+            "hours": {
+                "state": "pending"
+                if hours is None
+                else ("ready" if months else "unavailable"),
+                "complete": bool(hours and hours.get("complete")),
+                "error": (hours or {}).get("error") or "",
+                "months": months,
+                "has_data": bool(hours and hours.get("monthly_has_data")),
+            },
+        },
+        "meta": {},
+    }

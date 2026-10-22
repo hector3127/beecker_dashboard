@@ -13,6 +13,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.access.checks import resolve, scope_for
+from apps.access.scope import AccessScope
 from apps.portal.constants import KPI_HISTORY_CHART_MANAGERS
 from apps.portal.schemas import (
     CapacityFilters,
@@ -703,11 +704,17 @@ def comercial(request: HttpRequest) -> HttpResponse:
 _DM_SECONDS = 300
 
 
-def _dm_key(slug: str, stage: str) -> str:
-    return "portal:delivery_manager:v3:" + slug + ":" + stage
+def _dm_key(slug: str, stage: str, scope: AccessScope | None = None) -> str:
+    # Cada alcance limitado tiene su propio corte: nunca se comparte con otro.
+    extra = ":" + scope.signature() if scope and not scope.unrestricted else ""
+    return "portal:delivery_manager:v3:" + slug + extra + ":" + stage
 
 
-def _dm_base(slug: str) -> dict[str, Any] | HttpResponse:
+class ManagerUnavailableError(Exception):
+    """No se pudo leer el portafolio y no hay a quien mostrar."""
+
+
+def _dm_base(slug: str, scope: AccessScope) -> dict[str, Any]:
     """Paso 1: proyectos y estados del Delivery Manager (sin Clockify)."""
     from apps.portal.services.operational_sources import eva_projects
 
@@ -717,18 +724,26 @@ def _dm_base(slug: str) -> dict[str, Any] | HttpResponse:
         loaded_at=timezone.localtime(),
         error=" \u00b7 ".join(e for e in (ixb.error, aer.error) if e),
     )
-    found = find_manager(load.projects, slug)
+    visible = scope.filter_projects(
+        load.projects, lambda p: p.project_id, lambda p: p.client
+    )
+    found = find_manager(visible, slug)
 
     if found is None:
         if load.error:
-            return redirect("portal:operativa")
+            raise ManagerUnavailableError(load.error)
 
         raise Http404("No existe ese Delivery Manager.")
 
     detail = build_manager_detail(*found)
+    visible_ids = {p.project_id for p in found[1]}
     all_sources: list[Any] = list(ixb.view.projects)
     all_sources.extend(aer.view.projects)
-    sources = {p.project_id: p for p in all_sources if p.manager == found[0]}
+    sources = {
+        p.project_id: p
+        for p in all_sources
+        if p.manager == found[0] and p.project_id in visible_ids
+    }
     base = _base_context(load)
     base.update(
         {
@@ -741,7 +756,7 @@ def _dm_base(slug: str) -> dict[str, Any] | HttpResponse:
         }
     )
     if not load.error:
-        cache.set(_dm_key(slug, "base"), base, _DM_SECONDS)
+        cache.set(_dm_key(slug, "base", scope), base, _DM_SECONDS)
 
     return base
 
@@ -768,7 +783,7 @@ def _dm_investment(base: dict[str, Any]) -> dict[str, Any]:
     return {"investment": investment, "risks": risks}
 
 
-def _dm_rows(base: dict[str, Any], extra: dict[str, Any] | None) -> list[Any]:
+def dm_rows(base: dict[str, Any], extra: dict[str, Any] | None) -> list[Any]:
     """Arma las filas; inversion y riesgo llegan en el paso 2."""
     from dataclasses import asdict
 
@@ -827,88 +842,36 @@ def _dm_rows(base: dict[str, Any], extra: dict[str, Any] | None) -> list[Any]:
     return rows
 
 
-@require_GET
-def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
-    """
-    Muestra el detalle de un Delivery Manager con todos sus proyectos.
+def dm_state(
+    slug: str, stage: str, scope: AccessScope
+) -> tuple[dict[str, Any], dict[str, Any] | None, dict[str, Any] | None]:
+    """Lo calculado del Delivery Manager hasta el paso pedido.
 
-    La pagina abre al instante y se llena en tres pasos: proyectos y
-    estados, inversion y riesgos, y consumo de horas (?bloque=base|inv|horas).
-
-    Args:
-        request: Peticion HTTP.
-        slug: Nombre del Delivery Manager escrito para la URL.
-
-    Returns:
-        La pagina del Delivery Manager.
+    Cada paso (base, inv, horas) se guarda por separado; pedir uno calcula la
+    base si falta. Sin proyectos visibles para esta persona el DM no existe.
 
     Raises:
-        Http404: Cuando ningun proyecto tiene a ese Delivery Manager.
+        Http404: Ningun proyecto visible tiene a ese Delivery Manager.
+        ManagerUnavailableError: Las fuentes no respondieron.
     """
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-
     from apps.portal.services.operational_sources import (
         manager_monthly_history,
     )
 
-    stage = request.GET.get("bloque", "")
-    base = cache.get(_dm_key(slug, "base"))
-    if stage in ("base", "inv", "horas") and base is None:
-        computed = _dm_base(slug)
-        if isinstance(computed, HttpResponse):
-            return computed
-        base = computed
-    extra = cache.get(_dm_key(slug, "inv"))
-    hours = cache.get(_dm_key(slug, "horas"))
-    if base is not None and stage == "inv" and extra is None:
+    base = cache.get(_dm_key(slug, "base", scope))
+    if base is None:
+        base = _dm_base(slug, scope)
+    extra = cache.get(_dm_key(slug, "inv", scope))
+    hours = cache.get(_dm_key(slug, "horas", scope))
+    if stage == "inv" and extra is None:
         extra = _dm_investment(base)
-        cache.set(_dm_key(slug, "inv"), extra, _DM_SECONDS)
-    if base is not None and stage == "horas" and hours is None:
+        cache.set(_dm_key(slug, "inv", scope), extra, _DM_SECONDS)
+    if stage == "horas" and hours is None:
         hours = manager_monthly_history(
             base["manager_name"], list(base["sources"].values())
         )
-        cache.set(_dm_key(slug, "horas"), hours, _DM_SECONDS)
-
-    if base is None:
-        name = (
-            request.GET.get("nombre", "").strip()
-            or slug.replace("-", " ").title()
-        )
-        context: dict[str, Any] = {
-            "active": "operativa",
-            "dm_name": name,
-            "dm_initials": "".join(w[0] for w in name.split()[:2]).upper(),
-        }
-    else:
-        context = {k: v for k, v in base.items() if k != "sources"}
-        context.update(
-            {
-                "project_rows": _dm_rows(base, extra),
-                "investment": extra["investment"] if extra else {},
-                "monthly_history": hours or {},
-            }
-        )
-    pending = [
-        name
-        for name, ready in (
-            ("base", base is not None),
-            ("inv", extra is not None),
-            ("horas", hours is not None),
-        )
-        if not ready
-    ]
-    context.update(
-        {
-            "monthly_history": hours or {},
-            "pend_base": base is None,
-            "pend_inv": extra is None,
-            "pend_hours": hours is None,
-            "dm_pending": ",".join(pending),
-        }
-    )
-
-    return render(request, "portal/delivery_manager.html", context)
+        cache.set(_dm_key(slug, "horas", scope), hours, _DM_SECONDS)
+    return base, extra, hours
 
 
 @require_GET

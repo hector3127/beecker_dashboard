@@ -15,6 +15,7 @@ from apps.portal.api.errors import error_response
 from apps.portal.api.serializers import (
     billing_screen,
     eva4_screen,
+    manager_screen,
     margins_screen,
     operativa_screen,
 )
@@ -181,3 +182,25 @@ class ProjectCostView(APIView):
                 str(payload.get("error", "No se pudo consultar el detalle.")),
             )
         return Response({"data": payload, "meta": {}})
+
+
+MANAGER_STAGES = {"base", "inv", "horas"}
+
+
+class ManagerScreenView(APIView):
+    """Delivery Manager: proyectos primero; inversion y horas por separado."""
+
+    permission_classes = OperativaView.permission_classes
+
+    def get(self, request: Request, slug: str) -> Response:
+        """Hasta el paso ?bloque= (base, inv u horas); sin el, solo la base."""
+        stage = request.query_params.get("bloque", "base")
+        if stage not in MANAGER_STAGES:
+            raise ParseError("Bloque no válido.")
+        scope = scope_for(request)
+        try:
+            base, extra, hours = views.dm_state(slug, stage, scope)
+        except views.ManagerUnavailableError as error:
+            return error_response(502, "upstream", str(error))
+        rows = views.dm_rows(base, extra)
+        return Response(manager_screen(base, extra, hours, rows))

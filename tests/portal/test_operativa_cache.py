@@ -88,25 +88,3 @@ def test_summary_cut_is_embedded_and_its_freshness_is_independent():
     assert context["operations_summary"] == saved
     assert context["summary_fresh"] is False
     cache.clear()
-
-
-def test_manager_base_prefetch_reuses_cached_computation(monkeypatch):
-    cache.clear()
-    request = RequestFactory().get("/operativa/dm/ana/", {"bloque": "base"})
-    request.user = SimpleNamespace(is_authenticated=True)
-    cache.set(
-        views._dm_key("ana", "base"),
-        {
-            "manager_name": "Ana",
-            "sources": {},
-            "detail": SimpleNamespace(rows=()),
-            "dm_name": "Ana",
-        },
-    )
-
-    def unexpected_read(slug):
-        raise AssertionError("Cached manager contacted integrations")
-
-    monkeypatch.setattr(views, "_dm_base", unexpected_read)
-    assert views.delivery_manager(request, "ana").status_code == 200
-    cache.clear()

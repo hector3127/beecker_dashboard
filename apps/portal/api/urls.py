@@ -10,6 +10,7 @@ from apps.portal.api.account import (
 from apps.portal.api.agreements import AgreementDetailView, AgreementListView
 from apps.portal.api.screens import (
     Eva4ScreenView,
+    ManagerScreenView,
     MarginsRefreshView,
     MarginsScreenView,
     OperativaBillingView,
@@ -44,6 +45,11 @@ urlpatterns = [
         "screens/cuenta/finanzas/",
         AccountFinanceView.as_view(),
         name="cuenta_finanzas",
+    ),
+    path(
+        "screens/delivery-managers/<slug:slug>/",
+        ManagerScreenView.as_view(),
+        name="delivery_manager",
     ),
     path("screens/eva4/", Eva4ScreenView.as_view(), name="eva4"),
     path("screens/margenes/", MarginsScreenView.as_view(), name="margenes"),

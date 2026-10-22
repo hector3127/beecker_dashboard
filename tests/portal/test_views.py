@@ -9,6 +9,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.cache import cache
 from django.test import RequestFactory
 
+from apps.access.scope import AccessScope
 from apps.portal import views
 from apps.portal.constants import FACTURABILITY_CACHE_PREFIX
 from apps.portal.services.capacity_loader import CapacityLoad
@@ -281,20 +282,6 @@ def test_only_get_is_allowed(client):
     assert client.post("/operativa/").status_code == 405
 
 
-def test_delivery_manager_page_lists_real_projects(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-
-    response = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
-    html = response.content.decode()
-
-    assert response.status_code == 200
-    assert response.context["detail"].name == "Alberto"
-    assert "Portal Pacientes" in html
-    assert "Presupuesto usado: 125%" in html
-    assert response.context["project_rows"][0]["detail"] == "12 días de vencido"
-    assert 'href="/operativa/"' in html
-
-
 def test_unlisted_operational_paths_are_404(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
@@ -304,27 +291,6 @@ def test_unlisted_operational_paths_are_404(client, monkeypatch):
         "/operativa/suspendidos/",
     ):
         assert client.get(path).status_code == 404
-
-
-def test_unknown_delivery_manager_is_404(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-
-    assert (
-        client.get("/operativa/delivery-manager/nadie/?bloque=inv").status_code
-        == 404
-    )
-
-
-def test_delivery_manager_page_without_data_goes_back_to_operational(
-    client,
-    monkeypatch,
-):
-    stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
-
-    response = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
-
-    assert response.status_code == 302
-    assert response.url == "/operativa/"
 
 
 def test_new_pages_require_login_when_configured(client, settings):
@@ -474,14 +440,6 @@ def test_unknown_account_is_404_or_goes_back_when_data_fails(
 
     assert response.status_code == 302
     assert response.url == "/operativa/"
-
-
-def test_manager_page_links_to_the_account(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-
-    manager = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
-
-    assert 'href="/cuenta/clinica-sur/"' in manager.content.decode()
 
 
 def test_account_page_requires_login_when_configured(client, settings):
@@ -652,15 +610,14 @@ def test_unknown_project_is_404_or_goes_back_when_data_fails(
 def test_other_pages_link_to_the_project(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    manager = client.get(
-        "/operativa/delivery-manager/alberto/?bloque=inv"
-    ).content.decode()
-    account = client.get("/cuenta/clinica-sur/").content.decode()
+    manager = client.get("/operativa/delivery-manager/alberto/")
+    account = client.get("/cuenta/clinica-sur/")
 
-    assert 'href="/proyectos/3/"' in manager
-    # La cuenta arma sus enlaces en el navegador con esta plantilla.
-    assert 'data-project-url="/proyectos/PROJECT_ID/"' in account
-    assert 'href="/proyecto/3/"' not in manager
+    # Las dos paginas arman sus enlaces en el navegador con esta plantilla.
+    for page in (manager, account):
+        assert (
+            'data-project-url="/proyectos/PROJECT_ID/"' in page.content.decode()
+        )
 
 
 def test_project_page_requires_login_when_configured(client, settings):
@@ -678,10 +635,10 @@ def test_manager_detail_keeps_time_cost(client, monkeypatch):
         ],
     )
 
-    detail = client.get("/operativa/delivery-manager/laura-vega/?bloque=inv")
+    base, _, _ = views.dm_state("laura-vega", "base", AccessScope.everything())
 
-    assert detail.context["detail"].time_cost.time_days == 2
-    assert detail.context["detail"].time_cost.cost_percent == 60
+    assert base["detail"].time_cost.time_days == 2
+    assert base["detail"].time_cost.cost_percent == 60
 
 
 def test_executive_ranking_sections_are_rendered(client, monkeypatch):

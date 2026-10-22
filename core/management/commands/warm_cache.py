@@ -271,28 +271,27 @@ def warm_secondary_pages() -> object:
 
 def warm_delivery_managers() -> object:
     """Prepara los detalles y el grafico de seis meses de cada manager."""
-    from django.contrib.auth.models import User
     from django.test import RequestFactory
 
+    from apps.access.scope import AccessScope
     from apps.portal import views
 
-    factory = RequestFactory()
-    snapshot = views._operativa_snapshot(factory.get("/operativa/"))
+    snapshot = views._operativa_snapshot(RequestFactory().get("/operativa/"))
     if not snapshot:
         return {"ok": True}
+    everything = AccessScope.everything()
     failures = []
     for manager in snapshot.get("managers", []):
         started = time.perf_counter()
         logger.info("Preparando detalle y consumo mensual: %s", manager.name)
         for stage in ("base", "inv", "horas"):
-            request = factory.get(
-                "/operativa/delivery-manager/" + manager.slug + "/",
-                {"bloque": stage},
-            )
-            request.user = User(username="cache-warmer")
-            response = views.delivery_manager(request, manager.slug)
-            saved = cache.get(views._dm_key(manager.slug, stage))
-            if response.status_code != 200 or saved is None:
+            try:
+                views.dm_state(manager.slug, stage, everything)
+            except Exception as error:  # noqa: BLE001
+                failures.append(f"{manager.name}: {stage} ({error})")
+                continue
+            saved = cache.get(views._dm_key(manager.slug, stage, everything))
+            if saved is None:
                 failures.append(manager.name + ": " + stage)
             elif stage == "horas" and not saved.get("complete"):
                 failures.append(manager.name + ": consumo mensual incompleto")

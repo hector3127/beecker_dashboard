@@ -143,3 +143,28 @@ def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
         "pages/cuenta.html",
         {**navigation, "active": "operativa", "client": client},
     )
+
+
+@require_GET
+@require_capability("view_operations")
+def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
+    """Delivery Manager: el JS pinta los datos de la API por pasos."""
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    name = (
+        request.GET.get("nombre", "").strip() or slug.replace("-", " ").title()
+    )
+    navigation = return_context(
+        request, reverse("portal:operativa"), "Operativa"
+    )
+    return render(
+        request,
+        "pages/delivery_manager.html",
+        {
+            **navigation,
+            "active": "operativa",
+            "slug": slug,
+            "name": name,
+            "initials": "".join(w[0] for w in name.split()[:2]).upper(),
+        },
+    )

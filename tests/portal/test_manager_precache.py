@@ -4,11 +4,21 @@ from types import SimpleNamespace
 
 import pytest
 from django.core.cache import cache
-from django.http import HttpResponse
-from django.test import RequestFactory
 
 from apps.portal import views
 from core.management.commands.warm_cache import warm_delivery_managers
+
+pytestmark = pytest.mark.django_db
+
+DETAIL = SimpleNamespace(
+    name="Ana",
+    initials="A",
+    total=0,
+    in_progress=0,
+    paused=0,
+    health=SimpleNamespace(on_time=0, at_risk=0, critical=0),
+    rows=(),
+)
 
 
 @pytest.fixture(autouse=True)
@@ -18,66 +28,73 @@ def clean_cache():
     cache.clear()
 
 
-def test_warmer_prepares_monthly_history_in_the_keys_read_by_detail(
-    monkeypatch,
-):
+def payloads(scope):
+    return {
+        "base": {
+            "sources": {},
+            "manager_name": "Ana",
+            "dm_name": "Ana",
+            "detail": DETAIL,
+        },
+        "inv": {"investment": {"complete": True, "totals": {}}, "risks": {}},
+        "horas": {
+            "complete": True,
+            "monthly": [{"label": "Jun 2026", "total": 1}],
+        },
+    }
+
+
+def warm_with(monkeypatch, overrides=None):
+    req = SimpleNamespace(GET={})
     manager = SimpleNamespace(name="Ana", slug="ana")
-    req = RequestFactory().get("/operativa/")
-    cache.set(views._operativa_key(req), {"managers": [manager]})
+    monkeypatch.setattr(
+        views, "_operativa_snapshot", lambda r: {"managers": [manager]}
+    )
     calls = []
 
-    def load(request, slug):
-        assert request.user.is_authenticated
-        stage = request.GET["bloque"]
+    def load(slug, stage, scope):
         calls.append((slug, stage))
-        payload = {
-            "base": {
-                "sources": {},
-                "manager_name": "Ana",
-                "dm_name": "Ana",
-                "detail": SimpleNamespace(rows=()),
-            },
-            "inv": {"investment": {"complete": True}, "risks": {}},
-            "horas": {
-                "complete": True,
-                "monthly": [{"label": "Jun 2026", "total": 1}],
-            },
-        }[stage]
-        cache.set(views._dm_key(slug, stage), payload)
-        return HttpResponse(status=200)
+        data = {**payloads(scope), **(overrides or {})}
+        cache.set(views._dm_key(slug, stage, scope), data[stage])
 
-    original = views.delivery_manager
-    monkeypatch.setattr(views, "delivery_manager", load)
+    monkeypatch.setattr(views, "dm_state", load)
+    return calls, req
+
+
+def test_warmer_prepares_monthly_history_in_the_keys_read_by_the_api(
+    monkeypatch, client
+):
+    calls, _ = warm_with(monkeypatch)
+
     assert warm_delivery_managers() == {"ok": True, "error": ""}
     assert calls == [("ana", "base"), ("ana", "inv"), ("ana", "horas")]
-    req = RequestFactory().get("/operativa/delivery-manager/ana/")
-    html = original(req, "ana").content.decode()
-    assert "Cargando consumo desde Clockify" not in html
-    assert 'id="hours-monthly-data"' in html
-    # El corte de la grafica sigue disponible aunque venza primero la base.
-    cache.delete(views._dm_key("ana", "base"))
-    html = original(req, "ana").content.decode()
-    assert 'id="hours-monthly-data"' in html
+    monkeypatch.undo()  # el detalle debe salir solo de lo guardado
+    monkeypatch.setattr(views, "_dm_base", lambda *a: pytest.fail("fuentes"))
+
+    body = client.get(
+        "/api/v1/screens/delivery-managers/ana/", {"bloque": "horas"}
+    ).json()
+
+    assert body["data"]["hours"]["state"] == "ready"
+    assert body["data"]["hours"]["months"][0]["label"] == "Jun 2026"
+
+
+def test_the_base_is_served_from_cache_without_reading_sources(
+    monkeypatch, client
+):
+    cache.set(views._dm_key("ana", "base"), payloads(None)["base"])
+    monkeypatch.setattr(views, "_dm_base", lambda *a: pytest.fail("fuentes"))
+
+    response = client.get("/api/v1/screens/delivery-managers/ana/")
+
+    assert response.status_code == 200
+    assert response.json()["data"]["hours"]["state"] == "pending"
 
 
 def test_incomplete_monthly_history_is_reported_as_partial(monkeypatch):
-    req = RequestFactory().get("/operativa/")
-    manager = SimpleNamespace(name="Ana", slug="ana")
-    cache.set(views._operativa_key(req), {"managers": [manager]})
+    warm_with(monkeypatch, {"horas": {"complete": False}})
 
-    def load(request, slug):
-        stage = request.GET["bloque"]
-        payload = (
-            {"complete": False}
-            if stage == "horas"
-            else {"investment": {"complete": True}}
-        )
-        cache.set(views._dm_key(slug, stage), payload)
-        return HttpResponse(status=200)
-
-    monkeypatch.setattr(views, "delivery_manager", load)
-    result = warm_delivery_managers()
-    assert result == {
+    assert warm_delivery_managers() == {
         "ok": False,
         "error": "Ana: consumo mensual incompleto",
     }

@@ -16,8 +16,8 @@ respuestas; la migración del frontend sí avanza.
 | 4 | Operativa: API por bloques, filtro por servicio, alcance y permiso | Hecha |
 | 5 | Acuerdos: API de lectura y escritura con permisos y alcance | Hecha |
 | 6 | Línea base de lo nuevo (cambios del 22/10) | Hecha |
-| **7** | **Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso** | **En curso: 7a y 7b hechas** |
-| 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Pendiente |
+| 7 | Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso | Hecha |
+| **8** | **Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers** | **Siguiente** |
 | 9 | Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos) | Pendiente |
 | 10 | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | Pendiente |
 | 11 | Limpieza: legacy, plantillas y estáticos viejos, CSP obligatoria, `ACCESS_ENFORCED=1` | Pendiente |
@@ -201,6 +201,21 @@ Lo que se planeaba para esta fase:
   presupuesto es una lista (sin dona).
 - Pendiente: `/api/rpc/obtenerVistaCuentaBeecker` sigue entregando cualquier
   cuenta a quien tenga sesión; desaparece con la fase 10.
+
+## Fase 7c: Delivery Manager (hecha)
+
+- `GET /api/v1/screens/delivery-managers/<slug>/?bloque=base|inv|horas`
+  (`view_operations`): primero proyectos y estados; la inversión de Clockify y
+  las horas por mes llegan en consultas aparte, y mientras faltan su estado es
+  `pending` con cifras vacías (nunca cero).
+- Alcance: el DM, sus totales, la inversión y las horas se calculan solo con
+  los proyectos de las cuentas visibles; sin ninguno, el DM no existe (404).
+  Cada alcance limitado guarda su propio corte en caché.
+- Página `pages/delivery-manager` (resumen, tabla, gráfica de horas, detalle
+  con CSV que neutraliza fórmulas: `lib/hours-report.js`, con pruebas). Se
+  retiraron la plantilla y la vista anteriores; `warm_cache` usa `dm_state`.
+- Diferencia: si las fuentes no responden y no hay a quién mostrar, la API da
+  502 y la página lo dice; antes redirigía a Operativa.
 
 ## Fases siguientes con lo nuevo integrado
 
