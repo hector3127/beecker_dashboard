@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET
@@ -95,4 +96,28 @@ def margenes(request: HttpRequest) -> HttpResponse:
             "start": start.isoformat(),
             "end": end.isoformat(),
         },
+    )
+
+
+@require_GET
+def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
+    """Cuenta: el JS pinta los datos de la API.
+
+    Mientras se completa la migracion, ?vista=nueva abre la pagina nueva y
+    sin ella sigue la anterior (views.cuenta).
+    """
+    if request.GET.get("vista") != "nueva" or request.GET.get("bloque"):
+        return views.cuenta(request, slug)
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    client = views.authorized_account(request, slug)
+    if isinstance(client, HttpResponse):
+        return client
+    navigation = return_context(
+        request, reverse("portal:operativa"), "Operativa"
+    )
+    return render(
+        request,
+        "pages/cuenta.html",
+        {**navigation, "active": "operativa", "client": client},
     )

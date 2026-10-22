@@ -1,0 +1,16 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}Cuenta {{ client }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/cuenta.css' %}">{% endblock %}
+{% block content %}
+<div class="toolbar">
+<a class="back" data-portal-back href="{{ back_url }}">← Regresar a {{ back_label }}</a>
+<a class="btn btn-ghost" id="cuenta-compare" href="{% url 'portal:oportunidades_financieras' %}?nombre={{ client|urlencode }}">Comparar margen vendido y real</a>
+</div>
+<header class="pgh" data-tone="operations"><div><h1 id="cuenta-title">{{ client }}</h1><p id="cuenta-subtitle">Portafolio, satisfacción y horas de la cuenta</p></div></header>
+<p class="note">Cifras monetarias en dólares estadounidenses · K = miles · M = millones · B = mil millones · sin centavos.</p>
+<div id="cuenta-error" aria-live="polite"></div>
+<div id="cuenta-content" data-client="{{ client }}" data-project-url="{% url 'portal:proyecto_detalle' project_id='PROJECT_ID' %}"></div>
+<noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/cuenta/main.js' %}"></script>{% endblock %}

@@ -126,7 +126,7 @@ urlpatterns = [
         views.capacidad_instalada_csv,
         name="capacidad_csv",
     ),
-    path("cuenta/<slug:slug>/", views.cuenta, name="cuenta"),
+    path("cuenta/<slug:slug>/", pages.cuenta, name="cuenta"),
     path("proyecto/<str:project_id>/", views.proyecto, name="proyecto"),
     path(
         "operativa/delivery-manager/<slug:slug>/",

@@ -14,6 +14,7 @@ export function el(tag, props = {}, ...children) {
     if (key === 'class') node.className = value;
     else if (key === 'text') node.textContent = value;
     else if (key === 'dataset') Object.assign(node.dataset, value);
+    else if (key === 'style' && typeof value === 'object') Object.assign(node.style, value); // CSSOM, no atributo style
     else if (key.startsWith('on') && typeof value === 'function') node.addEventListener(key.slice(2), value);
     else node.setAttribute(key, value === true ? '' : String(value));
   }

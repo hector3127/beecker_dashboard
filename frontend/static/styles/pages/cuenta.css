@@ -1,0 +1,74 @@
+/* Cuenta: lo que los estilos compartidos no traen. Colores solo de tokens.css. */
+
+.cuenta-kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin: 0 0 14px; }
+.cuenta-kpi { margin: 0; }
+.cuenta-kpi small { display: block; font-size: 12px; color: var(--muted); }
+.cuenta-kpi strong { display: block; font-size: 28px; letter-spacing: -.02em; margin: 6px 0; color: var(--ink-strong); }
+.cuenta-kpi strong.bad { color: var(--bad); }
+.cuenta-kpi strong.good { color: var(--good); }
+
+.cuenta-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.cuenta-panel { margin: 0; min-width: 0; }
+.cuenta-panel h2 { font-size: 15px; margin-bottom: 14px; }
+.cuenta-panel:nth-child(n + 5) { max-height: 300px; overflow: auto; }
+
+.model-row { display: flex; align-items: center; gap: 9px; margin: 16px 0; font-size: 12.5px; }
+.model-row > span { width: 80px; }
+.model-track { display: flex; flex: 1; height: 16px; border-radius: 3px; overflow: hidden; background: var(--brand-soft); }
+.seg { display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 10px; color: var(--card); }
+.seg.done { background: var(--meter); }
+.seg.other { background: var(--bar); color: var(--ink); }
+.seg.risk { background: var(--donut-critical); }
+
+.service-chart { display: flex; align-items: flex-end; height: 150px; gap: 14px; border-bottom: 1px solid var(--line); padding: 8px 8px 0; }
+.service-column { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; font-size: 11px; color: var(--muted); }
+.service-bars { height: 110px; display: flex; align-items: flex-end; gap: 5px; width: 100%; justify-content: center; }
+.bar { width: 28%; display: block; border-radius: 3px 3px 0 0; }
+.bar.budget { background: var(--bar); }
+.bar.burn { background: var(--meter); }
+.service-column > span { margin-top: 7px; text-align: center; }
+.service-column > span.bad { color: var(--bad); }
+.service-column > span.good { color: var(--good); }
+
+.state-chart { display: flex; align-items: center; gap: 14px; }
+.state-chart svg { width: 150px; flex: none; }
+.state-chart p { display: flex; gap: 6px; align-items: center; font-size: 12px; margin: 10px 0; }
+.state-chart b { margin-left: auto; white-space: nowrap; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.slice { stroke: var(--bar); }
+.c0 { stroke: var(--state-ok); background: var(--state-ok); }
+.c1 { stroke: var(--meter); background: var(--meter); }
+.c2 { stroke: var(--state-risk); background: var(--state-risk); }
+.c3 { stroke: var(--donut-critical); background: var(--donut-critical); }
+.c4 { stroke: var(--bar); background: var(--bar); }
+.donut-value { font-size: 24px; font-weight: 800; fill: var(--ink-strong); }
+.donut-caption { font-size: 10px; fill: var(--muted); }
+
+.nps-visual { display: flex; align-items: center; gap: 12px; }
+.nps-average { width: 95px; flex: none; text-align: center; }
+.nps-average strong { display: block; font-size: 34px; color: var(--ink-strong); }
+.nps-visual svg { width: 100%; }
+.grid { stroke: var(--line-soft); }
+.axis { font-size: 7px; fill: var(--soft); }
+.nps-line { stroke: var(--violet); stroke-width: 2; }
+.nps-dot { fill: var(--violet); }
+
+.alert-card { padding: 9px 12px; border: 1px solid var(--bad-soft); background: var(--bad-soft); border-radius: 8px; font-size: 12px; margin: 7px 0; color: var(--bad); }
+.opportunity-row { display: flex; justify-content: space-between; align-items: center; gap: 9px; font-size: 12.5px; padding: 11px 0; border-bottom: 1px solid var(--line-soft); }
+
+.badge { display: inline-block; padding: 3px 9px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); font-size: 11.5px; }
+.badge.green { background: color-mix(in srgb, var(--good) 14%, var(--card)); color: var(--good); }
+.badge.red { background: var(--bad-soft); color: var(--bad); }
+.badge.yellow { background: var(--warn-soft); color: var(--warn-ink); }
+
+.cuenta-toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+.cuenta-toolbar input, .cuenta-toolbar select { min-height: var(--tap); font: inherit; font-size: 13px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--card); color: var(--ink); min-width: 0; }
+.cuenta-toolbar input { flex: 1 1 240px; }
+.cuenta-toolbar select { width: 200px; }
+.cuenta-scroll { overflow-x: auto; }
+.cuenta-scroll table { min-width: 950px; }
+td small { display: block; font-size: 11px; color: var(--quiet); }
+.cuenta-pages { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+
+@media (max-width: 1100px) { .cuenta-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cuenta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 650px) { .cuenta-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cuenta-grid { grid-template-columns: 1fr; } }

@@ -911,6 +911,31 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
     return render(request, "portal/delivery_manager.html", context)
 
 
+def authorized_account(request: HttpRequest, slug: str) -> str | HttpResponse:
+    """Nombre de la cuenta pedida, o la respuesta si no puede abrirse.
+
+    Una cuenta fuera del alcance no existe (404); sin permiso para leer
+    cuentas, 403. Si el portafolio no carga, vuelve a Operativa.
+    """
+    client = request.GET.get("nombre", "").strip()
+    if not client:
+        portfolio = load_portfolio()
+        found = find_account(portfolio.projects, slug)
+        if found is None:
+            if portfolio.error:
+                return redirect("portal:operativa")
+            raise Http404("No existe esa cuenta.")
+        client = found[0]
+    access = resolve(request)
+    if not access.scope.allows_account(client):
+        raise Http404("No existe esa cuenta.")
+    if access.enforced and not (
+        access.can("view_operations") or access.can("view_agreements")
+    ):
+        raise PermissionDenied
+    return client
+
+
 @require_GET
 def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
     """
@@ -936,23 +961,9 @@ def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
         get_account_view,
     )
 
-    client = request.GET.get("nombre", "").strip()
-    if not client:
-        portfolio = load_portfolio()
-        found = find_account(portfolio.projects, slug)
-        if found is None:
-            if portfolio.error:
-                return redirect("portal:operativa")
-            raise Http404("No existe esa cuenta.")
-        client = found[0]
-    access = resolve(request)
-    if not access.scope.allows_account(client):
-        # Una cuenta ajena no existe para esta persona.
-        raise Http404("No existe esa cuenta.")
-    if access.enforced and not (
-        access.can("view_operations") or access.can("view_agreements")
-    ):
-        raise PermissionDenied
+    client = authorized_account(request, slug)
+    if isinstance(client, HttpResponse):
+        return client
     if request.GET.get("bloque") == "consumos":
         return JsonResponse(
             get_account_consumption(
