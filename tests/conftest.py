@@ -14,3 +14,9 @@ def _stores_off_by_default(settings: "SettingsWrapper") -> None:
     settings.CLOCKIFY_STORE_ENABLED = False
     settings.SHEETS_STORE_ENABLED = False
     settings.AZURE_STORE_ENABLED = False
+
+
+@pytest.fixture(autouse=True)
+def _access_not_enforced_by_default(settings: "SettingsWrapper") -> None:
+    """El .env del equipo no enciende los accesos en las pruebas."""
+    settings.ACCESS_ENFORCED = False

@@ -114,6 +114,7 @@ INSTALLED_APPS = [
     "apps.gmail.apps.GmailConfig",
     "apps.portal.apps.PortalConfig",
     "apps.datastore.apps.DatastoreConfig",
+    "apps.access.apps.AccessConfig",
 ]
 
 MIDDLEWARE = [
@@ -210,6 +211,14 @@ STATICFILES_DIRS = [("app", BASE_DIR / "frontend" / "static")]
 # Raiz de la API que consume el JS. Si el portal se monta bajo otra ruta
 # (por ejemplo dentro de Genesis), solo cambia este valor.
 FRONTEND_API_BASE = "/api/v1/"
+
+# Accesos (apps.access). Apagado, todas las personas pueden todo y ven todo,
+# como antes. Encendido, se aplican las capacidades y el alcance del
+# proveedor. Solo el valor 1 lo enciende; antes de encenderlo corre
+# `manage.py access_setup --incluir-usuarios`.
+ACCESS_ENFORCED = os.getenv("ACCESS_ENFORCED", "").strip() == "1"
+# Fuente de capacidades y alcance; Genesis entrara aqui como otro proveedor.
+ACCESS_PROVIDER = "apps.access.providers.DjangoAccessProvider"
 
 # Politica CSP en modo "solo reportar": no bloquea nada, anota en el log
 # lo que una politica estricta rechazaria. Solo el valor 1 la enciende.
