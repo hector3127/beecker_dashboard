@@ -1100,7 +1100,8 @@ def test_operational_page_loads_operations_apart(client, monkeypatch):
     html = client.get("/operativa/datos/", {"bloque": "eva3"}).content.decode()
 
     assert 'data-summary-endpoint="/operations/resumen/"' in html
-    assert 'src="/static/portal/js/operativa.js"' in html
+    # El ?v= cambia con cada version del script; basta con que se cargue.
+    assert 'src="/static/portal/js/operativa.js' in html
     assert 'href="/operativa/facturabilidad/"' in html
     assert 'href="/operativa/facturabilidad/especialidad/"' in html
     assert 'href="/operativa/facturabilidad/recurso/"' in html
