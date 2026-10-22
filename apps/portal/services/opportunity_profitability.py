@@ -15,6 +15,9 @@ from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
 
 OPPORTUNITY_VERSION = 6
+# Revenue operado usa la fecha G como fecha del servicio mientras Finanzas no
+# confirme que lo es; el valor viaja en el contrato para poder mostrarlo.
+OPERATED_STATUS = "assumed_service_date_g"
 
 
 def number(value: Any) -> Any:
@@ -71,6 +74,7 @@ def build_opportunities(reader: Any = None) -> Any:
             bookings[
                 (normalize_name(str(row[1] or "")), normalize_name(name))
             ] += amount
+    today = timezone.localdate()
     groups: dict[Any, Any] = {}
     # Ownership is checked against the entire source: a shared project must not
     # silently allocate its full cost to multiple commercial opportunities.
@@ -107,7 +111,8 @@ def build_opportunities(reader: Any = None) -> Any:
             or str(row[0]).strip().casefold() not in REVENUE_STATUSES
         ):
             continue
-        if excluded_service(row[3]) or not contains(to_datetime(row[6])):
+        moment = to_datetime(row[6])
+        if moment is None or excluded_service(row[3]) or not contains(moment):
             continue
         if any(
             str(c).strip().casefold()
@@ -147,8 +152,7 @@ def build_opportunities(reader: Any = None) -> Any:
             },
         )
         item["revenue"] += amount
-        service_date = to_datetime(row[6])
-        if service_date and service_date.date() <= timezone.localdate():
+        if moment.date() <= today:
             item["operated_revenue"] += amount
         state = str(row[0]).strip().casefold()
         if state in INVOICE_STATUSES:
@@ -260,11 +264,12 @@ def build_opportunities(reader: Any = None) -> Any:
                 "account": item["account"],
                 "name": item["name"],
                 "revenue": round(revenue, 2),
-                "bookings": round(float(bookings[identity]), 2)
-                if len(identity) == 2
+                # Sin oportunidad no hay a que sumar: Pendiente, no cero.
+                "bookings": round(float(booked), 2)
+                if (booked := bookings.get(identity)) is not None
                 else None,
                 "operated_revenue": round(float(item["operated_revenue"]), 2),
-                "operated_revenue_status": "assumed_service_date_g",
+                "operated_revenue_status": OPERATED_STATUS,
                 "invoiced": round(float(item["invoiced"]), 2),
                 "confirmed": round(float(item["confirmed"]), 2),
                 "collected": round(float(item["collected"]), 2),

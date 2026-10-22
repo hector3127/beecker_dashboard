@@ -138,6 +138,19 @@ def test_operated_revenue_excludes_future_service_but_keeps_margin_basis(
     cache.clear()
 
 
+def test_a_row_without_opportunity_has_no_bookings_instead_of_zero():
+    cache.clear()
+    rows = build_opportunities(
+        reader(
+            ["Confirmed", "Acme", "", "RaaS", "DEV", 0, "2026-09-01", 50, ""]
+        )
+    )["opportunities"]
+
+    assert rows[0]["name"] == "Sin oportunidad"
+    assert rows[0]["bookings"] is None
+    cache.clear()
+
+
 def test_opportunity_combines_project_ids_and_all_finance_statuses():
     cache.clear()
     cache.set(

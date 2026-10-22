@@ -9,6 +9,8 @@ from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.urls import resolve
 
+from apps.portal.services.opportunity_profitability import OPPORTUNITY_VERSION
+
 ROOT = Path(__file__).resolve().parents[2] / "apps/portal/templates/portal"
 LINKS = []
 for source in ROOT.glob("*.html"):
@@ -207,7 +209,7 @@ def test_opportunity_comparison_returns_to_account_after_date_filters(
         "apps.portal.services.financial_cache.cached_financial_snapshot",
         lambda: {
             "opportunities": {
-                "version": 5,
+                "version": OPPORTUNITY_VERSION,
                 "start": "2026-01-01",
                 "end": "2026-12-31",
                 "opportunities": [],
