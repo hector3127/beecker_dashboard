@@ -15,12 +15,14 @@ from apps.portal.api.errors import error_response
 from apps.portal.api.serializers import (
     billing_screen,
     eva4_screen,
+    executive_screen,
     manager_screen,
     margins_screen,
     operativa_screen,
 )
 from apps.portal.services import eva4
-from apps.portal.services.executive_period import applied, parse
+from apps.portal.services import executive_screen as executive_data
+from apps.portal.services.executive_period import applied, bounds, parse
 from apps.portal.services.margins_screen import load_margins
 
 """BKD.120.016 - Pantallas de la API v1
@@ -204,3 +206,47 @@ class ManagerScreenView(APIView):
             return error_response(502, "upstream", str(error))
         rows = views.dm_rows(base, extra)
         return Response(manager_screen(base, extra, hours, rows))
+
+
+class ExecutiveScreenView(APIView):
+    """Business Overview: el ultimo corte preparado, sin consultar fuentes."""
+
+    permission_classes = [
+        *APIView.permission_classes,
+        capability_permission("view_executive"),
+    ]
+
+    def get(self, request: Request) -> Response:
+        """Corte del periodo (?periodo=...) o del ejercicio en curso."""
+        from apps.portal.services.executive_operations import (
+            cached_operations_snapshot,
+        )
+        from apps.portal.services.financial_cache import (
+            cached_financial_snapshot,
+        )
+
+        query = request.query_params
+        try:
+            period = parse(query) if "periodo" in query else None
+        except (ValueError, TypeError, OverflowError) as error:
+            raise ParseError(str(error)) from error
+        scope = scope_for(request)
+        with applied(period):
+            financial = cached_financial_snapshot()
+            operations = cached_operations_snapshot()
+            chosen = bounds()
+        figures = executive_data.company_figures(financial, operations, scope)
+        accounts = executive_data.visible_accounts(financial, scope)
+        meta = {
+            "loaded_at": financial.get("loaded_at"),
+            "start": chosen[0].isoformat(),
+            "end": chosen[1].isoformat(),
+            "scope": scope.kind,
+            "blocks": {
+                "financial": bool(financial.get("loaded_at")),
+                "operations": operations.get("projects") is not None,
+                "commercial": bool(financial.get("commercial")),
+                "accounts": accounts is not None,
+            },
+        }
+        return Response(executive_screen(figures, accounts, meta))

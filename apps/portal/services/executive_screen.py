@@ -1,0 +1,58 @@
+"""Business Overview: el corte preparado, recortado al alcance de la persona."""
+
+from typing import Any
+
+from apps.access.scope import AccessScope
+from apps.portal.services.slugs import build_slug
+
+"""BKD.120.024 - Business Overview
+Las cifras de empresa (facturacion, costos, operaciones, comercial y
+rentabilidad mensual) son del portafolio completo: con alcance limitado no se
+entregan. El listado de cuentas si, recortado a las cuentas permitidas.
+"""
+
+
+def visible_accounts(
+    financial: dict[str, Any], scope: AccessScope
+) -> list[dict[str, Any]] | None:
+    """Cuentas del corte que la persona puede ver; None si no hay listado."""
+    rows = financial.get("accounts", {}).get("accounts")
+    if rows is None:
+        return None
+    return [
+        {
+            "name": row["name"],
+            "slug": build_slug(row["name"]) or "cuenta",
+            "revenue": row.get("revenue"),
+            "gross_profit": row.get("gross_profit"),
+            "margin": row.get("margin"),
+            "projects": row.get("projects", 0),
+            "partial": bool(row.get("pending") or row.get("partial")),
+        }
+        for row in rows
+        if scope.allows_account(row["name"])
+    ]
+
+
+def company_figures(
+    financial: dict[str, Any], operations: dict[str, Any], scope: AccessScope
+) -> dict[str, Any]:
+    """Cifras del portafolio completo; vacias si el alcance es limitado."""
+    if not scope.unrestricted:
+        return {
+            "finance": None,
+            "operations": None,
+            "commercial": None,
+            "monthly": None,
+        }
+    return {
+        "finance": {
+            "revenue": financial.get("revenue"),
+            "costs": financial.get("costs"),
+        }
+        if financial.get("revenue") or financial.get("costs")
+        else None,
+        "operations": operations or None,
+        "commercial": financial.get("commercial"),
+        "monthly": financial.get("profitability"),
+    }

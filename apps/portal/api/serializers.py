@@ -559,3 +559,22 @@ def manager_screen(
         },
         "meta": {},
     }
+
+
+def executive_screen(
+    figures: dict[str, Any],
+    accounts: list[dict[str, Any]] | None,
+    meta: dict[str, Any],
+) -> dict[str, Any]:
+    """Business Overview: cifras de empresa, cuentas visibles y corte.
+
+    Las cifras de empresa solo salen con alcance total. Un bloque que aun
+    no se prepara es null (pendiente), nunca cero.
+    """
+    return {
+        "data": {
+            **figures,
+            "accounts": accounts,
+        },
+        "meta": meta,
+    }
