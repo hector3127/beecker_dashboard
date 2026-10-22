@@ -1,5 +1,7 @@
 """Linea base de acceso antes de migrar el front.
 
+Los acuerdos ya estan resueltos: sus pruebas viven en test_agreements_api.py.
+
 Lo que hoy se rechaza debe seguir rechazandose. Lo que todavia no existe
 (permisos por accion y alcance por cuenta) queda como xfail estricto: el
 dia que la fase de accesos lo resuelva, estas pruebas pasan y obligan a
@@ -87,14 +89,6 @@ def test_hoy_cualquier_sesion_ve_y_modifica_todo(sesion, acuerdo, monkeypatch):
 
 
 @PENDIENTE
-def test_sin_permiso_de_edicion_no_se_modifican_acuerdos(sesion, acuerdo):
-    url = reverse("portal:acuerdos_ejecutivos")
-    cambio = {"id": acuerdo.pk, "action": "status", "status": "done"}
-
-    assert sesion.post(url, cambio).status_code == 403
-
-
-@PENDIENTE
 def test_sin_permiso_de_costos_no_se_ve_la_comparativa(sesion, monkeypatch):
     from apps.portal.services import executive_refresh
     from apps.portal.services import opportunity_profitability as opp
@@ -112,11 +106,3 @@ def test_cuenta_fuera_de_alcance_no_existe(sesion, settings, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
     assert sesion.get("/cuenta/clinica-sur/").status_code == 404
-
-
-@PENDIENTE
-def test_acuerdos_fuera_de_alcance_no_se_listan(sesion, settings, acuerdo):
-    settings.ACCESS_ENFORCED = True
-    url = reverse("portal:acuerdos_ejecutivos")
-
-    assert sesion.get(url).json()["items"] == []

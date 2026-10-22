@@ -2,7 +2,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const vm=require('node:vm');
 const source=require('node:fs').readFileSync(require('node:path').join(__dirname,'../../apps/portal/static/portal/js/executive_agreements.js'),'utf8');
-function harness(failed=false){
+function harness(failed=false,canEdit=true){
  function element(){return {children:[],dataset:{},setAttribute(name,value){this[name]=value;},value:'',hidden:false,textContent:'',listeners:{},append(e){this.children.push(e);},replaceChildren(...list){this.children=list;},addEventListener(type,fn){this.listeners[type]=fn;},focus(){this.focused=true;}};}
  const nodes=new Map();const node=id=>{if(!nodes.has(id))nodes.set(id,element());return nodes.get(id);};
  const fields=new Map();node('agreement-form').elements={namedItem:key=>{if(!fields.has(key))fields.set(key,{value:'',focus(){}});return fields.get(key);}};
@@ -12,7 +12,7 @@ function harness(failed=false){
  decision.querySelector=()=>button;node('agreement-rows').querySelectorAll=()=>[decision];
  node('executive-agreements').dataset.endpoint='/ejecutiva/acuerdos/';
  const items=[{id:1,title:'Acuerdo global',owner:'Luis',kind:'agreement',status:'progress',notes:'Revisar',due_date:''}];
- vm.runInNewContext(source,{document:{getElementById:node,createElement:element},fetch:async()=>({ok:!failed,json:async()=>({items})}),FormData:class{}});
+ vm.runInNewContext(source,{document:{getElementById:node,createElement:element},fetch:async()=>({ok:!failed,json:async()=>({items,can_edit:canEdit})}),FormData:class{}});
  return {node,decision,button,fields};
 }
 test('agreements are grouped by account and edit exposes session metadata',async()=>{
@@ -31,3 +31,20 @@ test('failed agreement requests show an error without injecting technical projec
  assert.match(h.node('agreement-feedback').textContent,/No se pudieron consultar/);
  assert.equal(h.node('agreement-rows').children.length,0);
 });
+
+test('a person who can only read sees the agreements without edit controls',async()=>{
+ const h=harness(false,false);await new Promise(setImmediate);
+ const row=h.node('agreement-rows').children[1];
+ assert.equal(row.children[7].children.length,0);
+ assert.equal(row.children[6].children[0].disabled,true);
+ assert.equal(h.node('agreement-new').hidden,true);
+});
+
+test('a person who can edit keeps the add, edit and close controls',async()=>{
+ const h=harness(false,true);await new Promise(setImmediate);
+ const row=h.node('agreement-rows').children[1];
+ assert.equal(row.children[7].children.length,2);
+ assert.equal(row.children[6].children[0].disabled,false);
+ assert.equal(h.node('agreement-new').hidden,false);
+});
+

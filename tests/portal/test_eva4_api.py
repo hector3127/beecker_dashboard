@@ -6,7 +6,6 @@ import pytest
 
 from apps.access.scope import AccessScope
 from apps.portal.services import eva4
-from tests.access.fake_provider import DictProvider
 from tests.portal.test_eva4 import HEADER, TODAY, row
 
 pytestmark = pytest.mark.django_db
@@ -50,21 +49,6 @@ def served(monkeypatch):
     monkeypatch.setattr(eva4, "load_eva4", fake)
     monkeypatch.setattr(eva4.timezone, "localdate", lambda: TODAY)
     return calls
-
-
-@pytest.fixture
-def enforced(settings, django_user_model, client):
-    settings.ACCESS_ENFORCED = True
-    settings.ACCESS_PROVIDER = "tests.access.fake_provider.DictProvider"
-    DictProvider.GRANTS = {}
-
-    def sign_in(name, caps=OPERATIONS, scope=None):
-        grant = (caps, scope or AccessScope.everything())
-        DictProvider.GRANTS[name] = grant
-        client.force_login(django_user_model.objects.create_user(name))
-
-    yield sign_in
-    DictProvider.GRANTS = {}
 
 
 # ---------- Contrato ----------

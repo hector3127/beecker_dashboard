@@ -9,7 +9,6 @@ from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
 from apps.portal.services.eva_loader import Eva1Load, Eva2Load
 from apps.portal.services.facturability_loader import MonthSources
-from tests.access.fake_provider import DictProvider
 from tests.portal.test_views import portfolio, stub_portfolio
 
 pytestmark = pytest.mark.django_db
@@ -47,21 +46,6 @@ def served(monkeypatch):
     )
     yield
     cache.clear()
-
-
-@pytest.fixture
-def enforced(settings, django_user_model, client):
-    settings.ACCESS_ENFORCED = True
-    settings.ACCESS_PROVIDER = "tests.access.fake_provider.DictProvider"
-    DictProvider.GRANTS = {}
-
-    def sign_in(name, caps=OPERATIONS, scope=None):
-        grant = (caps, scope or AccessScope.everything())
-        DictProvider.GRANTS[name] = grant
-        client.force_login(django_user_model.objects.create_user(name))
-
-    yield sign_in
-    DictProvider.GRANTS = {}
 
 
 def data_of(client, url=BLOCKS, **params):

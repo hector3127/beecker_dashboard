@@ -12,9 +12,8 @@ from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_http_methods
 
-from apps.access.checks import scope_for
+from apps.access.checks import resolve, scope_for
 from apps.portal.constants import KPI_HISTORY_CHART_MANAGERS
-from apps.portal.models import ExecutiveAgreement
 from apps.portal.schemas import (
     CapacityFilters,
     InvestmentView,
@@ -2135,82 +2134,70 @@ def todas_cuentas(request: HttpRequest) -> HttpResponse:
 
 @require_http_methods(["GET", "POST"])
 def acuerdos_ejecutivos(request: HttpRequest) -> HttpResponse:
-    """Lista y guarda los acuerdos ejecutivos."""
+    """Lista y guarda acuerdos segun la capacidad y el alcance de la persona."""
     from django.http import JsonResponse
 
-    from apps.portal.forms import ExecutiveAgreementForm
-    from apps.portal.services.agreements import agreement_account_key
+    from apps.portal.services import agreements
 
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
-    scope = request.GET.get("account", "").strip()
-    if request.method == "POST":
+    access = resolve(request)
+    writing = request.method == "POST"
+    if not agreements.may(access, write=writing):
+        return JsonResponse(
+            {"error": "No tienes acceso a esta información."}, status=403
+        )
+    scope = access.scope
+    locked = request.GET.get("account", "").strip()
+    if writing:
         instance = None
         if request.POST.get("id"):
-            try:
-                instance = ExecutiveAgreement.objects.get(
-                    pk=int(request.POST["id"])
-                )
-            except (ValueError, ExecutiveAgreement.DoesNotExist):
+            instance = agreements.find_agreement(scope, request.POST["id"])
+            if instance is None:
                 return JsonResponse(
                     {"error": "El registro no existe"}, status=404
                 )
         if (
-            scope
+            locked
             and instance
             and (
-                agreement_account_key(instance.account)
-                != agreement_account_key(scope)
+                agreements.agreement_account_key(instance.account)
+                != agreements.agreement_account_key(locked)
             )
         ):
             return JsonResponse(
                 {"error": "El registro no pertenece a esta cuenta"}, status=404
             )
-        if request.POST.get("action") == "status":
-            if instance is None:
-                return JsonResponse(
-                    {"error": "Indica el registro a actualizar"}, status=400
+        status_change = request.POST.get("action") == "status"
+        try:
+            if status_change:
+                if instance is None:
+                    return JsonResponse(
+                        {"error": "Indica el registro a actualizar"},
+                        status=400,
+                    )
+                agreements.change_status(
+                    instance, request.POST.get("status", "")
                 )
-            new_status = request.POST.get("status", "")
-            if new_status not in {"open", "progress", "done"}:
-                return JsonResponse({"error": "Estado no valido"}, status=400)
-            instance.status = new_status
-            instance.save(update_fields=["status", "updated_at"])
-        else:
-            values = request.POST.copy()
-            if scope:
-                values["account"] = scope
-            form = ExecutiveAgreementForm(values, instance=instance)
-            if not form.is_valid():
-                return JsonResponse(
-                    {"errors": form.errors.get_json_data()}, status=400
-                )
-            form.save()
-    rows = list(
-        ExecutiveAgreement.objects.values(
-            "id",
-            "account",
-            "meeting_source",
-            "meeting_date",
-            "title",
-            "kind",
-            "owner",
-            "due_date",
-            "status",
-            "notes",
-            "updated_at",
-        )
+            else:
+                values = request.POST.copy()
+                if locked:
+                    values["account"] = locked
+                agreements.save_agreement(scope, values, instance)
+        except agreements.InvalidStatusError:
+            return JsonResponse({"error": "Estado no valido"}, status=400)
+        except agreements.InvalidAgreementError as error:
+            return JsonResponse({"errors": error.errors}, status=400)
+        except agreements.OutOfScopeError:
+            return JsonResponse(
+                {"error": "No tienes acceso a esa cuenta."}, status=403
+            )
+    rows = agreements.visible_agreements(
+        scope, locked, request.GET.get("pending_only") == "1"
     )
-    if scope:
-        rows = [
-            row
-            for row in rows
-            if agreement_account_key(row["account"])
-            == agreement_account_key(scope)
-        ]
-    if request.GET.get("pending_only") == "1":
-        rows = [row for row in rows if row["status"] != "done"]
-    return JsonResponse({"items": rows})
+    return JsonResponse(
+        {"items": rows, "can_edit": agreements.may(access, write=True)}
+    )
 
 
 @require_GET

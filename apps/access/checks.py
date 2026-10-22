@@ -9,7 +9,7 @@ from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import SAFE_METHODS, BasePermission
 
 from apps.access.capabilities import CODES
 from apps.access.providers import get_provider
@@ -95,3 +95,24 @@ def capability_permission(code: str) -> type[BasePermission]:
 
     HasCapability.__name__ = f"Has_{code}"
     return HasCapability
+
+
+def capability_by_method(
+    read: tuple[str, ...], write: tuple[str, ...]
+) -> type[BasePermission]:
+    """Permiso de DRF por metodo: `read` para leer y `write` para cambiar."""
+
+    class ByMethod(BasePermission):
+        message = "No tienes acceso a esta información."
+
+        def has_permission(self, request: Any, view: Any) -> bool:
+            access = resolve(request)
+            if not access.enforced:
+                return True
+            needed = read if request.method in SAFE_METHODS else write
+            return bool(
+                request.user.is_authenticated
+                and any(access.can(code) for code in needed)
+            )
+
+    return ByMethod

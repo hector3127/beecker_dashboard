@@ -49,6 +49,21 @@ facturabilidad global (la API de facturabilidad responde 403). El resto
 filtros) se calcula solo con lo permitido, y cada alcance tiene su propio corte
 guardado.
 
+### Acuerdos y pendientes
+
+- **Consultar** pide `view_agreements` (o `edit_agreements`); **crear y cambiar**
+  pide `edit_agreements`.
+- Se ven solo los acuerdos de las cuentas del alcance. Los que no tienen cuenta
+  son de quien tiene todo el portafolio. Los alias de una cuenta
+  («Heineken» / «Heineken México») cuentan como la misma.
+- Un acuerdo fuera del alcance responde **404**, igual que uno que no existe.
+  Crear o mover un acuerdo a una cuenta fuera del alcance responde **403**.
+- Cambiar `?account=` en la dirección no amplía lo que se ve: el servidor
+  decide por el alcance, no por el parámetro.
+- Cada registro de la API trae `actions` (`edit`, `change_status`) y la lista
+  trae `can_edit`; la interfaz oculta lo que no se puede hacer, pero la
+  autorización es siempre del servidor.
+
 ## Cómo se aplica
 
 | Dónde | Cómo |
