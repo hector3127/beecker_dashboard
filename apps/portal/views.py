@@ -87,6 +87,7 @@ from apps.portal.services.kpi_history import (
     chart_series,
 )
 from apps.portal.services.kpi_history_loader import load_kpi_history
+from apps.portal.services.kpi_quarterly import build_quarter_averages
 from apps.portal.services.kpis_dm import build_kpi_view
 from apps.portal.services.manager_detail import (
     build_manager_detail,
@@ -1410,7 +1411,10 @@ def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    period = _period(request)
+    params = {key: request.GET.get(key, "") for key in request.GET}
+    if not any(params.get(key) for key in ("periodo", "mes", "trim")):
+        params["periodo"] = "anio"
+    period = parse_period(params, timezone.localdate())
     history = load_kpi_history(period.year)
     load = PortfolioLoad(
         projects=(), error=history.error, loaded_at=timezone.localtime()
@@ -1449,11 +1453,12 @@ def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
         context.update(
             {
                 "month_matrix": months,
-                "quarter_matrix": build_matrix(
+                "quarter_matrix": build_quarter_averages(
                     [
                         cut
-                        for cut in history.history.quarters
-                        if cut.label in quarters
+                        for cut in history.history.months
+                        if f"T{(int(cut.key[5:7]) - 1) // 3 + 1}" in quarters
+                        and cut.key <= period.end_month
                     ],
                     history.history.managers,
                 ),
