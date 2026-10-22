@@ -175,7 +175,10 @@ def warm_portal(base_only: bool = False) -> object:
     if partial:
         failures.append("facturabilidad")
     logger.info("Facturabilidad: %.1f s", time.perf_counter() - started)
-    for name, path, page in (("comercial", "/comercial/", views.comercial),):
+    for name, path, page in (
+        ("ejecutiva", "/", views.ejecutiva),
+        ("comercial", "/comercial/", views.comercial),
+    ):
         started = time.perf_counter()
         logger.info("Preparando %s y sus componentes", name)
         request = factory.get(path, {"actualizar": "1"})

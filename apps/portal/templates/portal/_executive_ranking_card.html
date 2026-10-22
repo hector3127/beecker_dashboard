@@ -1,0 +1,11 @@
+<section class="c p ranking-card {{ kind }}">
+ <div class="ranking-heading"><div class="ranking-title"><h3>{{ title }} · {{ executive_label|default:2026 }}</h3><p>{% if kind == 'healthy' %}Mitad superior de las cuentas según el indicador seleccionado.{% else %}Mitad inferior de las cuentas según el indicador seleccionado.{% endif %} Hasta 5 resultados.</p></div><span class="ranking-count" id="{{ kind }}-account-count" aria-live="polite">Consultando</span></div>
+ <div class="ranking-scroll" tabindex="0" role="region" aria-label="{{ title }}"><table>
+  <caption class="portal-sr-only">{{ title }}. Ordena mediante los encabezados.</caption>
+  <thead><tr><th scope="col">#</th><th scope="col">Cuenta</th>
+   <th scope="col" data-ranking-column="revenue"><button type="button" data-ranking-group="{{ kind }}" data-sort-key="revenue">Facturación <span aria-hidden="true" data-sort-indicator>↕</span></button></th>
+   <th scope="col" data-ranking-column="gross_profit"><button type="button" data-ranking-group="{{ kind }}" data-sort-key="gross_profit">Utilidad bruta <span aria-hidden="true" data-sort-indicator>↕</span></button></th>
+   <th scope="col" data-ranking-column="margin"><button type="button" data-ranking-group="{{ kind }}" data-sort-key="margin">Margen bruto (%) <span aria-hidden="true" data-sort-indicator>↕</span></button></th>
+  </tr></thead><tbody id="{{ kind }}-financial-accounts"><tr><td colspan="5">Consultando…</td></tr></tbody>
+ </table></div>
+</section>

@@ -56,3 +56,32 @@ def company_figures(
         "commercial": financial.get("commercial"),
         "monthly": financial.get("profitability"),
     }
+
+
+def scoped_snapshots(
+    financial: dict[str, Any], operations: dict[str, Any], scope: AccessScope
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Los cortes que la pagina incrusta, solo con lo que el alcance permite.
+
+    Con alcance total salen completos menos el detalle de oportunidades (la
+    pagina no lo usa). Con alcance limitado no sale ninguna cifra de empresa y
+    el listado de cuentas se recorta a las permitidas.
+    """
+    if scope.unrestricted:
+        return {k: v for k, v in financial.items() if k != "opportunities"}, (
+            operations
+        )
+    rows = financial.get("accounts", {}).get("accounts")
+    visible = None
+    if rows is not None:
+        visible = [row for row in rows if scope.allows_account(row["name"])]
+    limited: dict[str, Any] = {}
+    if financial.get("loaded_at"):
+        limited["loaded_at"] = financial["loaded_at"]
+    if visible is not None:
+        limited["accounts"] = {
+            "accounts": visible,
+            "pending_accounts": sum(bool(r.get("pending")) for r in visible),
+            "ranking_version": 4,
+        }
+    return limited, {}

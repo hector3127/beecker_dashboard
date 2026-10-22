@@ -127,7 +127,7 @@ def test_collections_includes_factoring_and_excludes_confirmed_from_denominator(
 
 @override_settings(PORTAL_LOGIN_REQUIRED=False)
 def test_overview_uses_prepared_cut_without_source_calls(monkeypatch):
-    from apps.portal import pages, views
+    from apps.portal import views
     from apps.portal.services import (
         executive_operations,
         executive_refresh,
@@ -158,16 +158,18 @@ def test_overview_uses_prepared_cut_without_source_calls(monkeypatch):
         "request_refresh",
         lambda: pytest.fail("No refresh on prepared cut"),
     )
-    response = pages.ejecutiva(
+    response = views.ejecutiva(
         RequestFactory().get(
-            "/",
+            "/ejecutiva/",
             {"periodo": "rango", "desde": "2026-05-01", "hasta": "2026-10-31"},
         )
     )
     assert response.status_code == 200
     html = response.content.decode()
     assert "01/05/2026 - 31/10/2026" in html
-    assert "pages/executive/main.js" in html
+    assert "executive_report.js" in html
+    assert "financial-costs-updated" not in html
+    assert "Crear seguimiento" not in html
 
 
 @pytest.mark.django_db

@@ -64,12 +64,12 @@ def test_glossary_opens_with_the_three_groups_and_the_dictionary_link(
     portal, executive, snapshot
 ):
     portal.goto(portal.base + "/")
-    glossary = portal.locator(".glossary")
-    expect(glossary.locator(".glossary-grid")).to_be_hidden()
+    glossary = portal.locator(".executive-glossary")
+    expect(glossary.locator(".executive-glossary-grid")).to_be_hidden()
 
     glossary.get_by_text("¿Qué significa cada indicador?").click()
 
-    expect(glossary.locator(".glossary-grid")).to_be_visible()
+    expect(glossary.locator(".executive-glossary-grid")).to_be_visible()
     assert glossary.locator("h2").all_inner_texts() == [
         "Financiera",
         "Operaciones",
@@ -155,7 +155,7 @@ def test_entering_an_account_and_coming_back_keeps_search_and_order(
     portal.locator("#healthy-financial-accounts").get_by_role(
         "link", name=re.compile("Heineken")
     ).click()
-    portal.wait_for_url(re.compile(r"/cuenta/heineken-mexico/"))
+    portal.wait_for_url(re.compile(r"/cuenta/heineken/"))
     assert "volver=" in portal.url
 
     portal.get_by_role("link", name=re.compile("^← Regresar a")).click()
