@@ -1,0 +1,17 @@
+{
+  "processes": [
+    "DELIVERY MANAGER COUNTRY CLIENT BOT ID SERVICE PROCESS NAME STATUS ROC START FINISH AVERAGE LIMIT INVESTED HOURS HOURS BALANCE HOURS PACKAGE LIMIT AVAILABLE HOURS PACKAGE RISK",
+    "Ana MEX Nestlé 1 ROC Reporte Activo 01/01/2026 20/10/2026 Sin límite para este servicio Sin coincidencia en Clockify — — 0 Riesgo",
+    "Ana MEX Nestlé 2 ROC Reporte Activo 01/01/2026 20/10/2026 Sin límite para este servicio Sin coincidencia en Clockify — — 0 Riesgo"
+  ],
+  "renewals": [
+    "",
+    ""
+  ],
+  "clients": [
+    "",
+    "",
+    "",
+    ""
+  ]
+}

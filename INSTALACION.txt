@@ -11,6 +11,7 @@ Requisito: Python 3.12. Comandos en PowerShell, dentro de la carpeta del proyect
    (si bloquea: Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned)
 
 3. pip install -r requirements-dev.txt
+   (solo para correr pruebas: playwright install chromium)
 
 4. python manage.py migrate
 

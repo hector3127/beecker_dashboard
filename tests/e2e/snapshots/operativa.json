@@ -1,0 +1,10 @@
+{
+  "todos": {
+    "indicadores": "Proyectos en ejecución 3 Suspendidos 1 En tiempo 1 Inversión operativa — Horas de inversión registradas · IXB/RaaS, AER y T&M activos Inversión comercial — Horas de inversión registradas · IXB/RaaS, AER y T&M activos",
+    "delivery_managers": "Delivery manager Proyectos, salud e inversión Inversión mensual del equipo ← → AL Alberto Delivery Manager 0 en tiempo 0 en riesgo 2 críticos Proyectos 2 Suspendidos 0 En tiempo 0 En ejecución 2 Inversión comercial — Inversión operativa — LV Laura Vega Delivery Manager 1 en tiempo 0 en riesgo 0 críticos Proyectos 2 Suspendidos 1 En tiempo 1 En ejecución 1 Inversión comercial — Inversión operativa —"
+  },
+  "t&m": {
+    "indicadores": "Proyectos en ejecución 1 Suspendidos 0 En tiempo 0 Inversión operativa — Horas de inversión registradas · T&M activos Inversión comercial — Horas de inversión registradas · T&M activos",
+    "delivery_managers": "Delivery manager Proyectos, salud e inversión Inversión mensual del equipo ← → AL Alberto Delivery Manager 0 en tiempo 0 en riesgo 1 crítico Proyectos 1 Suspendidos 0 En tiempo 0 En ejecución 1 Inversión comercial — Inversión operativa —"
+  }
+}
