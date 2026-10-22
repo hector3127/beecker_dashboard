@@ -245,7 +245,7 @@ def actualizacion_ejecutiva(request: HttpRequest) -> HttpResponse:
 def _operativa_key(request: Any) -> str:
     filters = "|".join(request.GET.get(k, "") for k in ("servicio", "cuenta"))
     return (
-        "portal:operativa:snapshot:v9:"
+        "portal:operativa:snapshot:v10:"
         + timezone.localdate().isoformat()
         + ":"
         + hashlib.sha256(filters.encode()).hexdigest()
@@ -278,6 +278,34 @@ def _operations_summary_key() -> str:
     return "portal:ops:summary:v2:" + last_closed_month(timezone.localdate())
 
 
+def _scope_operativa_investment(request: Any, context: dict[str, Any]) -> None:
+    """Limit displayed investment to the projects in the filtered portfolio."""
+    if not any(
+        request.GET.get(key, "").strip() for key in ("servicio", "cuenta")
+    ):
+        return
+    investment = context.get("investment")
+    if not investment or not investment.get("complete"):
+        return
+    project_ids = {
+        pid
+        for manager in context.get("managers", ())
+        for pid in manager.project_ids
+    }
+    by_project = investment.get("by_project", {})
+    context["investment"] = {
+        **investment,
+        "totals": {
+            category: sum(
+                by_project[pid].get(category, 0)
+                for pid in project_ids
+                if pid in by_project
+            )
+            for category in ("operational", "commercial")
+        },
+    }
+
+
 def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
     """Compone bloques independientes sin perder respuestas paralelas."""
     key = _operativa_key(request)
@@ -293,6 +321,7 @@ def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
 
     context["eva4"] = cached_eva4()
     context["clients"] = account_names(context.get("clients", ()))
+    _scope_operativa_investment(request, context)
     return context
 
 
@@ -466,6 +495,7 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
             cache.set("portal:ops:investment:v3", context["investment"], 86400)
         elif block == "capacidad":
             cache.set("portal:ops:capacity:v2", context["capacity_live"], 86400)
+        _scope_operativa_investment(request, context)
         changed = {
             "inversion": ("investment",),
             "capacidad": ("capacity_live",),
@@ -593,6 +623,7 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
         if saved and not block
         else block != "eva3"
     )
+    _scope_operativa_investment(request, context)
     if saved and (ixb.error or aer.error) and not block:
         return render(
             request,
