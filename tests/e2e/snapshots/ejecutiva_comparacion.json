@@ -1,0 +1,23 @@
+{
+  "por_defecto": {
+    "healthy": [
+      "1 Heineken México 3 proyectos 500 200 40%",
+      "2 Grande 4 proyectos 1K 100 10%",
+      "3 Pequeña 1 proyectos 100 90 90%"
+    ],
+    "unhealthy": [
+      "1 Sin facturación 2 proyectos 0 -20 No aplica",
+      "2 Parcial 1 proyectos · Parcial* 300 50* 16%*"
+    ]
+  },
+  "por_margen": {
+    "healthy": [
+      "1 Pequeña 1 proyectos 100 90 90%",
+      "2 Heineken México 3 proyectos 500 200 40%"
+    ],
+    "unhealthy": [
+      "1 Grande 4 proyectos 1K 100 10%",
+      "2 Parcial 1 proyectos · Parcial* 300 50* 16%*"
+    ]
+  }
+}

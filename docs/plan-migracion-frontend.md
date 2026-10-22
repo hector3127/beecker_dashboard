@@ -15,8 +15,8 @@ respuestas; la migración del frontend sí avanza.
 | 3 | Piloto EVA-04: API, página, alcance y permiso | Hecha |
 | 4 | Operativa: API por bloques, filtro por servicio, alcance y permiso | Hecha |
 | 5 | Acuerdos: API de lectura y escritura con permisos y alcance | Hecha |
-| **6** | **Línea base de lo nuevo (cambios del 22/10)** | **Siguiente** |
-| 7 | Cuenta, comparativa de márgenes y Delivery Manager, con su navegación de regreso | Pendiente |
+| 6 | Línea base de lo nuevo (cambios del 22/10) | Hecha |
+| **7** | **Cuenta, comparativa de márgenes y Delivery Manager, con su navegación de regreso** | **Siguiente** |
 | 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Pendiente |
 | 9 | Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos) | Pendiente |
 | 10 | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | Pendiente |
@@ -124,7 +124,27 @@ Hallazgos:
 El documento `conciliacion-kpis-dms-2026-10-22.md` queda como registro de lo
 pendiente de negocio; no es parte del código.
 
-## Fase 6: línea base de lo nuevo
+## Fase 6: línea base de lo nuevo (hecha)
+
+Los cambios del 22/10 quedaron confirmados en cuatro commits (glosario,
+comparación de cuentas, documento de interfaz y KPIs de Delivery Managers) y
+la línea base quedó fijada:
+
+- `tests/e2e/test_ejecutiva_kpis.py`: glosario, comparación de cuentas
+  (criterios, búsqueda sin acentos, orden, valores sin dato, estado en la URL,
+  entrar a una cuenta y regresar) y KPIs de Delivery Managers (periodo anual,
+  TP/T/C, trimestre como promedio de meses, notas de unidades).
+- Snapshots: `ejecutiva_glosario`, `ejecutiva_comparacion` y `kpis_dm_historico`.
+- `test_glossary_sources.py`: cada término del glosario declara el concepto del
+  diccionario del que sale (se elimina cuando el glosario se genere de
+  `CONCEPTS`, fase 8).
+
+Hallazgo para la fase 8: `executive_report.js` todavía dibuja el ranking
+anterior (grupos `healthy/unhealthy` y la nota de «indicadores monetarios
+normalizados») y `executive_rankings.js` lo vuelve a dibujar encima. Hoy gana el
+segundo por el orden de carga; el código viejo debe retirarse al migrar.
+
+Lo que se planeaba para esta fase:
 
 1. Confirmar los cambios del 22/10 en commits separados: glosario y
    diccionario; comparación de cuentas; KPIs DMs. (Hoy comparten `views.py` y

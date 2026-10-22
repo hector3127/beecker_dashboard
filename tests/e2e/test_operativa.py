@@ -166,6 +166,14 @@ def test_refresh_button_forces_the_blocks_and_reports_the_result(portal, datos):
         lambda r: forced.append(r.url) if "actualizar=1" in r.url else None,
     )
 
+    def slow(route):
+        # Con las fuentes de prueba la actualizacion es casi instantanea; se
+        # alarga lo justo para poder observar el estado "Actualizando…".
+        portal.wait_for_timeout(400)
+        route.continue_()
+
+    portal.route(re.compile(r".*actualizar=1.*"), slow)
+
     portal.locator("#ops-refresh-button").click()
     expect(portal.locator("#ops-refresh-button")).to_be_disabled()
     expect(portal.locator("#ops-refresh-button")).to_have_text("Actualizando…")
