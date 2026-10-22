@@ -125,7 +125,7 @@ urlpatterns = [
         name="kpis_dm",
     ),
     path("operativa/eva-2/", views.eva2, name="eva2"),
-    path("operativa/eva-4/", views.eva4, name="eva4"),
+    path("operativa/eva-4/", pages.eva4, name="eva4"),
     path("operativa/eva-3/", views.eva3, name="eva3"),
     path(
         "operativa/capacidad-instalada/",

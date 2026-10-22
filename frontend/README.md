@@ -26,7 +26,9 @@ static/      se publica en /static/app/
   llevar a otra plataforma sin tocar nada de Django.
 - **Cada módulo compartido se declara en el importmap de `layouts/base.html`**
   con un nombre estable (`#app/…`). Una prueba verifica que no falte ninguno.
-  Los `main.js` de `pages/` se cargan con `<script type="module">`.
+  Los `main.js` de `pages/` se cargan con `<script type="module">` y se
+  importan con sus secciones por rutas relativas (`./sections/x.js`); en
+  producción `core.storage` les pone huella igual que al CSS.
 - **Las rutas y la raíz de la API salen de `#app-config`**, no del código. Si
   el portal se monta en otro lugar solo cambia `FRONTEND_API_BASE`.
 
@@ -38,3 +40,9 @@ node --test tests/frontend/*.test.mjs
 
 Los recorridos en navegador están en `tests/e2e/` (`pytest tests/e2e`).
 La página `/guia-de-interfaz/` muestra los componentes y los estados.
+
+## Pantallas migradas
+
+| Pantalla | Página | API |
+|---|---|---|
+| EVA-04 | `templates/pages/eva4.html`, `scripts/pages/eva4/` | `GET /api/v1/screens/eva4/?mes=AAAA-MM` |

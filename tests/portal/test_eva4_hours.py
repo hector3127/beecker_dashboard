@@ -1,14 +1,11 @@
 """Meses, topes y saldos de EVA-04 se obtienen exclusivamente de Sheets."""
 
-import re
 from datetime import date
 from decimal import Decimal
 
 import pytest
 from django.core.cache import cache
-from django.test import RequestFactory
 
-from apps.portal import views
 from apps.portal.services import eva4
 from apps.portal.services.eva4_hours import (
     apply_limits,
@@ -223,14 +220,16 @@ def test_bot_column_shows_only_the_tag_and_process_keeps_its_name():
     assert data["processes"][0]["process"] == "3708 - Temporary Green Coffee"
 
 
-def render(data, monkeypatch):
-    monkeypatch.setattr(eva4, "load_eva4", lambda: data)
-    return views.eva4(
-        RequestFactory().get("/operativa/eva-4/")
-    ).content.decode()
+def served(data, client, monkeypatch, **params):
+    """Lo que la API de EVA-04 entrega para estos datos."""
+    monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
+    return client.get("/api/v1/screens/eva4/", params).json()["data"]
 
 
-def test_empty_cells_say_why_and_zero_hours_is_not_missing_data(monkeypatch):
+@pytest.mark.django_db
+def test_zero_hours_and_missing_data_are_different_in_the_contract(
+    client, monkeypatch
+):
     rows = []
     for bot, service in (("1", "ROC"), ("2", "Garantía"), ("3", "ROC")):
         item = row(bot=bot)
@@ -243,21 +242,32 @@ def test_empty_cells_say_why_and_zero_hours_is_not_missing_data(monkeypatch):
     enrich_hours(data, raw, TODAY.replace(day=1))
     data["processes"][0]["invested_hours"] = 0
     data["processes"][0]["hours_balance"] = 30
-    html = render(data, monkeypatch)
-    assert html.count("Sin límite para este servicio") >= 1
-    assert html.count("Sin coincidencia en Clockify") >= 1
-    assert "Sin dato" not in html
-    first = html.split("<tbody>", 1)[1].split("</tr>", 1)[0]
-    assert '<td class="n">0</td>' in first
+    data["processes"][2].update(invested_hours=None, hours_balance=None)
+
+    first, second, third = served(data, client, monkeypatch)["processes"]
+
+    assert first["invested_hours"] == 0  # un cero real no es "sin dato"
+    assert first["hours_balance"] == 30
+    assert second["average_limit"] is None and second["hours_balance"] is None
+    assert third["invested_hours"] is None
 
 
-def test_footer_names_the_database_when_hours_come_from_it(monkeypatch):
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    ("origin", "source"),
+    [("database", "08.Base Clockify 2026"), ("sheet", "08.Base Clockify 2026")],
+)
+def test_contract_says_where_the_hours_come_from(
+    client, monkeypatch, origin, source
+):
     data = eva4.build_eva4([HEADER, row()], TODAY)
-    data["hours_origin"] = "database"
-    data["hours_source"] = "08.Base Clockify 2026"
-    html = render(data, monkeypatch)
-    assert "horas de Clockify (base de datos)" in html
-    assert "08.Base Clockify" not in html
+    data["hours_origin"] = origin
+    data["hours_source"] = source
+
+    body = served(data, client, monkeypatch)
+
+    assert body["notes"]["hours_origin"] == origin
+    assert body["notes"]["hours_source"] == source
 
 
 def test_raas_has_a_default_package_limit_of_80_and_other_services_none():
@@ -387,7 +397,7 @@ def test_month_validation(value):
         resolve_month(value, TODAY)
 
 
-def test_loader_and_page_use_month_specific_cache(monkeypatch):
+def test_loader_uses_month_specific_cache(monkeypatch):
     cache.clear()
     monkeypatch.setattr(eva4.timezone, "localdate", lambda: TODAY)
     reader = InMemorySheetRepository(
@@ -407,30 +417,4 @@ def test_loader_and_page_use_month_specific_cache(monkeypatch):
     assert sep["processes"][0]["hours_balance"] == 28
     assert oct_report["processes"][0]["hours_balance"] == 24
     assert eva4.snapshot_key("2026-09") != eva4.snapshot_key()
-    html = views.eva4(
-        RequestFactory().get("/operativa/eva-4/", {"mes": "2026-09"})
-    ).content.decode()
-    assert 'value="2026-09"' in html
-    assert "EVA-04 Report" in html
-    headers = html.split('id="eva4-processes"', 1)[1].split("</tr>", 1)[0]
-    names = re.findall(r"<th(?:\s[^>]*)?>(.*?)</th>", headers)
-    assert names == [
-        "Delivery Manager",
-        "Country",
-        "Client",
-        "BOT ID",
-        "Service",
-        "Process Name",
-        "Status ROC",
-        "Start",
-        "Finish",
-        "Average Limit",
-        "Invested Hours",
-        "Hours Balance",
-        "Hours Package Limit",
-        "Available Hours Package",
-        "Risk",
-    ]
-    assert "Sin dato" not in html
-    assert "Fuentes: ROC (Google Sheets) y horas de Clockify (hoja" in html
     cache.clear()

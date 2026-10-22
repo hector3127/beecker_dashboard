@@ -130,3 +130,23 @@ def portal(live_server: Any, page: Any) -> Iterator[Any]:
     page.set_default_timeout(15000)
     page.base = origin
     yield page
+
+
+def watch(portal):
+    """Anota lo que sale mal en la pagina; las fuentes de Google se ignoran."""
+    problems = []
+    portal.on(
+        "console",
+        lambda m: (
+            problems.append(m.text)
+            if m.text.startswith("[Report Only]")
+            or "Content Security" in m.text
+            else None
+        ),
+    )
+    portal.on("pageerror", lambda e: problems.append(str(e)))
+    portal.on(
+        "requestfailed",
+        lambda r: problems.append(r.url) if portal.base in r.url else None,
+    )
+    return problems

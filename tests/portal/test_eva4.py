@@ -7,7 +7,8 @@ import pytest
 from django.core.cache import cache
 from django.test import RequestFactory
 
-from apps.portal import views
+from apps.access.scope import AccessScope
+from apps.portal import pages, views
 from apps.portal.services import eva4
 from core.exceptions import SheetNotFoundError
 from tests.fakes import InMemorySheetRepository
@@ -111,32 +112,13 @@ def test_tables_use_current_rows_and_do_not_repeat_contract_renewals():
     assert "Tope Mensual" in data["missing_columns"]
 
 
-def test_page_structure_is_accessible_and_puts_processes_first(monkeypatch):
-    data = eva4.build_eva4([HEADER, row(finish="2026-10-20")], TODAY)
-    monkeypatch.setattr(eva4, "load_eva4", lambda: data)
-    html = views.eva4(
-        RequestFactory().get("/operativa/eva-4/")
-    ).content.decode()
-    # base.html ya abre el <main>: la pagina no abre otro.
-    assert html.count("<main") == 1
-    table = html.split('id="eva4-processes"', 1)[1].split("</table>", 1)[0]
-    assert table.count('<th scope="col">') == 15
-    assert "<caption" in table
-    assert html.index('id="eva4-processes"') < html.index('id="eva4-renewals"')
-    assert html.index('id="eva4-renewals"') < html.index('id="eva4-clients"')
-    # Renovaciones y clientes quedan plegados bajo la tabla principal.
-    assert html.count('<details class="eva4-card eva4-fold"') == 2
-    assert 'role="status"' in html and 'id="eva4-count"' in html
-    assert 'class="eva4-kpis"' not in html
-
-
 def render_eva4(monkeypatch, params=None, today=TODAY):
     data = eva4.build_eva4([HEADER, row()], TODAY)
     data["month"] = "2026-10"
     monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
     monkeypatch.setattr(eva4.timezone, "localdate", lambda: today)
     request = RequestFactory().get("/operativa/eva-4/", params or {})
-    return views.eva4(request).content.decode()
+    return pages.eva4(request).content.decode()
 
 
 def test_anterior_view_is_available_until_the_cutoff_date(monkeypatch):
@@ -161,7 +143,7 @@ def test_anterior_param_is_ignored_after_the_cutoff(monkeypatch):
     )
     assert "Estás viendo la pantalla anterior" not in html
     assert "vista=anterior" not in html
-    assert 'id="eva4-processes"' in html
+    assert 'id="eva4-content"' in html  # la pantalla vigente
 
 
 def test_month_picker_lists_years_months_and_limits():
@@ -181,20 +163,6 @@ def test_month_picker_falls_back_to_the_current_month(value):
 
 def test_month_picker_keeps_a_year_outside_the_normal_range():
     assert eva4.month_picker("2027-02", TODAY)["years"][-1] == 2027
-
-
-def test_month_filter_is_two_selects_with_step_buttons(monkeypatch):
-    html = render_eva4(monkeypatch, {"mes": "2026-09"})
-    form = html.split('class="eva4-month-form"', 1)[1].split("</form>", 1)[0]
-    # Sin <input type="month">: Firefox y Safari lo muestran como texto.
-    assert 'type="month"' not in form
-    assert form.count("<select") == 2
-    assert 'aria-label="Mes anterior"' in form
-    assert 'aria-label="Mes siguiente"' in form
-    assert '<option value="9" selected>Septiembre</option>' in form
-    assert '<option value="2026" selected>2026</option>' in form
-    assert 'name="mes" value="2026-09"' in form
-    assert 'data-min="2024-08"' in html and 'data-max="2026-10"' in html
 
 
 def test_renewals_include_overdue_and_exclude_more_than_90_days():
@@ -222,21 +190,6 @@ def test_loader_reuses_cache_and_preserves_previous_cut_on_failure(monkeypatch):
     assert cache.get(eva4.snapshot_key()) == first
 
 
-def test_detail_renders_three_tables_with_existing_portal_layout(monkeypatch):
-    data = eva4.build_eva4([HEADER, row()], TODAY)
-    monkeypatch.setattr(eva4, "load_eva4", lambda: data)
-    html = views.eva4(
-        RequestFactory().get("/operativa/eva-4/")
-    ).content.decode()
-    for name in ["eva4-clients", "eva4-renewals", "eva4-processes"]:
-        assert f'id="{name}"' in html
-    assert "Columnas pendientes de fuente" in html
-    assert "Nestlé" in html
-    assert "EVA-04 Report" in html
-    assert "Sin dato" not in html
-    assert "Sin coincidencia en Clockify" in html
-
-
 def test_eva4_block_prepares_its_own_cache_without_loading_other_sources(
     monkeypatch,
 ):
@@ -251,17 +204,71 @@ def test_eva4_block_prepares_its_own_cache_without_loading_other_sources(
     assert cache.get(views._operativa_fresh_key(req, "eva4")) is True
 
 
-def test_table_shows_only_active_processes(monkeypatch):
+def test_table_shows_only_active_processes():
     data = eva4.build_eva4(
         [HEADER, row("1"), row("2", "Suspendido"), row("3")], TODAY
     )
     assert data["total"] == 3 and data["suspended"] == 1
     assert [p["bot_id"] for p in data["active_processes"]] == ["1", "3"]
-    monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
-    html = views.eva4(
-        RequestFactory().get("/operativa/eva-4/")
-    ).content.decode()
-    table = html.split('id="eva4-processes"', 1)[1].split("</table>", 1)[0]
-    assert table.count('class="eva4-pill active"') == 2
-    assert "suspended" not in table
-    assert "2 de 2 procesos activos" in html
+
+
+def restricted_report():
+    """Tres clientes: Nestlé (2 activos), Cagsa (1 activo, 1 suspendido)."""
+    rows = [HEADER, row("1"), row("2"), row("3"), row("4", "Suspendido")]
+    for position in (3, 4):
+        rows[position] = [*rows[position]]
+        rows[position][0] = "Cagsa"
+        rows[position][2] = "SAAS.CAG.001"
+    report = eva4.build_eva4(rows, TODAY)
+    for process in report["processes"]:
+        process["invested_hours"] = None if process["bot_id"] == "2" else 5.0
+        process["average_limit"] = None if process["client"] == "Cagsa" else 30
+    return report
+
+
+def test_restrict_keeps_everything_for_an_unrestricted_scope():
+    report = restricted_report()
+
+    scope = AccessScope.everything()
+    assert eva4.restrict(report, scope, TODAY) is report
+
+
+def test_restrict_recounts_totals_renewals_and_clients_from_what_is_left():
+    report = restricted_report()
+    assert report["total"] == 4 and report["renewal_count"] == 2
+
+    scope = AccessScope.limited(accounts=["Cagsa"])
+    result = eva4.restrict(report, scope, TODAY)
+
+    assert [c["name"] for c in result["clients"]] == ["Cagsa"]
+    assert (result["total"], result["active"], result["suspended"]) == (2, 1, 1)
+    assert [p["client"] for p in result["active_processes"]] == ["Cagsa"]
+    assert {r["project_id"] for r in result["renewals"]} == {"SAAS.CAG.001"}
+    assert sum(result["service_totals"]) == 2
+    assert result["unmatched_tasks"] == 0
+    assert result["missing_limits"] == 2
+    assert "Nestlé" not in str(result["clients"]) + str(result["renewals"])
+
+
+def test_restrict_by_project_does_not_open_the_whole_account():
+    report = restricted_report()
+
+    scope = AccessScope.limited(projects=["saas.cag.001"])
+    result = eva4.restrict(report, scope, TODAY)
+
+    assert {p["client"] for p in result["processes"]} == {"Cagsa"}
+    assert result["total"] == 2
+
+
+def test_restrict_with_nothing_allowed_returns_empty_totals_not_an_error():
+    result = eva4.restrict(restricted_report(), AccessScope.limited(), TODAY)
+
+    assert result["available"] is True
+    assert (result["total"], result["renewal_count"]) == (0, 0)
+    assert result["clients"] == [] and result["renewals"] == []
+
+
+def test_restrict_leaves_an_unavailable_report_alone():
+    report = {"available": False, "error": "sin datos"}
+
+    assert eva4.restrict(report, AccessScope.limited(), TODAY) is report

@@ -1,0 +1,46 @@
+/* EVA-04: lo que los estilos compartidos no traen.
+   Tarjetas, notas, pastillas, tablas, avisos y encabezado vienen de
+   components.css y layout.css; aqui solo se ajusta lo propio de esta pantalla.
+   Colores solo con variables de tokens.css. */
+
+.eva4-banner { flex-wrap: wrap; justify-content: space-between; margin-top: 12px; }
+.eva4-banner-title { flex: 1 1 360px; min-width: 0; }
+
+.eva4-filter { min-height: var(--tap); font: inherit; font-size: 13.5px; width: min(360px, 100%); padding: 10px; margin: 0; border: 1px solid var(--line); border-radius: 9px; background: var(--card); color: var(--ink); }
+.eva4-count { margin: 0; }
+.eva4-na { font-size: 12px; color: var(--muted); white-space: normal; }
+
+/* Secciones plegables y explicacion del calculo. */
+.eva4-fold > summary { cursor: pointer; list-style-position: inside; min-height: var(--tap); display: flex; align-items: center; }
+.eva4-fold > summary h2 { display: inline; margin: 0; }
+.eva4-fold[open] > summary { margin-bottom: 12px; }
+.eva4-how { margin: 0 0 14px; }
+.eva4-how > summary { cursor: pointer; display: flex; align-items: center; min-height: var(--tap); font-weight: 700; font-size: 13.5px; color: var(--brand); }
+.eva4-how ul { margin: 8px 0 0; padding-left: 20px; }
+
+/* Tablas: el modelo compartido; aqui el desplazamiento y el ancho. */
+.eva4-scroll { overflow: auto; max-height: 650px; }
+table.eva4 th { position: sticky; top: 0; z-index: 1; }
+table.eva4 td.critical { color: var(--bad); font-weight: 700; } /* saldo negativo */
+table.eva4 tr.total td { background: var(--th-bg); font-weight: 800; }
+.eva4-detail { min-width: 1650px; }
+.eva4-detail td { max-width: 280px; }
+
+@media (max-width: 800px) {
+  .eva4-banner-title { flex-basis: 100%; }
+}
+
+/* Pantallas chicas: la tabla de 15 columnas se desplaza en horizontal y BOT ID
+   (columna 4) y Process Name (columna 6) quedan fijas a la izquierda. No se
+   ocultan ni se reordenan columnas: son las del Excel. */
+@media (max-width: 900px) {
+  .eva4-detail th:nth-child(4), .eva4-detail td:nth-child(4),
+  .eva4-detail th:nth-child(6), .eva4-detail td:nth-child(6) { position: sticky; z-index: 2; }
+  .eva4-detail th:nth-child(4), .eva4-detail td:nth-child(4) { left: 0; min-width: 80px; max-width: 80px; }
+  .eva4-detail th:nth-child(6), .eva4-detail td:nth-child(6) { left: 80px; min-width: 150px; max-width: 150px; white-space: normal; box-shadow: 2px 0 0 var(--line); }
+  .eva4-detail td:nth-child(4), .eva4-detail td:nth-child(6) { background: var(--card); }
+  .eva4-detail tbody tr:nth-child(even) td:nth-child(4), .eva4-detail tbody tr:nth-child(even) td:nth-child(6) { background: color-mix(in srgb, var(--brand-soft) 30%, var(--card)); }
+  .eva4-detail tbody tr:hover td:nth-child(4), .eva4-detail tbody tr:hover td:nth-child(6) { background: var(--brand-soft); }
+  .eva4-detail th:nth-child(4), .eva4-detail th:nth-child(6) { z-index: 3; }
+  .eva4-scroll { max-height: 70vh; }
+}

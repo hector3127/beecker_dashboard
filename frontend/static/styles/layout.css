@@ -9,10 +9,13 @@
 .nav a:hover { background: var(--hover); }
 .nav a[aria-current="page"] { background: var(--brand-soft); color: var(--brand); }
 
-/* ---------- Contenedor ---------- */
+/* ---------- Contenedor y barra de página ---------- */
 .page { max-width: 1680px; margin: 0 auto; padding: 18px 28px 40px; }
-.crumb { font-size: 13px; color: var(--muted); margin: 0 4px 8px; }
-.crumb a { display: inline-block; padding: 14px 4px; margin: -14px 0; font-weight: 700; }
+
+.toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 20px; margin: 0 0 16px; min-width: 0; }
+.back { display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap); max-width: 100%; padding: 10px 14px; font-size: 13px; font-weight: 700; line-height: 1.5; color: var(--brand); background: var(--card); border: 1px solid var(--line-strong); border-radius: 10px; }
+.back:hover { background: var(--hover-soft); }
+.page-context { color: var(--quiet); font-size: 12px; line-height: 1.5; text-align: right; overflow-wrap: anywhere; }
 
 /* ---------- Encabezado de pagina (banner) ---------- */
 .pgh { display: flex; align-items: center; gap: 20px; border-radius: 18px; padding: 16px 26px; margin: 0 0 14px; color: #fff; background: var(--hero); }

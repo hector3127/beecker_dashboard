@@ -7,6 +7,7 @@ from typing import Any
 from django.core.cache import cache
 from django.utils import timezone
 
+from apps.access.scope import AccessScope
 from apps.gse.services.cells import norm
 from apps.portal.services.eva4_hours import (
     apply_limits,
@@ -21,8 +22,9 @@ from core.utils.dates import to_datetime
 
 # Validacion del rediseno (DESIGN-IS-2026-10-20/05-plan.md, fase 6).
 # Hasta esta fecha se puede ver la pantalla anterior con ?vista=anterior.
-# Para retirarla: borrar ANTERIOR_HASTA, anterior_disponible(), la plantilla
-# eva4_anterior.html, el parametro en views.eva4 y las pruebas test_anterior_*.
+# Para retirarla: borrar ANTERIOR_HASTA, anterior_disponible(), views.eva4, la
+# plantilla eva4_anterior.html, la rama ?vista=anterior de pages.eva4 y las
+# pruebas test_anterior_*.
 ANTERIOR_HASTA = date(2026, 11, 3)
 
 # Primer mes con horas de Clockify en la base: limite inferior del selector.
@@ -153,11 +155,7 @@ def build_eva4(values: list[list[Any]], today: date) -> dict[str, Any]:
         )
         for field, aliases in FIELDS.items()
     }
-    clients: dict[str, dict[str, Any]] = {}
     processes = []
-    renewals: dict[tuple[Any, ...], dict[str, Any]] = {}
-    service_totals: Counter[str] = Counter()
-    statuses: Counter[str] = Counter()
     for row in values[header + 1 :]:
         item: dict[str, Any] = {
             field: row[col] if 0 <= col < len(row) else ""
@@ -179,10 +177,43 @@ def build_eva4(values: list[list[Any]], today: date) -> dict[str, Any]:
             moment = to_datetime(item[field])
             item[field] = moment.date() if moment else None
         processes.append(item)
+    missing = [
+        FIELDS[name][0]
+        for name in (
+            "average_limit",
+            "invested_hours",
+            "hours_balance",
+            "package_limit",
+            "package_available",
+        )
+        if columns[name] < 0
+    ]
+    return {
+        "available": True,
+        "error": "",
+        "loaded_at": timezone.localtime(),
+        "processes": processes,
+        **summarize(processes, today),
+        "missing_columns": missing,
+    }
+
+
+# norm() deja la clave del servicio («T M»); en pantalla se muestra el nombre.
+_SERVICE_KEYS = {label: key for key, label in LABELS.items()}
+
+
+def summarize(processes: list[dict[str, Any]], today: date) -> dict[str, Any]:
+    """Cuenta clientes, servicios y renovaciones de los procesos dados."""
+    clients: dict[str, dict[str, Any]] = {}
+    renewals: dict[tuple[Any, ...], dict[str, Any]] = {}
+    service_totals: Counter[str] = Counter()
+    statuses: Counter[str] = Counter()
+    for item in processes:
+        service = _SERVICE_KEYS.get(item["service"], item["service"])
         group = clients.setdefault(
-            client,
+            item["client"],
             {
-                "name": client,
+                "name": item["client"],
                 "services": Counter(),
                 "active": 0,
                 "suspended": 0,
@@ -223,28 +254,13 @@ def build_eva4(values: list[list[Any]], today: date) -> dict[str, Any]:
     for group in summary:
         group["counts"] = [group["services"][name] for name in services]
         del group["services"]
-    missing = [
-        FIELDS[name][0]
-        for name in (
-            "average_limit",
-            "invested_hours",
-            "hours_balance",
-            "package_limit",
-            "package_available",
-        )
-        if columns[name] < 0
-    ]
     return {
-        "available": True,
-        "error": "",
-        "loaded_at": timezone.localtime(),
         "services": [LABELS.get(name, name) for name in services],
         "clients": summary,
         "service_totals": [service_totals[name] for name in services],
         "total": len(processes),
         "active": statuses["active"],
         "suspended": statuses["suspended"],
-        "processes": processes,
         # La tabla de procesos solo muestra los que estan en estado Activo.
         "active_processes": [
             p for p in processes if p["status_code"] == "active"
@@ -253,7 +269,32 @@ def build_eva4(values: list[list[Any]], today: date) -> dict[str, Any]:
             renewals.values(), key=lambda r: (r["due"], str(r["project_id"]))
         ),
         "renewal_count": len(renewals),
-        "missing_columns": missing,
+    }
+
+
+def restrict(
+    report: dict[str, Any], scope: AccessScope, today: date
+) -> dict[str, Any]:
+    """Deja solo los procesos del alcance y recalcula cada total y conteo.
+
+    Se filtra antes de contar: los totales, las renovaciones y los clientes
+    de quien tiene un alcance limitado nunca incluyen datos ajenos.
+    """
+    if scope.unrestricted or not report.get("available"):
+        return report
+    kept = [
+        p
+        for p in report["processes"]
+        if scope.allows_project(p["project_id"], p["client"])
+    ]
+    return {
+        **report,
+        "processes": kept,
+        **summarize(kept, today),
+        "unmatched_tasks": sum(p.get("invested_hours") is None for p in kept),
+        "missing_limits": sum(
+            p.get("average_limit") in (None, "") for p in kept
+        ),
     }
 
 

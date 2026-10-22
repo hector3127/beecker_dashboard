@@ -18,7 +18,7 @@ Códigos estables (contrato con Genesis). Se agregan en
 | Código | Qué permite |
 |---|---|
 | `view_executive` | Ver Business Overview |
-| `view_operations` | Ver Operativa |
+| `view_operations` | Ver Operativa (incluye EVA-04, ya protegida en página y API) |
 | `view_commercial` | Ver Comercial |
 | `view_costs` | Ver costos, ingresos y márgenes |
 | `view_agreements` | Consultar acuerdos y pendientes |

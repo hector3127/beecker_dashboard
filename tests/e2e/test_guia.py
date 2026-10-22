@@ -5,30 +5,12 @@ import re
 import pytest
 from playwright.sync_api import expect
 
+from tests.e2e.conftest import watch
+
 pytestmark = pytest.mark.django_db(transaction=True)
 
 PAGE = "/guia-de-interfaz/"
 PING = "**/api/v1/ping/"
-
-
-def watch(portal):
-    """Anota lo que sale mal en la pagina; las fuentes de Google se ignoran."""
-    problems = []
-    portal.on(
-        "console",
-        lambda m: (
-            problems.append(m.text)
-            if m.text.startswith("[Report Only]")
-            or "Content Security" in m.text
-            else None
-        ),
-    )
-    portal.on("pageerror", lambda e: problems.append(str(e)))
-    portal.on(
-        "requestfailed",
-        lambda r: problems.append(r.url) if portal.base in r.url else None,
-    )
-    return problems
 
 
 def test_page_loads_without_errors_or_csp_violations(portal, settings):

@@ -1,0 +1,15 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}EVA-04 Report{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/eva4.css' %}">{% endblock %}
+{% block content %}
+<div class="toolbar"><a class="back" href="{% url 'portal:operativa' %}">← Regresar a Operativa</a><span class="page-context">EVA-04</span></div>
+<header class="pgh eva4-banner" data-tone="operations"><div class="eva4-banner-title"><h1>EVA-04 Report</h1><p id="eva4-subtitle">Servicios de automatización · clientes, renovaciones y procesos</p></div></header>
+<div id="eva4-error" aria-live="polite"></div>
+<div class="fbar" id="eva4-filters"></div>
+<div id="eva4-content"></div>
+<p class="note" id="eva4-source"></p>
+<noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
+{{ picker|json_script:"eva4-picker" }}
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/eva4/main.js' %}"></script>{% endblock %}
