@@ -325,11 +325,8 @@ def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
     return context
 
 
-@require_GET
-def operativa(request: Any) -> Any:
-    """Muestra el corte guardado y carga los datos aparte."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
+def operativa_context(request: Any) -> dict[str, Any]:
+    """Corte guardado de Operativa; la plantilla y la API lo comparten."""
     context = _operativa_snapshot(request)
     if context is None:
         from apps.portal.schemas import EvaCard
@@ -369,7 +366,15 @@ def operativa(request: Any) -> Any:
     context["summary_fresh"] = bool(
         context["operations_summary_html"] and cache.get(summary_key + ":fresh")
     )
-    return render(request, "portal/operativa.html", context)
+    return context
+
+
+@require_GET
+def operativa(request: Any) -> Any:
+    """Muestra el corte guardado y carga los datos aparte."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+    return render(request, "portal/operativa.html", operativa_context(request))
 
 
 def _operativa_block_error(context: dict[str, Any], block: str) -> str:
@@ -401,8 +406,7 @@ def _operativa_investment(ixb: Any, aer: Any) -> dict[str, Any]:
     return investment
 
 
-@require_GET
-def operativa_datos(request: HttpRequest) -> HttpResponse:
+def operativa_block_context(request: Any) -> dict[str, Any]:
     """
     Muestra la pantalla Operativa con filtros de Servicio y Cuenta.
 
@@ -410,11 +414,8 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
         request: Peticion HTTP; acepta ?servicio= y ?cuenta=.
 
     Returns:
-        La pagina con los indicadores y los Delivery Managers.
+        El contexto con los indicadores y los Delivery Managers.
     """
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-
     from apps.portal.schemas import EvaCard
 
     block = request.GET.get("bloque", "")
@@ -429,15 +430,13 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
             context["block_error"] = result["error"]
         else:
             cache.set(_operativa_fresh_key(request, "eva4"), True, 300)
-        return render(request, "portal/operativa.html", context)
+        return context
     if (
         saved
         and request.GET.get("actualizar") != "1"
         and cache.get(_operativa_fresh_key(request, block or "base"))
     ):
-        return render(
-            request, "portal/operativa.html", {**saved, "refresh_block": block}
-        )
+        return {**saved, "refresh_block": block}
     if saved and block in {"inversion", "capacidad", "eva3"}:
         from apps.portal.services.operational_sources import (
             legacy_capacity,
@@ -456,15 +455,11 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
             aer = load_eva1()
             ixb = load_eva2()
             if aer.error or ixb.error:
-                return render(
-                    request,
-                    "portal/operativa.html",
-                    {
-                        **saved,
-                        "refresh_block": block,
-                        "block_error": aer.error or ixb.error,
-                    },
-                )
+                return {
+                    **saved,
+                    "refresh_block": block,
+                    "block_error": aer.error or ixb.error,
+                }
             context["eva3_card"] = build_eva1_card(aer)
             from apps.portal.services.operational_sources import eva_projects
 
@@ -486,11 +481,7 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
             context["eva2_card"] = context["eva1_card"]
         block_error = _operativa_block_error(context, block)
         if block_error:
-            return render(
-                request,
-                "portal/operativa.html",
-                {**saved, "refresh_block": block, "block_error": block_error},
-            )
+            return {**saved, "refresh_block": block, "block_error": block_error}
         if block == "inversion":
             cache.set("portal:ops:investment:v3", context["investment"], 86400)
         elif block == "capacidad":
@@ -520,11 +511,7 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
         cache.set(
             _operativa_fresh_key(request, block), True, _OPS_FRESH_SECONDS
         )
-        return render(
-            request,
-            "portal/operativa.html",
-            {**latest, "refresh_block": block},
-        )
+        return {**latest, "refresh_block": block}
     load = PortfolioLoad(projects=(), loaded_at=timezone.localtime(), error="")
     selected_service = request.GET.get("servicio", "").strip()
     selected_client = request.GET.get("cuenta", "").strip()
@@ -625,31 +612,19 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
     )
     _scope_operativa_investment(request, context)
     if saved and (ixb.error or aer.error) and not block:
-        return render(
-            request,
-            "portal/operativa.html",
-            {
-                **saved,
-                "source_errors": context["source_errors"],
-                "stale": True,
-            },
-        )
+        return {
+            **saved,
+            "source_errors": context["source_errors"],
+            "stale": True,
+        }
     if ixb.error or aer.error:
-        return render(
-            request,
-            "portal/operativa.html",
-            {**context, "refresh_block": block},
-        )
+        return {**context, "refresh_block": block}
     if block and _operativa_block_error(context, block):
-        return render(
-            request,
-            "portal/operativa.html",
-            {
-                **context,
-                "refresh_block": block,
-                "block_error": _operativa_block_error(context, block),
-            },
-        )
+        return {
+            **context,
+            "refresh_block": block,
+            "block_error": _operativa_block_error(context, block),
+        }
     cache.set(_operativa_key(request), context, 86400)
     cache.set(
         _operativa_fresh_key(request, block or "base"),
@@ -660,10 +635,16 @@ def operativa_datos(request: HttpRequest) -> HttpResponse:
         cache.set(
             _operativa_fresh_key(request, "base"), True, _OPS_FRESH_SECONDS
         )
+    return {**context, "refresh_block": block}
+
+
+@require_GET
+def operativa_datos(request: HttpRequest) -> HttpResponse:
+    """Muestra la pantalla Operativa con filtros de Servicio y Cuenta."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
     return render(
-        request,
-        "portal/operativa.html",
-        {**context, "refresh_block": block},
+        request, "portal/operativa.html", operativa_block_context(request)
     )
 
 
