@@ -14,6 +14,8 @@ from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
 
+OPPORTUNITY_VERSION = 6
+
 
 def number(value: Any) -> Any:
     """Convierte una celda a numero; None si no es valida."""
@@ -48,6 +50,27 @@ def build_opportunities(reader: Any = None) -> Any:
     """Arma el margen vendido y real de cada oportunidad."""
     reader = reader or build_sheet_repository()
     source = reader.read_values("DataRevenue")
+    # Booking is the recognized value of the whole opportunity, independent
+    # of the selected period. Keep period revenue and existing margins intact.
+    bookings: dict[tuple[str, str], Decimal] = defaultdict(Decimal)
+    for row in source[1:]:
+        if (
+            len(row) < 8
+            or str(row[0]).strip().casefold() not in REVENUE_STATUSES
+            or excluded_service(row[3])
+            or any(
+                str(cell).strip().casefold()
+                in {"total", "subtotal", "grand total", "total general"}
+                for cell in row[:7]
+            )
+        ):
+            continue
+        amount = number(row[7])
+        name = str(row[2] or "").strip()
+        if amount is not None and name:
+            bookings[
+                (normalize_name(str(row[1] or "")), normalize_name(name))
+            ] += amount
     groups: dict[Any, Any] = {}
     # Ownership is checked against the entire source: a shared project must not
     # silently allocate its full cost to multiple commercial opportunities.
@@ -112,6 +135,7 @@ def build_opportunities(reader: Any = None) -> Any:
                 "ids": set(),
                 "services": set(),
                 "revenue": Decimal(0),
+                "operated_revenue": Decimal(0),
                 "invoiced": Decimal(0),
                 "confirmed": Decimal(0),
                 "collected": Decimal(0),
@@ -123,6 +147,9 @@ def build_opportunities(reader: Any = None) -> Any:
             },
         )
         item["revenue"] += amount
+        service_date = to_datetime(row[6])
+        if service_date and service_date.date() <= timezone.localdate():
+            item["operated_revenue"] += amount
         state = str(row[0]).strip().casefold()
         if state in INVOICE_STATUSES:
             item["invoiced"] += amount
@@ -233,6 +260,11 @@ def build_opportunities(reader: Any = None) -> Any:
                 "account": item["account"],
                 "name": item["name"],
                 "revenue": round(revenue, 2),
+                "bookings": round(float(bookings[identity]), 2)
+                if len(identity) == 2
+                else None,
+                "operated_revenue": round(float(item["operated_revenue"]), 2),
+                "operated_revenue_status": "assumed_service_date_g",
                 "invoiced": round(float(item["invoiced"]), 2),
                 "confirmed": round(float(item["confirmed"]), 2),
                 "collected": round(float(item["collected"]), 2),
@@ -262,7 +294,7 @@ def build_opportunities(reader: Any = None) -> Any:
         ),
         "start": bounds()[0].isoformat(),
         "end": bounds()[1].isoformat(),
-        "version": 5,
+        "version": OPPORTUNITY_VERSION,
         "excluded": "Licencias, SaaS y servicios especializados",
     }
 

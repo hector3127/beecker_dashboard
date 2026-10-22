@@ -2,6 +2,11 @@
 
 La vista /ejecutiva/oportunidades/ compara el margen comercial vendido con el real por oportunidad (DataRevenue C) y cuenta (B). No se toma la oportunidad más reciente de un Project ID: una oportunidad puede contener varios IDs operativos (E), y un ID compartido no permite asignar costos automáticamente.
 
+Actualización 22/10: la tabla separa Bookings total de la oportunidad,
+revenue operado provisional por G, facturado y cobrado; usa los nombres
+Costos y Margen real. El margen conserva la base del periodo. Detalle y
+suposiciones en [cambios de Florencia](cambios-florencia-2026-10-22.md).
+
 - I: Gross Margin Comercial, admite porcentajes en texto o fracciones numéricas; un cero explícito se conserva.
 - G/H: fecha y revenue del periodo, considerando Confirmed, Invoiced, Invoiced Factoring, Collected y Collected Factoring. Confirmed se muestra separado de lo ya facturado.
 - Margen real: (revenue del periodo − costos disponibles) / revenue del periodo × 100.

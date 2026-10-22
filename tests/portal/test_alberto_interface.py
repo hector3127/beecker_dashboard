@@ -45,7 +45,17 @@ def test_opportunity_rate_is_explicitly_pending_without_changing_margins():
     )
     assert "Tarifa de costo vendida" in html
     assert "Por validar con Florencia" in html
-    assert 'colspan="9"' in html
+    assert 'colspan="11"' in html
+    for heading in (
+        "Bookings",
+        "Revenue operado",
+        "Cobrado",
+        "Costos",
+        "Margen real",
+    ):
+        assert f"<th>{heading}</th>" in html
+    assert "Fecha de servicio: G · por validar" in html
+    assert "Margen consumido" not in html
     assert "No se sustituye por la tarifa interna de banda" in html
     assert "25,00%" in html or "25.00%" in html
 

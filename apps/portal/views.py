@@ -2254,6 +2254,7 @@ def oportunidades_financieras(request: Any) -> Any:
         snapshot_key,
     )
     from apps.portal.services.opportunity_profitability import (
+        OPPORTUNITY_VERSION,
         build_opportunities,
         opportunity_summary,
     )
@@ -2262,7 +2263,7 @@ def oportunidades_financieras(request: Any) -> Any:
     prepared = snapshot.get("opportunities") or cache.get(
         snapshot_key() + ":opportunities"
     )
-    if prepared and prepared.get("version") != 5:
+    if prepared and prepared.get("version") != OPPORTUNITY_VERSION:
         prepared = None
     data = prepared or build_opportunities()
     account_filter = request.GET.get("nombre", "").strip()

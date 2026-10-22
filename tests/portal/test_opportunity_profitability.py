@@ -24,6 +24,120 @@ def reader(*rows):
     return InMemorySheetRepository({"DataRevenue": [HEADER, *rows]})
 
 
+def test_bookings_include_other_periods_but_collection_does_not(monkeypatch):
+    from datetime import date
+
+    from apps.portal.services.executive_period import ExecutivePeriod, _current
+
+    cache.clear()
+    monkeypatch.setattr(
+        "apps.portal.services.opportunity_profitability.timezone.localdate",
+        lambda: date(2026, 10, 22),
+    )
+    source = reader(
+        ["Collected", "Acme", "OP", "RaaS", "DEV", 0, "2025-12-01", 100, "60%"],
+        ["Invoiced", "Acme", "OP", "RaaS", "DEV", 0, "2026-09-01", 200, "60%"],
+        [
+            "Collected Factoring",
+            "Acme",
+            "OP",
+            "RaaS",
+            "DEV",
+            0,
+            "2026-09-02",
+            300,
+            "60%",
+        ],
+        ["Confirmed", "Acme", "OP", "RaaS", "DEV", 0, "2026-12-01", 400, "60%"],
+        [
+            "Collected",
+            "Other",
+            "OP",
+            "RaaS",
+            "OTHER",
+            0,
+            "2026-09-01",
+            999,
+            "60%",
+        ],
+        ["Cancelled", "Acme", "OP", "RaaS", "DEV", 0, "2026-09-01", 999, "60%"],
+        [
+            "Collected",
+            "Acme",
+            "OP",
+            "Licenses",
+            "LIC",
+            0,
+            "2026-09-01",
+            999,
+            "60%",
+        ],
+    )
+    token = _current.set(
+        ExecutivePeriod(date(2026, 9, 1), date(2026, 9, 30), "rango")
+    )
+    try:
+        row = next(
+            r
+            for r in build_opportunities(source)["opportunities"]
+            if r["account"] == "Acme"
+        )
+    finally:
+        _current.reset(token)
+    assert row["bookings"] == 1000
+    assert row["revenue"] == row["invoiced"] == 500
+    assert row["collected"] == 300
+    assert row["operated_revenue"] == 500
+    assert row["operated_revenue_status"] == "assumed_service_date_g"
+    assert row["actual_margin"] is None  # Missing costs never become zero.
+
+
+def test_operated_revenue_excludes_future_service_but_keeps_margin_basis(
+    monkeypatch,
+):
+    from datetime import date
+
+    monkeypatch.setattr(
+        "apps.portal.services.opportunity_profitability.timezone.localdate",
+        lambda: date(2026, 10, 22),
+    )
+    cache.clear()
+    cache.set(
+        key("DEV"), {"complete": True, "cost": 100, "entries": {"a": 100}}
+    )
+    row = build_opportunities(
+        reader(
+            [
+                "Confirmed",
+                "Acme",
+                "OP",
+                "RaaS",
+                "DEV",
+                0,
+                "2026-09-01",
+                200,
+                "60%",
+            ],
+            [
+                "Confirmed",
+                "Acme",
+                "OP",
+                "RaaS",
+                "DEV",
+                0,
+                "2026-12-01",
+                300,
+                "60%",
+            ],
+        )
+    )["opportunities"][0]
+    assert row["bookings"] == row["revenue"] == 500
+    assert row["operated_revenue"] == 200
+    assert row["collected"] == row["invoiced"] == 0
+    assert row["actual_margin"] == 80
+    cache.clear()
+
+
 def test_opportunity_combines_project_ids_and_all_finance_statuses():
     cache.clear()
     cache.set(

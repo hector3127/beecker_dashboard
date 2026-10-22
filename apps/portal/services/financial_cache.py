@@ -12,6 +12,7 @@ from apps.portal.services.executive_period import cache_suffix
 from apps.portal.services.monthly_profitability import (
     load_monthly_profitability,
 )
+from apps.portal.services.opportunity_profitability import OPPORTUNITY_VERSION
 from apps.portal.services.revenue import load_revenue
 from apps.portal.services.revenue_costs import (
     calculate_project_cost,
@@ -68,7 +69,7 @@ def warm_financial(only_stale: bool = False) -> dict[str, Any]:
                 or cache.get(snapshot_key() + ":opportunities")
                 or {}
             ).get("version")
-            == 5
+            == OPPORTUNITY_VERSION
         ):
             return {"ok": True, "error": ""}
         return _prepare_financial()

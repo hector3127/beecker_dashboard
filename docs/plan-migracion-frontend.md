@@ -27,6 +27,11 @@ resto. Cada fase es un conjunto de commits en `main`, con la suite en verde.
 
 ## Reglas que se mantienen
 
+Actualización para la fase 7: incorporar los nombres y campos solicitados por
+Florencia en [cambios-florencia-2026-10-22.md](cambios-florencia-2026-10-22.md).
+Bookings, revenue operado y cobrado quedan separados. La fecha de servicio G
+es una suposición autorizada pendiente de validar; el margen conserva su base.
+
 - Django es el dueño de los datos, los cálculos y la autorización. El frontend
   solo muestra; ocultar un botón nunca sustituye la validación del servidor.
 - Una sola fuente de HTML (`frontend/templates`), sin CSS ni JS en línea,
