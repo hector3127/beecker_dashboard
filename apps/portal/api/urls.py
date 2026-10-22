@@ -5,9 +5,12 @@ from django.urls import path
 from apps.portal.api.agreements import AgreementDetailView, AgreementListView
 from apps.portal.api.screens import (
     Eva4ScreenView,
+    MarginsRefreshView,
+    MarginsScreenView,
     OperativaBillingView,
     OperativaBlockView,
     OperativaView,
+    ProjectCostView,
 )
 from apps.portal.api.views import MeView, PingView
 
@@ -27,6 +30,13 @@ urlpatterns = [
     ),
     path("ping/", PingView.as_view(), name="ping"),
     path("screens/eva4/", Eva4ScreenView.as_view(), name="eva4"),
+    path("screens/margenes/", MarginsScreenView.as_view(), name="margenes"),
+    path(
+        "screens/margenes/actualizar/",
+        MarginsRefreshView.as_view(),
+        name="margenes_actualizar",
+    ),
+    path("costs/project/", ProjectCostView.as_view(), name="project_cost"),
     path("screens/operativa/", OperativaView.as_view(), name="operativa"),
     path(
         "screens/operativa/datos/",

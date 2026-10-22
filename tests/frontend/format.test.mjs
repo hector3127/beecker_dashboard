@@ -33,3 +33,21 @@ test('search text ignores accents and case', () => {
   assert.equal(plain('Nestlé ÁÉÍÓÚ ñ'), 'nestle aeiou n');
   assert.ok(plain('Conciliación Mensual').includes(plain('CONCILIACION')));
 });
+
+test('money is compact, truncated and never zero when it is missing', async () => {
+  const { formatMoney } = await import('../../frontend/static/scripts/lib/format.js');
+  assert.equal(formatMoney(0), '$0');
+  assert.equal(formatMoney(999), '$999');
+  assert.equal(formatMoney(1500), '$1K');
+  assert.equal(formatMoney(2_599_999), '$2.59M');
+  assert.equal(formatMoney(1.2e9), '$1.2B');
+  assert.equal(formatMoney(-1500), '-$1K');
+  for (const missing of [null, undefined, Number.NaN]) assert.equal(formatMoney(missing), 'Pendiente');
+});
+
+test('percentages keep two decimals and a missing value stays pending', async () => {
+  const { formatPercent } = await import('../../frontend/static/scripts/lib/format.js');
+  assert.equal(formatPercent(40), '40.00%');
+  assert.equal(formatPercent(-5, ' pp'), '-5.00 pp');
+  assert.equal(formatPercent(null), 'Pendiente');
+});

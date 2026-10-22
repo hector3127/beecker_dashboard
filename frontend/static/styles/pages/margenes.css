@@ -1,0 +1,52 @@
+/* Comparativa de margenes: lo que los estilos compartidos no traen.
+   Colores solo con variables de tokens.css. */
+
+.mg-filters { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; margin: 12px 0; }
+.mg-filters label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 700; min-width: 180px; }
+.mg-filters input { min-height: var(--tap); font: inherit; font-weight: 500; padding: 9px; border: 1px solid var(--line); border-radius: 9px; background: var(--card); color: var(--ink); }
+.mg-filters .btn { min-height: var(--tap); }
+.mg-method > summary { cursor: pointer; min-height: var(--tap); display: flex; align-items: center; }
+.mg-method[open] > summary { margin-bottom: 8px; }
+
+.mg-metrics { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.mg-metric h2 { font-size: 11px; line-height: 1.5; margin: 0 0 10px; min-height: 34px; }
+.mg-metric strong { display: block; font-size: 24px; letter-spacing: -.03em; }
+.mg-metric strong.bad { color: var(--bad); }
+.mg-metric strong.good { color: var(--good); }
+.mg-metric small { display: block; font-size: 11px; color: var(--muted); }
+
+#mg-search { min-height: var(--tap); width: min(450px, 100%); font: inherit; padding: 9px 10px; margin: 14px 0 4px; border: 1px solid var(--line); border-radius: 9px; background: var(--card); color: var(--ink); }
+
+.mg-rate-note { padding: 12px 14px; margin: 0 0 12px; font-size: 12px; line-height: 1.6; background: var(--warn-soft); border-radius: 10px; color: var(--warn-ink); }
+.mg-results small, .mg-panel small { display: block; font-size: 10px; line-height: 1.45; margin-top: 2px; color: var(--quiet); }
+.mg-scroll { overflow: auto; max-height: 75vh; max-height: 75dvh; overscroll-behavior-x: contain; }
+.mg-results > .mg-scroll > table { min-width: 1250px; }
+.mg-results > .mg-scroll > table > thead th { position: sticky; top: 0; z-index: 2; text-transform: uppercase; white-space: nowrap; }
+.mg-name { position: relative; padding-left: 36px; min-width: 180px; }
+.mg-arrow { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 22px; }
+.is-expanded .mg-arrow { transform: translateY(-50%) rotate(90deg); }
+.mg-rate-pending { white-space: normal; min-width: 145px; }
+.bad { color: var(--bad); font-weight: 700; }
+.good { color: var(--good); font-weight: 700; }
+td.bad .mg-deviation { display: inline-block; background: var(--bad-soft); border-radius: 16px; padding: 5px 12px; }
+
+.mg-panel-row > td { background: var(--soft-card); }
+.mg-panel { padding: 8px; }
+.mg-panel h3 { font-size: 13px; margin: 0 0 10px; }
+.mg-people-row > td { padding: 0; border: 0; }
+.mg-people { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin: 8px 0; }
+.mg-people > summary { cursor: pointer; font-weight: 700; font-size: 12px; min-height: var(--tap); display: flex; align-items: center; }
+.mg-people-content table { min-width: 720px; }
+.mg-people-content h4 { font-size: 13px; margin: 12px 0 8px; }
+.person-cost-state { display: inline-block; padding: 4px 10px; border-radius: 16px; background: var(--chip); font-size: 10px; white-space: nowrap; }
+.person-cost-state.missing { background: var(--warn-soft); color: var(--warn-ink); }
+
+@media (max-width: 1150px) { .mg-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 720px) {
+  .mg-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .mg-filters label { flex: 1; min-width: 140px; }
+}
+@media print {
+  .mg-scroll { overflow: visible; max-height: none; }
+  .mg-results > .mg-scroll > table > thead th { position: static; }
+}

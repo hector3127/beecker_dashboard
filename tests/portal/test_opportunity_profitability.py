@@ -336,10 +336,7 @@ def test_percent_formats_and_real_zero():
     assert sold_percent("") is None
 
 
-def test_view_renders_sold_actual_and_deviation(monkeypatch):
-    from django.test import RequestFactory, override_settings
-
-    from apps.portal import views
+def test_screen_serves_sold_actual_and_deviation(monkeypatch, client):
     from apps.portal.services import (
         executive_refresh,
         opportunity_profitability,
@@ -365,28 +362,28 @@ def test_view_renders_sold_actual_and_deviation(monkeypatch):
             ]
         ),
     )
-    with override_settings(PORTAL_LOGIN_REQUIRED=False):
-        response = views.oportunidades_financieras(
-            RequestFactory().get(
-                "/ejecutiva/oportunidades/?periodo=rango&desde=2026-01-01&hasta=2026-09-30"
-            )
-        )
+
+    response = client.get(
+        "/api/v1/screens/margenes/"
+        "?periodo=rango&desde=2026-01-01&hasta=2026-09-30"
+    )
+
     assert response.status_code == 200
-    html = response.content.decode()
-    assert "Margen vendido" in html and "Desviación" in html and "OP.1" in html
-    assert "60,00%" in html or "60.00%" in html
+    [row] = response.json()["data"]["opportunities"]
+    assert (row["name"], row["sold_margin"]) == ("OP.1", 60)
+    assert row["deviation_pp"] is None  # sin costo no hay desviacion
 
 
 def test_cost_detail_opens_opportunity_hierarchy_by_default(monkeypatch):
     from django.http import HttpResponse
     from django.test import RequestFactory
 
-    from apps.portal import views
+    from apps.portal import pages, views
 
     captured = []
     monkeypatch.setattr(
-        views,
-        "oportunidades_financieras",
+        pages,
+        "margenes",
         lambda request: (
             captured.append(request.GET.get("nombre"))
             or HttpResponse("hierarchy")

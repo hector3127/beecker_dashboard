@@ -2,15 +2,24 @@
 
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
-from django.http import HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET
 
-from apps.access.checks import require_capability
+from apps.access.checks import require_capability, scope_for
 from apps.portal import views
 from apps.portal.services.eva4 import anterior_disponible, month_picker
+from apps.portal.services.executive_period import (
+    bounds,
+    period_view,
+    query_string,
+)
+from apps.portal.services.return_navigation import (
+    account_back_url,
+    return_context,
+)
 
 """BKD.120.014 - Paginas del frontend
 Cada pagina valida el acceso y renderiza su plantilla; los datos los pide
@@ -64,3 +73,31 @@ def operativa(request: HttpRequest) -> HttpResponse:
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
     return render(request, "pages/operativa.html", {"active": "operativa"})
+
+
+@require_GET
+@require_capability("view_costs")
+@period_view
+def margenes(request: HttpRequest) -> HttpResponse:
+    """Comparativa de margenes: el JS pide los datos a la API."""
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    account = request.GET.get("nombre", "").strip()
+    if account and not scope_for(request).allows_account(account):
+        raise Http404("No existe esa cuenta.")
+    start, end = bounds()
+    navigation = return_context(
+        request, account_back_url(account), account or "Business Overview"
+    )
+    return render(
+        request,
+        "pages/margenes.html",
+        {
+            **navigation,
+            "active": "ejecutiva",
+            "account": account,
+            "start": start.isoformat(),
+            "end": end.isoformat(),
+            "period_query": query_string(),
+        },
+    )

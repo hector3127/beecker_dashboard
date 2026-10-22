@@ -22,44 +22,6 @@ def test_executive_exposes_glossary_and_ordering_in_the_main_view():
     assert "70% utilidad" not in html
 
 
-def test_opportunity_rate_is_explicitly_pending_without_changing_margins():
-    html = render_to_string(
-        "portal/oportunidades_financieras.html",
-        {
-            "data": {
-                "opportunities": [
-                    {
-                        "account": "ACME",
-                        "name": "Venta",
-                        "ids": [],
-                        "projects": [],
-                        "services": [],
-                        "sold_margin": 25,
-                        "actual_margin": 20,
-                        "deviation_pp": -5,
-                    }
-                ]
-            },
-            "summary": {},
-        },
-    )
-    assert "Tarifa de costo vendida" in html
-    assert "Por validar con Florencia" in html
-    assert 'colspan="11"' in html
-    for heading in (
-        "Bookings",
-        "Revenue operado",
-        "Cobrado",
-        "Costos",
-        "Margen real",
-    ):
-        assert f"<th>{heading}</th>" in html
-    assert "Fecha de servicio: G · por validar" in html
-    assert "Margen consumido" not in html
-    assert "No se sustituye por la tarifa interna de banda" in html
-    assert "25,00%" in html or "25.00%" in html
-
-
 def test_glossary_distinguishes_sold_rate_and_internal_band_rate():
     concepts = {name: definition for name, definition, _source in CONCEPTS}
     assert "costing rate" in " ".join(concepts)

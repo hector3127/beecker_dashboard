@@ -4,7 +4,8 @@ from typing import Any
 from urllib.parse import parse_qs, unquote, urlsplit
 
 from django.http import HttpRequest
-from django.urls import Resolver404, resolve
+from django.urls import Resolver404, resolve, reverse
+from django.utils.text import slugify
 
 LABELS = {
     "portal:ejecutiva": "Business Overview",
@@ -47,3 +48,21 @@ def return_context(
     if match.view_name == "portal:cuenta":
         label = parse_qs(parts.query).get("nombre", ["la cuenta"])[0]
     return {"back_url": target, "back_label": label}
+
+
+def account_back_url(account: str) -> str:
+    """Cuenta (o Business Overview) con el periodo elegido, para regresar."""
+    from urllib.parse import urlencode
+
+    from apps.portal.services.executive_period import current, query_string
+
+    back = (
+        reverse("portal:cuenta", kwargs={"slug": slugify(account) or "cuenta"})
+        + "?"
+        + urlencode({"nombre": account})
+        if account
+        else reverse("portal:ejecutiva")
+    )
+    if current():
+        back += ("&" if "?" in back else "?") + query_string()
+    return back

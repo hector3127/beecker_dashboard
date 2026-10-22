@@ -320,3 +320,63 @@ def billing_screen(summary: Any) -> dict[str, Any]:
         },
         "meta": {},
     }
+
+
+# La tarifa de costo vendida no se calcula ni se sustituye por la de banda
+# hasta que Finanzas confirme fuente, unidad y asignacion.
+SOLD_COST_RATE = {"value": None, "status": "pending_validation"}
+
+
+def _margin_project(project: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "id": project["id"],
+        "hours": project["hours"],
+        "cost": project["cost"],
+        "period_revenue": project["revenue"],
+        "gross_profit": project["gross_profit"],
+        "margin": project["margin"],
+        "partial": project["partial"],
+        "shared": project["shared"],
+        "issues": project["issues"],
+    }
+
+
+def _opportunity(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "account": row["account"],
+        "name": row["name"],
+        "services": row["services"],
+        "ids": row["ids"],
+        "bookings": row["bookings"],
+        "period_revenue": row["revenue"],
+        "operated_revenue": row["operated_revenue"],
+        "operated_revenue_status": row["operated_revenue_status"],
+        "invoiced": row["invoiced"],
+        "collected": row["collected"],
+        "cost": row["cost"],
+        "sold_cost_rate": SOLD_COST_RATE,
+        "sold_margin": row["sold_margin"],
+        "actual_margin": row["actual_margin"],
+        "deviation_pp": row["deviation_pp"],
+        "partial": row["partial"],
+        "allocation_pending": row["allocation_pending"],
+        "issues": row["issues"],
+        "projects": [_margin_project(p) for p in row["projects"]],
+    }
+
+
+def margins_screen(result: dict[str, Any], account: str) -> dict[str, Any]:
+    """Comparativa de margenes vendido y real por oportunidad."""
+    return {
+        "data": {
+            "opportunities": [_opportunity(o) for o in result["opportunities"]],
+            "summary": result["summary"],
+        },
+        "meta": {
+            "account": account or None,
+            "start": result["start"],
+            "end": result["end"],
+            "excluded": result["excluded"],
+            "preparing": result["preparing"],
+        },
+    }

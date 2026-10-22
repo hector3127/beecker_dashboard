@@ -1878,6 +1878,17 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
 
     if _needs_login(request):
         return JsonResponse({"error": "Inicia sesion"}, status=401)
+    from apps.access.checks import resolve
+
+    access = resolve(request)
+    account_name = request.GET.get("nombre", "").strip()
+    if access.enforced and not access.can("view_costs"):
+        return JsonResponse({"error": "Sin acceso a costos"}, status=403)
+    if account_name and not access.scope.allows_account(account_name):
+        return JsonResponse({"error": "No existe esa cuenta"}, status=404)
+    if not account_name and not access.scope.unrestricted:
+        # El resumen es del equipo completo: no se recorta por cuenta.
+        return JsonResponse({"error": "Sin acceso a costos"}, status=403)
 
     def prepare_missing(summary: Any) -> Any:
         if any(
@@ -1987,26 +1998,15 @@ def rentabilidad_mensual(request: HttpRequest) -> HttpResponse:
 def costos_detalle(request: HttpRequest) -> HttpResponse:
     """Muestra costos, estados y personas con sus bandas y tarifas."""
     if request.GET.get("vista") != "proyectos":
-        return oportunidades_financieras(request)
+        from apps.portal.pages import margenes
+
+        return margenes(request)
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
-    from urllib.parse import urlencode
-
-    from django.urls import reverse
-    from django.utils.text import slugify
+    from apps.portal.services.return_navigation import account_back_url
 
     account = request.GET.get("nombre", "").strip()
-    back = (
-        reverse("portal:cuenta", kwargs={"slug": slugify(account) or "cuenta"})
-        + "?"
-        + urlencode({"nombre": account})
-        if account
-        else reverse("portal:ejecutiva")
-    )
-    if executive_period():
-        back += ("&" if "?" in back else "?") + executive_query_string()
-    from apps.portal.services.return_navigation import return_context
-
+    back = account_back_url(account)
     navigation = return_context(request, back, account or "Business Overview")
     return render(
         request,
@@ -2234,85 +2234,4 @@ def diccionario_datos(request: HttpRequest) -> HttpResponse:
         request,
         "portal/diccionario_datos.html",
         {"concepts": CONCEPTS, "active": "ejecutiva"},
-    )
-
-
-@require_GET
-@period_view
-def oportunidades_financieras(request: Any) -> Any:
-    """Florencia: margen vendido y real por oportunidad, no por Project ID."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    from urllib.parse import urlencode
-
-    from django.urls import reverse
-    from django.utils.text import slugify
-
-    from apps.portal.services.executive_refresh import request_refresh
-    from apps.portal.services.financial_cache import (
-        cached_financial_snapshot,
-        snapshot_key,
-    )
-    from apps.portal.services.opportunity_profitability import (
-        OPPORTUNITY_VERSION,
-        build_opportunities,
-        opportunity_summary,
-    )
-
-    snapshot = cached_financial_snapshot()
-    prepared = snapshot.get("opportunities") or cache.get(
-        snapshot_key() + ":opportunities"
-    )
-    if prepared and prepared.get("version") != OPPORTUNITY_VERSION:
-        prepared = None
-    data = prepared or build_opportunities()
-    account_filter = request.GET.get("nombre", "").strip()
-    if account_filter:
-        from apps.ejecutivo.services.account_view import account_matches
-
-        data = {
-            **data,
-            "opportunities": [
-                o
-                for o in data["opportunities"]
-                if account_matches(o["account"], account_filter)
-            ],
-        }
-    preparing = not prepared
-    if preparing:
-        request_refresh()
-    back = reverse("portal:ejecutiva")
-    if account_filter:
-        back = (
-            reverse(
-                "portal:cuenta",
-                kwargs={"slug": slugify(account_filter) or "cuenta"},
-            )
-            + "?"
-            + urlencode({"nombre": account_filter})
-        )
-    if executive_period():
-        back += ("&" if "?" in back else "?") + executive_query_string()
-    navigation = return_context(
-        request, back, account_filter or "Business Overview"
-    )
-    return render(
-        request,
-        "portal/oportunidades_financieras.html",
-        {
-            **navigation,
-            "active": "ejecutiva",
-            "data": data,
-            "preparing": preparing,
-            "account_filter": account_filter,
-            "summary": opportunity_summary(data["opportunities"]),
-            "selected_year": int(data["start"][:4]),
-            "year_options": range(
-                int(data["start"][:4]) - 2, int(data["start"][:4]) + 2
-            ),
-            "executive_query": executive_query_string(),
-            "executive_label": period.label
-            if (period := executive_period())
-            else "2026",
-        },
     )

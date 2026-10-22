@@ -88,14 +88,8 @@ def test_hoy_cualquier_sesion_ve_y_modifica_todo(sesion, acuerdo, monkeypatch):
     assert sesion.post(url, cambio).status_code == 200
 
 
-@PENDIENTE
-def test_sin_permiso_de_costos_no_se_ve_la_comparativa(sesion, monkeypatch):
-    from apps.portal.services import executive_refresh
-    from apps.portal.services import opportunity_profitability as opp
-    from tests.portal.test_opportunity_profitability import reader
-
-    monkeypatch.setattr(executive_refresh, "request_refresh", lambda **k: None)
-    monkeypatch.setattr(opp, "build_sheet_repository", lambda: reader())
+def test_sin_permiso_de_costos_no_se_ve_la_comparativa(sesion, settings):
+    settings.ACCESS_ENFORCED = True
 
     assert sesion.get("/ejecutiva/oportunidades/").status_code == 403
 

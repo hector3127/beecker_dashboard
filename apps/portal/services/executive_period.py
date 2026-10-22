@@ -1,7 +1,8 @@
 """Validated executive date ranges isolated per request and cache."""
 
 from calendar import monthrange
-from collections.abc import Callable, Mapping
+from collections.abc import Callable, Iterator, Mapping
+from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
 from datetime import date, datetime
@@ -110,6 +111,16 @@ def cache_suffix() -> str:
     if first == date(2026, 1, 1) and last == date(2026, 12, 31):
         return ""
     return ":period:" + first.isoformat() + ":" + last.isoformat()
+
+
+@contextmanager
+def applied(period: ExecutivePeriod | None) -> Iterator[None]:
+    """Aplica un periodo ya validado a lo que se calcule dentro del bloque."""
+    token = _current.set(period)
+    try:
+        yield
+    finally:
+        _current.reset(token)
 
 
 def period_view[**P](

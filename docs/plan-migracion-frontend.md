@@ -16,7 +16,7 @@ respuestas; la migración del frontend sí avanza.
 | 4 | Operativa: API por bloques, filtro por servicio, alcance y permiso | Hecha |
 | 5 | Acuerdos: API de lectura y escritura con permisos y alcance | Hecha |
 | 6 | Línea base de lo nuevo (cambios del 22/10) | Hecha |
-| **7** | **Cuenta, comparativa de márgenes y Delivery Manager, con su navegación de regreso** | **Siguiente** |
+| **7** | **Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso** | **En curso: 7a hecha** |
 | 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Pendiente |
 | 9 | Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos) | Pendiente |
 | 10 | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | Pendiente |
@@ -30,7 +30,8 @@ resto. Cada fase es un conjunto de commits en `main`, con la suite en verde.
 Actualización para la fase 7: incorporar los nombres y campos solicitados por
 Florencia en [cambios-florencia-2026-10-22.md](cambios-florencia-2026-10-22.md).
 Bookings, revenue operado y cobrado quedan separados. La fecha de servicio G
-es una suposición autorizada pendiente de validar; el margen conserva su base.
+es una suposición pendiente de validar con Finanzas (la decisión es suya, no
+de la migración); el margen conserva su base.
 
 - Django es el dueño de los datos, los cálculos y la autorización. El frontend
   solo muestra; ocultar un botón nunca sustituye la validación del servidor.
@@ -163,6 +164,25 @@ Lo que se planeaba para esta fase:
 3. Snapshot del texto visible de ambos recorridos.
 4. Prueba que fija que el glosario sale de `CONCEPTS`.
 5. Corregir la frase «La migración … sigue en pausa» del documento de interfaz.
+
+## Fase 7a: comparativa de márgenes (hecha)
+
+- `GET /api/v1/screens/margenes/` (capacidad `view_costs`): oportunidades con
+  `bookings`, `period_revenue`, `operated_revenue` + `operated_revenue_status`,
+  `invoiced`, `collected`, `cost`, `sold_cost_rate` (siempre
+  `{value: null, status: "pending_validation"}`), márgenes y desviación. Solo
+  entrega las cuentas del alcance; una cuenta ajena es 404.
+- `POST/GET .../margenes/actualizar/` prepara los costos; `GET /api/v1/costs/project/`
+  entrega personas y tarifas de un Project ID (misma capacidad y alcance). El
+  desglose anterior (`ejecutiva/costos/`) también valida capacidad y alcance.
+- Página `frontend/templates/pages/margenes.html` + `pages/margenes/`; se
+  retiraron la plantilla, el CSS y el JS anteriores. `lib/format.js` suma
+  `formatMoney` y `formatPercent` (con pruebas).
+- El destino de regreso lo sigue validando el servidor (`return_context`); por
+  eso `data/navigation.js` se hará con la cuenta (7b), que es quien enlaza.
+- Pruebas: `test_margins_api.py`, `tests/e2e/test_margenes.py` y el recorrido
+  «Cuenta → comparativa → regresar» (el snapshot solo cambia el ícono ↗).
+- Quedan en xfail la cuenta fuera de alcance (7b).
 
 ## Fases siguientes con lo nuevo integrado
 

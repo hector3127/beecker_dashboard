@@ -38,3 +38,32 @@ export function formatDateTime(iso, separator = ' ') {
 
 /** Minusculas y sin acentos, para buscar sin importar como se escribio. @param {string} text */
 export const plain = (text) => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+const PENDING = 'Pendiente';
+
+/**
+ * Dolares compactos: 1500 -> "$1K", 2.5e6 -> "$2.5M", 1.2e9 -> "$1.2B".
+ * Trunca (no redondea) como el resto del portal; un dato faltante es "Pendiente", nunca cero.
+ * @param {number | null | undefined} value
+ */
+export function formatMoney(value) {
+  if (value === null || value === undefined || !Number.isFinite(value)) return PENDING;
+  const size = Math.abs(value);
+  const unit = size >= 1e9 ? 1e9 : size >= 1e6 ? 1e6 : size >= 1e3 ? 1e3 : 1;
+  const suffix = { 1e9: 'B', 1e6: 'M', 1e3: 'K', 1: '' }[unit];
+  const precision = unit >= 1e6 ? 100 : 1;
+  const shown = Math.trunc((value / unit) * precision) / precision;
+  const text = shown.toLocaleString('en-US', { maximumFractionDigits: unit >= 1e6 ? 2 : 0 }) + suffix;
+  return text.startsWith('-') ? `-$${text.slice(1)}` : `$${text}`;
+}
+
+/**
+ * Porcentaje con decimales fijos; "Pendiente" si falta.
+ * @param {number | null | undefined} value
+ * @param {string} [unit] "%" o " pp".
+ * @param {number} [digits]
+ */
+export function formatPercent(value, unit = '%', digits = 2) {
+  if (value === null || value === undefined || !Number.isFinite(value)) return PENDING;
+  return `${value.toFixed(digits)}${unit}`;
+}
