@@ -122,3 +122,92 @@ CONCEPTS.append(
         "DataRevenue C/E/G/H/I · Clockify · tarifas internas de banda",
     )
 )
+
+
+# Glosario corto de Business Overview. Cada termino nombra el concepto de
+# CONCEPTS que lo define; su resumen vive aqui, junto a la definicion larga,
+# para que las dos se cambien en el mismo lugar.
+# (termino, concepto en CONCEPTS, resumen)
+GLOSSARY: tuple[tuple[str, tuple[tuple[str, str, str], ...]], ...] = (
+    (
+        "Financiera",
+        (
+            (
+                "Facturación",
+                "Facturación",
+                "Importe facturado y cobrado del periodo; excluye Confirmed.",
+            ),
+            (
+                "Utilidad y margen bruto",
+                "Utilidad bruta",
+                "La utilidad es facturación menos costos. El margen expresa esa utilidad como porcentaje de la facturación.",
+            ),
+            (
+                "Cobranza",
+                "Cobranza",
+                "Proporción cobrada según los estados disponibles de Finanzas; fechas pendientes de validación.",
+            ),
+        ),
+    ),
+    (
+        "Operaciones",
+        (
+            (
+                "ETC · horas restantes",
+                "ETC",
+                "Presupuesto de horas menos consumo registrado.",
+            ),
+            (
+                "Avance en horas",
+                "Avance en horas",
+                "Porcentaje del presupuesto consumido; no representa entregables terminados.",
+            ),
+            (
+                "Facturabilidad",
+                "Facturabilidad global",
+                "Horas facturables respecto a la capacidad del equipo.",
+            ),
+            (
+                "Inversión operativa",
+                "Inversión operativa",
+                "Horas registradas con la etiqueta de inversión operativa.",
+            ),
+        ),
+    ),
+    (
+        "Comercial",
+        (
+            (
+                "Ventas cerradas · booking",
+                "Booking / ventas cerradas",
+                "Valor de oportunidades ganadas; es diferente de la facturación.",
+            ),
+            (
+                "Trabajo por entregar",
+                "Trabajo por entregar",
+                "Revenue futuro Confirmed, según el corte y las fechas disponibles de Finanzas.",
+            ),
+            (
+                "Previas al cierre",
+                "Previas al cierre",
+                "Valor de oportunidades abiertas dentro del alcance del corte comercial.",
+            ),
+        ),
+    ),
+)
+
+DEFINITIONS_DATE = "2026-10-22"
+
+
+def glossary_groups() -> list[dict[str, object]]:
+    """Grupos del glosario con el concepto que define cada termino."""
+    return [
+        {
+            "name": group,
+            "terms": [
+                {"term": term, "concept": concept, "summary": summary}
+                for term, concept, summary in terms
+            ],
+        }
+        for group, terms in GLOSSARY
+    ]

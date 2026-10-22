@@ -53,3 +53,28 @@ class PingView(APIView):
                 "meta": {"generated_at": timezone.now().isoformat()},
             }
         )
+
+
+class GlossaryView(APIView):
+    """Conceptos del diccionario de datos y el glosario corto por grupos."""
+
+    def get(self, request: Request) -> Response:
+        """Una sola fuente: el diccionario; el glosario cita sus conceptos."""
+        from apps.portal.services.data_dictionary import (
+            CONCEPTS,
+            DEFINITIONS_DATE,
+            glossary_groups,
+        )
+
+        return Response(
+            {
+                "data": {
+                    "groups": glossary_groups(),
+                    "concepts": [
+                        {"name": n, "definition": d, "source": s}
+                        for n, d, s in CONCEPTS
+                    ],
+                },
+                "meta": {"definitions_date": DEFINITIONS_DATE},
+            }
+        )

@@ -1,9 +1,8 @@
 <details class="executive-glossary">
  <summary><span>¿Qué significa cada indicador?</span><span class="glossary-summary-hint">Consultar glosario</span></summary>
  <div class="executive-glossary-grid">
-  <section><h2>Financiera</h2><dl><dt>Facturación</dt><dd>Importe facturado y cobrado del periodo; excluye Confirmed.</dd><dt>Utilidad y margen bruto</dt><dd>La utilidad es facturación menos costos. El margen expresa esa utilidad como porcentaje de la facturación.</dd><dt>Cobranza</dt><dd>Proporción cobrada según los estados disponibles de Finanzas; fechas pendientes de validación.</dd></dl></section>
-  <section><h2>Operaciones</h2><dl><dt>ETC · horas restantes</dt><dd>Presupuesto de horas menos consumo registrado.</dd><dt>Avance en horas</dt><dd>Porcentaje del presupuesto consumido; no representa entregables terminados.</dd><dt>Facturabilidad</dt><dd>Horas facturables respecto a la capacidad del equipo.</dd><dt>Inversión operativa</dt><dd>Horas registradas con la etiqueta de inversión operativa.</dd></dl></section>
-  <section><h2>Comercial</h2><dl><dt>Ventas cerradas · booking</dt><dd>Valor de oportunidades ganadas; es diferente de la facturación.</dd><dt>Trabajo por entregar</dt><dd>Revenue futuro Confirmed, según el corte y las fechas disponibles de Finanzas.</dd><dt>Previas al cierre</dt><dd>Valor de oportunidades abiertas dentro del alcance del corte comercial.</dd></dl></section>
+  {% for group in glossary %}<section><h2>{{ group.name }}</h2><dl>{% for item in group.terms %}<dt>{{ item.term }}</dt><dd>{{ item.summary }}</dd>{% endfor %}</dl></section>
+  {% endfor %}
  </div>
  <footer><p><strong>* Parcial:</strong> faltan datos para completar el indicador. <strong>Pendiente:</strong> no hay información suficiente; no equivale a cero.</p><a class="portal-button portal-button-secondary" href="{% url 'portal:diccionario_datos' %}">Ver fórmulas, fuentes y validaciones</a></footer>
 </details>

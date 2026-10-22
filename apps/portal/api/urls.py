@@ -18,7 +18,7 @@ from apps.portal.api.screens import (
     OperativaView,
     ProjectCostView,
 )
-from apps.portal.api.views import MeView, PingView
+from apps.portal.api.views import GlossaryView, MeView, PingView
 
 """BKD.120.013 - Rutas de la API v1
 Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
@@ -34,6 +34,7 @@ urlpatterns = [
         AgreementDetailView.as_view(),
         name="agreement",
     ),
+    path("reference/glossary/", GlossaryView.as_view(), name="glossary"),
     path("ping/", PingView.as_view(), name="ping"),
     path("screens/cuenta/", AccountScreenView.as_view(), name="cuenta"),
     path(

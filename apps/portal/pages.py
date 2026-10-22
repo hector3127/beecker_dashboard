@@ -168,3 +168,16 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
             "initials": "".join(w[0] for w in name.split()[:2]).upper(),
         },
     )
+
+
+@require_GET
+def diccionario(request: HttpRequest) -> HttpResponse:
+    """Diccionario de datos: el JS lo dibuja con /api/v1/reference/glossary/."""
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    navigation = return_context(
+        request, reverse("portal:ejecutiva"), "Business Overview"
+    )
+    return render(
+        request, "pages/diccionario.html", {**navigation, "active": "ejecutiva"}
+    )

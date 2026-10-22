@@ -156,6 +156,7 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
+    from apps.portal.services.data_dictionary import glossary_groups
     from apps.portal.services.executive_operations import (
         cached_operations_snapshot,
     )
@@ -186,6 +187,7 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
         "portal/ejecutiva.html",
         {
             "active": "ejecutiva",
+            "glossary": glossary_groups(),
             "loaded_at": cut_time,
             "executive_selected": chosen,
             "executive_query": executive_query_string(),
@@ -1982,17 +1984,3 @@ def comercial_ejecutiva(request: HttpRequest) -> HttpResponse:
         return JsonResponse(
             {"error": "No se pudo consultar la fuente comercial"}, status=502
         )
-
-
-@require_GET
-def diccionario_datos(request: HttpRequest) -> HttpResponse:
-    """Muestra el diccionario de datos ejecutivo."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    from apps.portal.services.data_dictionary import CONCEPTS
-
-    return render(
-        request,
-        "portal/diccionario_datos.html",
-        {"concepts": CONCEPTS, "active": "ejecutiva"},
-    )

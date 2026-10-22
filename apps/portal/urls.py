@@ -18,9 +18,7 @@ urlpatterns = [
         pages.margenes,
         name="oportunidades_financieras",
     ),
-    path(
-        "diccionario-datos/", views.diccionario_datos, name="diccionario_datos"
-    ),
+    path("diccionario-datos/", pages.diccionario, name="diccionario_datos"),
     path(
         "ejecutiva/actualizacion/",
         views.actualizacion_ejecutiva,

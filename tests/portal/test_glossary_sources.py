@@ -1,51 +1,70 @@
-"""Cada término del glosario de Business Overview tiene su definición completa.
+"""El glosario de Business Overview sale del diccionario de datos.
 
-Hoy el glosario está escrito a mano y repite lo que dice el diccionario de
-datos. Esta prueba obliga a que cada término nuevo declare de qué concepto
-del diccionario sale, para que las dos definiciones no se separen sin que
-alguien lo vea. Cuando el glosario se genere desde CONCEPTS (fase 8) esta
-correspondencia desaparece.
+Cada termino nombra el concepto de CONCEPTS que lo define; si el concepto
+se renombra o desaparece, esta prueba lo avisa antes de que el glosario
+quede huerfano.
 """
 
-import re
-from pathlib import Path
-
-from apps.portal.services.data_dictionary import CONCEPTS
-
-GLOSSARY = Path("apps/portal/templates/portal/_executive_glossary.html")
-
-# término del glosario -> conceptos del diccionario que lo definen
-SOURCES = {
-    "Facturación": ["Facturación"],
-    "Utilidad y margen bruto": ["Utilidad bruta", "Margen bruto"],
-    "Cobranza": ["Cobranza"],
-    "ETC · horas restantes": ["ETC"],
-    "Avance en horas": ["Avance en horas"],
-    "Facturabilidad": ["Facturabilidad global"],
-    "Inversión operativa": ["Inversión operativa"],
-    "Ventas cerradas · booking": ["Booking / ventas cerradas"],
-    "Trabajo por entregar": ["Trabajo por entregar"],
-    "Previas al cierre": ["Previas al cierre"],
-}
+from apps.portal.services.data_dictionary import (
+    CONCEPTS,
+    GLOSSARY,
+    glossary_groups,
+)
 
 
-def glossary_terms():
-    return re.findall(r"<dt>(.*?)</dt>", GLOSSARY.read_text(encoding="utf-8"))
-
-
-def test_every_glossary_term_declares_its_dictionary_concept():
-    assert sorted(glossary_terms()) == sorted(SOURCES)
-
-
-def test_the_declared_concepts_exist_in_the_dictionary():
+def test_every_term_points_to_an_existing_concept():
     names = {name for name, _definition, _source in CONCEPTS}
 
-    for term, concepts in SOURCES.items():
-        missing = [name for name in concepts if name not in names]
-        assert not missing, (term, missing)
+    missing = [
+        (term, concept)
+        for _group, terms in GLOSSARY
+        for term, concept, _summary in terms
+        if concept not in names
+    ]
+
+    assert not missing, missing
 
 
-def test_pending_items_are_never_described_as_zero():
-    html = GLOSSARY.read_text(encoding="utf-8")
+def test_groups_come_in_the_published_order_without_empty_terms():
+    groups = glossary_groups()
 
-    assert "no equivale a cero" in html
+    assert [g["name"] for g in groups] == [
+        "Financiera",
+        "Operaciones",
+        "Comercial",
+    ]
+    for group in groups:
+        for item in group["terms"]:
+            assert item["summary"].strip()
+
+
+def test_the_executive_page_draws_the_glossary_from_that_data(client):
+    html = client.get("/").content.decode()
+
+    for _group, terms in GLOSSARY:
+        for term, _concept, summary in terms:
+            assert f"<dt>{term}</dt><dd>{summary}</dd>" in html
+
+
+def test_pending_items_are_never_described_as_zero(client):
+    assert "no equivale a cero" in client.get("/").content.decode()
+
+
+def test_the_glossary_api_serves_concepts_and_groups(client):
+    body = client.get("/api/v1/reference/glossary/").json()
+
+    assert body["meta"]["definitions_date"] == "2026-10-22"
+    names = {c["name"] for c in body["data"]["concepts"]}
+    assert len(body["data"]["concepts"]) == len(CONCEPTS)
+    for group in body["data"]["groups"]:
+        for item in group["terms"]:
+            assert item["concept"] in names
+
+
+def test_the_dictionary_page_is_a_shell_that_keeps_its_back_link(client):
+    response = client.get("/diccionario-datos/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert "Regresar a Business Overview" in html
+    assert "pages/diccionario/main.js" in html
