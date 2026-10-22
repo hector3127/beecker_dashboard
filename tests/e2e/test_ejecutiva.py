@@ -11,7 +11,7 @@ from tests.e2e.test_acuerdos import browser_session
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
-HOME = "/?vista=nueva"
+HOME = "/"
 SNAPSHOT = {
     "loaded_at": "2026-10-22T10:00:00-06:00",
     "revenue": {"invoiced": 1_897_644.14, "collections_percent": 80},

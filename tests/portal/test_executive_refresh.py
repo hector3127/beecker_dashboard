@@ -4,10 +4,8 @@ from unittest.mock import Mock
 
 import pytest
 from django.core.cache import cache
-from django.test import Client, RequestFactory, override_settings
-from django.utils import timezone
+from django.test import Client, override_settings
 
-from apps.portal import views
 from apps.portal.services import executive_refresh as refresh
 from apps.portal.services.executive_period import _current, parse
 
@@ -90,31 +88,10 @@ def test_refresh_obeys_login_policy(isolated):
     isolated.submit.assert_not_called()
 
 
-def test_refreshing_saved_page_does_not_wait_for_external_calls(
-    monkeypatch, isolated
-):
-    key = "portal:executiva:context:v5:" + timezone.localdate().isoformat()
-    cache.set(key, {"active": "ejecutiva"})
-    monkeypatch.setattr(
-        views, "load_portfolio", Mock(side_effect=AssertionError("Source call"))
-    )
-    request = RequestFactory().get("/", {"actualizar": "1"})
-    response = views.ejecutiva(request)
-    assert response.status_code == 200
-    assert b'data-endpoint="/ejecutiva/actualizacion/"' in response.content
-    assert b"executive_report.js" in response.content
-    isolated.submit.assert_called_once()
-
-
-def test_refresh_worker_uses_warmer_path_and_preserves_partial_state(
-    monkeypatch,
-):
-    from django.http import HttpResponse
-
+def test_refresh_worker_preserves_partial_state(monkeypatch):
     financial = Mock(return_value={"ok": True})
     operations = Mock(return_value={"ok": False})
     commercial = Mock(return_value={"ok": True})
-    page = Mock(return_value=HttpResponse('<body data-portal-ready="true">'))
     monkeypatch.setattr(
         "apps.portal.services.financial_cache.warm_financial", financial
     )
@@ -125,13 +102,9 @@ def test_refresh_worker_uses_warmer_path_and_preserves_partial_state(
         "apps.portal.services.executive_commercial.warm_commercial_summary",
         commercial,
     )
-    monkeypatch.setattr(views, "ejecutiva", page)
     assert refresh._prepare("periodo=mes&anio=2026&mes=9") is True
     financial.assert_called_once_with(only_stale=True)
     operations.assert_called_once_with(only_stale=True)
-    req = page.call_args.args[0]
-    assert req.portal_warmer and req.user.is_authenticated
-    assert req.GET["mes"] == "9"
 
 
 def test_explicit_refresh_bypasses_source_caches_only_inside_its_worker(

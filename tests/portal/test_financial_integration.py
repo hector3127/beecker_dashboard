@@ -1,13 +1,12 @@
 """Finanzas integra fuentes reales, precarga y las reglas CR existentes."""
 
-import json
 from datetime import date, datetime
 from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
 from django.core.cache import cache
-from django.test import RequestFactory, override_settings
+from django.test import Client, RequestFactory, override_settings
 
 from apps.portal import views
 from apps.portal.services import (
@@ -176,6 +175,7 @@ def test_summary_and_monthly_costs_do_not_double_count_shared_entries(
     )
 
 
+@pytest.mark.django_db
 def test_main_page_reads_financial_snapshot_without_source_queries(monkeypatch):
     monkeypatch.setattr(
         views,
@@ -190,13 +190,9 @@ def test_main_page_reads_financial_snapshot_without_source_queries(monkeypatch):
     monkeypatch.setattr(
         financial_cache, "load_revenue", lambda: pytest.fail("External read")
     )
-    html = views.ejecutiva(RequestFactory().get("/")).content.decode()
-    payload = html.split(
-        '<script id="financial-cache" type="application/json">'
-    )[1].split("</script>")[0]
-    assert json.loads(payload) == snapshot
-    assert 'id="executive-revenue"' in html
-    assert 'id="monthly-profit-chart"' in html
+    body = Client().get("/api/v1/screens/executive/").json()
+    assert body["data"]["finance"]["revenue"] == snapshot["revenue"]
+    assert body["data"]["finance"]["costs"] == snapshot["costs"]
 
 
 @override_settings(PORTAL_LOGIN_REQUIRED=True)

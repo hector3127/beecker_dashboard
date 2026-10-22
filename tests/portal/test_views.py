@@ -175,16 +175,6 @@ def test_executive_shows_the_selected_period(client, monkeypatch):
     assert "31/12/2026" in html
 
 
-def test_executive_without_projects_still_renders_cost_block(
-    client, monkeypatch
-):
-    stub_portfolio(monkeypatch)
-
-    html = client.get("/").content.decode()
-
-    assert 'id="executive-cost"' in html
-
-
 def test_executive_shows_sheets_error_without_failing(client, monkeypatch):
     stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
 
@@ -639,16 +629,6 @@ def test_manager_detail_keeps_time_cost(client, monkeypatch):
 
     assert base["detail"].time_cost.time_days == 2
     assert base["detail"].time_cost.cost_percent == 60
-
-
-def test_executive_ranking_sections_are_rendered(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-
-    html = client.get("/").content.decode()
-
-    assert 'id="healthy-financial-accounts"' in html
-    assert 'href="/ejecutiva/cuentas/"' in html
-    assert 'id="unhealthy-financial-accounts"' in html
 
 
 def stub_history(monkeypatch, history=None, error=""):

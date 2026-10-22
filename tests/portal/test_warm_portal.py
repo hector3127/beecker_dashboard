@@ -49,11 +49,6 @@ def test_warmer_uses_all_portal_blocks_and_reports_partial_data(monkeypatch):
         lambda request: HttpResponse('<body data-portal-ready="true">'),
     )
     monkeypatch.setattr(
-        views,
-        "ejecutiva",
-        lambda request: HttpResponse('<body data-portal-ready="true">'),
-    )
-    monkeypatch.setattr(
         "apps.portal.services.financial_cache.warm_financial",
         lambda: {"ok": True},
     )

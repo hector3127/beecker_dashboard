@@ -47,7 +47,7 @@ def test_changed_templates_compile():
     for name in [
         "portal/comercial.html",
         "pages/operativa.html",
-        "portal/ejecutiva.html",
+        "pages/executive.html",
     ]:
         assert get_template(name)
 

@@ -38,18 +38,6 @@ def test_groups_come_in_the_published_order_without_empty_terms():
             assert item["summary"].strip()
 
 
-def test_the_executive_page_draws_the_glossary_from_that_data(client):
-    html = client.get("/").content.decode()
-
-    for _group, terms in GLOSSARY:
-        for term, _concept, summary in terms:
-            assert f"<dt>{term}</dt><dd>{summary}</dd>" in html
-
-
-def test_pending_items_are_never_described_as_zero(client):
-    assert "no equivale a cero" in client.get("/").content.decode()
-
-
 def test_the_glossary_api_serves_concepts_and_groups(client):
     body = client.get("/api/v1/reference/glossary/").json()
 

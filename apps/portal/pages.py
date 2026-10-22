@@ -190,21 +190,11 @@ def diccionario(request: HttpRequest) -> HttpResponse:
 @require_GET
 @ensure_csrf_cookie  # el JS firma con ella los cambios de acuerdos
 @period_view
+@require_capability("view_executive")
 def ejecutiva(request: HttpRequest) -> HttpResponse:
-    """Business Overview: el JS pinta el corte que entrega la API.
-
-    Mientras se completa la migracion, ?vista=nueva abre la pagina nueva y
-    sin ella sigue la anterior (views.ejecutiva).
-    """
-    if request.GET.get("vista") != "nueva":
-        return views.ejecutiva(request)
+    """Business Overview: el JS pinta el corte que entrega la API."""
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    return _executive_page(request)
-
-
-@require_capability("view_executive")
-def _executive_page(request: HttpRequest) -> HttpResponse:
     from apps.portal.services.executive_period import current, parse
     from apps.portal.services.executive_refresh import request_refresh
     from apps.portal.services.financial_cache import cached_financial_snapshot

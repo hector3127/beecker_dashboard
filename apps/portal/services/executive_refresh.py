@@ -9,7 +9,6 @@ from typing import Any
 
 from django.core.cache import cache
 from django.db import close_old_connections
-from django.test import RequestFactory
 
 from apps.portal.services.executive_period import cache_suffix, query_string
 
@@ -98,8 +97,7 @@ def _run(key: str, query: str) -> None:
 
 
 def _prepare(query: str) -> bool:
-    """Reuse financial/Operations caches, then prepare the page context."""
-    from apps.portal import views
+    """Reuse the financial, Operations and commercial caches."""
     from apps.portal.services.executive_commercial import (
         warm_commercial_summary,
     )
@@ -139,14 +137,4 @@ def _prepare(query: str) -> bool:
         result = task(only_stale=not force_sources.get())
         partial = not result.get("ok", False) or partial
     partial = not warm_commercial_summary().get("ok", False) or partial
-    request = RequestFactory().get("/?actualizar=1&" + query)
-    # No user data or session is retained by the worker.
-    request.__dict__["portal_warmer"] = True
-    from django.contrib.auth.models import User
-
-    request.user = User(username="cache-warmer")
-    # Call the internal context builder using the same trusted warmer path.
-    response = views.ejecutiva(request)
-    if response.status_code != 200:
-        raise ValueError("No se pudo preparar la pagina ejecutiva")
-    return partial or b'data-portal-ready="false"' in response.content
+    return partial

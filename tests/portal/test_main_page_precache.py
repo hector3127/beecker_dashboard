@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.test import RequestFactory
 from django.utils import timezone
 
-from apps.portal import views
+from apps.portal import pages, views
 from apps.portal.services.portfolio_loader import PortfolioLoad
 from core.management.commands.warm_cache import warm_portal
 from tests.portal.builders import make_project
@@ -39,9 +39,8 @@ def test_executive_page_does_not_read_sources_after_precache(monkeypatch):
         )
     )
     monkeypatch.setattr(views, "load_portfolio", load)
-    first = views.ejecutiva(request("/"))
-    second = views.ejecutiva(request("/"))
-    # El formulario de acuerdos genera un token CSRF nuevo por peticion.
+    first = pages.ejecutiva(request("/"))
+    second = pages.ejecutiva(request("/"))
     assert first.status_code == second.status_code == 200
     # La portada se arma con cortes preparados y no consulta el portafolio.
     load.assert_not_called()
@@ -103,7 +102,6 @@ def test_full_warmer_visits_all_components_and_reports_page_errors(monkeypatch):
 
     monkeypatch.setattr(views, "operativa_block_context", operations)
     monkeypatch.setattr(views, "operations_summary_data", billing)
-    monkeypatch.setattr(views, "ejecutiva", page("ejecutiva", "true"))
     monkeypatch.setattr(views, "comercial", page("comercial", "false"))
     monkeypatch.setattr(
         "apps.portal.services.financial_cache.warm_financial",
@@ -125,6 +123,5 @@ def test_full_warmer_visits_all_components_and_reports_page_errors(monkeypatch):
         "inversion",
         "capacidad",
         "facturabilidad",
-        "ejecutiva",
         "comercial",
     ]

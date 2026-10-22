@@ -41,9 +41,6 @@ from apps.portal.services.executive_period import (
     current as executive_period,
 )
 from apps.portal.services.executive_period import (
-    parse as parse_executive_period,
-)
-from apps.portal.services.executive_period import (
     period_view,
 )
 from apps.portal.services.executive_period import (
@@ -139,75 +136,6 @@ def _base_context(load: PortfolioLoad) -> dict[str, Any]:
         "error": load.error,
         "period": current_quarter(load.loaded_at.date()),
     }
-
-
-@require_GET
-@period_view
-def ejecutiva(request: HttpRequest) -> HttpResponse:
-    """
-    Muestra la pantalla Ejecutiva.
-
-    Args:
-        request: Peticion HTTP.
-
-    Returns:
-        La pagina con Financiera, Operations, Comercial y las decisiones.
-    """
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-
-    from apps.portal.services.data_dictionary import glossary_groups
-    from apps.portal.services.executive_operations import (
-        cached_operations_snapshot,
-    )
-    from apps.portal.services.executive_refresh import request_refresh
-    from apps.portal.services.financial_cache import cached_financial_snapshot
-
-    financial = cached_financial_snapshot()
-    operations = cached_operations_snapshot()
-    chosen = executive_period() or parse_executive_period(
-        {"periodo": "anio", "anio": str(timezone.localdate().year)}
-    )
-    if (
-        not financial
-        or not operations
-        or not financial.get("commercial")
-        or request.GET.get("actualizar") == "1"
-    ) and not getattr(request, "portal_warmer", False):
-        request_refresh()
-    from django.utils.dateparse import parse_datetime
-
-    cut_time = (
-        parse_datetime(financial["loaded_at"])
-        if financial.get("loaded_at")
-        else None
-    )
-    return render(
-        request,
-        "portal/ejecutiva.html",
-        {
-            "active": "ejecutiva",
-            "glossary": glossary_groups(),
-            "loaded_at": cut_time,
-            "executive_selected": chosen,
-            "executive_query": executive_query_string(),
-            "executive_year": chosen.start.year,
-            "executive_label": chosen.label,
-            "financial_snapshot": financial,
-            "operations_snapshot": operations,
-            "agreement_accounts": sorted(
-                {
-                    row["name"]
-                    for row in financial.get("accounts", {}).get("accounts", [])
-                    if row.get("name")
-                },
-                key=str.casefold,
-            ),
-            "decisions": [],
-            "has_projects": False,
-            "page_stale": False,
-        },
-    )
 
 
 @require_http_methods(["GET", "POST"])
