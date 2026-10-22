@@ -245,11 +245,7 @@ def warm_secondary_pages() -> object:
     factory = RequestFactory()
     failures = []
     for name, path, page in (
-        (
-            "kpis",
-            "/operativa/kpis-delivery-managers/",
-            views.kpis_delivery_managers,
-        ),
+        ("kpis", "/operativa/kpis-delivery-managers/", warm_kpis),
         ("eva1_cerrados", "/operativa/eva-1/cerrados/", views.eva1_cerrados),
     ):
         started = time.perf_counter()
@@ -264,6 +260,16 @@ def warm_secondary_pages() -> object:
             failures.append(name)
         logger.info("%s: %.1f s", name, time.perf_counter() - started)
     return {"ok": not failures, "error": ", ".join(failures)}
+
+
+def warm_kpis(request: Any) -> Any:
+    """Arma el historico de KPIs de Delivery Managers para dejarlo en cache."""
+    from django.http import HttpResponse
+
+    from apps.portal import views
+
+    views.kpi_context(request)
+    return HttpResponse(status=200)
 
 
 def warm_delivery_managers() -> object:

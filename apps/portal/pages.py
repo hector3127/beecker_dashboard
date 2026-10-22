@@ -216,3 +216,19 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
             "period_query": query_string(),
         },
     )
+
+
+@require_GET
+@require_capability("view_operations")
+def kpis_dm(request: HttpRequest) -> HttpResponse:
+    """KPIs de Delivery Managers: el JS pinta lo que entrega la API."""
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    if not scope_for(request).unrestricted:
+        raise PermissionDenied
+    navigation = return_context(
+        request, reverse("portal:operativa"), "Operativa"
+    )
+    return render(
+        request, "pages/kpis_dm.html", {**navigation, "active": "operativa"}
+    )

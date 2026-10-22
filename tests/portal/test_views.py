@@ -646,88 +646,6 @@ def stub_history(monkeypatch, history=None, error=""):
     )
 
 
-def test_kpis_page_shows_managers_and_totals(client, monkeypatch):
-    monkeypatch.setattr(
-        "apps.portal.views.load_portfolio",
-        lambda: pytest.fail("Proyectos no se consulta para KPIs"),
-    )
-    stub_history(monkeypatch)
-
-    response = client.get("/operativa/kpis-delivery-managers/")
-    html = response.content.decode()
-
-    assert response.status_code == 200
-    assert response.context["kpis"].totals.total == 2
-    assert "KPIs de Delivery Managers" in html
-    assert 'href="/operativa/delivery-manager/ana/"' in html
-
-
-def test_kpis_page_shows_monthly_and_quarterly_history(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-    stub_history(monkeypatch)
-
-    response = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=anio&anio=2026"
-    )
-    html = response.content.decode()
-
-    assert response.context["month_matrix"].headers[0] == "Ene"
-    assert "Oct*" in response.context["month_matrix"].headers
-    assert [row.name for row in response.context["month_matrix"].rows] == [
-        "Ana",
-        "Beto",
-    ]
-    assert response.context["quarter_matrix"].headers[0] == "T1"
-    assert response.context["period"].label == "2026"
-    assert 'id="period-filter"' in html
-    assert 'id="kpi-chart-data"' in html
-    assert "Pendiente" not in html
-
-
-def test_kpis_chart_shows_the_year_with_the_period_highlighted(
-    client, monkeypatch
-):
-    stub_portfolio(monkeypatch, portfolio())
-    stub_history(monkeypatch)
-
-    response = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-08"
-    )
-    chart = response.context["chart"]
-
-    assert chart["labels"] == [
-        "Ene",
-        "Feb",
-        "Mar",
-        "Abr",
-        "May",
-        "Jun",
-        "Jul",
-        "Ago",
-    ]
-    assert chart["highlight"] == ["Ago"]
-
-    response = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-10"
-    )
-    current = response.context["chart"]
-    assert current["labels"][-1] == "Oct*"
-    assert current["highlight"] == ["Oct*"]
-
-
-def test_kpis_page_explains_when_history_fails(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-    stub_history(monkeypatch, error="Clockify no responde.")
-
-    response = client.get("/operativa/kpis-delivery-managers/")
-    html = response.content.decode()
-
-    assert response.status_code == 200
-    assert "month_matrix" not in response.context
-    assert "No se pudo reconstruir el hist\u00f3rico." in html
-    assert "Clockify no responde." in html
-
-
 def test_kpis_page_requires_login_when_configured(client, settings):
     settings.PORTAL_LOGIN_REQUIRED = True
 
@@ -1007,29 +925,6 @@ def test_facturability_role_filter(client, monkeypatch):
     assert len(chosen.context["specialties"]) == 1
     assert chosen.context["selected"].fixed_hours == 40
     assert [r.label for r in chosen.context["role_options"]] == ["DEV"]
-
-
-def test_kpis_page_filters_a_closed_month_and_a_quarter(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-    stub_history(monkeypatch)
-
-    month = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-02"
-    )
-    quarter = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=trimestre&anio=2026&trim=1"
-    )
-
-    assert month.context["cut_is_current"] is False
-    assert month.context["cut_label"] == "28/02/2026"
-    assert month.context["kpis"].totals.total == 2
-    assert month.context["month_matrix"].headers == ("Feb",)
-    assert quarter.context["month_matrix"].headers == ("Ene", "Feb", "Mar")
-    assert quarter.context["quarter_matrix"].headers == ("T1",)
-    assert quarter.context["cut_label"] == "31/03/2026"
-    assert "?periodo=trimestre&amp;anio=2026&amp;trim=1" in (
-        quarter.content.decode()
-    )
 
 
 def test_facturability_period_year_quarter_and_month(client, monkeypatch):

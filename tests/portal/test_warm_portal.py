@@ -79,7 +79,7 @@ def test_secondary_pages_are_warmed_and_one_failure_does_not_stop_the_other(
         visited.append("eva1_cerrados")
         return HttpResponse(status=200)
 
-    monkeypatch.setattr(views, "kpis_delivery_managers", kpis)
+    monkeypatch.setattr(views, "kpi_context", kpis)
     monkeypatch.setattr(views, "eva1_cerrados", closed)
 
     result = warm_cache.warm_secondary_pages()
@@ -90,9 +90,7 @@ def test_secondary_pages_are_warmed_and_one_failure_does_not_stop_the_other(
 
 
 def test_secondary_pages_report_a_non_200_response(monkeypatch):
-    monkeypatch.setattr(
-        views, "kpis_delivery_managers", lambda request: HttpResponse()
-    )
+    monkeypatch.setattr(views, "kpi_context", lambda request: {})
     monkeypatch.setattr(
         views, "eva1_cerrados", lambda request: HttpResponse(status=401)
     )

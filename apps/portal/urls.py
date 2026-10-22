@@ -105,7 +105,7 @@ urlpatterns = [
     ),
     path(
         "operativa/kpis-delivery-managers/",
-        views.kpis_delivery_managers,
+        pages.kpis_dm,
         name="kpis_dm",
     ),
     path("operativa/eva-2/", views.eva2, name="eva2"),

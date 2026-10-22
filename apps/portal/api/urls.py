@@ -12,6 +12,7 @@ from apps.portal.api.screens import (
     Eva4ScreenView,
     ExecutiveRefreshView,
     ExecutiveScreenView,
+    KpiManagersView,
     ManagerScreenView,
     MarginsRefreshView,
     MarginsScreenView,
@@ -60,6 +61,7 @@ urlpatterns = [
         ExecutiveRefreshView.as_view(),
         name="executive_actualizar",
     ),
+    path("screens/kpis-dm/", KpiManagersView.as_view(), name="kpis_dm"),
     path("screens/eva4/", Eva4ScreenView.as_view(), name="eva4"),
     path("screens/margenes/", MarginsScreenView.as_view(), name="margenes"),
     path(

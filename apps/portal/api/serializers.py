@@ -578,3 +578,116 @@ def executive_screen(
         },
         "meta": meta,
     }
+
+
+def _kpi_row(row: Any) -> dict[str, Any]:
+    """TP, T y C de un Delivery Manager (o del total) en un corte."""
+    return {
+        "name": row.name,
+        "slug": row.slug,
+        "total": row.total,
+        "t": row.time_cost.time_days,
+        "c": row.time_cost.cost_percent,
+        "on_time": row.health.on_time,
+        "at_risk": row.health.at_risk,
+        "critical": row.health.critical,
+        "on_time_percent": row.on_time_percent,
+    }
+
+
+def _kpi_cell(cell: Any) -> dict[str, Any] | None:
+    if cell is None:
+        return None
+    return {
+        "total": cell.total,
+        "t": cell.time_cost.time_days,
+        "c": cell.time_cost.cost_percent,
+    }
+
+
+def _link(link: Any) -> dict[str, Any]:
+    return {
+        "label": link.label,
+        "href": link.href,
+        "active": link.active,
+        "disabled": link.disabled,
+    }
+
+
+def kpi_screen(context: dict[str, Any]) -> dict[str, Any]:
+    """KPIs de Delivery Managers: corte, historico mensual y trimestral.
+
+    T y C salen sin redondear; el redondeo es de presentacion.
+    """
+    kpis, picker, period = context["kpis"], context["picker"], context["period"]
+    month, quarter = context.get("month_matrix"), context.get("quarter_matrix")
+    return {
+        "data": {
+            "period": {
+                "kind": period.kind,
+                "label": period.label,
+                "year": period.year,
+                "end_month": period.end_month,
+            },
+            "picker": {
+                "label": picker.label,
+                "kind": picker.kind,
+                "kind_label": picker.kind_label,
+                "query": picker.query,
+                "years": [_link(link) for link in picker.years],
+                "by_year": [
+                    {
+                        "year": item.year,
+                        "active": item.active,
+                        "months": [_link(link) for link in item.months],
+                        "quarters": [_link(link) for link in item.quarters],
+                    }
+                    for item in picker.by_year
+                ],
+            },
+            "cut": {
+                "label": context["cut_label"],
+                "current": context["cut_is_current"],
+            },
+            "summary": {
+                "rows": [_kpi_row(row) for row in kpis.rows],
+                "totals": _kpi_row(kpis.totals),
+                "best": _kpi_row(kpis.best) if kpis.best else None,
+                "worst": _kpi_row(kpis.worst) if kpis.worst else None,
+            },
+            "history": {
+                "error": context["history_error"] or "",
+                "notice": context["history_notice"] or "",
+                "months": None
+                if month is None
+                else {
+                    "headers": list(month.headers),
+                    "rows": [
+                        {
+                            "name": r.name,
+                            "slug": r.slug,
+                            "cells": [_kpi_cell(c) for c in r.cells],
+                        }
+                        for r in month.rows
+                    ],
+                    "totals": [_kpi_cell(c) for c in month.totals],
+                },
+                "quarters": None
+                if quarter is None
+                else {
+                    "headers": list(quarter.headers),
+                    "rows": [
+                        {
+                            "name": r.name,
+                            "slug": r.slug,
+                            "cells": [_kpi_cell(c) for c in r.cells],
+                        }
+                        for r in quarter.rows
+                    ],
+                    "totals": [_kpi_cell(c) for c in quarter.totals],
+                },
+                "chart": context.get("chart"),
+            },
+        },
+        "meta": {},
+    }

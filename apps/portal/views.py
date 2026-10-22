@@ -1120,34 +1120,21 @@ def capacidad_instalada_csv(request: HttpRequest) -> HttpResponse:
     return response
 
 
-@require_GET
-def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
+def kpi_context(request: HttpRequest) -> dict[str, Any]:
+    """TP, T y C de cada Delivery Manager en el periodo elegido.
+
+    Acepta ?periodo=anio|trimestre|mes; sin periodo, el ejercicio completo.
+    Los cortes son del equipo completo: no se recortan por cuenta.
     """
-    Muestra TP, T y C de cada Delivery Manager en el periodo elegido.
-
-    Args:
-        request: Peticion HTTP; acepta ?periodo=anio|trimestre|mes.
-
-    Returns:
-        La pagina de KPIs de Delivery Managers.
-    """
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-
     params = {key: request.GET.get(key, "") for key in request.GET}
     if not any(params.get(key) for key in ("periodo", "mes", "trim")):
         params["periodo"] = "anio"
     period = parse_period(params, timezone.localdate())
     history = load_kpi_history(period.year)
-    load = PortfolioLoad(
-        projects=(), error=history.error, loaded_at=timezone.localtime()
-    )
-    context = _base_context(load)
-    context.update(_period_context(request, period))
+    context: dict[str, Any] = _period_context(request, period)
     context.update(
         {
-            "active": "operativa",
-            "kpis": build_kpi_view(load.projects),
+            "kpis": build_kpi_view(()),
             "cut_label": timezone.localdate().strftime("%d/%m/%Y"),
             "cut_is_current": True,
             "history_error": history.error,
@@ -1170,11 +1157,6 @@ def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
                 "kpis": end_cut.view,
                 "cut_label": end_cut.cut_label,
                 "cut_is_current": end_cut.partial,
-            },
-        )
-
-        context.update(
-            {
                 "month_matrix": months,
                 "quarter_matrix": build_quarter_averages(
                     [
@@ -1189,7 +1171,7 @@ def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
             },
         )
 
-    return render(request, "portal/kpis_dm.html", context)
+    return context
 
 
 def _kpi_chart(history: KpiHistory, period: Period) -> dict[str, object]:

@@ -16,6 +16,7 @@ from apps.portal.api.serializers import (
     billing_screen,
     eva4_screen,
     executive_screen,
+    kpi_screen,
     manager_screen,
     margins_screen,
     operativa_screen,
@@ -305,3 +306,16 @@ class ExecutiveRefreshView(APIView):
 
         with applied(requested_period(request)):
             return self._state(request_refresh(force=True))
+
+
+class KpiManagersView(APIView):
+    """TP, T y C de cada Delivery Manager (cifras del equipo completo)."""
+
+    permission_classes = OperativaView.permission_classes
+
+    def get(self, request: Request) -> Response:
+        """Periodo con ?periodo=anio|trimestre|mes (&anio=, &trim=, &mes=)."""
+        if not scope_for(request).unrestricted:
+            # Los cortes agregan a todo el equipo: no se pueden recortar.
+            raise PermissionDenied("No tienes acceso a esta información.")
+        return Response(kpi_screen(views.kpi_context(request._request)))

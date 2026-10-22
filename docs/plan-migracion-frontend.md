@@ -17,8 +17,8 @@ respuestas; la migración del frontend sí avanza.
 | 5 | Acuerdos: API de lectura y escritura con permisos y alcance | Hecha |
 | 6 | Línea base de lo nuevo (cambios del 22/10) | Hecha |
 | 7 | Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso | Hecha |
-| **8** | **Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers** | **Siguiente** |
-| 9 | Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos) | Pendiente |
+| 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Hecha |
+| **9** | **Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos)** | **Siguiente** |
 | 10 | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | Pendiente |
 | 11 | Limpieza: legacy, plantillas y estáticos viejos, CSP obligatoria, `ACCESS_ENFORCED=1` | Pendiente |
 
@@ -216,6 +216,30 @@ Lo que se planeaba para esta fase:
   retiraron la plantilla y la vista anteriores; `warm_cache` usa `dm_state`.
 - Diferencia: si las fuentes no responden y no hay a quién mostrar, la API da
   502 y la página lo dice; antes redirigía a Operativa.
+
+## Fase 8: Business Overview, glosario y KPIs de DMs (hecha)
+
+- **8a.** `data_dictionary.GLOSSARY` declara el glosario corto junto a
+  `CONCEPTS` (cada término cita su concepto); `reference/glossary` entrega
+  ambos y el diccionario es `pages/diccionario`. «Fuentes y cálculo» de las
+  tarjetas sale del mismo diccionario: se acabó la tercera copia. Una prueba
+  avisa si un concepto citado desaparece.
+- **8b.** `screens/executive/` (`view_executive`): cifras de empresa solo con
+  alcance total; el listado de cuentas se recorta al alcance; un bloque que
+  falta es `null`. Ya no se incrusta el snapshot completo en la página (cerró
+  la fuga de facturación y oportunidades de todas las cuentas).
+- **8c.** `pages/executive`: selector de periodo (`ui/period-picker`, con
+  `lib/date-range`), tarjetas, rentabilidad mensual (`lib/monthly-model` +
+  `ui/monthly-chart`), comparación de cuentas (`lib/ranking`, con el estado en
+  la URL) y acuerdos de todas las cuentas (`ui/agreements`). Se retiraron la
+  vista, 4 plantillas, 6 scripts y 5 hojas de estilo anteriores. El trabajo de
+  preparación del corte ya no renderiza la página.
+- **8d.** `screens/kpis-dm/` y `pages/kpis-dm`: T y C sin redondear, gráfica de
+  C (`lib/kpi-chart`) y selector `ui/period-filter` (reutilizable por
+  Facturabilidad). **Desviación del plan:** con alcance limitado la pantalla
+  responde 403 en lugar de recortar filas; los cortes agregan a todo el equipo.
+- Se conservan `ejecutiva/actualizacion/` y `executive_numbers.js` hasta migrar
+  Costos, Todas las cuentas y Comercial (fase 9).
 
 ## Fases siguientes con lo nuevo integrado
 
