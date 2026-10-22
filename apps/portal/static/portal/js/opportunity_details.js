@@ -18,7 +18,7 @@
     const groups=(data.sprints||[]).some(g=>/^(S[0-9]|CR)/i.test(g.label))?data.sprints:[{label:'Personas',people:data.people||[]}];
     for(const group of groups){
      cell('h4',group.label,root);const scroll=cell('div','',root);scroll.style.overflow='auto';const table=cell('table','',scroll),head=cell('tr','',table);
-     for(const title of ['Persona','Horas','Banda','Mes de banda','Tarifa/h','Costo','Estado'])cell('th',title,head);
+     for(const title of ['Persona','Horas','Banda','Mes de banda','Tarifa interna de banda (USD/h)','Costo','Estado'])cell('th',title,head);
      for(const person of group.people||[]){const row=cell('tr','',table);for(const value of [person.name,hours(person.hours),person.band,person.band_month,rate(person.rate),dollars(person.cost)])cell('td',value,row);const state=cell('span',person.missing?'Falta banda o tarifa':'Horas × tarifa',cell('td','',row));state.className='person-cost-state'+(person.missing?' missing':'');}
      if(!(group.people||[]).length)cell('p','Sin registros disponibles para este ID y periodo.',root);
     }
