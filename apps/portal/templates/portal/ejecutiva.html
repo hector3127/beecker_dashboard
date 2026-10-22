@@ -82,7 +82,7 @@ details.mr[open] .ch2{transform:rotate(90deg)}
 <div class="pg"><div class="executive-report-tools">
 <span id="executive-cut-status" role="status"></span>
 <div class="executive-report-actions">
-<a class="portal-button portal-button-secondary" href="{% url 'portal:diccionario_datos' %}">Diccionario de datos</a>
+<a class="portal-button portal-button-secondary" href="{% url 'portal:diccionario_datos' %}">Glosario de indicadores</a>
 <button type="button" class="portal-button portal-button-primary" id="executive-prepare" data-endpoint="{% url 'portal:actualizacion_ejecutiva' %}">Actualizar datos</button>
 </div></div>
 
@@ -97,6 +97,7 @@ details.mr[open] .ch2{transform:rotate(90deg)}
 <div class="picker-actions"><span id="picker-error" role="alert"></span><button type="button" id="picker-clear">Limpiar</button><button type="button" id="picker-cancel">Cancelar</button><button type="submit" class="picker-apply">Aplicar periodo</button></div>
 <p class="picker-explanation">ⓘ Verifica Desde y Hasta antes de aplicar. Facturación según la fecha disponible en DataRevenue; costos y consumo por fecha de las horas. Base mensual pendiente de validar con Florencia.</p></div></form></details></div>
 {% if error %}<div class="c p executive-source-alert err" role="alert">No se pudo leer Google Sheets: {{ error }}. Se conserva la información disponible.</div>{% endif %}
+{% include 'portal/_executive_glossary.html' %}
 <div class="g executive-cards" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch"><div class="c executive-card" style="overflow:hidden;display:flex;flex-direction:column"><div class="executive-card-header" style="display:flex;align-items:center;gap:12px;padding:14px 20px;background:#F1ECFD"><span class="ci" style="width:42px;height:42px;background:linear-gradient(135deg,#6B50F5,#9A3FE0);flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1 1-1.7 2.5-1.7s2.5.7 2.5 1.7-1 1.5-2.5 1.8-2.5.8-2.5 1.8 1 1.7 2.5 1.7 2.5-.7 2.5-1.7"/></svg></span><div style="flex:1;min-width:0"><b style="font-size:20px"><a href="{% url 'portal:costos_detalle' %}{% if executive_query %}?{{ executive_query }}{% endif %}" style="color:#2B1B8F">Financiera</a></b><span class="ej">{{ executive_year|default:2026 }}</span><div style="font-size:13px;color:#4A4D86">Facturación, margen y cobranza</div></div><button type="button" class="executive-info-button" data-method="financial" aria-label="Ver fuentes y cálculo de Financiera" aria-haspopup="dialog" aria-controls="executive-method-dialog" title="Fuentes y cálculo"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg></button></div>
 <div class="m2 kx"><span class="executive-metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3ZM9 7h6M9 11h6M9 15h3"/></svg></span><div style="flex:1;min-width:0"><div style="font-size:15.5px;font-weight:700;color:#2B2FA8;line-height:1.25"><span>Facturación del periodo</span> </div></div><div style="text-align:right;flex:none;max-width:none"><b id="executive-revenue" style="white-space:nowrap;font-variant-numeric:tabular-nums;display:block;font-size:22px;color:#14125E;line-height:1.1">&mdash;</b></div></div>
 <div class="m2 kx" hidden style="display:none"><div style="flex:1;min-width:0"><div style="font-size:15.5px;font-weight:700;color:#2B2FA8">Costos calculados</div></div><div style="text-align:right"><b id="executive-cost" style="font-size:22px;color:#14125E">&mdash;</b><small id="executive-cost-note" style="display:block;color:#877caf">Pendiente de calcular</small></div></div>
@@ -143,7 +144,7 @@ details.mr[open] .ch2{transform:rotate(90deg)}
     <article><h3>Previas al cierre</h3><p class="method-formula">Suma de oportunidades abiertas únicas del periodo</p><p id="commercial-open-note"></p></article>
    </section>
   </div>
-  <footer class="method-drawer-footer"><a href="{% url 'portal:diccionario_datos' %}">Abrir diccionario de datos</a><button type="button" class="portal-button portal-button-primary" data-method-close>Entendido</button></footer>
+  <footer class="method-drawer-footer"><a href="{% url 'portal:diccionario_datos' %}">Abrir glosario completo</a><button type="button" class="portal-button portal-button-primary" data-method-close>Entendido</button></footer>
  </div>
 </dialog>
 

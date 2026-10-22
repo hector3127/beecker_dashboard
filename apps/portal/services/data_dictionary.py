@@ -59,6 +59,16 @@ CONCEPTS = [
         "Ponderación confirmada por el usuario; base contable pendiente",
     ),
     (
+        "Tarifa de costo vendida (costing rate)",
+        "Tarifa de costo considerada al vender una oportunidad. Su fuente, unidad y regla de asignación están pendientes de validación con Florencia. Se muestra Pendiente; no se deduce de revenue dividido entre horas ni se sustituye por la tarifa interna de banda.",
+        "Pendiente de fuente y validación con Florencia",
+    ),
+    (
+        "Tarifa interna de banda",
+        "Tarifa de costo por hora asociada a la banda del recurso en Master rates. Se utiliza junto con las horas registradas para calcular los costos disponibles. No equivale a la tarifa de costo con la que se vendió una oportunidad.",
+        "Bandas/rol + Master rates",
+    ),
+    (
         "ETC",
         "Presupuesto de horas − horas consumidas de los proyectos del rango con ambas medidas. Un ETC negativo señala sobreconsumo. No se publica un total como completo si faltan proyectos o presupuestos.",
         "Población operativa + Clockify",
@@ -85,13 +95,13 @@ CONCEPTS = [
     ),
     (
         "Trabajo por entregar",
-        "Saldo contratado pendiente de ejecutar; falta identificar y validar la fuente y regla de Poly. Se muestra Pendiente, nunca cero supuesto.",
-        "Pendiente: Poly",
+        "Regla vigente: suma de importes Confirmed de DataRevenue H con fecha G futura respecto al día del corte y dentro del periodo seleccionado. Es revenue futuro previsto; no equivale a tareas pendientes ni a facturación. Si falta el corte se muestra Pendiente.",
+        "DataRevenue G/H · regla del corte comercial",
     ),
     (
         "Previas al cierre",
-        "Importe y horas de oportunidades en la categoría previa al cierre; categoría y regla pendientes de definir con Luis Enrique. No se sustituye por todas las oportunidades abiertas.",
-        "Pendiente: Luis Enrique",
+        "Regla vigente: importe en USD de oportunidades abiertas únicas de Backlog_Proyectos con fecha de cierre dentro del periodo seleccionado. No representa ventas ganadas ni facturación; la cifra se consulta con el alcance del corte comercial.",
+        "Backlog_Proyectos · oportunidades abiertas únicas",
     ),
     (
         "Decisiones y seguimiento",
