@@ -380,3 +380,103 @@ def margins_screen(result: dict[str, Any], account: str) -> dict[str, Any]:
             "preparing": result["preparing"],
         },
     }
+
+
+def _account_project(project: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "id": project["id"],
+        "name": project.get("nombre"),
+        "service": project.get("servicio"),
+        "stage": project.get("etapa"),
+        "state": project.get("estado"),
+        "manager": project.get("deliveryManager"),
+        "budget": project.get("budget"),
+        "burn": project.get("burn"),
+        "nps": project.get("nps"),
+        "clockify_pending": bool(project.get("clockifyPending")),
+        "exceeded": bool(project.get("excedido")),
+        "late": bool(project.get("atrasado")),
+    }
+
+
+def account_screen(result: dict[str, Any], client: str) -> dict[str, Any]:
+    """Cuenta: indicadores de origen, proyectos, procesos ROC y backlog."""
+    if not result.get("ok"):
+        return {
+            "data": {
+                "available": False,
+                "error": result.get("error") or "No se pudo leer la cuenta.",
+            },
+            "meta": {"client": client},
+        }
+    return {
+        "data": {
+            "available": True,
+            "error": "",
+            "warning": result.get("warning") or "",
+            "stale": bool(result.get("stale")),
+            "nps": result.get("nps"),
+            "nps_sample": result.get("npsMuestra", 0),
+            "roc_active": result.get("rocActivos", 0),
+            "consumption_pending": result.get("mpbPendientes", 0),
+            "projects": [_account_project(p) for p in result["proyectos"]],
+            "roc": [
+                {
+                    "process": r.get("proceso"),
+                    "id": r.get("id") or r.get("botId"),
+                    "service": r.get("servicio"),
+                    "bot_id": r.get("botId"),
+                    "state": r.get("estado"),
+                }
+                for r in result.get("roc", [])
+            ],
+            "opportunities": [
+                {
+                    "account": o.get("account"),
+                    "name": o.get("name"),
+                    "manager": o.get("manager"),
+                    "stage": o.get("stage"),
+                    "close": o.get("close"),
+                    "hours": o.get("hours"),
+                }
+                for o in result.get("oportunidades", [])
+            ],
+        },
+        "meta": {"client": client, "cutoff": result.get("fechaCorte")},
+    }
+
+
+def account_consumption(result: dict[str, Any]) -> dict[str, Any]:
+    """Un lote de horas: [{id, burn, error}] y desde donde sigue."""
+    return {
+        "data": {
+            "ok": bool(result.get("ok")),
+            "items": [
+                {
+                    "id": i.get("id"),
+                    "burn": i.get("burn"),
+                    "error": i.get("error") or "",
+                }
+                for i in result.get("items", [])
+            ],
+            "next": result.get("next"),
+            "total": result.get("total"),
+        },
+        "meta": {},
+    }
+
+
+def account_finance(account: dict[str, Any] | None) -> dict[str, Any]:
+    """Facturacion, margen y cobranza de la cuenta; null sin registros."""
+    keys = (
+        "revenue",
+        "margin",
+        "cost",
+        "pending",
+        "projects",
+        "collected",
+        "invoiced",
+        "collections_percent",
+    )
+    data = {key: account.get(key) for key in keys} if account else None
+    return {"data": {"account": data}, "meta": {"year": 2026}}

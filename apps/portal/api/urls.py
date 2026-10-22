@@ -2,6 +2,11 @@
 
 from django.urls import path
 
+from apps.portal.api.account import (
+    AccountConsumptionView,
+    AccountFinanceView,
+    AccountScreenView,
+)
 from apps.portal.api.agreements import AgreementDetailView, AgreementListView
 from apps.portal.api.screens import (
     Eva4ScreenView,
@@ -29,6 +34,17 @@ urlpatterns = [
         name="agreement",
     ),
     path("ping/", PingView.as_view(), name="ping"),
+    path("screens/cuenta/", AccountScreenView.as_view(), name="cuenta"),
+    path(
+        "screens/cuenta/consumos/",
+        AccountConsumptionView.as_view(),
+        name="cuenta_consumos",
+    ),
+    path(
+        "screens/cuenta/finanzas/",
+        AccountFinanceView.as_view(),
+        name="cuenta_finanzas",
+    ),
     path("screens/eva4/", Eva4ScreenView.as_view(), name="eva4"),
     path("screens/margenes/", MarginsScreenView.as_view(), name="margenes"),
     path(
