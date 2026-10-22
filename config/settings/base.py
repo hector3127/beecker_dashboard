@@ -125,6 +125,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "core.frontend.CspMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -132,13 +133,14 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "templates", BASE_DIR / "frontend" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "core.frontend.frontend_context",
             ],
         },
     },
@@ -201,6 +203,17 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# El frontend nuevo se publica en /static/app/ (CSS, JS e imagenes).
+STATICFILES_DIRS = [("app", BASE_DIR / "frontend" / "static")]
+
+# Raiz de la API que consume el JS. Si el portal se monta bajo otra ruta
+# (por ejemplo dentro de Genesis), solo cambia este valor.
+FRONTEND_API_BASE = "/api/v1/"
+
+# Politica CSP en modo "solo reportar": no bloquea nada, anota en el log
+# lo que una politica estricta rechazaria. Solo el valor 1 la enciende.
+CSP_REPORT_ONLY = os.getenv("CSP_REPORT_ONLY", "0") == "1"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

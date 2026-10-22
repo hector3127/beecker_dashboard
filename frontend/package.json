@@ -1,0 +1,9 @@
+{
+  "name": "beecker-frontend",
+  "private": true,
+  "type": "module",
+  "description": "Frontend del portal: HTML, CSS y JS modular sin compilacion. Este archivo solo permite que Node resuelva los mismos nombres #app/ que el importmap del navegador.",
+  "imports": {
+    "#app/*": "./static/scripts/*"
+  }
+}

@@ -1,0 +1,58 @@
+/* Componentes compartidos. Los nombres de clase son los de portal.css para
+   que las pantallas migren sin renombrar nada. */
+
+/* ---------- Barra de filtros ---------- */
+.fbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 0 0 14px; font-size: 14px; color: var(--muted); }
+.hint { font-size: 13.5px; color: var(--muted); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap); padding: 0 16px; font: inherit; font-size: 13.5px; font-weight: 700; color: var(--card); background: var(--brand); border: 1px solid var(--brand); border-radius: 9px; cursor: pointer; }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn-ghost { color: var(--brand); background: var(--card); border-color: var(--line); }
+.btn-ghost:hover:not(:disabled) { background: var(--brand-soft); }
+
+/* ---------- Tarjetas ---------- */
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 24px; margin: 0 0 14px; box-shadow: var(--shadow); }
+.card h2 { margin: 0 0 2px; font-size: 19px; font-weight: 800; color: var(--title); letter-spacing: -.01em; }
+.card h3 { margin: 0; font-size: 16px; font-weight: 800; color: var(--title); }
+.hs { margin: 0 0 14px; font-size: 13.5px; line-height: 1.45; color: var(--muted); }
+.note { margin: 8px 4px 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+
+/* ---------- Estados: error, vacio y cargando ---------- */
+.err { margin: 0 0 12px; padding: 12px 18px; border-radius: 12px; background: var(--bad-soft); color: var(--bad); font-size: 14.5px; font-weight: 600; }
+.err .btn { margin-left: 12px; }
+.vacio { padding: 26px; text-align: center; color: var(--muted); font-size: 15px; }
+.cargando { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 26px; color: var(--muted); font-size: 15px; }
+.cargando::before { content: ""; width: 18px; height: 18px; border: 3px solid var(--line); border-top-color: var(--brand); border-radius: 50%; animation: giro .8s linear infinite; }
+@keyframes giro { to { transform: rotate(360deg); } }
+
+/* ---------- Tarjetas de indicador (KPI) ---------- */
+.kp { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 0 0 14px; }
+.kc { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 22px; box-shadow: var(--shadow); }
+.kl { font-size: 14px; font-weight: 700; color: var(--title); }
+.kv { margin: 6px 0 2px; font-size: 38px; font-weight: 800; letter-spacing: -.025em; line-height: 1.15; color: var(--ink-strong); font-variant-numeric: tabular-nums; }
+.kv small, .kv span { font-size: 16px; font-weight: 600; color: var(--soft); }
+.ke { font-size: 13px; line-height: 1.4; color: var(--muted); }
+
+/* ---------- Tablas: un solo modelo ---------- */
+.tw { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; color: var(--ink); }
+th { padding: 11px 10px; background: var(--th-bg); color: var(--th-ink); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; text-align: left; white-space: nowrap; border: 0; }
+td { padding: 10px; border-top: 1px solid var(--line-soft); color: var(--ink); vertical-align: middle; font-variant-numeric: tabular-nums; }
+thead tr:first-child th:first-child { border-top-left-radius: 10px; }
+thead tr:first-child th:last-child { border-top-right-radius: 10px; }
+tbody tr:nth-child(even) { background: var(--zebra); }
+tbody tr:hover { background: var(--hover); }
+tfoot td, tr.tot td { background: var(--total-bg); color: var(--total-ink); font-weight: 800; }
+td.n, th.n { text-align: right; }
+td.lo { color: var(--bad); font-weight: 700; }
+td.hi { color: var(--good); font-weight: 700; }
+td a { font-weight: 600; }
+
+/* ---------- Pastillas ---------- */
+.pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 11px; font-size: 12.5px; font-weight: 800; }
+.pill.ok { background: color-mix(in srgb, var(--good) 14%, var(--card)); color: var(--good); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.warn { background: var(--warn-soft); color: var(--warn-ink); }
+
+@media (max-width: 900px) {
+  .kv { font-size: 32px; }
+}

@@ -2,7 +2,7 @@
 
 from django.urls import path
 
-from apps.portal import views
+from apps.portal import pages, views
 
 """BKD.120.011 - Rutas del portal
 Ejecutiva en la raiz, Operativa y Comercial. Capacidad instalada,
@@ -12,6 +12,7 @@ proyectos y Facturabilidad por area tienen sus propias paginas del portal.
 app_name = "portal"
 
 urlpatterns = [
+    path("guia-de-interfaz/", pages.guia, name="guia_interfaz"),
     path(
         "ejecutiva/oportunidades/",
         views.oportunidades_financieras,

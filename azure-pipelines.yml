@@ -23,6 +23,14 @@ steps:
   - script: uv run mypy .
     displayName: Mypy
 
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "22.x"
+    displayName: Node para pruebas del frontend
+
+  - script: node --test tests/frontend/*.test.mjs
+    displayName: Pruebas del frontend (JS)
+
   - script: uv run playwright install --with-deps chromium
     displayName: Navegador para pruebas e2e
 

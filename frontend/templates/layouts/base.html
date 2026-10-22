@@ -1,0 +1,34 @@
+{% load static %}<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Beecker{% endblock %}</title>
+<link rel="icon" href="{% static 'app/assets/favicon.ico' %}" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'app/styles/tokens.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/base.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/layout.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/components.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/a11y.css' %}">
+{% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{% block body %}{% endblock %}
+{{ app_config|json_script:"app-config" }}
+{# Cada modulo de scripts/ (menos pages/) va aqui: asi los import usan nombres estables y no la ruta con huella. #}
+<script type="importmap" nonce="{{ csp_nonce }}">
+{
+  "imports": {
+    "#app/data/config.js": "{% static 'app/scripts/data/config.js' %}",
+    "#app/data/api-client.js": "{% static 'app/scripts/data/api-client.js' %}",
+    "#app/data/url-state.js": "{% static 'app/scripts/data/url-state.js' %}",
+    "#app/lib/dom.js": "{% static 'app/scripts/lib/dom.js' %}",
+    "#app/ui/states.js": "{% static 'app/scripts/ui/states.js' %}"
+  }
+}
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

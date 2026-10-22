@@ -1,0 +1,11 @@
+/* Base: el cuerpo, los enlaces y lo que no pertenece a un componente. */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+}
+a { color: var(--brand); text-decoration: none; }
+main { min-width: 0; }
+img { max-width: 100%; }

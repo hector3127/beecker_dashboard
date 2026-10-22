@@ -1,0 +1,36 @@
+/* Tokens del sistema de diseno. Mismos valores que body.ds en portal.css
+   (una prueba lo verifica); los nuevos solo nombran colores que portal.css
+   repetia en linea. Ningun otro archivo define colores sueltos. */
+:root {
+  --ink: #1B1A6B;
+  --ink-strong: #14125E;
+  --title: #1B1A9E;
+  --muted: #4A4D86;
+  --soft: #8A81B8;
+  --line: #E4E6F8;
+  --line-soft: #EEE8FC;
+  --bg: #F3F4FD;
+  --card: #fff;
+  --brand: #4B25C9;
+  --brand-soft: #EDE7FF;
+  --th-bg: #F4F0FF;
+  --th-ink: #4B3FA0;
+  --good: #13693B;
+  --bad: #A31B33;
+  --radius: 16px;
+
+  --nav-ink: #4A4872;
+  --nav-line: #ECE8FA;
+  --zebra: #FBFAFF;
+  --hover: #F3EEFF;
+  --total-bg: #EFEBFF;
+  --total-ink: #26117D;
+  --bad-soft: #FBE3E7;
+  --warn-soft: #FFF3D6;
+  --warn-ink: #8A5600;
+  --hero: linear-gradient(90deg, #5B3CFF 0%, #A02DF0 55%, #FF3FA6 100%);
+  --shadow: 0 1px 3px rgba(27, 26, 107, .05);
+
+  --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --tap: 44px; /* tamano minimo de un objetivo tactil */
+}

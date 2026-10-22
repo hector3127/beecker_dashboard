@@ -1,0 +1,8 @@
+{% load static %}<header class="top">
+<a class="logo" href="{% url 'portal:ejecutiva' %}" aria-label="Beecker, ir a Business Overview"><img src="{% static 'app/assets/logo.png' %}" alt="Beecker" width="147" height="30"></a>
+<nav class="nav" aria-label="Navegación principal">
+<a href="{% url 'portal:ejecutiva' %}"{% if active == "ejecutiva" %} aria-current="page"{% endif %}>Business Overview</a>
+<a href="{% url 'portal:operativa' %}"{% if active == "operativa" %} aria-current="page"{% endif %}>Operativa</a>
+<a href="{% url 'portal:comercial' %}"{% if active == "comercial" %} aria-current="page"{% endif %}>Comercial</a>
+</nav>
+</header>

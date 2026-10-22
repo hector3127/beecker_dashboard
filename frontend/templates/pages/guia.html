@@ -1,0 +1,49 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}Guía de interfaz · Beecker{% endblock %}
+{% block content %}
+<div class="pgh">
+<div>
+<div class="pgh-e">Frontend</div>
+<h1>Guía de interfaz</h1>
+<p>Componentes, estados y conexión con la API del frontend nuevo</p>
+</div>
+</div>
+
+<section class="card" aria-labelledby="guia-api-titulo">
+<h2 id="guia-api-titulo">Conexión con la API</h2>
+<p class="hs">El cliente de datos pide <code>ping/</code> y muestra cada estado: cargando, error con reintento y resultado.</p>
+<div id="guia-api" aria-live="polite"></div>
+</section>
+
+<div class="kp">
+<div class="kc"><div class="kl">Proyectos en ejecución</div><div class="kv">27</div><div class="ke">Activos al corte</div></div>
+<div class="kc"><div class="kl">Horas invertidas</div><div class="kv">1,284.5 <small>h</small></div><div class="ke">Mes en curso</div></div>
+</div>
+
+<section class="card" aria-labelledby="guia-tabla-titulo">
+<h2 id="guia-tabla-titulo">Tabla</h2>
+<div class="fbar"><span class="hint">Barra de filtros</span><a class="btn btn-ghost" href="#guia-tabla-titulo">Acción secundaria</a></div>
+<div class="tw">
+<table>
+<caption class="sr-only">Ejemplo de tabla</caption>
+<thead><tr><th scope="col">Proceso</th><th scope="col">Estado</th><th scope="col" class="n">Horas</th></tr></thead>
+<tbody>
+<tr><td>Reporte mensual</td><td><span class="pill ok">Activo</span></td><td class="n hi">120.0</td></tr>
+<tr><td>Conciliación</td><td><span class="pill warn">Por renovar</span></td><td class="n">80.5</td></tr>
+<tr><td>Cierre</td><td><span class="pill bad">Suspendido</span></td><td class="n lo">-12.0</td></tr>
+</tbody>
+<tfoot><tr class="tot"><td>Total</td><td></td><td class="n">188.5</td></tr></tfoot>
+</table>
+</div>
+<p class="note">Nota al pie de una tarjeta.</p>
+</section>
+
+<section class="card" aria-labelledby="guia-estados-titulo">
+<h2 id="guia-estados-titulo">Estados estáticos</h2>
+<div class="err">Mensaje de error de ejemplo.</div>
+<div class="vacio">Sin datos que mostrar todavía.</div>
+<div class="cargando">Cargando…</div>
+</section>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/guia/main.js' %}"></script>{% endblock %}
