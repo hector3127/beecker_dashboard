@@ -46,6 +46,6 @@ def load_margins(account: str, scope: AccessScope) -> dict[str, Any]:
         "summary": opportunity_summary(rows),
         "start": data["start"],
         "end": data["end"],
-        "excluded": data["excluded"],
+        "excluded": data.get("excluded", ""),
         "preparing": not prepared,
     }

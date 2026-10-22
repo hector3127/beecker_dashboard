@@ -210,6 +210,7 @@ class ManagerScreenView(APIView):
             base, extra, hours = views.dm_state(slug, stage, scope)
         except views.ManagerUnavailableError as error:
             return error_response(502, "upstream", str(error))
+        assert base is not None  # un paso valido siempre la calcula
         rows = views.dm_rows(base, extra)
         return Response(manager_screen(base, extra, hours, rows))
 

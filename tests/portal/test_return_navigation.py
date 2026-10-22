@@ -41,6 +41,7 @@ def test_return_links_resolve_to_correct_section(name, anchor):
             "costos_detalle.html",
             "todas_cuentas.html",
             "diccionario_datos.html",
+            "oportunidades_financieras.html",
         }
         else "portal:operativa"
     )

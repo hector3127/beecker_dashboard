@@ -2,9 +2,13 @@
 
 from dataclasses import replace
 
+import pytest
+from django.test import override_settings
+
 from apps.portal.services.kpi_history import build_kpi_history
 from apps.portal.services.kpi_quarterly import build_quarter_averages
 from tests.portal.test_kpi_history import NOW, sources
+from tests.portal.test_views import stub_history
 
 
 def test_quarter_is_monthly_mean_and_keeps_fractional_project_counts():
@@ -35,3 +39,19 @@ def test_missing_months_are_not_zero_and_current_quarter_is_marked():
         history.months[-1:], history.managers
     ).headers == ("T4*",)
     assert build_quarter_averages([], ()).headers == ()
+
+
+@override_settings(PORTAL_LOGIN_REQUIRED=False)
+@pytest.mark.parametrize("query", ["", "?anio=2026"])
+def test_kpis_defaults_to_annual_without_changing_explicit_months(
+    client, monkeypatch, query
+):
+    stub_history(monkeypatch)
+    response = client.get("/operativa/kpis-delivery-managers/" + query)
+    assert response.context["period"].kind == "anio"
+    assert len(response.context["month_matrix"].headers) > 1
+    html = response.content.decode()
+    assert 'id="kpi-month-history"' in html
+    assert 'id="kpi-quarter-history"' in html
+    assert 'colspan="3"' in html
+    assert "no un porcentaje de proyectos que cumplen" in html

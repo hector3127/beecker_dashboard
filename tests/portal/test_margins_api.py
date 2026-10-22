@@ -186,21 +186,6 @@ def test_refresh_reports_state_without_reading_sources(client, monkeypatch):
 # ---------- Pagina ----------
 
 
-def test_page_delivers_the_shell_and_the_back_link(client):
-    response = client.get(
-        "/ejecutiva/oportunidades/",
-        {**RANGE, "nombre": "Acme", "volver": "/ejecutiva/cuentas/"},
-    )
-    html = response.content.decode()
-
-    assert response.status_code == 200
-    assert response.context["back_url"] == "/ejecutiva/cuentas/"
-    assert "Regresar a Todas las cuentas" in html
-    assert 'src="/static/app/scripts/pages/margenes/main.js' in html
-    assert "OP.1" not in html  # los datos llegan por la API
-    assert 'name="desde" value="2026-01-01"' in html
-
-
 def test_page_for_a_foreign_account_is_a_404(client, enforced):
     enforced("ana", caps=COSTS, scope=AccessScope.limited(accounts=["Beta"]))
 

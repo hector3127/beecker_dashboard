@@ -59,12 +59,3 @@ def test_the_glossary_api_serves_concepts_and_groups(client):
     for group in body["data"]["groups"]:
         for item in group["terms"]:
             assert item["concept"] in names
-
-
-def test_the_dictionary_page_is_a_shell_that_keeps_its_back_link(client):
-    response = client.get("/diccionario-datos/")
-    html = response.content.decode()
-
-    assert response.status_code == 200
-    assert "Regresar a Business Overview" in html
-    assert "pages/diccionario/main.js" in html

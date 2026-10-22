@@ -67,16 +67,6 @@ def test_late_and_over_budget_projects_say_why(client):
     assert rows["3"]["detail"] == "Presupuesto usado: 125%"
 
 
-def test_page_is_a_shell_with_back_link_and_templates(client):
-    response = client.get("/operativa/delivery-manager/alberto/")
-    html = response.content.decode()
-
-    assert response.status_code == 200
-    assert 'href="/operativa/"' in html
-    assert 'data-account-url="/cuenta/ACCOUNT_SLUG/"' in html
-    assert "Portal Pacientes" not in html  # los datos llegan por la API
-
-
 def test_unknown_stage_is_a_400(client):
     assert client.get(URL, {"bloque": "todo"}).status_code == 400
 

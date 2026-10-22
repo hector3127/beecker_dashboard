@@ -22,6 +22,16 @@ respuestas; la migración del frontend sí avanza.
 | 10 | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | Pendiente |
 | 11 | Limpieza: legacy, plantillas y estáticos viejos, CSP obligatoria, `ACCESS_ENFORCED=1` | Pendiente |
 
+> **Regla de diseño (22/10/2026).** Una pantalla migrada se ve idéntica a la
+> anterior; solo cambian los datos, el alcance y los permisos. Se comprueba con
+> capturas lado a lado (anterior contra nueva) antes de retirar la anterior. Las
+> pantallas de la pestaña Business (Business Overview, cuenta, comparativa de
+> márgenes, diccionario) y Delivery Manager y KPIs de DMs se rehicieron con otro
+> diseño y se devolvieron al anterior: conservan su plantilla, estilos y scripts
+> y mantienen lo nuevo del servidor (APIs `screens/…`, alcance, capacidades,
+> diccionario único). Reproducirlas con `frontend/` exige igualar primero el
+> diseño (iconos, degradados, tarjetas) en `tokens.css` y `components.css`.
+
 Son **12 fases (0 a 11)**: los cambios del 22/10 agregan la 6 y reubican el
 resto. Cada fase es un conjunto de commits en `main`, con la suite en verde.
 
@@ -165,7 +175,11 @@ Lo que se planeaba para esta fase:
 4. Prueba que fija que el glosario sale de `CONCEPTS`.
 5. Corregir la frase «La migración … sigue en pausa» del documento de interfaz.
 
-## Fase 7a: comparativa de márgenes (hecha)
+## Fase 7a: comparativa de márgenes (hecha; diseño anterior)
+
+> Nota: la página usa la plantilla anterior; el contrato y el alcance de abajo
+> siguen vigentes en la API.
+
 
 - `GET /api/v1/screens/margenes/` (capacidad `view_costs`): oportunidades con
   `bookings`, `period_revenue`, `operated_revenue` + `operated_revenue_status`,
@@ -217,7 +231,12 @@ Lo que se planeaba para esta fase:
 - Diferencia: si las fuentes no responden y no hay a quién mostrar, la API da
   502 y la página lo dice; antes redirigía a Operativa.
 
-## Fase 8: Business Overview, glosario y KPIs de DMs (hecha)
+## Fase 8: Business Overview, glosario y KPIs de DMs (hecha; diseño anterior)
+
+> Nota: Business Overview, diccionario y KPIs de DMs conservan su plantilla
+> anterior. El Business Overview incrusta los cortes ya recortados al alcance
+> (`scoped_snapshots`); el resto de lo descrito sigue vigente en la API.
+
 
 - **8a.** `data_dictionary.GLOSSARY` declara el glosario corto junto a
   `CONCEPTS` (cada término cita su concepto); `reference/glossary` entrega

@@ -374,30 +374,6 @@ def test_screen_serves_sold_actual_and_deviation(monkeypatch, client):
     assert row["deviation_pp"] is None  # sin costo no hay desviacion
 
 
-def test_cost_detail_opens_opportunity_hierarchy_by_default(monkeypatch):
-    from django.http import HttpResponse
-    from django.test import RequestFactory
-
-    from apps.portal import pages, views
-
-    captured = []
-    monkeypatch.setattr(
-        pages,
-        "margenes",
-        lambda request: (
-            captured.append(request.GET.get("nombre"))
-            or HttpResponse("hierarchy")
-        ),
-    )
-    response = views.costos_detalle(
-        RequestFactory().get(
-            "/ejecutiva/costos/detalle/?nombre=Heineken+Mexico"
-        )
-    )
-    assert response.content == b"hierarchy"
-    assert captured == ["Heineken Mexico"]
-
-
 def test_summary_uses_only_available_values_and_matched_deviations():
     from apps.portal.services.opportunity_profitability import (
         opportunity_summary,
@@ -572,3 +548,68 @@ def test_old_zero_and_future_links_do_not_block_current_opportunity_costs():
         and future["allocation_pending"]
     )
     cache.clear()
+
+
+def test_view_renders_sold_actual_and_deviation(monkeypatch):
+    from django.test import RequestFactory, override_settings
+
+    from apps.portal import views
+    from apps.portal.services import (
+        executive_refresh,
+        opportunity_profitability,
+    )
+
+    monkeypatch.setattr(
+        executive_refresh, "request_refresh", lambda **kwargs: None
+    )
+    monkeypatch.setattr(
+        opportunity_profitability,
+        "build_sheet_repository",
+        lambda: reader(
+            [
+                "Confirmed",
+                "Acme",
+                "OP.1",
+                "RaaS",
+                "MISSING",
+                0,
+                "2026-01-01",
+                100,
+                "60%",
+            ]
+        ),
+    )
+    with override_settings(PORTAL_LOGIN_REQUIRED=False):
+        response = views.oportunidades_financieras(
+            RequestFactory().get(
+                "/ejecutiva/oportunidades/?periodo=rango&desde=2026-01-01&hasta=2026-09-30"
+            )
+        )
+    assert response.status_code == 200
+    html = response.content.decode()
+    assert "Margen vendido" in html and "Desviación" in html and "OP.1" in html
+    assert "60,00%" in html or "60.00%" in html
+
+
+def test_cost_detail_opens_opportunity_hierarchy_by_default(monkeypatch):
+    from django.http import HttpResponse
+    from django.test import RequestFactory
+
+    from apps.portal import views
+
+    captured = []
+    monkeypatch.setattr(
+        views,
+        "oportunidades_financieras",
+        lambda request: (
+            captured.append(request.GET.get("nombre"))
+            or HttpResponse("hierarchy")
+        ),
+    )
+    response = views.costos_detalle(
+        RequestFactory().get(
+            "/ejecutiva/costos/detalle/?nombre=Heineken+Mexico"
+        )
+    )
+    assert response.content == b"hierarchy"
+    assert captured == ["Heineken Mexico"]

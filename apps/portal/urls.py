@@ -15,10 +15,12 @@ urlpatterns = [
     path("guia-de-interfaz/", pages.guia, name="guia_interfaz"),
     path(
         "ejecutiva/oportunidades/",
-        pages.margenes,
+        views.oportunidades_financieras,
         name="oportunidades_financieras",
     ),
-    path("diccionario-datos/", pages.diccionario, name="diccionario_datos"),
+    path(
+        "diccionario-datos/", views.diccionario_datos, name="diccionario_datos"
+    ),
     path(
         "ejecutiva/actualizacion/",
         views.actualizacion_ejecutiva,
@@ -54,6 +56,9 @@ urlpatterns = [
         "ejecutiva/rentabilidad/",
         views.rentabilidad_mensual,
         name="rentabilidad_mensual",
+    ),
+    path(
+        "cuenta/financiera/", views.cuenta_financiera, name="cuenta_financiera"
     ),
     path("ejecutiva/costos/", views.costos_revenue, name="costos_revenue"),
     path("ejecutiva/ingresos/", views.ingresos, name="ingresos"),
@@ -105,7 +110,7 @@ urlpatterns = [
     ),
     path(
         "operativa/kpis-delivery-managers/",
-        pages.kpis_dm,
+        views.kpis_delivery_managers,
         name="kpis_dm",
     ),
     path("operativa/eva-2/", views.eva2, name="eva2"),
@@ -121,11 +126,11 @@ urlpatterns = [
         views.capacidad_instalada_csv,
         name="capacidad_csv",
     ),
-    path("cuenta/<slug:slug>/", pages.cuenta, name="cuenta"),
+    path("cuenta/<slug:slug>/", views.cuenta, name="cuenta"),
     path("proyecto/<str:project_id>/", views.proyecto, name="proyecto"),
     path(
         "operativa/delivery-manager/<slug:slug>/",
-        pages.delivery_manager,
+        views.delivery_manager,
         name="delivery_manager",
     ),
 ]

@@ -6,6 +6,7 @@ from typing import Any
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.core.cache import cache
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -22,6 +23,7 @@ from apps.portal.schemas import (
     Period,
     RoleOption,
 )
+from apps.portal.services.account import find_account
 from apps.portal.services.account_options import account_names
 from apps.portal.services.capacity import (
     build_capacity_csv,
@@ -852,8 +854,10 @@ def dm_rows(base: dict[str, Any], extra: dict[str, Any] | None) -> list[Any]:
 
 def dm_state(
     slug: str, stage: str, scope: AccessScope
-) -> tuple[dict[str, Any], dict[str, Any] | None, dict[str, Any] | None]:
+) -> tuple[dict[str, Any] | None, dict[str, Any] | None, dict[str, Any] | None]:
     """Lo calculado del Delivery Manager hasta el paso pedido.
+
+    Con stage vacio solo lee lo guardado (la pagina abre al instante).
 
     Cada paso (base, inv, horas) se guarda por separado; pedir uno calcula la
     base si falta. Sin proyectos visibles para esta persona el DM no existe.
@@ -867,14 +871,14 @@ def dm_state(
     )
 
     base = cache.get(_dm_key(slug, "base", scope))
-    if base is None:
+    if base is None and stage:
         base = _dm_base(slug, scope)
     extra = cache.get(_dm_key(slug, "inv", scope))
     hours = cache.get(_dm_key(slug, "horas", scope))
-    if stage == "inv" and extra is None:
+    if base is not None and stage == "inv" and extra is None:
         extra = _dm_investment(base)
         cache.set(_dm_key(slug, "inv", scope), extra, _DM_SECONDS)
-    if stage == "horas" and hours is None:
+    if base is not None and stage == "horas" and hours is None:
         hours = manager_monthly_history(
             base["manager_name"], list(base["sources"].values())
         )
@@ -1781,9 +1785,7 @@ def rentabilidad_mensual(request: HttpRequest) -> HttpResponse:
 def costos_detalle(request: HttpRequest) -> HttpResponse:
     """Muestra costos, estados y personas con sus bandas y tarifas."""
     if request.GET.get("vista") != "proyectos":
-        from apps.portal.pages import margenes
-
-        return margenes(request)
+        return oportunidades_financieras(request)
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
     from apps.portal.services.return_navigation import account_back_url
@@ -1972,3 +1974,357 @@ def comercial_ejecutiva(request: HttpRequest) -> HttpResponse:
         return JsonResponse(
             {"error": "No se pudo consultar la fuente comercial"}, status=502
         )
+
+
+def authorized_account(request: HttpRequest, slug: str) -> str | HttpResponse:
+    """Nombre de la cuenta pedida, o la respuesta si no puede abrirse.
+
+    Una cuenta fuera del alcance no existe (404); sin permiso para leer
+    cuentas, 403. Si el portafolio no carga, vuelve a Operativa.
+    """
+    client = request.GET.get("nombre", "").strip()
+    if not client:
+        portfolio = load_portfolio()
+        found = find_account(portfolio.projects, slug)
+        if found is None:
+            if portfolio.error:
+                return redirect("portal:operativa")
+            raise Http404("No existe esa cuenta.")
+        client = found[0]
+    access = resolve(request)
+    if not access.scope.allows_account(client):
+        raise Http404("No existe esa cuenta.")
+    if access.enforced and not (
+        access.can("view_operations") or access.can("view_agreements")
+    ):
+        raise PermissionDenied
+    return client
+
+
+@require_GET
+@ensure_csrf_cookie
+def cuenta(request: HttpRequest, slug: str) -> HttpResponse:
+    """
+    Muestra una cuenta (cliente) con todos sus proyectos.
+
+    Args:
+        request: Peticion HTTP.
+        slug: Nombre de la cuenta escrito para la URL.
+
+    Returns:
+        La pagina de la cuenta.
+
+    Raises:
+        Http404: Cuando ningun proyecto es de esa cuenta.
+    """
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    from django.http import JsonResponse
+
+    from apps.ejecutivo.account_rpc import (
+        get_account_consumption,
+        get_account_view,
+    )
+
+    client = authorized_account(request, slug)
+    if isinstance(client, HttpResponse):
+        return client
+    if request.GET.get("bloque") == "consumos":
+        return JsonResponse(
+            get_account_consumption(
+                client,
+                request.GET.get("offset", 0),
+                3,
+                request.GET.getlist("pending_id") or None,
+            )
+        )
+    data = get_account_view(client)
+    projects = data.get("proyectos", [])
+    groups: dict[str, dict[str, Any]] = {}
+    for project in projects:
+        group = groups.setdefault(
+            project.get("servicio") or "Sin servicio",
+            {
+                "name": project.get("servicio") or "Sin servicio",
+                "budget": 0,
+                "burn": 0,
+            },
+        )
+        group["budget"] += project.get("budget") or 0
+        group["burn"] += project.get("burn") or 0
+    budget = sum(p.get("budget") or 0 for p in projects)
+    burn = sum(p.get("burn") or 0 for p in projects)
+    maximum = max([1, *[max(g["budget"], g["burn"]) for g in groups.values()]])
+    for group in groups.values():
+        group["budget_width"] = group["budget"] / maximum * 100
+        group["burn_width"] = group["burn"] / maximum * 100
+    states: dict[str, int] = {}
+    for project in projects:
+        state = project.get("estado") or "Sin estado"
+        states[state] = states.get(state, 0) + 1
+    known = [
+        p
+        for p in projects
+        if p.get("budget")
+        and p.get("burn") is not None
+        and not p.get("clockifyPending")
+    ]
+    progress = (
+        sum(p["burn"] / p["budget"] * 100 for p in known) / len(known)
+        if known
+        else None
+    )
+    risky = sum(1 for p in projects if p.get("excedido") or p.get("atrasado"))
+    for group in groups.values():
+        subset = [
+            p
+            for p in projects
+            if (p.get("servicio") or "Sin servicio") == group["name"]
+        ]
+        group["count"] = len(subset)
+        group["completed"] = (
+            round(
+                sum(
+                    1
+                    for p in subset
+                    if str(p.get("etapa", "")).lower()
+                    in ("completed", "completado")
+                    and not p.get("excedido")
+                    and not p.get("atrasado")
+                )
+                / len(subset)
+                * 100
+            )
+            if subset
+            else 0
+        )
+        group["risk"] = (
+            round(
+                sum(1 for p in subset if p.get("excedido") or p.get("atrasado"))
+                / len(subset)
+                * 100
+            )
+            if subset
+            else 0
+        )
+        group["other"] = max(0, 100 - group["completed"] - group["risk"])
+    palette = ["#24bc86", "#6540ed", "#f5b326", "#ec4d79", "#b1abc4"]
+    state_rows = []
+    running = 0.0
+    for index, (name, count) in enumerate(states.items()):
+        percent = count / len(projects) * 100 if projects else 0
+        state_rows.append(
+            {
+                "name": name,
+                "count": count,
+                "percent": round(percent),
+                "dash": percent,
+                "offset": -running,
+                "color": palette[index % len(palette)],
+            }
+        )
+        running += percent
+    context = {
+        "active": "operativa",
+        "loaded_at": timezone.localtime(),
+        "data": data,
+        "client": client,
+        "projects": projects,
+        "total": len(projects),
+        "budget": budget,
+        "burn": burn,
+        "groups": list(groups.values()),
+        "states": [
+            {
+                "name": key,
+                "count": value,
+                "percent": round(value / len(projects) * 100)
+                if projects
+                else 0,
+            }
+            for key, value in states.items()
+        ],
+        "alerts": [
+            p for p in projects if p.get("excedido") or p.get("atrasado")
+        ],
+        "progress": progress,
+        "risk_percent": round(risky / len(projects) * 100) if projects else 0,
+        "risk_count": risky,
+        "cost_variance": round((burn - budget) / budget * 100, 1)
+        if budget
+        else None,
+        "state_chart": state_rows,
+        "development": sum(
+            1 for p in projects if p.get("estado") == "En desarrollo"
+        ),
+    }
+    from django.urls import reverse
+
+    context.update(
+        return_context(request, reverse("portal:operativa"), "Operativa")
+    )
+    return render(request, "portal/cuenta.html", context)
+
+
+@require_GET
+@period_view
+def cuenta_financiera(request: HttpRequest) -> HttpResponse:
+    """Devuelve la informacion financiera de una cuenta."""
+    from django.http import JsonResponse
+
+    from apps.portal.services.account_profitability import (
+        load_account_profitability,
+    )
+    from core.utils.text import normalize_name
+
+    if _needs_login(request):
+        return JsonResponse({"error": "Inicia sesion"}, status=401)
+    name = request.GET.get("nombre", "")
+    access = resolve(request)
+    if access.enforced and not access.can("view_costs"):
+        return JsonResponse({"error": "Sin acceso a costos"}, status=403)
+    if not access.scope.allows_account(name):
+        return JsonResponse({"error": "No existe esa cuenta"}, status=404)
+    try:
+        accounts = load_account_profitability()["accounts"]
+        account = next(
+            (
+                a
+                for a in accounts
+                if normalize_name(a["name"]) == normalize_name(name)
+            ),
+            None,
+        )
+        return JsonResponse({"account": account, "year": 2026})
+    except Exception:  # noqa: BLE001
+        return JsonResponse(
+            {"error": "No se pudo consultar la informacion financiera"},
+            status=502,
+        )
+
+
+@require_GET
+def diccionario_datos(request: HttpRequest) -> HttpResponse:
+    """Muestra el diccionario de datos ejecutivo."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+    from apps.portal.services.data_dictionary import CONCEPTS
+
+    return render(
+        request,
+        "portal/diccionario_datos.html",
+        {"concepts": CONCEPTS, "active": "ejecutiva"},
+    )
+
+
+@require_GET
+@period_view
+@require_capability("view_costs")
+def oportunidades_financieras(request: Any) -> Any:
+    """Florencia: margen vendido y real por oportunidad, no por Project ID."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+    from apps.portal.services.margins_screen import load_margins
+    from apps.portal.services.return_navigation import account_back_url
+
+    scope = scope_for(request)
+    account_filter = request.GET.get("nombre", "").strip()
+    if account_filter and not scope.allows_account(account_filter):
+        raise Http404("No existe esa cuenta.")
+    result = load_margins(account_filter, scope)
+    navigation = return_context(
+        request,
+        account_back_url(account_filter),
+        account_filter or "Business Overview",
+    )
+    data = {
+        key: result[key]
+        for key in ("opportunities", "start", "end", "excluded")
+    }
+    year = int(data["start"][:4])
+    return render(
+        request,
+        "portal/oportunidades_financieras.html",
+        {
+            **navigation,
+            "active": "ejecutiva",
+            "data": data,
+            "preparing": result["preparing"],
+            "account_filter": account_filter,
+            "summary": result["summary"],
+            "selected_year": year,
+            "year_options": range(year - 2, year + 2),
+            "executive_query": executive_query_string(),
+            "executive_label": period.label
+            if (period := executive_period())
+            else "2026",
+        },
+    )
+
+
+@require_GET
+@require_capability("view_operations")
+def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
+    """Detalle de un Delivery Manager; se llena en tres pasos (?bloque=)."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+
+    stage = request.GET.get("bloque", "")
+    try:
+        base, extra, hours = dm_state(slug, stage, scope_for(request))
+    except ManagerUnavailableError:
+        return redirect("portal:operativa")
+
+    if base is None:
+        name = (
+            request.GET.get("nombre", "").strip()
+            or slug.replace("-", " ").title()
+        )
+        context: dict[str, Any] = {
+            "active": "operativa",
+            "dm_name": name,
+            "dm_initials": "".join(w[0] for w in name.split()[:2]).upper(),
+        }
+    else:
+        context = {k: v for k, v in base.items() if k != "sources"}
+        context.update(
+            {
+                "project_rows": dm_rows(base, extra),
+                "investment": extra["investment"] if extra else {},
+                "monthly_history": hours or {},
+            }
+        )
+    pending = [
+        name
+        for name, ready in (
+            ("base", base is not None),
+            ("inv", extra is not None),
+            ("horas", hours is not None),
+        )
+        if not ready
+    ]
+    context.update(
+        {
+            "monthly_history": hours or {},
+            "pend_base": base is None,
+            "pend_inv": extra is None,
+            "pend_hours": hours is None,
+            "dm_pending": ",".join(pending),
+        }
+    )
+    return render(request, "portal/delivery_manager.html", context)
+
+
+@require_GET
+@require_capability("view_operations")
+def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
+    """Muestra TP, T y C de cada Delivery Manager en el periodo elegido."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+    if not scope_for(request).unrestricted:
+        # Los cortes agregan a todo el equipo: no se pueden recortar.
+        raise PermissionDenied
+    context = kpi_context(request)
+    context["active"] = "operativa"
+    return render(request, "portal/kpis_dm.html", context)

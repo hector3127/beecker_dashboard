@@ -9,7 +9,6 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.cache import cache
 from django.test import RequestFactory
 
-from apps.access.scope import AccessScope
 from apps.portal import views
 from apps.portal.constants import FACTURABILITY_CACHE_PREFIX
 from apps.portal.services.capacity_loader import CapacityLoad
@@ -607,38 +606,10 @@ def test_unknown_project_is_404_or_goes_back_when_data_fails(
     assert client.get("/proyecto/1/").url == "/operativa/"
 
 
-def test_other_pages_link_to_the_project(client, monkeypatch):
-    stub_portfolio(monkeypatch, portfolio())
-
-    manager = client.get("/operativa/delivery-manager/alberto/")
-    account = client.get("/cuenta/clinica-sur/")
-
-    # Las dos paginas arman sus enlaces en el navegador con esta plantilla.
-    for page in (manager, account):
-        assert (
-            'data-project-url="/proyectos/PROJECT_ID/"' in page.content.decode()
-        )
-
-
 def test_project_page_requires_login_when_configured(client, settings):
     settings.PORTAL_LOGIN_REQUIRED = True
 
     assert client.get("/proyecto/1/").status_code == 302
-
-
-def test_manager_detail_keeps_time_cost(client, monkeypatch):
-    stub_portfolio(
-        monkeypatch,
-        [
-            make_project(project_id="1", delay_days=4, progress_percent=40),
-            make_project(project_id="2", delay_days=0, progress_percent=80),
-        ],
-    )
-
-    base, _, _ = views.dm_state("laura-vega", "base", AccessScope.everything())
-
-    assert base["detail"].time_cost.time_days == 2
-    assert base["detail"].time_cost.cost_percent == 60
 
 
 def test_executive_ranking_sections_are_rendered(client, monkeypatch):
@@ -981,3 +952,193 @@ def test_facturability_period_year_quarter_and_month(client, monkeypatch):
     assert specialty.context["specialties"][0].name == "Dev"
     assert specialty.context["specialties"][0].capacity == 8 * (21 + 19 + 21)
     assert 'id="period-filter"' in year.content.decode()
+
+
+def test_kpis_page_shows_managers_and_totals(client, monkeypatch):
+    monkeypatch.setattr(
+        "apps.portal.views.load_portfolio",
+        lambda: pytest.fail("Proyectos no se consulta para KPIs"),
+    )
+    stub_history(monkeypatch)
+
+    response = client.get("/operativa/kpis-delivery-managers/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["kpis"].totals.total == 2
+    assert "KPIs de Delivery Managers" in html
+    assert 'href="/operativa/delivery-manager/ana/"' in html
+
+
+def test_kpis_page_shows_monthly_and_quarterly_history(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+    stub_history(monkeypatch)
+
+    response = client.get(
+        "/operativa/kpis-delivery-managers/?periodo=anio&anio=2026"
+    )
+    html = response.content.decode()
+
+    assert response.context["month_matrix"].headers[0] == "Ene"
+    assert "Oct*" in response.context["month_matrix"].headers
+    assert [row.name for row in response.context["month_matrix"].rows] == [
+        "Ana",
+        "Beto",
+    ]
+    assert response.context["quarter_matrix"].headers[0] == "T1"
+    assert response.context["period"].label == "2026"
+    assert 'id="period-filter"' in html
+    assert 'id="kpi-chart-data"' in html
+    assert "Pendiente" not in html
+
+
+def test_kpis_chart_shows_the_year_with_the_period_highlighted(
+    client, monkeypatch
+):
+    stub_portfolio(monkeypatch, portfolio())
+    stub_history(monkeypatch)
+
+    response = client.get(
+        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-08"
+    )
+    chart = response.context["chart"]
+
+    assert chart["labels"] == [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+    ]
+    assert chart["highlight"] == ["Ago"]
+
+    response = client.get(
+        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-10"
+    )
+    current = response.context["chart"]
+    assert current["labels"][-1] == "Oct*"
+    assert current["highlight"] == ["Oct*"]
+
+
+def test_kpis_page_explains_when_history_fails(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+    stub_history(monkeypatch, error="Clockify no responde.")
+
+    response = client.get("/operativa/kpis-delivery-managers/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert "month_matrix" not in response.context
+    assert "No se pudo reconstruir el hist\u00f3rico." in html
+    assert "Clockify no responde." in html
+
+
+def test_kpis_page_filters_a_closed_month_and_a_quarter(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+    stub_history(monkeypatch)
+
+    month = client.get(
+        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-02"
+    )
+    quarter = client.get(
+        "/operativa/kpis-delivery-managers/?periodo=trimestre&anio=2026&trim=1"
+    )
+
+    assert month.context["cut_is_current"] is False
+    assert month.context["cut_label"] == "28/02/2026"
+    assert month.context["kpis"].totals.total == 2
+    assert month.context["month_matrix"].headers == ("Feb",)
+    assert quarter.context["month_matrix"].headers == ("Ene", "Feb", "Mar")
+    assert quarter.context["quarter_matrix"].headers == ("T1",)
+    assert quarter.context["cut_label"] == "31/03/2026"
+    assert "?periodo=trimestre&amp;anio=2026&amp;trim=1" in (
+        quarter.content.decode()
+    )
+
+
+def test_account_page_lists_its_projects(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    response = client.get("/cuenta/clinica-sur/")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["client"] == "Clinica Sur"
+    assert "Portal Pacientes" in html
+    assert response.context["alerts"][0]["id"] == "2"
+    assert response.context["risk_count"] == 1
+    assert 'href="/operativa/"' in html
+
+
+def test_delivery_manager_page_lists_real_projects(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    response = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
+    html = response.content.decode()
+
+    assert response.status_code == 200
+    assert response.context["detail"].name == "Alberto"
+    assert "Portal Pacientes" in html
+    assert "Presupuesto usado: 125%" in html
+    assert response.context["project_rows"][0]["detail"] == "12 días de vencido"
+    assert 'href="/operativa/"' in html
+
+
+def test_unknown_delivery_manager_is_404(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    assert (
+        client.get("/operativa/delivery-manager/nadie/?bloque=inv").status_code
+        == 404
+    )
+
+
+def test_delivery_manager_page_without_data_goes_back_to_operational(
+    client,
+    monkeypatch,
+):
+    stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
+
+    response = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
+
+    assert response.status_code == 302
+    assert response.url == "/operativa/"
+
+
+def test_manager_page_links_to_the_account(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    manager = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
+
+    assert 'href="/cuenta/clinica-sur/"' in manager.content.decode()
+
+
+def test_other_pages_link_to_the_project(client, monkeypatch):
+    stub_portfolio(monkeypatch, portfolio())
+
+    manager = client.get(
+        "/operativa/delivery-manager/alberto/?bloque=inv"
+    ).content.decode()
+    account = client.get("/cuenta/clinica-sur/").content.decode()
+
+    assert 'href="/proyectos/3/"' in manager
+    assert 'href="/proyectos/2/"' in account
+    assert 'href="/proyecto/3/"' not in manager
+
+
+def test_manager_detail_keeps_time_cost(client, monkeypatch):
+    stub_portfolio(
+        monkeypatch,
+        [
+            make_project(project_id="1", delay_days=4, progress_percent=40),
+            make_project(project_id="2", delay_days=0, progress_percent=80),
+        ],
+    )
+
+    detail = client.get("/operativa/delivery-manager/laura-vega/?bloque=inv")
+
+    assert detail.context["detail"].time_cost.time_days == 2
+    assert detail.context["detail"].time_cost.cost_percent == 60

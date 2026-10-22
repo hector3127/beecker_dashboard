@@ -133,14 +133,6 @@ def test_it_needs_operations_and_the_whole_team(client, enforced):
     assert client.get(URL).status_code == 200
 
 
-def test_the_page_is_a_shell_with_the_definitions(client):
-    html = client.get(PAGE).content.decode()
-
-    assert "no un porcentaje de proyectos que cumplen" in html
-    assert 'data-dm-url="/operativa/delivery-manager/DM_SLUG/"' in html
-    assert "pages/kpis-dm/main.js" in html
-
-
 def test_the_page_requires_login_when_configured(client, settings):
     settings.PORTAL_LOGIN_REQUIRED = True
 
