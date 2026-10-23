@@ -18,3 +18,7 @@ body.project-detail-page main.page {
   background: #fff;
   border-bottom: 1px solid #ece8fa;
 }
+
+/* Aviso de datos faltantes en el Ejecutivo. */
+.project-data-notice { margin: 0 0 12px; padding: 10px 14px; border: 1px solid #f0c36d; border-radius: 10px; background: #fff8e6; color: #5c4300; font-size: 12.5px; }
+.project-data-notice ul { margin: 4px 0 0; padding-left: 18px; }

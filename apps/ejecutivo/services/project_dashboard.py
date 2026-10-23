@@ -11,6 +11,7 @@ from apps.dashboard.services.project_status import categorize_project_status
 from apps.ejecutivo.services.additional_milestones import (
     read_additional_milestones,
 )
+from apps.ejecutivo.services.fallback_project import missing_data
 from apps.ejecutivo.services.history_stages import (
     GENERAL_WORK_ITEMS,
     STATE_COMPLETED,
@@ -177,6 +178,11 @@ def build_executive_dashboard(
             "nivelRiesgoFecha": calculate_date_risk(
                 project.get("Fecha_Fin_Estimada"),
                 now,
+            ),
+            **(
+                {"datosFaltantes": notes}
+                if (notes := missing_data(project))
+                else {}
             ),
         },
         "avance": {

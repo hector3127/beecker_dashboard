@@ -1476,7 +1476,7 @@
     "suspensiones": []
   },
   {
-    "errorServidor": "No se encontro el proyecto \"NOEXISTE\" en la hoja Proyectos.",
+    "errorServidor": "No se encontro el proyecto \"NOEXISTE\" en la hoja Proyectos, en MPB ni en Historico_Proyectos.",
     "proyecto": null
   },
   {

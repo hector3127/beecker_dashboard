@@ -273,9 +273,18 @@ def run():
 
 @pytest.mark.parametrize("index", range(len(DATA["OPERATIONS"])))
 def test_operation_matches_original(run, index):
-    assert run[0][index] == EXPECTED["results"][index], DATA["OPERATIONS"][
-        index
-    ]
+    result = run[0][index]
+    # datosFaltantes es nuevo: avisa de fechas/presupuesto sin capturar.
+    if isinstance(result, dict) and isinstance(result.get("proyecto"), dict):
+        result = {
+            **result,
+            "proyecto": {
+                k: v
+                for k, v in result["proyecto"].items()
+                if k != "datosFaltantes"
+            },
+        }
+    assert result == EXPECTED["results"][index], DATA["OPERATIONS"][index]
 
 
 DATE_SHEET_COLUMNS = {

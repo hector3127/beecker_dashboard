@@ -4,6 +4,7 @@ import { createProjectData } from "./data.js";
 import { renderAerExecutive } from "./sections/aer_executive.js";
 import { createEffortController } from "./sections/ixs_effort.js";
 import { createResourcesController } from "./sections/ixs_resources.js";
+import { prependDataNotice } from "./sections/data_notice.js";
 import { createMilestoneController } from "./sections/milestones.js";
 import { createPlanningEditor } from "./sections/ixs_planning_editor.js";
 import { createPlanningController } from "./sections/ixs_planning.js";
@@ -50,10 +51,15 @@ async function start() {
       beeIxsPlanningEditor: createPlanningEditor(data),
       beeProjectMilestones: createMilestoneController(data),
       beeIxsPlanning: createPlanningController(data),
-      beeProjectExecutive: renderAerExecutive,
+      beeProjectExecutive: (target, project, ...rest) => {
+        renderAerExecutive(target, project, ...rest);
+        prependDataNotice(target, project.proyecto);
+      },
       beeIxsExecutive: {
-        mount: (target, project, lifecycle) =>
-          mountIxsExecutive(target, project, data, lifecycle),
+        mount: (target, project, lifecycle) => {
+          mountIxsExecutive(target, project, data, lifecycle);
+          prependDataNotice(target, project.proyecto);
+        },
         updateTimeline,
         resourceTable,
       },

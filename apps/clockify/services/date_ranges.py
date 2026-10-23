@@ -92,7 +92,9 @@ class ProjectDateRangeResolver:
         """
         return self._resolve_from_history(project_id)
 
-    def _resolve_from_mpb(self, project_id: str) -> ProjectDateRange:
+    def _resolve_from_mpb(
+        self, project_id: str, any_service: bool = False
+    ) -> ProjectDateRange:
         """
         Lee INICIO y FIN de la hoja MPB.
 
@@ -136,8 +138,11 @@ class ProjectDateRangeResolver:
             )
             for row in rows[first_data_row:]
             if normalize_mpb_text(read_cell(row, id_column)) == normalized_id
-            and normalize_mpb_text(read_cell(row, service_column))
-            in MPB_SERVICES
+            and (
+                any_service
+                or normalize_mpb_text(read_cell(row, service_column))
+                in MPB_SERVICES
+            )
         ]
 
         if matches:
@@ -148,6 +153,9 @@ class ProjectDateRangeResolver:
                 # curso): se abarcan todas para no perder horas.
                 return ProjectDateRange(min(starts), max(ends), SHEET_MPB)
             return matches[0]
+
+        if any_service:
+            return ProjectDateRange(None, None, SHEET_MPB)
 
         suffix = re.sub(r"^(?:AER|TYM)\.", "", normalized_id)
         aliases = [
@@ -171,6 +179,13 @@ class ProjectDateRangeResolver:
             )
         return ProjectDateRange(None, None, SHEET_MPB)
 
+    def _mpb_fallback(self, project_id: str, source: str) -> ProjectDateRange:
+        """Sin etapas en el historico, el rango de MPB (cualquier servicio)."""
+        found = self._resolve_from_mpb(project_id, any_service=True)
+        if found.start_date is None:
+            return ProjectDateRange(None, None, source)
+        return found
+
     def _resolve_from_history(self, project_id: str) -> ProjectDateRange:
         """Lee Discovery y Deployment de Historico_Proyectos A:I."""
         source = sheet_names.SHEET_PROJECTS_HISTORY
@@ -182,7 +197,7 @@ class ProjectDateRangeResolver:
         )
 
         if header_index is None:
-            return ProjectDateRange(None, None, source)
+            return self._mpb_fallback(project_id, source)
 
         headers = [normalize_history_text(cell) for cell in rows[header_index]]
         id_column = headers.index("project id")
@@ -243,7 +258,7 @@ class ProjectDateRangeResolver:
         )
 
         if discovery_start is None:
-            return ProjectDateRange(None, None, source)
+            return self._mpb_fallback(project_id, source)
 
         deployment_end = pick_stage_date(
             matches,

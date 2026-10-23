@@ -10,6 +10,7 @@ from apps.ejecutivo.services.azure_stages import (
     count_work_items,
     infer_sprint,
 )
+from apps.ejecutivo.services.fallback_project import fallback_project_row
 from apps.ejecutivo.services.ixb_summary import (
     AzureLookup,
     list_azure_projects,
@@ -61,6 +62,7 @@ def load_project_detail(
     project_id: str,
     load_project_entries: ProjectEntriesLoader,
     now: datetime,
+    extra_project_row: SheetRow | None = None,
 ) -> JsonObject:
     """
     Calcula el detalle por recurso del proyecto.
@@ -70,12 +72,15 @@ def load_project_detail(
         project_id: ID interno del proyecto.
         load_project_entries: Descarga los registros de un proyecto.
         now: Fecha y hora local actual.
+        extra_project_row: Ficha de un proyecto que no esta en Proyectos.
 
     Returns:
         El detalle, o la respuesta vacia con errorServidor.
     """
     try:
         project_rows = reader.read_as_objects(sheet_names.SHEET_PROJECTS)
+        if extra_project_row is not None:
+            project_rows = [*project_rows, extra_project_row]
 
         sources = ProjectDetailSources(
             project_rows=project_rows,
@@ -125,21 +130,30 @@ def load_executive_dashboard(
         project_rows = reader.read_as_objects(sheet_names.SHEET_PROJECTS)
 
         project_row = find_project_row(project_rows, project_id)
+        history_rows = read_optional_rows(
+            reader,
+            sheet_names.SHEET_PROJECTS_HISTORY,
+        )
+        extra_row = None
 
         if project_row is None:
+            extra_row = fallback_project_row(reader, project_id, history_rows)
+
+        if project_row is None and extra_row is None:
             raise InvalidRequestError(
                 f'No se encontro el proyecto "{project_id}" en la hoja '
-                "Proyectos.",
+                "Proyectos, en MPB ni en Historico_Proyectos.",
             )
+
+        if extra_row is not None:
+            project_row = extra_row
+            project_rows = [*project_rows, extra_row]
 
         portfolio_entries = load_portfolio_entries()
         sources = ExecutiveSources(
             project_rows=project_rows,
             project_values=reader.read_values(sheet_names.SHEET_PROJECTS),
-            history_rows=read_optional_rows(
-                reader,
-                sheet_names.SHEET_PROJECTS_HISTORY,
-            ),
+            history_rows=history_rows,
             history_values=(
                 reader.read_values(sheet_names.SHEET_PROJECTS_HISTORY)
                 if reader.sheet_exists(sheet_names.SHEET_PROJECTS_HISTORY)
@@ -151,6 +165,7 @@ def load_executive_dashboard(
                 project_id,
                 load_project_entries,
                 now,
+                extra_row,
             ),
             risk_rows=reader.read_as_objects(sheet_names.SHEET_RISKS),
             pending_rows=read_optional_rows(

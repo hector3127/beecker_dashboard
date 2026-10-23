@@ -97,4 +97,7 @@ def test_project_views_match_original(scenario, expected):
             NOW,
         )
 
-    assert json.loads(json.dumps(result)) == expected
+    result = json.loads(json.dumps(result))
+    # datosFaltantes es nuevo: avisa de fechas/presupuesto sin capturar.
+    (result.get("proyecto") or {}).pop("datosFaltantes", None)
+    assert result == expected

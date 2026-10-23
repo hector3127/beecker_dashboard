@@ -14,14 +14,25 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   mostraba 92 h. Aplica a todo consumidor de `resolve()` (AER, ejecutivo,
   tareas, validación). AER.CCO.008 ahora da 5,050.9 h (coincide con Horas por
   mes). Presupuesto vs consumo usa su rango por fila de cuenta; no se tocó.
-- Proyectos AER/T&M sin fila en Proyectos (p. ej. AER.CCO.003, cerrado, con
-  filas en MPB y horas en Clockify): `build_dashboard` arma la fila desde MPB
-  (`mpb_project_row`: inicio mínimo, fin máximo, presupuesto sumado, estatus y
-  DM de la fila más reciente). Antes mostraba "No se encontró ... en
-  Proyectos". Con un ID inexistente en ambas hojas el error sigue igual. El
-  presupuesto/consumo de la lista de la cuenta usa solo la fila reciente
-  (571 h / 612.5 h), por lo que no coincide con este detalle (2,699 h /
-  2,604.5 h). Se vio con datos locales; sin verificar en navegador.
+- Proyectos que no están en la hoja Proyectos (AER/T&M **e IXB/RaaS/SaaS**):
+  `apps/ejecutivo/services/fallback_project.py` arma la ficha desde MPB
+  (inicio mín., fin máx., presupuesto sumado, estatus, DM) y, si falta una
+  fecha, desde las etapas de Historico_Proyectos. Lo usan el dashboard AER
+  (`mpb_project_row`) y el ejecutivo (`load_executive_dashboard`, que también
+  pasa la ficha al detalle por recurso). Sin Discovery en el histórico, el
+  rango de Clockify cae al de MPB (`_mpb_fallback`, cualquier servicio).
+  `proyecto.datosFaltantes` (solo si hay avisos) lista qué falta o de dónde
+  salen los datos (fechas, presupuesto, "no está en Proyectos"); se pinta como
+  aviso sobre el Ejecutivo (`sections/data_notice.js`, IXS y AER). Si el ID no
+  está en ninguna hoja, el error ahora dice "en Proyectos, en MPB ni en
+  Historico_Proyectos" (fixtures de paridad actualizados). Las pruebas de
+  paridad ignoran `datosFaltantes`. Verificado con datos locales (ABI.004,
+  AEC.001, SLC.001, AER.CCO.003); el aviso, con una prueba e2e de IXS; el de
+  AER sin prueba de navegador. La lista de la cuenta usa solo la fila reciente
+  de MPB, así que presupuesto/consumo pueden no coincidir con el detalle.
+- Fallos conocidos sin relación: `test_ixs_effort::test_modals_match_previous`
+  (activity, fondo por hover; falla igual sin estos cambios) y
+  `test_late_response_does_not_modify_reentered_view` de Work Items.
 - Pruebas: `tests/clockify`, `tests/ejecutivo`, `tests/portal` 1259 aprobadas;
   hitos 17 e2e + 15 API + 3 Node. Fallan 3 pruebas tardías de Work Items
   (`test_late_response_does_not_modify_reentered_view`), también sin estos

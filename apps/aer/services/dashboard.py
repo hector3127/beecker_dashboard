@@ -27,6 +27,7 @@ from apps.aer.services.aer_values import (
 from apps.aer.services.manual_store import AerStore
 from apps.aer.services.plan import AerError
 from apps.clockify.services.date_ranges import ProjectDateRange
+from apps.ejecutivo.services import fallback_project
 from apps.ejecutivo.services.aer_tym_summary import (
     find_mpb_header,
     resolve_columns,
@@ -514,68 +515,14 @@ def find_project(
 
 
 def mpb_project_row(reader: Any, project: str) -> Mapping[str, Any] | None:
-    """
-    Fila tipo Proyectos armada desde MPB.
+    """Ficha desde MPB para proyectos AER/T&M fuera de Proyectos."""
+    return fallback_project.mpb_project_row(reader, project, AER_SERVICES)
 
-    Sirve para proyectos que ya no estan en Proyectos (cerrados) pero
-    conservan horas.
 
-    Une las filas repetidas: inicio mas temprano, fin mas tardio y el
-    presupuesto sumado, porque sus horas tambien se abarcan completas.
-    """
-    try:
-        if not reader.sheet_exists("MPB"):
-            return None
-        values = reader.read_values("MPB")
-        header = find_mpb_header(values)
-        if header is None:
-            return None
-        columns = resolve_columns(values[header])
-    except DashboardError:
-        return None
-    wanted = normalize_mpb(project)
-    rows = [
-        row
-        for row in values[header + 1 :]
-        if normalize_mpb(read_cell(row, columns["project_id"])) == wanted
-        and to_text(read_cell(row, columns["service"])).strip().upper()
-        in AER_SERVICES
-    ]
-    if not rows:
-        return None
-    starts = [
-        read_cell(row, columns["start"])
-        for row in rows
-        if isinstance(read_cell(row, columns["start"]), int | float)
-    ]
-    ends = [
-        read_cell(row, columns["end"])
-        for row in rows
-        if isinstance(read_cell(row, columns["end"]), int | float)
-    ]
-    latest = max(
-        rows,
-        key=lambda row: (
-            read_cell(row, columns["start"])
-            if isinstance(read_cell(row, columns["start"]), int | float)
-            else 0
-        ),
-    )
-    status = to_text(read_cell(latest, columns["status"])).strip()
-    return {
-        "ID_Proyecto": project,
-        "Nombre": read_cell(latest, columns["name"]),
-        "Cliente": read_cell(latest, columns["client"]),
-        "Servicio": to_text(read_cell(latest, columns["service"])).strip(),
-        "Delivery Manager": read_cell(latest, columns["manager"]),
-        "Estado": status,
-        # Las horas abarcan todas las filas, asi que el presupuesto las suma.
-        "Budget_Hrs": sum(
-            number_or_zero(read_cell(row, columns["budget"])) for row in rows
-        ),
-        "Fecha_Inicio": min(starts) if starts else "",
-        "Fecha_Fin_Estimada": max(ends) if ends else "",
-    }
+def missing_notes(row: Mapping[str, Any]) -> JsonObject:
+    """DatosFaltantes solo cuando hay algo que avisar."""
+    notes = fallback_project.missing_data(row)
+    return {"datosFaltantes": notes} if notes else {}
 
 
 def build_kpis(
@@ -723,6 +670,7 @@ def build_dashboard(
             else row.get("Estado") or "",
             "fechaInicio": safe_iso(row.get("Fecha_Inicio")),
             "fechaFin": safe_iso(row.get("Fecha_Fin_Estimada")),
+            **missing_notes(row),
         },
         "kpis": kpis,
         "alertas": alerts(kpis, risks, actions, plan_data),
