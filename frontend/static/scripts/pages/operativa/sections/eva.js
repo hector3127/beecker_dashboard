@@ -85,9 +85,8 @@ export function renderEva(root, view, urls) {
       ),
       el(
         'div',
-        { class: 'eva-stats' },
+        { class: 'eva-stats eva-stats-two' },
         stat('Activos', eva4.available ? eva4.active : NO_VALUE),
-        stat('Suspendidos', eva4.available ? eva4.suspended : NO_VALUE),
         stat('Por renovar', eva4.available ? eva4.renewal_count : NO_VALUE),
       ),
       more(urls.eva4, 'Ver clientes, renovaciones y procesos'),
