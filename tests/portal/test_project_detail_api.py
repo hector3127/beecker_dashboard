@@ -19,6 +19,8 @@ SOURCES = [
     ("AMK.008/etapas/", "stages_dashboard", ("AMK.008",)),
     ("AMK.008/recursos/", "resources_dashboard", ("AMK.008",)),
     ("AMK.008/registros/", "records_dashboard", ("AMK.008",)),
+    ("AMK.008/planeacion/", "planning_dashboard", ("AMK.008",)),
+    ("AMK.008/planeacion/azure/", "get_ixs_panel", ("AMK.008", False)),
 ]
 
 

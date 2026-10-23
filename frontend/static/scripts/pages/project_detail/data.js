@@ -15,6 +15,28 @@ export function createProjectData(get = apiGet, send = apiSend) {
     stages: (id) => read(`screens/proyectos/${encodeURIComponent(id)}/etapas/`),
     resources: (id) =>
       read(`screens/proyectos/${encodeURIComponent(id)}/recursos/`),
+    planning: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/planeacion/`),
+    planningAzure: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/planeacion/azure/`),
+    savePlan: async (type, payload) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(payload.idProyecto)}/planeacion/${encodeURIComponent(type)}/guardar/`,
+          payload,
+          { timeout: 90000 },
+        )
+      ).data,
+    deletePlan: async (type, id, uid) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/planeacion/${encodeURIComponent(type)}/eliminar/`,
+          { uid },
+          { timeout: 90000 },
+        )
+      ).data,
     saveResource: async (id, payload) =>
       (
         await send(

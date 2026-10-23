@@ -34,6 +34,19 @@
     google.script.run.withSuccessHandler(success).withFailureHandler(failure).ixsRecursosLeer(id);
   }
 
+  // Transitional planning transport; the comparison route keeps its own RPC.
+  function projectPlanningCall(method, args, success, failure) {
+    if (window.beeProjectData) {
+      window.beeProjectData[method](...args).then(success).catch(failure);
+      return;
+    }
+    const runner = google.script.run.withSuccessHandler(success).withFailureHandler(failure);
+    if (method === 'planning') runner.ixsPlanLeer(...args);
+    else if (method === 'planningAzure') runner.obtenerPanelAzureProyectoIXS(args[0], false);
+    else if (method === 'savePlan') runner.ixsPlanGuardar(...args);
+    else if (method === 'deletePlan') runner.ixsPlanEliminar(...args);
+  }
+
   function projectParams() {
     const params = new URLSearchParams(window.location.search);
     const seed = document.getElementById('project-context');
@@ -5453,19 +5466,19 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     ixsPlanAzureState.proyectoId=id;ixsPlanAzureState.items=[];ixsPlanAzureState.allItems=[];ixsPlanAzureState.cargando=true;ixsPlanAzureState.error='';_ixsPintarPlaneacion();
     _ixsCargarEstadosRecursos();
     ixsCargarAzurePlaneacion(id);
-    google.script.run.withSuccessHandler(r=>{if(st.requestId!==token||st.proyectoId!==id)return;st.cargando=false;if(!r||!r.ok)st.error=r&&r.error||'No se pudo cargar la planeación.';else{st.vacaciones=r.vacaciones||[];st.compromisos=r.compromisos||[];}_ixsPintarPlaneacion();})
-      .withFailureHandler(e=>{if(st.requestId!==token)return;st.cargando=false;st.error=e&&e.message||String(e);_ixsPintarPlaneacion();}).ixsPlanLeer(id);
+    projectPlanningCall('planning',[id],r=>{if(st.requestId!==token||st.proyectoId!==id)return;st.cargando=false;if(!r||!r.ok)st.error=r&&r.error||'No se pudo cargar la planeación.';else{st.vacaciones=r.vacaciones||[];st.compromisos=r.compromisos||[];}_ixsPintarPlaneacion();},
+      e=>{if(st.requestId!==token)return;st.cargando=false;st.error=e&&e.message||String(e);_ixsPintarPlaneacion();});
   }
   function ixsCargarAzurePlaneacion(id){
     const st=ixsPlanAzureState,token=++st.requestId;st.proyectoId=id;st.items=[];st.allItems=[];st.cargando=true;st.error='';
-    google.script.run.withSuccessHandler(r=>{
+    projectPlanningCall('planningAzure',[id],r=>{
       if(token!==st.requestId||st.proyectoId!==id||ixsTabActual!=='planeacion')return;
       st.cargando=false;
       if(!r||!r.ok)st.error=r&&r.error||'No se pudieron consultar los Work Items.';
       else{st.items=Array.isArray(r.items)?r.items:[];st.allItems=Array.isArray(r.allItems)?r.allItems:st.items;st.error='';}
       ixsAzureState.projectId=id;ixsAzureState.items=st.items;
       _ixsPintarPlaneacion();
-    }).withFailureHandler(e=>{if(token!==st.requestId||st.proyectoId!==id)return;st.cargando=false;st.error=e&&e.message||String(e);ixsAzureState.items=[];_ixsPintarPlaneacion();}).obtenerPanelAzureProyectoIXS(id,false);
+    },e=>{if(token!==st.requestId||st.proyectoId!==id)return;st.cargando=false;st.error=e&&e.message||String(e);ixsAzureState.items=[];_ixsPintarPlaneacion();});
   }
   function ixsPintarTablaAzurePlaneacion(){
     if(ixsTabActual!=='planeacion'||!document.getElementById('ixs-azure-table'))return;
@@ -5807,9 +5820,9 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     e.preventDefault();const form=e.target,btn=form.querySelector('[type=submit]'),id=ixsPlanState.proyectoId;
     const payload={idProyecto:id,uid:decodeURIComponent(encoded||'')};new FormData(form).forEach((v,k)=>payload[k]=v);
     btn.disabled=true;btn.textContent='Guardando…';
-    google.script.run.withSuccessHandler(r=>{btn.disabled=false;btn.textContent='Guardar';if(!r||!r.ok){document.getElementById('ixs-plan-error').textContent=r&&r.error||'Error al guardar.';return;}if(ixsPlanState.proyectoId!==id)return;ixsPlanState.vacaciones=r.vacaciones||[];ixsPlanState.compromisos=r.compromisos||[];ixsCerrarPlanEditor();_ixsPintarPlaneacion();}).withFailureHandler(err=>{btn.disabled=false;btn.textContent='Guardar';document.getElementById('ixs-plan-error').textContent=err&&err.message||String(err);}).ixsPlanGuardar(tipo,payload);
+    projectPlanningCall('savePlan',[tipo,payload],r=>{btn.disabled=false;btn.textContent='Guardar';if(!r||!r.ok){document.getElementById('ixs-plan-error').textContent=r&&r.error||'Error al guardar.';return;}if(ixsPlanState.proyectoId!==id)return;ixsPlanState.vacaciones=r.vacaciones||[];ixsPlanState.compromisos=r.compromisos||[];ixsCerrarPlanEditor();_ixsPintarPlaneacion();},err=>{btn.disabled=false;btn.textContent='Guardar';document.getElementById('ixs-plan-error').textContent=err&&err.message||String(err);});
   }
-  function ixsEliminarPlan(tipo,encoded){if(!confirm('¿Eliminar este registro?'))return;const id=ixsPlanState.proyectoId;google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){document.getElementById('ixs-plan-error').textContent=r&&r.error||'Error al eliminar.';return;}if(ixsPlanState.proyectoId!==id)return;ixsPlanState.vacaciones=r.vacaciones||[];ixsPlanState.compromisos=r.compromisos||[];ixsCerrarPlanEditor();_ixsPintarPlaneacion();}).withFailureHandler(e=>{document.getElementById('ixs-plan-error').textContent=e&&e.message||String(e);}).ixsPlanEliminar(tipo,id,decodeURIComponent(encoded));}
+  function ixsEliminarPlan(tipo,encoded){if(!confirm('¿Eliminar este registro?'))return;const id=ixsPlanState.proyectoId;projectPlanningCall('deletePlan',[tipo,id,decodeURIComponent(encoded)],r=>{if(!r||!r.ok){document.getElementById('ixs-plan-error').textContent=r&&r.error||'Error al eliminar.';return;}if(ixsPlanState.proyectoId!==id)return;ixsPlanState.vacaciones=r.vacaciones||[];ixsPlanState.compromisos=r.compromisos||[];ixsCerrarPlanEditor();_ixsPintarPlaneacion();},e=>{document.getElementById('ixs-plan-error').textContent=e&&e.message||String(e);});}
 
   function _ixsArea(data){
     const vals=(data.distribucionArea||[]).filter(x=>Number(x.horas)>0),total=vals.reduce((a,b)=>a+Number(b.horas||0),0);

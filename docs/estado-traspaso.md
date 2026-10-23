@@ -2,7 +2,41 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10, Recursos IXB/SaaS/RaaS (pantalla aún parcial)
+## Bloque actual: fase 10, transporte de Planeación IXB/SaaS/RaaS (parcial)
+
+- La ruta activa usa API v1 para vacaciones/compromisos (`planeacion/`) y
+  panel Azure (`planeacion/azure/`), sin forzar refresco. POST por tipo para
+  guardar y eliminar, con el mismo store y los servicios anteriores.
+- Lecturas con `view_operations` y alcance total; escrituras con
+  `edit_operations`, alcance total y CSRF aun con accesos apagados. ID de
+  ruta autoritativo; UID exacto en cuerpo; 90 segundos en el cliente.
+- Puente temporal `projectPlanningCall` conserva callbacks y estados del
+  controlador existente. La comparación anterior mantiene su RPC propio.
+- Pruebas nuevas en `test_project_planning_api.py` y
+  `test_ixs_planning_transport.py`; contratos de lectura ampliados y prueba
+  del cliente. Comparación de página y editor a 1450/900/390 px; altas,
+  edición, eliminación, reintento, resumen y filtros locales de Azure.
+  Capturas en `tmp/migration/project_detail/ixs_planning_transport/<ancho>/`.
+- Validación final: **1427 aprobadas, una omitida** en portal/core/access/e2e,
+  con Chrome y los cuatro temporales ajenos excluidos. Incluye 94 pruebas
+  API del detalle/planeación y diez de navegador del transporte de Planeación.
+  Primera ronda específica: 103 aprobadas; después se añadió el caso de
+  filtros con datos de Azure, incluido en la regresión final.
+- JavaScript: **136 aprobadas y los mismos tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`). Ruff, formato,
+  mypy de la API, `manage.py check` y revisión del diff aprobados.
+  Las dos primeras ejecuciones restringidas se detuvieron al no iniciar el
+  navegador; la específica y la regresión aprobaron fuera de ese entorno.
+- **Siguiente:** separar modelo, vista y controlador de Planeación, incluidos
+  Gantt editable, calendario y editores. Sus ediciones/comentarios de Work
+  Items y la extensión todavía usan componentes anteriores y RPC. Después
+  las seis pestañas IXS restantes y las siete AER restantes; también falta
+  separar encabezados/pestañas compartidos. Inventario completo en el plan.
+- No contar Planeación ni la fase 10 como terminadas. Sin cambios de diseño,
+  reglas de negocio, Horas por mes ni pendientes ajenos. No retirar shim/JS
+  anterior ni activar accesos. Sin push.
+
+### Bloque anterior: Recursos IXB/SaaS/RaaS (pantalla aún parcial)
 
 - Modelo, vista y controlador en `sections/ixs_resources*.js`: tabla, mezcla
   de base y asignaciones, alertas, editor, agregar/editar/asignar recursos.

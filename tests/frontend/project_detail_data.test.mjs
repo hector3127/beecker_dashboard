@@ -53,7 +53,15 @@ test("project reads keep exact IDs, payloads and the previous 90 second timeout"
   assert.equal(await data.filters(), payload);
   assert.equal(await data.dashboard("CCO.001 | CR", false), payload);
   assert.equal(await data.dashboard("AER.001", true), payload);
-  for (const method of ["raid", "tasks", "stages", "resources", "records"]) {
+  for (const method of [
+    "raid",
+    "tasks",
+    "stages",
+    "resources",
+    "records",
+    "planning",
+    "planningAzure",
+  ]) {
     assert.equal(await data[method]("CCO.001 | CR"), payload);
   }
   assert.deepEqual(
@@ -67,11 +75,51 @@ test("project reads keep exact IDs, payloads and the previous 90 second timeout"
       "screens/proyectos/CCO.001%20%7C%20CR/etapas/",
       "screens/proyectos/CCO.001%20%7C%20CR/recursos/",
       "screens/proyectos/CCO.001%20%7C%20CR/registros/",
+      "screens/proyectos/CCO.001%20%7C%20CR/planeacion/",
+      "screens/proyectos/CCO.001%20%7C%20CR/planeacion/azure/",
     ],
   );
   for (const call of calls) {
     assert.equal(call[1], undefined);
     assert.equal(call[2].timeout, 90000);
+  }
+});
+
+test("planning mutations preserve type, exact UID and use POST with the shared timeout", async () => {
+  const calls = [],
+    payload = {
+      idProyecto: "CCO.001 | CR",
+      uid: "uid/'a",
+      fecha: "2026-10-23",
+    };
+  const result = { ok: false, error: "Registro no encontrado." };
+  const data = context.createProjectData(
+    () => {
+      throw Error("Unexpected read");
+    },
+    async (...args) => {
+      calls.push(args);
+      return { data: result };
+    },
+  );
+  assert.equal(await data.savePlan("compromiso", payload), result);
+  assert.equal(
+    await data.deletePlan("vacacion", payload.idProyecto, payload.uid),
+    result,
+  );
+  assert.equal(
+    calls[0][1],
+    "screens/proyectos/CCO.001%20%7C%20CR/planeacion/compromiso/guardar/",
+  );
+  assert.equal(calls[0][2], payload);
+  assert.equal(
+    calls[1][1],
+    "screens/proyectos/CCO.001%20%7C%20CR/planeacion/vacacion/eliminar/",
+  );
+  assert.equal(calls[1][2].uid, payload.uid);
+  for (const call of calls) {
+    assert.equal(call[0], "POST");
+    assert.equal(call[3].timeout, 90000);
   }
 });
 

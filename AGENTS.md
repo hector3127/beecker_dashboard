@@ -76,9 +76,16 @@ Recursos IXB/SaaS/RaaS también usa modelo, vista y controlador en
 `sections/ixs_resources*.js`: tabla, alertas y editor de asignaciones. Reutiliza
 las lecturas de recursos/registros; el guardado usa API v1 con CSRF,
 `edit_operations` y alcance total, igual que la política RPC anterior.
-Las otras pestañas y sus acciones aún usan componentes anteriores y RPC.
-**No contar esta pantalla como completada.** Siguiente bloque: Planeación
-IXB/SaaS/RaaS, preservando hitos, recursos, calendario y permisos.
+Planeación IXB/SaaS/RaaS ya consulta vacaciones/compromisos y su panel Azure
+por API v1, y guarda/elimina registros por POST con CSRF y alcance total.
+Son los mismos servicios; su presentación, Gantt, extensión y edición de
+Work Items todavía dependen del controlador anterior (estas últimas acciones
+siguen usando RPC). **Planeación y la fase 10 continúan parciales.**
+Siguiente bloque: separar modelo, vista y controlador de Planeación,
+preservando hitos, recursos, calendario y permisos. Después faltan Gestión
+RAID, Acciones, Cliente, Comunicación, Azure DevOps e IA de IXS; en AER faltan
+todas las pestañas salvo Ejecutivo. También falta separar encabezados y
+navegación compartida, y retirar el shim de la ruta nueva.
 
 1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.
 2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).

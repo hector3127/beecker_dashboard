@@ -39,6 +39,10 @@ from apps.portal.api.project_detail import (
     ProjectAerView,
     ProjectExecutiveView,
     ProjectFiltersView,
+    ProjectPlanningAzureView,
+    ProjectPlanningDeleteView,
+    ProjectPlanningView,
+    ProjectPlanningWriteView,
     ProjectRaidView,
     ProjectRecordsView,
     ProjectResourceSaveView,
@@ -69,6 +73,22 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/<str:project_id>/planeacion/",
+        ProjectPlanningView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/planeacion/azure/",
+        ProjectPlanningAzureView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/planeacion/<str:plan_type>/guardar/",
+        ProjectPlanningWriteView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/planeacion/<str:plan_type>/eliminar/",
+        ProjectPlanningDeleteView.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/recursos/guardar/",
         ProjectResourceSaveView.as_view(),

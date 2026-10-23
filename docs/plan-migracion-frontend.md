@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas del ejecutivo IXB, registros y guardado de recursos; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo y Recursos IXB/SaaS/RaaS modulares; otras pestañas anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos y transporte de Planeación IXB; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo y Recursos IXB/SaaS/RaaS modulares; presentación de Planeación y otras pestañas anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -66,7 +66,7 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | EVA 2 | `operativa/eva-2/` | `pages/eva2.html` | `screens/eva-2/`; conserva contexto de servidor | **Sí** | `test_eva123.py`: mismas tablas, colores, cifras y estados vacíos a 1450 y 390 px. No tenía desplegable de cerrados y no se añadió |
 | EVA 3 e histórico AER/T&M | `operativa/eva-3/`, `operativa/eva3/cerrados/` | `pages/eva3.html`, `partials/eva3_closed.html` | `screens/eva-3/{consumos,cerrados,cerrados/consumo}/` | **Sí** | `test_eva123.py`: consumo diferido, errores parciales, reintento del guardado y comparación de tablas/cajas/estilos a 1450 y 390 px |
 | Proyecto simple | `proyecto/<id>/` | `pages/project.html` (anterior con `?vista=anterior`) | No; conserva el contexto de servidor y su alcance por cuenta | **Sí** (plantilla modular) | `test_proyecto_simple.py`: cifras, barras, riesgos, equipo, historial, regreso, errores parciales y comparación de cajas/estilos a 1450 y 390 px |
-| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada, ambos Ejecutivos, Esfuerzo y Recursos IXB modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer,raid,tasks,etapas,recursos,registros}/`, `.../recursos/guardar/`; resto RPC | **Parcial**, otras pestañas y acciones anteriores | Entrada AER e IXB a 1450/390 px; ambos Ejecutivos, Esfuerzo y Recursos IXB con sus ventanas, elemento por elemento, a 1450/900/390 px; otras pestañas pendientes |
+| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada, ambos Ejecutivos, Esfuerzo y Recursos IXB modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer,raid,tasks,etapas,recursos,registros,planeacion}/`, `.../recursos/guardar/`, `.../planeacion/azure/`, `.../planeacion/<tipo>/{guardar,eliminar}/`; resto RPC | **Parcial**, presentación de Planeación y otras pestañas/acciones anteriores | Entrada AER e IXB a 1450/390 px; ambos Ejecutivos, Esfuerzo, Recursos y transporte de Planeación IXB con sus ventanas a 1450/900/390 px; otras pestañas pendientes |
 
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
@@ -74,6 +74,63 @@ estilo anteriores. Tras Inversión y Capacidad mensual, `frontend/templates/page
 contiene 25 plantillas: las 24 modulares anteriores (incluida la guía) y la
 entrada transitoria de Detalle. Esta última no suma otra pantalla completada.
 Incluye también los fragmentos de `partials/`.
+
+### Fase 10: inventario pendiente por pestaña
+
+Terminados: ambos Ejecutivos; Esfuerzo y Recursos IXB/SaaS/RaaS.
+La entrada modular ya usa API para filtros y dashboards, pero el encabezado
+y la navegación entre pestañas todavía dependen del script anterior.
+
+| Familia | Apartados que faltan por modularizar y validar |
+|---|---|
+| IXB/SaaS/RaaS | Planeación, Gestión RAID, Acciones, Cliente, Comunicación, Azure DevOps e IA |
+| AER/T&M | Planeación, Esfuerzo, Riesgos, Acciones, Recursos, Cliente e IA |
+| Compartido | Encabezados, pestañas y acciones restantes; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
+
+Planeación IXB se está separando por bloques: primero el transporte de
+vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
+incluidos Gantt editable, calendario, editores y extensión de proyecto.
+Usar API para sus cuatro operaciones no equivale a migrar su presentación.
+El retiro de archivos anteriores del repositorio y la CSP obligatoria
+pertenecen a la fase 11, posterior a completar este detalle.
+
+### Fase 10: transporte de Planeación IXB/SaaS/RaaS (parcial)
+
+La ruta activa consulta `.../<id>/planeacion/` y `.../planeacion/azure/`.
+Usan exactamente `read_plan` con el store anterior y `get_ixs_panel(id, False)`;
+se conservan caché, filtros y errores del panel. El alta/edición y borrado usan
+POST a `.../planeacion/<tipo>/{guardar,eliminar}/`, con `save_plan` y
+`delete_plan` sin alterar sus reglas. El ID de la ruta prevalece sobre el del
+cuerpo; el UID se conserva exactamente, sin incluirlo en la URL.
+
+Las lecturas exigen `view_operations` y alcance total; las escrituras,
+`edit_operations`, alcance total y CSRF aun con accesos apagados. El servicio
+existente sigue validando tipos, fechas y pertenencia del UID al proyecto.
+El cliente compartido conserva los 90 segundos y el manejo de CSRF.
+Un puente temporal de cuatro operaciones mantiene los callbacks, estados,
+errores y protección ante respuestas tardías del controlador anterior.
+La ruta de comparación conserva su transporte RPC independiente.
+
+Las pruebas de servidor cubren contratos de lectura, fuentes, ID exacto,
+permisos antes del servicio, métodos, tipos de cuerpo, CSRF heredado también
+en borrado y errores públicos. Las de navegador comparan página/editor con
+la anterior a 1450/900/390 px y ejercitan altas, edición, borrado,
+errores/reintento, resúmenes y filtros locales de Azure. Capturas:
+`tmp/migration/project_detail/ixs_planning_transport/<ancho>/`.
+
+Validación final: **1427 aprobadas, una omitida** en portal/core/access/e2e
+con Chrome, excluyendo los cuatro temporales ajenos. Incluye 94 pruebas API
+del detalle/planeación y diez de navegador de este bloque. JavaScript:
+**136 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff, formato, mypy de la API y revisión de
+Django aprobados. Los primeros intentos restringidos no iniciaban Chrome;
+la corrida específica (103, antes de añadir el filtro Azure) y la regresión
+final aprobaron ejecutándolo fuera de ese entorno.
+
+**Pendiente de esta pestaña:** separar modelo, vista y controlador (incluidos
+Gantt editable, calendario y editores); migrar las ediciones/comentarios de
+Work Items y la extensión con sus integraciones. Su presentación todavía
+usa `proyecto_detalle.js`: no marcar Planeación ni la fase 10 como terminadas.
 
 ### Fase 10: primer bloque, entrada y lecturas iniciales
 

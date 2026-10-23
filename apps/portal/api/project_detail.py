@@ -13,8 +13,14 @@ from apps.aer import rpc as aer
 from apps.aer.services import dashboard
 from apps.azure_devops.rpc import get_project_raid
 from apps.clockify import project_rpc
-from apps.daily.ixs_rpc import build_store_sheets
-from apps.daily.services.ixs_planning import read_resources, save_resource
+from apps.daily.ixs_rpc import build_store_sheets, get_ixs_panel
+from apps.daily.services.ixs_planning import (
+    delete_plan,
+    read_plan,
+    read_resources,
+    save_plan,
+    save_resource,
+)
 from apps.daily.services.ixs_store import run_safely
 from apps.dashboard.rpc import get_available_filters
 from apps.ejecutivo.rpc import get_executive_dashboard
@@ -147,6 +153,86 @@ class ProjectResourcesView(ProjectRead):
     def load(self, project_id: str) -> dict[str, Any]:
         """Entrega los mismos estados de recursos que ixsRecursosLeer."""
         return resources_dashboard(project_id)
+
+
+def planning_dashboard(project_id: str) -> dict[str, Any]:
+    """Mismas vacaciones y compromisos de ixsPlanLeer."""
+    return run_safely(lambda: read_plan(build_store_sheets(), project_id))
+
+
+class ProjectPlanningView(ProjectRead):
+    """Planeación con el mismo alcance que el transporte anterior."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Consulta la fuente existente sin recalcular hitos."""
+        return planning_dashboard(project_id)
+
+
+class ProjectPlanningAzureView(ProjectRead):
+    """Panel diferido de Planeación, sin forzar refresco de Azure."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Mismo panel, caché y filtro To Be / Change Request."""
+        return get_ixs_panel(project_id, False)
+
+
+def save_plan_dashboard(
+    plan_type: str, payload: dict[str, Any]
+) -> dict[str, Any]:
+    """Conserva el servicio y las validaciones de ixsPlanGuardar."""
+    return run_safely(
+        lambda: save_plan(build_store_sheets(), plan_type, payload)
+    )
+
+
+def delete_plan_dashboard(
+    plan_type: str, project_id: str, uid: object
+) -> dict[str, Any]:
+    """Conserva el borrado por tipo, proyecto y UID de ixsPlanEliminar."""
+    return run_safely(
+        lambda: delete_plan(build_store_sheets(), plan_type, project_id, uid)
+    )
+
+
+@method_decorator(csrf_protect, name="dispatch")
+class ProjectPlanningWriteView(OperationsScreen):
+    """Edición de planeación con alcance total y CSRF, igual que Recursos."""
+
+    permission_classes = [
+        *APIView.permission_classes,
+        capability_permission("edit_operations", whole_portfolio=True),
+    ]
+
+    def perform(
+        self, plan_type: str, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Guarda con el proyecto autorizado en la ruta."""
+        return save_plan_dashboard(
+            plan_type, {**payload, "idProyecto": project_id}
+        )
+
+    def post(
+        self, request: Request, project_id: str, plan_type: str
+    ) -> Response:
+        """Delega las reglas de negocio al mismo servicio anterior."""
+        if not isinstance(request.data, dict):
+            return error_response(400, "validation", "Envía un objeto JSON.")
+        try:
+            return self.body(self.perform(plan_type, project_id, request.data))
+        except DashboardError as error:
+            return error_response(
+                error.http_status, error.code, error.build_message()
+            )
+
+
+class ProjectPlanningDeleteView(ProjectPlanningWriteView):
+    """Borrado por POST; hereda permiso, alcance y protección CSRF."""
+
+    def perform(
+        self, plan_type: str, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Un UID ajeno sigue rechazándose dentro del servicio existente."""
+        return delete_plan_dashboard(plan_type, project_id, payload.get("uid"))
 
 
 def save_resource_dashboard(payload: dict[str, Any]) -> dict[str, Any]:
