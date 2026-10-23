@@ -1,9 +1,9 @@
 // @ts-check
-// Dashboards, executive and effort reads; remaining tab actions stay RPC.
-import { apiGet } from "#app/data/api-client.js";
+// Migrated project reads and actions; remaining tabs still use RPC.
+import { apiGet, apiSend } from "#app/data/api-client.js";
 
-/** @param {typeof apiGet} [get] */
-export function createProjectData(get = apiGet) {
+/** @param {typeof apiGet} [get] @param {typeof apiSend} [send] */
+export function createProjectData(get = apiGet, send = apiSend) {
   const read = async (path) =>
     (await get(path, undefined, { timeout: 90000 })).data;
   return {
@@ -15,6 +15,15 @@ export function createProjectData(get = apiGet) {
     stages: (id) => read(`screens/proyectos/${encodeURIComponent(id)}/etapas/`),
     resources: (id) =>
       read(`screens/proyectos/${encodeURIComponent(id)}/recursos/`),
+    saveResource: async (id, payload) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/recursos/guardar/`,
+          payload,
+          { timeout: 90000 },
+        )
+      ).data,
     /** @param {string} id @param {boolean} aer */
     dashboard: (id, aer) =>
       read(

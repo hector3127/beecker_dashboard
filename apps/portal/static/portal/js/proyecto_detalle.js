@@ -6759,6 +6759,12 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       ixsCargarPlaneacion();return;
     }
     if(ixsTabActual==='recursos'){
+      if(window.beeIxsResources){
+        window.beeIxsResources.mount(el,ixsProyectoActual,{
+          current:project=>ixsProyectoActual===project,
+          active:()=>ixsTabActual==='recursos'
+        });return;
+      }
       el.innerHTML='<div class="ixs-card" style="padding:22px">Cargando recursos…</div>';
       ixsCargarRecursos();return;
     }

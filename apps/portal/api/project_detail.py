@@ -1,16 +1,20 @@
-"""Detalle: mismos servicios y alcance para sus lecturas iniciales."""
+"""Detalle: servicios originales y permisos de lecturas y acciones migradas."""
 
 from typing import Any
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_protect
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from apps.access.checks import capability_permission
 from apps.aer import rpc as aer
 from apps.aer.services import dashboard
 from apps.azure_devops.rpc import get_project_raid
 from apps.clockify import project_rpc
 from apps.daily.ixs_rpc import build_store_sheets
-from apps.daily.services.ixs_planning import read_resources
+from apps.daily.services.ixs_planning import read_resources, save_resource
 from apps.daily.services.ixs_store import run_safely
 from apps.dashboard.rpc import get_available_filters
 from apps.ejecutivo.rpc import get_executive_dashboard
@@ -143,3 +147,30 @@ class ProjectResourcesView(ProjectRead):
     def load(self, project_id: str) -> dict[str, Any]:
         """Entrega los mismos estados de recursos que ixsRecursosLeer."""
         return resources_dashboard(project_id)
+
+
+def save_resource_dashboard(payload: dict[str, Any]) -> dict[str, Any]:
+    """Mismo guardado y validaciones de ixsRecursosGuardar."""
+    return run_safely(lambda: save_resource(build_store_sheets(), payload))
+
+
+@method_decorator(csrf_protect, name="dispatch")
+class ProjectResourceSaveView(OperationsScreen):
+    """Escritura con edit_operations, alcance total y CSRF obligatorio."""
+
+    permission_classes = [
+        *APIView.permission_classes,
+        capability_permission("edit_operations", whole_portfolio=True),
+    ]
+
+    def post(self, request: Request, project_id: str) -> Response:
+        """Guarda sobre el ID de la ruta, con el servicio anterior."""
+        if not isinstance(request.data, dict):
+            return error_response(400, "validation", "Envía un objeto JSON.")
+        payload = {**request.data, "idProyecto": project_id}
+        try:
+            return self.body(save_resource_dashboard(payload))
+        except DashboardError as error:
+            return error_response(
+                error.http_status, error.code, error.build_message()
+            )

@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas del ejecutivo IXB y registros de Esfuerzo; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos y Esfuerzo IXB/SaaS/RaaS modulares; otras pestañas anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas del ejecutivo IXB, registros y guardado de recursos; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo y Recursos IXB/SaaS/RaaS modulares; otras pestañas anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -66,7 +66,7 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | EVA 2 | `operativa/eva-2/` | `pages/eva2.html` | `screens/eva-2/`; conserva contexto de servidor | **Sí** | `test_eva123.py`: mismas tablas, colores, cifras y estados vacíos a 1450 y 390 px. No tenía desplegable de cerrados y no se añadió |
 | EVA 3 e histórico AER/T&M | `operativa/eva-3/`, `operativa/eva3/cerrados/` | `pages/eva3.html`, `partials/eva3_closed.html` | `screens/eva-3/{consumos,cerrados,cerrados/consumo}/` | **Sí** | `test_eva123.py`: consumo diferido, errores parciales, reintento del guardado y comparación de tablas/cajas/estilos a 1450 y 390 px |
 | Proyecto simple | `proyecto/<id>/` | `pages/project.html` (anterior con `?vista=anterior`) | No; conserva el contexto de servidor y su alcance por cuenta | **Sí** (plantilla modular) | `test_proyecto_simple.py`: cifras, barras, riesgos, equipo, historial, regreso, errores parciales y comparación de cajas/estilos a 1450 y 390 px |
-| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada, ambos Ejecutivos y Esfuerzo IXB modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer,raid,tasks,etapas,recursos,registros}/`; resto RPC | **Parcial**, otras pestañas y acciones anteriores | Entrada AER e IXB a 1450/390 px; ambos Ejecutivos y Esfuerzo IXB con sus tres ventanas, elemento por elemento, a 1450/900/390 px; las otras pestañas siguen pendientes |
+| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada, ambos Ejecutivos, Esfuerzo y Recursos IXB modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer,raid,tasks,etapas,recursos,registros}/`, `.../recursos/guardar/`; resto RPC | **Parcial**, otras pestañas y acciones anteriores | Entrada AER e IXB a 1450/390 px; ambos Ejecutivos, Esfuerzo y Recursos IXB con sus ventanas, elemento por elemento, a 1450/900/390 px; otras pestañas pendientes |
 
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
@@ -223,9 +223,61 @@ para retener solo las lecturas del primer Ejecutivo y se repitieron las 94
 pruebas del bloque y la regresión completa, ambas aprobadas. No se cambió
 la comprobación de que una respuesta obsoleta no sustituya el contenido.
 
-**Siguiente bloque: Recursos IXB/SaaS/RaaS**, incluidas sus acciones y permisos.
-Después siguen las demás pestañas. La pantalla completa y la fase 10 siguen
-parciales; el shim y el JS anterior continúan siendo necesarios.
+Recursos IXB/SaaS/RaaS se completó en el bloque siguiente, descrito abajo.
+La pantalla completa y la fase 10 siguen parciales.
+
+### Fase 10: Recursos IXB/SaaS/RaaS
+
+`sections/ixs_resources_model.js`, `ixs_resources_view.js` e
+`ixs_resources.js` separan la mezcla de asignaciones, presentación y controles.
+Conservan la normalización por nombre, prioridad de las asignaciones sobre
+la base ejecutiva, sumas de todos los registros del ID, orden alfabético,
+saldos y alertas de recursos sin asignación o inactivos con horas. El editor
+permite agregar, editar rol/estimación/estado y asignar a quien tiene horas;
+conserva el nombre de solo lectura al editar. No cambian cálculos ni servicios.
+DOM seguro, eventos externos y cinco reglas estáticas de CSS en
+`project_detail_ixs_resources.css` sustituyen el HTML y estilos en línea.
+
+Las lecturas reutilizan `recursos/` y `registros/`, en el mismo orden y
+con cargas/errores parciales iguales. Cada apertura vuelve a consultar.
+`POST .../recursos/guardar/` llama al mismo `save_resource` sobre el mismo
+store, con las validaciones originales. El ID de la ruta prevalece sobre
+el cuerpo; no permite dirigir el guardado a otro ID mediante el JSON.
+Exige `edit_operations` y alcance total, como RPC, y CSRF también con los
+accesos apagados. El cliente usa `apiSend` y el timeout anterior de 90 segundos.
+
+Guardar bloquea envíos duplicados, conserva el formulario ante error y permite
+reintentar. El éxito actualiza la tabla e invalida los estados de recursos que
+releen Ejecutivo/Esfuerzo. Las respuestas tardías no sustituyen otra lectura,
+proyecto o pestaña. Los controles conservan su visibilidad anterior;
+el permiso de escritura se valida en el servidor.
+
+Treinta y una pruebas nuevas de navegador: doce comparaciones del contenido
+(completo, vacío y errores de asignaciones/Clockify), nueve del editor
+(agregar, editar, asignar) a 1450/900/390 px y dos de carga a 1450/390 px.
+También prueban altas, cambios, asignación, CSRF del cliente, reintentos por
+errores de fuente/transporte/permisos, bloqueo de doble envío, invalidación
+de estados, cancelación, texto seguro y respuestas tardías. Capturas en
+`tmp/migration/project_detail/ixs_resources/<caso>/<ancho>/`.
+Trece pruebas nuevas de API verifican payload/ID, permisos antes del servicio,
+CSRF, validación de cuerpo y la llamada al servicio anterior. Dos pruebas Node
+contrastan mezcla/horas/alertas y fuente del editor con las funciones originales;
+otra prueba del cliente valida POST, ID con CR, payload y timeout.
+
+Validación específica: **44 aprobadas** (31 de navegador, trece de API).
+JavaScript: **135 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff, formato, mypy de la API y comprobación
+de Django aprobados. Los servicios y los cambios pendientes ajenos se conservaron.
+
+Regresión final: **1378 aprobadas, una omitida**. La primera corrida se detuvo
+con 700 aprobadas y dos fallos de la prueba de carga: Playwright pasaba
+`request` al segundo argumento del interceptor, usado por error para enlazar
+una lista. Se corrigió con un cierre de fábrica, conservando la comparación
+estricta; las 44 pruebas específicas y la regresión completa aprobaron después.
+
+**Siguiente bloque: Planeación IXB/SaaS/RaaS**. Después las demás pestañas.
+El detalle grande y la fase 10 siguen parciales; el shim y el JS anterior
+siguen siendo necesarios.
 
 Proyecto simple (`proyecto/<id>/`) usa `pages.project` y `render_page`,
 con las mismas funciones de portafolio y detalle, permisos por proyecto y

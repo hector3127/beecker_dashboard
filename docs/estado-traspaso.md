@@ -2,7 +2,42 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10, Esfuerzo IXB/SaaS/RaaS (pantalla aún parcial)
+## Bloque actual: fase 10, Recursos IXB/SaaS/RaaS (pantalla aún parcial)
+
+- Modelo, vista y controlador en `sections/ixs_resources*.js`: tabla, mezcla
+  de base y asignaciones, alertas, editor, agregar/editar/asignar recursos.
+  DOM seguro y eventos externos; cinco reglas estáticas nuevas en
+  `project_detail_ixs_resources.css`. Diseño y cálculos conservados.
+- Lecturas existentes `recursos/` y `registros/`, en el mismo orden, sin RPC.
+  Guardado nuevo `POST screens/proyectos/<id>/recursos/guardar/` con el
+  mismo `save_resource`, store y validaciones. El ID de la ruta prevalece
+  sobre el del cuerpo. Exige `edit_operations`, alcance total y CSRF, incluso
+  con accesos apagados; `apiSend` conserva 90 segundos.
+- El editor mantiene datos y permite reintentar tras errores; bloquea doble
+  envío. Un éxito invalida los estados para Ejecutivo/Esfuerzo. Las cargas
+  tardías no sustituyen otra lectura ni otra pestaña/proyecto.
+- Treinta y una pruebas nuevas de navegador: contenido y editor contra la
+  anterior a 1450/900/390 px; carga a 1450/390 px. Altas, edición, asignación,
+  errores y reintentos, CSRF, doble envío, invalidación, cancelación, texto
+  seguro y respuestas tardías. Capturas:
+  `tmp/migration/project_detail/ixs_resources/<caso>/<ancho>/`.
+  Trece pruebas API nuevas y dos contrastes Node con las funciones anteriores;
+  el cliente también prueba POST con CR, payload y timeout.
+- Validación específica: **44 aprobadas** (31 de navegador, trece de API).
+  JavaScript: **135 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff, formato, mypy de la API y revisión
+  de Django aprobados. Los pendientes ajenos siguen sin modificar.
+- Regresión final: **1378 aprobadas, una omitida**, con Chrome y los cuatro
+  temporales excluidos. La primera corrida se detuvo con 700 aprobadas y dos
+  fallos en la captura de carga: Playwright pasaba `request` al segundo
+  parámetro que se había usado para enlazar la lista de peticiones retenidas.
+  Se cambió a un cierre de fábrica; las 44 específicas y la regresión completa
+  pasaron después. No se cambió la pantalla para corregir esa prueba.
+- **Siguiente: Planeación IXB/SaaS/RaaS**, preservando calendario, hitos,
+  recursos y permisos. La pantalla y la fase 10 siguen parciales. No retirar
+  todavía el shim ni el JS anterior. Sin cambios en Horas por mes ni servicios.
+
+### Bloque anterior: Esfuerzo IXB/SaaS/RaaS
 
 - `sections/ixs_effort*.js`: modelo, vista, controlador, registros/actividades
   y ventana de excedidas. DOM seguro y eventos externos, reutilizando iconos,
@@ -34,7 +69,7 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   consulta de tasks de Esfuerzo. Se ajustó para retener solo las lecturas
   del primer Ejecutivo, conservando su comprobación de respuestas obsoletas;
   el bloque de 94 pruebas y la regresión completa pasaron después.
-- **Siguiente: Recursos IXB/SaaS/RaaS**, conservando acciones y permisos.
+- Recursos IXB/SaaS/RaaS se completó en el bloque posterior descrito arriba.
   El detalle grande y la fase 10 siguen parciales; no eliminar el JS anterior
   ni el shim RPC. Horas por mes y cálculos de servicios no se modificaron.
 
@@ -124,11 +159,11 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   **1248 aprobadas, una omitida**. JS completo: **124 aprobadas, tres fallos
   anteriores** (`cost_sprint_details`, `executive_report`, `financial`). Ruff,
   formato, mypy y `manage.py check` aprobados. No se activaron los permisos.
-- **No está completada la pantalla ni la fase 10:** salvo ambos Ejecutivos
-  y Esfuerzo IXB/SaaS/RaaS,
+- **No está completada la pantalla ni la fase 10:** salvo ambos Ejecutivos,
+  Esfuerzo y Recursos IXB/SaaS/RaaS,
   las pestañas siguen construyéndose con el JS anterior, incluyendo eventos
   en línea y acciones RPC. No eliminar todavía el shim ni sus archivos.
-- **Continuación:** Recursos IXB/SaaS/RaaS y luego las demás pestañas.
+- **Continuación:** Planeación IXB/SaaS/RaaS y luego las demás pestañas.
   Conservar las reglas de presentación, fuentes, cifras y comparación visual.
   Siguen pendientes Planeación, Riesgos/RAID, Acciones, Recursos, Cliente e IA;
   IXB además contiene Comunicación y Azure DevOps. No duplicar el archivo

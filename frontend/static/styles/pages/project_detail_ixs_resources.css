@@ -1,0 +1,17 @@
+.ixs-shell .ixs-card.ixs-resources-card {
+  padding: 22px;
+}
+.ixs-resources-error.ixs-resources-error {
+  color: #a32340;
+}
+.ixs-shell .ixs-resource-balance-red {
+  color: #d83259;
+}
+.ixs-shell .ixs-resource-balance-green {
+  color: #168b67;
+}
+.ixs-resource-form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}

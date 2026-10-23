@@ -72,9 +72,13 @@ Se comparan todos sus elementos contra la anterior a 1450/900/390 px.
 Esfuerzo IXB/SaaS/RaaS también es modular (`sections/ixs_effort*.js`): incluye
 actividades, registros, ventanas, fechas, excedidas por persona y CSV. Reutiliza
 las lecturas de tasks/recursos y añade `registros/`, con el servicio anterior.
+Recursos IXB/SaaS/RaaS también usa modelo, vista y controlador en
+`sections/ixs_resources*.js`: tabla, alertas y editor de asignaciones. Reutiliza
+las lecturas de recursos/registros; el guardado usa API v1 con CSRF,
+`edit_operations` y alcance total, igual que la política RPC anterior.
 Las otras pestañas y sus acciones aún usan componentes anteriores y RPC.
-**No contar esta pantalla como completada.** Siguiente bloque: Recursos
-IXB/SaaS/RaaS, conservando sus acciones y permisos.
+**No contar esta pantalla como completada.** Siguiente bloque: Planeación
+IXB/SaaS/RaaS, preservando hitos, recursos, calendario y permisos.
 
 1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.
 2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).

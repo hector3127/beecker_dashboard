@@ -7,8 +7,41 @@ const code = fs
   .readFileSync("frontend/static/scripts/pages/project_detail/data.js", "utf8")
   .replace(/import[^;]+;/, "")
   .replace("export function", "function");
-const context = {};
+const context = {
+  apiSend: () => {
+    throw new Error("Unexpected write");
+  },
+};
 vm.runInNewContext(code, context);
+
+test("resource writes keep exact IDs, payloads and timeout through the shared client", async () => {
+  const calls = [],
+    payload = {
+      idProyecto: "CCO.001 | CR",
+      nombre: "O'Connor",
+      rol: "QA",
+      horasEstimadas: "0",
+      activo: false,
+    };
+  const saved = { ok: true, proyectoId: payload.idProyecto, filas: [] };
+  const data = context.createProjectData(
+    () => {
+      throw new Error("Unexpected read");
+    },
+    async (...args) => {
+      calls.push(args);
+      return { data: saved, meta: {} };
+    },
+  );
+  assert.equal(await data.saveResource(payload.idProyecto, payload), saved);
+  assert.equal(calls[0][0], "POST");
+  assert.equal(
+    calls[0][1],
+    "screens/proyectos/CCO.001%20%7C%20CR/recursos/guardar/",
+  );
+  assert.equal(calls[0][2], payload);
+  assert.equal(calls[0][3].timeout, 90000);
+});
 
 test("project reads keep exact IDs, payloads and the previous 90 second timeout", async () => {
   const calls = [];
