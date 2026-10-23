@@ -4,6 +4,7 @@ import { createProjectData } from "./data.js";
 import { renderAerExecutive } from "./sections/aer_executive.js";
 import { createEffortController } from "./sections/ixs_effort.js";
 import { createResourcesController } from "./sections/ixs_resources.js";
+import { createMilestoneController } from "./sections/milestones.js";
 import { createPlanningEditor } from "./sections/ixs_planning_editor.js";
 import { createPlanningController } from "./sections/ixs_planning.js";
 import {
@@ -47,6 +48,7 @@ async function start() {
       beeIxsEffort: createEffortController(data),
       beeIxsResources: createResourcesController(data),
       beeIxsPlanningEditor: createPlanningEditor(data),
+      beeProjectMilestones: createMilestoneController(data),
       beeIxsPlanning: createPlanningController(data),
       beeProjectExecutive: renderAerExecutive,
       beeIxsExecutive: {

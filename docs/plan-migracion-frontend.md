@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos, transporte de Planeación IXB y escrituras de Work Items; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas, editores y escrituras de Work Items en Planeación IXB/SaaS/RaaS modulares; hitos históricos/extensión y otras pestañas anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos, transporte de Planeación IXB y escrituras de Work Items; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas, editores y escrituras de Work Items en Planeación IXB/SaaS/RaaS modulares; editor de hitos modular; extensión/integraciones y otras pestañas anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las

@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_ixs_effort.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_ixs_resources.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_ixs_planning.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_milestones.css' %}">
 {% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>Sin fecha de actualización</span>{% endblock %}
 {% block content %}
@@ -34,5 +35,5 @@
 {{ project_context|json_script:'project-context' }}
 {% endblock %}
 {% block scripts %}
-<script type="module" src="{% static 'app/scripts/pages/project_detail/main.js' %}" data-project-detail-entry data-rpc-shim="{% static 'core/js/gas_shim.js' %}" data-legacy-script="{% static 'portal/js/proyecto_detalle.js' %}?v=20261023-initial-api"></script>
+<script type="module" src="{% static 'app/scripts/pages/project_detail/main.js' %}" data-project-detail-entry data-rpc-shim="{% static 'core/js/gas_shim.js' %}" data-legacy-script="{% static 'portal/js/proyecto_detalle.js' %}?v=20261023-hitos-api"></script>
 {% endblock %}

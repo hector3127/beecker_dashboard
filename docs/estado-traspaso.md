@@ -2,7 +2,35 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10, escrituras de Work Items (Planeación parcial)
+## Bloque: fase 10, editor de hitos adicionales (modal del histórico)
+
+- API v1: `GET screens/proyectos/hitos/tipos/` (view_operations) y POST
+  `screens/proyectos/<id>/hitos/{guardar,editar,eliminar}/` (edit_operations,
+  alcance total, CSRF aun con accesos apagados). Llaman sin cambios a
+  `apps.ejecutivo.write_rpc` (`get_milestone_types`, `save_milestone_batch`,
+  `edit_milestone_entry`, `delete_milestone_entry`) y devuelven su dict tal
+  cual en `{data, meta}`; el ID de ruta prevalece.
+- Frontend: `sections/milestones_model.js` (validación, tipo nuevo con ícono,
+  fechas), `milestones_view.js` (DOM seguro, sin `innerHTML`) y
+  `milestones.js` (controlador `window.beeProjectMilestones`). Estilos en
+  `project_detail_milestones.css`. `proyecto_detalle.js` delega
+  `abrirModalHito`, `editarHitoDesdeCard` y `eliminarHitoDesdeCard` si el
+  módulo existe; con `?vista=anterior` sigue el código y RPC anteriores.
+- Conserva textos, orden secuencial (ediciones y luego lote de altas),
+  confirmaciones y recarga del dashboard. Fugas de `components.css` en `.btn`
+  y `box-sizing` corregidas en la hoja.
+- Pruebas: 15 de API (`tests/portal/test_milestone_api.py`), 17 de navegador
+  (`tests/e2e/test_ixs_milestones.py`: comparación de cajas/estilos con la
+  anterior a 1450/900/390 en vacío, tipo existente y tipo nuevo; alta, edición
+  + alta, validaciones, error con reintento, borrado, cierre) y 3 de Node.
+  Capturas: `tmp/migration/project_detail/ixs_milestones/<caso>/<ancho>/`.
+  Regresión `tests/portal` + proyecto: 1101 aprobadas; fallan 3
+  `test_late_response_does_not_modify_reentered_view` de Work Items, que
+  también fallan sin estos cambios (anteriores, sin investigar).
+- Pendiente: **extensión del proyecto e integraciones**; el botón de la
+  tarjeta AER y los marcadores del timeline usan este mismo módulo.
+
+## Bloque anterior: fase 10, escrituras de Work Items (Planeación parcial)
 
 - API v1: `screens/work-items/<id>/{avance,comentarios}/`, solo POST. Invoca
   exactamente `daily.save_work_item_progress` y `daily.add_comment`, sin

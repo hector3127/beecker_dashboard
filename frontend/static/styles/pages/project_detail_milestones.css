@@ -1,0 +1,31 @@
+/* Editor de hitos: mismas medidas que la ventana anterior (estilos en línea). */
+#modal-hito-overlay { position: fixed; inset: 0; background: rgba(20, 20, 20, .45); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+#modal-hito-overlay .mh-modal { background: var(--blanco); border-radius: 12px; padding: 22px; width: 460px; max-width: 95vw; max-height: 88vh; overflow-y: auto; box-shadow: 0 8px 30px rgba(0, 0, 0, .25); }
+#modal-hito-overlay .mh-cabecera { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+#modal-hito-overlay .mh-titulo-modal { font-size: 15px; font-weight: 700; color: var(--gris-oscuro); }
+#modal-hito-overlay .mh-cerrar { cursor: pointer; font-size: 18px; color: var(--gris); }
+#modal-hito-overlay .mh-fila { border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 10px; position: relative; }
+#modal-hito-overlay .mh-quitar { position: absolute; top: 6px; right: 8px; cursor: pointer; color: var(--gris); font-size: 14px; }
+#modal-hito-overlay .mh-fila label { font-size: 11px; font-weight: 600; color: var(--gris-oscuro); }
+#modal-hito-overlay .mh-fila .mh-etiqueta-fecha { display: block; margin-top: 8px; }
+#modal-hito-overlay .mh-editando-aviso { font-size: 10.5px; color: var(--vino); font-weight: 700; margin-bottom: 6px; }
+#modal-hito-overlay .mh-editando-aviso[hidden], #modal-hito-overlay .mh-bloque-nuevo[hidden], #mh-error[hidden] { display: none; }
+#modal-hito-overlay .mh-cancelar { cursor: pointer; text-decoration: underline; font-weight: 400; }
+#modal-hito-overlay .mh-tipo-select, #modal-hito-overlay .mh-fecha { width: 100%; margin: 4px 0 8px; }
+#modal-hito-overlay .mh-tipo-nuevo { width: 100%; margin-bottom: 6px; }
+#modal-hito-overlay .mh-obs { width: 100%; margin-top: 4px; resize: vertical; font-family: inherit; }
+#modal-hito-overlay .mh-ayuda { font-size: 10.5px; color: var(--gris); margin-bottom: 3px; }
+#modal-hito-overlay .mh-titulo { font-size: 10.5px; color: var(--gris); margin: 6px 0 3px; }
+#modal-hito-overlay .mh-vacio { font-size: 11px; color: var(--gris); margin: 2px 0 8px; }
+#modal-hito-overlay .mh-existente { display: flex; align-items: center; gap: 6px; font-size: 11.5px; padding: 3px 0; border-bottom: 1px solid var(--border); }
+#modal-hito-overlay .mh-texto { flex: 1; }
+#modal-hito-overlay .mh-accion { cursor: pointer; }
+#modal-hito-overlay .mh-icono-opcion { display: inline-block; width: 28px; height: 28px; line-height: 26px; text-align: center; border: 1.5px solid var(--border); border-radius: 6px; cursor: pointer; margin: 2px; font-size: 14px; background: var(--blanco); }
+#modal-hito-overlay .mh-icono-opcion.selected { border-color: var(--vino); background: #F7E9E9; }
+#modal-hito-overlay .mh-agregar { width: 100%; margin: 6px 0 14px; font-size: 12.5px; }
+#mh-error { color: var(--rojo); font-size: 12px; margin-bottom: 8px; }
+#modal-hito-overlay .mh-pie { display: flex; justify-content: flex-end; gap: 8px; }
+#modal-hito-overlay, #modal-hito-overlay * { box-sizing: border-box; }
+/* components.css da otra forma a .btn; aquí se conserva la anterior. */
+#modal-hito-overlay .btn { display: inline-block; min-height: 0; font-weight: 400; }
+#modal-hito-overlay .btn-primary { font-weight: 700; }

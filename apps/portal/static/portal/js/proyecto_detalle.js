@@ -7988,6 +7988,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
    * selector de icono real (no solo heurística) para tipos nuevos.
    */
   function abrirModalHito(idProyecto) {
+    if (window.beeProjectMilestones) { window.beeProjectMilestones.open(idProyecto, hitosAdicionalesActuales, loadDashboard); return; }
     cerrarModalHito();
     google.script.run.withSuccessHandler(tipos => construirModalHito(idProyecto, tipos || [])).withFailureHandler(() => construirModalHito(idProyecto, [])).obtenerTiposHitosExistentes();
   }
@@ -8178,6 +8179,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
    * ya con la fila lista para editar esa entrada específica.
    */
   function editarHitoDesdeCard(tipo, indice, fechaISO, observacion) {
+    if (window.beeProjectMilestones) { window.beeProjectMilestones.edit(idProyectoActualGlobal, hitosAdicionalesActuales, loadDashboard, { tipo, indice, fechaISO, observacion }); return; }
     cerrarModalHito();
     google.script.run
       .withSuccessHandler(tipos => {
@@ -8198,6 +8200,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
    * necesidad de abrir el modal.
    */
   function eliminarHitoDesdeCard(tipo, indice) {
+    if (window.beeProjectMilestones) { window.beeProjectMilestones.remove(idProyectoActualGlobal, tipo, indice, loadDashboard); return; }
     if (!confirm('¿Eliminar esta entrada de "' + tipo + '"? Esta acción no se puede deshacer.')) return;
     google.script.run
       .withSuccessHandler(res => {

@@ -64,6 +64,34 @@ export function createProjectData(get = apiGet, send = apiSend) {
           { timeout: 90000 },
         )
       ).data,
+    milestoneTypes: () => read("screens/proyectos/hitos/tipos/"),
+    saveMilestones: async (id, hitos) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/hitos/guardar/`,
+          { hitos },
+          { timeout: 90000 },
+        )
+      ).data,
+    editMilestone: async (id, payload) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/hitos/editar/`,
+          payload,
+          { timeout: 90000 },
+        )
+      ).data,
+    deleteMilestone: async (id, tipo, indice) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/hitos/eliminar/`,
+          { tipo, indice },
+          { timeout: 90000 },
+        )
+      ).data,
     /** @param {string} id @param {boolean} aer */
     dashboard: (id, aer) =>
       read(
