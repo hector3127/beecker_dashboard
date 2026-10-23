@@ -238,8 +238,16 @@ def test_aer_shows_only_extension_and_close(
     portal, project_detail, gmail, fixed_day
 ):
     portal.goto(portal.base + AER_PAGE)
-    portal.get_by_role("button", name="Cierre", exact=True).click()
+    # Los botones viven en la tarjeta Roadmap de Planeación, no en el Ejecutivo.
+    expect(portal.get_by_role("button", name="Comunicados")).to_have_count(0)
+    portal.locator(".aer-tabs").get_by_role(
+        "button", name="Planeación", exact=True
+    ).click()
+    toolbar = portal.locator(".aer-roadmap-toolbar")
+    expect(toolbar).to_contain_text("Roadmap de compromisos")
+    toolbar.get_by_role("button", name="Comunicados").click()
     expect(portal.locator(".ixe-kind")).to_have_text(["Extensión", "Cierre"])
+    portal.locator(".ixe-kind", has_text="Cierre").click()
     expect(portal.locator(".ixe-kind.on")).to_have_text("Cierre")
     expect(portal.locator(".ixe-preview")).to_contain_text(
         "El presente es para dar como finalizado"
@@ -299,3 +307,19 @@ def test_suspension_asks_the_reason_before_the_condition(
         "nodes => nodes.map(n => n.dataset.key)"
     )
     assert keys == ["stage", "resumeDate", "reason", "condition"]
+
+
+def test_ixb_close_prefills_the_project_name(
+    portal, planning, gmail, fixed_day
+):
+    open_modal(portal)
+    portal.locator(".ixe-kind", has_text="Cierre").click()
+    name = portal.locator('[data-key="projectName"]')
+    expect(name).not_to_have_value("")
+    expect(portal.locator(".ixe-preview")).to_contain_text(
+        f'"{name.input_value()}"'
+    )
+    name.fill("Otro nombre")
+    portal.locator(".ixe-kind", has_text="Reanudación").click()
+    portal.locator(".ixe-kind", has_text="Cierre").click()
+    expect(name).to_have_value("Otro nombre")

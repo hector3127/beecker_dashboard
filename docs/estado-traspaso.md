@@ -254,6 +254,24 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   la API de HEAD mediante `--shadow-file`: mismos seis errores. No corregidos
   en este bloque de transporte.
 
+## Ajuste: comunicados en la tarjeta Roadmap y Pendientes de Business Overview (24/10/2026)
+
+- El botón de comunicados ya no está arriba del Ejecutivo AER/T&M: vive en la
+  tarjeta "Roadmap de compromisos" de su pestaña Planeación (`✉ Comunicados`,
+  solo con el módulo nuevo; `?vista=anterior` no lo muestra). En IXB/SaaS/RaaS el
+  botón de "Línea de tiempo — Hitos principales" pasó de "Extensión" a
+  "Comunicados" (vista nueva y anterior, para que sigan idénticas). Se eliminó
+  `communique_actions.js`.
+- El cierre IXB ya llena "Nombre del proyecto" con el nombre del proyecto abierto
+  (si el nombre es solo el ID no lo repite; lo escrito se conserva al cambiar de
+  tipo).
+- **Causa de los "Pendiente"** de Facturación del periodo y Trabajo por entregar:
+  el servidor manda los importes Decimal como texto (`"1950326.71"`) y
+  `formatCompact`/`formatMoney` exigían número. Ahora aceptan texto numérico
+  (`lib/format.js`). Otros importes Decimal en otras pantallas no se auditaron.
+- Pruebas: Node (formato), e2e de Business Overview con importes como texto,
+  comunicados (AER desde la tarjeta, nombre prellenado).
+
 ## Ajuste: Margen vendido vs. real (24/10/2026)
 
 - La pantalla nueva ya no muestra "Fecha de servicio: G · por validar" bajo

@@ -241,6 +241,9 @@ export function createCommuniqueController() {
   function applyAuto() {
     const { kind, dialog, auto } = session;
     if ((kind === "cierre_ixb" || kind === "cierre_aer") && !dialog.read().values.closeDate) dialog.setField("closeDate", todayIso());
+    // El nombre ya se conoce; si el proyecto solo tiene su ID por nombre, no se repite.
+    const name = (session.projectName || "").trim();
+    if (kind === "cierre_ixb" && name && name !== session.project && !dialog.read().values.projectName) dialog.setField("projectName", name);
     if (!auto) return;
     const v = dialog.read().values;
     if (KINDS[kind].fields.some((f) => f.key === "stage") && !v.stage && auto.stage) dialog.setField("stage", auto.stage);

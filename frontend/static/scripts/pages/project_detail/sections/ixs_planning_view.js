@@ -130,7 +130,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
       "Plan estimado, ejecución real, suspensiones e hitos del proyecto",
       div(
         "ixs-plan-main-actions",
-        button([icon("clock"), " Extensión"], actions.extension),
+        button([icon("clock"), " Comunicados"], actions.extension),
         button(
           "+ Agregar hito",
           () => actions.edit("compromiso", "", "Hito"),

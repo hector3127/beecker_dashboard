@@ -332,3 +332,18 @@ def test_agreements_are_part_of_the_page(portal, served):
     expect(section.locator("select[name=account]")).to_contain_text(
         "Heineken México"
     )
+
+
+def test_amounts_sent_as_decimal_text_are_not_shown_as_pending(portal, served):
+    # El servidor manda los importes Decimal como texto, no como número.
+    figures = json.loads(json.dumps(FIGURES))
+    figures["finance"]["revenue"]["invoiced"] = "1897644.14"
+    figures["commercial"]["delivery"] = "415926.17"
+    meta = {"loaded_at": "2026-10-22T10:00:00-06:00", "blocks": {}}
+    portal.route(SCREEN, lambda r: reply(r, figures, meta))
+    portal.route(SCREEN_BARE, lambda r: reply(r, figures, meta))
+
+    portal.goto(portal.base + PAGE)
+
+    expect(portal.locator("#executive-revenue")).to_have_text("1.89M")
+    expect(portal.locator("#commercial-delivery")).to_have_text("415K")

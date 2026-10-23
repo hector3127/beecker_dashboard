@@ -72,8 +72,6 @@
 .ixe-kind.on { background: linear-gradient(110deg, #4222c2, #7730e7); border-color: transparent; color: #fff; box-shadow: 0 4px 12px rgba(76, 43, 212, .3); }
 .ixe-chip .stage i[hidden] { display: none; }
 
-/* Acciones de comunicados en el Ejecutivo AER/T&M. */
-.project-comm-actions { display: flex; gap: 8px; justify-content: flex-end; margin: 0 0 12px; }
 
 .ixe-linkrow { margin-top: 6px; }
 .ixe-linkrow .ixe-input { margin-top: 0; }

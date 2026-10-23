@@ -243,7 +243,7 @@ def test_buttons_and_work_item_events_keep_their_existing_actions(
     assert calls[0] == (101, "devConstruido", 60)
     portal.get_by_role("button", name="Ver todas", exact=True).click()
     expect(portal.locator("#ixs-plan-vacaciones")).to_be_in_viewport()
-    portal.get_by_role("button", name="Extensión", exact=False).click()
+    portal.get_by_role("button", name="Comunicados", exact=False).click()
     expect(portal.locator("#ixe-overlay")).to_have_count(1)
     portal.evaluate("ixsCerrarExtension()")
     portal.get_by_role(

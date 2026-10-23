@@ -19,7 +19,6 @@ import { renderAerExecutive } from "./sections/aer_executive.js";
 import { createEffortController } from "./sections/ixs_effort.js";
 import { createResourcesController } from "./sections/ixs_resources.js";
 import { createCommuniqueController } from "./sections/communique.js";
-import { prependCommuniqueActions } from "./sections/communique_actions.js";
 import { prependDataNotice } from "./sections/data_notice.js";
 import { createRaidCreator } from "./sections/raid_create.js";
 import { createRaidController } from "./sections/raid.js";
@@ -90,7 +89,6 @@ async function start() {
       beeProjectExecutive: (target, project, ...rest) => {
         renderAerExecutive(target, project, ...rest);
         prependDataNotice(target, project.proyecto);
-        prependCommuniqueActions(target, project.proyecto, communique);
       },
       beeIxsExecutive: {
         mount: (target, project, lifecycle) => {

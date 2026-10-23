@@ -44,21 +44,23 @@ const PENDING = 'Pendiente';
 /**
  * Cifra compacta sin simbolo: 1500 -> "1K", 2.5e6 -> "2.5M", 1.2e9 -> "1.2B".
  * Trunca (no redondea) como el resto del portal; un dato faltante es "Pendiente", nunca cero.
- * @param {number | null | undefined} value
+ * @param {number | string | null | undefined} value
  */
 export function formatCompact(value) {
-  if (value === null || value === undefined || !Number.isFinite(value)) return PENDING;
-  const size = Math.abs(value);
+  // La API manda los importes Decimal como texto ("1950326.71").
+  const number = typeof value === 'string' && value.trim() !== '' ? Number(value) : value;
+  if (number === null || number === undefined || !Number.isFinite(number)) return PENDING;
+  const size = Math.abs(number);
   const unit = size >= 1e9 ? 1e9 : size >= 1e6 ? 1e6 : size >= 1e3 ? 1e3 : 1;
   const suffix = { 1e9: 'B', 1e6: 'M', 1e3: 'K', 1: '' }[unit];
   const precision = unit >= 1e6 ? 100 : 1;
-  const shown = Math.trunc((value / unit) * precision) / precision;
+  const shown = Math.trunc((number / unit) * precision) / precision;
   return shown.toLocaleString('en-US', { maximumFractionDigits: unit >= 1e6 ? 2 : 0 }) + suffix;
 }
 
 /**
  * Dolares compactos: 1500 -> "$1K"; negativos "-$1K"; faltante "Pendiente".
- * @param {number | null | undefined} value
+ * @param {number | string | null | undefined} value
  */
 export function formatMoney(value) {
   const text = formatCompact(value);
