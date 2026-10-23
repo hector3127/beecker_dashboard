@@ -16,7 +16,7 @@ from apps.clockify import project_rpc
 from apps.daily import ai_rpc, ixs_rpc
 from apps.daily import rpc as daily
 from apps.daily.ixs_rpc import build_store_sheets, get_ixs_panel
-from apps.daily.services import claude_assist
+from apps.daily.services import bee_com, claude_assist
 from apps.daily.services.ixs_planning import (
     delete_plan,
     read_plan,
@@ -481,4 +481,29 @@ class RaidCreateView(ProjectMilestoneWriteView):
         """El proyecto de la ruta prevalece; el servicio valida el resto."""
         return ixs_rpc.create_raid_record(
             project_id, payload.get("tipo"), payload.get("datos")
+        )
+
+
+def communications_dashboard() -> dict[str, Any]:
+    """Mismos comunicados de beeComListar (son del portafolio)."""
+    return run_safely(lambda: bee_com.list_communications(build_store_sheets()))
+
+
+class ProjectCommunicationsView(ProjectRead):
+    """Centro de Comunicación de IXB/SaaS/RaaS."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Lista global; la pantalla filtra por el proyecto abierto."""
+        return communications_dashboard()
+
+
+class ProjectCommunicationSaveView(ProjectMilestoneWriteView):
+    """Publica o edita un comunicado (edit_operations, alcance total, CSRF)."""
+
+    def perform(
+        self, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Mismo guardado y validaciones de beeComGuardar."""
+        return run_safely(
+            lambda: bee_com.save_communication(build_store_sheets(), payload)
         )

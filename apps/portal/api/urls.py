@@ -55,6 +55,8 @@ from apps.portal.api.project_ai import (
 from apps.portal.api.project_detail import (
     ProjectAerView,
     ProjectAzureView,
+    ProjectCommunicationSaveView,
+    ProjectCommunicationsView,
     ProjectExecutiveView,
     ProjectFiltersView,
     ProjectMilestoneDeleteView,
@@ -188,6 +190,11 @@ urlpatterns = [
         ProjectPlanningDeleteView.as_view(),
     ),
     path("screens/proyectos/hitos/tipos/", ProjectMilestoneTypesView.as_view()),
+    path("screens/proyectos/comunicados/", ProjectCommunicationsView.as_view()),
+    path(
+        "screens/proyectos/comunicados/guardar/",
+        ProjectCommunicationSaveView.as_view(),
+    ),
     path("screens/proyectos/raid/prompt/", RaidPromptView.as_view()),
     path("screens/proyectos/raid/sugerir/", RaidSuggestView.as_view()),
     path(
