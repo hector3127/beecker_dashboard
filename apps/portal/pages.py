@@ -414,3 +414,37 @@ def billability_area(request: HttpRequest) -> HttpResponse:
     return _modern(
         request, views.facturabilidad_area, "pages/billability_area.html"
     )
+
+
+@require_GET
+def eva1(request: HttpRequest) -> HttpResponse:
+    """Pantalla EVA modular con el contexto y acceso originales."""
+    return _modern(request, views.eva1, "pages/eva1.html")
+
+
+@require_GET
+def eva2(request: HttpRequest) -> HttpResponse:
+    """Pantalla EVA modular con el contexto y acceso originales."""
+    return _modern(request, views.eva2, "pages/eva2.html")
+
+
+@require_GET
+def eva3(request: HttpRequest) -> HttpResponse:
+    """Pantalla EVA modular con el contexto y acceso originales."""
+    return _modern(request, views.eva3, "pages/eva3.html")
+
+
+@require_GET
+def eva1_cerrados(request: HttpRequest) -> HttpResponse:
+    """Fragmento de comparación: conserva la respuesta de acceso anterior."""
+    if not (anterior_disponible() and request.GET.get("vista") == "anterior"):
+        request.portal_template = "partials/eva_closed.html"  # type: ignore[attr-defined]
+    return views.eva1_cerrados(request)
+
+
+@require_GET
+def eva3_cerrados(request: HttpRequest) -> HttpResponse:
+    """Fragmento de comparación: conserva la respuesta de acceso anterior."""
+    if not (anterior_disponible() and request.GET.get("vista") == "anterior"):
+        request.portal_template = "partials/eva3_closed.html"  # type: ignore[attr-defined]
+    return views.eva3_cerrados(request)

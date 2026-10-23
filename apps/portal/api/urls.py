@@ -20,6 +20,12 @@ from apps.portal.api.capacity_daily import (
     CapacityDailyProjectView,
     CapacityDailyView,
 )
+from apps.portal.api.eva import (
+    Eva3ClosedBurnView,
+    Eva3ClosedView,
+    Eva3ConsumptionView,
+    EvaClosedView,
+)
 from apps.portal.api.operations import (
     CapacityScreenView,
     Eva3ScreenView,
@@ -52,6 +58,10 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path("screens/eva-1/cerrados/", EvaClosedView.as_view()),
+    path("screens/eva-3/cerrados/", Eva3ClosedView.as_view()),
+    path("screens/eva-3/consumos/", Eva3ConsumptionView.as_view()),
+    path("screens/eva-3/cerrados/consumo/", Eva3ClosedBurnView.as_view()),
     path("screens/facturabilidad/area/areas/", AreaListView.as_view()),
     path("screens/facturabilidad/area/mes/", AreaMonthView.as_view()),
     path("screens/facturabilidad/area/lote/", AreaBatchView.as_view()),
