@@ -67,6 +67,10 @@ def test_all_executive_elements_match(
 
     def state():
         expect(portal.locator(".aer-exec-view")).to_be_visible()
+        # Extensión y Cierre son botones nuevos de esta pantalla.
+        portal.evaluate(
+            "document.querySelector('.project-comm-actions')?.remove()"
+        )
         return portal.evaluate("""() => [...document.querySelectorAll(
           '.aer-exec-view, .aer-exec-view *')].map(el => {
             const r = el.getBoundingClientRect(), c = getComputedStyle(el);

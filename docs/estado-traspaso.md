@@ -2,6 +2,34 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: comunicados del proyecto (Extensión, Suspensión, Reanudación, Cierre)
+
+- Backend (`apps/gmail`): `POST /gmail/reply/` acepta `kind` (por defecto
+  `extension`; también `suspension`, `reanudacion`, `cierre_ixb`,
+  `cierre_aer`). `communique.py` tiene las plantillas nuevas (suspensión y
+  reanudación dirigidas a ROC, con saludo por hora; cierre IXB con MCO; cierre
+  AER/T&M con "el día de hoy" solo si la fecha es hoy); `extension_reply.py`
+  valida (`parse_communique`) y entrega (`deliver_communique`) en el mismo hilo
+  "Inicio de ..." que la extensión. Enlace opcional en todas menos extensión
+  (roadmap obligatorio); el cierre IXB exige MCO como archivo o enlace.
+- Frontend: `sections/communique{,_model,_view,_actions}.js`, CSS
+  `project_detail_communique.css` (mismos estilos de la ventana de extensión
+  anterior). Una sola ventana con selector de tipo: IXB/SaaS/RaaS tiene los
+  cuatro botones; AER/T&M solo Extensión y Cierre (botones nuevos en el
+  Ejecutivo AER). `ixsAbrirExtension` delega en `window.beeProjectCommunique`;
+  con `?vista=anterior` queda la ventana anterior. Conserva conexión a Google,
+  búsqueda de hilos, adjuntos, vista previa y copiar texto.
+- Pruebas: 3 de vista y 14 de servicios Gmail nuevas, 5 Node, 9 e2e (extensión
+  idéntica a la anterior a 1450/900/390 sin el selector nuevo, tipos, validación,
+  adjunto, texto escapado, AER). Las comparaciones AER anteriores quitan los
+  botones nuevos antes de medir.
+- **Ojo:** el `.env` local tiene `GMAIL_DELIVERY_MODE=send`: aquí "Generar
+  comunicado" ENVÍA el correo (con confirmación). Las pruebas fijan `draft` y
+  usan Gmail simulado; no se envió nada real.
+- Supuestos a validar con negocio: los cierres y la extensión AER responden en
+  el hilo "Inicio de ..."; la extensión de AER conserva el campo Etapa
+  (Discovery/Development/Deployment) y su frase de la plantilla.
+
 ## Dónde nos quedamos (23/10/2026, antes de pasar el repo a pruebas)
 
 - Último commit de migración: editor de hitos del histórico (`7e9e651`, API en

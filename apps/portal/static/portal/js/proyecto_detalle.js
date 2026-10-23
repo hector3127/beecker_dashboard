@@ -5733,6 +5733,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   try{new BroadcastChannel('gmail-oauth').onmessage=e=>_ixeOauthListo(e.data);}catch(err){}
   window.addEventListener('focus',()=>{const g=ixeState.gmail;if(g&&!g.connected&&document.getElementById('ixe-gmail'))ixeGmailEstado();});
   function ixsAbrirExtension(){
+    if(window.beeProjectCommunique){const cur=(typeof ixsProyectoActual!=='undefined'&&ixsProyectoActual)||null;window.beeProjectCommunique.open({projectId:(typeof ixsPlanState!=='undefined'&&ixsPlanState.proyectoId)||'',projectName:(cur&&cur.proyecto&&cur.proyecto.nombre)||'',family:'ixb',auto:cur?_ixeAuto(cur):null});return;}
     _ixeStyles();ixsCerrarExtension();ixeState.files=[];
     const pid=(typeof ixsPlanState!=='undefined'&&ixsPlanState.proyectoId)||'';
     const hex='<svg viewBox="0 0 40 40" fill="none"><path d="M20 3 35 11.5v17L20 37 5 28.5v-17z" fill="#5a2ee0"/><path d="M20 10 29 15v10l-9 5-9-5V15z" fill="#fff" opacity=".9"/></svg>';

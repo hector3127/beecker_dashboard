@@ -128,6 +128,10 @@ def test_entry_matches_previous(portal, project_detail, kind, width):
     def state():
         expect(portal.locator(title)).to_contain_text(id)
         portal.wait_for_load_state("networkidle")
+        # Extensión y Cierre son botones nuevos de esta pantalla.
+        portal.evaluate(
+            "document.querySelector('.project-comm-actions')?.remove()"
+        )
         return portal.evaluate(
             """sels => sels.map(s =>
           [...document.querySelectorAll(s)].map(el => {

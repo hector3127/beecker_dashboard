@@ -4,6 +4,8 @@ import { createProjectData } from "./data.js";
 import { renderAerExecutive } from "./sections/aer_executive.js";
 import { createEffortController } from "./sections/ixs_effort.js";
 import { createResourcesController } from "./sections/ixs_resources.js";
+import { createCommuniqueController } from "./sections/communique.js";
+import { prependCommuniqueActions } from "./sections/communique_actions.js";
 import { prependDataNotice } from "./sections/data_notice.js";
 import { createMilestoneController } from "./sections/milestones.js";
 import { createPlanningEditor } from "./sections/ixs_planning_editor.js";
@@ -44,16 +46,19 @@ async function start() {
     if (!shim || !renderer) throw new Error("Falta la entrada del proyecto.");
     await loadScript(shim);
     const data = createProjectData();
+    const communique = createCommuniqueController();
     Object.assign(window, {
       beeProjectData: data,
       beeIxsEffort: createEffortController(data),
       beeIxsResources: createResourcesController(data),
       beeIxsPlanningEditor: createPlanningEditor(data),
+      beeProjectCommunique: communique,
       beeProjectMilestones: createMilestoneController(data),
       beeIxsPlanning: createPlanningController(data),
       beeProjectExecutive: (target, project, ...rest) => {
         renderAerExecutive(target, project, ...rest);
         prependDataNotice(target, project.proyecto);
+        prependCommuniqueActions(target, project.proyecto, communique);
       },
       beeIxsExecutive: {
         mount: (target, project, lifecycle) => {
