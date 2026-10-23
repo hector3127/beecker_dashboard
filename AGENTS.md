@@ -82,11 +82,17 @@ Los editores de hitos/actividades y vacaciones también tienen modelo, vista
 y controlador en `sections/ixs_planning_editor*.js`, con DOM seguro, eventos
 externos y CSS de formulario en `project_detail_ixs_planning.css`. Sus altas,
 ediciones y eliminaciones usan API, sin ejecutar los formularios anteriores.
-La presentación general, Gantt, extensión y edición de Work Items todavía
-dependen del controlador anterior (estas últimas acciones siguen usando RPC).
-**Planeación y la fase 10 continúan parciales.** Siguiente bloque: separar
-la presentación general y sus cargas, preservando Gantt, hitos, recursos,
-calendario y permisos. Después faltan Gestión
+La presentación y las cargas de Planeación son modulares en
+`sections/ixs_planning*.js`: indicadores, alertas, calendario, registros de
+vacaciones y tabla Azure con filtros locales. El Gantt reutiliza la vista
+del Ejecutivo, con marcadores editables; el histórico diferido actualiza la
+vista modular. Sus modelos conservan las reglas anteriores, contrastadas
+contra las funciones originales. La extensión, el editor de hitos del
+histórico y las escrituras/comentarios de Work Items aún usan controladores
+anteriores y RPC. **Planeación y la fase 10 continúan parciales.**
+Siguiente bloque: migrar las escrituras/comentarios de Work Items y su
+actualización visual; después editor de hitos del histórico y extensión.
+Después faltan Gestión
 RAID, Acciones, Cliente, Comunicación, Azure DevOps e IA de IXS; en AER faltan
 todas las pestañas salvo Ejecutivo. También falta separar encabezados y
 navegación compartida, y retirar el shim de la ruta nueva.

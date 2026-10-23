@@ -5503,6 +5503,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     box.innerHTML=`<div class="ixs-section-head"><div><h3>♧ Atención requerida</h3><small>Fechas límite Dev y ausencias del proyecto</small></div><span class="ixs-badge orange">${r.late.length+r.soon.length+r.vacaciones.length}</span></div>${az.cargando?'<small>Consultando fechas límite Dev…</small>':az.error?`<small>${_ixsTxt(az.error)}</small>`:section('trabajos vencidos',r.late,'red')+section('próximos a vencer (7 días)',r.soon,'orange')}${pl.cargando?'<small>Cargando vacaciones…</small>':pl.error?`<small>${_ixsTxt(pl.error)}</small>`:vacation}`;
   }
   function _ixsPintarPlaneacion(){
+    if(window.beeIxsPlanning){window.beeIxsPlanning.paint();return;}
     const box=document.getElementById('ixs-tab-contenido'),d=ixsProyectoActual,st=ixsPlanState;
     if(!box||ixsTabActual!=='planeacion'||!d||d.proyecto.id!==st.proyectoId)return;
     const date=x=>_ixsDate(x),edit=(type,uid)=>`ixsAbrirPlanEditor('${type}','${encodeURIComponent(uid).replace(/'/g,'%27')}')`;
@@ -6287,6 +6288,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
         if(window.beeIxsExecutive&&ixsTabActual==='resumen'){
           window.beeIxsExecutive.updateTimeline(gantt,data);return;
         }
+        if(window.beeIxsPlanning&&ixsTabActual==='planeacion'){window.beeIxsPlanning.paint();return;}
         const adicional=ixsTabActual==='planeacion'?(ixsPlanState.compromisos||[])
           .filter(x=>x.tipo==='Hito').map(x=>({tipo:x.actividad,fecha:x.fecha,observacion:x.estado})):[];
         gantt.innerHTML=_ixsGantt(Object.assign({},data,{hitosAdicionales:(data.hitosAdicionales||[]).concat(adicional)}));
@@ -6775,6 +6777,22 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       return;
     }
     if(ixsTabActual==='planeacion'){
+      if(window.beeIxsPlanning){
+        window.beeIxsPlanning.mount(el,ixsProyectoActual,ixsPlanState,ixsPlanAzureState,{
+          current:project=>ixsProyectoActual===project,
+          active:()=>ixsTabActual==='planeacion',
+          resources:_ixsCargarEstadosRecursos,
+          syncAzure:(id,items)=>{ixsAzureState.projectId=id;ixsAzureState.items=items;},
+          actions:{
+            edit:(type,uid='',initial)=>ixsAbrirPlanEditor(type,encodeURIComponent(uid).replace(/'/g,'%27'),initial),
+            editMarker:ixsEditarHitoTimeline,
+            extension:ixsAbrirExtension,
+            azure:()=>ixsCambiarTab('azure'),
+            update:_actualizarCampoWorkItemUI,
+            comment:_enviarComentarioWorkItemUI
+          }
+        });return;
+      }
       el.innerHTML='<div class="ixs-card" style="padding:22px">Cargando planeación…</div>';
       ixsCargarPlaneacion();return;
     }

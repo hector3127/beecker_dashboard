@@ -54,7 +54,7 @@ export function heading(name, text, right) {
   return div("ixs-section-head", h("h3", "", icon(name), " ", text), right);
 }
 
-export function timeline(data) {
+export function timeline(data, editMarker) {
   const m = timelineModel(data);
   if (!m) return empty("Sin fases disponibles en Historico_Proyectos.");
   const { plan, real, holds, markers, loneMarkers, min, max, range, pos } = m;
@@ -84,11 +84,15 @@ export function timeline(data) {
           const same = grouped[String(mark.time)],
             offset = (same.indexOf(mark) - (same.length - 1) / 2) * 14;
           const node = el(
-            "span",
+            editMarker ? "button" : "span",
             {
-              class: `ixs-time-mark ${mark.cls}`,
-              title: `${mark.label} · ${dateText(mark.date)}`,
-              "aria-label": `${mark.label} · ${dateText(mark.date)}`,
+              class: `ixs-time-mark ${mark.cls}${editMarker ? " ixs-plan-edit-marker" : ""}`,
+              type: editMarker ? "button" : undefined,
+              onclick: editMarker
+                ? () => editMarker(mark.sourceIndex)
+                : undefined,
+              title: `${editMarker ? "Editar hito: " : ""}${mark.label} · ${dateText(mark.date)}`,
+              "aria-label": `${editMarker ? "Editar hito: " : ""}${mark.label} · ${dateText(mark.date)}`,
             },
             mark.icon,
           );

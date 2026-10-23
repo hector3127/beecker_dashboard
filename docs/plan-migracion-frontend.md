@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos y transporte de Planeación IXB; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos y editores de Planeación IXB/SaaS/RaaS modulares; presentación general de Planeación y otras pestañas anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos y transporte de Planeación IXB; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas y editores de Planeación IXB/SaaS/RaaS modulares; acciones restantes de Planeación y otras pestañas anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -66,7 +66,7 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | EVA 2 | `operativa/eva-2/` | `pages/eva2.html` | `screens/eva-2/`; conserva contexto de servidor | **Sí** | `test_eva123.py`: mismas tablas, colores, cifras y estados vacíos a 1450 y 390 px. No tenía desplegable de cerrados y no se añadió |
 | EVA 3 e histórico AER/T&M | `operativa/eva-3/`, `operativa/eva3/cerrados/` | `pages/eva3.html`, `partials/eva3_closed.html` | `screens/eva-3/{consumos,cerrados,cerrados/consumo}/` | **Sí** | `test_eva123.py`: consumo diferido, errores parciales, reintento del guardado y comparación de tablas/cajas/estilos a 1450 y 390 px |
 | Proyecto simple | `proyecto/<id>/` | `pages/project.html` (anterior con `?vista=anterior`) | No; conserva el contexto de servidor y su alcance por cuenta | **Sí** (plantilla modular) | `test_proyecto_simple.py`: cifras, barras, riesgos, equipo, historial, regreso, errores parciales y comparación de cajas/estilos a 1450 y 390 px |
-| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada, ambos Ejecutivos, Esfuerzo y Recursos IXB modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer,raid,tasks,etapas,recursos,registros,planeacion}/`, `.../recursos/guardar/`, `.../planeacion/azure/`, `.../planeacion/<tipo>/{guardar,eliminar}/`; resto RPC | **Parcial**, presentación de Planeación y otras pestañas/acciones anteriores | Entrada AER e IXB a 1450/390 px; ambos Ejecutivos, Esfuerzo, Recursos y transporte de Planeación IXB con sus ventanas a 1450/900/390 px; otras pestañas pendientes |
+| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada, ambos Ejecutivos, Esfuerzo, Recursos y presentación/cargas/editores de Planeación IXB modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer,raid,tasks,etapas,recursos,registros,planeacion}/`, `.../recursos/guardar/`, `.../planeacion/azure/`, `.../planeacion/<tipo>/{guardar,eliminar}/`; resto RPC | **Parcial**, acciones restantes de Planeación y otras pestañas anteriores | Entrada AER e IXB a 1450/390 px; ambos Ejecutivos, Esfuerzo, Recursos y presentación/editores de Planeación IXB a 1450/900/390 px; otras pestañas pendientes |
 
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
@@ -90,11 +90,53 @@ y la navegación entre pestañas todavía dependen del script anterior.
 Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
 incluidos Gantt editable, calendario, editores y extensión de proyecto.
-Los editores de vacaciones y actividades/hitos ya son modulares; la
-presentación general sigue pendiente. Usar API para las operaciones no
-equivale a migrar toda la pestaña.
+Los editores de vacaciones y actividades/hitos, la presentación general y
+sus consultas ya son modulares. Quedan las escrituras/comentarios de Azure,
+el editor de hitos del histórico y la extensión con integraciones. Usar API
+para las consultas no equivale a migrar toda la pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Fase 10: presentación y cargas de Planeación IXB/SaaS/RaaS (parcial)
+
+Modelo, vista y controlador en `sections/ixs_planning*.js`: seis indicadores,
+alertas de plazos/ausencias, resumen y distribución de Work Items por etapa,
+calendario de seis semanas, registros de vacaciones y tabla Azure con filtros
+locales. DOM seguro y eventos externos; estáticos en la hoja de Planeación,
+barras/colores/coordenadas por CSSOM. Consultas a las APIs existentes, sin
+cambiar servicios ni reglas; conserva estados y callbacks para interoperar
+con las acciones aún anteriores. Los tokens y la identidad del proyecto
+protegen frente a respuestas tardías y recargas de la misma pestaña.
+
+El Gantt reutiliza `timeline()` del Ejecutivo y permite botones de edición
+mediante callback opcional. Sin callback el Ejecutivo no cambia. Conserva
+índices, categorías, posiciones, eventos simultáneos y editor anterior del
+hito histórico. La llegada tardía del histórico actualiza el renderizador
+modular, sin insertar HTML de la versión previa. La tabla mantiene sus IDs,
+campos y acciones de edición/comentario, delegadas a sus controladores
+existentes: sus escrituras y recálculo siguen pendientes de migración.
+
+Las dos pruebas Node nuevas contrastan los modelos contra las funciones
+originales para plazos/estados, indicadores, ranking y personas distintas por
+semana, sin mutar las fuentes. Treinta pruebas existentes de Planeación y
+26 nuevas de navegador aprobaron: dieciocho variantes a 1450/900/390 px (vacía,
+errores de fuente, alertas, eventos simultáneos y textos ausentes), dos comparaciones de carga,
+respuestas tardías entre pestañas/proyectos, acciones/navegación, edición del
+marcador, histórico diferido y texto seguro. Capturas:
+`tmp/migration/project_detail/ixs_planning_view/<caso>/<ancho>/`.
+
+Regresión de proyecto: **264 aprobadas** (APIs, soporte frontend y vistas
+migradas AER/IXS). Después se ajustaron ID/título ausentes de Azure para
+conservar el texto vacío del original y se añadieron tres comparaciones;
+las **36 finales** de vista/transporte aprobaron. No se presenta como una
+nueva regresión completa del portal. JavaScript: **138 aprobadas y tres
+fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+Ruff, formato, comprobación de Django y revisión del diff aprobados.
+
+**Siguiente:** escrituras/comentarios y actualización visual de Work Items;
+después editor de hitos del histórico y extensión con sus integraciones.
+Esas acciones todavía usan RPC y controladores previos; no contar Planeación
+ni la fase 10 como terminadas, ni retirar aún el shim y el JS anterior.
 
 ### Fase 10: editores de Planeación IXB/SaaS/RaaS (parcial)
 

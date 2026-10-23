@@ -2,7 +2,45 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10, editores de Planeación IXB/SaaS/RaaS (parcial)
+## Bloque actual: fase 10, presentación y cargas de Planeación IXS (parcial)
+
+- `sections/ixs_planning{,_model,_view,_azure}.js`: controlador de consultas,
+  indicadores, alertas, calendario de seis semanas, registros de vacaciones,
+  resumen de Work Items y tabla/filtros locales. Construcción DOM segura y
+  eventos externos; estilos estáticos en `project_detail_ixs_planning.css` y
+  valores dinámicos por CSSOM. Cálculos y diseño anteriores conservados.
+- Reutiliza `timeline()` del Ejecutivo con callback opcional de edición:
+  mantiene botones, índices, títulos, eventos simultáneos y categorías.
+  Sin callback, Ejecutivo conserva sus marcadores sin edición. El histórico
+  diferido llama a `paint()` sin volver a insertar el Gantt anterior.
+- El controlador usa API v1 para Planeación y Azure, en el orden anterior,
+  con los estados existentes para interoperar con acciones pendientes. Los
+  tokens y la identidad del proyecto descartan respuestas obsoletas. El
+  cargador compartido de estados de recursos se conserva mediante callback.
+- Dos pruebas Node contrastan plazos/estados, ranking, indicadores y semanas
+  con las funciones originales; comprueban también que no se mutan fuentes.
+  Las 30 pruebas existentes de Planeación aprobaron; las 26 nuevas también:
+  dieciocho variantes visuales a 1450/900/390 px, dos comparaciones de carga,
+  respuestas tardías entre pestañas/proyectos, acciones, editor de hito del
+  Gantt, histórico diferido y texto seguro. Capturas:
+  `tmp/migration/project_detail/ixs_planning_view/<caso>/<ancho>/`.
+- Regresión de proyecto: **264 aprobadas** (APIs, soporte frontend y vistas
+  migradas de AER/IXS). Tras esa corrida se preservó también el texto vacío
+  de Azure cuando faltan ID/título, igual que el renderizador previo: las
+  **36 pruebas finales** de vista/transporte aprobaron, incluidas tres
+  comparaciones de ese caso. No se afirma una nueva regresión de todo el portal.
+- JavaScript: **138 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff, formato, comprobación de Django y
+  revisión del diff aprobados. No hubo cambios de Python de aplicación.
+- **Pendiente:** escrituras/comentarios de Azure y su recálculo visual, editor
+  de hitos del histórico y extensión con integraciones todavía usan RPC y
+  controladores anteriores mediante callbacks. No contar Planeación ni la
+  fase 10 como terminadas; no retirar shim/JS anterior. Después siguen las
+  demás pestañas inventariadas y encabezados/navegación compartidos.
+- No se cambian servicios, permisos, Horas por mes ni pendientes ajenos.
+  No activar accesos ni hacer push.
+
+### Bloque anterior: editores de Planeación IXB/SaaS/RaaS (parcial)
 
 - Modelo, vista y controlador de formularios en
   `sections/ixs_planning_editor*.js`. Conservan campos, opciones, valores,

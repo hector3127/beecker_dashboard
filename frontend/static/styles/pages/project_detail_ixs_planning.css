@@ -6,3 +6,32 @@
   gap: 8px;
   justify-content: flex-end;
 }
+.ixs-shell .ixs-card.ixs-plan-padded,
+.ixs-shell .ixs-card.ixs-plan-attention {
+  padding: 18px;
+}
+.ixs-plan-attention {
+  align-self: start;
+}
+.ixs-plan-main-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.ixs-shell .ixs-time-mark.ixs-plan-edit-marker {
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+.ixs-plan-qa-cell {
+  text-align: center;
+}
+.ixs-plan-qa-input.ixs-plan-qa-input {
+  width: 16px;
+  height: 16px;
+  accent-color: #5c2fda;
+}
+.ixs-shell .ixs-btn.ixs-plan-comment-send {
+  padding: 5px 9px;
+}
