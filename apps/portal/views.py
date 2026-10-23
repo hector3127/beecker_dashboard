@@ -1466,7 +1466,7 @@ def facturabilidad(request: HttpRequest) -> HttpResponse:
     context.update(_period_context(request, period))
     context.update(facturabilidad_data(request, period))
 
-    return render(request, "portal/facturabilidad.html", context)
+    return render_page(request, "portal/facturabilidad.html", context)
 
 
 @require_GET
@@ -1490,7 +1490,9 @@ def facturabilidad_especialidad(request: HttpRequest) -> HttpResponse:
     context.update(_period_context(request, period))
     context.update(especialidad_data(request, period))
 
-    return render(request, "portal/facturabilidad_especialidad.html", context)
+    return render_page(
+        request, "portal/facturabilidad_especialidad.html", context
+    )
 
 
 @require_GET
@@ -1514,7 +1516,7 @@ def facturabilidad_recurso(request: HttpRequest) -> HttpResponse:
     context.update(_period_context(request, period))
     context.update(recurso_data(request, period))
 
-    return render(request, "portal/facturabilidad_recurso.html", context)
+    return render_page(request, "portal/facturabilidad_recurso.html", context)
 
 
 def _peek_investment() -> InvestmentView | None:

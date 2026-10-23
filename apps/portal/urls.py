@@ -68,17 +68,17 @@ urlpatterns = [
     path("operativa/inversion/", pages.investment, name="inversion"),
     path(
         "operativa/facturabilidad/",
-        views.facturabilidad,
+        pages.billability,
         name="facturabilidad",
     ),
     path(
         "operativa/facturabilidad/especialidad/",
-        views.facturabilidad_especialidad,
+        pages.billability_specialty,
         name="facturabilidad_especialidad",
     ),
     path(
         "operativa/facturabilidad/recurso/",
-        views.facturabilidad_recurso,
+        pages.billability_resource,
         name="facturabilidad_recurso",
     ),
     path(

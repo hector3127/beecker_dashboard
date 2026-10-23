@@ -1,0 +1,33 @@
+{% extends "layouts/app.html" %}
+{% load static  %}
+{% block title %}Facturabilidad por recurso{% endblock %}
+{% block body_class %}ds billability-page{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/billability_resource.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/period-picker.css' %}">{% endblock %}
+{% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if error %}Fuente no disponible{% elif loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
+{% block content %}
+{% if error %}<div class="err">No se pudo leer todo: {{ error }}</div>{% endif %}
+<div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Operations</span></div>
+{% include 'partials/hero.html' with title="Facturabilidad por recurso" subtitle="Qué porcentaje de su tiempo facturó cada persona, mes por mes, con su rol y los días laborables de cada mes" tone="operations" icon="users" eyebrow="Operations" %}
+
+<div class="tabs"><a href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a class="on" href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a><a href="{% url 'portal:facturabilidad_area' %}{{ picker.query }}">Facturabilidad por área</a></div>
+
+<form method="get" class="mf bii-e3dd54">{% include 'partials/period_picker.html' %}<span class="bii-d77876">Horas de Clockify con la lógica de GSE · Horas por área (solo lectura).</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="{{ picker.reset_href }}">Solo operativas</a></div></details>{% endif %}</form>
+<section class="card">
+<h2>Facturabilidad mensual por recurso, {{ month|slice:":4" }}</h2>
+<div class="hs">Cada celda es horas facturables de la persona en Clockify (categoría «Facturable» de GSE) entre los días laborables del mes × 8 h.</div>
+<div class="lg"><span><i class="bii-b8b474"></i>80% o más</span><span><i class="bii-6a9287"></i>50% a 79%</span><span><i class="bii-137c63"></i>Menos de 50%</span></div>
+<div class="sc"><table class="h hm"><thead><tr class="dl"><td class="bii-fb278f" colspan="2">Días laborables</td>{% for d in workdays %}<td>{{ d }}</td>{% endfor %}<td></td></tr><tr><th class="bii-200a92">Recurso</th><th>Rol</th>{% for l in labels %}<th>{{ l }}</th>{% endfor %}<th>Promedio</th></tr></thead><tbody>
+{% for r in rows %}<tr><td class="bii-200a92"><b>{{ forloop.counter }}</b> &nbsp;{{ r.name }}</td><td class="rol">{{ r.role }}</td>{% for p in r.percents %}<td>{% if p is not None %}<div class="c {% if p >= 80 %}cg{% elif p >= 50 %}cy{% else %}cr{% endif %}">{{ p|floatformat:"2" }}%</div>{% endif %}</td>{% endfor %}<td>{% if r.average is not None %}<div class="c avg {% if r.average >= 80 %}cg{% elif r.average >= 50 %}cy{% else %}cr{% endif %}">{{ r.average|floatformat:"2" }}%</div>{% endif %}</td></tr>
+{% empty %}<tr><td class="bii-81a741" colspan="20">Sin datos.</td></tr>{% endfor %}{% if rows %}<tr><td class="bii-200a92"><b>Promedio del equipo</b></td><td></td>{% for p in team_by_month %}<td>{% if p is not None %}<div class="c {% if p >= 80 %}cg{% elif p >= 50 %}cy{% else %}cr{% endif %}">{{ p|floatformat:"2" }}%</div>{% endif %}</td>{% endfor %}<td>{% if team_average is not None %}<div class="c avg {% if team_average >= 80 %}cg{% elif team_average >= 50 %}cy{% else %}cr{% endif %}">{{ team_average|floatformat:"2" }}%</div>{% endif %}</td></tr>{% endif %}
+</tbody></table></div>
+</section>
+{% if no_roster %}<p class="note">Bandas/rol no trae banda para: {{ no_roster }}. En esos meses la capacidad usa a las personas con horas en GSE, porque no se conoce la plantilla vigente.</p>{% endif %}
+<p class="note">Misma lógica que GSE · Horas por área: horas = registros de Clockify con categoría «Facturable»; fijo = las del servicio AER; variable = las demás (TYM, IXB, SaaS, RaaS y otras). Capacidad = personas vigentes en Bandas/rol con horas registradas × días hábiles (lunes a viernes sin festivos de México) × 8 h. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona en el mes; libre = lo que sobra. Por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM; cámbialo en «Áreas mostradas». Una persona con horas registradas pero ninguna facturable aparece con 0%; las personas sin horas registradas no cuentan para la capacidad.</p>
+
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/billability_resource/main.js' %}"></script>{% endblock %}

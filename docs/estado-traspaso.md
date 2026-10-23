@@ -3,6 +3,14 @@
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Última pantalla terminada
+- **Facturabilidad general, especialidad y recurso**: plantillas
+  `pages/billability*.html`, CSS y JS separados, con el mismo contexto
+  Python y los mismos permisos. Selector de periodo compartido, sin
+  scripts ni estilos en línea en las plantillas. Doce pruebas e2e de
+  cifras, filtros, navegación, errores y comparación visual a 1450 y
+  390 px (selectores abiertos y cerrados); doce pruebas de servidor.
+  Las anteriores siguen disponibles con `?vista=anterior`.
+  **Siguiente: Facturabilidad por área**, todavía no migrada.
 - **Capacidad: detalle diario** (`/capacidad-instalada/`):
   `pages/capacity_daily.html`, CSS separado y módulos `model.js`, `view.js`,
   `main.js`. API `screens/capacidad/diaria/` y `.../proyecto/`, sin shim RPC
@@ -12,7 +20,7 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 - **Capacidad: asignaciones mensuales** (`/operativa/capacidad-instalada/`):
   `pages/capacity.html`, CSS y JS separados; filtros GET y CSV sin cambiar.
   Tres pruebas e2e aprobadas (filtros/exportación y comparación visual a 1450
-  y 390 px). El detalle diario `/capacidad-instalada/` todavía no se migró.
+  y 390 px). El detalle diario también se completó después.
 - **Inversión** completada en `0028959` con cinco pruebas e2e.
 - **Costos** (`/ejecutiva/costos/detalle/?vista=proyectos`), commit `5c945dc`.
 - Antes, con commit cada una: Comercial `a8239ca`, Todas las cuentas `b314f35`, Business Overview `dca99b5`, KPIs de DMs `b02e623`, diccionario `cf702aa`, cuenta `5277a21`, Delivery Manager `56d169e`, márgenes `8f53c08`, EVA-04 `8d50bb0`, Operativa `ca4434d`.
@@ -48,10 +56,12 @@ Pendientes recibidos de Inversión (ya resueltos; referencia histórica):
 - Inversión: solo comparación de estilos contra la anterior (formulario y celdas iguales; queda la diferencia de alto). Todavía no se ha corrido pytest con ella.
 
 ## Siguiente paso concreto
-Migrar Facturabilidad (general, especialidad, recurso y área). Las APIs de las
-tres primeras ya existen en `apps/portal/api/operations.py`; el área todavía
-utiliza RPC. Mantener el selector de periodo, filtros de áreas/roles, gráficas,
-históricos, unidades y cálculos. Después: EVA 1–3 con cerrados, Proyecto,
+Migrar Facturabilidad por área. General, especialidad y recurso ya usan
+`frontend/`; sus APIs siguen disponibles en `apps/portal/api/operations.py`.
+El área todavía utiliza RPC y tiene General, Detalle recurso, KPIs y
+% Recurso, selección de fuente, lectura por lotes, caché, festivos editables,
+obtención de IDs y exportaciones. Requiere un bloque propio, conservando
+todas esas interacciones y los cálculos actuales. Después: EVA 1–3 con cerrados, Proyecto,
 detalle del proyecto por pestañas y limpieza.
 
 ## Publicación
@@ -61,6 +71,14 @@ detalle del proyecto por pestañas y limpieza.
   publicación mediante push normal, manteniendo los pendientes ajenos fuera.
 
 ## Verificación al retomar con Codex
+- Facturabilidad: comparación visual y funcional de las tres vistas
+  completada (`tests/e2e/test_facturabilidad.py`: 12 aprobadas).
+  Validación de servidor: `tests/portal/test_billability_pages.py` y
+  `test_views.py`: 68 aprobadas. Ruff, formato, mypy y revisión de Django
+  aprobados. JavaScript conserva 118 aprobadas y los tres fallos anteriores.
+- Regresión completa después de esas tres vistas: **1098 aprobadas,
+  1 omitida**, con Chrome y los cuatro temporales excluidos. Se conservaron
+  los pendientes de Claude sin modificarlos ni incluirlos en los commits.
 - Última suite, tras detalle diario: **1074 aprobadas, 1 omitida**, con Chrome
   instalado y los mismos cuatro temporales excluidos. `ruff check`, formato,
   `mypy` de páginas/API y `manage.py check` aprobados.

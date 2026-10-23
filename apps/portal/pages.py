@@ -382,3 +382,27 @@ def capacity_daily(request: HttpRequest) -> HttpResponse:
     if anterior_disponible() and request.GET.get("vista") == "anterior":
         return views.capacidad_detalle(request)
     return render(request, "pages/capacity_daily.html", {"active": "operativa"})
+
+
+@require_GET
+def billability(request: HttpRequest) -> HttpResponse:
+    """Facturabilidad modular con los datos y permisos originales."""
+    return _modern(request, views.facturabilidad, "pages/billability.html")
+
+
+@require_GET
+def billability_specialty(request: HttpRequest) -> HttpResponse:
+    """Facturabilidad modular con los datos y permisos originales."""
+    return _modern(
+        request,
+        views.facturabilidad_especialidad,
+        "pages/billability_specialty.html",
+    )
+
+
+@require_GET
+def billability_resource(request: HttpRequest) -> HttpResponse:
+    """Facturabilidad modular con los datos y permisos originales."""
+    return _modern(
+        request, views.facturabilidad_recurso, "pages/billability_resource.html"
+    )
