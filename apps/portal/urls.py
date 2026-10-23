@@ -54,7 +54,7 @@ urlpatterns = [
     ),
     path(
         "capacidad-instalada/",
-        views.capacidad_detalle,
+        pages.capacity_daily,
         name="capacidad_detalle",
     ),
     path("operativa/", pages.operativa, name="operativa"),

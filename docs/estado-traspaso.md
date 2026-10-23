@@ -3,6 +3,12 @@
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Última pantalla terminada
+- **Capacidad: detalle diario** (`/capacidad-instalada/`):
+  `pages/capacity_daily.html`, CSS separado y módulos `model.js`, `view.js`,
+  `main.js`. API `screens/capacidad/diaria/` y `.../proyecto/`, sin shim RPC
+  en el frontend activo. Se conservaron filtros, matriz, recursos, paginación,
+  CSV, concurrencia de dos proyectos y reglas de horas. Comparación visual
+  a 1450 y 390 px de matriz y recursos; nueve pruebas e2e y trece de API.
 - **Capacidad: asignaciones mensuales** (`/operativa/capacidad-instalada/`):
   `pages/capacity.html`, CSS y JS separados; filtros GET y CSV sin cambiar.
   Tres pruebas e2e aprobadas (filtros/exportación y comparación visual a 1450
@@ -42,14 +48,30 @@ Pendientes recibidos de Inversión (ya resueltos; referencia histórica):
 - Inversión: solo comparación de estilos contra la anterior (formulario y celdas iguales; queda la diferencia de alto). Todavía no se ha corrido pytest con ella.
 
 ## Siguiente paso concreto
-Migrar el detalle diario de Capacidad (`/capacidad-instalada/`): su JS anterior
-genera la interfaz y consulta `capacidadInstaladaBase` y
-`capacidadInstaladaDatosProyecto` por RPC. Conservar exactamente las reglas
-actuales de horas, filtros, recursos, matriz diaria y CSV al separar módulos
-y API. Después: Facturabilidad (general, especialidad, recurso y área), EVA
-1–3 con cerrados, Proyecto, detalle del proyecto por pestañas y limpieza.
+Migrar Facturabilidad (general, especialidad, recurso y área). Las APIs de las
+tres primeras ya existen en `apps/portal/api/operations.py`; el área todavía
+utiliza RPC. Mantener el selector de periodo, filtros de áreas/roles, gráficas,
+históricos, unidades y cálculos. Después: EVA 1–3 con cerrados, Proyecto,
+detalle del proyecto por pestañas y limpieza.
+
+## Publicación
+- Se verificó `origin/main` y se publicó mediante push normal el rango
+  `45c93bf..9e93e52` (17 commits), con autorización explícita del usuario.
+- El detalle diario se completó y validó después, en un commit separado;
+  publicación mediante push normal, manteniendo los pendientes ajenos fuera.
 
 ## Verificación al retomar con Codex
+- Última suite, tras detalle diario: **1074 aprobadas, 1 omitida**, con Chrome
+  instalado y los mismos cuatro temporales excluidos. `ruff check`, formato,
+  `mypy` de páginas/API y `manage.py check` aprobados.
+- JavaScript actual: **118 aprobadas, 3 fallidas**. Las tres fallidas siguen
+  siendo las del código anterior, sin cambios en sus archivos. Las tres
+  pruebas nuevas del modelo diario pasan y contrastan sus resultados con el
+  modelo anterior.
+- En la primera regresión del detalle diario hubo una falla intermitente en
+  `test_person_with_edit_changes_a_status_and_it_is_saved` (Acuerdos, HTTP
+  403). Sus tres pruebas aisladas pasaron y la repetición completa pasó.
+  No se modificaron la prueba, sus permisos ni el código de Acuerdos.
 - Suite tras Inversión: **1049 aprobadas, 1 omitida** (Chrome instalado,
   `--browser-channel chrome --no-cov`; se excluyen los cuatro `test_zz_*`
   temporales recibidos).

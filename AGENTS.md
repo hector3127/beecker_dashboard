@@ -36,15 +36,16 @@ Migradas (ruta → plantilla de `frontend/templates/pages/`, con la anterior en 
 | Costos | `/ejecutiva/costos/detalle/?vista=proyectos` | `costs.html` (anterior: `?anterior=1`) |
 | Inversión | `/operativa/inversion/` | `investment.html` |
 | Capacidad: asignaciones mensuales | `/operativa/capacidad-instalada/` | `capacity.html` |
+| Capacidad: detalle diario | `/capacidad-instalada/` | `capacity_daily.html` |
 
 **Pendiente, en este orden:**
 
-Consulta `docs/estado-traspaso.md` para el punto exacto: Inversión y las
-asignaciones mensuales de Capacidad ya se completaron. Sigue el **detalle
-diario** de Capacidad (`/capacidad-instalada/`), que es otra pantalla y todavía
-usa RPC. Después continúa Facturabilidad y EVA.
+Consulta `docs/estado-traspaso.md` para el punto exacto: Inversión y ambas
+pantallas de Capacidad ya se completaron. El detalle diario usa API v1 y
+modulos de modelo, vista y controlador, sin `gas_shim.js` en la ruta nueva.
+Sigue Facturabilidad y después EVA.
 
-1. Facturabilidad (general, por especialidad, por recurso, por área), Capacidad (instalada y detalle), Inversión, EVA 1, 2 y 3 con sus cerrados.
+1. Facturabilidad (general, por especialidad, por recurso, por área), EVA 1, 2 y 3 con sus cerrados; la página simple de Proyecto.
 2. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): dividir en módulos por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`.
 3. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).
 4. Genesis / `ACCESS_ENFORCED`: decisión de despliegue, no de código.

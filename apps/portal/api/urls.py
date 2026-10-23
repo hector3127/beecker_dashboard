@@ -9,6 +9,10 @@ from apps.portal.api.account import (
 )
 from apps.portal.api.account_hours import AccountHoursView
 from apps.portal.api.agreements import AgreementDetailView, AgreementListView
+from apps.portal.api.capacity_daily import (
+    CapacityDailyProjectView,
+    CapacityDailyView,
+)
 from apps.portal.api.operations import (
     CapacityScreenView,
     Eva3ScreenView,
@@ -41,6 +45,16 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/capacidad/diaria/",
+        CapacityDailyView.as_view(),
+        name="capacidad_diaria",
+    ),
+    path(
+        "screens/capacidad/diaria/proyecto/",
+        CapacityDailyProjectView.as_view(),
+        name="capacidad_diaria_proyecto",
+    ),
     path(
         "screens/cuenta/horas/", AccountHoursView.as_view(), name="cuenta_horas"
     ),
