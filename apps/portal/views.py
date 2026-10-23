@@ -669,21 +669,17 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
     return {**context, "refresh_block": block}
 
 
-@require_GET
-@require_capability("view_commercial", whole_portfolio=True)
-def comercial(request: HttpRequest) -> HttpResponse:
+def comercial_response(request: HttpRequest, template: str) -> HttpResponse:
     """
-    Muestra los registros comerciales de Backlog_Proyectos en USD.
+    Arma Comercial (Backlog_Proyectos en USD) con la plantilla indicada.
 
     Args:
         request: Peticion HTTP.
+        template: Plantilla que pinta el contexto.
 
     Returns:
         La pagina Comercial del diseno aprobado.
     """
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-
     from apps.portal.services.commercial_view import (
         build_commercial_context,
         present_commercial_context,
@@ -691,12 +687,13 @@ def comercial(request: HttpRequest) -> HttpResponse:
 
     key = "portal:commercial:context:v1:" + timezone.localdate().isoformat()
     filters = request.GET.copy()
+    filters.pop("vista", None)  # elige la pantalla, no es un filtro
     refreshing = filters.pop("actualizar", None) == ["1"]
     cached = cache.get(key) if not filters else None
     if cached is not None and (not refreshing or cache.get(key + ":fresh")):
         return render(
             request,
-            "portal/comercial.html",
+            template,
             {
                 **present_commercial_context(cached),
                 "page_stale": not cache.get(key + ":fresh"),
@@ -708,9 +705,16 @@ def comercial(request: HttpRequest) -> HttpResponse:
         cache.set(key + ":fresh", True, 300)
     elif cached is not None:
         context = {**cached, "refresh_failed": True}
-    return render(
-        request, "portal/comercial.html", present_commercial_context(context)
-    )
+    return render(request, template, present_commercial_context(context))
+
+
+@require_GET
+@require_capability("view_commercial", whole_portfolio=True)
+def comercial(request: HttpRequest) -> HttpResponse:
+    """Comercial con la plantilla anterior (la vigente es pages.commercial)."""
+    if _needs_login(request):
+        return redirect_to_login(request.get_full_path())
+    return comercial_response(request, "portal/comercial.html")
 
 
 _DM_SECONDS = 300

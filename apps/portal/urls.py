@@ -58,7 +58,7 @@ urlpatterns = [
         name="capacidad_detalle",
     ),
     path("operativa/", pages.operativa, name="operativa"),
-    path("comercial/", views.comercial, name="comercial"),
+    path("comercial/", pages.commercial, name="comercial"),
     path("operativa/eva-1/", views.eva1, name="eva1"),
     path(
         "operativa/eva-1/cerrados/",

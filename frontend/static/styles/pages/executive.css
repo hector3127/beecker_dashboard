@@ -613,11 +613,8 @@ a[data-pronto]{cursor:help}
 
 
 body.executive-page .page { max-width: none; padding: 0; }
-.fresh .capture-button { padding: 9px 13px; border: 1px solid #daccff; border-radius: 9px; background: #fff; color: #5925d6; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-.fresh .capture-status { max-width: 260px; font-size: 12px; white-space: normal; }
 .executive-page .nav a { min-height: 40px; }
 @media (max-width: 700px) { .executive-page .logo img { height: 27px; } }
-.fresh .capture-button { min-height: 0; }
 /* Lo que los estilos compartidos agregan y la pantalla anterior no tenia. */
 .executive-page .note { margin: 12px 0 12.5px; }
 .executive-page td { font-variant-numeric: normal; }
