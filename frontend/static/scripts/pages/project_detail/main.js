@@ -2,6 +2,7 @@
 // Transitional entry: keep the existing renderers until each tab is migrated.
 import { createProjectData } from "./data.js";
 import { renderAerExecutive } from "./sections/aer_executive.js";
+import { createEffortController } from "./sections/ixs_effort.js";
 import {
   mountIxsExecutive,
   updateTimeline,
@@ -40,6 +41,7 @@ async function start() {
     const data = createProjectData();
     Object.assign(window, {
       beeProjectData: data,
+      beeIxsEffort: createEffortController(data),
       beeProjectExecutive: renderAerExecutive,
       beeIxsExecutive: {
         mount: (target, project, lifecycle) =>

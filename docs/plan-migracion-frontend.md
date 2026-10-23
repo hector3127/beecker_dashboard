@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards y lecturas diferidas del ejecutivo IXB; resto RPC con permisos | **Parcial**: entrada y Ejecutivos AER/T&M e IXB/SaaS/RaaS modulares; otras pestañas anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas del ejecutivo IXB y registros de Esfuerzo; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos y Esfuerzo IXB/SaaS/RaaS modulares; otras pestañas anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -66,7 +66,7 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | EVA 2 | `operativa/eva-2/` | `pages/eva2.html` | `screens/eva-2/`; conserva contexto de servidor | **Sí** | `test_eva123.py`: mismas tablas, colores, cifras y estados vacíos a 1450 y 390 px. No tenía desplegable de cerrados y no se añadió |
 | EVA 3 e histórico AER/T&M | `operativa/eva-3/`, `operativa/eva3/cerrados/` | `pages/eva3.html`, `partials/eva3_closed.html` | `screens/eva-3/{consumos,cerrados,cerrados/consumo}/` | **Sí** | `test_eva123.py`: consumo diferido, errores parciales, reintento del guardado y comparación de tablas/cajas/estilos a 1450 y 390 px |
 | Proyecto simple | `proyecto/<id>/` | `pages/project.html` (anterior con `?vista=anterior`) | No; conserva el contexto de servidor y su alcance por cuenta | **Sí** (plantilla modular) | `test_proyecto_simple.py`: cifras, barras, riesgos, equipo, historial, regreso, errores parciales y comparación de cajas/estilos a 1450 y 390 px |
-| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada y ambos Ejecutivos modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer,raid,tasks,etapas,recursos}/`; resto RPC | **Parcial**, otras pestañas y acciones anteriores | Entrada AER e IXB a 1450/390 px; ambos Ejecutivos, elemento por elemento, a 1450/900/390 px; las otras pestañas siguen pendientes |
+| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada, ambos Ejecutivos y Esfuerzo IXB modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer,raid,tasks,etapas,recursos,registros}/`; resto RPC | **Parcial**, otras pestañas y acciones anteriores | Entrada AER e IXB a 1450/390 px; ambos Ejecutivos y Esfuerzo IXB con sus tres ventanas, elemento por elemento, a 1450/900/390 px; las otras pestañas siguen pendientes |
 
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
@@ -171,9 +171,61 @@ aprobadas, una omitida**. JavaScript: **128 aprobadas, tres fallos anteriores**
 mypy de la API y comprobación de Django aprobados. Sin cambios en servicios,
 permisos, Horas por mes ni pendientes ajenos.
 
-**Siguiente bloque: Esfuerzo IXB/SaaS/RaaS**. Después siguen las otras
-pestañas y sus lecturas/escrituras, sin quitar RPC mientras alguna lo
-necesite. El detalle completo sigue parcial.
+Esfuerzo IXB/SaaS/RaaS se completó en el bloque siguiente, descrito abajo.
+El detalle completo sigue parcial.
+
+### Fase 10: Esfuerzo IXB/SaaS/RaaS
+
+Modelo, vista, controles y ventanas en `sections/ixs_effort*.js`:
+indicadores y tabla por recurso; mix, actividades y tendencia; registros con
+semana local por defecto y filtro de fechas; detalle por actividad/recurso;
+lista completa de registros y excedidas por persona. Esta última conserva
+las fechas, desplegables, orden por columna, ocho filas por página y CSV.
+El contenido se construye con nodos seguros y eventos externos; las tres
+declaraciones estáticas adicionales viven en `project_detail_ixs_effort.css`.
+Se reutilizan iconos, barras, formatos y expansión de horas del Ejecutivo.
+
+`screens/proyectos/<id>/registros/` invoca `project_entries` con el mismo
+repositorio, ID, manejo de errores y alcance total del RPC. Tasks y estados
+de recursos reutilizan las lecturas anteriores. La caché conserva los
+registros y las fechas al volver a la pestaña, y se reinicia al cambiar de
+proyecto aunque no se visite Esfuerzo en el intermedio. Las cargas tardías
+no sustituyen otra pestaña ni otro proyecto. Se conserva también la caché
+del error de registros del comportamiento anterior.
+
+Sin cambios en los cálculos: se conservaron los totales y sus fallbacks,
+la agrupación por actividad/persona y últimos cinco meses; las excedidas
+siguen calculándose cronológicamente sobre todo el historial facturable,
+con deduplicación por ID y solo la fracción que cruza el presupuesto. El
+filtro de fechas se aplica después de ese cálculo. El CSV conserva BOM,
+columnas, fechas, cuatro decimales para excedidas, nombre y protección de
+fórmulas. El CSV original y nuevo se comparan byte por byte en navegador.
+
+Veinticinco pruebas nuevas de navegador: nueve comparaciones del contenido
+(completo, vacío y alertas) y nueve de las tres ventanas a 1450/900/390 px;
+fechas, caché, navegación, orden, paginación, CSV, errores de fuente/transporte,
+texto seguro, Escape y respuestas tardías. Capturas y diferencias en
+`tmp/migration/project_detail/ixs_effort/<caso>/<ancho>/`. Cuatro pruebas Node
+contrastan doce escenarios de totales, agrupaciones/excedidas con el código
+original, semanas locales y caché entre proyectos. Contratos y permisos de
+API ampliados para la nueva lectura.
+
+Validación específica: **55 pruebas API y 25 nuevas de navegador**; junto
+con las catorce del Ejecutivo IXB aprobaron **94**. JavaScript completo:
+**132 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff, formato, mypy de la API y comprobación
+de Django aprobados.
+
+Regresión final: **1334 aprobadas, una omitida**. En la primera corrida
+aprobaron 1333 y falló la prueba de respuestas tardías del Ejecutivo: su
+interceptor retenía además la nueva consulta de tasks de Esfuerzo. Se ajustó
+para retener solo las lecturas del primer Ejecutivo y se repitieron las 94
+pruebas del bloque y la regresión completa, ambas aprobadas. No se cambió
+la comprobación de que una respuesta obsoleta no sustituya el contenido.
+
+**Siguiente bloque: Recursos IXB/SaaS/RaaS**, incluidas sus acciones y permisos.
+Después siguen las demás pestañas. La pantalla completa y la fase 10 siguen
+parciales; el shim y el JS anterior continúan siendo necesarios.
 
 Proyecto simple (`proyecto/<id>/`) usa `pages.project` y `render_page`,
 con las mismas funciones de portafolio y detalle, permisos por proyecto y

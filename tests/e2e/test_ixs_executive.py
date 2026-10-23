@@ -293,7 +293,11 @@ def test_late_responses_do_not_replace_a_new_executive(portal, ixs):
     held = []
 
     def hold(route):
-        held.append(route)
+        # Hold only the first executive's reads. Effort also reads tasks now.
+        if any(r.request.url == route.request.url for r in held):
+            route.fallback()
+        else:
+            held.append(route)
 
     for suffix in ("raid", "tasks"):
         portal.route(f"**/screens/proyectos/AMK.008/{suffix}/", hold)

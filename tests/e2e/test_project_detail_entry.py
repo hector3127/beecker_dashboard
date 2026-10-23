@@ -47,6 +47,7 @@ def project_detail(portal, monkeypatch, datos):
         "tasks_dashboard",
         "stages_dashboard",
         "resources_dashboard",
+        "records_dashboard",
     ):
         monkeypatch.setattr(api, source, lambda project: {"ok": True})
     monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)

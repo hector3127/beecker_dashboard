@@ -29,7 +29,7 @@ const money = (value) => "$" + num(value, 2);
 function track(width, cls = "ixs-track", styles = {}) {
   return div(cls, styled(h("i", ""), { width: `${width}%`, ...styles }));
 }
-function metric(label, value, text, color = "#6938da") {
+export function metric(label, value, text, color = "#6938da") {
   return div(
     "ixs-metric",
     span(label),
@@ -37,7 +37,7 @@ function metric(label, value, text, color = "#6938da") {
     b(text == null ? pct(value) : text),
   );
 }
-function kpi(name, title, value, desc, percent, accent = "") {
+export function kpi(name, title, value, desc, percent, accent = "") {
   return div(
     "ixs-card ixs-kpi",
     div(
@@ -50,7 +50,7 @@ function kpi(name, title, value, desc, percent, accent = "") {
     percent == null ? null : track(limit(percent), "track"),
   );
 }
-function heading(name, text, right) {
+export function heading(name, text, right) {
   return div("ixs-section-head", h("h3", "", icon(name), " ", text), right);
 }
 
@@ -235,7 +235,7 @@ function area(data) {
   ];
 }
 
-function balanceBadge(value) {
+export function balanceBadge(value) {
   if (value == null || value === "" || !Number.isFinite(Number(value)))
     return "—";
   const balance = Number(value),

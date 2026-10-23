@@ -5432,7 +5432,10 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
           (project.filasRecursosCompleto||[]).forEach(x=>{if(states.has(_ixsRecursoClave(x.nombre)))x.activo=states.get(_ixsRecursoClave(x.nombre));});
           if(ixsProyectoActual===project&&ixsTabActual==='esfuerzo'){
             const table=document.querySelector('.ixs-effort-compact');
-            if(table)table.innerHTML=_ixsEffortResourceDetail(project.filasRecursosCompleto);
+            if(table){
+              if(window.beeIxsEffort)window.beeIxsEffort.updateResources(table,project);
+              else table.innerHTML=_ixsEffortResourceDetail(project.filasRecursosCompleto);
+            }
           }else if(ixsProyectoActual===project&&ixsTabActual==='planeacion'){_ixsPintarPlaneacion();}
           else if(ixsProyectoActual===project&&ixsTabActual==='resumen'){
             const table=document.querySelector('[data-resource-workload]');
@@ -6250,6 +6253,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     if(!data||!data.proyecto){cont.innerHTML='<div class="card">'+_ixsTxt(data&&data.errorServidor||'No se pudo cargar el ejecutivo.')+'</div>';return;}
     if(ixsClockifyState.proyectoId!==data.proyecto.id){const w=_ixsSemanaActual();ixsClockifyState={proyectoId:data.proyecto.id,registros:null,cargando:false,error:'',desde:w.desde,hasta:w.hasta,requestId:0};}
     ixsProyectoActual=data;ixsTabActual='resumen';idProyectoActualGlobal=data.proyecto.id;
+    if(window.beeIxsEffort)window.beeIxsEffort.selectProject(data);
     _ixsEnsureStyles();_ixsRenderShell();
     if((data.hitos||[]).length && (data.historialCompleto||[]).length)return;
     // Completar el Gantt con las etapas A:I del ID seleccionado.
@@ -6760,6 +6764,12 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     }
     if(ixsTabActual==='esfuerzo'){
       _ixsCargarEstadosRecursos();
+      if(window.beeIxsEffort){
+        window.beeIxsEffort.mount(el,ixsProyectoActual,{
+          current:project=>ixsProyectoActual===project,
+          active:()=>ixsTabActual==='esfuerzo'
+        });return;
+      }
       el.innerHTML=_ixsRenderEsfuerzo();
       _ixsLoadTasks(ixsProyectoActual.proyecto.id,'ixs-tasks-effort');
       ixsCargarRegistrosClockify();

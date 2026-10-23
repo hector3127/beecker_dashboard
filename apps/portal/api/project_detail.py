@@ -112,6 +112,23 @@ class ProjectTasksView(ProjectRead):
         return tasks_dashboard(project_id)
 
 
+def records_dashboard(project_id: str) -> dict[str, Any]:
+    """Mismos registros detallados, rango y etiquetas del RPC de Clockify."""
+    return run_safely(
+        lambda: project_rpc.project_entries(
+            build_sheet_repository(), project_id
+        )
+    )
+
+
+class ProjectRecordsView(ProjectRead):
+    """Registros del proyecto con el alcance total del transporte anterior."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Invoca el servicio existente sin filtrar ni recalcular horas."""
+        return records_dashboard(project_id)
+
+
 class ProjectStagesView(ProjectRead):
     """Histórico diferido para completar la línea de tiempo."""
 

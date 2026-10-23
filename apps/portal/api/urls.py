@@ -40,6 +40,7 @@ from apps.portal.api.project_detail import (
     ProjectExecutiveView,
     ProjectFiltersView,
     ProjectRaidView,
+    ProjectRecordsView,
     ProjectResourcesView,
     ProjectStagesView,
     ProjectTasksView,
@@ -67,6 +68,10 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/<str:project_id>/registros/",
+        ProjectRecordsView.as_view(),
+    ),
     path("screens/proyectos/<str:project_id>/raid/", ProjectRaidView.as_view()),
     path(
         "screens/proyectos/<str:project_id>/tasks/", ProjectTasksView.as_view()

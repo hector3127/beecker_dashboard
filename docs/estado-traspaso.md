@@ -2,7 +2,43 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10, Ejecutivo IXB/SaaS/RaaS (pantalla aún parcial)
+## Bloque actual: fase 10, Esfuerzo IXB/SaaS/RaaS (pantalla aún parcial)
+
+- `sections/ixs_effort*.js`: modelo, vista, controlador, registros/actividades
+  y ventana de excedidas. DOM seguro y eventos externos, reutilizando iconos,
+  barras, formatos, badges y expansión de horas del Ejecutivo.
+- Incluye los cinco indicadores, tabla de recursos, actividades por persona,
+  tendencia de últimos cinco meses, rango de registros, detalle de actividad,
+  lista completa y excedidas por persona con fechas, orden, páginas y CSV.
+  Los valores dinámicos usan CSSOM; tres reglas estáticas nuevas en
+  `project_detail_ixs_effort.css`.
+- API nueva `screens/proyectos/<id>/registros/`: mismo `project_entries`,
+  repositorio, ID y alcance total que RPC. Tasks/recursos reutilizan API.
+  Caché y semana local conservadas, incluido el error de registros anterior;
+  se reinicia al cambiar de proyecto, aunque solo se abra su Ejecutivo.
+  Las respuestas tardías no sustituyen otra pestaña o proyecto.
+- Veinticinco pruebas de navegador: contenido y las tres ventanas contra la
+  anterior a 1450/900/390 px, fechas, orden, páginas, caché, navegación, CSV,
+  errores de fuente/transporte, texto seguro, Escape y respuestas tardías.
+  Comparación de CSV byte por byte, incluido el nombre y la protección de
+  fórmulas. Capturas: `tmp/migration/project_detail/ixs_effort/<caso>/<ancho>/`.
+  Cuatro pruebas Node contrastan modelos originales, semanas y caché.
+- Validación específica: **55 pruebas API y 25 nuevas de navegador**;
+  junto con las catorce del Ejecutivo IXB aprobaron **94**. JavaScript:
+  **132 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff, formato, mypy de la API y
+  comprobación de Django aprobados.
+- Regresión final: **1334 aprobadas, una omitida** con Chrome y los cuatro
+  temporales excluidos. La primera corrida tuvo 1333 aprobadas y una falla:
+  la prueba de respuestas tardías del Ejecutivo retenía también la nueva
+  consulta de tasks de Esfuerzo. Se ajustó para retener solo las lecturas
+  del primer Ejecutivo, conservando su comprobación de respuestas obsoletas;
+  el bloque de 94 pruebas y la regresión completa pasaron después.
+- **Siguiente: Recursos IXB/SaaS/RaaS**, conservando acciones y permisos.
+  El detalle grande y la fase 10 siguen parciales; no eliminar el JS anterior
+  ni el shim RPC. Horas por mes y cálculos de servicios no se modificaron.
+
+### Bloque anterior: Ejecutivo IXB/SaaS/RaaS
 
 - Modelo, vista y controlador separados en `sections/ixs_executive*.js`;
   iconos SVG originales en `ixs_icons.js`. El contenido ejecutivo se construye
@@ -31,9 +67,9 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 - Regresión general: **1302 aprobadas, una omitida** con Chrome, sin los
   cuatro temporales `test_zz_*`. Ruff, formato, mypy de la API y comprobación
   de Django aprobados. Los pendientes ajenos se conservaron sin cambios.
-- **Siguiente: Esfuerzo IXB/SaaS/RaaS**, reutilizando componentes, sin cambiar
-  su diseño ni cálculos. Después las demás pestañas. La pantalla grande y la
-  fase 10 siguen parciales; no eliminar el JS anterior ni el shim RPC.
+- Esfuerzo IXB/SaaS/RaaS se completó en el bloque posterior descrito arriba.
+  La pantalla grande y la fase 10 siguen parciales; no eliminar el JS anterior
+  ni el shim RPC.
 
 ### Bloque anterior: Ejecutivo AER/T&M
 
@@ -88,10 +124,11 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   **1248 aprobadas, una omitida**. JS completo: **124 aprobadas, tres fallos
   anteriores** (`cost_sprint_details`, `executive_report`, `financial`). Ruff,
   formato, mypy y `manage.py check` aprobados. No se activaron los permisos.
-- **No está completada la pantalla ni la fase 10:** salvo ambos Ejecutivos,
+- **No está completada la pantalla ni la fase 10:** salvo ambos Ejecutivos
+  y Esfuerzo IXB/SaaS/RaaS,
   las pestañas siguen construyéndose con el JS anterior, incluyendo eventos
   en línea y acciones RPC. No eliminar todavía el shim ni sus archivos.
-- **Continuación:** Esfuerzo IXB/SaaS/RaaS y luego las demás pestañas.
+- **Continuación:** Recursos IXB/SaaS/RaaS y luego las demás pestañas.
   Conservar las reglas de presentación, fuentes, cifras y comparación visual.
   Siguen pendientes Planeación, Riesgos/RAID, Acciones, Recursos, Cliente e IA;
   IXB además contiene Comunicación y Azure DevOps. No duplicar el archivo
