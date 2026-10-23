@@ -358,10 +358,16 @@ def costs(request: HttpRequest) -> HttpResponse:
         return redirect_to_login(request.get_full_path())
     if not (anterior_disponible() and request.GET.get("anterior") == "1"):
         request.portal_template = "pages/costs.html"  # type: ignore[attr-defined]
-    return views.costos_detalle(request)  # type: ignore[no-any-return]
+    return views.costos_detalle(request)
 
 
 @require_GET
 def investment(request: HttpRequest) -> HttpResponse:
     """Inversion operativa y comercial del mes."""
     return _modern(request, views.inversion, "pages/investment.html")
+
+
+@require_GET
+def capacity(request: HttpRequest) -> HttpResponse:
+    """Asignaciones mensuales con los mismos filtros, calculos y CSV."""
+    return _modern(request, views.capacidad_instalada, "pages/capacity.html")

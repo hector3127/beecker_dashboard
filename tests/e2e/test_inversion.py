@@ -40,8 +40,8 @@ def test_month_totals_bars_and_return(portal, investment):
     )
     back = portal.get_by_role("link", name="← Regresar a Operativa")
     expect(back).to_have_attribute("href", "/operativa/")
+    # Playwright emite change al rellenar un input month; no duplicar el envio.
     portal.locator("#mes").fill("2026-09")
-    portal.locator("#mes").dispatch_event("change")
     portal.wait_for_url("**/operativa/inversion/?mes=2026-09")
     expect(portal.locator("#mes")).to_have_value("2026-09")
 

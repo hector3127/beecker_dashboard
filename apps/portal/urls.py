@@ -96,7 +96,7 @@ urlpatterns = [
     path("operativa/eva-3/", views.eva3, name="eva3"),
     path(
         "operativa/capacidad-instalada/",
-        views.capacidad_instalada,
+        pages.capacity,
         name="capacidad",
     ),
     path(

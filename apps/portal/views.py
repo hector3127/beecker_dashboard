@@ -1219,7 +1219,7 @@ def capacidad_instalada(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    return render(
+    return render_page(
         request,
         "portal/capacidad_instalada.html",
         {

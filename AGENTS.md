@@ -34,8 +34,15 @@ Migradas (ruta → plantilla de `frontend/templates/pages/`, con la anterior en 
 | Comercial | `/comercial/` | `commercial.html` |
 | Todas las cuentas | `/ejecutiva/cuentas/` | `all_accounts.html` |
 | Costos | `/ejecutiva/costos/detalle/?vista=proyectos` | `costs.html` (anterior: `?anterior=1`) |
+| Inversión | `/operativa/inversion/` | `investment.html` |
+| Capacidad: asignaciones mensuales | `/operativa/capacidad-instalada/` | `capacity.html` |
 
 **Pendiente, en este orden:**
+
+Consulta `docs/estado-traspaso.md` para el punto exacto: Inversión y las
+asignaciones mensuales de Capacidad ya se completaron. Sigue el **detalle
+diario** de Capacidad (`/capacidad-instalada/`), que es otra pantalla y todavía
+usa RPC. Después continúa Facturabilidad y EVA.
 
 1. Facturabilidad (general, por especialidad, por recurso, por área), Capacidad (instalada y detalle), Inversión, EVA 1, 2 y 3 con sus cerrados.
 2. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): dividir en módulos por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`.

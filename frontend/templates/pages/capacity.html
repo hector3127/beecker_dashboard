@@ -1,0 +1,42 @@
+{% extends "layouts/app.html" %}
+{% load static  %}
+{% block title %}Capacidad instalada{% endblock %}
+{% block body_class %}capacity-page legacy-content-box{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/capacity.css' %}">{% endblock %}
+{% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
+{% block content %}
+{% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}
+<div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Capacidad instalada</span></div>
+<div class="hd"><div class="hi"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><h1 class="cai-ba581c">Capacidad instalada</h1><div class="sub cai-9bed7a">Horas reales del equipo · Recursos + MPB/Azure + Clockify + Bandas/rol</div></div></div>
+<section class="card cai-90c8bc">
+<form method="get" action="{% url 'portal:capacidad' %}" id="capf">
+<div class="fl">
+<div><label>Mes</label><input class="fi" type="month" name="mes" value="{{ filters.month }}" data-auto-submit></div><div><label>Jornada diaria (h)</label><input class="fi" type="number" name="jornada" min="1" max="24" step="0.5" value="{{ filters.workday_hours|floatformat:"-1" }}" data-auto-submit></div><div><label>Buscar recurso, proyecto o manager…</label><input class="fi" type="search" name="buscar" value="{{ filters.search }}" placeholder="Buscar recurso, proyecto o manager…"></div><div><label>Tecnologías</label><select class="fi" name="tecnologia" data-auto-submit><option value="">Todas las tecnologías</option>{% for t in capacity.technologies %}<option value="{{ t }}"{% if t == filters.technology %} selected{% endif %}>{{ t }}</option>{% endfor %}</select></div><div><label>Conceptos</label><select class="fi" name="concepto" data-auto-submit><option value="">Todos los conceptos</option>{% for c in capacity.concepts %}<option value="{{ c }}"{% if c == filters.concept %} selected{% endif %}>{{ c }}</option>{% endfor %}</select></div><a class="btn" href="?mes={{ filters.month|urlencode }}&amp;jornada={{ filters.workday_hours|floatformat:"-1"|urlencode }}&amp;buscar={{ filters.search|urlencode }}&amp;tecnologia={{ filters.technology|urlencode }}&amp;concepto={{ filters.concept|urlencode }}&amp;actualizar=1">↻ Actualizar datos</a><a class="btn p" href="{% url 'portal:capacidad_csv' %}?mes={{ filters.month|urlencode }}&amp;jornada={{ filters.workday_hours|floatformat:"-1"|urlencode }}&amp;buscar={{ filters.search|urlencode }}&amp;tecnologia={{ filters.technology|urlencode }}&amp;concepto={{ filters.concept|urlencode }}">↓ Exportar CSV</a>
+</div>
+</form>
+<div class="chips"><span class="cp on">▤ Mes {{ filters.month }}</span><span class="cp">Recursos + Bandas/rol</span><span class="pl">+</span><span class="cp">MPB</span>{% if capacity.band_column %}<span class="cp">◇ Banda: {{ capacity.band_column }}</span>{% endif %}<span class="cp cai-e6b697">Clockify y Azure DevOps: en el panel anterior</span></div>
+{% if capacity.band_notice %}<div class="nd cai-5371db">{{ capacity.band_notice }}</div>{% endif %}
+{% if capacity.mpb_notice %}<div class="nd cai-5371db">{{ capacity.mpb_notice }}</div>{% endif %}
+</section>
+<section class="kp5">
+<div class="kx"><div class="ki cai-a2add9"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Recursos</div><div class="v">{{ capacity.resources }}</div><div class="s">Personas únicas del mes</div></div></div>
+<div class="kx"><div class="ki cai-1bc379"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Capacidad base</div><div class="v">{{ capacity.base_hours|floatformat:"0g" }} h</div><div class="s">{{ capacity.workdays }} días × {{ capacity.workday_hours|floatformat:"-1" }} h por persona, sin feriados</div></div></div>
+<div class="kx"><div class="ki cai-09da15"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Asignadas por día</div><div class="v">{{ capacity.assigned_daily_hours|floatformat:"-1" }} h</div><div class="s">Suma de horas diarias de las asignaciones</div></div></div>
+<div class="kx"><div class="ki cai-f1fb2c"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Sobre jornada</div><div class="v">{{ capacity.over_workday }}</div><div class="s">Con más de {{ capacity.workday_hours|floatformat:"-1" }} h asignadas al día</div></div></div>
+<div class="kx"><div class="ki cai-126594"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div><div><div class="l">Horas reales</div><div class="v"><span class="cai-1f015c">—</span></div><div class="s">Clockify, facturables y disponibles<span class="ej">Pendiente</span></div></div></div>
+</section>
+<section class="card cai-055d47">
+<div class="th2"><h2>Asignación del mes · {{ capacity.month_label }}</h2><div class="tg"><a class="btn" href="{% url 'portal:facturabilidad_area' %}">Facturabilidad por área</a></div></div>
+<div class="tw"><table class="cp2 cs"><thead><tr><th class="r cai-66ee75">Recurso</th><th class="cai-de266d">Banda</th><th class="cai-8d60f1">Clasificación</th><th class="cai-f95ebd">Tec.</th><th class="cai-729192">Delivery Manager</th><th class="cai-c78f49">ID proyecto</th><th class="cai-1dfda9">Proyecto</th><th class="cai-f95ebd">H. diarias</th><th class="cai-8db8d8">H. estimadas</th></tr></thead>
+<tbody>
+{% for r in capacity.rows %}<tr><td class="r">{{ r.resource }}</td><td><span class="t b">{{ r.band }}</span></td><td class="w"><span class="t b">{{ r.concept }}</span>{% if r.has_rule %} <span class="t {% if r.billable %}g{% else %}n{% endif %}">{% if r.billable %}Facturable{% else %}No facturable{% endif %}</span><br><span class="t {% if r.chargeable %}u{% else %}n{% endif %}">{% if r.chargeable %}Cargable{% else %}No cargable{% endif %}</span> <span class="t {% if r.affects_capacity %}a{% else %}n{% endif %}">{% if r.affects_capacity %}Afecta capacidad{% else %}No afecta capacidad{% endif %}</span>{% endif %}</td><td>{{ r.technology }}</td><td class="w">{{ r.manager }}</td><td>{{ r.project_id }}</td><td class="w">{{ r.project }}</td><td class="n"><b>{{ r.daily_hours|floatformat:"-2" }}</b></td><td class="n">{{ r.estimated_hours|floatformat:"-2" }}</td></tr>
+{% empty %}<tr><td colspan="9" class="vacio">{% if error %}No se pudo leer Capacidad instalada.{% else %}No hay asignaciones con esos filtros.{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="note">Recursos, capacidad base, horas diarias asignadas y sobre jornada son datos reales de Sheets (solo lectura). La capacidad base usa días de lunes a viernes sin descontar feriados. Consulta las horas reales por día en Capacidad instalada y la distribución mensual en Facturabilidad por área.</p>
+</section>
+
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/capacity/main.js' %}"></script>{% endblock %}

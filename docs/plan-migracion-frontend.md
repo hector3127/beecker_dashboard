@@ -24,19 +24,19 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 2 | App `access`: capacidades y alcance | Hecha | n/a | Hecha; apagada por defecto |
 | 3 | EVA-04 | Hecha | Hecha | Hecha (validación visual 23/10; rediseño corregido al anterior) |
 | 4 | Operativa | Hecha | Hecha | Hecha (validación visual 23/10) |
-| 5 | Acuerdos | Hecha | No (la interfaz sigue en el JS anterior) | Parcial |
+| 5 | Acuerdos | Hecha | Componente modular compartido en Cuenta y Business Overview | Integrado; conservar pruebas de acciones y permisos |
 | 6 | Línea base de lo nuevo | n/a | n/a | Hecha |
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
-| 9 | Resto de pantallas | Parcial: EVA 1-3, Inversión, Capacidad y Facturabilidad; faltan Comercial, Costos, Todas las cuentas y Proyecto | **No** | **Parcial: permisos y APIs** |
+| 9 | Resto de pantallas | APIs de EVA 1-3, Inversión, Capacidad y Facturabilidad, más Costos; Comercial y Todas las cuentas conservan contexto de servidor | **Parcial**: Comercial, Todas las cuentas, Costos, Inversión y Capacidad mensual | Pendientes detalle diario de Capacidad, Facturabilidad, EVA 1-3 y Proyecto |
 | 10 | `proyecto_detalle` y fin de `/api/rpc/` | RPC con permisos | **No** | **Parcial** |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
-**Cambio de alcance (22/10/2026), superado el 23/10 para la fase 7.** Las páginas nuevas de las fases 7 y 8 se
-rehicieron con otro diseño y se devolvieron al anterior por pedido del usuario;
-desde entonces esas rutas sirven las plantillas anteriores con el servidor ya
-migrado (permisos, alcance, APIs). Pasarlas a `frontend/` exige primero igualar
-el diseño (iconos, degradados, tarjetas) en `tokens.css` y `components.css`.
+**Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
+fases 7 y 8 se devolvieron al diseño anterior por pedido del usuario. Después
+se migraron conservando ese diseño: hoy sus rutas activas usan `frontend/`,
+como indica la tabla por pantalla. Las anteriores se mantienen temporalmente
+para comparar, sin confundir su existencia con la ruta activa.
 
 ### Pantallas, una por una
 
@@ -58,7 +58,8 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | Costos | `ejecutiva/costos/detalle/` | `pages/costs.html` (la anterior con `?anterior=1`) | `costs/summary/`, `costs/project/` | **Sí** | **Hecha 24/10**; `tests/e2e/test_costos.py` |
 | Comercial | `comercial/` | `pages/commercial.html` (la anterior con `?vista=anterior`) | No (datos por el contexto de la vista) | **Sí** (plantilla modular) | **Hecha 24/10**; `tests/e2e/test_comercial.py` |
 | Inversión | `operativa/inversion/` | `pages/investment.html` (anterior con `?vista=anterior`) | `screens/inversion/`; la página conserva el contexto del servidor | **Sí** | Comparación de cajas y estilos con los mismos datos a 1450, 900 y 390 px; `tests/e2e/test_inversion.py` |
-| Capacidad instalada y detalle | `operativa/capacidad-instalada/`, `capacidad-instalada/` | `portal/capacidad_instalada.html`, `portal/capacidad_detalle.html` | `screens/capacidad/` | No | Igual |
+| Capacidad: asignaciones mensuales | `operativa/capacidad-instalada/` | `pages/capacity.html` (anterior con `?vista=anterior`) | `screens/capacidad/`; mantiene formulario GET y CSV del servidor | **Sí** | `tests/e2e/test_capacidad.py`: filtros, CSV y comparación de cajas/estilos a 1450 y 390 px |
+| Capacidad: detalle diario | `capacidad-instalada/` | `portal/capacidad_detalle.html` | RPC | **No** | Pendiente |
 | Facturabilidad (general, especialidad, recurso) | `operativa/facturabilidad/…` | `portal/facturabilidad*.html` | `screens/facturabilidad/…` | No | Igual |
 | Facturabilidad por área | `operativa/facturabilidad/area/` | `portal/facturabilidad_area.html` (con `gas_shim.js`) | RPC | No | Igual |
 | EVA 1, 2 y 3 y sus cerrados | `operativa/eva-1/`, `eva-2/`, `eva-3/`, `…/cerrados/` | `portal/eva1|2|3.html` | `screens/eva-1|2|3/` | No | Igual |
@@ -67,7 +68,8 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
-estilo anteriores; en `frontend/` hay 5 plantillas (4 pantallas y la guía).
+estilo anteriores. Tras Inversión y Capacidad mensual, `frontend/templates/pages/`
+contiene 15 plantillas (14 pantallas y la guía).
 
 ### Pendientes que no se dan por hechos
 
@@ -77,11 +79,19 @@ Se corrigió la prioridad CSS del margen del segundo encabezado. Cinco pruebas
 e2e verifican totales, anchos de barras, cambio de mes, regreso, error de fuente
 y paridad visual en escritorio, tableta y móvil. Las capturas reproducibles
 se guardan en `tmp/migration/investment/` al ejecutar las pruebas con Chrome.
-El siguiente bloque es Capacidad instalada y detalle.
+Inversión registrada en `0028959`. También se completaron las asignaciones
+mensuales de Capacidad: formulario GET, permisos, cálculos y CSV originales;
+CSS separado y eventos sin atributos en línea. Se mantuvo su modelo de caja
+con una clase explícita, sin alterar el resto de las pantallas. Tres pruebas
+e2e aprobadas con capturas reproducibles en `tmp/migration/capacity/`.
+El siguiente bloque es el detalle diario de Capacidad (`/capacidad-instalada/`),
+que todavía utiliza `gas_shim.js`. No se da por migrado junto con las
+asignaciones mensuales.
 
-1. Frontend de las fases 7, 8 y 9 (ver tabla): ninguna pantalla de ellas usa
-   `frontend/`.
-2. Validación visual de Operativa y EVA-04 (y de todo lo que se migre).
+1. Completar las pantallas pendientes de la fase 9 según la tabla. Las fases
+   7 y 8 ya usan `frontend/`; no rehacer sus migraciones.
+2. Mantener las comparaciones visuales y los recorridos de las pantallas ya
+   migradas, y añadirlos para cada bloque restante.
 3. `proyecto_detalle` por pestañas y retirar `/api/rpc/` y `gas_shim.js`.
 4. Mover a servicios compartidos la preparación de datos que hoy viven en
    `views.py` y que usan las APIs: `operativa_context`,
@@ -96,18 +106,15 @@ El siguiente bloque es Capacidad instalada y detalle.
 6. CSP: por defecto **no hay política** (`CSP_REPORT_ONLY` solo se enciende con
    `1` y solo reporta). No hay bloqueo obligatorio y no puede haberlo mientras
    haya scripts y estilos en línea (23 plantillas anteriores).
-7. Limpieza final de plantillas, estilos y scripts anteriores, que depende de
-   los puntos 1 y 7.
+7. Limpieza final de plantillas, estilos y scripts anteriores, una vez
+   migrados y validados todos sus consumidores.
 
 > **Regla de diseño (22/10/2026).** Una pantalla migrada se ve idéntica a la
 > anterior; solo cambian los datos, el alcance y los permisos. Se comprueba con
 > capturas lado a lado (anterior contra nueva) antes de retirar la anterior. Las
-> pantallas de la pestaña Business (Business Overview, cuenta, comparativa de
-> márgenes, diccionario) y Delivery Manager y KPIs de DMs se rehicieron con otro
-> diseño y se devolvieron al anterior: conservan su plantilla, estilos y scripts
-> y mantienen lo nuevo del servidor (APIs `screens/…`, alcance, capacidades,
-> diccionario único). Reproducirlas con `frontend/` exige igualar primero el
-> diseño (iconos, degradados, tarjetas) en `tokens.css` y `components.css`.
+> pantallas ya migradas conservan el diseño anterior en `frontend/`. Las
+> plantillas anteriores solo sirven de referencia temporal. Igualar primero
+> iconos, degradados, tarjetas y comportamiento antes de retirar esa referencia.
 
 Son **12 fases (0 a 11)**: los cambios del 22/10 agregan la 6 y reubican el
 resto. Cada fase es un conjunto de commits en `main`, con la suite en verde.
