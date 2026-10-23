@@ -1,0 +1,57 @@
+/* La pantalla anterior no usaba border-box. */
+.dictionary-page-content, .dictionary-page-content * { box-sizing: content-box; }
+.dictionary-page-content{max-width:1360px;margin:0 auto;padding:28px 32px 56px;box-sizing:border-box}
+.dictionary-page .portal-back{min-height:44px;box-sizing:border-box;margin-bottom:24px;font-size:13px}
+.dictionary-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:26px}
+.dictionary-heading h1{margin:0 0 10px;color:var(--ink-strong);font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.035em;font-weight:800;text-wrap:balance}
+.dictionary-heading p{margin:0;max-width:70ch;font-size:14px;line-height:1.7;color:var(--muted)}
+.dictionary-updated{flex:none;margin-top:8px;color:#655a89;font-size:12px;line-height:1.6}
+.dictionary-panel{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.dictionary-toolbar{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:22px 24px;border-bottom:1px solid var(--line)}
+.dictionary-search-field{flex:0 1 480px;min-width:0}
+.dictionary-search-field label{display:block;margin-bottom:8px;font-size:12px;font-weight:700;color:var(--ink)}
+.dictionary-search-control{display:flex;align-items:center;gap:10px;min-height:46px;padding:0 14px;border:1px solid #cfc7e1;border-radius:10px;color:#655a89;background:#fff}
+.dictionary-search-control:focus-within{outline:3px solid #4b25c9;outline-offset:2px;border-color:#4b25c9}
+.dictionary-search-control svg{flex:none}
+.dictionary-search-control input{width:100%;min-width:0;min-height:44px;padding:10px 0;border:0;background:transparent;color:var(--ink);font:inherit;font-size:14px;box-sizing:border-box}
+.dictionary-search-control input:focus-visible{outline:none}
+.dictionary-search-control input::placeholder{color:#706583;opacity:1}
+.dictionary-search-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;min-height:46px;color:var(--muted);font-size:12px}
+.dictionary-page .portal-button-secondary{color:var(--brand)}
+.dictionary-table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:13px;line-height:1.75}
+.dictionary-table th,.dictionary-table td{padding:20px 24px;vertical-align:top;text-align:left;overflow-wrap:anywhere;border:0;border-bottom:1px solid #ece9f4}
+.dictionary-table th{text-transform:none;letter-spacing:normal;white-space:normal}
+.dictionary-table thead th{background:#f7f5fc;color:#5d527b;font-size:12px;font-weight:700;padding-top:14px;padding-bottom:14px}
+.dictionary-table thead th:first-child{width:18%}
+.dictionary-table thead th:last-child{width:24%}
+.dictionary-table tbody th{color:#35236d;background:#fff;font-weight:750}
+.dictionary-table tbody td{background:#fff;color:#443b5f}
+.dictionary-table tbody .dictionary-source{font-size:12px;color:#655a89}
+.dictionary-table tbody tr:hover>th,.dictionary-table tbody tr:hover>td{background:#fcfaff}
+.dictionary-table tbody tr:last-child>*{border-bottom:0}
+.dictionary-table tr[hidden]{display:none!important}
+#dictionary-empty td{padding:44px 24px;text-align:center}
+#dictionary-empty strong,#dictionary-empty span{display:block}
+#dictionary-empty span{margin-top:8px;color:var(--muted);font-size:13px}
+@media(max-width:700px){
+ .dictionary-page-content{padding:20px 14px 32px}
+ .dictionary-heading{display:block;margin-bottom:20px}
+ .dictionary-heading p{font-size:13px}
+ .dictionary-updated{display:block;margin-top:14px}
+ .dictionary-toolbar{padding:18px 16px;gap:10px}
+ .dictionary-search-field{flex-basis:100%}
+ .dictionary-search-control input{font-size:16px}
+ .dictionary-search-actions{justify-content:space-between;width:100%}
+ .dictionary-table thead{display:none}
+ .dictionary-table,.dictionary-table tbody,.dictionary-table tr,.dictionary-table th,.dictionary-table td{display:block;width:auto}
+ .dictionary-table tr{padding:20px 16px;border-bottom:1px solid #e4e6f8}
+ .dictionary-table tr:last-child{border:0}
+ .dictionary-table th,.dictionary-table td{padding:0;border:0}
+ .dictionary-table tbody th{margin-bottom:12px;font-size:16px}
+ .dictionary-table td+td{margin-top:14px}
+ .dictionary-table td[data-label]::before{content:attr(data-label);display:block;margin-bottom:4px;color:#655a89;font-size:11px;font-weight:700}
+ #dictionary-empty td{padding:16px 0}
+}
+
+body.dictionary-page .page{max-width:none;padding:0}
+.dictionary-page-content .dictionary-table td:not(.dictionary-source) { font-size: 13.5px; }

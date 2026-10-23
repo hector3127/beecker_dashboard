@@ -19,7 +19,7 @@ urlpatterns = [
         name="oportunidades_financieras",
     ),
     path(
-        "diccionario-datos/", views.diccionario_datos, name="diccionario_datos"
+        "diccionario-datos/", pages.dictionary, name="diccionario_datos"
     ),
     path(
         "ejecutiva/actualizacion/",
