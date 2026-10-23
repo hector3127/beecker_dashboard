@@ -8,6 +8,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.access.rpc_policy import authorize_rpc
 from core.exceptions import DashboardError, InvalidRequestError
 from core.rpc.registry import RpcFunction, get_rpc_function
 
@@ -50,6 +51,7 @@ class RpcView(APIView):
 
         try:
             args = parse_args(request.data)
+            authorize_rpc(request, function_name, args)
             validate_arguments(rpc_function, args)
             result = rpc_function(*args)
         except DashboardError as error:

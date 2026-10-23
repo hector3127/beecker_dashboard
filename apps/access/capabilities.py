@@ -24,6 +24,14 @@ CATALOG: tuple[Capability, ...] = (
     Capability("view_costs", "Ver costos, ingresos y márgenes"),
     Capability("view_agreements", "Consultar acuerdos y pendientes"),
     Capability("edit_agreements", "Crear y modificar acuerdos y pendientes"),
+    Capability(
+        "edit_operations",
+        "Modificar pendientes, hitos, riesgos y oportunidades",
+    ),
+    Capability(
+        "manage_integrations",
+        "Configurar las integraciones (Azure DevOps, Clockify)",
+    ),
 )
 
 CODES: frozenset[str] = frozenset(item.code for item in CATALOG)

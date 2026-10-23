@@ -19,7 +19,7 @@ respuestas; la migración del frontend sí avanza.
 | 7 | Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso | Hecha |
 | 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Hecha |
 | **9** | **Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos)** | **En curso: permisos y alcance hechos** |
-| 10 | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | Pendiente |
+| **10** | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | **En curso: `/api/rpc/` con permisos** |
 | 11 | Limpieza: legacy, plantillas y estáticos viejos, CSP obligatoria, `ACCESS_ENFORCED=1` | Pendiente |
 
 > **Regla de diseño (22/10/2026).** Una pantalla migrada se ve idéntica a la
@@ -285,6 +285,18 @@ Lo que se planeaba para esta fase:
   `screens/margenes/`), protegidos por capacidad y alcance.
 - Pendiente de la 9: retirar `executive_numbers.js` y `ejecutiva/actualizacion/`
   cuando Costos, Todas las cuentas y Comercial dejen de usarlos.
+
+## Fase 10: `/api/rpc/` con permisos (hecha); `proyecto_detalle` pendiente
+
+- `apps/access/rpc_policy.py` clasifica las 190 funciones del RPC: lectura
+  (`view_operations`), escritura (`edit_operations`), configuración
+  (`manage_integrations`) y las de cuenta con alcance. Se agregaron dos
+  capacidades al catálogo (migración `access.0002`). Con alcance limitado solo
+  funcionan las de cuenta; una función sin política se rechaza.
+- `proyecto_detalle.js` (≈ 1 MB, 100+ llamadas RPC) **no se reescribe**: por la
+  regla de diseño conserva su pantalla y sus llamadas; el RPC ya valida quién
+  puede hacerlas. Retirar el RPC requiere una API por llamada y es trabajo
+  aparte. Un proyecto de otra cuenta ya responde 404 en la página.
 
 ## Fases siguientes con lo nuevo integrado
 
