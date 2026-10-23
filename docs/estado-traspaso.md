@@ -14,6 +14,14 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   mostraba 92 h. Aplica a todo consumidor de `resolve()` (AER, ejecutivo,
   tareas, validación). AER.CCO.008 ahora da 5,050.9 h (coincide con Horas por
   mes). Presupuesto vs consumo usa su rango por fila de cuenta; no se tocó.
+- Proyectos AER/T&M sin fila en Proyectos (p. ej. AER.CCO.003, cerrado, con
+  filas en MPB y horas en Clockify): `build_dashboard` arma la fila desde MPB
+  (`mpb_project_row`: inicio mínimo, fin máximo, presupuesto sumado, estatus y
+  DM de la fila más reciente). Antes mostraba "No se encontró ... en
+  Proyectos". Con un ID inexistente en ambas hojas el error sigue igual. El
+  presupuesto/consumo de la lista de la cuenta usa solo la fila reciente
+  (571 h / 612.5 h), por lo que no coincide con este detalle (2,699 h /
+  2,604.5 h). Se vio con datos locales; sin verificar en navegador.
 - Pruebas: `tests/clockify`, `tests/ejecutivo`, `tests/portal` 1259 aprobadas;
   hitos 17 e2e + 15 API + 3 Node. Fallan 3 pruebas tardías de Work Items
   (`test_late_response_does_not_modify_reentered_view`), también sin estos

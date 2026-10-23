@@ -513,6 +513,71 @@ def find_project(
     return row
 
 
+def mpb_project_row(reader: Any, project: str) -> Mapping[str, Any] | None:
+    """
+    Fila tipo Proyectos armada desde MPB.
+
+    Sirve para proyectos que ya no estan en Proyectos (cerrados) pero
+    conservan horas.
+
+    Une las filas repetidas: inicio mas temprano, fin mas tardio y el
+    presupuesto sumado, porque sus horas tambien se abarcan completas.
+    """
+    try:
+        if not reader.sheet_exists("MPB"):
+            return None
+        values = reader.read_values("MPB")
+        header = find_mpb_header(values)
+        if header is None:
+            return None
+        columns = resolve_columns(values[header])
+    except DashboardError:
+        return None
+    wanted = normalize_mpb(project)
+    rows = [
+        row
+        for row in values[header + 1 :]
+        if normalize_mpb(read_cell(row, columns["project_id"])) == wanted
+        and to_text(read_cell(row, columns["service"])).strip().upper()
+        in AER_SERVICES
+    ]
+    if not rows:
+        return None
+    starts = [
+        read_cell(row, columns["start"])
+        for row in rows
+        if isinstance(read_cell(row, columns["start"]), int | float)
+    ]
+    ends = [
+        read_cell(row, columns["end"])
+        for row in rows
+        if isinstance(read_cell(row, columns["end"]), int | float)
+    ]
+    latest = max(
+        rows,
+        key=lambda row: (
+            read_cell(row, columns["start"])
+            if isinstance(read_cell(row, columns["start"]), int | float)
+            else 0
+        ),
+    )
+    status = to_text(read_cell(latest, columns["status"])).strip()
+    return {
+        "ID_Proyecto": project,
+        "Nombre": read_cell(latest, columns["name"]),
+        "Cliente": read_cell(latest, columns["client"]),
+        "Servicio": to_text(read_cell(latest, columns["service"])).strip(),
+        "Delivery Manager": read_cell(latest, columns["manager"]),
+        "Estado": status,
+        # Las horas abarcan todas las filas, asi que el presupuesto las suma.
+        "Budget_Hrs": sum(
+            number_or_zero(read_cell(row, columns["budget"])) for row in rows
+        ),
+        "Fecha_Inicio": min(starts) if starts else "",
+        "Fecha_Fin_Estimada": max(ends) if ends else "",
+    }
+
+
 def build_kpis(
     row: Mapping[str, Any],
     entries: Sequence[TimeEntry],
@@ -599,9 +664,15 @@ def build_dashboard(
     if not project:
         raise AerError("Falta ID de proyecto.")
 
-    row = find_project(
-        store.reader.read_as_objects(sheet_names.SHEET_PROJECTS), project
-    )
+    try:
+        row = find_project(
+            store.reader.read_as_objects(sheet_names.SHEET_PROJECTS), project
+        )
+    except AerError:
+        # Sin fila en Proyectos pero con MPB: se muestra con lo de MPB.
+        row = mpb_project_row(store.reader, project)
+        if row is None:
+            raise
     service = text(get_flexible_value(row, ["Servicio", "Service"])).upper()
     store.ensure_sheets()
     hours = load_hours(project)
