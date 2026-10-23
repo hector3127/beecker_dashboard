@@ -1,0 +1,24 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}Delivery Manager{% endblock %}
+{% block body_class %}dm-body{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/return-bar.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/delivery_manager.css' %}">{% endblock %}
+{% block content %}
+<div class="dm-page" id="dm-app" data-slug="{{ slug }}"
+ data-project-url="{% url 'portal:proyecto_detalle' 'project-placeholder' %}"
+ data-account-url="{% url 'portal:cuenta' slug='account-placeholder' %}"
+ data-operativa-url="{% url 'portal:operativa' %}">
+<div id="dm-error" aria-live="polite"></div>
+<div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Proyectos en ejecución › {{ dm_name }}</span></div>
+<div id="dm-live">
+<div class="hd" id="dm-head"><div class="av">{{ dm_initials }}</div><div><h1>{{ dm_name }}</h1><p class="sub">Delivery Manager · cargando proyectos&hellip;</p></div></div>
+<section class="kp" id="dm-kpis" aria-busy="true"></section>
+<section class="card" id="dm-table"></section>
+<section class="monthly-section" id="dm-monthly"></section>
+<p class="note" id="dm-note">Proyectos, estado, avance, ETC y riesgo son datos reales (solo lectura). T es la desviación promedio en días y C el avance promedio de sus proyectos en ejecución. Inversi&oacute;n: tags de Clockify en los IDs de este DM, dentro del inicio y fin de cada proyecto. Consumo mensual: registros de Clockify de los últimos seis meses. <span id="dm-note-error"></span></p>
+</div>
+<noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
+</div>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/delivery_manager/main.js' %}"></script>{% endblock %}

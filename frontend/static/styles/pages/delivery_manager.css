@@ -1,0 +1,165 @@
+/* Delivery Manager: reglas de la pantalla anterior, acotadas a .dm-page.
+   Esa pantalla no usaba border-box, asi que se conserva content-box aqui. */
+.dm-page, .dm-page *, .dm-page *::before, .dm-page *::after { box-sizing: content-box; }
+body.dm-body {margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#F7F5FF;color:#1B1A4A}
+.dm-page a {color:#4B25C9;text-decoration:none}
+body.dm-body .page {max-width:1368px;margin:0 auto;padding:22px 36px 40px}
+.dm-page .crumb {font-size:13.5px;color:#55537F;margin-bottom:8px}
+.dm-page .hd {display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.dm-page .av {width:56px;height:56px;border-radius:50%;background:#4B25C9;color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;flex:none}
+.dm-page h1 {margin:0;font-size:34px;font-weight:800;letter-spacing:-.025em}
+.dm-page .sub {margin:2px 0 0;color:#55537F;font-size:16px}
+.dm-page .kp {display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:14px}
+.dm-page .kc {background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:16px 20px}
+.dm-page .kl {font-size:13px;font-weight:700;color:#3A3870}
+.dm-page .kv {font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1.2;font-variant-numeric:tabular-nums}
+.dm-page .ke {font-size:12.5px;color:#55537F;line-height:1.4}
+.dm-page .card {background:#fff;border:1px solid #ECE8FA;border-radius:16px;padding:22px 26px;margin-bottom:14px}
+.dm-page .card h2 {margin:0 0 2px;font-size:20px}
+.dm-page .hs {font-size:14px;color:#55537F;margin-bottom:12px}
+.dm-page table {width:100%;border-collapse:collapse;font-size:14px}
+.dm-page th, .dm-page td {padding:11px 12px;text-align:left;border-top:1px solid #F0EDF8;vertical-align:middle}
+.dm-page th {font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#4A4872;border-top:0}
+.dm-page td small {display:block;color:#55537F;font-size:12.5px}
+.dm-page .num {font-variant-numeric:tabular-nums}
+.dm-page .st {display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700}
+.dm-page .st i {width:10px;height:10px;border-radius:50%}
+.dm-page .s-g {color:#13693B}
+.dm-page .s-g i {background:#1B9A55}
+.dm-page .s-a {color:#7A4D00}
+.dm-page .s-a i {background:#E88F0C}
+.dm-page .s-r {color:#A31B33}
+.dm-page .s-r i {background:#D6304B}
+.dm-page .s-x {color:#4A4872}
+.dm-page .s-x i {background:#8A81B8}
+.dm-page .pb {display:flex;align-items:center;gap:10px}
+.dm-page .tr {position:relative;height:8px;width:100px;background:#EEEAFB;border-radius:4px}
+.dm-page .tr i {position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:#5B2FD6}
+.dm-page .rs {box-shadow:inset 4px 0 0 #D6304B}
+.dm-page .ra {box-shadow:inset 4px 0 0 #E88F0C}
+.dm-page .two {display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dm-page .two .card {margin-bottom:14px}
+.dm-page .note {margin-top:6px;font-size:12.5px;color:#55537F}
+body.dm-body {background:radial-gradient(ellipse at 70% 0,#eee9ff,#faf9ff 65%);color:#221858}
+body.dm-body .page {max-width:1660px;box-sizing:border-box;padding:24px 30px 36px}
+.dm-page .hd {margin:18px 0 20px}
+.dm-page .av {width:76px;height:76px;background:linear-gradient(135deg,#7739ff,#5420eb);font-size:30px}
+.dm-page .hd h1 {font-size:38px;color:#14094f}
+.dm-page .sub {color:#9482c1;font-weight:600}
+.dm-page .kp {gap:12px}
+.dm-page .kc {display:flex;align-items:flex-start;gap:12px;padding:16px 14px;min-width:0;box-shadow:0 5px 14px #653cab08;border-color:#e8e0ff;min-height:132px}
+.dm-page .metric-icon {width:46px;height:46px;border-radius:50%;background:#f1ebff;color:#7135ff;display:grid;place-items:center;flex:none}
+.dm-page .metric-icon svg {width:26px;height:26px}
+.dm-page .kc:nth-child(2) .metric-icon {color:#02a769;background:#e8f9f0}
+.dm-page .kc:nth-child(3) .metric-icon {color:#f21d59;background:#fff0f4}
+.dm-page .kc:nth-child(5) .metric-icon, .dm-page .kc:nth-child(6) .metric-icon {color:#2459ef;background:#edf1ff}
+.dm-page .kl {font-size:12px;color:#7564a6;margin:8px 0 5px}
+.dm-page .kv {font-size:30px;color:#1c0e55}
+.dm-page .kv span {font-size:22px!important}
+.dm-page .ke {font-size:12px;color:#9884c2;margin-top:6px}
+.dm-page .card {border-color:#eae2ff;box-shadow:0 6px 18px #6842ad08;padding:18px}
+.dm-page .card h2 {color:#1c0b59;font-size:21px}
+.dm-page .hs {color:#9884c2;font-size:13px}
+.dm-page .section-head {display:flex;gap:18px;align-items:center;margin-bottom:16px}
+.dm-page .section-head .metric-icon {width:56px;height:56px}
+.dm-page .section-head .hs {margin:4px 0 0}
+.dm-page .table-scroll {overflow:auto}
+.dm-page .card table {font-size:13px}
+.dm-page .card th {font-size:11px;color:#9683bb}
+.dm-page .card td {padding:10px 16px;border-color:#eee6ff}
+.dm-page .card td:first-child a {color:#6227ff}
+.dm-page .st {border-radius:20px;padding:4px 11px;font-size:12px}
+.dm-page .s-g {background:#e4f8ed;color:#078c50}
+.dm-page .s-a {background:#fff2e4;color:#e88410}
+.dm-page .s-r {background:#ffe9ef;color:#eb1c50}
+.dm-page .s-x {background:#eeebfa;color:#6e649e}
+.dm-page .tr {overflow:hidden;width:136px;background:#eee8ff;height:10px;border-radius:12px}
+.dm-page .tr i {background:linear-gradient(90deg,#692cff,#8455f5)}
+.dm-page .two {gap:14px}
+.dm-page .two .vacio {background:linear-gradient(120deg,#f6f2ff,#eee9ff);border-radius:14px;min-height:125px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:13px;color:#8c79b8}
+.dm-page .note {font-size:11px;color:#9987bc;line-height:1.7}
+@media(max-width:1350px) {
+.dm-page .kp {grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:850px) {
+.dm-page .two {grid-template-columns:1fr}
+.dm-page .hd h1 {font-size:28px}
+}
+@media(max-width:600px) {
+body.dm-body .page {padding:16px}
+.dm-page .kp {grid-template-columns:1fr 1fr}
+.dm-page .kc {gap:8px}
+.dm-page .kc .metric-icon {width:32px;height:32px}
+.dm-page .hd h1 {font-size:24px}
+.dm-page .av {width:52px;height:52px;font-size:22px}
+}
+.dm-page .table-scroll {overflow-x:auto}
+.dm-page .card:first-of-type table {min-width:1550px}
+.dm-page .table-scroll th {white-space:nowrap}
+.dm-page .dm-value {display:inline-block;border-radius:9px;padding:3px 8px;font-weight:700}
+.dm-page .dm-value.good {background:#e2f7ec;color:#087c52}
+.dm-page .dm-value.bad {background:#ffe5ed;color:#d92751}
+.dm-page .dm-value.warning {background:#fff2c7;color:#946200}
+.dm-page .monthly-legend {display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;font-size:12px}
+.dm-page .monthly-legend span {display:flex;align-items:center;gap:5px}
+.dm-page .monthly-legend i {width:9px;height:9px;border-radius:50%}
+.dm-page .monthly-chart {display:flex;gap:12px;overflow-x:auto;padding:10px 0;margin-bottom:14px}
+.dm-page .monthly-column {flex:1;min-width:62px;text-align:center}
+.dm-page .monthly-column b {font-size:12px}
+.dm-page .monthly-stack {height:155px;display:flex;flex-direction:column-reverse;justify-content:flex-start;margin:8px auto;width:65%;border-bottom:1px solid #ded8f5}
+.dm-page .monthly-stack i {display:block;flex-shrink:0}
+.dm-page .monthly-stack i {min-height:3px}
+.dm-page .monthly-details details {border-top:1px solid #e7e1f8;padding:8px 0}
+.dm-page .monthly-details summary {cursor:pointer;font-size:12px;color:#6347ed}
+.dm-page .monthly-details small {display:block}
+.dm-page .monthly-column small {font-size:11px;white-space:nowrap}
+.dm-page .hours-heading {display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dm-page .hours-action {border:0;border-radius:8px;background:#6347ed;color:white;padding:9px 12px;cursor:pointer;font-size:12px}
+.dm-page .hours-plot {position:relative;border:1px solid #eee9fb;border-radius:12px;margin-top:18px;background:linear-gradient(180deg,#faf9ff,#fff)}
+.dm-page #hours-chart {display:block;width:100%;min-height:230px}
+.dm-page .hours-tooltip b {display:block;font-size:16px;margin:3px 0 7px}
+.dm-page .hours-tooltip small {display:block}
+.dm-page .hours-tooltip div {display:flex;align-items:center;gap:6px;margin:4px 0}
+.dm-page .hours-tooltip div i {width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dm-page .hours-tooltip div strong {margin-left:auto}
+.dm-page .hours-tooltip {position:absolute;right:12px;top:12px;background:#fff;padding:12px;border:1px solid #ddd5fa;border-radius:10px;box-shadow:0 5px 18px #21145422;font-size:12px;pointer-events:none;white-space:pre-line}
+.dm-page #hours-modal {width:min(1100px,92vw);max-height:85vh;overflow:auto;border:1px solid #e4dcfa;border-radius:18px;padding:24px;color:#20145e}
+.dm-page #hours-modal::backdrop {background:#1d124966}
+.dm-page #hours-close {background:#f0ebff;color:#6347ed;border:0;border-radius:8px;font-size:24px;cursor:pointer}
+.dm-page .hours-controls {display:flex;justify-content:space-between;align-items:center;margin:16px 0}
+.dm-page .hours-controls select {border:1px solid #ddd5fa;border-radius:8px;padding:8px;color:#20145e}
+.dm-page .hours-totals {display:flex;flex-wrap:wrap;gap:18px;padding:12px;background:#f6f3ff;border-radius:10px;margin-bottom:16px}
+.dm-page .hours-totals b {display:block}
+.dm-page .hours-totals span {font-size:12px}
+.dm-page #hours-modal table {min-width:1050px!important}
+.dm-page #hours-modal th, .dm-page #hours-modal td {padding:9px 7px;font-size:11px}
+.dm-page #hours-projects small {display:block;font-size:11px;color:#8b80b0}
+.dm-page #hours-projects td:not(:first-child) {white-space:nowrap}
+@media(max-width:600px) {
+.dm-page .hours-heading {align-items:flex-start;flex-direction:column}
+.dm-page #hours-modal {padding:14px}
+}
+.dm-page .comparison-legend {justify-content:center;gap:24px;padding:4px 12px 12px}
+.dm-page .comparison-legend>div {display:flex;flex-direction:column;gap:10px}
+.dm-page .comparison-legend>div+div {border-left:1px solid #e6dff8;padding-left:24px}
+.dm-page .comparison-legend b {font-size:12px}
+.dm-page .comparison-legend small {font-weight:400;color:#8a7eae}
+.dm-page .consumed-legend {display:flex;flex-wrap:wrap;gap:18px}
+.dm-page .comparison-legend i {width:13px;height:13px}
+.dm-page .hours-plot {background:#fff;border:0}
+.dm-page .comparison-legend span {color:#8577b0}
+@media(max-width:600px) {
+.dm-page .comparison-legend {justify-content:flex-start}
+.dm-page .comparison-legend>div+div {border:0;padding-left:0}
+}
+/* Lo que los estilos compartidos agregan y la pantalla anterior no tenia. */
+.dm-page a { font-weight: inherit; }
+.dm-page .kv { margin: 0; }
+.dm-page .card h2 { font-weight: 700; letter-spacing: normal; }
+.dm-page th { background: none; border-radius: 0; }
+.dm-page td { color: inherit; }
+.dm-page .note { margin: 6px 0 11px; }
+.dm-page .crumb { margin-bottom: 16px; }
+.dm-page table { color: inherit; }
+.dm-page thead tr:first-child th:first-child, .dm-page thead tr:first-child th:last-child { border-radius: 0; }
+.dm-page .hs { line-height: normal; }

@@ -111,7 +111,7 @@ urlpatterns = [
     path("proyecto/<str:project_id>/", views.proyecto, name="proyecto"),
     path(
         "operativa/delivery-manager/<slug:slug>/",
-        views.delivery_manager,
+        pages.delivery_manager,
         name="delivery_manager",
     ),
 ]

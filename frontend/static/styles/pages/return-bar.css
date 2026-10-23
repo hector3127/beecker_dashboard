@@ -1,0 +1,11 @@
+/* Barra de regreso y accion de pagina, como en la pantalla anterior. */
+.portal-page-toolbar,.ds .portal-page-toolbar.crumb{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;margin:0 0 16px;padding:0;min-width:0}
+body :is(.portal-back,[data-portal-back],.portal-page-toolbar>a:first-child,.capacity-back,.cost-back){display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;max-width:100%;box-sizing:border-box;padding:10px 14px;border:1px solid #ded7ef;border-radius:10px;background:#fff;color:#4b25c9;font-family:inherit;font-size:13px;font-weight:700;line-height:1.5;text-decoration:none;text-align:left;touch-action:manipulation}
+body :is(.portal-back,[data-portal-back],.portal-page-toolbar>a:first-child,.capacity-back,.cost-back):hover{background:#f4f0ff;border-color:#b8a6e8}
+body :is(.portal-back,[data-portal-back],.portal-page-toolbar>a:first-child,.capacity-back,.cost-back):focus-visible,.portal-page-action:focus-visible{outline:3px solid #4b25c9;outline-offset:3px}
+.portal-page-toolbar :is(.portal-back,[data-portal-back]){margin:0}
+.portal-page-toolbar .portal-page-action{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;max-width:100%;box-sizing:border-box;padding:10px 14px;border:1px solid #ded7ef;border-radius:10px;background:transparent;color:#4b25c9;font-size:13px;font-weight:650;line-height:1.5;text-decoration:none}
+.portal-page-action:hover{background:#eee7ff;border-color:#b8a6e8}
+.portal-page-action svg{width:18px;height:18px;flex-shrink:0;stroke-linecap:round;stroke-linejoin:round}
+.portal-page-context{color:#716886;font-size:12px;line-height:1.5;text-align:right;overflow-wrap:anywhere}
+@media(max-width:650px){.portal-page-toolbar,.ds .portal-page-toolbar.crumb{align-items:flex-start;gap:8px;margin-bottom:12px}.portal-page-toolbar .portal-page-action{width:100%;justify-content:flex-start}.portal-page-context{flex:1;align-self:center;min-width:100px}.project-detail-page .project-return{padding:14px 12px 0}.project-detail-page #view-container{padding:12px 12px 24px}.portal-currency-note{font-size:11px}}

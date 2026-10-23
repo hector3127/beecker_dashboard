@@ -29,6 +29,12 @@ LOADED_AT = datetime(
 
 
 @pytest.fixture(autouse=True)
+def anterior_screens(monkeypatch):
+    """Estas pruebas leen la pantalla anterior (?vista=anterior)."""
+    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
+
+
+@pytest.fixture(autouse=True)
 def no_real_eva1(monkeypatch):
     """Operativa lee EVA 1; en pruebas nunca se consulta la hoja MPB."""
     monkeypatch.setattr(
@@ -1076,7 +1082,9 @@ def test_account_page_lists_its_projects(client, monkeypatch):
 def test_delivery_manager_page_lists_real_projects(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    response = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
+    response = client.get(
+        "/operativa/delivery-manager/alberto/?bloque=inv&vista=anterior"
+    )
     html = response.content.decode()
 
     assert response.status_code == 200
@@ -1091,7 +1099,9 @@ def test_unknown_delivery_manager_is_404(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
     assert (
-        client.get("/operativa/delivery-manager/nadie/?bloque=inv").status_code
+        client.get(
+            "/operativa/delivery-manager/nadie/?bloque=inv&vista=anterior"
+        ).status_code
         == 404
     )
 
@@ -1102,7 +1112,9 @@ def test_delivery_manager_page_without_data_goes_back_to_operational(
 ):
     stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
 
-    response = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
+    response = client.get(
+        "/operativa/delivery-manager/alberto/?bloque=inv&vista=anterior"
+    )
 
     assert response.status_code == 302
     assert response.url == "/operativa/"
@@ -1111,7 +1123,9 @@ def test_delivery_manager_page_without_data_goes_back_to_operational(
 def test_manager_page_links_to_the_account(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    manager = client.get("/operativa/delivery-manager/alberto/?bloque=inv")
+    manager = client.get(
+        "/operativa/delivery-manager/alberto/?bloque=inv&vista=anterior"
+    )
 
     assert 'href="/cuenta/clinica-sur/"' in manager.content.decode()
 
@@ -1120,7 +1134,7 @@ def test_other_pages_link_to_the_project(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
     manager = client.get(
-        "/operativa/delivery-manager/alberto/?bloque=inv"
+        "/operativa/delivery-manager/alberto/?bloque=inv&vista=anterior"
     ).content.decode()
     account = client.get("/cuenta/clinica-sur/").content.decode()
 
@@ -1138,7 +1152,9 @@ def test_manager_detail_keeps_time_cost(client, monkeypatch):
         ],
     )
 
-    detail = client.get("/operativa/delivery-manager/laura-vega/?bloque=inv")
+    detail = client.get(
+        "/operativa/delivery-manager/laura-vega/?bloque=inv&vista=anterior"
+    )
 
     assert detail.context["detail"].time_cost.time_days == 2
     assert detail.context["detail"].time_cost.cost_percent == 60

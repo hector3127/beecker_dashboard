@@ -494,6 +494,7 @@ def _manager_row(row: dict[str, Any]) -> dict[str, Any]:
         "burn",
         "status_code",
         "status_label",
+        "row_class",
         "detail",
         "progress_percent",
         "etc_hours",
