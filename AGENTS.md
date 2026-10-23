@@ -64,9 +64,14 @@ usan API v1 para filtros y dashboards ejecutivo/AER. Ejecutivo AER/T&M ya usa
 presentación contrastado contra el anterior. Los estilos AER compartidos están
 en `project_detail_aer.css`; el enlace con ID `aer-dashboard-styles` evita
 inyectarlos desde el JS anterior. La comparación anterior los sigue inyectando.
+Ejecutivo IXB/SaaS/RaaS también usa modelo, vista y controlador en
+`sections/ixs_executive*.js`, iconos SVG originales y estilos externos
+`project_detail_ixs*.css`. Las lecturas diferidas de RAID, tasks, histórico y
+estados de recursos usan API v1, con los mismos servicios y alcance total.
+Se comparan todos sus elementos contra la anterior a 1450/900/390 px.
 Las otras pestañas y sus acciones aún usan componentes anteriores y RPC.
-**No contar esta pantalla como completada.** Sigue Ejecutivo IXB/SaaS/RaaS;
-es otro diseño y debe conservarse.
+**No contar esta pantalla como completada.** Siguiente bloque: Esfuerzo
+IXB/SaaS/RaaS, reutilizando las piezas del ejecutivo sin alterar su diseño.
 
 1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.
 2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).

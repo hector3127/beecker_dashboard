@@ -20,12 +20,19 @@ test("project reads keep exact IDs, payloads and the previous 90 second timeout"
   assert.equal(await data.filters(), payload);
   assert.equal(await data.dashboard("CCO.001 | CR", false), payload);
   assert.equal(await data.dashboard("AER.001", true), payload);
+  for (const method of ["raid", "tasks", "stages", "resources"]) {
+    assert.equal(await data[method]("CCO.001 | CR"), payload);
+  }
   assert.deepEqual(
     calls.map((call) => call[0]),
     [
       "screens/proyectos/filtros/",
       "screens/proyectos/CCO.001%20%7C%20CR/ejecutivo/",
       "screens/proyectos/AER.001/aer/",
+      "screens/proyectos/CCO.001%20%7C%20CR/raid/",
+      "screens/proyectos/CCO.001%20%7C%20CR/tasks/",
+      "screens/proyectos/CCO.001%20%7C%20CR/etapas/",
+      "screens/proyectos/CCO.001%20%7C%20CR/recursos/",
     ],
   );
   for (const call of calls) {

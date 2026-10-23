@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros y carga/actualización de dashboards ejecutivo y AER; resto RPC con permisos | **Parcial**: entrada y Ejecutivo AER/T&M modulares; otras pestañas anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards y lecturas diferidas del ejecutivo IXB; resto RPC con permisos | **Parcial**: entrada y Ejecutivos AER/T&M e IXB/SaaS/RaaS modulares; otras pestañas anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -66,7 +66,7 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | EVA 2 | `operativa/eva-2/` | `pages/eva2.html` | `screens/eva-2/`; conserva contexto de servidor | **Sí** | `test_eva123.py`: mismas tablas, colores, cifras y estados vacíos a 1450 y 390 px. No tenía desplegable de cerrados y no se añadió |
 | EVA 3 e histórico AER/T&M | `operativa/eva-3/`, `operativa/eva3/cerrados/` | `pages/eva3.html`, `partials/eva3_closed.html` | `screens/eva-3/{consumos,cerrados,cerrados/consumo}/` | **Sí** | `test_eva123.py`: consumo diferido, errores parciales, reintento del guardado y comparación de tablas/cajas/estilos a 1450 y 390 px |
 | Proyecto simple | `proyecto/<id>/` | `pages/project.html` (anterior con `?vista=anterior`) | No; conserva el contexto de servidor y su alcance por cuenta | **Sí** (plantilla modular) | `test_proyecto_simple.py`: cifras, barras, riesgos, equipo, historial, regreso, errores parciales y comparación de cajas/estilos a 1450 y 390 px |
-| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada y Ejecutivo AER/T&M modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer}/`; resto RPC | **Parcial**, otras pestañas y acciones anteriores | Entrada AER e IXB a 1450/390 px; Ejecutivo AER, elemento por elemento, a 1450/900/390 px; las otras pestañas siguen pendientes |
+| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada y ambos Ejecutivos modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer,raid,tasks,etapas,recursos}/`; resto RPC | **Parcial**, otras pestañas y acciones anteriores | Entrada AER e IXB a 1450/390 px; ambos Ejecutivos, elemento por elemento, a 1450/900/390 px; las otras pestañas siguen pendientes |
 
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
@@ -133,10 +133,47 @@ pruebas de Ejecutivo y las diez existentes de su entrada. JS completo:
 `executive_report`, `financial`). Ruff, formato y comprobación de Django
 aprobados. Los servicios y los pendientes ajenos se conservaron sin cambios.
 
-**Sigue Ejecutivo IXB/SaaS/RaaS**, con su diseño y consultas diferidas de RAID
-y Tasks. Después siguen las otras pestañas y sus lecturas/escrituras, sin
-quitar RPC mientras una pestaña todavía lo necesite. El detalle completo
-y la fase 10 continúan parciales.
+El Ejecutivo IXB/SaaS/RaaS se completó en el bloque siguiente, descrito abajo.
+El detalle completo y la fase 10 continúan parciales.
+
+### Fase 10: Ejecutivo IXB/SaaS/RaaS
+
+Modelo, vista y controlador separados en `sections/ixs_executive_model.js`,
+`ixs_executive_view.js` e `ixs_executive.js`. El contenido usa nodos seguros,
+sin `innerHTML` con datos ni eventos HTML. Los iconos originales se conservan
+en `ixs_icons.js`. Las reglas IXS compartidas se extrajeron íntegramente a
+`project_detail_ixs.css`; el enlace `ixs-v74-styles` evita su inyección en la
+ruta nueva. Los estilos estáticos del ejecutivo tienen su propia hoja;
+los valores dinámicos de barras y gráfica usan CSSOM.
+
+RAID, tasks, etapas históricas y estados de recursos tienen cuatro lecturas
+API v1 con los mismos servicios, ID exacto, manejo de errores y alcance total
+del RPC. No se cambian cálculos ni permisos. Se mantienen las actualizaciones
+parciales originales: el histórico completa el Gantt, los estados marcan
+recursos inactivos y cada fuente conserva su error independiente. Las
+respuestas de un ejecutivo desmontado no sustituyen uno recién abierto.
+Planeación sigue usando su Gantt editable anterior.
+
+Catorce pruebas nuevas de navegador: nueve comparaciones de cada elemento
+(completo, vacío y alertas a 1450, 900 y 390 px), consultas diferidas, expansión
+por teclado, errores de fuente/transporte, recuperación al regresar, texto
+seguro y respuestas tardías. Capturas y diferencias en
+`tmp/migration/project_detail/ixs_executive/<caso>/<ancho>/`.
+Dos pruebas Node contrastan 32 escenarios ejecutivos y diez de línea de
+tiempo con las funciones originales; también se amplió el contrato de rutas,
+ID con CR y timeout de 90 segundos. La API tiene pruebas de payloads,
+permisos antes de las fuentes y reutilización de repositorios/servicios.
+
+Validación: **48 pruebas API y catorce de navegador aprobadas** para este
+bloque; las diez de la entrada también pasan. Regresión general: **1302
+aprobadas, una omitida**. JavaScript: **128 aprobadas, tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). Ruff, formato,
+mypy de la API y comprobación de Django aprobados. Sin cambios en servicios,
+permisos, Horas por mes ni pendientes ajenos.
+
+**Siguiente bloque: Esfuerzo IXB/SaaS/RaaS**. Después siguen las otras
+pestañas y sus lecturas/escrituras, sin quitar RPC mientras alguna lo
+necesite. El detalle completo sigue parcial.
 
 Proyecto simple (`proyecto/<id>/`) usa `pages.project` y `render_page`,
 con las mismas funciones de portafolio y detalle, permisos por proyecto y

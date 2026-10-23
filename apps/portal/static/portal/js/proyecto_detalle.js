@@ -18,6 +18,22 @@
     else runner.getDashboardEjecutivoProyecto(id);
   }
 
+  function readProjectStages(id, success, failure) {
+    if (window.beeProjectData) {
+      window.beeProjectData.stages(id).then(success).catch(failure);
+      return;
+    }
+    google.script.run.withSuccessHandler(success).withFailureHandler(failure).obtenerEtapasHistoricoAIProyecto(id);
+  }
+
+  function readProjectResources(id, success, failure) {
+    if (window.beeProjectData) {
+      window.beeProjectData.resources(id).then(success).catch(failure);
+      return;
+    }
+    google.script.run.withSuccessHandler(success).withFailureHandler(failure).ixsRecursosLeer(id);
+  }
+
   function projectParams() {
     const params = new URLSearchParams(window.location.search);
     const seed = document.getElementById('project-context');
@@ -5408,7 +5424,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       const project=ixsProyectoActual;
       if(!project._resourceStatesLoaded&&!project._resourceStatesLoading){
         project._resourceStatesLoading=true;
-        google.script.run.withSuccessHandler(result=>{
+        readProjectResources(project.proyecto.id,result=>{
           project._resourceStatesLoading=false;
           if(!result||!result.ok)return;
           project._resourceStatesLoaded=true;
@@ -5420,9 +5436,12 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
           }else if(ixsProyectoActual===project&&ixsTabActual==='planeacion'){_ixsPintarPlaneacion();}
           else if(ixsProyectoActual===project&&ixsTabActual==='resumen'){
             const table=document.querySelector('[data-resource-workload]');
-            if(table)table.outerHTML=_ixsResourceTable(project);
+            if(table){
+              if(window.beeIxsExecutive)table.replaceWith(window.beeIxsExecutive.resourceTable(project));
+              else table.outerHTML=_ixsResourceTable(project);
+            }
           }
-        }).withFailureHandler(()=>{project._resourceStatesLoading=false;}).ixsRecursosLeer(project.proyecto.id);
+        },()=>{project._resourceStatesLoading=false;});
       }
   }
   function ixsCargarPlaneacion(){
@@ -6234,22 +6253,25 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     _ixsEnsureStyles();_ixsRenderShell();
     if((data.hitos||[]).length && (data.historialCompleto||[]).length)return;
     // Completar el Gantt con las etapas A:I del ID seleccionado.
-    google.script.run.withSuccessHandler(r=>{
+    readProjectStages(data.proyecto.id,r=>{
       if(ixsProyectoActual!==data||!r||!r.ok)return;
       data.hitos=r.hitos||[];
       data.historialCompleto=r.historialCompleto||[];
       data.suspensiones=r.suspensiones||[];
       const gantt=document.getElementById('ixs-gantt-historico');
       if(gantt){
+        if(window.beeIxsExecutive&&ixsTabActual==='resumen'){
+          window.beeIxsExecutive.updateTimeline(gantt,data);return;
+        }
         const adicional=ixsTabActual==='planeacion'?(ixsPlanState.compromisos||[])
           .filter(x=>x.tipo==='Hito').map(x=>({tipo:x.actividad,fecha:x.fecha,observacion:x.estado})):[];
         gantt.innerHTML=_ixsGantt(Object.assign({},data,{hitosAdicionales:(data.hitosAdicionales||[]).concat(adicional)}));
       }
-    }).withFailureHandler(e=>{
+    },e=>{
       const gantt=document.getElementById('ixs-gantt-historico');
       if(ixsProyectoActual===data&&gantt&&!((data.hitos||[]).length||(data.historialCompleto||[]).length))
         gantt.textContent='No se pudieron cargar las etapas del histórico: '+(e&&e.message||e);
-    }).obtenerEtapasHistoricoAIProyecto(data.proyecto.id);
+    });
   }
   function _ixsRenderShell(){
     const cont=document.getElementById('dashboard-proyecto-detalle'),d=ixsProyectoActual;if(!cont||!d)return;
@@ -6763,6 +6785,13 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       return;
     }
     _ixsCargarEstadosRecursos();
+    if(window.beeIxsExecutive){
+      window.beeIxsExecutive.mount(el,ixsProyectoActual,{
+        current:project=>ixsProyectoActual===project,
+        active:()=>ixsTabActual==='resumen'
+      });
+      return;
+    }
     const d=ixsProyectoActual,p=d.proyecto||{},av=d.avance||{},pr=d.presupuesto||{},ke=d.kpisExtra||{},rt=d.totalesRecursos||{};
     const mainHitos=_ixsHitos(d),fechaSalidaPRD=_ixsFechaSalidaPRD(d),done=mainHitos.filter(h=>!h.extra&&h.state==='Completado').length,totalMain=mainHitos.filter(h=>!h.extra).length;
     const overResources=(d.filasRecursosCompleto||[]).filter(x=>/exced|retras/i.test(String(x.estado||''))||Number(x.balance)<0);

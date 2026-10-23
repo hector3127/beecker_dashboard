@@ -39,6 +39,10 @@ from apps.portal.api.project_detail import (
     ProjectAerView,
     ProjectExecutiveView,
     ProjectFiltersView,
+    ProjectRaidView,
+    ProjectResourcesView,
+    ProjectStagesView,
+    ProjectTasksView,
 )
 from apps.portal.api.screens import (
     CostSummaryView,
@@ -63,6 +67,18 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path("screens/proyectos/<str:project_id>/raid/", ProjectRaidView.as_view()),
+    path(
+        "screens/proyectos/<str:project_id>/tasks/", ProjectTasksView.as_view()
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/etapas/",
+        ProjectStagesView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/recursos/",
+        ProjectResourcesView.as_view(),
+    ),
     path(
         "screens/proyectos/filtros/",
         ProjectFiltersView.as_view(),

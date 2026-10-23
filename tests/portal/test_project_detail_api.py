@@ -14,6 +14,10 @@ SOURCES = [
     ("filtros/", "get_available_filters", ()),
     ("AER.001/ejecutivo/", "get_executive_dashboard", ("AER.001",)),
     ("AER.001/aer/", "aer_dashboard", ("AER.001",)),
+    ("AMK.008/raid/", "get_project_raid", ("AMK.008",)),
+    ("AMK.008/tasks/", "tasks_dashboard", ("AMK.008",)),
+    ("AMK.008/etapas/", "stages_dashboard", ("AMK.008",)),
+    ("AMK.008/recursos/", "resources_dashboard", ("AMK.008",)),
 ]
 
 
@@ -102,3 +106,30 @@ def test_active_entry_and_comparison(client, monkeypatch):
     assert "portal/proyecto_detalle.html" in [
         t.name for t in previous.templates
     ]
+
+
+@pytest.mark.parametrize(
+    "service,wrapper",
+    [
+        ("tasks_summary", "tasks_dashboard"),
+        ("project_stages", "stages_dashboard"),
+    ],
+)
+def test_clockify_wrappers_keep_repository_and_exact_id(
+    monkeypatch, service, wrapper
+):
+    repository = object()
+    monkeypatch.setattr(api, "build_sheet_repository", lambda: repository)
+    source = Mock(return_value={"ok": True, "horas": 12.75})
+    monkeypatch.setattr(api.project_rpc, service, source)
+    assert getattr(api, wrapper)("CCO.001 | CR") == source.return_value
+    source.assert_called_once_with(repository, "CCO.001 | CR")
+
+
+def test_resources_keep_same_store_and_exact_id(monkeypatch):
+    store = object()
+    monkeypatch.setattr(api, "build_store_sheets", lambda: store)
+    source = Mock(return_value={"ok": True, "filas": []})
+    monkeypatch.setattr(api, "read_resources", source)
+    assert api.resources_dashboard("CCO.001_S1") == source.return_value
+    source.assert_called_once_with(store, "CCO.001_S1")

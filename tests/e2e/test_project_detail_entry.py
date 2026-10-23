@@ -42,6 +42,13 @@ def project_detail(portal, monkeypatch, datos):
     monkeypatch.setattr(
         api, "aer_dashboard", lambda project: copy.deepcopy(aer)
     )
+    for source in (
+        "get_project_raid",
+        "tasks_dashboard",
+        "stages_dashboard",
+        "resources_dashboard",
+    ):
+        monkeypatch.setattr(api, source, lambda project: {"ok": True})
     monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
 
     def rpc(route):

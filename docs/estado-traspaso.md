@@ -2,7 +2,40 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10, Ejecutivo AER/T&M (pantalla aún parcial)
+## Bloque actual: fase 10, Ejecutivo IXB/SaaS/RaaS (pantalla aún parcial)
+
+- Modelo, vista y controlador separados en `sections/ixs_executive*.js`;
+  iconos SVG originales en `ixs_icons.js`. El contenido ejecutivo se construye
+  con nodos seguros y eventos externos. Las reglas de presentación y cálculos
+  se contrastan con las funciones originales, que siguen independientes.
+- CSS IXS compartido extraído completo a `project_detail_ixs.css`, con enlace
+  `ixs-v74-styles` para evitar la inyección anterior en la ruta modular.
+  Los estilos estáticos propios están en `project_detail_ixs_executive.css`;
+  las barras y la distribución por área usan CSSOM para sus valores.
+- API v1 nueva: `screens/proyectos/<id>/{raid,tasks,etapas,recursos}/`.
+  Usa los servicios originales, IDs exactos, errores y alcance total del RPC.
+  Las actualizaciones de estados y del Gantt siguen el controlador existente;
+  Planeación conserva su Gantt editable. RAID/tasks se montan por ejecutivo
+  y descartan respuestas cuando ese contenido ya se desmontó.
+- Catorce pruebas nuevas de navegador: cada elemento contra la anterior
+  (1450/900/390 px; completo, vacío, alertas), expansión por teclado,
+  fuentes y errores de transporte, recuperación al regresar, texto seguro y
+  respuestas tardías. Capturas:
+  `tmp/migration/project_detail/ixs_executive/<caso>/<ancho>/`.
+  Dos pruebas Node contrastan 32 escenarios ejecutivos y diez de Gantt.
+  El cliente de datos mantiene 90 segundos e IDs con CR en todas las lecturas.
+- Validación específica: **48 pruebas API y catorce de navegador aprobadas**.
+  Las diez de la entrada también aprobaron con el nuevo ejecutivo. JavaScript:
+  **128 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). No se cambiaron sus archivos.
+- Regresión general: **1302 aprobadas, una omitida** con Chrome, sin los
+  cuatro temporales `test_zz_*`. Ruff, formato, mypy de la API y comprobación
+  de Django aprobados. Los pendientes ajenos se conservaron sin cambios.
+- **Siguiente: Esfuerzo IXB/SaaS/RaaS**, reutilizando componentes, sin cambiar
+  su diseño ni cálculos. Después las demás pestañas. La pantalla grande y la
+  fase 10 siguen parciales; no eliminar el JS anterior ni el shim RPC.
+
+### Bloque anterior: Ejecutivo AER/T&M
 
 - Ejecutivo AER/T&M ya se construye con nodos seguros en
   `sections/aer_executive.js`; sin `innerHTML` con datos ni eventos HTML.
@@ -29,9 +62,8 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   `executive_report`, `financial`). Las trece pruebas nuevas de navegador y
   las diez de la entrada están incluidas en la regresión. Ruff, formato y
   comprobación de Django aprobados. No se modificaron permisos ni servicios.
-- **Siguiente: Ejecutivo IXB/SaaS/RaaS**, preservando su diseño distinto y sus
-  consultas diferidas de RAID/Tasks. Después las demás pestañas. El detalle
-  completo sigue parcial; no eliminar el JS anterior ni el shim RPC.
+- Ejecutivo IXB/SaaS/RaaS se completó en el bloque posterior descrito arriba.
+  El detalle completo sigue parcial; no eliminar el JS anterior ni el shim RPC.
 
 ### Entrada del detalle completada en el bloque anterior
 
@@ -56,15 +88,15 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   **1248 aprobadas, una omitida**. JS completo: **124 aprobadas, tres fallos
   anteriores** (`cost_sprint_details`, `executive_report`, `financial`). Ruff,
   formato, mypy y `manage.py check` aprobados. No se activaron los permisos.
-- **No está completada la pantalla ni la fase 10:** salvo Ejecutivo AER/T&M,
+- **No está completada la pantalla ni la fase 10:** salvo ambos Ejecutivos,
   las pestañas siguen construyéndose con el JS anterior, incluyendo eventos
   en línea y acciones RPC. No eliminar todavía el shim ni sus archivos.
-- **Siguiente bloque:** extraer Ejecutivo de IXB/SaaS/RaaS.
+- **Continuación:** Esfuerzo IXB/SaaS/RaaS y luego las demás pestañas.
   Conservar las reglas de presentación, fuentes, cifras y comparación visual.
-  Luego Planeación, Esfuerzo, Riesgos/RAID, Acciones, Recursos, Cliente e IA;
+  Siguen pendientes Planeación, Riesgos/RAID, Acciones, Recursos, Cliente e IA;
   IXB además contiene Comunicación y Azure DevOps. No duplicar el archivo
   completo ni cambiar los servicios mientras se separa la interfaz.
-  Ejecutivo AER/T&M se completó después de esta entrada, como se indica arriba.
+  Ambos Ejecutivos se completaron después de esta entrada, como se indica arriba.
 
 ## Última pantalla terminada
 - **Proyecto simple** (`proyecto/<id>/`): `pages/project.html`, CSS externo y

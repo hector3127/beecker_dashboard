@@ -1,0 +1,66 @@
+.ixs-exec-months {
+  position: relative;
+  height: 22px;
+}
+.ixs-legend .ixs-exec-legend-plan {
+  background: #cbd0dd;
+}
+.ixs-legend .ixs-exec-legend-real {
+  background: #5c31d5;
+}
+.ixs-legend .ixs-exec-legend-hold {
+  background: #edae1d;
+}
+.ixs-shell .ixs-exec-balance {
+  font-weight: 700;
+}
+.ixs-shell .ixs-exec-inactive {
+  color: #d83259;
+  text-decoration: line-through;
+}
+.ixs-exec-flex {
+  min-width: 0;
+  flex: 1;
+}
+.ixs-exec-float {
+  float: right;
+}
+.ixs-shell .ixs-exec-workload {
+  margin-bottom: 11px;
+}
+.ixs-exec-raid-stack {
+  display: grid;
+  gap: 11px;
+  align-content: start;
+}
+.ixs-raid .box.ixs-exec-raid-risk {
+  background: #fff0f3;
+}
+.ixs-raid .box.ixs-exec-raid-issues {
+  background: #fff7e7;
+}
+.ixs-raid .box.ixs-exec-raid-opps {
+  background: #effbf5;
+}
+.ixs-raid .box.ixs-exec-commercial {
+  background: #fff1f7;
+}
+.ixs-exec-task-title {
+  margin-top: 9px;
+  font-weight: 800;
+}
+.ixs-exec-task-range {
+  margin: 5px 0 12px;
+  color: #777492;
+  font-size: 11px;
+  text-align: center;
+}
+.ixs-exec-task-scroll {
+  max-height: 220px;
+  overflow: auto;
+}
+.ixs-exec-task-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
