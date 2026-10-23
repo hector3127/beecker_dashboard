@@ -87,11 +87,15 @@ La presentación y las cargas de Planeación son modulares en
 vacaciones y tabla Azure con filtros locales. El Gantt reutiliza la vista
 del Ejecutivo, con marcadores editables; el histórico diferido actualiza la
 vista modular. Sus modelos conservan las reglas anteriores, contrastadas
-contra las funciones originales. La extensión, el editor de hitos del
-histórico y las escrituras/comentarios de Work Items aún usan controladores
-anteriores y RPC. **Planeación y la fase 10 continúan parciales.**
-Siguiente bloque: migrar las escrituras/comentarios de Work Items y su
-actualización visual; después editor de hitos del histórico y extensión.
+contra las funciones originales. Las escrituras/comentarios de Work Items
+usan API v1 con edición, alcance total y CSRF; Planeación tiene controlador
+modular y recálculo DOM seguro en `ixs_work_item_actions.js`. La pestaña Azure
+todavía conserva su vista/controlador anterior, pero estas dos escrituras
+usan la API mediante `workItemCall`; la comparación anterior sigue con RPC.
+La columna de comentarios de Planeación se conserva oculta por su CSS
+original; Azure DevOps sí la muestra. No cambiar esto durante la migración.
+**Planeación y la fase 10 continúan parciales.** Siguiente bloque: editor de
+hitos del histórico y después extensión con sus integraciones.
 Después faltan Gestión
 RAID, Acciones, Cliente, Comunicación, Azure DevOps e IA de IXS; en AER faltan
 todas las pestañas salvo Ejecutivo. También falta separar encabezados y

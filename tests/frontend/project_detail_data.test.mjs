@@ -14,6 +14,31 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("work item writes preserve IDs, typed values, body and timeout", async () => {
+  const calls = [];
+  const data = context.createProjectData(
+    () => {
+      throw Error("Unexpected read");
+    },
+    async (...args) => {
+      calls.push(args);
+      return { data: { ok: true } };
+    },
+  );
+  await data.saveWorkItem(101, "qa", false);
+  await data.saveWorkItem(101, "devConstruido", 0);
+  await data.commentWorkItem(202, "Texto á ' \n");
+  assert.equal(calls[0][1], "screens/work-items/101/avance/");
+  assert.equal(calls[0][2].valor, false);
+  assert.equal(calls[1][2].valor, 0);
+  assert.equal(calls[2][1], "screens/work-items/202/comentarios/");
+  assert.equal(calls[2][2].comentario, "Texto á ' \n");
+  for (const call of calls) {
+    assert.equal(call[0], "POST");
+    assert.equal(call[3].timeout, 90000);
+  }
+});
+
 test("resource writes keep exact IDs, payloads and timeout through the shared client", async () => {
   const calls = [],
     payload = {

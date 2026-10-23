@@ -13,6 +13,7 @@ from apps.aer import rpc as aer
 from apps.aer.services import dashboard
 from apps.azure_devops.rpc import get_project_raid
 from apps.clockify import project_rpc
+from apps.daily import rpc as daily
 from apps.daily.ixs_rpc import build_store_sheets, get_ixs_panel
 from apps.daily.services.ixs_planning import (
     delete_plan,
@@ -260,3 +261,42 @@ class ProjectResourceSaveView(OperationsScreen):
             return error_response(
                 error.http_status, error.code, error.build_message()
             )
+
+
+@method_decorator(csrf_protect, name="dispatch")
+class WorkItemProgressView(OperationsScreen):
+    """Mismo alcance global que el RPC: no implica pertenencia a una cuenta."""
+
+    permission_classes = [
+        *APIView.permission_classes,
+        capability_permission("edit_operations", whole_portfolio=True),
+    ]
+
+    def perform(
+        self, work_item_id: int, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Mismo guardado en WorkItems_Avance y mismas validaciones."""
+        return daily.save_work_item_progress(
+            work_item_id, payload.get("campo"), payload.get("valor")
+        )
+
+    def post(self, request: Request, work_item_id: int) -> Response:
+        """El ID de la ruta prevalece; sin reglas nuevas de negocio."""
+        if not isinstance(request.data, dict):
+            return error_response(400, "validation", "Envía un objeto JSON.")
+        try:
+            return self.body(self.perform(work_item_id, request.data))
+        except DashboardError as error:
+            return error_response(
+                error.http_status, error.code, error.build_message()
+            )
+
+
+class WorkItemCommentView(WorkItemProgressView):
+    """Comentario con el mismo servicio fechado y CSRF heredado."""
+
+    def perform(
+        self, work_item_id: int, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Conserva conexión, proyecto activo y fecha local del servicio."""
+        return daily.add_comment(work_item_id, payload.get("comentario"))

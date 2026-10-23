@@ -224,25 +224,23 @@ def test_late_reads_do_not_replace_reentered_planning(
 
 
 def test_buttons_and_work_item_events_keep_their_existing_actions(
-    portal, planning, fixed_day
+    portal, planning, fixed_day, monkeypatch
 ):
+    from apps.portal.api import project_detail as api
+
     open_planning(portal)
     calls = []
 
-    def rpc(route):
-        name = route.request.url.rstrip("/").rsplit("/", 1)[-1]
-        if name == "guardarCampoAvanceWorkItem":
-            calls.append(copy.deepcopy(route.request.post_data_json))
-            route.fulfill(json={"ok": True, "result": {"ok": True}})
-        else:
-            route.fallback()
+    def save(*args):
+        calls.append(args)
+        return {"ok": True}
 
-    portal.route("**/api/rpc/**", rpc)
+    monkeypatch.setattr(api.daily, "save_work_item_progress", save)
     first = portal.locator("#wi-row-101")
     first.locator("td:nth-child(5) input").fill("60")
     first.locator("td:nth-child(5) input").dispatch_event("change")
     expect(portal.locator("#wi-avance-101")).to_contain_text("48%")
-    assert calls[0]["args"] == [101, "devConstruido", 60]
+    assert calls[0] == (101, "devConstruido", 60)
     portal.get_by_role("button", name="Ver todas", exact=True).click()
     expect(portal.locator("#ixs-plan-vacaciones")).to_be_in_viewport()
     portal.get_by_role("button", name="Extensión", exact=False).click()

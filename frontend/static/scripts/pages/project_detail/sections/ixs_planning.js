@@ -1,8 +1,11 @@
 import { renderPlanning } from "./ixs_planning_view.js";
 import { planningAzureSection } from "./ixs_planning_azure.js";
+import { createWorkItemActions } from "./ixs_work_item_actions.js";
 
 export function createPlanningController(api) {
   let target, project, plan, azure, lifecycle;
+  const workItems = createWorkItemActions(api);
+  let workItemActions;
   function paint() {
     if (
       !target?.isConnected ||
@@ -13,7 +16,7 @@ export function createPlanningController(api) {
       return;
     renderPlanning(target, project, plan, azure, {
       ...lifecycle.actions,
-      azureSection: (state) => planningAzureSection(state, lifecycle.actions),
+      azureSection: (state) => planningAzureSection(state, workItemActions),
     });
   }
   async function loadAzure(owner, state, guards) {
@@ -84,6 +87,7 @@ export function createPlanningController(api) {
       plan = planState;
       azure = azureState;
       lifecycle = guards;
+      workItemActions = workItems.bind(data, azureState, guards, paint);
       const id = data.proyecto.id,
         token = ++plan.requestId;
       if (plan.proyectoId !== id) {

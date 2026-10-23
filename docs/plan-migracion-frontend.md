@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos y transporte de Planeación IXB; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas y editores de Planeación IXB/SaaS/RaaS modulares; acciones restantes de Planeación y otras pestañas anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos, transporte de Planeación IXB y escrituras de Work Items; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas, editores y escrituras de Work Items en Planeación IXB/SaaS/RaaS modulares; hitos históricos/extensión y otras pestañas anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -91,11 +91,57 @@ Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
 incluidos Gantt editable, calendario, editores y extensión de proyecto.
 Los editores de vacaciones y actividades/hitos, la presentación general y
-sus consultas ya son modulares. Quedan las escrituras/comentarios de Azure,
-el editor de hitos del histórico y la extensión con integraciones. Usar API
-para las consultas no equivale a migrar toda la pestaña.
+sus consultas y las escrituras de Work Items ya son modulares. Quedan el
+editor de hitos del histórico y la extensión con integraciones. Azure DevOps
+mantiene su vista anterior, aunque estas escrituras usan API mediante puente.
+Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Fase 10: escrituras/comentarios de Work Items (Planeación parcial)
+
+API v1 `screens/work-items/<id>/{avance,comentarios}/`: POST con el mismo
+`daily.save_work_item_progress` y `daily.add_comment`, sin modificar servicios,
+proyecto activo, validaciones ni fecha local que se añade al comentario.
+ID de ruta autoritativo, cuerpo objeto, errores públicos para excepciones y
+contrato `{data, meta}`. Exige edición y alcance total igual que el RPC;
+CSRF también en comentario por herencia y aun con accesos apagados. Son
+servicios globales por Work Item, no se finge validar pertenencia a una cuenta.
+
+`ixs_work_item_actions.js` maneja los cuatro campos y comentarios en Planeación.
+La actualización de la barra usa DOM seguro/CSS externo, la misma ecuación y
+los valores actuales de los controles. Mantiene las alertas de errores, trim,
+validación de comentario vacío, mensajes y sus tres segundos; protege frente
+a respuestas de otra sesión/fila desmontada y doble envío de comentario.
+Fecha límite conserva la mutación del item y el repintado de alertas existente.
+La pestaña Azure anterior también usa estas dos APIs mediante `workItemCall`,
+pero mantiene por ahora su controlador y presentación previos. La comparación
+anterior conserva RPC: no contar la pestaña Azure como migrada por ese puente.
+
+La columna de comentarios de Planeación está oculta por el CSS original y se
+conserva así. Las pruebas del controlador usan eventos DOM sin mostrarla; se
+prueba también un envío con controles visibles desde Azure DevOps. No se
+publican comentarios reales, las fuentes de prueba están simuladas.
+
+Veintinueve pruebas API nuevas verifican servicio/valores exactos (incluidos
+false/0), respuesta, método, cuerpo, edición/alcance antes del servicio,
+CSRF y errores. Veinticinco de navegador prueban doce comparaciones visuales
+tras guardar a 1450/900/390 px, los cuatro campos y CSRF del cliente, comentarios
+vacíos, errores de fuente/transporte/permisos, reintento, doble envío y
+respuestas tardías. Dos Node nuevos contrastan el contrato del cliente y la
+ecuación contra el recálculo original. Específicas: **80 aprobadas**, incluidas
+26 de la presentación de Planeación. Capturas:
+`tmp/migration/project_detail/ixs_work_items/<caso>/<ancho>/`.
+
+Regresión de proyecto: **321 aprobadas** en APIs del detalle/Recursos/
+Planeación/Work Items, soporte frontend y vistas migradas AER/IXS, con Chrome.
+No se presenta como una nueva regresión completa del portal. JavaScript:
+**140 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff, formato, mypy de la API,
+comprobación de Django y revisión del diff aprobados.
+
+**Siguiente:** editor de hitos del histórico y extensión con integraciones.
+Planeación y la fase 10 continúan parciales; mantener shim/JS anterior.
 
 ### Fase 10: presentación y cargas de Planeación IXB/SaaS/RaaS (parcial)
 

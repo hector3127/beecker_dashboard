@@ -47,6 +47,13 @@
     else if (method === 'deletePlan') runner.ixsPlanEliminar(...args);
   }
 
+  function workItemCall(method,args,success,failure){
+    if(window.beeProjectData){window.beeProjectData[method](...args).then(success).catch(failure);return;}
+    const runner=google.script.run.withSuccessHandler(success).withFailureHandler(failure);
+    if(method==='saveWorkItem')runner.guardarCampoAvanceWorkItem(...args);
+    else runner.agregarComentarioWorkItem(...args);
+  }
+
   function projectParams() {
     const params = new URLSearchParams(window.location.search);
     const seed = document.getElementById('project-context');
@@ -6787,9 +6794,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
             edit:(type,uid='',initial)=>ixsAbrirPlanEditor(type,encodeURIComponent(uid).replace(/'/g,'%27'),initial),
             editMarker:ixsEditarHitoTimeline,
             extension:ixsAbrirExtension,
-            azure:()=>ixsCambiarTab('azure'),
-            update:_actualizarCampoWorkItemUI,
-            comment:_enviarComentarioWorkItemUI
+            azure:()=>ixsCambiarTab('azure')
           }
         });return;
       }
@@ -10328,8 +10333,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
    * sin esperar un refresh completo, para que se sienta instantáneo.
    */
   function _actualizarCampoWorkItemUI(idWorkItem, campo, valor) {
-    google.script.run
-      .withSuccessHandler((res) => {
+    workItemCall('saveWorkItem',[idWorkItem,campo,valor],(res) => {
         if (!res || !res.ok) {
           alert('Error al guardar: ' + (res ? res.error : 'desconocido'));
           return;
@@ -10340,9 +10344,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
           if(item)item.fechaLimiteDev=valor||'';
           _ixsPintarPlaneacion();
         }
-      })
-      .withFailureHandler((err) => alert('Error: ' + err.message))
-      .guardarCampoAvanceWorkItem(idWorkItem, campo, valor);
+      },(err) => alert('Error: ' + err.message));
   }
 
   /**
@@ -10381,8 +10383,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
 
     if (status) status.textContent = 'Enviando...';
 
-    google.script.run
-      .withSuccessHandler((res) => {
+    workItemCall('commentWorkItem',[idWorkItem,texto],(res) => {
         if (!res || !res.ok) {
           if (status) status.textContent = '';
           alert('Error al enviar comentario: ' + (res ? res.error : 'desconocido'));
@@ -10393,12 +10394,10 @@ function _renderGraficaHorasDia(contenedorId, dias) {
           status.textContent = '✓ Publicado en Azure DevOps';
           setTimeout(() => { status.textContent = ''; }, 3000);
         }
-      })
-      .withFailureHandler((err) => {
+      },(err) => {
         if (status) status.textContent = '';
         alert('Error: ' + err.message);
-      })
-      .agregarComentarioWorkItem(idWorkItem, texto);
+      });
   }
 
   // ---------- Tarjeta: Riesgos (Azure DevOps, tipo "Risk") ----------

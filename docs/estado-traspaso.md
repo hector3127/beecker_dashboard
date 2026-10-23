@@ -2,7 +2,48 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10, presentación y cargas de Planeación IXS (parcial)
+## Bloque actual: fase 10, escrituras de Work Items (Planeación parcial)
+
+- API v1: `screens/work-items/<id>/{avance,comentarios}/`, solo POST. Invoca
+  exactamente `daily.save_work_item_progress` y `daily.add_comment`, sin
+  cambiar store/proyecto activo, validaciones ni el fechado del comentario.
+  El ID de ruta prevalece sobre el cuerpo. Exige `edit_operations`, alcance
+  total y CSRF incluso con accesos apagados; el comentario hereda la misma
+  protección. Son servicios globales como el RPC, no validación por cuenta.
+- `ixs_work_item_actions.js`: guardado y comentarios de Planeación; actualiza
+  la barra con DOM seguro y CSS externo, conservando la ecuación anterior y
+  leyendo los controles actuales. La fecha límite actualiza el mismo item y
+  repinta alertas. Comentarios conservan trim, alertas, estados y tres segundos
+  del mensaje de éxito; bloquean doble envío y descartan respuestas de filas
+  desmontadas u otra sesión/proyecto. API compartida conserva 90 segundos/CSRF.
+- `workItemCall` en el script anterior lleva estas dos escrituras a API también
+  en la pestaña Azure, que todavía conserva su vista/controlador anterior.
+  Con `?vista=anterior` se mantiene RPC independiente. No dar esa pestaña por
+  migrada debido a este puente.
+- **Diseño:** `.ixs-plan-table` oculta la columna de comentarios (última celda)
+  en la versión original. Se conserva. Las pruebas de ese controlador usan
+  eventos DOM sin mostrarla; otra prueba envía desde Azure DevOps con controles
+  visibles. No se publican comentarios reales: fuentes y RPC simulados.
+- Veintinueve pruebas API nuevas, 25 de navegador para escrituras y dos Node
+  (contrato del cliente y contraste de la fórmula con la función original).
+  Doce comparaciones después de dev/QA/fecha/comentario a 1450/900/390 px,
+  cuatro campos/CSRF, vacío, errores/reintentos y respuestas tardías.
+  Específicas: **80 aprobadas**, incluidas 26 de la vista de Planeación.
+  Capturas: `tmp/migration/project_detail/ixs_work_items/<caso>/<ancho>/`.
+- Regresión de proyecto: **321 aprobadas** (APIs del detalle/Recursos/
+  Planeación/Work Items, soporte frontend y vistas migradas AER/IXS), con
+  Chrome. No es una nueva corrida de todo el portal. JavaScript:
+  **140 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff, formato, mypy de la API,
+  comprobación de Django y revisión del diff aprobados.
+- Las primeras pruebas intentaban usar campos ocultos y luego disparaban dos
+  eventos (manual y blur nativo), o esperaban un valor ya presente antes de la
+  respuesta. Se corrigió el arnés sin cambiar el diseño ni los cálculos.
+- **Siguiente:** editor de hitos del histórico y extensión con integraciones.
+  La fase 10 continúa parcial. No retirar shim/JS anterior, activar accesos,
+  cambiar Horas por mes, tocar pendientes ajenos ni hacer push.
+
+### Bloque anterior: presentación y cargas de Planeación IXS (parcial)
 
 - `sections/ixs_planning{,_model,_view,_azure}.js`: controlador de consultas,
   indicadores, alertas, calendario de seis semanas, registros de vacaciones,

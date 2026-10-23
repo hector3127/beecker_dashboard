@@ -49,6 +49,8 @@ from apps.portal.api.project_detail import (
     ProjectResourcesView,
     ProjectStagesView,
     ProjectTasksView,
+    WorkItemCommentView,
+    WorkItemProgressView,
 )
 from apps.portal.api.screens import (
     CostSummaryView,
@@ -73,6 +75,14 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/work-items/<int:work_item_id>/avance/",
+        WorkItemProgressView.as_view(),
+    ),
+    path(
+        "screens/work-items/<int:work_item_id>/comentarios/",
+        WorkItemCommentView.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/planeacion/",
         ProjectPlanningView.as_view(),

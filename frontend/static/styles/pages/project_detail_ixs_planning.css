@@ -35,3 +35,12 @@
 .ixs-shell .ixs-btn.ixs-plan-comment-send {
   padding: 5px 9px;
 }
+.progress-bar-bg.ixs-plan-saved-progress {
+  width: 80px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.progress-bar-fill.ixs-plan-saved-fill {
+  background: var(--verde);
+}
