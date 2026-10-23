@@ -11,4 +11,4 @@ a[data-pronto]{cursor:help}
 .fresh .capture-status { max-width: 260px; font-size: 12px; white-space: normal; }
 .fresh .capture-button { min-height: 0; }
 /* La barra de navegacion anterior anulaba el margen de la barra lateral vieja. */
-body #main-content { margin-left: 0 !important; }
+body #main-content { margin-left: auto !important; }
