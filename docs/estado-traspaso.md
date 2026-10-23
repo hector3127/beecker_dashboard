@@ -2,6 +2,29 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, modelo de IA IXB (parcial)
+
+- `sections/ixs_ai_model.js` separa contexto, snapshot de memoria, cambios
+  entre cortes y capacidad por recurso. Recibe estado y dependencias explícitas;
+  no consulta servicios ni modifica datos. Las cuatro funciones anteriores
+  delegan en la ruta nueva y mantienen su código para comparar.
+- Conserva agrupaciones, redondeos, estados cerrados, normalización de nombres,
+  recursos inactivos y límites de minutas. Atención: contexto excluye duraciones
+  negativas y suma por personas con nombre; snapshot suma todas las duraciones
+  numéricas. Esa diferencia ya existía; se mantiene sin ajustar cálculos.
+- Cuatro pruebas Node nuevas comparan cada salida con las funciones originales,
+  con datos completos, vacíos y fuentes parciales; verifican no mutación y
+  snapshot diferido cuando no hay memoria. Suite dirigida: **16 aprobadas**.
+- **35 pruebas aprobadas** de navegador/soporte: 34 de IA, entrada y soporte
+  frontend, más una nueva que comprueba delegación real de las cuatro funciones
+  y resultados idénticos en el navegador. Incluye nueve comparaciones visuales
+  a 1450/900/390 px. Capturas regeneradas en
+  `tmp/migration/project_detail/ixs_ai_sources/`; inspeccionada escritorio.
+  Ruff/formato y diff aprobados. Servicios simulados, sin llamadas reales a IA.
+- IA sigue parcial: presentación y eventos, generación/preguntas y formularios
+  aún son anteriores. Siguiente vista segura reutilizando este modelo; después
+  acciones por API con permisos y CSRF. Fase 10 parcial, sin push.
+
 ## Bloque: fase 10, fuentes e historial de IA IXB (parcial)
 
 - `apps/portal/api/project_ai.py` expone seis GET de `screens/proyectos/<id>/`:

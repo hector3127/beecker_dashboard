@@ -115,9 +115,11 @@ y acciones protegidas frente a respuestas tardías. No llama a los renderizadore
 ni formularios anteriores en esta pestaña; el archivo grande sigue para el resto.
 IA IXB tiene fuentes, historial y Drive por API v1 en `project_ai.py` y
 `sections/ixs_ai_sources.js`, con tres CSS externos y comparación visual.
-Sigue parcial: presentación, contexto/cálculos, generación y formularios aún
-usan el script anterior. Siguiente extraer modelo y vista conservando cálculos,
-después acciones con permisos y CSRF. Ver evidencia en el traspaso.
+Contexto, snapshot, comparación entre cortes y capacidad ya están separados
+en `sections/ixs_ai_model.js`, conservando las fórmulas anteriores.
+Sigue parcial: presentación, generación y formularios aún usan el script
+anterior. Siguiente vista; después acciones con permisos y CSRF. Ver evidencia
+en el traspaso.
 
 **Planeación y la fase 10 continúan parciales.** Siguiente:
 IA, Cliente/Acciones (comparten renderer con AER) y Comunicación de

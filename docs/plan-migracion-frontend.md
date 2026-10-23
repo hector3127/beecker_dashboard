@@ -103,6 +103,25 @@ Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Fase 10: modelo de IA IXB (parcial)
+
+Contexto, snapshot, cambios entre cortes y capacidad por recurso separados en
+`ixs_ai_model.js`, con dependencias explícitas y sin red/DOM. Las funciones
+anteriores delegan solo en la ruta nueva; comparación conserva las originales.
+No se cambiaron fórmulas, redondeos ni límites. Se conserva la diferencia
+anterior entre horas del contexto (sin negativos, por personas con nombre) y
+snapshot (suma de duraciones numéricas), documentada en el traspaso.
+
+Evidencia: cuatro pruebas Node nuevas contra las funciones originales; 16
+aprobadas en la suite dirigida. 35 pruebas navegador/soporte aprobadas: nueve
+comparaciones completa/vacía/parcial a 1450/900/390 px, entrada, soporte,
+reintentos/cargas y comprobación de delegación real con resultados idénticos.
+Capturas regeneradas en `tmp/migration/project_detail/ixs_ai_sources/` e
+inspeccionada escritorio. Ruff/formato y diff aprobados. Fuentes simuladas.
+
+**IA sigue parcial:** falta separar vista/eventos y migrar las acciones y
+formularios a API. Fase 10 no terminada; mantener shim y script anterior.
+
 ### Fase 10: fuentes e historial de IA IXB (parcial)
 
 Seis GET en `project_ai.py` conservan los servicios y errores anteriores:

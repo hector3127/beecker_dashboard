@@ -235,6 +235,36 @@ def test_initial_reads_use_api_without_model_or_rpc(portal, ia, fixed_day):
     assert not any("/api/rpc/" in url for url in requests)
 
 
+def test_calculations_use_modular_model_with_original_results(
+    portal, ia, fixed_day
+):
+    enter(portal)
+    result = portal.evaluate("""() => {
+      const model = window.beeIxsAiModel, calls = [];
+      window.beeIxsAiModel = Object.fromEntries(
+        Object.entries(model).map(([key, fn]) => [key, (...args) => {
+          calls.push(key); return fn(...args);
+        }])
+      );
+      const read = () => JSON.parse(JSON.stringify({
+        context: ixsIAContexto(), snapshot: ixsIASnapshot(),
+        changes: ixsIACambios(), capacity: ixsIACapacidad()
+      }));
+      try {
+        const modern = read();
+        window.beeIxsAiModel = null;
+        return { modern, original: read(), calls };
+      } finally { window.beeIxsAiModel = model; }
+    }""")
+    assert result["modern"] == result["original"]
+    assert set(result["calls"]) == {
+        "context",
+        "snapshot",
+        "changes",
+        "capacity",
+    }
+
+
 def test_partial_source_can_retry_without_losing_other_sources(
     portal, ia, fixed_day
 ):
