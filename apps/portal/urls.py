@@ -106,7 +106,7 @@ urlpatterns = [
     ),
     path("cuenta/<slug:slug>/", pages.account, name="cuenta"),
     path("cuenta/<slug:slug>/horas/", pages.account_hours, name="cuenta_horas"),
-    path("proyecto/<str:project_id>/", views.proyecto, name="proyecto"),
+    path("proyecto/<str:project_id>/", pages.project, name="proyecto"),
     path(
         "operativa/delivery-manager/<slug:slug>/",
         pages.delivery_manager,

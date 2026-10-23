@@ -979,7 +979,7 @@ def proyecto(request: HttpRequest, project_id: str) -> HttpResponse:
         },
     )
 
-    return render(request, "portal/proyecto.html", context)
+    return render_page(request, "portal/proyecto.html", context)
 
 
 @require_GET

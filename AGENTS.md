@@ -44,6 +44,7 @@ Migradas (ruta → plantilla de `frontend/templates/pages/`, con la anterior en 
 | EVA 1 (con histórico) | `/operativa/eva-1/` | `eva1.html` |
 | EVA 2 | `/operativa/eva-2/` | `eva2.html` |
 | EVA 3 (con histórico) | `/operativa/eva-3/` | `eva3.html` |
+| Proyecto simple | `/proyecto/<id>/` | `project.html` |
 
 **Pendiente, en este orden:**
 
@@ -54,12 +55,12 @@ Las cuatro pantallas de Facturabilidad están completadas. Por área usa
 API v1 y módulos separados para los cinco apartados; no usa el shim RPC.
 EVA 1–3 también están completadas, incluidos los históricos existentes de
 EVA 1 y EVA 3. EVA 2 conserva su presentación sin añadirle otro histórico.
-Sigue la página simple de Proyecto.
+Proyecto simple también usa plantilla modular, CSS externo y un módulo para
+presentar las barras. Conserva el contexto Python y el alcance por cuenta.
 
-1. La página simple de Proyecto (`proyecto/<id>/`).
-2. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): dividir en módulos por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`.
-3. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).
-4. Genesis / `ACCESS_ENFORCED`: decisión de despliegue, no de código.
+1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): dividir en módulos por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`.
+2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).
+3. Genesis / `ACCESS_ENFORCED`: decisión de despliegue, no de código.
 
 ## Estructura
 

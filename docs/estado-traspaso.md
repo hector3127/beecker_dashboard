@@ -3,6 +3,24 @@
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Última pantalla terminada
+- **Proyecto simple** (`proyecto/<id>/`): `pages/project.html`, CSS externo y
+  `project/main.js`. La ruta activa conserva el mismo contexto Python,
+  redondeos, decisiones, riesgos, equipo, historial y alcance por cuenta.
+  Siete pruebas de servidor y seis de navegador cubren datos, barras,
+  navegación a la cuenta con regreso, errores parciales y comparación visual
+  a 1450 y 390 px, con información completa y estados vacíos. Capturas en
+  `tmp/migration/project/<ancho>/<full|empty>/`.
+  Regresión general: **1215 aprobadas, una omitida**. Después se amplió la
+  comparación a los estados vacíos, preservando también su relleno y color
+  originales: cierre dirigido de Proyecto simple **19 aprobadas** (incluye
+  sus seis pruebas de cálculo anteriores, sin modificarlas). Ruff, formato,
+  mypy y comprobación de Django aprobados. JavaScript: **122 aprobadas y
+  los tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+  `financial`). La intermitencia de sesión en Acuerdos no apareció en esta
+  regresión; no se modificó ni se da por corregida su causa.
+  La cuadrícula conserva el desbordamiento móvil de la versión anterior;
+  esta migración no rediseña la pantalla. **Siguiente: detalle grande del
+  proyecto (`proyectos/<id>/`) por pestañas.**
 - **EVA 1, 2 y 3**: plantillas `pages/eva{1,2,3}.html`, CSS y módulos
   separados; contexto Python, diseño y cálculos conservados. Los históricos
   existentes de EVA 1 y EVA 3 usan JSON y nodos DOM seguros. EVA 2 sigue sin
@@ -22,7 +40,7 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   Las tres pruebas de Acuerdos, ese recorrido de sesión y las quince de EVA
   pasaron juntos después: **19 aprobadas**, sin modificar permisos, sesiones
   ni pruebas de Acuerdos. La investigación de esa intermitencia queda aparte.
-  **Siguiente: Proyecto simple (`proyecto/<id>/`).**
+  Proyecto simple se completó después, como se indica arriba.
 - **Facturabilidad por área** (`pages/billability_area.html`): General,
   Detalle recurso, KPIs, % Recurso y Detalle HRS. Datos mediante API v1;
   módulos separados, DOM seguro y CSS externo. Se conservan los servicios
@@ -91,14 +109,14 @@ Pendientes recibidos de Inversión (ya resueltos; referencia histórica):
 - Inversión: solo comparación de estilos contra la anterior (formulario y celdas iguales; queda la diferencia de alto). Todavía no se ha corrido pytest con ella.
 
 ## Siguiente paso concreto
-Migrar Proyecto simple (`proyecto/<id>/`). EVA 1–3 y Facturabilidad completa
-ya usan `frontend/`; sus históricos y consultas diferidas están conservados.
+Migrar el detalle grande del proyecto (`proyectos/<id>/`) por pestañas.
+Proyecto simple, EVA 1–3 y Facturabilidad completa ya usan `frontend/`;
+sus históricos y consultas diferidas están conservados.
 El área lee `screens/facturabilidad/area/` y conserva sus cinco apartados.
 Las pruebas comparan con `?vista=anterior`; las capturas se generan bajo
 `tmp/migration/billability_area/`. El CSS anterior oculta la navegación de
 apartados en móvil: se conservó y documentó, sin dar por probada una navegación
-que ya no estaba disponible. Después: Proyecto,
-detalle del proyecto por pestañas y limpieza.
+que ya no estaba disponible. Después del detalle por pestañas: limpieza.
 
 ## Publicación
 - Se verificó `origin/main` y se publicó mediante push normal el rango

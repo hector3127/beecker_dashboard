@@ -448,3 +448,9 @@ def eva3_cerrados(request: HttpRequest) -> HttpResponse:
     if not (anterior_disponible() and request.GET.get("vista") == "anterior"):
         request.portal_template = "partials/eva3_closed.html"  # type: ignore[attr-defined]
     return views.eva3_cerrados(request)
+
+
+@require_GET
+def project(request: HttpRequest, project_id: str) -> HttpResponse:
+    """Proyecto simple con los mismos datos, calculos y alcance por cuenta."""
+    return _modern(request, views.proyecto, "pages/project.html", project_id)
