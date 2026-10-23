@@ -8,6 +8,7 @@
 .nav a { display: inline-flex; align-items: center; padding: 8px 13px; border-radius: 10px; font-size: 12px; font-weight: 600; line-height: 1.2; white-space: nowrap; color: var(--nav-text); }
 .nav a:hover { background: var(--nav-hover); }
 .nav a[aria-current="page"] { background: var(--nav-active-bg); color: var(--nav-active); }
+.fresh .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--fresh-dot); }
 .fresh { display: flex; align-items: center; gap: 7px; margin-left: auto; font-size: 11px; color: var(--fresh-ink); }
 
 /* ---------- Contenedor y barra de página ---------- */

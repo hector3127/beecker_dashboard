@@ -1,0 +1,55 @@
+/* Decisiones y seguimiento (acuerdos). Reglas de la pantalla anterior. */
+.executive-decisions,.executive-agreements{margin-top:18px}
+.executive-table-scroll{overflow:auto}
+.executive-table-scroll table{width:100%;border-collapse:collapse;font-size:12px}
+.executive-table-scroll th{background:#f2eeff;text-align:left;font-size:11px;padding:12px;white-space:nowrap}
+.executive-table-scroll td{padding:14px 12px;border-bottom:1px solid #eee8fa;vertical-align:top;min-width:105px}
+.executive-table-scroll td small{display:block;margin-top:5px;color:#8b7eab}
+.executive-decisions td:first-child{min-width:180px}
+.executive-agreements button{cursor:pointer;border:1px solid #dfd3f6;border-radius:9px;background:#fff;color:#6227dd;padding:8px 12px;font:inherit;font-size:12px}
+.agreements-heading{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.executive-agreements #agreement-new,.executive-agreements #agreement-save{background:#6929e8;color:#fff;border-color:#6929e8}
+#agreement-form{display:grid;grid-template-columns:2fr 1fr 1.3fr 1fr 1fr;gap:12px;background:#faf7ff;border:1px solid #e7ddfc;border-radius:12px;padding:16px;margin:16px 0}
+#agreement-form[hidden]{display:none}
+#agreement-form label{display:grid;gap:6px;font-size:11px;color:#77638e}
+#agreement-form input,#agreement-form select,#agreement-form textarea,.agreement-toolbar input,.agreement-toolbar select{padding:9px;border:1px solid #e0d5f4;border-radius:8px;font:inherit;font-size:12px;color:#30204c;min-width:0;background:#fff}
+.agreement-notes{grid-column:1/-1}
+.agreement-form-actions{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end}
+.agreement-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:16px 0}
+.agreement-toolbar input{width:260px}
+#agreement-feedback{font-size:12px;color:#82699c}
+.agreement-status{padding:4px 8px;background:#fff0d5;color:#a06b15;border-radius:16px;white-space:nowrap}
+.agreement-status.done{background:#dcf7eb;color:#0f8f65}
+.agreement-status.progress{background:#eee5ff;color:#722acb}
+.agreement-overdue{color:#d83254;font-weight:700}
+.executive-agreements td{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:800px){#agreement-form{grid-template-columns:1fr 1fr}.agreements-heading{align-items:flex-start;flex-direction:column}}
+@media(max-width:450px){#agreement-form{grid-template-columns:1fr}}
+.agreement-account-group td{background:#eee8ff!important;color:#472484;font-weight:700;padding:10px 14px!important}
+.account-page .executive-agreements{box-sizing:border-box;margin:18px 0 24px;padding:24px;background:#fff;border:1px solid #e8e1f8;border-radius:14px;box-shadow:0 4px 18px #49288005;color:#21134e}
+.account-page .executive-agreements .agreements-heading{align-items:center;gap:20px;padding-bottom:18px;border-bottom:1px solid #f0ebfa}
+.account-page .executive-agreements h3{font-size:18px;letter-spacing:-.3px;font-weight:800;margin:0 0 6px}
+.account-page .executive-agreements .note{margin:0;font-size:12px;line-height:1.6;color:#8b7ca7}
+.account-page .executive-agreements #agreement-new{padding:11px 16px;min-height:40px;border-radius:9px;font-weight:600;white-space:nowrap;box-shadow:0 3px 9px #6929e81a}
+.account-page .executive-agreements .agreement-toolbar{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:12px;margin:20px 0 18px}
+.account-page .executive-agreements .agreement-toolbar input{width:100%;box-sizing:border-box;min-width:0}
+.account-page .executive-agreements .agreement-toolbar input,.account-page .executive-agreements .agreement-toolbar select{height:40px;padding:10px 12px;border-radius:9px;border-color:#e5dbfa;font-size:12px}
+.account-page .executive-agreements #agreement-feedback{grid-column:1/-1;line-height:1.5}
+.account-page .executive-agreements #agreement-feedback:empty{display:none}
+.account-page .executive-agreements .executive-table-scroll{border:1px solid #eee8fa;border-radius:10px;overflow:auto}
+.account-page .executive-agreements table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
+.account-page .executive-agreements thead th{background:#f2edff;color:#7965a5;padding:13px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.025em;border:0}
+.account-page .executive-agreements tbody td{padding:16px 12px;line-height:1.6;color:#4d3d70;background:white;border-bottom:1px solid #f1ebfa}
+.account-page .executive-agreements tbody tr:last-child td{border-bottom:0}
+.account-page .executive-agreements .agreement-account-group td{background:#faf7ff;color:#6934be;font-weight:700;padding:10px 12px}
+.account-page .executive-agreements tbody tr:only-child td[colspan="8"]{height:100px;text-align:center;vertical-align:middle;color:#9a8bb1;font-size:12px;background:linear-gradient(180deg,#fff,#fcfaff)}
+.account-page .executive-agreements input:focus-visible,.account-page .executive-agreements select:focus-visible,.account-page .executive-agreements textarea:focus-visible{outline:2px solid #cbb7ff;outline-offset:2px}
+.account-page .executive-agreements #agreement-form{grid-template-columns:repeat(3,minmax(0,1fr));padding:18px;gap:16px}
+@media(max-width:800px){.account-page .executive-agreements{padding:18px}.account-page .executive-agreements .agreements-heading{align-items:flex-start}.account-page .executive-agreements #agreement-form{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.account-page .executive-agreements{padding:14px}.account-page .executive-agreements .agreement-toolbar{grid-template-columns:1fr}.account-page .executive-agreements #agreement-form{grid-template-columns:1fr}.account-page .executive-agreements #agreement-new{width:100%}}
+.executive-agreements .agreement-status-select{font:inherit;font-size:11px;font-weight:600;border:1px solid transparent;border-radius:9px;padding:7px 24px 7px 9px;min-height:34px;cursor:pointer;max-width:155px}
+.executive-agreements .agreement-status-select:focus-visible{outline:2px solid #b89bf5;outline-offset:2px}
+.executive-agreements .agreement-status-select:disabled{opacity:.6;cursor:wait}
+.executive-agreements .agreement-row-actions{white-space:nowrap}
+.executive-agreements .agreement-row-actions button+button{margin-left:7px}
+.executive-agreements .agreement-close{background:#e5f8ef;border-color:#c8efdb;color:#07805d;font-weight:600}

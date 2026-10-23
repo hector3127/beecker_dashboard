@@ -1,5 +1,7 @@
 """Paginas del frontend nuevo: solo entregan la plantilla de frontend/."""
 
+from urllib.parse import quote
+
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.http import Http404, HttpRequest, HttpResponse
@@ -60,6 +62,7 @@ def eva4(request: HttpRequest) -> HttpResponse:
         "pages/eva4.html",
         {
             "active": "operativa",
+            "loaded_at": timezone.localtime(),
             "picker": month_picker(
                 request.GET.get("mes"), timezone.localdate()
             ),
@@ -168,8 +171,53 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
         "pages/delivery_manager.html",
         {
             "active": "operativa",
+            "loaded_at": timezone.localtime(),
             "slug": slug,
             "dm_name": name,
             "dm_initials": "".join(w[0] for w in name.split()[:2]).upper(),
+        },
+    )
+
+
+@require_GET
+@ensure_csrf_cookie  # el JS firma los cambios de acuerdos
+@period_view
+def account(request: HttpRequest, slug: str) -> HttpResponse:
+    """Cuenta: el JS pide el resumen, las horas y las finanzas a la API.
+
+    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la pantalla de antes.
+    """
+    from django.urls import reverse
+    from django.utils.text import slugify
+
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    if anterior_disponible() and request.GET.get("vista") == "anterior":
+        return views.cuenta(request, slug)
+    client = views.authorized_account(request, slug)
+    if isinstance(client, HttpResponse):
+        return client
+    name = quote(client, safe="/")
+    back = quote(request.get_full_path(), safe="/")
+    margins = (
+        f"{reverse('portal:oportunidades_financieras')}"
+        f"?nombre={name}&volver={back}"
+    )
+    if executive_query_string():
+        margins += "&" + executive_query_string()
+    hours = (
+        f"{reverse('portal:cuenta_horas', kwargs={'slug': slugify(client)})}"
+        f"?nombre={name}&volver={back}"
+    )
+    return render(
+        request,
+        "pages/account.html",
+        {
+            "active": "operativa",
+            "loaded_at": timezone.localtime(),
+            "client": client,
+            "margins_url": margins,
+            "hours_url": hours,
+            **return_context(request, reverse("portal:operativa"), "Operativa"),
         },
     )

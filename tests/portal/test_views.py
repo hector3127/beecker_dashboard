@@ -1068,7 +1068,7 @@ def test_kpis_page_filters_a_closed_month_and_a_quarter(client, monkeypatch):
 def test_account_page_lists_its_projects(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    response = client.get("/cuenta/clinica-sur/")
+    response = client.get("/cuenta/clinica-sur/?vista=anterior")
     html = response.content.decode()
 
     assert response.status_code == 200
@@ -1136,7 +1136,7 @@ def test_other_pages_link_to_the_project(client, monkeypatch):
     manager = client.get(
         "/operativa/delivery-manager/alberto/?bloque=inv&vista=anterior"
     ).content.decode()
-    account = client.get("/cuenta/clinica-sur/").content.decode()
+    account = client.get("/cuenta/clinica-sur/?vista=anterior").content.decode()
 
     assert 'href="/proyectos/3/"' in manager
     assert 'href="/proyectos/2/"' in account

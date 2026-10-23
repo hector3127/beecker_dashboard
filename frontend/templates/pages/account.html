@@ -1,0 +1,21 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}Cuenta {{ client }}{% endblock %}
+{% block body_class %}account-body{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/return-bar.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/agreements.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/account.css' %}">{% endblock %}
+{% block freshness %}<span class="dot" aria-hidden="true"></span><span>Datos al {{ loaded_at|date:"d/m/Y, H:i" }}</span>{% endblock %}
+{% block content %}
+<div class="account-page" id="account" data-client="{{ client }}"
+ data-project-url="{% url 'portal:proyecto_detalle' 'project-placeholder' %}"
+ data-costs-url="{% url 'portal:costos_detalle' %}?nombre={{ client|urlencode }}">
+<div class="portal-page-toolbar"><a class="portal-back" data-portal-back href="{{ back_url }}">← Regresar a {{ back_label }}</a><a class="portal-page-action" href="{{ margins_url }}"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h16M8 14l4-4 4 2 4-6"/></svg>Comparar margen vendido y real</a><a class="portal-page-action" href="{{ hours_url }}">Ver horas por mes</a></div>
+<header class="account-hero"><span class="account-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 4-6 8 6 8M16 4l6 8-6 8M14 5 7 12l3 3M10 19l7-7-3-3"/></svg></span><div><h1>{{ client }}</h1><p>Portafolio, satisfacción y horas de la cuenta · Corte <span id="account-cutoff"></span></p></div></header>
+<p class="portal-currency-note">Cifras monetarias en dólares estadounidenses · K = miles · M = millones · B = mil millones · sin centavos.</p>
+<p id="account-refresh" class="sr-only" role="status" aria-live="polite"></p>
+<div id="account-content"></div>
+<noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
+</div>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/account/main.js' %}"></script>{% endblock %}

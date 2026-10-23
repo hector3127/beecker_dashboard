@@ -4,6 +4,7 @@
 {% block body_class %}dm-body{% endblock %}
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/return-bar.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/delivery_manager.css' %}">{% endblock %}
+{% block freshness %}<span class="dot" aria-hidden="true"></span><span>Datos al {{ loaded_at|date:"d/m/Y, H:i" }}</span>{% endblock %}
 {% block content %}
 <div class="dm-page" id="dm-app" data-slug="{{ slug }}"
  data-project-url="{% url 'portal:proyecto_detalle' 'project-placeholder' %}"

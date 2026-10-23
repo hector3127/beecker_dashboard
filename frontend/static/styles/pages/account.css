@@ -1,0 +1,271 @@
+/* Cuenta: reglas de la pantalla anterior, acotadas a .account-page. */
+.account-page {max-width:1480px;margin:auto;padding:12px 18px;color:#171349}
+.account-page>a {font-size:11px;color:#7767a5;text-decoration:none}
+.account-page .account-hero {height:86px;box-sizing:border-box;display:flex;align-items:center;gap:16px;position:relative;overflow:hidden;background:linear-gradient(110deg,#fff 0%,#f2edfc 55%,#d9d0ef 100%);border:1px solid #ece7fb;border-radius:12px;margin:10px 0 12px;padding:14px 18px}
+.account-page .account-hero h1 {font-size:23px;margin:0;font-weight:800;letter-spacing:-.5px}
+.account-page .account-hero p {font-size:12px;color:#746899;margin:5px 0 0}
+.account-page .account-brand {background:white;border-radius:10px;width:64px;height:58px;display:grid;place-items:center;flex-shrink:0;color:#96203c}
+.account-page .account-brand svg {width:38px;height:38px}
+.account-page .account-card {background:#fff;border:1px solid #ebe5fa;border-radius:11px;box-shadow:0 2px 6px #45248304;padding:16px;margin:0;min-width:0}
+.account-page .account-card h2 {font-size:13px;font-weight:800;margin:0 0 16px}
+.account-page .account-muted {font-size:10px;color:#9a8cb7}
+.account-page .account-kpis {display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.account-page .account-kpis .account-card {padding:14px 12px 12px 46px;position:relative;min-height:100px;box-sizing:border-box}
+.account-page .account-kpis small {font-size:10px;color:#766995;display:block;line-height:1.3;min-height:25px}
+.account-page .account-kpis strong {display:block;font-size:23px;font-weight:800;margin:2px 0 3px;line-height:1.1}
+.account-page .account-kpis p {font-size:9px;line-height:1.3;margin:5px 0 0}
+.account-page .account-icon {position:absolute;left:12px;top:14px;display:grid;place-items:center;width:27px;height:29px;border-radius:8px;background:#f0e9ff;color:#7645ed}
+.account-page .account-icon svg {width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.account-page .account-icon.green {background:#e0f7ea;color:#11a465}
+.account-page .account-icon.red {background:#ffe8ef;color:#f14976}
+.account-page .account-icon.amber {background:#fff0d9;color:#ff9b16}
+.account-page .account-grid {display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:12px;margin-bottom:12px;align-items:stretch}
+.account-page .account-grid>.account-card {min-height:205px}
+.account-page .model-row {display:flex;align-items:center;gap:9px;margin:18px 0;font-size:11px}
+.account-page .model-row>span {width:30px}
+.account-page .model-row>b {width:23px;text-align:center}
+.account-page .model-track {display:flex;flex:1;height:16px;border-radius:3px;overflow:hidden;background:#f2ecff}
+.account-page .model-track i {display:flex;align-items:center;justify-content:center;font-style:normal;font-size:9px;color:white}
+.account-page .state-chart {display:flex;align-items:center;gap:12px;margin-top:22px}
+.account-page .state-chart svg {width:122px;flex-shrink:0}
+.account-page .state-chart>div {flex:1}
+.account-page .state-chart p {display:flex;gap:6px;align-items:center;font-size:10px;margin:11px 0}
+.account-page .state-chart p i {width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.account-page .state-chart b {margin-left:auto;white-space:nowrap}
+.account-page .nps-row {display:grid;grid-template-columns:1.4fr 1fr 25px;gap:8px;align-items:center;font-size:10px;margin:12px 0}
+.account-page .account-track {height:7px;background:#f0edf5;border-radius:5px;overflow:hidden}
+.account-page .account-track i {display:block;height:100%;border-radius:5px}
+.account-page .account-alert {padding:9px 9px 9px 29px;border:1px solid #ffebf0;background:#fff7f9;border-radius:7px;font-size:10px;position:relative;margin:7px 0;color:#5b2348}
+.account-page .account-alert:before {content:'!';position:absolute;left:9px;top:10px;color:#ff527e;font-weight:800}
+.account-page .account-state {display:flex;justify-content:space-between;align-items:center;gap:9px;font-size:11px;padding:12px 0;border-bottom:1px solid #f1ecfa}
+.account-page .account-state>span:last-child {font-size:9px;background:#efe8ff;color:#7651c9;padding:3px 9px;border-radius:14px}
+.account-page .account-scroll {overflow-x:auto}
+.account-page table {width:100%;border-collapse:collapse;font-size:10px}
+.account-page th {padding:10px 8px;background:#f5f1ff;color:#8d7aac;text-align:left;font-size:10px;font-weight:600;white-space:nowrap}
+.account-page td {padding:9px 8px;border-bottom:1px solid #eee8fc;font-size:10px}
+.account-page td small {display:block;font-size:9px;color:#9c8bb8}
+.account-page .account-toolbar {display:flex;gap:8px;margin-bottom:12px}
+.account-page .account-toolbar input, .account-page .account-toolbar select {border:1px solid #e4dcf7;border-radius:7px;padding:8px;color:#655786;font-size:10px;background:#fff;min-width:0}
+.account-page .account-toolbar input {flex:1}
+.account-page .account-toolbar select {width:170px}
+.account-page a {color:#7347ee}
+.account-page .account-grid .account-card:nth-child(4), .account-page .account-grid .account-card:nth-child(5), .account-page .account-grid .account-card:nth-child(6) {max-height:250px;overflow:auto}
+.account-page .account-service-chart {display:flex;align-items:flex-end;height:135px;gap:14px;border-bottom:1px solid #eae4f5;margin-top:18px;padding:8px 8px 0}
+.account-page .account-service-column {flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:9px;color:#9381b1}
+.account-page .account-service-bars {height:110px;display:flex;align-items:flex-end;gap:5px;width:100%;justify-content:center}
+.account-page .account-service-bars i {width:28%;display:block;border-radius:3px 3px 0 0}
+.account-page .account-service-column>span {margin-top:7px}
+.account-page .account-badge {display:inline-block;padding:3px 7px;border-radius:12px;background:#e8e1ff;color:#7747dd;font-size:9px}
+.account-page .account-legend {display:flex;gap:10px;font-size:9px;color:#9a86bc;margin-top:12px}
+.account-page .account-legend i {width:7px;height:7px;display:inline-block;border-radius:50%;margin-right:3px}
+.account-page .account-view-more {font-size:10px;float:right;font-weight:500}
+.account-page .account-kpis .account-card:nth-child(4) strong {color:#e73c69}
+.account-page .account-kpis .account-card:nth-child(5) strong {color:#ef4267}
+@media(max-width:1050px) {
+.account-page .account-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+.account-page .account-kpis {grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:650px) {
+.account-page .account-grid {grid-template-columns:1fr}
+.account-page .account-kpis {grid-template-columns:repeat(2,minmax(0,1fr))}
+.account-page {padding:10px}
+.account-page .account-hero h1 {font-size:19px}
+.account-page .account-toolbar {flex-wrap:wrap}
+}
+.account-page * {box-sizing:border-box}
+body.account-body {margin:0;font-family:'Plus Jakarta Sans',Arial,sans-serif;background:#f7f5ff;color:#1b194a;font-size:14px}
+.account-page a {text-decoration:none}
+.account-page {width:100%;max-width:1440px;padding:20px 24px}
+.account-page>a {font-size:12px}
+.account-page .account-hero {height:90px}
+.account-page .account-hero h1 {font-size:25px}
+.account-page .account-hero p {font-size:12px}
+.account-page .account-kpis small {font-size:11px}
+.account-page .account-kpis strong {font-size:25px}
+.account-page .account-kpis p {font-size:10px}
+.account-page .account-kpis .account-card {min-height:108px}
+.account-page .account-card h2 {font-size:14px}
+.account-page .account-muted {font-size:11px}
+.account-page .model-row {font-size:12px}
+.account-page .model-track i {font-size:10px}
+.account-page .state-chart p {font-size:11px}
+.account-page .nps-row {font-size:11px}
+.account-page .account-grid .account-alert {font-size:11px}
+.account-page .account-state {font-size:12px}
+.account-page td {font-size:12px;padding:12px 9px}
+.account-page th {font-size:11px;padding:12px 9px}
+.account-page td small {font-size:10px}
+.account-page .account-toolbar input, .account-page .account-toolbar select {font-size:12px}
+.account-page .account-scroll table {min-width:950px}
+.account-page .account-badge {font-size:10px}
+.account-page .account-grid .account-card:nth-child(4), .account-page .account-grid .account-card:nth-child(5), .account-page .account-grid .account-card:nth-child(6) {max-height:285px}
+.account-page .account-table-pages {display:flex;justify-content:space-between;align-items:center;padding-top:14px;color:#8b7ca9;font-size:12px}
+.account-page .account-table-pages button {border:1px solid #e3dbf5;background:#f4efff;border-radius:7px;padding:7px 12px;color:#6b40de;cursor:pointer}
+.account-page .account-table-pages button:disabled {opacity:.4;cursor:default}
+@media(max-width:650px) {
+.account-page {padding:12px}
+.account-page .account-hero h1 {font-size:20px}
+}
+.account-page .account-more {float:right;border:0;background:none;color:#784ee5;font-size:10px;cursor:pointer}
+.account-page .nps-visual {display:flex;align-items:center;gap:10px}
+.account-page .nps-visual>div:first-child {width:95px;flex-shrink:0}
+.account-page .nps-visual>div:last-child {flex:1;min-width:0}
+.account-page .nps-visual svg {width:100%}
+.account-page .account-badge.is-green {background:#dff6e9;color:#0c9b66}
+.account-page .account-badge.is-red {background:#ffe5ec;color:#e22a58}
+.account-page .account-badge.is-yellow {background:#fff0cb;color:#a86e00}
+.account-page .account-hour-totals {display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.account-page .account-hour-totals .account-card:last-child {background:#f3fff8}
+.account-page .account-hour-totals strong {font-size:24px;display:block;margin-top:9px}
+.account-page .account-hour-totals .account-card:last-child strong {color:#009971}
+.account-page #account-detail-modal {width:min(1050px,92vw);max-height:85vh;border:1px solid #e8dffb;border-radius:14px;padding:22px;color:#221447}
+.account-page #account-detail-modal::backdrop {background:#21124466}
+.account-page #account-detail-modal header {display:flex;justify-content:space-between}
+.account-page #account-detail-modal button {border:0;border-radius:7px;padding:7px;cursor:pointer}
+.account-page #account-detail-content {overflow:auto}
+.account-page #account-detail-content td, .account-page #account-detail-content th {padding:10px;font-size:12px}
+.account-page .account-kpis {grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.account-page .account-kpis .account-card {padding:12px 10px;min-height:110px}
+.account-page .account-kpis .account-icon {position:static;margin-bottom:7px;width:24px;height:24px}
+.account-page .account-kpis strong {font-size:21px}
+.account-page .account-kpis small {font-size:10px}
+.account-page .account-kpis .account-card:last-child {background:#f3fff8}
+.account-page .account-kpis .account-card:last-child strong {color:#009971}
+.account-page .detail-controls {display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.account-page .detail-controls input, .account-page .detail-controls select {padding:9px;border:1px solid #e2d8f8;border-radius:8px;flex:1}
+.account-page .detail-metrics {display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.account-page .detail-metrics>div {border:1px solid #e4dcfa;padding:14px;border-radius:10px;font-size:12px}
+.account-page .detail-metrics strong {display:block;font-size:22px;margin-top:7px}
+.account-page .detail-charts {display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0}
+.account-page .detail-charts>div {border:1px solid #e4dcfa;padding:16px;border-radius:10px;max-height:330px;overflow:auto}
+.account-page .detail-bar {height:9px;border-radius:6px;display:block;margin:5px 0}
+.account-page .detail-pager {display:flex;justify-content:space-between;margin:12px 0;font-size:12px}
+.account-page .detail-charts svg {width:145px;display:block;margin:auto}
+.account-page #account-detail-modal table {width:100%;border-collapse:collapse}
+.account-page #account-detail-modal th {background:#f5f1ff;text-align:left}
+.account-page #account-detail-modal td {border-bottom:1px solid #eee6fa}
+.account-page #account-detail-modal h3 {font-size:14px}
+@media(max-width:1150px) {
+.account-page .account-kpis {grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:650px) {
+.account-page .account-kpis {grid-template-columns:repeat(2,1fr)}
+.account-page .detail-charts {grid-template-columns:1fr}
+.account-page .detail-metrics {grid-template-columns:repeat(2,1fr)}
+}
+.account-page #account-detail-modal {width:min(1440px,96vw);padding:20px;max-height:92vh}
+.account-page #account-detail-modal header h2 {font-size:22px;margin:0 0 6px}
+.account-page #account-detail-close {width:38px;height:38px!important;border:1px solid #ddd8fc!important;background:white;color:#6435f0;font-size:24px}
+.account-page .nps-full-scroll {overflow-x:auto;margin:25px 0 10px;padding:12px 0}
+.account-page .service-tabs {display:flex;gap:7px;align-items:center;flex:1;flex-wrap:wrap}
+.account-page .service-tabs button, .account-page .detail-pager button {border:1px solid #dadbff!important;border-radius:18px!important;padding:7px 15px!important;background:#fff;color:#6336ef}
+.account-page .service-tabs button.selected, .account-page .detail-pager button.selected {background:#6030ed!important;color:#fff}
+.account-page .detail-controls {padding:13px;background:#fafaff;border:1px solid #dfe0fa;border-radius:10px;align-items:center}
+.account-page .detail-controls input, .account-page .detail-controls select {max-width:220px;background:#fff;color:#43395d}
+.account-page .detail-metrics>div {position:relative;padding:18px 15px}
+.account-page .detail-metric-icon {display:inline-grid;place-items:center;width:32px;height:32px;float:left;margin-right:12px;background:#f2edff;color:#9874f8;border-radius:10px}
+.account-page .detail-metric-icon svg {width:22px;height:22px}
+.account-page .detail-metrics small {display:block;font-size:11px;color:#7c739e}
+.account-page .metric-progress {height:8px;background:#ebe5fd;border-radius:8px;margin:18px 0 8px}
+.account-page .metric-progress i {display:block;height:100%;background:#9c7cec;border-radius:8px}
+.account-page .detail-metrics>div:nth-child(2) .metric-progress i {background:#6030ed}
+.account-page .detail-metrics>div:nth-child(3) .metric-progress i {background:#1dae81}
+.account-page .detail-metrics>div:nth-child(4) strong {color:#ef365d}
+.account-page .detail-metrics>div:nth-child(4) .metric-progress i {background:#f05675}
+.account-page .comparison-row {display:grid;grid-template-columns:75px 1fr 58px;gap:10px;align-items:center;margin:20px 0;font-size:11px}
+.account-page .comparison-track {display:flex;align-items:center;height:17px;gap:5px}
+.account-page .comparison-track small {white-space:nowrap;font-size:10px;color:#6a5a9d}
+.account-page .comparison-ratio {background:#e4f7ef;color:#059b76;border-radius:20px;padding:6px;text-align:center}
+.account-page .comparison-ratio.over {background:#ffe6ec;color:#f12b5b}
+.account-page .detail-charts>div {max-height:335px}
+.account-page .reading {border-top:1px solid #eee8fc;margin-top:12px;font-size:11px;color:#665482}
+.account-page .detail-over, .account-page .detail-controlled {font-size:10px!important}
+.account-page .detail-over {background:#fff3f6}
+.account-page .detail-controlled {background:#f1fcf8}
+.account-page .table-consumption {display:inline-block;width:75px;height:8px;border-radius:8px;background:#eeeafa;margin-right:8px}
+.account-page .table-consumption i {display:block;height:8px;border-radius:8px}
+.account-page .detail-pager button {padding:7px 10px!important;margin-left:5px;border-radius:6px!important}
+@media(max-width:700px) {
+.account-page .comparison-row {grid-template-columns:50px 1fr 50px}
+.account-page .service-tabs {gap:4px}
+.account-page .service-tabs button {padding:5px 8px!important}
+}
+.account-page .budget-layout .detail-metrics>div {padding:16px 14px}
+.account-page .budget-layout .detail-metrics>div:nth-child(2) .detail-metric-icon {background:#ece5ff;color:#6533f0}
+.account-page .budget-layout .detail-metrics>div:nth-child(3) .detail-metric-icon {background:#e1f6ee;color:#08ae81}
+.account-page .budget-layout .detail-metrics>div:nth-child(4) .detail-metric-icon {background:#ffebef;color:#ff456e}
+.account-page .budget-layout .detail-metrics>div:nth-child(3) .metric-progress {background:#dcf3eb}
+.account-page .budget-layout .detail-metrics>div:nth-child(4) .metric-progress {background:#fce7ed}
+.account-page .budget-layout .detail-charts {gap:14px;margin:14px 0}
+.account-page .budget-layout .detail-charts>div {height:312px;padding:14px}
+.account-page .budget-layout .detail-charts>div:last-child {display:grid;grid-template-columns:1.2fr 1fr;gap:15px}
+.account-page .distribution-left {min-width:0;overflow:auto}
+.account-page .budget-layout .detail-charts svg {width:160px;margin:12px auto}
+.account-page .distribution-left>p {font-size:11px;margin:0;border-bottom:1px solid #eeeafa;padding:9px 0}
+.account-page .reading {margin:0;border-top:0;border-left:1px solid #e4e0f5;padding-left:14px;overflow:auto;font-size:10px}
+.account-page .reading p {border-bottom:1px solid #eeeafa;padding:9px 0;margin:0;counter-increment:insight}
+.account-page .reading {counter-reset:insight}
+.account-page .reading p:before {content:counter(insight);display:inline-grid;place-items:center;width:19px;height:19px;margin-right:7px;background:#6432ef;border-radius:50%;color:white}
+.account-page .reading p:nth-of-type(2):before {background:#438aed}
+.account-page .reading p:nth-of-type(3):before {background:#a080f7}
+.account-page .reading p:nth-of-type(4):before {background:#ffac32}
+.account-page .budget-layout .comparison-row {margin:18px 0}
+.account-page .budget-project-card {border:1px solid #dfe0f6;border-radius:11px;padding:14px;position:relative;overflow:auto}
+.account-page .budget-project-card>input {position:absolute;top:12px;right:14px;width:190px;border:1px solid #dedaf7;border-radius:7px;padding:8px;font-size:11px}
+.account-page .budget-project-card h3 {margin:0 0 16px}
+.account-page .budget-layout .detail-over, .account-page .budget-layout .detail-controlled {background:transparent}
+.account-page .budget-layout span.detail-over {background:#ffe6ed;color:#ed315c;border-radius:15px;padding:3px 7px}
+.account-page .budget-layout span.detail-controlled {background:#e1f8ee;color:#009c72;border-radius:15px;padding:3px 7px}
+.account-page .budget-layout span.detail-over:before, .account-page .budget-layout span.detail-controlled:before {content:'●';font-size:8px;margin-right:3px}
+.account-page .budget-layout td {font-size:11px!important}
+.account-page .budget-layout th {font-size:11px!important;color:#22153e}
+.account-page .budget-layout .detail-pager {margin-bottom:0}
+.account-page .budget-layout .detail-charts>div:first-child {background-image:repeating-linear-gradient(90deg,transparent,transparent 99px,#f1edfc 100px)}
+@media(max-width:700px) {
+.account-page .budget-layout .detail-charts>div:last-child {grid-template-columns:1fr}
+.account-page .budget-layout .detail-charts>div {height:auto;max-height:480px}
+.account-page .budget-project-card>input {position:static;width:100%;margin-bottom:12px}
+}
+.account-page .account-kpis {gap:16px;margin:18px 0}
+.account-page .account-kpis .account-card {padding:19px 18px 17px;min-height:175px;border:1px solid #ebe5fa;border-top:3px solid #a476ff;border-radius:16px;background:linear-gradient(135deg,#fff,#fdfbff);box-shadow:0 7px 24px #653be00c}
+.account-page .account-kpis .account-card:nth-child(1), .account-page .account-kpis .account-card:nth-child(3) {border-top-color:#42cfaa}
+.account-page .account-kpis .account-icon {width:42px;height:42px;border-radius:50%;margin:0 0 9px;background:linear-gradient(135deg,#f6efff,#ebe1ff);border:1px solid #e4d6ff}
+.account-page .account-kpis .account-icon.green {background:linear-gradient(135deg,#e9fbf3,#d5f4e8);border-color:#cff0e2;color:#039879}
+.account-page .account-kpis .account-icon svg {width:23px;height:23px}
+.account-page .account-kpis small {font-size:12px;min-height:0;margin-bottom:10px;color:#625682}
+.account-page .account-kpis strong {font-size:30px;letter-spacing:-.6px;margin:0 0 9px;color:#21163e}
+.account-page .account-kpis p {font-size:11px;line-height:1.4;margin-top:4px;color:#998db4}
+.account-page .account-kpis .account-card:nth-child(4) strong {color:#a153ed}
+.account-page .account-kpis .consumption-kpi {border-top-color:#17b778;background:#fff}
+.account-page .account-kpis .consumption-kpi strong {color:#008c70;font-size:32px}
+.account-page .consumption-track {height:8px;border-radius:8px;background:#def5e9;overflow:hidden;margin:7px 0}
+.account-page .consumption-track i {display:block;height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,#42d6ad,#12aa73)}
+.account-page .account-kpis .account-more {font-size:11px;color:#a45af2}
+@media(max-width:800px) {
+.account-page .account-kpis {gap:10px}
+.account-page .account-kpis .account-card {padding:15px;min-height:165px}
+.account-page .account-kpis strong {font-size:26px}
+}
+.account-page .financial-preview {margin:0 0 18px}
+.account-page .preview-label {display:inline-block;background:#fff0cc;color:#936000;border-radius:20px;padding:5px 11px;font-size:11px;font-weight:700;margin-bottom:9px}
+.account-page .financial-cards {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.account-page .financial-card {padding:17px 18px 0;border:1px solid #ebe4fa;border-radius:16px;background:#fff;box-shadow:0 5px 20px #6944b508;overflow:hidden}
+.account-page .financial-card header {display:flex;align-items:center;gap:10px;font-size:12px;margin-bottom:12px}
+.account-page .financial-icon {display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#f0eaff;color:#754ae5}
+.account-page .financial-icon svg {width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.account-page .dummy-badge {margin-left:auto;font-size:9px;color:#916100;background:#fff1d0;border-radius:12px;padding:3px 7px}
+.account-page .financial-card>strong {display:block;font-size:32px;letter-spacing:-1px;color:#171238}
+.account-page .financial-card p {font-size:11px;color:#9a8daf;margin:7px 0}
+.account-page .financial-card p b {font-size:13px;margin-right:4px}
+.account-page .positive {color:#06a476}
+.account-page .negative {color:#ef456b}
+.account-page .financial-card>small {color:#9a8daf;font-size:11px}
+.account-page .financial-spark {width:100%;height:55px;margin-top:8px;display:block}
+.account-page .financial-spark path:not([fill]) {fill:none;stroke:#9569ff;stroke-width:1.5}
+.account-page .financial-spark circle {fill:#9569ff}
+@media(max-width:650px) {
+.account-page .financial-cards {grid-template-columns:1fr}
+}
+
+body.account-body .page { max-width: none; padding: 0; }
+body.account-body { font-family: var(--font); }

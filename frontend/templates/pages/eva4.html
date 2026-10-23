@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}EVA-04 Report{% endblock %}
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/eva4.css' %}">{% endblock %}
+{% block freshness %}<span class="dot" aria-hidden="true"></span><span>Datos al {{ loaded_at|date:"d/m/Y, H:i" }}</span>{% endblock %}
 {% block content %}
 <div class="toolbar"><a class="back" href="{% url 'portal:operativa' %}">← Regresar a Operativa</a><span class="page-context">EVA-04</span></div>
 <header class="pgh eva4-banner" data-tone="operations"><div class="eva4-banner-title"><h1>EVA-04 Report</h1><p>Servicios de automatización · clientes, renovaciones y procesos</p></div>
