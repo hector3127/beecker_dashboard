@@ -20,7 +20,7 @@ respuestas; la migración del frontend sí avanza.
 | 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Hecha |
 | **9** | **Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos)** | **En curso: permisos y alcance hechos** |
 | **10** | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | **En curso: `/api/rpc/` con permisos** |
-| 11 | Limpieza: legacy, plantillas y estáticos viejos, CSP obligatoria, `ACCESS_ENFORCED=1` | Pendiente |
+| **11** | Limpieza: legacy, plantillas y estáticos viejos, CSP obligatoria, `ACCESS_ENFORCED=1` | **Parcial: bloqueada por las pantallas con diseño anterior** |
 
 > **Regla de diseño (22/10/2026).** Una pantalla migrada se ve idéntica a la
 > anterior; solo cambian los datos, el alcance y los permisos. Se comprueba con
@@ -297,6 +297,27 @@ Lo que se planeaba para esta fase:
   regla de diseño conserva su pantalla y sus llamadas; el RPC ya valida quién
   puede hacerlas. Retirar el RPC requiere una API por llamada y es trabajo
   aparte. Un proyecto de otra cuenta ya responde 404 en la página.
+
+## Fase 11: limpieza (parcial)
+
+Estado a 22/10/2026, comprobado en el código:
+
+- **CSP obligatoria: no es posible todavía.** 23 plantillas anteriores llevan
+  scripts y estilos en línea (Business Overview 63 `style=`, Comercial 4 scripts,
+  Capacidad 22 estilos…) más los bloques `{% block css %}`. Con la política en
+  modo de bloqueo se rompen. Se queda en «solo reportar» hasta que esas pantallas
+  pasen a `frontend/` con el diseño igualado (ver la regla de diseño).
+- **`ACCESS_ENFORCED=1`: listo para encender, decisión de despliegue.** Todas las
+  pantallas y el RPC ya validan capacidad y alcance. Antes: `python manage.py
+  access_setup --incluir-usuarios` (migrar `access.0002` primero) y probar con
+  una persona de alcance limitado. Ver `docs/permisos.md`.
+- **Endpoints sin consumidor en el código:** `comercial_ejecutiva`,
+  `operaciones_ejecutiva`, `rentabilidad_mensual` y `cuentas_rentabilidad`
+  (solo los usan pruebas). Ya exigen capacidad y alcance total; borrarlos pide
+  confirmar que ningún tercero los llama.
+- **Se conservan** `ejecutiva/actualizacion/` y `executive_numbers.js` porque
+  Costos, Todas las cuentas, Comercial y la barra de «corte anterior» los usan, y
+  `eva4_anterior` hasta el 3/11/2026 (`ANTERIOR_HASTA`).
 
 ## Fases siguientes con lo nuevo integrado
 
