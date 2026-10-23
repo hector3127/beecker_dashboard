@@ -454,3 +454,11 @@ def eva3_cerrados(request: HttpRequest) -> HttpResponse:
 def project(request: HttpRequest, project_id: str) -> HttpResponse:
     """Proyecto simple con los mismos datos, calculos y alcance por cuenta."""
     return _modern(request, views.proyecto, "pages/project.html", project_id)
+
+
+@require_GET
+def project_detail(request: HttpRequest, project_id: str) -> HttpResponse:
+    """Entrada transitoria: API para carga inicial, pestañas aún anteriores."""
+    return _modern(
+        request, views.proyecto_detalle, "pages/project_detail.html", project_id
+    )

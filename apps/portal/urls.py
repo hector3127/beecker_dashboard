@@ -49,7 +49,7 @@ urlpatterns = [
     path("", pages.executive, name="ejecutiva"),
     path(
         "proyectos/<str:project_id>/",
-        views.proyecto_detalle,
+        pages.project_detail,
         name="proyecto_detalle",
     ),
     path(

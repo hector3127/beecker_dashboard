@@ -2,6 +2,43 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque actual: fase 10, entrada del detalle (parcial)
+
+- `proyectos/<id>/` sirve `pages/project_detail.html`, con el mismo contexto,
+  CSRF, permisos y regreso de `views.proyecto_detalle`. La anterior queda en
+  `?vista=anterior` mientras `anterior_disponible()` lo permita.
+- `project_detail/main.js` carga el shim y el componente anterior en orden;
+  `data.js` llama a API v1 para filtros, dashboard ejecutivo y dashboard AER.
+  También Actualizar usa esas lecturas, con timeout de 90 segundos. El archivo
+  anterior tiene dos helpers transitorios: con entrada modular usan API; en
+  comparación conservan RPC. Las demás llamadas y acciones no se modificaron.
+- Servicios Python, cifras y payloads idénticos. Se conserva el alcance total
+  exigido por esas tres lecturas RPC, porque todavía contienen bloques del
+  portafolio. No abrirlas a alcance limitado sin recortar antes sus servicios.
+- Comparación visual de las entradas AER e IXB a 1450 y 390 px; datos de prueba
+  iguales, tablas/cajas/estilos y capturas en
+  `tmp/migration/project_detail/entry/<aer|ixb>/<ancho>/`. Se prueban reintento
+  de red, fallo de filtros, descarga fallida del componente y Actualizar.
+- Validación: **21 pruebas API, diez de navegador y las dos pruebas anteriores
+  del contenedor** aprobaron juntas (33). Dos pruebas Node nuevas y los cinco
+  recorridos anteriores del motor pasaron juntos. Regresión general:
+  **1248 aprobadas, una omitida**. JS completo: **124 aprobadas, tres fallos
+  anteriores** (`cost_sprint_details`, `executive_report`, `financial`). Ruff,
+  formato, mypy y `manage.py check` aprobados. No se activaron los permisos.
+- **No está completada la pantalla ni la fase 10:** las pestañas siguen
+  construyéndose con el JS y CSS anteriores, incluyendo estilos/eventos en
+  línea y acciones RPC. No eliminar todavía el shim ni sus archivos.
+- **Siguiente bloque:** extraer Ejecutivo de AER/T&M a `sections/`, su CSS y
+  eventos; después Ejecutivo de IXB/SaaS/RaaS (son diseños distintos).
+  Conservar las reglas de presentación, fuentes, cifras y comparación visual.
+  Luego Planeación, Esfuerzo, Riesgos/RAID, Acciones, Recursos, Cliente e IA;
+  IXB además contiene Comunicación y Azure DevOps. No duplicar el archivo
+  completo ni cambiar los servicios mientras se separa la interfaz.
+  Punto de entrada concreto: `_aerVistaEjecutivo()` llamado por
+  `_aerRenderTab()` en el archivo anterior. Sustituir su construcción de HTML
+  por nodos seguros y eventos externos, conservando sus ayudantes de cifras
+  y todos sus enlaces a otras pestañas hasta migrarlos también.
+
 ## Última pantalla terminada
 - **Proyecto simple** (`proyecto/<id>/`): `pages/project.html`, CSS externo y
   `project/main.js`. La ruta activa conserva el mismo contexto Python,

@@ -1,0 +1,20 @@
+/* Entry only. Tab styles stay in the existing renderer during this phase. */
+body.project-detail-page main.page {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+/* The old renderer reuses .top inside cards as well as in the main header. */
+.ds #view-container .top {
+  min-height: 0;
+  border-top: 0;
+}
+.ds :where(#view-container) .top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 28px;
+  padding: 12px 36px;
+  background: #fff;
+  border-bottom: 1px solid #ece8fa;
+}

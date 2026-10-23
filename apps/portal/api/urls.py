@@ -35,6 +35,11 @@ from apps.portal.api.operations import (
     FacturabilitySpecialtyView,
     InvestmentScreenView,
 )
+from apps.portal.api.project_detail import (
+    ProjectAerView,
+    ProjectExecutiveView,
+    ProjectFiltersView,
+)
 from apps.portal.api.screens import (
     CostSummaryView,
     Eva4ScreenView,
@@ -58,6 +63,21 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/filtros/",
+        ProjectFiltersView.as_view(),
+        name="project_filters",
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ejecutivo/",
+        ProjectExecutiveView.as_view(),
+        name="project_executive",
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/aer/",
+        ProjectAerView.as_view(),
+        name="project_aer",
+    ),
     path("screens/eva-1/cerrados/", EvaClosedView.as_view()),
     path("screens/eva-3/cerrados/", Eva3ClosedView.as_view()),
     path("screens/eva-3/consumos/", Eva3ConsumptionView.as_view()),

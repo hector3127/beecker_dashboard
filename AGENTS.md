@@ -57,8 +57,14 @@ EVA 1–3 también están completadas, incluidos los históricos existentes de
 EVA 1 y EVA 3. EVA 2 conserva su presentación sin añadirle otro histórico.
 Proyecto simple también usa plantilla modular, CSS externo y un módulo para
 presentar las barras. Conserva el contexto Python y el alcance por cuenta.
+El detalle grande tiene una **entrada transitoria** en `pages/project_detail.html`
+y módulos `project_detail/main.js` y `data.js`. La carga inicial y Actualizar
+usan API v1 para filtros y dashboards ejecutivo/AER; sus componentes, estilos
+y acciones por pestaña siguen en el archivo anterior y en el shim RPC.
+**No contar esta pantalla como completada.** Sigue extraer la pestaña Ejecutivo
+(primero AER/T&M y después IXB/SaaS/RaaS), manteniendo los dos diseños.
 
-1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): dividir en módulos por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`.
+1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.
 2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).
 3. Genesis / `ACCESS_ENFORCED`: decisión de despliegue, no de código.
 

@@ -5,7 +5,11 @@ const vm = require('node:vm');
 const path = require('node:path');
 const main = '<script>' + fs.readFileSync(path.join(__dirname, '../../apps/portal/static/portal/js/proyecto_detalle.js'), 'utf8') + '</script>'; 
 const capacity = fs.readFileSync(path.join(__dirname, '../../templates/legacy/GSE.html'), 'utf8');
-const init = main.match(/function initDashboard\(\) \{[\s\S]*?\n  \}/)[0];
+// Isolated functions now call these real transport helpers; keep RPC assertions.
+const projectReads = ['readProjectFilters', 'readProjectDashboard'].map(name =>
+  main.match(new RegExp('function ' + name + '\\([^]*?\\n  \\}'))[0]
+).join('\n');
+const init = projectReads + '\n' + main.match(/function initDashboard\(\) \{[\s\S]*?\n  \}/)[0];
 
 test('entering the old panel makes no executive or filters RPC requests', () => {
   vm.runInNewContext(init + '\ninitDashboard();', {
@@ -51,7 +55,8 @@ test('a TYM direct link uses the AER/T&M endpoint even without filter metadata',
   const runner = {withSuccessHandler() {return this;}, withFailureHandler() {return this;},
     getDashboardAERTYMProyecto(id) {requests.push(id);},
     getDashboardEjecutivoProyecto() {throw Error('Wrong Proyectos endpoint');}};
-  vm.runInNewContext(classify + '\n' + load + '\nloadDashboard();', {
+  vm.runInNewContext(projectReads + '\n' + classify + '\n' + load + '\nloadDashboard();', {
+    window: {},
     mapaMetaProyectosDashboard: {}, dashboardRequestSeq: 0,
     _clienteSeleccionadoDashboard: () => false,
     document: {getElementById: id => nodes[id] || null, body: {classList: {toggle() {}}}},

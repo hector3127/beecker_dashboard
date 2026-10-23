@@ -1,4 +1,23 @@
 
+  // Transitional reads: the modular entry supplies API v1; comparison stays RPC.
+  function readProjectFilters(success, failure) {
+    if (window.beeProjectData) {
+      window.beeProjectData.filters().then(success).catch(failure);
+      return;
+    }
+    google.script.run.withSuccessHandler(success).withFailureHandler(failure).getFiltrosDisponibles();
+  }
+
+  function readProjectDashboard(id, aer, success, failure) {
+    if (window.beeProjectData) {
+      window.beeProjectData.dashboard(id, aer).then(success).catch(failure);
+      return;
+    }
+    const runner = google.script.run.withSuccessHandler(success).withFailureHandler(failure);
+    if (aer) runner.getDashboardAERTYMProyecto(id);
+    else runner.getDashboardEjecutivoProyecto(id);
+  }
+
   function projectParams() {
     const params = new URLSearchParams(window.location.search);
     const seed = document.getElementById('project-context');
@@ -756,8 +775,7 @@
 
     // Antes se disparaban filtros + dashboard + AER + IXB simultáneamente.
     // Ahora esperamos los filtros y después hacemos UNA carga inicial.
-    google.script.run
-      .withSuccessHandler((data) => {
+    readProjectFilters((data) => {
         populateFiltros(data);
         const account = projectParams().get('cuenta');
         if (account) {
@@ -783,13 +801,11 @@
           if (client && client.options.length) client.selectedIndex = 0;
         }
         loadDashboard();
-      })
-      .withFailureHandler((err) => {
+      }, (err) => {
         console.error('No se pudieron cargar los filtros del dashboard:', err);
         // Conserva la vista y el botón de configuración para recuperar Clockify.
         loadDashboard();
-      })
-      .getFiltrosDisponibles();
+      });
   }
 
   /**
@@ -1266,23 +1282,17 @@
       }
 
       if (_esProyectoAERTYM(proyectoSel)) {
-        google.script.run
-          .withSuccessHandler((res) => {
+        readProjectDashboard(proyectoSel, true, (res) => {
             if (requestId !== dashboardRequestSeq) return;
             renderDashboardAERTYMProyecto(res);
-          })
-          .withFailureHandler(failure)
-          .getDashboardAERTYMProyecto(proyectoSel);
+          }, failure);
       } else {
-        google.script.run
-          .withSuccessHandler((res) => {
+        readProjectDashboard(proyectoSel, false, (res) => {
             if (requestId !== dashboardRequestSeq) return;
             // IXB/SaaS/RaaS tienen renderer propio: NO utilizan ni modifican AER.
             if (_ixsEsServicio(proyectoSel)) renderDashboardIXBSaaSRaaS(res);
             else renderDashboardEjecutivoProyecto(res);
-          })
-          .withFailureHandler(failure)
-          .getDashboardEjecutivoProyecto(proyectoSel);
+          }, failure);
       }
       return;
     }
@@ -2768,10 +2778,10 @@
     const tab=aerTabActual;
     const cont=document.getElementById('aer-tab-content');
     if (cont) cont.innerHTML='<div class="loading">Actualizando proyecto...</div>';
-    google.script.run.withSuccessHandler(res=>{
+    readProjectDashboard(id, true, res=>{
       if (!res||!res.ok) { showError(res&&res.error?res.error:'Error actualizando'); return; }
       aerDashboardData=res; aerTabActual=tab; _aerRenderShell();
-    }).withFailureHandler(showError).getDashboardAERTYMProyecto(id);
+    }, showError);
   }
 
   function _aerKpi(t,v,s) { return `<div class="aer-kpi"><div class="aer-kpi-l">${t}</div><div class="aer-kpi-v">${v}</div><div class="aer-kpi-s">${s||''}</div></div>`; }
@@ -6264,10 +6274,10 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   function ixsRecargarProyecto(){
     const d=ixsProyectoActual,id=d&&d.proyecto&&d.proyecto.id,cont=document.getElementById('ixs-tab-contenido');if(!id)return;
     if(cont)cont.innerHTML='<div class="ixs-card" style="padding:22px">Actualizando ejecutivo…</div>';
-    google.script.run.withSuccessHandler(res=>{
+    readProjectDashboard(id, false, res=>{
       if(!res||!res.proyecto||res.proyecto.id!==id){if(cont)cont.innerHTML='<div class="ixs-card">No se pudo actualizar el proyecto.</div>';return;}
       delete ixsClienteAccionesCache[id];renderDashboardIXBSaaSRaaS(res);
-    }).withFailureHandler(e=>{const el=document.getElementById('ixs-tab-contenido');if(el)el.textContent='Error actualizando: '+(e&&e.message||e);}).getDashboardEjecutivoProyecto(id);
+    }, e=>{const el=document.getElementById('ixs-tab-contenido');if(el)el.textContent='Error actualizando: '+(e&&e.message||e);});
   }
   function ixsAbrirVistaAnterior(){
     if(!ixsProyectoActual||!ixsProyectoActual.proyecto)return;

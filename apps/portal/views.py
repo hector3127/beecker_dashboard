@@ -902,7 +902,7 @@ def proyecto_detalle(request: HttpRequest, project_id: str) -> HttpResponse:
     ensure_project_visible(request, project_id)
     from django.urls import reverse
 
-    return render(
+    return render_page(
         request,
         "portal/proyecto_detalle.html",
         {

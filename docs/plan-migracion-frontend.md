@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | RPC con permisos | **No** | **Parcial** |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros y carga/actualización de dashboards ejecutivo y AER; resto RPC con permisos | **Parcial**: entrada modular; componentes por pestaña anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -66,13 +66,47 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | EVA 2 | `operativa/eva-2/` | `pages/eva2.html` | `screens/eva-2/`; conserva contexto de servidor | **Sí** | `test_eva123.py`: mismas tablas, colores, cifras y estados vacíos a 1450 y 390 px. No tenía desplegable de cerrados y no se añadió |
 | EVA 3 e histórico AER/T&M | `operativa/eva-3/`, `operativa/eva3/cerrados/` | `pages/eva3.html`, `partials/eva3_closed.html` | `screens/eva-3/{consumos,cerrados,cerrados/consumo}/` | **Sí** | `test_eva123.py`: consumo diferido, errores parciales, reintento del guardado y comparación de tablas/cajas/estilos a 1450 y 390 px |
 | Proyecto simple | `proyecto/<id>/` | `pages/project.html` (anterior con `?vista=anterior`) | No; conserva el contexto de servidor y su alcance por cuenta | **Sí** (plantilla modular) | `test_proyecto_simple.py`: cifras, barras, riesgos, equipo, historial, regreso, errores parciales y comparación de cajas/estilos a 1450 y 390 px |
-| Detalle del proyecto | `proyectos/<id>/` | `portal/proyecto_detalle.html` (`proyecto_detalle.js` ≈ 1 MB, `/api/rpc/`) | RPC con permisos | **No** | Igual |
+| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada modular que carga los componentes anteriores | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer}/`; resto RPC | **Parcial**, componentes y estilos por pestaña aún anteriores | Entrada AER e IXB comparada a 1450 y 390 px; no implica validación/migración de todas sus pestañas |
 
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
 estilo anteriores. Tras Inversión y Capacidad mensual, `frontend/templates/pages/`
-contiene 24 plantillas (23 pantallas y la guía), incluyendo Facturabilidad
-completa, EVA 1–3 y Proyecto simple, además de los fragmentos de `partials/`.
+contiene 25 plantillas: las 24 modulares anteriores (incluida la guía) y la
+entrada transitoria de Detalle. Esta última no suma otra pantalla completada.
+Incluye también los fragmentos de `partials/`.
+
+### Fase 10: primer bloque, entrada y lecturas iniciales
+
+`pages.project_detail` usa `_modern` y la vista original conserva su contexto
+mediante `render_page`. `main.js` instala la conexión de datos antes de cargar
+el componente anterior; `data.js` usa el cliente compartido con timeout de
+90 segundos. Solo filtros, carga inicial y Actualizar dejan de usar RPC.
+Los endpoints invocan los mismos servicios Python; no cambian cálculos,
+redondeos, cachés ni fuentes. Las respuestas originales quedan en `{data, meta}`.
+Se conserva la denegación de alcance limitado de esas lecturas RPC: los
+servicios todavía contienen datos del portafolio que no están recortados.
+
+El cuerpo inicial de la plantilla no tiene estilos o eventos en línea,
+pero los componentes anteriores todavía los generan. El JS de un megabyte,
+su CSS y el shim se mantienen como dependencia transitoria, sin copiarlos
+a `frontend/`. **No dar por terminada la pantalla ni la fase 10.**
+La comparación con `?vista=anterior` conserva el transporte RPC anterior.
+Pruebas en `test_project_detail_api.py` y `test_project_detail_entry.py`:
+contratos, IDs con CR, acceso antes de fuentes, errores y reintentos,
+selección de pestaña y capturas AER/IXB a 1450 y 390 px. Dos pruebas Node
+verifican rutas exactas, timeout y propagación de errores. Los recorridos
+Node anteriores siguen ejercitando RPC con los helpers reales.
+
+Validación del bloque: **21 pruebas de API, diez de navegador y dos anteriores
+del contenedor** aprobadas (33 juntas). Regresión general: **1248 aprobadas,
+una omitida**. JS completo: **124 aprobadas y los tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). Ruff, formato, mypy y
+`manage.py check` aprobados. Los cambios pendientes ajenos siguen fuera.
+
+El siguiente bloque es **Ejecutivo AER/T&M**, después **Ejecutivo IXB/SaaS/RaaS**,
+separando sus componentes, CSS, eventos y estado, con comparación de cada uno.
+Después siguen las otras pestañas y sus lecturas/escrituras, sin quitar
+RPC mientras una pestaña todavía lo necesite.
 
 Proyecto simple (`proyecto/<id>/`) usa `pages.project` y `render_page`,
 con las mismas funciones de portafolio y detalle, permisos por proyecto y
