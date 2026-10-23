@@ -6,3 +6,6 @@
   background: #fff;
   border-bottom: 1px solid #ece8fa;
 }
+.ixs-azure-more-footer { margin-top: 10px; text-align: right; }
+.ixs-azure-status-label { display: inline-flex; align-items: center; gap: 6px; }
+.ixs-azure-status-swatch { width: 10px; height: 10px; border-radius: 50%; }

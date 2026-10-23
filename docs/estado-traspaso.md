@@ -2,6 +2,33 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, indicadores y resumen de Azure DevOps IXB
+
+- `sections/ixs_azure_summary{,_model,_view}.js`: seis indicadores, dona,
+  distribución/avisos, atención prioritaria, carga por asignado, fechas y
+  resumen de estados. DOM seguro, eventos externos y barras/colores por CSSOM.
+  Mantiene las reglas de estados distintas de resumen y agrupaciones.
+- Conserva denominadores, promedio/redondeo, deduplicación de riesgo, orden,
+  fechas y límites: atención muestra 3 y permite hasta 8; carga muestra 5;
+  fechas muestra 5 y permite hasta 8. Ver más/menos y reinicio al actualizar
+  son modulares. No se cambiaron servicios ni API/cálculos de negocio.
+- Cinco pruebas Node contrastan cifras, distribución, orden y fechas con las
+  variables de la función anterior; verifican estado vacío, lista detallada
+  distinta de todos los WIs y no mutación de datos.
+- 16 pruebas e2e aprobadas: doce comparaciones de todos los elementos contra
+  la anterior a 1450/900/390 px (completa, vacía, cerrados y sin detalle),
+  tres expandir/contraer/actualizar y texto seguro. Capturas en
+  `tmp/migration/project_detail/ixs_azure_summary/`; inspeccionada escritorio.
+- Regresión dirigida de agrupaciones, cargas, entrada del detalle, soporte
+  frontend y escrituras visibles: **58 aprobadas** adicionales. Node completo:
+  **168 aprobadas y los tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato y diff aprobados. Fuentes
+  simuladas; no es una regresión completa del portal ni se usó Azure/Gmail real.
+- **Azure y fase 10 siguen parciales:** siguiente estructura y tabla editable
+  con filtros/acciones de Work Items, que aún se ejecutan en el script anterior.
+  Los selectores los sigue poblando su función anterior. Después IA,
+  Cliente/Acciones, Comunicación, pestañas AER y encabezado/navegación comunes.
+
 ## Bloque: fase 10, agrupaciones y desgloses de Azure DevOps IXB
 
 - `sections/ixs_azure_groups_model.js` conserva clasificación, agrupación por

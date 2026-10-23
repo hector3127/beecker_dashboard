@@ -7090,6 +7090,12 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     if(vals.includes(current)) el.value=current;
   }
   function _ixsRenderAzureSummary(){
+    if(window.beeIxsAzureSummary){
+      _ixsAzureRenderSelect('ixs-azure-filter-estado', _ixsAzureUniqueOptions(ixsAzureState.items,'estado'), 'Estado');
+      _ixsAzureRenderSelect('ixs-azure-filter-asignado', _ixsAzureUniqueOptions(ixsAzureState.items,'asignadoA'), 'Asignado');
+      _ixsAzureRenderSelect('ixs-azure-filter-tipo', _ixsAzureUniqueOptions(ixsAzureState.items,'tipo'), 'Tipo');
+      return window.beeIxsAzureSummary(document.getElementById('ixs-tab-contenido'),ixsAzureState);
+    }
     const items=ixsAzureState.items||[], all=ixsAzureState.allItems||items, stale=ixsAzureState.stale||[];
     _ixsAzureRenderSelect('ixs-azure-filter-estado', _ixsAzureUniqueOptions(items,'estado'), 'Estado');
     _ixsAzureRenderSelect('ixs-azure-filter-asignado', _ixsAzureUniqueOptions(items,'asignadoA'), 'Asignado');

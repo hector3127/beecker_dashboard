@@ -3,6 +3,7 @@
 import { createProjectData } from "./data.js";
 import { createAzureController } from "./sections/ixs_azure.js";
 import { createAzureGroupsController } from "./sections/ixs_azure_groups.js";
+import { renderSummary } from "./sections/ixs_azure_summary.js";
 import { renderAerExecutive } from "./sections/aer_executive.js";
 import { createEffortController } from "./sections/ixs_effort.js";
 import { createResourcesController } from "./sections/ixs_resources.js";
@@ -55,6 +56,7 @@ async function start() {
       beeProjectData: data,
       beeIxsAzure: createAzureController(data),
       beeIxsAzureGroups: createAzureGroupsController(),
+      beeIxsAzureSummary: renderSummary,
       beeIxsEffort: createEffortController(data),
       beeIxsResources: createResourcesController(data),
       beeIxsPlanningEditor: createPlanningEditor(data),

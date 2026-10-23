@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos, transporte de Planeación IXB y escrituras de Work Items; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas, editores y escrituras de Work Items en Planeación IXB/SaaS/RaaS modulares; editor de hitos y Gestión RAID (lectura y alta) modulares; extensión/integraciones y otras pestañas anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, Recursos, Planeación, Work Items, hitos, RAID y Azure; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas/editores de Planeación IXB, hitos, comunicados y RAID modulares; transporte, grupos y resumen de Azure modulares; faltan tabla/acciones de Azure, otras pestañas y estructura compartida | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -85,7 +85,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
-| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente, Comunicación, indicadores/tabla/acciones restantes de Azure DevOps e IA |
+| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente, Comunicación, estructura/tabla/acciones restantes de Azure DevOps e IA |
 | AER/T&M | Planeación, Esfuerzo, Riesgos, Acciones, Recursos, Cliente e IA |
 | Compartido | Encabezados, pestañas y acciones restantes; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
@@ -100,6 +100,27 @@ acciones anteriores, aunque las escrituras de Work Items usan API mediante puent
 Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Fase 10: indicadores y resumen de Azure DevOps IXB (parcial)
+
+`sections/ixs_azure_summary{,_model,_view}.js` presenta indicadores, salud/dona,
+avisos, atención prioritaria, carga por persona, próximas fechas y estados.
+DOM seguro/eventos externos, colores y barras por CSSOM, estilos externos.
+Conserva todas las fórmulas, denominadores, clasificaciones, orden y límites
+de listas. Ver más/menos y reinicio al actualizar ya son modulares.
+
+Evidencia: cinco Node contra las variables calculadas en la función original;
+16 e2e aprobadas, con doce comparaciones de todos los elementos a 1450/900/390 px
+(completa, vacía, cerrados y sin detalle), tres pruebas de expandir/contraer/
+actualizar y texto seguro. Capturas en
+`tmp/migration/project_detail/ixs_azure_summary/`, inspeccionada escritorio.
+Regresión dirigida de grupos/cargas/entrada/soporte y guardados visibles:
+58 aprobadas adicionales. Node completo: 168 aprobadas y los mismos tres
+fallos previos (`cost_sprint_details`, `executive_report`, `financial`).
+Ruff/formato y diff aprobados. Fuentes simuladas; no se ejecutó todo el portal.
+
+**Pendiente en Azure:** estructura de la pestaña, selectores, filtros y tabla
+editable con sus acciones. No se da por migrada toda la pestaña ni la fase 10.
 
 ### Fase 10: agrupaciones y desgloses de Azure DevOps IXB (parcial)
 

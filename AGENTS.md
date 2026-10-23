@@ -106,8 +106,10 @@ Azure DevOps IXB ya tiene transporte y control de carga en
 respuestas tardías al recargar/cambiar de pestaña/proyecto. Sus agrupaciones por
 persona/iteración y etapa, búsqueda y ventanas de detalle ya son modulares en
 `sections/ixs_azure_groups{,_model,_view}.js`, comparadas con la anterior a
-1450/900/390 px. Indicadores, tabla editable, filtros de Work Items y acciones
-de esa tabla todavía usan el script anterior.
+1450/900/390 px. Indicadores, distribución/salud, atención prioritaria, carga
+y próximas fechas también usan modelo/vista en `ixs_azure_summary*.js`, con
+DOM seguro y Ver más/menos modular. La estructura de la pestaña, tabla
+editable, filtros de Work Items y acciones de esa tabla siguen en el anterior.
 **Planeación y la fase 10 continúan parciales.** Siguiente: presentación y
 acciones restantes de Azure DevOps; después IA, Cliente/Acciones (comparten renderer con AER) y Comunicación de
 IXS; en AER faltan todas las pestañas salvo Ejecutivo. También falta separar
