@@ -4,6 +4,7 @@ import { createProjectData } from "./data.js";
 import { createAiSources } from "./sections/ixs_ai_sources.js";
 import * as aiModel from "./sections/ixs_ai_model.js";
 import { createAiController } from "./sections/ixs_ai_controller.js";
+import { createClientActionsLoader } from "./sections/ixs_client_actions.js";
 import { renderAiPanels } from "./sections/ixs_ai_panels_view.js";
 import {
   renderAi,
@@ -68,6 +69,7 @@ async function start() {
       beeIxsAiSources: createAiSources(data),
       beeIxsAiModel: aiModel,
       beeIxsAiController: createAiController(data),
+      beeIxsClientActions: createClientActionsLoader(data),
       beeIxsAiPanels: renderAiPanels,
       beeIxsAiView: {
         render: renderAi,

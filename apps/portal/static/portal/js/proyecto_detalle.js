@@ -4684,6 +4684,11 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     const id=ixsProyectoActual&&ixsProyectoActual.proyecto&&ixsProyectoActual.proyecto.id;
     const target=document.getElementById('ixs-tab-contenido');if(!id||!target)return;
     _aerEnsureStyles();
+    if(window.beeIxsClientActions)return window.beeIxsClientActions.load({
+      project:ixsProyectoActual,target,cache:ixsClienteAccionesCache,tab:ixsTabActual,
+      current:key=>ixsProyectoActual?.proyecto.id===key&&['cliente','acciones'].includes(ixsTabActual),
+      apply:r=>{aerDashboardData=r;aerIAState.id=id;aerIAState.accionesPartes=r.partes||[];_aerRenderTab();}
+    });
     const cached=ixsClienteAccionesCache[id];
     if(cached&&cached.proyecto){aerDashboardData=cached;aerIAState.id=id;aerIAState.accionesPartes=cached.partes||[];_aerRenderTab();return;}
     target.innerHTML='<div class="ixs-card" style="padding:22px">Cargando información de '+(ixsTabActual==='cliente'?'cliente':'acciones')+'…</div>';

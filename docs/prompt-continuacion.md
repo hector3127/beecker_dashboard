@@ -9,8 +9,8 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local es IA IXB/SaaS/RaaS
-   completa, después de la pestaña completa de Azure DevOps (posterior al glosario
+   diferencia con `origin/main`. El último bloque local es carga por API de
+   Cliente/Acciones, después de IA IXB/SaaS/RaaS completa (posterior al glosario
    `b1ca4b4`). No hagas push
    salvo que te lo pida expresamente.
 3. Conserva sin comitear ni modificar lo que no es tuyo:
@@ -61,7 +61,11 @@ y `ixs_ai_controller.js` presentan la pestaña y sus formularios con DOM seguro
 y eventos externos. Comparados con la anterior en tres tamaños. No consultar
 modelos o servicios reales durante las pruebas. Fase 10 todavía parcial.
 
-**Siguiente bloque sugerido:** Cliente/Acciones
+**Cliente/Acciones parcial:** `ixs_client_actions.js` ya carga por API con caché,
+mensajes y control de respuestas tardías. La presentación y todos sus editores
+compartidos con AER siguen anteriores; no dar estas pestañas por migradas.
+
+**Siguiente bloque sugerido:** modelo, vista y editores de Cliente/Acciones
 (comparten renderer con AER) y Comunicación; luego las pestañas de AER distintas
 del Ejecutivo. Al final: limpieza de plantillas/CSS/JS anteriores y CSP.
 

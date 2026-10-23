@@ -124,6 +124,10 @@ permisos originales y CSRF; la creación RAID reutiliza el módulo ya migrado.
 La ruta nueva no ejecuta los renderizadores ni formularios anteriores de IA.
 Se conservan wrappers de entrada/estado y comparación. Ver evidencia en el traspaso.
 
+Cliente/Acciones IXB ya carga por API v1 con caché compartida y control de
+respuestas tardías en `sections/ixs_client_actions.js`. Sus vistas y editores
+compartidos con AER siguen anteriores: ambas pestañas continúan parciales.
+
 **Planeación y la fase 10 continúan parciales.** Siguiente:
 Cliente/Acciones (comparten renderer con AER) y Comunicación de
 IXS; en AER faltan todas las pestañas salvo Ejecutivo. También falta separar

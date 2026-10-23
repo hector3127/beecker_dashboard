@@ -103,6 +103,21 @@ Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Fase 10: carga de Cliente/Acciones IXB (parcial)
+
+`ixs_client_actions.js` sustituye la lectura RPC por la API `cliente/` existente.
+Conserva caché compartida, mensajes, ID validado y metadatos del proyecto;
+descarta respuestas tardías. El renderer, filtros/exportaciones y editores
+compartidos con AER siguen anteriores; **ambas pestañas siguen parciales**.
+Sin nuevos servicios/endpoints ni cambios de cálculos/permisos.
+
+Evidencia: **81 aprobadas** (15 e2e del bloque, 43 API, 10 entrada, 11 soporte,
+dos flujos IA). Incluye 12 comparaciones llena/vacía a 1450/900/390 px,
+caché, reintento, ID inválido y salida durante carga. Cinco Node aprobadas.
+Ruff/formato y diff aprobados. Capturas en
+`tmp/migration/project_detail/ixs_client_actions/`; inspeccionada Cliente en
+escritorio. Fuentes simuladas. Siguiente modelo/vista/editores compartidos.
+
 ### Fase 10: IA IXB/SaaS/RaaS completa
 
 Vista y eventos en `ixs_ai_view.js`; ventanas y acciones en

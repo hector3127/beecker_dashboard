@@ -2,6 +2,29 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, carga de Cliente/Acciones IXB (parcial)
+
+- `sections/ixs_client_actions.js` carga por la API `cliente/` ya existente,
+  conserva la caché entre ambas pestañas, mensajes, proyecto ejecutivo de
+  IXB/SaaS/RaaS y registros de las hojas IXS. Rechaza respuestas de otro ID y
+  descarta respuestas tardías tras nueva carga o salida de pestaña/proyecto.
+- El puente `ixsCargarClienteAcciones` conserva estilos y aplica el resultado
+  al renderer compartido con AER. **Las vistas, cálculos de presentación,
+  filtros/exportaciones y editores compartidos siguen anteriores**: no contar
+  Cliente ni Acciones como pestañas completas. Sin nuevos endpoints ni cambios
+  de permisos/negocio. Siguiente separar modelo/vista y sus editores.
+- **81 pruebas aprobadas**: 15 e2e de Cliente/Acciones, 43 API de lecturas,
+  10 entrada, 11 soporte y dos flujos de IA tras incorporar el módulo.
+  Incluye 12 comparaciones llena/vacía a 1450/900/390 px, caché entre pestañas,
+  error/reintento, ID inválido, texto seguro y respuesta tras abandonar la pestaña.
+  Cinco Node nuevas aprobadas (caché, fallos, reintento, carreras y salida).
+  Ruff/formato y diff aprobados. Proveedores simulados, sin fuentes reales.
+- Capturas en `tmp/migration/project_detail/ixs_client_actions/`; inspeccionada
+  Cliente llena de escritorio. IA está completa en el bloque anterior. La fase
+  10 sigue parcial; faltan Cliente/Acciones, Comunicación, integración restante
+  de Planeación, encabezados/navegación compartidos y pestañas AER pendientes.
+  Conservar shim y script anterior. Sin push.
+
 ## Bloque: fase 10, pestaña IA IXB/SaaS/RaaS completa
 
 - `ixs_ai_view.js` presenta toda la pestaña con DOM seguro y eventos externos:
