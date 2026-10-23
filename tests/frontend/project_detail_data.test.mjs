@@ -14,6 +14,35 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("IA reads use resource endpoints, exact identifiers and the existing timeout", async () => {
+  const calls = [];
+  const api = context.createProjectData(async (...args) => {
+    calls.push(args);
+    return { data: { ok: true } };
+  });
+  for (const name of [
+    "client",
+    "aiAnalysis",
+    "aiMemory",
+    "aiMinutes",
+    "aiDriveFolders",
+    "aiDriveFiles",
+  ])
+    await api[name]("CCO.001 | CR");
+  assert.deepEqual(
+    calls.map((x) => x[0]),
+    [
+      "cliente/",
+      "ia/analisis/",
+      "ia/memoria/",
+      "ia/minutas/",
+      "ia/drive/carpetas/",
+      "ia/drive/archivos/",
+    ].map((path) => "screens/proyectos/CCO.001%20%7C%20CR/" + path),
+  );
+  assert.ok(calls.every((x) => x[1] === undefined && x[2].timeout === 90000));
+});
+
 test("Azure tab sends the exact project and explicit refresh without changing planning", async () => {
   const calls = [];
   const data = context.createProjectData(async (...args) => {
@@ -26,9 +55,12 @@ test("Azure tab sends the exact project and explicit refresh without changing pl
   assert.equal(calls[0][0], "screens/proyectos/CCO.001%20%7C%20CR/azure/");
   assert.equal(calls[0][1], undefined);
   assert.equal(calls[1][1].forzar, "1");
-  assert.equal(calls[2][0], "screens/proyectos/CCO.001%20%7C%20CR/planeacion/azure/");
+  assert.equal(
+    calls[2][0],
+    "screens/proyectos/CCO.001%20%7C%20CR/planeacion/azure/",
+  );
   assert.equal(calls[2][1], undefined);
-  assert.ok(calls.every(call => call[2].timeout === 90000));
+  assert.ok(calls.every((call) => call[2].timeout === 90000));
 });
 
 test("work item writes preserve IDs, typed values, body and timeout", async () => {

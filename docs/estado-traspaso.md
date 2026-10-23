@@ -2,6 +2,35 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, fuentes e historial de IA IXB (parcial)
+
+- `apps/portal/api/project_ai.py` expone seis GET de `screens/proyectos/<id>/`:
+  `cliente/`, `ia/analisis/`, `ia/memoria/`, `ia/minutas/`,
+  `ia/drive/carpetas/` e `ia/drive/archivos/`. Conserva servicios, stores y
+  `run_safely` anteriores. Lecturas con `view_operations` y alcance total;
+  configuración de carpetas conserva `manage_integrations` y alcance total.
+- `sections/ixs_ai_sources.js` carga seis fuentes, historial y Drive por API.
+  Conserva resultados parciales, reintento, selección de transcripciones y
+  análisis guardado; descarta respuestas de proyectos o cargas anteriores.
+  El script anterior delega estas cargas y conserva el fallback de comparación.
+- Tres CSS externos conservan los IDs originales y el orden base, referencia,
+  extensión. No hay cambios de cálculos ni diseño. La presentación, contexto,
+  generación, preguntas y formularios siguen en el script anterior: **IA no
+  está completamente migrada** y la fase 10 sigue parcial.
+- Evidencia: **43 pruebas API**, **13 e2e** (nueve comparaciones con la anterior,
+  completa/vacía/parcial a 1450/900/390 px), seis pruebas Node nuevas.
+  Regresión dirigida: **91 aprobadas** incluyendo entrada, Azure y soporte.
+  Node completo: **176 aprobadas y tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`). Ruff, formato,
+  comprobación Django y diff aprobados; mypy conserva seis errores previos en
+  otros archivos, ninguno en el módulo nuevo.
+- Capturas: `tmp/migration/project_detail/ixs_ai_sources/`; inspeccionada
+  `full/1450/new.png`. Servicios simulados: sin consultas reales a IA, Drive,
+  Azure ni Gmail. No es una regresión completa del portal.
+- Siguiente: extraer contexto/snapshot/cambios/capacidad y presentación de IA
+  conservando cálculos; después migrar acciones y formularios con sus permisos
+  y CSRF. Mantener shim, comparación y script anterior. No hacer push.
+
 ## Bloque: fase 10, pestaña Azure DevOps IXB completa
 
 - Entrada en `sections/ixs_azure_tab.js`, estructura en `ixs_azure_tab_view.js`.

@@ -9,8 +9,8 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local es transporte/cargas
-   y la pestaña completa de Azure DevOps IXB (posterior al glosario
+   diferencia con `origin/main`. El último bloque local es fuentes, historial
+   y CSS de IA IXB, después de la pestaña completa de Azure DevOps (posterior al glosario
    `b1ca4b4`). No hagas push
    salvo que te lo pida expresamente.
 3. Conserva sin comitear ni modificar lo que no es tuyo:
@@ -54,7 +54,15 @@ controles/acciones compartidos con Planeación. Azure sí está migrada; la fase
 10 sigue parcial. Ver
 evidencia y seis errores previos de mypy en el traspaso.
 
-**Siguiente bloque sugerido:** IA de IXB/SaaS/RaaS; después Cliente/Acciones
+**IA parcial:** `project_ai.py` y `ixs_ai_sources.js` ya cargan las seis fuentes,
+historial y Drive por API. Tres CSS externos conservan IDs y orden anteriores.
+43 API y 13 e2e aprobadas; regresión dirigida de 91 aprobadas. La presentación,
+contexto, cálculos, generación y formularios siguen anteriores. No dar IA por
+terminada ni consultar modelos o servicios reales durante las pruebas.
+
+**Siguiente bloque sugerido:** contexto/snapshot/cambios/capacidad y presentación
+de IA IXB/SaaS/RaaS, sin cambiar cálculos; después sus acciones por API con los
+permisos originales y CSRF. Luego Cliente/Acciones
 (comparten renderer con AER) y Comunicación; luego las pestañas de AER distintas
 del Ejecutivo. Al final: limpieza de plantillas/CSS/JS anteriores y CSP.
 

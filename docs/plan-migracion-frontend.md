@@ -103,6 +103,28 @@ Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Fase 10: fuentes e historial de IA IXB (parcial)
+
+Seis GET en `project_ai.py` conservan los servicios y errores anteriores:
+cliente, análisis guardado, memoria, minutas, carpetas y archivos Drive.
+Mantienen alcance total y permisos originales: carpetas exige
+`manage_integrations`; las demás lecturas, `view_operations`.
+`ixs_ai_sources.js` coordina fuentes, historial y Drive por API, conserva
+resultados parciales y reintento, y evita respuestas tardías. Tres CSS externos
+conservan IDs y orden del diseño anterior.
+
+Evidencia: 43 pruebas API y 13 e2e aprobadas, incluidas nueve comparaciones
+completa/vacía/parcial a 1450/900/390 px. Capturas en
+`tmp/migration/project_detail/ixs_ai_sources/`; inspeccionada escritorio.
+Regresión dirigida de entrada, Azure, IA y soporte: 91 aprobadas.
+Node completo: 176 aprobadas y los tres fallos previos. Ruff/formato, Django
+y diff aprobados; mypy conserva seis errores anteriores en otros archivos.
+Fuentes simuladas, sin consultas reales a modelos, Drive, Azure o Gmail.
+
+**IA y fase 10 siguen parciales:** contexto/cálculos, presentación y acciones
+de generación/preguntas/formularios permanecen anteriores. Continuar por modelo
+y vista sin cambiar cálculos; después acciones con permisos y CSRF.
+
 ### Fase 10: estructura, tabla y acciones de Azure DevOps IXB
 
 La entrada `ixs_azure_tab.js` monta la pestaña con estructura DOM segura en

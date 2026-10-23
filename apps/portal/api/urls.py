@@ -35,6 +35,14 @@ from apps.portal.api.operations import (
     FacturabilitySpecialtyView,
     InvestmentScreenView,
 )
+from apps.portal.api.project_ai import (
+    ProjectAiAnalysisReadView,
+    ProjectAiFilesReadView,
+    ProjectAiFoldersReadView,
+    ProjectAiMemoryReadView,
+    ProjectAiMinutesReadView,
+    ProjectClientReadView,
+)
 from apps.portal.api.project_detail import (
     ProjectAerView,
     ProjectAzureView,
@@ -86,6 +94,30 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/<str:project_id>/cliente/",
+        ProjectClientReadView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/analisis/",
+        ProjectAiAnalysisReadView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/memoria/",
+        ProjectAiMemoryReadView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/minutas/",
+        ProjectAiMinutesReadView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/drive/carpetas/",
+        ProjectAiFoldersReadView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/drive/archivos/",
+        ProjectAiFilesReadView.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/azure/",
         ProjectAzureView.as_view(),

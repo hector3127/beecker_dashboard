@@ -1,6 +1,7 @@
 // @ts-check
 // Transitional entry: keep the existing renderers until each tab is migrated.
 import { createProjectData } from "./data.js";
+import { createAiSources } from "./sections/ixs_ai_sources.js";
 import { createAzureController } from "./sections/ixs_azure.js";
 import { createAzureGroupsController } from "./sections/ixs_azure_groups.js";
 import { renderSummary } from "./sections/ixs_azure_summary.js";
@@ -56,6 +57,7 @@ async function start() {
     const azureGroups = createAzureGroupsController();
     Object.assign(window, {
       beeProjectData: data,
+      beeIxsAiSources: createAiSources(data),
       beeIxsAzure: createAzureController(data),
       beeIxsAzureGroups: azureGroups,
       beeIxsAzureSummary: renderSummary,

@@ -8,6 +8,18 @@ export function createProjectData(get = apiGet, send = apiSend) {
     (await get(path, undefined, { timeout: 90000 })).data;
   return {
     filters: () => read("screens/proyectos/filtros/"),
+    client: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/cliente/`),
+    aiAnalysis: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/ia/analisis/`),
+    aiMemory: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/ia/memoria/`),
+    aiMinutes: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/ia/minutas/`),
+    aiDriveFolders: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/ia/drive/carpetas/`),
+    aiDriveFiles: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/ia/drive/archivos/`),
     raid: (id) => read(`screens/proyectos/${encodeURIComponent(id)}/raid/`),
     tasks: (id) => read(`screens/proyectos/${encodeURIComponent(id)}/tasks/`),
     records: (id) =>

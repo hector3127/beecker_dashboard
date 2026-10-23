@@ -1,0 +1,107 @@
+.ixai-meta {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.ixai-meta span {
+  font-size: 10px;
+  padding: 6px 8px;
+  border: 1px solid #e5e2fa;
+  border-radius: 8px;
+  background: #faf9ff;
+}
+.ixai-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.ixai-table th {
+  text-align: left;
+  background: #f6f4ff;
+}
+.ixai-table th,
+.ixai-table td {
+  padding: 8px;
+  border-bottom: 1px solid #eeeafa;
+}
+.ixai-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.ixai-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.ixai-detail {
+  position: fixed;
+  inset: 0;
+  z-index: 100550;
+  background: #1c153d99;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.ixai-dialog {
+  width: min(780px, 96vw);
+  max-height: 90vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  color: #22224c;
+}
+.ixai-dialog textarea,
+.ixai-dialog input,
+.ixai-dialog select {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid #d9d8f6;
+  border-radius: 8px;
+  font: inherit;
+}
+.ixai-dialog textarea {
+  min-height: 180px;
+}
+.ixai-dialog label {
+  display: grid;
+  gap: 5px;
+  margin: 10px 0;
+  font-size: 11px;
+  font-weight: 750;
+}
+.ixai-doc-search {
+  display: flex;
+  gap: 8px;
+}
+.ixai-doc-search input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #d9d8fa;
+  border-radius: 8px;
+  padding: 8px;
+}
+.ixai-doc-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  border-top: 1px solid #edeafa;
+  padding: 9px 0;
+  font-size: 11px;
+}
+.ixai-doc-row a {
+  color: #5028d8;
+}
+@media (max-width: 750px) {
+  .ixai-two,
+  .ixai-three {
+    grid-template-columns: 1fr;
+  }
+  .ixai-table {
+    display: block;
+    overflow: auto;
+  }
+}
