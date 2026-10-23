@@ -14,6 +14,7 @@ from django.http import (
     JsonResponse,
 )
 from django.urls import reverse
+from django.utils import timezone
 from django.views.decorators.http import require_GET, require_POST
 
 from apps.gmail.constants import (
@@ -27,6 +28,7 @@ from apps.gmail.exceptions import (
     GmailNotConfiguredError,
     ReplyValidationError,
 )
+from apps.gmail.services.communique import KIND_EXTENSION
 from apps.gmail.services.credentials_store import (
     StoredCredentials,
     clear_credentials,
@@ -35,7 +37,9 @@ from apps.gmail.services.credentials_store import (
     save_credentials,
 )
 from apps.gmail.services.extension_reply import (
+    deliver_communique,
     deliver_extension,
+    parse_communique,
     parse_extension,
     validate_files,
 )
@@ -312,19 +316,36 @@ def reply(request: HttpRequest) -> JsonResponse:
 
         files = [(upload.name or "", upload.read()) for upload in uploads]
         attachments = validate_files(files)
-        data, thread_id = parse_extension(
-            {key: str(value) for key, value in request.POST.items()},
-            len(attachments),
-        )
-        result: dict[str, Any] = deliver_extension(
-            GmailApi(credentials.access_token),
-            credentials.email,
-            data,
-            thread_id,
-            attachments,
-            _delivery_mode(),
-        )
-        remember_thread(cache, data.project, thread_id)
+        fields = {key: str(value) for key, value in request.POST.items()}
+        kind = fields.get("kind", KIND_EXTENSION).strip() or KIND_EXTENSION
+        api = GmailApi(credentials.access_token)
+        result: dict[str, Any]
+
+        if kind == KIND_EXTENSION:
+            data, thread_id = parse_extension(fields, len(attachments))
+            result = deliver_extension(
+                api,
+                credentials.email,
+                data,
+                thread_id,
+                attachments,
+                _delivery_mode(),
+            )
+            project = data.project
+        else:
+            other, thread_id = parse_communique(kind, fields, len(attachments))
+            result = deliver_communique(
+                api,
+                credentials.email,
+                other,
+                thread_id,
+                attachments,
+                _delivery_mode(),
+                timezone.localtime(),
+            )
+            project = other.project
+
+        remember_thread(cache, project, thread_id)
     except DashboardError as error:
         return _json_error(error)
 

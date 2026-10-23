@@ -4,7 +4,7 @@ import logging
 import os
 import re
 from collections.abc import Mapping
-from datetime import date
+from datetime import date, datetime
 from typing import Any, Protocol
 from urllib.parse import urlsplit
 
@@ -21,8 +21,15 @@ from apps.gmail.constants import (
 )
 from apps.gmail.exceptions import GmailApiError, ReplyValidationError
 from apps.gmail.services.communique import (
+    KIND_CLOSE_AER,
+    KIND_CLOSE_IXB,
+    KIND_RESUMPTION,
+    KIND_SUSPENSION,
+    CommuniqueData,
     ExtensionData,
     build_html,
+    build_other_html,
+    build_other_text,
     build_text,
 )
 from apps.gmail.services.reply_builder import (
@@ -122,6 +129,117 @@ def parse_extension(
     return data, thread_id
 
 
+MAX_CONDITION_LENGTH = 300
+MAX_NAME_LENGTH = 200
+
+# Campos obligatorios de cada comunicado, ademas del proyecto y el hilo.
+REQUIRED = {
+    KIND_SUSPENSION: ("reason", "stage", "resumeDate", "condition"),
+    KIND_RESUMPTION: ("resumeDate",),
+    KIND_CLOSE_IXB: ("closeDate",),
+    KIND_CLOSE_AER: ("closeDate",),
+}
+LABELS = {
+    "reason": "el motivo",
+    "stage": "la etapa",
+    "resumeDate": "la fecha de reanudación",
+    "condition": "la condición pendiente",
+    "closeDate": "la fecha de cierre",
+}
+
+
+def _is_http(url: str) -> bool:
+    """True para un enlace http(s) con servidor."""
+    parts = urlsplit(url)
+
+    return parts.scheme in ("http", "https") and bool(parts.netloc)
+
+
+def parse_communique(
+    kind: str,
+    fields: Mapping[str, str],
+    attachment_count: int,
+) -> tuple[CommuniqueData, str]:
+    """
+    Valida los campos de suspension, reanudacion o cierre.
+
+    Args:
+        kind: suspension, reanudacion, cierre_ixb o cierre_aer.
+        fields: Datos del formulario.
+        attachment_count: Cuantos archivos se adjuntan.
+
+    Returns:
+        Los datos y el ID del hilo elegido.
+
+    Raises:
+        ReplyValidationError: Cuando falta o es invalido algun dato.
+    """
+    if kind not in REQUIRED:
+        raise ReplyValidationError("Tipo de comunicado no valido.")
+
+    project = fields.get("project", "").strip()
+    thread_id = fields.get("threadId", "").strip()
+
+    if not project:
+        raise ReplyValidationError("Falta el proyecto.")
+
+    clean: dict[str, str] = {}
+
+    for name in REQUIRED[kind]:
+        value = fields.get(name, "").strip()
+
+        if not value:
+            raise ReplyValidationError(f"Falta {LABELS[name]}.")
+
+        clean[name] = value
+
+    if "stage" in clean and clean["stage"] not in STAGES:
+        raise ReplyValidationError("Elige una etapa valida.")
+
+    if len(clean.get("reason", "")) > MAX_REASON_LENGTH:
+        raise ReplyValidationError(
+            f"El motivo es obligatorio y mide hasta {MAX_REASON_LENGTH}.",
+        )
+
+    if len(clean.get("condition", "")) > MAX_CONDITION_LENGTH:
+        raise ReplyValidationError(
+            f"La condición mide hasta {MAX_CONDITION_LENGTH}.",
+        )
+
+    for name in ("resumeDate", "closeDate"):
+        if name in clean:
+            clean[name] = _check_date(clean[name])
+
+    for name in ("projectName", "description"):
+        value = " ".join(fields.get(name, "").split())
+
+        if len(value) > MAX_NAME_LENGTH:
+            raise ReplyValidationError(
+                f"El texto mide hasta {MAX_NAME_LENGTH}.",
+            )
+
+        if value:
+            clean[name] = value
+
+    link = fields.get("link", "").strip()
+
+    if link:
+        if not _is_http(link):
+            raise ReplyValidationError("El enlace debe ser http(s).")
+
+        clean["link"] = link
+
+    if kind == KIND_CLOSE_IXB and not link and attachment_count == 0:
+        raise ReplyValidationError(
+            "Adjunta la MCO como archivo o pon su enlace.",
+        )
+
+    if not THREAD_ID_PATTERN.match(thread_id):
+        raise ReplyValidationError("Elige el hilo donde se va a responder.")
+
+    return CommuniqueData(kind, project, clean, attachment_count > 0), thread_id
+
+
 def validate_files(
     files: list[tuple[str, bytes]],
 ) -> list[Attachment]:
@@ -187,6 +305,48 @@ def deliver_extension(
         ReplyValidationError: Cuando el hilo no es de un proyecto.
         GmailApiError: Cuando Gmail rechaza la creacion.
     """
+    return deliver_bodies(
+        api,
+        my_email,
+        data.project,
+        (build_text(data), build_html(data)),
+        thread_id,
+        attachments,
+        mode,
+    )
+
+
+def deliver_communique(
+    api: ReplyApi,
+    my_email: str,
+    data: CommuniqueData,
+    thread_id: str,
+    attachments: list[Attachment],
+    mode: str,
+    now: datetime,
+) -> JsonObject:
+    """Entrega suspension, reanudacion o cierre en el hilo elegido."""
+    today = now.date().isoformat()
+    bodies = (
+        build_other_text(data, now.hour, today),
+        build_other_html(data, now.hour, today),
+    )
+
+    return deliver_bodies(
+        api, my_email, data.project, bodies, thread_id, attachments, mode
+    )
+
+
+def deliver_bodies(
+    api: ReplyApi,
+    my_email: str,
+    project: str,
+    bodies: tuple[str, str],
+    thread_id: str,
+    attachments: list[Attachment],
+    mode: str,
+) -> JsonObject:
+    """Crea el borrador (o envia) la respuesta en el hilo de un proyecto."""
     thread = api.get_thread(thread_id)
     message = last_message(thread)
 
@@ -213,7 +373,7 @@ def deliver_extension(
         cc_list=cc_list,
         subject=subject,
         reply_headers=build_references(headers),
-        bodies=(build_text(data), build_html(data)),
+        bodies=bodies,
         attachments=attachments,
     )
 
@@ -240,7 +400,7 @@ def deliver_extension(
         "to=%d cc=%d files=%d",
         "enviada" if mode == DELIVERY_SEND else "borrador",
         my_email,
-        data.project,
+        project,
         thread_id,
         message_id,
         len(to_list),
