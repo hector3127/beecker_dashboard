@@ -1,0 +1,8 @@
+/* The former .top header rules also applied inside Azure's body-level drawer. */
+.ds .ixs-az84-drawer-item .top {
+  min-height: 0;
+  border-top: 0;
+  padding: 12px 36px;
+  background: #fff;
+  border-bottom: 1px solid #ece8fa;
+}

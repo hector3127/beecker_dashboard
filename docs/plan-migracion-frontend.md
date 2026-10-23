@@ -85,7 +85,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
-| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente, Comunicación, presentación/acciones de Azure DevOps e IA |
+| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente, Comunicación, indicadores/tabla/acciones restantes de Azure DevOps e IA |
 | AER/T&M | Planeación, Esfuerzo, Riesgos, Acciones, Recursos, Cliente e IA |
 | Compartido | Encabezados, pestañas y acciones restantes; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
@@ -100,6 +100,28 @@ acciones anteriores, aunque las escrituras de Work Items usan API mediante puent
 Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Fase 10: agrupaciones y desgloses de Azure DevOps IXB (parcial)
+
+`sections/ixs_azure_groups{,_model,_view}.js` separa personas, iteraciones,
+etapas, búsqueda y ventanas de detalle. Conserva clasificación, orden y
+conteos con tres pruebas Node contra las funciones originales. DOM seguro,
+eventos externos, mismo foco y cierre por botón/fondo/Escape; sin nuevas API.
+CSS externo iguala `.top` dentro de las ventanas con la pantalla anterior.
+
+22 pruebas e2e aprobadas: comparaciones de todos los elementos de grupos
+(completa/vacía/aviso) y ventanas (persona/iteración/etapa) a 1450/900/390 px,
+además de búsqueda, cierre y texto seguro. La prueba espera al final de la
+animación de la flecha, sin modificar el producto. Capturas en
+`tmp/migration/project_detail/ixs_azure_groups/`.
+Regresión dirigida de cargas/entrada/soporte frontend y escrituras visibles:
+36 aprobadas adicionales. Node completo: 163 aprobadas y los mismos tres
+fallos anteriores (`cost_sprint_details`, `executive_report`, `financial`).
+Ruff/formato y diff aprobados; no se ejecutó la suite completa del portal.
+
+**No es la pestaña completa:** faltan indicadores/resumen, atención prioritaria,
+carga, próximas fechas, estructura y tabla editable con filtros/acciones.
+La fase 10 continúa parcial; la ruta anterior y el shim se conservan.
 
 ### Fase 10: transporte y cargas de Azure DevOps IXB (parcial)
 

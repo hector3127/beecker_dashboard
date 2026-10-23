@@ -7246,6 +7246,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
   function _ixsAz84Chip(n,color){return `<span class="ixs-az84-count ${color||''}">${Number(n)||0}</span>`;}
   function _ixsAz84RenderGroups(){
+    if(window.beeIxsAzureGroups)return window.beeIxsAzureGroups.render(ixsAzureState);
     const peopleEl=document.getElementById('ixs-az84-person'),stageEl=document.getElementById('ixs-az84-stage');
     if(!peopleEl||!stageEl)return;
     const grp=_ixsAz84GroupData(),note=ixsAzureState.notice||'';
@@ -7302,7 +7303,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     _ixsAz85MostrarDetalle(row.items,mode==='persona'?'Ítems por persona':'WIs abiertos por etapa',mode==='persona'?row.persona:row.etapa);
   }
   function _ixsAz84EscKey(e){if(e.key==='Escape')ixsAz84CerrarDetalle();}
-  function ixsAz84CerrarDetalle(){const el=document.getElementById('ixs-az84-drawer-wrap');if(el)el.remove();window.removeEventListener('keydown',_ixsAz84EscKey);}
+  function ixsAz84CerrarDetalle(){if(window.beeIxsAzureGroups)window.beeIxsAzureGroups.close();const el=document.getElementById('ixs-az84-drawer-wrap');if(el)el.remove();window.removeEventListener('keydown',_ixsAz84EscKey);}
 
   function renderDashboardEjecutivoProyecto(data) {
     const cont = document.getElementById('dashboard-proyecto-detalle');

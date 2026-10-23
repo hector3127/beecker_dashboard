@@ -2,6 +2,7 @@
 // Transitional entry: keep the existing renderers until each tab is migrated.
 import { createProjectData } from "./data.js";
 import { createAzureController } from "./sections/ixs_azure.js";
+import { createAzureGroupsController } from "./sections/ixs_azure_groups.js";
 import { renderAerExecutive } from "./sections/aer_executive.js";
 import { createEffortController } from "./sections/ixs_effort.js";
 import { createResourcesController } from "./sections/ixs_resources.js";
@@ -53,6 +54,7 @@ async function start() {
     Object.assign(window, {
       beeProjectData: data,
       beeIxsAzure: createAzureController(data),
+      beeIxsAzureGroups: createAzureGroupsController(),
       beeIxsEffort: createEffortController(data),
       beeIxsResources: createResourcesController(data),
       beeIxsPlanningEditor: createPlanningEditor(data),

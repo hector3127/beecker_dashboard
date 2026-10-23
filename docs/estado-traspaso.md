@@ -2,6 +2,35 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, agrupaciones y desgloses de Azure DevOps IXB
+
+- `sections/ixs_azure_groups_model.js` conserva clasificación, agrupación por
+  persona/ruta de iteración y etapa, orden y búsqueda. La clasificación de
+  estados de grupos difiere de la de los indicadores: se mantienen ambas,
+  sin intentar unificarlas ni cambiar conteos. Tres pruebas Node contrastan
+  el modelo con las funciones originales y comprueban búsqueda/inmutabilidad.
+- `ixs_azure_groups_view.js` y `ixs_azure_groups.js` construyen personas,
+  iteraciones, etapas y las tres ventanas de detalle con DOM seguro/eventos
+  externos. Conservan foco en Cerrar, Escape, cierre por fondo, búsqueda que
+  abre coincidencias y enlaces al Work Item. La ruta anterior sigue independiente.
+- CSS `project_detail_ixs_azure.css` iguala las reglas anteriores de `.top`
+  dentro de las ventanas, fuera del contenedor principal. No altera la barra.
+- 22 pruebas e2e aprobadas: nueve comparaciones de grupos (completa/vacía/aviso)
+  y nueve de ventanas (persona/iteración/etapa) a 1450/900/390 px, búsqueda,
+  cierre por botón/fondo y texto seguro. Se espera al final de la animación de
+  la flecha antes de comparar, sin cambiar la animación de la interfaz.
+  Capturas en `tmp/migration/project_detail/ixs_azure_groups/`; inspeccionadas
+  las de escritorio y móvil. Pruebas con datos simulados, sin servicios reales.
+- Regresión dirigida de cargas Azure, entrada del detalle, soporte frontend y
+  guardados/comentarios visibles: **36 aprobadas** adicionales. Suite Node:
+  **163 aprobadas y los mismos tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato y revisión del diff aprobados.
+  No se presenta esta comprobación como una regresión completa del portal.
+- **Azure DevOps y fase 10 siguen parciales.** Siguiente: indicadores/resumen,
+  atención prioritaria, carga por persona y próximas fechas; después tabla
+  editable/filtros/acciones de Work Items y estructura de la pestaña. Mantener
+  shim/script anterior; no se cambiaron API, cálculos, Horas por mes ni accesos.
+
 ## Bloque: fase 10, transporte y cargas de Azure DevOps IXB (parcial)
 
 - GET `screens/proyectos/<id>/azure/` llama a `get_ixs_panel(id, force)`;

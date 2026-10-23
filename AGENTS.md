@@ -103,10 +103,13 @@ ventana de comunicados Extensión/Suspensión/Reanudación/Cierre
 Azure DevOps IXB ya tiene transporte y control de carga en
 `sections/ixs_azure{,_model,_loading}.js`, sobre `screens/proyectos/<id>/azure/`
 (`forzar=1` para Actualizar Azure). Mantiene el servicio anterior y descarta
-respuestas tardías al recargar/cambiar de pestaña/proyecto. La presentación,
-agrupaciones, filtros y acciones de la pestaña todavía usan el script anterior.
+respuestas tardías al recargar/cambiar de pestaña/proyecto. Sus agrupaciones por
+persona/iteración y etapa, búsqueda y ventanas de detalle ya son modulares en
+`sections/ixs_azure_groups{,_model,_view}.js`, comparadas con la anterior a
+1450/900/390 px. Indicadores, tabla editable, filtros de Work Items y acciones
+de esa tabla todavía usan el script anterior.
 **Planeación y la fase 10 continúan parciales.** Siguiente: presentación y
-acciones de Azure DevOps; después IA, Cliente/Acciones (comparten renderer con AER) y Comunicación de
+acciones restantes de Azure DevOps; después IA, Cliente/Acciones (comparten renderer con AER) y Comunicación de
 IXS; en AER faltan todas las pestañas salvo Ejecutivo. También falta separar
 encabezados y navegación compartida, y retirar el shim de la ruta nueva.
 

@@ -10,7 +10,8 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
    diferencia con `origin/main`. El último bloque local es transporte/cargas
-   de Azure DevOps IXB (posterior al glosario `b1ca4b4`). No hagas push
+   y agrupaciones/desgloses de Azure DevOps IXB (posterior al glosario
+   `b1ca4b4`). No hagas push
    salvo que te lo pida expresamente.
 3. Conserva sin comitear ni modificar lo que no es tuyo:
    `tools/migracion/inline2css.py`, `tools/migracion/migrate_page.py`,
@@ -44,10 +45,14 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
    `tests/frontend/` contrastando contra las funciones originales.
 
 **Avance posterior:** Azure DevOps ya carga y actualiza por API v1, con
-`sections/ixs_azure{,_model,_loading}.js`. Solo transporte y cargas; no dar la
-pestaña por terminada. Ver evidencia y seis errores previos de mypy en el traspaso.
+`sections/ixs_azure{,_model,_loading}.js`. Las agrupaciones por persona/iteración
+y etapa, búsqueda y ventanas de detalle también son modulares en
+`ixs_azure_groups{,_model,_view}.js`. No dar la pestaña por terminada. Ver
+evidencia y seis errores previos de mypy en el traspaso.
 
-**Siguiente bloque sugerido:** presentación y acciones de **Azure DevOps** de IXB/SaaS/RaaS
+**Siguiente bloque sugerido:** indicadores/resumen, atención prioritaria,
+carga y fechas de **Azure DevOps** de IXB/SaaS/RaaS, después estructura y
+tabla editable con sus filtros/acciones
 (`_ixsRenderAzureDevOps` en `proyecto_detalle.js`); después IA, Cliente/Acciones
 (comparten renderer con AER) y Comunicación; luego las pestañas de AER distintas
 del Ejecutivo. Al final: limpieza de plantillas/CSS/JS anteriores y CSP.
