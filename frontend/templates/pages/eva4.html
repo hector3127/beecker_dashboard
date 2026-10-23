@@ -4,9 +4,9 @@
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/eva4.css' %}">{% endblock %}
 {% block content %}
 <div class="toolbar"><a class="back" href="{% url 'portal:operativa' %}">← Regresar a Operativa</a><span class="page-context">EVA-04</span></div>
-<header class="pgh eva4-banner" data-tone="operations"><div class="eva4-banner-title"><h1>EVA-04 Report</h1><p id="eva4-subtitle">Servicios de automatización · clientes, renovaciones y procesos</p></div></header>
+<header class="pgh eva4-banner" data-tone="operations"><div class="eva4-banner-title"><h1>EVA-04 Report</h1><p>Servicios de automatización · clientes, renovaciones y procesos</p></div>
+<form class="eva4-month-form" id="eva4-filters" aria-label="Consultar consumo por mes"><span class="eva4-month-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h2m3 0h2M7 17h2"/></svg></span><div class="eva4-month-field"><label for="eva4-month">Mes de consumo</label><input id="eva4-month" name="mes" type="month" required></div></form></header>
 <div id="eva4-error" aria-live="polite"></div>
-<div class="fbar" id="eva4-filters"></div>
 <div id="eva4-content"></div>
 <p class="note" id="eva4-source"></p>
 <noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>

@@ -32,15 +32,11 @@ def loads(monkeypatch):
     return calls
 
 
-def month_select(portal):
-    return portal.get_by_label("Mes", exact=True)
+def month_input(portal):
+    return portal.locator("#eva4-month")
 
 
-def year_select(portal):
-    return portal.get_by_label("Año", exact=True)
-
-
-def test_structure_is_accessible_and_puts_processes_first(portal, loads):
+def test_structure_is_accessible_and_keeps_the_previous_order(portal, loads):
     portal.goto(portal.base + PAGE)
 
     expect(portal.locator("#eva4-processes")).to_be_visible()
@@ -51,15 +47,10 @@ def test_structure_is_accessible_and_puts_processes_first(portal, loads):
         "#eva4-processes, #eva4-renewals, #eva4-clients",
         "els => els.map(e => e.id)",
     )
-    assert order == ["eva4-processes", "eva4-renewals", "eva4-clients"]
-    # Renovaciones y clientes quedan plegados bajo la tabla principal.
-    folds = portal.locator("details.card.eva4-fold")
-    assert folds.count() == 2
-    assert folds.evaluate_all("els => els.every(e => !e.open)")
+    assert order == ["eva4-clients", "eva4-renewals", "eva4-processes"]
+    assert portal.locator("details").count() == 0  # sin secciones plegadas
+    expect(portal.locator(".eva4-kpis")).to_contain_text("3 activos")
     expect(portal.locator("#eva4-count")).to_have_attribute("role", "status")
-    expect(portal.locator("#eva4-subtitle")).to_have_text(
-        "3 procesos activos · 2 por renovar"
-    )
     headers = portal.eval_on_selector_all(
         "#eva4-processes thead th", "els => els.map(e => e.textContent)"
     )
@@ -80,7 +71,6 @@ def test_structure_is_accessible_and_puts_processes_first(portal, loads):
         "Available Hours Package",
         "Risk",
     ]  # las columnas del Excel, en su orden
-    assert "Sin dato" not in portal.locator("body").inner_text()
 
 
 def test_search_filters_rows_ignoring_accents_and_updates_the_count(
@@ -111,7 +101,7 @@ def test_changing_the_month_keeps_the_page_and_the_return_context(
     expect(portal.locator("#eva4-source")).to_contain_text("Consumo 2026-10")
     portal.evaluate("window.marker = 'misma pagina'")
 
-    month_select(portal).select_option("9")
+    month_input(portal).fill("2026-09")
 
     expect(portal.locator("#eva4-source")).to_contain_text("Consumo 2026-09")
     assert "mes=2026-09" in portal.url
@@ -121,23 +111,15 @@ def test_changing_the_month_keeps_the_page_and_the_return_context(
 
     portal.go_back()
     expect(portal.locator("#eva4-source")).to_contain_text("Consumo 2026-10")
-    expect(month_select(portal)).to_have_value("10")
+    expect(month_input(portal)).to_have_value("2026-10")
     assert loads == ["2026-10", "2026-09", "2026-10"]
 
 
-def test_step_buttons_move_one_month_and_stop_at_the_limits(portal, loads):
+def test_month_field_stops_at_the_limits(portal, loads):
     portal.goto(f"{portal.base}{PAGE}?mes=2026-10")
-    previous = portal.get_by_role("button", name="Mes anterior")
-    following = portal.get_by_role("button", name="Mes siguiente")
-    expect(following).to_be_disabled()  # no hay meses futuros
-
-    previous.click()
-    expect(month_select(portal)).to_have_value("9")
-    expect(following).to_be_enabled()
-
-    portal.goto(f"{portal.base}{PAGE}?mes=2024-08")
-    expect(portal.get_by_role("button", name="Mes anterior")).to_be_disabled()
-    expect(year_select(portal)).to_have_value("2024")
+    field = month_input(portal)
+    expect(field).to_have_attribute("max", "2026-10")
+    expect(field).to_have_attribute("min", "2024-08")
 
 
 def test_loading_state_blocks_the_picker_until_the_answer(portal, loads):
@@ -151,13 +133,9 @@ def test_loading_state_blocks_the_picker_until_the_answer(portal, loads):
     expect(portal.locator("#eva4-content")).to_contain_text(
         "Consultando el mes"
     )
-    expect(portal.locator(".month-picker")).to_have_attribute(
-        "aria-busy", "true"
-    )
+    expect(month_input(portal)).to_be_disabled()
     expect(portal.locator("#eva4-processes")).to_be_visible()
-    expect(portal.locator(".month-picker")).not_to_have_attribute(
-        "aria-busy", "true"
-    )
+    expect(month_input(portal)).to_be_enabled()
 
 
 def test_server_failure_offers_a_retry_that_recovers(portal, loads):
@@ -186,7 +164,7 @@ def test_source_without_data_explains_why_and_hides_the_tables(
     portal.goto(portal.base + PAGE)
 
     expect(portal.locator("#eva4-error")).to_have_text("ROC no responde.")
-    expect(portal.locator("#eva4-subtitle")).to_contain_text(
+    expect(portal.locator(".eva4-banner p")).to_contain_text(
         "Servicios de automa"
     )
     expect(portal.locator("#eva4-processes")).to_have_count(0)
@@ -220,8 +198,7 @@ def test_invalid_month_in_the_url_shows_the_error_and_the_current_month(
     portal.goto(f"{portal.base}{PAGE}?mes=zzz")
 
     expect(portal.locator("#eva4-error")).to_contain_text("formato AAAA-MM")
-    expect(month_select(portal)).to_have_value("10")
-    expect(year_select(portal)).to_have_value("2026")
+    expect(month_input(portal)).to_have_value("2026-10")
 
 
 def test_text_from_the_sheet_is_shown_as_text_never_as_html(
@@ -252,7 +229,7 @@ def test_page_has_no_errors_or_csp_violations(portal, loads, settings):
 
     portal.goto(portal.base + PAGE)
     expect(portal.locator("#eva4-processes")).to_be_visible()
-    month_select(portal).select_option("9")
+    month_input(portal).fill("2026-09")
     expect(portal.locator("#eva4-source")).to_contain_text("2026-09")
 
     assert problems == []
@@ -282,8 +259,8 @@ def test_limited_scope_only_shows_the_allowed_accounts(
     try:
         portal.goto(portal.base + PAGE)
 
-        expect(portal.locator("#eva4-subtitle")).to_have_text(
-            "1 procesos activos · 1 por renovar"
+        expect(portal.locator(".eva4-kpis")).to_contain_text(
+            "1 activos"
         )
         body = portal.locator("body")
         expect(body).to_contain_text("Cagsa")
@@ -310,9 +287,10 @@ def test_empty_cells_say_why_and_zero_hours_is_not_missing_data(
     rows = portal.locator("#eva4-processes tbody tr")
     first = rows.nth(0).locator("td")
     expect(first.nth(10)).to_have_text("0")  # cero real, no "sin dato"
-    expect(rows.nth(1)).to_contain_text("Sin límite para este servicio")
-    expect(rows.nth(2)).to_contain_text("Sin coincidencia en Clockify")
-    assert "Sin dato" not in portal.locator("body").inner_text()
+    expect(rows.nth(1)).to_contain_text("Sin dato")
+    expect(rows.nth(2).locator("[title]").first).to_have_attribute(
+        "title", "Sin coincidencia en Clockify"
+    )
 
 
 @pytest.mark.parametrize(

@@ -1,14 +1,14 @@
 /* Estructura de pagina: barra superior, contenedor, migas y encabezado. */
 
 /* ---------- Barra superior ---------- */
-.top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; min-height: 58px; padding: 10px 22px; background: var(--card); border-top: 4px solid #70409b; border-bottom: 1px solid #e8e1fa; }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; min-height: 58px; padding: 10px 22px; background: var(--card); border-top: 4px solid var(--top-accent); border-bottom: 1px solid var(--top-line); }
 .logo { display: flex; align-items: center; flex: none; }
 .logo img { display: block; height: 30px; width: auto; max-width: 147px; }
 .nav { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
-.nav a { display: inline-flex; align-items: center; padding: 8px 13px; border-radius: 10px; font-size: 12px; font-weight: 600; line-height: 1.2; white-space: nowrap; color: #514875; }
-.nav a:hover { background: #f5f0ff; }
-.nav a[aria-current="page"] { background: #eee5ff; color: #6027ef; }
-.fresh { display: flex; align-items: center; gap: 7px; margin-left: auto; font-size: 11px; color: #807494; }
+.nav a { display: inline-flex; align-items: center; padding: 8px 13px; border-radius: 10px; font-size: 12px; font-weight: 600; line-height: 1.2; white-space: nowrap; color: var(--nav-text); }
+.nav a:hover { background: var(--nav-hover); }
+.nav a[aria-current="page"] { background: var(--nav-active-bg); color: var(--nav-active); }
+.fresh { display: flex; align-items: center; gap: 7px; margin-left: auto; font-size: 11px; color: var(--fresh-ink); }
 
 /* ---------- Contenedor y barra de página ---------- */
 .page { max-width: 1680px; margin: 0 auto; padding: 24px 28px 40px; }

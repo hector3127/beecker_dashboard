@@ -49,11 +49,11 @@ export function renderClients(container, data) {
   );
   container.append(
     el(
-      'details',
-      { class: 'card eva4-fold' },
-      el('summary', {}, el('h2', { text: 'Servicios y estado por cliente' })),
+      'section',
+      { class: 'eva4-card' },
+      el('h2', { text: 'Servicios y estado por cliente' }),
       el('p', {
-        class: 'note',
+        class: 'eva4-note',
         text: 'Procesos activos y suspendidos, contados como filas de ROC. Los servicios mantienen la clasificación del Sheet.',
       }),
       el(

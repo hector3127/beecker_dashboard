@@ -3,31 +3,46 @@
    components.css y layout.css; aqui solo se ajusta lo propio de esta pantalla.
    Colores solo con variables de tokens.css. */
 
-.eva4-banner { flex-wrap: wrap; justify-content: space-between; margin-top: 12px; }
+.eva4-banner { flex-wrap: wrap; justify-content: space-between; gap: 24px; padding: 24px; border-radius: 18px; margin: 16px 0; }
+.eva4-banner h1 { font-size: 36px; font-weight: 700; line-height: normal; letter-spacing: 0; }
+.eva4-banner p { margin: 6px 0 0; font-size: 16px; line-height: normal; opacity: 1; }
 .eva4-banner-title { flex: 1 1 360px; min-width: 0; }
+.eva4-month-form { display: flex; align-items: center; gap: 12px; width: 260px; max-width: 100%; margin: 0; padding: 12px 16px; box-sizing: border-box; background: var(--card); color: var(--ink-strong); border: 1px solid var(--card); border-radius: 14px; box-shadow: 0 4px 14px color-mix(in srgb, var(--violet) 10%, transparent); }
+.eva4-month-icon { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 11px; background: var(--brand-soft); color: var(--brand); }
+.eva4-month-icon svg { width: 24px; height: 24px; }
+.eva4-month-field { display: grid; gap: 3px; min-width: 0; flex: 1; }
+.eva4-month-field label { font-size: 11px; font-weight: 600; color: var(--quiet); }
+.eva4-month-field input { width: 100%; min-width: 0; min-height: 32px; padding: 0; box-sizing: border-box; font: inherit; font-size: 23px; font-weight: 800; line-height: 1.2; color: var(--ink-strong); background: transparent; border: 0; color-scheme: light; cursor: pointer; }
+.eva4-month-form :focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
 
-.eva4-filter { min-height: var(--tap); font: inherit; font-size: 13.5px; width: min(360px, 100%); padding: 10px; margin: 0; border: 1px solid var(--line); border-radius: 9px; background: var(--card); color: var(--ink); }
-.eva4-count { margin: 0; }
-.eva4-na { font-size: 12px; color: var(--muted); white-space: normal; }
-
-/* Secciones plegables y explicacion del calculo. */
-.eva4-fold > summary { cursor: pointer; list-style-position: inside; min-height: var(--tap); display: flex; align-items: center; }
-.eva4-fold > summary h2 { display: inline; margin: 0; }
-.eva4-fold[open] > summary { margin-bottom: 12px; }
-.eva4-how { margin: 0 0 14px; }
-.eva4-how > summary { cursor: pointer; display: flex; align-items: center; min-height: var(--tap); font-weight: 700; font-size: 13.5px; color: var(--brand); }
-.eva4-how ul { margin: 8px 0 0; padding-left: 20px; }
+.eva4-kpis { display: flex; flex-wrap: wrap; gap: 16px; margin: 12px 0; }
+.eva4-kpis span { padding: 10px 16px; border-radius: 10px; background: var(--hover-soft); }
+.eva4-tables { display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; }
+.eva4-card { padding: 20px; margin: 0 0 16px; border-radius: 14px; border: 1px solid #e4e0fa; background: var(--card); box-shadow: none; }
+.eva4-card h2 { margin: 0 0 8px; font-size: 20px; letter-spacing: 0; color: var(--title); }
+.eva4-note { margin: 8px 0 16px; font-size: 13px; line-height: normal; color: #60598c; }
+.eva4-filter { width: min(360px, 100%); box-sizing: border-box; padding: 10px; margin: 0 0 14px; font: inherit; border: 1px solid #dcd5f4; border-radius: 9px; background: var(--card); color: #000; }
+.eva4-pill { display: inline-block; padding: 4px 8px; border-radius: 14px; white-space: nowrap; font-weight: 400; }
+.eva4-pill.active, .eva4-pill.ok { background: #dcf7e9; color: #158053; }
+.eva4-pill.suspended, .eva4-pill.critical { background: var(--bad-soft); color: var(--bad); }
+.eva4-pill.warning { background: var(--warn-soft); color: var(--warn-ink); }
 
 /* Tablas: el modelo compartido; aqui el desplazamiento y el ancho. */
 .eva4-scroll { overflow: auto; max-height: 650px; }
-table.eva4 th { position: sticky; top: 0; z-index: 1; }
+table.eva4 { font-size: 12px; }
+table.eva4 th { position: sticky; top: 0; z-index: 1; padding: 10px; color: #352283; background: #efebfc; border-bottom: 1px solid #efedf9; }
+table.eva4 td { padding: 10px; font-size: 12px; border-bottom: 1px solid #efedf9; }
 table.eva4 td.critical { color: var(--bad); font-weight: 700; } /* saldo negativo */
 table.eva4 tr.total td { background: var(--th-bg); font-weight: 800; }
 .eva4-detail { min-width: 1650px; }
 .eva4-detail td { max-width: 280px; }
 
+@media (max-width: 1050px) {
+  .eva4-tables { grid-template-columns: 1fr; }
+}
 @media (max-width: 800px) {
   .eva4-banner-title { flex-basis: 100%; }
+  .eva4-month-form { width: 100%; }
 }
 
 /* Pantallas chicas: la tabla de 15 columnas se desplaza en horizontal y BOT ID

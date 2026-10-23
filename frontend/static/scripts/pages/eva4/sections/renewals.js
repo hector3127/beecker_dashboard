@@ -25,11 +25,11 @@ const COLUMNS = [
 export function renderRenewals(container, data) {
   container.append(
     el(
-      'details',
-      { class: 'card eva4-fold' },
-      el('summary', {}, el('h2', { text: 'Por renovar' })),
+      'section',
+      { class: 'eva4-card' },
+      el('h2', { text: 'Por renovar' }),
       el('p', {
-        class: 'note',
+        class: 'eva4-note',
         text: 'Vencidos y contratos que terminan en los próximos 90 días. Cada combinación de contrato, país, responsables y fecha aparece una sola vez.',
       }),
       el(
