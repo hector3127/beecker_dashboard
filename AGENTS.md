@@ -89,9 +89,9 @@ del Ejecutivo, con marcadores editables; el histórico diferido actualiza la
 vista modular. Sus modelos conservan las reglas anteriores, contrastadas
 contra las funciones originales. Las escrituras/comentarios de Work Items
 usan API v1 con edición, alcance total y CSRF; Planeación tiene controlador
-modular y recálculo DOM seguro en `ixs_work_item_actions.js`. La pestaña Azure
-todavía conserva su vista/controlador anterior, pero estas dos escrituras
-usan la API mediante `workItemCall`; la comparación anterior sigue con RPC.
+modular y recálculo DOM seguro en `ixs_work_item_actions.js`. Azure DevOps
+también usa estos controles y acciones modulares; su edición de fecha no
+repinta las alertas de Planeación. La comparación anterior sigue con RPC.
 La columna de comentarios de Planeación se conserva oculta por su CSS
 original; Azure DevOps sí la muestra. No cambiar esto durante la migración.
 Ya son modulares (API v1 + modelo/vista/controlador, con comparación contra la
@@ -108,10 +108,13 @@ persona/iteración y etapa, búsqueda y ventanas de detalle ya son modulares en
 `sections/ixs_azure_groups{,_model,_view}.js`, comparadas con la anterior a
 1450/900/390 px. Indicadores, distribución/salud, atención prioritaria, carga
 y próximas fechas también usan modelo/vista en `ixs_azure_summary*.js`, con
-DOM seguro y Ver más/menos modular. La estructura de la pestaña, tabla
-editable, filtros de Work Items y acciones de esa tabla siguen en el anterior.
-**Planeación y la fase 10 continúan parciales.** Siguiente: presentación y
-acciones restantes de Azure DevOps; después IA, Cliente/Acciones (comparten renderer con AER) y Comunicación de
+DOM seguro y Ver más/menos modular. La pestaña completa usa `ixs_azure_tab*.js`:
+estructura, tabla editable, filtros, avances/fechas/demos y comentarios. Reutiliza
+la tabla de Planeación con su presentación propia, modelo `ixs_azure_table_model.js`
+y acciones protegidas frente a respuestas tardías. No llama a los renderizadores
+ni formularios anteriores en esta pestaña; el archivo grande sigue para el resto.
+**Planeación y la fase 10 continúan parciales.** Siguiente:
+IA, Cliente/Acciones (comparten renderer con AER) y Comunicación de
 IXS; en AER faltan todas las pestañas salvo Ejecutivo. También falta separar
 encabezados y navegación compartida, y retirar el shim de la ruta nueva.
 

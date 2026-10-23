@@ -22,7 +22,7 @@ export function createWorkItemActions(api) {
   const busyComments = new WeakSet(),
     timers = new WeakMap();
   return {
-    bind(project, azure, guards, paint) {
+    bind(project, azure, guards, paint, options = {}) {
       const owner = {};
       session = owner;
       const current = (row) =>
@@ -45,7 +45,10 @@ export function createWorkItemActions(api) {
             }
             const cell = document.getElementById("wi-avance-" + id);
             if (cell) renderProgress(cell, row);
-            if (field === "fechaLimiteDev") {
+            if (
+              field === "fechaLimiteDev" &&
+              options.refreshDeadline !== false
+            ) {
               const item = azure.items.find((x) => Number(x.id) === Number(id));
               if (item) item.fechaLimiteDev = value || "";
               paint();

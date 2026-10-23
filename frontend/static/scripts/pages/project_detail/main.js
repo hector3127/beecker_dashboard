@@ -4,6 +4,7 @@ import { createProjectData } from "./data.js";
 import { createAzureController } from "./sections/ixs_azure.js";
 import { createAzureGroupsController } from "./sections/ixs_azure_groups.js";
 import { renderSummary } from "./sections/ixs_azure_summary.js";
+import { createAzureTab } from "./sections/ixs_azure_tab.js";
 import { renderAerExecutive } from "./sections/aer_executive.js";
 import { createEffortController } from "./sections/ixs_effort.js";
 import { createResourcesController } from "./sections/ixs_resources.js";
@@ -52,11 +53,13 @@ async function start() {
     await loadScript(shim);
     const data = createProjectData();
     const communique = createCommuniqueController();
+    const azureGroups = createAzureGroupsController();
     Object.assign(window, {
       beeProjectData: data,
       beeIxsAzure: createAzureController(data),
-      beeIxsAzureGroups: createAzureGroupsController(),
+      beeIxsAzureGroups: azureGroups,
       beeIxsAzureSummary: renderSummary,
+      beeIxsAzureTab: createAzureTab(data, azureGroups),
       beeIxsEffort: createEffortController(data),
       beeIxsResources: createResourcesController(data),
       beeIxsPlanningEditor: createPlanningEditor(data),

@@ -6827,6 +6827,13 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       return;
     }
     if(ixsTabActual==='azure'){
+      if(window.beeIxsAzureTab){
+        window.beeIxsAzureTab.mount(el,ixsProyectoActual,ixsAzureState,{
+          current:project=>ixsProyectoActual===project,
+          active:()=>ixsTabActual==='azure',
+          sync:state=>{ixsAzureState=state;}
+        });return;
+      }
       el.innerHTML=_ixsRenderAzureDevOps();
       _ixsLoadAzureDevOpsTab();
       return;

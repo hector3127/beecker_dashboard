@@ -1,8 +1,7 @@
 import { azurePanel } from "./ixs_azure_model.js";
 import { azureMessage } from "./ixs_azure_loading.js";
 
-// Transitional controller: data and loading are modular; the existing summary,
-// grouping and Work Item renderers stay independent for visual comparison.
+// Request lifecycle for the Azure tab; rendering is supplied by its caller.
 export function createAzureController(api) {
   let session;
   return {

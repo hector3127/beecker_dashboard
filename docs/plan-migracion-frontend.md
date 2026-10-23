@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, Recursos, Planeación, Work Items, hitos, RAID y Azure; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas/editores de Planeación IXB, hitos, comunicados y RAID modulares; transporte, grupos y resumen de Azure modulares; faltan tabla/acciones de Azure, otras pestañas y estructura compartida | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, Recursos, Planeación, Work Items, hitos, RAID y Azure; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas/editores de Planeación IXB, hitos, comunicados, RAID y Azure DevOps modulares; faltan otras pestañas y estructura compartida | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -77,7 +77,8 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Terminados: ambos Ejecutivos; Esfuerzo, Recursos y Gestión RAID IXB/SaaS/RaaS.
+Terminados: ambos Ejecutivos; Esfuerzo, Recursos, Gestión RAID y Azure DevOps
+IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
 La entrada modular ya usa API para filtros y dashboards, pero el encabezado
@@ -85,7 +86,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
-| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente, Comunicación, estructura/tabla/acciones restantes de Azure DevOps e IA |
+| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente, Comunicación e IA |
 | AER/T&M | Planeación, Esfuerzo, Riesgos, Acciones, Recursos, Cliente e IA |
 | Compartido | Encabezados, pestañas y acciones restantes; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
@@ -95,11 +96,42 @@ incluidos Gantt editable, calendario, editores y extensión de proyecto.
 Los editores de vacaciones y actividades/hitos, la presentación general y
 sus consultas y las escrituras de Work Items ya son modulares. El editor de
 hitos del histórico y los comunicados también están separados. Azure DevOps
-ya carga/actualiza por API y controlador modular; mantiene su presentación y
-acciones anteriores, aunque las escrituras de Work Items usan API mediante puente.
+ya usa API, estructura, resumen, agrupaciones, tabla y acciones modulares.
+Comparte controles con Planeación y conserva sus diferencias de presentación
+y guardado de fechas; no ejecuta las funciones anteriores de esa pestaña.
 Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Fase 10: estructura, tabla y acciones de Azure DevOps IXB
+
+La entrada `ixs_azure_tab.js` monta la pestaña con estructura DOM segura en
+`ixs_azure_tab_view.js`, reutilizando carga, resumen y agrupaciones. Tabla
+compartida con Planeación en modo Azure; conserva comentarios visibles,
+plegable inicial, controles, etiquetas y filtros. Modelo de filtros/opciones/
+títulos en `ixs_azure_table_model.js`, probado contra las funciones originales.
+Escrituras con las API v1 existentes, CSRF, edición y alcance total del servidor.
+
+Las acciones compartidas mantienen la diferencia original: una fecha guardada
+en Azure solo recalcula su fila; en Planeación también actualiza las alertas.
+Sesiones y filas protegen contra respuestas tardías; comentarios conservan
+validación, errores, borrador y confirmación temporal. Actualizar conserva
+filtros y búsqueda, y se puede buscar en el corte previo mientras llega otro.
+
+Pruebas nuevas: dos Node y 35 e2e, con nueve comparaciones de pestaña y quince
+de guardado a 1450/900/390 px, filtros/fechas, errores/reintentos, resultados
+tardíos, texto seguro y datos previos en carga. Capturas en
+`tmp/migration/project_detail/ixs_azure_table/`.
+Regresión final: 152 aprobadas (100 e2e, 41 API y 11 soporte frontend),
+incluida Planeación y sus casos tardíos de Work Items. Node completo: 170
+aprobadas y los tres fallos anteriores (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff/formato y diff aprobados; captura
+completa de escritorio inspeccionada. Fuentes simuladas, sin publicar nada en
+Azure/Gmail; no se presenta como regresión completa del portal.
+
+**Azure DevOps está migrada; fase 10 parcial.** Quedan IA, Cliente/Acciones,
+Comunicación, pestañas AER y estructura compartida. La entrada global sigue
+cargando el archivo anterior por esos apartados: no retirarlo ni retirar el shim.
 
 ### Fase 10: indicadores y resumen de Azure DevOps IXB (parcial)
 

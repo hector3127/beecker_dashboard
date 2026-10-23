@@ -1,25 +1,13 @@
 import { el } from "#app/lib/dom.js";
 import { h, div } from "./ixs_executive_view.js";
 import { icon } from "./ixs_icons.js";
+import {
+  requirement,
+  titleOnly,
+  workItemOptions,
+  filterWorkItems,
+} from "./ixs_azure_table_model.js";
 
-function requirement(title) {
-  const text = String(title || "").trim();
-  return (
-    (text.match(/[A-Z]{2,}\.[0-9]{3}(?:\.[0-9]{3})+/i) ||
-      text.match(/[A-Z]{2,}\.[0-9]{3}(?:_[A-Z0-9]+)?/i) ||
-      [])[0] || "—"
-  );
-}
-function titleOnly(title) {
-  const text = String(title || "").trim(),
-    req = requirement(text);
-  return req === "—"
-    ? text
-    : text
-        .replace(req, "")
-        .replace(/^[-–—:|\s]+/, "")
-        .trim() || text;
-}
 export function statusClass(state) {
   const value = String(state || "").toLowerCase();
   if (
@@ -54,20 +42,16 @@ const colors = {
   other: "#948fb0",
 };
 
-export function planningAzureSection(state, actions) {
+export function planningAzureSection(state, actions, mode = "planning") {
+  const tab = mode === "azure";
   const box = el("div", { id: "ixs-azure-table", class: "ixs-azure-empty" });
   const selects = [];
+  const sources = [];
   const select = (key, label, sourceKey) => {
     const values =
-      state.cargando || state.error
+      tab || state.cargando || state.error
         ? []
-        : Array.from(
-            new Set(
-              (state.items || [])
-                .map((x) => String((x && x[sourceKey]) || "").trim())
-                .filter(Boolean),
-            ),
-          ).sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
+        : workItemOptions(state.items, sourceKey);
     const node = el(
       "select",
       {
@@ -79,13 +63,14 @@ export function planningAzureSection(state, actions) {
       ...values.map((x) => el("option", { value: x }, x)),
     );
     selects.push(node);
+    sources.push({ label, sourceKey });
     return node;
   };
   const search = el("input", {
     id: "ixs-azure-filter-search",
     class: "ixs-azure-search",
     type: "search",
-    placeholder: "Buscar work item…",
+    placeholder: tab ? "Buscar work item..." : "Buscar work item…",
     oninput: filter,
   });
   const filters = div(
@@ -102,37 +87,12 @@ export function planningAzureSection(state, actions) {
         : state.error;
       return;
     }
-    const [status, person, type] = selects.map((x) => x.value),
-      query = String(search.value || "")
-        .trim()
-        .toLowerCase();
-    const staleMap = {};
-    state.items.forEach((x) => {
-      staleMap[String(x.id)] = x.tipo || "";
-    });
-    const rows = state.items.filter((x) => {
-      const kind = String(x.tipo || staleMap[String(x.id)] || "");
-      if (
-        (status && String(x.estado || "") !== status) ||
-        (person && String(x.asignadoA || "") !== person) ||
-        (type && kind !== type)
-      )
-        return false;
-      return (
-        !query ||
-        [
-          x.id,
-          requirement(x.titulo),
-          titleOnly(x.titulo),
-          x.asignadoA,
-          x.estado,
-          kind,
-          x.demo,
-        ]
-          .join(" ")
-          .toLowerCase()
-          .includes(query)
-      );
+    const [status, person, type] = selects.map((x) => x.value);
+    const rows = filterWorkItems(state.items, {
+      status,
+      person,
+      type,
+      query: search.value,
     });
     if (!rows.length) {
       box.replaceChildren(
@@ -309,25 +269,40 @@ export function planningAzureSection(state, actions) {
       ),
     );
   }
-  filter();
-  return h(
+  if (tab) box.textContent = "Consultando work items…";
+  else filter();
+  const section = h(
     "section",
-    "ixs-card ixs-azure-wi-card ixs-plan-table",
+    tab
+      ? "ixs-card ixs-azure-wi-card"
+      : "ixs-card ixs-azure-wi-card ixs-plan-table",
     el(
       "details",
-      { class: "ixs-azure-wi-collapse", open: true },
-      h(
+      {
+        class: "ixs-azure-wi-collapse",
+        open: !tab,
+        id: tab ? "ixs-azure-wi-collapse" : undefined,
+      },
+      el(
         "summary",
-        "ixs-azure-wi-summary",
+        {
+          class: "ixs-azure-wi-summary",
+          "aria-label": tab
+            ? "Mostrar u ocultar Work Items de Azure DevOps"
+            : undefined,
+        },
         h(
           "h3",
           "",
           icon("layers"),
           " Work Items — Azure DevOps (To Be / Change Request)",
         ),
-        h(
+        el(
           "span",
-          "ixs-azure-wi-toggle",
+          {
+            class: "ixs-azure-wi-toggle",
+            "aria-hidden": tab ? "true" : undefined,
+          },
           h("span", "show", "Mostrar tabla"),
           h("span", "hide", "Ocultar tabla"),
           h("span", "arrow", "▾"),
@@ -336,4 +311,18 @@ export function planningAzureSection(state, actions) {
       div("ixs-azure-wi-content", filters, box),
     ),
   );
+  section.refreshAzure = () => {
+    selects.forEach((node, i) => {
+      const current = node.value,
+        { label, sourceKey } = sources[i];
+      const values = workItemOptions(state.items, sourceKey);
+      node.replaceChildren(
+        el("option", { value: "" }, label),
+        ...values.map((value) => el("option", { value }, value)),
+      );
+      if (values.includes(current)) node.value = current;
+    });
+    filter();
+  };
+  return section;
 }

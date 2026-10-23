@@ -2,6 +2,41 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, pestaña Azure DevOps IXB completa
+
+- Entrada en `sections/ixs_azure_tab.js`, estructura en `ixs_azure_tab_view.js`.
+  `_ixsRenderTab` delega antes de ejecutar la plantilla anterior. Reutiliza
+  carga, resumen y agrupaciones ya migrados, con API v1 y DOM seguro.
+- Tabla compartida con Planeación en `ixs_planning_azure.js`: modo Azure
+  conserva comentarios visibles, tabla plegada inicialmente, IDs, etiquetas,
+  controles, filtros exactos y búsqueda sin normalizar acentos. Modelo puro
+  `ixs_azure_table_model.js`; dos pruebas Node contra las funciones originales.
+- Reutiliza `ixs_work_item_actions.js` para los cuatro campos y comentarios.
+  Azure guarda fecha y recalcula la fila sin mutar/repintar sus alertas; en
+  Planeación se conserva la actualización de alertas. Mantiene mensajes,
+  comentario vacío, borrador tras error y confirmación de tres segundos.
+  Sesiones/filas desmontadas impiden respuestas tardías y comentarios duplicados.
+- Actualizar conserva filtros si la opción sigue disponible y la búsqueda;
+  entrar de nuevo reinicia controles, pero conserva la posibilidad anterior
+  de buscar en el corte previo mientras llega el nuevo. Los selectores se
+  pueblan cuando responde la API. Sin nuevos endpoints ni cambios de negocio.
+- Pruebas nuevas: 35 e2e, incluidas nueve comparaciones de pestaña y quince
+  de fila guardada contra la anterior a 1450/900/390 px; filtros/fechas,
+  errores con reintento, respuestas tardías, texto seguro y datos previos
+  durante la carga. Capturas en `tmp/migration/project_detail/ixs_azure_table/`.
+- Regresión final: **152 aprobadas** (100 e2e de Azure/Planeación/Work Items,
+  41 API de permisos/guardados/cargas y 11 de soporte frontend). Incluye los
+  casos tardíos de Work Items que habían fallado en ejecuciones anteriores;
+  en esta ejecución pasaron. Node completo: **170 aprobadas y tres fallos
+  anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+  Ruff/formato y diff aprobados; inspeccionada la captura completa de
+  escritorio. Fuentes simuladas, sin Azure/Gmail reales. No es una regresión
+  completa de todas las pantallas del portal.
+- Azure DevOps deja de ser pendiente dentro de IXS, pero **la fase 10 sigue
+  parcial**. Siguiente IA, Cliente/Acciones y Comunicación; luego pestañas AER
+  pendientes y encabezado/navegación compartidos. No retirar shim ni script
+  anterior todavía. Horas por mes y ACCESS_ENFORCED se conservan.
+
 ## Bloque: fase 10, indicadores y resumen de Azure DevOps IXB
 
 - `sections/ixs_azure_summary{,_model,_view}.js`: seis indicadores, dona,
