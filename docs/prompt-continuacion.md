@@ -9,8 +9,8 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local es fuentes, historial
-   y CSS de IA IXB, después de la pestaña completa de Azure DevOps (posterior al glosario
+   diferencia con `origin/main`. El último bloque local es IA IXB/SaaS/RaaS
+   completa, después de la pestaña completa de Azure DevOps (posterior al glosario
    `b1ca4b4`). No hagas push
    salvo que te lo pida expresamente.
 3. Conserva sin comitear ni modificar lo que no es tuyo:
@@ -54,19 +54,14 @@ controles/acciones compartidos con Planeación. Azure sí está migrada; la fase
 10 sigue parcial. Ver
 evidencia y seis errores previos de mypy en el traspaso.
 
-**IA parcial:** `project_ai.py` y `ixs_ai_sources.js` ya cargan las seis fuentes,
-historial y Drive por API. Tres CSS externos conservan IDs y orden anteriores.
-43 API y 13 e2e aprobadas; regresión dirigida de 91 aprobadas en ese bloque.
-Después se extrajeron contexto, snapshot, cambios entre cortes y capacidad
-a `ixs_ai_model.js`, contrastados con las funciones originales. Los paneles
-de capacidad y cambios ya usan `ixs_ai_panels_view.js` con DOM seguro y el
-evento externo de Ver recursos. El resto de presentación, generación y
-formularios sigue anterior. No dar IA por
-terminada ni consultar modelos o servicios reales durante las pruebas.
+**IA completada:** `project_ai.py` conserva servicios y permisos originales;
+fuentes/historial/Drive y las acciones usan API. `ixs_ai_model.js` conserva
+contexto/snapshot/cambios/capacidad; `ixs_ai_view.js`, `ixs_ai_panels_view.js`
+y `ixs_ai_controller.js` presentan la pestaña y sus formularios con DOM seguro
+y eventos externos. Comparados con la anterior en tres tamaños. No consultar
+modelos o servicios reales durante las pruebas. Fase 10 todavía parcial.
 
-**Siguiente bloque sugerido:** resto de presentación de IA IXB/SaaS/RaaS con DOM seguro,
-usando el modelo ya separado sin cambiar cálculos; después sus acciones por API con los
-permisos originales y CSRF. Luego Cliente/Acciones
+**Siguiente bloque sugerido:** Cliente/Acciones
 (comparten renderer con AER) y Comunicación; luego las pestañas de AER distintas
 del Ejecutivo. Al final: limpieza de plantillas/CSS/JS anteriores y CSP.
 

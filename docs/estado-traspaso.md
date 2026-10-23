@@ -2,6 +2,38 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, pestaña IA IXB/SaaS/RaaS completa
+
+- `ixs_ai_view.js` presenta toda la pestaña con DOM seguro y eventos externos:
+  cabecera/indicadores, resumen, atención, recomendaciones, fuentes, preguntas,
+  historial, documentos, transcripciones; reutiliza modelo y paneles separados.
+- `ixs_ai_controller.js` implementa ventanas y acciones: evidencias, preguntas,
+  análisis, memoria, reportes/comunicados editables, minutas manuales/desde
+  transcripciones, acción sugerida, conexión/borrado de carpetas y lectura de
+  documentos/importación. RAID reutiliza su editor ya migrado.
+- Nueve POST explícitos en `project_ai.py` conservan servicios, argumentos y
+  permisos RPC: edición, integración para carpetas y lectura para documento;
+  todos con alcance total y CSRF. El proyecto lo fija la ruta. `data.js` usa
+  el cliente compartido, sin RPC. Mantiene prompts, revisión antes de guardar,
+  límites de minutas/archivos/transcripciones y fórmulas originales.
+- Ventanas cerradas/proyectos cambiados descartan respuestas tardías. Conserva
+  borrador tras error y reintento. La ruta nueva no ejecuta los renderizadores
+  ni formularios anteriores de IA; conserva wrappers de estado/entrada/modelo
+  y el código anterior para comparar. No retirar el archivo grande ni shim.
+- **185 aprobadas**: 106 API (permisos/alcance/CSRF/servicio exacto), 58 e2e IA,
+  10 entrada y 11 soporte. Incluye 18 comparaciones de pantalla y 27 de ventanas
+  a 1450/900/390 px; flujos de guardado/error, borradores, filtros, cinco
+  transcripciones, texto seguro y prueba que bloquea los renderizadores/formularios
+  anteriores. Fuentes simuladas, sin IA/Drive/Azure/Gmail reales.
+- Node completo: **181 aprobadas y tres fallos previos** (`cost_sprint_details`,
+  `executive_report`, `financial`); 17 dirigidas de IA/cliente aprobadas.
+  Ruff/formato, Django y diff aprobados. Mypy conserva seis errores previos
+  en otros archivos, ninguno nuevo en IA. No es regresión completa del portal.
+- Capturas: `tmp/migration/project_detail/ixs_ai_full/` (rica) y
+  `ixs_ai_sources/` (completa/vacía/parcial/comparable/incompleta); inspeccionada
+  rica de escritorio. **IA completa; fase 10 parcial.** Siguiente Cliente/Acciones
+  (comparten renderer con AER), Comunicación e integración/encabezados pendientes.
+
 ## Bloque: fase 10, paneles de capacidad y cambios de IA (parcial)
 
 - `sections/ixs_ai_panels_view.js` presenta capacidad y cambios entre cortes

@@ -14,6 +14,54 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("IA actions preserve exact bodies, project encoding and shared POST client", async () => {
+  const calls = [];
+  const api = context.createProjectData(null, async (...args) => {
+    calls.push(args);
+    return { data: { ok: true } };
+  });
+  const id = "CCO.001 | CR",
+    ctx = { horas: 4 };
+  await api.aiAnalyze(id, ctx, true);
+  await api.aiAsk(id, ctx, "Pregunta");
+  await api.aiSaveMemory(id, ctx, { resumen: [] });
+  await api.aiSaveMinute(id, "Tema", "2026-10-23", "Contenido");
+  await api.aiSaveFolder(id, "https://drive.google.com/folder", "documentos");
+  await api.aiRemoveFolder(id, "folder", "transcripciones");
+  await api.aiReadDocument(id, "file");
+  await api.aiGenerateMinute(id, ["file"], "Tema", "2026-10-23", "Notas");
+  await api.aiSaveAction(id, { Accion: "Revisar" });
+  const expected = [
+    ["analizar", { contexto: ctx, forzar: true }],
+    ["preguntar", { contexto: ctx, pregunta: "Pregunta" }],
+    ["memoria/guardar", { snapshot: ctx, analisis: { resumen: [] } }],
+    [
+      "minutas/guardar",
+      { tema: "Tema", fecha: "2026-10-23", contenido: "Contenido" },
+    ],
+    [
+      "drive/carpetas/guardar",
+      { url: "https://drive.google.com/folder", tipo: "documentos" },
+    ],
+    ["drive/carpetas/quitar", { carpeta: "folder", tipo: "transcripciones" }],
+    ["drive/documento/leer", { archivo: "file" }],
+    [
+      "drive/minuta/generar",
+      { archivos: ["file"], tema: "Tema", fecha: "2026-10-23", notas: "Notas" },
+    ],
+    ["accion/guardar", { Accion: "Revisar" }],
+  ];
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(calls)),
+    expected.map(([path, payload]) => [
+      "POST",
+      `screens/proyectos/CCO.001%20%7C%20CR/ia/${path}/`,
+      payload,
+      { timeout: 90000 },
+    ]),
+  );
+});
+
 test("IA reads use resource endpoints, exact identifiers and the existing timeout", async () => {
   const calls = [];
   const api = context.createProjectData(async (...args) => {

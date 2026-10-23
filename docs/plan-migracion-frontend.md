@@ -77,7 +77,7 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Terminados: ambos Ejecutivos; Esfuerzo, Recursos, Gestión RAID y Azure DevOps
+Terminados: ambos Ejecutivos; Esfuerzo, Recursos, Gestión RAID, Azure DevOps e IA
 IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
@@ -86,7 +86,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
-| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente, Comunicación e IA |
+| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente y Comunicación |
 | AER/T&M | Planeación, Esfuerzo, Riesgos, Acciones, Recursos, Cliente e IA |
 | Compartido | Encabezados, pestañas y acciones restantes; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
@@ -102,6 +102,29 @@ y guardado de fechas; no ejecuta las funciones anteriores de esa pestaña.
 Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Fase 10: IA IXB/SaaS/RaaS completa
+
+Vista y eventos en `ixs_ai_view.js`; ventanas y acciones en
+`ixs_ai_controller.js`. Reutiliza modelo/paneles separados y CSS externos.
+Incluye indicadores, evidencias, recomendaciones/acción/RAID, preguntas,
+análisis, memoria, reportes/comunicados, historial/minutas y Drive. No ejecuta
+los renderizadores/formularios anteriores en la ruta nueva. Mantiene wrappers
+de estado/entrada y código de comparación, necesarios mientras el detalle
+completo sigue parcial.
+
+Nueve POST explícitos conservan servicios/argumentos, capacidades y alcance
+total originales, con CSRF. Se mantiene revisión de borradores, prompts,
+límites, fuentes y cálculos. Respuestas de ventanas cerradas no contaminan
+otra ventana. Sin consultas reales a modelos, Drive, Azure ni Gmail en pruebas.
+
+Evidencia: **185 aprobadas** (106 API, 58 e2e IA, 10 entrada, 11 soporte),
+incluidas 18 comparaciones de pantalla y 27 de ventanas a 1450/900/390 px,
+guardados/reintentos, texto seguro, filtros y límite de transcripciones.
+Capturas en `tmp/migration/project_detail/ixs_ai_full/` y `ixs_ai_sources/`;
+inspeccionada rica de escritorio. Node: 181 aprobadas, tres fallos anteriores;
+17 dirigidas aprobadas. Ruff/formato, Django y diff aprobados. Mypy conserva
+seis errores previos en otros archivos. **IA completa, fase 10 parcial.**
 
 ### Fase 10: paneles de capacidad y cambios de IA (parcial)
 

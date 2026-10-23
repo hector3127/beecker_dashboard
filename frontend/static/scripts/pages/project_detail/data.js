@@ -6,7 +6,33 @@ import { apiGet, apiSend } from "#app/data/api-client.js";
 export function createProjectData(get = apiGet, send = apiSend) {
   const read = async (path) =>
     (await get(path, undefined, { timeout: 90000 })).data;
+  const aiPost = async (id, path, payload) =>
+    (
+      await send(
+        "POST",
+        `screens/proyectos/${encodeURIComponent(id)}/ia/${path}/`,
+        payload,
+        { timeout: 90000 },
+      )
+    ).data;
   return {
+    aiAnalyze: (id, contexto, forzar) =>
+      aiPost(id, "analizar", { contexto, forzar }),
+    aiAsk: (id, contexto, pregunta) =>
+      aiPost(id, "preguntar", { contexto, pregunta }),
+    aiSaveMemory: (id, snapshot, analisis) =>
+      aiPost(id, "memoria/guardar", { snapshot, analisis }),
+    aiSaveMinute: (id, tema, fecha, contenido) =>
+      aiPost(id, "minutas/guardar", { tema, fecha, contenido }),
+    aiSaveFolder: (id, url, tipo) =>
+      aiPost(id, "drive/carpetas/guardar", { url, tipo }),
+    aiRemoveFolder: (id, carpeta, tipo) =>
+      aiPost(id, "drive/carpetas/quitar", { carpeta, tipo }),
+    aiReadDocument: (id, archivo) =>
+      aiPost(id, "drive/documento/leer", { archivo }),
+    aiGenerateMinute: (id, archivos, tema, fecha, notas) =>
+      aiPost(id, "drive/minuta/generar", { archivos, tema, fecha, notas }),
+    aiSaveAction: (id, payload) => aiPost(id, "accion/guardar", payload),
     filters: () => read("screens/proyectos/filtros/"),
     client: (id) =>
       read(`screens/proyectos/${encodeURIComponent(id)}/cliente/`),

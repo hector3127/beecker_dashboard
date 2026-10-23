@@ -36,6 +36,15 @@ from apps.portal.api.operations import (
     InvestmentScreenView,
 )
 from apps.portal.api.project_ai import (
+    AiActionSave,
+    AiAnalyze,
+    AiAsk,
+    AiDocumentRead,
+    AiDriveMinute,
+    AiFolderRemove,
+    AiFolderSave,
+    AiMemorySave,
+    AiMinuteSave,
     ProjectAiAnalysisReadView,
     ProjectAiFilesReadView,
     ProjectAiFoldersReadView,
@@ -94,6 +103,38 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/<str:project_id>/ia/analizar/", AiAnalyze.as_view()
+    ),
+    path("screens/proyectos/<str:project_id>/ia/preguntar/", AiAsk.as_view()),
+    path(
+        "screens/proyectos/<str:project_id>/ia/memoria/guardar/",
+        AiMemorySave.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/minutas/guardar/",
+        AiMinuteSave.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/drive/carpetas/guardar/",
+        AiFolderSave.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/drive/carpetas/quitar/",
+        AiFolderRemove.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/drive/documento/leer/",
+        AiDocumentRead.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/drive/minuta/generar/",
+        AiDriveMinute.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/ia/accion/guardar/",
+        AiActionSave.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/cliente/",
         ProjectClientReadView.as_view(),
