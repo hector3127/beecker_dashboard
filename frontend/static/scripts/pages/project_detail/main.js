@@ -1,6 +1,7 @@
 // @ts-check
 // Transitional entry: keep the existing renderers until each tab is migrated.
 import { createProjectData } from "./data.js";
+import { renderAerExecutive } from "./sections/aer_executive.js";
 import { el } from "#app/lib/dom.js";
 import { watchLoadingMessages } from "#app/ui/portal-loading.js";
 
@@ -31,7 +32,10 @@ async function start() {
     const renderer = entry.getAttribute("data-legacy-script");
     if (!shim || !renderer) throw new Error("Falta la entrada del proyecto.");
     await loadScript(shim);
-    Object.assign(window, { beeProjectData: createProjectData() });
+    Object.assign(window, {
+      beeProjectData: createProjectData(),
+      beeProjectExecutive: renderAerExecutive,
+    });
     await loadScript(renderer);
   } catch {
     started = false;

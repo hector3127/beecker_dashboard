@@ -2796,6 +2796,10 @@
     const el=ixsActivo?document.getElementById('ixs-tab-contenido'):document.getElementById('aer-tab-content');
     if(!el||!aerDashboardData)return;
     if(ixsActivo)aerTabActual=ixsTabActual;
+    if (aerTabActual === 'ejecutivo' && window.beeProjectExecutive) {
+      window.beeProjectExecutive(el, aerDashboardData, aerCambiarTab);
+      return;
+    }
     if(aerTabActual==='planeacion') el.innerHTML=_aerVistaPlaneacion();
     else if(aerTabActual==='esfuerzo') el.innerHTML=_aerVistaEsfuerzo();
     else if(aerTabActual==='riesgos') el.innerHTML=_aerVistaRiesgos();

@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros y carga/actualización de dashboards ejecutivo y AER; resto RPC con permisos | **Parcial**: entrada modular; componentes por pestaña anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros y carga/actualización de dashboards ejecutivo y AER; resto RPC con permisos | **Parcial**: entrada y Ejecutivo AER/T&M modulares; otras pestañas anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -66,7 +66,7 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | EVA 2 | `operativa/eva-2/` | `pages/eva2.html` | `screens/eva-2/`; conserva contexto de servidor | **Sí** | `test_eva123.py`: mismas tablas, colores, cifras y estados vacíos a 1450 y 390 px. No tenía desplegable de cerrados y no se añadió |
 | EVA 3 e histórico AER/T&M | `operativa/eva-3/`, `operativa/eva3/cerrados/` | `pages/eva3.html`, `partials/eva3_closed.html` | `screens/eva-3/{consumos,cerrados,cerrados/consumo}/` | **Sí** | `test_eva123.py`: consumo diferido, errores parciales, reintento del guardado y comparación de tablas/cajas/estilos a 1450 y 390 px |
 | Proyecto simple | `proyecto/<id>/` | `pages/project.html` (anterior con `?vista=anterior`) | No; conserva el contexto de servidor y su alcance por cuenta | **Sí** (plantilla modular) | `test_proyecto_simple.py`: cifras, barras, riesgos, equipo, historial, regreso, errores parciales y comparación de cajas/estilos a 1450 y 390 px |
-| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada modular que carga los componentes anteriores | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer}/`; resto RPC | **Parcial**, componentes y estilos por pestaña aún anteriores | Entrada AER e IXB comparada a 1450 y 390 px; no implica validación/migración de todas sus pestañas |
+| Detalle del proyecto | `proyectos/<id>/` | `pages/project_detail.html`; entrada y Ejecutivo AER/T&M modulares | `screens/proyectos/filtros/`, `screens/proyectos/<id>/{ejecutivo,aer}/`; resto RPC | **Parcial**, otras pestañas y acciones anteriores | Entrada AER e IXB a 1450/390 px; Ejecutivo AER, elemento por elemento, a 1450/900/390 px; las otras pestañas siguen pendientes |
 
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
@@ -103,10 +103,40 @@ una omitida**. JS completo: **124 aprobadas y los tres fallos anteriores**
 (`cost_sprint_details`, `executive_report`, `financial`). Ruff, formato, mypy y
 `manage.py check` aprobados. Los cambios pendientes ajenos siguen fuera.
 
-El siguiente bloque es **Ejecutivo AER/T&M**, después **Ejecutivo IXB/SaaS/RaaS**,
-separando sus componentes, CSS, eventos y estado, con comparación de cada uno.
-Después siguen las otras pestañas y sus lecturas/escrituras, sin quitar
-RPC mientras una pestaña todavía lo necesite.
+### Fase 10: Ejecutivo AER/T&M
+
+`sections/aer_executive.js` construye el contenido con nodos DOM seguros y
+eventos externos. `aer_executive_model.js` conserva las reglas originales de
+presentación, orden, prioridades, salud, dependencias, fechas y redondeos.
+El controlador anterior delega solo esa pestaña en el módulo nuevo; los enlaces
+a Acciones, Planeación y Riesgos siguen llamando al controlador existente.
+No hay servicios, cálculos de backend ni permisos modificados.
+
+Los estilos AER compartidos se extrajeron a `project_detail_aer.css`, sin
+cambiar sus reglas. El enlace con ID `aer-dashboard-styles` evita inyectarlos
+desde el JS anterior en la ruta nueva; la anterior conserva su propia fuente
+CSS en línea. Las declaraciones estáticas del HTML ejecutivo están en
+`project_detail_aer_executive.css`; los valores de las barras usan CSSOM.
+Las demás pestañas aún conservan sus componentes, eventos HTML y RPC.
+
+Trece pruebas de navegador nuevas comparan cada elemento, cifras, fuentes,
+estilos y cajas contra el anterior en 1450, 900 y 390 px (completo, vacío y
+atención); verifican enlaces por teclado, regreso y texto sin interpretar HTML.
+Capturas: `tmp/migration/project_detail/aer_executive/<caso>/<ancho>/`.
+Dos pruebas Node contrastan el modelo en 27 escenarios con el renderer original,
+incluidos sus umbrales y fallbacks; también formatos y dimensiones sin fuente.
+El diseño anterior permanece independiente para mantener esa comparación.
+
+Regresión general: **1261 aprobadas, una omitida**; incluye las trece nuevas
+pruebas de Ejecutivo y las diez existentes de su entrada. JS completo:
+**126 aprobadas y los tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff, formato y comprobación de Django
+aprobados. Los servicios y los pendientes ajenos se conservaron sin cambios.
+
+**Sigue Ejecutivo IXB/SaaS/RaaS**, con su diseño y consultas diferidas de RAID
+y Tasks. Después siguen las otras pestañas y sus lecturas/escrituras, sin
+quitar RPC mientras una pestaña todavía lo necesite. El detalle completo
+y la fase 10 continúan parciales.
 
 Proyecto simple (`proyecto/<id>/`) usa `pages.project` y `render_page`,
 con las mismas funciones de portafolio y detalle, permisos por proyecto y

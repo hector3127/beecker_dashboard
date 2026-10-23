@@ -59,10 +59,14 @@ Proyecto simple también usa plantilla modular, CSS externo y un módulo para
 presentar las barras. Conserva el contexto Python y el alcance por cuenta.
 El detalle grande tiene una **entrada transitoria** en `pages/project_detail.html`
 y módulos `project_detail/main.js` y `data.js`. La carga inicial y Actualizar
-usan API v1 para filtros y dashboards ejecutivo/AER; sus componentes, estilos
-y acciones por pestaña siguen en el archivo anterior y en el shim RPC.
-**No contar esta pantalla como completada.** Sigue extraer la pestaña Ejecutivo
-(primero AER/T&M y después IXB/SaaS/RaaS), manteniendo los dos diseños.
+usan API v1 para filtros y dashboards ejecutivo/AER. Ejecutivo AER/T&M ya usa
+`sections/aer_executive.js` (DOM seguro y eventos externos) y su modelo de
+presentación contrastado contra el anterior. Los estilos AER compartidos están
+en `project_detail_aer.css`; el enlace con ID `aer-dashboard-styles` evita
+inyectarlos desde el JS anterior. La comparación anterior los sigue inyectando.
+Las otras pestañas y sus acciones aún usan componentes anteriores y RPC.
+**No contar esta pantalla como completada.** Sigue Ejecutivo IXB/SaaS/RaaS;
+es otro diseño y debe conservarse.
 
 1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.
 2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).

@@ -2,7 +2,38 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10, entrada del detalle (parcial)
+## Bloque actual: fase 10, Ejecutivo AER/T&M (pantalla aún parcial)
+
+- Ejecutivo AER/T&M ya se construye con nodos seguros en
+  `sections/aer_executive.js`; sin `innerHTML` con datos ni eventos HTML.
+  `aer_executive_model.js` conserva las reglas de presentación del anterior:
+  dimensiones/fuentes faltantes, fechas, cierre, dependencias, prioridades,
+  porcentajes, redondeos, resúmenes y formatos. No se modificaron servicios.
+- El CSS AER compartido se extrajo íntegro a `project_detail_aer.css`.
+  Su `<link id="aer-dashboard-styles">` evita la inyección anterior en la ruta
+  modular. Las declaraciones estáticas del HTML ejecutivo viven en
+  `project_detail_aer_executive.css`; anchos y valores dinámicos usan CSSOM.
+  La comparación anterior conserva el renderer y CSS originales independientes.
+- `_aerRenderTab()` delega Ejecutivo en `window.beeProjectExecutive` cuando
+  existe. El resto del controlador, el encabezado y otras pestañas mantienen
+  sus funciones previas. Los enlaces del nuevo componente llaman al controlador
+  existente para abrir Acciones, Planeación y Riesgos, también mediante teclado.
+- Trece pruebas nuevas de navegador: comparación de **cada elemento** con la
+  anterior a 1450, 900 y 390 px, con datos completos, vacíos y de atención;
+  navegación por teclado, retorno al componente y protección del texto HTML.
+  Capturas: `tmp/migration/project_detail/aer_executive/<caso>/<ancho>/`.
+  Dos pruebas Node comparan 27 escenarios del modelo con el renderer original,
+  además de ceros, redondeos y dimensiones sin fuente.
+- Regresión general del bloque: **1261 aprobadas, una omitida**. JavaScript:
+  **126 aprobadas, tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Las trece pruebas nuevas de navegador y
+  las diez de la entrada están incluidas en la regresión. Ruff, formato y
+  comprobación de Django aprobados. No se modificaron permisos ni servicios.
+- **Siguiente: Ejecutivo IXB/SaaS/RaaS**, preservando su diseño distinto y sus
+  consultas diferidas de RAID/Tasks. Después las demás pestañas. El detalle
+  completo sigue parcial; no eliminar el JS anterior ni el shim RPC.
+
+### Entrada del detalle completada en el bloque anterior
 
 - `proyectos/<id>/` sirve `pages/project_detail.html`, con el mismo contexto,
   CSRF, permisos y regreso de `views.proyecto_detalle`. La anterior queda en
@@ -25,19 +56,15 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   **1248 aprobadas, una omitida**. JS completo: **124 aprobadas, tres fallos
   anteriores** (`cost_sprint_details`, `executive_report`, `financial`). Ruff,
   formato, mypy y `manage.py check` aprobados. No se activaron los permisos.
-- **No está completada la pantalla ni la fase 10:** las pestañas siguen
-  construyéndose con el JS y CSS anteriores, incluyendo estilos/eventos en
-  línea y acciones RPC. No eliminar todavía el shim ni sus archivos.
-- **Siguiente bloque:** extraer Ejecutivo de AER/T&M a `sections/`, su CSS y
-  eventos; después Ejecutivo de IXB/SaaS/RaaS (son diseños distintos).
+- **No está completada la pantalla ni la fase 10:** salvo Ejecutivo AER/T&M,
+  las pestañas siguen construyéndose con el JS anterior, incluyendo eventos
+  en línea y acciones RPC. No eliminar todavía el shim ni sus archivos.
+- **Siguiente bloque:** extraer Ejecutivo de IXB/SaaS/RaaS.
   Conservar las reglas de presentación, fuentes, cifras y comparación visual.
   Luego Planeación, Esfuerzo, Riesgos/RAID, Acciones, Recursos, Cliente e IA;
   IXB además contiene Comunicación y Azure DevOps. No duplicar el archivo
   completo ni cambiar los servicios mientras se separa la interfaz.
-  Punto de entrada concreto: `_aerVistaEjecutivo()` llamado por
-  `_aerRenderTab()` en el archivo anterior. Sustituir su construcción de HTML
-  por nodos seguros y eventos externos, conservando sus ayudantes de cifras
-  y todos sus enlaces a otras pestañas hasta migrarlos también.
+  Ejecutivo AER/T&M se completó después de esta entrada, como se indica arriba.
 
 ## Última pantalla terminada
 - **Proyecto simple** (`proyecto/<id>/`): `pages/project.html`, CSS externo y

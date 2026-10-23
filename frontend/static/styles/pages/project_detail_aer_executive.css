@@ -1,0 +1,46 @@
+/* Static declarations previously written into the executive markup. */
+.aer-card .aer-exec-summary-title {
+  margin-bottom: 14px;
+}
+.aer-exec-kpi.health .bar i {
+  background: linear-gradient(90deg, #2db874, #61d39a);
+}
+.aer-exec-kpi.progress .bar i {
+  background: linear-gradient(90deg, #4d72ff, #5db4ff);
+}
+.aer-exec-kpi.time .bar i {
+  background: linear-gradient(90deg, #f3a800, #ffc84a);
+}
+.aer-exec-kpi.budget .bar i {
+  background: linear-gradient(90deg, #6b32df, #8e56ec);
+}
+.aer-exec-kpi.risk .bar i {
+  background: linear-gradient(90deg, #ef3851, #ff7a8e);
+}
+.aer-exec-kpi.risk.aer-exec-no-risk .bar i {
+  background: linear-gradient(90deg, #d6d2e4, #d6d2e4);
+}
+.aer-exec-list .aer-exec-dot-accion {
+  background: #efa11d;
+}
+.aer-exec-list .aer-exec-dot-hito {
+  background: #6b32df;
+}
+.aer-exec-list .aer-exec-dot-compromiso {
+  background: #8a6cff;
+}
+.aer-exec-swatch-consumo {
+  background: #5a2bd7;
+}
+.aer-exec-swatch-facturables {
+  background: #8d65ed;
+}
+.aer-exec-swatch-no-facturables {
+  background: #c6b9f8;
+}
+.aer-exec-swatch-fuera-horario {
+  background: #dfd8f5;
+}
+.aer-exec-swatch-costo {
+  background: #7a43e8;
+}
