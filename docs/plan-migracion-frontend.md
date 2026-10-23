@@ -5,22 +5,91 @@ funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus
 respuestas; la migración del frontend sí avanza.
 
-## Estado (22/10/2026)
+## Estado real (23/10/2026)
 
-| Fase | Entrega | Estado |
-|---|---|---|
-| 0 | Línea base: snapshots y recorridos en navegador de las pantallas actuales | Hecha |
-| 1 | `frontend/`: layouts, tokens, cliente de datos, estados, importmap, CSP en modo reporte | Hecha |
-| 2 | App `access`: capacidades y alcance, apagados por defecto (`ACCESS_ENFORCED`) | Hecha |
-| 3 | Piloto EVA-04: API, página, alcance y permiso | Hecha |
-| 4 | Operativa: API por bloques, filtro por servicio, alcance y permiso | Hecha |
-| 5 | Acuerdos: API de lectura y escritura con permisos y alcance | Hecha |
-| 6 | Línea base de lo nuevo (cambios del 22/10) | Hecha |
-| 7 | Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso | Hecha |
-| 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Hecha |
-| **9** | **Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos)** | **En curso: permisos y alcance hechos** |
-| **10** | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | **En curso: `/api/rpc/` con permisos** |
-| **11** | Limpieza: legacy, plantillas y estáticos viejos, CSP obligatoria, `ACCESS_ENFORCED=1` | **Parcial: bloqueada por las pantallas con diseño anterior** |
+Tres cosas distintas, que no se confunden:
+
+- **API**: existe `screens/…` con permiso y alcance validados en el servidor.
+- **Frontend migrado**: la ruta activa (`apps/portal/urls.py`) sirve una
+  plantilla de `frontend/templates/` con CSS y JS separados de `frontend/static/`.
+- **Validación visual**: capturas lado a lado (anterior contra nueva) con los
+  mismos datos. Los snapshots de texto de `tests/e2e` no la sustituyen.
+
+Una pantalla solo cuenta como migrada si cumple las tres.
+
+| Fase | Entrega | API | Frontend migrado | Estado |
+|---|---|---|---|---|
+| 0 | Línea base e2e | n/a | n/a | Hecha |
+| 1 | `frontend/`: layouts, tokens, cliente de datos, importmap | n/a | Hecha | Hecha |
+| 2 | App `access`: capacidades y alcance | Hecha | n/a | Hecha; apagada por defecto |
+| 3 | EVA-04 | Hecha | Hecha | **Sin validación visual** |
+| 4 | Operativa | Hecha | Hecha | **Sin validación visual** |
+| 5 | Acuerdos | Hecha | No (la interfaz sigue en el JS anterior) | Parcial |
+| 6 | Línea base de lo nuevo | n/a | n/a | Hecha |
+| 7 | Comparativa, cuenta, Delivery Manager | Hecha | **No** | **Parcial: cambio de alcance** |
+| 8 | Business Overview, diccionario, KPIs de DMs | Hecha | **No** | **Parcial: cambio de alcance** |
+| 9 | Resto de pantallas | Parcial: EVA 1-3, Inversión, Capacidad y Facturabilidad; faltan Comercial, Costos, Todas las cuentas y Proyecto | **No** | **Parcial: permisos y APIs** |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | RPC con permisos | **No** | **Parcial** |
+| 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
+
+**Cambio de alcance (22/10/2026).** Las páginas nuevas de las fases 7 y 8 se
+rehicieron con otro diseño y se devolvieron al anterior por pedido del usuario;
+desde entonces esas rutas sirven las plantillas anteriores con el servidor ya
+migrado (permisos, alcance, APIs). Pasarlas a `frontend/` exige primero igualar
+el diseño (iconos, degradados, tarjetas) en `tokens.css` y `components.css`.
+
+### Pantallas, una por una
+
+Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
+
+| Pantalla | Ruta | Plantilla servida | API | Frontend migrado | Validación visual |
+|---|---|---|---|---|---|
+| Guía de interfaz | `guia-de-interfaz/` | `pages/guia.html` | `me`, `ping` | **Sí** | n/a (es nueva) |
+| Operativa | `operativa/` | `pages/operativa.html` | `screens/operativa/…` | **Sí** | **Pendiente** |
+| EVA-04 | `operativa/eva-4/` | `pages/eva4.html` (la anterior con `?vista=anterior` hasta el 3/11) | `screens/eva4/` | **Sí** | **Pendiente** |
+| Horas por mes (cuenta) | `cuenta/<slug>/horas/` | `pages/account_hours.html` | `screens/cuenta/horas/` | **Sí** | n/a (funcionalidad nueva, del usuario) |
+| Business Overview | `` (raíz) | `portal/ejecutiva.html` | `screens/executive/` | No | Igual (es la anterior) |
+| Cuenta | `cuenta/<slug>/` | `portal/cuenta.html` | `screens/cuenta/…` | No | Igual (es la anterior) |
+| Comparativa de márgenes | `ejecutiva/oportunidades/` | `portal/oportunidades_financieras.html` | `screens/margenes/…` | No | Igual |
+| Delivery Manager | `operativa/delivery-manager/<slug>/` | `portal/delivery_manager.html` | `screens/delivery-managers/…` | No | Igual |
+| KPIs de DMs | `operativa/kpis-delivery-managers/` | `portal/kpis_dm.html` | `screens/kpis-dm/` | No | Igual |
+| Diccionario | `diccionario-datos/` | `portal/diccionario_datos.html` | `reference/glossary/` | No | Igual |
+| Todas las cuentas | `ejecutiva/cuentas/` | `portal/todas_cuentas.html` | No | No | Igual |
+| Costos | `ejecutiva/costos/detalle/` | `portal/costos_detalle.html` | JSON `ejecutiva/costos/` | No | Igual |
+| Comercial | `comercial/` | `portal/comercial.html` | No | No | Igual |
+| Inversión | `operativa/inversion/` | `portal/inversion.html` | `screens/inversion/` | No | Igual |
+| Capacidad instalada y detalle | `operativa/capacidad-instalada/`, `capacidad-instalada/` | `portal/capacidad_instalada.html`, `portal/capacidad_detalle.html` | `screens/capacidad/` | No | Igual |
+| Facturabilidad (general, especialidad, recurso) | `operativa/facturabilidad/…` | `portal/facturabilidad*.html` | `screens/facturabilidad/…` | No | Igual |
+| Facturabilidad por área | `operativa/facturabilidad/area/` | `portal/facturabilidad_area.html` (con `gas_shim.js`) | RPC | No | Igual |
+| EVA 1, 2 y 3 y sus cerrados | `operativa/eva-1/`, `eva-2/`, `eva-3/`, `…/cerrados/` | `portal/eva1|2|3.html` | `screens/eva-1|2|3/` | No | Igual |
+| Proyecto | `proyecto/<id>/` | `portal/proyecto.html` | No | No | Igual |
+| Detalle del proyecto | `proyectos/<id>/` | `portal/proyecto_detalle.html` (`proyecto_detalle.js` ≈ 1 MB, `/api/rpc/`) | RPC con permisos | **No** | Igual |
+
+«Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
+`apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
+estilo anteriores; en `frontend/` hay 5 plantillas (4 pantallas y la guía).
+
+### Pendientes que no se dan por hechos
+
+1. Frontend de las fases 7, 8 y 9 (ver tabla): ninguna pantalla de ellas usa
+   `frontend/`.
+2. Validación visual de Operativa y EVA-04 (y de todo lo que se migre).
+3. `proyecto_detalle` por pestañas y retirar `/api/rpc/` y `gas_shim.js`.
+4. Mover a servicios compartidos la preparación de datos que hoy viven en
+   `views.py` y que usan las APIs: `operativa_context`,
+   `operativa_block_context`, `operations_summary_data`, `kpi_context`,
+   `dm_state`/`dm_rows`, `eva2_data`, `eva3_data`, `inversion_data`,
+   `capacidad_data`, `facturabilidad_data`, `especialidad_data`, `recurso_data`
+   (y `costos_revenue`). Sin duplicar ni cambiar cálculos.
+5. Genesis: `ACCESS_ENFORCED` está apagado y el proveedor es
+   `DjangoAccessProvider` (alcance completo a toda persona con sesión). Falta
+   identidad, capacidades y alcance reales por cuenta y proyecto, y que el
+   frontend adapte menús y acciones a `me/` (hoy el menú no se oculta).
+6. CSP: por defecto **no hay política** (`CSP_REPORT_ONLY` solo se enciende con
+   `1` y solo reporta). No hay bloqueo obligatorio y no puede haberlo mientras
+   haya scripts y estilos en línea (23 plantillas anteriores).
+7. Limpieza final de plantillas, estilos y scripts anteriores, que depende de
+   los puntos 1 y 7.
 
 > **Regla de diseño (22/10/2026).** Una pantalla migrada se ve idéntica a la
 > anterior; solo cambian los datos, el alcance y los permisos. Se comprueba con
@@ -175,7 +244,12 @@ Lo que se planeaba para esta fase:
 4. Prueba que fija que el glosario sale de `CONCEPTS`.
 5. Corregir la frase «La migración … sigue en pausa» del documento de interfaz.
 
-## Fase 7a: comparativa de márgenes (hecha; diseño anterior)
+## Fase 7a: comparativa de márgenes (API hecha; frontend no migrado)
+
+> **Estado real:** los módulos de `frontend/` que esta sección menciona
+> (páginas `pages/…`, `ui/detail-dialog`, `ui/agreements`, `data/navigation.js`,
+> `lib/account-metrics`…) se retiraron el 22/10/2026 al volver al diseño
+> anterior; sobreviven el servicio, la API y las pruebas de la API.
 
 > Nota: la página usa la plantilla anterior; el contrato y el alcance de abajo
 > siguen vigentes en la API.
@@ -197,7 +271,12 @@ Lo que se planeaba para esta fase:
 - Pruebas: `test_margins_api.py`, `tests/e2e/test_margenes.py` y el recorrido
   «Cuenta → comparativa → regresar» (el snapshot solo cambia el ícono ↗).
 
-## Fase 7b: alcance de la cuenta y `data/navigation.js` (en parte)
+## Fase 7b: alcance de la cuenta (servidor hecho; frontend no migrado)
+
+> **Estado real:** los módulos de `frontend/` que esta sección menciona
+> (páginas `pages/…`, `ui/detail-dialog`, `ui/agreements`, `data/navigation.js`,
+> `lib/account-metrics`…) se retiraron el 22/10/2026 al volver al diseño
+> anterior; sobreviven el servicio, la API y las pruebas de la API.
 
 - Hecho: `/cuenta/` (y su bloque de consumos) devuelve 404 para una cuenta fuera
   del alcance y 403 sin `view_operations` ni `view_agreements`;
@@ -216,7 +295,12 @@ Lo que se planeaba para esta fase:
 - Pendiente: `/api/rpc/obtenerVistaCuentaBeecker` sigue entregando cualquier
   cuenta a quien tenga sesión; desaparece con la fase 10.
 
-## Fase 7c: Delivery Manager (hecha)
+## Fase 7c: Delivery Manager (API hecha; frontend no migrado)
+
+> **Estado real:** los módulos de `frontend/` que esta sección menciona
+> (páginas `pages/…`, `ui/detail-dialog`, `ui/agreements`, `data/navigation.js`,
+> `lib/account-metrics`…) se retiraron el 22/10/2026 al volver al diseño
+> anterior; sobreviven el servicio, la API y las pruebas de la API.
 
 - `GET /api/v1/screens/delivery-managers/<slug>/?bloque=base|inv|horas`
   (`view_operations`): primero proyectos y estados; la inversión de Clockify y
@@ -231,7 +315,12 @@ Lo que se planeaba para esta fase:
 - Diferencia: si las fuentes no responden y no hay a quién mostrar, la API da
   502 y la página lo dice; antes redirigía a Operativa.
 
-## Fase 8: Business Overview, glosario y KPIs de DMs (hecha; diseño anterior)
+## Fase 8: Business Overview, glosario y KPIs de DMs (API hecha; frontend no migrado)
+
+> **Estado real:** los módulos de `frontend/` que esta sección menciona
+> (páginas `pages/…`, `ui/detail-dialog`, `ui/agreements`, `data/navigation.js`,
+> `lib/account-metrics`…) se retiraron el 22/10/2026 al volver al diseño
+> anterior; sobreviven el servicio, la API y las pruebas de la API.
 
 > Nota: Business Overview, diccionario y KPIs de DMs conservan su plantilla
 > anterior. El Business Overview incrusta los cortes ya recortados al alcance
@@ -260,7 +349,7 @@ Lo que se planeaba para esta fase:
 - Se conservan `ejecutiva/actualizacion/` y `executive_numbers.js` hasta migrar
   Costos, Todas las cuentas y Comercial (fase 9).
 
-## Fase 9: permisos y alcance del resto de pantallas (hecha; visuales intactas)
+## Fase 9: permisos, alcance y APIs del resto de pantallas (frontend no migrado)
 
 - `require_capability(code, whole_portfolio=True)`: con los accesos encendidos
   pide la capacidad y, si la pantalla muestra cifras de todo el portafolio o del
@@ -286,7 +375,7 @@ Lo que se planeaba para esta fase:
 - Pendiente de la 9: retirar `executive_numbers.js` y `ejecutiva/actualizacion/`
   cuando Costos, Todas las cuentas y Comercial dejen de usarlos.
 
-## Fase 10: `/api/rpc/` con permisos (hecha); `proyecto_detalle` pendiente
+## Fase 10: `/api/rpc/` con permisos (hecha); `proyecto_detalle` sin migrar
 
 - `apps/access/rpc_policy.py` clasifica las 190 funciones del RPC: lectura
   (`view_operations`), escritura (`edit_operations`), configuración
@@ -298,15 +387,16 @@ Lo que se planeaba para esta fase:
   puede hacerlas. Retirar el RPC requiere una API por llamada y es trabajo
   aparte. Un proyecto de otra cuenta ya responde 404 en la página.
 
-## Fase 11: limpieza (parcial)
+## Fase 11: limpieza (pendiente; solo se retiraron cuatro endpoints)
 
 Estado a 22/10/2026, comprobado en el código:
 
-- **CSP obligatoria: no es posible todavía.** 23 plantillas anteriores llevan
+- **CSP obligatoria: no es posible todavía** (y hoy ni siquiera hay política por defecto). 23 plantillas anteriores llevan
   scripts y estilos en línea (Business Overview 63 `style=`, Comercial 4 scripts,
   Capacidad 22 estilos…) más los bloques `{% block css %}`. Con la política en
-  modo de bloqueo se rompen. Se queda en «solo reportar» hasta que esas pantallas
-  pasen a `frontend/` con el diseño igualado (ver la regla de diseño).
+  modo de bloqueo se rompen. Por defecto no hay política y el reporte solo se enciende con
+  `CSP_REPORT_ONLY=1`; seguirá así hasta que esas pantallas pasen a
+  `frontend/` con el diseño igualado (ver la regla de diseño).
 - **`ACCESS_ENFORCED=1`: listo para encender, decisión de despliegue.** Todas las
   pantallas y el RPC ya validan capacidad y alcance. Antes: `python manage.py
   access_setup --incluir-usuarios` (migrar `access.0002` primero) y probar con
