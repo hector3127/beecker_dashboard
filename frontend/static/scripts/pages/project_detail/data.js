@@ -72,6 +72,43 @@ export function createProjectData(get = apiGet, send = apiSend) {
           { timeout: 90000 },
         )
       ).data,
+    raidPrompt: (tipo) =>
+      read(`screens/proyectos/raid/prompt/?tipo=${encodeURIComponent(tipo)}`),
+    raidFieldTypes: (id, tipo) =>
+      read(
+        `screens/proyectos/${encodeURIComponent(id)}/raid/campos/?tipo=${encodeURIComponent(tipo)}`,
+      ),
+    raidCreationOptions: (id, tipo) =>
+      read(
+        `screens/proyectos/${encodeURIComponent(id)}/raid/alta-opciones/?tipo=${encodeURIComponent(tipo)}`,
+      ),
+    saveRaidPrompt: async (tipo, prompt) =>
+      (
+        await send(
+          "POST",
+          "screens/proyectos/raid/prompt/",
+          { tipo, prompt },
+          { timeout: 90000 },
+        )
+      ).data,
+    suggestRaid: async (tipo, descripcion) =>
+      (
+        await send(
+          "POST",
+          "screens/proyectos/raid/sugerir/",
+          { tipo, descripcion },
+          { timeout: 90000 },
+        )
+      ).data,
+    createRaid: async (id, tipo, datos) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/raid/crear/`,
+          { tipo, datos },
+          { timeout: 90000 },
+        )
+      ).data,
     milestoneTypes: () => read("screens/proyectos/hitos/tipos/"),
     saveMilestones: async (id, hitos) =>
       (

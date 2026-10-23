@@ -2,6 +2,37 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, alta RAID (Riesgo, Issue y Oportunidad)
+
+- API v1: GET `screens/proyectos/<id>/raid/{campos,alta-opciones}/?tipo=` y
+  `screens/proyectos/raid/prompt/?tipo=`; POST `.../raid/crear/` y
+  `screens/proyectos/raid/{sugerir,prompt}/`. Mismos servicios que
+  `ixsRaidCamposTipo`, `ixsRaidAltaOpciones`, `ixsRaidObtenerPrompt`,
+  `ixsRaidCrearRegistro`, `ixsRaidSugerirClaude` e `ixsRaidGuardarPrompt`.
+  Permisos como en la política RPC: lecturas `view_operations`; crear y sugerir
+  `edit_operations`; guardar prompt `manage_integrations`; escrituras con CSRF y
+  alcance total. Nada se publica en Azure hasta pulsar «Crear en Azure».
+- Frontend: `sections/raid_create_model.js` (reglas de publicación, plan en
+  líneas, sugerencias, estado del padre; contrastado en Node con la función
+  original), `raid_create_view.js` (ventana y formularios por tipo con DOM
+  seguro) y `raid_create.js` (controlador `beeIxsRaid` lo usa al pulsar
+  + Riesgo / + Issue / + Oportunidad). Con `?vista=anterior` queda el alta
+  anterior.
+- Detalle conservado: campos que pasan a lista cuando Azure responde tarde,
+  iteración por defecto, buscadores de personas/iteración/WI, severidad →
+  impacto, prompts guardables por usuario, avisos y tiempos. Mejora menor: el
+  cálculo severidad → impacto sigue funcionando si el campo cambia a lista.
+- Pruebas: 9 de API, 37 de navegador (27 comparaciones con la anterior a
+  1450/900/390 en ventana inicial, formulario manual y sugerido de los tres
+  tipos; el resto cubre API/CSRF, reglas de publicación, errores de Azure,
+  prompts, padre y texto seguro) y 3 de Node. Regresión de proyecto/portal/Gmail/
+  ejecutivo: 1298 aprobadas. Una comparación fue intermitente bajo carga y pasa
+  sola (se añadió una espera de red).
+- No se creó ningún registro real: Azure y Claude simulados.
+- Con esto la pestaña Gestión RAID queda completa. Siguen pendientes: IA,
+  Cliente/Acciones (comparten renderer con AER), Azure DevOps, Comunicación y
+  las pestañas AER distintas del Ejecutivo.
+
 ## Bloque: fase 10, Gestión RAID de IXB/SaaS/RaaS (lectura y presentación)
 
 - API v1: `GET screens/proyectos/<id>/raid-registro/` (`?forzar=1` omite la

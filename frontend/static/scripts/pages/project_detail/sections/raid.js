@@ -5,7 +5,7 @@ import { buildShell, detailDrawer, fillSections, paintHealth, paintMatrix, paint
 import { filterRows, iteration, normalizeSeverity, uniqueValues } from "./raid_model.js";
 
 /** @param {{raidRegistry: (id: string, force: boolean) => Promise<any>}} api */
-export function createRaidController(api) {
+export function createRaidController(api, creator = null) {
   const state = { projectId: "", rows: /** @type {any[]} */ ([]), notice: "", requestId: 0 };
   /** @type {HTMLElement | null} */
   let root = null;
@@ -95,7 +95,10 @@ export function createRaidController(api) {
       data = project;
       guards = lifecycle;
       root = buildShell({
-        create: hooks.create,
+        create: (type) =>
+          creator
+            ? creator.open(type, data, { current: live, created: () => load(true) })
+            : hooks.create(type),
         sync: () => load(true),
         filter,
         toggle: (button) => root && toggleAttention(/** @type {HTMLElement} */ (root.querySelector("#ixs-raid-atencion")), button, state.rows.length),
