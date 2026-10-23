@@ -32,7 +32,7 @@ urlpatterns = [
     path("ejecutiva/cuentas/", pages.all_accounts, name="todas_cuentas"),
     path(
         "ejecutiva/costos/detalle/",
-        views.costos_detalle,
+        pages.costs,
         name="costos_detalle",
     ),
     path(

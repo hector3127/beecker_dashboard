@@ -54,9 +54,9 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | Delivery Manager | `operativa/delivery-manager/<slug>/` | `pages/delivery_manager.html` (la anterior con `?vista=anterior`) | `screens/delivery-managers/…` | **Sí** | **Hecha 23/10**; `tests/e2e/test_delivery_manager.py` |
 | KPIs de DMs | `operativa/kpis-delivery-managers/` | `pages/kpis_dm.html` (la anterior con `?vista=anterior`) | `screens/kpis-dm/` | **Sí** | **Hecha 23/10**; `tests/e2e/test_kpis_dm.py` |
 | Diccionario | `diccionario-datos/` | `pages/dictionary.html` (la anterior con `?vista=anterior`) | `reference/glossary/` | **Sí** | **Hecha 23/10**; `tests/e2e/test_diccionario.py` |
-| Todas las cuentas | `ejecutiva/cuentas/` | `portal/todas_cuentas.html` | No | No | Igual |
-| Costos | `ejecutiva/costos/detalle/` | `portal/costos_detalle.html` | JSON `ejecutiva/costos/` | No | Igual |
-| Comercial | `comercial/` | `portal/comercial.html` | No | No | Igual |
+| Todas las cuentas | `ejecutiva/cuentas/` | `pages/all_accounts.html` (la anterior con `?vista=anterior`) | No (datos por el contexto de la vista) | **Sí** (plantilla modular) | **Hecha 24/10** |
+| Costos | `ejecutiva/costos/detalle/` | `pages/costs.html` (la anterior con `?anterior=1`) | `costs/summary/`, `costs/project/` | **Sí** | **Hecha 24/10**; `tests/e2e/test_costos.py` |
+| Comercial | `comercial/` | `pages/commercial.html` (la anterior con `?vista=anterior`) | No (datos por el contexto de la vista) | **Sí** (plantilla modular) | **Hecha 24/10**; `tests/e2e/test_comercial.py` |
 | Inversión | `operativa/inversion/` | `portal/inversion.html` | `screens/inversion/` | No | Igual |
 | Capacidad instalada y detalle | `operativa/capacidad-instalada/`, `capacidad-instalada/` | `portal/capacidad_instalada.html`, `portal/capacidad_detalle.html` | `screens/capacidad/` | No | Igual |
 | Facturabilidad (general, especialidad, recurso) | `operativa/facturabilidad/…` | `portal/facturabilidad*.html` | `screens/facturabilidad/…` | No | Igual |

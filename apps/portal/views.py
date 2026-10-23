@@ -1831,7 +1831,7 @@ def costos_detalle(request: HttpRequest) -> HttpResponse:
     account = request.GET.get("nombre", "").strip()
     back = account_back_url(account)
     navigation = return_context(request, back, account or "Business Overview")
-    return render(
+    return render_page(
         request,
         "portal/costos_detalle.html",
         {

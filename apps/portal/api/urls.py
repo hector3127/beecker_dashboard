@@ -19,6 +19,7 @@ from apps.portal.api.operations import (
     InvestmentScreenView,
 )
 from apps.portal.api.screens import (
+    CostSummaryView,
     Eva4ScreenView,
     ExecutiveRefreshView,
     ExecutiveScreenView,
@@ -105,6 +106,7 @@ urlpatterns = [
         name="margenes_actualizar",
     ),
     path("costs/project/", ProjectCostView.as_view(), name="project_cost"),
+    path("costs/summary/", CostSummaryView.as_view(), name="cost_summary"),
     path("screens/operativa/", OperativaView.as_view(), name="operativa"),
     path(
         "screens/operativa/datos/",

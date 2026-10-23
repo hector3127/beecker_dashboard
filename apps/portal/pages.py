@@ -5,6 +5,7 @@ from urllib.parse import quote
 
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
@@ -335,3 +336,26 @@ def _modern(
 def all_accounts(request: HttpRequest) -> HttpResponse:
     """Todas las cuentas: auditoria financiera del año."""
     return _modern(request, views.todas_cuentas, "pages/all_accounts.html")
+
+
+@require_GET
+@require_capability("view_costs")
+def costs(request: HttpRequest) -> HttpResponse:
+    """Detalle de costos por proyecto (o la comparativa de margenes).
+
+    Aqui ?vista= elige entre proyectos y margenes, asi que la pantalla
+    anterior se pide con ?anterior=1.
+    """
+    scope = scope_for(request)
+    named = request.GET.get("nombre", "").strip()
+    if named and not scope.allows_account(named):
+        raise Http404("No existe esa cuenta.")
+    if not named and not scope.unrestricted:
+        raise PermissionDenied  # el listado completo es del portafolio entero
+    if request.GET.get("vista") != "proyectos":
+        return margins(request)
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    if not (anterior_disponible() and request.GET.get("anterior") == "1"):
+        request.portal_template = "pages/costs.html"  # type: ignore[attr-defined]
+    return views.costos_detalle(request)  # type: ignore[no-any-return]

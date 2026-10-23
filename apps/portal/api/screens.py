@@ -192,6 +192,25 @@ class ProjectCostView(APIView):
         return Response({"data": payload, "meta": {}})
 
 
+class CostSummaryView(APIView):
+    """Costos por proyecto de la cuenta o del portafolio (periodo activo)."""
+
+    permission_classes = MarginsScreenView.permission_classes
+
+    def get(self, request: Request) -> Response:
+        """Resumen (?nombre= opcional); ?actualizar=1 relee el corte."""
+        response = views.costos_revenue(request._request)
+        payload = json.loads(response.content)
+        if response.status_code >= 400:
+            codes = {401: "unauthenticated", 403: "forbidden", 404: "not_found"}
+            return error_response(
+                response.status_code,
+                codes.get(response.status_code, "upstream"),
+                str(payload.get("error", "No se pudo consultar los costos.")),
+            )
+        return Response({"data": payload, "meta": {}})
+
+
 MANAGER_STAGES = {"base", "inv", "horas"}
 
 
