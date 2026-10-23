@@ -47,6 +47,7 @@ from apps.portal.api.project_detail import (
     ProjectPlanningDeleteView,
     ProjectPlanningView,
     ProjectPlanningWriteView,
+    ProjectRaidRegistryView,
     ProjectRaidView,
     ProjectRecordsView,
     ProjectResourceSaveView,
@@ -104,6 +105,10 @@ urlpatterns = [
         ProjectPlanningDeleteView.as_view(),
     ),
     path("screens/proyectos/hitos/tipos/", ProjectMilestoneTypesView.as_view()),
+    path(
+        "screens/proyectos/<str:project_id>/raid-registro/",
+        ProjectRaidRegistryView.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/hitos/guardar/",
         ProjectMilestoneSaveView.as_view(),

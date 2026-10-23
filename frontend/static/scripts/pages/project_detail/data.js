@@ -64,6 +64,14 @@ export function createProjectData(get = apiGet, send = apiSend) {
           { timeout: 90000 },
         )
       ).data,
+    raidRegistry: async (id, force) =>
+      (
+        await get(
+          `screens/proyectos/${encodeURIComponent(id)}/raid-registro/`,
+          force ? { forzar: "1" } : undefined,
+          { timeout: 90000 },
+        )
+      ).data,
     milestoneTypes: () => read("screens/proyectos/hitos/tipos/"),
     saveMilestones: async (id, hitos) =>
       (

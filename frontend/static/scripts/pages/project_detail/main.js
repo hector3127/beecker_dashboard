@@ -7,6 +7,7 @@ import { createResourcesController } from "./sections/ixs_resources.js";
 import { createCommuniqueController } from "./sections/communique.js";
 import { prependCommuniqueActions } from "./sections/communique_actions.js";
 import { prependDataNotice } from "./sections/data_notice.js";
+import { createRaidController } from "./sections/raid.js";
 import { createMilestoneController } from "./sections/milestones.js";
 import { createPlanningEditor } from "./sections/ixs_planning_editor.js";
 import { createPlanningController } from "./sections/ixs_planning.js";
@@ -53,6 +54,7 @@ async function start() {
       beeIxsResources: createResourcesController(data),
       beeIxsPlanningEditor: createPlanningEditor(data),
       beeProjectCommunique: communique,
+      beeIxsRaid: createRaidController(data),
       beeProjectMilestones: createMilestoneController(data),
       beeIxsPlanning: createPlanningController(data),
       beeProjectExecutive: (target, project, ...rest) => {

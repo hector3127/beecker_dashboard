@@ -13,6 +13,7 @@ from apps.aer import rpc as aer
 from apps.aer.services import dashboard
 from apps.azure_devops.rpc import get_project_raid
 from apps.clockify import project_rpc
+from apps.daily import ixs_rpc
 from apps.daily import rpc as daily
 from apps.daily.ixs_rpc import build_store_sheets, get_ixs_panel
 from apps.daily.services.ixs_planning import (
@@ -79,6 +80,16 @@ class ProjectExecutiveView(ProjectRead):
     def load(self, project_id: str) -> dict[str, Any]:
         """Invoca el servicio ejecutivo existente con el ID exacto."""
         return get_executive_dashboard(project_id)
+
+
+class ProjectRaidRegistryView(ProjectRead):
+    """Registro RAID del proyecto en Azure DevOps (pestaña Gestión RAID)."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Mismo servicio que ixsRaidListarProyecto; forzar=1 omite la caché."""
+        force = self.request.query_params.get("forzar") == "1"
+
+        return ixs_rpc.list_raid(project_id, force)
 
 
 class ProjectAerView(ProjectRead):

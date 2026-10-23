@@ -20,7 +20,7 @@ function titleOnly(title) {
         .replace(/^[-–—:|\s]+/, "")
         .trim() || text;
 }
-function statusClass(state) {
+export function statusClass(state) {
   const value = String(state || "").toLowerCase();
   if (
     [

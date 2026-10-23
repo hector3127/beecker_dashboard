@@ -6399,6 +6399,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     </div>`;
   }
   function ixsRaidCargar(force){
+    if(window.beeIxsRaid){window.beeIxsRaid.reload(!!force);return;}
     const p=ixsProyectoActual&&ixsProyectoActual.proyecto;
     if(!p)return;
     const id=p.id,req=++ixsRaidState.requestId;
@@ -6831,6 +6832,12 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       return;
     }
     if(ixsTabActual==='riesgos'){
+      if(window.beeIxsRaid){
+        window.beeIxsRaid.mount(el,ixsProyectoActual,{
+          current:project=>ixsProyectoActual===project,
+          active:()=>ixsTabActual==='riesgos'
+        },{create:ixsRaidAbrirCrear});return;
+      }
       el.innerHTML=_ixsRenderGestionRAID();
       ixsRaidCargar();
       return;

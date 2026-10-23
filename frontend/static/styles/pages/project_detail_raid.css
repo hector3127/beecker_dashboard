@@ -1,0 +1,3 @@
+/* Gestión RAID: reglas que antes iban en atributos style de la pestaña. */
+#ixs-raid-sync-warning { background: #fff8e9; color: #95651b; margin-bottom: 10px; }
+#ixs-raid-sync-warning[hidden], #ixs-raid-att-btn[hidden], .ixs-raid-att-row[hidden] { display: none; }

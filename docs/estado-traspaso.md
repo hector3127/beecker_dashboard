@@ -2,6 +2,30 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, Gestión RAID de IXB/SaaS/RaaS (lectura y presentación)
+
+- API v1: `GET screens/proyectos/<id>/raid-registro/` (`?forzar=1` omite la
+  caché), mismo servicio que `ixsRaidListarProyecto` (`ixs_rpc.list_raid`);
+  lectura con los permisos de las demás lecturas del detalle.
+- Frontend: `sections/raid_model.js` (severidad, cerrados, KPIs, dona, matriz,
+  etapas, carga, filtros y campos del detalle; contrastado en Node contra las
+  funciones originales), `raid_view.js` (DOM seguro, sin `innerHTML`; incluye
+  los tres paneles de detalle y el genérico) y `raid.js` (controlador
+  `window.beeIxsRaid`: conserva la última vista si Azure falla, Sincronizar,
+  filtros, "Ver más"). CSS `project_detail_raid.css` solo para lo que antes eran
+  atributos `style`.
+- **Sigue en el script anterior:** el alta (modal "+ Riesgo/Issue/Oportunidad",
+  sugerencias, prompts de Claude y creación en Azure). `ixsRaidCargar(true)`
+  delega en el controlador nuevo, así que tras crear se refresca por API.
+  Con `?vista=anterior` queda todo como antes.
+- Pruebas: 6 de API, 22 de navegador (comparación elemento por elemento con la
+  anterior a 1450/900/390 en página, filtros y los cuatro paneles de detalle;
+  texto seguro, "Ver más", sincronizar, error inicial y error conservando la
+  vista) y 3 de Node. Regresión de proyecto + portal: 1141 aprobadas.
+- Siguiente en esta pestaña: migrar el alta de RAID (formularios, opciones,
+  prompts y creación en Azure). Después: IA, Cliente/Acciones, Azure DevOps,
+  Comunicación y las pestañas AER.
+
 ## Bloque: comunicados del proyecto (Extensión, Suspensión, Reanudación, Cierre)
 
 - Backend (`apps/gmail`): `POST /gmail/reply/` acepta `kind` (por defecto
