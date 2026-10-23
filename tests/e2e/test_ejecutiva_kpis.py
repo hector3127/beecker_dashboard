@@ -155,7 +155,7 @@ def test_entering_an_account_and_coming_back_keeps_search_and_order(
     portal.locator("#healthy-financial-accounts").get_by_role(
         "link", name=re.compile("Heineken")
     ).click()
-    portal.wait_for_url(re.compile(r"/cuenta/heineken/"))
+    portal.wait_for_url(re.compile(r"/cuenta/heineken-mexico/"))
     assert "volver=" in portal.url
 
     portal.get_by_role("link", name=re.compile("^← Regresar a")).click()

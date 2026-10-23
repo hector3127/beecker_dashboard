@@ -252,3 +252,51 @@ def kpis_dm(request: HttpRequest) -> HttpResponse:
         "pages/kpis_dm.html",
         {"active": "operativa", "loaded_at": timezone.localtime()},
     )
+
+
+@require_GET
+@ensure_csrf_cookie  # el JS firma la actualizacion del corte y los acuerdos
+@period_view
+@require_capability("view_executive")
+def executive(request: HttpRequest) -> HttpResponse:
+    """Business Overview: el JS pide el corte preparado a la API.
+
+    Si el corte falta, la pagina pide prepararlo en segundo plano (como antes);
+    ?vista=anterior entrega la pantalla de antes hasta ANTERIOR_HASTA.
+    """
+    from apps.portal.services.data_dictionary import glossary_groups
+    from apps.portal.services.executive_operations import (
+        cached_operations_snapshot,
+    )
+    from apps.portal.services.executive_period import current, parse
+    from apps.portal.services.executive_refresh import request_refresh
+    from apps.portal.services.financial_cache import cached_financial_snapshot
+
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    if anterior_disponible() and request.GET.get("vista") == "anterior":
+        return views.ejecutiva(request)
+    financial = cached_financial_snapshot()
+    operations = cached_operations_snapshot()
+    chosen = current() or parse(
+        {"periodo": "anio", "anio": str(timezone.localdate().year)}
+    )
+    if (
+        not financial
+        or not operations
+        or not financial.get("commercial")
+        or request.GET.get("actualizar") == "1"
+    ) and not getattr(request, "portal_warmer", False):
+        request_refresh()
+    return render(
+        request,
+        "pages/executive.html",
+        {
+            "active": "ejecutiva",
+            "glossary": glossary_groups(),
+            "executive_selected": chosen,
+            "executive_query": executive_query_string(),
+            "executive_year": chosen.start.year,
+            "executive_label": chosen.label,
+        },
+    )

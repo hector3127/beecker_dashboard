@@ -87,6 +87,11 @@ def test_structure_has_the_sections_in_order_and_one_main(portal, datos):
 def test_first_paint_shows_the_saved_cut_then_refreshes_by_blocks(
     portal, datos
 ):
+    def slow(route):
+        portal.wait_for_timeout(600)  # el estado intermedio dura lo suficiente
+        route.continue_()
+
+    portal.route("**/api/v1/screens/operativa/datos/**", slow)
     portal.goto(portal.base + PAGE)
 
     # Sin corte guardado: hay cifras de proyectos pero no de consumo.
