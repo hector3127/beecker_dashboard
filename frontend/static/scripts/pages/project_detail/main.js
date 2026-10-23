@@ -4,6 +4,7 @@ import { createProjectData } from "./data.js";
 import { renderAerExecutive } from "./sections/aer_executive.js";
 import { createEffortController } from "./sections/ixs_effort.js";
 import { createResourcesController } from "./sections/ixs_resources.js";
+import { createPlanningEditor } from "./sections/ixs_planning_editor.js";
 import {
   mountIxsExecutive,
   updateTimeline,
@@ -44,6 +45,7 @@ async function start() {
       beeProjectData: data,
       beeIxsEffort: createEffortController(data),
       beeIxsResources: createResourcesController(data),
+      beeIxsPlanningEditor: createPlanningEditor(data),
       beeProjectExecutive: renderAerExecutive,
       beeIxsExecutive: {
         mount: (target, project, lifecycle) =>

@@ -5808,6 +5808,13 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   function ixeAbrirLink(){const v=(document.getElementById('ixe-link').value||'').trim();if(!/^https?:\/\//i.test(v)){ixeSoon('Escribe un link válido que empiece con https://');return;}window.open(v,'_blank','noopener,noreferrer');}
   function ixeSoon(t){ixeMsg(/válido|archivo/.test(t)?t:t+': funcionalidad pendiente de conectar.');}
   function ixsAbrirPlanEditor(tipo,encoded,tipoInicial){
+    if(window.beeIxsPlanningEditor){
+      const project=ixsProyectoActual,state=ixsPlanState;
+      window.beeIxsPlanningEditor.open(tipo,encoded?decodeURIComponent(encoded):'',tipoInicial,state,{
+        current:()=>ixsProyectoActual===project&&state.proyectoId===project.proyecto.id,
+        saved:r=>{state.vacaciones=r.vacaciones||[];state.compromisos=r.compromisos||[];_ixsPintarPlaneacion();}
+      });return;
+    }
     const st=ixsPlanState,uid=encoded?decodeURIComponent(encoded):'',x=(tipo==='vacacion'?st.vacaciones:st.compromisos).find(v=>v.uid===uid)||{};
     if(!uid&&tipoInicial)x.tipo=tipoInicial;
     const modal=document.createElement('div');modal.id='ixs-plan-modal';modal.className='ixs-clockify-modal';
@@ -5815,7 +5822,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     modal.innerHTML=`<div class="ixs-clockify-dialog ixs-recurso-dialog" role="dialog" aria-modal="true"><div class="ixs-section-head"><h3>${uid?'Editar':'Registrar'} ${tipo==='vacacion'?'vacaciones':'actividad / hito'}</h3><button class="ixs-btn" onclick="ixsCerrarPlanEditor()">✕</button></div><form id="ixs-plan-form" onsubmit="ixsGuardarPlan(event,'${tipo}','${encodeURIComponent(uid).replace(/'/g,'%27')}')">${tipo==='vacacion'?`${field('Recurso','recurso',x.recurso)}${field('Inicio','inicio',x.inicio,'date')}${field('Fin','fin',x.fin,'date')}<label>Estado<select name="estado">${['Pendiente','Aprobada','Cancelada'].map(v=>`<option ${x.estado===v?'selected':''}>${v}</option>`).join('')}</select></label>${field('Comentarios','comentarios',x.comentarios)}${field('Registrado por','registradoPor',x.registradoPor)}`:`${field('Actividad / hito','actividad',x.actividad)}${field('Responsable','responsable',x.responsable)}${field('Fecha','fecha',x.fecha,'date')}<label>Tipo<select name="tipo">${['Actividad','Hito'].map(v=>`<option ${x.tipo===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Estado<select name="estado">${['Pendiente','En progreso','Por validar','Completado','Detenido','Cancelado'].map(v=>`<option ${x.estado===v?'selected':''}>${v}</option>`).join('')}</select></label>`}<div id="ixs-plan-error" style="color:#a32340"></div><div style="display:flex;gap:8px;justify-content:flex-end">${uid?`<button type="button" class="ixs-btn" onclick="ixsEliminarPlan('${tipo}','${encodeURIComponent(uid).replace(/'/g,'%27')}')">Eliminar</button>`:''}<button type="button" class="ixs-btn" onclick="ixsCerrarPlanEditor()">Cancelar</button><button type="submit" class="ixs-btn primary">Guardar</button></div></form></div>`;
     modal.addEventListener('click',e=>{if(e.target===modal)ixsCerrarPlanEditor();});document.body.appendChild(modal);
   }
-  function ixsCerrarPlanEditor(){const m=document.getElementById('ixs-plan-modal');if(m)m.remove();}
+  function ixsCerrarPlanEditor(){if(window.beeIxsPlanningEditor){window.beeIxsPlanningEditor.close();return;}const m=document.getElementById('ixs-plan-modal');if(m)m.remove();}
   function ixsGuardarPlan(e,tipo,encoded){
     e.preventDefault();const form=e.target,btn=form.querySelector('[type=submit]'),id=ixsPlanState.proyectoId;
     const payload={idProyecto:id,uid:decodeURIComponent(encoded||'')};new FormData(form).forEach((v,k)=>payload[k]=v);

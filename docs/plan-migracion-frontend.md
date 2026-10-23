@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos y transporte de Planeación IXB; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo y Recursos IXB/SaaS/RaaS modulares; presentación de Planeación y otras pestañas anteriores | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, guardado de recursos y transporte de Planeación IXB; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos y editores de Planeación IXB/SaaS/RaaS modulares; presentación general de Planeación y otras pestañas anteriores | **Parcial**, no completada |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -90,9 +90,47 @@ y la navegación entre pestañas todavía dependen del script anterior.
 Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
 incluidos Gantt editable, calendario, editores y extensión de proyecto.
-Usar API para sus cuatro operaciones no equivale a migrar su presentación.
+Los editores de vacaciones y actividades/hitos ya son modulares; la
+presentación general sigue pendiente. Usar API para las operaciones no
+equivale a migrar toda la pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Fase 10: editores de Planeación IXB/SaaS/RaaS (parcial)
+
+`sections/ixs_planning_editor_model.js`, `_view.js` y `.js` separan campos,
+DOM y controlador de los formularios. La ruta activa abre el módulo desde
+el puente anterior; la comparación mantiene sus formularios independientes.
+CSS externo en `project_detail_ixs_planning.css`. No se cambian cálculos,
+fuentes, permisos, campos requeridos ni opciones. Save/delete usan las APIs
+del bloque anterior, manteniendo el ID y UID exactos y confirmación de borrado.
+
+El controlador bloquea doble envío, conserva datos ante errores y permite
+reintentar. Cada apertura identifica su propia sesión, para descartar respuestas
+de formularios cerrados o de otro proyecto sin cerrar un editor recién abierto.
+La selección inicial de Hito no modifica los registros recibidos.
+
+Veinte pruebas nuevas de navegador y diez de transporte aprobadas: doce
+comparaciones con la anterior a 1450/900/390 px, incluidos campos, valores,
+opciones y required; edición y borrado de ambos tipos con UID especial,
+confirmación, errores de fuente/transporte/permisos y reintento; doble envío,
+respuestas tardías de éxito/error, texto seguro y cancelación. Capturas:
+`tmp/migration/project_detail/ixs_planning_editor/<tipo>/<modo>/<ancho>/`.
+La comprobación inicial contó `style=""` que agrega el normalizador compartido;
+se exige cero declaraciones CSS y cero eventos inline sin cambiar ese código.
+
+Regresión del bloque: **241 aprobadas** en APIs del detalle/Recursos/Planeación,
+soporte frontend y todas las vistas de proyecto ya migradas (entrada, ambos
+Ejecutivos, Esfuerzo, Recursos, transporte y editores de Planeación), con Chrome.
+No se presenta como una nueva regresión completa del portal. JavaScript:
+**136 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff, formato, comprobación de Django y
+revisión del diff aprobados. Sin cambios de Python de aplicación ni de servicios.
+
+**Siguiente:** extraer la presentación general de Planeación y sus cargas,
+incluidos calendario y Gantt editable. Sus acciones de Azure y la extensión
+con integraciones aún dependen de componentes anteriores. Esta pestaña y la
+fase 10 siguen parciales.
 
 ### Fase 10: transporte de Planeación IXB/SaaS/RaaS (parcial)
 

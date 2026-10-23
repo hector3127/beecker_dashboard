@@ -1,0 +1,8 @@
+.ixs-plan-editor-error.ixs-plan-editor-error {
+  color: #a32340;
+}
+.ixs-plan-editor-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}

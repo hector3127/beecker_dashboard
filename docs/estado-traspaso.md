@@ -2,7 +2,44 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10, transporte de Planeación IXB/SaaS/RaaS (parcial)
+## Bloque actual: fase 10, editores de Planeación IXB/SaaS/RaaS (parcial)
+
+- Modelo, vista y controlador de formularios en
+  `sections/ixs_planning_editor*.js`. Conservan campos, opciones, valores,
+  títulos y validación nativa de vacaciones y actividades/hitos. CSS externo
+  en `project_detail_ixs_planning.css`, DOM seguro y eventos externos.
+- El puente `ixsAbrirPlanEditor` abre el módulo en la ruta activa; la anterior
+  conserva su editor. Altas, edición y eliminación usan la API ya migrada.
+  Se mantiene la confirmación de borrado y se bloquean envíos duplicados.
+- Cada apertura tiene sesión propia: una respuesta de una ventana cerrada
+  no cierra ni sobrescribe otra. Se conserva el formulario ante errores y
+  permite reintentar. Las respuestas de otro proyecto se descartan.
+- Pruebas nuevas `test_ixs_planning_editor.py`: doce comparaciones contra
+  la anterior (alta/edición de vacaciones e hitos a 1450/900/390 px), también
+  con valores/opciones/required. Altas y reintentos reutilizan las pruebas
+  del transporte; nuevas cubren UID con comilla/barra, confirmación de borrado,
+  fallos de fuente/transporte/permisos, doble envío, respuesta tardía,
+  cancelación y texto seguro. Las **30 específicas** aprobaron (20 nuevas,
+  diez del transporte). Capturas:
+  `tmp/migration/project_detail/ixs_planning_editor/<tipo>/<modo>/<ancho>/`.
+- La primera prueba detectó atributos `style` vacíos que deja el normalizador
+  compartido en inputs. La comprobación ahora exige cero declaraciones CSS
+  y cero manejadores inline; no se cambió el normalizador ni el diseño.
+- Regresión de este bloque: **241 aprobadas** (APIs del detalle, Recursos y
+  Planeación; soporte frontend y todas las vistas de proyecto ya migradas:
+  entrada, ambos Ejecutivos, Esfuerzo, Recursos, transporte y editores de
+  Planeación). Ejecutada con Chrome; no es una nueva corrida de todo el portal.
+  JavaScript: **136 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff, formato, comprobación de Django y
+  revisión del diff aprobados. No hubo cambios Python de aplicación.
+- **Siguiente:** presentación general de Planeación y sus cargas, incluido
+  calendario y Gantt editable. Después, ediciones/comentarios de Azure y
+  extensión con integraciones, además de las demás pestañas ya inventariadas.
+  No contar Planeación ni la fase 10 como terminadas; mantener shim/JS previo.
+- Servicios, permisos, Horas por mes y pendientes ajenos se conservan.
+  No activar accesos ni hacer push.
+
+### Bloque anterior: transporte de Planeación IXB/SaaS/RaaS (parcial)
 
 - La ruta activa usa API v1 para vacaciones/compromisos (`planeacion/`) y
   panel Azure (`planeacion/azure/`), sin forzar refresco. POST por tipo para
