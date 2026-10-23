@@ -39,8 +39,8 @@ export const KINDS = {
     fields: [
       { key: "stage", label: "Etapa que se detiene", type: "stage", required: true },
       { key: "resumeDate", label: "Fecha tentativa de reanudación", type: "date", required: true },
-      { key: "condition", label: "Condición para reanudar", type: "text", required: true, max: 300, placeholder: "Ej. la entrega de accesos por el cliente", full: true },
       { key: "reason", label: "Motivo de la suspensión", type: "textarea", required: true, max: 500, placeholder: "Describe brevemente el motivo, contexto y situación detectada", full: true },
+      { key: "condition", label: "Condición para reanudar", type: "text", required: true, max: 300, placeholder: "Ej. la entrega de accesos por el cliente", full: true },
     ],
     linkTitle: "Enlace de soporte",
     linkLabel: link("Enlace de soporte (opcional)"),

@@ -91,8 +91,11 @@ def test_extension_matches_previous(portal, planning, gmail, fixed_day, width):
     directory.mkdir(parents=True, exist_ok=True)
     for previous in [True, False]:
         open_modal(portal, previous)
-        # El selector de tipos es nuevo: no existe en la ventana anterior.
-        portal.evaluate("document.querySelector('.ixe-kinds')?.remove()")
+        # Los botones de tipo son nuevos y el logo anterior ya no está.
+        portal.evaluate(
+            "document.querySelectorAll('.ixe-kinds, .ixe-brand')"
+            ".forEach(n => n.remove())"
+        )
         selector = ".ixe-dialog, .ixe-dialog *"
         states.append(
             [
@@ -252,3 +255,47 @@ def test_aer_shows_only_extension_and_close(
     assert (
         'name="description"\r\n\r\na las mejoras del Smart Attendance' in body
     )
+
+
+def test_send_mode_asks_with_a_styled_confirmation(
+    portal, planning, gmail, fixed_day
+):
+    portal.route(
+        "**/gmail/status/",
+        lambda route: route.fulfill(
+            json={
+                "ok": True,
+                "result": {
+                    "configured": True,
+                    "connected": True,
+                    "email": "yo@beecker.ai",
+                    "mode": "send",
+                },
+            }
+        ),
+    )
+    open_modal(portal)
+    portal.locator(".ixe-kind", has_text="Reanudación").click()
+    fill(portal, resumeDate="2026-11-03")
+    portal.locator("#ixe-send").click()
+    confirm = portal.locator(".ixe-confirm")
+    expect(confirm).to_contain_text("Se enviará un correo a 1 destinatario")
+    portal.keyboard.press("Escape")
+    expect(confirm).to_have_count(0)
+    expect(portal.locator(".ixe-dialog")).to_be_visible()
+    assert gmail == []
+    portal.locator("#ixe-send").click()
+    portal.get_by_role("button", name="Enviar correo").click()
+    expect(portal.locator(".ixe-okbox")).to_be_visible()
+    assert len(gmail) == 1
+
+
+def test_suspension_asks_the_reason_before_the_condition(
+    portal, planning, gmail, fixed_day
+):
+    open_modal(portal)
+    portal.locator(".ixe-kind", has_text="Suspensión").click()
+    keys = portal.locator("[data-key]").evaluate_all(
+        "nodes => nodes.map(n => n.dataset.key)"
+    )
+    assert keys == ["stage", "resumeDate", "reason", "condition"]

@@ -206,7 +206,8 @@ export function createCommuniqueController() {
     if (missing) return dialog.toast(missing);
     if (!gmail.selected) return dialog.toast("Elige el hilo donde se va a responder.");
     const t = gmail.threads.find((x) => x.id === gmail.selected) || {};
-    if (gmail.mode === "send" && !window.confirm(`Se enviará un correo a ${(t.replyTo || []).length + (t.replyCc || []).length} destinatarios del hilo. ¿Continuar?`)) return;
+    const people = (t.replyTo || []).length + (t.replyCc || []).length;
+    if (gmail.mode === "send" && !(await dialog.confirm(`Se enviará un correo a ${people} ${people === 1 ? "destinatario" : "destinatarios"} del hilo. ¿Continuar?`))) return;
     const fd = new FormData();
     for (const [k, v] of payload(kind, read.values, read.project, gmail.selected)) fd.append(k, v);
     session.files.forEach((/** @type {File} */ f) => fd.append("files", f, f.name));

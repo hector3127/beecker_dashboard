@@ -23,7 +23,6 @@ const ICONS = {
   send: '<path d="m22 2-11 11M22 2l-7 20-4-9-9-4z"/>',
   check: '<path d="M4 12l5 5L20 6"/>',
 };
-const HEX = '<path d="M20 3 35 11.5v17L20 37 5 28.5v-17z" fill="#5a2ee0"/><path d="M20 10 29 15v10l-9 5-9-5V15z" fill="#fff" opacity=".9"/>';
 
 /** Fragmento SVG fijo (constantes de este archivo, nunca datos). @param {string} inner @param {string} viewBox @param {string} attrs */
 function svgNode(inner, viewBox, attrs) {
@@ -36,7 +35,6 @@ export const icon = (name, cls = "") => {
   node.setAttribute("class", `ixe-svg ${cls}`.trim());
   return node;
 };
-const hex = () => svgNode(HEX, "0 0 40 40", 'fill="none"');
 
 const BADGE = { pdf: "#e5484d", png: "#6e56cf", jpg: "#6e56cf", jpeg: "#6e56cf", xlsx: "#1f9d55", docx: "#2b6cd6" };
 /** @param {number} bytes */
@@ -138,8 +136,7 @@ export function createDialog(o) {
   const dialog = el(
     "div",
     { class: "ixe-dialog", role: "dialog", "aria-modal": "true", "aria-label": "Comunicados de proyecto" },
-    el("div", { class: "ixe-head" }, el("span", { class: "ixe-head-icon" }, icon("clock")), el("div", { class: "ixe-head-text" }, title, subtitle), el("div", { class: "ixe-brand" }, hex(), el("div", {}, "Beecker", el("small", { text: "Analytics" }))), el("button", { type: "button", class: "ixe-close", "aria-label": "Cerrar", text: "✕", onclick: o.handlers.close })),
-    kindsRow,
+    el("div", { class: "ixe-head" }, el("span", { class: "ixe-head-icon" }, icon("clock")), el("div", { class: "ixe-head-text" }, title, subtitle), kindsRow, el("button", { type: "button", class: "ixe-close", "aria-label": "Cerrar", text: "✕", onclick: o.handlers.close })),
     el(
       "div",
       { class: "ixe-summary" },
@@ -275,6 +272,37 @@ export function createDialog(o) {
       /** @type {any} */ (toast)._t = setTimeout(() => toast.classList.remove("show"), 3200);
     },
     previewText: () => body.innerText.trim(),
+    /** Confirmación con el estilo de las ventanas del portal. @param {string} text @returns {Promise<boolean>} */
+    confirm(text) {
+      return new Promise((resolve) => {
+        const finish = (/** @type {boolean} */ answer) => {
+          document.removeEventListener("keydown", onEsc, true);
+          back.remove();
+          resolve(answer);
+        };
+        const onEsc = (/** @type {KeyboardEvent} */ e) => {
+          if (e.key !== "Escape") return;
+          e.stopImmediatePropagation();
+          finish(false);
+        };
+        const ok = el("button", { type: "button", class: "ixe-btn primary", text: "Enviar correo", onclick: () => finish(true) });
+        const back = el(
+          "div",
+          { class: "ixe-confirm-back", onclick: (/** @type {Event} */ e) => e.target === back && finish(false) },
+          el(
+            "div",
+            { class: "ixe-confirm", role: "alertdialog", "aria-modal": "true", "aria-label": "Confirmar envío" },
+            el("span", { class: "ixe-confirm-icon" }, icon("send")),
+            el("h3", { text: "Confirmar envío" }),
+            el("p", { text: text }),
+            el("div", { class: "ixe-confirm-actions" }, el("button", { type: "button", class: "ixe-btn", text: "Cancelar", onclick: () => finish(false) }), ok),
+          ),
+        );
+        document.addEventListener("keydown", onEsc, true);
+        dialog.append(back);
+        ok.focus();
+      });
+    },
     sendButton: send,
   };
 }

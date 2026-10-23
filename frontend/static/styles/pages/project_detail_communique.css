@@ -66,7 +66,7 @@
 @media(max-width:900px){.ixe-summary{grid-template-columns:1fr 1fr}.ixe-body{grid-template-columns:1fr}.ixe-grid{grid-template-columns:1fr}}
 
 /* Selector de tipo de comunicado. */
-.ixe-kinds { display: flex; gap: 8px; padding: 0 26px 14px; flex-wrap: wrap; }
+.ixe-kinds { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 .ixe-kind { border: 1px solid #d8d3f2; background: #fff; color: #332079; border-radius: 11px; height: 38px; padding: 0 18px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
 .ixe-kind:hover { background: #f4f1ff; }
 .ixe-kind.on { background: linear-gradient(110deg, #4222c2, #7730e7); border-color: transparent; color: #fff; box-shadow: 0 4px 12px rgba(76, 43, 212, .3); }
@@ -79,3 +79,13 @@
 .ixe-linkrow .ixe-input { margin-top: 0; }
 /* La ventana anterior heredaba este relleno de una regla global de .top. */
 .ixe-thread .top { padding: 12px 36px; min-height: 0; border: 0; border-bottom: 1px solid var(--top-line, #e4e0f7); }
+
+/* Confirmación de envío con el estilo de las ventanas del portal. */
+.ixe-confirm-back { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(20, 16, 52, .45); border-radius: 18px; }
+.ixe-confirm { width: min(420px, 100%); background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px; text-align: center; box-shadow: 0 18px 50px rgba(25, 18, 80, .35); }
+.ixe-confirm-icon { width: 48px; height: 48px; margin: 0 auto 10px; border-radius: 14px; background: #e3dcff; color: var(--p); display: flex; align-items: center; justify-content: center; }
+.ixe-confirm-icon .ixe-svg { width: 24px; height: 24px; }
+.ixe-confirm h3 { margin: 0 0 6px; font-size: 18px; font-weight: 800; }
+.ixe-confirm p { margin: 0 0 18px; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.ixe-confirm-actions { display: flex; gap: 10px; justify-content: center; }
+.ixe-head { flex-wrap: wrap; }
