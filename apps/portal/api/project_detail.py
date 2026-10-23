@@ -24,6 +24,7 @@ from apps.daily.services.ixs_planning import (
 )
 from apps.daily.services.ixs_store import run_safely
 from apps.dashboard.rpc import get_available_filters
+from apps.ejecutivo import write_rpc as milestones
 from apps.ejecutivo.rpc import get_executive_dashboard
 from apps.portal.api.errors import error_response
 from apps.portal.api.operations import OperationsScreen
@@ -300,3 +301,76 @@ class WorkItemCommentView(WorkItemProgressView):
     ) -> dict[str, Any]:
         """Conserva conexión, proyecto activo y fecha local del servicio."""
         return daily.add_comment(work_item_id, payload.get("comentario"))
+
+
+class ProjectMilestoneTypesView(OperationsScreen):
+    """Tipos de hito ya usados en la hoja Proyectos (lectura global)."""
+
+    def get(self, request: Request) -> Response:
+        """Mismo servicio que obtenerTiposHitosExistentes."""
+        return self.body({"tipos": milestones.get_milestone_types()})
+
+
+@method_decorator(csrf_protect, name="dispatch")
+class ProjectMilestoneWriteView(OperationsScreen):
+    """Escritura de hitos: edit_operations, alcance total y CSRF."""
+
+    permission_classes = [
+        *APIView.permission_classes,
+        capability_permission("edit_operations", whole_portfolio=True),
+    ]
+
+    def perform(
+        self, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Servicio concreto, definido en cada endpoint."""
+        raise NotImplementedError
+
+    def post(self, request: Request, project_id: str) -> Response:
+        """El ID de la ruta prevalece; las reglas siguen en el servicio."""
+        if not isinstance(request.data, dict):
+            return error_response(400, "validation", "Envía un objeto JSON.")
+        try:
+            return self.body(self.perform(project_id, request.data))
+        except DashboardError as error:
+            return error_response(
+                error.http_status, error.code, error.build_message()
+            )
+
+
+class ProjectMilestoneSaveView(ProjectMilestoneWriteView):
+    """Alta de varios hitos en un lote (guardarHitosAdicionalesLote)."""
+
+    def perform(
+        self, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Lista de {tipo, fechaISO, observacion}."""
+        return milestones.save_milestone_batch(project_id, payload.get("hitos"))
+
+
+class ProjectMilestoneEditView(ProjectMilestoneWriteView):
+    """Cambio de fecha y observación de una entrada (editarHitoAdicional)."""
+
+    def perform(
+        self, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """La entrada se identifica por tipo e índice, como antes."""
+        return milestones.edit_milestone_entry(
+            project_id,
+            payload.get("tipo"),
+            payload.get("indice"),
+            payload.get("fechaISO"),
+            payload.get("observacion"),
+        )
+
+
+class ProjectMilestoneDeleteView(ProjectMilestoneWriteView):
+    """Borrado de una entrada por tipo e índice (eliminarHitoAdicional)."""
+
+    def perform(
+        self, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Mismo servicio, con el proyecto de la ruta."""
+        return milestones.delete_milestone_entry(
+            project_id, payload.get("tipo"), payload.get("indice")
+        )

@@ -39,6 +39,10 @@ from apps.portal.api.project_detail import (
     ProjectAerView,
     ProjectExecutiveView,
     ProjectFiltersView,
+    ProjectMilestoneDeleteView,
+    ProjectMilestoneEditView,
+    ProjectMilestoneSaveView,
+    ProjectMilestoneTypesView,
     ProjectPlanningAzureView,
     ProjectPlanningDeleteView,
     ProjectPlanningView,
@@ -98,6 +102,19 @@ urlpatterns = [
     path(
         "screens/proyectos/<str:project_id>/planeacion/<str:plan_type>/eliminar/",
         ProjectPlanningDeleteView.as_view(),
+    ),
+    path("screens/proyectos/hitos/tipos/", ProjectMilestoneTypesView.as_view()),
+    path(
+        "screens/proyectos/<str:project_id>/hitos/guardar/",
+        ProjectMilestoneSaveView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/hitos/editar/",
+        ProjectMilestoneEditView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/hitos/eliminar/",
+        ProjectMilestoneDeleteView.as_view(),
     ),
     path(
         "screens/proyectos/<str:project_id>/recursos/guardar/",
