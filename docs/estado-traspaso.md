@@ -2,6 +2,30 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Dónde nos quedamos (23/10/2026, antes de pasar el repo a pruebas)
+
+- Último commit de migración: editor de hitos del histórico (`7e9e651`, API en
+  `641a08c`) y arreglo de horas de Esfuerzo (`50ebf34`). Todo empujado a `main`.
+- **En pausa para pruebas de tu compañero.** No se empezó la extensión del
+  proyecto ni sus integraciones; es el siguiente bloque (ver más abajo).
+- Corrección de horas: `ProjectDateRangeResolver.resolve_full` une todas las
+  filas de MPB con el mismo ID (AER.CCO.008 tiene dos: una terminada 18–20/05
+  y otra en curso 11/05–31/12). Solo la usa `get_executive_dashboard`
+  (Esfuerzo y Ejecutivo del proyecto). Horas por mes usa la base local y
+  Presupuesto vs consumo usa su propio rango por fila: pueden seguir sin
+  coincidir; no se tocó. Sin verificar contra Clockify real.
+- Pruebas: `tests/clockify`, `tests/ejecutivo`, `tests/portal` 1259 aprobadas;
+  hitos 17 e2e + 15 API + 3 Node. Fallan 3 pruebas tardías de Work Items
+  (`test_late_response_does_not_modify_reentered_view`), también sin estos
+  cambios, sin investigar. JS: 3 fallos anteriores documentados.
+- No comiteados (ajenos): `tools/migracion/inline2css.py`,
+  `tools/migracion/migrate_page.py`, `shots_tmp/`, `tests/e2e/test_zz_*.py`.
+- Para correr en otra máquina: `.env`, `key.json` y `db.sqlite3` no van en
+  Git; hay que crear `.venv`, instalar dependencias y configurar credenciales.
+- Siguiente: extensión del proyecto + integraciones (Azure DevOps, IA,
+  Clockify) y pestañas IXB/AER restantes; luego limpieza y CSP. Fase 10 sigue
+  parcial: no retirar el shim RPC ni `proyecto_detalle.js`.
+
 ## Bloque: fase 10, editor de hitos adicionales (modal del histórico)
 
 - API v1: `GET screens/proyectos/hitos/tipos/` (view_operations) y POST
