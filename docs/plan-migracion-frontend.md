@@ -22,17 +22,17 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 0 | Línea base e2e | n/a | n/a | Hecha |
 | 1 | `frontend/`: layouts, tokens, cliente de datos, importmap | n/a | Hecha | Hecha |
 | 2 | App `access`: capacidades y alcance | Hecha | n/a | Hecha; apagada por defecto |
-| 3 | EVA-04 | Hecha | Hecha | **Sin validación visual** |
-| 4 | Operativa | Hecha | Hecha | **Sin validación visual** |
+| 3 | EVA-04 | Hecha | Hecha | Hecha (validación visual 23/10; rediseño corregido al anterior) |
+| 4 | Operativa | Hecha | Hecha | Hecha (validación visual 23/10) |
 | 5 | Acuerdos | Hecha | No (la interfaz sigue en el JS anterior) | Parcial |
 | 6 | Línea base de lo nuevo | n/a | n/a | Hecha |
-| 7 | Comparativa, cuenta, Delivery Manager | Hecha | **No** | **Parcial: cambio de alcance** |
+| 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | **No** | **Parcial: cambio de alcance** |
 | 9 | Resto de pantallas | Parcial: EVA 1-3, Inversión, Capacidad y Facturabilidad; faltan Comercial, Costos, Todas las cuentas y Proyecto | **No** | **Parcial: permisos y APIs** |
 | 10 | `proyecto_detalle` y fin de `/api/rpc/` | RPC con permisos | **No** | **Parcial** |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
-**Cambio de alcance (22/10/2026).** Las páginas nuevas de las fases 7 y 8 se
+**Cambio de alcance (22/10/2026), superado el 23/10 para la fase 7.** Las páginas nuevas de las fases 7 y 8 se
 rehicieron con otro diseño y se devolvieron al anterior por pedido del usuario;
 desde entonces esas rutas sirven las plantillas anteriores con el servidor ya
 migrado (permisos, alcance, APIs). Pasarlas a `frontend/` exige primero igualar
@@ -45,13 +45,13 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | Pantalla | Ruta | Plantilla servida | API | Frontend migrado | Validación visual |
 |---|---|---|---|---|---|
 | Guía de interfaz | `guia-de-interfaz/` | `pages/guia.html` | `me`, `ping` | **Sí** | n/a (es nueva) |
-| Operativa | `operativa/` | `pages/operativa.html` | `screens/operativa/…` | **Sí** | **Pendiente** |
-| EVA-04 | `operativa/eva-4/` | `pages/eva4.html` (la anterior con `?vista=anterior` hasta el 3/11) | `screens/eva4/` | **Sí** | **Pendiente** |
+| Operativa | `operativa/` | `pages/operativa.html` | `screens/operativa/…` | **Sí** | **Hecha 23/10**: barra, encabezado y tarjetas medidos contra la anterior |
+| EVA-04 | `operativa/eva-4/` | `pages/eva4.html` (la anterior con `?vista=anterior` hasta el 3/11) | `screens/eva4/` | **Sí** | **Hecha 23/10**: se rehízo con el diseño anterior (encabezado con mes, indicadores, dos columnas, sin plegables) |
 | Horas por mes (cuenta) | `cuenta/<slug>/horas/` | `pages/account_hours.html` | `screens/cuenta/horas/` | **Sí** | n/a (funcionalidad nueva, del usuario) |
 | Business Overview | `` (raíz) | `portal/ejecutiva.html` | `screens/executive/` | No | Igual (es la anterior) |
-| Cuenta | `cuenta/<slug>/` | `portal/cuenta.html` | `screens/cuenta/…` | No | Igual (es la anterior) |
-| Comparativa de márgenes | `ejecutiva/oportunidades/` | `portal/oportunidades_financieras.html` | `screens/margenes/…` | No | Igual |
-| Delivery Manager | `operativa/delivery-manager/<slug>/` | `portal/delivery_manager.html` | `screens/delivery-managers/…` | No | Igual |
+| Cuenta | `cuenta/<slug>/` | `pages/account.html` (la anterior con `?vista=anterior`) | `screens/cuenta/…`, `agreements/` | **Sí** | **Hecha 23/10**: estilos calculados y cajas iguales; `tests/e2e/test_cuenta.py` |
+| Comparativa de márgenes | `ejecutiva/oportunidades/` | `pages/margins.html` (la anterior con `?vista=anterior`) | `screens/margenes/…`, `costs/project/` | **Sí** | **Hecha 23/10**; `tests/e2e/test_margenes.py` |
+| Delivery Manager | `operativa/delivery-manager/<slug>/` | `pages/delivery_manager.html` (la anterior con `?vista=anterior`) | `screens/delivery-managers/…` | **Sí** | **Hecha 23/10**; `tests/e2e/test_delivery_manager.py` |
 | KPIs de DMs | `operativa/kpis-delivery-managers/` | `portal/kpis_dm.html` | `screens/kpis-dm/` | No | Igual |
 | Diccionario | `diccionario-datos/` | `portal/diccionario_datos.html` | `reference/glossary/` | No | Igual |
 | Todas las cuentas | `ejecutiva/cuentas/` | `portal/todas_cuentas.html` | No | No | Igual |
