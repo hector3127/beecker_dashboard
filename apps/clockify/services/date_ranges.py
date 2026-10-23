@@ -77,20 +77,6 @@ class ProjectDateRangeResolver:
 
         return self._resolve_from_history(project_id)
 
-    def resolve_full(self, project_id: str) -> ProjectDateRange:
-        """
-        Como resolve(), pero abarca todas las filas de MPB con el mismo ID.
-
-        Un proyecto puede tener una fila terminada y otra en curso; el
-        rango normal toma solo la primera y deja fuera horas reales.
-        """
-        if cr_nomenclature(project_id) or not (
-            project_id.strip().upper().startswith(MPB_PROJECT_PREFIXES)
-        ):
-            return self.resolve(project_id)
-
-        return self._resolve_from_mpb(project_id, union=True)
-
     def resolve_from_history(self, project_id: str) -> ProjectDateRange:
         """
         Rango Discovery -> Deployment de Historico_Proyectos A:I.
@@ -106,9 +92,7 @@ class ProjectDateRangeResolver:
         """
         return self._resolve_from_history(project_id)
 
-    def _resolve_from_mpb(
-        self, project_id: str, union: bool = False
-    ) -> ProjectDateRange:
+    def _resolve_from_mpb(self, project_id: str) -> ProjectDateRange:
         """
         Lee INICIO y FIN de la hoja MPB.
 
@@ -159,7 +143,9 @@ class ProjectDateRangeResolver:
         if matches:
             starts = [m.start_date for m in matches if m.start_date]
             ends = [m.end_date for m in matches if m.end_date]
-            if union and starts and ends:
+            if starts and ends:
+                # Un ID puede estar repetido (una fila terminada y otra en
+                # curso): se abarcan todas para no perder horas.
                 return ProjectDateRange(min(starts), max(ends), SHEET_MPB)
             return matches[0]
 

@@ -5,15 +5,15 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 ## Dónde nos quedamos (23/10/2026, antes de pasar el repo a pruebas)
 
 - Último commit de migración: editor de hitos del histórico (`7e9e651`, API en
-  `641a08c`) y arreglo de horas de Esfuerzo (`50ebf34`). Todo empujado a `main`.
+  `641a08c`) y arreglo de horas por rango MPB (último commit de código). Todo empujado a `main`.
 - **En pausa para pruebas de tu compañero.** No se empezó la extensión del
   proyecto ni sus integraciones; es el siguiente bloque (ver más abajo).
-- Corrección de horas: `ProjectDateRangeResolver.resolve_full` une todas las
-  filas de MPB con el mismo ID (AER.CCO.008 tiene dos: una terminada 18–20/05
-  y otra en curso 11/05–31/12). Solo la usa `get_executive_dashboard`
-  (Esfuerzo y Ejecutivo del proyecto). Horas por mes usa la base local y
-  Presupuesto vs consumo usa su propio rango por fila: pueden seguir sin
-  coincidir; no se tocó. Sin verificar contra Clockify real.
+- Corrección de horas: `ProjectDateRangeResolver._resolve_from_mpb` ahora une
+  todas las filas de MPB con el mismo ID (AER.CCO.008 tiene dos: una terminada
+  18–20/05 y otra en curso 11/05–31/12). Antes tomaba la primera y Esfuerzo
+  mostraba 92 h. Aplica a todo consumidor de `resolve()` (AER, ejecutivo,
+  tareas, validación). AER.CCO.008 ahora da 5,050.9 h (coincide con Horas por
+  mes). Presupuesto vs consumo usa su rango por fila de cuenta; no se tocó.
 - Pruebas: `tests/clockify`, `tests/ejecutivo`, `tests/portal` 1259 aprobadas;
   hitos 17 e2e + 15 API + 3 Node. Fallan 3 pruebas tardías de Work Items
   (`test_late_response_does_not_modify_reentered_view`), también sin estos

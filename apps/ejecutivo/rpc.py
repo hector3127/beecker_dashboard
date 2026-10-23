@@ -320,7 +320,7 @@ def get_executive_dashboard(project_id: object = "") -> JsonObject:
 
     def load_selected_entries(project_id: str) -> Any:
         if project_id not in selected_entries:
-            selected_entries[project_id] = project_loader.full(project_id)
+            selected_entries[project_id] = project_loader(project_id)
         return selected_entries[project_id]
 
     def load_portfolio_entries() -> tuple[TimeEntry, ...]:
@@ -400,10 +400,6 @@ class LazyProjectEntries:
             self._get_loader().prefetch_projects(project_ids)
         except DashboardError as error:
             logger.info("Precarga de Clockify omitida: %s", error.detail)
-
-    def full(self, project_id: str) -> list[TimeEntry]:
-        """Todas las horas del proyecto, aunque MPB repita su ID."""
-        return self._get_loader().load_project(project_id, full_span=True)
 
     def __call__(self, project_id: str) -> list[TimeEntry]:
         """
