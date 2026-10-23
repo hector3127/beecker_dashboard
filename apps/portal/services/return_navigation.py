@@ -13,6 +13,7 @@ LABELS = {
     "portal:operativa": "Operativa",
     "portal:comercial": "Comercial",
     "portal:cuenta": "la cuenta",
+    "portal:cuenta_horas": "Horas por mes",
     "portal:delivery_manager": "Delivery Manager",
     "portal:costos_detalle": "Detalle de costos",
     "portal:oportunidades_financieras": "Comparativa de márgenes",

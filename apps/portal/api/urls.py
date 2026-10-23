@@ -7,6 +7,7 @@ from apps.portal.api.account import (
     AccountFinanceView,
     AccountScreenView,
 )
+from apps.portal.api.account_hours import AccountHoursView
 from apps.portal.api.agreements import AgreementDetailView, AgreementListView
 from apps.portal.api.screens import (
     Eva4ScreenView,
@@ -30,6 +31,9 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/cuenta/horas/", AccountHoursView.as_view(), name="cuenta_horas"
+    ),
     path("me/", MeView.as_view(), name="me"),
     path("agreements/", AgreementListView.as_view(), name="agreements"),
     path(

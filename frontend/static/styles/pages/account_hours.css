@@ -1,0 +1,29 @@
+.hours-toolbar,.hours-filters{display:flex;align-items:end;gap:16px;flex-wrap:wrap}
+.hours-toolbar{justify-content:space-between;align-items:center;margin-bottom:24px}
+.hours-heading{margin-bottom:24px}.hours-heading h1{margin:0 0 8px;color:var(--title)}
+.hours-heading p{color:var(--muted);margin:0}.hours-filters{margin-bottom:24px}
+.hours-filters [hidden]{display:none}
+.hours-filters select{min-height:44px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.hours-range{display:flex;gap:16px;flex-wrap:wrap}
+.hours-project-picker{position:relative;margin-left:auto;min-width:240px}
+.hours-project-picker summary{cursor:pointer;padding:12px 16px;border:1px solid var(--line-strong);border-radius:8px;background:var(--card);font-weight:600;min-height:44px;box-sizing:border-box}
+.hours-project-panel{position:absolute;right:0;top:calc(100% + 8px);z-index:20;background:var(--card);border:1px solid var(--line-strong);border-radius:12px;box-shadow:var(--shadow);padding:16px;width:min(480px,calc(100vw - 48px));box-sizing:border-box}
+.hours-project-panel input[type="search"]{width:100%;box-sizing:border-box}.hours-project-options{max-height:280px;overflow:auto;margin-top:12px}
+.hours-filters .hours-project-option{display:flex;align-items:center;gap:12px;padding:8px 4px;min-height:44px;border-top:1px solid var(--line-soft);cursor:pointer}
+.hours-project-option small{display:block;color:var(--muted);font-weight:400;margin-top:4px}.hours-filters .hours-project-option input{width:18px;min-height:18px;height:18px;padding:0;flex-shrink:0;accent-color:var(--brand)}
+.hours-filters label{display:grid;gap:8px;font-weight:600}.hours-filters input{min-height:44px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:8px;background:var(--card);color:var(--ink);font:inherit}
+.hours-search{margin-left:auto;min-width:240px}.hours-summary{display:flex;gap:24px;flex-wrap:wrap;padding:20px 0;margin-bottom:16px;border-block:1px solid var(--line)}
+.hours-summary p{display:grid;gap:8px;margin:0;min-width:150px}.hours-summary strong{font-size:24px;color:var(--ink-strong)}
+.hours-report{padding:24px;min-width:0}.hours-report h2{margin-top:0}.hours-scroll{overflow:auto;max-height:65vh;border:1px solid var(--line);border-radius:8px;margin-top:20px}
+.hours-scroll table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;font-variant-numeric:tabular-nums}
+.hours-scroll th,.hours-scroll td{padding:14px 16px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line-soft)}
+.hours-scroll thead th{position:sticky;top:0;background:var(--th-bg);color:var(--th-ink);z-index:2}
+.hours-scroll :is(th,td):first-child{text-align:left;position:sticky;left:0;background:var(--card);z-index:1;min-width:230px;max-width:330px;white-space:normal}
+.hours-scroll thead th:first-child{z-index:3;background:var(--th-bg)}.hours-scroll :is(th,td) small{display:block;color:var(--muted);margin-top:5px}
+.hours-scroll tbody tr:hover td{background:var(--hover)}.hours-scroll tfoot :is(th,td){font-weight:700;background:var(--total-bg);color:var(--total-ink)}
+.hours-scroll tbody th{text-transform:none;letter-spacing:normal;font-weight:600}.hours-scroll tbody th small{font-weight:400}
+.hours-scroll tfoot :is(th,td){position:sticky;bottom:0;z-index:2}.hours-scroll tfoot th:first-child{background:var(--total-bg);z-index:3}
+.hours-scroll .hours-pending{color:var(--warn-ink)}.hours-scroll .hours-current{background:var(--hover-soft)}
+#hours-status{margin-block:16px;color:var(--muted)}#hours-status[data-error="true"]{color:var(--bad)}
+@media(max-width:640px){.hours-project-picker{margin-left:0;width:100%;min-width:0}.hours-search{margin-left:0;width:100%;min-width:0}.hours-report{padding:16px}.hours-scroll :is(th,td):first-child{min-width:170px;max-width:210px}.hours-toolbar{align-items:stretch}.hours-toolbar .btn{justify-content:center}}
+@media print{.hours-toolbar,.hours-filters,nav{display:none}.hours-scroll{max-height:none;overflow:visible}.hours-scroll :is(th,td){position:static!important;padding:6px;font-size:9px}.hours-report{padding:0}}

@@ -11,6 +11,7 @@ from django.views.decorators.http import require_GET
 from apps.access.checks import require_capability
 from apps.portal import views
 from apps.portal.services.eva4 import anterior_disponible, month_picker
+from apps.portal.services.return_navigation import return_context
 
 """BKD.120.014 - Paginas del frontend
 Cada pagina valida el acceso y renderiza su plantilla; los datos los pide
@@ -64,3 +65,34 @@ def operativa(request: HttpRequest) -> HttpResponse:
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
     return render(request, "pages/operativa.html", {"active": "operativa"})
+
+
+@require_GET
+@require_capability("view_operations")
+def account_hours(request: HttpRequest, slug: str) -> HttpResponse:
+    """Monthly account hours in the modular frontend, with account return."""
+    from urllib.parse import urlencode
+
+    from django.urls import reverse
+
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    client = views.authorized_account(request, slug)
+    if isinstance(client, HttpResponse):
+        return client
+    back = (
+        reverse("portal:cuenta", kwargs={"slug": slug})
+        + "?"
+        + urlencode({"nombre": client})
+    )
+    return render(
+        request,
+        "pages/account_hours.html",
+        {
+            "active": "operativa",
+            "client": client,
+            "year": timezone.localdate().year,
+            "today": timezone.localdate().isoformat(),
+            **return_context(request, back, client),
+        },
+    )

@@ -1,0 +1,24 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+{% block title %}Horas por mes · {{ client }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/account_hours.css' %}">{% endblock %}
+{% block content %}
+<div class="hours-toolbar"><a class="btn btn-ghost" href="{{ back_url }}">← Regresar a {{ back_label }}</a><a class="btn btn-ghost" id="hours-download" hidden>Descargar CSV para Excel</a></div>
+<header class="hours-heading"><h1>Horas por mes</h1><p>{{ client }} · consumo registrado por proyecto</p></header>
+<form id="hours-filters" class="hours-filters" data-client="{{ client }}" data-year="{{ year }}" data-today="{{ today }}" data-project-url="{% url 'portal:proyecto_detalle' 'PROJECT_ID' %}">
+<label>Periodo<select id="hours-period"><option value="anio">Año completo</option><option value="rango">Rango de fechas</option></select></label>
+<label id="hours-year-field">Año<input name="anio" id="hours-year" type="number" min="2000" max="{{ year }}" value="{{ year }}" required></label>
+<div id="hours-range" class="hours-range" hidden><label>Desde<input id="hours-from" type="date"></label><label>Hasta<input id="hours-to" type="date"></label></div>
+<button class="btn btn-primary" type="submit">Generar reporte</button>
+<details class="hours-project-picker" id="hours-project-picker"><summary id="hours-project-summary">Todos los proyectos</summary><div class="hours-project-panel"><label>Buscar proyecto<input id="hours-search" type="search" placeholder="ID o nombre del proyecto"></label><p class="note">Marca uno o varios. Sin selección se muestran todos.</p><button type="button" class="btn btn-ghost" id="hours-clear-projects">Mostrar todos</button><div id="hours-project-options" class="hours-project-options"></div></div></details>
+</form>
+<div id="hours-status" role="status" aria-live="polite"></div>
+<section id="hours-content" aria-label="Reporte mensual de horas" hidden>
+<div id="hours-summary" class="hours-summary"></div>
+<section class="card hours-report"><h2>Consumo mensual por proyecto</h2><p class="note">Horas facturables y no facturables por fecha de trabajo, incluidos proyectos sin ingresos. Los sprints agrupados se muestran bajo su proyecto principal, igual que en costos. El mes actual se muestra con corte parcial. Pendiente significa que falta un vínculo o una sincronización; no equivale a cero.</p>
+<div class="hours-scroll" tabindex="0" role="region" aria-label="Tabla de horas; desplaza horizontalmente para ver los meses"><table id="hours-table"></table></div>
+<p id="hours-count" class="note"></p></section>
+<p id="hours-source" class="note"></p>
+</section>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/account_hours/main.js' %}"></script>{% endblock %}
