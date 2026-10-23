@@ -173,7 +173,9 @@ def enter(portal, previous=False, wait=True):
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["full", "empty", "partial"])
+@pytest.mark.parametrize(
+    "variant", ["full", "empty", "partial", "comparable", "incomplete"]
+)
 def test_same_view_and_external_styles(portal, ia, fixed_day, width, variant):
     responses, _ = ia
     if variant == "empty":
@@ -184,6 +186,30 @@ def test_same_view_and_external_styles(portal, ia, fixed_day, width, variant):
     elif variant == "partial":
         responses["clockify"] = {"ok": False, "error": "Clockify no disponible"}
         responses["analysis"] = {"ok": False, "error": "Análisis no disponible"}
+    elif variant in {"comparable", "incomplete"}:
+        responses["memoria"]["actual"] = {
+            "fecha": "2026-10-01",
+            "analisis": {},
+            "snapshot": {
+                "fuentes": ["azure", "clockify"]
+                if variant == "comparable"
+                else [],
+                "horas": 12,
+                "workItems": [],
+                "raidIds": [],
+                "acciones": [],
+            },
+        }
+        responses["resources"]["filas"].extend(
+            [
+                {"nombre": "Sin presupuesto", "horasEstimadas": 0},
+                {"nombre": "Excedido", "horasEstimadas": 2},
+                {"nombre": "Inactivo", "activo": False, "horasEstimadas": 5},
+            ]
+        )
+        responses["clockify"]["registros"].append(
+            {"recurso": "Excedido", "duracion": 5, "fecha": "2026-10-21"}
+        )
     portal.set_viewport_size({"width": width, "height": 1000})
     directory = (
         Path("tmp/migration/project_detail/ixs_ai_sources")
@@ -206,6 +232,42 @@ def test_same_view_and_external_styles(portal, ia, fixed_day, width, variant):
     for id in ["ixs-ia-styles", "ixai-ref-styles", "ixs-ia-extended-style"]:
         expect(portal.locator("link#" + id)).to_have_count(1)
         expect(portal.locator("style#" + id)).to_have_count(0)
+
+
+def test_modular_panels_safe_text_and_resource_navigation(
+    portal, ia, fixed_day
+):
+    responses, _ = ia
+    text = '<img src=x onerror="window.injected=true">'
+    responses["resources"]["filas"][0]["nombre"] = text
+    responses["memoria"]["actual"] = {
+        "fecha": text,
+        "analisis": {},
+        "snapshot": {
+            "fuentes": ["azure", "clockify"],
+            "horas": 0,
+        },
+    }
+    enter(portal)
+    panel = portal.locator(".ixai-two")
+    expect(panel).to_contain_text(text)
+    expect(panel.locator("img, [onclick]")).to_have_count(0)
+    assert portal.evaluate("window.injected === undefined")
+    portal.evaluate("""() => {
+      window.originalAiPanels = window.beeIxsAiPanels;
+      window.panelCalls = 0;
+      window.beeIxsAiPanels = (...args) => {
+        window.panelCalls++; return window.originalAiPanels(...args);
+      };
+      ixsIAPintar();
+    }""")
+    assert portal.evaluate("window.panelCalls") == 1
+    portal.get_by_role("button", name="Ver recursos", exact=True).click()
+    expect(
+        portal.locator(".ixs-nav").get_by_role(
+            "button", name="Recursos", exact=True
+        )
+    ).to_have_class("active")
 
 
 def test_initial_reads_use_api_without_model_or_rpc(portal, ia, fixed_day):

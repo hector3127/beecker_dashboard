@@ -58,11 +58,13 @@ evidencia y seis errores previos de mypy en el traspaso.
 historial y Drive por API. Tres CSS externos conservan IDs y orden anteriores.
 43 API y 13 e2e aprobadas; regresión dirigida de 91 aprobadas en ese bloque.
 Después se extrajeron contexto, snapshot, cambios entre cortes y capacidad
-a `ixs_ai_model.js`, contrastados con las funciones originales. La presentación,
-generación y formularios siguen anteriores. No dar IA por
+a `ixs_ai_model.js`, contrastados con las funciones originales. Los paneles
+de capacidad y cambios ya usan `ixs_ai_panels_view.js` con DOM seguro y el
+evento externo de Ver recursos. El resto de presentación, generación y
+formularios sigue anterior. No dar IA por
 terminada ni consultar modelos o servicios reales durante las pruebas.
 
-**Siguiente bloque sugerido:** presentación de IA IXB/SaaS/RaaS con DOM seguro,
+**Siguiente bloque sugerido:** resto de presentación de IA IXB/SaaS/RaaS con DOM seguro,
 usando el modelo ya separado sin cambiar cálculos; después sus acciones por API con los
 permisos originales y CSRF. Luego Cliente/Acciones
 (comparten renderer con AER) y Comunicación; luego las pestañas de AER distintas

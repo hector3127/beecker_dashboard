@@ -117,8 +117,10 @@ IA IXB tiene fuentes, historial y Drive por API v1 en `project_ai.py` y
 `sections/ixs_ai_sources.js`, con tres CSS externos y comparación visual.
 Contexto, snapshot, comparación entre cortes y capacidad ya están separados
 en `sections/ixs_ai_model.js`, conservando las fórmulas anteriores.
-Sigue parcial: presentación, generación y formularios aún usan el script
-anterior. Siguiente vista; después acciones con permisos y CSRF. Ver evidencia
+Los paneles de capacidad y cambios usan DOM seguro y evento externo en
+`sections/ixs_ai_panels_view.js`. Sigue parcial: el resto de presentación,
+generación y formularios aún usa el script anterior. Siguiente resto de vista;
+después acciones con permisos y CSRF. Ver evidencia
 en el traspaso.
 
 **Planeación y la fase 10 continúan parciales.** Siguiente:

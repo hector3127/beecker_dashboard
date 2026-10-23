@@ -103,6 +103,22 @@ Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Fase 10: paneles de capacidad y cambios de IA (parcial)
+
+`ixs_ai_panels_view.js` separa ambos paneles con DOM seguro e iconos originales.
+Reutiliza el modelo de IA, sin cambiar cálculos ni presentación. Ver recursos
+usa evento externo y conserva navegación. La extensión de la ruta nueva delega;
+la comparación sigue ejecutando los paneles anteriores.
+
+Evidencia: 32 pruebas navegador/soporte aprobadas, incluidas 15 comparaciones
+de cinco variantes a 1450/900/390 px, texto seguro, delegación y navegación.
+16 pruebas Node dirigidas aprobadas. Ruff/formato y diff aprobados.
+Capturas en `tmp/migration/project_detail/ixs_ai_sources/`; inspeccionada
+`comparable/1450/new.png`. Fuentes simuladas, sin llamadas reales a IA.
+
+**IA y fase 10 parciales:** el resto de vista/eventos y las acciones/formularios
+permanecen anteriores. No retirar shim ni script anterior.
+
 ### Fase 10: modelo de IA IXB (parcial)
 
 Contexto, snapshot, cambios entre cortes y capacidad por recurso separados en

@@ -3,6 +3,7 @@
 import { createProjectData } from "./data.js";
 import { createAiSources } from "./sections/ixs_ai_sources.js";
 import * as aiModel from "./sections/ixs_ai_model.js";
+import { renderAiPanels } from "./sections/ixs_ai_panels_view.js";
 import { createAzureController } from "./sections/ixs_azure.js";
 import { createAzureGroupsController } from "./sections/ixs_azure_groups.js";
 import { renderSummary } from "./sections/ixs_azure_summary.js";
@@ -60,6 +61,7 @@ async function start() {
       beeProjectData: data,
       beeIxsAiSources: createAiSources(data),
       beeIxsAiModel: aiModel,
+      beeIxsAiPanels: renderAiPanels,
       beeIxsAzure: createAzureController(data),
       beeIxsAzureGroups: azureGroups,
       beeIxsAzureSummary: renderSummary,

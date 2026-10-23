@@ -2,6 +2,27 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, paneles de capacidad y cambios de IA (parcial)
+
+- `sections/ixs_ai_panels_view.js` presenta capacidad y cambios entre cortes
+  con DOM seguro, iconos originales y evento externo para Ver recursos.
+  Recibe resultados del modelo ya separado, sin recalcularlos. La extensión
+  anterior delega estos dos paneles; la ruta de comparación conserva su HTML.
+- Misma tabla, columnas, decimales, balance, estados y mensajes. Conserva
+  recursos sin estimación/excedidos, exclusión de inactivos y comparación
+  completa/incompleta/ausente. No se añadieron endpoints ni acciones de IA.
+- **32 pruebas navegador/soporte aprobadas**, incluidas 15 comparaciones de
+  cajas/estilos contra la anterior: cinco variantes a 1450/900/390 px.
+  La prueba nueva comprueba delegación, texto de recursos/fecha como texto
+  seguro sin ejecutar HTML, y navegación a Recursos. **16 Node aprobadas**
+  de modelo, fuentes y cliente. Ruff/formato y diff aprobados.
+- Capturas en `tmp/migration/project_detail/ixs_ai_sources/`; inspeccionada
+  `comparable/1450/new.png`. Fuentes simuladas, sin modelos/servicios reales.
+- IA y fase 10 siguen parciales: falta el resto de vista/eventos (cabecera,
+  resumen, atención, recomendaciones, fuentes, preguntas, minutas y Drive),
+  y las acciones/formularios por API. Continuar por apartados con comparación;
+  mantener shim y script anterior. Sin push.
+
 ## Bloque: fase 10, modelo de IA IXB (parcial)
 
 - `sections/ixs_ai_model.js` separa contexto, snapshot de memoria, cambios
