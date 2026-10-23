@@ -41,6 +41,9 @@ Migradas (ruta → plantilla de `frontend/templates/pages/`, con la anterior en 
 | Facturabilidad por especialidad | `/operativa/facturabilidad/especialidad/` | `billability_specialty.html` |
 | Facturabilidad por recurso | `/operativa/facturabilidad/recurso/` | `billability_resource.html` |
 | Facturabilidad por área | `/operativa/facturabilidad/area/` | `billability_area.html` |
+| EVA 1 (con histórico) | `/operativa/eva-1/` | `eva1.html` |
+| EVA 2 | `/operativa/eva-2/` | `eva2.html` |
+| EVA 3 (con histórico) | `/operativa/eva-3/` | `eva3.html` |
 
 **Pendiente, en este orden:**
 
@@ -49,9 +52,11 @@ pantallas de Capacidad ya se completaron. El detalle diario usa API v1 y
 modulos de modelo, vista y controlador, sin `gas_shim.js` en la ruta nueva.
 Las cuatro pantallas de Facturabilidad están completadas. Por área usa
 API v1 y módulos separados para los cinco apartados; no usa el shim RPC.
-Sigue EVA.
+EVA 1–3 también están completadas, incluidos los históricos existentes de
+EVA 1 y EVA 3. EVA 2 conserva su presentación sin añadirle otro histórico.
+Sigue la página simple de Proyecto.
 
-1. EVA 1, 2 y 3 con sus cerrados; la página simple de Proyecto.
+1. La página simple de Proyecto (`proyecto/<id>/`).
 2. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): dividir en módulos por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`.
 3. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).
 4. Genesis / `ACCESS_ENFORCED`: decisión de despliegue, no de código.

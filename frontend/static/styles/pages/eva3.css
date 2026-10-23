@@ -1,0 +1,240 @@
+/* Reglas de la pantalla anterior, sin las de la barra superior. */
+
+/* --- estilo en linea --- */
+th,
+td {
+  text-align: center;
+}
+.two {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+td:first-child,
+th:first-child {
+  text-align: left;
+}
+.num {
+  font-variant-numeric: tabular-nums;
+}
+table.w {
+  font-size: 12.5px;
+}
+table.d.w th,
+table.d.w td {
+  padding: 9px 5px;
+}
+table.d.w th {
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  white-space: normal;
+}
+table.d.w td.s {
+  padding: 9px 3px;
+}
+table.w .bd {
+  min-width: 0;
+  padding: 3px 7px;
+  font-size: 12px;
+}
+table.w .st {
+  font-size: 11.5px;
+  padding: 3px 8px;
+}
+table.d {
+  font-size: 13.5px;
+}
+table.d th {
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+table.d td {
+  padding: 11px 8px;
+  text-align: left;
+}
+table.d th {
+  text-align: left;
+}
+table.d td.n,
+table.d th.n {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+table.d td.c,
+table.d th.c {
+  text-align: center;
+}
+.bd {
+  display: inline-block;
+  min-width: 44px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 3px 9px;
+  font-weight: 800;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.ok {
+  background: #ddf3e6;
+  color: #13693b;
+}
+.bad {
+  background: #fbe3e7;
+  color: #a31b33;
+}
+.st {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-weight: 800;
+  font-size: 12.5px;
+  color: #fff;
+}
+.gh {
+  background: #f1ecfd;
+  color: #2b1b8f !important;
+  text-align: center !important;
+  border-left: 2px solid #fff;
+  font-size: 12px !important;
+}
+.two2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.kp4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+@media (max-width: 900px) {
+  .two2,
+  .kp4 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .page {
+    padding: 16px;
+  }
+  .two2,
+  .kp4 {
+    grid-template-columns: 1fr;
+  }
+}
+.kp4 {
+  gap: 14px;
+}
+.kc .metric-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #eee7ff;
+  color: #692bfa;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.metric-icon svg {
+  width: 27px;
+  height: 27px;
+}
+.kc:nth-child(3) .metric-icon {
+  color: #f39400;
+  background: #fff4e1;
+}
+.bd {
+  border-radius: 14px;
+  font-size: 12px;
+  min-width: 44px;
+}
+.ok {
+  background: #dcf7e9;
+  color: #11724f;
+}
+.bad {
+  background: #ffe1e7;
+  color: #e52349;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.section-title .metric-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: #f2ecff;
+  color: #6b30fb;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.section-title .hs {
+  margin: 4px 0 0;
+}
+.loading {
+  color: #8775b2;
+  font-size: 11px;
+}
+.clock-error {
+  color: #bd2742;
+  font-size: 11px;
+}
+.kp4 .ej {
+  border-radius: 12px;
+  background: #ffeac1;
+  color: #9c640d;
+}
+@media (max-width: 900px) {
+  .kp4 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .page {
+    padding: 16px;
+  }
+  .kp4 {
+    grid-template-columns: 1fr;
+  }
+  .tabs a {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+/* Estilos que estaban en linea. */
+.evi-617963.evi-617963 {
+  margin-bottom: 14px;
+}
+.evi-f1503f.evi-f1503f {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.evi-037239.evi-037239 {
+  width: 40px;
+  height: 40px;
+  color: #6633ff;
+  background: #efe9ff;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+}
+
+.eva3-page .portal-page-toolbar.crumb {
+  margin-bottom: 16px;
+}
+@media (max-width: 650px) {
+  .eva3-page .portal-page-toolbar.crumb {
+    margin-bottom: 12px;
+  }
+}

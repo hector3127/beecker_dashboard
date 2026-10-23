@@ -3,6 +3,26 @@
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Última pantalla terminada
+- **EVA 1, 2 y 3**: plantillas `pages/eva{1,2,3}.html`, CSS y módulos
+  separados; contexto Python, diseño y cálculos conservados. Los históricos
+  existentes de EVA 1 y EVA 3 usan JSON y nodos DOM seguros. EVA 2 sigue sin
+  desplegable de cerrados, como antes. EVA 1 mantiene filtros y CSV; EVA 3
+  conserva lotes de dos proyectos, carga parcial, promedio de consumos,
+  corte de 2026 y guardado del Burn pendiente en MPB, con reintento.
+  Quince pruebas e2e aprobadas (1450 y 390 px, tablas y estilos, históricos
+  originales frente a nuevos), 29 pruebas de API y dos comparaciones Node
+  contra los scripts anteriores. Se mantienen los permisos y CSRF.
+  JavaScript: 122 aprobadas y los tres fallos anteriores sin modificar.
+  La primera regresión completa tuvo 1203 aprobadas y el fallo intermitente
+  ya documentado de Acuerdos (HTTP 403 al cambiar un estado). Sus tres
+  pruebas aisladas pasaron sin cambios. La segunda corrida tuvo también
+  1203 aprobadas, una omitida y un fallo, esta vez en
+  `test_flujos::test_acuerdos_se_consultan_y_modifican_con_sesion`: al
+  recargar, la sesión terminó en el login. No se da por limpia la suite.
+  Las tres pruebas de Acuerdos, ese recorrido de sesión y las quince de EVA
+  pasaron juntos después: **19 aprobadas**, sin modificar permisos, sesiones
+  ni pruebas de Acuerdos. La investigación de esa intermitencia queda aparte.
+  **Siguiente: Proyecto simple (`proyecto/<id>/`).**
 - **Facturabilidad por área** (`pages/billability_area.html`): General,
   Detalle recurso, KPIs, % Recurso y Detalle HRS. Datos mediante API v1;
   módulos separados, DOM seguro y CSS externo. Se conservan los servicios
@@ -17,7 +37,7 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   de Django aprobados. La prueba anterior que exigía el shim ahora verifica
   tanto la ruta activa modular como `?vista=anterior`, sin perder controles
   de año, navegación, cookie CSRF ni enlaces.
-  **Siguiente: EVA 1–3 y sus cerrados.**
+  EVA 1–3 se completaron después, como se indica arriba.
 - **Facturabilidad general, especialidad y recurso**: plantillas
   `pages/billability*.html`, CSS y JS separados, con el mismo contexto
   Python y los mismos permisos. Selector de periodo compartido, sin
@@ -71,7 +91,8 @@ Pendientes recibidos de Inversión (ya resueltos; referencia histórica):
 - Inversión: solo comparación de estilos contra la anterior (formulario y celdas iguales; queda la diferencia de alto). Todavía no se ha corrido pytest con ella.
 
 ## Siguiente paso concreto
-Migrar EVA 1–3 con sus cerrados. Facturabilidad completa ya usa `frontend/`.
+Migrar Proyecto simple (`proyecto/<id>/`). EVA 1–3 y Facturabilidad completa
+ya usan `frontend/`; sus históricos y consultas diferidas están conservados.
 El área lee `screens/facturabilidad/area/` y conserva sus cinco apartados.
 Las pruebas comparan con `?vista=anterior`; las capturas se generan bajo
 `tmp/migration/billability_area/`. El CSS anterior oculta la navegación de
@@ -86,6 +107,13 @@ detalle del proyecto por pestañas y limpieza.
   publicación mediante push normal, manteniendo los pendientes ajenos fuera.
 
 ## Verificación al retomar con Codex
+- EVA: **15 e2e y 29 de API aprobadas**, más dos contrastes Node con los
+  scripts originales. Ruff, formato, mypy y `manage.py check` aprobados.
+  JS completo: **122 aprobadas, tres fallos anteriores**. Dos regresiones
+  completas: **1203 aprobadas, 1 omitida, 1 fallida** cada una, con los dos
+  recorridos de sesión de Acuerdos descritos arriba. Corrida conjunta
+  de esos recorridos y EVA: **19 aprobadas**. No atribuir a esta evidencia
+  una regresión completa limpia ni marcar resuelta la intermitencia.
 - Último bloque, Facturabilidad por área: **1160 aprobadas, 1 omitida**
   en la regresión completa; veinte pruebas e2e de esta pantalla y 41 de API.
   JavaScript: 120 aprobadas y tres fallos anteriores documentados. Los dos

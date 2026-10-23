@@ -45,7 +45,7 @@ urlpatterns = [
         views.eva3_cerrados_burn,
         name="eva3_cerrados_burn",
     ),
-    path("operativa/eva3/cerrados/", views.eva3_cerrados, name="eva3_cerrados"),
+    path("operativa/eva3/cerrados/", pages.eva3_cerrados, name="eva3_cerrados"),
     path("", pages.executive, name="ejecutiva"),
     path(
         "proyectos/<str:project_id>/",
@@ -93,7 +93,7 @@ urlpatterns = [
     ),
     path("operativa/eva-2/", pages.eva2, name="eva2"),
     path("operativa/eva-4/", pages.eva4, name="eva4"),
-    path("operativa/eva-3/", views.eva3, name="eva3"),
+    path("operativa/eva-3/", pages.eva3, name="eva3"),
     path(
         "operativa/capacidad-instalada/",
         pages.capacity,

@@ -28,7 +28,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 6 | Línea base de lo nuevo | n/a | n/a | Hecha |
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
-| 9 | Resto de pantallas | APIs de EVA 1-3, Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; Comercial y Todas las cuentas conservan contexto de servidor | **Parcial**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad y Facturabilidad completa | Pendientes EVA 1-3 y Proyecto |
+| 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Parcial**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad y EVA 1–3 | Pendiente Proyecto simple |
 | 10 | `proyecto_detalle` y fin de `/api/rpc/` | RPC con permisos | **No** | **Parcial** |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
@@ -62,15 +62,17 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | Capacidad: detalle diario | `capacidad-instalada/` | `pages/capacity_daily.html` (anterior con `?vista=anterior`) | `screens/capacidad/diaria/` y `.../proyecto/` | **Sí** | `test_capacidad_diaria.py`: matriz y recursos a 1450 y 390 px; filtros, CSV, paginación, reintento, mes y fuentes parciales |
 | Facturabilidad (general, especialidad, recurso) | `operativa/facturabilidad/…` | `pages/billability.html`, `billability_specialty.html`, `billability_resource.html` (anteriores con `?vista=anterior`) | `screens/facturabilidad/…`; se conserva el contexto del servidor | **Sí** | `test_facturabilidad.py`: cifras, periodos, áreas, pestañas, regreso, errores y comparación a 1450 y 390 px, con selectores abiertos y cerrados |
 | Facturabilidad por área | `operativa/facturabilidad/area/` | `pages/billability_area.html` (anterior con `?vista=anterior`) | `screens/facturabilidad/area/{areas,mes,lote,cache,ids}/` | **Sí** | `test_facturabilidad_area.py`: General, Detalle recurso, KPIs, % Recurso y Detalle HRS, además de área seleccionada; comparación de tablas, cajas y estilos a 1450 y 390 px |
-| EVA 1, 2 y 3 y sus cerrados | `operativa/eva-1/`, `eva-2/`, `eva-3/`, `…/cerrados/` | `portal/eva1|2|3.html` | `screens/eva-1|2|3/` | No | Igual |
+| EVA 1 y su histórico IXB/RaaS/SaaS | `operativa/eva-1/`, `operativa/eva-1/cerrados/` | `pages/eva1.html`, `partials/eva_closed.html` | `screens/eva-1/cerrados/`; conserva contexto de servidor en la página | **Sí** | `test_eva123.py`: filtros, CSV, carga diferida, reintento y comparación de tablas, cajas y estilos a 1450 y 390 px; histórico original y nuevo |
+| EVA 2 | `operativa/eva-2/` | `pages/eva2.html` | `screens/eva-2/`; conserva contexto de servidor | **Sí** | `test_eva123.py`: mismas tablas, colores, cifras y estados vacíos a 1450 y 390 px. No tenía desplegable de cerrados y no se añadió |
+| EVA 3 e histórico AER/T&M | `operativa/eva-3/`, `operativa/eva3/cerrados/` | `pages/eva3.html`, `partials/eva3_closed.html` | `screens/eva-3/{consumos,cerrados,cerrados/consumo}/` | **Sí** | `test_eva123.py`: consumo diferido, errores parciales, reintento del guardado y comparación de tablas/cajas/estilos a 1450 y 390 px |
 | Proyecto | `proyecto/<id>/` | `portal/proyecto.html` | No | No | Igual |
 | Detalle del proyecto | `proyectos/<id>/` | `portal/proyecto_detalle.html` (`proyecto_detalle.js` ≈ 1 MB, `/api/rpc/`) | RPC con permisos | **No** | Igual |
 
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
 estilo anteriores. Tras Inversión y Capacidad mensual, `frontend/templates/pages/`
-contiene 20 plantillas (19 pantallas y la guía), incluyendo las cuatro vistas
-de Facturabilidad completadas después de Capacidad.
+contiene 23 plantillas (22 pantallas y la guía), incluyendo Facturabilidad
+completa y EVA 1–3, además de los fragmentos reutilizables en `partials/`.
 
 ### Pendientes que no se dan por hechos
 
@@ -127,7 +129,32 @@ Limitación anterior conservada: el CSS oculta la navegación de apartados en
 pantallas pequeñas. La comparación móvil selecciona antes el apartado en
 escritorio y luego cambia el ancho; no acredita navegación móvil entre ellos.
 No se alteró ese diseño dentro de la migración.
-El siguiente bloque es EVA 1–3, incluidos sus cerrados.
+EVA 1–3 completadas con el contexto Python original y módulos separados.
+Los históricos activos se leen como JSON y se construyen con nodos DOM;
+no se inserta HTML con datos. El formato de las cifras del histórico sigue
+usando los mismos filtros de Django, incluidos agrupación y decimales.
+EVA 1 conserva filtros de fechas, servicio y DM, conteo y CSV. EVA 2 conserva
+su presentación distinta y no recibe funciones nuevas. EVA 3 conserva la
+consulta diferida, lotes de dos IDs, promedio de los proyectos con consumo
+conocido, lectura del histórico de MPB en 2026, guardado de Burn pendiente
+en MPB y hasta dos consultas de cerrados simultáneas. No se cambiaron sus
+umbrales ni redondeos. Las APIs validan alcance total antes de leer fuentes;
+los POST exigen CSRF y delegan en los servicios originales.
+Los fragmentos HTML anteriores se conservan para comparación, con la ruta
+activa sirviendo su equivalente de `frontend/`. Las pruebas de comparación
+solicitan explícitamente el fragmento original con `?vista=anterior`.
+Quince pruebas e2e y 29 de API cubren las tres pantallas; dos pruebas Node
+contrastan filtros/CSV y promedio contra los scripts anteriores.
+Ruff, formato, mypy y comprobación de Django aprobados. JS completo:
+122 aprobadas y tres fallos anteriores. La regresión completa no quedó
+totalmente limpia: dos corridas dieron 1203 aprobadas, una omitida y una
+fallida cada una, en recorridos de sesión de Acuerdos (primero el cambio de
+estado con 403 ya documentado; después la recarga con sesión requerida).
+Los dos recorridos y las quince pruebas EVA pasaron juntos después:
+19 aprobadas, sin cambiar permisos ni pruebas de Acuerdos. Se conserva
+esta limitación de validación para investigarla por separado.
+Capturas: `tmp/migration/eva{1,2,3}/<ancho>/`, con histórico abierto y cerrado.
+El siguiente bloque es la página simple de Proyecto (`proyecto/<id>/`).
 Regresión tras completar Facturabilidad por área: **1160 aprobadas y una
 omitida**; veinte pruebas e2e de esta pantalla y 41 de API. Ruff, formato,
 mypy y `manage.py check` aprobados. JavaScript: 120 aprobadas y los mismos
