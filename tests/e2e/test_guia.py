@@ -39,7 +39,7 @@ def test_styles_match_the_current_design_system(portal):
     assert style(".card h2", "color") == "rgb(27, 26, 158)"
     assert style(".kv", "fontSize") == "38px"
     assert style("th", "backgroundColor") == "rgb(244, 240, 255)"
-    assert style(".nav a", "minHeight") == "44px"
+    assert style(".nav a", "padding") == "8px 13px"
 
 
 def test_keyboard_reaches_the_skip_link_first(portal):
