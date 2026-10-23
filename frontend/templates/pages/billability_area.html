@@ -1,0 +1,18 @@
+{% extends "layouts/app.html" %}
+{% load static  %}
+{% block title %}Facturabilidad por área{% endblock %}
+{% block body_class %}ds billability-area-page{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/billability_area.css' %}">{% endblock %}
+{% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
+{% block content %}
+<div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Operations</span></div>
+{% include 'partials/hero.html' with title="Facturabilidad por área" subtitle="Distribución mensual de horas reales, facturabilidad, capacidad y recursos por área" tone="operations" icon="chart" eyebrow="Operations" %}
+<div class="tabs"><a href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a><a class="on" aria-current="page" href="{% url 'portal:facturabilidad_area' %}{{ picker.query }}">Facturabilidad por área</a></div>
+<div id="gse-host" data-year="{{ area_year }}"></div>
+<noscript>Activa JavaScript para consultar la facturabilidad por área.</noscript>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/billability_area/main.js' %}"></script>{% endblock %}

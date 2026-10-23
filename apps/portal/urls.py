@@ -83,7 +83,7 @@ urlpatterns = [
     ),
     path(
         "operativa/facturabilidad/area/",
-        views.facturabilidad_area,
+        pages.billability_area,
         name="facturabilidad_area",
     ),
     path(

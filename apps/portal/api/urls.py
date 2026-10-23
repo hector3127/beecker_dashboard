@@ -9,6 +9,13 @@ from apps.portal.api.account import (
 )
 from apps.portal.api.account_hours import AccountHoursView
 from apps.portal.api.agreements import AgreementDetailView, AgreementListView
+from apps.portal.api.billability_area import (
+    AreaBatchView,
+    AreaCacheView,
+    AreaIdsView,
+    AreaListView,
+    AreaMonthView,
+)
 from apps.portal.api.capacity_daily import (
     CapacityDailyProjectView,
     CapacityDailyView,
@@ -45,6 +52,11 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path("screens/facturabilidad/area/areas/", AreaListView.as_view()),
+    path("screens/facturabilidad/area/mes/", AreaMonthView.as_view()),
+    path("screens/facturabilidad/area/lote/", AreaBatchView.as_view()),
+    path("screens/facturabilidad/area/cache/", AreaCacheView.as_view()),
+    path("screens/facturabilidad/area/ids/", AreaIdsView.as_view()),
     path(
         "screens/capacidad/diaria/",
         CapacityDailyView.as_view(),

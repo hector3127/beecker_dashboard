@@ -406,3 +406,11 @@ def billability_resource(request: HttpRequest) -> HttpResponse:
     return _modern(
         request, views.facturabilidad_recurso, "pages/billability_resource.html"
     )
+
+
+@require_GET
+def billability_area(request: HttpRequest) -> HttpResponse:
+    """GSE por area con transporte API y el mismo permiso de portafolio."""
+    return _modern(
+        request, views.facturabilidad_area, "pages/billability_area.html"
+    )

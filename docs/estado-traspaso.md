@@ -3,6 +3,21 @@
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Última pantalla terminada
+- **Facturabilidad por área** (`pages/billability_area.html`): General,
+  Detalle recurso, KPIs, % Recurso y Detalle HRS. Datos mediante API v1;
+  módulos separados, DOM seguro y CSS externo. Se conservan los servicios
+  originales de GSE, deduplicación, lotes, caché, fuentes, errores por mes,
+  festivos, jornadas, filtros, bandas/bajas, paginación y exportaciones.
+  Pruebas de API: 41 aprobadas. Dos pruebas Node comparan el modelo con
+  el JS anterior. Comparación visual a 1450 y 390 px de los cinco apartados
+  y de un área seleccionada, con texto idéntico en las tablas.
+  Veinte pruebas e2e aprobadas; regresión completa: **1160 aprobadas,
+  1 omitida**. JavaScript: **120 aprobadas y los mismos tres fallos
+  anteriores** del código sin migrar. Ruff, formato, mypy y comprobación
+  de Django aprobados. La prueba anterior que exigía el shim ahora verifica
+  tanto la ruta activa modular como `?vista=anterior`, sin perder controles
+  de año, navegación, cookie CSRF ni enlaces.
+  **Siguiente: EVA 1–3 y sus cerrados.**
 - **Facturabilidad general, especialidad y recurso**: plantillas
   `pages/billability*.html`, CSS y JS separados, con el mismo contexto
   Python y los mismos permisos. Selector de periodo compartido, sin
@@ -10,7 +25,7 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
   cifras, filtros, navegación, errores y comparación visual a 1450 y
   390 px (selectores abiertos y cerrados); doce pruebas de servidor.
   Las anteriores siguen disponibles con `?vista=anterior`.
-  **Siguiente: Facturabilidad por área**, todavía no migrada.
+  La vista por área se completó después, como se indica arriba.
 - **Capacidad: detalle diario** (`/capacidad-instalada/`):
   `pages/capacity_daily.html`, CSS separado y módulos `model.js`, `view.js`,
   `main.js`. API `screens/capacidad/diaria/` y `.../proyecto/`, sin shim RPC
@@ -56,12 +71,12 @@ Pendientes recibidos de Inversión (ya resueltos; referencia histórica):
 - Inversión: solo comparación de estilos contra la anterior (formulario y celdas iguales; queda la diferencia de alto). Todavía no se ha corrido pytest con ella.
 
 ## Siguiente paso concreto
-Migrar Facturabilidad por área. General, especialidad y recurso ya usan
-`frontend/`; sus APIs siguen disponibles en `apps/portal/api/operations.py`.
-El área todavía utiliza RPC y tiene General, Detalle recurso, KPIs y
-% Recurso, selección de fuente, lectura por lotes, caché, festivos editables,
-obtención de IDs y exportaciones. Requiere un bloque propio, conservando
-todas esas interacciones y los cálculos actuales. Después: EVA 1–3 con cerrados, Proyecto,
+Migrar EVA 1–3 con sus cerrados. Facturabilidad completa ya usa `frontend/`.
+El área lee `screens/facturabilidad/area/` y conserva sus cinco apartados.
+Las pruebas comparan con `?vista=anterior`; las capturas se generan bajo
+`tmp/migration/billability_area/`. El CSS anterior oculta la navegación de
+apartados en móvil: se conservó y documentó, sin dar por probada una navegación
+que ya no estaba disponible. Después: Proyecto,
 detalle del proyecto por pestañas y limpieza.
 
 ## Publicación
@@ -71,6 +86,11 @@ detalle del proyecto por pestañas y limpieza.
   publicación mediante push normal, manteniendo los pendientes ajenos fuera.
 
 ## Verificación al retomar con Codex
+- Último bloque, Facturabilidad por área: **1160 aprobadas, 1 omitida**
+  en la regresión completa; veinte pruebas e2e de esta pantalla y 41 de API.
+  JavaScript: 120 aprobadas y tres fallos anteriores documentados. Los dos
+  contrastes nuevos del modelo pasan. Los pendientes de Claude siguen fuera
+  del commit, sin cambios.
 - Facturabilidad: comparación visual y funcional de las tres vistas
   completada (`tests/e2e/test_facturabilidad.py`: 12 aprobadas).
   Validación de servidor: `tests/portal/test_billability_pages.py` y

@@ -28,7 +28,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 6 | Línea base de lo nuevo | n/a | n/a | Hecha |
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
-| 9 | Resto de pantallas | APIs de EVA 1-3, Inversión, Capacidad mensual y diaria, Facturabilidad y Costos; Comercial y Todas las cuentas conservan contexto de servidor | **Parcial**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad y Facturabilidad general/especialidad/recurso | Pendientes Facturabilidad por área, EVA 1-3 y Proyecto |
+| 9 | Resto de pantallas | APIs de EVA 1-3, Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; Comercial y Todas las cuentas conservan contexto de servidor | **Parcial**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad y Facturabilidad completa | Pendientes EVA 1-3 y Proyecto |
 | 10 | `proyecto_detalle` y fin de `/api/rpc/` | RPC con permisos | **No** | **Parcial** |
 | 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
 
@@ -61,7 +61,7 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | Capacidad: asignaciones mensuales | `operativa/capacidad-instalada/` | `pages/capacity.html` (anterior con `?vista=anterior`) | `screens/capacidad/`; mantiene formulario GET y CSV del servidor | **Sí** | `tests/e2e/test_capacidad.py`: filtros, CSV y comparación de cajas/estilos a 1450 y 390 px |
 | Capacidad: detalle diario | `capacidad-instalada/` | `pages/capacity_daily.html` (anterior con `?vista=anterior`) | `screens/capacidad/diaria/` y `.../proyecto/` | **Sí** | `test_capacidad_diaria.py`: matriz y recursos a 1450 y 390 px; filtros, CSV, paginación, reintento, mes y fuentes parciales |
 | Facturabilidad (general, especialidad, recurso) | `operativa/facturabilidad/…` | `pages/billability.html`, `billability_specialty.html`, `billability_resource.html` (anteriores con `?vista=anterior`) | `screens/facturabilidad/…`; se conserva el contexto del servidor | **Sí** | `test_facturabilidad.py`: cifras, periodos, áreas, pestañas, regreso, errores y comparación a 1450 y 390 px, con selectores abiertos y cerrados |
-| Facturabilidad por área | `operativa/facturabilidad/area/` | `portal/facturabilidad_area.html` (con `gas_shim.js`) | RPC | No | Igual |
+| Facturabilidad por área | `operativa/facturabilidad/area/` | `pages/billability_area.html` (anterior con `?vista=anterior`) | `screens/facturabilidad/area/{areas,mes,lote,cache,ids}/` | **Sí** | `test_facturabilidad_area.py`: General, Detalle recurso, KPIs, % Recurso y Detalle HRS, además de área seleccionada; comparación de tablas, cajas y estilos a 1450 y 390 px |
 | EVA 1, 2 y 3 y sus cerrados | `operativa/eva-1/`, `eva-2/`, `eva-3/`, `…/cerrados/` | `portal/eva1|2|3.html` | `screens/eva-1|2|3/` | No | Igual |
 | Proyecto | `proyecto/<id>/` | `portal/proyecto.html` | No | No | Igual |
 | Detalle del proyecto | `proyectos/<id>/` | `portal/proyecto_detalle.html` (`proyecto_detalle.js` ≈ 1 MB, `/api/rpc/`) | RPC con permisos | **No** | Igual |
@@ -69,7 +69,7 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 «Igual» significa que sigue la plantilla anterior, no que se haya migrado. En
 `apps/portal/templates/portal/` quedan 33 plantillas, 17 scripts y 16 hojas de
 estilo anteriores. Tras Inversión y Capacidad mensual, `frontend/templates/pages/`
-contiene 19 plantillas (18 pantallas y la guía), incluyendo las tres vistas
+contiene 20 plantillas (19 pantallas y la guía), incluyendo las cuatro vistas
 de Facturabilidad completadas después de Capacidad.
 
 ### Pendientes que no se dan por hechos
@@ -109,8 +109,29 @@ leer fuentes para usuarios anónimos, sin permiso o con alcance limitado.
 Capturas: `tmp/migration/billability/<general|especialidad|recurso>/<ancho>/`.
 Comportamiento anterior conservado: las pestañas trasladan el periodo, pero
 no el filtro de roles. Los cambios de periodo sí conservan ese filtro.
-El siguiente bloque es Facturabilidad por área, que conserva su vista
-anterior y RPC hasta migrar todos sus apartados, modales y exportaciones.
+Facturabilidad por área también está migrada: los cinco apartados conservan
+su presentación y utilizan DOM seguro, con módulos de modelo, controlador,
+vista, recursos, horas, KPIs y área seleccionada. Las APIs llaman a los mismos
+servicios de `apps/gse/rpc.py` directamente; no modifican esos servicios ni
+la base. Se conservan lotes, deduplicación por ID, caché anual, errores por
+mes, estados parciales, bandas, bajas, festivos, jornadas, búsqueda, servicios
+desplegables, paginación y CSV. Cache e IDs mantienen el alcance total y
+exigen CSRF también en modo local sin permisos activados. La lectura fallida
+de áreas se puede reintentar con el botón de consulta existente.
+Las dos pruebas de modelo Node contrastan agregados, capacidad laboral,
+bandas, clasificación, pesos de KPIs y resultados parciales con el JS anterior.
+La comparación visual de los cinco apartados y el área seleccionada verifica
+también el texto de las tablas. Capturas:
+`tmp/migration/billability_area/<ancho>/<apartado>/`.
+Limitación anterior conservada: el CSS oculta la navegación de apartados en
+pantallas pequeñas. La comparación móvil selecciona antes el apartado en
+escritorio y luego cambia el ancho; no acredita navegación móvil entre ellos.
+No se alteró ese diseño dentro de la migración.
+El siguiente bloque es EVA 1–3, incluidos sus cerrados.
+Regresión tras completar Facturabilidad por área: **1160 aprobadas y una
+omitida**; veinte pruebas e2e de esta pantalla y 41 de API. Ruff, formato,
+mypy y `manage.py check` aprobados. JavaScript: 120 aprobadas y los mismos
+tres fallos anteriores, cuyos archivos y reglas no cambiaron.
 La regresión posterior a estas tres vistas aprobó **1098 pruebas, con una
 omitida**. JavaScript conserva 118 aprobadas y los mismos tres fallos del
 código anterior. No se activaron permisos ni se modificaron las fuentes.
