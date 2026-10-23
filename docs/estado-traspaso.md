@@ -2,6 +2,18 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Ajuste: Margen vendido vs. real (24/10/2026)
+
+- La pantalla nueva ya no muestra "Fecha de servicio: G · por validar" bajo
+  Revenue operado ni "Pendiente / Por validar con Florencia" en Tarifa de costo
+  vendida; las columnas se conservan y la celda de tarifa queda vacía. La nota
+  de la tarifa sigue arriba de la tabla. La pantalla anterior (`?vista=anterior`)
+  no cambia. Referencia `cuenta_margenes.json` actualizada a propósito.
+- Glosario "¿Qué significa cada columna?" (plegable) con las definiciones de
+  Bookings, Revenue operado, Facturado, Cobrado, Costos, Tarifa de costo vendida,
+  Margen vendido, Margen real y Desviación, y enlace al diccionario de datos.
+  Usa los estilos del glosario de Business Overview. Pruebas e2e nuevas (2).
+
 ## Bloque: fase 10, alta RAID (Riesgo, Issue y Oportunidad)
 
 - API v1: GET `screens/proyectos/<id>/raid/{campos,alta-opciones}/?tipo=` y

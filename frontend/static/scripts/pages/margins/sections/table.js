@@ -104,11 +104,12 @@ function row(o, index) {
       o.bookings !== null ? formatMoney(o.bookings) : PENDING,
       el('small', { text: `Revenue del periodo: ${formatMoney(o.period_revenue)}` }),
     ),
-    number(formatMoney(o.operated_revenue), el('small', { text: 'Fecha de servicio: G · por validar' })),
+    number(formatMoney(o.operated_revenue)),
     number(formatMoney(o.invoiced)),
     number(formatMoney(o.collected)),
     number(costCell(o)),
-    el('td', { class: 'sold-rate-pending' }, el('strong', { text: PENDING }), el('small', { text: 'Por validar con Florencia' })),
+    // La columna se conserva; el dato sigue pendiente de validar y no se muestra.
+    el('td', { class: 'sold-rate-pending' }),
     el('td', { text: twoDecimals(o.sold_margin) }),
     el('td', { text: `${twoDecimals(o.actual_margin)}${o.actual_margin !== null ? star(o.partial) : ''}` }),
     el(

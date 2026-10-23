@@ -13,6 +13,29 @@
 <div class="opportunity-title"><h1 id="margins-title">Margen vendido vs. real{% if account_filter %} · {{ account_filter }}{% endif %}</h1></div>
 <form method="get" class="opportunity-filters" id="opportunity-dates"><input type="hidden" name="periodo" value="rango"><input type="hidden" name="volver" value="{{ back_url }}">{% if account_filter %}<input type="hidden" name="nombre" value="{{ account_filter }}">{% endif %}<label>Fecha inicio<input type="date" name="desde" required></label><label>Fecha fin<input type="date" name="hasta" required></label><button type="submit">Aplicar fechas</button><button type="button" id="opportunity-refresh">Actualizar costos</button></form>
 <p id="opportunity-status" role="status"></p>
+<details class="executive-glossary margins-glossary">
+<summary><span>¿Qué significa cada columna?</span><span class="glossary-summary-hint">Consultar glosario</span></summary>
+<div class="executive-glossary-grid">
+<section><h2>Ventas y revenue</h2><dl>
+<dt>Cuenta / oportunidad</dt><dd>La oportunidad de DataRevenue con los servicios y Project IDs que la componen. Las filas sin oportunidad se muestran aparte para corregirlas y nunca se mezclan.</dd>
+<dt>Bookings</dt><dd>Monto vendido de la oportunidad. Debajo se indica el revenue del periodo: la suma de la columna H de DataRevenue dentro del rango elegido.</dd>
+<dt>Revenue operado</dt><dd>Parte del revenue del periodo cuya fecha de servicio (Fecha Revenue Ajustado, columna G) ya ocurrió, dentro del rango y hasta hoy.</dd>
+</dl></section>
+<section><h2>Facturación y cobranza</h2><dl>
+<dt>Facturado</dt><dd>Revenue del periodo en estado Invoiced, Invoiced Factoring, Collected o Collected Factoring.</dd>
+<dt>Cobrado</dt><dd>Revenue del periodo en estado Collected o Collected Factoring.</dd>
+<dt>Confirmed</dt><dd>El revenue Confirmed cuenta en el revenue del periodo, pero no como facturado ni cobrado.</dd>
+</dl></section>
+<section><h2>Costos y márgenes</h2><dl>
+<dt>Costos</dt><dd>Costo de Clockify por tarifas internas de banda de los Project IDs de la oportunidad. Un * indica costos parciales: el margen puede variar.</dd>
+<dt>Tarifa de costo vendida</dt><dd>Columna reservada: su fuente, unidad y asignación siguen pendientes de validación. No se sustituye por la tarifa interna de banda.</dd>
+<dt>Margen vendido</dt><dd>Margen comprometido en la venta (columna I de DataRevenue). Si hay valores distintos no se elige uno arbitrario.</dd>
+<dt>Margen real</dt><dd>(revenue del periodo − costos) ÷ revenue del periodo, en %. No usa Bookings ni Cobrado como denominador.</dd>
+<dt>Desviación (pp)</dt><dd>Margen real − margen vendido, en puntos porcentuales. Verde si el real supera al vendido; rojo si queda por debajo.</dd>
+</dl></section>
+</div>
+<footer><p><strong>* Parcial:</strong> faltan costos para completar el cálculo. <strong>Pendiente:</strong> no hay información suficiente; no equivale a cero. Los IDs compartidos entre oportunidades se muestran como referencia con su costo disponible total y no se suman ni se promedian.</p><a class="portal-button portal-button-secondary" href="{% url 'portal:diccionario_datos' %}">Ver fórmulas, fuentes y validaciones</a></footer>
+</details>
 <div id="margins-content"></div>
 <noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
 </div>

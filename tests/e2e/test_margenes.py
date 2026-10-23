@@ -115,3 +115,44 @@ def test_limited_scope_cannot_open_a_foreign_account(
         assert response is not None and response.status == 404
     finally:
         DictProvider.GRANTS = {}
+
+
+def test_pending_values_are_not_shown_but_the_columns_stay(portal, datos):
+    portal.goto(portal.base + PAGE)
+    expect(portal.locator("#opportunity-count")).to_have_text(
+        "2 de 2 oportunidades"
+    )
+
+    expect(
+        portal.locator("th", has_text="Tarifa de costo vendida")
+    ).to_be_visible()
+    expect(portal.locator("th", has_text="Revenue operado")).to_be_visible()
+    table = portal.locator("#margins-content table").first
+    expect(table).not_to_contain_text("G · por validar")
+    expect(table).not_to_contain_text("Por validar con Florencia")
+    expect(portal.locator("td.sold-rate-pending").first).to_have_text("")
+
+
+def test_glossary_explains_every_column_and_opens_on_demand(portal, datos):
+    portal.goto(portal.base + PAGE)
+    glossary = portal.locator("details.margins-glossary")
+    expect(glossary).to_be_visible()
+    assert glossary.get_attribute("open") is None
+    expect(glossary.locator("dd").first).not_to_be_visible()
+
+    glossary.locator("summary").click()
+    for term in [
+        "Bookings",
+        "Revenue operado",
+        "Facturado",
+        "Cobrado",
+        "Costos",
+        "Tarifa de costo vendida",
+        "Margen vendido",
+        "Margen real",
+        "Desviación (pp)",
+    ]:
+        expect(glossary.locator("dt", has_text=term).first).to_be_visible()
+    expect(glossary.locator("footer a")).to_have_attribute(
+        "href", "/diccionario-datos/"
+    )

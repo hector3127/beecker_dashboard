@@ -136,3 +136,23 @@ body{background:radial-gradient(ellipse at 50% 0,#f0edff,transparent 65%),#f8f7f
 .opportunity-page td small { display: block; font-size: 12px; color: var(--muted); }
 .opportunity-page :is(td, th) { box-sizing: content-box; }
 #opportunity-status { line-height: 17.75px; }
+
+/* Glosario de columnas (mismos estilos del glosario de Business Overview). */
+.executive-glossary{margin:0 0 18px;border:1px solid #ded7ef;border-radius:12px;background:#fff;overflow:hidden}
+.executive-glossary summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:12px 18px;box-sizing:border-box;cursor:pointer;font-size:14px;font-weight:700;color:#4b25c9;list-style:none}
+.executive-glossary summary::-webkit-details-marker{display:none}
+.executive-glossary summary::after{content:'+';font-size:22px}
+.executive-glossary[open] summary::after{content:'−'}
+.glossary-summary-hint{margin-left:auto;font-size:12px;font-weight:500;color:#716886}
+.executive-glossary summary:focus-visible{outline:3px solid #4b25c9;outline-offset:-4px}
+.executive-glossary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:18px;border-top:1px solid #ece5f8}
+.executive-glossary-grid h2{margin:0 0 12px;font-size:16px;color:#211359}
+.executive-glossary dl{margin:0}
+.executive-glossary dt{font-size:13px;font-weight:700;color:#40335f;margin:12px 0 4px}
+.executive-glossary dd{margin:0;font-size:13px;line-height:1.6;color:#655b77}
+.executive-glossary footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:14px 18px;background:#f8f5ff}
+.executive-glossary footer p{margin:0;flex:1 1 300px;font-size:12px;line-height:1.6;color:#655b77}
+@media(max-width:700px){
+.executive-glossary-grid{grid-template-columns:1fr;gap:8px}
+.glossary-summary-hint{display:none}
+.executive-glossary footer a{width:100%}}
