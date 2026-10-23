@@ -1,0 +1,162 @@
+/* Reglas de la pantalla anterior, sin las de la barra superior. */
+
+/* --- estilo en linea --- */
+th,
+td {
+  text-align: center;
+}
+.two {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+td:first-child,
+th:first-child {
+  text-align: left;
+}
+.num {
+  font-variant-numeric: tabular-nums;
+}
+table.w {
+  font-size: 12.5px;
+}
+table.d.w th,
+table.d.w td {
+  padding: 9px 5px;
+}
+table.d.w th {
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  white-space: normal;
+}
+table.d.w td.s {
+  padding: 9px 3px;
+}
+table.w .bd {
+  min-width: 0;
+  padding: 3px 7px;
+  font-size: 12px;
+}
+table.w .st {
+  font-size: 11.5px;
+  padding: 3px 8px;
+}
+table.d {
+  font-size: 13.5px;
+}
+table.d th {
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+table.d td {
+  padding: 11px 8px;
+  text-align: left;
+}
+table.d th {
+  text-align: left;
+}
+table.d td.n,
+table.d th.n {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+table.d td.c,
+table.d th.c {
+  text-align: center;
+}
+.bd {
+  display: inline-block;
+  min-width: 44px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 3px 9px;
+  font-weight: 800;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.ok {
+  background: #ddf3e6;
+  color: #13693b;
+}
+.bad {
+  background: #fbe3e7;
+  color: #a31b33;
+}
+.st {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-weight: 800;
+  font-size: 12.5px;
+  color: #fff;
+}
+.gh {
+  background: #f1ecfd;
+  color: #2b1b8f !important;
+  text-align: center !important;
+  border-left: 2px solid #fff;
+  font-size: 12px !important;
+}
+.two2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.kp4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+@media (max-width: 900px) {
+  .two2,
+  .kp4 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .page {
+    padding: 16px;
+  }
+  .two2,
+  .kp4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Estilos que estaban en linea. */
+.evi-015bee.evi-015bee {
+  color: #a31b33;
+}
+.evi-8b06b3.evi-8b06b3 {
+  vertical-align: bottom;
+}
+.evi-d77876.evi-d77876 {
+  color: #55537f;
+}
+
+.eva2-page .portal-page-toolbar.crumb {
+  margin-bottom: 16px;
+}
+@media (max-width: 650px) {
+  .eva2-page .portal-page-toolbar.crumb {
+    margin-bottom: 12px;
+  }
+}
+.eva2-page .st.eva-status-sus {
+  background: #c0233e;
+}
+.eva2-page .st.eva-status-dep {
+  background: #e0457b;
+}
+.eva2-page .st.eva-status-dis {
+  background: #6a3de8;
+}
+.eva2-page .st.eva-status-dev {
+  background: #8a4de8;
+}
+.eva2-page .st.eva-status-other {
+  background: #55537f;
+}
