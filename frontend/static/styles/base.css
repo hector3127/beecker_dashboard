@@ -1,5 +1,6 @@
 /* Base: el cuerpo, los enlaces y lo que no pertenece a un componente. */
-*, *::before, *::after { box-sizing: border-box; }
+/* Las pantallas anteriores (body.ds) no usaban border-box: conservan el modelo de caja de entonces. */
+body:not(.ds) *, body:not(.ds) *::before, body:not(.ds) *::after { box-sizing: border-box; }
 body {
   margin: 0;
   font-family: var(--font);

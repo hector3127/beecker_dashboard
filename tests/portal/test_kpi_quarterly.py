@@ -11,6 +11,12 @@ from tests.portal.test_kpi_history import NOW, sources
 from tests.portal.test_views import stub_history
 
 
+@pytest.fixture(autouse=True)
+def anterior_screens(monkeypatch):
+    """Estas pruebas leen la pantalla anterior (?vista=anterior)."""
+    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
+
+
 def test_quarter_is_monthly_mean_and_keeps_fractional_project_counts():
     history = build_kpi_history(sources(), NOW, 2026)
     cuts = list(history.months[:3])
@@ -47,7 +53,10 @@ def test_kpis_defaults_to_annual_without_changing_explicit_months(
     client, monkeypatch, query
 ):
     stub_history(monkeypatch)
-    response = client.get("/operativa/kpis-delivery-managers/" + query)
+    response = client.get(
+        "/operativa/kpis-delivery-managers/?vista=anterior"
+        + query.replace("?", "&")
+    )
     assert response.context["period"].kind == "anio"
     assert len(response.context["month_matrix"].headers) > 1
     html = response.content.decode()

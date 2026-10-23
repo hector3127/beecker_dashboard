@@ -234,3 +234,21 @@ def dictionary(request: HttpRequest) -> HttpResponse:
     if anterior_disponible() and request.GET.get("vista") == "anterior":
         return views.diccionario_datos(request)
     return render(request, "pages/dictionary.html", {"active": "ejecutiva"})
+
+
+@require_GET
+@require_capability("view_operations", whole_portfolio=True)
+def kpis_dm(request: HttpRequest) -> HttpResponse:
+    """KPIs de Delivery Managers: el JS pide las cifras a la API.
+
+    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la pantalla de antes.
+    """
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    if anterior_disponible() and request.GET.get("vista") == "anterior":
+        return views.kpis_delivery_managers(request)
+    return render(
+        request,
+        "pages/kpis_dm.html",
+        {"active": "operativa", "loaded_at": timezone.localtime()},
+    )

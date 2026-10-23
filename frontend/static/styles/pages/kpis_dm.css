@@ -1,0 +1,13 @@
+/* KPIs de Delivery Managers: reglas de la pantalla anterior. */
+.kpi-history-table{border-collapse:separate;border-spacing:0}.kpi-history-table :is(th,td){white-space:nowrap;min-width:64px}.kpi-history-table :is(tbody,tfoot) tr>:first-child,.kpi-history-table thead tr:first-child>:first-child,.kpi-history-table#kpi-quarter-history thead tr:nth-child(2)>:first-child{position:sticky;left:0;z-index:2;background:#faf8ff;min-width:170px;max-width:230px;white-space:normal;font-size:12px}.kpi-history-table thead tr>:first-child,.kpi-history-table tfoot tr>:first-child{background:#eee8ff}.kpi-history-table tbody th{font-weight:600;text-transform:none;letter-spacing:normal}.kpi-history-table td.g{border-left:2px solid #e1d8f6}.kpi-definition-note{margin:14px 0;padding:14px 18px;border:1px solid #ded7ef;border-radius:12px;background:#fff;font-size:13px;line-height:1.6;color:#514875}.kpi-definition-note summary{font-weight:700;cursor:pointer;min-height:32px}.kpi-definition-note p{margin:10px 0 0}
+th,td{text-align:center}
+.two>.card{min-width:0}.two .table-scroll table{min-width:600px}.kpi-definition-note,.hs,.note{overflow-wrap:anywhere}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;margin-bottom:14px;align-items:start}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+td:first-child,th:first-child{text-align:left}
+.num{font-variant-numeric:tabular-nums}
+td a{color:inherit;text-decoration:none}
+td a:hover{text-decoration:underline}
+.kpi-chart-tools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0;font-size:12px;color:#8075a7}
+.kpi-chart-tools button,.kpi-legend button{font:inherit;cursor:pointer;border:1px solid #e6defa;border-radius:9px;background:#faf8ff;color:#4b25c9;padding:7px 10px}
+.kpi-legend{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.kpi-legend button{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;text-align:left}.kpi-legend button[aria-pressed="true"]{border-color:#7441df;background:#eee7ff;font-weight:700}.kpi-legend button:focus-visible,.kpi-chart-tools button:focus-visible{outline:3px solid #c9b2ff;outline-offset:2px}.kpi-legend i{width:9px;height:9px;border-radius:50%;flex:none}#kpi-chart{display:block;width:100%;min-height:260px}

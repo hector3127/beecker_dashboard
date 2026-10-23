@@ -259,9 +259,7 @@ def test_limited_scope_only_shows_the_allowed_accounts(
     try:
         portal.goto(portal.base + PAGE)
 
-        expect(portal.locator(".eva4-kpis")).to_contain_text(
-            "1 activos"
-        )
+        expect(portal.locator(".eva4-kpis")).to_contain_text("1 activos")
         body = portal.locator("body")
         expect(body).to_contain_text("Cagsa")
         expect(body).not_to_contain_text("Nestlé")

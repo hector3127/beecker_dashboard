@@ -967,7 +967,7 @@ def test_kpis_page_shows_managers_and_totals(client, monkeypatch):
     )
     stub_history(monkeypatch)
 
-    response = client.get("/operativa/kpis-delivery-managers/")
+    response = client.get("/operativa/kpis-delivery-managers/?vista=anterior")
     html = response.content.decode()
 
     assert response.status_code == 200
@@ -981,7 +981,7 @@ def test_kpis_page_shows_monthly_and_quarterly_history(client, monkeypatch):
     stub_history(monkeypatch)
 
     response = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=anio&anio=2026"
+        "/operativa/kpis-delivery-managers/?vista=anterior&periodo=anio&anio=2026"
     )
     html = response.content.decode()
 
@@ -1005,7 +1005,7 @@ def test_kpis_chart_shows_the_year_with_the_period_highlighted(
     stub_history(monkeypatch)
 
     response = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-08"
+        "/operativa/kpis-delivery-managers/?vista=anterior&periodo=mes&mes=2026-08"
     )
     chart = response.context["chart"]
 
@@ -1022,7 +1022,7 @@ def test_kpis_chart_shows_the_year_with_the_period_highlighted(
     assert chart["highlight"] == ["Ago"]
 
     response = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-10"
+        "/operativa/kpis-delivery-managers/?vista=anterior&periodo=mes&mes=2026-10"
     )
     current = response.context["chart"]
     assert current["labels"][-1] == "Oct*"
@@ -1033,7 +1033,7 @@ def test_kpis_page_explains_when_history_fails(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
     stub_history(monkeypatch, error="Clockify no responde.")
 
-    response = client.get("/operativa/kpis-delivery-managers/")
+    response = client.get("/operativa/kpis-delivery-managers/?vista=anterior")
     html = response.content.decode()
 
     assert response.status_code == 200
@@ -1047,10 +1047,10 @@ def test_kpis_page_filters_a_closed_month_and_a_quarter(client, monkeypatch):
     stub_history(monkeypatch)
 
     month = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-02"
+        "/operativa/kpis-delivery-managers/?vista=anterior&periodo=mes&mes=2026-02"
     )
     quarter = client.get(
-        "/operativa/kpis-delivery-managers/?periodo=trimestre&anio=2026&trim=1"
+        "/operativa/kpis-delivery-managers/?vista=anterior&periodo=trimestre&anio=2026&trim=1"
     )
 
     assert month.context["cut_is_current"] is False

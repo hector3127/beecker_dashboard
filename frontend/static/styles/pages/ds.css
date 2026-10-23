@@ -1,0 +1,90 @@
+/* Sistema de diseno de las pantallas anteriores (clase "ds" en el body), sin la
+   barra superior, que ahora vive en layout.css. */
+body.ds {
+  --ink: #1B1A6B;
+  --ink-strong: #14125E;
+  --title: #1B1A9E;
+  --muted: #4A4D86;
+  --soft: #8A81B8;
+  --line: #E4E6F8;
+  --line-soft: #EEE8FC;
+  --bg: #F3F4FD;
+  --card: #fff;
+  --brand: #4B25C9;
+  --brand-soft: #EDE7FF;
+  --th-bg: #F4F0FF;
+  --th-ink: #4B3FA0;
+  --good: #13693B;
+  --bad: #A31B33;
+  --radius: 16px;
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+.ds a { color: var(--brand); text-decoration: none; }
+.ds .page { max-width: 1680px; margin: 0 auto; padding: 18px 28px 40px; box-sizing: border-box; }
+.ds .crumb { font-size: 13px; color: var(--muted); margin: 0 4px 8px; }
+.ds .crumb a { font-weight: 700; }
+.ds .pgh { display: flex; align-items: center; gap: 20px; border-radius: 18px; padding: 16px 26px; margin: 0 0 14px; color: #fff; background: var(--hero); }
+.ds .pgh[data-tone="executive"] { --hero: linear-gradient(90deg, #5B3CFF 0%, #A02DF0 55%, #FF3FA6 100%); }
+.ds .pgh[data-tone="operations"] { --hero: linear-gradient(90deg, #5B3CFF 0%, #A02DF0 55%, #FF3FA6 100%); }
+.ds .pgh[data-tone="commercial"] { --hero: linear-gradient(90deg, #5B3CFF 0%, #A02DF0 55%, #FF3FA6 100%); }
+.ds .pgh .pgh-i { flex: none; width: 60px; height: 56px; display: grid; place-items: center; border-radius: 12px; background: rgba(255, 255, 255, .18); }
+.ds .pgh h1 { margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; color: #fff; }
+.ds .pgh p { margin: 4px 0 0; font-size: 16px; line-height: 1.35; color: #fff; opacity: .95; }
+.ds .pgh .pgh-e { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+.ds .pgh .pgh-s { margin-left: auto; }
+.ds .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; padding: 6px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+.ds .tabs a { padding: 9px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; color: var(--muted); }
+.ds .tabs a:hover { background: var(--brand-soft); }
+.ds .tabs a.on { background: var(--brand); color: #fff; }
+.ds .fbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 0 0 14px; font-size: 14px; color: var(--muted); }
+.ds .mf { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 0 0 14px; font-size: 14px; color: var(--muted); }
+.ds .hint { font-size: 13.5px; color: var(--muted); }
+.ds .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 24px; margin: 0 0 14px; box-shadow: 0 1px 3px rgba(27, 26, 107, .05); }
+.ds .card h2 { margin: 0 0 2px; font-size: 19px; font-weight: 800; color: var(--title); letter-spacing: -.01em; }
+.ds .card h3 { margin: 0; font-size: 16px; font-weight: 800; color: var(--title); }
+.ds .hs { margin: 0 0 14px; font-size: 13.5px; line-height: 1.45; color: var(--muted); }
+.ds .note { margin: 8px 4px 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.ds .err { margin: 0 0 12px; padding: 12px 18px; border-radius: 12px; background: #FBE3E7; color: var(--bad); font-size: 14.5px; font-weight: 600; }
+.ds .vacio { padding: 26px; text-align: center; color: var(--muted); font-size: 15px; }
+.ds .kp { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 0 0 14px; }
+.ds .kc { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 22px; box-shadow: 0 1px 3px rgba(27, 26, 107, .05); box-sizing: border-box; }
+.ds .kl { font-size: 14px; font-weight: 700; color: #2B2FA8; }
+.ds .kv { margin: 6px 0 2px; font-size: 38px; font-weight: 800; letter-spacing: -.025em; line-height: 1.15; color: var(--ink-strong); font-variant-numeric: tabular-nums; }
+.ds .kv small, .ds .kv span { font-size: 16px; font-weight: 600; color: var(--soft); }
+.ds .ke { font-size: 13px; line-height: 1.4; color: var(--muted); }
+.ds .kv.txt { margin-top: 8px; font-size: 21px; line-height: 1.25; letter-spacing: -.01em; color: var(--brand); }
+.ds .kc.hl { background: var(--brand); border-color: var(--brand); }
+.ds .kc.hl .kl { color: #CFC4FF; }
+.ds .kc.hl .kv { color: #fff; }
+.ds .kc.hl .ke { color: #E3DBFF; }
+.ds .tw, .ds .sc, .ds .table-scroll { overflow-x: auto; }
+.ds table { width: 100%; border-collapse: collapse; font-size: 13.5px; color: var(--ink); }
+.ds th { padding: 11px 10px; background: var(--th-bg); color: var(--th-ink); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; text-align: left; white-space: nowrap; border: 0; }
+.ds td { padding: 10px; border-top: 1px solid var(--line-soft); color: var(--ink); vertical-align: middle; font-variant-numeric: tabular-nums; }
+.ds thead tr:first-child th:first-child { border-top-left-radius: 10px; }
+.ds thead tr:first-child th:last-child { border-top-right-radius: 10px; }
+.ds tbody tr:nth-child(even) { background: #FBFAFF; }
+.ds tbody tr:hover { background: #F3EEFF; }
+.ds tfoot td, .ds tr.tot td { background: #EFEBFF; color: #26117D; font-weight: 800; }
+.ds td.n, .ds th.n, .ds td.r, .ds th.r { text-align: right; }
+.ds td.c, .ds th.c { text-align: center; }
+.ds th.q, .ds th.g { background: #E9E1FF; color: #2B1B8F; text-align: center; border-left: 2px solid #fff; font-size: 12px; }
+.ds td.g, .ds td.b { border-left: 2px solid #F1ECFD; }
+.ds td.na { background: #EEEAFB; color: var(--soft); }
+.ds td.lo { color: var(--bad); font-weight: 700; }
+.ds td.hi { color: var(--good); font-weight: 700; }
+.ds td small { display: block; font-size: 12px; color: var(--muted); }
+.ds td a { font-weight: 600; }
+.ds .pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 11px; font-size: 12.5px; font-weight: 800; }
+.ds .ej { display: inline-block; margin-left: 8px; padding: 1px 9px; border-radius: 999px; background: #FFF3D6; color: #8A5600; font-size: 11.5px; font-weight: 700; }
+@media (max-width: 900px) {
+  .ds .page { padding: 14px 14px 32px; }
+  .ds .pgh { flex-wrap: wrap; padding: 14px 18px; gap: 14px; }
+  .ds .pgh h1 { font-size: 26px; }
+  .ds .pgh .pgh-s { margin-left: 0; width: 100%; }
+  .ds .kv { font-size: 32px; }
+}
+

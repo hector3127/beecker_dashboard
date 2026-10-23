@@ -1,4 +1,4 @@
-"""Margen vendido vs. real en un navegador real: estructura, busqueda y alcance."""
+"""Margen vendido vs. real en un navegador real: busqueda y alcance."""
 
 import pytest
 from playwright.sync_api import expect

@@ -1,0 +1,20 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}KPIs de Delivery Managers{% endblock %}
+{% block body_class %}ds{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/period-picker.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/kpis_dm.css' %}">{% endblock %}
+{% block freshness %}<span class="dot" aria-hidden="true"></span><span>Datos al {{ loaded_at|date:"d/m/Y, H:i" }}</span>{% endblock %}
+{% block content %}
+<div id="kpis-notice"></div>
+<div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Operations</span></div>
+{% include "partials/hero.html" with title="KPIs de Delivery Managers" subtitle="Carga y cumplimiento de cada Delivery Manager · MPB y Historico_Proyectos" tone="operations" icon="target" eyebrow="Operations" %}
+<div id="kpis-content" aria-busy="true"
+ data-facturabilidad="{% url 'portal:facturabilidad' %}" data-especialidad="{% url 'portal:facturabilidad_especialidad' %}"
+ data-recurso="{% url 'portal:facturabilidad_recurso' %}" data-kpis="{% url 'portal:kpis_dm' %}" data-area="{% url 'portal:facturabilidad_area' %}"
+ data-manager-url="{% url 'portal:delivery_manager' slug='slug-placeholder' %}"></div>
+<noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/kpis_dm/main.js' %}"></script>{% endblock %}

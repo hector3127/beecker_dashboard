@@ -1,6 +1,7 @@
 /* Estructura de pagina: barra superior, contenedor, migas y encabezado. */
 
 /* ---------- Barra superior ---------- */
+.top, .top *, .top *::before, .top *::after, .skip-link { box-sizing: border-box; }
 .top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; min-height: 58px; padding: 10px 22px; background: var(--card); border-top: 4px solid var(--top-accent); border-bottom: 1px solid var(--top-line); }
 .logo { display: flex; align-items: center; flex: none; }
 .logo img { display: block; height: 30px; width: auto; max-width: 147px; }
