@@ -94,12 +94,16 @@ todavía conserva su vista/controlador anterior, pero estas dos escrituras
 usan la API mediante `workItemCall`; la comparación anterior sigue con RPC.
 La columna de comentarios de Planeación se conserva oculta por su CSS
 original; Azure DevOps sí la muestra. No cambiar esto durante la migración.
-**Planeación y la fase 10 continúan parciales.** Siguiente bloque: editor de
-hitos del histórico y después extensión con sus integraciones.
-Después faltan Gestión
-RAID, Acciones, Cliente, Comunicación, Azure DevOps e IA de IXS; en AER faltan
-todas las pestañas salvo Ejecutivo. También falta separar encabezados y
-navegación compartida, y retirar el shim de la ruta nueva.
+Ya son modulares (API v1 + modelo/vista/controlador, con comparación contra la
+anterior): el editor de hitos del histórico (`sections/milestones*.js`), la
+ventana de comunicados Extensión/Suspensión/Reanudación/Cierre
+(`sections/communique*.js`, backend en `apps/gmail`), Gestión RAID completa
+(`sections/raid*.js`, lectura y alta) y el aviso de datos faltantes
+(`data_notice.js`); proyectos fuera de Proyectos se arman desde MPB/Histórico.
+**Planeación y la fase 10 continúan parciales.** Siguiente: Azure DevOps (una
+pestaña), IA, Cliente/Acciones (comparten renderer con AER) y Comunicación de
+IXS; en AER faltan todas las pestañas salvo Ejecutivo. También falta separar
+encabezados y navegación compartida, y retirar el shim de la ruta nueva.
 
 1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.
 2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).
