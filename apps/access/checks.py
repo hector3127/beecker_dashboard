@@ -58,10 +58,21 @@ def scope_for(request: Any) -> AccessScope:
     return resolve(request).scope
 
 
+def trust(request: Any) -> Any:
+    """Marca una peticion interna (calentamiento de cache) con acceso total."""
+    request._access = Access(CODES, AccessScope.everything(), enforced=False)
+    return request
+
+
 def require_capability(
-    code: str,
+    code: str, *, whole_portfolio: bool = False
 ) -> Callable[[Callable[..., HttpResponse]], Callable[..., HttpResponse]]:
-    """Protege una vista: sin sesion va al login; sin la capacidad, 403."""
+    """Protege una vista: sin sesion va al login; sin la capacidad, 403.
+
+    Con whole_portfolio la pantalla muestra cifras de todo el portafolio o del
+    equipo completo, que no se pueden recortar por cuenta: con alcance
+    limitado tambien responde 403.
+    """
 
     def decorator(
         view: Callable[..., HttpResponse],
@@ -73,6 +84,8 @@ def require_capability(
                 if not request.user.is_authenticated:
                     return redirect_to_login(request.get_full_path())
                 if not access.can(code):
+                    raise PermissionDenied
+                if whole_portfolio and not access.scope.unrestricted:
                     raise PermissionDenied
             return view(request, *args, **kwargs)
 

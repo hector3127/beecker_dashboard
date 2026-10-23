@@ -11,6 +11,7 @@ from django.core.cache import cache
 from django.db import close_old_connections
 from django.test import RequestFactory
 
+from apps.access.checks import trust
 from apps.portal.services.executive_period import cache_suffix, query_string
 
 logger = logging.getLogger(__name__)
@@ -145,6 +146,7 @@ def _prepare(query: str) -> bool:
     from django.contrib.auth.models import User
 
     request.user = User(username="cache-warmer")
+    trust(request)
     # Call the internal context builder using the same trusted warmer path.
     response = views.ejecutiva(request)
     if response.status_code != 200:

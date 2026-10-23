@@ -9,6 +9,7 @@ from typing import Any
 from django.core.cache import cache
 from django.core.management.base import BaseCommand, CommandParser
 
+from apps.access.checks import trust
 from core.exceptions import DashboardError
 from core.rpc.registry import get_rpc_function
 from core.sheets import sheet_names
@@ -155,6 +156,7 @@ def warm_portal(base_only: bool = False) -> object:
         logger.info("Preparando Operativa: %s", block or "proyectos y estados")
         request = factory.get("/operativa/datos/", {"bloque": block})
         request.user = User(username="cache-warmer")
+        trust(request)
         context = views.operativa_block_context(request)
         if context.get("source_errors") or block_error(context):
             failures.append(block or "portafolio")
@@ -184,6 +186,7 @@ def warm_portal(base_only: bool = False) -> object:
         request = factory.get(path, {"actualizar": "1"})
         request.portal_warmer = True  # type: ignore[attr-defined]
         request.user = User(username="cache-warmer")
+        trust(request)
         response = page(request)
         if (
             response.status_code != 200
@@ -254,6 +257,7 @@ def warm_secondary_pages() -> object:
         started = time.perf_counter()
         request = factory.get(path)
         request.user = User(username="cache-warmer")
+        trust(request)
         try:
             response = page(request)
         except DashboardError as error:
@@ -282,7 +286,9 @@ def warm_delivery_managers() -> object:
     from apps.access.scope import AccessScope
     from apps.portal import views
 
-    snapshot = views._operativa_snapshot(RequestFactory().get("/operativa/"))
+    snapshot = views._operativa_snapshot(
+        trust(RequestFactory().get("/operativa/"))
+    )
     if not snapshot:
         return {"ok": True}
     everything = AccessScope.everything()

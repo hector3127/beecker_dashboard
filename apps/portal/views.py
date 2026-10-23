@@ -220,6 +220,7 @@ def ejecutiva(request: HttpRequest) -> HttpResponse:
 
 @require_http_methods(["GET", "POST"])
 @period_view
+@require_capability("view_executive", whole_portfolio=True)
 def actualizacion_ejecutiva(request: HttpRequest) -> HttpResponse:
     """Starts or checks an executive refresh without waiting for sources."""
     from django.http import JsonResponse
@@ -669,6 +670,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
 
 
 @require_GET
+@require_capability("view_commercial", whole_portfolio=True)
 def comercial(request: HttpRequest) -> HttpResponse:
     """
     Muestra los registros comerciales de Backlog_Proyectos en USD.
@@ -888,10 +890,12 @@ def dm_state(
 
 @require_GET
 @ensure_csrf_cookie
+@require_capability("view_operations")
 def proyecto_detalle(request: HttpRequest, project_id: str) -> HttpResponse:
     """Abre todas las secciones del proyecto dentro del portal."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
+    ensure_project_visible(request, project_id)
     from django.urls import reverse
 
     return render(
@@ -906,7 +910,27 @@ def proyecto_detalle(request: HttpRequest, project_id: str) -> HttpResponse:
     )
 
 
+def ensure_project_visible(request: HttpRequest, project_id: str) -> None:
+    """404 si el proyecto es de una cuenta fuera del alcance de la persona.
+
+    Con alcance total no consulta nada; con alcance limitado busca la cuenta
+    del proyecto y, si no la encuentra, tampoco lo muestra.
+    """
+    scope = scope_for(request)
+    if scope.unrestricted:
+        return
+    found = next(
+        (p for p in load_portfolio().projects if p.project_id == project_id),
+        None,
+    )
+    if found is None or not scope.allows_project(
+        found.project_id, found.client
+    ):
+        raise Http404("No existe ese proyecto.")
+
+
 @require_GET
+@require_capability("view_operations")
 def proyecto(request: HttpRequest, project_id: str) -> HttpResponse:
     """
     Muestra el detalle de un proyecto.
@@ -923,6 +947,7 @@ def proyecto(request: HttpRequest, project_id: str) -> HttpResponse:
     """
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
+    ensure_project_visible(request, project_id)
 
     load = load_portfolio()
     project = next(
@@ -954,6 +979,7 @@ def proyecto(request: HttpRequest, project_id: str) -> HttpResponse:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def eva1_cerrados(request: HttpRequest) -> HttpResponse:
     """
     Entrega la tabla de proyectos IXB/RaaS cerrados para la tarjeta de EVA 1.
@@ -977,6 +1003,7 @@ def eva1_cerrados(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def eva1(request: HttpRequest) -> HttpResponse:
     """
     Muestra EVA 1: proyectos IXB y RaaS por Delivery Manager.
@@ -1040,6 +1067,7 @@ def eva4(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def eva2(request: HttpRequest) -> HttpResponse:
     """
     Muestra EVA 2: proyectos IXB y RaaS con su avance en Azure DevOps.
@@ -1069,6 +1097,7 @@ def eva2(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @ensure_csrf_cookie
+@require_capability("view_operations", whole_portfolio=True)
 def eva3(request: HttpRequest) -> HttpResponse:
     """
     Muestra EVA 3: proyectos AER y T&M por Delivery Manager.
@@ -1115,6 +1144,7 @@ def _read_capacity_filters(request: HttpRequest) -> CapacityFilters:
 
 @require_GET
 @ensure_csrf_cookie
+@require_capability("view_operations", whole_portfolio=True)
 def facturabilidad_area(request: HttpRequest) -> HttpResponse:
     """Muestra GSE en el portal con sus consultas RPC existentes."""
     if _needs_login(request):
@@ -1133,6 +1163,7 @@ def facturabilidad_area(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @ensure_csrf_cookie
+@require_capability("view_operations", whole_portfolio=True)
 def capacidad_detalle(request: HttpRequest) -> HttpResponse:
     """Abre la capacidad mensual en su propia pagina, con carga progresiva."""
     if _needs_login(request):
@@ -1143,6 +1174,7 @@ def capacidad_detalle(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def capacidad_instalada(request: HttpRequest) -> HttpResponse:
     """
     Muestra las asignaciones y la capacidad base de un mes.
@@ -1175,6 +1207,7 @@ def capacidad_instalada(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def capacidad_instalada_csv(request: HttpRequest) -> HttpResponse:
     """
     Descarga en CSV las asignaciones que muestra la pantalla.
@@ -1307,6 +1340,7 @@ def _facturability_context(month: str, tab: str) -> dict[str, object]:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def facturabilidad(request: HttpRequest) -> HttpResponse:
     """
     Muestra la facturabilidad de enero al mes elegido.
@@ -1354,6 +1388,7 @@ def facturabilidad(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def facturabilidad_especialidad(request: HttpRequest) -> HttpResponse:
     """
     Muestra la facturabilidad del mes por especialidad.
@@ -1413,6 +1448,7 @@ def facturabilidad_especialidad(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def facturabilidad_recurso(request: HttpRequest) -> HttpResponse:
     """
     Muestra la facturabilidad de cada persona, de enero al mes elegido.
@@ -1475,6 +1511,7 @@ def _peek_investment() -> InvestmentView | None:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def inversion(request: HttpRequest) -> HttpResponse:
     """
     Muestra las horas de inversion comercial y operativa del mes.
@@ -1572,6 +1609,7 @@ def operations_summary_data(refresh: bool = False) -> Any:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
 def eva3_cerrados(request: HttpRequest) -> HttpResponse:
     """Historico AER/T&M finalizado en 2026, exclusivamente desde MPB."""
     if _needs_login(request):
@@ -1613,6 +1651,7 @@ def eva3_cerrados(request: HttpRequest) -> HttpResponse:
     )
 
 
+@require_capability("view_operations", whole_portfolio=True)
 def eva3_cerrados_burn(request: HttpRequest) -> HttpResponse:
     """Rellena el Burn de un proyecto AER cerrado."""
     import json
@@ -1632,6 +1671,7 @@ def eva3_cerrados_burn(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @period_view
+@require_capability("view_costs", whole_portfolio=True)
 def ingresos(request: HttpRequest) -> HttpResponse:
     """Devuelve ingresos y cobranza de DataRevenue del ejercicio 2026."""
     from django.http import JsonResponse
@@ -1760,6 +1800,7 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @period_view
+@require_capability("view_costs", whole_portfolio=True)
 def rentabilidad_mensual(request: HttpRequest) -> HttpResponse:
     """Devuelve ingresos, costos y margen de los seis meses cerrados."""
     from django.http import JsonResponse
@@ -1782,8 +1823,16 @@ def rentabilidad_mensual(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @period_view
+@require_capability("view_costs")
 def costos_detalle(request: HttpRequest) -> HttpResponse:
     """Muestra costos, estados y personas con sus bandas y tarifas."""
+    scope = scope_for(request)
+    named = request.GET.get("nombre", "").strip()
+    if named and not scope.allows_account(named):
+        raise Http404("No existe esa cuenta.")
+    if not named and not scope.unrestricted:
+        # El listado completo es del portafolio entero.
+        raise PermissionDenied
     if request.GET.get("vista") != "proyectos":
         return oportunidades_financieras(request)
     if _needs_login(request):
@@ -1811,6 +1860,7 @@ def costos_detalle(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @period_view
+@require_capability("view_executive", whole_portfolio=True)
 def cuentas_rentabilidad(request: HttpRequest) -> HttpResponse:
     """Devuelve la rentabilidad por cuenta."""
     from django.http import JsonResponse
@@ -1836,6 +1886,7 @@ def cuentas_rentabilidad(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @period_view
+@require_capability("view_executive", whole_portfolio=True)
 def operaciones_ejecutiva(request: HttpRequest) -> HttpResponse:
     """Resume Operations para la vista ejecutiva."""
     from django.http import JsonResponse
@@ -1861,6 +1912,7 @@ def operaciones_ejecutiva(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @period_view
+@require_capability("view_executive", whole_portfolio=True)
 def todas_cuentas(request: HttpRequest) -> HttpResponse:
     """Full 2026 financial account audit, including intermediate and pending."""
     if _needs_login(request):
@@ -1960,6 +2012,7 @@ def acuerdos_ejecutivos(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @period_view
+@require_capability("view_commercial", whole_portfolio=True)
 def comercial_ejecutiva(request: HttpRequest) -> HttpResponse:
     """Devuelve el resumen comercial ejecutivo."""
     from django.http import JsonResponse

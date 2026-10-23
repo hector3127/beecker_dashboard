@@ -18,7 +18,7 @@ respuestas; la migración del frontend sí avanza.
 | 6 | Línea base de lo nuevo (cambios del 22/10) | Hecha |
 | 7 | Comparativa de márgenes (7a), cuenta (7b) y Delivery Manager (7c), con su navegación de regreso | Hecha |
 | 8 | Business Overview, glosario, diccionario de datos y KPIs de Delivery Managers | Hecha |
-| **9** | **Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos)** | **Siguiente** |
+| **9** | **Resto de pantallas (Comercial, Facturabilidad, Costos, Capacidad, Inversión, EVA 1-3, cuentas, suspendidos)** | **En curso: permisos y alcance hechos** |
 | 10 | `proyecto_detalle` (≈ 5,600 líneas) dividido por pestañas; fin de `/api/rpc/` | Pendiente |
 | 11 | Limpieza: legacy, plantillas y estáticos viejos, CSP obligatoria, `ACCESS_ENFORCED=1` | Pendiente |
 
@@ -259,6 +259,25 @@ Lo que se planeaba para esta fase:
   responde 403 en lugar de recortar filas; los cortes agregan a todo el equipo.
 - Se conservan `ejecutiva/actualizacion/` y `executive_numbers.js` hasta migrar
   Costos, Todas las cuentas y Comercial (fase 9).
+
+## Fase 9: permisos y alcance del resto de pantallas (hecha; visuales intactas)
+
+- `require_capability(code, whole_portfolio=True)`: con los accesos encendidos
+  pide la capacidad y, si la pantalla muestra cifras de todo el portafolio o del
+  equipo, rechaza (403) a quien tenga alcance limitado sin tocar las fuentes.
+  Se aplicó a EVA 1-3 y sus cerrados, Inversión, Facturabilidad (4 pestañas),
+  Capacidad (detalle, instalada y CSV), Comercial, Todas las cuentas y los
+  endpoints JSON del Business Overview.
+- `costos_detalle` pide `view_costs` (cuenta ajena 404; el listado completo,
+  403 con alcance limitado); `proyecto` y `proyecto_detalle` piden
+  `view_operations` y un proyecto de otra cuenta responde 404.
+- `trust(request)` marca las peticiones internas del calentamiento de cache.
+- No cambia ninguna pantalla: con `ACCESS_ENFORCED` apagado todo funciona igual.
+- Se conserva «Horas por mes» de la cuenta (`pages/account_hours`, API
+  `screens/cuenta/horas/`, `docs/reporte-horas-mensuales.md`) con su enlace en
+  `cuenta.html` y su regreso; usa `views.authorized_account`.
+- Pendiente de la 9: llevar los datos de estas pantallas a APIs (sin cambiar su
+  diseño) y retirar `executive_numbers.js` y `ejecutiva/actualizacion/`.
 
 ## Fases siguientes con lo nuevo integrado
 
