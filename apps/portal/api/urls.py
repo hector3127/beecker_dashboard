@@ -54,6 +54,11 @@ from apps.portal.api.project_detail import (
     ProjectResourcesView,
     ProjectStagesView,
     ProjectTasksView,
+    RaidCreateView,
+    RaidCreationOptionsView,
+    RaidFieldTypesView,
+    RaidPromptView,
+    RaidSuggestView,
     WorkItemCommentView,
     WorkItemProgressView,
 )
@@ -105,6 +110,20 @@ urlpatterns = [
         ProjectPlanningDeleteView.as_view(),
     ),
     path("screens/proyectos/hitos/tipos/", ProjectMilestoneTypesView.as_view()),
+    path("screens/proyectos/raid/prompt/", RaidPromptView.as_view()),
+    path("screens/proyectos/raid/sugerir/", RaidSuggestView.as_view()),
+    path(
+        "screens/proyectos/<str:project_id>/raid/campos/",
+        RaidFieldTypesView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/raid/alta-opciones/",
+        RaidCreationOptionsView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/raid/crear/",
+        RaidCreateView.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/raid-registro/",
         ProjectRaidRegistryView.as_view(),

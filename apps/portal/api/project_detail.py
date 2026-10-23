@@ -13,9 +13,10 @@ from apps.aer import rpc as aer
 from apps.aer.services import dashboard
 from apps.azure_devops.rpc import get_project_raid
 from apps.clockify import project_rpc
-from apps.daily import ixs_rpc
+from apps.daily import ai_rpc, ixs_rpc
 from apps.daily import rpc as daily
 from apps.daily.ixs_rpc import build_store_sheets, get_ixs_panel
+from apps.daily.services import claude_assist
 from apps.daily.services.ixs_planning import (
     delete_plan,
     read_plan,
@@ -337,7 +338,7 @@ class ProjectMilestoneWriteView(OperationsScreen):
         """Servicio concreto, definido en cada endpoint."""
         raise NotImplementedError
 
-    def post(self, request: Request, project_id: str) -> Response:
+    def post(self, request: Request, project_id: str = "") -> Response:
         """El ID de la ruta prevalece; las reglas siguen en el servicio."""
         if not isinstance(request.data, dict):
             return error_response(400, "validation", "Envía un objeto JSON.")
@@ -384,4 +385,90 @@ class ProjectMilestoneDeleteView(ProjectMilestoneWriteView):
         """Mismo servicio, con el proyecto de la ruta."""
         return milestones.delete_milestone_entry(
             project_id, payload.get("tipo"), payload.get("indice")
+        )
+
+
+class RaidFieldTypesView(ProjectRead):
+    """Opciones de los campos principales del tipo RAID elegido."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Mismo servicio que ixsRaidCamposTipo."""
+        return ixs_rpc.raid_field_types(
+            project_id, self.request.query_params.get("tipo", "")
+        )
+
+
+class RaidCreationOptionsView(ProjectRead):
+    """Iteraciones, usuarios, relacionados y campos para el alta."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Mismo servicio que ixsRaidAltaOpciones."""
+        return ixs_rpc.raid_creation_options(
+            project_id, self.request.query_params.get("tipo", "")
+        )
+
+
+@method_decorator(csrf_protect, name="dispatch")
+class RaidPromptView(ProjectRead):
+    """Prompt vigente del tipo RAID; guardarlo pide manage_integrations."""
+
+    def get_permissions(self) -> list[Any]:
+        """Leer pide operación; guardar, manage_integrations (como el RPC)."""
+        if self.request.method == "POST":
+            return [
+                *(p() for p in APIView.permission_classes),
+                capability_permission(
+                    "manage_integrations", whole_portfolio=True
+                )(),
+            ]
+
+        return super().get_permissions()
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Mismo servicio que ixsRaidObtenerPrompt."""
+        return claude_assist.read_raid_prompt(
+            ai_rpc.build_claude(), self.request.query_params.get("tipo", "")
+        )
+
+    def post(self, request: Request, project_id: str = "") -> Response:
+        """Mismo servicio que ixsRaidGuardarPrompt (vacío = estándar)."""
+        if not isinstance(request.data, dict):
+            return error_response(400, "validation", "Envía un objeto JSON.")
+        try:
+            return self.body(
+                claude_assist.save_raid_prompt(
+                    ai_rpc.build_claude(),
+                    request.data.get("tipo"),
+                    request.data.get("prompt"),
+                )
+            )
+        except DashboardError as error:
+            return error_response(
+                error.http_status, error.code, error.build_message()
+            )
+
+
+class RaidSuggestView(ProjectMilestoneWriteView):
+    """Sugerencia de Claude para el formulario RAID (nada se publica)."""
+
+    def perform(
+        self, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Mismo servicio que ixsRaidSugerirClaude."""
+        return claude_assist.suggest_raid(
+            ai_rpc.build_claude(),
+            payload.get("tipo"),
+            payload.get("descripcion"),
+        )
+
+
+class RaidCreateView(ProjectMilestoneWriteView):
+    """Crea el Risk, Issue u Opportunity en Azure DevOps."""
+
+    def perform(
+        self, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """El proyecto de la ruta prevalece; el servicio valida el resto."""
+        return ixs_rpc.create_raid_record(
+            project_id, payload.get("tipo"), payload.get("datos")
         )
