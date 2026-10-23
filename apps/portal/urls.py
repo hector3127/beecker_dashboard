@@ -15,7 +15,7 @@ urlpatterns = [
     path("guia-de-interfaz/", pages.guia, name="guia_interfaz"),
     path(
         "ejecutiva/oportunidades/",
-        views.oportunidades_financieras,
+        pages.margins,
         name="oportunidades_financieras",
     ),
     path(

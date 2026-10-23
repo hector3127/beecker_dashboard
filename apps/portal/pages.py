@@ -2,16 +2,25 @@
 
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
-from django.http import HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET
 
-from apps.access.checks import require_capability
+from apps.access.checks import require_capability, scope_for
 from apps.portal import views
 from apps.portal.services.eva4 import anterior_disponible, month_picker
-from apps.portal.services.return_navigation import return_context
+from apps.portal.services.executive_period import (
+    period_view,
+)
+from apps.portal.services.executive_period import (
+    query_string as executive_query_string,
+)
+from apps.portal.services.return_navigation import (
+    account_back_url,
+    return_context,
+)
 
 """BKD.120.014 - Paginas del frontend
 Cada pagina valida el acceso y renderiza su plantilla; los datos los pide
@@ -94,5 +103,47 @@ def account_hours(request: HttpRequest, slug: str) -> HttpResponse:
             "year": timezone.localdate().year,
             "today": timezone.localdate().isoformat(),
             **return_context(request, back, client),
+        },
+    )
+
+
+@require_GET
+@ensure_csrf_cookie  # el JS firma el POST de actualizar costos
+@period_view
+@require_capability("view_costs")
+def margins(request: HttpRequest) -> HttpResponse:
+    """Margen vendido vs. real: el JS pide las cifras a la API.
+
+    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la pantalla de antes.
+    """
+    from urllib.parse import urlencode
+
+    from django.urls import reverse
+
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    if anterior_disponible() and request.GET.get("vista") == "anterior":
+        return views.oportunidades_financieras(request)
+    account = request.GET.get("nombre", "").strip()
+    if account and not scope_for(request).allows_account(account):
+        raise Http404("No existe esa cuenta.")
+    costs = {"vista": "proyectos"}
+    if account:
+        costs["nombre"] = account
+    query = urlencode(costs)
+    if executive_query_string():
+        query += "&" + executive_query_string()
+    return render(
+        request,
+        "pages/margins.html",
+        {
+            "active": "ejecutiva",
+            "account_filter": account,
+            "costs_url": reverse("portal:costos_detalle") + "?" + query,
+            **return_context(
+                request,
+                account_back_url(account),
+                account or "Business Overview",
+            ),
         },
     )

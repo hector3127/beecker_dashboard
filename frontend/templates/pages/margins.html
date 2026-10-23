@@ -1,0 +1,19 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}Margen vendido vs. real{% endblock %}
+{% block body_class %}margins-page{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/margins.css' %}">{% endblock %}
+{% block content %}
+<div class="opportunity-page" id="margins" data-account="{{ account_filter }}" data-back="{{ back_url }}">
+<div class="portal-page-toolbar">
+<a class="portal-back" data-portal-back href="{{ back_url }}">← Regresar a {{ back_label }}</a>
+<a class="portal-page-action" href="{{ costs_url }}"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11M3 14h18"/></svg>Ver lista por proyecto</a>
+</div>
+<div class="opportunity-title"><h1 id="margins-title">Margen vendido vs. real{% if account_filter %} · {{ account_filter }}{% endif %}</h1></div>
+<form method="get" class="opportunity-filters" id="opportunity-dates"><input type="hidden" name="periodo" value="rango"><input type="hidden" name="volver" value="{{ back_url }}">{% if account_filter %}<input type="hidden" name="nombre" value="{{ account_filter }}">{% endif %}<label>Fecha inicio<input type="date" name="desde" required></label><label>Fecha fin<input type="date" name="hasta" required></label><button type="submit">Aplicar fechas</button><button type="button" id="opportunity-refresh">Actualizar costos</button></form>
+<p id="opportunity-status" role="status"></p>
+<div id="margins-content"></div>
+<noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
+</div>
+{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/margins/main.js' %}"></script>{% endblock %}
