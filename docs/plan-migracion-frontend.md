@@ -77,13 +77,15 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Terminados: ambos Ejecutivos; Esfuerzo y Recursos IXB/SaaS/RaaS.
+Terminados: ambos Ejecutivos; Esfuerzo, Recursos y Gestión RAID IXB/SaaS/RaaS.
+También están separados el editor de hitos históricos y la ventana de
+comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
 La entrada modular ya usa API para filtros y dashboards, pero el encabezado
 y la navegación entre pestañas todavía dependen del script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
-| IXB/SaaS/RaaS | Planeación, Gestión RAID, Acciones, Cliente, Comunicación, Azure DevOps e IA |
+| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente, Comunicación, presentación/acciones de Azure DevOps e IA |
 | AER/T&M | Planeación, Esfuerzo, Riesgos, Acciones, Recursos, Cliente e IA |
 | Compartido | Encabezados, pestañas y acciones restantes; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
@@ -91,12 +93,39 @@ Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
 incluidos Gantt editable, calendario, editores y extensión de proyecto.
 Los editores de vacaciones y actividades/hitos, la presentación general y
-sus consultas y las escrituras de Work Items ya son modulares. Quedan el
-editor de hitos del histórico y la extensión con integraciones. Azure DevOps
-mantiene su vista anterior, aunque estas escrituras usan API mediante puente.
+sus consultas y las escrituras de Work Items ya son modulares. El editor de
+hitos del histórico y los comunicados también están separados. Azure DevOps
+ya carga/actualiza por API y controlador modular; mantiene su presentación y
+acciones anteriores, aunque las escrituras de Work Items usan API mediante puente.
 Usar API no equivale a migrar toda una pestaña.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Fase 10: transporte y cargas de Azure DevOps IXB (parcial)
+
+`screens/proyectos/<id>/azure/?forzar=1` reutiliza `get_ixs_panel` y su caché,
+sin modificar servicios, cálculos o permisos. La lectura diferida de Planeación
+permanece separada y no fuerza refresco. Controlador/modelo/mensajes en
+`sections/ixs_azure{,_model,_loading}.js`; carga y errores por DOM seguro,
+consultas protegidas contra respuestas tardías y recargas de la misma pestaña.
+La ruta anterior conserva RPC y su cargador independiente.
+
+**No equivale a pestaña migrada:** resumen, agrupaciones, filtros, tablas,
+desgloses y acciones aún se ejecutan en `proyecto_detalle.js`; deben ser el
+siguiente bloque. La fase 10 sigue parcial.
+
+Evidencia: 12 pruebas nuevas API, 5 Node del modelo/controlador y una nueva
+del cliente; 14 e2e (nueve comparaciones de cajas/estilos contra la anterior a
+1450/900/390 px, carga, actualización, filtros/desglose, respuestas tardías,
+error seguro y reintento). Específicas junto con Planeación/alta RAID: 48 API y
+11 Node aprobadas. Capturas en `tmp/migration/project_detail/ixs_azure_transport/`.
+Ruff, formato y comprobación de Django aprobados. Mypy conserva seis errores
+anteriores en cuatro archivos, confirmados ejecutándolo también con la versión
+de la API en HEAD (`--shadow-file`); detalle en `docs/estado-traspaso.md`.
+Regresión del detalle, Planeación, API y soporte frontend: **181 aprobadas**
+con Chrome. Node completo: **160 aprobadas y tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). No se ejecutó una
+nueva regresión completa de todas las pantallas del portal.
 
 ### Fase 10: escrituras/comentarios de Work Items (Planeación parcial)
 

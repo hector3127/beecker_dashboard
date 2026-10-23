@@ -7037,6 +7037,20 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
   function _ixsLoadAzureDevOpsTab(force){
     if(!ixsProyectoActual||!ixsProyectoActual.proyecto)return;
+    if(window.beeIxsAzure){
+      const root=document.getElementById('ixs-tab-contenido');
+      if(!root)return;
+      return window.beeIxsAzure.load(root,ixsProyectoActual,ixsAzureState,force,{
+        current:project=>ixsProyectoActual===project,
+        active:()=>ixsTabActual==='azure'&&document.getElementById('ixs-tab-contenido')===root,
+        loaded:state=>{
+          ixsAzureState=state;
+          _ixsRenderAzureSummary();
+          ixsAzureApplyFilters();
+          _ixsAz84RenderGroups();
+        }
+      });
+    }
     const pid=ixsProyectoActual.proyecto.id;
     const requestId=++ixsAzureState.requestId;
     ixsAzureState.projectId=pid;

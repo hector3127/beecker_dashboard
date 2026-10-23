@@ -19,6 +19,14 @@ export function createProjectData(get = apiGet, send = apiSend) {
       read(`screens/proyectos/${encodeURIComponent(id)}/planeacion/`),
     planningAzure: (id) =>
       read(`screens/proyectos/${encodeURIComponent(id)}/planeacion/azure/`),
+    azure: async (id, force = false) =>
+      (
+        await get(
+          `screens/proyectos/${encodeURIComponent(id)}/azure/`,
+          force ? { forzar: "1" } : undefined,
+          { timeout: 90000 },
+        )
+      ).data,
     saveWorkItem: async (id, campo, valor) =>
       (
         await send(

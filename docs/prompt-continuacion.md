@@ -8,8 +8,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
-2. Revisa Git: debes estar en `main`, sincronizado con `origin/main`. El último
-   bloque es `b1ca4b4` (glosario de Margen vendido vs. real). No hagas push
+2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
+   diferencia con `origin/main`. El último bloque local es transporte/cargas
+   de Azure DevOps IXB (posterior al glosario `b1ca4b4`). No hagas push
    salvo que te lo pida expresamente.
 3. Conserva sin comitear ni modificar lo que no es tuyo:
    `tools/migracion/inline2css.py`, `tools/migracion/migrate_page.py`,
@@ -42,7 +43,11 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
    (copia el estilo de `test_ixs_raid.py` / `test_ixs_raid_create.py`), Node en
    `tests/frontend/` contrastando contra las funciones originales.
 
-**Siguiente bloque sugerido:** pestaña **Azure DevOps** de IXB/SaaS/RaaS
+**Avance posterior:** Azure DevOps ya carga y actualiza por API v1, con
+`sections/ixs_azure{,_model,_loading}.js`. Solo transporte y cargas; no dar la
+pestaña por terminada. Ver evidencia y seis errores previos de mypy en el traspaso.
+
+**Siguiente bloque sugerido:** presentación y acciones de **Azure DevOps** de IXB/SaaS/RaaS
 (`_ixsRenderAzureDevOps` en `proyecto_detalle.js`); después IA, Cliente/Acciones
 (comparten renderer con AER) y Comunicación; luego las pestañas de AER distintas
 del Ejecutivo. Al final: limpieza de plantillas/CSS/JS anteriores y CSP.

@@ -2,6 +2,39 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, transporte y cargas de Azure DevOps IXB (parcial)
+
+- GET `screens/proyectos/<id>/azure/` llama a `get_ixs_panel(id, force)`;
+  `forzar=1` conserva la actualización explícita del RPC. Lectura con
+  `view_operations` y alcance total. La API de Planeación conserva `False`
+  incluso si recibe `forzar`; no se cambian sus consultas ni cálculos.
+- `sections/ixs_azure.js`, `ixs_azure_model.js` y `ixs_azure_loading.js`
+  separan transporte, forma del estado y mensajes DOM seguros. Tokens por
+  consulta/sesión y comprobaciones de proyecto, pestaña y nodo evitan que
+  respuestas viejas sobrescriban una vista nueva, tanto éxitos como errores.
+- `_ixsLoadAzureDevOpsTab` delega en el controlador nuevo; la comparación
+  anterior sigue en RPC. Resumen, filtros, tablas, agrupaciones, desgloses y
+  acciones siguen en el archivo anterior: **Azure DevOps no está terminada**.
+- Siguiente: migrar la presentación/agrupaciones y los controladores de filtros,
+  desgloses y Work Items de Azure. Después IA, Cliente/Acciones, Comunicación
+  y pestañas AER. Mantener shim y script anterior.
+- Verificaciones específicas: 48 pruebas API (Azure, Planeación y alta RAID),
+  11 Node del transporte y 14 e2e aprobadas. Los e2e incluyen nueve
+  comparaciones con la anterior a 1450/900/390 px (completa, vacía y error),
+  carga, refresco, filtros/desglose, respuestas tardías y error con reintento.
+  Capturas en `tmp/migration/project_detail/ixs_azure_transport/`; inspeccionada
+  también la captura completa de escritorio. Fuentes simuladas, sin Azure/Gmail
+  reales. Ruff/formato y `manage.py check` aprobados.
+- Regresión del detalle/Planeación/API/soporte frontend y escrituras visibles
+  de Azure: **181 aprobadas**, con Chrome. No es una regresión completa del
+  portal. Suite Node completa: **160 aprobadas y los tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`).
+- Mypy detecta seis errores previos en cuatro archivos: `fallback_project.py`
+  (3), `dashboard.py` (1), `project_orchestrator.py` (1) y el retorno de
+  `RaidPromptView.get_permissions` (1). Comprobado también con el contenido de
+  la API de HEAD mediante `--shadow-file`: mismos seis errores. No corregidos
+  en este bloque de transporte.
+
 ## Ajuste: Margen vendido vs. real (24/10/2026)
 
 - La pantalla nueva ya no muestra "Fecha de servicio: G · por validar" bajo

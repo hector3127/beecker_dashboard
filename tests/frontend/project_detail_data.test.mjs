@@ -14,6 +14,23 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("Azure tab sends the exact project and explicit refresh without changing planning", async () => {
+  const calls = [];
+  const data = context.createProjectData(async (...args) => {
+    calls.push(args);
+    return { data: { ok: true } };
+  });
+  await data.azure("CCO.001 | CR");
+  await data.azure("CCO.001 | CR", true);
+  await data.planningAzure("CCO.001 | CR");
+  assert.equal(calls[0][0], "screens/proyectos/CCO.001%20%7C%20CR/azure/");
+  assert.equal(calls[0][1], undefined);
+  assert.equal(calls[1][1].forzar, "1");
+  assert.equal(calls[2][0], "screens/proyectos/CCO.001%20%7C%20CR/planeacion/azure/");
+  assert.equal(calls[2][1], undefined);
+  assert.ok(calls.every(call => call[2].timeout === 90000));
+});
+
 test("work item writes preserve IDs, typed values, body and timeout", async () => {
   const calls = [];
   const data = context.createProjectData(

@@ -190,6 +190,16 @@ class ProjectPlanningAzureView(ProjectRead):
         return get_ixs_panel(project_id, False)
 
 
+class ProjectAzureView(ProjectRead):
+    """Panel Azure de la pestaña, con actualización explícita de su caché."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Mismo servicio y parámetro que obtenerPanelAzureProyectoIXS."""
+        return get_ixs_panel(
+            project_id, self.request.query_params.get("forzar") == "1"
+        )
+
+
 def save_plan_dashboard(
     plan_type: str, payload: dict[str, Any]
 ) -> dict[str, Any]:

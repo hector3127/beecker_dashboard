@@ -100,8 +100,13 @@ ventana de comunicados Extensión/Suspensión/Reanudación/Cierre
 (`sections/communique*.js`, backend en `apps/gmail`), Gestión RAID completa
 (`sections/raid*.js`, lectura y alta) y el aviso de datos faltantes
 (`data_notice.js`); proyectos fuera de Proyectos se arman desde MPB/Histórico.
-**Planeación y la fase 10 continúan parciales.** Siguiente: Azure DevOps (una
-pestaña), IA, Cliente/Acciones (comparten renderer con AER) y Comunicación de
+Azure DevOps IXB ya tiene transporte y control de carga en
+`sections/ixs_azure{,_model,_loading}.js`, sobre `screens/proyectos/<id>/azure/`
+(`forzar=1` para Actualizar Azure). Mantiene el servicio anterior y descarta
+respuestas tardías al recargar/cambiar de pestaña/proyecto. La presentación,
+agrupaciones, filtros y acciones de la pestaña todavía usan el script anterior.
+**Planeación y la fase 10 continúan parciales.** Siguiente: presentación y
+acciones de Azure DevOps; después IA, Cliente/Acciones (comparten renderer con AER) y Comunicación de
 IXS; en AER faltan todas las pestañas salvo Ejecutivo. También falta separar
 encabezados y navegación compartida, y retirar el shim de la ruta nueva.
 

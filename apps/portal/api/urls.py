@@ -37,6 +37,7 @@ from apps.portal.api.operations import (
 )
 from apps.portal.api.project_detail import (
     ProjectAerView,
+    ProjectAzureView,
     ProjectExecutiveView,
     ProjectFiltersView,
     ProjectMilestoneDeleteView,
@@ -85,6 +86,10 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/<str:project_id>/azure/",
+        ProjectAzureView.as_view(),
+    ),
     path(
         "screens/work-items/<int:work_item_id>/avance/",
         WorkItemProgressView.as_view(),
