@@ -29,7 +29,7 @@ urlpatterns = [
         views.acuerdos_ejecutivos,
         name="acuerdos_ejecutivos",
     ),
-    path("ejecutiva/cuentas/", views.todas_cuentas, name="todas_cuentas"),
+    path("ejecutiva/cuentas/", pages.all_accounts, name="todas_cuentas"),
     path(
         "ejecutiva/costos/detalle/",
         views.costos_detalle,

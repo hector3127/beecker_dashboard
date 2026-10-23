@@ -1847,6 +1847,19 @@ def costos_detalle(request: HttpRequest) -> HttpResponse:
     )
 
 
+def render_page(
+    request: HttpRequest, template: str, context: dict[str, Any]
+) -> HttpResponse:
+    """Pinta con la plantilla anterior, o con la que la pagina nueva pida.
+
+    pages.* fija request.portal_template para servir la plantilla de
+    frontend/ con la misma vista (y los mismos calculos).
+    """
+    return render(
+        request, getattr(request, "portal_template", template), context
+    )
+
+
 @require_GET
 @period_view
 @require_capability("view_executive", whole_portfolio=True)
@@ -1876,7 +1889,7 @@ def todas_cuentas(request: HttpRequest) -> HttpResponse:
     period = executive_period()
     context["executive_label"] = period.label if period else ""
     context["loaded_at"] = timezone.localtime()
-    return render(request, "portal/todas_cuentas.html", context)
+    return render_page(request, "portal/todas_cuentas.html", context)
 
 
 @require_http_methods(["GET", "POST"])

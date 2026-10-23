@@ -10,3 +10,5 @@ a[data-pronto]{cursor:help}
 .fresh .capture-button { padding: 9px 13px; border: 1px solid #daccff; border-radius: 9px; background: #fff; color: #5925d6; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .fresh .capture-status { max-width: 260px; font-size: 12px; white-space: normal; }
 .fresh .capture-button { min-height: 0; }
+/* La barra de navegacion anterior anulaba el margen de la barra lateral vieja. */
+body #main-content { margin-left: 0 !important; }

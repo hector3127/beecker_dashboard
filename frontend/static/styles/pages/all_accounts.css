@@ -1,0 +1,69 @@
+/* Reglas de la pantalla anterior, sin las de la barra superior. */
+
+/* --- estilo en linea --- */
+.accounts-page{max-width:1400px;margin:auto;padding:28px;color:#191447}
+.accounts-page a{color:#6025e8;text-decoration:none}
+.accounts-card{padding:22px;margin-top:18px;border:1px solid #e7ddff;border-radius:16px;background:white}
+.accounts-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.accounts-controls input,.accounts-controls select{padding:10px;border:1px solid #ddd1ff;border-radius:8px;font:inherit}
+.accounts-scroll{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:13px 12px;text-align:left;border-bottom:1px solid #eee8ff}
+th{background:#f2edff;white-space:nowrap}
+.money{text-align:right;white-space:nowrap}
+.badge{display:inline-block;border-radius:20px;padding:5px 9px;background:#f0ecff}
+.healthy{color:#09875b;background:#def8ed}
+.unhealthy{color:#cb2449;background:#ffe9ee}
+.pending{color:#996400;background:#fff2d6}
+.muted{color:#81779e;font-size:12px}
+.accounts-page h1{margin-bottom:8px}
+body{background:#f5f2ff}
+#main-content{margin-left:200px;min-height:100vh;background:radial-gradient(ellipse at 90% 0%,#ded5ff 0,transparent 45%)}
+.accounts-page{padding:28px 32px;max-width:1600px}
+.accounts-page h1{font-size:34px;letter-spacing:-1px;margin:22px 0 6px;font-weight:800}
+.accounts-page>.muted{color:#55568b;font-size:13px}
+.accounts-card{box-shadow:0 3px 12px #5830be08;padding:14px;margin-top:16px;border-color:#e8dfff;background:#ffffffed}
+.accounts-controls{padding:16px 18px;gap:16px}
+.accounts-controls input{width:330px;background:#fcfbff;padding-left:34px}
+.accounts-controls select{min-width:245px;background:#fcfbff}
+.accounts-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:16px}
+.summary-tile{display:flex;gap:14px;align-items:center;padding:14px 16px;border:1px solid #e8dfff;border-radius:16px;background:#ffffffb8;box-shadow:0 3px 12px #5830be06}
+.summary-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#eee7ff;color:#7040f4;font-size:20px}
+.summary-tile strong{display:block;color:#181053;font-size:17px}
+.summary-tile small{display:block;color:#66618e;margin-top:3px;font-size:12px}
+.summary-icon.green{color:#0aab83;background:#e2f8f1}
+.summary-icon.amber{color:#f2a02d;background:#fff3df}
+.accounts-scroll table{border-collapse:separate;border-spacing:0 3px;font-size:12px;min-width:1060px}
+.accounts-scroll th{padding:12px 10px;background:#f0eaff;border:0;font-size:11px;cursor:pointer}
+.accounts-scroll th:first-child{border-radius:7px 0 0 7px}
+.accounts-scroll th:last-child{border-radius:0 7px 7px 0;cursor:default}
+.accounts-scroll td{padding:6px 10px;border:0;color:#535780}
+.accounts-scroll tbody tr:nth-child(even){background:#f7f4ff}
+.accounts-scroll tbody tr:hover{background:#eee7ff}
+.accounts-scroll td:first-child{border-radius:7px 0 0 7px;min-width:240px}
+.accounts-scroll td:last-child{border-radius:0 7px 7px 0}
+.accounts-scroll td:first-child a{color:#6520f4}
+.accounts-scroll td:nth-child(2){text-align:center}
+.badge{font-size:11px;padding:4px 12px;white-space:nowrap}
+.intermediate{color:#6c30e3;background:#eee4ff}
+.detail-link{display:inline-block;background:#f1ebff;border:1px solid #e1d5ff;border-radius:20px;padding:4px 13px;font-size:11px;white-space:nowrap}
+.margin-high{color:#009b79!important;font-weight:700}
+.margin-low{color:#e72b48!important;font-weight:700}
+th button{border:0;background:none;padding:0;color:inherit;font:inherit;font-weight:700;cursor:pointer}
+th button::after{content:' ↕';color:#8072bc;padding-left:4px}
+@media(max-width:1000px){#main-content{margin-left:165px}
+.accounts-page{padding:22px 18px}
+.accounts-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){#main-content{margin-left:0}
+.accounts-page{padding:18px 12px}
+.accounts-page h1{font-size:27px}
+.accounts-controls input,.accounts-controls select{width:100%;min-width:0}
+.accounts-summary{gap:8px}
+.summary-tile{padding:12px 9px;gap:8px}}
+.accounts-scroll th,.accounts-scroll td,.accounts-scroll td.money{text-align:center;vertical-align:middle}
+.accounts-scroll td:first-child{text-align:center}
+.badge.future{color:#4968b3;background:#eaf0ff}
+
+/* Estilos que estaban en linea. */
+.ali-27ac76 {display:block;font-size:10px;margin-top:4px}
+body.all-accounts-page main.page { max-width: none; padding: 0; }

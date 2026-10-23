@@ -1,5 +1,6 @@
 """Paginas del frontend nuevo: solo entregan la plantilla de frontend/."""
 
+from typing import Any
 from urllib.parse import quote
 
 from django.conf import settings
@@ -314,3 +315,23 @@ def commercial(request: HttpRequest) -> HttpResponse:
     if anterior_disponible() and request.GET.get("vista") == "anterior":
         return views.comercial(request)
     return views.comercial_response(request, "pages/commercial.html")
+
+
+def _modern(
+    request: HttpRequest, view: Any, template: str, *args: Any
+) -> HttpResponse:
+    """Sirve la plantilla de frontend/ con la vista de siempre.
+
+    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la plantilla de antes.
+    """
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    if not (anterior_disponible() and request.GET.get("vista") == "anterior"):
+        request.portal_template = template  # type: ignore[attr-defined]
+    return view(request, *args)  # type: ignore[no-any-return]
+
+
+@require_GET
+def all_accounts(request: HttpRequest) -> HttpResponse:
+    """Todas las cuentas: auditoria financiera del año."""
+    return _modern(request, views.todas_cuentas, "pages/all_accounts.html")
