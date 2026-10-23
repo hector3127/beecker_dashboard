@@ -65,7 +65,7 @@ urlpatterns = [
         views.eva1_cerrados,
         name="eva1_cerrados",
     ),
-    path("operativa/inversion/", views.inversion, name="inversion"),
+    path("operativa/inversion/", pages.investment, name="inversion"),
     path(
         "operativa/facturabilidad/",
         views.facturabilidad,

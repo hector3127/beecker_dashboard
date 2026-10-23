@@ -57,7 +57,7 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 | Todas las cuentas | `ejecutiva/cuentas/` | `pages/all_accounts.html` (la anterior con `?vista=anterior`) | No (datos por el contexto de la vista) | **Sí** (plantilla modular) | **Hecha 24/10** |
 | Costos | `ejecutiva/costos/detalle/` | `pages/costs.html` (la anterior con `?anterior=1`) | `costs/summary/`, `costs/project/` | **Sí** | **Hecha 24/10**; `tests/e2e/test_costos.py` |
 | Comercial | `comercial/` | `pages/commercial.html` (la anterior con `?vista=anterior`) | No (datos por el contexto de la vista) | **Sí** (plantilla modular) | **Hecha 24/10**; `tests/e2e/test_comercial.py` |
-| Inversión | `operativa/inversion/` | `portal/inversion.html` | `screens/inversion/` | No | Igual |
+| Inversión | `operativa/inversion/` | `pages/investment.html` (anterior con `?vista=anterior`) | `screens/inversion/`; la página conserva el contexto del servidor | **Sí** | Comparación de cajas y estilos con los mismos datos a 1450, 900 y 390 px; `tests/e2e/test_inversion.py` |
 | Capacidad instalada y detalle | `operativa/capacidad-instalada/`, `capacidad-instalada/` | `portal/capacidad_instalada.html`, `portal/capacidad_detalle.html` | `screens/capacidad/` | No | Igual |
 | Facturabilidad (general, especialidad, recurso) | `operativa/facturabilidad/…` | `portal/facturabilidad*.html` | `screens/facturabilidad/…` | No | Igual |
 | Facturabilidad por área | `operativa/facturabilidad/area/` | `portal/facturabilidad_area.html` (con `gas_shim.js`) | RPC | No | Igual |
@@ -70,6 +70,14 @@ Evidencia: ruta en `apps/portal/urls.py` → vista → plantilla servida.
 estilo anteriores; en `frontend/` hay 5 plantillas (4 pantallas y la guía).
 
 ### Pendientes que no se dan por hechos
+
+Actualización al retomar el traspaso: Inversión completada sobre los cambios
+pendientes de Claude. No se modificó `inversion_data` ni el cálculo de GSE.
+Se corrigió la prioridad CSS del margen del segundo encabezado. Cinco pruebas
+e2e verifican totales, anchos de barras, cambio de mes, regreso, error de fuente
+y paridad visual en escritorio, tableta y móvil. Las capturas reproducibles
+se guardan en `tmp/migration/investment/` al ejecutar las pruebas con Chrome.
+El siguiente bloque es Capacidad instalada y detalle.
 
 1. Frontend de las fases 7, 8 y 9 (ver tabla): ninguna pantalla de ellas usa
    `frontend/`.

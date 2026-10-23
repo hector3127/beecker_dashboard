@@ -7,7 +7,20 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 - Antes, con commit cada una: Comercial `a8239ca`, Todas las cuentas `b314f35`, Business Overview `dca99b5`, KPIs de DMs `b02e623`, diccionario `cf702aa`, cuenta `5277a21`, Delivery Manager `56d169e`, márgenes `8f53c08`, EVA-04 `8d50bb0`, Operativa `ca4434d`.
 - `AGENTS.md` y `tools/migracion/`: `86c69d0`.
 
-## En curso: Inversión (`/operativa/inversion/`)
+## Inversión completada al retomar
+
+Se conservaron y completaron los cambios pendientes descritos abajo.
+La diferencia de alto era el margen superior de un encabezado anulado por
+`.ds .card h2`; se corrigió su prioridad sin modificar el diseño anterior.
+`tests/e2e/test_inversion.py`: cinco pruebas aprobadas usando Chrome instalado
+(`--browser-channel chrome`); compara estilos y cajas a 1450, 900 y 390 px,
+además de datos, cambio de mes, barras, regreso y error de fuente.
+Capturas: `tmp/migration/investment/<ancho>/previous.png` y `current.png`.
+Los cálculos y las fuentes no cambiaron. El siguiente bloque es Capacidad.
+
+### Cambios recibidos de Claude (registro histórico)
+
+Inversión (`/operativa/inversion/`), inicialmente sin commitear:
 Sin commitear (en el árbol de trabajo):
 - `frontend/templates/pages/investment.html`, `frontend/static/styles/pages/investment.css`, `frontend/static/scripts/pages/investment/main.js`.
 - `apps/portal/pages.py` (vista `investment`), `apps/portal/urls.py` (ruta), `apps/portal/views.py` (`inversion` usa `render_page`).

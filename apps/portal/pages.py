@@ -359,3 +359,9 @@ def costs(request: HttpRequest) -> HttpResponse:
     if not (anterior_disponible() and request.GET.get("anterior") == "1"):
         request.portal_template = "pages/costs.html"  # type: ignore[attr-defined]
     return views.costos_detalle(request)  # type: ignore[no-any-return]
+
+
+@require_GET
+def investment(request: HttpRequest) -> HttpResponse:
+    """Inversion operativa y comercial del mes."""
+    return _modern(request, views.inversion, "pages/investment.html")

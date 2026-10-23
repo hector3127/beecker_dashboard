@@ -1547,7 +1547,7 @@ def inversion(request: HttpRequest) -> HttpResponse:
     context = _facturability_context(month, "inversion")
     context.update(inversion_data(month))
 
-    return render(request, "portal/inversion.html", context)
+    return render_page(request, "portal/inversion.html", context)
 
 
 def _role_scope(
