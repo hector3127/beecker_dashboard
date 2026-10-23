@@ -29,14 +29,12 @@ PAGES = {
         "capacidad_csv",
         "capacidad_detalle",
     ],
-    "view_commercial": ["comercial", "comercial_ejecutiva"],
+    "view_commercial": ["comercial"],
     "view_executive": [
-        "operaciones_ejecutiva",
         "actualizacion_ejecutiva",
         "todas_cuentas",
-        "cuentas_rentabilidad",
     ],
-    "view_costs": ["ingresos", "rentabilidad_mensual", "costos_detalle"],
+    "view_costs": ["ingresos", "costos_detalle"],
 }
 CASES = [(name, code) for code, names in PAGES.items() for name in names]
 

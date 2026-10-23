@@ -200,9 +200,7 @@ def test_main_page_reads_financial_snapshot_without_source_queries(monkeypatch):
 
 
 @override_settings(PORTAL_LOGIN_REQUIRED=True)
-@pytest.mark.parametrize(
-    "view", [views.ingresos, views.costos_revenue, views.rentabilidad_mensual]
-)
+@pytest.mark.parametrize("view", [views.ingresos, views.costos_revenue])
 def test_financial_endpoints_require_login(view):
     request = RequestFactory().get("/")
     request.user = SimpleNamespace(is_authenticated=False)

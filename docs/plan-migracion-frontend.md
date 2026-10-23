@@ -311,10 +311,9 @@ Estado a 22/10/2026, comprobado en el código:
   pantallas y el RPC ya validan capacidad y alcance. Antes: `python manage.py
   access_setup --incluir-usuarios` (migrar `access.0002` primero) y probar con
   una persona de alcance limitado. Ver `docs/permisos.md`.
-- **Endpoints sin consumidor en el código:** `comercial_ejecutiva`,
-  `operaciones_ejecutiva`, `rentabilidad_mensual` y `cuentas_rentabilidad`
-  (solo los usan pruebas). Ya exigen capacidad y alcance total; borrarlos pide
-  confirmar que ningún tercero los llama.
+- **Endpoints sin consumidor: retirados** (23/10/2026): `comercial_ejecutiva`,
+  `operaciones_ejecutiva`, `rentabilidad_mensual` y `cuentas_rentabilidad`; nada
+  del código los llamaba.
 - **Se conservan** `ejecutiva/actualizacion/` y `executive_numbers.js` porque
   Costos, Todas las cuentas, Comercial y la barra de «corte anterior» los usan, y
   `eva4_anterior` hasta el 3/11/2026 (`ANTERIOR_HASTA`).

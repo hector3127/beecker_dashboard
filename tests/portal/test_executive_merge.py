@@ -8,7 +8,6 @@ import pytest
 from django.core.cache import cache
 from django.test import RequestFactory, override_settings
 
-from apps.portal import views
 from apps.portal.services import account_profitability as accounts
 from apps.portal.services import executive_operations as operations
 from apps.portal.services import executive_population as population
@@ -165,10 +164,7 @@ def test_account_cost_scope_keeps_explicit_revenue_of_the_account():
 @override_settings(PORTAL_LOGIN_REQUIRED=True)
 @pytest.mark.parametrize(
     "view",
-    [
-        views.cuentas_rentabilidad,
-        views.operaciones_ejecutiva,
-    ],
+    [],
 )
 def test_new_apis_require_login(view):
     request = RequestFactory().get("/")

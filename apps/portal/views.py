@@ -1808,29 +1808,6 @@ def costos_revenue(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @period_view
-@require_capability("view_costs", whole_portfolio=True)
-def rentabilidad_mensual(request: HttpRequest) -> HttpResponse:
-    """Devuelve ingresos, costos y margen de los seis meses cerrados."""
-    from django.http import JsonResponse
-
-    from apps.portal.services.monthly_profitability import (
-        load_monthly_profitability,
-    )
-    from core.exceptions import DashboardError
-
-    if _needs_login(request):
-        return JsonResponse({"error": "Inicia sesion"}, status=401)
-    try:
-        return JsonResponse(load_monthly_profitability())
-    except (DashboardError, ValueError):
-        return JsonResponse(
-            {"error": "No se pudo consultar rentabilidad mensual"},
-            status=502,
-        )
-
-
-@require_GET
-@period_view
 @require_capability("view_costs")
 def costos_detalle(request: HttpRequest) -> HttpResponse:
     """Muestra costos, estados y personas con sus bandas y tarifas."""
@@ -1864,58 +1841,6 @@ def costos_detalle(request: HttpRequest) -> HttpResponse:
             else "2026",
         },
     )
-
-
-@require_GET
-@period_view
-@require_capability("view_executive", whole_portfolio=True)
-def cuentas_rentabilidad(request: HttpRequest) -> HttpResponse:
-    """Devuelve la rentabilidad por cuenta."""
-    from django.http import JsonResponse
-
-    from apps.portal.services.account_profitability import (
-        load_account_profitability,
-    )
-
-    if _needs_login(request):
-        return JsonResponse({"error": "Inicia sesion"}, status=401)
-    try:
-        return JsonResponse(
-            load_account_profitability(
-                refresh=request.GET.get("actualizar") == "1"
-            )
-        )
-    except Exception:  # noqa: BLE001
-        return JsonResponse(
-            {"error": "No se pudo consultar rentabilidad por cuenta"},
-            status=502,
-        )
-
-
-@require_GET
-@period_view
-@require_capability("view_executive", whole_portfolio=True)
-def operaciones_ejecutiva(request: HttpRequest) -> HttpResponse:
-    """Resume Operations para la vista ejecutiva."""
-    from django.http import JsonResponse
-
-    from apps.portal.services.executive_operations import (
-        calculate_burn,
-        operations_summary,
-    )
-
-    if _needs_login(request):
-        return JsonResponse({"error": "Inicia sesion"}, status=401)
-    try:
-        pid = request.GET.get("id")
-        return JsonResponse(
-            calculate_burn(pid) if pid else operations_summary()
-        )
-    except Exception:  # noqa: BLE001
-        return JsonResponse(
-            {"error": "No se pudo completar la consulta de Operations"},
-            status=502,
-        )
 
 
 @require_GET
@@ -2016,25 +1941,6 @@ def acuerdos_ejecutivos(request: HttpRequest) -> HttpResponse:
     return JsonResponse(
         {"items": rows, "can_edit": agreements.may(access, write=True)}
     )
-
-
-@require_GET
-@period_view
-@require_capability("view_commercial", whole_portfolio=True)
-def comercial_ejecutiva(request: HttpRequest) -> HttpResponse:
-    """Devuelve el resumen comercial ejecutivo."""
-    from django.http import JsonResponse
-
-    from apps.portal.services.executive_commercial import commercial_summary
-
-    if _needs_login(request):
-        return JsonResponse({"error": "Inicia sesion"}, status=401)
-    try:
-        return JsonResponse(commercial_summary())
-    except Exception:  # noqa: BLE001
-        return JsonResponse(
-            {"error": "No se pudo consultar la fuente comercial"}, status=502
-        )
 
 
 def authorized_account(request: HttpRequest, slug: str) -> str | HttpResponse:
