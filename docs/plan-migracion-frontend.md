@@ -276,8 +276,15 @@ Lo que se planeaba para esta fase:
 - Se conserva «Horas por mes» de la cuenta (`pages/account_hours`, API
   `screens/cuenta/horas/`, `docs/reporte-horas-mensuales.md`) con su enlace en
   `cuenta.html` y su regreso; usa `views.authorized_account`.
-- Pendiente de la 9: llevar los datos de estas pantallas a APIs (sin cambiar su
-  diseño) y retirar `executive_numbers.js` y `ejecutiva/actualizacion/`.
+- APIs de Operativa (`apps/portal/api/operations.py`, mismo permiso y alcance
+  total): `screens/eva-1/`, `eva-2/`, `eva-3/`, `inversion/`, `capacidad/` y
+  `facturabilidad/` (+ `especialidad/` y `recurso/`). Reutilizan las funciones de
+  datos de las vistas (`eva2_data`, `facturabilidad_data`…), que ahora también
+  arman las pantallas, y entregan los campos de `schemas.py` con `plain()`.
+  Costos y Comercial ya tienen JSON (`ejecutiva/costos/`, `comercial_ejecutiva`,
+  `screens/margenes/`), protegidos por capacidad y alcance.
+- Pendiente de la 9: retirar `executive_numbers.js` y `ejecutiva/actualizacion/`
+  cuando Costos, Todas las cuentas y Comercial dejen de usarlos.
 
 ## Fases siguientes con lo nuevo integrado
 

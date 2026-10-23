@@ -1002,6 +1002,45 @@ def eva1_cerrados(request: HttpRequest) -> HttpResponse:
     )
 
 
+def eva2_data() -> dict[str, Any]:
+    """EVA 1 y EVA 2: proyectos IXB y RaaS con su avance."""
+    load = load_eva2()
+    return {"error": load.error, "eva": load.view}
+
+
+def eva3_data() -> dict[str, Any]:
+    """EVA 3: proyectos AER y T&M por Delivery Manager."""
+    load = load_eva1()
+    return {
+        "error": load.error,
+        "eva": load.view,
+        "renewal_average": average(p.renewal_days for p in load.view.projects),
+    }
+
+
+def inversion_data(month: str) -> dict[str, Any]:
+    """Horas de inversion comercial y operativa de un mes."""
+    sources = load_month_sources(month)
+    return {
+        "month": month,
+        "investment": build_investment_view(sources.gse, month),
+        "error": sources.error,
+    }
+
+
+def capacidad_data(request: HttpRequest) -> dict[str, Any]:
+    """Asignaciones y capacidad base de un mes."""
+    filters = _read_capacity_filters(request)
+    load = load_capacity(
+        filters.month, refresh=bool(request.GET.get("actualizar"))
+    )
+    return {
+        "error": load.error,
+        "capacity": build_capacity_view(load.data, filters),
+        "filters": filters,
+    }
+
+
 @require_GET
 @require_capability("view_operations", whole_portfolio=True)
 def eva1(request: HttpRequest) -> HttpResponse:
@@ -1017,16 +1056,13 @@ def eva1(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    load = load_eva2()
-
     return render(
         request,
         "portal/eva1.html",
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),
-            "error": load.error,
-            "eva": load.view,
+            **eva2_data(),
         },
     )
 
@@ -1081,16 +1117,13 @@ def eva2(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    load = load_eva2()
-
     return render(
         request,
         "portal/eva2.html",
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),
-            "error": load.error,
-            "eva": load.view,
+            **eva2_data(),
         },
     )
 
@@ -1111,19 +1144,13 @@ def eva3(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    load = load_eva1()
-
     return render(
         request,
         "portal/eva3.html",
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),
-            "error": load.error,
-            "eva": load.view,
-            "renewal_average": average(
-                p.renewal_days for p in load.view.projects
-            ),
+            **eva3_data(),
         },
     )
 
@@ -1188,20 +1215,13 @@ def capacidad_instalada(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    filters = _read_capacity_filters(request)
-    load = load_capacity(
-        filters.month, refresh=bool(request.GET.get("actualizar"))
-    )
-
     return render(
         request,
         "portal/capacidad_instalada.html",
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),
-            "error": load.error,
-            "capacity": build_capacity_view(load.data, filters),
-            "filters": filters,
+            **capacidad_data(request),
         },
     )
 
@@ -1339,6 +1359,88 @@ def _facturability_context(month: str, tab: str) -> dict[str, object]:
     }
 
 
+def facturabilidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
+    """Facturabilidad de enero al mes elegido, por mes y del periodo."""
+    sources = load_year_sources(period.end_month)
+    scope, role_options = _role_scope(request, sources)
+    months = [
+        build_month_facturability(item.month, item.gse, item.error, scope)
+        for item in sources
+    ]
+    selected = combine_months(
+        [item for item in months if item.month in period.months],
+        period.label,
+        period.label,
+    )
+    return {
+        "months": months,
+        "selected": selected,
+        "first": months[0],
+        "in_period": period.months,
+        "errors": [item for item in months if item.error],
+        "no_roster": ", ".join(
+            item.short_label for item in months if item.notice
+        ),
+        "role_options": role_options,
+    }
+
+
+def especialidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
+    """Facturabilidad del periodo por especialidad."""
+    loaded = [load_month_sources(item) for item in period.months]
+    scope, role_options = _role_scope(request, loaded)
+    specialties = merge_specialties(
+        [build_specialties(item.gse, item.month, scope) for item in loaded],
+    )
+    selected = combine_months(
+        [
+            build_month_facturability(item.month, item.gse, item.error, scope)
+            for item in loaded
+        ],
+        period.label,
+        period.label,
+    )
+    return {
+        "selected": selected,
+        "specialties": specialties,
+        "headcount": sum(row.headcount for row in specialties),
+        "dev_free": next(
+            (row.free_fte for row in specialties if "dev" in row.name.lower()),
+            None,
+        ),
+        "error": " · ".join(item.error for item in loaded if item.error),
+        "role_options": role_options,
+    }
+
+
+def recurso_data(request: HttpRequest, period: Period) -> dict[str, Any]:
+    """Facturabilidad de cada persona, de enero al mes elegido."""
+    sources = load_year_sources(period.end_month)
+    scope, role_options = _role_scope(request, sources)
+    rows = build_resources([(item.month, item.gse) for item in sources], scope)
+    by_month, overall = team_averages(rows, len(sources))
+    labels = [
+        build_month_facturability(item.month, {}).short_label
+        for item in sources
+    ]
+    return {
+        "labels": labels,
+        "workdays": [count_business_days(item.month) for item in sources],
+        "rows": rows,
+        "team_by_month": by_month,
+        "team_average": overall,
+        "no_roster": ", ".join(
+            label
+            for label, item in zip(labels, sources, strict=True)
+            if item.gse.get("plantillaAviso")
+        ),
+        "error": " · ".join(
+            f"{item.month}: {item.error}" for item in sources if item.error
+        ),
+        "role_options": role_options,
+    }
+
+
 @require_GET
 @require_capability("view_operations", whole_portfolio=True)
 def facturabilidad(request: HttpRequest) -> HttpResponse:
@@ -1356,33 +1458,9 @@ def facturabilidad(request: HttpRequest) -> HttpResponse:
         return redirect_to_login(request.get_full_path())
 
     period = _period(request)
-    month = period.end_month
-    sources = load_year_sources(month)
-    scope, role_options = _role_scope(request, sources)
-    months = [
-        build_month_facturability(item.month, item.gse, item.error, scope)
-        for item in sources
-    ]
-    selected = combine_months(
-        [item for item in months if item.month in period.months],
-        period.label,
-        period.label,
-    )
-    context = _facturability_context(month, "general")
+    context = _facturability_context(period.end_month, "general")
     context.update(_period_context(request, period))
-    context.update(
-        {
-            "months": months,
-            "selected": selected,
-            "first": months[0],
-            "in_period": period.months,
-            "errors": [item for item in months if item.error],
-            "no_roster": ", ".join(
-                item.short_label for item in months if item.notice
-            ),
-            "role_options": role_options,
-        },
-    )
+    context.update(facturabilidad_data(request, period))
 
     return render(request, "portal/facturabilidad.html", context)
 
@@ -1404,45 +1482,9 @@ def facturabilidad_especialidad(request: HttpRequest) -> HttpResponse:
         return redirect_to_login(request.get_full_path())
 
     period = _period(request)
-    month = period.end_month
-    loaded = [load_month_sources(item) for item in period.months]
-    scope, role_options = _role_scope(request, loaded)
-    specialties = merge_specialties(
-        [build_specialties(item.gse, item.month, scope) for item in loaded],
-    )
-    selected = combine_months(
-        [
-            build_month_facturability(
-                item.month,
-                item.gse,
-                item.error,
-                scope,
-            )
-            for item in loaded
-        ],
-        period.label,
-        period.label,
-    )
-    errors = " · ".join(item.error for item in loaded if item.error)
-    context = _facturability_context(month, "especialidad")
+    context = _facturability_context(period.end_month, "especialidad")
     context.update(_period_context(request, period))
-    context.update(
-        {
-            "selected": selected,
-            "specialties": specialties,
-            "headcount": sum(row.headcount for row in specialties),
-            "dev_free": next(
-                (
-                    row.free_fte
-                    for row in specialties
-                    if "dev" in row.name.lower()
-                ),
-                None,
-            ),
-            "error": errors,
-            "role_options": role_options,
-        },
-    )
+    context.update(especialidad_data(request, period))
 
     return render(request, "portal/facturabilidad_especialidad.html", context)
 
@@ -1464,37 +1506,9 @@ def facturabilidad_recurso(request: HttpRequest) -> HttpResponse:
         return redirect_to_login(request.get_full_path())
 
     period = _period(request)
-    month = period.end_month
-    sources = load_year_sources(month)
-    scope, role_options = _role_scope(request, sources)
-    rows = build_resources(
-        [(item.month, item.gse) for item in sources],
-        scope,
-    )
-    by_month, overall = team_averages(rows, len(sources))
-    context = _facturability_context(month, "recurso")
+    context = _facturability_context(period.end_month, "recurso")
     context.update(_period_context(request, period))
-    context.update(
-        {
-            "labels": [
-                build_month_facturability(item.month, {}).short_label
-                for item in sources
-            ],
-            "workdays": [count_business_days(item.month) for item in sources],
-            "rows": rows,
-            "team_by_month": by_month,
-            "team_average": overall,
-            "no_roster": ", ".join(
-                build_month_facturability(item.month, {}).short_label
-                for item in sources
-                if item.gse.get("plantillaAviso")
-            ),
-            "error": " · ".join(
-                f"{item.month}: {item.error}" for item in sources if item.error
-            ),
-            "role_options": role_options,
-        },
-    )
+    context.update(recurso_data(request, period))
 
     return render(request, "portal/facturabilidad_recurso.html", context)
 
@@ -1526,14 +1540,8 @@ def inversion(request: HttpRequest) -> HttpResponse:
         return redirect_to_login(request.get_full_path())
 
     month = _facturability_month(request)
-    sources = load_month_sources(month)
     context = _facturability_context(month, "inversion")
-    context.update(
-        {
-            "investment": build_investment_view(sources.gse, month),
-            "error": sources.error,
-        },
-    )
+    context.update(inversion_data(month))
 
     return render(request, "portal/inversion.html", context)
 

@@ -94,8 +94,13 @@ def require_capability(
     return decorator
 
 
-def capability_permission(code: str) -> type[BasePermission]:
-    """Permiso de DRF para una capacidad; combinalo con IsAuthenticated."""
+def capability_permission(
+    code: str, *, whole_portfolio: bool = False
+) -> type[BasePermission]:
+    """Permiso de DRF para una capacidad; combinalo con IsAuthenticated.
+
+    Con whole_portfolio tambien exige alcance total (cifras sin recorte).
+    """
 
     class HasCapability(BasePermission):
         message = "No tienes acceso a esta información."
@@ -104,7 +109,9 @@ def capability_permission(code: str) -> type[BasePermission]:
             access = resolve(request)
             if not access.enforced:
                 return True
-            return bool(request.user.is_authenticated and access.can(code))
+            if not (request.user.is_authenticated and access.can(code)):
+                return False
+            return access.scope.unrestricted or not whole_portfolio
 
     HasCapability.__name__ = f"Has_{code}"
     return HasCapability

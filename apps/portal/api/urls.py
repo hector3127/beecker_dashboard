@@ -9,6 +9,15 @@ from apps.portal.api.account import (
 )
 from apps.portal.api.account_hours import AccountHoursView
 from apps.portal.api.agreements import AgreementDetailView, AgreementListView
+from apps.portal.api.operations import (
+    CapacityScreenView,
+    Eva3ScreenView,
+    EvaScreenView,
+    FacturabilityResourceView,
+    FacturabilityScreenView,
+    FacturabilitySpecialtyView,
+    InvestmentScreenView,
+)
 from apps.portal.api.screens import (
     Eva4ScreenView,
     ExecutiveRefreshView,
@@ -66,6 +75,28 @@ urlpatterns = [
         name="executive_actualizar",
     ),
     path("screens/kpis-dm/", KpiManagersView.as_view(), name="kpis_dm"),
+    path("screens/eva-1/", EvaScreenView.as_view(), name="eva1"),
+    path("screens/eva-2/", EvaScreenView.as_view(), name="eva2"),
+    path("screens/eva-3/", Eva3ScreenView.as_view(), name="eva3"),
+    path(
+        "screens/inversion/", InvestmentScreenView.as_view(), name="inversion"
+    ),
+    path("screens/capacidad/", CapacityScreenView.as_view(), name="capacidad"),
+    path(
+        "screens/facturabilidad/",
+        FacturabilityScreenView.as_view(),
+        name="facturabilidad",
+    ),
+    path(
+        "screens/facturabilidad/especialidad/",
+        FacturabilitySpecialtyView.as_view(),
+        name="facturabilidad_especialidad",
+    ),
+    path(
+        "screens/facturabilidad/recurso/",
+        FacturabilityResourceView.as_view(),
+        name="facturabilidad_recurso",
+    ),
     path("screens/eva4/", Eva4ScreenView.as_view(), name="eva4"),
     path("screens/margenes/", MarginsScreenView.as_view(), name="margenes"),
     path(
