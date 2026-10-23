@@ -1,0 +1,40 @@
+/* Reglas de la pantalla anterior, sin las de la barra superior. */
+
+/* --- estilo en linea --- */
+table{min-width:1100px}
+th,td{text-align:right}
+.hero{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:14px;margin-bottom:14px}
+.tot{background:#4B25C9;color:#fff;border-radius:16px;padding:18px 28px;display:flex;flex-direction:column;justify-content:center}
+.tot .kl{color:#CFC4FF}
+.tot .kv{font-size:54px;color:#fff}
+.tot .ke{color:#E3DBFF}
+td:first-child,th:first-child{text-align:left}
+td.free{background:#FFF7E0}
+tr.cur td{background:#EDE7FF;font-weight:800}
+tr.cur td.free{background:#FFEFC2}
+.gl{font-weight:800}
+.lo{color:#A31B33}
+.bars{display:grid;grid-template-columns:repeat(9,1fr);gap:10px;align-items:end;height:170px;margin-top:6px}
+.bc{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;font-size:12px;color:#55537F}
+.bc i{display:block;width:100%;border-radius:4px 4px 0 0;background:#C9BDF2}
+.bc.cu i{background:#4B25C9}
+.bc b{color:#1B1A4A;font-size:12.5px}
+.mf input:focus{outline:2px solid #B9A6F5}
+.mf{flex-wrap:wrap}
+.rf{position:relative}
+.rf summary{cursor:pointer;list-style:none;border:1px solid #D9D0F5;border-radius:10px;padding:8px 14px;background:#fff;font-weight:700;color:#4B25C9}
+.rf[open] .rfl,.rf[open] .rfb{position:relative}
+.rfl{display:grid;grid-template-columns:repeat(3,minmax(140px,1fr));gap:6px 16px;margin-top:8px;background:#fff;border:1px solid #ECE8FA;border-radius:12px;padding:12px 14px}
+.rfl label{display:flex;gap:6px;align-items:center;font-size:13.5px;color:#1B1A4A}
+.rfb{display:flex;gap:12px;align-items:center;margin-top:8px}
+.rfb button{font:inherit;font-weight:700;background:#4B25C9;color:#fff;border:0;border-radius:10px;padding:8px 16px;cursor:pointer}
+.rfb a{font-weight:700;color:#4B25C9}
+
+/* Estilos que estaban en linea. */
+.bii-e3dd54.bii-e3dd54 {display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:14px;color:#3A3870}
+.bii-d77876.bii-d77876 {color:#55537F}
+
+/* Preserve the original page defaults against shared component styles. */
+.billability-page .portal-page-toolbar.crumb { margin-bottom: 16px; }
+.billability-page tr.hl td { background: #F3EEFF; }
+@media (max-width:650px) { .billability-page .portal-page-toolbar.crumb { margin-bottom:12px; } }

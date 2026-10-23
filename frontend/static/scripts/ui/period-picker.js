@@ -52,6 +52,14 @@ export function createPeriodPicker(picker, id = 'period-filter') {
     )
   );
 
+  bindPeriodPicker(details);
+  return details;
+}
+
+/** Bind the server-rendered picker without changing its links or hidden fields.
+ * @param {HTMLDetailsElement} details
+ */
+export function bindPeriodPicker(details) {
   details.addEventListener('click', (event) => {
     const button = /** @type {HTMLElement} */ (event.target).closest('button');
     if (!button) return;
@@ -70,5 +78,4 @@ export function createPeriodPicker(picker, id = 'period-filter') {
   document.addEventListener('click', (event) => {
     if (details.open && !details.contains(/** @type {Node} */ (event.target))) details.removeAttribute('open');
   });
-  return details;
 }
