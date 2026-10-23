@@ -2,6 +2,27 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, Comunicación (Centro de Comunicación) IXB/SaaS/RaaS
+
+- API v1: `GET screens/proyectos/comunicados/` y `POST .../comunicados/guardar/`,
+  mismos servicios que `beeComListar` y `beeComGuardar` (`bee_com`). La lista es
+  del portafolio; la pantalla muestra los comunicados del proyecto abierto y los
+  generales. Lectura `view_operations`; guardar `edit_operations` + alcance total
+  + CSRF. Los errores de validación del servicio llegan como `{ok:false,error}`.
+- Frontend: `sections/bee_com_model.js` (categorías, filtros, orden, puntos
+  clave, payload; Node), `bee_com_view.js` (DOM seguro: lista, KPIs, detalle y
+  formulario) y `bee_com.js` (`window.beeIxsCommunication`). Estilos externos en
+  `project_detail_bee_com.css` (los mismos de la pestaña anterior). Con
+  `?vista=anterior` sigue la pestaña anterior.
+- Pruebas: 6 de API, 26 de navegador (21 comparaciones con la anterior a
+  1450/900/390: lista, por tipo, búsqueda, orden, detalle, formulario nuevo y de
+  edición; más API/CSRF, texto seguro, publicar, edición con uid, errores) y 4 de
+  Node. Regresión de proyecto + portal: 1263 aprobadas.
+- Queda de la fase 10: vistas/filtros/editores de Cliente y Acciones (comparten
+  renderer con AER), integración restante de Planeación, encabezados y
+  navegación compartidos, pestañas de AER distintas del Ejecutivo y retirar el
+  shim.
+
 ## Bloque: fase 10, carga de Cliente/Acciones IXB (parcial)
 
 - `sections/ixs_client_actions.js` carga por la API `cliente/` ya existente,

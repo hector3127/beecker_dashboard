@@ -6790,6 +6790,12 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     const el=document.getElementById('ixs-tab-contenido');if(!el||!ixsProyectoActual)return;
     if(ixsTabActual==='ia'){ixsIAAbrir();return;}
     if(ixsTabActual==='comunicacion'){
+      if(window.beeIxsCommunication){
+        window.beeIxsCommunication.mount(el,ixsProyectoActual,{
+          current:project=>ixsProyectoActual===project,
+          active:()=>ixsTabActual==='comunicacion'
+        });return;
+      }
       el.innerHTML='<div id="bee-com-root"></div>';
       beeComCargar(ixsProyectoActual.proyecto.id);
       return;

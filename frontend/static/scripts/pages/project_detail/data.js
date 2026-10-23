@@ -155,6 +155,16 @@ export function createProjectData(get = apiGet, send = apiSend) {
           { timeout: 90000 },
         )
       ).data,
+    communications: () => read("screens/proyectos/comunicados/"),
+    saveCommunication: async (payload) =>
+      (
+        await send(
+          "POST",
+          "screens/proyectos/comunicados/guardar/",
+          payload,
+          { timeout: 90000 },
+        )
+      ).data,
     milestoneTypes: () => read("screens/proyectos/hitos/tipos/"),
     saveMilestones: async (id, hitos) =>
       (
