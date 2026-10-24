@@ -87,7 +87,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
-| AER/T&M | Modelo de indicadores/Gantt, vista principal, filtros y selección de Planeación (operaciones, formularios, capacidad y parser ya separados); Esfuerzo, Riesgos, Recursos e IA |
+| AER/T&M | Filtros, selección y estado del rango de Planeación (vista/modelo, operaciones y formularios separados); Esfuerzo, Riesgos, Recursos e IA |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -106,7 +106,35 @@ la integración compartida, sin confundirlos con volver a migrar su vista y edit
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
-### Planeación AER/T&M: formularios y modelo de capacidad/importación (parcial)
+### Planeación AER/T&M: vista principal e indicadores (parcial)
+
+Modelo de indicadores, agrupaciones/estados/posiciones de Gantt, atención,
+ocupación y vacaciones en `aer_planning_model.js`, sin cambiar resultados.
+`aer_planning_view.js`, `aer_planning_timeline.js`, `aer_planning_tables.js`
+y los auxiliares DOM de la página presentan la pestaña completa con eventos
+externos. La ruta activa monta estos módulos; no ejecuta `_aerVistaPlaneacion`.
+Se reutilizan formularios/API existentes y el botón Comunicados de Roadmap.
+
+**Planeación AER aún parcial:** filtros de cabecera/búsqueda, selección y estado
+del rango delegan a auxiliares anteriores. El popup de filtros sigue anterior.
+Siguiente separar esos controles. Fase 10 parcial; no retirar script/shim.
+
+Hallazgo conservado: el título del bloqueo crítico usa `x.label` en el original,
+aunque el grupo contiene `dependencia`. Puede quedar vacío; no se corrigió dentro
+de la migración para conservar los datos y la presentación anterior.
+
+Evidencia: **52 pruebas de Planeación y 48 de regresión aprobadas** (entrada,
+Ejecutivo AER, Acciones y soporte); 39 comparaciones de Planeación a
+1450/900/390 px, incluidos alertas, vacaciones, rangos invertidos y filtros activos.
+Se comprueban interacción, guardados, texto/UID seguros y montaje sin ejecutar
+renderizadores anteriores. Veintiuna Node del modelo aprobadas; nueve contrastan
+el resumen y funciones de fechas/estados/posición con el original. Suite Node
+completa: 221 aprobadas y tres fallos anteriores. Ruff/formato, Django y diff
+aprobados. Sin cambios de backend ni repetición de API. Capturas en
+`tmp/migration/project_detail/aer_planning_view/`, además de formularios/transporte;
+inspeccionadas en escritorio y móvil con proveedores simulados.
+
+### Planeación AER/T&M: formularios y modelo de capacidad/importación (bloque anterior parcial)
 
 `aer_planning_forms.js` presenta altas/ediciones de actividades/hitos y vacaciones,
 avisos de capacidad y carga/preview de CSV/TSV con DOM seguro y eventos externos.

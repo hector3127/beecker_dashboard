@@ -2836,7 +2836,7 @@
       window.beeProjectExecutive(el, aerDashboardData, aerCambiarTab);
       return;
     }
-    if(aerTabActual==='planeacion') el.innerHTML=_aerVistaPlaneacion();
+    if(aerTabActual==='planeacion'){if(window.beeAerPlanning){_aerInitPlanFiltroMes();window.beeAerPlanning.mount(el,aerPlaneacionContexto());}else el.innerHTML=_aerVistaPlaneacion();}
     else if(aerTabActual==='esfuerzo') el.innerHTML=_aerVistaEsfuerzo();
     else if(aerTabActual==='riesgos') el.innerHTML=_aerVistaRiesgos();
     else if(aerTabActual==='acciones'){if(window.beeProjectActions)window.beeProjectActions.mount(el,aerAccionesContexto());else el.innerHTML=_aerVistaAcciones();}
@@ -2912,14 +2912,18 @@
     const recursos=_aerRecursosProyecto();
     _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Registrar'} vacaciones</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label>Recurso<select id="av-rec">${recursos.map(n=>`<option value="${_aerEsc(n)}" ${x.recurso===n?'selected':''}>${_aerEsc(n)}</option>`).join('')}</select></label><label>Estado<select id="av-est">${['Aprobada','Pendiente','Cancelada'].map(v=>`<option ${x.estado===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Inicio<input id="av-ini" type="date" value="${x.inicio||''}"></label><label>Fin<input id="av-fin" type="date" value="${x.fin||''}"></label><label>Registrado por<input id="av-reg" value="${_aerEsc(x.registradoPor||'')}"></label><label class="aer-span2">Comentarios<textarea id="av-com">${_aerEsc(x.comentarios||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn danger" onclick="aerEliminarVacacion('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarVacacion('${uid}')">Guardar</button></div>`);
   }
-  function aerPlaneacionModular(){
+  function aerPlaneacionContexto(){
     const snapshot=aerDashboardData;
-    return window.beeAerPlanning.bind({id:snapshot.proyecto.id,dashboard:snapshot,
+    return {id:snapshot.proyecto.id,dashboard:snapshot,range:aerPlanFiltroMes,filters:aerPlanTableFilters,
+      controls:{rangeChange:aerCambiarRangoPlan,filterSet:_aerPlanFilterSet,openFilter:aerAbrirFiltroCabecera,
+        clearFilters:aerLimpiarFiltrosPlan,toggleAll:aerTogglePlanAll,selection:aerActualizarSeleccionPlan,
+        communique:window.beeProjectCommunique?aerAbrirComunicados:null},
       current:()=>aerDashboardData===snapshot,active:()=>aerTabActual==='planeacion',
       paint:_aerRenderTab,reload:aerRecargarProyecto,error:showError,
       saving:_aerStartSaving
-    });
+    };
   }
+  function aerPlaneacionModular(){return window.beeAerPlanning.bind(aerPlaneacionContexto());}
   function aerGuardarVacacion(uid){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().saveVacation(uid);
     const saver=_aerStartSaving(_aerPrimaryModalBtn(),'Guardando vacaciones...');
     const o={UID:uid,ID_Proyecto:aerDashboardData.proyecto.id,Recurso:_aerVal('av-rec'),Inicio:_aerVal('av-ini'),Fin:_aerVal('av-fin'),Estado:_aerVal('av-est'),Comentarios:_aerVal('av-com'),Registrado_Por:_aerVal('av-reg')};

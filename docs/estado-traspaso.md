@@ -2,7 +2,40 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: formularios y modelo de Planeación AER (parcial)
+## Bloque actual: vista principal e indicadores de Planeación AER (parcial)
+
+- `aer_planning_model.js`: indicadores, estados/agrupaciones/posiciones del Gantt,
+  atención, vacaciones y ocupación. Mismos cálculos y orden que el renderer
+  anterior; pruebas Node contra su prefijo original, incluidos rangos invertidos.
+- `aer_planning_view.js`, `aer_planning_timeline.js`, `aer_planning_tables.js` y
+  auxiliares DOM de la página presentan toda la pestaña con DOM seguro y eventos
+  externos. `aer_planning.js.mount()` la conecta a formularios y operaciones API.
+  `_aerRenderTab` delega en la ruta activa, sin ejecutar `_aerVistaPlaneacion`.
+- Se conserva «Comunicados» en Roadmap y su flujo ya migrado. Estados/cierres y
+  marcadores del Gantt reutilizan operaciones API, con los mismos campos.
+- **Todavía parcial:** filtros de cabecera/búsqueda, selección y estado del rango
+  delegan a auxiliares anteriores. El popup de filtros todavía es anterior.
+  Son el siguiente bloque; no retirar script/shim ni marcar la fase 10 completa.
+- Hallazgo preservado: la alerta de bloqueo intenta mostrar `x.label`, pero el
+  grupo original guarda `dependencia`; su título puede quedar vacío. No se corrigió
+  durante esta migración. La fila de dependencia sí conserva su texto original.
+- Después: Esfuerzo, Riesgos, Recursos e IA AER; estructura/estado/auxiliares
+  compartidos; finalmente limpieza y CSP. Genesis/accesos sigue como despliegue.
+- Validación: **52 pruebas de Planeación y 48 de regresión aprobadas** (entrada,
+  Ejecutivo AER, Acciones y soporte). Treinta y nueve comparaciones de Planeación
+  a 1450/900/390 px: datos completos/vacíos, alertas/vacaciones, rangos invertidos,
+  filtros activos y formularios. Probados controles, cierres, guardados, texto/UID
+  seguros y montaje con renderizadores anteriores sustituidos por errores.
+- Veintiuna Node del modelo aprobadas, incluidas nueve comparaciones de resumen
+  y funciones de posición/fechas/estados con el original. Suite completa:
+  **221 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, Django y diff aprobados.
+  No hay cambios de backend; no se repitieron las API anteriores.
+- Capturas en `tmp/migration/project_detail/aer_planning_view/` y las carpetas
+  anteriores de formularios/transporte. Inspeccionadas atención en escritorio y
+  filtros en móvil. Proveedores simulados; temporales ajenos intactos. Sin push.
+
+## Bloque anterior: formularios y modelo de Planeación AER (parcial)
 
 - `aer_planning_forms.js`: alta/edición de actividades/hitos, vacaciones y carga
   CSV/TSV; DOM seguro/eventos externos, mismos campos, estados, avisos y diseño.

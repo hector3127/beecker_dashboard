@@ -144,9 +144,12 @@ importaciones y borrados individuales/por lote por API v1 en
 los servicios anteriores. Sus formularios de actividades/hitos, vacaciones e
 importación ya usan DOM seguro/eventos externos (`aer_planning_forms.js`).
 Recursos, ocupación, capacidad y parser de importación usan el modelo puro
-`aer_planning_model.js`, contrastado con el anterior. **Planeación AER todavía
-es parcial:** faltan el modelo de indicadores/fechas del Gantt, la vista principal,
-filtros y selección de tabla. Continuar por esos bloques, sin cambiar las reglas.
+`aer_planning_model.js`, contrastado con el anterior. Indicadores, fechas y
+agrupaciones del Gantt también están en ese modelo. La vista principal usa
+`aer_planning_view.js`, `aer_planning_timeline.js` y `aer_planning_tables.js`
+con DOM seguro y eventos externos, sin ejecutar `_aerVistaPlaneacion`.
+**Planeación AER todavía es parcial:** filtros, selección y estado del rango
+siguen delegando a sus auxiliares anteriores. Continuar por esos controles.
 En AER faltan las pestañas
 Planeación, Esfuerzo, Riesgos, Recursos e IA. Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como

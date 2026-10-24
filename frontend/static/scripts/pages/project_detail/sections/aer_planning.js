@@ -1,5 +1,10 @@
-// AER writes and forms are modular; the main planning view is still transitional.
-import { capacity, parsePlanText } from "./aer_planning_model.js";
+// View, forms and writes are modular; filter/range state still comes from the bridge.
+import {
+  capacity,
+  parsePlanText,
+  planningModel,
+} from "./aer_planning_model.js";
+import { renderPlanning } from "./aer_planning_view.js";
 import {
   openPlan,
   openVacation,
@@ -12,6 +17,15 @@ const message = (e) => e?.message || String(e || "Error desconocido");
 
 export function createAerPlanning(api) {
   return {
+    mount(target, env) {
+      const actions = { ...this.bind(env), ...env.controls };
+      renderPlanning(
+        target,
+        planningModel(env.dashboard, env.range),
+        env.filters,
+        actions,
+      );
+    },
     bind(env) {
       const live = () => env.current();
       const send = (operation, body) =>
