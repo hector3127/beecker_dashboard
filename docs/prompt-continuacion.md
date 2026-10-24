@@ -9,8 +9,8 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local es modelo y operaciones
-   de Acciones AER/IXS; Claude completó Cliente de ambas familias y el Centro
+   diferencia con `origin/main`. El último bloque local completa la vista y
+   formularios de Acciones AER/IXS; Claude completó Cliente y el Centro
    de Comunicación IXB/SaaS/RaaS (posterior al glosario
    `b1ca4b4`). No hagas push
    salvo que te lo pida expresamente.
@@ -67,14 +67,14 @@ ambas familias. **Centro de Comunicación completo:** `bee_com{,_model,_view}.js
 y API v1 para IXS. Revisión directa: 94 e2e, 26 API y siete Node aprobadas.
 `ixs_client_actions.js` mantiene la caché compartida de IXB.
 
-**Acciones parcial:** `actions_model.js` separa el resumen; `actions.js` usa
+**Acciones completada (ambas familias):** `actions_model.js` separa el resumen; `actions.js` usa
 lecturas y siete mutaciones de API v1 (`project_actions.py`) para ambas familias.
-Las vistas, filtros y formularios siguen anteriores, con puentes que delegan
-los guardados. No contar la pestaña como completada ni retirar el fallback.
+`actions_view.js` presenta tablas, búsqueda y formularios con DOM seguro/eventos
+externos. Las comparaciones cubren estados y formularios a 1450/900/390 px.
+Conserva los puentes de entrada/estado y el fallback anterior.
 
-**Siguiente bloque sugerido:** vista, filtro de tabla y formularios de Acciones
-con DOM seguro/eventos externos, reutilizando modelo/controlador/API nuevos.
-Después Planeación, Esfuerzo, Riesgos, Recursos e IA de AER. Quedan también
+**Siguiente bloque sugerido:** Planeación de AER; después Esfuerzo, Riesgos,
+Recursos e IA de AER. Quedan también
 encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,
 `_ixeAuto`). Al final: limpieza de archivos anteriores y CSP. Genesis/accesos

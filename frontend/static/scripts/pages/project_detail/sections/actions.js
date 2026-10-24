@@ -1,9 +1,19 @@
-// The view/forms remain shared legacy code in this block; all operations use API.
+import { actionsModel } from "./actions_model.js";
+import { renderActions, openAction, openPart } from "./actions_view.js";
+
 const value = (id) => document.getElementById(id)?.value ?? "";
 const message = (error) => error?.message || String(error || "");
 
 export function createActionsController(api) {
   return {
+    mount(target, env) {
+      renderActions(
+        target,
+        actionsModel(env.dashboard),
+        env.parts(),
+        this.bind(env),
+      );
+    },
     bind(env) {
       const live = () => env.current();
       const send = (operation, body) =>
@@ -29,6 +39,12 @@ export function createActionsController(api) {
         };
       };
       const methods = {
+        open(uid = "") {
+          return openAction(env.dashboard, uid, methods);
+        },
+        openPart() {
+          return openPart(methods);
+        },
         async save(uid) {
           const box = document.getElementById("aer-modal-back"),
             button = box?.querySelector(".aer-actions .aer-btn.primary");

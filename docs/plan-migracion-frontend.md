@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación y operaciones de Acciones; resto RPC | **Parcial**: ambos Ejecutivos y Cliente; Esfuerzo, Recursos, Planeación, RAID, Azure, IA y Comunicación IXS usan módulos. Acciones tiene modelo/operaciones separados; falta su vista/formularios, otras pestañas AER y estructura compartida | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación y Acciones; resto RPC | **Parcial**: ambos Ejecutivos, Cliente y Acciones; Esfuerzo, Recursos, Planeación, RAID, Azure, IA y Comunicación IXS usan módulos. Faltan otras pestañas AER y estructura compartida | **Parcial**, no completada |
 | 11 | Limpieza y CSP obligatoria; permisos/Genesis como decisión de despliegue | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -86,8 +86,8 @@ y la navegación entre pestañas todavía dependen del script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
-| IXB/SaaS/RaaS | Vista, filtros y formularios de Acciones; modelo y operaciones ya separados |
-| AER/T&M | Planeación, Esfuerzo, Riesgos, Recursos e IA; vista/formularios de Acciones compartidos con IXS |
+| IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
+| AER/T&M | Planeación, Esfuerzo, Riesgos, Recursos e IA |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -106,7 +106,30 @@ la integración compartida, sin confundirlos con volver a migrar su vista y edit
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
-### Revisión de avances de Claude y operaciones de Acciones AER/IXS
+### Acciones AER/T&M e IXB/SaaS/RaaS: vista y formularios
+
+`actions_view.js` monta las dos tablas, indicadores, seguimiento, búsqueda y
+formularios de alta/edición de acciones y pendientes Beecker/Cliente con DOM
+seguro y eventos externos. `actions.js` los conecta al modelo/API ya separados.
+La ruta activa no llama a `_aerVistaAcciones`, `aerIAAccionesPartesVista` ni
+`_aerModal` para esta pestaña; mantiene los puentes de entrada/estado y el
+fallback de comparación. La IA de AER todavía conserva su propia vista anterior.
+
+Sin cambios de negocio: se conserva incluso el comportamiento anterior de
+«Filtros» (abre el alta) y «Ver todas las acciones» (limpia duplicados), así como
+el campo «Próxima revisión» de la tabla principal que guarda `fechaReal`.
+Si se desea corregir esos comportamientos, hacerlo aparte de la migración.
+
+Evidencia: **184 aprobadas** (99 API y 85 e2e), nueve variantes del Ejecutivo
+sin cambios deseleccionadas. Se incluyen 42 comparaciones de vista/formularios
+AER/IXS a 1450/900/390 px; búsqueda, edición/guardado/borrado, reintento,
+respuestas tardías, texto seguro y teclado. Capturas en
+`tmp/migration/project_detail/actions_transport/` y `actions_forms/`; revisadas
+en escritorio y móvil. Dieciocho Node dirigidas aprobadas; suite completa
+199 aprobadas y los tres fallos anteriores. Ruff/formato, Django y diff sin
+incidencias; proveedores simulados. **Acciones completa; fase 10 parcial.**
+
+### Revisión de avances de Claude y operaciones de Acciones AER/IXS (bloque anterior)
 
 Revisados commits, API y delegaciones activas: Cliente de ambas familias y
 Centro de Comunicación IXS sí usan módulos nuevos. Se corrigió el inventario
@@ -130,9 +153,9 @@ Ruff/formato, mypy nuevo, Django y diff aprobados. Diecisiete e2e adicionales
 de navegación AER/Acciones aprobaron tras adaptar el fixture de lectura por API;
 inspeccionada la captura de IXB en escritorio. Fuentes simuladas y sin correos reales.
 
-**Acciones y fase 10 siguen parciales:** falta separar su vista, filtro de
-tabla y ambos formularios, que siguen en el script anterior con eventos en
-línea. Después pestañas AER y estructura compartida. No retirar el shim ni
+**En ese bloque Acciones y fase 10 seguían parciales:** faltaba separar su
+vista, filtro de tabla y ambos formularios, que seguían en el script anterior
+con eventos en línea. Después pestañas AER y estructura compartida. No retirar el shim ni
 activar ACCESS_ENFORCED; limpieza/CSP pertenecen a fase 11.
 
 ### Fase 10: carga de Cliente/Acciones IXB (parcial)

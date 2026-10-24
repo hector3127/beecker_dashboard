@@ -1,4 +1,4 @@
-"""Acciones: operaciones por API y vista compartida anterior conservada."""
+"""Acciones: operaciones por API y paridad con la vista anterior."""
 
 import copy
 from pathlib import Path

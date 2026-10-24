@@ -2,7 +2,39 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Revisión posterior a Claude y bloque Acciones AER/IXS (parcial)
+## Bloque actual: vista y formularios de Acciones AER/IXS
+
+- `actions_view.js` presenta indicadores, atención, responsables, seguimiento
+  semanal, las dos tablas, búsqueda y ambos formularios con DOM seguro/eventos
+  externos. `actions.js` monta la vista y abre los editores; reutiliza los
+  contratos/API del bloque anterior. El puente aporta el dashboard/caché y
+  mantiene el fallback para `?vista=anterior`.
+- La ruta nueva no usa `_aerVistaAcciones`, `aerIAAccionesPartesVista` ni
+  `_aerModal` en esta pestaña. Los formularios también sirven al alta de
+  pendientes desde IA AER; el resto de esa pestaña todavía es anterior.
+- Se conserva exactamente el funcionamiento previo, incluidos «Filtros» que
+  abre el alta, «Ver todas las acciones» que limpia duplicados y «Próxima
+  revisión» que edita `fechaReal` en la tabla principal. No corregirlos dentro
+  de la migración sin cambiar su alcance.
+- Etiquetas accesibles en campos editables/búsqueda/borrado; no se modifica la
+  presentación. Las pruebas ejercitan teclado, texto que parece HTML, búsqueda
+  sin acentos, errores/reintento y respuestas tardías que no cierran otro editor.
+- Capturas: `tmp/migration/project_detail/actions_transport/` y `actions_forms/`.
+  Inspeccionadas Acciones IXB en móvil, edición AER en escritorio y pendiente
+  IXB en móvil; comparaciones de cajas/estilos y texto contra la anterior.
+- Validación final: **184 aprobadas, nueve deseleccionadas** (99 API y 85 e2e
+  de Acciones, entrada, carga Cliente/Acciones y navegación AER). Incluye 42
+  comparaciones de vista/formularios en AER/IXS a 1450/900/390 px. Las nueve
+  excluidas son variantes del Ejecutivo sin cambios en este bloque. Dieciocho
+  Node dirigidas aprobadas; suite completa **199 aprobadas y tres fallos
+  anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+  Ruff/formato, Django y diff aprobados. Proveedores simulados, sin correos reales.
+- Siguiente: Planeación AER; después Esfuerzo, Riesgos, Recursos e IA AER.
+  Quedan entrada/estado, encabezados/navegación y auxiliares compartidos de
+  Planeación IXB. La fase 10 sigue parcial y fase 11 (limpieza/CSP) pendiente.
+  No activar ACCESS_ENFORCED ni retirar shim/archivo anterior. Sin push.
+
+## Revisión posterior a Claude y bloque Acciones AER/IXS (bloque anterior parcial)
 
 - Git actualizado en `main`: se revisaron directamente los commits `06c2444`,
   `66c1095`, `c82b6d0`, `75fa0db` y `e29994f`, rutas API, importaciones en

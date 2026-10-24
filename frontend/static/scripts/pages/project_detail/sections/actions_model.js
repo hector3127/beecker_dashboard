@@ -1,4 +1,43 @@
 // Unchanged derivations from the shared AER/IXS Actions tab.
+export const STATES = ["Pendiente", "En progreso", "Detenido", "Completado"];
+export const PRIORITIES = ["Alta", "Media", "Baja"];
+export function normalize(value) {
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+export function dateText(value) {
+  if (!value) return "—";
+  const m = String(value).match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : String(value);
+}
+export function stateClass(value) {
+  const s = normalize(value);
+  if (/vencid|crit|alto|alerta/.test(s)) return "bad";
+  if (/complet|cerrad|ok|salud/.test(s)) return "ok";
+  if (/detenid|paus|bloq|mitig/.test(s)) return "warn";
+  if (/por validar|revision/.test(s)) return "review";
+  if (/en progreso|abiert|seguimiento|curso/.test(s)) return "info";
+  return "soft";
+}
+export function progress(value) {
+  const s = String(value || "").toLowerCase();
+  return s.includes("complet")
+    ? 100
+    : s.includes("progreso")
+      ? 65
+      : s.includes("detenido")
+        ? 35
+        : 10;
+}
+export function dependencies(value) {
+  const options = ["", "Cliente", "Interna", "NA"],
+    current = String(value || "");
+  if (current && !options.includes(current)) options.splice(1, 0, current);
+  return options;
+}
 export function actionDate(x) {
   return (
     x.fechaLimite || x.proximaRevision || x.fechaReal || x.fechaInicio || ""

@@ -130,14 +130,15 @@ IXB/SaaS/RaaS usa `bee_com{,_model,_view}.js` y API v1. Confirmado en código y
 en 94 pruebas de navegador durante la revisión posterior a Claude.
 La carga compartida Cliente/Acciones IXB conserva caché en `ixs_client_actions.js`.
 
-Acciones sigue parcial en ambas familias: `actions_model.js` separa los datos
+Acciones está migrada en ambas familias: `actions_model.js` separa los datos
 derivados; `actions.js` hace las lecturas/guardados/borrados/edición directa y
-pendientes Beecker/Cliente por API v1 (`project_actions.py`). Sus vistas,
-filtros de tabla y formularios siguen anteriores; siguiente extraerlos con DOM
-seguro y eventos externos, conservando los contratos y el diseño.
+pendientes Beecker/Cliente por API v1 (`project_actions.py`). `actions_view.js`
+presenta las dos tablas, búsqueda y formularios con DOM seguro y eventos
+externos. La ruta activa no ejecuta sus renderizadores/formularios anteriores;
+conserva los puentes de entrada/estado y el fallback para comparar.
 
-**La fase 10 continúa parcial.** En IXB/SaaS/RaaS falta la vista/formularios de
-Acciones y la estructura compartida. En AER faltan Acciones y las pestañas
+**La fase 10 continúa parcial.** En IXB/SaaS/RaaS falta la estructura compartida.
+En AER faltan las pestañas
 Planeación, Esfuerzo, Riesgos, Recursos e IA. Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo

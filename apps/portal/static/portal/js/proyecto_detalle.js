@@ -2839,7 +2839,7 @@
     if(aerTabActual==='planeacion') el.innerHTML=_aerVistaPlaneacion();
     else if(aerTabActual==='esfuerzo') el.innerHTML=_aerVistaEsfuerzo();
     else if(aerTabActual==='riesgos') el.innerHTML=_aerVistaRiesgos();
-    else if(aerTabActual==='acciones') el.innerHTML=_aerVistaAcciones();
+    else if(aerTabActual==='acciones'){if(window.beeProjectActions)window.beeProjectActions.mount(el,aerAccionesContexto());else el.innerHTML=_aerVistaAcciones();}
     else if(aerTabActual==='recursos') el.innerHTML=_aerVistaRecursos();
     else if(aerTabActual==='cliente'){
       if(window.beeProjectClient){
@@ -3866,7 +3866,7 @@ function aerEliminarDocumentoCliente(uid){
       if(aerTabActual==='acciones'||aerTabActual==='ia')_aerRenderTab();
     }).withFailureHandler(e=>{if(aerIAState.id!==id)return;aerIAState.cargandoPartes=false;_aerToast(e&&e.message||String(e),'error');})[ixsCAActivo()?'ixsListarAccionesPartes':'listarAccionesPartesAER'](id);
   }
-  function aerIAAbrirNuevaAccionParte(){
+  function aerIAAbrirNuevaAccionParte(){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().openPart();
     _aerModal(`<div style="display:flex;justify-content:space-between;gap:10px"><h3 style="margin:0">＋ Pendiente Beecker / Cliente</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div>
     <div class="aer-formgrid" style="margin-top:12px">
       <label class="aer-span2">Acción / entregable<textarea id="aerp-new-accion" style="min-height:66px" placeholder="Describe el compromiso pendiente…"></textarea></label>
@@ -4667,10 +4667,10 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       .eliminarRiesgoAER(uid);
   }
 
-  function aerAccionesModulares(){
+  function aerAccionesContexto(){
     const snapshot=aerDashboardData,id=snapshot.proyecto.id,family=ixsCAActivo()?'ixs':'aer';
     const active=()=>family==='ixs'?ixsTabActual==='acciones':aerTabActual==='acciones';
-    return window.beeProjectActions.bind({id,family,
+    return {id,family,dashboard:snapshot,
       current:()=>aerDashboardData===snapshot,
       active,paint:_aerRenderTab,toast:_aerToast,error:showError,
       actions:rows=>{snapshot.acciones=rows;if(active())_aerRenderTab();},
@@ -4679,9 +4679,10 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       loadingParts:flag=>{aerIAState.cargandoPartes=flag;},
       setParts:rows=>{aerIAState.accionesPartes=rows;if(family==='ixs'&&ixsClienteAccionesCache[id])ixsClienteAccionesCache[id].partes=rows;},
       paintParts:()=>{if(active()||(family==='aer'&&aerTabActual==='ia'))_aerRenderTab();}
-    });
+    };
   }
-  function aerAbrirAccion(uid='') { const x=((aerDashboardData.acciones||{}).filas||[]).find(r=>r.uid===uid)||{}; _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Agregar'} acción</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label class="aer-span2">Acción / Entregable<input id="aa-a" value="${_aerEsc(x.accion||'')}"></label><label>Responsable<input id="aa-r" value="${_aerEsc(x.responsable||'')}"></label><label>Estado<select id="aa-e">${_aerOpcionesEstadoAccion(x.estado||'Pendiente')}</select></label><label>Fecha inicio<input type="date" id="aa-fi" value="${x.fechaInicio||''}"></label><label>Fecha compromiso<input type="date" id="aa-f" value="${x.fechaLimite||''}"></label><label>Fecha real<input type="date" id="aa-fr" value="${x.fechaReal||''}"></label><label>Dependencia<select id="aa-d">${_aerOpcionesDependenciaAccion(x.dependencia||'')}</select></label><label>Prioridad<select id="aa-p">${_aerOpcionesPrioridadAccion(x.prioridad||'Media')}</select></label><label class="aer-span2">Comentarios<textarea id="aa-n">${_aerEsc(x.comentarios||x.notas||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn danger" onclick="aerEliminarAccion('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarAccion('${uid}')">Guardar</button></div>`); }
+  function aerAccionesModulares(){return window.beeProjectActions.bind(aerAccionesContexto());}
+  function aerAbrirAccion(uid='') {if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().open(uid); const x=((aerDashboardData.acciones||{}).filas||[]).find(r=>r.uid===uid)||{}; _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Agregar'} acción</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label class="aer-span2">Acción / Entregable<input id="aa-a" value="${_aerEsc(x.accion||'')}"></label><label>Responsable<input id="aa-r" value="${_aerEsc(x.responsable||'')}"></label><label>Estado<select id="aa-e">${_aerOpcionesEstadoAccion(x.estado||'Pendiente')}</select></label><label>Fecha inicio<input type="date" id="aa-fi" value="${x.fechaInicio||''}"></label><label>Fecha compromiso<input type="date" id="aa-f" value="${x.fechaLimite||''}"></label><label>Fecha real<input type="date" id="aa-fr" value="${x.fechaReal||''}"></label><label>Dependencia<select id="aa-d">${_aerOpcionesDependenciaAccion(x.dependencia||'')}</select></label><label>Prioridad<select id="aa-p">${_aerOpcionesPrioridadAccion(x.prioridad||'Media')}</select></label><label class="aer-span2">Comentarios<textarea id="aa-n">${_aerEsc(x.comentarios||x.notas||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn danger" onclick="aerEliminarAccion('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarAccion('${uid}')">Guardar</button></div>`); }
   function aerGuardarAccion(uid){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().save(uid);
     const saver=_aerStartSaving(_aerPrimaryModalBtn(),'Guardando acción...');
     const o={UID:uid,ID_Proyecto:aerDashboardData.proyecto.id,Accion:_aerVal('aa-a'),Responsable:_aerVal('aa-r'),Fecha_Inicio:_aerVal('aa-fi'),Fecha_Limite:_aerVal('aa-f'),Fecha_Real:_aerVal('aa-fr'),Estado:_aerVal('aa-e'),Dependencia:_aerVal('aa-d'),Prioridad:_aerVal('aa-p'),Notas:_aerVal('aa-n')};

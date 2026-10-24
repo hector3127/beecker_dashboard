@@ -2,7 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import vm from "node:vm";
-import { actionsModel } from "../../frontend/static/scripts/pages/project_detail/sections/actions_model.js";
+import {
+  actionsModel,
+  normalize,
+  dateText,
+  stateClass,
+} from "../../frontend/static/scripts/pages/project_detail/sections/actions_model.js";
 
 const source = fs.readFileSync(
   "apps/portal/static/portal/js/proyecto_detalle.js",
@@ -33,6 +38,42 @@ vm.runInNewContext(
   scope,
 );
 const plain = (x) => JSON.parse(JSON.stringify(x));
+
+for (const name of [
+  "_aerNormFilter",
+  "_aerFmtFecha",
+  "_aerVisualEstadoClase",
+]) {
+  vm.runInNewContext(
+    source.match(new RegExp(`  function ${name}\\([\\s\\S]*?\\n  \\}`))[0],
+    scope,
+  );
+}
+test("Action dates, search and state colors match original helpers", () => {
+  for (const value of [
+    null,
+    "",
+    0,
+    "Revisión TÉCNICA",
+    "2026-10-23T12:00:00Z",
+    "Pendiente",
+    "Vencido",
+    "Completado",
+    "En progreso",
+    "Detenido",
+    "Por validar",
+    "En revisión",
+    "Cerrado",
+    "Crítico",
+    "Saludable",
+    "Bloqueado",
+    "Desconocido",
+  ]) {
+    assert.equal(normalize(value), scope._aerNormFilter(value));
+    assert.equal(dateText(value), scope._aerFmtFecha(value));
+    assert.equal(stateClass(value), scope._aerVisualEstadoClase(value));
+  }
+});
 
 for (const [name, dashboard] of [
   ["empty", {}],
