@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación, Acciones, Planeación, registros de Esfuerzo, Riesgos y evaluaciones AER; resto RPC | **Parcial**: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo y Recursos, además de Riesgos AER; RAID, Azure, IA y Comunicación IXS usan módulos. Faltan IA AER y estructura compartida | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para pestañas migradas, incluidas lecturas y acciones IA AER; auxiliares compartidos aún por retirar | **Parcial**: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo, Recursos e IA; Riesgos AER y RAID/Azure/Comunicación IXS usan módulos. Falta estructura/estado/auxiliares compartidos | **Parcial**, no completada |
 | 11 | Limpieza y CSP obligatoria; permisos/Genesis como decisión de despliegue | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -77,8 +77,8 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo y Recursos de ambas familias; Riesgos AER;
-Gestión RAID, Azure DevOps, IA y Centro de Comunicación IXB/SaaS/RaaS.
+Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo, Recursos e IA de ambas familias; Riesgos AER;
+Gestión RAID, Azure DevOps y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
 La entrada modular ya usa API para filtros y dashboards, pero el encabezado
@@ -87,7 +87,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
-| AER/T&M | IA: acciones de generación/guardado, validaciones y auxiliares; lecturas, modelos, vistas, formularios y CSS principal ya separados |
+| AER/T&M | Integración de estructura/estado y auxiliares compartidos; pestañas ya modulares |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -106,7 +106,51 @@ la integración compartida, sin confundirlos con volver a migrar su vista y edit
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
-### IA AER/T&M: presentación y formularios (parcial)
+### IA AER/T&M: acciones por API (pestaña completa)
+
+`project_aer_ai.py` conserva seis GET de fuentes (se añade el prompt por
+defecto) y ocho POST explícitos: `analizar`, `generar-resumen`, `preguntar`,
+`correo`, `minuta-borrador`, `minuta-drive`, `minuta-guardar`, `config-guardar`.
+Mismas funciones de `ai_functions.py`, argumentos, tipos, proveedores y errores
+públicos. El proyecto procede de la ruta; generación/guardado exige
+`edit_operations`, configuración `manage_integrations`, alcance total y CSRF.
+No se llama al modelo por abrir la pestaña ni se reintentan escrituras solas.
+
+`aer_ai_actions.js` controla análisis, resumen, preguntas y correo;
+`aer_ai_minutes_actions.js` separa borradores con/sin Drive, guardado, configuración,
+prompt predeterminado y copiado. `aer_ai_actions_model.js` conserva preguntas de
+resumen y selección de cinco archivos. Mantiene validaciones, textos completos,
+borradores editables, mensajes de coste/caché/persistencia y recarga de minutas.
+Respuestas de otro estado/proyecto no se aplican; resultados de un formulario
+cerrado no reemplazan el nuevo. Una respuesta normal no borra la siguiente
+pregunta que ya se esté escribiendo. Los puentes solo delegan; no se ejecutan
+las acciones ni escrituras RPC anteriores en esta pestaña.
+
+**IA AER completa; fase 10 parcial.** Quedan encabezados, pestañas, entrada/
+estado y auxiliares comunes del detalle. Mantener script/shim hasta completar
+su integración; limpieza/CSP pertenecen a fase 11. Hallazgo preservado: el
+manejador común `showError` reemplaza el contenido del dashboard en algunos
+errores; no se cambió su comportamiento durante esta migración.
+
+Evidencia: **102 API aprobadas** (57 de acciones y 45 de lecturas): firmas,
+permisos/alcance antes de construir proveedores, CSRF, cuerpo objeto, rutas y
+errores públicos. **29 casos de navegador aprobados por bloques**, incluidos
+18 comparaciones de resultados generados a 1450/900/390 px; se conserva toda
+la evidencia de pantalla/formularios anterior. Se prueban validación, copia,
+pregunta frente a resumen, edición/guardado, búsqueda posterior, errores y
+reintento, duplicados y respuestas tardías sin perder notas nuevas.
+Siete Node del modelo y quince del cliente aprobadas; suite completa **320
+aprobadas y tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+`financial`). Ruff/formato, mypy del API nuevo, Django y diff aprobados.
+Capturas en `tmp/migration/project_detail/aer_ai_view/actions/`, inspeccionadas
+escritorio/móvil. Pruebas con proveedores simulados, sin Claude/Drive/Sheets
+reales ni correos enviados. Sin cambios de cálculos ni ACCESS_ENFORCED; sin push.
+
+Regresión: **75 de navegador/soporte aprobadas** (fuentes y vista/formularios
+IA AER, entrada, Ejecutivo AER y soporte). Con los 29 casos de acciones:
+**104 de navegador/soporte**; sumadas las 102 API, **206 aprobadas**.
+
+### IA AER/T&M: presentación y formularios (bloque anterior, parcial)
 
 `aer_ai_presentation_model.js` conserva los datos derivados de la pantalla,
 fecha de memoria, extracto de la última minuta y formato mínimo del resumen.

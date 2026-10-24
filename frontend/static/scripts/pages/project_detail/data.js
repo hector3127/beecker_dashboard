@@ -16,6 +16,15 @@ export function createProjectData(get = apiGet, send = apiSend) {
       )
     ).data;
   return {
+    aerAiAction: async (id, operation, body) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/ia-aer/${encodeURIComponent(operation)}/`,
+          body,
+          { timeout: 90000 },
+        )
+      ).data,
     aerAiSource: async (id, source, context) =>
       (
         await get(

@@ -148,6 +148,19 @@ def test_forms_match_previous(portal, rich, fixed_day, width, form):
             }
         ),
     )
+    portal.route(
+        "**/ia-aer/minuta-borrador/",
+        lambda route: route.fulfill(
+            json={
+                "data": {
+                    "ok": True,
+                    "texto": "Borrador <editable> & seguro",
+                    "uso": {"usd": 0.001},
+                },
+                "meta": {},
+            }
+        ),
+    )
 
     def prepare(page):
         command = {

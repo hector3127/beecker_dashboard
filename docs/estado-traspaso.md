@@ -2,7 +2,46 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: IA AER — presentación y formularios (parcial)
+## Bloque actual: IA AER — acciones por API (pestaña completa)
+
+- `project_aer_ai.py` expone ocho POST explícitos para análisis, resumen,
+  preguntas, correo, borrador de minuta con/sin Drive, guardado y configuración.
+  Se añade GET del prompt por defecto (seis lecturas en total). Firmas,
+  funciones/proveedores, tipos y errores originales. Proyecto de la ruta,
+  edit_operations o manage_integrations para configuración, alcance total y
+  CSRF en escrituras. No activa ACCESS_ENFORCED ni modifica cálculos.
+- `aer_ai_actions.js` y `aer_ai_minutes_actions.js` controlan operaciones,
+  validaciones, mensajes, reintentos y copiado. `aer_ai_actions_model.js`
+  conserva clasificación de preguntas y selección de cinco para resúmenes.
+  Se mantienen borradores y contenido editado, coste/caché/persistencia,
+  guardado y recarga de minutas, configuración y búsqueda posterior.
+- Respuestas de otro proyecto/estado se descartan; otro formulario no recibe
+  resultados del anterior. La pregunta nueva escrita durante una consulta
+  normal se conserva. Duplicados de análisis en curso se bloquean.
+- Los puentes globales solo delegan. La ruta activa no ejecuta renderizadores,
+  formularios ni acciones RPC anteriores de IA AER. Lecturas, modelos y vistas
+  de los bloques anteriores se conservan.
+- **IA AER completa; fase 10 parcial.** Siguiente: encabezados/navegación,
+  entrada/estado y auxiliares compartidos del detalle (incluidos los de IXB).
+  No retirar script/shim todavía; fase 11 para limpieza y CSP. El manejador
+  común showError sigue anterior: algunos errores reemplazan el dashboard.
+  Se preservó ese comportamiento; revisar aparte al extraer el soporte común.
+- **102 API aprobadas** (57 acciones, 45 lecturas), con permisos/alcance antes
+  de fuentes, CSRF, firmas/argumentos y errores públicos. **29 casos de navegador
+  aprobados por bloques**, incluidos 18 comparaciones en tres tamaños de
+  resultados generados. Flujos con/sin Drive, pregunta/resumen, edición/guardado,
+  validación, copia, reintento, cambios de formulario/estado y notas nuevas probados.
+- Siete Node del modelo y quince del cliente aprobadas; suite completa **320
+  aprobadas y los tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, mypy del API, Django y diff
+  aprobados. Capturas en `tmp/migration/project_detail/aer_ai_view/actions/`,
+  inspeccionadas escritorio/móvil. Datos/proveedores simulados; sin Claude,
+  Drive, Sheets reales ni correos. Sin push; cambios ajenos intactos.
+- **75 de regresión aprobadas**: fuentes/vista/formularios IA AER, entrada,
+  Ejecutivo AER y soporte. Con 29 de acciones: **104 de navegador/soporte**.
+  Sumadas las 102 API, **206 aprobadas**. No dar por cerrada la fase 10.
+
+## Bloque anterior: IA AER — presentación y formularios (parcial)
 
 - `aer_ai_presentation_model.js`: datos derivados, extracto de minuta, fecha
   de memoria y formato mínimo de resumen. Contraste Node con las funciones

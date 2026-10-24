@@ -11077,6 +11077,12 @@ function _renderGraficaHorasDia(contenedorId, dias) {
         action:()=>aerAbrirAccion(),risk:()=>aerAbrirRiesgo()}};
   }
   function aerIAPresentacionModular(){return window.beeAerAiPresentation.bind(aerIAPresentacionContexto());}
+  function aerIAAccionesModulares(){
+    const state=aerIAState,id=aerDashboardData.proyecto.id;
+    return window.beeAerAiActions.bind({id,state,current:()=>aerIAState===state&&aerDashboardData?.proyecto.id===id,
+      active:()=>aerTabActual==='ia',paint:_aerRenderTab,toast:_aerToast,error:showError,context:aerIAContexto,
+      presentation:aerIAPresentacionModular,sources:aerIAFuentesModulares,tab:()=>aerCambiarTab('ia')});
+  }
   function aerIAHoy(){ const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10); }
   function aerIAContexto(){
     if(window.beeAerAiModel)return window.beeAerAiModel.context(aerDashboardData,aerIAState);
@@ -11189,11 +11195,13 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     const modal=document.querySelector('#aer-modal-back .aer-modal');if(modal)modal.style.width='min(850px,96vw)';
   }
   function aerIACopiarResumen(){
+    if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().copySummary();
     const r=aerIAResumenActual();const inp=document.createElement('textarea');inp.value=r.contenido||'';
     inp.style.cssText='position:fixed;left:-9999px;opacity:0';document.body.appendChild(inp);inp.select();
     let ok=false;try{ok=document.execCommand('copy')}catch(e){}inp.remove();_aerToast(ok?'Resumen copiado':'No se pudo copiar el resumen',ok?'success':'error');
   }
   function aerIAGenerarResumenEjecutivo(){
+    if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().generateSummary();
     if(!aerDashboardData||aerIAState.generandoResumen)return;
     const id=aerDashboardData.proyecto.id,btn=document.getElementById('aeri-generate-summary');
     aerIAState.generandoResumen=true;if(btn){btn.disabled=true;btn.textContent='Generando resumen…';}
@@ -11296,6 +11304,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     }).obtenerUltimoAnalisisProyectoAER(id,ctx);
   }
   function aerIAAnalizar(force){
+    if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().analyze(force);
     if(!aerDashboardData || aerIAState.cargando)return;
     const id=aerDashboardData.proyecto.id,ctx=aerIAContexto(),btn=document.getElementById('aeri-analyze');
     aerIAState.cargando=true; if(btn){btn.textContent='Analizando…';btn.disabled=true;}
@@ -11312,6 +11321,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   }
   function aerIASetPregunta(q){if(window.beeAerAiPresentation)return aerIAPresentacionModular().question(q);const e=document.getElementById('aeri-question');if(e){e.value=q;e.focus();}}
   function aerIAPreguntar(){
+    if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().ask();
     const input=document.getElementById('aeri-question');
     const question=(input||{}).value||'',box=document.getElementById('aeri-response');
     if(question.trim().length<5)return aerIAAviso(box,'Escribe una pregunta antes de consultar a Claude.',true);
@@ -11356,7 +11366,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     if(window.beeAerAiPresentation)return aerIAPresentacionModular().mail();
     _aerModal(`<div class="aeri"><div class="aeri-cardtitle"><h3>✉ Borrador de correo con Claude</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><label>¿Qué debe comunicar el correo?<textarea id="aeri-mail-in" style="width:100%;min-height:90px" maxlength="380" placeholder="Describe lo que quieres comunicar sin agregar datos sensibles…"></textarea></label><div id="aeri-mail-out"></div><button class="aer-btn primary" id="aeri-mail-btn" onclick="aerIAGenerarCorreo()">Generar borrador</button></div>`);
   }
-  function aerIAGenerarCorreo(){const q=(document.getElementById('aeri-mail-in')||{}).value||'',btn=document.getElementById('aeri-mail-btn');if(q.trim().length<5)return;
+  function aerIAGenerarCorreo(){if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().generateMail();const q=(document.getElementById('aeri-mail-in')||{}).value||'',btn=document.getElementById('aeri-mail-btn');if(q.trim().length<5)return;
     if(btn){btn.disabled=true;btn.textContent='Redactando…';}
     google.script.run.withSuccessHandler(r=>{if(btn){btn.disabled=false;btn.textContent='Generar borrador';}const box=document.getElementById('aeri-mail-out');if(!box)return;aerIAAviso(box,r&&r.ok?r.texto:r&&r.error||'Error',!(r&&r.ok));}).withFailureHandler(e=>{if(btn){btn.disabled=false;btn.textContent='Reintentar';}aerIAAviso(document.getElementById('aeri-mail-out'),e.message,true);}).redactarCorreoClaudeAER(aerDashboardData.proyecto.id,aerIAContexto(),q);
   }
@@ -11390,6 +11400,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   }
 
   function aerIACopiarMinutaGuardada(){
+    if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().copySavedMinute();
     const box=document.getElementById('aeri-minuta-read');
     if(!box)return;
     const temp=document.createElement('textarea');
@@ -11512,6 +11523,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     fields.appendChild(reset);
   }
   function aerIARestablecerPromptMinuta(){
+    if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().resetPrompt();
     const el=document.getElementById('aeri-minute-prompt');
     if(!el||!aerDashboardData)return;
     if(aerIAState.cargandoPromptDefecto)return;
@@ -11553,6 +11565,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     }).withFailureHandler(e=>{aerIAState.cargandoConfig=false;_aerToast(e&&e.message||String(e),'error');}).obtenerConfigCarpetaMinutasAER(id);
   }
   function aerIAGuardarConfigMinutas(buscar){
+    if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().saveConfig(buscar);
     if(!aerDashboardData)return;
     const id=aerDashboardData.proyecto.id;
     const campos=['aeri-folder-url','aeri-folder-name','aeri-file-pattern','aeri-minute-prompt'];
@@ -11631,6 +11644,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
       <div id="aeri-minute-result"></div></div>`);
   }
   function aerIAGenerarMinuta(){
+    if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().generateMinute();
     const notes=(document.getElementById('aeri-minute-notes')||{}).value||'',topic=(document.getElementById('aeri-minute-topic')||{}).value||'';
     const date=(document.getElementById('aeri-minute-date')||{}).value||aerIAHoy(),btn=document.getElementById('aeri-minute-generate');
     const ids=(aerIAState.seleccion||[]).slice();
@@ -11649,8 +11663,9 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     if(ids.length)runner.generarBorradorMinutaDesdeCarpetaClaudeAER(aerDashboardData.proyecto.id,aerIAContexto(),{ids:ids,tema:topic,fecha:date,notas:notes});
     else runner.generarBorradorMinutaClaudeAER(aerDashboardData.proyecto.id,aerIAContexto(),'Tema: '+topic+'; Fecha: '+date+'; Notas: '+notes);
   }
-  function aerIACopiarMinuta(){const t=document.getElementById('aeri-minute-text');if(!t)return;t.select();document.execCommand('copy');_aerToast('Texto copiado.');}
+  function aerIACopiarMinuta(){if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().copyMinute();const t=document.getElementById('aeri-minute-text');if(!t)return;t.select();document.execCommand('copy');_aerToast('Texto copiado.');}
   function aerIAGuardarMinuta(){
+    if(window.beeAerAiActions&&aerDashboardData)return aerIAAccionesModulares().saveMinute();
     const data={tema:(document.getElementById('aeri-minute-topic')||{}).value||'',fecha:(document.getElementById('aeri-minute-date')||{}).value||'',contenido:(document.getElementById('aeri-minute-text')||{}).value||''},btn=document.getElementById('aeri-minute-save');
     if(!data.tema.trim()||!data.contenido.trim()){_aerToast('Captura tema y minuta.','error');return;}
     if(btn){btn.disabled=true;btn.textContent='Guardando…';}

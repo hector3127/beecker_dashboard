@@ -14,6 +14,43 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("AER AI actions send exact payload and operation over POST", async () => {
+  const calls = [],
+    result = { ok: true },
+    body = {
+      contexto: { id: "AER.001" },
+      forzar: false,
+      datos: { ids: ["x"], notas: "Texto exacto" },
+    };
+  const data = context.createProjectData(null, async (...args) => {
+    calls.push(args);
+    return { data: result };
+  });
+  for (const operation of [
+    "analizar",
+    "generar-resumen",
+    "preguntar",
+    "correo",
+    "minuta-borrador",
+    "minuta-drive",
+    "minuta-guardar",
+    "config-guardar",
+  ]) {
+    assert.equal(
+      await data.aerAiAction("AER.001 | CR", operation, body),
+      result,
+    );
+    const call = calls.at(-1);
+    assert.equal(call[0], "POST");
+    assert.equal(
+      call[1],
+      `screens/proyectos/AER.001%20%7C%20CR/ia-aer/${operation}/`,
+    );
+    assert.equal(call[2], body);
+    assert.equal(call[3].timeout, 90000);
+  }
+});
+
 test("AER saved AI sources encode context only for analysis without writes", async () => {
   const calls = [],
     result = { ok: true },

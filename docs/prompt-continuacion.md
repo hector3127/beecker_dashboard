@@ -9,9 +9,10 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local separa presentación y
-   formularios de IA AER (pestaña todavía parcial). Sus lecturas, modelo y CSS
-   ya estaban separados. Recursos AER está completo,
+   diferencia con `origin/main`. El último bloque local completa IA AER con
+   acciones por API, validaciones y copiado. Sus fuentes/modelos/vistas/CSS ya
+   estaban separados. La fase 10 sigue parcial por la estructura compartida.
+   Recursos AER está completo,
    incluidas evaluaciones, editor y guardado/borrado por API. Riesgos AER,
    Esfuerzo AER (registros por rango
    y «Ver más»), Planeación AER y
@@ -116,8 +117,8 @@ del proyecto completo y próxima evaluación incluye fechas pasadas. DOM seguro,
 SVG y editor externo; no ejecuta renderer/formulario anteriores. Quince
 comparaciones en tres tamaños; pruebas y evidencia en el traspaso.
 
-**IA AER parcial:** `project_aer_ai.py` expone cinco GET de análisis/resumen
-guardados, minutas, configuración y archivos. `aer_ai_sources.js` maneja
+**IA AER completa:** `project_aer_ai.py` expone seis GET de análisis/resumen
+guardados, minutas, configuración, archivos y prompt. `aer_ai_sources.js` maneja
 caché/estados y respuestas tardías; `aer_ai_model.js` conserva contexto y
 hechos/alertas. CSS principal externo `project_detail_aer_ai.css`, con link
 `aer-ia-styles-v55`. Comparado contra la anterior en tres tamaños. Mantener
@@ -128,13 +129,19 @@ límite de 28 compromisos en contexto, ocupación de toda la planeación y umbra
 `aer_ai_view.js`, `aer_ai_documents_view.js`, `aer_ai_forms_view.js` y
 `aer_ai_dom.js` usan DOM seguro y eventos externos. Historial, selección máxima
 de cinco, sugerencias y seis formularios comparados en tres tamaños, incluido
-borrador editable. No ejecuta renderer ni formularios anteriores. Generación,
-guardado, validaciones y copiado todavía delegan a funciones anteriores.
+borrador editable. No ejecuta renderer ni formularios anteriores.
 
-**Siguiente bloque sugerido:** API y controlador de acciones de IA AER
-(análisis, preguntas, correo, resumen, generación/guardado de minutas,
-configuración y auxiliares de copiado). Varias siguen por RPC; no marcar la
-pestaña como completa ni volver a separar sus fuentes/modelos/vistas.
+**Acciones IA AER completas:** `aer_ai_actions.js`, `aer_ai_minutes_actions.js`
+y `aer_ai_actions_model.js` controlan análisis, preguntas, resumen, correo,
+minutas, configuración/prompt y copiado. Ocho POST con servicios/permisos
+originales, alcance total y CSRF. Sin acciones RPC anteriores en la pestaña.
+Se conservan validación, borradores, coste/caché/persistencia y reintento;
+respuestas tardías no sustituyen otro proyecto/estado/formulario.
+
+**Siguiente bloque sugerido:** encabezados y navegación del detalle; después
+entrada/estado y auxiliares compartidos, incluido el manejador showError, que
+hoy puede reemplazar el dashboard ante ciertos errores (comportamiento anterior
+preservado). No reabrir IA como pendiente ni retirar aún script/shim.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
 encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,

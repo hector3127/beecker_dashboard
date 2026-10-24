@@ -171,8 +171,10 @@ seguro/eventos externos. Guardado/borrado usan API `project_aer_resources.py`,
 con firmas y servicios anteriores; la lectura llega en el dashboard AER existente.
 Conserva últimas evaluaciones globales del proyecto en la gráfica y selección
 por persona solo en su resumen. No ejecuta su renderer/formulario anteriores.
-IA AER tiene un primer bloque separado: `project_aer_ai.py` expone cinco
-lecturas guardadas/Drive por API v1 con los servicios y permisos anteriores.
+IA AER tiene lecturas y acciones separadas: `project_aer_ai.py` expone seis
+lecturas (incluido el prompt) y ocho POST por API v1, con servicios/permisos
+anteriores; configuración requiere manage_integrations, generación/guardado
+edit_operations, siempre alcance total y CSRF en escrituras.
 `aer_ai_sources.js` conserva caché/estados y descarta respuestas de otro estado
 o proyecto; refrescar el mismo proyecto no deja cargas bloqueadas.
 `aer_ai_model.js` conserva contexto y hechos/alertas (límite de 28 compromisos
@@ -184,10 +186,15 @@ La presentación de IA AER ya usa `aer_ai_presentation.js`, `aer_ai_view.js`,
 derivados. Pantalla, lecturas, seis formularios y borrador editable comparados
 en tres tamaños. Historial, selección (máximo 5) y preguntas sugeridas usan
 eventos externos; no ejecuta renderer, tablas ni formularios anteriores.
-**IA AER sigue parcial:** generación/guardado, validaciones y copiado aún
-delegan a acciones anteriores; varias usan RPC. Continuar por sus operaciones
-API/controlador (análisis, preguntas, correo, resumen, minutas y configuración),
-sin repetir las lecturas/modelo/vistas ni confundirlas con pestaña completa.
+`aer_ai_actions.js` y `aer_ai_minutes_actions.js` controlan análisis, preguntas,
+correo, resumen, borradores con/sin Drive, guardado, configuración, prompt y
+copiado. `aer_ai_actions_model.js` conserva clasificación de preguntas y límite
+de selección. No ejecuta acciones RPC anteriores en la ruta nueva. Respuestas
+de otro proyecto/estado/formulario no sobrescriben su presentación nueva.
+**IA AER completa; fase 10 parcial.** Continuar por encabezados, navegación,
+entrada/estado y auxiliares compartidos. Mantener los puentes y comparación;
+no retirar aún script/shim. El manejador común showError sigue anterior y
+puede reemplazar el dashboard ante errores; comportamiento preservado.
 Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo
