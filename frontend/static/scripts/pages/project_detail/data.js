@@ -16,6 +16,15 @@ export function createProjectData(get = apiGet, send = apiSend) {
       )
     ).data;
   return {
+    saveAerPlan: async (id, operation, body) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/planeacion-aer/${encodeURIComponent(operation)}/`,
+          body,
+          { timeout: 90000 },
+        )
+      ).data,
     actions: async (id, servicio, parts = false) =>
       (
         await get(

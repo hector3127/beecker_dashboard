@@ -2,7 +2,36 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: vista y formularios de Acciones AER/IXS
+## Bloque actual: operaciones de Planeación AER (parcial)
+
+- `project_aer_planning.py`: ocho POST explícitos de guardar/importar, estado,
+  cierre, borrar simple/lote y guardar/borrar vacaciones. Firmas y servicios
+  originales de AER; edición, alcance total y CSRF heredados. El ID de la ruta
+  prevalece donde el servicio recibe proyecto; borrado simple sigue por UID.
+- `sections/aer_planning.js`: controlador de operaciones conectado desde
+  `main.js`, `data.js` y los puentes de `proyecto_detalle.js`. Conserva avisos,
+  borradores al reintentar, sobreasignación, cierre automático, guardado ligero,
+  confirmación física de borrado e importación. Respuestas de otro dashboard
+  se descartan; un guardado no cierra un editor abierto después.
+- La vista y formularios siguen anteriores a propósito; comparar no significa
+  que Planeación esté terminada. También siguen anteriores filtros, selección,
+  parser CSV/TSV, presentación de fechas y cálculos/advertencias de capacidad.
+  Siguiente extraerlos sin reescribir las reglas, reutilizando esta API/controlador.
+- Se conserva el caso original de borrado individual que recarga incluso con
+  `{ok:false}` si no hubo error de transporte; no corregirlo dentro de la migración.
+- Capturas reproducibles en `tmp/migration/project_detail/aer_planning_transport/`;
+  comparación de pantalla completa/vacía y formularios contra `?vista=anterior`.
+  Inspeccionada la captura completa de escritorio. Proveedores simulados.
+- Validación: **109 aprobadas** entre API, soporte y navegador (incluye 49 API,
+  25 e2e de Planeación, regresión de entrada y Acciones). Dieciocho comparaciones
+  de pantalla/formularios a 1450/900/390 px. Diez Node del cliente de datos
+  aprobadas; suite completa **200 aprobadas y los tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`). Ruff/formato, mypy
+  del módulo nuevo, Django y diff aprobados. Sin fuentes ni correos reales.
+- Después Planeación: Esfuerzo, Riesgos, Recursos e IA AER, más estructura y
+  auxiliares compartidos. Fase 10 parcial, fase 11 pendiente. Sin push.
+
+## Bloque anterior: vista y formularios de Acciones AER/IXS
 
 - `actions_view.js` presenta indicadores, atención, responsables, seguimiento
   semanal, las dos tablas, búsqueda y ambos formularios con DOM seguro/eventos

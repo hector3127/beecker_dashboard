@@ -39,6 +39,7 @@ from apps.portal.api.project_actions import (
     ProjectActionsReadView,
     ProjectActionsWriteView,
 )
+from apps.portal.api.project_aer_planning import AerPlanningWriteView
 from apps.portal.api.project_ai import (
     AiActionSave,
     AiAnalyze,
@@ -110,6 +111,10 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/<str:project_id>/planeacion-aer/<slug:operation>/",
+        AerPlanningWriteView.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/acciones/",
         ProjectActionsReadView.as_view(),

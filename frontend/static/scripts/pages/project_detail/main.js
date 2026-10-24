@@ -3,6 +3,7 @@
 import { createProjectData } from "./data.js";
 import { actionsModel } from "./sections/actions_model.js";
 import { createActionsController } from "./sections/actions.js";
+import { createAerPlanning } from "./sections/aer_planning.js";
 import { createAiSources } from "./sections/ixs_ai_sources.js";
 import * as aiModel from "./sections/ixs_ai_model.js";
 import { createAiController } from "./sections/ixs_ai_controller.js";
@@ -71,6 +72,7 @@ async function start() {
       beeProjectData: data,
       beeProjectActionsModel: actionsModel,
       beeProjectActions: createActionsController(data),
+      beeAerPlanning: createAerPlanning(data),
       beeIxsAiSources: createAiSources(data),
       beeIxsAiModel: aiModel,
       beeIxsAiController: createAiController(data),

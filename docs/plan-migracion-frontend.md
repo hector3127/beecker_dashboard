@@ -87,7 +87,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
-| AER/T&M | Planeación, Esfuerzo, Riesgos, Recursos e IA |
+| AER/T&M | Modelo/vista/formularios/filtros de Planeación (operaciones por API ya separadas), Esfuerzo, Riesgos, Recursos e IA |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -105,6 +105,39 @@ Planeación conserva puentes y auxiliares en el archivo anterior, entre ellos
 la integración compartida, sin confundirlos con volver a migrar su vista y editores.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Planeación AER/T&M: operaciones y transporte (parcial)
+
+`project_aer_planning.py` expone ocho POST de guardar, importar, estado,
+cerrar, eliminar, eliminar-lote y guardar/eliminar vacaciones. Reutiliza las
+funciones de `apps.aer.rpc.FUNCTIONS` y sus servicios, con `edit_operations`,
+alcance total, CSRF y el proyecto de la ruta cuando la firma recibe proyecto.
+El borrado individual conserva la firma original por UID.
+
+`sections/aer_planning.js` separa las operaciones de sus formularios existentes;
+`data.js` conserva timeout y usa el cliente de datos compartido. Los puentes
+anteriores delegan en la ruta nueva. Se mantienen confirmación de
+sobreasignación, fechas de cierre, guardado ligero, importación, confirmación
+física del borrado por lote y recarga solo en los mismos flujos. Respuestas
+de otro dashboard no se aplican ni cierran un editor abierto después.
+
+El borrado individual anterior recarga aun con `{ok:false}` si la solicitud
+responde sin fallo de transporte; se conserva ese comportamiento en este bloque
+y se prueba expresamente. Cualquier corrección de negocio requiere otro alcance.
+
+**Planeación AER y fase 10 siguen parciales:** faltan modelo/presentación,
+formularios, filtros, parser y cálculos de capacidad. Mantener fallback/shim;
+no activar ACCESS_ENFORCED ni alterar Horas por mes.
+
+Evidencia: **109 aprobadas** (49 API, 25 e2e de Planeación más soporte y regresión
+de entrada/Acciones); 18 comparaciones de pantalla completa/vacía y formularios
+a 1450/900/390 px. Cubren guardado/reintento, confirmación de sobreasignación,
+estado/cierre, vacaciones, importación, borrado físico por lote, borrado simple
+y respuestas tardías. Diez Node del cliente de datos aprobadas; suite completa
+200 aprobadas y los tres fallos anteriores. Ruff/formato, mypy nuevo, Django
+y diff aprobados. Capturas en
+`tmp/migration/project_detail/aer_planning_transport/`; revisada la de escritorio.
+Proveedores simulados, sin consultas reales ni correos enviados.
 
 ### Acciones AER/T&M e IXB/SaaS/RaaS: vista y formularios
 

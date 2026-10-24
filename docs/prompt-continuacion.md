@@ -9,8 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local completa la vista y
-   formularios de Acciones AER/IXS; Claude completó Cliente y el Centro
+   diferencia con `origin/main`. El último bloque local separa las operaciones
+   por API de Planeación AER; el anterior completó Acciones AER/IXS.
+   Claude completó Cliente y el Centro
    de Comunicación IXB/SaaS/RaaS (posterior al glosario
    `b1ca4b4`). No hagas push
    salvo que te lo pida expresamente.
@@ -73,7 +74,16 @@ lecturas y siete mutaciones de API v1 (`project_actions.py`) para ambas familias
 externos. Las comparaciones cubren estados y formularios a 1450/900/390 px.
 Conserva los puentes de entrada/estado y el fallback anterior.
 
-**Siguiente bloque sugerido:** Planeación de AER; después Esfuerzo, Riesgos,
+**Planeación AER parcial:** `project_aer_planning.py` expone ocho POST explícitos
+en `screens/proyectos/<id>/planeacion-aer/<operacion>/`; `aer_planning.js` separa
+guardado, cierre/estado, vacaciones, importación y borrado simple/por lote.
+Conserva confirmación de sobreasignación, confirmación física del borrado por
+lote, borradores al reintentar y protección frente a respuestas antiguas.
+La vista/formularios/filtros/parser/capacidad siguen anteriores; no contar la
+pestaña como terminada.
+
+**Siguiente bloque sugerido:** modelo, vista y formularios de Planeación AER;
+reutilizar las operaciones nuevas. Después Esfuerzo, Riesgos,
 Recursos e IA de AER. Quedan también
 encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,

@@ -14,6 +14,26 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("AER planning writes preserve encoded project, body and timeout", async () => {
+  const calls = [];
+  const api = context.createProjectData(null, async (...args) => {
+    calls.push(args);
+    return { data: { ok: true } };
+  });
+  const body = { uid: "a'1", cerrado: false };
+  assert.deepEqual(await api.saveAerPlan("AER.001 | CR", "cerrar", body), {
+    ok: true,
+  });
+  assert.deepEqual(JSON.parse(JSON.stringify(calls)), [
+    [
+      "POST",
+      "screens/proyectos/AER.001%20%7C%20CR/planeacion-aer/cerrar/",
+      body,
+      { timeout: 90000 },
+    ],
+  ]);
+});
+
 test("Actions use encoded project paths, family and exact POST bodies", async () => {
   const reads = [],
     writes = [];

@@ -2912,7 +2912,15 @@
     const recursos=_aerRecursosProyecto();
     _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Registrar'} vacaciones</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label>Recurso<select id="av-rec">${recursos.map(n=>`<option value="${_aerEsc(n)}" ${x.recurso===n?'selected':''}>${_aerEsc(n)}</option>`).join('')}</select></label><label>Estado<select id="av-est">${['Aprobada','Pendiente','Cancelada'].map(v=>`<option ${x.estado===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Inicio<input id="av-ini" type="date" value="${x.inicio||''}"></label><label>Fin<input id="av-fin" type="date" value="${x.fin||''}"></label><label>Registrado por<input id="av-reg" value="${_aerEsc(x.registradoPor||'')}"></label><label class="aer-span2">Comentarios<textarea id="av-com">${_aerEsc(x.comentarios||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn danger" onclick="aerEliminarVacacion('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarVacacion('${uid}')">Guardar</button></div>`);
   }
-  function aerGuardarVacacion(uid){
+  function aerPlaneacionModular(){
+    const snapshot=aerDashboardData;
+    return window.beeAerPlanning.bind({id:snapshot.proyecto.id,dashboard:snapshot,
+      current:()=>aerDashboardData===snapshot,active:()=>aerTabActual==='planeacion',
+      paint:_aerRenderTab,reload:aerRecargarProyecto,error:showError,
+      saving:_aerStartSaving,capacity:_aerMaxCapacidadEnRango,parse:_aerParsePlanText
+    });
+  }
+  function aerGuardarVacacion(uid){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().saveVacation(uid);
     const saver=_aerStartSaving(_aerPrimaryModalBtn(),'Guardando vacaciones...');
     const o={UID:uid,ID_Proyecto:aerDashboardData.proyecto.id,Recurso:_aerVal('av-rec'),Inicio:_aerVal('av-ini'),Fin:_aerVal('av-fin'),Estado:_aerVal('av-est'),Comentarios:_aerVal('av-com'),Registrado_Por:_aerVal('av-reg')};
     google.script.run.withSuccessHandler(r=>{
@@ -2923,7 +2931,7 @@
       if(aerTabActual==='planeacion')_aerRenderTab();
     }).withFailureHandler(err=>{saver.error(err&&err.message?err.message:String(err||'Error al guardar.'));}).guardarVacacionAER(o)
   }
-  function aerEliminarVacacion(uid){if(!confirm('¿Eliminar este registro de vacaciones?'))return;google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}aerDashboardData.vacaciones=r.vacaciones||{filas:[]};aerCerrarModal();if(aerTabActual==='planeacion')_aerRenderTab();}).withFailureHandler(showError).eliminarVacacionAER(uid,aerDashboardData.proyecto.id)}
+  function aerEliminarVacacion(uid){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().removeVacation(uid);if(!confirm('¿Eliminar este registro de vacaciones?'))return;google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}aerDashboardData.vacaciones=r.vacaciones||{filas:[]};aerCerrarModal();if(aerTabActual==='planeacion')_aerRenderTab();}).withFailureHandler(showError).eliminarVacacionAER(uid,aerDashboardData.proyecto.id)}
 
   function _aerEvalCategoria(score){score=Number(score)||0;return score>=90?'Alto desempeño':score>=80?'Sólido':score>=70?'En seguimiento':'Crítico'}
   function _aerEvalClase(score){score=Number(score)||0;return score>=90?'green':score>=80?'purple':score>=70?'yellow':'red'}
@@ -3368,7 +3376,7 @@
     </div>`;
   }
 
-  function aerMarcarCompromiso(uid,cerrado,checkbox) {
+  function aerMarcarCompromiso(uid,cerrado,checkbox) {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().mark(uid,cerrado,checkbox);
     const id=aerDashboardData&&aerDashboardData.proyecto?aerDashboardData.proyecto.id:'';
     if(!id||!uid) {
       if(checkbox) checkbox.checked=!cerrado;
@@ -4290,13 +4298,13 @@ function aerEliminarDocumentoCliente(uid){
     _aerActualizarAdvertenciaCapacidadModal(uid);
   }
 
-  function aerGuardarEstadoModal(uid){
+  function aerGuardarEstadoModal(uid){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().modalState(uid);
     const estado=_aerVal('ap-est')||'Por iniciar';
     const cierre=estado==='Completado'?(_aerVal('ap-fr')||_aerTodayIso()):'';
     google.script.run.withSuccessHandler(res=>{if(!res||!res.ok){showError(res&&res.error);return;} if(res.plan)aerDashboardData.plan=res.plan; aerCerrarModal(); if(aerTabActual==='planeacion')_aerRenderTab();}).withFailureHandler(showError).actualizarEstadoCierrePlaneacionAER(aerDashboardData.proyecto.id,uid,estado,cierre);
   }
 
-  function aerGuardarPlan(uid) {
+  function aerGuardarPlan(uid) {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().savePlan(uid);
     const p=aerDashboardData.proyecto.id;
     const estado=_aerVal('ap-est') || 'Por iniciar';
     const capCheck=_aerMaxCapacidadEnRango(_aerVal('ap-resp'),_aerVal('ap-ip'),_aerVal('ap-fp'),uid,Number(_aerVal('ap-ord')||0),estado,_aerVal('ap-tipo')||'Actividad');
@@ -4334,10 +4342,10 @@ function aerEliminarDocumentoCliente(uid){
       .withFailureHandler(err=>{saver.error(err&&err.message?err.message:String(err||'Error al guardar.'));})
       .guardarPlaneacionAER(o);
   }
-  function aerEliminarPlan(uid){if(!confirm('¿Eliminar este elemento?'))return;google.script.run.withSuccessHandler(()=>{aerCerrarModal();aerRecargarProyecto();}).eliminarPlaneacionAER(uid);}
+  function aerEliminarPlan(uid){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().removePlan(uid);if(!confirm('¿Eliminar este elemento?'))return;google.script.run.withSuccessHandler(()=>{aerCerrarModal();aerRecargarProyecto();}).eliminarPlaneacionAER(uid);}
 
 
-  function aerAutoGuardarEstadoCierre(uid,origen) {
+  function aerAutoGuardarEstadoCierre(uid,origen) {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().inlineState(uid);
     const row=((aerDashboardData.plan||{}).filas||[]).find(r=>r.uid===uid);
     if (!row) return;
     const sel=document.getElementById(`apt-est-${uid}`);
@@ -4417,7 +4425,7 @@ function aerEliminarDocumentoCliente(uid){
     }
   }
 
-  function aerEliminarPlanesSeleccionados() {
+  function aerEliminarPlanesSeleccionados() {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().removeSelected();
     const uids = [...document.querySelectorAll('.aer-plan-row-check:checked')]
       .map(cb => String(cb.value || '').trim())
       .filter(Boolean);
@@ -4562,7 +4570,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     status.textContent=`Listo: ${parsed.items.length} actividad(es) detectada(s)${parsed.errores.length?` · ${parsed.errores.length} fila(s) omitida(s)`:''}.`;
   }
 
-  function aerImportarPlan() {
+  function aerImportarPlan() {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().importPlan();
     try {
       const status=document.getElementById('aer-plan-import-status');
       const btn=document.getElementById('aer-plan-import-btn');

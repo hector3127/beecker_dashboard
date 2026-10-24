@@ -138,6 +138,12 @@ externos. La ruta activa no ejecuta sus renderizadores/formularios anteriores;
 conserva los puentes de entrada/estado y el fallback para comparar.
 
 **La fase 10 continúa parcial.** En IXB/SaaS/RaaS falta la estructura compartida.
+Planeación AER ya guarda actividades/hitos, estados/cierres, vacaciones,
+importaciones y borrados individuales/por lote por API v1 en
+`project_aer_planning.py` y `sections/aer_planning.js`. Conserva las firmas y
+los servicios anteriores. Su vista, formularios, filtros, parser de importación
+y cálculos de capacidad siguen anteriores: **Planeación AER todavía es parcial**.
+Continuar separando esos bloques, sin reimplementar ni corregir sus reglas.
 En AER faltan las pestañas
 Planeación, Esfuerzo, Riesgos, Recursos e IA. Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
