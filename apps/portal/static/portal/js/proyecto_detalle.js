@@ -2841,7 +2841,12 @@
     else if(aerTabActual==='riesgos') el.innerHTML=_aerVistaRiesgos();
     else if(aerTabActual==='acciones') el.innerHTML=_aerVistaAcciones();
     else if(aerTabActual==='recursos') el.innerHTML=_aerVistaRecursos();
-    else if(aerTabActual==='cliente') el.innerHTML=_aerVistaCliente();
+    else if(aerTabActual==='cliente'){
+      if(window.beeProjectClient){
+        const snapshot=aerDashboardData;
+        window.beeProjectClient.mount(el,aerDashboardData,{family:ixsActivo?'ixs':'aer',current:()=>aerDashboardData===snapshot,active:()=>aerTabActual==='cliente'&&el.isConnected});
+      }else el.innerHTML=_aerVistaCliente();
+    }
     else if(aerTabActual==='ia') el.innerHTML=aerIAVista();
     else el.innerHTML=_aerVistaEjecutivo();
     if (aerTabActual === 'planeacion') setTimeout(aerAplicarFiltrosPlan, 0);

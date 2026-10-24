@@ -165,6 +165,15 @@ export function createProjectData(get = apiGet, send = apiSend) {
           { timeout: 90000 },
         )
       ).data,
+    saveClient: async (id, operation, body) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/cliente/${encodeURIComponent(operation)}/`,
+          body,
+          { timeout: 90000 },
+        )
+      ).data,
     milestoneTypes: () => read("screens/proyectos/hitos/tipos/"),
     saveMilestones: async (id, hitos) =>
       (

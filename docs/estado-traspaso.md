@@ -2,6 +2,31 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Bloque: fase 10, pestaña Cliente (AER/T&M e IXB/SaaS/RaaS) completa
+
+- API v1: `POST screens/proyectos/<id>/cliente/<operacion>/` con
+  `contacto-guardar|contacto-eliminar|info-guardar|gobierno-guardar|
+  documento-guardar|documento-eliminar` y `servicio` ("aer" | "ixs") en el
+  cuerpo. Llama a la misma función que el RPC anterior (`guardar*AER` o
+  `ixsGuardar*`), con el proyecto de la ruta; `edit_operations`, alcance total y
+  CSRF (`apps/portal/api/project_client.py`).
+- Frontend: `sections/client_model.js` (datos derivados, filtros, CSV; contrastado
+  en Node con las funciones originales), `client_view.js` (DOM seguro: pestaña,
+  contacto, ficha, gobierno y documento) y `client.js` (`window.beeProjectClient`).
+  `_aerRenderTab` lo monta para ambas familias y, con `?vista=anterior`, queda el
+  renderer anterior. El dato se actualiza en el lugar en `dashboard.cliente`
+  (misma caché que usa Cliente/Acciones de IXB).
+- Cambio menor: si falla eliminar un contacto, avisa con un aviso en lugar de
+  reemplazar toda la pantalla por el error (comportamiento anterior).
+- Pruebas: 20 de API, 54 comparaciones elemento por elemento con la anterior
+  (AER e IXS × 9 estados — pestaña, filtros, búsqueda y las cuatro ventanas
+  nuevas/edición — × 1450/900/390), 14 de guardado/borrado/avisos/CSV/enlaces/
+  texto seguro, las 15 de Cliente/Acciones de Chat y 3 de Node. Regresión de
+  proyecto, AER y portal: 1437 aprobadas.
+- Falta de la fase 10: Acciones (comparte renderer con AER), el resto de pestañas
+  AER (Planeación, Esfuerzo, Riesgos, Recursos, IA), integración restante de
+  Planeación IXB, encabezados/navegación compartidos y retirar el shim.
+
 ## Bloque: fase 10, Comunicación (Centro de Comunicación) IXB/SaaS/RaaS
 
 - API v1: `GET screens/proyectos/comunicados/` y `POST .../comunicados/guardar/`,
