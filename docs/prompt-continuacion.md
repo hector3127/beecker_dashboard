@@ -9,8 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local es carga por API de
-   Cliente/Acciones, después de IA IXB/SaaS/RaaS completa (posterior al glosario
+   diferencia con `origin/main`. El último bloque local es modelo y operaciones
+   de Acciones AER/IXS; Claude completó Cliente de ambas familias y el Centro
+   de Comunicación IXB/SaaS/RaaS (posterior al glosario
    `b1ca4b4`). No hagas push
    salvo que te lo pida expresamente.
 3. Conserva sin comitear ni modificar lo que no es tuyo:
@@ -51,8 +52,8 @@ y etapa, búsqueda y ventanas de detalle también son modulares en
 carga y fechas usan `ixs_azure_summary{,_model,_view}.js`. La pestaña completa
 usa `ixs_azure_tab*.js`, el modelo de filtros `ixs_azure_table_model.js` y los
 controles/acciones compartidos con Planeación. Azure sí está migrada; la fase
-10 sigue parcial. Ver
-evidencia y seis errores previos de mypy en el traspaso.
+10 sigue parcial. Los seis errores antiguos de mypy los corrigió Claude en
+`c82b6d0`; la revisión posterior pasó sin errores de tipos.
 
 **IA completada:** `project_ai.py` conserva servicios y permisos originales;
 fuentes/historial/Drive y las acciones usan API. `ixs_ai_model.js` conserva
@@ -61,13 +62,23 @@ y `ixs_ai_controller.js` presentan la pestaña y sus formularios con DOM seguro
 y eventos externos. Comparados con la anterior en tres tamaños. No consultar
 modelos o servicios reales durante las pruebas. Fase 10 todavía parcial.
 
-**Cliente/Acciones parcial:** `ixs_client_actions.js` ya carga por API con caché,
-mensajes y control de respuestas tardías. La presentación y todos sus editores
-compartidos con AER siguen anteriores; no dar estas pestañas por migradas.
+**Cliente completo:** `client{,_model,_view}.js` y API `project_client.py` en
+ambas familias. **Centro de Comunicación completo:** `bee_com{,_model,_view}.js`
+y API v1 para IXS. Revisión directa: 94 e2e, 26 API y siete Node aprobadas.
+`ixs_client_actions.js` mantiene la caché compartida de IXB.
 
-**Siguiente bloque sugerido:** modelo, vista y editores de Cliente/Acciones
-(comparten renderer con AER) y Comunicación; luego las pestañas de AER distintas
-del Ejecutivo. Al final: limpieza de plantillas/CSS/JS anteriores y CSP.
+**Acciones parcial:** `actions_model.js` separa el resumen; `actions.js` usa
+lecturas y siete mutaciones de API v1 (`project_actions.py`) para ambas familias.
+Las vistas, filtros y formularios siguen anteriores, con puentes que delegan
+los guardados. No contar la pestaña como completada ni retirar el fallback.
+
+**Siguiente bloque sugerido:** vista, filtro de tabla y formularios de Acciones
+con DOM seguro/eventos externos, reutilizando modelo/controlador/API nuevos.
+Después Planeación, Esfuerzo, Riesgos, Recursos e IA de AER. Quedan también
+encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
+en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,
+`_ixeAuto`). Al final: limpieza de archivos anteriores y CSP. Genesis/accesos
+es decisión de despliegue: no activar ACCESS_ENFORCED.
 
 **Cómo probar (Windows, Git Bash)**
 ```bash

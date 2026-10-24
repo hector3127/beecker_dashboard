@@ -29,8 +29,8 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para filtros, dashboards, lecturas diferidas, registros, Recursos, Planeación, Work Items, hitos, RAID y Azure; resto RPC con permisos | **Parcial**: entrada, ambos Ejecutivos, Esfuerzo, Recursos, presentación/cargas/editores de Planeación IXB, hitos, comunicados, RAID y Azure DevOps modulares; faltan otras pestañas y estructura compartida | **Parcial**, no completada |
-| 11 | Limpieza, CSP obligatoria, `ACCESS_ENFORCED=1` | n/a | **No** | **Pendiente** |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación y operaciones de Acciones; resto RPC | **Parcial**: ambos Ejecutivos y Cliente; Esfuerzo, Recursos, Planeación, RAID, Azure, IA y Comunicación IXS usan módulos. Acciones tiene modelo/operaciones separados; falta su vista/formularios, otras pestañas AER y estructura compartida | **Parcial**, no completada |
+| 11 | Limpieza y CSP obligatoria; permisos/Genesis como decisión de despliegue | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
 fases 7 y 8 se devolvieron al diseño anterior por pedido del usuario. Después
@@ -77,8 +77,8 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Terminados: ambos Ejecutivos; Esfuerzo, Recursos, Gestión RAID, Azure DevOps e IA
-IXB/SaaS/RaaS.
+Terminados: ambos Ejecutivos y Cliente de ambas familias; Esfuerzo, Recursos,
+Gestión RAID, Azure DevOps, IA y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
 La entrada modular ya usa API para filtros y dashboards, pero el encabezado
@@ -86,9 +86,9 @@ y la navegación entre pestañas todavía dependen del script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
-| IXB/SaaS/RaaS | Integración restante de Planeación, Acciones, Cliente y Comunicación |
-| AER/T&M | Planeación, Esfuerzo, Riesgos, Acciones, Recursos, Cliente e IA |
-| Compartido | Encabezados, pestañas y acciones restantes; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
+| IXB/SaaS/RaaS | Vista, filtros y formularios de Acciones; modelo y operaciones ya separados |
+| AER/T&M | Planeación, Esfuerzo, Riesgos, Recursos e IA; vista/formularios de Acciones compartidos con IXS |
+| Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
@@ -100,8 +100,40 @@ ya usa API, estructura, resumen, agrupaciones, tabla y acciones modulares.
 Comparte controles con Planeación y conserva sus diferencias de presentación
 y guardado de fechas; no ejecuta las funciones anteriores de esa pestaña.
 Usar API no equivale a migrar toda una pestaña.
+Planeación conserva puentes y auxiliares en el archivo anterior, entre ellos
+`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto`; extraerlos en
+la integración compartida, sin confundirlos con volver a migrar su vista y editores.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Revisión de avances de Claude y operaciones de Acciones AER/IXS
+
+Revisados commits, API y delegaciones activas: Cliente de ambas familias y
+Centro de Comunicación IXS sí usan módulos nuevos. Se corrigió el inventario
+superior que aún los marcaba pendientes. Comprobación propia: 94 e2e, 26 API,
+siete Node y mypy de Cliente/detalle aprobados; los seis errores antiguos ya
+están corregidos. Esta es una revisión dirigida, no una repetición de las
+1437 pruebas históricas reportadas por Claude.
+
+Nuevo bloque parcial de Acciones: `project_actions.py` expone dos lecturas
+y siete mutaciones para ambas familias con servicios/argumentos originales,
+permisos de lectura/edición, alcance total y CSRF. `actions_model.js` separa
+el resumen; `actions.js` hace los guardados, edición directa, confirmaciones,
+recarga tras eliminar y pendientes Beecker/Cliente por API. Conserva caché y
+borradores al reintentar; respuestas antiguas no cierran otro editor.
+
+Evidencia: 152 aprobadas de API/navegador/soporte (99 API, 14 e2e del bloque,
+entrada y regresión Cliente/Comunicación). Seis comparaciones AER/IXS a
+1450/900/390 px en `tmp/migration/project_detail/actions_transport/`.
+Doce Node dirigidas; Node completo 198 aprobadas y los tres fallos previos.
+Ruff/formato, mypy nuevo, Django y diff aprobados. Diecisiete e2e adicionales
+de navegación AER/Acciones aprobaron tras adaptar el fixture de lectura por API;
+inspeccionada la captura de IXB en escritorio. Fuentes simuladas y sin correos reales.
+
+**Acciones y fase 10 siguen parciales:** falta separar su vista, filtro de
+tabla y ambos formularios, que siguen en el script anterior con eventos en
+línea. Después pestañas AER y estructura compartida. No retirar el shim ni
+activar ACCESS_ENFORCED; limpieza/CSP pertenecen a fase 11.
 
 ### Fase 10: carga de Cliente/Acciones IXB (parcial)
 

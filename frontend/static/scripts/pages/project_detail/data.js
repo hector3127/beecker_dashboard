@@ -16,6 +16,23 @@ export function createProjectData(get = apiGet, send = apiSend) {
       )
     ).data;
   return {
+    actions: async (id, servicio, parts = false) =>
+      (
+        await get(
+          `screens/proyectos/${encodeURIComponent(id)}/acciones/${parts ? "partes/" : ""}`,
+          { servicio },
+          { timeout: 90000 },
+        )
+      ).data,
+    saveAction: async (id, operation, body) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/acciones/${encodeURIComponent(operation)}/`,
+          body,
+          { timeout: 90000 },
+        )
+      ).data,
     aiAnalyze: (id, contexto, forzar) =>
       aiPost(id, "analizar", { contexto, forzar }),
     aiAsk: (id, contexto, pregunta) =>
@@ -158,12 +175,9 @@ export function createProjectData(get = apiGet, send = apiSend) {
     communications: () => read("screens/proyectos/comunicados/"),
     saveCommunication: async (payload) =>
       (
-        await send(
-          "POST",
-          "screens/proyectos/comunicados/guardar/",
-          payload,
-          { timeout: 90000 },
-        )
+        await send("POST", "screens/proyectos/comunicados/guardar/", payload, {
+          timeout: 90000,
+        })
       ).data,
     saveClient: async (id, operation, body) =>
       (

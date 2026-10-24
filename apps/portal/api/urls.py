@@ -35,6 +35,10 @@ from apps.portal.api.operations import (
     FacturabilitySpecialtyView,
     InvestmentScreenView,
 )
+from apps.portal.api.project_actions import (
+    ProjectActionsReadView,
+    ProjectActionsWriteView,
+)
 from apps.portal.api.project_ai import (
     AiActionSave,
     AiAnalyze,
@@ -106,6 +110,20 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/<str:project_id>/acciones/",
+        ProjectActionsReadView.as_view(),
+        {"operation": "leer"},
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/acciones/partes/",
+        ProjectActionsReadView.as_view(),
+        {"operation": "partes-leer"},
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/acciones/<slug:operation>/",
+        ProjectActionsWriteView.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/ia/analizar/", AiAnalyze.as_view()
     ),

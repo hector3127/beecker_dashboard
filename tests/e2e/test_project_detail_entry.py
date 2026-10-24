@@ -12,7 +12,17 @@ pytestmark = pytest.mark.django_db(transaction=True)
 
 @pytest.fixture
 def project_detail(portal, monkeypatch, datos):
+    from apps.portal.api import project_actions as actions_api
     from apps.portal.api import project_detail as api
+
+    def default_actions(service, operation, project, body):
+        if operation == "partes-leer":
+            return {"ok": True, "filas": []}
+        raise AssertionError("Unexpected Actions service access")
+
+    # La navegación AER a Acciones/IA ahora lee pendientes por API. Como el
+    # antiguo doble RPC, este fixture no consulta hojas ni proveedores reales.
+    monkeypatch.setattr(actions_api, "execute", default_actions)
 
     executive = json.loads(
         Path("tests/ejecutivo/project_integrated_expected.json").read_text(

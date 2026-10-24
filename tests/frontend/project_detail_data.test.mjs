@@ -14,6 +14,50 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("Actions use encoded project paths, family and exact POST bodies", async () => {
+  const reads = [],
+    writes = [];
+  const api = context.createProjectData(
+    async (...args) => {
+      reads.push(args);
+      return { data: { ok: true } };
+    },
+    async (...args) => {
+      writes.push(args);
+      return { data: { ok: true } };
+    },
+  );
+  await api.actions("AMK.008 | CR", "ixs");
+  await api.actions("AMK.008 | CR", "aer", true);
+  const body = {
+    servicio: "aer",
+    uid: "1",
+    campo: "estado",
+    valor: "Completado",
+  };
+  await api.saveAction("AMK.008 | CR", "actualizar", body);
+  assert.deepEqual(JSON.parse(JSON.stringify(reads)), [
+    [
+      "screens/proyectos/AMK.008%20%7C%20CR/acciones/",
+      { servicio: "ixs" },
+      { timeout: 90000 },
+    ],
+    [
+      "screens/proyectos/AMK.008%20%7C%20CR/acciones/partes/",
+      { servicio: "aer" },
+      { timeout: 90000 },
+    ],
+  ]);
+  assert.deepEqual(JSON.parse(JSON.stringify(writes)), [
+    [
+      "POST",
+      "screens/proyectos/AMK.008%20%7C%20CR/acciones/actualizar/",
+      body,
+      { timeout: 90000 },
+    ],
+  ]);
+});
+
 test("IA actions preserve exact bodies, project encoding and shared POST client", async () => {
   const calls = [];
   const api = context.createProjectData(null, async (...args) => {

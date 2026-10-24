@@ -3857,7 +3857,7 @@ function aerEliminarDocumentoCliente(uid){
        <div class="aer-sub" style="margin-top:8px">Edición directa: los cambios se guardan al salir del campo. Beecker / Cliente indica a quién corresponde el pendiente, no el nombre de una persona.</div>
     </div>`;
   }
-  function aerIACargarAccionesPartes(forzar){
+  function aerIACargarAccionesPartes(forzar){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().loadParts(forzar);
     if(!aerDashboardData||aerIAState.cargandoPartes||(!forzar&&aerIAState.accionesPartes!==null))return;
     const id=aerDashboardData.proyecto.id;aerIAState.cargandoPartes=true;
     google.script.run.withSuccessHandler(r=>{if(aerIAState.id!==id)return;aerIAState.cargandoPartes=false;
@@ -3877,7 +3877,7 @@ function aerEliminarDocumentoCliente(uid){
       <label class="aer-span2">Notas<textarea id="aerp-new-notas"></textarea></label>
     </div><div class="aer-actions" style="margin-top:12px;justify-content:flex-end"><button class="aer-btn primary" id="aerp-new-save" onclick="aerIAGuardarNuevaAccionParte()">Guardar pendiente</button></div>`);
   }
-  function aerIAGuardarNuevaAccionParte(){
+  function aerIAGuardarNuevaAccionParte(){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().savePart();
     if(!aerDashboardData)return;const id=aerDashboardData.proyecto.id,btn=document.getElementById('aerp-new-save');
     const datos={accion:_aerVal('aerp-new-accion'),responsable:_aerVal('aerp-new-parte'),estado:_aerVal('aerp-new-estado'),fechaLimite:_aerVal('aerp-new-fecha'),proximaRevision:_aerVal('aerp-new-revision'),notas:_aerVal('aerp-new-notas')};
     if(!datos.accion.trim()){_aerToast('Escribe el pendiente.','error');return;}
@@ -3887,7 +3887,7 @@ function aerEliminarDocumentoCliente(uid){
       aerIAState.accionesPartes=r.filas||[];if(ixsCAActivo()&&ixsClienteAccionesCache[id])ixsClienteAccionesCache[id].partes=aerIAState.accionesPartes;aerCerrarModal();if(aerTabActual==='acciones')_aerRenderTab();_aerToast('Pendiente guardado','success');
     }).withFailureHandler(e=>{if(btn){btn.disabled=false;btn.textContent='Reintentar';}_aerToast(e&&e.message||String(e),'error');})[ixsCAActivo()?'ixsGuardarAccionParte':'guardarAccionParteAER'](id,datos);
   }
-  function aerIAGuardarCampoParte(uid,campo,valor){
+  function aerIAGuardarCampoParte(uid,campo,valor){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().partField(uid,campo,valor);
     const id=aerDashboardData.proyecto.id,status=document.getElementById('aeri-partes-status');
     if(status)status.textContent='Guardando cambios…';
     google.script.run.withSuccessHandler(r=>{if(aerIAState.id!==id)return;
@@ -3896,7 +3896,7 @@ function aerEliminarDocumentoCliente(uid){
       if(status)status.textContent='✓ Guardado';
     }).withFailureHandler(e=>{if(status)status.textContent='Error al guardar';_aerToast(e&&e.message||String(e),'error');})[ixsCAActivo()?'ixsActualizarCampoAccionParte':'actualizarCampoAccionParteAER'](id,uid,campo,valor);
   }
-  function aerIAEliminarAccionParte(uid){
+  function aerIAEliminarAccionParte(uid){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().removePart(uid);
     if(!confirm('¿Eliminar este pendiente Beecker / Cliente?'))return;
     const id=aerDashboardData.proyecto.id;
     google.script.run.withSuccessHandler(r=>{if(aerIAState.id!==id)return;
@@ -3906,6 +3906,7 @@ function aerEliminarDocumentoCliente(uid){
   }
 
   function _aerVistaAcciones() {
+    const {ac,filas,hoyIso,abiertas,vencidas,detenidas,proximas,urgente,respCount,respTop,weeks}=window.beeProjectActionsModel?window.beeProjectActionsModel(aerDashboardData):(()=>{
     const ac=aerDashboardData.acciones||{}, filas=ac.filas||[];
     const hoyIso=(new Date()).toISOString().slice(0,10);
     const abiertas=(ac.abiertas||[]).length, vencidas=(ac.vencidas||[]).length, detenidas=(ac.detenidas||[]).length;
@@ -3915,6 +3916,8 @@ function aerEliminarDocumentoCliente(uid){
     const respTop=Object.entries(respCount).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))[0];
     const weeks=[]; let d0=new Date(hoyIso+'T12:00:00');
     for(let i=0;i<5;i++){ const d=new Date(d0.getTime()+i*7*86400000); const iso=d.toISOString().slice(0,10); const cnt=filas.filter(x=>{const f=_aerAccionFechaPrincipal(x); if(!f) return false; const diff=(new Date(f+'T12:00:00')-d)/86400000; return diff>=0 && diff<7;}).length; weeks.push({iso,cnt}); }
+    return {ac,filas,hoyIso,abiertas,vencidas,detenidas,proximas,urgente,respCount,respTop,weeks};
+    })();
     return `<div class="aer-action-shell">
       <div class="aer-vivid-card"><div class="aer-action-hero"><div><h3>Acciones y seguimiento</h3><div class="sub">Control de acciones clave del proyecto y seguimiento de compromisos.</div></div><div class="aer-actions"><button class="aer-btn" onclick="aerLimpiarDuplicadosAcciones()">🧹 Limpiar duplicados</button><button class="aer-btn primary" onclick="aerAbrirAccion()">+ Agregar acción</button></div></div>
         <div class="aer-action-kpi-grid" style="margin-top:14px"><div class="aer-action-kpi2"><div class="top"><span class="icon">▣</span><div><div class="label">Total</div><div class="sub">Acciones registradas</div></div></div><div class="value">${filas.length}</div></div><div class="aer-action-kpi2"><div class="top"><span class="icon" style="background:#edf2ff;color:#2656d8">▷</span><div><div class="label">Abiertas</div><div class="sub">Requieren seguimiento</div></div></div><div class="value">${abiertas}</div></div><div class="aer-action-kpi2 red"><div class="top"><span class="icon">!</span><div><div class="label">Vencidas</div><div class="sub">Requieren atención inmediata</div></div></div><div class="value">${vencidas}</div></div><div class="aer-action-kpi2"><div class="top"><span class="icon" style="background:#eef1f7;color:#667395">‖</span><div><div class="label">Detenidas</div><div class="sub">Temporalmente en pausa</div></div></div><div class="value">${detenidas}</div></div><div class="aer-action-kpi2"><div class="top"><span class="icon" style="background:#efe8ff;color:#6631df">☷</span><div><div class="label">Próxima revisión</div><div class="sub">Siguiente fecha de seguimiento</div></div></div><div class="value">${proximas?_aerFmtFecha(_aerAccionFechaPrincipal(proximas)):'—'}</div></div></div>
@@ -4664,8 +4667,22 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       .eliminarRiesgoAER(uid);
   }
 
+  function aerAccionesModulares(){
+    const snapshot=aerDashboardData,id=snapshot.proyecto.id,family=ixsCAActivo()?'ixs':'aer';
+    const active=()=>family==='ixs'?ixsTabActual==='acciones':aerTabActual==='acciones';
+    return window.beeProjectActions.bind({id,family,
+      current:()=>aerDashboardData===snapshot,
+      active,paint:_aerRenderTab,toast:_aerToast,error:showError,
+      actions:rows=>{snapshot.acciones=rows;if(active())_aerRenderTab();},
+      storeActions:rows=>{snapshot.acciones=rows;},
+      parts:()=>aerIAState.accionesPartes,partsLoading:()=>aerIAState.cargandoPartes,
+      loadingParts:flag=>{aerIAState.cargandoPartes=flag;},
+      setParts:rows=>{aerIAState.accionesPartes=rows;if(family==='ixs'&&ixsClienteAccionesCache[id])ixsClienteAccionesCache[id].partes=rows;},
+      paintParts:()=>{if(active()||(family==='aer'&&aerTabActual==='ia'))_aerRenderTab();}
+    });
+  }
   function aerAbrirAccion(uid='') { const x=((aerDashboardData.acciones||{}).filas||[]).find(r=>r.uid===uid)||{}; _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Agregar'} acción</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label class="aer-span2">Acción / Entregable<input id="aa-a" value="${_aerEsc(x.accion||'')}"></label><label>Responsable<input id="aa-r" value="${_aerEsc(x.responsable||'')}"></label><label>Estado<select id="aa-e">${_aerOpcionesEstadoAccion(x.estado||'Pendiente')}</select></label><label>Fecha inicio<input type="date" id="aa-fi" value="${x.fechaInicio||''}"></label><label>Fecha compromiso<input type="date" id="aa-f" value="${x.fechaLimite||''}"></label><label>Fecha real<input type="date" id="aa-fr" value="${x.fechaReal||''}"></label><label>Dependencia<select id="aa-d">${_aerOpcionesDependenciaAccion(x.dependencia||'')}</select></label><label>Prioridad<select id="aa-p">${_aerOpcionesPrioridadAccion(x.prioridad||'Media')}</select></label><label class="aer-span2">Comentarios<textarea id="aa-n">${_aerEsc(x.comentarios||x.notas||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn danger" onclick="aerEliminarAccion('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarAccion('${uid}')">Guardar</button></div>`); }
-  function aerGuardarAccion(uid){
+  function aerGuardarAccion(uid){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().save(uid);
     const saver=_aerStartSaving(_aerPrimaryModalBtn(),'Guardando acción...');
     const o={UID:uid,ID_Proyecto:aerDashboardData.proyecto.id,Accion:_aerVal('aa-a'),Responsable:_aerVal('aa-r'),Fecha_Inicio:_aerVal('aa-fi'),Fecha_Limite:_aerVal('aa-f'),Fecha_Real:_aerVal('aa-fr'),Estado:_aerVal('aa-e'),Dependencia:_aerVal('aa-d'),Prioridad:_aerVal('aa-p'),Notas:_aerVal('aa-n')};
     google.script.run.withSuccessHandler(r=>{
@@ -4675,10 +4692,10 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     }).withFailureHandler(err=>{saver.error(err&&err.message?err.message:String(err||'Error al guardar.'));})[ixsCAActivo()?'ixsGuardarAccion':'guardarAccionAER'](o);
   }
   function _aerAplicarAccionesLigero(acciones){if(!acciones)return;aerDashboardData.acciones=acciones;if(aerTabActual==='acciones')_aerRenderTab();}
-  function aerGuardarCampoAccion(uid,campo,valor){const s=document.getElementById(`aer-action-save-${uid}`);if(s){s.textContent='Guardando…';s.className='aer-action-save-state saving';}google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){if(s){s.textContent='Error';s.className='aer-action-save-state error';}showError(r&&r.error);return;}if(s){s.textContent='✓ Guardado';s.className='aer-action-save-state saved';}if(r.acciones){aerDashboardData.acciones=r.acciones;setTimeout(()=>{if(aerTabActual==='acciones')_aerRenderTab();},350);}}).withFailureHandler(err=>{if(s){s.textContent='Error';s.className='aer-action-save-state error';}showError(err);})[ixsCAActivo()?'ixsActualizarCampoAccion':'actualizarCampoAccionAER'](aerDashboardData.proyecto.id,uid,campo,valor);}
-  function aerLimpiarDuplicadosAcciones(){google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}aerDashboardData.acciones=r.acciones||aerDashboardData.acciones;if(aerTabActual==='acciones')_aerRenderTab();alert(Number(r.eliminados||0)>0?`Se eliminaron ${r.eliminados} acción(es) duplicada(s).`:'No se encontraron duplicados.');}).withFailureHandler(showError)[ixsCAActivo()?'ixsLimpiarDuplicadosAcciones':'limpiarDuplicadosAccionesAER'](aerDashboardData.proyecto.id);}
-  function aerEliminarAccionInline(uid){if(!confirm('¿Eliminar esta acción?'))return;google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}google.script.run.withSuccessHandler(rr=>{if(rr&&rr.ok)_aerAplicarAccionesLigero(rr.acciones);})[ixsCAActivo()?'ixsGetAccionesProyecto':'getAccionesAERProyecto'](aerDashboardData.proyecto.id);}).withFailureHandler(showError)[ixsCAActivo()?'ixsEliminarAccion':'eliminarAccionAER'](uid);}
-  function aerEliminarAccion(uid){if(!confirm('¿Eliminar esta acción?'))return;google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}aerCerrarModal();google.script.run.withSuccessHandler(rr=>{if(rr&&rr.ok)_aerAplicarAccionesLigero(rr.acciones);})[ixsCAActivo()?'ixsGetAccionesProyecto':'getAccionesAERProyecto'](aerDashboardData.proyecto.id);}).withFailureHandler(showError)[ixsCAActivo()?'ixsEliminarAccion':'eliminarAccionAER'](uid);}
+  function aerGuardarCampoAccion(uid,campo,valor){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().field(uid,campo,valor);const s=document.getElementById(`aer-action-save-${uid}`);if(s){s.textContent='Guardando…';s.className='aer-action-save-state saving';}google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){if(s){s.textContent='Error';s.className='aer-action-save-state error';}showError(r&&r.error);return;}if(s){s.textContent='✓ Guardado';s.className='aer-action-save-state saved';}if(r.acciones){aerDashboardData.acciones=r.acciones;setTimeout(()=>{if(aerTabActual==='acciones')_aerRenderTab();},350);}}).withFailureHandler(err=>{if(s){s.textContent='Error';s.className='aer-action-save-state error';}showError(err);})[ixsCAActivo()?'ixsActualizarCampoAccion':'actualizarCampoAccionAER'](aerDashboardData.proyecto.id,uid,campo,valor);}
+  function aerLimpiarDuplicadosAcciones(){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().clean();google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}aerDashboardData.acciones=r.acciones||aerDashboardData.acciones;if(aerTabActual==='acciones')_aerRenderTab();alert(Number(r.eliminados||0)>0?`Se eliminaron ${r.eliminados} acción(es) duplicada(s).`:'No se encontraron duplicados.');}).withFailureHandler(showError)[ixsCAActivo()?'ixsLimpiarDuplicadosAcciones':'limpiarDuplicadosAccionesAER'](aerDashboardData.proyecto.id);}
+  function aerEliminarAccionInline(uid){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().remove(uid);if(!confirm('¿Eliminar esta acción?'))return;google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}google.script.run.withSuccessHandler(rr=>{if(rr&&rr.ok)_aerAplicarAccionesLigero(rr.acciones);})[ixsCAActivo()?'ixsGetAccionesProyecto':'getAccionesAERProyecto'](aerDashboardData.proyecto.id);}).withFailureHandler(showError)[ixsCAActivo()?'ixsEliminarAccion':'eliminarAccionAER'](uid);}
+  function aerEliminarAccion(uid){if(window.beeProjectActions&&aerDashboardData)return aerAccionesModulares().remove(uid,true);if(!confirm('¿Eliminar esta acción?'))return;google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}aerCerrarModal();google.script.run.withSuccessHandler(rr=>{if(rr&&rr.ok)_aerAplicarAccionesLigero(rr.acciones);})[ixsCAActivo()?'ixsGetAccionesProyecto':'getAccionesAERProyecto'](aerDashboardData.proyecto.id);}).withFailureHandler(showError)[ixsCAActivo()?'ixsEliminarAccion':'eliminarAccionAER'](uid);}
 
   // ======================================================================
   // V74 — EJECUTIVO IXB / SaaS / RaaS: renderer separado, sin inyección AER.

@@ -2,6 +2,49 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+## Revisión posterior a Claude y bloque Acciones AER/IXS (parcial)
+
+- Git actualizado en `main`: se revisaron directamente los commits `06c2444`,
+  `66c1095`, `c82b6d0`, `75fa0db` y `e29994f`, rutas API, importaciones en
+  `main.js` y delegación activa de `_aerRenderTab`/`_ixsRenderTab`.
+  Cliente de ambas familias y Centro de Comunicación IXS sí están conectados
+  a módulos nuevos; el resumen anterior de AGENTS/plan estaba desactualizado.
+- Comprobación propia de esos avances: **94 e2e** (comparaciones y escrituras),
+  **26 API** y **siete Node** aprobadas. Mypy de Cliente/detalle aprobado: los
+  seis errores anteriores quedaron corregidos por Claude. No se repitieron
+  las 1437 pruebas históricas que él documentó; este alcance es dirigido.
+- Nuevo `project_actions.py`: dos GET (acciones y pendientes) y siete POST
+  explícitos para guardar, actualizar campo, eliminar, limpiar duplicados y
+  guardar/actualizar/eliminar pendientes Beecker/Cliente. Reutiliza las mismas
+  tablas de servicios AER/IXS. Lecturas con `view_operations`; escrituras con
+  `edit_operations`, alcance total y CSRF. No modifica reglas de los servicios.
+  El borrado normal sigue la firma por UID del original, autorizada a portafolio
+  completo; los argumentos que incluyen proyecto usan el ID de la ruta.
+- `actions_model.js` separa el resumen (prioridad por fecha/estado, responsables,
+  cinco semanas) y lo contrasta con el original. `actions.js` ejecuta operaciones
+  por API, conserva confirmaciones, borrador/reintento, caché y avisos. Evita que
+  un guardado cierre un editor abierto después y descarta respuestas de otro
+  dashboard. Los puentes anteriores delegan; el fallback sigue intacto.
+- **Acciones NO está completa:** vista, filtro de tabla y construcción de los
+  dos formularios siguen en el renderer anterior, con eventos en línea. Siguiente
+  separarlos con DOM seguro reutilizando modelo/controlador y API nuevos.
+- Regresión del bloque: **152 aprobadas**, incluidas 99 API, 14 e2e de Acciones,
+  entrada/soporte y regresión de Cliente/Comunicación. Seis comparaciones de
+  Acciones AER/IXS a 1450/900/390 px. Doce Node dirigidas aprobadas; Node completo
+  **198 aprobadas y los tres fallos previos** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, mypy del módulo nuevo y diff
+  aprobados. Proveedores simulados, sin consultas reales ni correos enviados.
+- Capturas: `tmp/migration/project_detail/actions_transport/`. El fixture del
+  detalle ahora simula la lectura de pendientes por API al navegar a Acciones/IA.
+  Revisión final de esa navegación y Acciones: **17 e2e aprobadas** adicionales;
+  inspeccionada la captura completa de IXB en escritorio. Django sin incidencias.
+- Inventario real: IXB pendiente de vista/formularios de Acciones y estructura
+  compartida. AER pendiente de Acciones, Planeación, Esfuerzo, Riesgos, Recursos
+  e IA. Planeación IXB ya presenta/edita por módulos; sus auxiliares de estado
+  (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`, `_ixeAuto`) se extraen
+  con encabezado/navegación/entrada compartidos. Después limpieza/CSP (fase 11).
+  ACCESS_ENFORCED/Genesis es despliegue, no activar. Temporales ajenos intactos.
+
 ## Bloque: fase 10, pestaña Cliente (AER/T&M e IXB/SaaS/RaaS) completa
 
 - API v1: `POST screens/proyectos/<id>/cliente/<operacion>/` con

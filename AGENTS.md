@@ -124,14 +124,25 @@ permisos originales y CSRF; la creación RAID reutiliza el módulo ya migrado.
 La ruta nueva no ejecuta los renderizadores ni formularios anteriores de IA.
 Se conservan wrappers de entrada/estado y comparación. Ver evidencia en el traspaso.
 
-Cliente/Acciones IXB ya carga por API v1 con caché compartida y control de
-respuestas tardías en `sections/ixs_client_actions.js`. Sus vistas y editores
-compartidos con AER siguen anteriores: ambas pestañas continúan parciales.
+Cliente está migrado para AER/T&M e IXB/SaaS/RaaS en `client{,_model,_view}.js`,
+con sus filtros, exportación y editores por API v1. El Centro de Comunicación
+IXB/SaaS/RaaS usa `bee_com{,_model,_view}.js` y API v1. Confirmado en código y
+en 94 pruebas de navegador durante la revisión posterior a Claude.
+La carga compartida Cliente/Acciones IXB conserva caché en `ixs_client_actions.js`.
 
-**Planeación y la fase 10 continúan parciales.** Siguiente:
-Cliente/Acciones (comparten renderer con AER) y Comunicación de
-IXS; en AER faltan todas las pestañas salvo Ejecutivo. También falta separar
-encabezados y navegación compartida, y retirar el shim de la ruta nueva.
+Acciones sigue parcial en ambas familias: `actions_model.js` separa los datos
+derivados; `actions.js` hace las lecturas/guardados/borrados/edición directa y
+pendientes Beecker/Cliente por API v1 (`project_actions.py`). Sus vistas,
+filtros de tabla y formularios siguen anteriores; siguiente extraerlos con DOM
+seguro y eventos externos, conservando los contratos y el diseño.
+
+**La fase 10 continúa parcial.** En IXB/SaaS/RaaS falta la vista/formularios de
+Acciones y la estructura compartida. En AER faltan Acciones y las pestañas
+Planeación, Esfuerzo, Riesgos, Recursos e IA. Planeación IXB usa módulos de
+vista/carga/editores; todavía conserva puentes de estado y auxiliares como
+`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo
+anterior. Extraerlos junto con encabezados/navegación/entrada compartidos antes
+de retirar el shim. No reabrir Cliente ni el Centro de Comunicación como pendientes.
 
 1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.
 2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).
