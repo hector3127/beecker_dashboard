@@ -2,7 +2,41 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: Esfuerzo AER
+## Bloque actual: Riesgos AER
+
+- `aer_risks{,_model,_view}.js` separa modelo, controlador, indicadores, matriz,
+  distribución, atención, seguimiento y editor. DOM seguro/eventos externos;
+  no ejecuta renderer, tabla de acciones ni ventana HTML anteriores.
+- API `project_aer_risks.py`: GET `screens/proyectos/<id>/riesgos-aer/` y POST
+  `guardar/`, `eliminar/`, `limpiar-duplicados/`. Mismos servicios y firmas del
+  RPC; lectura/edición, alcance total y CSRF antes de consultar fuentes.
+  Borrado por UID y recarga posterior conservados.
+- Reutiliza el editor modular de Acciones. No añade botón para limpiar: el
+  auxiliar global anterior sigue invocable y delega a la API.
+- Preserva la clasificación y agrupación anteriores. Hallazgo para revisar
+  aparte: riesgos con el mismo título pero responsables/fechas distintos quedan
+  agrupados visualmente conservando la primera fila. No se modificó esa regla.
+  Tampoco se cambia el repintado de Riesgos tras guardar una acción compartida.
+- Las respuestas de otro dashboard se descartan y no cierran un editor abierto
+  después de iniciar el guardado. Se conservan borradores ante error y reintento.
+- **Riesgos AER completo; fase 10 parcial.** Siguiente: Recursos AER; después IA
+  AER y estructura/estado/auxiliares compartidos. Mantener script/shim hasta
+  completar el detalle; fase 11 para limpieza/CSP. No activar ACCESS_ENFORCED ni
+  modificar Horas por mes.
+- **28 API y 23 de navegador aprobadas**. Dieciocho comparaciones a 1450/900/390
+  px con datos completos/vacíos/duplicados y formularios alta/edición. Probados
+  CRUD, permisos, alcance, CSRF, argumentos, confirmación, reintento, limpieza,
+  acción compartida, texto seguro y respuestas tardías. Capturas reproducibles
+  en `tmp/migration/project_detail/aer_risks/`; inspección escritorio y móvil.
+- **48 de regresión/soporte aprobadas**: entrada, Ejecutivo AER, transporte de
+  Acciones y soporte del frontend. **99 total** junto con las anteriores.
+- Nueve Node del modelo y doce del cliente aprobadas; suite completa **258
+  aprobadas y los tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, mypy del API, Django y diff
+  aprobados. Datos/proveedores simulados, sin correos reales. Sin push;
+  temporales ajenos intactos.
+
+## Bloque anterior: Esfuerzo AER
 
 - API: `GET screens/proyectos/<id>/aer/registros/?desde=...&hasta=...` en
   `project_detail.py`; llama a `dashboard.entries_in_range` con el mismo store y

@@ -2838,7 +2838,7 @@
     }
     if(aerTabActual==='planeacion'){if(window.beeAerPlanning){window.beeAerPlanning.mount(el,aerPlaneacionContexto());}else el.innerHTML=_aerVistaPlaneacion();}
     else if(aerTabActual==='esfuerzo'){if(window.beeAerEffort)window.beeAerEffort.mount(el,aerEsfuerzoContexto());else el.innerHTML=_aerVistaEsfuerzo();}
-    else if(aerTabActual==='riesgos') el.innerHTML=_aerVistaRiesgos();
+    else if(aerTabActual==='riesgos'){if(window.beeAerRisks)window.beeAerRisks.mount(el,aerRiesgosContexto());else el.innerHTML=_aerVistaRiesgos();}
     else if(aerTabActual==='acciones'){if(window.beeProjectActions)window.beeProjectActions.mount(el,aerAccionesContexto());else el.innerHTML=_aerVistaAcciones();}
     else if(aerTabActual==='recursos') el.innerHTML=_aerVistaRecursos();
     else if(aerTabActual==='cliente'){
@@ -4638,14 +4638,21 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
 
-  function aerAbrirRiesgo(uid='') { const x=((aerDashboardData.riesgos||{}).filas||[]).find(r=>r.uid===uid)||{}; _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Agregar'} riesgo</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label class="aer-span2">Riesgo<input id="ar-r" value="${_aerEsc(x.riesgo||'')}"></label><label>Impacto<select id="ar-i">${['Bajo','Medio','Alto'].map(v=>`<option ${x.impacto===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Probabilidad<select id="ar-p">${['Baja','Media','Alta'].map(v=>`<option ${x.probabilidad===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Responsable<input id="ar-resp" value="${_aerEsc(x.responsable||'')}"></label><label>Fecha límite<input type="date" id="ar-f" value="${x.fechaLimite||''}"></label><label>Estado<input id="ar-e" value="${_aerEsc(x.estado||'Abierto')}"></label><label class="aer-span2">Acción / mitigación<input id="ar-a" value="${_aerEsc(x.accion||'')}"></label><label class="aer-span2">Notas<textarea id="ar-n">${_aerEsc(x.notas||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn" onclick="aerEliminarRiesgo('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarRiesgo('${uid}')">Guardar</button></div>`); }
+  function aerRiesgosContexto(){
+    const snapshot=aerDashboardData;
+    return {id:snapshot.proyecto.id,dashboard:snapshot,current:()=>aerDashboardData===snapshot,
+      active:()=>aerTabActual==='riesgos',paint:_aerRenderTab,saving:_aerStartSaving,error:showError,
+      openAction:()=>aerAccionesModulares().open()};
+  }
+  function aerRiesgosModulares(){return window.beeAerRisks.bind(aerRiesgosContexto());}
+  function aerAbrirRiesgo(uid='') {if(window.beeAerRisks&&aerDashboardData)return aerRiesgosModulares().open(uid); const x=((aerDashboardData.riesgos||{}).filas||[]).find(r=>r.uid===uid)||{}; _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Agregar'} riesgo</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label class="aer-span2">Riesgo<input id="ar-r" value="${_aerEsc(x.riesgo||'')}"></label><label>Impacto<select id="ar-i">${['Bajo','Medio','Alto'].map(v=>`<option ${x.impacto===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Probabilidad<select id="ar-p">${['Baja','Media','Alta'].map(v=>`<option ${x.probabilidad===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Responsable<input id="ar-resp" value="${_aerEsc(x.responsable||'')}"></label><label>Fecha límite<input type="date" id="ar-f" value="${x.fechaLimite||''}"></label><label>Estado<input id="ar-e" value="${_aerEsc(x.estado||'Abierto')}"></label><label class="aer-span2">Acción / mitigación<input id="ar-a" value="${_aerEsc(x.accion||'')}"></label><label class="aer-span2">Notas<textarea id="ar-n">${_aerEsc(x.notas||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn" onclick="aerEliminarRiesgo('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarRiesgo('${uid}')">Guardar</button></div>`); }
   function _aerAplicarRiesgosLigero(riesgos){
     if(!riesgos)return;
     aerDashboardData.riesgos=riesgos;
     if(aerTabActual==='riesgos')_aerRenderTab();
   }
 
-  function aerGuardarRiesgo(uid){
+  function aerGuardarRiesgo(uid){if(window.beeAerRisks&&aerDashboardData)return aerRiesgosModulares().save(uid);
     const saver=_aerStartSaving(_aerPrimaryModalBtn(),'Guardando riesgo...');
     const o={UID:uid,ID_Proyecto:aerDashboardData.proyecto.id,Riesgo:_aerVal('ar-r'),Impacto:_aerVal('ar-i'),Probabilidad:_aerVal('ar-p'),Responsable:_aerVal('ar-resp'),Fecha_Limite:_aerVal('ar-f'),Estado:_aerVal('ar-e'),Accion:_aerVal('ar-a'),Notas:_aerVal('ar-n')};
     google.script.run
@@ -4659,7 +4666,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       .guardarRiesgoAER(o);
   }
 
-  function aerLimpiarDuplicadosRiesgos(){
+  function aerLimpiarDuplicadosRiesgos(){if(window.beeAerRisks&&aerDashboardData)return aerRiesgosModulares().clean();
     const id=aerDashboardData&&aerDashboardData.proyecto?aerDashboardData.proyecto.id:'';
     if(!id)return;
     google.script.run
@@ -4673,7 +4680,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       .limpiarDuplicadosRiesgosAER(id);
   }
 
-  function aerEliminarRiesgo(uid){
+  function aerEliminarRiesgo(uid){if(window.beeAerRisks&&aerDashboardData)return aerRiesgosModulares().remove(uid);
     if(!confirm('¿Eliminar este riesgo?'))return;
     google.script.run
       .withSuccessHandler(r=>{

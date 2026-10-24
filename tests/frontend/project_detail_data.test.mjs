@@ -14,6 +14,47 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("AER risks preserve encoded project, operation, body and shared timeout", async () => {
+  const reads = [],
+    writes = [],
+    result = { ok: true, riesgos: {} };
+  const data = context.createProjectData(
+    async (...args) => {
+      reads.push(args);
+      return { data: result };
+    },
+    async (...args) => {
+      writes.push(args);
+      return { data: result };
+    },
+  );
+  assert.equal(await data.aerRisks("AER.001 | CR"), result);
+  const body = { UID: "risk/'1", Riesgo: "Texto" };
+  for (const operation of ["guardar", "eliminar", "limpiar-duplicados"])
+    assert.equal(
+      await data.saveAerRisk("AER.001 | CR", operation, body),
+      result,
+    );
+  assert.equal(
+    reads[0][0],
+    "screens/proyectos/AER.001%20%7C%20CR/riesgos-aer/",
+  );
+  assert.equal(reads[0][2].timeout, 90000);
+  for (const [index, operation] of [
+    "guardar",
+    "eliminar",
+    "limpiar-duplicados",
+  ].entries()) {
+    assert.equal(writes[index][0], "POST");
+    assert.equal(
+      writes[index][1],
+      `screens/proyectos/AER.001%20%7C%20CR/riesgos-aer/${operation}/`,
+    );
+    assert.equal(writes[index][2], body);
+    assert.equal(writes[index][3].timeout, 90000);
+  }
+});
+
 test("AER record ranges use exact dates and encoded project via GET", async () => {
   const calls = [];
   const api = context.createProjectData(async (...args) => {

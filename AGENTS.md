@@ -159,7 +159,13 @@ seguro/eventos externos. Consulta `aer/registros/` por API v1, con el mismo
 servicio de Clockify; no cambia cifras ni el alcance del filtro (solo registros).
 Las respuestas antiguas no reemplazan otra consulta/proyecto. Conserva enlace al
 estado y ciclo de vida compartidos; sin ejecutar su renderer/ventana anteriores.
-En AER faltan Riesgos, Recursos e IA. Continuar por Riesgos AER. Planeación IXB usa módulos de
+Riesgos AER está migrado en `aer_risks{,_model,_view}.js`: indicadores,
+matriz, distribución, atención, seguimiento y editor con DOM seguro/eventos
+externos. Lectura, guardado, borrado y limpieza de duplicados usan API v1 en
+`project_aer_risks.py`, con los servicios y permisos anteriores. Reutiliza el
+editor modular de Acciones. Conserva la agrupación por título anterior (incluye
+el caso de responsables/fechas distintos documentado en el traspaso).
+En AER faltan Recursos e IA. Continuar por Recursos AER. Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo
 anterior. Extraerlos junto con encabezados/navegación/entrada compartidos antes

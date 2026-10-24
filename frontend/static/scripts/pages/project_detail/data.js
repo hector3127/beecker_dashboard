@@ -16,6 +16,17 @@ export function createProjectData(get = apiGet, send = apiSend) {
       )
     ).data;
   return {
+    aerRisks: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/riesgos-aer/`),
+    saveAerRisk: async (id, operation, body) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/riesgos-aer/${encodeURIComponent(operation)}/`,
+          body,
+          { timeout: 90000 },
+        )
+      ).data,
     aerRecords: async (id, desde, hasta) =>
       (
         await get(

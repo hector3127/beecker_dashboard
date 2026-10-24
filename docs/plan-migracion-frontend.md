@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación, Acciones, Planeación y registros de Esfuerzo AER; resto RPC | **Parcial**: ambos Ejecutivos, Cliente, Acciones, Planeación y Esfuerzo; Recursos, RAID, Azure, IA y Comunicación IXS usan módulos. Faltan Riesgos, Recursos e IA AER y estructura compartida | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación, Acciones, Planeación, registros de Esfuerzo y Riesgos AER; resto RPC | **Parcial**: ambos Ejecutivos, Cliente, Acciones, Planeación y Esfuerzo, además de Riesgos AER; Recursos, RAID, Azure, IA y Comunicación IXS usan módulos. Faltan Recursos e IA AER y estructura compartida | **Parcial**, no completada |
 | 11 | Limpieza y CSP obligatoria; permisos/Genesis como decisión de despliegue | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -77,7 +77,7 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación y Esfuerzo de ambas familias; Recursos,
+Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación y Esfuerzo de ambas familias; Riesgos AER; Recursos,
 Gestión RAID, Azure DevOps, IA y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
@@ -87,7 +87,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
-| AER/T&M | Riesgos, Recursos e IA |
+| AER/T&M | Recursos e IA |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -105,6 +105,46 @@ Planeación conserva puentes y auxiliares en el archivo anterior, entre ellos
 la integración compartida, sin confundirlos con volver a migrar su vista y editores.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Riesgos AER/T&M (pestaña completa)
+
+`aer_risks_model.js` conserva agrupación, clasificación, matriz, exposición,
+atención y porcentajes de presentación. `aer_risks_view.js` presenta indicadores,
+riesgos priorizados, distribución, matriz, seguimiento y editor con DOM seguro
+y eventos externos. `aer_risks.js` controla las operaciones y descarta respuestas
+de otra carga del proyecto; una respuesta no cierra un editor abierto después.
+El montaje no ejecuta `_aerVistaRiesgos`, `_aerTablaAcciones` ni `_aerModal`.
+«Nueva acción» reutiliza el editor modular de Acciones y su API existente.
+
+`project_aer_risks.py` expone GET `screens/proyectos/<id>/riesgos-aer/` y POST
+explícitos `guardar/`, `eliminar/`, `limpiar-duplicados/`, con las mismas firmas y
+servicios del RPC anterior. Lecturas con `view_operations`, escrituras con
+`edit_operations`, alcance total y CSRF antes de consultar las fuentes.
+Se conserva el borrado por UID y la recarga posterior. No se añade botón de
+limpieza: antes solo existía el auxiliar invocable, que ahora delega a la API.
+
+**Hallazgo anterior preservado:** la agrupación visual por título conserva la
+primera fila cuando ese título tiene responsables/fechas distintos. No se cambia
+para evitar alterar los resultados. Tampoco se recalculan los indicadores del
+dashboard tras guardar, ni se repinta inmediatamente Riesgos al guardar una
+acción desde su editor compartido: se conserva la actualización anterior.
+
+**Riesgos AER completo; fase 10 parcial.** Siguiente: Recursos AER, luego IA y
+estructura/estado/auxiliares compartidos. No retirar script/shim; limpieza y CSP
+en fase 11. Horas por mes y ACCESS_ENFORCED sin cambios.
+
+Evidencia: **28 API y 23 de navegador aprobadas**. Dieciocho comparaciones a
+1450/900/390 px: datos completos, vacíos y duplicados; alta/edición, incluido
+impacto sin opción coincidente. CRUD, confirmación, reintento sin perder borrador,
+limpieza, acción compartida, texto seguro y respuestas tardías probados.
+Además, **48 de regresión/soporte aprobadas**: entrada del proyecto, Ejecutivo
+AER, transporte de Acciones y soporte del frontend (**99 total**).
+Capturas en `tmp/migration/project_detail/aer_risks/`, inspeccionadas en escritorio
+y móvil. Nueve Node contrastan el modelo con funciones originales; doce del
+cliente de datos aprobadas. Suite completa: **258 aprobadas y los tres fallos
+anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+Ruff/formato, mypy del API nuevo, Django y diff aprobados. Datos/proveedores
+simulados; sin correos reales. No se ha hecho push.
 
 ### Esfuerzo AER/T&M (pestaña completa)
 
