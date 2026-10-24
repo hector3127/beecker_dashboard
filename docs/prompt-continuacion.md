@@ -9,8 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local separa lecturas, modelo
-   y CSS de IA AER (pestaña todavía parcial). Recursos AER está completo,
+   diferencia con `origin/main`. El último bloque local separa presentación y
+   formularios de IA AER (pestaña todavía parcial). Sus lecturas, modelo y CSS
+   ya estaban separados. Recursos AER está completo,
    incluidas evaluaciones, editor y guardado/borrado por API. Riesgos AER,
    Esfuerzo AER (registros por rango
    y «Ver más»), Planeación AER y
@@ -123,10 +124,17 @@ hechos/alertas. CSS principal externo `project_detail_aer_ai.css`, con link
 límite de 28 compromisos en contexto, ocupación de toda la planeación y umbral
 6 puntos. No consultar Claude/Drive/Sheets reales en pruebas.
 
-**Siguiente bloque sugerido:** vista, formularios y acciones de IA AER
-(análisis, preguntas, correo, resumen, generación/guardado de minutas y
-configuración). Esas partes siguen anteriores/RPC; no marcar la pestaña como
-completa por sus lecturas/modelo/CSS ni volver a separarlos.
+**Presentación IA AER separada:** `aer_ai_presentation{,_model}.js`,
+`aer_ai_view.js`, `aer_ai_documents_view.js`, `aer_ai_forms_view.js` y
+`aer_ai_dom.js` usan DOM seguro y eventos externos. Historial, selección máxima
+de cinco, sugerencias y seis formularios comparados en tres tamaños, incluido
+borrador editable. No ejecuta renderer ni formularios anteriores. Generación,
+guardado, validaciones y copiado todavía delegan a funciones anteriores.
+
+**Siguiente bloque sugerido:** API y controlador de acciones de IA AER
+(análisis, preguntas, correo, resumen, generación/guardado de minutas,
+configuración y auxiliares de copiado). Varias siguen por RPC; no marcar la
+pestaña como completa ni volver a separar sus fuentes/modelos/vistas.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
 encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,

@@ -87,7 +87,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
-| AER/T&M | IA: presentación, formularios y generación/guardado; lecturas, contexto/hechos y CSS principal ya separados |
+| AER/T&M | IA: acciones de generación/guardado, validaciones y auxiliares; lecturas, modelos, vistas, formularios y CSS principal ya separados |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -106,7 +106,48 @@ la integración compartida, sin confundirlos con volver a migrar su vista y edit
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
-### IA AER/T&M: lecturas, contexto/hechos y estilos (parcial)
+### IA AER/T&M: presentación y formularios (parcial)
+
+`aer_ai_presentation_model.js` conserva los datos derivados de la pantalla,
+fecha de memoria, extracto de la última minuta y formato mínimo del resumen.
+`aer_ai_dom.js` presenta ese formato con nodos de texto/strong/br sin insertar
+HTML. `aer_ai_view.js` monta toda la pestaña y `aer_ai_documents_view.js` separa
+historial y documentos. Mantiene el contenido y los estilos/cajas originales.
+
+`aer_ai_forms_view.js` presenta lectura de minuta, resumen ejecutivo, correo,
+generación de minuta, configuración y borrador editable. DOM seguro/eventos
+externos, mismos IDs, valores y estilos. El prompt mantiene asignación por
+propiedad `value`, como el formulario anterior. Enlaces de documentos solo
+aceptan HTTP(S); cadenas de etiquetas siguen siendo texto.
+
+`aer_ai_presentation.js` controla historial, ocultar/documentos, selección
+máxima de cinco, preguntas sugeridas, lectura y apertura de formularios. Las
+recomendaciones reutilizan el editor modular de Acciones. El montaje no
+ejecuta `aerIAVista`, sus auxiliares de presentación ni `_aerModal`; el borrador
+devuelto por la acción anterior también se pinta con el módulo nuevo.
+
+**IA AER y fase 10 siguen parciales:** las acciones de generación/guardado,
+validación y copiado todavía delegan a sus funciones anteriores; varias usan
+RPC. Siguiente: API/controlador para análisis, preguntas, correo, resumen,
+minutas y configuración, con sus permisos originales. Después estructura,
+estado y auxiliares compartidos. No retirar script/shim ni activar accesos.
+
+Evidencia: **29 casos de navegador aprobados por bloques**, incluidos 27
+comparaciones a 1450/900/390 px: pantalla rica/carga/oculta y seis formularios.
+También se conserva la comparación de fuentes (12 aprobadas, nueve visuales).
+Se prueban límite de selección, teclado/foco, historial, texto seguro y montaje
+con renderizadores anteriores sustituidos por errores. Veinte Node del modelo
+contrastan formato/extracto/presentación con el original; suite completa:
+**312 aprobadas y los tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff/formato, Django y diff aprobados.
+Capturas en `tmp/migration/project_detail/aer_ai_view/`; inspeccionadas pantalla
+y formulario en escritorio/móvil. Datos simulados, sin Claude/Drive/Sheets ni
+correos reales. Sin cambios de API/cálculos; no se repitieron sus pruebas.
+
+Regresión: **34 aprobadas** de entrada, Ejecutivo AER y soporte del frontend.
+Con los 29 casos nuevos y doce de fuentes: **75 casos aprobados**.
+
+### IA AER/T&M: lecturas, contexto/hechos y estilos (bloque anterior, parcial)
 
 `project_aer_ai.py` expone cinco GET explícitos
 `screens/proyectos/<id>/ia-aer/{analisis,resumen,minutas,config,archivos}/`.

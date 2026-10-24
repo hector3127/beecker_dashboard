@@ -178,9 +178,16 @@ o proyecto; refrescar el mismo proyecto no deja cargas bloqueadas.
 `aer_ai_model.js` conserva contexto y hechos/alertas (límite de 28 compromisos
 en el contexto y esfuerzo de 6 puntos). Su CSS principal está externo en
 `project_detail_aer_ai.css`, con comparación visual en tres tamaños.
-**IA AER sigue parcial:** presentación, formularios y acciones de generación/
-guardado todavía son anteriores. Continuar por vista y acciones de IA AER,
-sin repetir las lecturas/modelo ni confundirlas con pestaña completa.
+La presentación de IA AER ya usa `aer_ai_presentation.js`, `aer_ai_view.js`,
+`aer_ai_documents_view.js`, `aer_ai_forms_view.js` y DOM seguro en `aer_ai_dom.js`.
+`aer_ai_presentation_model.js` conserva formato mínimo, extractos y datos
+derivados. Pantalla, lecturas, seis formularios y borrador editable comparados
+en tres tamaños. Historial, selección (máximo 5) y preguntas sugeridas usan
+eventos externos; no ejecuta renderer, tablas ni formularios anteriores.
+**IA AER sigue parcial:** generación/guardado, validaciones y copiado aún
+delegan a acciones anteriores; varias usan RPC. Continuar por sus operaciones
+API/controlador (análisis, preguntas, correo, resumen, minutas y configuración),
+sin repetir las lecturas/modelo/vistas ni confundirlas con pestaña completa.
 Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo

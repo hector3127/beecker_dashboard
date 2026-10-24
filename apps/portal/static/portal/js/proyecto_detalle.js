@@ -2847,7 +2847,7 @@
         window.beeProjectClient.mount(el,aerDashboardData,{family:ixsActivo?'ixs':'aer',current:()=>aerDashboardData===snapshot,active:()=>aerTabActual==='cliente'&&el.isConnected});
       }else el.innerHTML=_aerVistaCliente();
     }
-    else if(aerTabActual==='ia') el.innerHTML=aerIAVista();
+    else if(aerTabActual==='ia'){if(window.beeAerAiPresentation)window.beeAerAiPresentation.mount(el,aerIAPresentacionContexto());else el.innerHTML=aerIAVista();}
     else el.innerHTML=_aerVistaEjecutivo();
     if (aerTabActual === 'planeacion'&&!window.beeAerPlanning) setTimeout(aerAplicarFiltrosPlan, 0);
   }
@@ -11065,6 +11065,18 @@ function _renderGraficaHorasDia(contenedorId, dias) {
       active:()=>aerTabActual==='ia',paint:_aerRenderTab,context:aerIAContexto,
       toast:_aerToast,openConfig:aerIAAbrirConfigMinutas});
   }
+  function aerIAPresentacionContexto(){
+    const state=aerIAState,id=aerDashboardData.proyecto.id;
+    return {dashboard:aerDashboardData,state,current:()=>aerIAState===state&&aerDashboardData.proyecto.id===id,
+      active:()=>aerTabActual==='ia',paint:_aerRenderTab,toast:_aerToast,
+      actions:{analyze:force=>aerIAAnalizar(force),generateSummary:()=>aerIAGenerarResumenEjecutivo(),
+        generateMail:()=>aerIAGenerarCorreo(),generateMinute:()=>aerIAGenerarMinuta(),saveMinute:()=>aerIAGuardarMinuta(),
+        copyMinute:()=>aerIACopiarMinuta(),copySavedMinute:()=>aerIACopiarMinutaGuardada(),copySummary:()=>aerIACopiarResumen(),
+        saveConfig:buscar=>aerIAGuardarConfigMinutas(buscar),resetPrompt:()=>aerIARestablecerPromptMinuta(),loadConfig:abrir=>aerIACargarConfigMinutas(abrir),
+        files:()=>aerIABuscarMinutasDrive(),tab:tab=>aerCambiarTab(tab),ask:()=>aerIAPreguntar(),
+        action:()=>aerAbrirAccion(),risk:()=>aerAbrirRiesgo()}};
+  }
+  function aerIAPresentacionModular(){return window.beeAerAiPresentation.bind(aerIAPresentacionContexto());}
   function aerIAHoy(){ const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10); }
   function aerIAContexto(){
     if(window.beeAerAiModel)return window.beeAerAiModel.context(aerDashboardData,aerIAState);
@@ -11169,6 +11181,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     </div>`;
   }
   function aerIAVerResumenEjecutivo(){
+    if(window.beeAerAiPresentation)return aerIAPresentacionModular().summary();
     const r=aerIAResumenActual();if(!r.contenido){_aerToast('Primero genera un resumen ejecutivo.','error');return;}
     _aerModal(`<div class="aeri"><div class="aeri-cardtitle"><div><h3>▤ Resumen ejecutivo automático</h3><div class="aeri-muted">Último resumen guardado: ${_aerEsc(r.guardado||'—')}</div></div><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div>
       <div class="aeri-minuta-read" id="aeri-resumen-lectura" style="white-space:normal">${aerIAFormatoResumen(r.contenido)}</div>
@@ -11254,12 +11267,13 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     </div>`;
   }
   function aerIAAlternarHistorial(){
+    if(window.beeAerAiPresentation)return aerIAPresentacionModular().history();
     aerIAState.historialCompleto=!aerIAState.historialCompleto;
     if(aerTabActual==='ia')_aerRenderTab();
   }
   function aerIAKpi(icon,label,value,note,tone){return `<div class="aeri-card"><div class="aeri-stat"><span class="aeri-icon ${tone}">${icon}</span><div style="min-width:0"><label>${_aerEsc(label)}</label><strong>${_aerEsc(value)}</strong><small>${_aerEsc(note)}</small></div></div></div>`;}
   function aerIAMetro(name,num,color,right){let n=Math.max(0,Number(num)||0);return `<div class="aeri-metric"><span title="${_aerEsc(name)}" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${_aerEsc(name)}</span><span class="aeri-track"><i class="aeri-fill" style="display:block;width:${Math.min(100,n)}%;background:${color}"></i></span><b style="text-align:right;font-size:10px">${_aerEsc(right==null?Math.round(n)+'%':right)}</b></div>`;}
-  function aerIAAviso(node,msg,fail){if(node)node.innerHTML=`<div class="aeri-answer" style="${fail?'color:#b62843;background:#fff2f4':''}">${_aerEsc(msg)}</div>`;}
+  function aerIAAviso(node,msg,fail){if(window.beeAerAiPresentation)return window.beeAerAiPresentation.notice(node,msg,fail);if(node)node.innerHTML=`<div class="aeri-answer" style="${fail?'color:#b62843;background:#fff2f4':''}">${_aerEsc(msg)}</div>`;}
   function aerIACargarAnalisis(){
     if(window.beeAerAiSources&&aerDashboardData)return aerIAFuentesModulares().analysis();
     if(!aerDashboardData || aerIAState.cargandoAnalisis || aerIAState.analisis || aerIAState.analisisConsultado)return;
@@ -11296,7 +11310,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
       if(r.aviso)console.warn('Persistencia del análisis IA: '+r.aviso);
     }).withFailureHandler(e=>{aerIAState.cargando=false;if(btn){btn.textContent='Reintentar análisis';btn.disabled=false;}showError(e);}).analizarProyectoClaudeAER(id,ctx,!!force);
   }
-  function aerIASetPregunta(q){const e=document.getElementById('aeri-question');if(e){e.value=q;e.focus();}}
+  function aerIASetPregunta(q){if(window.beeAerAiPresentation)return aerIAPresentacionModular().question(q);const e=document.getElementById('aeri-question');if(e){e.value=q;e.focus();}}
   function aerIAPreguntar(){
     const input=document.getElementById('aeri-question');
     const question=(input||{}).value||'',box=document.getElementById('aeri-response');
@@ -11333,11 +11347,13 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     else runner.preguntarClaudeProyectoAER(id,aerIAContexto(),question);
   }
   function aerIAPrepararAccion(index){
+    if(window.beeAerAiPresentation)return aerIAPresentacionModular().recommendation(index);
     const x=((aerIAState.analisis||{}).analisis||{}).recomendaciones||[];
     const r=x[index];if(!r)return;
     aerAbrirAccion();setTimeout(()=>{const a=document.getElementById('aa-a'),n=document.getElementById('aa-n');if(a)a.value=r.titulo;if(n)n.value=r.detalle;},0);
   }
   function aerIACorreo(){
+    if(window.beeAerAiPresentation)return aerIAPresentacionModular().mail();
     _aerModal(`<div class="aeri"><div class="aeri-cardtitle"><h3>✉ Borrador de correo con Claude</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><label>¿Qué debe comunicar el correo?<textarea id="aeri-mail-in" style="width:100%;min-height:90px" maxlength="380" placeholder="Describe lo que quieres comunicar sin agregar datos sensibles…"></textarea></label><div id="aeri-mail-out"></div><button class="aer-btn primary" id="aeri-mail-btn" onclick="aerIAGenerarCorreo()">Generar borrador</button></div>`);
   }
   function aerIAGenerarCorreo(){const q=(document.getElementById('aeri-mail-in')||{}).value||'',btn=document.getElementById('aeri-mail-btn');if(q.trim().length<5)return;
@@ -11358,6 +11374,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
 
   // Vista de lectura de una minuta guardada. Nunca modifica ni vuelve a generar contenido.
   function aerIAVerMinuta(index){
+    if(window.beeAerAiPresentation)return aerIAPresentacionModular().minute(index);
     const x=(aerIAState.minutas||[])[Number(index)];
     if(!x){_aerToast('No se encontró la minuta. Actualiza el historial.','error');return;}
     aerIAEnsureStyles();
@@ -11406,10 +11423,12 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     </div>`;
   }
   function aerIAOcultarArchivos(){
+    if(window.beeAerAiPresentation)return aerIAPresentacionModular().hideFiles();
     aerIAState.archivosOcultos=!aerIAState.archivosOcultos;
     if(aerTabActual==='ia')_aerRenderTab();
   }
   function aerIAAbrirConfigMinutas(){
+    if(window.beeAerAiPresentation&&aerDashboardData)return aerIAPresentacionModular().config();
     if(!aerDashboardData)return;
     if(aerIAState.config===null){
       if(aerIAState.cargandoConfig){_aerToast('Cargando configuración de minutas…');return;}
@@ -11595,6 +11614,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     }).buscarMinutasCarpetaAER(id);
   }
   function aerIAToggleMinuta(id,checked){
+    if(window.beeAerAiPresentation)return aerIAPresentacionModular().selectFile(id,checked);
     const s=aerIAState.seleccion||[];
     if(checked){if(s.length>=5){_aerToast('Máximo 5 minutas por consulta para ahorrar tokens.','error');if(aerTabActual==='ia')_aerRenderTab();return;}if(!s.includes(id))s.push(id);}
     else aerIAState.seleccion=s.filter(x=>x!==id);
@@ -11602,6 +11622,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     if(aerTabActual==='ia')_aerRenderTab();
   }
   function aerIAAbrirMinuta(){
+    if(window.beeAerAiPresentation)return aerIAPresentacionModular().openMinute();
     aerIAEnsureStyles();_aerModal(`<div class="aeri"><div class="aeri-cardtitle"><h3>▤ Generar minuta con Claude</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div>
       <div class="aeri-muted">${(aerIAState.seleccion||[]).length?'Se usarán '+aerIAState.seleccion.length+' minuta(s) seleccionada(s) de Drive.':'Sin archivos seleccionados: se redactará a partir de tus apuntes. Para elegir documentos, pulsa «Buscar minutas» en IA y selecciona los archivos.'} Se usará el prompt de «Configuración minuta» guardado para este proyecto. Claude no inventa asistentes, acuerdos ni fechas.</div>
       <div class="aer-formgrid"><label>Tema<input id="aeri-minute-topic" placeholder="Seguimiento semanal"></label><label>Fecha<input id="aeri-minute-date" type="date" value="${aerIAHoy()}"></label>
@@ -11619,6 +11640,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
       if(btn){btn.disabled=false;btn.textContent='✦ Generar borrador';}
       const el=document.getElementById('aeri-minute-result');if(!el)return;
       if(!r||!r.ok){aerIAAviso(el,r&&r.error||'Error generando minuta',true);return;}
+      if(window.beeAerAiPresentation){aerIAPresentacionModular().draft(r);return;}
       el.innerHTML=`<div class="aeri-muted" style="margin-top:8px">Borrador editable · ${r.cache?'respuesta en caché':'costo est. $'+(r.uso&&r.uso.usd||0)+' USD'}</div>
         <textarea id="aeri-minute-text" style="width:100%;min-height:240px;border:1px solid #dcd4f0;border-radius:10px;padding:10px">${_aerEsc(r.texto)}</textarea>
         <div class="aer-actions" style="margin-top:7px"><button class="aer-btn" onclick="aerIACopiarMinuta()">Copiar</button><button id="aeri-minute-save" class="aer-btn primary" onclick="aerIAGuardarMinuta()">Guardar minuta</button></div>`;

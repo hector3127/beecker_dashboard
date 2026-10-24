@@ -2,7 +2,42 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: IA AER — lecturas, modelo y CSS (parcial)
+## Bloque actual: IA AER — presentación y formularios (parcial)
+
+- `aer_ai_presentation_model.js`: datos derivados, extracto de minuta, fecha
+  de memoria y formato mínimo de resumen. Contraste Node con las funciones
+  anteriores; sin cambios de cálculos ni límites.
+- `aer_ai_view.js` monta toda la pestaña, `aer_ai_documents_view.js` separa
+  historial/documentos y `aer_ai_dom.js` construye texto/strong/br sin HTML
+  interpolado. Los documentos solo permiten enlaces HTTP(S).
+- `aer_ai_forms_view.js`: lectura de minuta y resumen, correo, generación de
+  minuta, configuración y borrador editable con DOM seguro/eventos externos.
+  Mismos IDs/valores/estilos; prompt asignado por propiedad value como antes.
+- `aer_ai_presentation.js`: historial, ocultar/mostrar documentos, selección
+  máxima de cinco, sugerencias de preguntas y lectura/apertura de formularios.
+  Recomendaciones reutilizan Acciones. Ruta activa sin `aerIAVista`, tabla,
+  archivos, formato ni formularios HTML anteriores; puentes conservados.
+- **IA AER sigue parcial:** acciones de análisis, preguntas, correo, resumen,
+  generación/guardado de minutas y configuración siguen anteriores/RPC, al
+  igual que sus validaciones y copiado. Siguiente: migrar API/controlador de
+  esas acciones con permisos originales. No repetir fuentes/modelos/vistas.
+  Después encabezados/navegación/estado/auxiliares compartidos. Fase 10 parcial;
+  no retirar script/shim, activar ACCESS_ENFORCED ni tocar Horas por mes.
+- **29 casos de navegador aprobados por bloques** (27 comparaciones en tres
+  tamaños) y doce de fuentes (nueve comparaciones). Se prueban seis formularios,
+  pantalla rica/carga/oculta, límite de selección, teclado/foco, historial,
+  contenido seguro y montaje con renderizadores anteriores bloqueados.
+- Veinte Node del modelo nuevas aprobadas; suite completa **312 aprobadas y
+  los tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+  `financial`). Ruff/formato, Django y diff aprobados. Sin cambios de API;
+  no se repitieron sus pruebas. Capturas en
+  `tmp/migration/project_detail/aer_ai_view/`, inspeccionadas escritorio/móvil.
+- Proveedores/datos simulados, sin consultas reales ni correos. Sin push;
+  temporales ajenos intactos.
+- **34 de regresión aprobadas** (entrada, Ejecutivo AER y soporte). Con los
+  29 casos nuevos y doce de fuentes: **75 casos aprobados**.
+
+## Bloque anterior: IA AER — lecturas, modelo y CSS (parcial)
 
 - `project_aer_ai.py`: cinco GET explícitos en
   `screens/proyectos/<id>/ia-aer/{analisis,resumen,minutas,config,archivos}/`.
