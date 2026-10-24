@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación y Acciones; resto RPC | **Parcial**: ambos Ejecutivos, Cliente y Acciones; Esfuerzo, Recursos, Planeación, RAID, Azure, IA y Comunicación IXS usan módulos. Faltan otras pestañas AER y estructura compartida | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación, Acciones y Planeación AER; resto RPC | **Parcial**: ambos Ejecutivos, Cliente, Acciones y Planeación; Esfuerzo, Recursos, RAID, Azure, IA y Comunicación IXS usan módulos. Faltan Esfuerzo, Riesgos, Recursos e IA AER y estructura compartida | **Parcial**, no completada |
 | 11 | Limpieza y CSP obligatoria; permisos/Genesis como decisión de despliegue | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -77,7 +77,7 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Terminados: ambos Ejecutivos, Cliente y Acciones de ambas familias; Esfuerzo, Recursos,
+Terminados: ambos Ejecutivos, Cliente, Acciones y Planeación de ambas familias; Esfuerzo, Recursos,
 Gestión RAID, Azure DevOps, IA y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
@@ -87,7 +87,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
-| AER/T&M | Filtros, selección y estado del rango de Planeación (vista/modelo, operaciones y formularios separados); Esfuerzo, Riesgos, Recursos e IA |
+| AER/T&M | Esfuerzo, Riesgos, Recursos e IA |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -106,7 +106,32 @@ la integración compartida, sin confundirlos con volver a migrar su vista y edit
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
-### Planeación AER/T&M: vista principal e indicadores (parcial)
+### Planeación AER/T&M: filtros, selección y rango (pestaña completa)
+
+`aer_planning_controls.js` gestiona búsqueda/filtros, selección e inicialización/
+cambio de rango; `aer_planning_filters_model.js` conserva coincidencias, opciones
+y valores iniciales. `aer_planning_filter_view.js` construye los seis menús con
+DOM seguro/eventos externos y cierre al pulsar fuera. Se preservan búsqueda sin
+acentos, fechas inclusivas, selección visible/oculta y estados de los controles.
+Los puentes globales solo enlazan estado/ciclo de vida compartidos y delegan;
+los controles nuevos no llaman a los auxiliares anteriores.
+
+**Planeación AER completa; fase 10 parcial.** Quedan Esfuerzo, Riesgos, Recursos e
+IA AER, encabezados/navegación/estado y auxiliares compartidos. Mantener script y
+shim hasta completar esos bloques. Limpieza/CSP en fase 11; no activar permisos.
+
+Evidencia: **74 pruebas de Planeación y 48 de regresión aprobadas** (122 total).
+Se incluyen 57 comparaciones de Planeación a 1450/900/390 px; 18 son de los seis
+menús de filtros. Probados fechas/búsqueda, teclado/foco, cierre al pulsar fuera,
+selección visible/oculta, indeterminate, texto seguro y protección ante otro
+dashboard; se sustituyen todos los auxiliares anteriores de controles por errores.
+Trece Node nuevas contrastan filtros/rango con el original. Suite completa:
+234 aprobadas y los tres fallos anteriores. Ruff/formato, Django y diff aprobados.
+Sin cambios de backend; no se repitieron las API del bloque anterior. Capturas en
+`tmp/migration/project_detail/aer_planning_controls/` y las carpetas anteriores;
+inspeccionadas en escritorio/móvil. Proveedores simulados y sin correos reales.
+
+### Planeación AER/T&M: vista principal e indicadores (bloque anterior parcial)
 
 Modelo de indicadores, agrupaciones/estados/posiciones de Gantt, atención,
 ocupación y vacaciones en `aer_planning_model.js`, sin cambiar resultados.

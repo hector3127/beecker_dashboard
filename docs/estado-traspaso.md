@@ -2,7 +2,38 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: vista principal e indicadores de Planeación AER (parcial)
+## Bloque actual: controles de Planeación AER (pestaña completa)
+
+- `aer_planning_controls.js` separa búsqueda/filtros, selección e inicialización/
+  cambio del rango. `aer_planning_filters_model.js` conserva coincidencias,
+  opciones y valores iniciales. `aer_planning_filter_view.js` crea los seis
+  menús con DOM seguro/eventos externos y cierre al pulsar fuera.
+- El montaje aplica filtros directamente y no llama a los auxiliares anteriores.
+  Los puentes globales solo delegan para compatibilidad. El contexto conserva
+  getters/setters de rango/filtros y el ciclo de vida del proyecto compartido;
+  su integración con el encabezado/estado general sigue pendiente de fase 10.
+- Conserva coincidencia exacta de tipo/responsable/estado, búsqueda sin acentos,
+  fechas inclusivas, selección de filas visibles y selección oculta anterior.
+  Un menú de otro dashboard no aplica filtros al proyecto recién abierto.
+- Siguiente: Esfuerzo AER. Después Riesgos, Recursos e IA AER; estructura/estado
+  y auxiliares compartidos IXB; retirada de dependencia activa del script/shim.
+  Fase 11: limpieza y CSP. No activar ACCESS_ENFORCED ni modificar Horas por mes.
+- Capturas de los seis menús a 1450/900/390 px en
+  `tmp/migration/project_detail/aer_planning_controls/`. El título vacío del
+  bloqueo crítico anterior se conserva como se documentó en el bloque de vista.
+- **Planeación AER completa; fase 10 parcial.** Validación: 52 e2e de Planeación
+  anteriores, 22 nuevas de controles y 48 de regresión aprobadas (122 total).
+  Se incluyen 57 comparaciones de Planeación; 18 de los menús. Se comprueban
+  fechas inclusivas, teclado/foco, cierre externo, selección visible/oculta,
+  indeterminate, texto seguro y menú de otro dashboard que no cambia el proyecto.
+  Los auxiliares anteriores se sustituyen por errores para comprobar la delegación.
+- Trece Node nuevas aprobadas contra el original; suite completa **234 aprobadas
+  y tres fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+  Ruff/formato, Django y diff aprobados. Sin cambios de backend; no se repitieron
+  sus API. Inspeccionados filtro de compromiso en escritorio y estado en móvil.
+  Datos/proveedores simulados, sin correos reales. Sin push; temporales ajenos intactos.
+
+## Bloque anterior: vista principal e indicadores de Planeación AER (parcial)
 
 - `aer_planning_model.js`: indicadores, estados/agrupaciones/posiciones del Gantt,
   atención, vacaciones y ocupación. Mismos cálculos y orden que el renderer

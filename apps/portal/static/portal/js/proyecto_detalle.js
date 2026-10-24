@@ -2836,7 +2836,7 @@
       window.beeProjectExecutive(el, aerDashboardData, aerCambiarTab);
       return;
     }
-    if(aerTabActual==='planeacion'){if(window.beeAerPlanning){_aerInitPlanFiltroMes();window.beeAerPlanning.mount(el,aerPlaneacionContexto());}else el.innerHTML=_aerVistaPlaneacion();}
+    if(aerTabActual==='planeacion'){if(window.beeAerPlanning){window.beeAerPlanning.mount(el,aerPlaneacionContexto());}else el.innerHTML=_aerVistaPlaneacion();}
     else if(aerTabActual==='esfuerzo') el.innerHTML=_aerVistaEsfuerzo();
     else if(aerTabActual==='riesgos') el.innerHTML=_aerVistaRiesgos();
     else if(aerTabActual==='acciones'){if(window.beeProjectActions)window.beeProjectActions.mount(el,aerAccionesContexto());else el.innerHTML=_aerVistaAcciones();}
@@ -2849,7 +2849,7 @@
     }
     else if(aerTabActual==='ia') el.innerHTML=aerIAVista();
     else el.innerHTML=_aerVistaEjecutivo();
-    if (aerTabActual === 'planeacion') setTimeout(aerAplicarFiltrosPlan, 0);
+    if (aerTabActual === 'planeacion'&&!window.beeAerPlanning) setTimeout(aerAplicarFiltrosPlan, 0);
   }
 
 
@@ -2914,15 +2914,16 @@
   }
   function aerPlaneacionContexto(){
     const snapshot=aerDashboardData;
-    return {id:snapshot.proyecto.id,dashboard:snapshot,range:aerPlanFiltroMes,filters:aerPlanTableFilters,
-      controls:{rangeChange:aerCambiarRangoPlan,filterSet:_aerPlanFilterSet,openFilter:aerAbrirFiltroCabecera,
-        clearFilters:aerLimpiarFiltrosPlan,toggleAll:aerTogglePlanAll,selection:aerActualizarSeleccionPlan,
-        communique:window.beeProjectCommunique?aerAbrirComunicados:null},
+    return {id:snapshot.proyecto.id,dashboard:snapshot,
+      range:()=>aerPlanFiltroMes,filters:()=>aerPlanTableFilters,
+      setRange:value=>{aerPlanFiltroMes=value;},setFilters:value=>{aerPlanTableFilters=value;},
+      communique:window.beeProjectCommunique?aerAbrirComunicados:null,
       current:()=>aerDashboardData===snapshot,active:()=>aerTabActual==='planeacion',
       paint:_aerRenderTab,reload:aerRecargarProyecto,error:showError,
       saving:_aerStartSaving
     };
   }
+  function aerPlaneacionControles(){return window.beeAerPlanning.controls(aerPlaneacionContexto());}
   function aerPlaneacionModular(){return window.beeAerPlanning.bind(aerPlaneacionContexto());}
   function aerGuardarVacacion(uid){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().saveVacation(uid);
     const saver=_aerStartSaving(_aerPrimaryModalBtn(),'Guardando vacaciones...');
@@ -3962,14 +3963,14 @@ function aerEliminarDocumentoCliente(uid){
 
   function _aerTodayIso(){ return new Date().toISOString().slice(0,10); }
   function _aerMonthValue(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; }
-  function _aerInitPlanFiltroMes(){
+  function _aerInitPlanFiltroMes(){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().initialize();
     if (aerPlanFiltroMes.desde && aerPlanFiltroMes.hasta) return;
     const now = new Date();
     const prev = new Date(now.getFullYear(), now.getMonth()-1, 1);
     aerPlanFiltroMes.desde = _aerMonthValue(prev);
     aerPlanFiltroMes.hasta = _aerMonthValue(now);
   }
-  function aerCambiarRangoPlan(tipo,val){
+  function aerCambiarRangoPlan(tipo,val){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().rangeChange(tipo,val);
     _aerInitPlanFiltroMes();
     if (tipo === 'desde') aerPlanFiltroMes.desde = val || aerPlanFiltroMes.desde;
     if (tipo === 'hasta') aerPlanFiltroMes.hasta = val || aerPlanFiltroMes.hasta;
@@ -4102,12 +4103,12 @@ function aerEliminarDocumentoCliente(uid){
   }
 
 
-  function aerCerrarFiltroCabecera() {
+  function aerCerrarFiltroCabecera() {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().closeFilter();
     const p=document.getElementById('aer-plan-filter-pop');
     if(p) p.remove();
   }
 
-  function aerAbrirFiltroCabecera(ev,campo) {
+  function aerAbrirFiltroCabecera(ev,campo) {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().openFilter(ev,campo);
     ev.preventDefault();
     ev.stopPropagation();
     aerCerrarFiltroCabecera();
@@ -4150,7 +4151,7 @@ function aerEliminarDocumentoCliente(uid){
     if(first) setTimeout(()=>first.focus(),0);
   }
 
-  function aerAplicarFiltroCabecera(campo){
+  function aerAplicarFiltroCabecera(campo){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().applyHeader(campo);
     if(campo==='tipo') aerPlanTableFilters.tipo=_aerVal('aer-hf-tipo');
     else if(campo==='actividad') aerPlanTableFilters.actividad=_aerVal('aer-hf-actividad');
     else if(campo==='responsable') aerPlanTableFilters.responsable=_aerVal('aer-hf-responsable');
@@ -4166,7 +4167,7 @@ function aerEliminarDocumentoCliente(uid){
     if(aerTabActual==='planeacion') _aerRenderTab();
   }
 
-  function aerLimpiarFiltroCabecera(campo){
+  function aerLimpiarFiltroCabecera(campo){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().clearHeader(campo);
     if(campo==='tipo') aerPlanTableFilters.tipo='';
     else if(campo==='actividad') aerPlanTableFilters.actividad='';
     else if(campo==='responsable') aerPlanTableFilters.responsable='';
@@ -4182,12 +4183,12 @@ function aerEliminarDocumentoCliente(uid){
     if(aerTabActual==='planeacion') _aerRenderTab();
   }
 
-  function _aerPlanFilterSet(campo, valor) {
+  function _aerPlanFilterSet(campo, valor) {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().filterSet(campo,valor);
     aerPlanTableFilters[campo] = String(valor == null ? '' : valor);
     aerAplicarFiltrosPlan();
   }
 
-  function aerLimpiarFiltrosPlan() {
+  function aerLimpiarFiltrosPlan() {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().clearFilters();
     aerPlanTableFilters = { tipo:'', actividad:'', responsable:'', compromisoDesde:'', compromisoHasta:'', estado:'', cierreDesde:'', cierreHasta:'' };
     if (aerTabActual === 'planeacion') _aerRenderTab();
   }
@@ -4196,7 +4197,7 @@ function aerEliminarDocumentoCliente(uid){
     return String(v || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
   }
 
-  function aerAplicarFiltrosPlan() {
+  function aerAplicarFiltrosPlan() {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().applyFilters();
     const f = aerPlanTableFilters || {};
     const rows = [...document.querySelectorAll('#aer-plan-table-body tr[data-plan-row]')];
     let visibles = 0;
@@ -4235,7 +4236,7 @@ function aerEliminarDocumentoCliente(uid){
   }
 
 
-  if(!window.__aerHeaderFilterOutsideClick){
+  if(!window.beeAerPlanning&&!window.__aerHeaderFilterOutsideClick){
     window.__aerHeaderFilterOutsideClick=true;
     document.addEventListener('click',ev=>{
       const pop=document.getElementById('aer-plan-filter-pop');
@@ -4400,7 +4401,7 @@ function aerEliminarDocumentoCliente(uid){
   }
 
 
-  function aerTogglePlanAll(checked) {
+  function aerTogglePlanAll(checked) {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().toggleAll(checked);
     document.querySelectorAll('#aer-plan-table-body tr[data-plan-row]').forEach(tr => {
       if (tr.style.display === 'none') return;
       const cb = tr.querySelector('.aer-plan-row-check');
@@ -4409,7 +4410,7 @@ function aerEliminarDocumentoCliente(uid){
     aerActualizarSeleccionPlan();
   }
 
-  function aerActualizarSeleccionPlan() {
+  function aerActualizarSeleccionPlan() {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionControles().selection();
     const checks = [...document.querySelectorAll('.aer-plan-row-check')];
     const seleccionados = checks.filter(cb => cb.checked);
     const count = document.getElementById('aer-plan-selected-count');

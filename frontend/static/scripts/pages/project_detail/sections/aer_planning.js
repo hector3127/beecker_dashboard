@@ -1,4 +1,5 @@
-// View, forms and writes are modular; filter/range state still comes from the bridge.
+// Planning view, controls, forms and writes share the entry's project lifecycle.
+import { createPlanningControls } from "./aer_planning_controls.js";
 import {
   capacity,
   parsePlanText,
@@ -17,14 +18,24 @@ const message = (e) => e?.message || String(e || "Error desconocido");
 
 export function createAerPlanning(api) {
   return {
+    controls(env) {
+      return createPlanningControls(env);
+    },
     mount(target, env) {
-      const actions = { ...this.bind(env), ...env.controls };
+      const controls = this.controls(env);
+      controls.initialize();
+      const actions = {
+        ...this.bind(env),
+        ...controls,
+        communique: env.communique,
+      };
       renderPlanning(
         target,
-        planningModel(env.dashboard, env.range),
-        env.filters,
+        planningModel(env.dashboard, env.range()),
+        env.filters(),
         actions,
       );
+      controls.applyFilters();
     },
     bind(env) {
       const live = () => env.current();

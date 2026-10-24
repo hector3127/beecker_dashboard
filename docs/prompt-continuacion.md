@@ -9,9 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local separa la vista principal
-   e indicadores/Gantt de Planeación AER; formularios, capacidad/importación,
-   operaciones por API y Acciones AER/IXS ya estaban separados.
+   diferencia con `origin/main`. El último bloque local completa filtros,
+   selección y rango de Planeación AER. La pestaña completa ya es modular;
+   Acciones AER/IXS también está completa.
    Claude completó Cliente y el Centro
    de Comunicación IXB/SaaS/RaaS (posterior al glosario
    `b1ca4b4`). No hagas push
@@ -75,7 +75,7 @@ lecturas y siete mutaciones de API v1 (`project_actions.py`) para ambas familias
 externos. Las comparaciones cubren estados y formularios a 1450/900/390 px.
 Conserva los puentes de entrada/estado y el fallback anterior.
 
-**Planeación AER parcial:** `project_aer_planning.py` expone ocho POST explícitos
+**Planeación AER completa:** `project_aer_planning.py` expone ocho POST explícitos
 en `screens/proyectos/<id>/planeacion-aer/<operacion>/`; `aer_planning.js` separa
 guardado, cierre/estado, vacaciones, importación y borrado simple/por lote.
 Conserva confirmación de sobreasignación, confirmación física del borrado por
@@ -85,13 +85,13 @@ seguro/eventos externos. `aer_planning_model.js` contiene recursos, ocupación,
 capacidad y parser sin cambiar resultados; hay comparación Node con el original.
 La vista principal ya usa `aer_planning_view.js`, `aer_planning_timeline.js` y
 `aer_planning_tables.js`; indicadores/fechas del Gantt están en el modelo.
-La ruta nueva no ejecuta `_aerVistaPlaneacion`. Filtros, selección y estado del
-rango todavía delegan a auxiliares anteriores; no contar la pestaña como terminada.
+La ruta nueva no ejecuta `_aerVistaPlaneacion`. Filtros, selección y rango usan
+`aer_planning_controls.js`, `aer_planning_filters_model.js` y
+`aer_planning_filter_view.js`. Los puentes mantienen solamente el enlace al estado
+y ciclo de vida compartidos; los controles no ejecutan sus auxiliares anteriores.
 
-**Siguiente bloque sugerido:** filtros, selección de tabla y estado del rango
-de Planeación AER (incluido el popup de filtros);
-reutilizar las operaciones nuevas. Después Esfuerzo, Riesgos,
-Recursos e IA de AER. Quedan también
+**Siguiente bloque sugerido:** Esfuerzo AER; después Riesgos,
+Recursos e IA de AER. No reabrir Planeación como pendiente. Quedan también
 encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,
 `_ixeAuto`). Al final: limpieza de archivos anteriores y CSP. Genesis/accesos

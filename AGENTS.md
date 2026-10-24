@@ -148,10 +148,13 @@ Recursos, ocupación, capacidad y parser de importación usan el modelo puro
 agrupaciones del Gantt también están en ese modelo. La vista principal usa
 `aer_planning_view.js`, `aer_planning_timeline.js` y `aer_planning_tables.js`
 con DOM seguro y eventos externos, sin ejecutar `_aerVistaPlaneacion`.
-**Planeación AER todavía es parcial:** filtros, selección y estado del rango
-siguen delegando a sus auxiliares anteriores. Continuar por esos controles.
+Planeación AER está migrada: `aer_planning_controls.js`,
+`aer_planning_filters_model.js` y `aer_planning_filter_view.js` ya manejan
+búsqueda/filtros, selección y rango con DOM seguro/eventos externos. Los puentes
+solo conservan el enlace al estado y ciclo de vida compartidos; la ruta activa
+no ejecuta los auxiliares anteriores de estos controles. Ver pruebas en el plan.
 En AER faltan las pestañas
-Planeación, Esfuerzo, Riesgos, Recursos e IA. Planeación IXB usa módulos de
+Esfuerzo, Riesgos, Recursos e IA. Continuar por Esfuerzo AER. Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo
 anterior. Extraerlos junto con encabezados/navegación/entrada compartidos antes
