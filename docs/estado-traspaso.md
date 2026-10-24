@@ -2,7 +2,36 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: operaciones de Planeación AER (parcial)
+## Bloque actual: formularios y modelo de Planeación AER (parcial)
+
+- `aer_planning_forms.js`: alta/edición de actividades/hitos, vacaciones y carga
+  CSV/TSV; DOM seguro/eventos externos, mismos campos, estados, avisos y diseño.
+  El controlador `aer_planning.js` los conecta a sus operaciones API existentes.
+  No usa `_aerModal` ni los constructores anteriores en la ruta nueva.
+- `aer_planning_model.js`: recursos, ocupación actual, consumo/máximo de capacidad,
+  parser y fechas de importación, extraídos sin cambiar las reglas. Los wrappers
+  compartidos delegan; formularios/guardados lo usan directamente. Las pruebas
+  Node comparan contra los originales, incluidos casos límite y datos vacíos.
+- Siguiente: modelo de indicadores/fechas del Gantt y vista principal; después
+  filtros y selección de tabla. Esos bloques todavía usan `_aerVistaPlaneacion`
+  y auxiliares anteriores. **Planeación AER y fase 10 siguen parciales**.
+- Después faltan Esfuerzo, Riesgos, Recursos e IA AER; encabezado/navegación/estado
+  y auxiliares compartidos IXB; retirar dependencia del script/shim en la ruta
+  nueva. Fase 11: limpieza anterior y CSP. Genesis/accesos sigue como despliegue.
+- Capturas: `tmp/migration/project_detail/aer_planning_forms/` (sobrecarga,
+  capacidad completa, cierre y edición de vacaciones) y `aer_planning_transport/`.
+  Inspeccionados el editor con sobreasignación en escritorio y vacaciones en móvil.
+  Validación: **40 pruebas de Planeación** y **48 de regresión** (entrada,
+  Ejecutivo AER, Acciones y soporte), todas aprobadas; 30 comparaciones de
+  Planeación a 1450/900/390 px, incluidas cajas/estilos/texto y valores/disabled.
+  Doce Node del modelo y diez del cliente de datos aprobadas; suite completa
+  **212 aprobadas y los tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, Django y diff aprobados.
+  No hay cambios de backend en este bloque; no se repitieron las 49 API anteriores.
+  Sin fuentes reales.
+  Temporales ajenos intactos; sin push.
+
+## Bloque anterior: operaciones de Planeación AER (parcial)
 
 - `project_aer_planning.py`: ocho POST explícitos de guardar/importar, estado,
   cierre, borrar simple/lote y guardar/borrar vacaciones. Firmas y servicios

@@ -99,7 +99,13 @@ def test_forms_match_previous(portal, planning, fixed_day, width, form):
         )
         portal.mouse.move(0, 0)
         snapshots.append(state(portal, "#aer-modal-back, #aer-modal-back *"))
-    assert snapshots[0] == snapshots[1]
+        snapshots.append(
+            portal.locator("#aer-modal-back").evaluate(
+                "root => [...root.querySelectorAll('input,select,textarea')]"
+                ".map(e=>({id:e.id,value:e.value,disabled:e.disabled}))"
+            )
+        )
+    assert snapshots[:2] == snapshots[2:]
 
 
 def test_plan_save_retry_preserves_fields_and_capacity_rule(

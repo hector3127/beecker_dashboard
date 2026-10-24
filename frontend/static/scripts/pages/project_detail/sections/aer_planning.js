@@ -1,4 +1,11 @@
-// AER writes use API v1; view/forms and capacity rules remain in their bridge.
+// AER writes and forms are modular; the main planning view is still transitional.
+import { capacity, parsePlanText } from "./aer_planning_model.js";
+import {
+  openPlan,
+  openVacation,
+  openImport,
+  previewImport,
+} from "./aer_planning_forms.js";
 const value = (id) => document.getElementById(id)?.value ?? "";
 const today = () => new Date().toISOString().slice(0, 10);
 const message = (e) => e?.message || String(e || "Error desconocido");
@@ -47,7 +54,19 @@ export function createAerPlanning(api) {
           if (live() && modal?.isConnected) saver.error(message(e));
         }
       }
-      return {
+      const methods = {
+        openPlan(uid = "") {
+          return openPlan(env.dashboard, uid, methods);
+        },
+        openVacation(uid = "") {
+          return openVacation(env.dashboard, uid, methods);
+        },
+        openImport() {
+          return openImport(env.dashboard, methods);
+        },
+        previewImport() {
+          return previewImport(env.dashboard);
+        },
         saveVacation(uid) {
           return save(
             "vacacion-guardar",
@@ -82,7 +101,8 @@ export function createAerPlanning(api) {
         },
         savePlan(uid) {
           const estado = value("ap-est") || "Por iniciar";
-          const cap = env.capacity(
+          const cap = capacity(
+            env.dashboard,
             value("ap-resp"),
             value("ap-ip"),
             value("ap-fp"),
@@ -301,7 +321,10 @@ export function createAerPlanning(api) {
             }
           };
           try {
-            const parsed = env.parse(value("aer-plan-text"));
+            const parsed = parsePlanText(
+              value("aer-plan-text"),
+              env.dashboard.proyecto || {},
+            );
             if (!parsed.ok) {
               statusText(parsed.error, "#c3273e");
               return;
@@ -371,6 +394,7 @@ export function createAerPlanning(api) {
           }
         },
       };
+      return methods;
     },
   };
 }

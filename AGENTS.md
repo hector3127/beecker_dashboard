@@ -141,9 +141,12 @@ conserva los puentes de entrada/estado y el fallback para comparar.
 Planeación AER ya guarda actividades/hitos, estados/cierres, vacaciones,
 importaciones y borrados individuales/por lote por API v1 en
 `project_aer_planning.py` y `sections/aer_planning.js`. Conserva las firmas y
-los servicios anteriores. Su vista, formularios, filtros, parser de importación
-y cálculos de capacidad siguen anteriores: **Planeación AER todavía es parcial**.
-Continuar separando esos bloques, sin reimplementar ni corregir sus reglas.
+los servicios anteriores. Sus formularios de actividades/hitos, vacaciones e
+importación ya usan DOM seguro/eventos externos (`aer_planning_forms.js`).
+Recursos, ocupación, capacidad y parser de importación usan el modelo puro
+`aer_planning_model.js`, contrastado con el anterior. **Planeación AER todavía
+es parcial:** faltan el modelo de indicadores/fechas del Gantt, la vista principal,
+filtros y selección de tabla. Continuar por esos bloques, sin cambiar las reglas.
 En AER faltan las pestañas
 Planeación, Esfuerzo, Riesgos, Recursos e IA. Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como

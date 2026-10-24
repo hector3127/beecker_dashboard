@@ -9,8 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local separa las operaciones
-   por API de Planeación AER; el anterior completó Acciones AER/IXS.
+   diferencia con `origin/main`. El último bloque local separa los formularios
+   y modelo de capacidad/importación de Planeación AER; las operaciones por API
+   y Acciones AER/IXS ya estaban separadas.
    Claude completó Cliente y el Centro
    de Comunicación IXB/SaaS/RaaS (posterior al glosario
    `b1ca4b4`). No hagas push
@@ -79,10 +80,13 @@ en `screens/proyectos/<id>/planeacion-aer/<operacion>/`; `aer_planning.js` separ
 guardado, cierre/estado, vacaciones, importación y borrado simple/por lote.
 Conserva confirmación de sobreasignación, confirmación física del borrado por
 lote, borradores al reintentar y protección frente a respuestas antiguas.
-La vista/formularios/filtros/parser/capacidad siguen anteriores; no contar la
-pestaña como terminada.
+`aer_planning_forms.js` ya presenta los tres formularios y sus avisos con DOM
+seguro/eventos externos. `aer_planning_model.js` contiene recursos, ocupación,
+capacidad y parser sin cambiar resultados; hay comparación Node con el original.
+La vista principal y filtros siguen anteriores; no contar la pestaña como terminada.
 
-**Siguiente bloque sugerido:** modelo, vista y formularios de Planeación AER;
+**Siguiente bloque sugerido:** modelo de indicadores/fechas del Gantt y vista
+principal de Planeación AER; después filtros y selección de tabla;
 reutilizar las operaciones nuevas. Después Esfuerzo, Riesgos,
 Recursos e IA de AER. Quedan también
 encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven

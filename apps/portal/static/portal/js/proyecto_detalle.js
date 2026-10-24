@@ -2853,7 +2853,7 @@
   }
 
 
-  function _aerRecursosProyecto() {
+  function _aerRecursosProyecto() {if(window.beeAerPlanningModel)return window.beeAerPlanningModel.resources(aerDashboardData);
     const vals=[];
     ((aerDashboardData&&aerDashboardData.detalleRecursos)||[]).forEach(x=>vals.push(x.recurso));
     ((((aerDashboardData||{}).plan||{}).filas)||[]).forEach(x=>vals.push(x.responsable));
@@ -2907,7 +2907,7 @@
 
   function _aerVacEstadoClase(v){const s=_aerNormFilter(v);return /cancel|rechaz/.test(s)?'cancel':/pend/.test(s)?'pending':''}
 
-  function aerAbrirVacacion(uid=''){
+  function aerAbrirVacacion(uid=''){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().openVacation(uid);
     const x=((((aerDashboardData||{}).vacaciones||{}).filas)||[]).find(v=>v.uid===uid)||{};
     const recursos=_aerRecursosProyecto();
     _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Registrar'} vacaciones</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label>Recurso<select id="av-rec">${recursos.map(n=>`<option value="${_aerEsc(n)}" ${x.recurso===n?'selected':''}>${_aerEsc(n)}</option>`).join('')}</select></label><label>Estado<select id="av-est">${['Aprobada','Pendiente','Cancelada'].map(v=>`<option ${x.estado===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Inicio<input id="av-ini" type="date" value="${x.inicio||''}"></label><label>Fin<input id="av-fin" type="date" value="${x.fin||''}"></label><label>Registrado por<input id="av-reg" value="${_aerEsc(x.registradoPor||'')}"></label><label class="aer-span2">Comentarios<textarea id="av-com">${_aerEsc(x.comentarios||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn danger" onclick="aerEliminarVacacion('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarVacacion('${uid}')">Guardar</button></div>`);
@@ -2917,7 +2917,7 @@
     return window.beeAerPlanning.bind({id:snapshot.proyecto.id,dashboard:snapshot,
       current:()=>aerDashboardData===snapshot,active:()=>aerTabActual==='planeacion',
       paint:_aerRenderTab,reload:aerRecargarProyecto,error:showError,
-      saving:_aerStartSaving,capacity:_aerMaxCapacidadEnRango,parse:_aerParsePlanText
+      saving:_aerStartSaving
     });
   }
   function aerGuardarVacacion(uid){if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().saveVacation(uid);
@@ -3976,7 +3976,7 @@ function aerEliminarDocumentoCliente(uid){
     return opts.map(x=>`<option value="${x}" ${sel===x?'selected':''}>${x}</option>`).join('');
   }
 
-  function _aerFilaConsumeCapacidad(x, fechaIso) {
+  function _aerFilaConsumeCapacidad(x, fechaIso) {if(window.beeAerPlanningModel)return window.beeAerPlanningModel.consumesCapacity(x,fechaIso);
     if (!x) return false;
     const tipo=String(x.tipo||'').toLowerCase();
     const estado=String(x.estado||'').toLowerCase();
@@ -3989,7 +3989,7 @@ function aerEliminarDocumentoCliente(uid){
     return true;
   }
 
-  function _aerOcupacionActualPorResponsable(filas) {
+  function _aerOcupacionActualPorResponsable(filas) {if(window.beeAerPlanningModel)return window.beeAerPlanningModel.occupancy(filas);
     const hoy=_aerTodayIso();
     const nombres=[...new Set((filas||[])
       .map(x=>String(x.responsable||'').trim())
@@ -4008,7 +4008,7 @@ function aerEliminarDocumentoCliente(uid){
     return map;
   }
 
-  function _aerMaxCapacidadEnRango(responsable,inicio,fin,excluirUid='',puntosNuevo=0,estadoNuevo='En progreso',tipoNuevo='Actividad') {
+  function _aerMaxCapacidadEnRango(responsable,inicio,fin,excluirUid='',puntosNuevo=0,estadoNuevo='En progreso',tipoNuevo='Actividad') {if(window.beeAerPlanningModel)return window.beeAerPlanningModel.capacity(aerDashboardData,responsable,inicio,fin,excluirUid,puntosNuevo,estadoNuevo,tipoNuevo);
     responsable=String(responsable||'').trim();
     if(!responsable || /^pendiente$/i.test(responsable)) return {max:0,actual:0};
     const hoy=_aerTodayIso();
@@ -4239,7 +4239,7 @@ function aerEliminarDocumentoCliente(uid){
     });
   }
 
-  function aerAbrirPlan(uid='') {
+  function aerAbrirPlan(uid='') {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().openPlan(uid);
     const x=((aerDashboardData.plan||{}).filas||[]).find(r=>r.uid===uid)||{};
     const estado=x.estado||'Por iniciar';
     const esfuerzo=x.esfuerzo!=null?x.esfuerzo:(x.orden||0);
@@ -4472,7 +4472,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     const p = (aerDashboardData && aerDashboardData.proyecto) || {};
     if (window.beeProjectCommunique && p.id) window.beeProjectCommunique.open({ projectId: p.id, projectName: p.nombre || '', family: 'aer' });
   }
-  function aerAbrirImportPlan() {
+  function aerAbrirImportPlan() {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().openImport();
     _aerModal(`<div style="display:flex;justify-content:space-between;gap:16px"><div><h3>Cargar planeación / hitos</h3><div class="aer-sub">Pega una tabla de Excel/Sheets (TSV) o un CSV con: Tipo, Actividad, Responsable, Inicio_Plan, Fin_Plan, Inicio_Real, Fin_Real, Avance, Estado, Dependencia, Notas</div></div><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div>
       <input type="file" id="aer-plan-file" accept=".csv,.tsv,.txt" style="margin:12px 0">
       <textarea id="aer-plan-text" style="width:100%;min-height:250px;box-sizing:border-box;font-family:monospace" placeholder="También puedes pegar aquí los datos tabulados"></textarea>
@@ -4494,7 +4494,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     if(ta) ta.addEventListener('input',()=>aerPrevisualizarImportPlan());
   }
 
-  function _aerNormalizarFechaImport(v) {
+  function _aerNormalizarFechaImport(v) {if(window.beeAerPlanningModel)return window.beeAerPlanningModel.normalizeImportDate(v,aerDashboardData&&aerDashboardData.proyecto||{});
     const s=String(v||'').trim();
     if(!s) return '';
     if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
@@ -4515,7 +4515,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     return String(line||'').split(delim);
   }
 
-  function _aerParsePlanText(txt) {
+  function _aerParsePlanText(txt) {if(window.beeAerPlanningModel)return window.beeAerPlanningModel.parsePlanText(txt,aerDashboardData&&aerDashboardData.proyecto||{});
     txt=String(txt||'').replace(/\u00a0/g,' ').replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim();
     if(!txt) return {ok:false,error:'Pega o carga datos primero.',items:[]};
     const lines=txt.split('\n').map(x=>x.replace(/\s+$/,'')).filter(x=>x.trim());
@@ -4557,7 +4557,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     return {ok:true,items,errores,delim,header};
   }
 
-  function aerPrevisualizarImportPlan() {
+  function aerPrevisualizarImportPlan() {if(window.beeAerPlanning&&aerDashboardData)return aerPlaneacionModular().previewImport();
     const status=document.getElementById('aer-plan-import-status');
     if(!status) return;
     const parsed=_aerParsePlanText(_aerVal('aer-plan-text'));
