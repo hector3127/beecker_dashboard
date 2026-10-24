@@ -11058,8 +11058,16 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     `;
     document.head.appendChild(style);
   }
+  function aerIAFuentesModulares(){
+    const snapshot=aerDashboardData,state=aerIAState;
+    return window.beeAerAiSources.bind({id:snapshot.proyecto.id,state,
+      current:()=>aerDashboardData&&aerDashboardData.proyecto.id===snapshot.proyecto.id&&aerIAState===state,
+      active:()=>aerTabActual==='ia',paint:_aerRenderTab,context:aerIAContexto,
+      toast:_aerToast,openConfig:aerIAAbrirConfigMinutas});
+  }
   function aerIAHoy(){ const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10); }
   function aerIAContexto(){
+    if(window.beeAerAiModel)return window.beeAerAiModel.context(aerDashboardData,aerIAState);
     const d=aerDashboardData||{},k=d.kpis||{};
     const list=(obj)=>((obj||{}).filas||[]);
     const plan=list(d.plan),rec=d.detalleRecursos||[];
@@ -11076,6 +11084,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
       b:(aerIAState.accionesPartes||[]).filter(x=>x.estado!=='Completado').map(x=>({a:x.accion,o:x.responsable,f:x.fechaLimite,e:x.estado,n:x.notas}))};
   }
   function aerIAHechos(){
+    if(window.beeAerAiModel)return window.beeAerAiModel.facts(aerDashboardData,aerIAState);
     const c=aerIAContexto(),h=c.fecha,lim=new Date(h+'T12:00:00');lim.setDate(lim.getDate()+30);
     const to=lim.toISOString().slice(0,10);
     const activos=c.p.filter(x=>!/completado|detenido|por validar/i.test(x.e||''));
@@ -11099,6 +11108,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     return m?m[3]+'/'+m[2]+'/'+m[1]+' a las '+m[4]+':'+m[5]:value;
   }
   function aerIACargarResumenEjecutivo(){
+    if(window.beeAerAiSources&&aerDashboardData)return aerIAFuentesModulares().summary();
     if(!aerDashboardData||aerIAState.cargandoResumen||aerIAState.resumenConsultado)return;
     aerIAState.cargandoResumen=true;const id=aerDashboardData.proyecto.id;
     google.script.run.withSuccessHandler(r=>{if(aerIAState.id!==id)return;
@@ -11251,6 +11261,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   function aerIAMetro(name,num,color,right){let n=Math.max(0,Number(num)||0);return `<div class="aeri-metric"><span title="${_aerEsc(name)}" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${_aerEsc(name)}</span><span class="aeri-track"><i class="aeri-fill" style="display:block;width:${Math.min(100,n)}%;background:${color}"></i></span><b style="text-align:right;font-size:10px">${_aerEsc(right==null?Math.round(n)+'%':right)}</b></div>`;}
   function aerIAAviso(node,msg,fail){if(node)node.innerHTML=`<div class="aeri-answer" style="${fail?'color:#b62843;background:#fff2f4':''}">${_aerEsc(msg)}</div>`;}
   function aerIACargarAnalisis(){
+    if(window.beeAerAiSources&&aerDashboardData)return aerIAFuentesModulares().analysis();
     if(!aerDashboardData || aerIAState.cargandoAnalisis || aerIAState.analisis || aerIAState.analisisConsultado)return;
     const id=aerDashboardData.proyecto.id,ctx=aerIAContexto();
     aerIAState.cargandoAnalisis=true;
@@ -11334,6 +11345,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     google.script.run.withSuccessHandler(r=>{if(btn){btn.disabled=false;btn.textContent='Generar borrador';}const box=document.getElementById('aeri-mail-out');if(!box)return;aerIAAviso(box,r&&r.ok?r.texto:r&&r.error||'Error',!(r&&r.ok));}).withFailureHandler(e=>{if(btn){btn.disabled=false;btn.textContent='Reintentar';}aerIAAviso(document.getElementById('aeri-mail-out'),e.message,true);}).redactarCorreoClaudeAER(aerDashboardData.proyecto.id,aerIAContexto(),q);
   }
   function aerIACargarMinutas(){
+    if(window.beeAerAiSources&&aerDashboardData)return aerIAFuentesModulares().minutes();
     if(!aerDashboardData||aerIAState.cargandoMinutas||aerIAState.minutas!==null)return;
     aerIAState.cargandoMinutas=true;const id=aerDashboardData.proyecto.id;
     google.script.run.withSuccessHandler(r=>{aerIAState.cargandoMinutas=false;if(aerIAState.id!==id)return;
@@ -11498,6 +11510,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     }).obtenerPromptMinutaDefectoAER(id);
   }
   function aerIACargarConfigMinutas(abrirModal){
+    if(window.beeAerAiSources&&aerDashboardData)return aerIAFuentesModulares().config(abrirModal);
     if(!aerDashboardData)return;
     if(aerIAState.config!==null){if(abrirModal)aerIAAbrirConfigMinutas();return;}
     if(aerIAState.cargandoConfig){if(abrirModal)_aerToast('Cargando configuración de minutas…');return;}
@@ -11554,6 +11567,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     }).guardarConfigCarpetaMinutasAER(id,config);
   }
   function aerIABuscarMinutasDrive(){
+    if(window.beeAerAiSources&&aerDashboardData)return aerIAFuentesModulares().files();
     if(!aerDashboardData||aerIAState.buscando)return;
     if(!aerIAState.config || !aerIAState.config.folderUrl || !aerIAState.config.nombreFrecuente){
       _aerToast('Configura primero la carpeta y el nombre frecuente.','error');aerIAAbrirConfigMinutas();return;

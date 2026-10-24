@@ -171,7 +171,17 @@ seguro/eventos externos. Guardado/borrado usan API `project_aer_resources.py`,
 con firmas y servicios anteriores; la lectura llega en el dashboard AER existente.
 Conserva últimas evaluaciones globales del proyecto en la gráfica y selección
 por persona solo en su resumen. No ejecuta su renderer/formulario anteriores.
-En AER falta IA. Continuar por IA AER. Planeación IXB usa módulos de
+IA AER tiene un primer bloque separado: `project_aer_ai.py` expone cinco
+lecturas guardadas/Drive por API v1 con los servicios y permisos anteriores.
+`aer_ai_sources.js` conserva caché/estados y descarta respuestas de otro estado
+o proyecto; refrescar el mismo proyecto no deja cargas bloqueadas.
+`aer_ai_model.js` conserva contexto y hechos/alertas (límite de 28 compromisos
+en el contexto y esfuerzo de 6 puntos). Su CSS principal está externo en
+`project_detail_aer_ai.css`, con comparación visual en tres tamaños.
+**IA AER sigue parcial:** presentación, formularios y acciones de generación/
+guardado todavía son anteriores. Continuar por vista y acciones de IA AER,
+sin repetir las lecturas/modelo ni confundirlas con pestaña completa.
+Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo
 anterior. Extraerlos junto con encabezados/navegación/entrada compartidos antes

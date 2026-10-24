@@ -14,6 +14,34 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("AER saved AI sources encode context only for analysis without writes", async () => {
+  const calls = [],
+    result = { ok: true },
+    ctx = { id: "AER.001", p: [{ a: "Tarea & revisión" }] };
+  const data = context.createProjectData(async (...args) => {
+    calls.push(args);
+    return { data: result };
+  });
+  for (const source of [
+    "analisis",
+    "resumen",
+    "minutas",
+    "config",
+    "archivos",
+  ]) {
+    assert.equal(await data.aerAiSource("AER.001 | CR", source, ctx), result);
+    const call = calls.at(-1);
+    assert.equal(
+      call[0],
+      `screens/proyectos/AER.001%20%7C%20CR/ia-aer/${source}/`,
+    );
+    if (source === "analisis")
+      assert.equal(call[1].contexto, JSON.stringify(ctx));
+    else assert.equal(call[1], undefined);
+    assert.equal(call[2].timeout, 90000);
+  }
+});
+
 test("AER evaluation writes retain project, payload, operation and timeout", async () => {
   const calls = [],
     response = { ok: true, evaluaciones: { filas: [] } };

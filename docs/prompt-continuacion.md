@@ -9,7 +9,8 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local migra Recursos AER,
+   diferencia con `origin/main`. El último bloque local separa lecturas, modelo
+   y CSS de IA AER (pestaña todavía parcial). Recursos AER está completo,
    incluidas evaluaciones, editor y guardado/borrado por API. Riesgos AER,
    Esfuerzo AER (registros por rango
    y «Ver más»), Planeación AER y
@@ -114,7 +115,18 @@ del proyecto completo y próxima evaluación incluye fechas pasadas. DOM seguro,
 SVG y editor externo; no ejecuta renderer/formulario anteriores. Quince
 comparaciones en tres tamaños; pruebas y evidencia en el traspaso.
 
-**Siguiente bloque sugerido:** IA AER.
+**IA AER parcial:** `project_aer_ai.py` expone cinco GET de análisis/resumen
+guardados, minutas, configuración y archivos. `aer_ai_sources.js` maneja
+caché/estados y respuestas tardías; `aer_ai_model.js` conserva contexto y
+hechos/alertas. CSS principal externo `project_detail_aer_ai.css`, con link
+`aer-ia-styles-v55`. Comparado contra la anterior en tres tamaños. Mantener
+límite de 28 compromisos en contexto, ocupación de toda la planeación y umbral
+6 puntos. No consultar Claude/Drive/Sheets reales en pruebas.
+
+**Siguiente bloque sugerido:** vista, formularios y acciones de IA AER
+(análisis, preguntas, correo, resumen, generación/guardado de minutas y
+configuración). Esas partes siguen anteriores/RPC; no marcar la pestaña como
+completa por sus lecturas/modelo/CSS ni volver a separarlos.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
 encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,

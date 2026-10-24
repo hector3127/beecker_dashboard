@@ -1,0 +1,526 @@
+#aer-tab-content .aeri {
+  font-size: 11px;
+  color: #24204d;
+  min-width: 0;
+  display: grid;
+  gap: 11px;
+}
+.aeri * {
+  box-sizing: border-box;
+}
+.aeri h3 {
+  margin: 0;
+  color: #21194f;
+  font-size: 13px;
+  line-height: 1.25;
+}
+.aeri-muted {
+  font-size: 10px;
+  color: #81799c;
+  line-height: 1.45;
+}
+.aeri-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.aeri-title {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+.aeri-title .icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #eee8ff;
+  color: #6125d7;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+}
+.aeri-kpis {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 9px;
+}
+.aeri-memory {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-width: 0;
+  border: 1px solid #e6ddff;
+  border-radius: 11px;
+  padding: 9px 12px;
+  background: linear-gradient(100deg, #f8f5ff, #fff);
+  color: #49377f;
+}
+.aeri-memory strong {
+  display: block;
+  font-size: 10.5px;
+  color: #3b2390;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+.aeri-memory small {
+  display: block;
+  font-size: 9.5px;
+  color: #81789a;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+.aeri-memory .aer-btn {
+  flex: 0 0 auto;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.aeri-memory.pending {
+  background: #faf9ff;
+  border-style: dashed;
+}
+.aeri-card {
+  border: 1px solid #e5e1f3;
+  border-radius: 13px;
+  background: #fff;
+  padding: 13px;
+  min-width: 0;
+  overflow: hidden;
+}
+.aeri-stat {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.aeri-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  flex: 0 0 auto;
+  background: #f0eafe;
+  color: #622de1;
+}
+.aeri-icon.red {
+  background: #ffedf1;
+  color: #d92e4a;
+}
+.aeri-icon.gold {
+  background: #fff4e0;
+  color: #e19b00;
+}
+.aeri-icon.blue {
+  background: #eaf0ff;
+  color: #3765d8;
+}
+.aeri-icon.green {
+  background: #e7f7ef;
+  color: #198e57;
+}
+.aeri-stat label {
+  display: block;
+  font-size: 9px;
+  color: #6c6689;
+  font-weight: 750;
+  letter-spacing: 0.05px;
+}
+.aeri-stat strong {
+  display: block;
+  color: #1c174c;
+  font-size: 19px;
+  line-height: 1.15;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+.aeri-stat small {
+  display: block;
+  font-size: 9px;
+  color: #847b9f;
+  margin-top: 4px;
+}
+.aeri-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 11px;
+}
+.aeri-grid3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 11px;
+}
+.aeri-cardtitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.aeri-point {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0edf7;
+}
+.aeri-point:last-child {
+  border-bottom: 0;
+}
+.aeri-point span.bullet {
+  color: #642bd9;
+  font-size: 13px;
+}
+.aeri-point p {
+  margin: 0;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.aeri-rec {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  gap: 7px;
+  align-items: start;
+  padding: 8px 0;
+  border-bottom: 1px solid #efedf6;
+}
+.aeri-rec:last-child {
+  border-bottom: 0;
+}
+.aeri-rec .dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 4px;
+  background: #eb9b08;
+  border-radius: 50%;
+}
+.aeri-rec b {
+  display: block;
+  font-size: 10.4px;
+}
+.aeri-rec small {
+  font-size: 9px;
+  color: #7a7294;
+}
+.aeri-chip {
+  font-size: 9px;
+  color: #5f2dcc;
+  background: #f0ebff;
+  padding: 4px 7px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+.aeri-metric {
+  display: grid;
+  grid-template-columns: 70px 1fr 37px;
+  gap: 7px;
+  align-items: center;
+  margin: 9px 0;
+  font-size: 10px;
+}
+.aeri-track {
+  background: #eeeaf6;
+  border-radius: 99px;
+  height: 9px;
+  overflow: hidden;
+}
+.aeri-fill {
+  height: 100%;
+  background: #6430db;
+  border-radius: 99px;
+}
+.aeri-evidence {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  border-top: 1px solid #eeeaf5;
+  padding-top: 9px;
+  margin-top: 9px;
+}
+.aeri-evidence button {
+  font-size: 9px;
+  padding: 5px 8px;
+}
+.aeri-form {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 8px 0;
+}
+.aeri-form input,
+.aeri-form textarea {
+  border: 1px solid #dfd8f2;
+  border-radius: 9px;
+  padding: 8px 10px;
+  min-width: 0;
+  flex: 1;
+  color: #251f53;
+  background: #fff;
+  font-size: 11px;
+}
+.aeri-form textarea {
+  width: 100%;
+  resize: vertical;
+}
+.aeri-answer {
+  border: 1px solid #e7e0fb;
+  background: #fbf9ff;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin-top: 8px;
+}
+.aeri-mini {
+  padding: 8px 0;
+  border-bottom: 1px solid #f1edf7;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.aeri-mini:last-child {
+  border: 0;
+}
+.aeri-mini b {
+  font-size: 10px;
+}
+.aeri-mini small {
+  color: #817a99;
+  font-size: 9px;
+}
+.aeri-mutedfoot {
+  border-top: 1px solid #eeeaf6;
+  margin-top: 9px;
+  padding-top: 8px;
+  color: #847b9b;
+  font-size: 9px;
+}
+.aeri-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+.aeri-table th {
+  background: #f5f2fc;
+  color: #554c74;
+  text-align: left;
+  padding: 8px;
+}
+.aeri-table td {
+  padding: 8px;
+  border-bottom: 1px solid #efeafa;
+  vertical-align: top;
+}
+.aeri-chat-summary {
+  max-height: 355px;
+  overflow-y: auto;
+  white-space: normal;
+  font-size: 11px;
+  line-height: 1.65;
+}
+.aeri-chat-summary-content {
+  overflow-wrap: anywhere;
+}
+.aeri-chat-summary-status {
+  font-size: 10px;
+  color: #4b4380;
+  border-top: 1px solid #e8e2fa;
+  margin-top: 11px;
+  padding-top: 8px;
+}
+.aeri-minuta-short {
+  font-size: 11px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  max-height: 165px;
+  overflow-y: auto;
+  color: #302c54;
+}
+.aeri-minuta-row {
+  cursor: pointer;
+  transition: background 0.16s ease;
+}
+.aeri-minuta-row:hover,
+.aeri-minuta-row:focus {
+  background: #f6f2ff;
+  outline: 0;
+}
+.aeri-minuta-row:focus-visible {
+  outline: 2px solid #6735df;
+  outline-offset: -2px;
+}
+.aeri-minuta-preview {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.aeri-minuta-read {
+  font: inherit;
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.65;
+  padding: 16px;
+  background: #faf8ff;
+  border: 1px solid #e8e2fa;
+  border-radius: 12px;
+  color: #26204f;
+  max-height: 62vh;
+  overflow-y: auto;
+}
+.aeri-minuta-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
+}
+.aeri-minuta-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+.aeri-minuta-open {
+  white-space: nowrap;
+  font-size: 10px;
+}
+.aeri-minuta-recent {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 8px 6px;
+}
+.aeri-minuta-recent:hover,
+.aeri-minuta-recent:focus-visible {
+  background: #f6f2ff;
+  outline: 2px solid #6735df;
+  outline-offset: -2px;
+}
+@media (max-width: 650px) {
+  .aeri-minuta-preview {
+    max-width: 150px;
+  }
+  .aeri-minuta-open {
+    padding: 6px !important;
+  }
+}
+.aeri-config-modal {
+  font-size: 11px;
+  gap: 10px;
+}
+.aeri-config-modal .aeri-cardtitle {
+  margin-bottom: 4px;
+}
+.aeri-config-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  min-width: 0;
+}
+.aeri-config-fields label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #4c416b;
+  min-width: 0;
+}
+.aeri-config-fields input {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: 6px;
+  background: #fff;
+  border: 1px solid #dcd5f0;
+  border-radius: 9px;
+  padding: 9px 10px;
+  font-size: 11px;
+  color: #251f53;
+}
+.aeri-config-fields .aeri-muted {
+  margin-top: -6px;
+  overflow-wrap: anywhere;
+}
+.aeri-drivegrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr) auto auto;
+  gap: 8px;
+  align-items: end;
+}
+.aeri-drivegrid label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #504670;
+  min-width: 0;
+}
+.aeri-drivegrid input {
+  width: 100%;
+  margin-top: 5px;
+  border: 1px solid #dcd5f0;
+  border-radius: 9px;
+  padding: 8px 9px;
+  font-size: 11px;
+  color: #251f53;
+}
+.aeri-drivefiles {
+  max-height: 290px;
+  overflow: auto;
+  border: 1px solid #ebe6f6;
+  border-radius: 10px;
+}
+.aeri-driveitem {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #f0edfa;
+  font-size: 10px;
+}
+.aeri-driveitem:last-child {
+  border: 0;
+}
+.aeri-driveitem small {
+  display: block;
+  font-size: 9px;
+  color: #81799c;
+  margin-top: 3px;
+}
+.aeri-driveitem a {
+  color: #512dd0;
+  text-decoration: none;
+}
+.aeri-driveitem input {
+  accent-color: #6638df;
+}
+@media (max-width: 850px) {
+  .aeri-drivegrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .aeri-driveitem {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+}
+@media (max-width: 1100px) {
+  .aeri-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .aeri-grid3 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 760px) {
+  .aeri-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .aeri-row,
+  .aeri-grid3 {
+    grid-template-columns: 1fr;
+  }
+}

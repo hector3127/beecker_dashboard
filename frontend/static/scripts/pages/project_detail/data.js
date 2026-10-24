@@ -16,6 +16,16 @@ export function createProjectData(get = apiGet, send = apiSend) {
       )
     ).data;
   return {
+    aerAiSource: async (id, source, context) =>
+      (
+        await get(
+          `screens/proyectos/${encodeURIComponent(id)}/ia-aer/${encodeURIComponent(source)}/`,
+          source === "analisis"
+            ? { contexto: JSON.stringify(context || {}) }
+            : undefined,
+          { timeout: 90000 },
+        )
+      ).data,
     saveAerEvaluation: async (id, operation, body) =>
       (
         await send(

@@ -2,7 +2,41 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: Recursos AER
+## Bloque actual: IA AER — lecturas, modelo y CSS (parcial)
+
+- `project_aer_ai.py`: cinco GET explícitos en
+  `screens/proyectos/<id>/ia-aer/{analisis,resumen,minutas,config,archivos}/`.
+  Mismos servicios de `apps.aer.services.ai_functions` y contexto de `ai_rpc`;
+  no genera análisis. `view_operations` y alcance total antes de fuentes,
+  excepto configuración con `manage_integrations`, como su RPC anterior.
+  El contexto comparativo del análisis guardado se recibe como query JSON objeto.
+- `aer_ai_sources.js`: cargas/caché de análisis y resumen guardados, minutas,
+  configuración y búsqueda Drive. Conserva restauración, avisos y reintentos;
+  no pisa análisis recién generado. Descarta respuestas de otro estado/proyecto.
+  Refresco del mismo proyecto conserva las cargas sin dejar flags bloqueados.
+- `aer_ai_model.js`: contexto y hechos/alertas exactos, contrastados con el
+  anterior. Mantener 28 compromisos en el contexto, ocupación sobre toda la
+  planeación, umbral 6, filtros de estados/vacaciones y ventana de 30 días.
+- `project_detail_aer_ai.css`: CSS principal externo; link `aer-ia-styles-v55`
+  evita la reinyección en la ruta nueva. La referencia anterior sigue igual.
+- **IA AER sigue parcial:** `aerIAVista`, presentación y formularios aún son
+  anteriores. Generación de análisis/preguntas/correo/resumen/minutas y guardado
+  de minutas/configuración aún requieren migración a API/controladores/vistas
+  seguras. Siguiente: esos bloques de IA, después estructura/estado/auxiliares
+  compartidos. Fase 10 parcial; no retirar script/shim ni activar ACCESS_ENFORCED.
+- **38 API aprobadas**. Seis Node del modelo, nueve del controlador y catorce
+  del cliente aprobadas. Suite completa **292 aprobadas y tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`). Nueve comparaciones
+  a 1450/900/390 px: vacío, análisis guardado y carpeta Drive configurada.
+  Capturas en `tmp/migration/project_detail/aer_ai_sources/`, inspeccionadas
+  escritorio/móvil. Ruff/formato, mypy del API nuevo y Django aprobados.
+- **46 de navegador/soporte aprobadas**: doce de IA AER, entrada, Ejecutivo AER
+  y soporte. Con las 38 API: **84 total**. Cubren caché, reintento, estado
+  reemplazado y refresco del mismo proyecto, sin generar IA al entrar. Diff limpio.
+- Datos/proveedores simulados, sin Claude/Drive/Sheets reales ni correos enviados.
+  Sin push; cambios/temporales ajenos intactos. Horas por mes sin cambios.
+
+## Bloque anterior: Recursos AER
 
 - `aer_resources{,_model,_view}.js` separa indicadores, selección por persona,
   última evaluación, gráfica/historial, distribución, comentarios y editor.

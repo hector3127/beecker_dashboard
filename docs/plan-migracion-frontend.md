@@ -87,7 +87,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
-| AER/T&M | IA |
+| AER/T&M | IA: presentación, formularios y generación/guardado; lecturas, contexto/hechos y CSS principal ya separados |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -105,6 +105,50 @@ Planeación conserva puentes y auxiliares en el archivo anterior, entre ellos
 la integración compartida, sin confundirlos con volver a migrar su vista y editores.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### IA AER/T&M: lecturas, contexto/hechos y estilos (parcial)
+
+`project_aer_ai.py` expone cinco GET explícitos
+`screens/proyectos/<id>/ia-aer/{analisis,resumen,minutas,config,archivos}/`.
+Reutiliza las funciones de `ai_functions.py`, contexto/proveedores y errores
+originales. `view_operations` y alcance total; configuración conserva
+`manage_integrations`. Contexto del análisis guardado en query JSON validado;
+el proyecto autorizado lo determina la ruta. No genera análisis al abrir.
+
+`aer_ai_sources.js` controla carga y caché de análisis/resumen guardados,
+minutas, configuración y búsqueda Drive. Conserva restauración y consulta bajo
+demanda, avisos, reintentos y búsqueda automática solo con carpeta/nombre
+configurados. No sustituye un análisis recién generado por uno guardado.
+Respuestas de otro proyecto/estado se descartan; refrescar el dashboard del
+mismo proyecto conserva la carga y evita dejar los indicadores bloqueados.
+
+`aer_ai_model.js` separa contexto y hechos/alertas con las reglas originales:
+28 compromisos en el contexto; ocupación sobre toda la planeación, estados
+excluidos, vacaciones aprobadas, fechas/ventana de 30 días y umbral de 6 puntos.
+No cambia los cálculos ni el texto enviado por las acciones anteriores.
+`project_detail_aer_ai.css` conserva el CSS principal inyectado; su link con el
+ID original evita reinyección en la ruta nueva. La anterior sigue inyectándolo.
+
+**IA AER y fase 10 parciales.** La vista `aerIAVista`, auxiliares de presentación,
+formularios y acciones (análisis/preguntas/correo/resumen/minutas/configuración)
+todavía viven en el JS anterior y varias usan RPC. Siguiente bloque: vista y
+acciones de IA AER. No retirar script/shim ni marcar la pestaña completa.
+
+Evidencia: **38 API aprobadas**; permisos/alcance antes de fuentes, contexto
+válido/inválido, firmas y errores públicos. Seis Node contrastan contexto/hechos
+contra el original; nueve del controlador verifican caché, estados, Drive,
+reintento y respuestas tardías; catorce del cliente aprobadas. Suite completa:
+**292 aprobadas y los tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Nueve comparaciones de estilos/cajas a
+1450/900/390 px (vacío, memoria guardada y Drive configurado), con capturas
+en `tmp/migration/project_detail/aer_ai_sources/`, inspeccionadas escritorio/móvil.
+Ruff/formato, mypy del API nuevo y Django aprobados. Proveedores simulados;
+sin consultas reales a Claude, Drive, Sheets ni correos enviados. Sin push.
+
+Navegador/soporte: **46 aprobadas**, incluidas doce de IA AER, entrada del
+proyecto, Ejecutivo AER y soporte. Caché, ausencia de generación al entrar,
+reintento, estado reemplazado y refresco del mismo proyecto probados. Con las
+38 API: **84 pruebas aprobadas**. Diff sin incidencias.
 
 ### Recursos AER/T&M (pestaña completa)
 

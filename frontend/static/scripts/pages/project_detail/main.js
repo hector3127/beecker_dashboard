@@ -7,6 +7,8 @@ import { createAerPlanning } from "./sections/aer_planning.js";
 import { createAerEffort } from "./sections/aer_effort.js";
 import { createAerRisks } from "./sections/aer_risks.js";
 import { createAerResources } from "./sections/aer_resources.js";
+import { createAerAiSources } from "./sections/aer_ai_sources.js";
+import * as aerAiModel from "./sections/aer_ai_model.js";
 import * as aerPlanningModel from "./sections/aer_planning_model.js";
 import { createAiSources } from "./sections/ixs_ai_sources.js";
 import * as aiModel from "./sections/ixs_ai_model.js";
@@ -80,6 +82,8 @@ async function start() {
       beeAerEffort: createAerEffort(data),
       beeAerRisks: createAerRisks(data),
       beeAerResources: createAerResources(data),
+      beeAerAiSources: createAerAiSources(data),
+      beeAerAiModel: aerAiModel,
       beeAerPlanningModel: aerPlanningModel,
       beeIxsAiSources: createAiSources(data),
       beeIxsAiModel: aiModel,
