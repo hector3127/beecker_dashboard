@@ -82,11 +82,11 @@ def mpb_project_row(
     if not rows:
         return None
 
-    def serials(column: str) -> list[CellValue]:
+    def serials(column: str) -> list[float]:
         return [
-            cell
+            float(cell)
             for cell in (read_cell(row, columns[column]) for row in rows)
-            if is_serial(cell)
+            if isinstance(cell, int | float) and not isinstance(cell, bool)
         ]
 
     starts, ends = serials("start"), serials("end")
@@ -110,7 +110,9 @@ def mpb_project_row(
 def start_serial(row: Sequence[CellValue], columns: Mapping[str, int]) -> float:
     """Inicio de una fila de MPB para elegir la mas reciente."""
     start = read_cell(row, columns["start"])
-    return float(start) if is_serial(start) else 0.0
+    if isinstance(start, int | float) and not isinstance(start, bool):
+        return float(start)
+    return 0.0
 
 
 def history_dates(

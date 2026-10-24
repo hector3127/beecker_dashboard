@@ -139,14 +139,16 @@ def load_executive_dashboard(
         if project_row is None:
             extra_row = fallback_project_row(reader, project_id, history_rows)
 
-        if project_row is None and extra_row is None:
+        if project_row is None:
+            project_row = extra_row
+
+        if project_row is None:
             raise InvalidRequestError(
                 f'No se encontro el proyecto "{project_id}" en la hoja '
                 "Proyectos, en MPB ni en Historico_Proyectos.",
             )
 
         if extra_row is not None:
-            project_row = extra_row
             project_rows = [*project_rows, extra_row]
 
         portfolio_entries = load_portfolio_entries()

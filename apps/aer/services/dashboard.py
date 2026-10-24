@@ -617,9 +617,10 @@ def build_dashboard(
         )
     except AerError:
         # Sin fila en Proyectos pero con MPB: se muestra con lo de MPB.
-        row = mpb_project_row(store.reader, project)
-        if row is None:
+        found = mpb_project_row(store.reader, project)
+        if found is None:
             raise
+        row = found
     service = text(get_flexible_value(row, ["Servicio", "Service"])).upper()
     store.ensure_sheets()
     hours = load_hours(project)

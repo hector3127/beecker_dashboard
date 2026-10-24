@@ -422,7 +422,7 @@ class RaidCreationOptionsView(ProjectRead):
 class RaidPromptView(ProjectRead):
     """Prompt vigente del tipo RAID; guardarlo pide manage_integrations."""
 
-    def get_permissions(self) -> list[Any]:
+    def get_permissions(self) -> Any:
         """Leer pide operación; guardar, manage_integrations (como el RPC)."""
         if self.request.method == "POST":
             return [
