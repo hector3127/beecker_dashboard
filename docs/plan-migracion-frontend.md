@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación, Acciones, Planeación, registros de Esfuerzo y Riesgos AER; resto RPC | **Parcial**: ambos Ejecutivos, Cliente, Acciones, Planeación y Esfuerzo, además de Riesgos AER; Recursos, RAID, Azure, IA y Comunicación IXS usan módulos. Faltan Recursos e IA AER y estructura compartida | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación, Acciones, Planeación, registros de Esfuerzo, Riesgos y evaluaciones AER; resto RPC | **Parcial**: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo y Recursos, además de Riesgos AER; RAID, Azure, IA y Comunicación IXS usan módulos. Faltan IA AER y estructura compartida | **Parcial**, no completada |
 | 11 | Limpieza y CSP obligatoria; permisos/Genesis como decisión de despliegue | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -77,7 +77,7 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación y Esfuerzo de ambas familias; Riesgos AER; Recursos,
+Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo y Recursos de ambas familias; Riesgos AER;
 Gestión RAID, Azure DevOps, IA y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
@@ -87,7 +87,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
-| AER/T&M | Recursos e IA |
+| AER/T&M | IA |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -105,6 +105,46 @@ Planeación conserva puentes y auxiliares en el archivo anterior, entre ellos
 la integración compartida, sin confundirlos con volver a migrar su vista y editores.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Recursos AER/T&M (pestaña completa)
+
+`aer_resources_model.js` conserva selección inicial, agrupación por persona,
+última evaluación, indicadores, categorías, orden de fechas, curva y distribución.
+`aer_resources_view.js` presenta resumen, gráfica, comentarios, tablas y editor
+con DOM seguro, SVG y eventos externos; reutiliza el CSS AER ya externo.
+`aer_resources.js` coordina selección y operaciones; no ejecuta `_aerVistaRecursos`,
+`_aerEvalCategoria`, `_aerEvalClase` ni el formulario HTML anterior.
+
+La lectura de evaluaciones sigue en el dashboard AER existente por API v1.
+`project_aer_resources.py` añade POST explícitos a
+`screens/proyectos/<id>/evaluaciones-aer/guardar/` y `eliminar/`: mismos servicios
+y argumentos de `guardarEvaluacionAER` y `eliminarEvaluacionAER`, ID de la ruta,
+`edit_operations`, alcance total y CSRF antes de consultar fuentes. Mantiene
+valores numéricos como texto en el envío, validación y cálculo del servicio.
+
+Se conservan las últimas cinco evaluaciones **del proyecto**, no solo de la
+persona seleccionada; el selector cambia únicamente su resumen. La próxima
+evaluación se elige de todo el histórico, incluso si es una fecha pasada, igual
+que antes. Guardar selecciona el recurso guardado; borrar usa el resumen devuelto.
+Errores permiten reintentar sin perder borrador; respuestas de otro dashboard no
+se aplican ni cierran un editor abierto posteriormente.
+
+**Recursos AER completo; fase 10 parcial.** Siguiente: IA AER, luego estructura,
+estado y auxiliares compartidos. Mantener script/shim y comparación anterior;
+limpieza/CSP en fase 11. ACCESS_ENFORCED y Horas por mes sin cambios.
+
+Evidencia: **15 API, 11 de soporte y 18 de navegador aprobadas**. Quince
+comparaciones a 1450/900/390 px de datos completos/vacíos, selección y formularios
+de alta/edición. Guardado/borrado, confirmación, reintento, selección tras guardar,
+texto seguro y respuestas tardías probados. Diecisiete Node contrastan el modelo
+con el original; trece del cliente aprobadas. Suite completa: **276 aprobadas y
+los tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+`financial`). Ruff/formato, mypy del API nuevo, Django y diff aprobados.
+Capturas en `tmp/migration/project_detail/aer_resources/`, inspeccionadas en
+escritorio y móvil. Datos/proveedores simulados, sin correos reales. Sin push.
+
+Regresión: **46 de navegador aprobadas** (entrada del proyecto, Ejecutivo AER
+y Riesgos AER). Junto a las nuevas y soporte: **90 pruebas aprobadas**.
 
 ### Riesgos AER/T&M (pestaña completa)
 

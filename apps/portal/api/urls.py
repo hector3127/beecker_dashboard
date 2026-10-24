@@ -40,6 +40,7 @@ from apps.portal.api.project_actions import (
     ProjectActionsWriteView,
 )
 from apps.portal.api.project_aer_planning import AerPlanningWriteView
+from apps.portal.api.project_aer_resources import AerResourcesWriteView
 from apps.portal.api.project_aer_risks import (
     AerRisksReadView,
     AerRisksWriteView,
@@ -116,6 +117,10 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/<str:project_id>/evaluaciones-aer/<slug:operation>/",
+        AerResourcesWriteView.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/riesgos-aer/",
         AerRisksReadView.as_view(),

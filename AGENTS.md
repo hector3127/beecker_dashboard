@@ -165,7 +165,13 @@ externos. Lectura, guardado, borrado y limpieza de duplicados usan API v1 en
 `project_aer_risks.py`, con los servicios y permisos anteriores. Reutiliza el
 editor modular de Acciones. Conserva la agrupación por título anterior (incluye
 el caso de responsables/fechas distintos documentado en el traspaso).
-En AER faltan Recursos e IA. Continuar por Recursos AER. Planeación IXB usa módulos de
+Recursos AER está migrado en `aer_resources{,_model,_view}.js`: evaluaciones,
+selección, indicadores, gráfica/historial, distribución y formularios con DOM
+seguro/eventos externos. Guardado/borrado usan API `project_aer_resources.py`,
+con firmas y servicios anteriores; la lectura llega en el dashboard AER existente.
+Conserva últimas evaluaciones globales del proyecto en la gráfica y selección
+por persona solo en su resumen. No ejecuta su renderer/formulario anteriores.
+En AER falta IA. Continuar por IA AER. Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo
 anterior. Extraerlos junto con encabezados/navegación/entrada compartidos antes

@@ -2,7 +2,40 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: Riesgos AER
+## Bloque actual: Recursos AER
+
+- `aer_resources{,_model,_view}.js` separa indicadores, selección por persona,
+  última evaluación, gráfica/historial, distribución, comentarios y editor.
+  DOM seguro, SVG y eventos externos; reutiliza estilos AER ya externos. No
+  ejecuta renderer, categorías ni formulario HTML anteriores en la ruta nueva.
+- Las evaluaciones llegan en el dashboard AER por API existente. Guardado y
+  borrado usan POST `screens/proyectos/<id>/evaluaciones-aer/<operacion>/` en
+  `project_aer_resources.py`, servicios/firmas originales, proyecto de la ruta,
+  edit_operations, alcance total y CSRF antes de consultar fuentes.
+- Conserva selección inicial, score/categorías y orden por fechas. La gráfica,
+  últimas evaluaciones y comentarios son del proyecto completo: el selector
+  solo cambia el resumen individual. Próxima evaluación también sale de todo
+  el histórico, incluidas fechas pasadas; no se cambió esa regla.
+- Guardar selecciona el recurso enviado; borrar conserva el resumen del servicio.
+  Errores mantienen borradores y permiten reintentar. Respuestas de otra carga
+  del proyecto se descartan y no cierran un editor abierto posteriormente.
+- **Recursos AER completo; fase 10 parcial.** Siguiente: IA AER; después estructura,
+  estado/entrada y auxiliares compartidos. No retirar script/shim todavía. Fase
+  11 para limpieza/CSP. No activar ACCESS_ENFORCED ni tocar Horas por mes.
+- **15 API, 11 de soporte y 18 de navegador aprobadas**. Quince comparaciones
+  a 1450/900/390 px de pantalla completa/vacía/seleccionada y alta/edición.
+  Permisos, CSRF, argumentos, CRUD, reintento, selección, texto seguro y respuestas
+  tardías probados. Capturas reproducibles en
+  `tmp/migration/project_detail/aer_resources/`; inspeccionadas escritorio/móvil.
+- **46 de regresión aprobadas**: entrada, Ejecutivo AER y Riesgos AER.
+  Con las nuevas y soporte, **90 pruebas aprobadas**.
+- Diecisiete Node del modelo y trece del cliente aprobadas. Suite completa:
+  **276 aprobadas y los tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, mypy del API nuevo, Django y
+  diff aprobados. Datos/proveedores simulados, sin correos reales. Sin push;
+  temporales ajenos intactos.
+
+## Bloque anterior: Riesgos AER
 
 - `aer_risks{,_model,_view}.js` separa modelo, controlador, indicadores, matriz,
   distribución, atención, seguimiento y editor. DOM seguro/eventos externos;

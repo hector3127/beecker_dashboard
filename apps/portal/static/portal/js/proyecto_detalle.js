@@ -2840,7 +2840,7 @@
     else if(aerTabActual==='esfuerzo'){if(window.beeAerEffort)window.beeAerEffort.mount(el,aerEsfuerzoContexto());else el.innerHTML=_aerVistaEsfuerzo();}
     else if(aerTabActual==='riesgos'){if(window.beeAerRisks)window.beeAerRisks.mount(el,aerRiesgosContexto());else el.innerHTML=_aerVistaRiesgos();}
     else if(aerTabActual==='acciones'){if(window.beeProjectActions)window.beeProjectActions.mount(el,aerAccionesContexto());else el.innerHTML=_aerVistaAcciones();}
-    else if(aerTabActual==='recursos') el.innerHTML=_aerVistaRecursos();
+    else if(aerTabActual==='recursos'){if(window.beeAerResources)window.beeAerResources.mount(el,aerRecursosContexto());else el.innerHTML=_aerVistaRecursos();}
     else if(aerTabActual==='cliente'){
       if(window.beeProjectClient){
         const snapshot=aerDashboardData;
@@ -2947,12 +2947,21 @@
 
   function _aerEvalCategoria(score){score=Number(score)||0;return score>=90?'Alto desempeño':score>=80?'Sólido':score>=70?'En seguimiento':'Crítico'}
   function _aerEvalClase(score){score=Number(score)||0;return score>=90?'green':score>=80?'purple':score>=70?'yellow':'red'}
-  function aerCambiarRecursoEval(v){aerEvalRecursoSeleccionado=v;if(aerTabActual==='recursos')_aerRenderTab()}
+  function aerRecursosContexto(){
+    const snapshot=aerDashboardData;
+    return {id:snapshot.proyecto.id,dashboard:snapshot,current:()=>aerDashboardData===snapshot,
+      active:()=>aerTabActual==='recursos',paint:_aerRenderTab,saving:_aerStartSaving,error:showError,
+      selected:(...args)=>args.length?(aerEvalRecursoSeleccionado=args[0]):aerEvalRecursoSeleccionado};
+  }
+  function aerRecursosModulares(){return window.beeAerResources.bind(aerRecursosContexto());}
+  function aerCambiarRecursoEval(v){if(window.beeAerResources&&aerDashboardData)return aerRecursosModulares().select(v);aerEvalRecursoSeleccionado=v;if(aerTabActual==='recursos')_aerRenderTab()}
   function aerAbrirEvaluacion(uid=''){
+    if(window.beeAerResources&&aerDashboardData)return aerRecursosModulares().open(uid);
     const x=((((aerDashboardData||{}).evaluaciones||{}).filas)||[]).find(v=>v.uid===uid)||{}; const recursos=_aerRecursosProyecto(); const hoy=new Date().toISOString().slice(0,10);
     _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Nueva'} evaluación</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label>Recurso<select id="ae-rec">${recursos.map(n=>`<option value="${_aerEsc(n)}" ${x.recurso===n?'selected':''}>${_aerEsc(n)}</option>`).join('')}</select></label><label>Evaluador<input id="ae-eval" value="${_aerEsc(x.evaluador||'')}"></label><label>Fecha evaluación<input id="ae-fecha" type="date" value="${x.fechaEvaluacion||hoy}"></label><label>Próxima evaluación<input id="ae-prox" type="date" value="${x.proximaEvaluacion||''}"></label><label>Calidad<input id="ae-cal" type="number" min="0" max="100" value="${Number(x.calidad||0)}"></label><label>Cumplimiento<input id="ae-cum" type="number" min="0" max="100" value="${Number(x.cumplimiento||0)}"></label><label>Comunicación<input id="ae-comu" type="number" min="0" max="100" value="${Number(x.comunicacion||0)}"></label><label>Colaboración<input id="ae-col" type="number" min="0" max="100" value="${Number(x.colaboracion||0)}"></label><label>Autonomía<input id="ae-aut" type="number" min="0" max="100" value="${Number(x.autonomia||0)}"></label><label class="aer-span2">Comentario<textarea id="ae-com">${_aerEsc(x.comentario||'')}</textarea></label><label class="aer-span2">Plan de acción<textarea id="ae-plan">${_aerEsc(x.planAccion||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn danger" onclick="aerEliminarEvaluacion('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarEvaluacion('${uid}')">Guardar evaluación</button></div>`)
   }
   function aerGuardarEvaluacion(uid){
+    if(window.beeAerResources&&aerDashboardData)return aerRecursosModulares().save(uid);
     const saver=_aerStartSaving(_aerPrimaryModalBtn(),'Guardando evaluación...');
     const o={UID:uid,ID_Proyecto:aerDashboardData.proyecto.id,Recurso:_aerVal('ae-rec'),Evaluador:_aerVal('ae-eval'),Fecha_Evaluacion:_aerVal('ae-fecha'),Proxima_Evaluacion:_aerVal('ae-prox'),Calidad:_aerVal('ae-cal'),Cumplimiento:_aerVal('ae-cum'),Comunicacion:_aerVal('ae-comu'),Colaboracion:_aerVal('ae-col'),Autonomia:_aerVal('ae-aut'),Comentario:_aerVal('ae-com'),Plan_Accion:_aerVal('ae-plan')};
     google.script.run.withSuccessHandler(r=>{
@@ -2962,7 +2971,7 @@
       aerCerrarModal();if(aerTabActual==='recursos')_aerRenderTab();
     }).withFailureHandler(err=>{saver.error(err&&err.message?err.message:String(err||'Error al guardar.'));}).guardarEvaluacionAER(o)
   }
-  function aerEliminarEvaluacion(uid){if(!confirm('¿Eliminar esta evaluación?'))return;google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}aerDashboardData.evaluaciones=r.evaluaciones||{filas:[]};aerCerrarModal();if(aerTabActual==='recursos')_aerRenderTab();}).withFailureHandler(showError).eliminarEvaluacionAER(uid,aerDashboardData.proyecto.id)}
+  function aerEliminarEvaluacion(uid){if(window.beeAerResources&&aerDashboardData)return aerRecursosModulares().remove(uid);if(!confirm('¿Eliminar esta evaluación?'))return;google.script.run.withSuccessHandler(r=>{if(!r||!r.ok){showError(r&&r.error);return;}aerDashboardData.evaluaciones=r.evaluaciones||{filas:[]};aerCerrarModal();if(aerTabActual==='recursos')_aerRenderTab();}).withFailureHandler(showError).eliminarEvaluacionAER(uid,aerDashboardData.proyecto.id)}
 
   function _aerDimensionesDisponibles(d) {
     const k = (d && d.kpis) || {};

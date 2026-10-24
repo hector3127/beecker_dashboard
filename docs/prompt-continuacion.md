@@ -9,8 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local migra Riesgos AER,
-   incluidos su editor y operaciones por API. Esfuerzo AER (registros por rango
+   diferencia con `origin/main`. El último bloque local migra Recursos AER,
+   incluidas evaluaciones, editor y guardado/borrado por API. Riesgos AER,
+   Esfuerzo AER (registros por rango
    y «Ver más»), Planeación AER y
    Acciones AER/IXS también están completas.
    Claude completó Cliente y el Centro
@@ -105,8 +106,16 @@ comparaciones en tres tamaños; ver pruebas/evidencia en el traspaso. Conservar
 la agrupación por título anterior, incluido el hallazgo de responsables/fechas
 distintos; no corregirlo durante la migración.
 
-**Siguiente bloque sugerido:** Recursos AER; después IA.
-No reabrir Planeación, Esfuerzo ni Riesgos como pendientes. Quedan también
+**Recursos AER completo:** `aer_resources{,_model,_view}.js` y API
+`project_aer_resources.py` para guardado/borrado de evaluaciones. Lectura en
+dashboard AER existente; conserva servicios, firmas y permisos. Selección por
+persona solo cambia resumen individual: gráfica/últimas evaluaciones siguen
+del proyecto completo y próxima evaluación incluye fechas pasadas. DOM seguro,
+SVG y editor externo; no ejecuta renderer/formulario anteriores. Quince
+comparaciones en tres tamaños; pruebas y evidencia en el traspaso.
+
+**Siguiente bloque sugerido:** IA AER.
+No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
 encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,
 `_ixeAuto`). Al final: limpieza de archivos anteriores y CSP. Genesis/accesos

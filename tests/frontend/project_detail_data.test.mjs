@@ -14,6 +14,30 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("AER evaluation writes retain project, payload, operation and timeout", async () => {
+  const calls = [],
+    response = { ok: true, evaluaciones: { filas: [] } };
+  const data = context.createProjectData(null, async (...args) => {
+    calls.push(args);
+    return { data: response };
+  });
+  const body = { UID: "e/'1", Calidad: "80" };
+  for (const operation of ["guardar", "eliminar"]) {
+    assert.equal(
+      await data.saveAerEvaluation("AER.001 | CR", operation, body),
+      response,
+    );
+    const call = calls.at(-1);
+    assert.equal(call[0], "POST");
+    assert.equal(
+      call[1],
+      `screens/proyectos/AER.001%20%7C%20CR/evaluaciones-aer/${operation}/`,
+    );
+    assert.equal(call[2], body);
+    assert.equal(call[3].timeout, 90000);
+  }
+});
+
 test("AER risks preserve encoded project, operation, body and shared timeout", async () => {
   const reads = [],
     writes = [],
