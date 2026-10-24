@@ -153,8 +153,13 @@ Planeación AER está migrada: `aer_planning_controls.js`,
 búsqueda/filtros, selección y rango con DOM seguro/eventos externos. Los puentes
 solo conservan el enlace al estado y ciclo de vida compartidos; la ruta activa
 no ejecuta los auxiliares anteriores de estos controles. Ver pruebas en el plan.
-En AER faltan las pestañas
-Esfuerzo, Riesgos, Recursos e IA. Continuar por Esfuerzo AER. Planeación IXB usa módulos de
+Esfuerzo AER está migrado en `aer_effort{,_model,_view}.js`: indicadores,
+gráficas, consumo por recurso, rango de registros y ventana «Ver más» con DOM
+seguro/eventos externos. Consulta `aer/registros/` por API v1, con el mismo
+servicio de Clockify; no cambia cifras ni el alcance del filtro (solo registros).
+Las respuestas antiguas no reemplazan otra consulta/proyecto. Conserva enlace al
+estado y ciclo de vida compartidos; sin ejecutar su renderer/ventana anteriores.
+En AER faltan Riesgos, Recursos e IA. Continuar por Riesgos AER. Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo
 anterior. Extraerlos junto con encabezados/navegación/entrada compartidos antes

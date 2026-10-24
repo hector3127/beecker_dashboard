@@ -2,7 +2,44 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: controles de Planeación AER (pestaña completa)
+## Bloque actual: Esfuerzo AER
+
+- API: `GET screens/proyectos/<id>/aer/registros/?desde=...&hasta=...` en
+  `project_detail.py`; llama a `dashboard.entries_in_range` con el mismo store y
+  proveedor de horas que `getRegistrosClockifyAERRango`. Mantiene validación,
+  deduplicación y límite del servicio. `view_operations` y alcance total antes
+  de consultar fuentes, como el RPC anterior.
+- `aer_effort_model.js`: semana por defecto, filtro de registros, vista previa
+  de cinco filas, límites de actividades/recursos y datos de indicadores/gráficas.
+  Contraste Node con el original, sin mutar datos ni recalcular horas.
+- `aer_effort_view.js`: indicadores, distribución, tendencia, dona, consumo por
+  recurso, detalle por fechas y ventana «Ver más» con DOM seguro/eventos externos.
+  `aer_effort.js` controla estado/consulta por API. El montaje y los puentes
+  globales delegan; no ejecuta `_aerVistaEsfuerzo` ni la ventana HTML anterior.
+- El rango solo filtra los registros. Indicadores/tendencia/consumo siguen del
+  proyecto completo, igual que antes. El total recibido no reemplaza la cantidad
+  de registros disponibles en «Ver más». Se conservan las reglas de presentación.
+- Respuestas de otra carga del proyecto o de una consulta anterior no reemplazan
+  las más recientes. Filtro/caché y ciclo de vida siguen enlazados a la entrada
+  compartida, cuya integración general sigue pendiente.
+- Siguiente: Riesgos AER; después Recursos e IA AER, estructura/estado/auxiliares
+  compartidos y retiro de dependencia activa del script/shim. Fase 10 parcial.
+  Fase 11: limpieza y CSP. No activar ACCESS_ENFORCED ni modificar Horas por mes.
+- Capturas reproducibles en `tmp/migration/project_detail/aer_effort/`.
+  Inspeccionada la pantalla completa en escritorio y móvil. Datos/proveedores simulados.
+- **Esfuerzo AER completo; fase 10 parcial.** Validación: **75 API** (incluyen
+  el endpoint nuevo y regresión de lecturas) y **67 de navegador/soporte** (19 de
+  Esfuerzo, entrada, Ejecutivo AER, Acciones y soporte), todas aprobadas: 142 total.
+  Quince comparaciones a 1450/900/390 px de pantalla completa/vacía/caché y ventana
+  con/sin registros. Rango, cinco filas frente a ventana completa, permisos,
+  reintento, respuestas fuera de orden/proyecto y texto seguro probados.
+- Trece Node del modelo y once del cliente de datos aprobadas; suite completa:
+  **248 aprobadas y los tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, mypy de project_detail, Django
+  y diff aprobados. Sin consultas a proveedores reales ni correos enviados.
+  Temporales ajenos intactos; sin push.
+
+## Bloque anterior: controles de Planeación AER (pestaña completa)
 
 - `aer_planning_controls.js` separa búsqueda/filtros, selección e inicialización/
   cambio del rango. `aer_planning_filters_model.js` conserva coincidencias,

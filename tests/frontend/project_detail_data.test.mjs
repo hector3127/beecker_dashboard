@@ -14,6 +14,22 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("AER record ranges use exact dates and encoded project via GET", async () => {
+  const calls = [];
+  const api = context.createProjectData(async (...args) => {
+    calls.push(args);
+    return { data: { ok: true, registros: [] } };
+  });
+  await api.aerRecords("AER.001 | CR", "2026-10-01", "2026-10-24");
+  assert.deepEqual(JSON.parse(JSON.stringify(calls)), [
+    [
+      "screens/proyectos/AER.001%20%7C%20CR/aer/registros/",
+      { desde: "2026-10-01", hasta: "2026-10-24" },
+      { timeout: 90000 },
+    ],
+  ]);
+});
+
 test("AER planning writes preserve encoded project, body and timeout", async () => {
   const calls = [];
   const api = context.createProjectData(null, async (...args) => {

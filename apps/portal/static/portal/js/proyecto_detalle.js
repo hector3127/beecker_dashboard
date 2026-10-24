@@ -2837,7 +2837,7 @@
       return;
     }
     if(aerTabActual==='planeacion'){if(window.beeAerPlanning){window.beeAerPlanning.mount(el,aerPlaneacionContexto());}else el.innerHTML=_aerVistaPlaneacion();}
-    else if(aerTabActual==='esfuerzo') el.innerHTML=_aerVistaEsfuerzo();
+    else if(aerTabActual==='esfuerzo'){if(window.beeAerEffort)window.beeAerEffort.mount(el,aerEsfuerzoContexto());else el.innerHTML=_aerVistaEsfuerzo();}
     else if(aerTabActual==='riesgos') el.innerHTML=_aerVistaRiesgos();
     else if(aerTabActual==='acciones'){if(window.beeProjectActions)window.beeProjectActions.mount(el,aerAccionesContexto());else el.innerHTML=_aerVistaAcciones();}
     else if(aerTabActual==='recursos') el.innerHTML=_aerVistaRecursos();
@@ -2871,18 +2871,25 @@
     return {desde:iso(ini),hasta:iso(fin)};
   }
 
-  function _aerInitClockifyFiltro(){
+  function aerEsfuerzoContexto(){
+    const snapshot=aerDashboardData;
+    return {id:snapshot.proyecto.id,dashboard:snapshot,state:()=>aerClockifyFiltro,
+      setState:value=>{aerClockifyFiltro=value;},current:()=>aerDashboardData===snapshot,
+      active:()=>aerTabActual==='esfuerzo',paint:_aerRenderTab,error:showError};
+  }
+  function aerEsfuerzoModular(){return window.beeAerEffort.bind(aerEsfuerzoContexto());}
+  function _aerInitClockifyFiltro(){if(window.beeAerEffort&&aerDashboardData)return aerEsfuerzoModular().initialize();
     if(aerClockifyFiltro.desde&&aerClockifyFiltro.hasta)return;
     const w=_aerSemanaActual(); aerClockifyFiltro.desde=w.desde; aerClockifyFiltro.hasta=w.hasta;
   }
 
-  function _aerRegistrosClockifyActuales(){
+  function _aerRegistrosClockifyActuales(){if(window.beeAerEffort&&aerDashboardData)return aerEsfuerzoModular().records();
     _aerInitClockifyFiltro();
     const base=Array.isArray(aerClockifyFiltro.registros)?aerClockifyFiltro.registros:(((aerDashboardData||{}).registros)||[]);
     return base.filter(x=>x.fecha&&x.fecha>=aerClockifyFiltro.desde&&x.fecha<=aerClockifyFiltro.hasta);
   }
 
-  function aerConsultarRegistrosClockify(){
+  function aerConsultarRegistrosClockify(){if(window.beeAerEffort&&aerDashboardData)return aerEsfuerzoModular().query();
     const desde=(document.getElementById('aer-clock-desde')||{}).value||aerClockifyFiltro.desde;
     const hasta=(document.getElementById('aer-clock-hasta')||{}).value||aerClockifyFiltro.hasta;
     if(!desde||!hasta){alert('Selecciona Desde y Hasta.');return;}
@@ -2900,7 +2907,7 @@
   function aerAbrirModalWide(html){document.body.insertAdjacentHTML('beforeend',`<div class="aer-modal-wide-back" id="aer-modal-wide-back" onclick="if(event.target===this)aerCerrarModalWide()"><div class="aer-modal-wide">${html}</div></div>`)}
   function aerCerrarModalWide(){const e=document.getElementById('aer-modal-wide-back');if(e)e.remove()}
 
-  function aerAbrirRegistrosClockify(){
+  function aerAbrirRegistrosClockify(){if(window.beeAerEffort&&aerDashboardData)return aerEsfuerzoModular().openRecords();
     const regs=_aerRegistrosClockifyActuales();
     aerAbrirModalWide(`<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px"><div><h3 style="margin:0">Detalle de registros (Clockify)</h3><div class="aer-sub">${_aerFmtFecha(aerClockifyFiltro.desde)} → ${_aerFmtFecha(aerClockifyFiltro.hasta)} · ${regs.length} registros</div></div><button class="aer-btn" onclick="aerCerrarModalWide()">✕ Cerrar</button></div><div style="overflow:auto"><table class="aer-vivid-table"><thead><tr><th>Fecha</th><th>Recurso</th><th>Actividad</th><th>Descripción</th><th>Inicio</th><th>Fin</th><th>Duración</th><th>Tipo</th><th>Alerta</th></tr></thead><tbody>${regs.map(x=>`<tr><td>${_aerFmtFecha(x.fecha)}</td><td>${_aerEsc(x.recurso)}</td><td>${_aerEsc(x.actividad)}</td><td>${_aerEsc(x.descripcion)}</td><td>${_aerEsc(x.inicio||'')}</td><td>${_aerEsc(x.fin||'')}</td><td>${x.duracion}h</td><td>${x.billable?'Facturable':'No facturable'}</td><td>${x.fueraHorario?'⚠ Fuera de horario':'—'}</td></tr>`).join('')||'<tr><td colspan="9">Sin registros en el rango seleccionado.</td></tr>'}</tbody></table></div>`);
   }

@@ -9,9 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local completa filtros,
-   selección y rango de Planeación AER. La pestaña completa ya es modular;
-   Acciones AER/IXS también está completa.
+   diferencia con `origin/main`. El último bloque local migra Esfuerzo AER,
+   incluido el detalle de registros por rango y «Ver más». Planeación AER y
+   Acciones AER/IXS también están completas.
    Claude completó Cliente y el Centro
    de Comunicación IXB/SaaS/RaaS (posterior al glosario
    `b1ca4b4`). No hagas push
@@ -90,8 +90,15 @@ La ruta nueva no ejecuta `_aerVistaPlaneacion`. Filtros, selección y rango usan
 `aer_planning_filter_view.js`. Los puentes mantienen solamente el enlace al estado
 y ciclo de vida compartidos; los controles no ejecutan sus auxiliares anteriores.
 
-**Siguiente bloque sugerido:** Esfuerzo AER; después Riesgos,
-Recursos e IA de AER. No reabrir Planeación como pendiente. Quedan también
+**Esfuerzo AER completo:** `aer_effort{,_model,_view}.js`, con consulta
+`screens/proyectos/<id>/aer/registros/?desde=...&hasta=...` por API, servicio
+anterior y permiso de lectura/alcance total. El filtro solo cambia los registros;
+indicadores/gráficas/consumo siguen del proyecto completo. Preserva vista previa
+de cinco y ventana completa. No ejecuta su renderer ni ventana HTML anteriores.
+Las respuestas antiguas de otra consulta/proyecto se descartan.
+
+**Siguiente bloque sugerido:** Riesgos AER; después Recursos e IA.
+No reabrir Planeación ni Esfuerzo como pendientes. Quedan también
 encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,
 `_ixeAuto`). Al final: limpieza de archivos anteriores y CSP. Genesis/accesos

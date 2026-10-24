@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación, Acciones y Planeación AER; resto RPC | **Parcial**: ambos Ejecutivos, Cliente, Acciones y Planeación; Esfuerzo, Recursos, RAID, Azure, IA y Comunicación IXS usan módulos. Faltan Esfuerzo, Riesgos, Recursos e IA AER y estructura compartida | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para los bloques migrados, Cliente, Centro de Comunicación, Acciones, Planeación y registros de Esfuerzo AER; resto RPC | **Parcial**: ambos Ejecutivos, Cliente, Acciones, Planeación y Esfuerzo; Recursos, RAID, Azure, IA y Comunicación IXS usan módulos. Faltan Riesgos, Recursos e IA AER y estructura compartida | **Parcial**, no completada |
 | 11 | Limpieza y CSP obligatoria; permisos/Genesis como decisión de despliegue | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -77,7 +77,7 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Terminados: ambos Ejecutivos, Cliente, Acciones y Planeación de ambas familias; Esfuerzo, Recursos,
+Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación y Esfuerzo de ambas familias; Recursos,
 Gestión RAID, Azure DevOps, IA y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
@@ -87,7 +87,7 @@ y la navegación entre pestañas todavía dependen del script anterior.
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
-| AER/T&M | Esfuerzo, Riesgos, Recursos e IA |
+| AER/T&M | Riesgos, Recursos e IA |
 | Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
 
 Planeación IXB se está separando por bloques: primero el transporte de
@@ -105,6 +105,36 @@ Planeación conserva puentes y auxiliares en el archivo anterior, entre ellos
 la integración compartida, sin confundirlos con volver a migrar su vista y editores.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Esfuerzo AER/T&M (pestaña completa)
+
+`aer_effort_model.js`, `aer_effort_view.js` y `aer_effort.js` separan indicadores,
+distribución/tendencia/dona, consumo por recurso, filtro de registros y ventana
+«Ver más», con DOM seguro y eventos externos. El montaje no ejecuta
+`_aerVistaEsfuerzo` ni la ventana HTML anterior. Semana inicial y vista previa de
+cinco filas, top de actividades/recursos y formatos se conservan.
+
+`GET screens/proyectos/<id>/aer/registros/?desde=...&hasta=...` usa el mismo
+`dashboard.entries_in_range`, store y proveedor de horas del RPC anterior.
+Lectura con `view_operations` y alcance total, antes de consultar fuentes.
+Conserva validación, deduplicación y límite del servicio. El rango solo afecta
+a los registros; los indicadores/gráficas/consumo siguen del proyecto completo.
+Las respuestas anteriores a otra consulta o carga del proyecto no se aplican.
+
+**Esfuerzo AER completo; fase 10 parcial.** Quedan Riesgos, Recursos e IA AER y
+estructura/estado/auxiliares compartidos. Mantener script/shim y comparación;
+limpieza/CSP en fase 11. No activar ACCESS_ENFORCED ni modificar Horas por mes.
+
+Evidencia: **75 API y 67 de navegador/soporte aprobadas** (142 total); las 67
+incluyen 19 de Esfuerzo y regresión de entrada, Ejecutivo AER, Acciones y soporte.
+Quince comparaciones de pantalla/ventana a 1450/900/390 px. Probados permiso y
+alcance, argumentos del proveedor, rango, vista previa/ventana completa, reintento,
+texto seguro y respuestas anteriores de otra consulta/proyecto que no se aplican.
+Trece Node del modelo contrastan reglas con el original y once del cliente de
+datos aprobadas; suite completa: 248 aprobadas y tres fallos anteriores.
+Ruff/formato, mypy de project_detail, Django y diff aprobados. Capturas en
+`tmp/migration/project_detail/aer_effort/`; inspeccionadas en escritorio y móvil.
+Datos/proveedores simulados, sin correos reales.
 
 ### Planeación AER/T&M: filtros, selección y rango (pestaña completa)
 

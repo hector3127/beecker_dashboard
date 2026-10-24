@@ -101,6 +101,32 @@ class ProjectAerView(ProjectRead):
         return aer_dashboard(project_id)
 
 
+def aer_records_dashboard(
+    project_id: str, start: object, end: object
+) -> dict[str, Any]:
+    """Mismo servicio y proveedor de getRegistrosClockifyAERRango."""
+
+    def load() -> dict[str, Any]:
+        store = aer.build_store()
+        return dashboard.entries_in_range(
+            project_id, (start, end), aer.build_hours(store)
+        )
+
+    return run_safely(load)
+
+
+class ProjectAerRecordsView(ProjectRead):
+    """Registros AER por rango, view_operations y alcance total originales."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Las fechas y deduplicación las valida el servicio existente."""
+        return aer_records_dashboard(
+            project_id,
+            self.request.query_params.get("desde", ""),
+            self.request.query_params.get("hasta", ""),
+        )
+
+
 def tasks_dashboard(project_id: str) -> dict[str, Any]:
     """Mismo resumen de tasks, tags y rango de Clockify del RPC anterior."""
     return run_safely(

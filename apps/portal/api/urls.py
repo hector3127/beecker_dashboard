@@ -59,6 +59,7 @@ from apps.portal.api.project_ai import (
 )
 from apps.portal.api.project_client import ProjectClientWriteView
 from apps.portal.api.project_detail import (
+    ProjectAerRecordsView,
     ProjectAerView,
     ProjectAzureView,
     ProjectCommunicationSaveView,
@@ -111,6 +112,10 @@ Se publican bajo FRONTEND_API_BASE (por defecto /api/v1/).
 app_name = "api_v1"
 
 urlpatterns = [
+    path(
+        "screens/proyectos/<str:project_id>/aer/registros/",
+        ProjectAerRecordsView.as_view(),
+    ),
     path(
         "screens/proyectos/<str:project_id>/planeacion-aer/<slug:operation>/",
         AerPlanningWriteView.as_view(),

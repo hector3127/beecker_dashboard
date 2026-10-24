@@ -14,6 +14,11 @@ SOURCES = [
     ("filtros/", "get_available_filters", ()),
     ("AER.001/ejecutivo/", "get_executive_dashboard", ("AER.001",)),
     ("AER.001/aer/", "aer_dashboard", ("AER.001",)),
+    (
+        "AER.001/aer/registros/?desde=2026-10-01&hasta=2026-10-24",
+        "aer_records_dashboard",
+        ("AER.001", "2026-10-01", "2026-10-24"),
+    ),
     ("AMK.008/raid/", "get_project_raid", ("AMK.008",)),
     ("AMK.008/tasks/", "tasks_dashboard", ("AMK.008",)),
     ("AMK.008/etapas/", "stages_dashboard", ("AMK.008",)),
@@ -93,6 +98,35 @@ def test_aer_uses_same_store_hours_and_builder(monkeypatch):
     assert api.aer_dashboard("AER.001") == build.return_value
     load_hours.assert_called_once_with(store)
     build.assert_called_once_with(store, "AER.001", hours)
+
+
+def test_aer_records_keep_provider_exact_id_and_range(client, monkeypatch):
+    store, hours = object(), object()
+    monkeypatch.setattr(api.aer, "build_store", lambda: store)
+    load = Mock(return_value=hours)
+    monkeypatch.setattr(api.aer, "build_hours", load)
+    records = Mock(return_value={"ok": True, "total": 0, "registros": []})
+    monkeypatch.setattr(api.dashboard, "entries_in_range", records)
+    response = client.get(
+        BASE + "AER.001%20%7C%20CR/aer/registros/",
+        {"desde": "2026-10-01", "hasta": "2026-10-24", "idProyecto": "OTRO"},
+    )
+    assert response.status_code == 200
+    assert response.json()["data"] == records.return_value
+    load.assert_called_once_with(store)
+    records.assert_called_once_with(
+        "AER.001 | CR", ("2026-10-01", "2026-10-24"), hours
+    )
+
+
+def test_aer_records_missing_dates_still_use_service_validation(
+    client, monkeypatch
+):
+    load = Mock(return_value={"ok": False, "error": "Selecciona fechas"})
+    monkeypatch.setattr(api, "aer_records_dashboard", load)
+    response = client.get(BASE + "AER.001/aer/registros/")
+    assert response.json()["data"]["ok"] is False
+    load.assert_called_once_with("AER.001", "", "")
 
 
 def test_active_entry_and_comparison(client, monkeypatch):
