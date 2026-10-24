@@ -52,6 +52,7 @@ from apps.portal.api.project_ai import (
     ProjectAiMinutesReadView,
     ProjectClientReadView,
 )
+from apps.portal.api.project_client import ProjectClientWriteView
 from apps.portal.api.project_detail import (
     ProjectAerView,
     ProjectAzureView,
@@ -136,6 +137,10 @@ urlpatterns = [
     path(
         "screens/proyectos/<str:project_id>/ia/accion/guardar/",
         AiActionSave.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/cliente/<slug:operacion>/",
+        ProjectClientWriteView.as_view(),
     ),
     path(
         "screens/proyectos/<str:project_id>/cliente/",
