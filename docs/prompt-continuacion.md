@@ -9,8 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local separa encabezados,
-   navegación y refresco AER/IXS en `project_shell{,_model,_view}.js`.
+   diferencia con `origin/main`. El último bloque local separa el montaje de
+   pestañas AER/IXS en `project_tabs.js` y sus respaldos en `project_tabs_view.js`.
+   Encabezados/navegación/refresco ya usan `project_shell{,_model,_view}.js`.
    IA AER ya está completa, incluidas acciones por API, validaciones y copiado.
    La fase 10 sigue parcial por entrada/estado/montaje y auxiliares compartidos.
    Recursos AER está completo,
@@ -143,14 +144,22 @@ respuestas tardías no sustituyen otro proyecto/estado/formulario.
 iconos/CSS originales y comparación en tres tamaños. AER mantiene pestaña al
 actualizar, alias minutas→IA y cargas en su orden. IXS vuelve a Ejecutivo e
 invalida Cliente/Acciones, como antes. Respuestas superadas/de otra familia se
-descartan. Los contextos y dispatch aún enlazan con el archivo anterior.
+descartan. Los contextos de estado aún enlazan con el archivo anterior.
 
-**Siguiente bloque sugerido:** entrada/estado y montaje de pestañas del detalle;
+**Montaje de pestañas separado:** `project_tabs.js` elige los módulos existentes
+con sus contextos AER diferidos, lifecycle y estados Planeación/Azure. Conserva
+la precarga de recursos y el presentador compartido Cliente/Acciones. Los
+respaldos de pestaña desconocida están comparados; el botón de compatibilidad
+IXS mantiene su callback anterior. Los dispatch globales solo delegan.
+`projectTabsContext` todavía enlaza a los globals/contextos del archivo anterior.
+
+**Siguiente bloque sugerido:** inicialización de proyectos y estado/cachés
+(renderDashboard AER/IXS, apertura IA IXS y enlace Cliente/Acciones);
 después auxiliares compartidos, incluido el manejador showError, que
 hoy puede reemplazar el dashboard ante ciertos errores (comportamiento anterior
 preservado). No reabrir IA como pendiente ni retirar aún script/shim.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
-entrada/estado/montaje y los auxiliares de Planeación IXB que aún viven
+inicialización/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,
 `_ixeAuto`). Al final: limpieza de archivos anteriores y CSP. Genesis/accesos
 es decisión de despliegue: no activar ACCESS_ENFORCED.

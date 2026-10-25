@@ -2837,7 +2837,20 @@
     return `<div class="aer-exec-metric-row"><div class="aer-exec-metric-head"><b>${label}</b><span>${right==null?_aerFmtPct(pct):right}</span></div><div class="aer-bar"><i style="width:${_aerClamp(pct)}%;background:${color}"></i></div></div>`;
   }
 
+  function projectTabsContext(){
+    return {aer:()=>aerDashboardData,ixs:()=>ixsProyectoActual,
+      aerTab:(...args)=>args.length?(aerTabActual=args[0]):aerTabActual,ixsTab:()=>ixsTabActual,
+      selectAer:aerCambiarTab,selectIxs:ixsCambiarTab,
+      aerContexts:{planning:aerPlaneacionContexto,effort:aerEsfuerzoContexto,risks:aerRiesgosContexto,actions:aerAccionesContexto,resources:aerRecursosContexto,ai:aerIAPresentacionContexto},
+      ixsStates:()=>({planning:ixsPlanState,planningAzure:ixsPlanAzureState,azure:ixsAzureState}),
+      resources:_ixsCargarEstadosRecursos,openAi:ixsIAAbrir,loadClientActions:ixsCargarClienteAcciones,
+      syncPlanningAzure:(id,items)=>{ixsAzureState.projectId=id;ixsAzureState.items=items;},syncAzure:state=>{ixsAzureState=state;},
+      createRaid:ixsRaidAbrirCrear,previous:ixsAbrirVistaAnterior,
+      planningActions:{edit:(type,uid='',initial)=>ixsAbrirPlanEditor(type,encodeURIComponent(uid).replace(/'/g,'%27'),initial),
+        editMarker:ixsEditarHitoTimeline,extension:ixsAbrirExtension,azure:()=>ixsCambiarTab('azure')}};
+  }
   function _aerRenderTab() {
+    if(window.beeProjectTabs)return window.beeProjectTabs.aer(projectTabsContext());
     // El mismo módulo Cliente/Acciones se puede alojar en la vista IXB/RaaS/SaaS.
     const ixsActivo=typeof ixsTabActual!=='undefined'&&['cliente','acciones'].includes(ixsTabActual)
       &&document.querySelector('#dashboard-proyecto-detalle .ixs-shell');
@@ -6861,6 +6874,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
   function _ixsRenderTab(){
+    if(window.beeProjectTabs)return window.beeProjectTabs.ixs(projectTabsContext());
     const el=document.getElementById('ixs-tab-contenido');if(!el||!ixsProyectoActual)return;
     if(ixsTabActual==='ia'){ixsIAAbrir();return;}
     if(ixsTabActual==='comunicacion'){

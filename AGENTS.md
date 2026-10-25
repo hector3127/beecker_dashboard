@@ -197,8 +197,14 @@ iconos/estilos originales y comparación en tres tamaños. AER conserva la
 pestaña capturada al actualizar; IXS vuelve a Ejecutivo e invalida Cliente/Acciones,
 como antes. La navegación AER mantiene el alias minutas→IA y las cargas originales.
 Las respuestas superadas o de otra familia/carga no reemplazan la pantalla.
-Continuar por entrada/estado, montaje de pestañas y auxiliares compartidos;
-los contextos y dispatch de pestañas aún enlazan con el archivo anterior.
+El montaje AER/IXS ya usa `project_tabs.js` y `project_tabs_view.js`: selecciona
+los módulos existentes, conserva contextos diferidos, lifecycle, estados de
+Planeación/Azure y precarga de recursos. Cliente/Acciones mantiene el presentador
+compartido y la caché IXS. Los respaldos de pestaña desconocida se comparan con
+la anterior. `projectTabsContext` sigue como adaptador a los globals/contextos.
+Continuar por inicialización de proyectos y estado compartido, después auxiliares;
+`renderDashboard…`, el inicializador IA IXS y carga compartida aún tienen puentes
+en el archivo anterior. No reabrir vistas/formularios como pendientes.
 Mantener los puentes y comparación;
 no retirar aún script/shim. El manejador común showError sigue anterior y
 puede reemplazar el dashboard ante errores; comportamiento preservado.

@@ -2,6 +2,7 @@
 // Transitional entry: keep the existing renderers until each tab is migrated.
 import { createProjectData } from "./data.js";
 import { createProjectShell } from "./sections/project_shell.js";
+import { createProjectTabs } from "./sections/project_tabs.js";
 import { actionsModel } from "./sections/actions_model.js";
 import { createActionsController } from "./sections/actions.js";
 import { createAerPlanning } from "./sections/aer_planning.js";
@@ -127,6 +128,7 @@ async function start() {
         resourceTable,
       },
     });
+    window.beeProjectTabs = createProjectTabs(window, renderAerExecutive);
     await loadScript(renderer);
   } catch {
     started = false;

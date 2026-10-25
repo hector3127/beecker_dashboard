@@ -81,15 +81,15 @@ Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo, Recursos
 Gestión RAID, Azure DevOps y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
-La entrada modular usa API para filtros y dashboards. Encabezados, navegación
-y refresco ya usan módulos; estado/contextos, montaje de pestañas y auxiliares
-todavía enlazan con el script anterior.
+La entrada modular usa API para filtros y dashboards. Encabezados, navegación,
+refresco y montaje de pestañas usan módulos; inicialización/estado/contextos
+y auxiliares todavía enlazan con el script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
 | AER/T&M | Integración de estructura/estado y auxiliares compartidos; pestañas ya modulares |
-| Compartido | Entrada/estado, montaje de pestañas y auxiliares de Planeación/soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Encabezados/navegación/refresco ya separados |
+| Compartido | Inicialización/entrada, estado/contextos y auxiliares de Planeación/soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Encabezados/navegación/refresco y montaje de pestañas ya separados |
 
 Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
@@ -107,7 +107,45 @@ la integración compartida, sin confundirlos con volver a migrar su vista y edit
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
-### Encabezados, navegación y refresco AER/IXS (bloque compartido)
+### Montaje de pestañas AER/IXS (controlador compartido separado)
+
+`project_tabs.js` decide qué módulo presenta cada pestaña en ambas familias.
+Conserva la evaluación diferida de contextos AER, el montaje Cliente/Acciones
+en el contenedor IXS y su sincronización de pestaña, estados de Planeación/Azure,
+callbacks de edición y comprobaciones de proyecto/pestaña. Recursos se precarga
+antes de Ejecutivo/Esfuerzo IXS, como antes. La entrada registra este controlador
+después de las vistas y antes de cargar el puente anterior.
+
+El respaldo AER usa el renderer modular ejecutivo sin añadir el aviso reservado
+a la pestaña ejecutiva normal. `project_tabs_view.js` conserva el respaldo IXS
+con DOM seguro y eventos externos; el botón de compatibilidad todavía conserva
+su callback a la vista anterior. Las rutas normales no ejecutan las ramas de
+montaje/renderizado anteriores; sus funciones globales solo delegan.
+
+**Montaje separado; fase 10 parcial.** `projectTabsContext` conserva getters y
+callbacks a los globals. Inicializadores `renderDashboard…`, estado/cachés,
+apertura de IA IXS y enlace Cliente/Acciones todavía requieren extracción junto
+con los auxiliares de Planeación/soporte. Siguiente: inicialización/estado;
+no repetir las vistas ni dar por retirada la dependencia del script/shim.
+
+Evidencia: **ocho pruebas nuevas de navegador aprobadas**, incluidas seis
+comparaciones de respaldos a 1450/900/390 px, recorrido de las 18 pestañas y
+montaje con renderizado HTML anterior bloqueado. **25 de entrada/transporte
+Cliente/Acciones aprobadas**. Veintiuna Node prueban contextos diferidos,
+argumentos/estados, lifecycle y selección de módulos; suite completa **350
+aprobadas y tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+`financial`). Ruff/formato, Django y diff aprobados. Capturas en
+`tmp/migration/project_detail/tabs/`. Sin API nueva ni cálculos modificados;
+no se repitieron pruebas de backend. Datos/proveedores simulados, sin consultas
+ni correos reales. Cambios ajenos intactos; sin push.
+
+Regresión: **63 aprobadas** de Ejecutivos, IA AER y montaje real/lecturas/
+edición de Planeación, Esfuerzo, Riesgos/RAID, Recursos, Acciones, Azure,
+IA IXS y Comunicación, más soporte. Junto con ocho nuevas y 25 de entrada/
+Cliente/Acciones: **96 de navegador/soporte aprobadas**. Respaldos inspeccionados
+en escritorio/móvil.
+
+### Encabezados, navegación y refresco AER/IXS (bloque anterior)
 
 `project_shell_model.js` conserva categoría del estado AER y etapa actual IXS,
 reutilizando fases/fechas del modelo existente. `project_shell_view.js` crea

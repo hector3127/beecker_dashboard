@@ -2,7 +2,37 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: encabezados, navegación y refresco AER/IXS
+## Bloque actual: montaje de pestañas AER/IXS
+
+- `project_tabs.js` selecciona los módulos de las ocho/diez pestañas. Mantiene
+  contextos AER diferidos, presentador compartido Cliente/Acciones, sincronización
+  de pestaña, lifecycle, estados Planeación/Azure y callbacks de edición.
+  Ejecutivo y Esfuerzo IXS conservan precarga de estados de recursos.
+- `main.js` registra el controlador tras las vistas y antes del script anterior.
+  `_aerRenderTab` y `_ixsRenderTab` solo delegan en la ruta nueva; conservan la
+  comparación anterior. `projectTabsContext` enlaza con globals/getters/contextos.
+- Respaldo AER usa el renderer modular ejecutivo, sin aviso adicional. Respaldo
+  IXS usa `project_tabs_view.js`, DOM seguro/eventos externos y mantiene el botón
+  de compatibilidad que abre la vista anterior. Se comparan ambos respaldos.
+- **Fase 10 parcial.** Siguiente: inicialización de proyectos y estado/cachés,
+  incluidos `renderDashboard…`, apertura IA IXS y enlace compartido Cliente/
+  Acciones; después auxiliares de Planeación y soporte. No repetir vistas,
+  retirar script/shim, activar ACCESS_ENFORCED ni tocar Horas por mes.
+- **Ocho pruebas nuevas de navegador aprobadas**, con seis comparaciones de
+  respaldos a 1450/900/390 px y recorrido de las 18 pestañas bloqueando el
+  renderizado HTML anterior. **25 de entrada/transporte Cliente/Acciones
+  aprobadas**. Veintiuna Node de montaje/lifecycle/contextos/estados aprobadas;
+  suite completa **350 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, Django y diff aprobados.
+- Capturas en `tmp/migration/project_detail/tabs/`. API y cálculos sin cambios;
+  no se repitieron pruebas de backend. Proveedores simulados, sin consultas
+  ni correos reales. Sin push; cambios/temporales ajenos intactos.
+- **63 de regresión aprobadas**: Ejecutivos, IA AER y montaje real de las
+  demás pestañas (lecturas/edición), más soporte. Con ocho nuevas y 25 de
+  entrada/Cliente/Acciones: **96 de navegador/soporte aprobadas**. Respaldos
+  inspeccionados escritorio/móvil.
+
+## Bloque anterior: encabezados, navegación y refresco AER/IXS
 
 - `project_shell{,_model,_view}.js` separa los encabezados y las ocho/diez
   pestañas. DOM seguro/eventos externos, mismos iconos SVG y CSS externo.
