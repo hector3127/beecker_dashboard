@@ -5505,7 +5505,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     return (latest(history,'fechaFin')||{}).fechaFin||(latest(plans,'fechaFinPlan')||{}).fechaFinPlan||'';
   }
 
-  function ixsSupportContext(){return {project:()=>ixsProyectoActual,tab:()=>ixsTabActual,
+  function ixsSupportContext(){if(window.beeIxsAdapters)return window.beeIxsAdapters.support(loadDashboard);return {project:()=>ixsProyectoActual,tab:()=>ixsTabActual,
     selectMilestones:project=>{idProyectoActualGlobal=project.proyecto.id;hitosAdicionalesActuales=project.hitosAdicionales||[];},
     edit:editarHitoDesdeCard};}
   function ixsEditarHitoTimeline(index){
@@ -11803,6 +11803,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     ixsIAPintar();ixsIACargarFuentes();ixsIACargarHistoria();ixsIACargarDrive();
   }
   function ixsIACargarFuentes(){
+    if(window.beeIxsAdapters)return window.beeIxsAdapters.load('sources',ixsIAPintar);
     if(window.beeIxsAiSources)return window.beeIxsAiSources.sources(ixsIAState,{
       current:window.beeProjectFeatureContexts?window.beeProjectFeatureContexts.ixsCurrent:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
       paint:ixsIAPintar
@@ -11815,6 +11816,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     });
   }
   function ixsIAContexto(){
+    if(window.beeIxsAdapters)return window.beeIxsAdapters.context();
     if(window.beeIxsAiModel)return window.beeIxsAiModel.context(ixsIAState,ixsProyectoActual,_ixsHitos(ixsProyectoActual||{}));
     const st=ixsIAState,d=ixsProyectoActual||{},az=st.azure||{},p=st.plan||{},re=st.resources||{},clock=st.clockify||{};
     const wi=Array.isArray(az.allItems)?az.allItems:[],resources=Array.isArray(re.filas)?re.filas:[],registros=Array.isArray(clock.registros)?clock.registros:[];
@@ -11843,6 +11845,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     ixsIAExtenderVista();
   }
   function ixsIAAccionesVista(){
+    if(window.beeIxsAdapters)return window.beeIxsAdapters.actions({paint:ixsIAPintar,tab:ixsCambiarTab,loadDrive:ixsIACargarDrive,raidOpen:ixsRaidAbrirCrear,raidManual:ixsRaidAbrirManual});
     if(window.beeIxsAiController)return window.beeIxsAiController.actions(ixsIAState,{
       current:window.beeProjectFeatureContexts?window.beeProjectFeatureContexts.ixsCurrent:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
       paint:ixsIAPintar,context:ixsIAContexto,snapshot:ixsIASnapshot,tab:ixsCambiarTab,loadDrive:ixsIACargarDrive,
@@ -11877,6 +11880,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   function ixsIAReporte(){const st=ixsIAState;if(!st.analisis){st.error='Genera el análisis primero para preparar el reporte.';ixsIAPintar();return;}const a=st.analisis.analisis||{},body=['REPORTE IA · '+st.id,'Generado: '+(st.analisis.fecha||''),'','Resumen',...(a.resumen||[]),'','Hallazgos',...(a.hallazgos||[]).map(x=>'• '+x.titulo+': '+x.detalle),'','Recomendaciones',...(a.recomendaciones||[]).map(x=>'• '+x.titulo+': '+x.detalle),'','Fuentes: '+ixsIAContexto().fuentesDisponibles.join(', ')].join('\n');const blob=new Blob([body],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='reporte-IA-'+st.id+'.txt';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 
   function ixsIACargarHistoria(){
+    if(window.beeIxsAdapters)return window.beeIxsAdapters.load('history',ixsIAPintar);
     if(window.beeIxsAiSources)return window.beeIxsAiSources.history(ixsIAState,{
       current:window.beeProjectFeatureContexts?window.beeProjectFeatureContexts.ixsCurrent:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
       paint:ixsIAPintar
@@ -11890,6 +11894,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     }).withFailureHandler(e=>{if(st.id!==id)return;st.sourceErrors[key]=e&&e.message||String(e);ixsIAPintar();})[method](id));
   }
   function ixsIASnapshot(){
+    if(window.beeIxsAdapters)return window.beeIxsAdapters.snapshot();
     if(window.beeIxsAiModel)return window.beeIxsAiModel.snapshot(ixsIAState,ixsIAContexto());
     const s=ixsIAState,wi=s.azure&&s.azure.allItems||[],clock=s.clockify&&s.clockify.registros||[],resources=s.resources&&s.resources.filas||[];
     const hours=clock.reduce((a,r)=>a+(Number(r.duracion)||0),0);
@@ -11897,6 +11902,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     return {proyecto:s.id,fuentes:ixsIAContexto().fuentesDisponibles,workItems:wi.map(w=>({id:String(w.id),estado:String(w.state||w.estado||'')})),totalWorkItems:wi.length,cerrados:closed.length,horas:Number(hours.toFixed(2)),raidIds:(s.raid&&s.raid.registros||[]).map(r=>String(r.id)),acciones:(s.cliente&&s.cliente.acciones&&s.cliente.acciones.filas||[]).map(a=>({uid:String(a.uid),estado:String(a.estado||'')})),recursos:resources.map(r=>({nombre:r.nombre,estimadas:Number(r.horasEstimadas)||0,activo:r.activo!==false})),compromisos:s.plan&&s.plan.compromisos||[],vacaciones:s.plan&&s.plan.vacaciones||[]};
   }
   function ixsIACambios(){
+    if(window.beeIxsAdapters)return window.beeIxsAdapters.changes();
     if(window.beeIxsAiModel)return window.beeIxsAiModel.changes(ixsIAState,ixsIASnapshot);
     const s=ixsIAState,previous=s.memoria&&s.memoria.actual&&s.memoria.actual.snapshot;
     if(!previous)return null;
@@ -11907,6 +11913,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     return {horas:Number((now.horas-(Number(previous.horas)||0)).toFixed(2)),cerrados:newClosed,nuevos:added,nuevosRaid:now.raidIds.filter(id=>!(previous.raidIds||[]).includes(id)).length,accionesCompletadas:now.acciones.filter(a=>/complet|cerrad/i.test(a.estado)&&(previous.acciones||[]).some(b=>b.uid===a.uid&&!/complet|cerrad/i.test(b.estado))).length,fecha:s.memoria.actual.fecha};
   }
   function ixsIACapacidad(){
+    if(window.beeIxsAdapters)return window.beeIxsAdapters.capacity();
     if(window.beeIxsAiModel)return window.beeIxsAiModel.capacity(ixsIAState);
     const s=ixsIAState;if(!s.resources||!s.clockify)return [];
     const map=new Map(),key=n=>String(n||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').toLowerCase();
@@ -11952,6 +11959,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     const assistant=root.querySelector('.ixai-bottom .ixai-card:nth-child(2)');if(assistant){const btns=assistant.querySelectorAll('.ixai-actions button');if(btns[0])btns[0].onclick=()=>ixsIAReporteBorrador('Delivery Manager');if(btns[1])btns[1].onclick=()=>ixsIACrearMinuta();if(btns[2])btns[2].onclick=()=>ixsIAReporteBorrador();if(btns[3])btns[3].onclick=()=>ixsIAComunicadoBorrador();}
   }
   function ixsIACargarDrive(){
+    if(window.beeIxsAdapters)return window.beeIxsAdapters.load('drive',ixsIAPintar);
     if(window.beeIxsAiSources)return window.beeIxsAiSources.drive(ixsIAState,{
       current:window.beeProjectFeatureContexts?window.beeProjectFeatureContexts.ixsCurrent:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
       paint:ixsIAPintar

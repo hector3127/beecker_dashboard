@@ -302,12 +302,13 @@ def test_calculations_use_modular_model_with_original_results(
 ):
     enter(portal)
     result = portal.evaluate("""() => {
-      const model = window.beeIxsAiModel, calls = [];
-      window.beeIxsAiModel = Object.fromEntries(
-        Object.entries(model).map(([key, fn]) => [key, (...args) => {
-          calls.push(key); return fn(...args);
-        }])
-      );
+      const model = window.beeIxsAiModel, adapters=window.beeIxsAdapters;
+      const calls=[];
+      window.beeIxsAdapters={...adapters};
+      for(const key of ['context','snapshot','changes','capacity'])
+        window.beeIxsAdapters[key]=(...args)=>{
+          calls.push(key);return adapters[key](...args);
+        };
       const read = () => JSON.parse(JSON.stringify({
         context: ixsIAContexto(), snapshot: ixsIASnapshot(),
         changes: ixsIACambios(), capacity: ixsIACapacidad()
@@ -315,8 +316,11 @@ def test_calculations_use_modular_model_with_original_results(
       try {
         const modern = read();
         window.beeIxsAiModel = null;
+        window.beeIxsAdapters = null;
         return { modern, original: read(), calls };
-      } finally { window.beeIxsAiModel = model; }
+      } finally {
+        window.beeIxsAiModel = model;window.beeIxsAdapters=adapters;
+      }
     }""")
     assert result["modern"] == result["original"]
     assert set(result["calls"]) == {

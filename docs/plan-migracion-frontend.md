@@ -110,6 +110,36 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Adaptadores IXB/SaaS/RaaS de IA e hitos (25/10/2026)
+
+`project_ixs_adapters.js` conecta el almacén con los modelos IA existentes y
+los hitos de `ixs_executive_model.js`. Compone contexto, snapshot, comparación
+y capacidad sin ejecutar `_ixsHitos` ni cálculos anteriores en el flujo IA.
+No duplica fórmulas. Fuentes/historial/Drive y acciones usan sus controladores
+existentes, misma guardia de vigencia, callbacks y paso a creación RAID.
+
+El contexto de soporte de Planeación también usa el almacén. Su editor llama
+directamente al módulo de hitos con ID, índice, fecha, observación y recarga
+anteriores; no pasa por `editarHitoDesdeCard` en esa ruta. Las entradas previas
+delegan y conservan comparación. Se mantiene el callback de recarga original.
+
+**Fase 10 parcial.** Próximo: coordinación directa de pintura, navegación y
+arranque/callbacks (por ejemplo la entrada `ixsIAPintar` sigue preparando la vista
+modular), luego compatibilidad genérica/sin proyecto y validación independiente.
+No rehacer vistas/modelos ni retirar el script/shim antes de cerrar conexiones.
+
+Ocho Node nuevos comparan datos completos con las funciones originales,
+incluidos hitos con emoji/observaciones, memoria, soporte del editor, tres cargas
+y paso a RAID. **24 de navegador aprobadas** de fuentes IA y soporte compartido.
+La prueba de cálculo IA observa el adaptador nuevo y desactiva tanto adaptador
+como modelo para leer la referencia anterior; conserva igualdad y trazas.
+**63 adicionales de navegador aprobadas** de acciones IA IXS y Planeación:
+**87 en total**. Suite Node **412 aprobadas y tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). Ruff/formato, Django
+y diff aprobados. Capturas en `tmp/migration/project_detail/ixs_ai_sources/`,
+`ixs_ai_full/` e `ixs_planning_view/`, inspeccionadas. Sin API/cálculos nuevos,
+sin consultas ni correos reales y sin push.
+
 ### Contratos específicos de Acciones/Riesgos/IA (25/10/2026)
 
 `project_feature_contexts.js` separa los contratos de Acciones compartidas,
@@ -250,7 +280,7 @@ Sin módulo, la comparación sigue inicializando sus valores originales.
 
 | Pendiente | Evidencia y condición de cierre |
 |---|---|
-| Adaptadores restantes | Los estados identificados, paneles AER, cuatro contratos compartidos y contratos Acciones/Riesgos/IA ya son modulares. Quedan adaptadores residuales IXS (p. ej. `ixsSupportContext`, preparación de datos/callbacks IA) y callbacks de compatibilidad. Completar conexiones directas sin duplicar vistas ni fórmulas. |
+| Coordinación restante | Estados/contratos y composición de datos/cargas/acciones IA IXS ya son modulares. Queda conectar directamente pintura/navegación/arranque y callbacks aún aportados por el script previo (p. ej. `ixsIAPintar` y entradas de recarga). No repetir modelos ni vistas. |
 | Compatibilidad genérica | `renderDashboardEjecutivoProyecto` tiene diseño propio para servicios no reconocidos como AER/IXS; ramas sin proyecto/cuenta aún usan funciones previas. Migrar o demostrar sus rutas de entrada antes de retirar dependencias. |
 | Conexiones compartidas restantes | Guardado/avisos/cierres ya usan `project_feedback.js`; los contextos todavía inyectan wrappers previos y puentes a editores/hitos. Conectarlos directamente con los módulos al extraer los contextos restantes. |
 | Arranque independiente | La plantilla/main todavía carga `gas_shim.js` y `proyecto_detalle.js`. Dejar de cargarlos en la ruta nueva cuando ningún flujo activo los necesite; auditar llamadas reales a RPC, no contar como pendientes todas las ramas guardadas para comparación. |

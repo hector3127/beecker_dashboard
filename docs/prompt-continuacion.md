@@ -9,8 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque separa
-   `project_feature_contexts.js`: Acciones compartidas, Riesgos, tres contratos
+   diferencia con `origin/main`. El último bloque crea `project_ixs_adapters.js`:
+   datos/cargas/acciones IA IXS y enlace directo al editor modular de hitos.
+   El bloque anterior separa `project_feature_contexts.js`: Acciones, Riesgos, tres contratos
    IA AER y guardia IXS. Sus callbacks todavía vienen de compatibilidad.
    El bloque anterior separa `project_contexts.js`:
    contratos compartidos de entrada/sesión/shell/montaje. Sus callbacks aún se
@@ -201,8 +202,14 @@ Acciones compartidas, Riesgos y fuentes/presentación/acciones IA AER. La guardi
 IXS es común a cuatro entradas. Conserva familia/caché y vigencia por ID/estado.
 Los callbacks de UI/servicios todavía se inyectan; no repetir estos constructores.
 
-**Siguiente bloque sugerido:** adaptadores residuales IXS y conexiones directas
-de callbacks a módulos. Después compatibilidad genérica/
+**Adaptadores IXS separados:** `project_ixs_adapters.js` compone datos/modelos,
+fuentes/historial/Drive, acciones IA y enlace directo al editor modular de hitos.
+Conserva guardias, paso a RAID y recarga. La prueba de datos IA desactiva modelo
+y adaptador para leer la referencia original. No repetir esas composiciones.
+
+**Siguiente bloque sugerido:** coordinación directa de pintura/navegación/
+arranque/callbacks (p. ej. `ixsIAPintar` sigue siendo entrada de vista modular).
+Después compatibilidad genérica/
 sin proyecto y arranque independiente. El inventario de cierre está en el plan.
 No repetir los estados centrales/paneles ni esas tres construcciones de contexto.
 No reabrir IA como pendiente ni retirar aún script/shim.

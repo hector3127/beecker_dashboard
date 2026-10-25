@@ -234,6 +234,12 @@ construye los contratos de Acciones compartidas, Riesgos y fuentes/presentación
 acciones IA AER. Conserva familia, caché de pendientes y guardias distintas de
 fuentes/formularios; IA IXS reutiliza su guardia de estado/proyecto en cuatro
 entradas. Los callbacks de UI/servicios todavía se inyectan desde compatibilidad.
+`project_ixs_adapters.js` ya compone los datos IA (contexto/snapshot/cambios/
+capacidad) importando los modelos existentes, carga fuentes/historial/Drive y
+construye acciones IA con el mismo paso a RAID. El soporte de Planeación usa
+estado modular y abre hitos directamente con `beeProjectMilestones`, conservando
+índice/fecha/observación y callback de recarga. Las entradas previas solo delegan;
+todavía falta coordinación directa de pintura/navegación/arranque y callbacks.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;
@@ -245,7 +251,7 @@ Planeación IXB usa módulos de vista/carga/editores. Sus auxiliares de estados
 de recursos, edición de hitos y fechas sugeridas también usan `ixs_support.js`
 y `ixs_support_model.js`. Conservan caché por proyecto, normalización de nombres,
 guardia de identidad, índice del hito y reglas de fechas anteriores.
-`ixsSupportContext` sigue enlazando al estado/editor compartidos; los tres nombres
+`ixsSupportContext` suministra recarga al adaptador modular; los tres nombres
 anteriores solo delegan en la ruta nueva. Quedan contextos/adaptadores y
 compatibilidad genérica antes de retirar el shim. No reabrir Cliente ni el
 Centro de Comunicación como pendientes.

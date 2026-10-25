@@ -14,6 +14,7 @@ import { createProjectPanels } from "./sections/project_panels.js";
 import * as projectFeedback from "./sections/project_feedback.js";
 import { createProjectContexts } from "./sections/project_contexts.js";
 import { createProjectFeatureContexts } from "./sections/project_feature_contexts.js";
+import { createIxsAdapters } from "./sections/project_ixs_adapters.js";
 import { actionsModel } from "./sections/actions_model.js";
 import { createActionsController } from "./sections/actions.js";
 import { createAerPlanning } from "./sections/aer_planning.js";
@@ -151,6 +152,12 @@ async function start() {
     window.beeProjectFeatureContexts = createProjectFeatureContexts(
       window.beeProjectState,
     );
+    window.beeIxsAdapters = createIxsAdapters(window.beeProjectState, {
+      controller: window.beeIxsAiController,
+      sources: window.beeIxsAiSources,
+      current: window.beeProjectFeatureContexts.ixsCurrent,
+      milestones: window.beeProjectMilestones,
+    });
     await loadScript(renderer);
   } catch {
     started = false;

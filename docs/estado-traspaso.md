@@ -2,7 +2,34 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: contratos Acciones/Riesgos/IA (25/10/2026)
+## Bloque actual: adaptadores IXB/SaaS/RaaS de IA e hitos (25/10/2026)
+
+- `project_ixs_adapters.js` compone datos IA desde el almacén con los modelos
+  existentes (contexto/snapshot/cambios/capacidad e hitos), sin fórmulas nuevas.
+  Carga fuentes/historial/Drive y construye acciones con controladores existentes,
+  misma guardia y callback de RAID. No usa `_ixsHitos` anterior en el flujo IA.
+- Soporte de Planeación obtiene estado del almacén y abre editor de hitos
+  directamente con el módulo migrado, conservando ID/índice/fecha/observación y
+  callback de recarga. No pasa por el editor previo en esa ruta.
+- Ocho Node nuevos contrastan composición completa con la referencia y prueban
+  soporte, tres cargas y acciones/RAID. **24 de navegador aprobadas** de fuentes
+  IA y recursos compartidos. Prueba de datos IA ajustada al adaptador: observa
+  llamadas y desactiva ambos módulos para comparar contra las fórmulas previas.
+- **63 adicionales aprobadas** de acciones IA IXS y Planeación: **87 de
+  navegador en total**. Incluyen comparación en tres tamaños, editor real de
+  hitos, formularios, cargas parciales/reintentos y respuestas tardías.
+  Suite Node **412 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, Django y diff aprobados.
+  Capturas en `tmp/migration/project_detail/ixs_ai_sources/`, `ixs_ai_full/`
+  e `ixs_planning_view/`, inspeccionadas. Sin API/cálculos nuevos, sin consultas
+  ni correos reales; sin push y con cambios/temporales ajenos intactos.
+- **Fase 10 parcial.** Siguiente: coordinación directa de pintura/navegación/
+  arranque/callbacks, luego compatibilidad genérica/sin proyecto y verificación
+  independiente. `ixsIAPintar` aún aporta el enlace de vista modular. No rehacer
+  vistas/modelos, retirar script/shim todavía, activar ACCESS_ENFORCED ni tocar
+  Horas por mes.
+
+## Bloque anterior: contratos Acciones/Riesgos/IA (25/10/2026)
 
 - `project_feature_contexts.js` separa contratos de Acciones AER/IXS, Riesgos y
   fuentes/presentación/acciones IA AER. Estado y lifecycle parten del almacén;
