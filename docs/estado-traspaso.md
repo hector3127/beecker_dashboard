@@ -2,7 +2,32 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: avisos y guardado compartidos (25/10/2026)
+## Bloque actual: contratos compartidos del proyecto (25/10/2026)
+
+- `project_contexts.js` crea contratos de entrada, sesión, shell y montaje
+  directamente desde el almacén. Separa metadata/secuencia, getters/setters,
+  snapshot/guardias por familia, caché y sincronización de estados Azure.
+- Conserva pestaña AER al refrescar e invalidación Cliente/Acciones y vuelta
+  a Ejecutivo IXS. El UID del editor mantiene su codificación anterior.
+  Cinco Node comparan contratos con la referencia y prueban ambas familias.
+- Las cuatro funciones anteriores delegan, pero aún suministran callbacks
+  de estilo/renderizado/cargas/navegación/paneles. No se retiró el script ni el
+  shim; no se marca como independiente el arranque.
+- **31 de navegador aprobadas** de entrada/sesión/montaje, con comparación
+  visual y recorrido de las 18 pestañas. Sin cambios de API/cálculos.
+- **51 adicionales aprobadas** de navegación/refresco, Cliente/Acciones y
+  almacén: **82 de navegador en total**. Suite Node **397 aprobadas y tres
+  fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+  Django y diff aprobados; módulos/pruebas con formato aplicado. Capturas en
+  `tmp/migration/project_detail/entry/`, `session/`, `tabs/`, `shell/` y
+  `ixs_client_actions/`, inspeccionadas. Proveedores simulados, sin consultas
+  ni correos reales, sin push y con cambios/temporales ajenos intactos.
+- **Fase 10 parcial.** Siguiente: contextos específicos Acciones/IA y adaptadores
+  IXS, conexiones directas a módulos y compatibilidad genérica/sin proyecto.
+  Luego arranque independiente y validación final. No rehacer vistas ni activar
+  ACCESS_ENFORCED ni tocar Horas por mes.
+
+## Bloque anterior: avisos y guardado compartidos (25/10/2026)
 
 - `project_feedback.js` separa toast, botón en guardado/restauración tras error,
   selección de principal y cierre normal/ancho. Registro antes del script previo;

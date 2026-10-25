@@ -798,6 +798,14 @@
   }
 
   function projectEntryContext(){
+    if(window.beeProjectContexts)return window.beeProjectContexts.entry({
+      previousStart:()=>initDashboard(true),previousLoad:()=>loadDashboard(true),
+      clientChanged:()=>{const fp=document.getElementById('f-proyecto');
+        if(_clienteSeleccionadoDashboard()&&fp)fp.value='Todos los proyectos';
+        loadDashboard();if(_clienteSeleccionadoDashboard())return;
+        if(cacheReporteAERTYM)renderReporteAERTYM(cacheReporteAERTYM);
+        if(cacheReporteIXB)renderReporteIXBRaaS(cacheReporteIXB);cargarTopRiesgosAzurePortafolio();},
+      render:{aer:renderDashboardAERTYMProyecto,ixs:renderDashboardIXBSaaSRaaS,executive:renderDashboardEjecutivoProyecto}});
     return {metadata:(...args)=>args.length?(mapaMetaProyectosDashboard=args[0]):mapaMetaProyectosDashboard,
       previousStart:()=>initDashboard(true),previousLoad:()=>loadDashboard(true),invalidatePrevious:()=>{++dashboardRequestSeq;},
       clientChanged:()=>{const fp=document.getElementById('f-proyecto');
@@ -2782,6 +2790,10 @@
   }
 
   function projectSessionContext(){
+    if(window.beeProjectContexts)return window.beeProjectContexts.session({
+      styles:{aer:_aerEnsureStyles,ixs:_ixsEnsureStyles,ai:ixsIAStyles},
+      render:{aer:_aerRenderShell,ixs:_ixsRenderShell,aerTab:_aerRenderTab,ai:ixsIAPintar},
+      aiLoads:{sources:ixsIACargarFuentes,history:ixsIACargarHistoria,drive:ixsIACargarDrive}});
     return {aer:(...args)=>args.length?(aerDashboardData=args[0]):aerDashboardData,
       ixs:(...args)=>args.length?(ixsProyectoActual=args[0]):ixsProyectoActual,
       aerAi:(...args)=>args.length?(aerIAState=args[0]):aerIAState,
@@ -2817,6 +2829,11 @@
   }
 
   function projectShellContext(family){
+    if(window.beeProjectContexts)return window.beeProjectContexts.shell(family,{
+      render:()=>family==='aer'?_aerRenderShell():_ixsRenderShell(),
+      dispatch:()=>family==='aer'?_aerRenderTab():_ixsRenderTab(),error:showError,
+      loads:{analysis:aerIACargarAnalisis,minutes:aerIACargarMinutas,config:aerIACargarConfigMinutas,summary:aerIACargarResumenEjecutivo,parts:aerIACargarAccionesPartes},
+      initializeIxs:renderDashboardIXBSaaSRaaS});
     const aer=family==='aer',snapshot=aer?aerDashboardData:ixsProyectoActual;
     return {family,project:snapshot,metadata:aer?{}:mapaMetaProyectosDashboard,
       tab:(...args)=>args.length?(aer?(aerTabActual=args[0]):(ixsTabActual=args[0])):(aer?aerTabActual:ixsTabActual),
@@ -2866,6 +2883,12 @@
   }
 
   function projectTabsContext(){
+    if(window.beeProjectContexts)return window.beeProjectContexts.tabs({
+      selectAer:aerCambiarTab,selectIxs:ixsCambiarTab,
+      aerContexts:{planning:aerPlaneacionContexto,effort:aerEsfuerzoContexto,risks:aerRiesgosContexto,actions:aerAccionesContexto,resources:aerRecursosContexto,ai:aerIAPresentacionContexto},
+      resources:_ixsCargarEstadosRecursos,openAi:ixsIAAbrir,loadClientActions:ixsCargarClienteAcciones,
+      createRaid:ixsRaidAbrirCrear,previous:ixsAbrirVistaAnterior,
+      editPlanning:ixsAbrirPlanEditor,editMarker:ixsEditarHitoTimeline,extension:ixsAbrirExtension});
     return {aer:()=>aerDashboardData,ixs:()=>ixsProyectoActual,
       aerTab:(...args)=>args.length?(aerTabActual=args[0]):aerTabActual,ixsTab:()=>ixsTabActual,
       selectAer:aerCambiarTab,selectIxs:ixsCambiarTab,

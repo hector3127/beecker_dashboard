@@ -9,7 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque separa `project_feedback.js`:
+   diferencia con `origin/main`. El último bloque separa `project_contexts.js`:
+   contratos compartidos de entrada/sesión/shell/montaje. Sus callbacks aún se
+   suministran desde compatibilidad. El bloque anterior separa `project_feedback.js`:
    avisos, guardado/restauración del botón, selección del principal y cierres.
    El bloque previo amplía `project_state.js` con siete estados de paneles
    (19 valores totales) y añade `project_panels.js`
@@ -186,8 +188,13 @@ callbacks comunes se inyectan desde el archivo anterior; no se han retirado.
 botón, selector de principal y cierres. Los wrappers anteriores solo delegan;
 todavía son inyectados por contextos. No repetir esa implementación.
 
-**Siguiente bloque sugerido:** otros contextos/adaptadores y sus enlaces directos
-a módulos (shell/montaje, Acciones/IA e IXS). Después compatibilidad genérica/
+**Contratos compartidos separados:** `project_contexts.js` construye entrada,
+sesión, shell y montaje desde el almacén. Conserva guardias, actualización,
+caché y sincronización Azure. Las cuatro funciones anteriores todavía aportan
+callbacks, pero no implementan de nuevo esa lógica de estados.
+
+**Siguiente bloque sugerido:** contextos específicos Acciones/IA y adaptadores
+IXS y sus enlaces directos a módulos. Después compatibilidad genérica/
 sin proyecto y arranque independiente. El inventario de cierre está en el plan.
 No repetir los estados centrales/paneles ni esas tres construcciones de contexto.
 No reabrir IA como pendiente ni retirar aún script/shim.

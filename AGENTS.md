@@ -202,7 +202,7 @@ El montaje AER/IXS ya usa `project_tabs.js` y `project_tabs_view.js`: selecciona
 los módulos existentes, conserva contextos diferidos, lifecycle, estados de
 Planeación/Azure y precarga de recursos. Cliente/Acciones mantiene el presentador
 compartido y la caché IXS. Los respaldos de pestaña desconocida se comparan con
-la anterior. `projectTabsContext` sigue como adaptador a los globals/contextos.
+la anterior. `projectTabsContext` sigue como adaptador de callbacks anteriores.
 La inicialización AER/IXS, apertura IA IXS y enlace Cliente/Acciones usan
 `project_session{,_model,_view}.js`: conservan estados del mismo proyecto,
 reinicios al cambiar de ID, caché, orden de cargas y actualización diferida del
@@ -211,7 +211,7 @@ histórico por API. Los errores y aviso de backend mantienen su presentación.
 IA, Clockify, metadata, secuencia, hitos/ID y caché Cliente/Acciones.
 Se registra antes del script anterior. Los nombres previos son accesores
 temporales; el caché conserva la misma referencia. La comparación sigue con
-sus valores originales. `projectSessionContext` aún es un adaptador.
+sus valores originales. `projectSessionContext` aún suministra callbacks.
 También posee los siete estados de paneles activos identificados: rango/filtros
 de Planeación, registros Clockify y selección de Recursos AER, Planeación IXS,
 Planeación Azure y Azure. `project_panels.js` construye contextos de Planeación,
@@ -226,7 +226,10 @@ La entrada de proyectos usa `project_entry{,_model,_view}.js`: montaje desde
 template, filtros/selección, clasificación por servicio, carga API, secuencia
 de respuestas y reintento. `showError` delega a una vista segura que conserva
 el reemplazo de toda la pantalla. Se comparan cargas/errores en tres tamaños.
-`projectEntryContext` conserva metadata/callbacks. Siguen anteriores las ramas
+`project_contexts.js` ya construye los cuatro contratos de entrada, sesión,
+shell y montaje desde el almacén: metadata/secuencia, getters/setters, guardias,
+caché, sincronización Azure y editor de Planeación. Los cuatro nombres anteriores
+solo suministran callbacks de compatibilidad. Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;
 no reabrir vistas/formularios ya migrados.

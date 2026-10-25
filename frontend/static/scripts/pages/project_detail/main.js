@@ -12,6 +12,7 @@ import {
 } from "./sections/project_state.js";
 import { createProjectPanels } from "./sections/project_panels.js";
 import * as projectFeedback from "./sections/project_feedback.js";
+import { createProjectContexts } from "./sections/project_contexts.js";
 import { actionsModel } from "./sections/actions_model.js";
 import { createActionsController } from "./sections/actions.js";
 import { createAerPlanning } from "./sections/aer_planning.js";
@@ -145,6 +146,7 @@ async function start() {
     bindProjectState(window, window.beeProjectState);
     window.beeProjectPanels = createProjectPanels(window.beeProjectState);
     window.beeProjectFeedback = projectFeedback;
+    window.beeProjectContexts = createProjectContexts(window.beeProjectState);
     await loadScript(renderer);
   } catch {
     started = false;

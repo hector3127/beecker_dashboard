@@ -110,6 +110,35 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Contratos compartidos de entrada/sesión/navegación/montaje (25/10/2026)
+
+`project_contexts.js` construye cuatro contratos desde `project_state.js`:
+entrada (metadata/secuencia), sesión (getters/setters y caché), shell (snapshot,
+pestaña, vigencia por familia, actualización AER/IXS) y montaje (estados diferidos,
+sincronización Azure, acciones de Planeación). La codificación del UID del editor
+conserva el tratamiento anterior de Unicode, barras y apóstrofes.
+
+Se conserva la actualización AER con su pestaña y el reinicio IXS con invalidación
+de Cliente/Acciones. Los cuatro contextos anteriores delegan al módulo en la ruta
+activa; todavía suministran funciones de estilo, renderizado, cargas, navegación
+y entradas de paneles. El bloque separa la lógica de estado/lifecycle, sin dar
+por retirada la conexión con el script anterior.
+
+**Fase 10 parcial.** Siguiente: contextos específicos restantes (Acciones/IA y
+adaptadores IXS), conexiones directas a módulos y compatibilidad genérica/sin
+proyecto; luego arranque independiente y validación final. No rehacer vistas.
+
+Evidencia inicial: **31 pruebas de navegador aprobadas** de entrada, sesión y
+montaje, incluidas comparaciones visuales y recorrido de las 18 pestañas.
+Cinco Node nuevos contrastan los cuatro contratos y ambas familias de shell
+con las funciones de referencia, incluidas caché, getters/setters y editor.
+**51 adicionales de navegador aprobadas** de navegación/refresco, Cliente/
+Acciones y almacén: **82 en total**. Suite Node **397 aprobadas y tres fallos
+anteriores** (`cost_sprint_details`, `executive_report`, `financial`). Django y
+diff aprobados; formato aplicado. Capturas en
+`tmp/migration/project_detail/entry/`, `session/`, `tabs/`, `shell/` e
+`ixs_client_actions/`, inspeccionadas. Sin consultas/correos reales ni push.
+
 ### Avisos y guardado compartidos (25/10/2026)
 
 `project_feedback.js` separa avisos temporales, guardado/recuperación de botón,
@@ -190,7 +219,7 @@ Sin módulo, la comparación sigue inicializando sus valores originales.
 
 | Pendiente | Evidencia y condición de cierre |
 |---|---|
-| Contextos y adaptadores restantes | Los siete estados identificados ya están en el almacén y Planeación/Esfuerzo/Recursos AER usan `project_panels.js`. Aún dependen del archivo anterior contextos generales de shell/montaje/sesión, Acciones/IA y adaptadores IXS. Separarlos sin duplicar vistas. |
+| Contextos y adaptadores restantes | Los estados identificados, contextos Planeación/Esfuerzo/Recursos AER y cuatro contratos compartidos ya son modulares. Quedan contextos específicos Acciones/IA y adaptadores IXS; los contratos compartidos aún reciben callbacks de compatibilidad. Completar las conexiones directas sin duplicar vistas. |
 | Compatibilidad genérica | `renderDashboardEjecutivoProyecto` tiene diseño propio para servicios no reconocidos como AER/IXS; ramas sin proyecto/cuenta aún usan funciones previas. Migrar o demostrar sus rutas de entrada antes de retirar dependencias. |
 | Conexiones compartidas restantes | Guardado/avisos/cierres ya usan `project_feedback.js`; los contextos todavía inyectan wrappers previos y puentes a editores/hitos. Conectarlos directamente con los módulos al extraer los contextos restantes. |
 | Arranque independiente | La plantilla/main todavía carga `gas_shim.js` y `proyecto_detalle.js`. Dejar de cargarlos en la ruta nueva cuando ningún flujo activo los necesite; auditar llamadas reales a RPC, no contar como pendientes todas las ramas guardadas para comparación. |
