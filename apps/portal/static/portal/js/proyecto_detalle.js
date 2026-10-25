@@ -4730,6 +4730,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
 
 
   function aerRiesgosContexto(){
+    if(window.beeProjectFeatureContexts)return window.beeProjectFeatureContexts.risks({paint:_aerRenderTab,saving:_aerStartSaving,error:showError,openAction:()=>aerAccionesModulares().open()});
     const snapshot=aerDashboardData;
     return {id:snapshot.proyecto.id,dashboard:snapshot,current:()=>aerDashboardData===snapshot,
       active:()=>aerTabActual==='riesgos',paint:_aerRenderTab,saving:_aerStartSaving,error:showError,
@@ -4786,6 +4787,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
   function aerAccionesContexto(){
+    if(window.beeProjectFeatureContexts)return window.beeProjectFeatureContexts.actions({paint:_aerRenderTab,toast:_aerToast,error:showError});
     const snapshot=aerDashboardData,id=snapshot.proyecto.id,family=ixsCAActivo()?'ixs':'aer';
     const active=()=>family==='ixs'?ixsTabActual==='acciones':aerTabActual==='acciones';
     return {id,family,dashboard:snapshot,
@@ -11154,6 +11156,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     document.head.appendChild(style);
   }
   function aerIAFuentesModulares(){
+    if(window.beeProjectFeatureContexts)return window.beeAerAiSources.bind(window.beeProjectFeatureContexts.aerSources({paint:_aerRenderTab,context:aerIAContexto,toast:_aerToast,openConfig:aerIAAbrirConfigMinutas}));
     const snapshot=aerDashboardData,state=aerIAState;
     return window.beeAerAiSources.bind({id:snapshot.proyecto.id,state,
       current:()=>aerDashboardData&&aerDashboardData.proyecto.id===snapshot.proyecto.id&&aerIAState===state,
@@ -11161,6 +11164,12 @@ function _renderGraficaHorasDia(contenedorId, dias) {
       toast:_aerToast,openConfig:aerIAAbrirConfigMinutas});
   }
   function aerIAPresentacionContexto(){
+    if(window.beeProjectFeatureContexts)return window.beeProjectFeatureContexts.aerPresentation({paint:_aerRenderTab,toast:_aerToast,
+      actions:{analyze:force=>aerIAAnalizar(force),generateSummary:()=>aerIAGenerarResumenEjecutivo(),
+        generateMail:()=>aerIAGenerarCorreo(),generateMinute:()=>aerIAGenerarMinuta(),saveMinute:()=>aerIAGuardarMinuta(),
+        copyMinute:()=>aerIACopiarMinuta(),copySavedMinute:()=>aerIACopiarMinutaGuardada(),copySummary:()=>aerIACopiarResumen(),
+        saveConfig:buscar=>aerIAGuardarConfigMinutas(buscar),resetPrompt:()=>aerIARestablecerPromptMinuta(),loadConfig:abrir=>aerIACargarConfigMinutas(abrir),
+        files:()=>aerIABuscarMinutasDrive(),tab:tab=>aerCambiarTab(tab),ask:()=>aerIAPreguntar(),action:()=>aerAbrirAccion(),risk:()=>aerAbrirRiesgo()}});
     const state=aerIAState,id=aerDashboardData.proyecto.id;
     return {dashboard:aerDashboardData,state,current:()=>aerIAState===state&&aerDashboardData.proyecto.id===id,
       active:()=>aerTabActual==='ia',paint:_aerRenderTab,toast:_aerToast,
@@ -11173,6 +11182,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   }
   function aerIAPresentacionModular(){return window.beeAerAiPresentation.bind(aerIAPresentacionContexto());}
   function aerIAAccionesModulares(){
+    if(window.beeProjectFeatureContexts)return window.beeAerAiActions.bind(window.beeProjectFeatureContexts.aerActions({paint:_aerRenderTab,toast:_aerToast,error:showError,context:aerIAContexto,presentation:aerIAPresentacionModular,sources:aerIAFuentesModulares,tab:()=>aerCambiarTab('ia')}));
     const state=aerIAState,id=aerDashboardData.proyecto.id;
     return window.beeAerAiActions.bind({id,state,current:()=>aerIAState===state&&aerDashboardData?.proyecto.id===id,
       active:()=>aerTabActual==='ia',paint:_aerRenderTab,toast:_aerToast,error:showError,context:aerIAContexto,
@@ -11794,7 +11804,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   }
   function ixsIACargarFuentes(){
     if(window.beeIxsAiSources)return window.beeIxsAiSources.sources(ixsIAState,{
-      current:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
+      current:window.beeProjectFeatureContexts?window.beeProjectFeatureContexts.ixsCurrent:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
       paint:ixsIAPintar
     });
     const st=ixsIAState,id=st.id,token=++st.request;
@@ -11834,7 +11844,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   }
   function ixsIAAccionesVista(){
     if(window.beeIxsAiController)return window.beeIxsAiController.actions(ixsIAState,{
-      current:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
+      current:window.beeProjectFeatureContexts?window.beeProjectFeatureContexts.ixsCurrent:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
       paint:ixsIAPintar,context:ixsIAContexto,snapshot:ixsIASnapshot,tab:ixsCambiarTab,loadDrive:ixsIACargarDrive,
       raid:(tipo,text)=>{ixsRaidAbrirCrear(tipo);const input=document.getElementById('ixs-raid-free');if(input)input.value=text;ixsRaidAbrirManual();}
     });
@@ -11868,7 +11878,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
 
   function ixsIACargarHistoria(){
     if(window.beeIxsAiSources)return window.beeIxsAiSources.history(ixsIAState,{
-      current:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
+      current:window.beeProjectFeatureContexts?window.beeProjectFeatureContexts.ixsCurrent:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
       paint:ixsIAPintar
     });
     const st=ixsIAState,id=st.id,token=st.request;
@@ -11943,7 +11953,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   }
   function ixsIACargarDrive(){
     if(window.beeIxsAiSources)return window.beeIxsAiSources.drive(ixsIAState,{
-      current:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
+      current:window.beeProjectFeatureContexts?window.beeProjectFeatureContexts.ixsCurrent:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,
       paint:ixsIAPintar
     });
     const st=ixsIAState,id=st.id;if(!id||st.driveLoading)return;st.driveLoading=true;st.driveError='';ixsIAPintar();

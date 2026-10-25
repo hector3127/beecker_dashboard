@@ -229,7 +229,12 @@ el reemplazo de toda la pantalla. Se comparan cargas/errores en tres tamaños.
 `project_contexts.js` ya construye los cuatro contratos de entrada, sesión,
 shell y montaje desde el almacén: metadata/secuencia, getters/setters, guardias,
 caché, sincronización Azure y editor de Planeación. Los cuatro nombres anteriores
-solo suministran callbacks de compatibilidad. Siguen anteriores las ramas
+solo suministran callbacks de compatibilidad. `project_feature_contexts.js`
+construye los contratos de Acciones compartidas, Riesgos y fuentes/presentación/
+acciones IA AER. Conserva familia, caché de pendientes y guardias distintas de
+fuentes/formularios; IA IXS reutiliza su guardia de estado/proyecto en cuatro
+entradas. Los callbacks de UI/servicios todavía se inyectan desde compatibilidad.
+Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;
 no reabrir vistas/formularios ya migrados.

@@ -110,6 +110,37 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Contratos específicos de Acciones/Riesgos/IA (25/10/2026)
+
+`project_feature_contexts.js` separa los contratos de Acciones compartidas,
+Riesgos AER, fuentes IA, presentación IA y acciones IA AER; centraliza también
+la guardia de identidad/proyecto usada por fuentes, historial, Drive y acciones
+IA IXS. El módulo usa el almacén existente y callbacks inyectados.
+
+Acciones conserva detección AER/IXS, snapshot, repintado activo, caché de
+pendientes y sustitución sin repintado. Riesgos conserva apertura de Acciones.
+IA conserva diferencias entre comparar ID, snapshot y estado, incluida recarga
+del mismo ID y descarte de otro estado/proyecto. No se cambian contexto/hechos,
+fórmulas, servicios, permisos ni llamadas al modelo. Botones y callbacks de la
+presentación mantienen sus argumentos.
+
+**Fase 10 parcial.** Los constructores anteriores delegan, pero siguen inyectando
+callbacks de presentación/servicios. Quedan adaptadores IXS residuales, conexiones
+directas, compatibilidad genérica/sin proyecto y arranque independiente. No
+rehacer formularios ni retirar script/shim antes de completar esas conexiones.
+
+Siete Node nuevos comparan los contratos y guardias contra las funciones
+originales: Acciones en ambas familias, Riesgos, tres contratos IA AER e IA IXS.
+**68 de navegador aprobadas** de Acciones (vistas/formularios/transporte) AER/
+IXS y fuentes IA AER, con comparación a 1450/900/390 px. Suite Node **404
+aprobadas y tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+`financial`). **110 adicionales de navegador aprobadas** de Riesgos AER,
+acciones IA AER y fuentes/acciones IA IXS: **178 en total**. Cubren comparación
+en tres tamaños, formularios, guardados, errores y respuestas tardías. Capturas
+en `tmp/migration/project_detail/actions_forms/`, `aer_risks/`, `aer_ai_sources/`,
+`aer_ai_view/`, `ixs_ai_sources/` e `ixs_ai_full/`, inspeccionadas. Django y diff
+aprobados; formato aplicado. Sin consultas/correos reales ni push.
+
 ### Contratos compartidos de entrada/sesión/navegación/montaje (25/10/2026)
 
 `project_contexts.js` construye cuatro contratos desde `project_state.js`:
@@ -219,7 +250,7 @@ Sin módulo, la comparación sigue inicializando sus valores originales.
 
 | Pendiente | Evidencia y condición de cierre |
 |---|---|
-| Contextos y adaptadores restantes | Los estados identificados, contextos Planeación/Esfuerzo/Recursos AER y cuatro contratos compartidos ya son modulares. Quedan contextos específicos Acciones/IA y adaptadores IXS; los contratos compartidos aún reciben callbacks de compatibilidad. Completar las conexiones directas sin duplicar vistas. |
+| Adaptadores restantes | Los estados identificados, paneles AER, cuatro contratos compartidos y contratos Acciones/Riesgos/IA ya son modulares. Quedan adaptadores residuales IXS (p. ej. `ixsSupportContext`, preparación de datos/callbacks IA) y callbacks de compatibilidad. Completar conexiones directas sin duplicar vistas ni fórmulas. |
 | Compatibilidad genérica | `renderDashboardEjecutivoProyecto` tiene diseño propio para servicios no reconocidos como AER/IXS; ramas sin proyecto/cuenta aún usan funciones previas. Migrar o demostrar sus rutas de entrada antes de retirar dependencias. |
 | Conexiones compartidas restantes | Guardado/avisos/cierres ya usan `project_feedback.js`; los contextos todavía inyectan wrappers previos y puentes a editores/hitos. Conectarlos directamente con los módulos al extraer los contextos restantes. |
 | Arranque independiente | La plantilla/main todavía carga `gas_shim.js` y `proyecto_detalle.js`. Dejar de cargarlos en la ruta nueva cuando ningún flujo activo los necesite; auditar llamadas reales a RPC, no contar como pendientes todas las ramas guardadas para comparación. |

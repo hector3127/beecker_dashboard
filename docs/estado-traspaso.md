@@ -2,7 +2,34 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: contratos compartidos del proyecto (25/10/2026)
+## Bloque actual: contratos Acciones/Riesgos/IA (25/10/2026)
+
+- `project_feature_contexts.js` separa contratos de Acciones AER/IXS, Riesgos y
+  fuentes/presentación/acciones IA AER. Estado y lifecycle parten del almacén;
+  callbacks de UI/servicios siguen inyectados desde entradas de compatibilidad.
+- Acciones conserva detección de familia, caché/pendientes y repintado solo en
+  pestaña correspondiente. IA conserva guardias distintas de fuente/formulario,
+  recarga del mismo ID y rechazo de otro estado/proyecto. Guardia IXS común en
+  fuentes, historial, Drive y acciones. Ninguna fórmula/API/permiso cambia.
+- Siete Node nuevos contrastan contratos y guardias con la referencia.
+- **68 de navegador aprobadas** de vistas/formularios/transporte de Acciones
+  AER/IXS y fuentes IA AER, con comparación en tres tamaños. Suite Node
+  **404 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). API/cálculos sin cambios.
+- **110 adicionales aprobadas** de Riesgos AER, acciones IA AER y fuentes/
+  acciones IA IXS: **178 de navegador en total**. Incluyen comparación en tres
+  tamaños, formularios, guardados, errores y respuestas tardías. Capturas en
+  `tmp/migration/project_detail/actions_forms/`, `aer_risks/`, `aer_ai_sources/`,
+  `aer_ai_view/`, `ixs_ai_sources/` e `ixs_ai_full/`, inspeccionadas.
+  Django y diff aprobados; formato aplicado a los módulos/pruebas nuevos.
+  Proveedores simulados, sin consultas ni correos reales; sin push y con
+  cambios/temporales ajenos intactos.
+- **Fase 10 parcial.** Próximo: adaptadores IXS residuales y conexiones directas
+  de callbacks; luego Ejecutivo genérico/sin proyecto y arranque independiente.
+  No repetir vistas/contratos migrados ni retirar script/shim todavía. No activar
+  ACCESS_ENFORCED ni tocar Horas por mes.
+
+## Bloque anterior: contratos compartidos del proyecto (25/10/2026)
 
 - `project_contexts.js` crea contratos de entrada, sesión, shell y montaje
   directamente desde el almacén. Separa metadata/secuencia, getters/setters,

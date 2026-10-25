@@ -13,6 +13,7 @@ import {
 import { createProjectPanels } from "./sections/project_panels.js";
 import * as projectFeedback from "./sections/project_feedback.js";
 import { createProjectContexts } from "./sections/project_contexts.js";
+import { createProjectFeatureContexts } from "./sections/project_feature_contexts.js";
 import { actionsModel } from "./sections/actions_model.js";
 import { createActionsController } from "./sections/actions.js";
 import { createAerPlanning } from "./sections/aer_planning.js";
@@ -147,6 +148,9 @@ async function start() {
     window.beeProjectPanels = createProjectPanels(window.beeProjectState);
     window.beeProjectFeedback = projectFeedback;
     window.beeProjectContexts = createProjectContexts(window.beeProjectState);
+    window.beeProjectFeatureContexts = createProjectFeatureContexts(
+      window.beeProjectState,
+    );
     await loadScript(renderer);
   } catch {
     started = false;
