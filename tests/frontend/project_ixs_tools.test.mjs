@@ -15,6 +15,11 @@ function setup() {
       beeIxsPlanningEditor: { open: (...args) => calls.push(args) },
       beeIxsPlanning: { paint: () => calls.push("paint") },
       beeProjectCommunique: { open: (data) => calls.push(data) },
+      beeIxsRaidCreator: {
+        open: (...args) => calls.push(args),
+        manual: () => calls.push("manual"),
+      },
+      beeIxsRaid: { reload: (force) => calls.push(["reload", force]) },
     },
     {
       suggestedDates: (project) => {
@@ -49,6 +54,24 @@ test("empty UID and missing saved lists keep the previous defaults", () => {
   const state = calls[0][3];
   calls[0][4].saved({});
   assert.deepEqual([state.vacaciones, state.compromisos], [[], []]);
+});
+
+test("RAID keeps project-ID validity and refreshes the existing registry after creation", () => {
+  const { store, tools, calls } = setup();
+  const project = store.ixs;
+  tools.openRaid("Issue");
+  const [type, data, hooks] = calls[0];
+  assert.equal(type, "Issue");
+  assert.equal(data, project);
+  assert.equal(hooks.current(), true);
+  store.ixs = { ...project };
+  assert.equal(hooks.current(), true);
+  store.ixs = { proyecto: { id: "OTHER" } };
+  assert.equal(hooks.current(), false);
+  hooks.created();
+  assert.deepEqual(calls.at(-1), ["reload", true]);
+  tools.manualRaid();
+  assert.equal(calls.at(-1), "manual");
 });
 
 test("Comunicados uses planning ID, project name and the existing suggested dates", () => {

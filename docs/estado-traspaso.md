@@ -2,7 +2,35 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: herramientas compartidas IXS (25/10/2026)
+## Bloque actual: recomendación IA → RAID modular (25/10/2026)
+
+- El runtime IXS usa `project_ixs_tools.js` para abrir RAID y pasar al modo
+  manual. `beeIxsRaidCreator` es el mismo controlador para IA y Gestión RAID;
+  el modo manual reutiliza su handler existente. Las entradas RAID anteriores
+  ya no se inyectan en `ixsRuntimeBindings`.
+- Conserva tipo, texto de la recomendación, guardia por ID y recarga del
+  registro tras crear. No cambia modelos, API, permisos ni publicación: solo
+  crea al pulsar Crear. No se usan Azure/Claude reales en las pruebas.
+- Un Node nuevo comprueba proyecto/guardia/recarga y el test del runtime
+  verifica apertura/manual sin callbacks anteriores. Suite completa:
+  **424 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Las primeras **12 de navegador aprobadas**
+  comparan los tres tipos a 1450/900/390 px y bloquean cinco funciones previas.
+- **Regresión completa: 108 de navegador aprobadas**, incluidas esas doce:
+  IA→RAID, alta RAID, Gestión RAID e IA (vistas/acciones). El test nuevo también
+  crea un Issue simulado, conserva la descripción exacta y no usa RPC ni
+  funciones anteriores. Una comparación intermitente de Oportunidad pasó al
+  repetirla; la prueba espera ahora explícitamente fuentes/pintura y guarda
+  JSON de diagnóstico, sin relajar igualdad de contenido, cajas ni estilos.
+  Capturas/JSON en `tmp/migration/project_detail/ixs_ai_raid/`; también capturas
+  de `ixs_raid_create/`, `ixs_raid/` e `ixs_ai_full/`. Inspeccionados Issue en
+  escritorio y Risk móvil. Ruff/formato, sintaxis JS, Django y diff aprobados.
+  Sin proveedores reales ni push; temporales/cambios ajenos intactos.
+- **Fase 10 parcial.** Siguiente: vista anterior y recarga; compatibilidad
+  genérica/sin proyecto y arranque independiente. Mantener script/shim, no
+  activar ACCESS_ENFORCED ni tocar Horas por mes.
+
+## Bloque anterior: herramientas compartidas IXS (25/10/2026)
 
 - `project_ixs_tools.js` conecta editores de Planeación y Comunicados con sus
   controladores desde el runtime IXS. Mantiene UID decodificado, tipo inicial,

@@ -110,6 +110,36 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Recomendación IA → alta RAID modular compartida (25/10/2026)
+
+El runtime IXS conecta `raidOpen`/`raidManual` con `project_ixs_tools.js`, que
+usa el mismo `beeIxsRaidCreator` de Gestión RAID. Su apertura manual reutiliza
+el handler existente del creador. Conserva tipo, texto de título/detalle unido
+con raya, guardia por ID y recarga del registro tras crear. No cambia modelos,
+campos, endpoints, permisos ni reglas; no publica automáticamente.
+
+`ixsRuntimeBindings` deja de proporcionar las entradas RAID anteriores. Estas
+siguen intactas para comparar, pero el enlace IA→RAID no las ejecuta. La ruta
+nueva usa API v1 y exige pulsar Crear, igual que el formulario modular existente.
+
+Evidencia: **108 pruebas de navegador aprobadas** de IA→RAID, alta/registro
+RAID y vistas/acciones IA. Incluyen los tres tipos a 1450/900/390 px y una
+creación simulada de Issue desde IA. Cinco funciones anteriores se bloquean;
+se conserva descripción exacta, no hay RPC ni publicación automática.
+Una comparación intermitente de Oportunidad pasó al repetirla; se espera
+explícitamente la carga y el pintado y se guardan JSON de diagnóstico, sin
+relajar igualdad de contenido/cajas/estilos. Capturas en
+`tmp/migration/project_detail/ixs_ai_raid/`, `ixs_raid_create/`, `ixs_raid/`
+e `ixs_ai_full/`; Issue escritorio y Risk móvil inspeccionados.
+Un Node nuevo y comprobaciones ampliadas del runtime: suite completa
+**424 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff/formato, sintaxis JS, Django y diff
+aprobados. Proveedores simulados/red bloqueada, sin consultas ni publicaciones
+reales, sin push y con temporales/cambios ajenos intactos.
+
+**Fase 10 parcial.** Siguiente: vista anterior/recarga, compatibilidad
+genérica/sin proyecto y arranque independiente. Mantener aún script/shim.
+
 ### Herramientas compartidas IXS: Planeación, Comunicados y CSS (25/10/2026)
 
 `project_ixs_tools.js` conecta el runtime con el editor de Planeación y la

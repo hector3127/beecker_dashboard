@@ -9,7 +9,11 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque crea `project_ixs_tools.js`:
+   diferencia con `origin/main`. El último bloque conecta IA→RAID directamente:
+   `project_ixs_tools.js` usa `beeIxsRaidCreator`, compartido con Gestión RAID,
+   sin abrir/rellenar desde funciones anteriores. Conserva texto/tipo y requiere
+   pulsar Crear. Solo quedan vista anterior y recarga en los callbacks IXS.
+   El bloque previo crea `project_ixs_tools.js`:
    editores de Planeación y Comunicados IXS conectados directamente a sus
    controladores; estilos ya enlazados, sin inyectores anteriores en el runtime.
    El bloque previo crea `project_aer_runtime.js`:
@@ -232,7 +236,8 @@ Comunicados directamente, con UID, estado, guardias y fechas sugeridas originale
 El runtime no llama a inyectores de estilos: las hojas ya están enlazadas.
 
 **Siguiente bloque sugerido:** cierre de callbacks IXS restantes
-(RAID/vista anterior/recarga y arranque).
+(vista anterior/recarga y arranque). IA→RAID ya usa el creador modular compartido;
+no reabrir los formularios ni alterar su publicación explícita.
 Después compatibilidad genérica/
 sin proyecto y arranque independiente. El inventario de cierre está en el plan.
 No repetir los estados centrales/paneles ni esas tres construcciones de contexto.

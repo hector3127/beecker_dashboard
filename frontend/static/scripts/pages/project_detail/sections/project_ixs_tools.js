@@ -3,6 +3,16 @@ export function createIxsTools(store, views, support) {
   return {
     // All three stylesheets are linked by the modern project template.
     styles: { aer() {}, ixs() {}, ai() {} },
+    openRaid(type) {
+      const project = store.ixs;
+      return views.beeIxsRaidCreator.open(type, project, {
+        current: () => store.ixs?.proyecto.id === project.proyecto.id,
+        created: () => views.beeIxsRaid.reload(true),
+      });
+    },
+    manualRaid() {
+      return views.beeIxsRaidCreator.manual();
+    },
     editPlanning(type, encoded, initialType) {
       const project = store.ixs,
         state = store.ixsPlanning;

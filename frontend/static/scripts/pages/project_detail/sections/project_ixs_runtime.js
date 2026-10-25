@@ -1,4 +1,4 @@
-// Direct IXS navigation/rendering/editors. RAID, previous view and reload still
+// Direct IXS navigation/rendering/editors/RAID. Previous view and reload still
 // come from compatibility; styles are already linked by the modern template.
 export function createIxsRuntime(store, services) {
   let callbacks;
@@ -6,8 +6,8 @@ export function createIxsRuntime(store, services) {
     paint: () => runtime.paintAi(),
     tab: (tab) => runtime.select(tab),
     loadDrive: () => services.adapters.load("drive", () => runtime.paintAi()),
-    raidOpen: callbacks.createRaid,
-    raidManual: callbacks.manualRaid,
+    raidOpen: (type) => services.tools.openRaid(type),
+    raidManual: () => services.tools.manualRaid(),
   });
   const session = () =>
     services.contexts.session({
@@ -58,7 +58,7 @@ export function createIxsRuntime(store, services) {
             ),
           openAi: () => runtime.openAi(),
           loadClientActions: () => runtime.loadClientActions(),
-          createRaid: callbacks.createRaid,
+          createRaid: (type) => services.tools.openRaid(type),
           previous: callbacks.previous,
           editPlanning: (...args) => services.tools.editPlanning(...args),
           editMarker: (index) =>

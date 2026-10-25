@@ -93,6 +93,7 @@ async function start() {
     const data = createProjectData();
     const communique = createCommuniqueController();
     const azureGroups = createAzureGroupsController();
+    const raidCreator = createRaidCreator(data);
     Object.assign(window, {
       beeProjectData: data,
       beeProjectActionsModel: actionsModel,
@@ -127,7 +128,8 @@ async function start() {
       beeProjectCommunique: communique,
       beeProjectClient: createClientController(data),
       beeIxsCommunication: createCommunicationController(data),
-      beeIxsRaid: createRaidController(data, createRaidCreator(data)),
+      beeIxsRaidCreator: raidCreator,
+      beeIxsRaid: createRaidController(data, raidCreator),
       beeProjectMilestones: createMilestoneController(data),
       beeIxsPlanning: createPlanningController(data),
       beeProjectExecutive: (target, project, ...rest) => {

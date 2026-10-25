@@ -253,8 +253,11 @@ Cliente/Acciones IXS recibe los contextos AER desde este coordinador, sin
 controladores, mismo estado/lifecycle, UID y fechas sugeridas. El runtime IXS
 usa estos enlaces directamente; estilos AER/IXS/IA ya están enlazados en la
 plantilla nueva y no usa los inyectores anteriores. `ixsRuntimeBindings` aún
-proporciona RAID, vista anterior y recarga. Falta cerrar esos enlaces y el
-arranque independiente.
+proporciona vista anterior y recarga. El creador modular RAID se comparte entre
+su pestaña e IA: `project_ixs_tools.js` abre/formatea manualmente la recomendación
+con `beeIxsRaidCreator`, sin las entradas anteriores. Conserva texto, tipo,
+guardia por ID y recarga del registro tras crear; no publica automáticamente.
+Falta cerrar vista anterior/recarga y el arranque independiente.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

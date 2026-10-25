@@ -34,6 +34,9 @@ export function createRaidCreator(api) {
 
   return {
     close,
+    manual() {
+      session?.manual();
+    },
     /**
      * @param {string} tipo @param {any} data proyecto abierto
      * @param {{current: () => boolean, created: () => void}} hooks
@@ -140,6 +143,7 @@ export function createRaidCreator(api) {
         },
       };
 
+      session.manual = handlers.manual;
       document.body.append(createModal(tipo, project, handlers));
 
       api.raidPrompt(tipo).then(

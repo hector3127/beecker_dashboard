@@ -22,6 +22,8 @@ function setup(t) {
       styles: {},
       editPlanning: (...args) => calls.push(["editor", ...args]),
       communique: () => calls.push(["communique"]),
+      openRaid: (type) => calls.push(["raid", type]),
+      manualRaid: () => calls.push(["manual"]),
     },
     contexts: createProjectContexts(store),
     entry: { serverError() {} },
@@ -70,8 +72,6 @@ function setup(t) {
   const callbacks = {
     aerTabs: () => ({ selectAer() {}, aerContexts: {} }),
     reload() {},
-    createRaid() {},
-    manualRaid() {},
     previous() {},
   };
   return {
@@ -109,7 +109,7 @@ test("mount and tab actions use modules and preserve lazy state/editor bindings"
   assert.equal(calls.at(-1)[0], "mount");
 });
 test("AI rendering/loading and shared client actions stay inside the runtime", (t) => {
-  const { calls, store, runtime, callbacks } = setup(t);
+  const { calls, store, runtime } = setup(t);
   runtime.openAi();
   assert.deepEqual(
     calls
@@ -118,7 +118,10 @@ test("AI rendering/loading and shared client actions stay inside the runtime", (
     [["paint"], ["load", "sources"], ["load", "history"], ["load", "drive"]],
   );
   const action = runtime.aiActions();
-  assert.equal(action.raidOpen, callbacks.createRaid);
+  action.raidOpen("Issue");
+  assert.deepEqual(calls.at(-1), ["raid", "Issue"]);
+  action.raidManual();
+  assert.deepEqual(calls.at(-1), ["manual"]);
   action.tab("recursos");
   assert.equal(store.ixsTab, "recursos");
   runtime.loadClientActions();
