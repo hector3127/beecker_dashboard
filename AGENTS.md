@@ -202,9 +202,13 @@ los módulos existentes, conserva contextos diferidos, lifecycle, estados de
 Planeación/Azure y precarga de recursos. Cliente/Acciones mantiene el presentador
 compartido y la caché IXS. Los respaldos de pestaña desconocida se comparan con
 la anterior. `projectTabsContext` sigue como adaptador a los globals/contextos.
-Continuar por inicialización de proyectos y estado compartido, después auxiliares;
-`renderDashboard…`, el inicializador IA IXS y carga compartida aún tienen puentes
-en el archivo anterior. No reabrir vistas/formularios como pendientes.
+La inicialización AER/IXS, apertura IA IXS y enlace Cliente/Acciones usan
+`project_session{,_model,_view}.js`: conservan estados del mismo proyecto,
+reinicios al cambiar de ID, caché, orden de cargas y actualización diferida del
+histórico por API. Los errores y aviso de backend mantienen su presentación.
+`projectSessionContext` sigue como adaptador: el almacenamiento global de
+estados/contextos y la entrada común aún viven en el archivo anterior.
+Continuar por esos enlaces y auxiliares. No reabrir vistas/formularios.
 Mantener los puentes y comparación;
 no retirar aún script/shim. El manejador común showError sigue anterior y
 puede reemplazar el dashboard ante errores; comportamiento preservado.

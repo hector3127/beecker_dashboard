@@ -82,14 +82,14 @@ Gestión RAID, Azure DevOps y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
 La entrada modular usa API para filtros y dashboards. Encabezados, navegación,
-refresco y montaje de pestañas usan módulos; inicialización/estado/contextos
-y auxiliares todavía enlazan con el script anterior.
+refresco, montaje e inicialización de proyectos usan módulos. El almacenamiento
+de estados/contextos, entrada y auxiliares todavía enlazan con el script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
 | AER/T&M | Integración de estructura/estado y auxiliares compartidos; pestañas ya modulares |
-| Compartido | Inicialización/entrada, estado/contextos y auxiliares de Planeación/soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Encabezados/navegación/refresco y montaje de pestañas ya separados |
+| Compartido | Almacenamiento global de estados/contextos, entrada y auxiliares de Planeación/soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Encabezados/navegación/refresco, montaje e inicialización ya separados |
 
 Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
@@ -106,6 +106,37 @@ Planeación conserva puentes y auxiliares en el archivo anterior, entre ellos
 la integración compartida, sin confundirlos con volver a migrar su vista y editores.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Inicialización y sesión AER/IXS (selección de estado separada)
+
+`project_session{,_model,_view}.js` separa los inicializadores AER/IXS, apertura
+de IA IXS y enlace Cliente/Acciones. Conserva la identidad del estado al volver
+al mismo proyecto y sus reinicios originales al cambiar de ID; Clockify vuelve
+a la semana local. IA IXS conserva el orden vista/fuentes/historial/Drive.
+Cliente/Acciones reutiliza su caché y modifica solo los campos AER compartidos;
+su respuesta no se aplica si el contenedor cambió de familia.
+
+El histórico diferido usa la API existente, conserva la comprobación de identidad
+del proyecto y actualiza el Gantt modular Ejecutivo/Planeación. Los errores de
+entrada y el aviso de backend AER mantienen texto, cajas y estilos mediante DOM
+seguro. `main.js` registra la sesión antes de cargar el archivo anterior.
+
+**Fase 10 parcial.** `projectSessionContext` conserva los adaptadores a globals;
+no se extrajo todavía su almacenamiento ni toda la entrada común. Siguiente:
+estado/contextos/entrada y auxiliares de Planeación/soporte. Mantener puentes y
+comparación, sin retirar script/shim ni reabrir pestañas ya migradas.
+
+Evidencia inicial: **13 pruebas nuevas de navegador**, con nueve comparaciones
+a 1450/900/390 px de errores/aviso, conservación/reinicio y apertura IA/cache.
+**25 de entrada/transporte Cliente/Acciones aprobadas**. Siete Node contrastan
+estados iniciales con el código anterior y verifican selección/semana/diagnóstico;
+suite completa **357 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Capturas en
+`tmp/migration/project_detail/session/`, inspeccionadas escritorio/móvil.
+Ruff/formato, Django y diff aprobados. Proveedores simulados, sin correos reales,
+sin cambios en API/cálculos y sin push. Regresión adicional: **80 aprobadas**
+de refresco/navegación, IA AER/IXS, histórico/respuesta tardía y soporte.
+Total de este bloque: **118 de navegador/soporte aprobadas**, sin duplicados.
 
 ### Montaje de pestañas AER/IXS (controlador compartido separado)
 

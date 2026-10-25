@@ -2,7 +2,34 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: montaje de pestañas AER/IXS
+## Bloque actual: inicialización y sesión AER/IXS
+
+- `project_session{,_model,_view}.js` separa selección/reinicio de estados,
+  inicializadores AER/IXS, apertura IA IXS y enlace compartido Cliente/Acciones.
+  Conserva identidad en el mismo ID, semana local Clockify al cambiar de
+  proyecto, caché y orden de cargas IA. Cliente/Acciones conserva el objeto
+  AER de IA y solo modifica ID/pendientes; rechaza otra familia/proyecto/pestaña.
+- Histórico diferido por API existente, guardia de identidad y actualización
+  modular del Gantt Ejecutivo/Planeación. Errores/aviso de backend con DOM seguro
+  y la misma presentación. Registro en `main.js` antes del script anterior.
+- **Fase 10 parcial.** `projectSessionContext` sigue enlazando los globals;
+  el almacenamiento, los adaptadores/entrada común y auxiliares siguen pendientes.
+  Continuar por ese bloque y Planeación/soporte (incluido showError). No repetir
+  vistas ni retirar script/shim ni activar ACCESS_ENFORCED ni tocar Horas por mes.
+- **13 nuevas de navegador**, con nueve comparaciones a 1450/900/390 px y
+  cuatro de estado/cache/orden IA. **25 de entrada/Cliente/Acciones aprobadas**.
+  Siete Node contrastan las fábricas con las originales y prueban ID/semana/
+  diagnóstico; suite completa **357 aprobadas y tres fallos conocidos**
+  (`cost_sprint_details`, `executive_report`, `financial`). Ruff/formato, Django
+  y diff aprobados. Capturas en `tmp/migration/project_detail/session/`,
+  inspeccionadas escritorio/móvil. API y cálculos sin cambios; datos/proveedores
+  simulados. Sin consultas/correos reales, sin push; cambios ajenos intactos.
+- Regresión adicional: **80 aprobadas** de refresco/navegación, fuentes IA
+  AER/IXS, histórico diferido (incluida respuesta tardía) y soporte. Con las
+  13 nuevas y las 25 de entrada/transporte: **118 aprobadas**. La última
+  corrida tuvo 81 (80 de regresión + la nueva de Cliente/Acciones).
+
+## Bloque anterior: montaje de pestañas AER/IXS
 
 - `project_tabs.js` selecciona los módulos de las ocho/diez pestañas. Mantiene
   contextos AER diferidos, presentador compartido Cliente/Acciones, sincronización

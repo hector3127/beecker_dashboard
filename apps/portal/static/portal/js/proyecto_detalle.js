@@ -2767,7 +2767,21 @@
     return x.fechaLimite || x.proximaRevision || x.fechaReal || x.fechaInicio || '';
   }
 
+  function projectSessionContext(){
+    return {aer:(...args)=>args.length?(aerDashboardData=args[0]):aerDashboardData,
+      ixs:(...args)=>args.length?(ixsProyectoActual=args[0]):ixsProyectoActual,
+      aerAi:(...args)=>args.length?(aerIAState=args[0]):aerIAState,
+      ixsAi:(...args)=>args.length?(ixsIAState=args[0]):ixsIAState,
+      clockify:(...args)=>args.length?(ixsClockifyState=args[0]):ixsClockifyState,
+      aerTab:(...args)=>args.length?(aerTabActual=args[0]):aerTabActual,
+      ixsTab:(...args)=>args.length?(ixsTabActual=args[0]):ixsTabActual,
+      globalId:id=>{idProyectoActualGlobal=id;},cache:ixsClienteAccionesCache,
+      styles:{aer:_aerEnsureStyles,ixs:_ixsEnsureStyles,ai:ixsIAStyles},
+      render:{aer:_aerRenderShell,ixs:_ixsRenderShell,aerTab:_aerRenderTab,ai:ixsIAPintar},
+      aiLoads:{sources:ixsIACargarFuentes,history:ixsIACargarHistoria,drive:ixsIACargarDrive}};
+  }
   function renderDashboardAERTYMProyecto(res) {
+    if(window.beeProjectSession)return window.beeProjectSession.aer(res,projectSessionContext());
     const cont=document.getElementById('dashboard-proyecto-detalle');
     if (!cont) return;
     if (!res || !res.ok) {
@@ -4769,6 +4783,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   function ixsCAActivo(){return ['cliente','acciones'].includes(ixsTabActual)&&!!document.querySelector('#dashboard-proyecto-detalle .ixs-shell');}
   const ixsClienteAccionesCache={};
   function ixsCargarClienteAcciones(){
+    if(window.beeProjectSession)return window.beeProjectSession.clientActions(projectSessionContext());
     const id=ixsProyectoActual&&ixsProyectoActual.proyecto&&ixsProyectoActual.proyecto.id;
     const target=document.getElementById('ixs-tab-contenido');if(!id||!target)return;
     _aerEnsureStyles();
@@ -6371,6 +6386,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
   function renderDashboardIXBSaaSRaaS(data){
+    if(window.beeProjectSession)return window.beeProjectSession.ixs(data,projectSessionContext());
     const cont=document.getElementById('dashboard-proyecto-detalle');if(!cont)return;
     if(!data||!data.proyecto){cont.innerHTML='<div class="card">'+_ixsTxt(data&&data.errorServidor||'No se pudo cargar el ejecutivo.')+'</div>';return;}
     if(ixsClockifyState.proyectoId!==data.proyecto.id){const w=_ixsSemanaActual();ixsClockifyState={proyectoId:data.proyecto.id,registros:null,cargando:false,error:'',desde:w.desde,hasta:w.hasta,requestId:0};}
@@ -11721,6 +11737,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     document.head.appendChild(style);
   }
   function ixsIAAbrir(){
+    if(window.beeProjectSession)return window.beeProjectSession.ai(projectSessionContext());
     const id=String(ixsProyectoActual.proyecto.id);ixsIAStyles();
     if(ixsIAState.id!==id)ixsIAState={id,azure:null,plan:null,resources:null,clockify:null,cliente:null,raid:null,memoria:null,minutas:[],driveConfig:null,driveFiles:[],driveSelected:[],driveError:'',driveLoading:false,analisis:null,error:'',loading:false,question:'',respuesta:'',sourceErrors:{},request:0};
     ixsIAPintar();ixsIACargarFuentes();ixsIACargarHistoria();ixsIACargarDrive();

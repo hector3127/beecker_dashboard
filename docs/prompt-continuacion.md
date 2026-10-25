@@ -9,11 +9,13 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local separa el montaje de
-   pestañas AER/IXS en `project_tabs.js` y sus respaldos en `project_tabs_view.js`.
+   diferencia con `origin/main`. El último bloque local separa la inicialización
+   y sesión AER/IXS en `project_session{,_model,_view}.js`. El montaje de
+   pestañas usa `project_tabs.js` y sus respaldos `project_tabs_view.js`.
    Encabezados/navegación/refresco ya usan `project_shell{,_model,_view}.js`.
    IA AER ya está completa, incluidas acciones por API, validaciones y copiado.
-   La fase 10 sigue parcial por entrada/estado/montaje y auxiliares compartidos.
+   La fase 10 sigue parcial por entrada, almacenamiento global de estados,
+   adaptadores de contexto y auxiliares compartidos.
    Recursos AER está completo,
    incluidas evaluaciones, editor y guardado/borrado por API. Riesgos AER,
    Esfuerzo AER (registros por rango
@@ -153,13 +155,17 @@ respaldos de pestaña desconocida están comparados; el botón de compatibilidad
 IXS mantiene su callback anterior. Los dispatch globales solo delegan.
 `projectTabsContext` todavía enlaza a los globals/contextos del archivo anterior.
 
-**Siguiente bloque sugerido:** inicialización de proyectos y estado/cachés
-(renderDashboard AER/IXS, apertura IA IXS y enlace Cliente/Acciones);
-después auxiliares compartidos, incluido el manejador showError, que
+**Inicialización separada:** `project_session{,_model,_view}.js` conserva las
+reglas de selección/reinicio, caché de Cliente/Acciones y apertura de IA IXS.
+El histórico diferido usa la API existente; errores y aviso mantienen su aspecto.
+`projectSessionContext` enlaza a los globals; todavía no es un almacén nuevo.
+
+**Siguiente bloque sugerido:** almacenamiento de estados/contextos y entrada
+común; después auxiliares compartidos, incluido el manejador showError, que
 hoy puede reemplazar el dashboard ante ciertos errores (comportamiento anterior
 preservado). No reabrir IA como pendiente ni retirar aún script/shim.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
-inicialización/estado y los auxiliares de Planeación IXB que aún viven
+los adaptadores/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,
 `_ixeAuto`). Al final: limpieza de archivos anteriores y CSP. Genesis/accesos
 es decisión de despliegue: no activar ACCESS_ENFORCED.
