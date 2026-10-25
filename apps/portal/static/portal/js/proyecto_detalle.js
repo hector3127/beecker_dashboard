@@ -798,6 +798,14 @@
   }
 
   function projectEntryContext(){
+    if(window.beeProjectEntryRuntime)return window.beeProjectEntryRuntime.connect({
+      previousStart:()=>initDashboard(true),previousLoad:()=>loadDashboard(true),
+      clientChanged:()=>{const fp=document.getElementById('f-proyecto');
+        if(_clienteSeleccionadoDashboard()&&fp)fp.value='Todos los proyectos';
+        loadDashboard();if(_clienteSeleccionadoDashboard())return;
+        if(cacheReporteAERTYM)renderReporteAERTYM(cacheReporteAERTYM);
+        if(cacheReporteIXB)renderReporteIXBRaaS(cacheReporteIXB);cargarTopRiesgosAzurePortafolio();},
+      executive:renderDashboardEjecutivoProyecto}).context();
     if(window.beeProjectContexts)return window.beeProjectContexts.entry({
       previousStart:()=>initDashboard(true),previousLoad:()=>loadDashboard(true),
       clientChanged:()=>{const fp=document.getElementById('f-proyecto');
@@ -4838,7 +4846,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   function ixsCAActivo(){return ['cliente','acciones'].includes(ixsTabActual)&&!!document.querySelector('#dashboard-proyecto-detalle .ixs-shell');}
   const ixsClienteAccionesCache = window.beeProjectState ? window.beeProjectState.clientCache : {};
   function ixsCargarClienteAcciones(){
-    if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).loadClientActions();
+    if(window.beeIxsRuntime)return window.beeIxsRuntime.loadClientActions();
     if(window.beeProjectSession)return window.beeProjectSession.clientActions(projectSessionContext());
     const id=ixsProyectoActual&&ixsProyectoActual.proyecto&&ixsProyectoActual.proyecto.id;
     const target=document.getElementById('ixs-tab-contenido');if(!id||!target)return;
@@ -6447,10 +6455,8 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     }).getRegistrosClockifyProyecto(id);
   }
 
-  function ixsRuntimeBindings(){return {aerTabs:window.beeAerRuntime?()=>window.beeAerRuntime.tabs():projectTabsContext,
-    reload:loadDashboard,previous:ixsAbrirVistaAnterior};}
   function renderDashboardIXBSaaSRaaS(data){
-    if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).initialize(data);
+    if(window.beeIxsRuntime)return window.beeIxsRuntime.initialize(data);
     if(window.beeProjectSession)return window.beeProjectSession.ixs(data,projectSessionContext());
     const cont=document.getElementById('dashboard-proyecto-detalle');if(!cont)return;
     if(!data||!data.proyecto){cont.innerHTML='<div class="card">'+_ixsTxt(data&&data.errorServidor||'No se pudo cargar el ejecutivo.')+'</div>';return;}
@@ -6482,7 +6488,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     });
   }
   function _ixsRenderShell(){
-    if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).mount();
+    if(window.beeIxsRuntime)return window.beeIxsRuntime.mount();
     const cont=document.getElementById('dashboard-proyecto-detalle'),d=ixsProyectoActual;if(!cont||!d)return;
     if(window.beeProjectShell)return window.beeProjectShell.mount(cont,projectShellContext('ixs'));
     const p=d.proyecto||{},id=_ixsTxt(p.id);
@@ -6505,12 +6511,12 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     _ixsRenderTab();
   }
   function ixsCambiarTab(tab){
-    if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).select(tab);
+    if(window.beeIxsRuntime)return window.beeIxsRuntime.select(tab);
     if(window.beeProjectShell&&ixsProyectoActual)return window.beeProjectShell.bind(projectShellContext('ixs')).select(tab);
     if(!ixsProyectoActual)return;ixsTabActual=tab;_ixsRenderShell();
   }
   function ixsRecargarProyecto(){
-    if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).refresh();
+    if(window.beeIxsRuntime)return window.beeIxsRuntime.refresh();
     if(window.beeProjectShell&&ixsProyectoActual)return window.beeProjectShell.bind(projectShellContext('ixs')).refresh();
     const d=ixsProyectoActual,id=d&&d.proyecto&&d.proyecto.id,cont=document.getElementById('ixs-tab-contenido');if(!id)return;
     if(cont)cont.innerHTML='<div class="ixs-card" style="padding:22px">Actualizando ejecutivo…</div>';
@@ -6958,7 +6964,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
   function _ixsRenderTab(){
-    if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).dispatch();
+    if(window.beeIxsRuntime)return window.beeIxsRuntime.dispatch();
     if(window.beeProjectTabs)return window.beeProjectTabs.ixs(projectTabsContext());
     const el=document.getElementById('ixs-tab-contenido');if(!el||!ixsProyectoActual)return;
     if(ixsTabActual==='ia'){ixsIAAbrir();return;}
@@ -11820,7 +11826,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     document.head.appendChild(style);
   }
   function ixsIAAbrir(){
-    if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).openAi();
+    if(window.beeIxsRuntime)return window.beeIxsRuntime.openAi();
     if(window.beeProjectSession)return window.beeProjectSession.ai(projectSessionContext());
     const id=String(ixsProyectoActual.proyecto.id);ixsIAStyles();
     if(ixsIAState.id!==id)ixsIAState={id,azure:null,plan:null,resources:null,clockify:null,cliente:null,raid:null,memoria:null,minutas:[],driveConfig:null,driveFiles:[],driveSelected:[],driveError:'',driveLoading:false,analisis:null,error:'',loading:false,question:'',respuesta:'',sourceErrors:{},request:0};
@@ -11854,7 +11860,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   }
   function ixsIAEncontrarFecha(x){return String(x.fechaLimiteDev||x.fechaLimite||x.fechaCompromiso||x.fecha||'').slice(0,10);}
   function ixsIAPintar(){
-    if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).paintAi();
+    if(window.beeIxsRuntime)return window.beeIxsRuntime.paintAi();
     const el=document.getElementById('ixs-tab-contenido'),st=ixsIAState;if(!el||ixsTabActual!=='ia'||!ixsProyectoActual||st.id!==ixsProyectoActual.proyecto.id)return;
     if(window.beeIxsAiView)return window.beeIxsAiView.render(el,st,{
       project:ixsProyectoActual,context:ixsIAContexto(),changed:ixsIACambios(),capacity:ixsIACapacidad(),
@@ -11870,7 +11876,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
     ixsIAExtenderVista();
   }
   function ixsIAAccionesVista(){
-    if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).aiActions();
+    if(window.beeIxsRuntime)return window.beeIxsRuntime.aiActions();
     if(window.beeIxsAdapters)return window.beeIxsAdapters.actions({paint:ixsIAPintar,tab:ixsCambiarTab,loadDrive:ixsIACargarDrive,raidOpen:ixsRaidAbrirCrear,raidManual:ixsRaidAbrirManual});
     if(window.beeIxsAiController)return window.beeIxsAiController.actions(ixsIAState,{
       current:window.beeProjectFeatureContexts?window.beeProjectFeatureContexts.ixsCurrent:state=>ixsIAState===state&&ixsProyectoActual?.proyecto.id===state.id,

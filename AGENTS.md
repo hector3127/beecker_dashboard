@@ -257,7 +257,15 @@ proporciona vista anterior y recarga. El creador modular RAID se comparte entre
 su pestaña e IA: `project_ixs_tools.js` abre/formatea manualmente la recomendación
 con `beeIxsRaidCreator`, sin las entradas anteriores. Conserva texto, tipo,
 guardia por ID y recarga del registro tras crear; no publica automáticamente.
-Falta cerrar vista anterior/recarga y el arranque independiente.
+`project_entry_runtime.js` compone el contexto de entrada/recarga con renderers
+AER/IXS directos y el almacén; conserva callbacks para sin proyecto/cuenta,
+cambio de cliente y Ejecutivo genérico. La recarga de hitos en Planeación IXS
+usa ese controlador directamente, sin `loadDashboard`/`projectEntryContext`.
+Los contextos AER compartidos también llegan directamente desde su runtime.
+Se retira `ixsRuntimeBindings` y la conexión previa IXS; su única dependencia
+de renderizado anterior es `previous`, inyectada explícitamente desde main.
+Faltan vista anterior/Ejecutivo genérico, compatibilidad sin proyecto y arranque
+independiente. No retirar todavía script/shim.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

@@ -1,7 +1,6 @@
-// Direct IXS navigation/rendering/editors/RAID. Previous view and reload still
-// come from compatibility; styles are already linked by the modern template.
+// Direct IXS navigation/rendering/editors/RAID/reload. The previous executive
+// view still comes from compatibility until its generic renderer is migrated.
 export function createIxsRuntime(store, services) {
-  let callbacks;
   const aiCallbacks = () => ({
     paint: () => runtime.paintAi(),
     tab: (tab) => runtime.select(tab),
@@ -15,7 +14,7 @@ export function createIxsRuntime(store, services) {
       render: {
         ixs: () => runtime.mount(),
         ai: () => runtime.paintAi(),
-        aerTab: () => services.tabs.aer(callbacks.aerTabs()),
+        aerTab: () => services.tabs.aer(services.aerTabs()),
       },
       aiLoads: Object.fromEntries(
         ["sources", "history", "drive"].map((source) => [
@@ -33,10 +32,6 @@ export function createIxsRuntime(store, services) {
       initializeIxs: (data) => runtime.initialize(data),
     });
   const runtime = {
-    connect(value) {
-      callbacks = value;
-      return runtime;
-    },
     initialize(data) {
       return services.session.ixs(data, session());
     },
@@ -46,7 +41,7 @@ export function createIxsRuntime(store, services) {
       return services.shell.mount(target, shell());
     },
     dispatch() {
-      const aer = callbacks.aerTabs();
+      const aer = services.aerTabs();
       return services.tabs.ixs(
         services.contexts.tabs({
           selectAer: aer.selectAer,
@@ -54,17 +49,17 @@ export function createIxsRuntime(store, services) {
           aerContexts: aer.aerContexts,
           resources: () =>
             services.support.resources(
-              services.adapters.support(callbacks.reload),
+              services.adapters.support(services.reload),
             ),
           openAi: () => runtime.openAi(),
           loadClientActions: () => runtime.loadClientActions(),
           createRaid: (type) => services.tools.openRaid(type),
-          previous: callbacks.previous,
+          previous: services.previous,
           editPlanning: (...args) => services.tools.editPlanning(...args),
           editMarker: (index) =>
             services.support.editMilestone(
               index,
-              services.adapters.support(callbacks.reload),
+              services.adapters.support(services.reload),
             ),
           extension: () => services.tools.communique(),
         }),

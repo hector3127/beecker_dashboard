@@ -5,6 +5,7 @@ import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
 import { createProjectEntry } from "./sections/project_entry.js";
+import { createEntryRuntime } from "./sections/project_entry_runtime.js";
 import { createIxsSupport } from "./sections/ixs_support.js";
 import {
   createProjectState,
@@ -154,6 +155,12 @@ async function start() {
     window.beeProjectPanels = createProjectPanels(window.beeProjectState);
     window.beeProjectFeedback = projectFeedback;
     window.beeProjectContexts = createProjectContexts(window.beeProjectState);
+    window.beeProjectEntryRuntime = createEntryRuntime({
+      contexts: window.beeProjectContexts,
+      entry: window.beeProjectEntry,
+      aer: (data) => window.beeAerRuntime.initialize(data),
+      ixs: (data) => window.beeIxsRuntime.initialize(data),
+    });
     window.beeProjectFeatureContexts = createProjectFeatureContexts(
       window.beeProjectState,
     );
@@ -166,6 +173,9 @@ async function start() {
       panels: window.beeIxsAiPanels,
     });
     window.beeIxsRuntime = createIxsRuntime(window.beeProjectState, {
+      previous: () => window.ixsAbrirVistaAnterior(),
+      reload: () => window.beeProjectEntryRuntime.load(),
+      aerTabs: () => window.beeAerRuntime.tabs(),
       tools: createIxsTools(
         window.beeProjectState,
         window,

@@ -9,10 +9,16 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque conecta IA→RAID directamente:
+   diferencia con `origin/main`. El último bloque crea `project_entry_runtime.js`:
+   contexto/recarga con renderers AER/IXS directos y almacén. La recarga de hitos
+   en Planeación no pasa por loadDashboard ni projectEntryContext. Se retira
+   ixsRuntimeBindings; los contextos AER llegan desde su runtime. Solo la vista
+   anterior se inyecta desde main como dependencia de renderizado IXS.
+   Quedan callbacks de compatibilidad sin proyecto/cuenta/cliente/genérico.
+   El bloque previo conecta IA→RAID directamente:
    `project_ixs_tools.js` usa `beeIxsRaidCreator`, compartido con Gestión RAID,
    sin abrir/rellenar desde funciones anteriores. Conserva texto/tipo y requiere
-   pulsar Crear. Solo quedan vista anterior y recarga en los callbacks IXS.
+   pulsar Crear.
    El bloque previo crea `project_ixs_tools.js`:
    editores de Planeación y Comunicados IXS conectados directamente a sus
    controladores; estilos ya enlazados, sin inyectores anteriores en el runtime.
@@ -236,7 +242,9 @@ Comunicados directamente, con UID, estado, guardias y fechas sugeridas originale
 El runtime no llama a inyectores de estilos: las hojas ya están enlazadas.
 
 **Siguiente bloque sugerido:** cierre de callbacks IXS restantes
-(vista anterior/recarga y arranque). IA→RAID ya usa el creador modular compartido;
+(vista anterior/Ejecutivo genérico, sin proyecto y arranque). La recarga de hitos
+en Planeación ya usa el controlador/contexto nuevos; no repetirla.
+IA→RAID ya usa el creador modular compartido;
 no reabrir los formularios ni alterar su publicación explícita.
 Después compatibilidad genérica/
 sin proyecto y arranque independiente. El inventario de cierre está en el plan.

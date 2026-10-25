@@ -2,7 +2,33 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: recomendación IA → RAID modular (25/10/2026)
+## Bloque actual: contexto/recarga directos del proyecto (25/10/2026)
+
+- `project_entry_runtime.js` compone el contexto de entrada/recarga con
+  almacén y renderers AER/IXS directos. Conserva los callbacks de compatibilidad
+  para sin proyecto/cuenta, cliente y Ejecutivo genérico, sin modificar ramas.
+- La recarga de hitos en Planeación IXS ya usa ese controlador/contexto, sin
+  `loadDashboard` ni `projectEntryContext`. Los contextos AER compartidos llegan
+  desde su runtime. Se elimina `ixsRuntimeBindings` y el método `connect` IXS;
+  solo la vista anterior queda inyectada como renderer desde main.
+- **33 pruebas de entrada/sesión/pestañas aprobadas**, incluidas dos nuevas de
+  guardar hito→recarga y error→reintento con cinco entradas anteriores bloqueadas.
+  Conservan payload/ID/índice exactos y vuelta a Ejecutivo tras recargar IXS.
+  Tres Node nuevos verifican estado/secuencia, renderers y fallbacks; el test
+  del runtime usa sus servicios actuales. Suite completa **427 aprobadas y
+  tres fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+- **72 adicionales de navegador aprobadas; 105 en total**: hitos, shell,
+  Cliente/Acciones IXS, runtimes AER/IXS y soporte de recursos. Incluyen
+  comparación en tres tamaños, guardados/reintentos y respuestas tardías.
+  Capturas en `tmp/migration/project_detail/entry/`, `session/`, `tabs/`,
+  `ixs_milestones/`, `shell/` e `ixs_client_actions/`. Inspeccionadas entrada
+  IXS escritorio y AER móvil. Ruff/formato, sintaxis JS, Django y diff aprobados.
+  Sin proveedores reales ni push; temporales/cambios ajenos intactos.
+- **Fase 10 parcial.** Siguiente: vista anterior/Ejecutivo genérico, sin
+  proyecto/cuenta y arranque independiente. Mantener todavía script/shim,
+  no activar ACCESS_ENFORCED ni tocar Horas por mes.
+
+## Bloque anterior: recomendación IA → RAID modular (25/10/2026)
 
 - El runtime IXS usa `project_ixs_tools.js` para abrir RAID y pasar al modo
   manual. `beeIxsRaidCreator` es el mismo controlador para IA y Gestión RAID;

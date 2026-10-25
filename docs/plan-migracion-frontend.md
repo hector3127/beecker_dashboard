@@ -110,6 +110,35 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Contexto y recarga directos del proyecto (25/10/2026)
+
+`project_entry_runtime.js` compone el contexto de entrada con el almacén y
+renderers AER/IXS directos. La recarga de hitos en Planeación IXS pide al
+controlador de entrada que use la selección actual y conserva sus errores/
+reintentos. Los callbacks de sin proyecto/cuenta, cambio de cliente y Ejecutivo
+genérico permanecen explícitos, sin cambiar sus ramas ni cálculos.
+
+Los contextos AER compartidos llegan directamente al runtime IXS desde AER.
+Se retira `ixsRuntimeBindings` y su conexión previa; la vista anterior permanece
+inyectada desde main hasta migrar el Ejecutivo genérico. No se altera API,
+permisos, modelos ni diseño; no se declara independiente todo el detalle.
+
+Evidencia: **33 pruebas de entrada/sesión/pestañas y 72 adicionales aprobadas
+(105 de navegador total)**. Incluyen hitos, shell, Cliente/Acciones IXS,
+runtimes AER/IXS y soporte; comparación en tres tamaños, reintentos y respuestas
+tardías. Dos nuevas bloquean cinco entradas anteriores y guardan un hito,
+recargando directamente y reintentando ante 503; verifican payload/ID/índice
+exactos y vuelta a Ejecutivo IXS. Tres Node nuevos verifican contexto/estado,
+renderers y fallbacks. Suite completa **427 aprobadas y tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). Ruff/formato, sintaxis
+JS, Django y diff aprobados. Capturas en `tmp/migration/project_detail/entry/`,
+`session/`, `tabs/`, `ixs_milestones/`, `shell/` e `ixs_client_actions/`;
+entrada IXS escritorio y AER móvil inspeccionadas. Proveedores simulados/red
+bloqueada, sin consultas reales, sin push y con temporales/cambios ajenos intactos.
+
+**Fase 10 parcial.** Siguiente: vista anterior/Ejecutivo genérico, sin proyecto/
+cuenta y arranque independiente. Mantener aún script/shim.
+
 ### Recomendación IA → alta RAID modular compartida (25/10/2026)
 
 El runtime IXS conecta `raidOpen`/`raidManual` con `project_ixs_tools.js`, que

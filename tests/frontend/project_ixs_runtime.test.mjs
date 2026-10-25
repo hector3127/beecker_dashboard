@@ -18,6 +18,9 @@ function setup(t) {
     globalThis.document = before;
   });
   const services = {
+    previous() {},
+    reload() {},
+    aerTabs: () => ({ selectAer() {}, aerContexts: {} }),
     tools: {
       styles: {},
       editPlanning: (...args) => calls.push(["editor", ...args]),
@@ -69,30 +72,25 @@ function setup(t) {
       editMilestone: (index, env) => calls.push(["marker", index, env]),
     },
   };
-  const callbacks = {
-    aerTabs: () => ({ selectAer() {}, aerContexts: {} }),
-    reload() {},
-    previous() {},
-  };
   return {
     store,
     calls,
     services,
-    callbacks,
     target,
-    runtime: createIxsRuntime(store, services).connect(callbacks),
+    runtime: createIxsRuntime(store, services),
   };
 }
 test("mount and tab actions use modules and preserve lazy state/editor bindings", (t) => {
-  const { store, calls, target, runtime, callbacks } = setup(t);
+  const { store, calls, target, runtime, services } = setup(t);
   runtime.mount();
   assert.equal(calls[0][1], target);
   assert.equal(calls[0][2].project, store.ixs);
   runtime.dispatch();
   const env = calls.at(-1)[1];
+  assert.equal(env.previous, services.previous);
   assert.equal(env.ixsStates().planning, store.ixsPlanning);
   env.resources();
-  assert.equal(calls.at(-1)[1].reload, callbacks.reload);
+  assert.equal(calls.at(-1)[1].reload, services.reload);
   env.planningActions.editMarker(7);
   assert.equal(calls.at(-1)[1], 7);
   env.planningActions.edit("compromiso", "hito/'1", "Hito");
