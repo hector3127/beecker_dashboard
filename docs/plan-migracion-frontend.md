@@ -83,15 +83,15 @@ También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
 La entrada modular usa API para filtros y dashboards. Encabezados, navegación,
 refresco, montaje e inicialización de proyectos usan módulos. Los doce valores
-centrales pertenecen a `project_state.js`; siguen los estados de paneles,
-adaptadores, compatibilidad y auxiliares enlazados al script anterior.
+centrales y siete estados de paneles pertenecen a `project_state.js`; siguen
+otros adaptadores, compatibilidad y auxiliares enlazados al script anterior.
 La entrada de proyectos y sus mensajes ya usan módulos.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
 | AER/T&M | Integración de estructura/estado y auxiliares compartidos; pestañas ya modulares |
-| Compartido | Estados de paneles/adaptadores, compatibilidad sin proyecto/Ejecutivo genérico y soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Estados centrales, encabezados/navegación/refresco, montaje, inicialización y entrada de proyectos ya separados |
+| Compartido | Contextos/adaptadores restantes, compatibilidad sin proyecto/Ejecutivo genérico y soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Estados centrales/paneles identificados y contextos Planeación/Esfuerzo/Recursos AER ya separados |
 
 Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
@@ -109,6 +109,40 @@ Planeación conserva puentes de estado en el archivo anterior. Los auxiliares
 adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Estados y contextos de paneles (25/10/2026)
+
+`project_state.js` también posee siete estados de paneles: rango y filtros de
+Planeación AER, registros Clockify AER y selección de Recursos, Planeación IXS,
+Planeación Azure y Azure. Sus declaraciones anteriores se enlazan al almacén
+sin reiniciarlo; la ruta de comparación conserva sus literales originales.
+
+`project_panels.js` construye los contextos de Planeación, Esfuerzo y Recursos
+AER: snapshot de dashboard, guardias de identidad/pestaña y acceso/sustitución
+de rangos, filtros, registros y selección. Conserva las firmas y callbacks de
+guardado, repintado, recarga, errores y Comunicados. Los tres contextos previos
+solo delegan en la ruta activa. Los callbacks comunes todavía se inyectan desde
+el archivo anterior; este bloque no retira esa dependencia.
+
+**Fase 10 parcial.** Siguiente: otros contextos/adaptadores y soporte de guardado/
+avisos; después compatibilidad genérica/sin proyecto y arranque independiente.
+No rehacer vistas ni cambiar fórmulas, ni retirar script/shim antes de completar
+sus dependencias. La tabla de cierre debajo refleja los pendientes actuales.
+
+Diez Node nuevos contrastan los siete valores iniciales y los tres contextos
+contra las funciones previas, incluidas guardias y reemplazo de estado. La prueba
+del almacén cubre las 19 declaraciones enlazadas. Suite completa: **392 aprobadas
+y tres fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+
+**61 de navegador aprobadas** de identidad del almacén y paneles AER, con
+comparación visual a 1450/900/390 px. Cubren filtros/rangos, selección, ventanas,
+guardado/borrado y respuestas tardías. Las comprobaciones del almacén en las dos
+familias incluyen las siete referencias nuevas. **69 adicionales aprobadas**
+de Planeación IXS, tabla Azure y montaje: **130 de navegador en total**.
+Ruff/formato, Django y diff aprobados. Capturas en
+`tmp/migration/project_detail/aer_planning_controls/`, `aer_effort/`,
+`aer_resources/`, `ixs_planning_view/` e `ixs_azure_table/`, inspeccionadas.
+Sin cambios de API/cálculos, sin consultas/correos reales ni push.
 
 ### Estados centrales del proyecto (25/10/2026)
 
@@ -128,7 +162,7 @@ Sin módulo, la comparación sigue inicializando sus valores originales.
 
 | Pendiente | Evidencia y condición de cierre |
 |---|---|
-| Estados de paneles y adaptadores | AER conserva rango/filtros de Planeación, filtro Clockify y selección de Recursos; IXS conserva `ixsPlanState`, `ixsPlanAzureState` e `ixsAzureState`. Sus contextos/callbacks siguen definidos en el archivo anterior. Extraerlos sin duplicar sus vistas. |
+| Contextos y adaptadores restantes | Los siete estados identificados ya están en el almacén y Planeación/Esfuerzo/Recursos AER usan `project_panels.js`. Aún dependen del archivo anterior contextos generales de shell/montaje/sesión, Acciones/IA y adaptadores IXS. Separarlos sin duplicar vistas. |
 | Compatibilidad genérica | `renderDashboardEjecutivoProyecto` tiene diseño propio para servicios no reconocidos como AER/IXS; ramas sin proyecto/cuenta aún usan funciones previas. Migrar o demostrar sus rutas de entrada antes de retirar dependencias. |
 | Soporte compartido restante | Contextos aún pasan funciones previas de guardado/avisos y editores, como `_aerStartSaving`, `_aerToast` y puentes a hitos. Sustituir sus dependencias activas por módulos. |
 | Arranque independiente | La plantilla/main todavía carga `gas_shim.js` y `proyecto_detalle.js`. Dejar de cargarlos en la ruta nueva cuando ningún flujo activo los necesite; auditar llamadas reales a RPC, no contar como pendientes todas las ramas guardadas para comparación. |

@@ -21,6 +21,13 @@ def test_browser_callbacks_share_the_module_owned_state(
       const owned=state[family]===active;
       const cache=state.clientCache===ixsClienteAccionesCache;
       const metadata=state.metadata===mapaMetaProyectosDashboard;
+      const panels=state.aerPlanningRange===aerPlanFiltroMes
+        &&state.aerPlanningFilters===aerPlanTableFilters
+        &&state.aerRecords===aerClockifyFiltro
+        &&state.aerResourceSelection===aerEvalRecursoSeleccionado
+        &&state.ixsPlanning===ixsPlanState
+        &&state.ixsPlanningAzure===ixsPlanAzureState
+        &&state.ixsAzure===ixsAzureState;
       const marker={id:'marker',seleccion:[]};
       env.aerAi(marker);
       const adapter=state.aerAi===marker;
@@ -29,7 +36,7 @@ def test_browser_callbacks_share_the_module_owned_state(
       const getter=ixsClockifyState===clockify;
       const before=state.request;
       projectEntryContext().invalidatePrevious();
-      return {owned,cache,metadata,adapter,getter,
+      return {owned,cache,metadata,panels,adapter,getter,
         sequence:state.request===before+1,
         aerTab:state.aerTab===aerTabActual,
         ixsTab:state.ixsTab===ixsTabActual};

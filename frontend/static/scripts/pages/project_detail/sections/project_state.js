@@ -22,6 +22,51 @@ export function createProjectState() {
     milestones: [],
     projectId: null,
     clientCache: {},
+    aerPlanningRange: { desde: "", hasta: "" },
+    aerPlanningFilters: {
+      tipo: "",
+      actividad: "",
+      responsable: "",
+      compromisoDesde: "",
+      compromisoHasta: "",
+      estado: "",
+      cierreDesde: "",
+      cierreHasta: "",
+    },
+    aerRecords: {
+      desde: "",
+      hasta: "",
+      registros: null,
+      total: 0,
+      cargando: false,
+    },
+    aerResourceSelection: "",
+    ixsPlanning: {
+      proyectoId: "",
+      vacaciones: [],
+      compromisos: [],
+      cargando: false,
+      error: "",
+      requestId: 0,
+    },
+    ixsPlanningAzure: {
+      proyectoId: "",
+      items: [],
+      allItems: [],
+      cargando: false,
+      error: "",
+      requestId: 0,
+    },
+    ixsAzure: {
+      projectId: "",
+      items: [],
+      allItems: [],
+      stale: [],
+      requestId: 0,
+      sinPAT: false,
+      error: "",
+      notice: "",
+    },
   };
 }
 
@@ -40,6 +85,13 @@ export function bindProjectState(target, state) {
     dashboardRequestSeq: "request",
     hitosAdicionalesActuales: "milestones",
     idProyectoActualGlobal: "projectId",
+    aerPlanFiltroMes: "aerPlanningRange",
+    aerPlanTableFilters: "aerPlanningFilters",
+    aerClockifyFiltro: "aerRecords",
+    aerEvalRecursoSeleccionado: "aerResourceSelection",
+    ixsPlanState: "ixsPlanning",
+    ixsPlanAzureState: "ixsPlanningAzure",
+    ixsAzureState: "ixsAzure",
   };
   for (const [name, key] of Object.entries(bindings)) {
     Object.defineProperty(target, name, {

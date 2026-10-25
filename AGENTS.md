@@ -137,7 +137,8 @@ presenta las dos tablas, búsqueda y formularios con DOM seguro y eventos
 externos. La ruta activa no ejecuta sus renderizadores/formularios anteriores;
 conserva los puentes de entrada/estado y el fallback para comparar.
 
-**La fase 10 continúa parcial.** En IXB/SaaS/RaaS falta la estructura compartida.
+**La fase 10 continúa parcial.** Falta completar la integración compartida y
+retirar las dependencias activas del archivo anterior; ver inventario en el plan.
 Planeación AER ya guarda actividades/hitos, estados/cierres, vacaciones,
 importaciones y borrados individuales/por lote por API v1 en
 `project_aer_planning.py` y `sections/aer_planning.js`. Conserva las firmas y
@@ -211,6 +212,12 @@ IA, Clockify, metadata, secuencia, hitos/ID y caché Cliente/Acciones.
 Se registra antes del script anterior. Los nombres previos son accesores
 temporales; el caché conserva la misma referencia. La comparación sigue con
 sus valores originales. `projectSessionContext` aún es un adaptador.
+También posee los siete estados de paneles activos identificados: rango/filtros
+de Planeación, registros Clockify y selección de Recursos AER, Planeación IXS,
+Planeación Azure y Azure. `project_panels.js` construye contextos de Planeación,
+Esfuerzo y Recursos AER con el mismo snapshot/lifecycle, sin cambiar callbacks.
+Las tres funciones de contexto anteriores delegan; los avisos/guardado comunes
+y los otros contextos aún enlazan con el archivo anterior.
 La entrada de proyectos usa `project_entry{,_model,_view}.js`: montaje desde
 template, filtros/selección, clasificación por servicio, carga API, secuencia
 de respuestas y reintento. `showError` delega a una vista segura que conserva
@@ -227,7 +234,7 @@ de recursos, edición de hitos y fechas sugeridas también usan `ixs_support.js`
 y `ixs_support_model.js`. Conservan caché por proyecto, normalización de nombres,
 guardia de identidad, índice del hito y reglas de fechas anteriores.
 `ixsSupportContext` sigue enlazando al estado/editor compartidos; los tres nombres
-anteriores solo delegan en la ruta nueva. Quedan estados de paneles/adaptadores y
+anteriores solo delegan en la ruta nueva. Quedan contextos/adaptadores y
 compatibilidad genérica antes de retirar el shim. No reabrir Cliente ni el
 Centro de Comunicación como pendientes.
 

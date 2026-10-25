@@ -9,8 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local crea `project_state.js`,
-   dueño de los doce valores centrales, enlazado por accesores temporales.
+   diferencia con `origin/main`. El último bloque local amplía `project_state.js`
+   con siete estados de paneles (19 valores totales) y añade `project_panels.js`
+   para contextos Planeación/Esfuerzo/Recursos AER, enlazado por accesores temporales.
    Los auxiliares de Planeación usan `ixs_support{,_model}.js`: recursos, edición de
    hitos y fechas sugeridas de Comunicados. La entrada de proyectos usa
    `project_entry{,_model,_view}.js`, incluidos mensajes/reintento
@@ -175,10 +176,14 @@ el Ejecutivo genérico de servicio no reconocido como AER/IXS en el script previ
 IA, Clockify, metadata/secuencia, hitos/ID y caché Cliente/Acciones. Los nombres
 anteriores se enlazan por accesores; aún se requiere el script para contextos.
 
-**Siguiente bloque sugerido:** estados de paneles/contextos (AER: rango/filtros,
-Clockify y selección de Recursos; IXS: Planeación y estados Azure). Después,
-compatibilidad genérica/sin proyecto y soporte compartido. El inventario de
-cierre con criterios está en el plan. No repetir los estados centrales.
+**Paneles separados:** los siete estados anteriores ya están en el almacén;
+`project_panels.js` crea contextos AER de Planeación/Esfuerzo/Recursos. Los
+callbacks comunes se inyectan desde el archivo anterior; no se han retirado.
+
+**Siguiente bloque sugerido:** utilidades de guardado/avisos y otros contextos/
+adaptadores (shell/montaje, Acciones/IA e IXS). Después compatibilidad genérica/
+sin proyecto y arranque independiente. El inventario de cierre está en el plan.
+No repetir los estados centrales/paneles ni esas tres construcciones de contexto.
 No reabrir IA como pendiente ni retirar aún script/shim.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
 los adaptadores/estado. Los auxiliares `ixsEditarHitoTimeline`,

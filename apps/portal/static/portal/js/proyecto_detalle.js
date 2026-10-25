@@ -1787,10 +1787,10 @@
 
   var aerDashboardData = window.beeProjectState ? window.beeProjectState.aer : null;
   var aerTabActual = window.beeProjectState ? window.beeProjectState.aerTab : 'ejecutivo';
-  let aerPlanFiltroMes = { desde:'', hasta:'' };
-  let aerPlanTableFilters = { tipo:'', actividad:'', responsable:'', compromisoDesde:'', compromisoHasta:'', estado:'', cierreDesde:'', cierreHasta:'' };
-  let aerClockifyFiltro = { desde:'', hasta:'', registros:null, total:0, cargando:false };
-  let aerEvalRecursoSeleccionado = '';
+  var aerPlanFiltroMes = window.beeProjectState ? window.beeProjectState.aerPlanningRange : { desde:'', hasta:'' };
+  var aerPlanTableFilters = window.beeProjectState ? window.beeProjectState.aerPlanningFilters : { tipo:'', actividad:'', responsable:'', compromisoDesde:'', compromisoHasta:'', estado:'', cierreDesde:'', cierreHasta:'' };
+  var aerClockifyFiltro = window.beeProjectState ? window.beeProjectState.aerRecords : { desde:'', hasta:'', registros:null, total:0, cargando:false };
+  var aerEvalRecursoSeleccionado = window.beeProjectState ? window.beeProjectState.aerResourceSelection : '';
   let aerClienteFilters = { q:'', rol:'', area:'', decision:'', estado:'' };
   let aerClienteFiltrosVisibles = false;
 
@@ -2925,6 +2925,7 @@
   }
 
   function aerEsfuerzoContexto(){
+    if(window.beeProjectPanels)return window.beeProjectPanels.effort({paint:_aerRenderTab,error:showError});
     const snapshot=aerDashboardData;
     return {id:snapshot.proyecto.id,dashboard:snapshot,state:()=>aerClockifyFiltro,
       setState:value=>{aerClockifyFiltro=value;},current:()=>aerDashboardData===snapshot,
@@ -2973,6 +2974,7 @@
     _aerModal(`<div style="display:flex;justify-content:space-between"><h3>${uid?'Editar':'Registrar'} vacaciones</h3><button class="aer-btn" onclick="aerCerrarModal()">✕</button></div><div class="aer-formgrid"><label>Recurso<select id="av-rec">${recursos.map(n=>`<option value="${_aerEsc(n)}" ${x.recurso===n?'selected':''}>${_aerEsc(n)}</option>`).join('')}</select></label><label>Estado<select id="av-est">${['Aprobada','Pendiente','Cancelada'].map(v=>`<option ${x.estado===v?'selected':''}>${v}</option>`).join('')}</select></label><label>Inicio<input id="av-ini" type="date" value="${x.inicio||''}"></label><label>Fin<input id="av-fin" type="date" value="${x.fin||''}"></label><label>Registrado por<input id="av-reg" value="${_aerEsc(x.registradoPor||'')}"></label><label class="aer-span2">Comentarios<textarea id="av-com">${_aerEsc(x.comentarios||'')}</textarea></label></div><div class="aer-actions" style="margin-top:12px">${uid?`<button class="aer-btn danger" onclick="aerEliminarVacacion('${uid}')">Eliminar</button>`:''}<button class="aer-btn primary" onclick="aerGuardarVacacion('${uid}')">Guardar</button></div>`);
   }
   function aerPlaneacionContexto(){
+    if(window.beeProjectPanels)return window.beeProjectPanels.planning({communique:window.beeProjectCommunique?aerAbrirComunicados:null,paint:_aerRenderTab,reload:aerRecargarProyecto,error:showError,saving:_aerStartSaving});
     const snapshot=aerDashboardData;
     return {id:snapshot.proyecto.id,dashboard:snapshot,
       range:()=>aerPlanFiltroMes,filters:()=>aerPlanTableFilters,
@@ -3001,6 +3003,7 @@
   function _aerEvalCategoria(score){score=Number(score)||0;return score>=90?'Alto desempeño':score>=80?'Sólido':score>=70?'En seguimiento':'Crítico'}
   function _aerEvalClase(score){score=Number(score)||0;return score>=90?'green':score>=80?'purple':score>=70?'yellow':'red'}
   function aerRecursosContexto(){
+    if(window.beeProjectPanels)return window.beeProjectPanels.resources({paint:_aerRenderTab,saving:_aerStartSaving,error:showError});
     const snapshot=aerDashboardData;
     return {id:snapshot.proyecto.id,dashboard:snapshot,current:()=>aerDashboardData===snapshot,
       active:()=>aerTabActual==='recursos',paint:_aerRenderTab,saving:_aerStartSaving,error:showError,
@@ -4822,9 +4825,9 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
   var ixsClockifyState = window.beeProjectState ? window.beeProjectState.clockify : {proyectoId:'',registros:null,cargando:false,error:'',desde:'',hasta:'',requestId:0};
   let ixsRecursosState={proyectoId:'',filas:[],registros:[],cargando:false,error:'',saving:false,requestId:0};
-  let ixsPlanState={proyectoId:'',vacaciones:[],compromisos:[],cargando:false,error:'',requestId:0};
-  let ixsPlanAzureState={proyectoId:'',items:[],allItems:[],cargando:false,error:'',requestId:0};
-  let ixsAzureState={projectId:'',items:[],allItems:[],stale:[],requestId:0,sinPAT:false,error:'',notice:''};
+  var ixsPlanState = window.beeProjectState ? window.beeProjectState.ixsPlanning : {proyectoId:'',vacaciones:[],compromisos:[],cargando:false,error:'',requestId:0};
+  var ixsPlanAzureState = window.beeProjectState ? window.beeProjectState.ixsPlanningAzure : {proyectoId:'',items:[],allItems:[],cargando:false,error:'',requestId:0};
+  var ixsAzureState = window.beeProjectState ? window.beeProjectState.ixsAzure : {projectId:'',items:[],allItems:[],stale:[],requestId:0,sinPAT:false,error:'',notice:''};
   function ixsAz85ToggleMore(containerId, btn){
     const box=document.getElementById(containerId);
     if(!box)return;

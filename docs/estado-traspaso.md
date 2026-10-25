@@ -2,7 +2,35 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: estados centrales del proyecto (25/10/2026)
+## Bloque actual: estados y contextos de paneles (25/10/2026)
+
+- `project_state.js` añade siete estados de paneles: rango/filtros Planeación,
+  registros Clockify y selección Recursos AER; Planeación, Planeación Azure y
+  Azure IXS. Son 19 valores en total con los doce centrales. Las declaraciones
+  anteriores usan el mismo almacén; comparación mantiene sus valores iniciales.
+- `project_panels.js` separa contextos de Planeación/Esfuerzo/Recursos AER:
+  snapshot/lifecycle, getters y setters de rangos/filtros/registros/selección.
+  Conserva los mismos callbacks inyectados. Sus tres entradas anteriores delegan.
+- **Fase 10 parcial.** Siguiente: contextos/adaptadores restantes y utilidades
+  comunes de guardado/avisos; luego compatibilidad genérica/sin proyecto y
+  arranque sin script anterior/shim. El plan tiene tabla actualizada. No rehacer
+  vistas, cambiar cálculos, activar ACCESS_ENFORCED ni tocar Horas por mes.
+- Diez Node nuevos contrastan estados/contextos con la referencia; prueba del
+  almacén ampliada a 19 declaraciones. Suite completa **392 aprobadas y tres
+  fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+- **61 de navegador aprobadas** del almacén y Planeación/Esfuerzo/Recursos AER,
+  con comparación visual en 1450/900/390 px, filtros/rangos, selección, editores,
+  guardado/borrado y respuestas tardías. Se amplió la comprobación de identidad
+  en navegador para los siete estados. API/cálculos sin cambios.
+- **69 adicionales aprobadas** de Planeación IXS, tabla Azure y montaje de
+  pestañas: **130 de navegador en total**. Incluyen comparación en tres tamaños,
+  filtros, comentarios/avances/fechas y respuestas tardías. Capturas en
+  `tmp/migration/project_detail/aer_planning_controls/`, `aer_effort/`,
+  `aer_resources/`, `ixs_planning_view/` e `ixs_azure_table/`, inspeccionadas.
+  Ruff/formato, Django y diff aprobados. Datos/proveedores simulados, sin
+  consultas ni correos reales; sin push y sin incluir cambios/temporales ajenos.
+
+## Bloque anterior: estados centrales del proyecto (25/10/2026)
 
 - `project_state.js` posee los doce valores centrales de AER/IXS: dashboards,
   pestañas, IA, Clockify, metadata, secuencia, hitos/ID y caché Cliente/Acciones.

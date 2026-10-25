@@ -10,6 +10,7 @@ import {
   createProjectState,
   bindProjectState,
 } from "./sections/project_state.js";
+import { createProjectPanels } from "./sections/project_panels.js";
 import { actionsModel } from "./sections/actions_model.js";
 import { createActionsController } from "./sections/actions.js";
 import { createAerPlanning } from "./sections/aer_planning.js";
@@ -141,6 +142,7 @@ async function start() {
     window.beeIxsSupport = createIxsSupport(data, window);
     window.beeProjectState ||= createProjectState();
     bindProjectState(window, window.beeProjectState);
+    window.beeProjectPanels = createProjectPanels(window.beeProjectState);
     await loadScript(renderer);
   } catch {
     started = false;

@@ -53,7 +53,7 @@ test("real legacy declarations attach to the store without resetting existing va
   const declarations = source.match(
     /^  (?:var|const) \w+ = window\.beeProjectState[^\n]+/gm,
   );
-  assert.equal(declarations.length, 12);
+  assert.equal(declarations.length, 19);
   vm.runInNewContext(
     declarations.join("\n") +
       "\naerTabActual='planeacion'; dashboardRequestSeq++;",
