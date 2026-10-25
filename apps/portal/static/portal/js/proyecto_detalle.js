@@ -82,6 +82,7 @@
 
 
   function renderView(viewName) {
+    if(viewName==='dashboard'&&window.beeProjectEntry)return window.beeProjectEntry.mount(projectEntryContext());
     const container = document.getElementById('view-container');
     beeComAsegurarMenu();
     if(viewName!=='dashboard')document.body.classList.remove('bee-account-mode');
@@ -796,7 +797,18 @@
       .obtenerTopRiesgosPortafolioAzure();
   }
 
-  function initDashboard() {
+  function projectEntryContext(){
+    return {metadata:(...args)=>args.length?(mapaMetaProyectosDashboard=args[0]):mapaMetaProyectosDashboard,
+      previousStart:()=>initDashboard(true),previousLoad:()=>loadDashboard(true),invalidatePrevious:()=>{++dashboardRequestSeq;},
+      clientChanged:()=>{const fp=document.getElementById('f-proyecto');
+        if(_clienteSeleccionadoDashboard()&&fp)fp.value='Todos los proyectos';
+        loadDashboard();if(_clienteSeleccionadoDashboard())return;
+        if(cacheReporteAERTYM)renderReporteAERTYM(cacheReporteAERTYM);
+        if(cacheReporteIXB)renderReporteIXBRaaS(cacheReporteIXB);cargarTopRiesgosAzurePortafolio();},
+      render:{aer:renderDashboardAERTYMProyecto,ixs:renderDashboardIXBSaaSRaaS,executive:renderDashboardEjecutivoProyecto}};
+  }
+  function initDashboard(previous) {
+    if(window.beeProjectEntry&&previous!==true)return window.beeProjectEntry.start(projectEntryContext());
     const detailParams = projectParams();
     if (!detailParams.get('proyecto') && !detailParams.get('cuenta')) return;
     const btnRefresh = document.getElementById('btn-refresh');
@@ -1225,6 +1237,7 @@
 
 
   function populateFiltros(data) {
+    if(window.beeProjectEntry)return window.beeProjectEntry.populate(data,projectEntryContext());
     const fp = document.getElementById('f-proyecto');
     const fc = document.getElementById('f-cliente');
     if (!fp || !fc || !data) return;
@@ -1263,7 +1276,8 @@
     return /^(AER|TYM)\./i.test(String(idProyecto || '').trim());
   }
 
-  function loadDashboard() {
+  function loadDashboard(previous) {
+    if(window.beeProjectEntry&&previous!==true)return window.beeProjectEntry.load(projectEntryContext());
     const proyectoSel = document.getElementById('f-proyecto')
       ? document.getElementById('f-proyecto').value
       : 'Todos los proyectos';
@@ -8570,6 +8584,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
   function showError(err) {
+    if(window.beeProjectEntry)return window.beeProjectEntry.serverError(err);
     console.error('Error del servidor:', err);
     const cont = document.getElementById('view-container');
     if (!cont) return;

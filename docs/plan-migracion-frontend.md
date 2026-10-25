@@ -83,13 +83,14 @@ También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
 La entrada modular usa API para filtros y dashboards. Encabezados, navegación,
 refresco, montaje e inicialización de proyectos usan módulos. El almacenamiento
-de estados/contextos, entrada y auxiliares todavía enlazan con el script anterior.
+de estados/contextos, ramas de compatibilidad y auxiliares todavía enlazan con el
+script anterior. La entrada de proyectos y sus mensajes ya usan módulos.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
 | AER/T&M | Integración de estructura/estado y auxiliares compartidos; pestañas ya modulares |
-| Compartido | Almacenamiento global de estados/contextos, entrada y auxiliares de Planeación/soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Encabezados/navegación/refresco, montaje e inicialización ya separados |
+| Compartido | Almacenamiento global de estados/contextos, compatibilidad sin proyecto/Ejecutivo genérico y auxiliares de Planeación/soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Encabezados/navegación/refresco, montaje, inicialización y entrada de proyectos ya separados |
 
 Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
@@ -106,6 +107,41 @@ Planeación conserva puentes y auxiliares en el archivo anterior, entre ellos
 la integración compartida, sin confundirlos con volver a migrar su vista y editores.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Entrada de proyectos y mensajes de carga (controlador separado)
+
+`project_entry{,_model,_view}.js` monta la plantilla, carga filtros y selecciona
+el proyecto de la ruta antes de consultar su dashboard por API v1. Conserva
+prioridad del JSON de ruta sobre el query, ID sin distinguir mayúsculas,
+proyectos ausentes de filtros y la clasificación original por servicio/prefijo.
+La metadata mantiene sus referencias; `projectEntryContext` la enlaza con los
+contextos existentes. El contador de carga es modular e invalida también las
+respuestas pendientes de compatibilidad. Solo la respuesta vigente, con su
+contenedor conectado, puede reemplazar la pantalla.
+
+Carga, error con reintento y error común (`showError`) usan DOM seguro y eventos
+externos. Se conserva el reemplazo global de `showError`, sin cambiar su flujo.
+El botón Reintentar neutraliza en CSS externo el tamaño/negrita que añadían los
+componentes generales, para coincidir con la referencia anterior.
+
+**Fase 10 parcial.** Se mantienen las ramas sin proyecto/cuenta del panel anterior
+y el Ejecutivo genérico que usa un servicio no reconocido como AER/IXS. Siguen
+pendientes ese caso, los adaptadores/almacenamiento global, auxiliares de
+Planeación y soporte. No retirar script/shim ni dar por terminada la fase.
+
+Evidencia: **12 pruebas nuevas de navegador**, incluidas nueve comparaciones
+de carga/error/error común a 1450/900/390 px. Las otras cubren respuestas
+superadas (éxito/error), compatibilidad pendiente, contenedor desconectado y
+texto seguro. **23 aprobadas** de entrada/sesión y **68 de regresión** de
+navegación, pestañas, Cliente/Acciones y soporte. Total **103 distintas**;
+la comprobación final repite entrada junto con las 12 nuevas (22 aprobadas).
+Once Node contrastan clasificación con las funciones originales, metadata y
+prioridad de ruta. Suite completa **368 aprobadas y tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). El extractor de
+`legacy_tools.test.cjs` admite el argumento de compatibilidad nuevo; conserva
+todas sus comprobaciones. Ruff/formato, Django y diff aprobados. Capturas en
+`tmp/migration/project_detail/loading/`, inspeccionadas escritorio/móvil.
+Sin cambios de API/cálculos, proveedores simulados, sin correos reales ni push.
 
 ### Inicialización y sesión AER/IXS (selección de estado separada)
 

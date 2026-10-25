@@ -1,4 +1,10 @@
 /* Entry only. Tab styles stay in the existing renderer during this phase. */
+.ds button.project-entry-retry {
+  display: inline-block;
+  min-height: 0;
+  font-weight: 400;
+  line-height: normal;
+}
 body.project-detail-page main.page {
   max-width: none;
   margin: 0;

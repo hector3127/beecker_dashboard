@@ -9,8 +9,10 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local separa la inicialización
-   y sesión AER/IXS en `project_session{,_model,_view}.js`. El montaje de
+   diferencia con `origin/main`. El último bloque local separa la entrada de
+   proyectos en `project_entry{,_model,_view}.js`, incluidos mensajes/reintento
+   y `showError`. Inicialización/sesión usa `project_session{,_model,_view}.js`.
+   El montaje de
    pestañas usa `project_tabs.js` y sus respaldos `project_tabs_view.js`.
    Encabezados/navegación/refresco ya usan `project_shell{,_model,_view}.js`.
    IA AER ya está completa, incluidas acciones por API, validaciones y copiado.
@@ -160,10 +162,15 @@ reglas de selección/reinicio, caché de Cliente/Acciones y apertura de IA IXS.
 El histórico diferido usa la API existente; errores y aviso mantienen su aspecto.
 `projectSessionContext` enlaza a los globals; todavía no es un almacén nuevo.
 
-**Siguiente bloque sugerido:** almacenamiento de estados/contextos y entrada
-común; después auxiliares compartidos, incluido el manejador showError, que
-hoy puede reemplazar el dashboard ante ciertos errores (comportamiento anterior
-preservado). No reabrir IA como pendiente ni retirar aún script/shim.
+**Entrada de proyectos separada:** `project_entry{,_model,_view}.js` monta el
+template, carga filtros, selecciona ID, clasifica y consulta el dashboard por
+API. Cargas/errores/reintento y `showError` son seguros, con el mismo aspecto.
+`showError` conserva el reemplazo global. Quedan ramas sin proyecto/cuenta y
+el Ejecutivo genérico de servicio no reconocido como AER/IXS en el script previo.
+
+**Siguiente bloque sugerido:** revisar esos casos de compatibilidad y el
+almacenamiento de estados/contextos; después auxiliares compartidos.
+No reabrir IA como pendiente ni retirar aún script/shim.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
 los adaptadores/estado y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,

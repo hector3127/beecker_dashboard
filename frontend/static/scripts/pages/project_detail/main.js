@@ -1,9 +1,10 @@
 // @ts-check
-// Transitional entry: keep the existing renderers until each tab is migrated.
+// Register modular views; the compatibility script still supplies shared bindings.
 import { createProjectData } from "./data.js";
 import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
+import { createProjectEntry } from "./sections/project_entry.js";
 import { actionsModel } from "./sections/actions_model.js";
 import { createActionsController } from "./sections/actions.js";
 import { createAerPlanning } from "./sections/aer_planning.js";
@@ -131,6 +132,7 @@ async function start() {
     });
     window.beeProjectTabs = createProjectTabs(window, renderAerExecutive);
     window.beeProjectSession = createProjectSession(data, window);
+    window.beeProjectEntry = createProjectEntry(data);
     await loadScript(renderer);
   } catch {
     started = false;

@@ -206,12 +206,18 @@ La inicialización AER/IXS, apertura IA IXS y enlace Cliente/Acciones usan
 `project_session{,_model,_view}.js`: conservan estados del mismo proyecto,
 reinicios al cambiar de ID, caché, orden de cargas y actualización diferida del
 histórico por API. Los errores y aviso de backend mantienen su presentación.
-`projectSessionContext` sigue como adaptador: el almacenamiento global de
-estados/contextos y la entrada común aún viven en el archivo anterior.
-Continuar por esos enlaces y auxiliares. No reabrir vistas/formularios.
+`projectSessionContext` sigue como adaptador al almacenamiento global.
+La entrada de proyectos usa `project_entry{,_model,_view}.js`: montaje desde
+template, filtros/selección, clasificación por servicio, carga API, secuencia
+de respuestas y reintento. `showError` delega a una vista segura que conserva
+el reemplazo de toda la pantalla. Se comparan cargas/errores en tres tamaños.
+`projectEntryContext` conserva metadata/callbacks. Siguen anteriores las ramas
+de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
+se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;
+no reabrir vistas/formularios ya migrados.
 Mantener los puentes y comparación;
-no retirar aún script/shim. El manejador común showError sigue anterior y
-puede reemplazar el dashboard ante errores; comportamiento preservado.
+no retirar aún script/shim. El manejador común showError puede reemplazar el
+dashboard ante errores; comportamiento preservado en el módulo nuevo.
 Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo

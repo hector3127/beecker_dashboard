@@ -9,7 +9,7 @@ const capacity = fs.readFileSync(path.join(__dirname, '../../templates/legacy/GS
 const projectReads = ['readProjectFilters', 'readProjectDashboard'].map(name =>
   main.match(new RegExp('function ' + name + '\\([^]*?\\n  \\}'))[0]
 ).join('\n');
-const init = projectReads + '\n' + main.match(/function initDashboard\(\) \{[\s\S]*?\n  \}/)[0];
+const init = projectReads + '\n' + main.match(/function initDashboard\([^)]*\) \{[\s\S]*?\n  \}/)[0];
 
 test('entering the old panel makes no executive or filters RPC requests', () => {
   vm.runInNewContext(init + '\ninitDashboard();', {
@@ -43,7 +43,7 @@ test('old navigation keeps GSE after capacity moves to its own page', () => {
 
 test('a TYM direct link uses the AER/T&M endpoint even without filter metadata', () => {
   const classify = main.match(/function _esProyectoAERTYM\(idProyecto\) \{[\s\S]*?\n  \}/)[0];
-  const load = main.match(/function loadDashboard\(\) \{[\s\S]*?\n  \}/)[0];
+  const load = main.match(/function loadDashboard\([^)]*\) \{[\s\S]*?\n  \}/)[0];
   const detail = {style: {}, innerHTML: ''};
   const nodes = {
     'f-proyecto': {value: 'TYM.AAU.001', selectedOptions: [{textContent: 'TYM.AAU.001'}]},

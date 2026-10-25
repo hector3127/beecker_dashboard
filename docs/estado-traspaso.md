@@ -2,7 +2,36 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: inicialización y sesión AER/IXS
+## Bloque actual: entrada de proyectos y mensajes de carga
+
+- `project_entry{,_model,_view}.js` monta la plantilla, carga/prepara filtros,
+  selecciona el ID de ruta y carga el dashboard AER/IXS por API. Conserva la
+  clasificación por servicio/prefijo, prioridad de ruta y enlaces de metadata.
+  Su contador descarta respuestas superadas/desconectadas e invalida también
+  las de compatibilidad. Carga/error/reintento y `showError` son DOM seguro;
+  se conserva el reemplazo global de pantalla de este último.
+- Comparación de cajas/estilos/texto en carga/error/reintento/error común.
+  El botón Reintentar conserva tamaño/peso anterior con CSS externo.
+- **Fase 10 parcial.** `projectEntryContext` sigue con metadata y callbacks;
+  almacenamiento y otros adaptadores globales pendientes. Las ramas sin
+  proyecto/cuenta y el Ejecutivo genérico para servicio no reconocido siguen
+  anteriores: revisarlos antes de retirar script/shim. Después, auxiliares de
+  Planeación/soporte. No reabrir las pestañas migradas, activar ACCESS_ENFORCED
+  ni tocar Horas por mes.
+- **12 nuevas de navegador**, con nueve comparaciones a 1450/900/390 px y
+  pruebas de respuesta superada (éxito/error), invalidación de compatibilidad,
+  contenedor desconectado y texto seguro. **23 de entrada/sesión y 68 de
+  regresión aprobadas**: **103 distintas** en total. Comprobación final: 22
+  (12 nuevas + diez de entrada repetidas).
+- Once Node de clasificación/metadata/parámetros; suite completa **368
+  aprobadas y tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+  `financial`). `legacy_tools.test.cjs` adapta solo extracción de firmas con
+  argumento opcional. Ruff/formato, Django y diff aprobados. Capturas en
+  `tmp/migration/project_detail/loading/`, inspeccionadas escritorio/móvil.
+  API/cálculos sin cambios, proveedores simulados, sin correos ni consultas
+  reales. Temporales ajenos intactos; sin push.
+
+## Bloque anterior: inicialización y sesión AER/IXS
 
 - `project_session{,_model,_view}.js` separa selección/reinicio de estados,
   inicializadores AER/IXS, apertura IA IXS y enlace compartido Cliente/Acciones.
