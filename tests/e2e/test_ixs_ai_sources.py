@@ -254,12 +254,14 @@ def test_modular_panels_safe_text_and_resource_navigation(
     expect(panel.locator("img, [onclick]")).to_have_count(0)
     assert portal.evaluate("window.injected === undefined")
     portal.evaluate("""() => {
-      window.originalAiPanels = window.beeIxsAiPanels;
+      const view=window.beeIxsAiView,render=view.render;
       window.panelCalls = 0;
-      window.beeIxsAiPanels = (...args) => {
-        window.panelCalls++; return window.originalAiPanels(...args);
-      };
-      ixsIAPintar();
+      view.render=(target,state,env)=>render(target,state,{
+        ...env,panels:(...args)=>{
+          window.panelCalls++;return env.panels(...args);
+        }
+      });
+      try {ixsIAPintar();} finally {view.render=render;}
     }""")
     assert portal.evaluate("window.panelCalls") == 1
     portal.get_by_role("button", name="Ver recursos", exact=True).click()

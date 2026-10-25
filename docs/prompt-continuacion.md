@@ -9,7 +9,10 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque crea `project_ixs_adapters.js`:
+   diferencia con `origin/main`. El último bloque crea `project_ixs_runtime.js`:
+   montaje/navegación/refresco/IA y Cliente/Acciones IXS entre módulos.
+   `project_ixs_adapters.paint` usa directamente la vista IA modular.
+   El bloque previo crea `project_ixs_adapters.js`:
    datos/cargas/acciones IA IXS y enlace directo al editor modular de hitos.
    El bloque anterior separa `project_feature_contexts.js`: Acciones, Riesgos, tres contratos
    IA AER y guardia IXS. Sus callbacks todavía vienen de compatibilidad.
@@ -207,8 +210,13 @@ fuentes/historial/Drive, acciones IA y enlace directo al editor modular de hitos
 Conserva guardias, paso a RAID y recarga. La prueba de datos IA desactiva modelo
 y adaptador para leer la referencia original. No repetir esas composiciones.
 
-**Siguiente bloque sugerido:** coordinación directa de pintura/navegación/
-arranque/callbacks (p. ej. `ixsIAPintar` sigue siendo entrada de vista modular).
+**Coordinación IXS separada:** `project_ixs_runtime.js` conecta módulos para
+montaje/dispatch, selección/refresco, IA y Cliente/Acciones. Los eventos creados
+por esa coordinación no llaman a los renderizadores anteriores; sus entradas
+solo delegan. `ixsRuntimeBindings` todavía proporciona callbacks de compatibilidad.
+
+**Siguiente bloque sugerido:** coordinación AER y cierre de esos callbacks
+(contextos compartidos, estilos/editores/RAID/recarga y arranque).
 Después compatibilidad genérica/
 sin proyecto y arranque independiente. El inventario de cierre está en el plan.
 No repetir los estados centrales/paneles ni esas tres construcciones de contexto.

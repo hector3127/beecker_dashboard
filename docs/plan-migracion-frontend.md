@@ -110,6 +110,40 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Coordinación directa de renderizado/navegación IXS (25/10/2026)
+
+`project_ixs_runtime.js` conecta shell, pestañas, sesión, almacén, soporte y
+adaptadores IXS directamente. Monta/selecciona/refresca, abre/pinta IA, carga sus
+fuentes en el orden previo y aloja Cliente/Acciones con su caché y presentación
+AER compartida. Conserva reinicio a Ejecutivo e invalidación de caché al refrescar.
+Los callbacks de recursos y marcadores usan directamente sus módulos.
+
+`project_ixs_adapters.paint` usa la vista y paneles IA modulares con las mismas
+guardias de target/pestaña/proyecto/estado. La navegación de la vista y las cargas
+diferidas repintan por el coordinador, sin pasar por los renderizadores previos.
+Las entradas anteriores IXS delegan; `ixsRuntimeBindings` aún suministra estilos,
+contextos AER compartidos, editores, Comunicados, RAID y recarga.
+
+**Fase 10 parcial.** Siguiente: coordinación AER y cierre de los callbacks/
+entradas de compatibilidad; después Ejecutivo genérico/sin proyecto y arranque
+independiente. No retirar script/shim ni declarar independiente todo el detalle.
+
+Evidencia inicial: **31 pruebas de entrada/sesión/montaje aprobadas**. Se
+actualizan dobles que interceptaban funciones previas para que intercepten
+controladores/runtime actuales; conservan identidad, orden y conteos. Cuatro
+Node nuevos verifican coordinación/refresco/caché y guardias de pintura IA.
+Suite completa **416 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`).
+
+**108 adicionales de navegador aprobadas** de coordinación, shell, Cliente/
+Acciones y fuentes/acciones IA: **139 en total**. Una nueva prueba bloquea
+quince funciones anteriores y verifica navegación IA→Ejecutivo y actualización.
+Los dobles se conectan a módulos actuales; la observación de paneles intercepta
+el argumento de vista real, manteniendo todas las comprobaciones de datos/texto/
+estado/navegación. Ruff/formato, Django y diff aprobados. Capturas de entrada,
+sesión, pestañas, shell, Cliente/Acciones e IA inspeccionadas. La red de pruebas
+bloquea proveedores; sin consultas ni correos reales y sin push.
+
 ### Adaptadores IXB/SaaS/RaaS de IA e hitos (25/10/2026)
 
 `project_ixs_adapters.js` conecta el almacén con los modelos IA existentes y
@@ -280,7 +314,7 @@ Sin módulo, la comparación sigue inicializando sus valores originales.
 
 | Pendiente | Evidencia y condición de cierre |
 |---|---|
-| Coordinación restante | Estados/contratos y composición de datos/cargas/acciones IA IXS ya son modulares. Queda conectar directamente pintura/navegación/arranque y callbacks aún aportados por el script previo (p. ej. `ixsIAPintar` y entradas de recarga). No repetir modelos ni vistas. |
+| Coordinación restante | IXS ya monta/navega/refresca y pinta IA entre módulos. Falta la coordinación AER y cerrar callbacks aún aportados por compatibilidad: contextos compartidos, estilos/editores/RAID/recarga y arranque. No repetir modelos ni vistas. |
 | Compatibilidad genérica | `renderDashboardEjecutivoProyecto` tiene diseño propio para servicios no reconocidos como AER/IXS; ramas sin proyecto/cuenta aún usan funciones previas. Migrar o demostrar sus rutas de entrada antes de retirar dependencias. |
 | Conexiones compartidas restantes | Guardado/avisos/cierres ya usan `project_feedback.js`; los contextos todavía inyectan wrappers previos y puentes a editores/hitos. Conectarlos directamente con los módulos al extraer los contextos restantes. |
 | Arranque independiente | La plantilla/main todavía carga `gas_shim.js` y `proyecto_detalle.js`. Dejar de cargarlos en la ruta nueva cuando ningún flujo activo los necesite; auditar llamadas reales a RPC, no contar como pendientes todas las ramas guardadas para comparación. |

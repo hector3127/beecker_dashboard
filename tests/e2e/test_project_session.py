@@ -68,6 +68,7 @@ def test_session_preserves_same_project_and_resets_changed_project(
       const oldState=aer?env.aerAi():env.clockify();
       oldState.sentinel='cached';
       if(aer) _aerRenderShell=()=>{}; else _ixsRenderShell=()=>{};
+      if(!aer&&window.beeIxsRuntime)beeIxsRuntime.mount=()=>{};
       data.hitos=[{}];data.historialCompleto=[{}];
       const render=aer?renderDashboardAERTYMProyecto:renderDashboardIXBSaaSRaaS;
       render(data);
@@ -100,6 +101,10 @@ def test_ixs_ai_keeps_same_state_then_clears_sources_in_original_load_order(
       ixsIACargarFuentes=()=>calls.push('sources');
       ixsIACargarHistoria=()=>calls.push('history');
       ixsIACargarDrive=()=>calls.push('drive');
+      if(window.beeIxsRuntime) {
+        beeIxsRuntime.paintAi=()=>calls.push('view');
+        beeIxsAdapters.load=source=>calls.push(source);
+      }
       ixsIAAbrir();
       const saved=ixsIAState;saved.driveSelected=['saved'];
       ixsIAAbrir();
@@ -128,6 +133,7 @@ def test_client_actions_keeps_shared_state_and_rejects_an_inactive_family(
       saved.sentinel='preserved';
       ixsTabActual='cliente';
       _aerRenderTab=()=>{};
+      if(window.beeIxsRuntime)beeProjectTabs.aer=()=>{};
       ixsCargarClienteAcciones();
       const id=ixsProyectoActual.proyecto.id;
       const active=options.current(id);

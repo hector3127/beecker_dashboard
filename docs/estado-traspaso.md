@@ -2,7 +2,36 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: adaptadores IXB/SaaS/RaaS de IA e hitos (25/10/2026)
+## Bloque actual: coordinación directa IXB/SaaS/RaaS (25/10/2026)
+
+- `project_ixs_runtime.js` conecta controladores y almacén para montaje,
+  dispatch, selección/refresco, IA y Cliente/Acciones. Recursos/marcadores usan
+  soporte/editor modular. Conserva caché, orden de cargas IA y vuelta a Ejecutivo
+  al refrescar. `project_ixs_adapters.paint` presenta IA por su vista modular.
+- Las entradas anteriores IXS delegan, pero los eventos/pintura de esta
+  coordinación no vuelven a ellas. `ixsRuntimeBindings` todavía inyecta estilos,
+  contextos AER compartidos, editores, Comunicados, RAID, vista anterior y recarga.
+- **31 de entrada/sesión/montaje aprobadas**. Dobles adaptados de los puentes
+  previos a módulos actuales; mantienen comprobaciones de estado/orden/conteos.
+  Cuatro Node nuevos de coordinación y pintura: suite **416 aprobadas y tres
+  fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+- **108 adicionales de navegador aprobadas** de coordinación directa,
+  navegación/refresco, Cliente/Acciones y fuentes/acciones IA: **139 en total**.
+  La prueba nueva bloquea quince funciones previas y verifica IA→Ejecutivo y
+  actualización por módulos. La observación de paneles IA usa el argumento real
+  de la vista, sin depender del alias global anterior. Se mantienen todas las
+  comprobaciones de texto seguro, navegación, datos, estado y orden de cargas.
+  La red e2e bloquea proveedores; dobles corregidos tras mover las conexiones.
+  Ruff/formato, Django y diff aprobados. Capturas en
+  `tmp/migration/project_detail/entry/`, `session/`, `tabs/`, `shell/`,
+  `ixs_client_actions/`, `ixs_ai_sources/` e `ixs_ai_full/`, inspeccionadas.
+  Sin consultas ni correos reales, sin push; temporales/cambios ajenos intactos.
+- **Fase 10 parcial.** Siguiente: coordinación AER y conexiones/callbacks que
+  faltan, después Ejecutivo genérico/sin proyecto y arranque independiente.
+  No rehacer vistas/modelos ni retirar script/shim ni activar ACCESS_ENFORCED
+  ni tocar Horas por mes.
+
+## Bloque anterior: adaptadores IXB/SaaS/RaaS de IA e hitos (25/10/2026)
 
 - `project_ixs_adapters.js` compone datos IA desde el almacén con los modelos
   existentes (contexto/snapshot/cambios/capacidad e hitos), sin fórmulas nuevas.

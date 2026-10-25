@@ -45,6 +45,10 @@ def test_known_tabs_use_modular_registry_and_lazy_contexts(
       _ixsCargarEstadosRecursos=()=>{};
       ixsIAAbrir=()=>tabMounts.push(['ixs-ia']);
       ixsCargarClienteAcciones=()=>tabMounts.push(['ixs-shared']);
+      if(window.beeIxsRuntime){
+        beeIxsRuntime.openAi=()=>tabMounts.push(['ixs-ia']);
+        beeIxsRuntime.loadClientActions=()=>tabMounts.push(['ixs-shared']);
+      }
       aerIACargarAnalisis=aerIACargarMinutas=aerIACargarConfigMinutas=
         aerIACargarResumenEjecutivo=aerIACargarAccionesPartes=()=>{};
       const descriptor=Object.getOwnPropertyDescriptor(

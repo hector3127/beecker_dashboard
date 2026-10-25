@@ -5,7 +5,7 @@ export function createIxsAdapters(store, services) {
   const context = () =>
     ai.context(store.ixsAi, store.ixs, milestones(store.ixs || {}));
   const snapshot = () => ai.snapshot(store.ixsAi, context());
-  return {
+  const adapter = {
     context,
     snapshot,
     changes: () => ai.changes(store.ixsAi, snapshot),
@@ -49,5 +49,25 @@ export function createIxsAdapters(store, services) {
         },
       });
     },
+    paint(callbacks) {
+      const target = document.getElementById("ixs-tab-contenido"),
+        state = store.ixsAi;
+      if (
+        !target ||
+        store.ixsTab !== "ia" ||
+        !store.ixs ||
+        state.id !== store.ixs.proyecto.id
+      )
+        return;
+      return services.view.render(target, state, {
+        project: store.ixs,
+        context: context(),
+        changed: adapter.changes(),
+        capacity: adapter.capacity(),
+        panels: services.panels,
+        actions: adapter.actions(callbacks),
+      });
+    },
   };
+  return adapter;
 }

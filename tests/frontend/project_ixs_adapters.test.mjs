@@ -171,3 +171,39 @@ test("IA actions use modular models and retain the RAID handoff order", (t) => {
   store.ixsAi = { id: "OTHER" };
   assert.equal(bound.env.current(bound.state), false);
 });
+
+test("IA painting checks tab/project/state and uses its modular view", (t) => {
+  const store = createProjectState(),
+    calls = [],
+    root = {};
+  store.ixs = { proyecto: { id: "P" } };
+  store.ixsAi.id = "P";
+  let present = true;
+  const before = globalThis.document;
+  globalThis.document = { getElementById: () => (present ? root : null) };
+  t.after(() => {
+    globalThis.document = before;
+  });
+  const panels = () => {},
+    adapter = createIxsAdapters(store, {
+      current: () => true,
+      controller: { actions: () => ({}) },
+      panels,
+      view: { render: (...args) => calls.push(args) },
+    });
+  adapter.paint({});
+  assert.equal(calls.length, 0);
+  store.ixsTab = "ia";
+  adapter.paint({});
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0][0], root);
+  assert.equal(calls[0][1], store.ixsAi);
+  assert.equal(calls[0][2].project, store.ixs);
+  assert.equal(calls[0][2].panels, panels);
+  store.ixsAi = { id: "OTHER" };
+  adapter.paint({});
+  assert.equal(calls.length, 1);
+  present = false;
+  adapter.paint({});
+  assert.equal(calls.length, 1);
+});
