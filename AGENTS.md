@@ -217,7 +217,11 @@ de Planeación, registros Clockify y selección de Recursos AER, Planeación IXS
 Planeación Azure y Azure. `project_panels.js` construye contextos de Planeación,
 Esfuerzo y Recursos AER con el mismo snapshot/lifecycle, sin cambiar callbacks.
 Las tres funciones de contexto anteriores delegan; los avisos/guardado comunes
-y los otros contextos aún enlazan con el archivo anterior.
+y los otros contextos se inyectan todavía desde entradas de compatibilidad.
+La lógica de avisos/guardado ya usa `project_feedback.js`: toast, botón en
+guardado/restauración tras error, selección de botón principal y cierre normal/
+ancho. Conserva mensajes y tiempos. El texto entra como texto y la restauración
+reutiliza los nodos originales; las funciones previas solo delegan.
 La entrada de proyectos usa `project_entry{,_model,_view}.js`: montaje desde
 template, filtros/selección, clasificación por servicio, carga API, secuencia
 de respuestas y reintento. `showError` delega a una vista segura que conserva

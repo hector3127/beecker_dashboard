@@ -2959,7 +2959,7 @@
   }
 
   function aerAbrirModalWide(html){document.body.insertAdjacentHTML('beforeend',`<div class="aer-modal-wide-back" id="aer-modal-wide-back" onclick="if(event.target===this)aerCerrarModalWide()"><div class="aer-modal-wide">${html}</div></div>`)}
-  function aerCerrarModalWide(){const e=document.getElementById('aer-modal-wide-back');if(e)e.remove()}
+  function aerCerrarModalWide(){if(window.beeProjectFeedback)return window.beeProjectFeedback.close(true);const e=document.getElementById('aer-modal-wide-back');if(e)e.remove()}
 
   function aerAbrirRegistrosClockify(){if(window.beeAerEffort&&aerDashboardData)return aerEsfuerzoModular().openRecords();
     const regs=_aerRegistrosClockifyActuales();
@@ -3520,6 +3520,7 @@
   function _aerClienteCsv(v){ const t=String(v==null?'':v).replace(/"/g,'""'); return `"${t}"`; }
 
   function _aerToast(msg,type='success'){
+    if(window.beeProjectFeedback)return window.beeProjectFeedback.toast(msg,type);
     const el=document.createElement('div');
     el.className=`aer-toast ${type}`;
     el.textContent=msg;
@@ -3529,6 +3530,7 @@
   }
 
   function _aerStartSaving(btn,text='Guardando...'){
+    if(window.beeProjectFeedback)return window.beeProjectFeedback.saving(btn,text);
     if(!btn){ return { ok(){}, error(){} }; }
     const original=btn.innerHTML;
     btn.disabled=true;
@@ -3541,6 +3543,7 @@
   }
 
   function _aerPrimaryModalBtn(){
+    if(window.beeProjectFeedback)return window.beeProjectFeedback.primary();
     return document.querySelector('#aer-modal-back .aer-actions .aer-btn.primary') || document.querySelector('#aer-modal-back .aer-gov-actions .aer-btn.primary') || document.querySelector('#aer-modal-back .aer-btn.primary');
   }
 
@@ -4030,7 +4033,7 @@ function aerEliminarDocumentoCliente(uid){
   }
 
   function _aerModal(html) { document.body.insertAdjacentHTML('beforeend',`<div class="aer-modal-back" id="aer-modal-back" onclick="if(event.target===this)aerCerrarModal()"><div class="aer-modal">${html}</div></div>`); }
-  function aerCerrarModal() { const e=document.getElementById('aer-modal-back'); if(e)e.remove(); }
+  function aerCerrarModal() { if(window.beeProjectFeedback)return window.beeProjectFeedback.close(); const e=document.getElementById('aer-modal-back'); if(e)e.remove(); }
   function _aerVal(id){const e=document.getElementById(id);return e?e.value:'';}
 
   function _aerTodayIso(){ return new Date().toISOString().slice(0,10); }

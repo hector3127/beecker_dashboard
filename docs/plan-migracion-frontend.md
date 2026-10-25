@@ -110,6 +110,34 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Avisos y guardado compartidos (25/10/2026)
+
+`project_feedback.js` separa avisos temporales, guardado/recuperación de botón,
+selección de botón principal y cierre normal/ancho. La entrada lo registra
+antes de cargar el script anterior. `_aerToast`, `_aerStartSaving`,
+`_aerPrimaryModalBtn` y los dos cierres delegan en la ruta nueva.
+
+Conserva aviso a los 1800 ms y retirada 220 ms después, éxito/error sin deduplicar,
+botón deshabilitado y clase saving tras éxito, restauración tras error y no-op
+cuando falta botón. El mensaje se inserta como texto; los nodos originales del
+botón se reponen sin interpretar HTML. Prioridad de selección y cierres separados
+se mantienen. No se porta el generador anterior `_aerModal(html)` a un parser:
+los formularios nuevos ya construyen sus nodos de forma segura.
+
+**Fase 10 parcial.** Siguiente: contextos/adaptadores restantes y sus conexiones
+directas a módulos; luego compatibilidad genérica/sin proyecto y arranque sin
+archivos anteriores. Los wrappers aún existen para conservar la comparación.
+
+**15 pruebas nuevas de navegador aprobadas**: doce comparaciones de avisos/
+guardado/restauración a 1450/900/390 px, dos del temporizador/texto seguro contra
+la referencia y una del contrato de éxito/error/botón ausente/cierre separado.
+**62 de regresión aprobadas** de Planeación/Recursos/acciones IA AER: **77 de
+navegador en total**. Suite Node **392 aprobadas y tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). Ruff/formato, Django
+y diff aprobados. Capturas en `tmp/migration/project_detail/feedback/`,
+inspeccionadas escritorio/móvil. Sin API/cálculos nuevos, sin consultas/correos
+reales ni push; cambios ajenos intactos.
+
 ### Estados y contextos de paneles (25/10/2026)
 
 `project_state.js` también posee siete estados de paneles: rango y filtros de
@@ -164,7 +192,7 @@ Sin módulo, la comparación sigue inicializando sus valores originales.
 |---|---|
 | Contextos y adaptadores restantes | Los siete estados identificados ya están en el almacén y Planeación/Esfuerzo/Recursos AER usan `project_panels.js`. Aún dependen del archivo anterior contextos generales de shell/montaje/sesión, Acciones/IA y adaptadores IXS. Separarlos sin duplicar vistas. |
 | Compatibilidad genérica | `renderDashboardEjecutivoProyecto` tiene diseño propio para servicios no reconocidos como AER/IXS; ramas sin proyecto/cuenta aún usan funciones previas. Migrar o demostrar sus rutas de entrada antes de retirar dependencias. |
-| Soporte compartido restante | Contextos aún pasan funciones previas de guardado/avisos y editores, como `_aerStartSaving`, `_aerToast` y puentes a hitos. Sustituir sus dependencias activas por módulos. |
+| Conexiones compartidas restantes | Guardado/avisos/cierres ya usan `project_feedback.js`; los contextos todavía inyectan wrappers previos y puentes a editores/hitos. Conectarlos directamente con los módulos al extraer los contextos restantes. |
 | Arranque independiente | La plantilla/main todavía carga `gas_shim.js` y `proyecto_detalle.js`. Dejar de cargarlos en la ruta nueva cuando ningún flujo activo los necesite; auditar llamadas reales a RPC, no contar como pendientes todas las ramas guardadas para comparación. |
 | Validación final del detalle | Con el arranque independiente, comprobar pestañas, filtros, regreso, exportación, permisos y escrituras; comparación visual e integración sin recursos anteriores ni RPC. |
 

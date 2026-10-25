@@ -2,7 +2,32 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: estados y contextos de paneles (25/10/2026)
+## Bloque actual: avisos y guardado compartidos (25/10/2026)
+
+- `project_feedback.js` separa toast, botón en guardado/restauración tras error,
+  selección de principal y cierre normal/ancho. Registro antes del script previo;
+  las cinco entradas anteriores delegan. Conserva textos, clases y tiempos.
+- Éxito conserva botón deshabilitado/saving; error repone nodos y habilita.
+  Mensajes como texto, sin interpretar HTML. Conserva no-op sin botón y cierres
+  separados/idempotentes. No copia `_aerModal(html)`; formularios modernos ya
+  usan DOM seguro. Sin API/cálculos nuevos.
+- **15 nuevas de navegador aprobadas**, incluidas doce comparaciones a
+  1450/900/390 px, temporizador de referencia (1800+220 ms), texto seguro y
+  contrato de éxito/error/cierre. Capturas en
+  `tmp/migration/project_detail/feedback/`.
+- **62 de regresión aprobadas** de formularios de Planeación, Recursos y
+  acciones IA AER: **77 de navegador en total**. Incluyen recuperación tras
+  error, reintento, guardado, avisos y cierres de los formularios reales de
+  prueba. Suite Node **392 aprobadas y tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`). Ruff/formato, Django
+  y diff aprobados; capturas inspeccionadas escritorio/móvil. Proveedores
+  simulados, sin consultas ni correos reales. Sin push; temporales ajenos intactos.
+- **Fase 10 parcial.** Próximo bloque: contextos/adaptadores restantes y sus
+  enlaces directos a módulos; luego compatibilidad genérica/sin proyecto y
+  arranque independiente. No rehacer formularios, retirar script/shim todavía,
+  cambiar cálculos, activar ACCESS_ENFORCED ni tocar Horas por mes.
+
+## Bloque anterior: estados y contextos de paneles (25/10/2026)
 
 - `project_state.js` añade siete estados de paneles: rango/filtros Planeación,
   registros Clockify y selección Recursos AER; Planeación, Planeación Azure y

@@ -9,8 +9,10 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local amplía `project_state.js`
-   con siete estados de paneles (19 valores totales) y añade `project_panels.js`
+   diferencia con `origin/main`. El último bloque separa `project_feedback.js`:
+   avisos, guardado/restauración del botón, selección del principal y cierres.
+   El bloque previo amplía `project_state.js` con siete estados de paneles
+   (19 valores totales) y añade `project_panels.js`
    para contextos Planeación/Esfuerzo/Recursos AER, enlazado por accesores temporales.
    Los auxiliares de Planeación usan `ixs_support{,_model}.js`: recursos, edición de
    hitos y fechas sugeridas de Comunicados. La entrada de proyectos usa
@@ -180,8 +182,12 @@ anteriores se enlazan por accesores; aún se requiere el script para contextos.
 `project_panels.js` crea contextos AER de Planeación/Esfuerzo/Recursos. Los
 callbacks comunes se inyectan desde el archivo anterior; no se han retirado.
 
-**Siguiente bloque sugerido:** utilidades de guardado/avisos y otros contextos/
-adaptadores (shell/montaje, Acciones/IA e IXS). Después compatibilidad genérica/
+**Guardado/avisos separados:** `project_feedback.js` conserva toast, estados del
+botón, selector de principal y cierres. Los wrappers anteriores solo delegan;
+todavía son inyectados por contextos. No repetir esa implementación.
+
+**Siguiente bloque sugerido:** otros contextos/adaptadores y sus enlaces directos
+a módulos (shell/montaje, Acciones/IA e IXS). Después compatibilidad genérica/
 sin proyecto y arranque independiente. El inventario de cierre está en el plan.
 No repetir los estados centrales/paneles ni esas tres construcciones de contexto.
 No reabrir IA como pendiente ni retirar aún script/shim.
