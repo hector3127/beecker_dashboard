@@ -92,6 +92,10 @@ def isolate_panes(page, family):
       window.shellLoads=[];
       if(family==='aer'){
         _aerRenderTab=()=>{};
+        if(window.beeAerRuntime){
+          beeAerRuntime.dispatch=()=>{};
+          beeAerRuntime.load=name=>shellLoads.push(name);
+        }
         aerIACargarAnalisis=()=>shellLoads.push('analysis');
         aerIACargarMinutas=()=>shellLoads.push('minutes');
         aerIACargarConfigMinutas=()=>shellLoads.push('config');

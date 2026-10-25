@@ -16,6 +16,7 @@ import { createProjectContexts } from "./sections/project_contexts.js";
 import { createProjectFeatureContexts } from "./sections/project_feature_contexts.js";
 import { createIxsAdapters } from "./sections/project_ixs_adapters.js";
 import { createIxsRuntime } from "./sections/project_ixs_runtime.js";
+import { createAerRuntime } from "./sections/project_aer_runtime.js";
 import { actionsModel } from "./sections/actions_model.js";
 import { createActionsController } from "./sections/actions.js";
 import { createAerPlanning } from "./sections/aer_planning.js";
@@ -169,6 +170,18 @@ async function start() {
       shell: window.beeProjectShell,
       tabs: window.beeProjectTabs,
       entry: window.beeProjectEntry,
+    });
+    window.beeAerRuntime = createAerRuntime(window.beeProjectState, {
+      views: window,
+      contexts: window.beeProjectContexts,
+      panels: window.beeProjectPanels,
+      features: window.beeProjectFeatureContexts,
+      session: window.beeProjectSession,
+      shell: window.beeProjectShell,
+      tabs: window.beeProjectTabs,
+      entry: window.beeProjectEntry,
+      feedback: projectFeedback,
+      selectIxs: (tab) => window.beeIxsRuntime.select(tab),
     });
     await loadScript(renderer);
   } catch {

@@ -69,6 +69,7 @@ def test_session_preserves_same_project_and_resets_changed_project(
       oldState.sentinel='cached';
       if(aer) _aerRenderShell=()=>{}; else _ixsRenderShell=()=>{};
       if(!aer&&window.beeIxsRuntime)beeIxsRuntime.mount=()=>{};
+      if(aer&&window.beeAerRuntime)beeAerRuntime.mount=()=>{};
       data.hitos=[{}];data.historialCompleto=[{}];
       const render=aer?renderDashboardAERTYMProyecto:renderDashboardIXBSaaSRaaS;
       render(data);

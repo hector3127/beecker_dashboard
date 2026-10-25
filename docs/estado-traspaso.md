@@ -2,7 +2,37 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: coordinación directa IXB/SaaS/RaaS (25/10/2026)
+## Bloque actual: coordinación directa AER/T&M (25/10/2026)
+
+- `project_aer_runtime.js` conecta sesión, shell, pestañas, estado, paneles,
+  formularios, IA y Comunicados directamente con sus módulos. Conserva la
+  pestaña al refrescar, alias minutas→IA y orden de las cinco lecturas IA.
+  Los CSS ya están enlazados; no requiere el inyector anterior.
+- Cliente/Acciones IXS recibe los contextos AER desde este coordinador,
+  sin `projectTabsContext`. Las entradas previas delegan para compatibilidad;
+  sus eventos/cargas actuales no ejecutan esas entradas.
+- Cuatro Node nuevos verifican estado, refresco, orden, flags de acciones IA,
+  familia compartida y datos de Comunicados. Suite completa: **420 aprobadas y
+  tres fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+  Las **31 pruebas de entrada/sesión/montaje** están aprobadas. Los dobles de
+  shell ahora observan el coordinador actual y conservan sus mismos conteos.
+- **147 adicionales de navegador aprobadas; 178 en total**: coordinación,
+  shell, IA AER (fuentes y acciones), Cliente/Acciones IXS, formularios de
+  Planeación, Recursos y Riesgos. Incluyen comparación con la anterior en
+  tres tamaños, guardados/reintentos y respuestas tardías. La prueba nueva
+  bloquea quince entradas AER anteriores y verifica IA→refresco→Ejecutivo.
+  Capturas en `tmp/migration/project_detail/shell/`, `aer_ai_sources/`,
+  `aer_planning_forms/`, `aer_resources/`, `aer_risks/` e `ixs_client_actions/`;
+  inspeccionadas las del shell y Recursos móvil. Ruff/formato, sintaxis JS,
+  Django y diff aprobados. Sin consultas/correos reales, sin push y sin tocar
+  temporales/cambios ajenos. La red de pruebas bloqueó los proveedores;
+  los dobles del shell se corrigieron al mover la conexión al módulo nuevo.
+- **Fase 10 parcial.** Siguiente: cerrar callbacks IXS de estilos, editores,
+  RAID, vista anterior y recarga. Después, compatibilidad genérica/sin proyecto
+  y arranque independiente. No rehacer pestañas ni retirar todavía script/shim.
+  No activar ACCESS_ENFORCED ni tocar Horas por mes.
+
+## Bloque anterior: coordinación directa IXB/SaaS/RaaS (25/10/2026)
 
 - `project_ixs_runtime.js` conecta controladores y almacén para montaje,
   dispatch, selección/refresco, IA y Cliente/Acciones. Recursos/marcadores usan

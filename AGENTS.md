@@ -239,13 +239,18 @@ capacidad) importando los modelos existentes, carga fuentes/historial/Drive y
 construye acciones IA con el mismo paso a RAID. El soporte de Planeación usa
 estado modular y abre hitos directamente con `beeProjectMilestones`, conservando
 índice/fecha/observación y callback de recarga. Las entradas previas solo delegan;
-todavía falta cerrar la coordinación AER, el arranque y los callbacks restantes.
+todavía falta cerrar el arranque y los callbacks restantes.
 `project_ixs_runtime.js` ya coordina montaje/dispatch, selección/refresco, IA y
 Cliente/Acciones IXS directamente entre controladores. `project_ixs_adapters`
 también pinta IA con su vista modular y sus mismas guardias. Las entradas IXS
 previas delegan; los eventos creados por esta coordinación no vuelven a esos
-renderizadores. `ixsRuntimeBindings` todavía proporciona estilos, AER compartido,
-editores, RAID y recarga. Falta cerrar esos enlaces y la coordinación AER.
+renderizadores. `project_aer_runtime.js` también coordina AER directamente:
+montaje, pestañas, refresco, contextos de paneles/formularios, IA y Comunicados.
+Conserva pestaña al refrescar, alias minutas→IA y orden de sus cinco cargas.
+Cliente/Acciones IXS recibe los contextos AER desde este coordinador, sin
+`projectTabsContext`. Las entradas AER anteriores solo delegan en esa ruta.
+`ixsRuntimeBindings` todavía proporciona estilos, editores, RAID, vista anterior
+y recarga. Falta cerrar esos enlaces y el arranque independiente.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

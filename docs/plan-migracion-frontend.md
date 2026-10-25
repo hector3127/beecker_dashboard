@@ -110,6 +110,37 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Coordinación directa AER/T&M (25/10/2026)
+
+`project_aer_runtime.js` conecta sesión, shell, pestañas, almacén, paneles y
+contratos de funciones directamente. Monta/navega/refresca, conserva la pestaña
+al actualizar y el alias minutas→IA. Las cinco lecturas IA mantienen su orden
+análisis/minutas/configuración/resumen/pendientes. Formularios y fuentes/acciones/
+presentación IA reciben sus controladores actuales, sin callbacks anteriores.
+Comunicados abre su módulo con el ID/nombre/familia originales.
+
+Cliente/Acciones IXS recibe los contextos AER compartidos desde el coordinador
+nuevo; deja de depender de `projectTabsContext`. Las entradas AER anteriores
+delegan para compatibilidad, pero los eventos y cargas del coordinador no las
+ejecutan. Los CSS ya están enlazados en la plantilla nueva: no requiere inyección.
+No cambian modelos, API, cifras, permisos, navegación ni reglas de negocio.
+
+Evidencia: **31 pruebas de entrada/sesión/montaje y 147 adicionales de
+navegador aprobadas (178 total)**. Cubren shell, fuentes/acciones IA AER,
+Cliente/Acciones IXS, formularios de Planeación, Recursos y Riesgos; comparan
+contra la anterior a 1450/900/390 px y prueban errores/respuestas tardías.
+La prueba nueva bloquea quince entradas anteriores y navega IA→refresco→Ejecutivo.
+Los dobles del shell observan el coordinador nuevo con los mismos conteos/orden.
+Cuatro Node nuevos; suite completa **420 aprobadas y tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). Ruff/formato, sintaxis
+JS, Django y diff aprobados. Capturas en `tmp/migration/project_detail/`;
+shell y Recursos móvil inspeccionados. Proveedores bloqueados/simulados, sin
+consultas ni correos reales, sin push y con temporales/cambios ajenos intactos.
+
+**Fase 10 parcial.** Siguiente: callbacks IXS restantes (estilos, editores,
+RAID, vista anterior y recarga), compatibilidad genérica/sin proyecto y arranque
+independiente. No retirar todavía script/shim ni reabrir pestañas migradas.
+
 ### Coordinación directa de renderizado/navegación IXS (25/10/2026)
 
 `project_ixs_runtime.js` conecta shell, pestañas, sesión, almacén, soporte y
