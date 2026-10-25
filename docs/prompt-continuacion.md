@@ -9,7 +9,12 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque crea `project_entry_runtime.js`:
+   diferencia con `origin/main`. El último bloque separa el cálculo temporal
+   genérico en `generic_timeline_model.js`, con referencia al fallback original.
+   La vista/CSS y fuentes genéricas siguen pendientes: no marcarla migrada.
+   Se detectaron diferencias previas entre plantillas (botones 25/44 px);
+   la comparación incremental del modelo usa la misma plantilla moderna.
+   El bloque previo crea `project_entry_runtime.js`:
    contexto/recarga con renderers AER/IXS directos y almacén. La recarga de hitos
    en Planeación no pasa por loadDashboard ni projectEntryContext. Se retira
    ixsRuntimeBindings; los contextos AER llegan desde su runtime. Solo la vista
@@ -242,7 +247,10 @@ Comunicados directamente, con UID, estado, guardias y fechas sugeridas originale
 El runtime no llama a inyectores de estilos: las hojas ya están enlazadas.
 
 **Siguiente bloque sugerido:** cierre de callbacks IXS restantes
-(vista anterior/Ejecutivo genérico, sin proyecto y arranque). La recarga de hitos
+(vista/CSS/controlador y fuentes del Ejecutivo genérico, sin proyecto y arranque).
+Su cálculo temporal ya está en generic_timeline_model.js: reutilizarlo sin
+cambiar reglas. Resolver y comparar los estilos contra ?vista=anterior antes
+de marcar la vista completa. La recarga de hitos
 en Planeación ya usa el controlador/contexto nuevos; no repetirla.
 IA→RAID ya usa el creador modular compartido;
 no reabrir los formularios ni alterar su publicación explícita.

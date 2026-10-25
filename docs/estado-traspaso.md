@@ -2,7 +2,33 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: contexto/recarga directos del proyecto (25/10/2026)
+## Bloque actual: modelo temporal del Ejecutivo genérico (25/10/2026)
+
+- `generic_timeline_model.js` separa fases repetidas, suspensiones, estados,
+  marcadores, resumen, detección de finalización, rango y meses. Reutiliza
+  categoría/nombre de hitos ya contrastados. No modifica los datos recibidos.
+  El renderer de compatibilidad usa el modelo y conserva su cálculo original
+  como fallback; HTML, estilos, eventos y enriquecimientos siguen anteriores.
+- Dos Node nuevos comparan 79 combinaciones de datos/fechas/estados/límites
+  contra el bloque original y comprueban que no se muta el backend. Suite
+  completa: **429 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`).
+- **32 de navegador aprobadas**: 12 de modelo/fallback genérico y regresión
+  de entrada, pestañas y recarga. Los doce casos usan la misma plantilla
+  moderna en 1450/900/390 px; la presentación incremental no cambia.
+  **No es validación final contra `?vista=anterior`**: se detectaron diferencias
+  previas entre plantillas, por ejemplo botones de 25 frente a 44 px. La vista
+  genérica/CSS siguen pendientes y no se marcan migradas. Capturas en
+  `tmp/migration/project_detail/generic_timeline/` (`fallback.png`/`model.png`);
+  escritorio inspeccionado. Ruff/formato, sintaxis JS, Django y diff aprobados.
+- **Fase 10 parcial, estimación orientativa alrededor del 85%**, por alcance
+  funcional, no por líneas ni como aceptación. Siguiente: vista/controlador/CSS
+  genéricos, sus fuentes/formularios, casos sin proyecto/cuenta y arranque
+  independiente. Mantener script/shim. No activar ACCESS_ENFORCED ni tocar
+  Horas por mes. Sin proveedores reales ni push; cambios/temporales ajenos
+  intactos. El script auxiliar de extracción está en `tmp/` y no se comitea.
+
+## Bloque anterior: contexto/recarga directos del proyecto (25/10/2026)
 
 - `project_entry_runtime.js` compone el contexto de entrada/recarga con
   almacén y renderers AER/IXS directos. Conserva los callbacks de compatibilidad

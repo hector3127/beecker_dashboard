@@ -7558,6 +7558,9 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       // --- Hitos adicionales (Demo, Pase a QA, etc.): se calculan aquí para
       // poder asignarlos a la fila de ejecución que les corresponda por fecha ---
       const ahoraMs = Date.now();
+      const timeline = window.beeGenericTimeline
+        ? window.beeGenericTimeline(data, ahoraMs)
+        : (() => {
       const marcadoresAdicionales = (data.hitosAdicionales || []).map(h => {
         const partes = String(h.fecha || '').split('/');
         if (partes.length !== 3) return null;
@@ -7780,6 +7783,11 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       let cursor = new Date(minT); cursor.setDate(1);
       const finEje = new Date(maxT);
       while (cursor <= finEje) { meses.push(new Date(cursor)); cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1); }
+      return {filasPlan, filasReal, marcadoresAdicionales, estadoEtapaReal, minT, maxT, rango, PAD_IZQ, meses, hitosResumenCorregido, proyectoCompletadoDetectado};
+      })();
+      const {filasPlan, filasReal, marcadoresAdicionales, estadoEtapaReal, minT, maxT, rango, PAD_IZQ, meses} = timeline;
+      hitosResumenCorregido = timeline.hitosResumenCorregido;
+      proyectoCompletadoDetectado = timeline.proyectoCompletadoDetectado;
       let aniosHtml = '', mesesHtml = '';
       let i = 0;
       while (i < meses.length) {

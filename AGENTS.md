@@ -266,6 +266,14 @@ Se retira `ixsRuntimeBindings` y la conexión previa IXS; su única dependencia
 de renderizado anterior es `previous`, inyectada explícitamente desde main.
 Faltan vista anterior/Ejecutivo genérico, compatibilidad sin proyecto y arranque
 independiente. No retirar todavía script/shim.
+El primer bloque genérico separa fechas, fases fusionadas, suspensiones,
+asignación de marcadores, resumen y detección de cierre en
+`generic_timeline_model.js`. El renderer de compatibilidad consume ese modelo
+cuando existe; conserva el cálculo original como fallback. Su vista/CSS,
+formularios y enriquecimientos siguen pendientes. No darla por migrada: hay
+diferencias previas entre plantillas (por ejemplo botones 25 vs. 44 px).
+La comparación incremental modelo/fallback usa la misma plantilla nueva;
+la comparación visual completa contra `?vista=anterior` aún falta para esta vista.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

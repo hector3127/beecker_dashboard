@@ -77,6 +77,12 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
+Estimación orientativa al 25/10/2026: **alrededor del 85%**, por alcance
+funcional revisado, no por líneas de código ni como criterio de aceptación.
+Las pestañas principales están migradas; el cierre incluye compatibilidad
+genérica/sin proyecto, arranque sin el script anterior y validación final.
+El porcentaje no significa que el detalle ya sea independiente.
+
 Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo, Recursos e IA de ambas familias; Riesgos AER;
 Gestión RAID, Azure DevOps y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
@@ -109,6 +115,37 @@ Planeación conserva puentes de estado en el archivo anterior. Los auxiliares
 adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Modelo temporal del Ejecutivo genérico (25/10/2026)
+
+`generic_timeline_model.js` separa el cálculo temporal original: fases repetidas,
+suspensiones, estados, asignación de hitos adicionales, resumen, detección de
+finalización, rango y meses. Reutiliza los helpers de categoría/nombre ya
+contrastados. No modifica los datos recibidos ni cambia reglas/fechas.
+
+El renderer de compatibilidad usa el modelo nuevo; el bloque original queda
+como fallback para comparación. **La vista genérica sigue pendiente**: aún
+tiene HTML/eventos/estilos y enriquecimientos anteriores. Se detectó una
+diferencia previa entre plantillas (botones de 25 frente a 44 px). Por eso la
+comparación incremental modelo/fallback usa la misma plantilla moderna;
+no cuenta como validación visual final contra `?vista=anterior` ni como vista
+migrada. La corrección de esas diferencias corresponde al bloque de vista.
+
+Evidencia: dos Node nuevos comparan 79 combinaciones contra el bloque original,
+incluidas fechas de corte, fases repetidas, límites de suspensión, tipos de
+marcador y cierre/cancelación; no mutan los datos. Suite completa **429
+aprobadas y tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+`financial`). **32 de navegador aprobadas**: 12 comparan modelo/fallback bajo
+la misma plantilla a 1450/900/390 px y el resto verifica entrada/pestañas/recarga.
+La vista genérica **no** se marca completada. Capturas en
+`tmp/migration/project_detail/generic_timeline/` (`fallback.png`/`model.png`);
+escritorio inspeccionado. Ruff/formato, sintaxis JS, Django y diff aprobados.
+Proveedores simulados/red bloqueada, sin consultas reales ni push y con cambios/
+temporales ajenos intactos.
+
+**Fase 10 parcial.** Siguiente: vista/controlador/CSS genéricos y sus fuentes/
+formularios; después casos sin proyecto/cuenta y arranque independiente.
+Mantener script/shim. Estimación orientativa de fase: alrededor del 85%.
 
 ### Contexto y recarga directos del proyecto (25/10/2026)
 
