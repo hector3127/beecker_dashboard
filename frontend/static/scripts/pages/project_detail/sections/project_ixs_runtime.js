@@ -1,5 +1,5 @@
-// Direct IXS navigation/rendering. Remaining editor/AER callbacks are supplied
-// by the compatibility entry; the runtime itself does not call old renderers.
+// Direct IXS navigation/rendering/editors. RAID, previous view and reload still
+// come from compatibility; styles are already linked by the modern template.
 export function createIxsRuntime(store, services) {
   let callbacks;
   const aiCallbacks = () => ({
@@ -11,7 +11,7 @@ export function createIxsRuntime(store, services) {
   });
   const session = () =>
     services.contexts.session({
-      styles: callbacks.styles,
+      styles: services.tools.styles,
       render: {
         ixs: () => runtime.mount(),
         ai: () => runtime.paintAi(),
@@ -60,13 +60,13 @@ export function createIxsRuntime(store, services) {
           loadClientActions: () => runtime.loadClientActions(),
           createRaid: callbacks.createRaid,
           previous: callbacks.previous,
-          editPlanning: callbacks.editPlanning,
+          editPlanning: (...args) => services.tools.editPlanning(...args),
           editMarker: (index) =>
             services.support.editMilestone(
               index,
               services.adapters.support(callbacks.reload),
             ),
-          extension: callbacks.extension,
+          extension: () => services.tools.communique(),
         }),
       );
     },

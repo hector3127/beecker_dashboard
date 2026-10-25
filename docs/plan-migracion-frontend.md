@@ -110,6 +110,34 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Herramientas compartidas IXS: Planeación, Comunicados y CSS (25/10/2026)
+
+`project_ixs_tools.js` conecta el runtime con el editor de Planeación y la
+ventana Comunicados directamente. Mantiene decodificación de UID, tipo inicial,
+estado compartido, guardia de proyecto y repintado tras guardar. Comunicados
+conserva ID de Planeación, nombre del proyecto, familia y fechas sugeridas por
+el modelo existente. No cambia API, permisos ni modelos de cálculo.
+
+Los estilos AER/IXS/IA ya están enlazados en la plantilla; el runtime no llama
+a los inyectores del archivo anterior. `ixsRuntimeBindings` deja de aportar
+estilos, editor y Comunicados. Conserva RAID, vista anterior y recarga.
+
+Evidencia: **94 pruebas de navegador aprobadas** de runtime IXS, editores,
+Comunicados, sesión, Planeación y fuentes IA; comparación en tres tamaños,
+guardados/UID exacto, errores/reintentos y respuestas tardías. La prueba nueva
+bloquea siete funciones anteriores, guarda vacaciones y abre Comunicados por UI.
+La prueba de sesión conserva orden/estado y verifica enlaces CSS externos en
+vez del inyector. Tres Node nuevos y comprobaciones ampliadas del runtime:
+suite completa **423 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Ruff/formato, sintaxis JS, Django y diff
+aprobados. Capturas en `tmp/migration/project_detail/ixs_planning_editor/`,
+`communique/`, `session/`, `ixs_planning_view/` e `ixs_ai_sources/`; editor y
+Comunicado inspeccionados. Proveedores simulados/red bloqueada; sin consultas
+ni correos reales. Sin push y con temporales/cambios ajenos intactos.
+
+**Fase 10 parcial.** Siguiente: esos enlaces residuales, compatibilidad
+genérica/sin proyecto y arranque independiente. No retirar aún script/shim.
+
 ### Coordinación directa AER/T&M (25/10/2026)
 
 `project_aer_runtime.js` conecta sesión, shell, pestañas, almacén, paneles y

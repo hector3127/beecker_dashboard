@@ -9,7 +9,10 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque crea `project_aer_runtime.js`:
+   diferencia con `origin/main`. El último bloque crea `project_ixs_tools.js`:
+   editores de Planeación y Comunicados IXS conectados directamente a sus
+   controladores; estilos ya enlazados, sin inyectores anteriores en el runtime.
+   El bloque previo crea `project_aer_runtime.js`:
    coordinación directa AER de montaje/pestañas/refresco, paneles, IA y Comunicados.
    Conserva la pestaña al actualizar y el orden de las cinco cargas IA.
    Cliente/Acciones IXS usa sus contextos AER sin el adaptador anterior.
@@ -224,8 +227,12 @@ pestañas, paneles, fuentes/acciones/presentación IA y Comunicados directamente
 Las entradas anteriores delegan; la coordinación no vuelve a ellas. Los
 contextos AER compartidos con Cliente/Acciones IXS también salen de este módulo.
 
+**Herramientas IXS separadas:** `project_ixs_tools.js` conecta Planeación y
+Comunicados directamente, con UID, estado, guardias y fechas sugeridas originales.
+El runtime no llama a inyectores de estilos: las hojas ya están enlazadas.
+
 **Siguiente bloque sugerido:** cierre de callbacks IXS restantes
-(estilos/editores/RAID/vista anterior/recarga y arranque).
+(RAID/vista anterior/recarga y arranque).
 Después compatibilidad genérica/
 sin proyecto y arranque independiente. El inventario de cierre está en el plan.
 No repetir los estados centrales/paneles ni esas tres construcciones de contexto.

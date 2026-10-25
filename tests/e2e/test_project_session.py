@@ -119,8 +119,13 @@ def test_ixs_ai_keeps_same_state_then_clears_sources_in_original_load_order(
         "same": True,
         "reset": True,
         "selected": [],
-        "calls": ["styles", "view", "sources", "history", "drive"] * 3,
+        # Styles are linked by the modern template; no injector call remains.
+        "calls": ["view", "sources", "history", "drive"] * 3,
     }
+    for style_id in ["ixs-ia-styles", "ixs-v74-styles", "aer-dashboard-styles"]:
+        expect(portal.locator(f"link#{style_id}")).to_have_attribute(
+            "rel", "stylesheet"
+        )
 
 
 def test_client_actions_keeps_shared_state_and_rejects_an_inactive_family(

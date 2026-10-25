@@ -249,8 +249,12 @@ montaje, pestañas, refresco, contextos de paneles/formularios, IA y Comunicados
 Conserva pestaña al refrescar, alias minutas→IA y orden de sus cinco cargas.
 Cliente/Acciones IXS recibe los contextos AER desde este coordinador, sin
 `projectTabsContext`. Las entradas AER anteriores solo delegan en esa ruta.
-`ixsRuntimeBindings` todavía proporciona estilos, editores, RAID, vista anterior
-y recarga. Falta cerrar esos enlaces y el arranque independiente.
+`project_ixs_tools.js` conecta editores de Planeación y Comunicados con sus
+controladores, mismo estado/lifecycle, UID y fechas sugeridas. El runtime IXS
+usa estos enlaces directamente; estilos AER/IXS/IA ya están enlazados en la
+plantilla nueva y no usa los inyectores anteriores. `ixsRuntimeBindings` aún
+proporciona RAID, vista anterior y recarga. Falta cerrar esos enlaces y el
+arranque independiente.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

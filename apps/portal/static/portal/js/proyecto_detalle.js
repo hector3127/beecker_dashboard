@@ -6448,8 +6448,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
   function ixsRuntimeBindings(){return {aerTabs:window.beeAerRuntime?()=>window.beeAerRuntime.tabs():projectTabsContext,
-    styles:{aer:_aerEnsureStyles,ixs:_ixsEnsureStyles,ai:ixsIAStyles},reload:loadDashboard,
-    editPlanning:ixsAbrirPlanEditor,extension:ixsAbrirExtension,createRaid:ixsRaidAbrirCrear,
+    reload:loadDashboard,createRaid:ixsRaidAbrirCrear,
     manualRaid:ixsRaidAbrirManual,previous:ixsAbrirVistaAnterior};}
   function renderDashboardIXBSaaSRaaS(data){
     if(window.beeIxsRuntime)return window.beeIxsRuntime.connect(ixsRuntimeBindings()).initialize(data);

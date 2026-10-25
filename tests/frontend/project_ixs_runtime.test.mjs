@@ -18,6 +18,11 @@ function setup(t) {
     globalThis.document = before;
   });
   const services = {
+    tools: {
+      styles: {},
+      editPlanning: (...args) => calls.push(["editor", ...args]),
+      communique: () => calls.push(["communique"]),
+    },
     contexts: createProjectContexts(store),
     entry: { serverError() {} },
     shell: {
@@ -64,13 +69,10 @@ function setup(t) {
   };
   const callbacks = {
     aerTabs: () => ({ selectAer() {}, aerContexts: {} }),
-    styles: {},
     reload() {},
     createRaid() {},
     manualRaid() {},
-    editPlanning() {},
     previous() {},
-    extension() {},
   };
   return {
     store,
@@ -93,6 +95,15 @@ test("mount and tab actions use modules and preserve lazy state/editor bindings"
   assert.equal(calls.at(-1)[1].reload, callbacks.reload);
   env.planningActions.editMarker(7);
   assert.equal(calls.at(-1)[1], 7);
+  env.planningActions.edit("compromiso", "hito/'1", "Hito");
+  assert.deepEqual(calls.at(-1), [
+    "editor",
+    "compromiso",
+    "hito%2F%271",
+    "Hito",
+  ]);
+  env.planningActions.extension();
+  assert.deepEqual(calls.at(-1), ["communique"]);
   env.planningActions.azure();
   assert.equal(store.ixsTab, "azure");
   assert.equal(calls.at(-1)[0], "mount");

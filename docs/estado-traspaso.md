@@ -2,7 +2,36 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: coordinación directa AER/T&M (25/10/2026)
+## Bloque actual: herramientas compartidas IXS (25/10/2026)
+
+- `project_ixs_tools.js` conecta editores de Planeación y Comunicados con sus
+  controladores desde el runtime IXS. Mantiene UID decodificado, tipo inicial,
+  estado de Planeación, guardias, listas guardadas y repintado. Comunicados
+  conserva ID de Planeación, nombre, familia y fechas sugeridas existentes.
+- El runtime deja de recibir estilos/editor/Comunicados desde
+  `ixsRuntimeBindings`. Las hojas AER/IXS/IA están enlazadas en la plantilla;
+  no llama a los inyectores anteriores. Las entradas anteriores siguen para
+  compatibilidad/comparación; no se cambian cálculos, permisos ni API.
+- Tres Node nuevos verifican UID especial, guardia, listas y datos de apertura;
+  el test del runtime comprueba editor/Comunicados sin callbacks previos.
+  Suite completa: **423 aprobadas y tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`).
+- **94 de navegador aprobadas**: runtime IXS, editores, Comunicados, sesión,
+  Planeación e IA (fuentes). Incluyen comparación en tres tamaños, guardados,
+  UID exacto, errores/reintentos y respuestas tardías. La prueba nueva bloquea
+  siete funciones anteriores, registra vacaciones y abre Comunicados por UI.
+  La prueba de sesión conserva orden/estado de IA y verifica los enlaces CSS
+  externos en vez de esperar llamadas al inyector retirado del runtime.
+  Capturas en `tmp/migration/project_detail/ixs_planning_editor/`, `communique/`,
+  `session/`, `ixs_planning_view/` e `ixs_ai_sources/`; editor y Comunicado
+  inspeccionados. Ruff/formato, sintaxis JS, Django y diff aprobados.
+  Proveedores simulados/red bloqueada; sin consultas ni correos reales.
+  Sin push, temporales/cambios ajenos intactos.
+- **Fase 10 parcial.** Siguiente: RAID, vista anterior, recarga y arranque.
+  Después cerrar compatibilidad genérica/sin proyecto y validar independencia.
+  No retirar aún script/shim, activar ACCESS_ENFORCED ni tocar Horas por mes.
+
+## Bloque anterior: coordinación directa AER/T&M (25/10/2026)
 
 - `project_aer_runtime.js` conecta sesión, shell, pestañas, estado, paneles,
   formularios, IA y Comunicados directamente con sus módulos. Conserva la
