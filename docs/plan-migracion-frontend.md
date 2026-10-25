@@ -102,11 +102,42 @@ ya usa API, estructura, resumen, agrupaciones, tabla y acciones modulares.
 Comparte controles con Planeación y conserva sus diferencias de presentación
 y guardado de fechas; no ejecuta las funciones anteriores de esa pestaña.
 Usar API no equivale a migrar toda una pestaña.
-Planeación conserva puentes y auxiliares en el archivo anterior, entre ellos
-`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto`; extraerlos en
-la integración compartida, sin confundirlos con volver a migrar su vista y editores.
+Planeación conserva puentes de estado en el archivo anterior. Los auxiliares
+`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` ya delegan en
+`ixs_support{,_model}.js`; no reabrir su vista y editores. Falta retirar los
+adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Auxiliares compartidos IXB/SaaS/RaaS (25/10/2026)
+
+`ixs_support.js` consulta estados de recursos por la API existente: una sola
+lectura en vuelo por proyecto, caché tras éxito y reintento tras fallo. La
+respuesta actualiza el proyecto capturado; solo repinta Ejecutivo/Planeación/
+Esfuerzo si ese proyecto sigue vigente. Reutiliza sus vistas modulares, sin HTML
+anterior. `ixs_support_model.js` conserva la normalización de nombres y el valor
+de activo (incluidos false y nombres duplicados).
+
+El mismo controlador abre el editor modular de hitos con tipo, índice de origen,
+fecha local ISO y observación anteriores. Las fechas sugeridas de Comunicados
+separan su modelo, con las mismas prioridades de fases reales/planificadas y
+etapa actual. No cambia servicios, fórmulas ni destinatarios.
+
+**Fase 10 parcial.** `ixsSupportContext` conserva getters y el enlace al editor
+de hitos. Siguen pendientes almacenamiento/adaptadores y la compatibilidad del
+Ejecutivo genérico/sin proyecto. No retirar el archivo anterior ni el shim.
+
+Evidencia inicial: **40 pruebas de Planeación/Ejecutivo aprobadas**, con
+comparaciones a 1450/900/390 px, carga diferida y apertura del editor. Once Node
+contrastan fechas sugeridas con las funciones originales y prueban estados,
+caché en vuelo, reintento, respuesta tardía e índices/fechas del editor. Suite
+completa: **379 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Otras **40 de navegador aprobadas** de
+Esfuerzo, Comunicados y lectura compartida de recursos (tres nuevas): **80 en
+total**. Capturas en `tmp/migration/project_detail/ixs_planning_view/`,
+`ixs_executive/`, `ixs_effort/` y `communique/`, inspeccionadas móvil/escritorio.
+Ruff/formato, Django y diff aprobados. Proveedores simulados, sin consultas ni
+correos reales; sin push ni cambios ajenos incluidos.
 
 ### Entrada de proyectos y mensajes de carga (controlador separado)
 

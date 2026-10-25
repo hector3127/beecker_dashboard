@@ -9,8 +9,10 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local separa la entrada de
-   proyectos en `project_entry{,_model,_view}.js`, incluidos mensajes/reintento
+   diferencia con `origin/main`. El último bloque local separa los auxiliares
+   de Planeación en `ixs_support{,_model}.js`: estados de recursos, edición de
+   hitos y fechas sugeridas de Comunicados. La entrada de proyectos usa
+   `project_entry{,_model,_view}.js`, incluidos mensajes/reintento
    y `showError`. Inicialización/sesión usa `project_session{,_model,_view}.js`.
    El montaje de
    pestañas usa `project_tabs.js` y sus respaldos `project_tabs_view.js`.
@@ -172,9 +174,10 @@ el Ejecutivo genérico de servicio no reconocido como AER/IXS en el script previ
 almacenamiento de estados/contextos; después auxiliares compartidos.
 No reabrir IA como pendiente ni retirar aún script/shim.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
-los adaptadores/estado y los auxiliares de Planeación IXB que aún viven
-en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,
-`_ixeAuto`). Al final: limpieza de archivos anteriores y CSP. Genesis/accesos
+los adaptadores/estado. Los auxiliares `ixsEditarHitoTimeline`,
+`_ixsCargarEstadosRecursos` y `_ixeAuto` ya delegan a `ixs_support{,_model}.js`;
+conservan caché, estados, índice del hito y reglas de fechas. No repetirlos.
+Al final: limpieza de archivos anteriores y CSP. Genesis/accesos
 es decisión de despliegue: no activar ACCESS_ENFORCED.
 
 **Cómo probar (Windows, Git Bash)**

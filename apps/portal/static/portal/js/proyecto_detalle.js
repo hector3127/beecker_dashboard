@@ -5474,7 +5474,11 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     return (latest(history,'fechaFin')||{}).fechaFin||(latest(plans,'fechaFinPlan')||{}).fechaFinPlan||'';
   }
 
+  function ixsSupportContext(){return {project:()=>ixsProyectoActual,tab:()=>ixsTabActual,
+    selectMilestones:project=>{idProyectoActualGlobal=project.proyecto.id;hitosAdicionalesActuales=project.hitosAdicionales||[];},
+    edit:editarHitoDesdeCard};}
   function ixsEditarHitoTimeline(index){
+    if(window.beeIxsSupport)return window.beeIxsSupport.editMilestone(index,ixsSupportContext());
     if(ixsTabActual!=='planeacion'||!ixsProyectoActual)return;
     const h=(ixsProyectoActual.hitosAdicionales||[])[index];
     if(!h)return;
@@ -5563,6 +5567,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
   function _ixsCargarEstadosRecursos(){
+      if(window.beeIxsSupport)return window.beeIxsSupport.resources(ixsSupportContext());
       const project=ixsProyectoActual;
       if(!project._resourceStatesLoaded&&!project._resourceStatesLoading){
         project._resourceStatesLoading=true;
@@ -5804,6 +5809,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   function _ixeStageOf(name){const m=String(name||'').match(/discovery|development|deployment/i);return m?IXE_STAGES.find(x=>x.toLowerCase()===m[0].toLowerCase()):'';}
   /* Etapa en curso y fecha de cierre de cada etapa, tomadas del mismo Gantt. */
   function _ixeAuto(data){
+    if(window.beeIxsSupport)return window.beeIxsSupport.suggestedDates(data);
     const d=data||{},fases=_ixsFases(d),plan=d.hitos||[],closes={};
     IXE_STAGES.forEach(st=>{
       const real=fases.filter(f=>_ixeStageOf(f.name)===st).sort((a,b)=>_ixsDateMs(b.end)-_ixsDateMs(a.end))[0];

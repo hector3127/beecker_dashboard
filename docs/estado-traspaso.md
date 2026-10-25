@@ -2,7 +2,35 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: entrada de proyectos y mensajes de carga
+## Bloque actual: auxiliares compartidos IXB/SaaS/RaaS (25/10/2026)
+
+- `ixs_support{,_model}.js` separa carga de estados de recursos, edición desde
+  la línea de tiempo y etapa/fechas sugeridas para Comunicados. Reutiliza API,
+  modelos de fecha/fases/nombres y vistas modulares existentes.
+- Estados conservan una consulta en vuelo, caché por proyecto, normalización
+  de nombres, false y duplicados. Solo repintan el proyecto actual; una respuesta
+  tardía conserva su caché anterior sin pintar el nuevo. Fallos liberan la carga.
+- Edición conserva tipo/índice/fecha/observación; sugerencias conservan reglas
+  de fases reales/planificadas. `ixsSupportContext` aún enlaza al estado/editor;
+  wrappers previos solo delegan. No hay API ni cálculos nuevos.
+- **Fase 10 parcial.** Siguiente: compatibilidad genérica/sin proyecto y
+  almacenamiento/adaptadores compartidos. El Ejecutivo genérico tiene diseño
+  propio: no sustituirlo por IXS. No retirar script/shim, reabrir pestañas ni
+  activar ACCESS_ENFORCED ni tocar Horas por mes.
+- **40 pruebas de Planeación/Ejecutivo aprobadas**, con comparaciones en tres
+  tamaños y apertura del editor de hitos. Once Node prueban modelo contra la
+  referencia y caché/errores/respuestas tardías; suite completa **379 aprobadas
+  y tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+  `financial`). Proveedores simulados; sin consultas ni correos reales.
+- Otras **40 aprobadas** de Esfuerzo/Comunicados, incluidas tres nuevas de lectura
+  compartida en Ejecutivo/Planeación/Esfuerzo: **80 de navegador en total**.
+  Incluye comparaciones visuales de Comunicados y ventanas de Esfuerzo.
+  Capturas en `tmp/migration/project_detail/ixs_planning_view/`,
+  `ixs_executive/`, `ixs_effort/` y `communique/`, inspeccionadas en móvil y
+  escritorio. Ruff/formato, Django y diff aprobados. Sin push; temporales
+  y cambios ajenos intactos.
+
+## Bloque anterior: entrada de proyectos y mensajes de carga
 
 - `project_entry{,_model,_view}.js` monta la plantilla, carga/prepara filtros,
   selecciona el ID de ruta y carga el dashboard AER/IXS por API. Conserva la

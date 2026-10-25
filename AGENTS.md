@@ -218,11 +218,14 @@ no reabrir vistas/formularios ya migrados.
 Mantener los puentes y comparación;
 no retirar aún script/shim. El manejador común showError puede reemplazar el
 dashboard ante errores; comportamiento preservado en el módulo nuevo.
-Planeación IXB usa módulos de
-vista/carga/editores; todavía conserva puentes de estado y auxiliares como
-`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo
-anterior. Extraerlos junto con entrada/estado/montaje compartidos antes
-de retirar el shim. No reabrir Cliente ni el Centro de Comunicación como pendientes.
+Planeación IXB usa módulos de vista/carga/editores. Sus auxiliares de estados
+de recursos, edición de hitos y fechas sugeridas también usan `ixs_support.js`
+y `ixs_support_model.js`. Conservan caché por proyecto, normalización de nombres,
+guardia de identidad, índice del hito y reglas de fechas anteriores.
+`ixsSupportContext` sigue enlazando al estado/editor compartidos; los tres nombres
+anteriores solo delegan en la ruta nueva. Quedan almacenamiento/adaptadores y
+compatibilidad genérica antes de retirar el shim. No reabrir Cliente ni el
+Centro de Comunicación como pendientes.
 
 1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.
 2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).
