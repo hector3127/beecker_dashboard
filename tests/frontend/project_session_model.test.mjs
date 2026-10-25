@@ -20,7 +20,11 @@ for (const [name, factory] of [
   ["ixsIAState", initialIxsAi],
 ]) {
   test(`${name}: same initial fields as the previous implementation`, () => {
-    const literal = source.match(new RegExp(`let ${name}=(\\{[^\\n]+\\});`))[1];
+    const literal = source.match(
+      new RegExp(
+        `var ${name} = window\\.beeProjectState \\? window\\.beeProjectState\\.\\w+ : (\\{[^\\n]+\\});`,
+      ),
+    )[1];
     const original = vm.runInNewContext(`(${literal})`);
     assert.deepEqual(factory(), JSON.parse(JSON.stringify(original)));
     const first = factory(),

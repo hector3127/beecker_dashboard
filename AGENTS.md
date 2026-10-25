@@ -206,7 +206,11 @@ La inicialización AER/IXS, apertura IA IXS y enlace Cliente/Acciones usan
 `project_session{,_model,_view}.js`: conservan estados del mismo proyecto,
 reinicios al cambiar de ID, caché, orden de cargas y actualización diferida del
 histórico por API. Los errores y aviso de backend mantienen su presentación.
-`projectSessionContext` sigue como adaptador al almacenamiento global.
+`project_state.js` ya posee los doce valores centrales: dashboards/pestañas,
+IA, Clockify, metadata, secuencia, hitos/ID y caché Cliente/Acciones.
+Se registra antes del script anterior. Los nombres previos son accesores
+temporales; el caché conserva la misma referencia. La comparación sigue con
+sus valores originales. `projectSessionContext` aún es un adaptador.
 La entrada de proyectos usa `project_entry{,_model,_view}.js`: montaje desde
 template, filtros/selección, clasificación por servicio, carga API, secuencia
 de respuestas y reintento. `showError` delega a una vista segura que conserva
@@ -223,7 +227,7 @@ de recursos, edición de hitos y fechas sugeridas también usan `ixs_support.js`
 y `ixs_support_model.js`. Conservan caché por proyecto, normalización de nombres,
 guardia de identidad, índice del hito y reglas de fechas anteriores.
 `ixsSupportContext` sigue enlazando al estado/editor compartidos; los tres nombres
-anteriores solo delegan en la ruta nueva. Quedan almacenamiento/adaptadores y
+anteriores solo delegan en la ruta nueva. Quedan estados de paneles/adaptadores y
 compatibilidad genérica antes de retirar el shim. No reabrir Cliente ni el
 Centro de Comunicación como pendientes.
 

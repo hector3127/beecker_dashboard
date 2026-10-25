@@ -9,8 +9,9 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local separa los auxiliares
-   de Planeación en `ixs_support{,_model}.js`: estados de recursos, edición de
+   diferencia con `origin/main`. El último bloque local crea `project_state.js`,
+   dueño de los doce valores centrales, enlazado por accesores temporales.
+   Los auxiliares de Planeación usan `ixs_support{,_model}.js`: recursos, edición de
    hitos y fechas sugeridas de Comunicados. La entrada de proyectos usa
    `project_entry{,_model,_view}.js`, incluidos mensajes/reintento
    y `showError`. Inicialización/sesión usa `project_session{,_model,_view}.js`.
@@ -170,8 +171,14 @@ API. Cargas/errores/reintento y `showError` son seguros, con el mismo aspecto.
 `showError` conserva el reemplazo global. Quedan ramas sin proyecto/cuenta y
 el Ejecutivo genérico de servicio no reconocido como AER/IXS en el script previo.
 
-**Siguiente bloque sugerido:** revisar esos casos de compatibilidad y el
-almacenamiento de estados/contextos; después auxiliares compartidos.
+**Estados centrales separados:** `project_state.js` posee dashboards/pestañas,
+IA, Clockify, metadata/secuencia, hitos/ID y caché Cliente/Acciones. Los nombres
+anteriores se enlazan por accesores; aún se requiere el script para contextos.
+
+**Siguiente bloque sugerido:** estados de paneles/contextos (AER: rango/filtros,
+Clockify y selección de Recursos; IXS: Planeación y estados Azure). Después,
+compatibilidad genérica/sin proyecto y soporte compartido. El inventario de
+cierre con criterios está en el plan. No repetir los estados centrales.
 No reabrir IA como pendiente ni retirar aún script/shim.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
 los adaptadores/estado. Los auxiliares `ixsEditarHitoTimeline`,

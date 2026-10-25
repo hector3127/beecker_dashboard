@@ -82,15 +82,16 @@ Gestión RAID, Azure DevOps y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
 La entrada modular usa API para filtros y dashboards. Encabezados, navegación,
-refresco, montaje e inicialización de proyectos usan módulos. El almacenamiento
-de estados/contextos, ramas de compatibilidad y auxiliares todavía enlazan con el
-script anterior. La entrada de proyectos y sus mensajes ya usan módulos.
+refresco, montaje e inicialización de proyectos usan módulos. Los doce valores
+centrales pertenecen a `project_state.js`; siguen los estados de paneles,
+adaptadores, compatibilidad y auxiliares enlazados al script anterior.
+La entrada de proyectos y sus mensajes ya usan módulos.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
 | AER/T&M | Integración de estructura/estado y auxiliares compartidos; pestañas ya modulares |
-| Compartido | Almacenamiento global de estados/contextos, compatibilidad sin proyecto/Ejecutivo genérico y auxiliares de Planeación/soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Encabezados/navegación/refresco, montaje, inicialización y entrada de proyectos ya separados |
+| Compartido | Estados de paneles/adaptadores, compatibilidad sin proyecto/Ejecutivo genérico y soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Estados centrales, encabezados/navegación/refresco, montaje, inicialización y entrada de proyectos ya separados |
 
 Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
@@ -108,6 +109,46 @@ Planeación conserva puentes de estado en el archivo anterior. Los auxiliares
 adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Estados centrales del proyecto (25/10/2026)
+
+`project_state.js` crea y almacena doce valores centrales: ambos dashboards,
+pestañas y estados IA, Clockify, metadata, secuencia de carga, hitos/ID actual
+y caché Cliente/Acciones. Reutiliza las fábricas IA contrastadas contra la
+referencia. Cada instancia tiene sus propios objetos/selecciones/cachés.
+
+`main.js` registra el almacén antes del script anterior. Los once nombres
+asignables previos se enlazan con accesores temporales; las declaraciones `var`
+se limitan al archivo de compatibilidad para no crear otra vinculación léxica.
+El caché conserva su referencia constante. Las asignaciones de los callbacks y
+los módulos llegan al mismo objeto; no se duplican ni reinician los resultados.
+Sin módulo, la comparación sigue inicializando sus valores originales.
+
+**Fase 10 parcial: inventario para el cierre, revisado en código**
+
+| Pendiente | Evidencia y condición de cierre |
+|---|---|
+| Estados de paneles y adaptadores | AER conserva rango/filtros de Planeación, filtro Clockify y selección de Recursos; IXS conserva `ixsPlanState`, `ixsPlanAzureState` e `ixsAzureState`. Sus contextos/callbacks siguen definidos en el archivo anterior. Extraerlos sin duplicar sus vistas. |
+| Compatibilidad genérica | `renderDashboardEjecutivoProyecto` tiene diseño propio para servicios no reconocidos como AER/IXS; ramas sin proyecto/cuenta aún usan funciones previas. Migrar o demostrar sus rutas de entrada antes de retirar dependencias. |
+| Soporte compartido restante | Contextos aún pasan funciones previas de guardado/avisos y editores, como `_aerStartSaving`, `_aerToast` y puentes a hitos. Sustituir sus dependencias activas por módulos. |
+| Arranque independiente | La plantilla/main todavía carga `gas_shim.js` y `proyecto_detalle.js`. Dejar de cargarlos en la ruta nueva cuando ningún flujo activo los necesite; auditar llamadas reales a RPC, no contar como pendientes todas las ramas guardadas para comparación. |
+| Validación final del detalle | Con el arranque independiente, comprobar pestañas, filtros, regreso, exportación, permisos y escrituras; comparación visual e integración sin recursos anteriores ni RPC. |
+
+La eliminación de archivos anteriores del repositorio y CSP obligatoria son
+**fase 11**. Genesis/activación de accesos sigue como decisión de despliegue.
+
+Evidencia inicial: **35 de navegador aprobadas** de entrada/sesión/mensajes,
+con sus comparaciones visuales. Tres Node del almacén comprueban independencia,
+asignaciones bidireccionales y declaraciones reales de compatibilidad sin reset;
+el modelo IA conserva el contraste con los literales de referencia. Suite
+completa **382 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). **44 de almacén/navegación/pestañas y 69 de
+acciones IA AER/IXS/recursos aprobadas**: con las 35 iniciales, **148 distintas
+de navegador**. Dos nuevas verifican identidad/sincronización del almacén real.
+La comparación IA normaliza scroll cero/dos frames; una primera falla móvil
+era solo desplazamiento (cero diferencias de tamaño/texto/estilos). La repetición
+completa de acciones aprobó. Ruff/formato, Django y diff aprobados; capturas
+inspeccionadas. Sin API/cálculos nuevos, sin consultas/correos reales ni push.
 
 ### Auxiliares compartidos IXB/SaaS/RaaS (25/10/2026)
 

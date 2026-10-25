@@ -82,6 +82,12 @@ def compare(page, label, selector, prepare):
         enter(page, previous)
         prepare(page)
         page.mouse.move(0, 0)
+        # Filling a low field scrolls the page; compare at the same viewport.
+        page.evaluate("""async () => {
+          window.scrollTo(0, 0);
+          await new Promise(requestAnimationFrame);
+          await new Promise(requestAnimationFrame);
+        }""")
         snapshots.append(
             (
                 state(page, selector),

@@ -198,10 +198,10 @@
 
   // Metadatos ligeros del selector para saber qué renderer usar sin una
   // llamada adicional al servidor.
-  let mapaMetaProyectosDashboard = {};
+  var mapaMetaProyectosDashboard = window.beeProjectState ? window.beeProjectState.metadata : {};
 
   // Evita que una respuesta vieja pinte encima de una selección nueva.
-  let dashboardRequestSeq = 0;
+  var dashboardRequestSeq = window.beeProjectState ? window.beeProjectState.request : 0;
   let reportesBootstrapIniciado = false;
 
   /**
@@ -1625,8 +1625,8 @@
       </svg>`;
   }
 
-  let hitosAdicionalesActuales = [];
-  let idProyectoActualGlobal = null;
+  var hitosAdicionalesActuales = window.beeProjectState ? window.beeProjectState.milestones : [];
+  var idProyectoActualGlobal = window.beeProjectState ? window.beeProjectState.projectId : null;
 
   function cargarHorasTasksProyectoClockify(idProyecto) {
     const cont = document.getElementById('clockify-task-hours-proyecto');
@@ -1785,8 +1785,8 @@
       .obtenerRaidProyectoEjecutivoAzure(idProyecto);
   }
 
-  let aerDashboardData = null;
-  let aerTabActual = 'ejecutivo';
+  var aerDashboardData = window.beeProjectState ? window.beeProjectState.aer : null;
+  var aerTabActual = window.beeProjectState ? window.beeProjectState.aerTab : 'ejecutivo';
   let aerPlanFiltroMes = { desde:'', hasta:'' };
   let aerPlanTableFilters = { tipo:'', actividad:'', responsable:'', compromisoDesde:'', compromisoHasta:'', estado:'', cierreDesde:'', cierreHasta:'' };
   let aerClockifyFiltro = { desde:'', hasta:'', registros:null, total:0, cargando:false };
@@ -4792,10 +4792,10 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   // Fuentes: getDashboardEjecutivoProyecto, RAID y Tasks ya existentes.
   // No modifica las funciones ni el DOM propios de AER/T&M o del Daily.
   // ======================================================================
-  let ixsProyectoActual = null;
-  let ixsTabActual = 'resumen';
+  var ixsProyectoActual = window.beeProjectState ? window.beeProjectState.ixs : null;
+  var ixsTabActual = window.beeProjectState ? window.beeProjectState.ixsTab : 'resumen';
   function ixsCAActivo(){return ['cliente','acciones'].includes(ixsTabActual)&&!!document.querySelector('#dashboard-proyecto-detalle .ixs-shell');}
-  const ixsClienteAccionesCache={};
+  const ixsClienteAccionesCache = window.beeProjectState ? window.beeProjectState.clientCache : {};
   function ixsCargarClienteAcciones(){
     if(window.beeProjectSession)return window.beeProjectSession.clientActions(projectSessionContext());
     const id=ixsProyectoActual&&ixsProyectoActual.proyecto&&ixsProyectoActual.proyecto.id;
@@ -4820,7 +4820,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       _aerRenderTab();
     }).withFailureHandler(e=>{const box=document.getElementById('ixs-tab-contenido');if(box&&ixsProyectoActual&&ixsProyectoActual.proyecto.id===id)box.textContent='No se pudo consultar Cliente y Acciones: '+(e&&e.message||String(e));}).ixsClienteAccionesLeer(id);
   }
-  let ixsClockifyState={proyectoId:'',registros:null,cargando:false,error:'',desde:'',hasta:'',requestId:0};
+  var ixsClockifyState = window.beeProjectState ? window.beeProjectState.clockify : {proyectoId:'',registros:null,cargando:false,error:'',desde:'',hasta:'',requestId:0};
   let ixsRecursosState={proyectoId:'',filas:[],registros:[],cargando:false,error:'',saving:false,requestId:0};
   let ixsPlanState={proyectoId:'',vacaciones:[],compromisos:[],cargando:false,error:'',requestId:0};
   let ixsPlanAzureState={proyectoId:'',items:[],allItems:[],cargando:false,error:'',requestId:0};
@@ -11083,7 +11083,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   // IA para AER/T&M V55 — interacción explícita con Claude Haiku 4.5.
   // Este bloque es INDEPENDIENTE; no reemplaza Clockify ni Minutas IA global.
   // ====================================================================
-  let aerIAState={id:'',analisis:null,minutas:null,resumenEjecutivo:null,respuestaChatResumen:null,resumenConsultado:false,cargandoResumen:false,accionesPartes:null,cargandoPartes:false,cargando:false,cargandoAnalisis:false,analisisConsultado:false,config:null,archivos:null,seleccion:[],mostrarArchivos:false,archivosOcultos:false,historialCompleto:false,errorBusqueda:''};
+  var aerIAState = window.beeProjectState ? window.beeProjectState.aerAi : {id:'',analisis:null,minutas:null,resumenEjecutivo:null,respuestaChatResumen:null,resumenConsultado:false,cargandoResumen:false,accionesPartes:null,cargandoPartes:false,cargando:false,cargandoAnalisis:false,analisisConsultado:false,config:null,archivos:null,seleccion:[],mostrarArchivos:false,archivosOcultos:false,historialCompleto:false,errorBusqueda:''};
   function aerIAEnsureStyles(){
     if(document.getElementById('aer-ia-styles-v55'))return;
     const style=document.createElement('style');style.id='aer-ia-styles-v55';
@@ -11750,7 +11750,7 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   });
 
   // Centro IA IXB / RaaS / SaaS. Datos observables antes de llamar al modelo.
-  let ixsIAState={id:'',azure:null,plan:null,resources:null,clockify:null,cliente:null,raid:null,memoria:null,minutas:[],driveConfig:null,driveFiles:[],driveSelected:[],driveError:'',driveLoading:false,analisis:null,error:'',loading:false,question:'',respuesta:'',sourceErrors:{},request:0};
+  var ixsIAState = window.beeProjectState ? window.beeProjectState.ixsAi : {id:'',azure:null,plan:null,resources:null,clockify:null,cliente:null,raid:null,memoria:null,minutas:[],driveConfig:null,driveFiles:[],driveSelected:[],driveError:'',driveLoading:false,analisis:null,error:'',loading:false,question:'',respuesta:'',sourceErrors:{},request:0};
   function ixsIAStyles(){
     if(document.getElementById('ixs-ia-styles'))return;
     const style=document.createElement('style');style.id='ixs-ia-styles';style.textContent=`

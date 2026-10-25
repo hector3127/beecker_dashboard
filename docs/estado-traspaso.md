@@ -2,7 +2,38 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: auxiliares compartidos IXB/SaaS/RaaS (25/10/2026)
+## Bloque actual: estados centrales del proyecto (25/10/2026)
+
+- `project_state.js` posee los doce valores centrales de AER/IXS: dashboards,
+  pestañas, IA, Clockify, metadata, secuencia, hitos/ID y caché Cliente/Acciones.
+  `main.js` lo registra antes de cargar el script de compatibilidad.
+- Once nombres asignables previos se enlazan con accesores temporales al mismo
+  almacén; caché mantiene referencia constante. Las declaraciones del script
+  anterior usan `var` para esos accesores. Sin módulo mantienen sus valores
+  originales, conservando comparación. No se duplican los estados centrales.
+- **Fase 10 parcial.** Próximo bloque: estados de paneles AER (rangos/filtros,
+  Clockify, selección de Recursos) e IXS (Planeación/Planeación Azure/Azure),
+  y sus contextos. Luego compatibilidad genérica/sin proyecto y soporte común.
+  El plan incluye inventario con ejemplos/criterios de cierre. No rehacer
+  pestañas, sustituir Ejecutivo genérico por IXS, retirar script/shim todavía,
+  activar ACCESS_ENFORCED ni tocar Horas por mes.
+- **35 de navegador aprobadas** de sesión/entrada/carga, con comparación visual.
+  Tres Node nuevos del almacén; suite completa **382 aprobadas y tres fallos
+  anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+  Modelo IA adapta solo la extracción de los literales originales para comparar.
+- Regresión: **44 aprobadas** de almacén/navegación/pestañas y **69 de acciones
+  IA AER/IXS y recursos compartidos**, además de las 35 iniciales: **148
+  distintas de navegador aprobadas**. Dos pruebas nuevas verifican en navegador
+  que los callbacks usan el mismo almacén en ambas familias.
+- La primera corrida detectó desplazamiento distinto en pregunta IA AER a
+  390 px: cero diferencias de texto/estilos/dimensiones, solo offset vertical.
+  `test_aer_ai_view.compare` fija scroll cero y espera dos frames antes de
+  capturar; mantiene todas sus comparaciones. Las 69 de repetición aprobaron.
+  Ruff/formato, Django y diff aprobados. Capturas de entrada/sesión/shell/IA
+  inspeccionadas. Proveedores simulados, sin consultas ni correos reales;
+  cambios/temporales ajenos intactos y sin push.
+
+## Bloque anterior: auxiliares compartidos IXB/SaaS/RaaS (25/10/2026)
 
 - `ixs_support{,_model}.js` separa carga de estados de recursos, edición desde
   la línea de tiempo y etapa/fechas sugeridas para Comunicados. Reutiliza API,
