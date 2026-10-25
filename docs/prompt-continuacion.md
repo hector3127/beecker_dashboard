@@ -9,9 +9,10 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque local completa IA AER con
-   acciones por API, validaciones y copiado. Sus fuentes/modelos/vistas/CSS ya
-   estaban separados. La fase 10 sigue parcial por la estructura compartida.
+   diferencia con `origin/main`. El último bloque local separa encabezados,
+   navegación y refresco AER/IXS en `project_shell{,_model,_view}.js`.
+   IA AER ya está completa, incluidas acciones por API, validaciones y copiado.
+   La fase 10 sigue parcial por entrada/estado/montaje y auxiliares compartidos.
    Recursos AER está completo,
    incluidas evaluaciones, editor y guardado/borrado por API. Riesgos AER,
    Esfuerzo AER (registros por rango
@@ -138,12 +139,18 @@ originales, alcance total y CSRF. Sin acciones RPC anteriores en la pestaña.
 Se conservan validación, borradores, coste/caché/persistencia y reintento;
 respuestas tardías no sustituyen otro proyecto/estado/formulario.
 
-**Siguiente bloque sugerido:** encabezados y navegación del detalle; después
-entrada/estado y auxiliares compartidos, incluido el manejador showError, que
+**Encabezados/navegación/refresco separados:** DOM seguro, eventos externos,
+iconos/CSS originales y comparación en tres tamaños. AER mantiene pestaña al
+actualizar, alias minutas→IA y cargas en su orden. IXS vuelve a Ejecutivo e
+invalida Cliente/Acciones, como antes. Respuestas superadas/de otra familia se
+descartan. Los contextos y dispatch aún enlazan con el archivo anterior.
+
+**Siguiente bloque sugerido:** entrada/estado y montaje de pestañas del detalle;
+después auxiliares compartidos, incluido el manejador showError, que
 hoy puede reemplazar el dashboard ante ciertos errores (comportamiento anterior
 preservado). No reabrir IA como pendiente ni retirar aún script/shim.
 No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
-encabezados/navegación/estado y los auxiliares de Planeación IXB que aún viven
+entrada/estado/montaje y los auxiliares de Planeación IXB que aún viven
 en el archivo anterior (`ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos`,
 `_ixeAuto`). Al final: limpieza de archivos anteriores y CSP. Genesis/accesos
 es decisión de despliegue: no activar ACCESS_ENFORCED.

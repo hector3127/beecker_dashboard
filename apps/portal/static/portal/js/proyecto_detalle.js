@@ -2788,9 +2788,20 @@
     }
   }
 
+  function projectShellContext(family){
+    const aer=family==='aer',snapshot=aer?aerDashboardData:ixsProyectoActual;
+    return {family,project:snapshot,metadata:aer?{}:mapaMetaProyectosDashboard,
+      tab:(...args)=>args.length?(aer?(aerTabActual=args[0]):(ixsTabActual=args[0])):(aer?aerTabActual:ixsTabActual),
+      current:()=>snapshot===(aer?aerDashboardData:ixsProyectoActual)&&!!document.querySelector('#dashboard-proyecto-detalle .'+(aer?'aer-shell':'ixs-shell')),
+      render:()=>aer?_aerRenderShell():_ixsRenderShell(),dispatch:()=>aer?_aerRenderTab():_ixsRenderTab(),error:showError,
+      loads:{analysis:aerIACargarAnalisis,minutes:aerIACargarMinutas,config:aerIACargarConfigMinutas,summary:aerIACargarResumenEjecutivo,parts:aerIACargarAccionesPartes},
+      apply:(result,tab)=>{if(aer){aerDashboardData=result;aerTabActual=tab;_aerRenderShell();}
+        else{delete ixsClienteAccionesCache[snapshot.proyecto.id];renderDashboardIXBSaaSRaaS(result);}}};
+  }
   function _aerRenderShell() {
     const cont=document.getElementById('dashboard-proyecto-detalle');
     if (!cont || !aerDashboardData) return;
+    if(window.beeProjectShell)return window.beeProjectShell.mount(cont,projectShellContext('aer'));
     const p=aerDashboardData.proyecto||{};
     cont.innerHTML=`<div class="aer-shell">
       <div class="aer-head">
@@ -2806,9 +2817,10 @@
     _aerRenderTab();
   }
 
-  function aerCambiarTab(tab) { aerTabActual=tab==='minutas'?'ia':tab; _aerRenderShell(); if(aerTabActual==='ia'){aerIACargarAnalisis();aerIACargarMinutas();aerIACargarConfigMinutas();aerIACargarResumenEjecutivo();aerIACargarAccionesPartes();}else if(aerTabActual==='acciones'){aerIACargarAccionesPartes();} }
+  function aerCambiarTab(tab) {if(window.beeProjectShell&&aerDashboardData)return window.beeProjectShell.bind(projectShellContext('aer')).select(tab); aerTabActual=tab==='minutas'?'ia':tab; _aerRenderShell(); if(aerTabActual==='ia'){aerIACargarAnalisis();aerIACargarMinutas();aerIACargarConfigMinutas();aerIACargarResumenEjecutivo();aerIACargarAccionesPartes();}else if(aerTabActual==='acciones'){aerIACargarAccionesPartes();} }
 
   function aerRecargarProyecto() {
+    if(window.beeProjectShell&&aerDashboardData)return window.beeProjectShell.bind(projectShellContext('aer')).refresh();
     const id=aerDashboardData&&aerDashboardData.proyecto?aerDashboardData.proyecto.id:'';
     if (!id) return;
     const tab=aerTabActual;
@@ -6377,6 +6389,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
   function _ixsRenderShell(){
     const cont=document.getElementById('dashboard-proyecto-detalle'),d=ixsProyectoActual;if(!cont||!d)return;
+    if(window.beeProjectShell)return window.beeProjectShell.mount(cont,projectShellContext('ixs'));
     const p=d.proyecto||{},id=_ixsTxt(p.id);
     const title=_ixsTxt(p.nombre||'Proyecto');
     const etapaActual=_ixsEtapaActual(d);
@@ -6397,9 +6410,11 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     _ixsRenderTab();
   }
   function ixsCambiarTab(tab){
+    if(window.beeProjectShell&&ixsProyectoActual)return window.beeProjectShell.bind(projectShellContext('ixs')).select(tab);
     if(!ixsProyectoActual)return;ixsTabActual=tab;_ixsRenderShell();
   }
   function ixsRecargarProyecto(){
+    if(window.beeProjectShell&&ixsProyectoActual)return window.beeProjectShell.bind(projectShellContext('ixs')).refresh();
     const d=ixsProyectoActual,id=d&&d.proyecto&&d.proyecto.id,cont=document.getElementById('ixs-tab-contenido');if(!id)return;
     if(cont)cont.innerHTML='<div class="ixs-card" style="padding:22px">Actualizando ejecutivo…</div>';
     readProjectDashboard(id, false, res=>{

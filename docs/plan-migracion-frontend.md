@@ -81,14 +81,15 @@ Terminados: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo, Recursos
 Gestión RAID, Azure DevOps y Centro de Comunicación IXB/SaaS/RaaS.
 También están separados el editor de hitos históricos y la ventana de
 comunicados (incluida extensión); ver el traspaso para su evidencia y alcance.
-La entrada modular ya usa API para filtros y dashboards, pero el encabezado
-y la navegación entre pestañas todavía dependen del script anterior.
+La entrada modular usa API para filtros y dashboards. Encabezados, navegación
+y refresco ya usan módulos; estado/contextos, montaje de pestañas y auxiliares
+todavía enlazan con el script anterior.
 
 | Familia | Apartados que faltan por modularizar y validar |
 |---|---|
 | IXB/SaaS/RaaS | Integración de estructura/estado y auxiliares compartidos (ver fila Compartido) |
 | AER/T&M | Integración de estructura/estado y auxiliares compartidos; pestañas ya modulares |
-| Compartido | Encabezados, pestañas, entrada/estado y auxiliares de Planeación; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva |
+| Compartido | Entrada/estado, montaje de pestañas y auxiliares de Planeación/soporte; retirar dependencia de `proyecto_detalle.js` y del shim RPC en la ruta nueva. Encabezados/navegación/refresco ya separados |
 
 Planeación IXB se está separando por bloques: primero el transporte de
 vacaciones/compromisos y su panel Azure; después modelo, vista y controlador,
@@ -106,7 +107,43 @@ la integración compartida, sin confundirlos con volver a migrar su vista y edit
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
-### IA AER/T&M: acciones por API (pestaña completa)
+### Encabezados, navegación y refresco AER/IXS (bloque compartido)
+
+`project_shell_model.js` conserva categoría del estado AER y etapa actual IXS,
+reutilizando fases/fechas del modelo existente. `project_shell_view.js` crea
+los encabezados y sus ocho/diez pestañas con DOM seguro y eventos externos;
+mismos iconos SVG, etiquetas, metadatos, clases y estilos externos.
+Se conservan fechas y texto de etapas con la misma presentación anterior.
+
+`project_shell.js` controla navegación y refresco por API v1 existente.
+Mantiene el alias AER minutas→IA y el orden de sus cinco cargas al entrar a IA;
+Acciones conserva su carga de pendientes. AER restaura la pestaña capturada al
+actualizar. IXS conserva la invalidación de Cliente/Acciones y vuelve a Ejecutivo,
+con la inicialización anterior. Respuestas superadas o de otra carga/familia
+se descartan. Se conserva la presentación de error anterior de cada familia.
+
+**Encabezados/navegación/refresco separados; fase 10 parcial.** Los contextos,
+entrada/estado, `renderDashboard…` y dispatch/montaje de pestañas siguen como
+puentes en el archivo anterior. Siguiente: extraer esos bloques y los auxiliares
+compartidos, incluido soporte/error. No retirar todavía script/shim; no activar
+ACCESS_ENFORCED ni modificar Horas por mes, cálculos o regreso al origen.
+
+Evidencia: **34 pruebas de navegador aprobadas por bloques** (24 comparaciones
+a 1450/900/390 px: datos completos, vacíos, texto especial y cerrado para ambas
+familias). Recorrido de todas las pestañas, alias/cargas, refresco y navegación
+de regreso, error e ignorar respuestas superadas/de otra familia probados.
+Diez pruebas de entrada aprobadas. Nueve Node del modelo contrastan etapa/
+estado con el original; suite completa **329 aprobadas y tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). Ruff/formato, Django
+y diff aprobados. Capturas en `tmp/migration/project_detail/shell/`.
+Sin cambios de API; no se repitieron sus pruebas. Datos/proveedores simulados,
+sin correos ni consultas reales. Cambios ajenos intactos; sin push.
+
+Regresión: **65 aprobadas** (Ejecutivos AER/IXS, fuentes IA AER,
+Cliente/Acciones IXS y soporte). Con diez de entrada y 34 del bloque:
+**109 de navegador/soporte aprobadas**. Capturas inspeccionadas escritorio/móvil.
+
+### IA AER/T&M: acciones por API (pestaña completa, bloque anterior)
 
 `project_aer_ai.py` conserva seis GET de fuentes (se añade el prompt por
 defecto) y ocho POST explícitos: `analizar`, `generar-resumen`, `preguntar`,

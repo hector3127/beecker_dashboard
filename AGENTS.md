@@ -191,14 +191,21 @@ correo, resumen, borradores con/sin Drive, guardado, configuración, prompt y
 copiado. `aer_ai_actions_model.js` conserva clasificación de preguntas y límite
 de selección. No ejecuta acciones RPC anteriores en la ruta nueva. Respuestas
 de otro proyecto/estado/formulario no sobrescriben su presentación nueva.
-**IA AER completa; fase 10 parcial.** Continuar por encabezados, navegación,
-entrada/estado y auxiliares compartidos. Mantener los puentes y comparación;
+**IA AER completa; fase 10 parcial.** Los encabezados, pestañas y refresco
+AER/IXS ya usan `project_shell{,_model,_view}.js`: DOM seguro, eventos externos,
+iconos/estilos originales y comparación en tres tamaños. AER conserva la
+pestaña capturada al actualizar; IXS vuelve a Ejecutivo e invalida Cliente/Acciones,
+como antes. La navegación AER mantiene el alias minutas→IA y las cargas originales.
+Las respuestas superadas o de otra familia/carga no reemplazan la pantalla.
+Continuar por entrada/estado, montaje de pestañas y auxiliares compartidos;
+los contextos y dispatch de pestañas aún enlazan con el archivo anterior.
+Mantener los puentes y comparación;
 no retirar aún script/shim. El manejador común showError sigue anterior y
 puede reemplazar el dashboard ante errores; comportamiento preservado.
 Planeación IXB usa módulos de
 vista/carga/editores; todavía conserva puentes de estado y auxiliares como
 `ixsEditarHitoTimeline`, `_ixsCargarEstadosRecursos` y `_ixeAuto` en el archivo
-anterior. Extraerlos junto con encabezados/navegación/entrada compartidos antes
+anterior. Extraerlos junto con entrada/estado/montaje compartidos antes
 de retirar el shim. No reabrir Cliente ni el Centro de Comunicación como pendientes.
 
 1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.

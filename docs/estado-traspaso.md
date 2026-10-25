@@ -2,7 +2,39 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: IA AER — acciones por API (pestaña completa)
+## Bloque actual: encabezados, navegación y refresco AER/IXS
+
+- `project_shell{,_model,_view}.js` separa los encabezados y las ocho/diez
+  pestañas. DOM seguro/eventos externos, mismos iconos SVG y CSS externo.
+  Modelo de estado AER y etapa IXS contrastado contra el anterior; reutiliza
+  fases/fechas existentes sin cambiar cálculos ni presentación de etapas.
+- Navegación AER conserva alias minutas→IA y orden de cargas (análisis,
+  minutas, configuración, resumen, pendientes). Acciones conserva pendientes;
+  la navegación IXS monta la pestaña con el dispatch anterior.
+- Refresco usa la API v1 existente. AER conserva la pestaña capturada; IXS
+  invalida Cliente/Acciones y vuelve a Ejecutivo, como antes. Respuestas
+  superadas o de otra carga/familia no reemplazan la pantalla. Presentación
+  de error y enlace de regreso conservados.
+- **Fase 10 parcial.** Siguiente: entrada/estado y montaje de pestañas, después
+  auxiliares de Planeación IXS y soporte compartido (incluido showError).
+  Los contextos/dispatch e inicializadores `renderDashboard…` aún enlazan con
+  el archivo anterior; este bloque no los da por migrados. No retirar script/
+  shim, activar ACCESS_ENFORCED ni modificar Horas por mes.
+- **34 pruebas de navegador aprobadas por bloques**, con 24 comparaciones en
+  1450/900/390 px de ambas familias (completo/vacío/texto especial/cerrado).
+  Todas las pestañas, alias/cargas, refresco, regreso, errores y respuestas
+  superadas/de otra familia probados. Diez de entrada también aprobadas.
+- Nueve Node del modelo aprobadas; suite completa **329 aprobadas y tres fallos
+  anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+  Ruff/formato, Django y diff aprobados. Capturas reproducibles en
+  `tmp/migration/project_detail/shell/`. Sin API nueva ni pruebas de backend
+  repetidas. Datos/proveedores simulados, sin correos ni consultas reales.
+  Temporales/cambios ajenos intactos; sin push.
+- **65 de regresión aprobadas**: Ejecutivos AER/IXS, fuentes IA AER,
+  Cliente/Acciones IXS y soporte. Con diez de entrada y 34 nuevas:
+  **109 de navegador/soporte aprobadas**. Capturas inspeccionadas escritorio/móvil.
+
+## Bloque anterior: IA AER — acciones por API (pestaña completa)
 
 - `project_aer_ai.py` expone ocho POST explícitos para análisis, resumen,
   preguntas, correo, borrador de minuta con/sin Drive, guardado y configuración.
