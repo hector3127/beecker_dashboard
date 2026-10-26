@@ -12,7 +12,12 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
    diferencia con `origin/main`. Los tres fallos Node anteriores ya están
    corregidos en sus pruebas (parser de Costos y expectativas comerciales),
    sin cambiar producción ni fórmulas. La suite vuelve a pasar completa.
-   El último bloque separa los contratos de compatibilidad en
+   El último bloque mueve cachés de reportes AER/IXS, secuencia de consumos
+   y arranque a project_state.js, con accesores anteriores. La compatibilidad
+   lee cuenta/cachés directamente. 474 Node y 27 navegador aprobadas.
+   Siguen pendientes los proveedores de inicio/carga y presentación especiales:
+   todavía carga script/shim. No repetir este bloque.
+   El bloque previo separa los contratos de compatibilidad en
    project_compatibility.js: selección/refresco/puerta de cuenta/cachés actuales
    y orden de reportes/riesgos. El script anterior solo suministra proveedores
    explícitos. No repetir el contrato; seguir por esos proveedores/definiciones

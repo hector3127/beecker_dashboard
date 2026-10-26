@@ -17,6 +17,15 @@ Reglas que no se negocian:
 7. Solo marca una pantalla como terminada cuando su ruta activa usa la plantilla de `frontend/`, conserva su funcionamiento y tiene prueba y comparación visual con la anterior.
 8. Actualiza `docs/plan-migracion-frontend.md` con evidencia real en cada bloque.
 
+## Último bloque (26/10/2026)
+
+Los cuatro estados de reportes de compatibilidad (cachés AER/IXS, secuencia de
+consumos y arranque) pertenecen a `project_state.js`; sus nombres anteriores
+son accesores. `project_compatibility.js` lee cuenta/cachés directamente.
+474 Node y 27 navegador aprobadas. Fase 10 parcial: faltan proveedores de
+inicio/carga y presentación especiales; todavía requiere script/shim.
+No repetir este bloque. Ver traspaso y plan para evidencia.
+
 ## Estado (24/10/2026)
 
 Migradas (ruta → plantilla de `frontend/templates/pages/`, con la anterior en `?vista=anterior`):

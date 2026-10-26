@@ -2,7 +2,27 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: contratos de compatibilidad separados (25/10/2026)
+## Bloque actual: estado de reportes de compatibilidad (26/10/2026)
+
+- Los cachés AER/IXS, la secuencia de consumos y el indicador de arranque de
+  reportes pertenecen a `project_state.js`. Los cuatro nombres anteriores son
+  accesores sobre el mismo estado; cargar las definiciones no reinicia un corte
+  existente. La comparación conserva sus valores independientes originales.
+- `project_compatibility.js` obtiene cuenta y reportes directamente del DOM y
+  almacén, sin proveedores de caché/cuenta del archivo anterior. Conserva la
+  segunda comprobación de cuenta tras refrescar y lee el corte vigente.
+- **474 Node aprobadas, cero fallos; 27 pruebas de navegador aprobadas**:
+  estado compartido AER/IXS, arranque/reintentos, entrada, pestañas y recarga.
+  Incluyen las comparaciones visuales existentes de entrada. No cambia markup,
+  CSS, cálculos ni servicios; proveedores simulados y red externa bloqueada.
+  Ruff/formato, Django y diff aprobados.
+- **Fase 10 parcial.** Continúan en el archivo anterior los proveedores de
+  inicio/carga y presentación de los reportes especiales y riesgos. Todavía
+  carga script/shim: el cambio de dueño del estado no elimina esa dependencia.
+  Seguir por esos proveedores; mantener comparación y no reabrir pestañas.
+  Temporales ajenos intactos; sin push.
+
+## Bloque anterior: contratos de compatibilidad separados (25/10/2026)
 
 - `project_compatibility.js` conserva selección/refresco, segunda comprobación
   de cuenta, lectura actual de cachés y orden de reportes/riesgos. Inicio/carga

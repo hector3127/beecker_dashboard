@@ -47,13 +47,17 @@ test("real legacy declarations attach to the store without resetting existing va
   const state = createProjectState();
   state.aer = { cached: true };
   state.request = 7;
+  const report = { filas: [{ id: "P" }] };
+  state.reportAer = report;
+  state.reportConsumptionRequest = 4;
+  state.reportsStarted = true;
   const scope = { beeProjectState: state };
   scope.window = scope;
   bindProjectState(scope, state);
   const declarations = source.match(
     /^  (?:var|const) \w+ = window\.beeProjectState[^\n]+/gm,
   );
-  assert.equal(declarations.length, 19);
+  assert.equal(declarations.length, 23);
   vm.runInNewContext(
     declarations.join("\n") +
       "\naerTabActual='planeacion'; dashboardRequestSeq++;",
@@ -62,6 +66,17 @@ test("real legacy declarations attach to the store without resetting existing va
   assert.equal(state.aer.cached, true);
   assert.equal(state.aerTab, "planeacion");
   assert.equal(state.request, 8);
+  assert.equal(vm.runInNewContext("cacheReporteAERTYM", scope), report);
+  assert.equal(state.reportConsumptionRequest, 4);
+  assert.equal(state.reportsStarted, true);
+  vm.runInNewContext(
+    "cacheReporteIXB=cacheReporteAERTYM; reporteAERConsumosSecuencia++;",
+    scope,
+  );
+  assert.equal(state.reportIxs, report);
+  assert.equal(state.reportConsumptionRequest, 5);
+  assert.equal(createProjectState().reportAer, null);
+  assert.equal(createProjectState().reportsStarted, false);
   assert.equal(
     vm.runInNewContext("ixsClienteAccionesCache", scope),
     state.clientCache,

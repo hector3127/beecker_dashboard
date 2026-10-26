@@ -192,9 +192,9 @@
   function beeComEditar(encoded){const uid=encoded?decodeURIComponent(encoded):'',x=beeComState.items.find(i=>i.uid===uid)||{};beeComCerrar();const m=document.createElement('div');m.id='bee-com-modal';m.className='bee-com-modal';m.innerHTML=`<div class="bee-com-dialog" role="dialog" aria-modal="true"><div style="display:flex;justify-content:space-between"><h2>${uid?'Editar':'Nuevo'} comunicado</h2><button class="bee-com-btn" onclick="beeComCerrar()">✕</button></div><form onsubmit="beeComGuardar(event,'${encodeURIComponent(uid)}')"><label>Título<input name="titulo" required maxlength="180" value="${beeComEsc(x.titulo||'')}"></label><label>Resumen<input name="resumen" maxlength="350" value="${beeComEsc(x.resumen||'')}"></label><label>Contenido<textarea name="contenido" required>${beeComEsc(x.contenido||'')}</textarea></label><label>Puntos clave (opcional, uno por línea)<textarea name="puntosClave" placeholder="Escribe cada punto en una línea">${beeComEsc(x.puntosClave||'')}</textarea></label><label>Categoría<select name="categoria">${beeComTipos.map(t=>`<option ${x.categoria===t?'selected':''}>${t}</option>`).join('')}</select></label><label>Proyecto (vacío = todos)<input name="proyecto" list="bee-com-projects" value="${beeComEsc(x.proyecto||beeComState.contextProject||'')}"><datalist id="bee-com-projects">${[...new Set([beeComState.contextProject,...beeComState.items.map(a=>a.proyecto)].filter(Boolean))].map(p=>`<option value="${beeComEsc(p)}">`).join('')}</datalist></label><label>Publicado por<input name="autor" value="${beeComEsc(x.autor||'')}"></label><label style="display:flex;align-items:center;gap:7px"><input name="importante" type="checkbox" style="width:auto" ${x.importante?'checked':''}> Destacar como importante</label><div id="bee-com-error" style="color:#bd274a"></div><div class="actions"><button type="button" class="bee-com-btn" onclick="beeComCerrar()">Cancelar</button><button type="submit" class="bee-com-btn primary">Publicar comunicado</button></div></form></div>`;m.onclick=e=>{if(e.target===m)beeComCerrar();};document.body.appendChild(m);}
   function beeComGuardar(e,encoded){e.preventDefault();const f=e.target,btn=f.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Guardando…';const payload={uid:decodeURIComponent(encoded||'')};new FormData(f).forEach((v,k)=>payload[k]=v);payload.importante=f.elements.importante.checked;google.script.run.withSuccessHandler(r=>{btn.disabled=false;btn.textContent='Publicar comunicado';if(!r||!r.ok){document.getElementById('bee-com-error').textContent=r&&r.error||'No se pudo guardar.';return;}beeComState.items=r.comunicados||[];beeComCerrar();beeComPintar();}).withFailureHandler(err=>{btn.disabled=false;btn.textContent='Publicar comunicado';document.getElementById('bee-com-error').textContent=err&&err.message||String(err);}).beeComGuardar(payload);}
 
-  let cacheReporteAERTYM = null;
-  let cacheReporteIXB = null;
-  let reporteAERConsumosSecuencia = 0;
+  var cacheReporteAERTYM = window.beeProjectState ? window.beeProjectState.reportAer : null;
+  var cacheReporteIXB = window.beeProjectState ? window.beeProjectState.reportIxs : null;
+  var reporteAERConsumosSecuencia = window.beeProjectState ? window.beeProjectState.reportConsumptionRequest : 0;
 
   // Metadatos ligeros del selector para saber qué renderer usar sin una
   // llamada adicional al servidor.
@@ -202,7 +202,7 @@
 
   // Evita que una respuesta vieja pinte encima de una selección nueva.
   var dashboardRequestSeq = window.beeProjectState ? window.beeProjectState.request : 0;
-  let reportesBootstrapIniciado = false;
+  var reportesBootstrapIniciado = window.beeProjectState ? window.beeProjectState.reportsStarted : false;
 
   /**
    * Compatibilidad con el template actual:
@@ -798,10 +798,9 @@
   }
 
   function projectCompatibilityBindings(){
-    if(window.beeProjectCompatibility)return window.beeProjectCompatibility.bindings({
+    if(window.beeProjectCompatibility)return window.beeProjectCompatibility.reports(window.beeProjectState,{
       start:()=>initDashboard(true),load:()=>loadDashboard(true),
-      account:_clienteSeleccionadoDashboard,refresh:()=>loadDashboard(),
-      aer:()=>cacheReporteAERTYM,ixs:()=>cacheReporteIXB,
+      refresh:()=>loadDashboard(),
       renderAer:renderReporteAERTYM,renderIxs:renderReporteIXBRaaS,
       risks:cargarTopRiesgosAzurePortafolio,executive:renderDashboardEjecutivoProyecto});
     return {

@@ -5,6 +5,26 @@ funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus
 respuestas; la migración del frontend sí avanza.
 
+## Bloque verificado: estado de reportes de compatibilidad (26/10/2026)
+
+`project_state.js` posee cachés de reportes AER/IXS, secuencia de consumos e
+indicador de arranque. Los cuatro nombres anteriores enlazan al mismo estado;
+la comparación mantiene valores propios. `project_compatibility.js` resuelve
+cuenta y cachés directamente: conserva refresco síncrono, segunda comprobación
+de cuenta y lectura del corte vigente. No cambia presentación ni cálculos.
+
+Evidencia: **474 Node aprobadas, cero fallos**; **27 navegador aprobadas** con
+`test_project_state.py`, `test_project_bootstrap.py`, `test_project_detail_entry.py`,
+`test_project_tabs.py` y `test_project_entry_runtime.py`. Se comprueban estado
+bidireccional, valores previos al cargar definiciones, aislamiento entre estados,
+cuenta ausente/todos/seleccionada y cachés renovados durante el refresco. Incluye
+las comparaciones existentes de entrada, arranque/reintentos y navegación.
+Ruff/formato, Django y diff aprobados; red externa bloqueada/datos simulados.
+
+**Fase 10 parcial**: inicio/carga y renderizadores de reportes/riesgos especiales
+todavía llegan del archivo anterior. Conservar script/shim y comparación hasta
+sustituir esos proveedores; no declarar independencia por mover el estado.
+
 ## Estado real (23/10/2026)
 
 Tres cosas distintas, que no se confunden:

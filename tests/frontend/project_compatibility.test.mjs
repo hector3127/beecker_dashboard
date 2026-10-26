@@ -115,3 +115,65 @@ test("report caches are read at the time of change, not when bindings are built"
     ["risks"],
   ]);
 });
+
+test("store-owned reports retain original account selection and refresh ordering", () => {
+  for (const before of ["", " Todos los clientes ", "ACME"])
+    for (const after of ["", "TODOS LOS CLIENTES", "OTHER"])
+      for (const cached of [false, true]) {
+        const calls = [],
+          project = { value: "P" },
+          client = { value: before };
+        const state = { reportAer: null, reportIxs: null };
+        const latest = cached ? { filas: [{ id: "current" }] } : null;
+        const api = createProjectCompatibility({
+          getElementById: (id) => (id === "f-cliente" ? client : project),
+        });
+        const bindings = api.reports(state, {
+          refresh() {
+            calls.push("refresh");
+            client.value = after;
+            state.reportAer = latest;
+            state.reportIxs = latest;
+          },
+          renderAer: (value) => calls.push(["aer", value]),
+          renderIxs: (value) => calls.push(["ixs", value]),
+          risks: () => calls.push("risks"),
+        });
+        bindings.clientChanged();
+        const account = (value) =>
+          value.trim() && !/^todos los clientes$/i.test(value.trim());
+        assert.equal(
+          project.value,
+          account(before) ? "Todos los proyectos" : "P",
+        );
+        assert.deepEqual(
+          calls,
+          account(after)
+            ? ["refresh"]
+            : [
+                "refresh",
+                ...(cached
+                  ? [
+                      ["aer", latest],
+                      ["ixs", latest],
+                    ]
+                  : []),
+                "risks",
+              ],
+        );
+      }
+});
+
+test("store reports handle absent client and project selectors", () => {
+  const calls = [];
+  createProjectCompatibility({ getElementById: () => null })
+    .reports(
+      { reportAer: null, reportIxs: null },
+      {
+        refresh: () => calls.push("refresh"),
+        risks: () => calls.push("risks"),
+      },
+    )
+    .clientChanged();
+  assert.deepEqual(calls, ["refresh", "risks"]);
+});
