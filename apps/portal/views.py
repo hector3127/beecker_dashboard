@@ -2258,17 +2258,3 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
         }
     )
     return render(request, "portal/delivery_manager.html", context)
-
-
-@require_GET
-@require_capability("view_operations")
-def kpis_delivery_managers(request: HttpRequest) -> HttpResponse:
-    """Muestra TP, T y C de cada Delivery Manager en el periodo elegido."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    if not scope_for(request).unrestricted:
-        # Los cortes agregan a todo el equipo: no se pueden recortar.
-        raise PermissionDenied
-    context = kpi_context(request)
-    context["active"] = "operativa"
-    return render(request, "portal/kpis_dm.html", context)

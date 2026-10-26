@@ -37,6 +37,7 @@ def facturability(monkeypatch, datos):
 @pytest.mark.parametrize("screen", SCREENS)
 def test_period_roles_tabs_and_return(portal, facturability, screen):
     def open_period():
+        portal.wait_for_load_state("networkidle")
         if screen == "recurso/":
             # This table is mounted after period handlers are bound. Wait for
             # the module, not just the server-rendered heading after navigation.

@@ -137,3 +137,25 @@ def test_the_page_requires_login_when_configured(client, settings):
     settings.PORTAL_LOGIN_REQUIRED = True
 
     assert client.get(PAGE).status_code == 302
+
+
+@pytest.mark.parametrize("previous", [False, True])
+def test_page_defers_history_and_retains_modular_shell(
+    client, monkeypatch, previous
+):
+    monkeypatch.setattr(
+        views, "load_kpi_history", lambda *a: pytest.fail("API only")
+    )
+    response = client.get(
+        PAGE, {"mes": "2026-02", **({"vista": "anterior"} if previous else {})}
+    )
+    html = response.content.decode()
+    assert response.status_code == 200
+    assert "/static/app/scripts/pages/kpis_dm/main.js" in html
+    assert 'id="kpis-content"' in html
+    assert "portal/js/" not in html
+
+
+def test_retired_query_does_not_bypass_team_scope(client, enforced):
+    enforced("ana", caps=OPS, scope=AccessScope.limited(accounts=["Acme"]))
+    assert client.get(PAGE, {"vista": "anterior"}).status_code == 403

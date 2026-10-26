@@ -23,6 +23,15 @@ Reglas que no se negocian:
 
 ## Estado vigente: fase 10 completada (26/10/2026)
 
+Último bloque fase 11: KPIs DM sin vista/plantilla/entrada anterior ni JS de
+gráfica de portal. Sus pruebas Node importan el módulo actual, manteniendo
+casos. API/contexto/cálculos intactos; pruebas de cortes adaptadas sin omisiones.
+1693 servidor (incluyen 78 dirigidas), 505 Node, 40 Chrome y revalidación KPI de 10 pasan
+(con solapamiento). Capturas idénticas antes/después en tres tamaños con CSP
+de pruebas. Quedan 30 HTML y 36 estáticos anteriores; continuar limpieza y CSP
+sin activar accesos ni bloqueo global. Base 3c5b2fa publicada al inicio del
+bloque; nuevos cambios posteriores sin push. Ver traspaso y preparación fase 11.
+
 Integración posterior de Christian reorganizada sobre **3410e89**: 17 entradas
 documentadas y con modelos/vistas/controladores separados; 12 hojas exclusivas
 fusionadas en seis destinos, conservando acuerdos compartidos. 1691 servidor,

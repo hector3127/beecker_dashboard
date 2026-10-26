@@ -2,7 +2,29 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: integración Christian, base 3410e89 (26/10)
+## Bloque actual: retirada referencia KPIs DM, base 3c5b2fa (26/10)
+
+- Se hizo el push solicitado hasta `3c5b2fa` antes de este bloque. No revertir
+  integración Christian, logos, Comercial ni Capacidad diaria.
+- Retirados vista/plantilla anterior de KPIs DM, su bifurcación y kpi_chart.js
+  de portal. Sus dos pruebas Node importan la gráfica modular actual y mantienen
+  todos los casos, sin VM ni archivo anterior. API/contexto/fórmulas intactos.
+- Las pruebas de cortes/contexto se adaptan al constructor usado por API y al
+  contrato JSON actual. Navegador cubre agrupaciones TP/T/C, nota explicativa,
+  filtros, navegación, series/escala, ausencia de histórico y errores/reintento.
+- Enlaces antiguos abren la modular; no cargan datos en HTML ni evitan permisos.
+  Capturas idénticas a 1450/900/390 px antes/después; las posteriores con CSP real
+  de pruebas. Referencias ignoradas: tmp/fase11/kpis-before y tmp/design/kpis-reference.
+- 1693 servidor (incluyen las 78 dirigidas), 505 Node y 40 Chrome aprobadas; revalidación de KPIs:
+  10 aprobadas (nueve solapadas + histórico ausente nuevo). Se corrigió otra
+  carrera de la prueba de periodo en Facturabilidad esperando red en reposo,
+  sin tocar producción ni omitir casos. Ruff/formato y mypy pasan.
+- Siguiente: demás comparaciones y archivos anteriores, CSP de ventanas/
+  gráficas/capturas representativas y cierre integral. Quedan 30 HTML y 36
+  estáticos de portal. No retirar servicios de views.py ni bases compartidas
+  en bloque; no activar CSP global ni ACCESS_ENFORCED. Nuevos cambios sin push.
+
+## Bloque previo: integración Christian, base 3410e89 (26/10)
 
 - No revertir logos unificados (0de6c7d), comando de datos (3410e89), Previas
   al cierre (47d0364), ni Capacidad diaria (834bbfa). Lecturas nuevas con

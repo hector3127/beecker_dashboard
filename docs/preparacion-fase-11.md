@@ -73,6 +73,45 @@ la preparación previa; el primer retiro ya se completó en el bloque siguiente.
 - CSP global y accesos siguen sin activarse. Continuar otras referencias y
   ampliar CSP real a gráficas, ventanas y capturas representativas.
 
+## Retiro de KPIs de Delivery Managers (base 3c5b2fa)
+
+- Al iniciar este bloque se publicó main hasta `3c5b2fa`, como pidió el
+  usuario. La integración de Christian y los cuatro commits protegidos siguen
+  conservados. Este retiro es posterior a ese push.
+- Retiradas `views.kpis_delivery_managers`, la plantilla `portal/kpis_dm.html`
+  y la bifurcación antigua de `pages.kpis_dm`. También se retira el JavaScript
+  `portal/js/kpi_chart.js`, sin consumidores de producción restantes.
+- No se modifica `kpi_context`, su API/serializador, las fuentes, cortes,
+  fórmulas ni redondeos. Las pruebas de contexto/cortes siguen comprobando
+  igualdad de datos completos; las de periodo anual usan la API vigente.
+  No se borraron las pruebas de agregación para dejar de ejecutarlas.
+- Los dos casos Node de escala/selección del script viejo ahora importan
+  `renderChart` del módulo activo, sin leer ni ejecutar el archivo anterior.
+  Mantienen cero, meses ausentes, más de 100%, resaltado y selección de serie.
+- Enlaces guardados con `vista=anterior` sirven la pantalla modular. Nuevas
+  pruebas aseguran que no se carga el histórico en el HTML y que ese parámetro
+  no evita el alcance de equipo completo. Login/permisos conservados.
+- Tres referencias del diseño vigente se capturaron antes y después, en
+  1450/900/390 px: idénticas píxel a píxel. Las posteriores usan CSP real
+  únicamente en el navegador de prueba. Imágenes locales ignoradas en
+  `tmp/fase11/kpis-before/` y `tmp/design/kpis-reference/`.
+- 78 pruebas dirigidas de servidor aprobadas. 505 Node aprobadas.
+  Revisión amplia posterior: 1693 aprobadas con
+  `pytest tests/portal tests/core tests/access tests/capacidad/test_history_range.py
+  -q --no-cov --tb=short` (85 s, sin omisiones). Incluye las 78 dirigidas.
+  40 Chrome aprobadas en `test_kpis_dm.py`, `test_facturabilidad.py` y
+  `test_page_capture.py`; revalidación posterior de KPIs completo: 10 aprobadas
+  (las nueve anteriores + un caso nuevo de histórico ausente). No sumar las
+  dos corridas como 50 casos distintos.
+- La primera corrida de navegador dio 39 aprobadas y un fallo de sincronía
+  en el selector anual de Facturabilidad general. Se amplió la espera de la
+  prueba a red local en reposo, antes de usar cada selector; antes solo se
+  esperaba el montaje de la tabla de Recurso. La repetición de los tres
+  archivos completos pasó, sin omitir ni marcar el caso como esperado.
+- Ruff/formato y mypy pasan. Quedan 30 HTML anteriores y 36 estáticos en
+  portal: continuar por pantalla, sin borrar servicios JSON ni CSS compartido
+  en bloque. Fase 11 continúa; CSP global y accesos no se activan.
+
 ## Integración revisada
 
 - Base revisada: `24cd3cf` (diseño/logos) y `834bbfa` (fechas de Capacidad).

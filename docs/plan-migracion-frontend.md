@@ -7,6 +7,16 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — KPIs DM, base 3c5b2fa (26/10).** Push solicitado publicado hasta
+3c5b2fa. Después se retiran vista/plantilla/entrada anterior de KPIs y su JS
+de gráfica. Contexto, API, cálculos y permisos conservados. Las pruebas de
+cortes se adaptan al constructor/API actual; los dos casos Node de gráfica
+ejecutan el módulo vigente. 1693 servidor (incluyen 78 dirigidas), 505 Node y 40 Chrome pasan;
+revalidación posterior de KPIs: 10 (nueve solapadas + nuevo histórico ausente).
+Capturas vigentes idénticas antes/después a 1450/900/390 px, con CSP real de
+pruebas. Ver `docs/preparacion-fase-11.md` para comandos, fallo de sincronía
+de prueba corregido y pendientes. CSP global/accesos siguen apagados.
+
 **Fase 11 — integración de Christian reorganizada sobre 3410e89 (26/10).**
 Se conservan los logos unificados/comando de datos, Previas al cierre y fechas
 de Capacidad diaria. Las 17 entradas indicadas usan formato legible, JSDoc y

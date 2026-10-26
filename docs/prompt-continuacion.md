@@ -10,6 +10,13 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
+**Último bloque:** se publicó hasta 3c5b2fa y después se retiró KPIs DM anterior:
+vista, plantilla, bifurcación y kpi_chart.js de portal. No recrearlos. Contexto/
+API/cálculos intactos; pruebas de cortes usan constructor/API y las dos Node
+de gráfica usan el módulo vigente. 1693 servidor (incluyen 78 dirigidas), 505 Node, 40 Chrome;
+revalidación KPI 10 (solapadas). Referencias idénticas en tres tamaños y CSP de
+prueba verificada. Nuevos cambios sin push; continuar otras referencias y CSP.
+
 **Actualización más reciente: integración Christian sobre 3410e89.** Leer
 `docs/integracion-christian.md`. Los logos unificados/comando nuevo, Previas al
 cierre y Capacidad diaria están preservados. Reorganizadas las 17 entradas

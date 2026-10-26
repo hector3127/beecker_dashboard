@@ -231,14 +231,9 @@ def dictionary(request: HttpRequest) -> HttpResponse:
 @require_GET
 @require_capability("view_operations", whole_portfolio=True)
 def kpis_dm(request: HttpRequest) -> HttpResponse:
-    """KPIs de Delivery Managers: el JS pide las cifras a la API.
-
-    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la pantalla de antes.
-    """
+    """KPIs de Delivery Managers: el JS pide las cifras a la API."""
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if anterior_disponible() and request.GET.get("vista") == "anterior":
-        return views.kpis_delivery_managers(request)
     return render(
         request,
         "pages/kpis_dm.html",
