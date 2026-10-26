@@ -1,4 +1,4 @@
-"""Vista que sirve el panel original con el adaptador de Django."""
+"""Compatibilidad de enlaces del panel original hacia las pantallas vigentes."""
 
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
@@ -8,7 +8,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET
 
 """BKD.006.003 - Portal
-Equivale a doGet() de Codigo.gs: entrega el index del panel.
+Conserva los enlaces del panel original sin renderizar sus plantillas.
 """
 
 
@@ -16,13 +16,13 @@ Equivale a doGet() de Codigo.gs: entrega el index del panel.
 @ensure_csrf_cookie
 def portal_home(request: HttpRequest) -> HttpResponse:
     """
-    Muestra el panel con el mismo HTML que servia Apps Script.
+    Redirige el enlace anterior a un proyecto, cuenta o Facturabilidad por área.
 
     Args:
         request: Peticion HTTP.
 
     Returns:
-        La pagina principal del panel.
+        La redirección al destino vigente, o al login si corresponde.
     """
     if settings.PORTAL_LOGIN_REQUIRED and not request.user.is_authenticated:
         return redirect_to_login(request.get_full_path())

@@ -4,7 +4,6 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const path = require('node:path');
 const main = '<script>' + fs.readFileSync(path.join(__dirname, '../../apps/portal/static/portal/js/proyecto_detalle.js'), 'utf8') + '</script>'; 
-const capacity = fs.readFileSync(path.join(__dirname, '../../templates/legacy/GSE.html'), 'utf8');
 // Isolated functions now call these real transport helpers; keep RPC assertions.
 const projectReads = ['readProjectFilters', 'readProjectDashboard'].map(name =>
   main.match(new RegExp('function ' + name + '\\([^]*?\\n  \\}'))[0]
@@ -31,14 +30,6 @@ test('direct project and account links still initialize their filters', () => {
     });
     assert.deepEqual(requests, ['filters']);
   }
-});
-
-test('old navigation keeps GSE after capacity moves to its own page', () => {
-  assert.match(capacity, /onclick="gseAbrir\(\)"/);
-  assert.doesNotMatch(capacity, /onclick="ciAbrir\(\)"/);
-  assert.doesNotMatch(capacity, /capacidadInstaladaBase\(/);
-  assert.match(capacity, /location.replace\("\/capacidad-instalada\/"/);
-  new vm.Script(main.slice(main.indexOf('<script>') + 8, main.lastIndexOf('</script>')));
 });
 
 test('a TYM direct link uses the AER/T&M endpoint even without filter metadata', () => {

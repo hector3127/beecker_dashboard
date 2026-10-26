@@ -2,7 +2,26 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: retirada referencia KPIs DM, base 3c5b2fa (26/10)
+## Bloque actual: limpieza agrupada sobre 1e17d99 (26/10)
+
+- 21 archivos/1 420 452 bytes retirados, con consumidores auditados. Las
+  versiones anteriores de Inversión/Proyecto simple/Todas las cuentas ya no
+  se sirven: `_current` conserva contexto Python y permisos. Cuatro huérfanos
+  de portal también fuera. Ver inventario en `docs/limpieza-por-lotes.md`.
+- /legacy/ sigue existiendo pero solo redirige; no usa core/index ni los doce
+  HTML de templates/legacy ni legacy_skin. Se retiraron esos 14 archivos y
+  una prueba obsoleta GSE; cinco pruebas Django mantienen redirecciones/login.
+  No se toca gas_shim ni proyecto_detalle.js: otras comparaciones los usan.
+- Siete snapshots JSON vigentes registrados ANTES del retiro mantienen cajas,
+  estilos y textos/barras. Revalidación con CSP real de prueba. Proyecto y
+  Todas las cuentas: capturas idénticas; Inversión: solo cambia hora global.
+- 1711 servidor, 504 Node y 28 Chrome aprobadas; Ruff/formato y mypy pasan.
+  Detalle de comandos/corridas solapadas/referencias en el informe del lote.
+- Quedan 25 HTML/35 estáticos de portal; continuar por consumidores. No borrar
+  servicios, RPC o CSS compartido en bloque ni activar accesos/CSP global.
+  Temporales ajenos intactos. Sin push de este bloque; fase 11 sigue abierta.
+
+## Bloque previo: retirada referencia KPIs DM, base 3c5b2fa (26/10)
 
 - Se hizo el push solicitado hasta `3c5b2fa` antes de este bloque. No revertir
   integración Christian, logos, Comercial ni Capacidad diaria.

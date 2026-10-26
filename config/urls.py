@@ -6,8 +6,8 @@ from django.urls import include, path
 from core.frontend import csp_report
 
 """BKD.001.005 - Ruteo principal
-Expone las vistas nuevas del portal en la raiz, el panel anterior en
-/legacy/, la API RPC y el administrador de Django.
+Expone las vistas nuevas del portal en la raiz, los enlaces de compatibilidad
+en /legacy/, la API RPC y el administrador de Django.
 """
 
 urlpatterns = [

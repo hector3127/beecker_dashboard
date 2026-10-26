@@ -7,6 +7,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — lote de limpieza sobre 1e17d99 (26/10).** 21 archivos y 1.42 MB
+retirados: tres comparaciones de pantalla, cuatro huérfanos y 14 del panel
+original no renderizado. /legacy/ conserva redirecciones/login. Siete snapshots
+vigentes guardados antes del retiro mantienen diseño; se revalidan con CSP de
+prueba. 1711 servidor, 504 Node y 28 Chrome aprobadas, sin skips; Ruff/formato
+y mypy pasan. No se altera cálculo ni diseño. Inventario, referencia exacta,
+PNG y resultados en `docs/limpieza-por-lotes.md`. Fase 11 continúa: quedan
+otras comparaciones y certificación CSP completa; no activar accesos/bloqueo.
+
 **Fase 11 — KPIs DM, base 3c5b2fa (26/10).** Push solicitado publicado hasta
 3c5b2fa. Después se retiran vista/plantilla/entrada anterior de KPIs y su JS
 de gráfica. Contexto, API, cálculos y permisos conservados. Las pruebas de

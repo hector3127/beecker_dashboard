@@ -10,6 +10,15 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
+**Último bloque: limpieza agrupada sobre 1e17d99.** Leer
+`docs/limpieza-por-lotes.md`. 21 archivos/1.42 MB retirados: comparaciones de
+Inversión, Proyecto simple y Todas las cuentas; cuatro huérfanos y el árbol
+del panel original, porque /legacy/ solo redirige. No recrearlos. Siete snapshots
+vigentes versionados ANTES del borrado mantienen diseño con CSP de prueba.
+1711 servidor, 504 Node, 28 Chrome pasan. Quedan 25 HTML/35 estáticos portal;
+otras comparaciones siguen usando motor/shim. No borrarlos ni tocar servicios,
+fórmulas o permisos. Fase 11 abierta, nuevos cambios sin push.
+
 **Último bloque:** se publicó hasta 3c5b2fa y después se retiró KPIs DM anterior:
 vista, plantilla, bifurcación y kpi_chart.js de portal. No recrearlos. Contexto/
 API/cálculos intactos; pruebas de cortes usan constructor/API y las dos Node

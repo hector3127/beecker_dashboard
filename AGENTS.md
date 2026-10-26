@@ -23,6 +23,16 @@ Reglas que no se negocian:
 
 ## Estado vigente: fase 10 completada (26/10/2026)
 
+Último bloque fase 11: limpieza agrupada sobre **1e17d99**, 21 archivos y
+1.42 MB retirados. Inversión, Proyecto simple y Todas las cuentas ya no sirven
+plantilla anterior. Cuatro huérfanos del portal y el árbol del panel original
+se retiraron: /legacy/ solo redirige y conserva sus destinos/login. No recrear
+core/index, legacy_skin ni templates/legacy. Siete snapshots de diseño vigente
+se guardaron antes de borrar y pasan con CSP de prueba. Evidencia: 1711 servidor,
+504 Node, 28 Chrome; sin skips. Ver `docs/limpieza-por-lotes.md`. Siguen activos
+otros respaldos y sus pruebas: no borrar gas_shim, motor portal ni RPC aún.
+Quedan 25 HTML/35 estáticos de portal. Sin push; fase 11 abierta.
+
 Último bloque fase 11: KPIs DM sin vista/plantilla/entrada anterior ni JS de
 gráfica de portal. Sus pruebas Node importan el módulo actual, manteniendo
 casos. API/contexto/cálculos intactos; pruebas de cortes adaptadas sin omisiones.
