@@ -44,6 +44,7 @@ def resolve_project_range(
     force_refresh: bool,
     load_mpb_projects: Callable[[], dict[str, MpbProject]],
     build_azure_source: Callable[[], AzureIterationSource],
+    load_history_range: Callable[[str], tuple[str, str] | None] | None = None,
 ) -> JsonObject:
     """
     Calcula inicio y fin del proyecto.
@@ -54,6 +55,8 @@ def resolve_project_range(
         force_refresh: Ignora la cache de iteraciones.
         load_mpb_projects: Lee los proyectos de MPB.
         build_azure_source: Crea el acceso a Azure DevOps.
+        load_history_range: Rango Discovery -> Deployment del Historico
+            (como EVA 1 y EVA 3); Azure solo si no lo tiene completo.
 
     Returns:
         {"ok": True, "inicio", "fin", ...} o {"ok": False, "error"}.
@@ -79,6 +82,17 @@ def resolve_project_range(
 
         if not clean_id:
             raise CapacityError("Selecciona un proyecto.")
+
+        history = load_history_range(clean_id) if load_history_range else None
+
+        if history:
+            return {
+                "ok": True,
+                "idProyecto": project_id,
+                "inicio": history[0],
+                "fin": history[1],
+                "fuente": "Histórico",
+            }
 
         azure_source = build_azure_source()
         azure_project = azure_source.resolve_project(clean_id)

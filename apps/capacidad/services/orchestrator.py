@@ -5,6 +5,8 @@ from collections.abc import Callable
 from datetime import date
 from typing import Any
 
+from django.utils import timezone
+
 from apps.capacidad.constants import SHEET_BANDS, SHEET_MPB, SHEET_RESOURCES
 from apps.capacidad.services.capacity_base import (
     CapacitySources,
@@ -24,6 +26,7 @@ from apps.capacidad.services.project_range import (
     resolve_project_range,
 )
 from apps.capacidad.services.sheet_table import read_sheet_table
+from apps.clockify.services.date_ranges import ProjectDateRangeResolver
 from apps.dashboard.services.delivery_managers import load_delivery_managers
 from core.exceptions import DashboardError, describe_error
 from core.sheets import sheet_names
@@ -102,6 +105,23 @@ def load_capacity_base(
     return result
 
 
+def history_range(
+    reader: SheetReader, project_id: str
+) -> tuple[str, str] | None:
+    """Discovery -> Deployment del Historico; None si le falta una fecha."""
+    found = ProjectDateRangeResolver(
+        reader, timezone.localdate()
+    ).resolve_from_history(project_id)
+
+    if found.source != sheet_names.SHEET_PROJECTS_HISTORY:
+        return None
+
+    if not (found.start_date and found.end_date):
+        return None
+
+    return found.start_date.isoformat(), found.end_date.isoformat()
+
+
 def load_project_data(
     request: tuple[object, object, object, object],
     build_reader: Callable[[], SheetReader],
@@ -141,6 +161,7 @@ def load_project_data(
         should_refresh,
         lambda: load_optional_mpb_projects(reader)[0],
         build_azure_source,
+        lambda project: history_range(reader, project),
     )
 
     return build_project_daily_hours(
