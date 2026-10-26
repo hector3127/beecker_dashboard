@@ -167,7 +167,7 @@ def test_overview_uses_prepared_cut_without_source_calls(monkeypatch):
     assert response.status_code == 200
     html = response.content.decode()
     assert "01/05/2026 - 31/10/2026" in html
-    assert "executive_report.js" in html
+    assert "pages/executive/main.js" in html
     assert "financial-costs-updated" not in html
     assert "Crear seguimiento" not in html
 

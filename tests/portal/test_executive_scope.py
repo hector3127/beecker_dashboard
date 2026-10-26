@@ -45,7 +45,6 @@ def test_limited_scope_gets_no_company_figures_and_only_its_accounts():
 def test_the_page_never_ships_other_accounts_or_company_totals(
     client, enforced, monkeypatch
 ):
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
     monkeypatch.setattr(
         "apps.portal.services.financial_cache.cached_financial_snapshot",
         lambda: FINANCIAL,
@@ -60,11 +59,12 @@ def test_the_page_never_ships_other_accounts_or_company_totals(
         scope=AccessScope.limited(accounts=["Beta"]),
     )
 
-    html = client.get("/?vista=anterior").content.decode()
+    page = client.get("/").content.decode()
+    api = client.get("/api/v1/screens/executive/").content.decode()
 
-    assert "Beta" in html
+    assert "Beta" in api
     for secret in ("Acme", "7654321", "Secreta"):
-        assert secret not in html, secret
+        assert secret not in page + api, secret
 
 
 def test_the_page_needs_the_executive_capability(client, enforced):

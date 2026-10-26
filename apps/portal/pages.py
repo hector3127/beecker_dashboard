@@ -233,8 +233,7 @@ def kpis_dm(request: HttpRequest) -> HttpResponse:
 def executive(request: HttpRequest) -> HttpResponse:
     """Business Overview: el JS pide el corte preparado a la API.
 
-    Si el corte falta, la pagina pide prepararlo en segundo plano (como antes);
-    ?vista=anterior entrega la pantalla de antes hasta ANTERIOR_HASTA.
+    Si el corte falta, la pagina pide prepararlo en segundo plano (como antes).
     """
     from apps.portal.services.data_dictionary import glossary_groups
     from apps.portal.services.executive_operations import (
@@ -246,8 +245,6 @@ def executive(request: HttpRequest) -> HttpResponse:
 
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if anterior_disponible() and request.GET.get("vista") == "anterior":
-        return views.ejecutiva(request)
     financial = cached_financial_snapshot()
     operations = cached_operations_snapshot()
     chosen = current() or parse(

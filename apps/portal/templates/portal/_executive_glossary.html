@@ -1,8 +1,0 @@
-<details class="executive-glossary">
- <summary><span>¿Qué significa cada indicador?</span><span class="glossary-summary-hint">Consultar glosario</span></summary>
- <div class="executive-glossary-grid">
-  {% for group in glossary %}<section><h2>{{ group.name }}</h2><dl>{% for item in group.terms %}<dt>{{ item.term }}</dt><dd>{{ item.summary }}</dd>{% endfor %}</dl></section>
-  {% endfor %}
- </div>
- <footer><p><strong>* Parcial:</strong> faltan datos para completar el indicador. <strong>Pendiente:</strong> no hay información suficiente; no equivale a cero.</p><a class="portal-button portal-button-secondary" href="{% url 'portal:diccionario_datos' %}">Ver fórmulas, fuentes y validaciones</a></footer>
-</details>

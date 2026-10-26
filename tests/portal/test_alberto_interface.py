@@ -2,23 +2,20 @@
 
 from django.template.loader import render_to_string
 
-from apps.portal.services.data_dictionary import CONCEPTS
+from apps.portal.services.data_dictionary import CONCEPTS, glossary_groups
 
 
 def test_executive_exposes_glossary_and_ordering_in_the_main_view():
     html = render_to_string(
-        "portal/ejecutiva.html",
-        {
-            "financial_snapshot": {},
-            "operations_snapshot": {},
-        },
+        "pages/executive.html",
+        {"glossary": glossary_groups(), "executive_year": 2026},
     )
     assert "¿Qué significa cada indicador?" in html
     assert 'id="ranking-search"' in html
     assert 'id="ranking-sort"' in html
-    assert html.count('data-sort-key="revenue"') == 2
-    assert html.count('data-sort-key="gross_profit"') == 2
-    assert html.count('data-sort-key="margin"') == 2
+    assert html.count('data-ranking-column="revenue"') == 2
+    assert html.count('data-ranking-column="gross_profit"') == 2
+    assert html.count('data-ranking-column="margin"') == 2
     assert "70% utilidad" not in html
 
 
