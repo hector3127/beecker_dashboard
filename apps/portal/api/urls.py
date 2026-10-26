@@ -73,6 +73,7 @@ from apps.portal.api.project_detail import (
     ProjectAerRecordsView,
     ProjectAerView,
     ProjectAzureView,
+    ProjectClockifyRangeView,
     ProjectCommunicationSaveView,
     ProjectCommunicationsView,
     ProjectExecutiveView,
@@ -335,6 +336,10 @@ urlpatterns = [
     path("screens/proyectos/<str:project_id>/raid/", ProjectRaidView.as_view()),
     path(
         "screens/proyectos/<str:project_id>/tasks/", ProjectTasksView.as_view()
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/clockify-rango/",
+        ProjectClockifyRangeView.as_view(),
     ),
     path(
         "screens/proyectos/<str:project_id>/etapas/",

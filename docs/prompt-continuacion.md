@@ -9,7 +9,12 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque migra las gráficas por área
+   diferencia con `origin/main`. El último bloque migra el rango Clockify a
+   `project_clockify_range.js` y API v1 `clockify-rango/`, con el mismo servicio,
+   fechas locales, carga y vacío ante fallos. El helper anterior delega; descarta
+   respuestas superadas/nodos reemplazados. No repetirlo. Siguen RAID/tasks,
+   acciones, tarjetas/botones y coordinación genéricos; después compatibilidad
+   sin proyecto/cuenta y arranque autónomo. El bloque previo migra las gráficas por área
    y horas por recurso/rol en generic_charts{,_model,_view}.js y CSS externo.
    Conserva escala completa, paleta, orden y cinco filas iniciales; expansión
    local sin RPC ni helpers anteriores. No repetirlas. Quedan fuentes/acciones,

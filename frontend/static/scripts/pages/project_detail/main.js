@@ -1,6 +1,7 @@
 // @ts-check
 // Register modular views; the compatibility script still supplies shared bindings.
 import { createProjectData } from "./data.js";
+import { createClockifyRange } from "./sections/project_clockify_range.js";
 import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
@@ -105,6 +106,7 @@ async function start() {
     const raidCreator = createRaidCreator(data);
     Object.assign(window, {
       beeProjectData: data,
+      beeProjectClockifyRange: createClockifyRange(data),
       beeGenericTimeline: genericTimeline,
       beeGenericTimelineView: genericTimelineView,
       beeGenericHeader: genericHeader,

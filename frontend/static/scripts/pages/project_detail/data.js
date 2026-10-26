@@ -107,6 +107,8 @@ export function createProjectData(get = apiGet, send = apiSend) {
       aiPost(id, "drive/minuta/generar", { archivos, tema, fecha, notas }),
     aiSaveAction: (id, payload) => aiPost(id, "accion/guardar", payload),
     filters: () => read("screens/proyectos/filtros/"),
+    clockifyRange: (id) =>
+      read(`screens/proyectos/${encodeURIComponent(id)}/clockify-rango/`),
     client: (id) =>
       read(`screens/proyectos/${encodeURIComponent(id)}/cliente/`),
     aiAnalysis: (id) =>

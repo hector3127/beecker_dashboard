@@ -21,6 +21,7 @@ SOURCES = [
     ),
     ("AMK.008/raid/", "get_project_raid", ("AMK.008",)),
     ("AMK.008/tasks/", "tasks_dashboard", ("AMK.008",)),
+    ("AMK.008/clockify-rango/", "clockify_range", ("AMK.008",)),
     ("AMK.008/etapas/", "stages_dashboard", ("AMK.008",)),
     ("AMK.008/recursos/", "resources_dashboard", ("AMK.008",)),
     ("AMK.008/registros/", "records_dashboard", ("AMK.008",)),
@@ -151,6 +152,7 @@ def test_active_entry_and_comparison(client, monkeypatch):
         ("tasks_summary", "tasks_dashboard"),
         ("project_stages", "stages_dashboard"),
         ("project_entries", "records_dashboard"),
+        ("project_range", "clockify_range"),
     ],
 )
 def test_clockify_wrappers_keep_repository_and_exact_id(

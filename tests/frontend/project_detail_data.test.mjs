@@ -14,6 +14,22 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("Clockify range GET keeps exact encoded ID and read timeout", async () => {
+  const calls = [],
+    result = { ok: true, fechaInicio: "2026-01-01" };
+  const data = context.createProjectData(async (...args) => {
+    calls.push(args);
+    return { data: result };
+  });
+  assert.equal(await data.clockifyRange("CCO.001 | CR"), result);
+  assert.equal(
+    calls[0][0],
+    "screens/proyectos/CCO.001%20%7C%20CR/clockify-rango/",
+  );
+  assert.equal(calls[0][1], undefined);
+  assert.equal(calls[0][2].timeout, 90000);
+});
+
 test("AER AI actions send exact payload and operation over POST", async () => {
   const calls = [],
     result = { ok: true },

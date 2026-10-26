@@ -2,7 +2,32 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: gráficas genéricas por área, recurso y rol (25/10/2026)
+## Bloque actual: rango Clockify por API (25/10/2026)
+
+- `project_clockify_range.js` controla la lectura Discovery→Deployment por
+  `screens/proyectos/<id>/clockify-rango/`. Backend con el mismo repositorio y
+  `project_rpc.project_range`; conserva permiso `view_operations`, alcance
+  total y contrato original. El helper anterior delega en la ruta nueva,
+  manteniendo RPC para la comparación. No cambia datos, cálculos ni fechas.
+- Mantiene «Consultando rango…», texto/fechas locales y vacío ante fallos o
+  datos faltantes. Respuestas superadas y nodos reemplazados no se repintan.
+  No añade estilos ni modifica Horas por mes. Se conserva el comportamiento
+  de fecha sin hora documentado en el bloque del encabezado.
+- **82 pruebas API y 49 de navegador aprobadas**: diez del rango (nueve
+  comparaciones contra anterior a 1450/900/390 px y fallo de transporte),
+  19 de paneles y 20 de entrada/pestañas/recarga. Proveedores simulados y red
+  externa bloqueada. Capturas en `tmp/migration/project_detail/clockify_range/`;
+  fecha móvil nueva y escritorio anterior inspeccionados. Cinco Node nuevos
+  verifican formato/transporte/carga/errores y respuestas tardías. Suite Node
+  completa: **445 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Ruff/formato, Django, sintaxis JS y diff
+  aprobados. Auxiliares/temporales ajenos intactos.
+- **Fase 10 parcial.** Siguiente: fuentes RAID/tasks, acciones, estructura de
+  tarjetas/botones y coordinación genérica; después casos sin proyecto/cuenta
+  y arranque independiente. Mantener script/shim y ACCESS_ENFORCED apagado.
+  Commit local en main, sin push.
+
+## Bloque anterior: gráficas genéricas por área, recurso y rol (25/10/2026)
 
 - `generic_charts_model.js` conserva total/redondeo, SVG, paleta, orden y escala
   de toda la lista. `generic_charts_view.js` dibuja con DOM/SVG seguro y CSS

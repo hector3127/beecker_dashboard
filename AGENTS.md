@@ -298,6 +298,13 @@ externo. SVG/textos seguros, paleta, redondeo, orden, escala de lista completa
 y cinco filas iniciales conservados. «Ver todos/menos» usa eventos externos
 locales sin lecturas adicionales. Los helpers anteriores quedan para otras
 rutas/comparación, pero no se ejecutan para estas gráficas en la ruta nueva.
+El rango Discovery→Deployment de Clockify usa `project_clockify_range.js`
+y API v1 `screens/proyectos/<id>/clockify-rango/`, con el mismo resolver,
+permiso y alcance total. Conserva carga, texto, fechas locales y vacío ante
+fallos; ignora respuestas superadas o de un nodo reemplazado. El helper
+anterior solo delega en la ruta nueva y conserva RPC para la comparación.
+Siguen pendientes las fuentes RAID/tasks y acciones genéricas, estructura
+de tarjetas/botones y coordinación; después compatibilidad y arranque autónomo.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

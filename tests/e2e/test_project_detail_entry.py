@@ -55,6 +55,7 @@ def project_detail(portal, monkeypatch, datos):
     for source in (
         "get_project_raid",
         "tasks_dashboard",
+        "clockify_range",
         "stages_dashboard",
         "resources_dashboard",
         "records_dashboard",

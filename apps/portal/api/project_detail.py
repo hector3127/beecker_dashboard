@@ -134,6 +134,21 @@ def tasks_dashboard(project_id: str) -> dict[str, Any]:
     )
 
 
+def clockify_range(project_id: str) -> dict[str, Any]:
+    """Mismo rango Discovery→Deployment del transporte RPC anterior."""
+    return run_safely(
+        lambda: project_rpc.project_range(build_sheet_repository(), project_id)
+    )
+
+
+class ProjectClockifyRangeView(ProjectRead):
+    """Rango Clockify con view_operations y alcance total originales."""
+
+    def load(self, project_id: str) -> dict[str, Any]:
+        """Delega fechas, errores y resolución de ID al servicio existente."""
+        return clockify_range(project_id)
+
+
 def stages_dashboard(project_id: str) -> dict[str, Any]:
     """Mismas fases históricas y suspensiones del proyecto."""
     return run_safely(

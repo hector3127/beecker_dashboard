@@ -116,6 +116,34 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Rango de Clockify por API y controlador modular (25/10/2026)
+
+`project_clockify_range.js` sustituye la lectura RPC de Discovery→Deployment
+en la ruta nueva. La API `screens/proyectos/<id>/clockify-rango/` llama al
+mismo `project_rpc.project_range` con el repositorio e ID originales. Conserva
+`view_operations`, alcance total y el contrato de fechas/errores. El helper
+anterior delega y mantiene su respaldo para comparar; no se elimina el shim.
+
+El controlador conserva «Consultando rango…», fechas locales, texto seguro y
+vacío ante errores o datos faltantes. Una respuesta superada o para un nodo
+reemplazado no sobrescribe otro rango. No cambia cálculos ni consulta datos
+reales en las pruebas. Permanece el comportamiento de fecha sin hora documentado
+en el bloque del encabezado: no corregirlo como parte de esta migración.
+
+Evidencia: 82 pruebas API aprobadas (incluyen el nuevo endpoint, permisos,
+alcance, errores y el servicio original); cinco Node nuevos de formato,
+transporte, carga, errores y respuestas tardías. Suite Node completa: 445
+aprobadas y los tres fallos anteriores (`cost_sprint_details`, `executive_report`,
+`financial`). **49 pruebas de navegador aprobadas**: nueve comparaciones del
+rango contra la anterior a 1450/900/390 px (fechas, vacío y error lógico), fallo
+de transporte, 19 paneles y 20 entrada/pestañas/recarga. Capturas en
+`tmp/migration/project_detail/clockify_range/`; inspeccionados móvil nuevo y
+escritorio anterior. Ruff/formato, sintaxis JS, Django y diff aprobados.
+
+**Fase 10 parcial.** Siguiente: fuentes RAID/tasks y acciones genéricas,
+tarjetas/botones y coordinación; después casos sin proyecto/cuenta y arranque
+independiente. No activar ACCESS_ENFORCED, no tocar Horas por mes, sin push.
+
 ### Gráficas genéricas por área, recurso y rol (25/10/2026)
 
 `generic_charts_model.js` conserva sumas/redondeo, arcos/offsets SVG, paleta,

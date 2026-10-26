@@ -1605,6 +1605,9 @@
    * rango, es una llamada chica y rápida.
    */
   function _pintarRangoClockifyProyecto(idProyecto, elementoId) {
+    if (window.beeProjectClockifyRange) {
+      return window.beeProjectClockifyRange.load(idProyecto, elementoId);
+    }
     const el = document.getElementById(elementoId);
     if (!el || !idProyecto) return;
     el.textContent = 'Consultando rango…';
