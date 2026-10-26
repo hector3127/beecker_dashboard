@@ -393,7 +393,7 @@ node --test tests/frontend/*.test.*
 ```
 
 - Las pruebas e2e usan Playwright con la red bloqueada; el fixture `datos` de `tests/e2e/conftest.py` pone datos de ejemplo.
-- Hay 3 fallos de node anteriores a esta migración (`executive_report`, `executive_numbers`/commercial y `cost_sprint_details`): son del JS anterior y se retiran en la limpieza.
+- Los tres fallos Node anteriores se corrigieron en sus pruebas: parser de scripts de Costos y expectativas comerciales desactualizadas (`executive_report`, `financial`). Backend y frontend actual ya publican importes/notas del corte. No volver a forzarlos a Pendiente ni cambiar cálculos; la suite vuelve a pasar completa.
 - Al escribir archivos largos con comandos de shell, evita heredocs con comillas simples; usa el editor de archivos.
 
 ## Cuidado

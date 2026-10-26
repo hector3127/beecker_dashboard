@@ -6,7 +6,10 @@ const path=require('node:path');
 
 test('prepared sprint breakdown expands locally with people, without repeating revenue',async()=>{
  const template=fs.readFileSync(path.join(__dirname,'../../apps/portal/templates/portal/costos_detalle.html'),'utf8');
- const source=template.split('{% block scripts %}<script>')[1].split('</script>')[0]
+ const inline=[...template.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)]
+  .map(match=>match[1]).find(script=>script.includes('preparedDetails'));
+ assert.ok(inline,'The legacy comparison template still supplies the cost detail script');
+ const source=fs.readFileSync(path.join(__dirname,'../../apps/portal/static/portal/js/executive_numbers.js'),'utf8')+'\n'+inline
   .replace('{% url "portal:proyecto_detalle" "project-placeholder" %}','/proyectos/project-placeholder/');
  const nodes=new Map();const node=id=>{if(!nodes.has(id))nodes.set(id,{value:id==='cost-filter'?'all':'',style:{},dataset:{},addEventListener(){}});return nodes.get(id);};
  const person={name:'Ana <Test>',hours:2,band:'A2',band_month:'Octubre',rate:7,cost:14};

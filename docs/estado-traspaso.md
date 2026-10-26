@@ -2,7 +2,20 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: arranque explícito y carga única (25/10/2026)
+## Bloque actual: pruebas anteriores corregidas (25/10/2026)
+
+- Los tres fallos Node eran pruebas desactualizadas: parser del bloque scripts
+  de Costos (ahora precedido por formatter externo) y expectativas comerciales
+  de contactos/Pendiente que no corresponden al contrato actual.
+- Se reparan las pruebas conservando sus verificaciones de consulta única,
+  no duplicar revenue, texto escapado, cifras del corte y datos faltantes.
+  No se cambian producción, cálculos ni reglas para obtener coincidencias.
+- **469 Node aprobadas, cero fallos**; cuatro pruebas backend del contrato
+  comercial aprobadas. Detalle y evidencia en el plan.
+- Fase 10 parcial. Continúa la separación de dependencias/puentes del archivo
+  anterior; no retirar aún script/shim ni activar ACCESS_ENFORCED.
+
+## Bloque anterior: arranque explícito y carga única (25/10/2026)
 
 - Main carga las definiciones anteriores en modo manual, conecta el puente
   `projectCompatibilityBindings` y llama `beeProjectEntry.mount`. El inicio

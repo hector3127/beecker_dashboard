@@ -116,6 +116,26 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Corrección de las tres pruebas Node anteriores (25/10/2026)
+
+Se reparan las pruebas, sin modificar comportamiento ni cálculos de producción:
+
+- `cost_sprint_details.test.cjs` asumía que el bloque empezaba inmediatamente
+  con el script inline; ahora la plantilla carga antes `executive_numbers.js`.
+  Busca el script de detalles y carga el formatter real. Se conserva la prueba
+  de una sola consulta, expansión local, personas escapadas y no duplicar revenue.
+- `executive_report.test.cjs` esperaba un contacto fijo aunque su fixture no
+  proporcionaba delivery ni nota. Comprueba el estado «Pendiente de corte» real.
+- `financial.test.cjs` esperaba Pendiente pese a recibir un importe comercial.
+  El servicio actual y la vista modular usan importes/notas del corte, con
+  `unique_open_close_date_v1` y `confirmed_future_g_v1`. La prueba comprueba
+  importes/notas recibidos y mantiene Pendiente cuando falta el corte.
+
+Evidencia: **469 Node aprobadas, cero fallos**; cuatro pruebas del contrato
+comercial del backend aprobadas (`test_executive_commercial.py`). No se cambia
+ninguna fórmula, consulta ni vista para hacer pasar las pruebas. Los conteos
+con tres fallos de los bloques anteriores se conservan como evidencia histórica.
+
 ### Arranque explícito y reintento de carga (25/10/2026)
 
 `main.js` carga el script de definiciones con `data-project-bootstrap=manual`,
