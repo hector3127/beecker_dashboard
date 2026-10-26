@@ -63,7 +63,10 @@ def test_project_entry_includes_its_loading_header_before_any_rpc(client):
     assert 'class="ds project-detail-page"' in html
     assert '<option value="TYM.AAU.001">TYM.AAU.001</option>' in html
     assert "<h2>TYM.AAU.001</h2>" in html
-    assert "portal/js/proyecto_detalle.js" in html
+    assert "app/scripts/pages/project_detail/main.js" in html
+    assert "app/styles/pages/project_detail_base.css" in html
+    assert "portal/js/proyecto_detalle.js" not in html
+    assert "gas_shim.js" not in html
     assert "legacy_skin.css" not in html
 
 

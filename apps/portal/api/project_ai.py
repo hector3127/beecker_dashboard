@@ -104,9 +104,7 @@ class AiWrite(OperationsScreen):
         payload = request.data
         if not isinstance(payload, dict):
             return error_response(400, "validation", "Envía un objeto JSON.")
-        return self.body(
-            run_safely(lambda: self.perform(project_id, payload))
-        )
+        return self.body(run_safely(lambda: self.perform(project_id, payload)))
 
 
 class AiAnalyze(AiWrite):

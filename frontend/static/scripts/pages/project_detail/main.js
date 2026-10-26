@@ -1,5 +1,5 @@
 // @ts-check
-// Register modular views; the compatibility script still supplies shared bindings.
+// The project route owns its state, controllers and startup.
 import { createProjectData } from "./data.js";
 import { createClockifyRange } from "./sections/project_clockify_range.js";
 import { createGenericSources } from "./sections/generic_sources.js";
@@ -7,8 +7,7 @@ import { createGenericRisk } from "./sections/generic_risk.js";
 import { mountGenericLayout } from "./sections/generic_layout_view.js";
 import { createGenericExecutive } from "./sections/generic_executive.js";
 import { createProjectPrevious } from "./sections/project_previous.js";
-import { createProjectScriptLoader } from "./sections/project_script_loader.js";
-import { createProjectCompatibility } from "./sections/project_compatibility.js";
+import { bindProjectCommands } from "./sections/project_commands.js";
 import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
@@ -83,25 +82,17 @@ import { watchLoadingMessages } from "#app/ui/portal-loading.js";
 const root = document.getElementById("view-container");
 const entry = document.querySelector("[data-project-detail-entry]");
 
-const loadScript = createProjectScriptLoader();
-
 let started = false;
 async function start() {
   if (started || !entry || !root) return;
   started = true;
   try {
-    // Preserve the old actions and their CSRF protection during the tab rollout.
-    const shim = entry.getAttribute("data-rpc-shim");
-    const renderer = entry.getAttribute("data-legacy-script");
-    if (!shim || !renderer) throw new Error("Falta la entrada del proyecto.");
-    await loadScript(shim);
     const data = createProjectData();
     const communique = createCommuniqueController();
     const azureGroups = createAzureGroupsController();
     const raidCreator = createRaidCreator(data);
     Object.assign(window, {
       beeProjectData: data,
-      beeProjectCompatibility: createProjectCompatibility(),
       beeProjectClockifyRange: createClockifyRange(data),
       beeGenericSources: createGenericSources(data),
       beeGenericLayout: (target, project, milestones) =>
@@ -242,10 +233,7 @@ async function start() {
       executive: window.beeGenericExecutive,
       mountIxs: () => window.beeIxsRuntime.mount(),
     });
-    await loadScript(renderer, true);
-    window.beeProjectEntryRuntime.connect(
-      window.projectCompatibilityBindings(),
-    );
+    bindProjectCommands(window, window.beeProjectState);
     await window.beeProjectEntry.mount(window.beeProjectEntryRuntime.context());
   } catch {
     started = false;

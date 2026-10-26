@@ -1,4 +1,4 @@
-/* Entry only. Tab styles stay in the existing renderer during this phase. */
+/* Entry and shared overrides. Section styles are linked by the page template. */
 .ds button.project-entry-retry {
   display: inline-block;
   min-height: 0;

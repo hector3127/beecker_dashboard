@@ -64,6 +64,17 @@ export function createProjectEntry(api) {
       env.metadata(metadata(data));
       view.populate(data, () => controller.load(env), env.clientChanged);
     },
+    restoreProject(env) {
+      const id = params().get("proyecto");
+      if (
+        !id ||
+        id === "Todos los proyectos" ||
+        !document.getElementById("f-proyecto")
+      )
+        return;
+      view.selectProject(id);
+      return controller.load(env);
+    },
     async load(env) {
       const token = ++request;
       env.invalidatePrevious();

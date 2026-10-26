@@ -1,5 +1,5 @@
-// Direct project loads use modular renderers. Account/no-project fallbacks
-// still come from compatibility until those branches are migrated.
+// A project page is bound to its path ID. The previous dashboard's account
+// navigation lives on its own page; it is not a fallback of this route.
 export function createEntryRuntime(services) {
   let compatibility;
   const runtime = {
@@ -8,14 +8,20 @@ export function createEntryRuntime(services) {
       return runtime;
     },
     context() {
+      const callbacks = compatibility || {
+        previousStart: () =>
+          services.entry.startCompatibility(runtime.context()),
+        previousLoad: () => services.entry.restoreProject(runtime.context()),
+        clientChanged: () => services.entry.restoreProject(runtime.context()),
+      };
       return services.contexts.entry({
-        previousStart: compatibility.previousStart,
-        previousLoad: compatibility.previousLoad,
-        clientChanged: compatibility.clientChanged,
+        previousStart: callbacks.previousStart,
+        previousLoad: callbacks.previousLoad,
+        clientChanged: callbacks.clientChanged,
         render: {
           aer: (data) => services.aer(data),
           ixs: (data) => services.ixs(data),
-          executive: services.executive || compatibility.executive,
+          executive: services.executive || callbacks.executive,
         },
       });
     },

@@ -303,6 +303,9 @@ def test_calculations_use_modular_model_with_original_results(
     portal, ia, fixed_day
 ):
     enter(portal)
+    from tests.e2e.project_reference import load_project_reference
+
+    load_project_reference(portal)
     result = portal.evaluate("""() => {
       const model = window.beeIxsAiModel, adapters=window.beeIxsAdapters;
       const calls=[];

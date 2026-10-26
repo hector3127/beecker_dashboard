@@ -89,6 +89,7 @@ export function bindProjectState(target, state) {
     dashboardRequestSeq: "request",
     hitosAdicionalesActuales: "milestones",
     idProyectoActualGlobal: "projectId",
+    ixsClienteAccionesCache: "clientCache",
     cacheReporteAERTYM: "reportAer",
     cacheReporteIXB: "reportIxs",
     reporteAERConsumosSecuencia: "reportConsumptionRequest",

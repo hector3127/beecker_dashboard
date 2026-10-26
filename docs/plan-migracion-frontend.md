@@ -5,6 +5,32 @@ funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus
 respuestas; la migración del frontend sí avanza.
 
+## Candidato a cierre de fase 10: arranque independiente (26/10/2026)
+
+La ruta activa ya no carga script/shim/CSS de portal: arranca desde main con
+estado, controladores y delegados públicos modulares. El CSS compartido se
+traslada literalmente a `project_detail_base.css`, sin cambiar reglas. La
+auditoría de dependencias recorre más de 100 módulos locales y rechaza RPC,
+Google Script y cargadores anteriores. La comprobación de red recorre las
+pestañas de AER, T&M, IXB, SaaS y RaaS sin script/shim/RPC ni errores de JS.
+
+La ruta del detalle recibe siempre ID desde Django. Los selectores originales
+están ocultos; Cuenta tiene ruta/plantilla propias. Si el control oculto queda
+en centinela, se restaura el ID de la ruta; si fue retirado, no se reintenta en
+bucle. Los reportes/cuenta del dashboard original permanecen como referencia,
+sin introducirlos de nuevo como dependencia de esta ruta de proyecto.
+
+Se conservan las pruebas históricas: cuando una prueba desactiva módulos para
+comparar cálculos, `project_reference.py` carga las definiciones originales de
+forma explícita, sin autoinicio ni servicios reales. Las pruebas normales no
+usan ese auxiliar. Los espías de recarga observan el runtime actual.
+
+**478 Node y 38 navegador dirigidas aprobadas**. Ruff/formato, Django y mypy
+aprobados. **Validación integral pendiente:** en ejecución 3862 pruebas de
+`tests` (solo excluye los cuatro temporales no versionados `test_zz_*`). Ya
+apareció un fallo adicional: resolver el informe antes de marcar completada.
+No retirar referencias ni activar CSP/ACCESS_ENFORCED: pertenecen a fase 11.
+
 ## Bloque verificado: inicio especial modular (26/10/2026)
 
 `project_entry.startCompatibility` sustituye `initDashboard(true)` en el puente

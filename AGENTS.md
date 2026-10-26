@@ -19,6 +19,17 @@ Reglas que no se negocian:
 
 ## Último bloque (26/10/2026)
 
+El detalle activo ya arranca sin script/shim anteriores. Los contratos públicos
+delegan a módulos en `project_commands.js`, y CSS base está copiado sin cambios
+a frontend. La ruta requiere ID; Cuenta es una ruta distinta, y el centinela
+oculto recupera el ID sembrado. Las referencias originales solo se cargan en
+pruebas explícitas de comparación. No retirar los archivos de referencia.
+478 Node y 38 navegador dirigidas aprobadas. **Fase 10 pendiente de validación
+integral:** corre la suite completa (3862 pruebas); apareció un fallo adicional.
+Revisar resultados y resolver antes de declarar cierre. Ver traspaso.
+
+## Bloque previo: inicio especial (26/10/2026)
+
 El inicio especial sin proyecto ya usa `project_entry.startCompatibility`:
 filtros API, selección inicial de cuenta/proyecto y carga tras éxito/error.
 El puente moderno no llama `initDashboard(true)`; la comparación lo conserva.

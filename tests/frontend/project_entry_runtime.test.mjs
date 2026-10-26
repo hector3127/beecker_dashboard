@@ -78,3 +78,32 @@ test("reload builds a fresh modular context and keeps updated fallback connectio
   calls[1].render.ixs("new");
   assert.deepEqual(calls[2], ["ixs", "new"]);
 });
+
+test("independent route builds its own callbacks without loading compatibility", () => {
+  const store = createProjectState(),
+    calls = [];
+  const entry = {
+    startCompatibility: (env) => calls.push(["start", env]),
+    restoreProject: (env) => calls.push(["restore", env]),
+    load: (env) => calls.push(["load", env]),
+  };
+  const runtime = createEntryRuntime({
+    contexts: createProjectContexts(store),
+    entry,
+    executive: (data) => calls.push(["executive", data]),
+  });
+  const env = runtime.context();
+  env.previousStart();
+  env.previousLoad();
+  env.clientChanged();
+  env.render.executive("data");
+  assert.deepEqual(
+    calls.map((call) => call[0]),
+    ["start", "restore", "restore", "executive"],
+  );
+  for (const [, context] of calls.slice(0, 3)) {
+    const current = { P: {} };
+    context.metadata(current);
+    assert.equal(store.metadata, current);
+  }
+});

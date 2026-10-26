@@ -64,7 +64,7 @@ def test_newest_load_wins_and_old_response_does_not_replace_it(
     portal.evaluate(
         """outcome => {
       window.pending=[];window.renders=[];
-      renderDashboardAERTYMProyecto=data=>renders.push(data.cut);
+      beeAerRuntime.initialize=data=>renders.push(data.cut);
       beeProjectData.dashboard=()=>new Promise((resolve,reject)=>
         pending.push({resolve,reject}));
       const compatibilityRequest=dashboardRequestSeq;
@@ -87,7 +87,7 @@ def test_detached_target_and_error_text_cannot_restore_old_dom(
     enter(portal, project_detail[1])
     portal.evaluate("""() => {
       window.resolveLoad=null;window.renders=[];
-      renderDashboardAERTYMProyecto=data=>renders.push(data);
+      beeAerRuntime.initialize=data=>renders.push(data);
       beeProjectData.dashboard=()=>new Promise(resolve=>resolveLoad=resolve);
       loadDashboard();
       showError({message:'<img src=x onerror=alert(1)>'});

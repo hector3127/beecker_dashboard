@@ -2,7 +2,37 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: inicio especial modular (26/10/2026)
+## Bloque actual: cierre independiente, validación integral en curso (26/10/2026)
+
+- La plantilla activa ya no referencia `proyecto_detalle.js`, `gas_shim.js`
+  ni el CSS de portal. El CSS compartido se copia sin cambios de bytes a
+  `project_detail_base.css`. Main arranca directamente con sus controladores.
+- Auditoría: `proyectos/<id>/` siempre siembra ID desde Django; selectores de
+  cuenta/proyecto están ocultos. Cuenta usa su propia ruta modular. La ruta
+  actual recupera el ID sembrado si queda el selector centinela y no recurre
+  al dashboard de cuentas anterior. Controles desconectados no causan recursión.
+  Las ramas de reportes/cuenta originales permanecen para comparar, no como
+  dependencias del detalle activo. No se copia el megabyte a frontend.
+- `project_commands.js` conserva nombres públicos como delegados a los módulos,
+  sin renderizadores, formularios ni RPC. El caché Cliente/Acciones también
+  tiene un accesor sobre el almacén para sus consumidores previos.
+- `project_reference.py` carga definiciones originales SOLO en las pruebas
+  que desactivan modelos para contrastar cálculos o el inicio especial. Las
+  pruebas normales no lo usan y comprueban cero descargas de script/shim/RPC.
+- Hasta ahora: **478 Node aprobadas**; **38 navegador dirigidas aprobadas**.
+  Incluyen cinco familias, ruta/controles, inicio/reintento y referencias.
+  Ruff/formato (653 archivos), Django y mypy aprobados. El único cambio Python
+  de producción es formato de una expresión en `project_ai.py`.
+- La primera revisión amplia dio 1356 aprobadas y cinco fallos: dos espías de
+  recarga antiguos, dos referencias que esperaban el script implícito y un
+  cierre de Comunicados conectado al modal incorrecto. Corregidos y revisados.
+- **No marcar fase 10 terminada todavía**: está en ejecución la suite completa
+  de 3862 pruebas bajo `tests`, ignorando solo los cuatro `test_zz_*` ajenos y
+  no versionados. Ya apareció un fallo adicional; falta revisar su informe y
+  reparar/repetir lo necesario. Proveedores simulados y red externa bloqueada.
+  No activar ACCESS_ENFORCED, ni iniciar limpieza/CSP de fase 11, ni hacer push.
+
+## Bloque anterior: inicio especial modular (26/10/2026)
 
 - `project_entry.startCompatibility` reemplaza el inicio especial anterior:
   sin proyecto/cuenta no hace lecturas; obtiene filtros por API, conserva

@@ -9,6 +9,15 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
+   diferencia con `origin/main`. Estado vigente: el detalle activo ya no carga
+   JS/shim/CSS de portal; main y sus contratos son independientes. Cuenta tiene
+   ruta propia; el ID sembrado gobierna el detalle y sus selectores ocultos.
+   Hay 478 Node y 38 navegador dirigidas aprobadas, pero la ejecución integral
+   de 3862 pruebas está pendiente de informe/revalidación de fallos. Lee el
+   primer bloque del traspaso antes de declarar fase 10 completa o repetir
+   implementaciones. Mantén los originales para comparación; no hagas push.
+   Los siguientes puntos describen los bloques anteriores:
+   comprueba los últimos commits y la
    diferencia con `origin/main`. Los tres fallos Node anteriores ya están
    corregidos en sus pruebas (parser de Costos y expectativas comerciales),
    sin cambiar producción ni fórmulas. La suite vuelve a pasar completa.

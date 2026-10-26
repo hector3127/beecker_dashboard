@@ -209,7 +209,7 @@ def test_import_and_batch_wait_for_confirmation(portal, planning, fixed_day):
     _, results, calls = planning
     enter(portal)
     portal.evaluate(
-        "() => {window.reloads=0; aerRecargarProyecto=()=>window.reloads++;}"
+        "() => {window.reloads=0; beeAerRuntime.refresh=()=>window.reloads++;}"
     )
     portal.evaluate("aerAbrirImportPlan()")
     portal.locator("#aer-plan-text").fill(
@@ -277,7 +277,7 @@ def test_modal_state_and_single_delete_keep_original_reload(
         {"uid": "p2", "estado": "Completado", "cierre": "2026-10-23"},
     )
     portal.evaluate(
-        "() => {window.reloads=0; aerRecargarProyecto=()=>window.reloads++;}"
+        "() => {window.reloads=0; beeAerRuntime.refresh=()=>window.reloads++;}"
     )
     portal.evaluate("aerAbrirPlan('p2')")
     results["eliminar"] = {"ok": False}

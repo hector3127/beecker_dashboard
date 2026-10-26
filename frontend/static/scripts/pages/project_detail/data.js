@@ -1,5 +1,5 @@
 // @ts-check
-// Migrated project reads and actions; remaining tabs still use RPC.
+// Project reads and actions use the versioned API with server-side permissions.
 import { apiGet, apiSend } from "#app/data/api-client.js";
 
 /** @param {typeof apiGet} [get] @param {typeof apiSend} [send] */

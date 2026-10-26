@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect
 
+from tests.e2e.project_reference import load_project_reference
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
 from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
@@ -39,6 +40,7 @@ def test_generic_timeline_model_preserves_the_existing_modern_view(
         portal.goto(portal.base + "/proyectos/AMK.008/")
         expect(portal.locator(".ixs-head")).to_be_visible()
         portal.wait_for_load_state("networkidle")
+        load_project_reference(portal)
         # Isolate the temporal model; the layout is compared against legacy
         # in test_generic_layout (including original button sizes).
         portal.evaluate("window.beeGenericLayout = undefined")

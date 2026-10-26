@@ -206,25 +206,22 @@ def test_failed_filters_still_load_exact_project(portal, project_detail):
     expect(portal.locator(".aer-title")).to_contain_text("AER.001")
 
 
-def test_failed_legacy_download_can_retry(portal, project_detail):
+def test_project_is_independent_of_legacy_download(portal, project_detail):
     count = 0
 
     def unavailable_once(route):
         nonlocal count
         count += 1
-        if count == 1:
-            route.abort()
-        else:
-            route.continue_()
+        route.abort()
 
     portal.route("**/portal/js/proyecto_detalle.js?*", unavailable_once)
+    portal.route("**/core/js/gas_shim.js", unavailable_once)
     portal.goto(f"{portal.base}/proyectos/AER.001/")
-    expect(portal.locator("#view-container")).to_contain_text(
-        "No se pudo cargar la interfaz del proyecto."
-    )
-    portal.get_by_role("button", name="Reintentar", exact=True).click()
     expect(portal.locator(".aer-title")).to_contain_text("AER.001")
-    assert count == 2
+    portal.locator(".aer-head button").click()
+    expect(portal.locator(".aer-title")).to_contain_text("AER.001")
+    portal.wait_for_load_state("networkidle")
+    assert count == 0
 
 
 def test_aer_refresh_preserves_selected_tab(portal, project_detail):

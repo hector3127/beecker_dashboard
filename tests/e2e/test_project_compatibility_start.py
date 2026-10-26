@@ -2,6 +2,7 @@
 
 import pytest
 
+from tests.e2e.project_reference import load_project_reference
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
@@ -24,6 +25,7 @@ def test_special_start_matches_original(portal, ixs, width, query, failure):
     portal.set_viewport_size({"width": width, "height": 1000})
     portal.goto(portal.base + "/proyectos/AMK.008/")
     portal.locator(".ixs-head").wait_for()
+    load_project_reference(portal)
     result = portal.evaluate(
         """async ({query,failure}) => {
       const {createProjectEntry}=await import(

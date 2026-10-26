@@ -47,72 +47,65 @@ def test_main_mounts_without_old_entry_functions(
     portal.wait_for_load_state("networkidle")
     endpoint = f"/{id}/{'aer' if family == 'aer' else 'ejecutivo'}/"
     assert sum(endpoint in url for url in urls) == 1
+    assert not any(
+        "proyecto_detalle.js" in url or "gas_shim.js" in url for url in urls
+    )
     assert not errors, errors
 
 
-@pytest.mark.parametrize("failed", ["shim", "renderer"])
-def test_failed_script_download_can_retry(portal, ixs, failed):
-    counts = {"shim": 0, "renderer": 0}
+@pytest.mark.parametrize("family", ["aer", "ixs"])
+def test_source_retry_is_independent_of_failed_old_scripts(
+    portal, project_detail, family
+):
+    attempts, scripts = [], []
+    data = project_detail[1 if family == "aer" else 0]
+    identifier = data["proyecto"]["id"]
+    endpoint = "aer" if family == "aer" else "ejecutivo"
 
-    def intercept(route):
-        kind = (
-            "renderer" if "proyecto_detalle.js" in route.request.url else "shim"
-        )
-        counts[kind] += 1
-        if kind == failed and counts[kind] == 1:
+    def old(route):
+        scripts.append(route.request.url)
+        route.abort()
+
+    def source(route):
+        attempts.append(route.request.url)
+        if len(attempts) == 1:
             route.fulfill(
-                status=503, body="", content_type="application/javascript"
+                status=503,
+                json={
+                    "error": {"code": "source", "message": "Fuente temporal"}
+                },
             )
         else:
             route.fallback()
 
-    portal.route(RENDERER, intercept)
-    portal.route(SHIM, intercept)
-    errors = []
-    portal.on("pageerror", lambda error: errors.append(str(error)))
-    portal.goto(portal.base + "/proyectos/AMK.008/")
-    expect(
-        portal.get_by_role("button", name="Reintentar", exact=True)
-    ).to_be_visible()
+    portal.route(RENDERER, old)
+    portal.route(SHIM, old)
+    portal.route(f"**/proyectos/{identifier}/{endpoint}/", source)
+    portal.goto(portal.base + f"/proyectos/{identifier}/")
+    expect(portal.locator("#view-container")).to_contain_text("Fuente temporal")
     portal.get_by_role("button", name="Reintentar", exact=True).click()
-    expect(portal.locator(".ixs-head")).to_be_visible()
-    assert counts == {
-        "shim": 2 if failed == "shim" else 1,
-        "renderer": 2 if failed == "renderer" else 1,
-    }
-    assert not errors, errors
+    expect(portal.locator(".aer-head, .ixs-head")).to_be_visible()
+    assert len(attempts) == 2
+    assert not scripts
 
 
-def test_retry_after_evaluation_keeps_loaded_script_and_lexical_state(
-    portal, ixs
-):
+def test_reload_keeps_state_without_loading_any_old_definitions(portal, ixs):
     scripts = []
-    source = (
-        SOURCE.read_text(encoding="utf-8")
-        + """
-    window.testProjectBindings=projectCompatibilityBindings;
-    projectCompatibilityBindings=function(){
-      if(!window.testProjectBridgeFailed){
-        window.testProjectBridgeFailed=true;
-        throw Error('one failed bridge setup');
-      }
-      return window.testProjectBindings();
-    };
-    """
-    )
 
     def renderer(route):
         scripts.append(route.request.url)
-        route.fulfill(body=source, content_type="application/javascript")
+        route.abort()
 
     portal.route(RENDERER, renderer)
+    portal.route(SHIM, renderer)
     errors = []
     portal.on("pageerror", lambda error: errors.append(str(error)))
     portal.goto(portal.base + "/proyectos/AMK.008/")
-    expect(
-        portal.get_by_role("button", name="Reintentar", exact=True)
-    ).to_be_visible()
-    portal.get_by_role("button", name="Reintentar", exact=True).click()
     expect(portal.locator(".ixs-head")).to_be_visible()
-    assert len(scripts) == 1
+    assert not scripts
+    portal.evaluate("beeProjectState.clockify.sentinel='preserved'")
+    portal.locator(".ixs-head button").first.click()
+    expect(portal.locator(".ixs-head")).to_be_visible()
+    assert portal.evaluate("beeProjectState.clockify.sentinel") == "preserved"
+    assert not scripts
     assert not errors, errors

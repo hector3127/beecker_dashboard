@@ -54,8 +54,12 @@ def test_resource_read_is_shared_and_updates_current_modular_view(
     }[tab]
     assert expected in portal.evaluate("resourcePaints")
     assert (
-        portal.evaluate("""ixsProyectoActual.filasRecursosCompleto
-      .find(row=>_ixsRecursoClave(row.nombre)==='ana perez').activo""")
+        portal.evaluate("""async () => {
+      const {resourceKey}=await import(
+        '/static/app/scripts/pages/project_detail/sections/ixs_executive_model.js');
+      return ixsProyectoActual.filasRecursosCompleto
+        .find(row=>resourceKey(row.nombre)==='ana perez').activo;
+    }""")
         is False
     )
     assert portal.locator("#ixs-tab-contenido [onclick]").count() == 0
