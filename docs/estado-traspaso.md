@@ -2,7 +2,27 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: Facturabilidad, base 18e69a1 (26/10)
+## Bloque actual: Capacidad diaria, base ad14366 (26/10)
+
+- Retiradas vista/entrada anterior, plantilla y CSS/JS de Capacidad diaria.
+  No se cambian servicios, fuentes Histórico/Azure, horas ni modelo vigente.
+  El nombre de ruta y enlaces se mantienen. Cookie CSRF de la vista retirada
+  conservada en pages.capacity_daily; permisos/login y alcance total intactos.
+- Ocho salidas completas del modelo ANTERIOR capturadas antes de borrar en
+  tests/frontend/snapshots/capacity_daily_model.json. La prueba actual ya no
+  ejecuta el script eliminado. Dos contratos vigentes sustituyen tests RPC;
+  la interacción/carga/forzar/CSV se mantiene en navegador con/sin vista=anterior.
+- Seis snapshots vigentes de matriz/recursos a 1450/900/390 px. Capturas completas
+  idénticas antes/después y sin avisos de CSP en las pruebas con bloqueo real.
+  1727 servidor, 504 Node y 23 Chrome pasan; comandos en el informe del bloque.
+- La prueba de standalone se adapta a la entrada actual, sin fuentes y con
+  cookie/login; corrigió una expectativa antigua de clase del body, sin cambiar
+  diseño. Detalles y comandos: `docs/retiro-capacidad-diaria.md`.
+- Recuento real: 19 HTML/32 estáticos portal; continuar otras comparaciones y CSP.
+  No retirar otros servicios o shim aún usados ni activar política/accesos
+  globales. Sin push, temporales ajenos intactos. Fase 11 sigue abierta.
+
+## Bloque previo: Facturabilidad, base 18e69a1 (26/10)
 
 - Retiradas tres plantillas anteriores: general, especialidad y recurso. Las
   rutas y respaldo Python usan frontend mediante `_current`, con el mismo

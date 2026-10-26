@@ -79,12 +79,19 @@ def test_access_is_checked_before_sources(
     source.assert_not_called()
 
 
-def test_page_is_modular_and_does_not_read_sources(client, monkeypatch):
+@pytest.mark.parametrize("previous", [False, True])
+def test_page_is_modular_and_does_not_read_sources(
+    client, monkeypatch, previous
+):
     monkeypatch.setattr(
         "apps.portal.api.capacity_daily.get_capacity_base",
         Mock(side_effect=AssertionError("Source read")),
     )
-    html = client.get("/capacidad-instalada/").content.decode()
+    response = client.get(
+        "/capacidad-instalada/", {"vista": "anterior"} if previous else {}
+    )
+    html = response.content.decode()
     assert "app/scripts/pages/capacity_daily/main.js" in html
     assert "gas_shim" not in html
     assert "portal/js/capacidad_instalada.js" not in html
+    assert "csrftoken" in response.cookies

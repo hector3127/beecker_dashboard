@@ -1164,18 +1164,6 @@ def facturabilidad_area(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
-@ensure_csrf_cookie
-@require_capability("view_operations", whole_portfolio=True)
-def capacidad_detalle(request: HttpRequest) -> HttpResponse:
-    """Abre la capacidad mensual en su propia pagina, con carga progresiva."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    return render(
-        request, "portal/capacidad_detalle.html", {"active": "operativa"}
-    )
-
-
-@require_GET
 @require_capability("view_operations", whole_portfolio=True)
 def capacidad_instalada(request: HttpRequest) -> HttpResponse:
     """

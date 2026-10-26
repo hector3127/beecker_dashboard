@@ -124,7 +124,7 @@ def test_the_cost_list_of_an_account_follows_scope(client, enforced):
     assert client.get(url).status_code == 403
 
 
-@pytest.mark.parametrize("name", ["eva2", "capacidad"])
+@pytest.mark.parametrize("name", ["eva2", "capacidad", "capacidad_detalle"])
 @pytest.mark.parametrize("grant", ["limited", "wrong", "anonymous"])
 def test_retired_query_does_not_bypass_page_access(
     client, enforced, name, grant

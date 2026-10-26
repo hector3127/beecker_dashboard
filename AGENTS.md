@@ -23,6 +23,16 @@ Reglas que no se negocian:
 
 ## Estado vigente: fase 10 completada (26/10/2026)
 
+Bloque más reciente: Capacidad diaria sin plantilla/CSS/JS anteriores ni vista
+de comparación, sobre ad14366. Las fuentes y reglas de 834bbfa no cambian.
+Ocho escenarios del modelo anterior se capturaron antes del retiro y se
+comparan con el modelo vigente; seis referencias de matriz/recursos son
+idénticas y pasan con CSP de prueba. 1727 servidor, 504 Node y 23 Chrome pasan. Se conserva
+cookie CSRF en pages.capacity_daily y los enlaces obsoletos; ver evidencia de
+servidor en `docs/retiro-capacidad-diaria.md`. Recuento real: 19 HTML/32 estáticos.
+No recrear los archivos retirados ni borrar otros consumidores del shim.
+Fase 11 sigue abierta, sin push ni activar CSP global/accesos.
+
 Bloque más reciente: retiradas las plantillas anteriores de Facturabilidad
 general, por especialidad y por recurso; `_current` conserva sus vistas de
 datos y permisos. Nueve snapshots del diseño vigente se registraron sobre

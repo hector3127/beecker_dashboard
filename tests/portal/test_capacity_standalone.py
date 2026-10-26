@@ -1,10 +1,10 @@
-"""La capacidad mensual abre fuera del HTML y del JavaScript de legacy."""
+"""La capacidad diaria abre fuera del HTML y del JavaScript de legacy."""
 
 from types import SimpleNamespace
 
 from django.test import RequestFactory, override_settings
 
-from apps.portal import views
+from apps.portal import pages, views
 
 
 def test_standalone_page_needs_no_source_read_and_sets_csrf_cookie(monkeypatch):
@@ -15,14 +15,15 @@ def test_standalone_page_needs_no_source_read_and_sets_csrf_cookie(monkeypatch):
             AssertionError("Source read")
         ),
     )
-    response = views.capacidad_detalle(
+    response = pages.capacity_daily(
         RequestFactory().get("/capacidad-instalada/")
     )
     html = response.content.decode()
     assert response.status_code == 200
-    assert "portal/js/capacidad_instalada.js" in html
+    assert "app/scripts/pages/capacity_daily/main.js" in html
+    assert "portal/js/capacidad_instalada.js" not in html
     assert "Regresar a Operativa" in html
-    assert 'class="ds"' in html
+    assert 'class="ds capacity-daily-page"' in html
     assert "ci-general-tabs" not in html
     assert "tpl-dashboard" not in html
     assert "legacy_skin.css" not in html
@@ -33,4 +34,4 @@ def test_standalone_page_needs_no_source_read_and_sets_csrf_cookie(monkeypatch):
 def test_standalone_page_requires_login():
     request = RequestFactory().get("/capacidad-instalada/")
     request.user = SimpleNamespace(is_authenticated=False)
-    assert views.capacidad_detalle(request).status_code == 302
+    assert pages.capacity_daily(request).status_code == 302

@@ -7,6 +7,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — Capacidad diaria, base ad14366 (26/10).** Retiradas plantilla,
+CSS/JS y vista anteriores; fuentes Histórico/Azure y modelo vigente intactos.
+Ocho salidas del modelo anterior capturadas antes del retiro conservan la
+comprobación de datos; dos contratos modernos sustituyen pruebas RPC. Seis
+referencias de matriz/recursos y capturas completas idénticas a 1450/900/390
+px, revalidadas con CSP de prueba. 1727 servidor, 504 Node y 23 Chrome pasan; cookie CSRF y
+enlaces conservados. Ver `docs/retiro-capacidad-diaria.md` para servidor y
+evidencia. Recuento real: 19 HTML/32 estáticos; fase 11 sigue abierta sin activar CSP/accesos.
+
 **Fase 11 — Facturabilidad, base 18e69a1 (26/10).** Tres plantillas anteriores
 retiradas (general, especialidad, recurso), con datos/permisos intactos. Nueve
 snapshots vigentes guardados antes de borrar se revalidan con CSP de prueba;

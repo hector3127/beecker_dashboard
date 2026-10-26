@@ -10,6 +10,14 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
+**Último bloque: Capacidad diaria sobre ad14366.** Leer
+`docs/retiro-capacidad-diaria.md`. Retirados vista/plantilla/CSS/JS anteriores;
+datos, fuentes y reglas de 834bbfa intactos. Ocho salidas del modelo ANTERIOR
+guardadas antes de borrar y seis referencias de matriz/recursos conservan
+comparación sin el script. 1727 servidor, 504 Node y 23 Chrome pasan.
+No recrear archivos. Se mantiene cookie CSRF y enlaces. Recuento real: 19 HTML/32
+estáticos; continuar otras comparaciones/CSP sin activar accesos o bloqueo.
+
 **Más reciente: Facturabilidad sobre 18e69a1.** Leer
 `docs/retiro-facturabilidad.md`. Retiradas las tres plantillas anteriores de
 general/especialidad/recurso; datos y permisos intactos. Nueve snapshots del

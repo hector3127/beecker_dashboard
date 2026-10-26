@@ -369,13 +369,12 @@ def capacity(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
+@ensure_csrf_cookie
 @require_capability("view_operations", whole_portfolio=True)
 def capacity_daily(request: HttpRequest) -> HttpResponse:
     """Capacidad diaria modular; el JS lee las asignaciones por API."""
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if anterior_disponible() and request.GET.get("vista") == "anterior":
-        return views.capacidad_detalle(request)
     return render(request, "pages/capacity_daily.html", {"active": "operativa"})
 
 

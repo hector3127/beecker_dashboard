@@ -1,6 +1,5 @@
 """Capacidad diaria: API, matriz, recursos y misma apariencia anterior."""
 
-import json
 from pathlib import Path
 
 import pytest
@@ -44,7 +43,6 @@ def daily(monkeypatch, datos):
 
     monkeypatch.setattr("apps.capacidad.rpc.load_capacity_base", base)
     monkeypatch.setattr("apps.capacidad.rpc.load_project_data", project)
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
     return calls
 
 
@@ -54,10 +52,11 @@ def ready(portal):
     )
 
 
-def test_matrix_filters_resources_csv_and_refresh(portal, daily):
+@pytest.mark.parametrize("previous", [False, True])
+def test_matrix_filters_resources_csv_and_refresh(portal, daily, previous):
     errors = []
     portal.on("pageerror", lambda error: errors.append(str(error)))
-    portal.goto(portal.base + PAGE)
+    portal.goto(portal.base + PAGE + ("&vista=anterior" if previous else ""))
     ready(portal)
     expect(portal.locator(".ci-stat strong")).to_have_text(
         ["2", "352 h", "16 h", "338 h", "1"]
@@ -179,9 +178,14 @@ def test_pagination_and_resource_names_are_plain_text(
     expect(portal.locator(".ci-table tbody")).to_contain_text("Persona 0")
 
 
-@pytest.mark.parametrize("width", [1450, 390])
+@pytest.mark.parametrize("width", [1450, 900, 390])
 @pytest.mark.parametrize("view", ["matrix", "people"])
-def test_layout_matches_previous(portal, daily, width, view):
+def test_layout_keeps_approved_reference(
+    portal, daily, width, view, snapshot, enforced_csp
+):
+    from tests.e2e.conftest import watch
+
+    problems = watch(portal)
     portal.set_viewport_size({"width": width, "height": 1000})
     selectors = [
         ".top",
@@ -212,20 +216,13 @@ def test_layout_matches_previous(portal, daily, width, view):
 
     output = Path(f"tmp/migration/capacity_daily/{width}/{view}")
     output.mkdir(parents=True, exist_ok=True)
-    states = []
-    for name, suffix in [("previous", "&vista=anterior"), ("current", "")]:
-        portal.goto(portal.base + PAGE + suffix)
-        ready(portal)
-        if view == "people":
-            portal.get_by_role("button", name="Capacidad por recurso").click()
-        states.append(capture())
-        portal.screenshot(path=str(output / f"{name}.png"), full_page=True)
-    differences = {
-        selector: (old, new)
-        for selector, old, new in zip(selectors, *states, strict=True)
-        if old != new
-    }
-    (output / "differences.json").write_text(
-        json.dumps(differences, indent=2), encoding="utf-8"
+    portal.goto(portal.base + PAGE)
+    ready(portal)
+    if view == "people":
+        portal.get_by_role("button", name="Capacidad por recurso").click()
+    snapshot(
+        f"capacity_daily_layout_{view}_{width}",
+        dict(zip(selectors, capture(), strict=True)),
     )
-    assert not differences, differences
+    portal.screenshot(path=str(output / "current.png"), full_page=True)
+    assert problems == []
