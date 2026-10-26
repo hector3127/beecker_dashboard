@@ -9,7 +9,11 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque separa el cálculo temporal
+   diferencia con `origin/main`. El último bloque migra el dibujo de la línea
+   temporal genérica a `generic_timeline_view.js` y CSS externo, con DOM seguro.
+   Se monta en el renderer transitorio sin ejecutar su Gantt HTML anterior.
+   El resto de la vista genérica, estilos, fuentes y formularios sigue pendiente.
+   El bloque previo separa el cálculo temporal
    genérico en `generic_timeline_model.js`, con referencia al fallback original.
    La vista/CSS y fuentes genéricas siguen pendientes: no marcarla migrada.
    Se detectaron diferencias previas entre plantillas (botones 25/44 px);
@@ -249,7 +253,9 @@ El runtime no llama a inyectores de estilos: las hojas ya están enlazadas.
 **Siguiente bloque sugerido:** cierre de callbacks IXS restantes
 (vista/CSS/controlador y fuentes del Ejecutivo genérico, sin proyecto y arranque).
 Su cálculo temporal ya está en generic_timeline_model.js: reutilizarlo sin
-cambiar reglas. Resolver y comparar los estilos contra ?vista=anterior antes
+cambiar reglas. Su Gantt ya usa generic_timeline_view.js y estilos externos:
+no repetir ese componente. Resolver y comparar los estilos restantes contra
+?vista=anterior antes
 de marcar la vista completa. La recarga de hitos
 en Planeación ya usa el controlador/contexto nuevos; no repetirla.
 IA→RAID ya usa el creador modular compartido;

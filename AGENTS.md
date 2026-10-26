@@ -274,6 +274,12 @@ formularios y enriquecimientos siguen pendientes. No darla por migrada: hay
 diferencias previas entre plantillas (por ejemplo botones 25 vs. 44 px).
 La comparación incremental modelo/fallback usa la misma plantilla nueva;
 la comparación visual completa contra `?vista=anterior` aún falta para esta vista.
+Su línea de tiempo ya usa `generic_timeline_view.js` y CSS externo
+`project_detail_generic_timeline.css`: barras, estados, marcadores, eje y leyenda
+con DOM seguro. El componente reemplaza un marcador estático del renderer
+transitorio; no ejecuta la construcción HTML anterior de la línea de tiempo.
+El resto del Ejecutivo genérico sigue pendiente. Sus diferencias de botones
+se mantienen fuera de este componente hasta migrar la vista completa.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

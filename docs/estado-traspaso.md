@@ -2,7 +2,37 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: modelo temporal del Ejecutivo genérico (25/10/2026)
+## Bloque actual: vista de la línea temporal genérica (25/10/2026)
+
+- `generic_timeline_view.js` dibuja barras, estados, hitos adicionales, eje,
+  leyenda y mensaje sin hitos con DOM seguro. Los estilos fijos están en
+  `project_detail_generic_timeline.css`; solo geometría/color de estado usan
+  CSSOM. Reutiliza el modelo existente sin cambiar cálculos ni permisos.
+- El renderer transitorio reemplaza un marcador estático por el componente;
+  la ruta nueva no ejecuta el constructor HTML anterior del Gantt. El resto
+  del Ejecutivo genérico, sus formularios y enriquecimientos siguen anteriores.
+  No dar por migrada la pantalla completa ni retirar script/shim.
+- La comparación aislada contra `?vista=anterior` conserva contenido,
+  dimensiones y estilos, alojando ambas versiones en el mismo ancho original
+  y comparando cajas relativas al componente. Los botones genéricos ajenos a
+  él aún alteran altura/ancho del contenedor (25/44 px); eso sigue pendiente.
+  El test incremental de modelo/fallback desactiva también la vista modular
+  al leer la referencia. Se preservan todas sus comprobaciones de la pantalla.
+- **45 de navegador aprobadas**: 13 del componente (12 comparaciones en tres
+  tamaños, incluidos hitos/cierre/sin hitos, y una de texto seguro), 12 de
+  modelo/fallback y 20 de entrada/pestañas/recarga. La prueba de texto bloquea
+  `innerHTML` e inserta nombres con etiquetas, sin crear nodos HTML.
+  Suite Node **429 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Capturas en
+  `tmp/migration/project_detail/generic_timeline_view/` y `generic_timeline/`;
+  hitos escritorio y cierre móvil inspeccionados. Ruff/formato, sintaxis JS,
+  Django y diff aprobados. Proveedores simulados/red bloqueada, sin consultas
+  reales. Temporales/cambios ajenos intactos; auxiliares en `tmp/` sin comitear.
+- **Fase 10 parcial.** Siguiente: resto de vista/controlador/CSS genéricos,
+  fuentes/formularios, casos sin proyecto/cuenta y arranque independiente.
+  No activar ACCESS_ENFORCED ni tocar Horas por mes. Sin push.
+
+## Bloque anterior: modelo temporal del Ejecutivo genérico (25/10/2026)
 
 - `generic_timeline_model.js` separa fases repetidas, suspensiones, estados,
   marcadores, resumen, detección de finalización, rango y meses. Reutiliza

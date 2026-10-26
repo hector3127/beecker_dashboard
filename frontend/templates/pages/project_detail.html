@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{% static 'portal/css/proyecto_detalle.css' %}?v=20261016-excedidos-facturables">
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_generic_timeline.css' %}">
 <link id="aer-dashboard-styles" rel="stylesheet" href="{% static 'app/styles/pages/project_detail_aer.css' %}">
 <link id="aer-ia-styles-v55" rel="stylesheet" href="{% static 'app/styles/pages/project_detail_aer_ai.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_aer_executive.css' %}">
@@ -43,5 +44,5 @@
 {{ project_context|json_script:'project-context' }}
 {% endblock %}
 {% block scripts %}
-<script type="module" src="{% static 'app/scripts/pages/project_detail/main.js' %}" data-project-detail-entry data-rpc-shim="{% static 'core/js/gas_shim.js' %}" data-legacy-script="{% static 'portal/js/proyecto_detalle.js' %}?v=20261025-generic-timeline-model"></script>
+<script type="module" src="{% static 'app/scripts/pages/project_detail/main.js' %}" data-project-detail-entry data-rpc-shim="{% static 'core/js/gas_shim.js' %}" data-legacy-script="{% static 'portal/js/proyecto_detalle.js' %}?v=20261025-generic-timeline-view"></script>
 {% endblock %}

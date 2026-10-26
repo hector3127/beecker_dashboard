@@ -116,6 +116,35 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Vista aislada de la línea temporal genérica (25/10/2026)
+
+`generic_timeline_view.js` dibuja eje/meses, barras, estados, marcadores y
+leyenda con DOM seguro a partir del modelo temporal existente. Sus estilos
+fijos están en `project_detail_generic_timeline.css`; geometría/colores de
+estado usan CSSOM. No cambia reglas, fechas, API ni permisos.
+
+El renderer transitorio sustituye un marcador estático por este componente;
+la ruta nueva no ejecuta el constructor HTML anterior del Gantt. El resto
+de la vista genérica sigue anterior. Las diferencias de botones detectadas
+entre plantillas siguen pendientes fuera de este componente: la fase 10 y
+la vista genérica completa no se marcan terminadas.
+
+Evidencia: **45 pruebas de navegador aprobadas**. Trece del componente:
+comparación de contenido/cajas/estilos contra la anterior a 1450/900/390 px,
+con hitos, cierre y sin hitos; y texto seguro con `innerHTML` bloqueado.
+Ambas versiones se alojan en el mismo ancho original y se comparan posiciones
+relativas: las diferencias externas del contenedor genérico siguen pendientes.
+Doce comparaciones de modelo/fallback conservan la pantalla moderna completa;
+20 adicionales verifican entrada/pestañas/recarga. Suite Node **429 aprobadas
+y tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+`financial`). Capturas en `tmp/migration/project_detail/generic_timeline_view/`
+y `generic_timeline/`; hitos escritorio y cierre móvil inspeccionados.
+Ruff/formato, sintaxis JS, Django y diff aprobados. Proveedores simulados/red
+bloqueada, sin consultas reales ni push y con cambios/temporales ajenos intactos.
+
+**Siguiente:** resto de vista/controlador/CSS genéricos, fuentes/formularios,
+casos sin proyecto/cuenta y arranque independiente. Mantener script/shim.
+
 ### Modelo temporal del Ejecutivo genérico (25/10/2026)
 
 `generic_timeline_model.js` separa el cálculo temporal original: fases repetidas,

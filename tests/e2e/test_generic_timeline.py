@@ -43,6 +43,7 @@ def test_generic_timeline_model_preserves_the_existing_modern_view(
             # Use the untouched calculation block with the same template CSS.
             # Generic old-vs-new template styling has not been migrated yet.
             portal.evaluate("window.beeGenericTimeline = undefined")
+            portal.evaluate("window.beeGenericTimelineView = undefined")
         portal.evaluate(
             """data => {
           cargarRaidProyectoEjecutivoAzure=()=>{};

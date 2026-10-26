@@ -7,6 +7,7 @@ import { createProjectSession } from "./sections/project_session.js";
 import { createProjectEntry } from "./sections/project_entry.js";
 import { createEntryRuntime } from "./sections/project_entry_runtime.js";
 import { genericTimeline } from "./sections/generic_timeline_model.js";
+import { genericTimelineView } from "./sections/generic_timeline_view.js";
 import { createIxsSupport } from "./sections/ixs_support.js";
 import {
   createProjectState,
@@ -99,6 +100,7 @@ async function start() {
     Object.assign(window, {
       beeProjectData: data,
       beeGenericTimeline: genericTimeline,
+      beeGenericTimelineView: genericTimelineView,
       beeProjectActionsModel: actionsModel,
       beeProjectActions: createActionsController(data),
       beeAerPlanning: createAerPlanning(data),

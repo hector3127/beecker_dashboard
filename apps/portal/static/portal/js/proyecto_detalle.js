@@ -7533,6 +7533,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     // Azure DevOps / MS Project. Usa EXACTAMENTE los mismos datos que ya
     // devuelve el backend (data.hitos, data.historialCompleto, data.suspensiones):
     // no se agregan llamadas nuevas ni se cambia la logica del servidor.
+    let genericTimelineNode = null;
     let ganttHtml = '<div style="font-size:12px;color:var(--gris)">Agrega la hoja Historico_Proyectos con las fases planeadas (ej. "Discovery EST") para ver esta sección.</div>';
     let hitosResumenCorregido = []; // se llena abajo reutilizando estadoEtapaReal (misma lógica del Gantt)
     let proyectoCompletadoDetectado = false; // se llena abajo: ultima fase (Deployment) Completado y no suspendido
@@ -7788,6 +7789,10 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       const {filasPlan, filasReal, marcadoresAdicionales, estadoEtapaReal, minT, maxT, rango, PAD_IZQ, meses} = timeline;
       hitosResumenCorregido = timeline.hitosResumenCorregido;
       proyectoCompletadoDetectado = timeline.proyectoCompletadoDetectado;
+      if(window.beeGenericTimelineView){
+        genericTimelineNode = window.beeGenericTimelineView(timeline, ahoraMs);
+        ganttHtml = '<div id="generic-project-timeline"></div>';
+      } else {
       let aniosHtml = '', mesesHtml = '';
       let i = 0;
       while (i < meses.length) {
@@ -7890,8 +7895,13 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
             </div>
           </div>
         </div>`;
+      }
     }
 
+    if(!genericTimelineNode&&window.beeGenericTimelineView){
+      genericTimelineNode=window.beeGenericTimelineView(null);
+      ganttHtml='<div id="generic-project-timeline"></div>';
+    }
     // Si el proyecto realmente terminó (Deployment Completado, no
     // suspendido), sobrescribimos el Estado General y el badge de riesgo
     // de la fecha de salida para que reflejen que ya finalizó, en vez de
@@ -8132,6 +8142,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       </div>
     `;
 
+    if(genericTimelineNode)document.getElementById('generic-project-timeline')?.replaceWith(genericTimelineNode);
     const totalArea = data.distribucionArea.reduce((a, d) => a + d.horas, 0);
     renderDonut('donut-area-ejecutivo', data.distribucionArea, Math.round(totalArea * 10) / 10, PALETA_BEECKER);
     renderComparativoConVerTodos('comparativo-recurso-mini', (data.filasRecursosCompleto || []).slice().sort((a, b) => b.horasReales - a.horasReales).map(f => ({ nombre: f.nombre + (f.posicion ? ' — ' + f.posicion : ''), horasEstimadas: f.horasEstimadas, horasReales: f.horasReales })));
