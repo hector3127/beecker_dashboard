@@ -15,6 +15,52 @@ URL = "/api/v1/screens/delivery-managers/alberto/"
 OPS = frozenset({"view_operations"})
 
 
+@pytest.mark.parametrize("previous", [False, True])
+def test_page_stays_modular_and_does_not_read_sources(
+    client, monkeypatch, previous
+):
+    monkeypatch.setattr(
+        views, "dm_state", lambda *a: pytest.fail("La página leyó las fuentes")
+    )
+    response = client.get(
+        "/operativa/delivery-manager/ana-maria/",
+        {
+            "nombre": "Ana María",
+            "bloque": "inv",
+            **({"vista": "anterior"} if previous else {}),
+        },
+    )
+    assert response.status_code == 200
+    assert "pages/delivery_manager.html" in {t.name for t in response.templates}
+    html = response.content.decode()
+    assert 'data-slug="ana-maria"' in html
+    assert "Ana María" in html
+    assert "app/scripts/pages/delivery_manager/main.js" in html
+    assert "core/js/gas_shim.js" not in html
+    assert 'href="/operativa/"' in html
+
+
+@pytest.mark.parametrize("previous", [False, True])
+@pytest.mark.parametrize("anonymous", [False, True])
+def test_saved_page_query_preserves_login_and_capability(
+    client, enforced, settings, monkeypatch, previous, anonymous
+):
+    enforced("Ana", caps=frozenset({"view_costs"}))
+    if anonymous:
+        client.logout()
+        settings.PORTAL_LOGIN_REQUIRED = True
+    monkeypatch.setattr(
+        views,
+        "dm_state",
+        lambda *a: pytest.fail("Se leyeron fuentes sin acceso"),
+    )
+    response = client.get(
+        "/operativa/delivery-manager/alberto/",
+        {"vista": "anterior"} if previous else {},
+    )
+    assert response.status_code == (302 if anonymous else 403)
+
+
 @pytest.fixture(autouse=True)
 def sources(monkeypatch):
     cache.clear()

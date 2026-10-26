@@ -11,6 +11,44 @@ PAGE = "/operativa/delivery-manager/alberto/?nombre=Alberto"
 HOURS = "apps.portal.services.operational_sources.manager_monthly_history"
 
 
+@pytest.mark.parametrize("width", [1450, 900, 390])
+@pytest.mark.parametrize("detail", [False, True])
+def test_keeps_approved_reference(
+    portal, datos, hours, width, detail, snapshot, enforced_csp
+):
+    from pathlib import Path
+
+    from tests.e2e.conftest import watch
+
+    problems = watch(portal)
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    expect(portal.locator("#hours-chart")).to_be_visible()
+    expect(portal.locator("#dm-table tbody tr")).to_have_count(2)
+    portal.wait_for_load_state("networkidle")
+    if detail:
+        portal.locator("#hours-detail").click()
+        expect(portal.locator("#hours-projects tr")).to_have_count(2)
+    portal.evaluate("document.fonts.ready")
+    portal.mouse.move(0, 0)
+    selectors = [".hd", ".kc", ".card", "#hours-chart", "#hours-modal", "table"]
+    values = portal.evaluate(
+        """selectors=>selectors.map(s=>[...document.querySelectorAll(s)].map(el=>{
+          const b=el.getBoundingClientRect(),c=getComputedStyle(el);
+          return {box:['x','y','width','height'].map(k=>Math.round(b[k]*10)/10),
+            css:['fontSize','fontWeight','color','backgroundColor','padding',
+              'margin'].map(k=>c[k]),text:el.tagName==='TABLE'?el.innerText:null};
+        }))""",
+        selectors,
+    )
+    key = f"dm_layout_{width}_{'detail' if detail else 'page'}"
+    snapshot(key, dict(zip(selectors, values, strict=True)))
+    path = Path(f"tmp/migration/delivery_manager/{key}.png")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    portal.screenshot(path=str(path), full_page=True)
+    assert not problems
+
+
 def month(label, billable, operational, commercial):
     projects = [
         {
@@ -80,8 +118,13 @@ def test_page_fills_by_steps_with_the_previous_layout(portal, datos, hours):
     expect(portal.locator("#hours-chart")).to_be_visible()
 
 
-def test_links_carry_the_way_back(portal, datos, hours):
-    portal.goto(portal.base + PAGE)
+@pytest.mark.parametrize("previous", [False, True])
+def test_links_carry_the_way_back(portal, datos, hours, previous):
+    portal.goto(portal.base + PAGE + ("&vista=anterior" if previous else ""))
+    expect(
+        portal.locator("#dm-table a.dm-account-link").first
+    ).to_have_attribute("href", "/cuenta/clinica-sur/")
+    assert portal.locator('#dm-table a[href="/proyecto/3/"]').count() == 0
     link = (
         portal.locator("#dm-table")
         .get_by_role("link", name="Portal Pacientes")
@@ -93,10 +136,11 @@ def test_links_carry_the_way_back(portal, datos, hours):
     assert "delivery-manager%2Falberto" in portal.url
 
 
+@pytest.mark.parametrize("previous", [False, True])
 def test_month_detail_opens_filters_and_downloads_a_safe_csv(
-    portal, datos, hours
+    portal, datos, hours, previous
 ):
-    portal.goto(portal.base + PAGE)
+    portal.goto(portal.base + PAGE + ("&vista=anterior" if previous else ""))
     portal.locator("#hours-chart g[role=button]").last.click()
 
     dialog = portal.locator("#hours-modal")

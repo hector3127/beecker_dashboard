@@ -2,7 +2,23 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: EVA 1 y EVA 3, base 8c47a2c (26/10)
+## Bloque actual: Delivery Manager, base f38602b (26/10)
+
+- Retiradas plantilla/vista HTML anteriores y bifurcación de la página. Los
+  enlaces obsoletos sirven frontend sin consultar fuentes al montar. API,
+  dm_state/dm_rows, fuentes, cálculos y caché por alcance intactos.
+- Seis snapshots de página/detalle mensual a 1450/900/390 px guardados ANTES
+  de borrar pasan con CSP aplicada. Capturas conservan geometría/contenido;
+  cambia minuto global y composición de color móvil hasta 2/255.
+- 1756 servidor, 22 Chrome y 502 Node aprobadas. Los seis tests anteriores conservan
+  datos por API/servicio; navegación real a proyecto/cuenta y regreso en
+  navegador. Seis casos nuevos de página sin fuentes y acceso con/sin el
+  enlace obsoleto. Servidor y comandos en `docs/retiro-delivery-manager.md`.
+- Quedan 12 HTML/30 estáticos portal. No borrar dm_state/dm_rows ni auxiliares
+  de API/precalentamiento; continuar otras comparaciones/CSP. Sin activar
+  política/accesos globales ni hacer push; temporales ajenos intactos.
+
+## Bloque previo: EVA 1 y EVA 3, base 8c47a2c (26/10)
 
 - Retiradas sus dos plantillas y tres fragmentos anteriores. Páginas y
   respaldos Python usan frontend; históricos HTML/API y enlaces obsoletos

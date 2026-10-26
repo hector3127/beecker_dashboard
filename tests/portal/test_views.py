@@ -1080,16 +1080,16 @@ def test_delivery_manager_page_lists_real_projects(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
     response = client.get(
-        "/operativa/delivery-manager/alberto/?bloque=inv&vista=anterior"
+        "/api/v1/screens/delivery-managers/alberto/?bloque=inv"
     )
-    html = response.content.decode()
-
     assert response.status_code == 200
-    assert response.context["detail"].name == "Alberto"
-    assert "Portal Pacientes" in html
-    assert "Presupuesto usado: 125%" in html
-    assert response.context["project_rows"][0]["detail"] == "12 días de vencido"
-    assert 'href="/operativa/"' in html
+    data = response.json()["data"]
+    assert data["name"] == "Alberto"
+    assert any(row["name"] == "Portal Pacientes" for row in data["rows"])
+    assert any(
+        row["detail"] == "Presupuesto usado: 125%" for row in data["rows"]
+    )
+    assert data["rows"][0]["detail"] == "12 días de vencido"
 
 
 def test_unknown_delivery_manager_is_404(client, monkeypatch):
@@ -1097,47 +1097,45 @@ def test_unknown_delivery_manager_is_404(client, monkeypatch):
 
     assert (
         client.get(
-            "/operativa/delivery-manager/nadie/?bloque=inv&vista=anterior"
+            "/api/v1/screens/delivery-managers/nadie/?bloque=inv"
         ).status_code
         == 404
     )
 
 
-def test_delivery_manager_page_without_data_goes_back_to_operational(
+def test_delivery_manager_api_without_data_reports_upstream_error(
     client,
     monkeypatch,
 ):
     stub_portfolio(monkeypatch, error="Falta configurar el dashboard.")
 
     response = client.get(
-        "/operativa/delivery-manager/alberto/?bloque=inv&vista=anterior"
+        "/api/v1/screens/delivery-managers/alberto/?bloque=inv"
     )
 
-    assert response.status_code == 302
-    assert response.url == "/operativa/"
+    assert response.status_code == 502
+    assert response.json()["error"]["code"] == "upstream"
 
 
 def test_manager_page_links_to_the_account(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
     manager = client.get(
-        "/operativa/delivery-manager/alberto/?bloque=inv&vista=anterior"
-    )
-
-    assert 'href="/cuenta/clinica-sur/"' in manager.content.decode()
+        "/api/v1/screens/delivery-managers/alberto/?bloque=inv"
+    ).json()["data"]
+    assert any(row["account_slug"] == "clinica-sur" for row in manager["rows"])
 
 
 def test_other_pages_link_to_the_project(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
     manager = client.get(
-        "/operativa/delivery-manager/alberto/?bloque=inv&vista=anterior"
-    ).content.decode()
+        "/api/v1/screens/delivery-managers/alberto/?bloque=inv"
+    ).json()["data"]
     account = client.get("/cuenta/clinica-sur/?vista=anterior").content.decode()
 
-    assert 'href="/proyectos/3/"' in manager
+    assert any(row["project_id"] == "3" for row in manager["rows"])
     assert 'href="/proyectos/2/"' in account
-    assert 'href="/proyecto/3/"' not in manager
 
 
 def test_manager_detail_keeps_time_cost(client, monkeypatch):
@@ -1149,9 +1147,8 @@ def test_manager_detail_keeps_time_cost(client, monkeypatch):
         ],
     )
 
-    detail = client.get(
-        "/operativa/delivery-manager/laura-vega/?bloque=inv&vista=anterior"
-    )
+    from apps.access.scope import AccessScope
 
-    assert detail.context["detail"].time_cost.time_days == 2
-    assert detail.context["detail"].time_cost.cost_percent == 60
+    base, _, _ = views.dm_state("laura-vega", "inv", AccessScope.everything())
+    assert base["detail"].time_cost.time_days == 2
+    assert base["detail"].time_cost.cost_percent == 60

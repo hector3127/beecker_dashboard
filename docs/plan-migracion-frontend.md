@@ -7,6 +7,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — Delivery Manager, base f38602b (26/10).** Retiradas plantilla y
+vista HTML anteriores. La API conserva dm_state/dm_rows, fuentes, cálculos,
+caché y alcance; la página sigue cargando por pasos. Seis referencias del
+diseño vigente guardadas ANTES del retiro pasan con CSP de prueba a
+1450/900/390 px. Los seis casos servidor anteriores mantienen datos mediante
+API/servicio y la navegación real se comprueba en Chrome. 1756 servidor, 22 Chrome y 502 Node
+aprobadas; evidencia servidor y comandos en `docs/retiro-delivery-manager.md`.
+Quedan 12 HTML/30 estáticos portal. Sin push, fase 11 abierta, sin activar CSP/accesos.
+
 **Fase 11 — EVA 1/3, base 8c47a2c (26/10).** Retiradas dos plantillas y tres
 fragmentos anteriores; páginas/históricos sirven frontend con contexto,
 fuentes, fórmulas, logos y diseño intactos. Login de fragmentos conserva las
@@ -14,7 +23,7 @@ respuestas originales. Doce snapshots de tablas activas/históricas guardados
 ANTES del retiro pasan con CSP de prueba; las capturas conservan geometría.
 Salidas inline de filtros/CSV/fechas/costo guardadas mantienen las dos pruebas
 Node sin depender del código eliminado. 1751 servidor, 43 Chrome y 502 Node pasan;
-y evidencia en `docs/retiro-eva13.md`. Quedan 13 HTML/30 estáticos portal.
+Comandos y evidencia en `docs/retiro-eva13.md`. Quedan 13 HTML/30 estáticos portal.
 Fase 11 abierta, sin push ni activar CSP/accesos globales.
 
 **Fase 11 — Facturabilidad por área, base 3a8ae34 (26/10).** Retiradas su

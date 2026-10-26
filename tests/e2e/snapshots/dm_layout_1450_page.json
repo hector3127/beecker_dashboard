@@ -1,0 +1,235 @@
+{
+  ".hd": [
+    {
+      "box": [
+        26,
+        140,
+        1398,
+        58
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "18px 0px"
+      ],
+      "text": null
+    }
+  ],
+  ".kc": [
+    {
+      "box": [
+        26,
+        216,
+        224.7,
+        121.4
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        260.7,
+        216,
+        224.7,
+        121.4
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        495.3,
+        216,
+        224.7,
+        121.4
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        730,
+        216,
+        224.7,
+        121.4
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        964.7,
+        216,
+        224.7,
+        121.4
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        1199.3,
+        216,
+        224.7,
+        121.4
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    }
+  ],
+  ".card": [
+    {
+      "box": [
+        26,
+        353.4,
+        1398,
+        257.5
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        26,
+        624.9,
+        1398,
+        779.5
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    }
+  ],
+  "#hours-chart": [
+    {
+      "box": [
+        43,
+        719.9,
+        1364,
+        492.5
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": null
+    }
+  ],
+  "#hours-modal": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(32, 20, 94)",
+        "rgba(0, 0, 0, 0)",
+        "24px",
+        "auto"
+      ],
+      "text": null
+    }
+  ],
+  "table": [
+    {
+      "box": [
+        43,
+        444.4,
+        1370,
+        149.5
+      ],
+      "css": [
+        "10px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "ID del proyecto\tProyecto\tCuenta\tServicio\tInicio\tFin\tPresupuesto (h)\tConsumo (h)\tInv. operativa (h)\tInv. comercial (h)\tEstado\tAvance\tETC (h)\tRenovación (días)\tRiesgo abierto\n2\tPortal Pacientes\t\nCS\nClinica Sur\n\tT&M\t01/01/26\t31/12/26\t100\t40\t—\t—\tCrítico\n12 días de vencido\n\t50%\t60\t-12\t0\n3\tHIS\t\nA\nACME\n\tAER\t01/01/26\t31/12/26\t100\t125\t—\t—\tCrítico\nPresupuesto usado: 125%\n\t50%\t60\t0\t0"
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "13px",
+        "400",
+        "rgb(32, 20, 94)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "ID / Proyecto ↕Cuenta ↕Servicio ↕Presupuesto proyecto (h) ↕Facturables ↕Inv. operativa ↕Inv. comercial ↕Total ↕% del mes ↕"
+    }
+  ]
+}

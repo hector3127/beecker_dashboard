@@ -23,6 +23,15 @@ Reglas que no se negocian:
 
 ## Estado vigente: fase 10 completada (26/10/2026)
 
+Bloque más reciente: Delivery Manager, base f38602b. Retiradas su plantilla
+y vista HTML anteriores. API, dm_state/dm_rows, cálculos, caché por alcance
+y precalentamiento intactos; no retirarlos. Seis referencias de página y
+detalle mensual a 1450/900/390 px pasan con CSP. 1756 servidor, 22 Chrome y 502 Node
+aprobadas; datos de las seis pruebas de vista anterior se comprueban ahora
+por API/servicio y navegación en navegador. Evidencia servidor y comandos
+en `docs/retiro-delivery-manager.md`. Quedan 12 HTML/30 estáticos portal.
+Fase 11 abierta; sin push ni activar política/accesos globales.
+
 Bloque más reciente: EVA 1 y EVA 3, base 8c47a2c. Retiradas sus dos plantillas
 y tres fragmentos anteriores. Datos, fuentes y cambios de diseño/logos
 intactos; histórico EVA 1 mantiene 401 ante login pendiente y EVA 3 redirige.

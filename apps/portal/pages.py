@@ -152,14 +152,9 @@ def margins(request: HttpRequest) -> HttpResponse:
 @require_GET
 @require_capability("view_operations")
 def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
-    """Delivery Manager: el JS pide sus datos por pasos a la API.
-
-    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la pantalla de antes.
-    """
+    """Delivery Manager: el JS pide sus datos por pasos a la API."""
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if anterior_disponible() and request.GET.get("vista") == "anterior":
-        return views.delivery_manager(request, slug)
     name = (
         request.GET.get("nombre", "").strip() or slug.replace("-", " ").title()
     )

@@ -1,0 +1,235 @@
+{
+  ".hd": [
+    {
+      "box": [
+        26,
+        -323,
+        848,
+        58
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "18px 0px"
+      ],
+      "text": null
+    }
+  ],
+  ".kc": [
+    {
+      "box": [
+        26,
+        -247,
+        276,
+        116
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        312,
+        -247,
+        276,
+        116
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        598,
+        -247,
+        276,
+        116
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        26,
+        -121,
+        276,
+        116
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        312,
+        -121,
+        276,
+        116
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        598,
+        -121,
+        276,
+        116
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "13px 11px",
+        "0px"
+      ],
+      "text": null
+    }
+  ],
+  ".card": [
+    {
+      "box": [
+        26,
+        11,
+        848,
+        303.5
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        26,
+        328.5,
+        848,
+        580.9
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    }
+  ],
+  "#hours-chart": [
+    {
+      "box": [
+        43,
+        423.5,
+        814,
+        293.9
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": null
+    }
+  ],
+  "#hours-modal": [
+    {
+      "box": [
+        16,
+        209.2,
+        868,
+        581.6
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(32, 20, 94)",
+        "rgba(0, 0, 0, 0)",
+        "24px",
+        "209.219px 16px"
+      ],
+      "text": null
+    }
+  ],
+  "table": [
+    {
+      "box": [
+        43,
+        148,
+        1370,
+        149.5
+      ],
+      "css": [
+        "10px",
+        "400",
+        "rgb(34, 24, 88)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "ID del proyecto\tProyecto\tCuenta\tServicio\tInicio\tFin\tPresupuesto (h)\tConsumo (h)\tInv. operativa (h)\tInv. comercial (h)\tEstado\tAvance\tETC (h)\tRenovación (días)\tRiesgo abierto\n2\tPortal Pacientes\t\nCS\nClinica Sur\n\tT&M\t01/01/26\t31/12/26\t100\t40\t—\t—\tCrítico\n12 días de vencido\n\t50%\t60\t-12\t0\n3\tHIS\t\nA\nACME\n\tAER\t01/01/26\t31/12/26\t100\t125\t—\t—\tCrítico\nPresupuesto usado: 125%\n\t50%\t60\t0\t0"
+    },
+    {
+      "box": [
+        42,
+        498.8,
+        1120,
+        196
+      ],
+      "css": [
+        "13px",
+        "400",
+        "rgb(32, 20, 94)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "ID / PROYECTO\n↕\n\t\nCUENTA\n↕\n\t\nSERVICIO\n↕\n\t\nPRESUPUESTO PROYECTO (H)\n↕\n\t\nFACTURABLES\n↕\n\t\nINV. OPERATIVA\n↕\n\t\nINV. COMERCIAL\n↕\n\t\nTOTAL\n↕\n\t\n% DEL MES\n↕\n\n\nPortal Pacientes\n2\n\t\nCS\nClinica Sur\n\tT&M\t100 h\t30 h\t5 h\t3 h\t38 h\t97.4%\n\n=HIS\n3\n\t\n—\nSin cuenta\n\tAER\tSin presupuesto\t1 h\t0 h\t0 h\t1 h\t2.6%"
+    }
+  ]
+}

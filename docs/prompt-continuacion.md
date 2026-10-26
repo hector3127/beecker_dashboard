@@ -10,7 +10,16 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
-**Último bloque: EVA 1/3 sobre 8c47a2c.** Leer `docs/retiro-eva13.md`.
+**Último bloque: Delivery Manager sobre f38602b.** Leer
+`docs/retiro-delivery-manager.md`. Retiradas plantilla/vista HTML anteriores;
+API, cálculos, dm_state/dm_rows y caché intactos (no retirarlos). Seis
+referencias de página/detalle mensual a 1450/900/390 px guardadas ANTES del
+retiro pasan con CSP. 1756 servidor, 22 Chrome y 502 Node aprobadas; comandos en el informe.
+Enlaces obsoletos sirven frontend sin fuentes al montar. Quedan 12 HTML/30
+estáticos; continuar otras comparaciones/CSP. Sin push ni activar política
+o accesos globales. Temporales ajenos intactos.
+
+**Bloque previo: EVA 1/3 sobre 8c47a2c.** Leer `docs/retiro-eva13.md`.
 Retiradas sus dos plantillas y tres fragmentos anteriores, sin cambiar datos,
 fuentes, modelos ni diseños/logos. Doce referencias de tablas activas/históricas
 a 1450/900/390 px guardadas ANTES del retiro pasan con CSP de prueba.
