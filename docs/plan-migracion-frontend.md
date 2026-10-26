@@ -7,6 +7,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — segundo bloque (26/10).** Diccionario sin vista/plantilla anterior,
+manteniendo búsqueda y enlaces obsoletos. Capturas vigentes idénticas antes/
+después a 1450/900/390 px. PNG con html2canvas real validado bajo CSP de bloqueo
+en la guía: solo se autorizan las huellas exactas de sus dos estilos estáticos,
+sin unsafe-inline. 1686 servidor (portal/core/accesos), 54 Chrome, 498 Node
+y revalidación de las 15 de captura
+aprobadas. Ruff/formato y mypy pasan. CSP global sigue sin activar; fase 11
+no terminada. Ver `docs/preparacion-fase-11.md`.
+
 **Fase 11 en curso — primer retiro completado (26/10).** EVA-04 ya no tiene
 vista/plantilla antigua ni bifurcación de comparación; los enlaces guardados
 con `vista=anterior` conservan la pantalla nueva y su selector de mes. No se

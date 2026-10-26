@@ -25,6 +25,13 @@ MAX_REPORT_BYTES = 8192
 # Rutas con HTML ajeno al portal: sus avisos solo meterian ruido.
 UNREPORTED_PREFIXES = ("/admin/", "/static/")
 
+# Exact, static styles added to the capture clone by html2canvas 1.4.1 and
+# ui/page-capture.js. No general inline styles or inline attributes allowed.
+CAPTURE_STYLE_HASHES = (
+    "'sha256-UP0QZg7irvSMvOBz9mH2PIIE28+57UiavRfeVea0l3g='",
+    "'sha256-Qi+bjq9pQr28J54Znz4lSIjsJkpTaROcwTcJgTep4R8='",
+)
+
 
 def build_policy(nonce: str) -> str:
     """Politica que cumple el layout nuevo, sin 'unsafe-inline'."""
@@ -32,7 +39,8 @@ def build_policy(nonce: str) -> str:
         [
             "default-src 'self'",
             f"script-src 'self' 'nonce-{nonce}'",
-            "style-src 'self' https://fonts.googleapis.com",
+            "style-src 'self' https://fonts.googleapis.com "
+            + " ".join(CAPTURE_STYLE_HASHES),
             "font-src https://fonts.gstatic.com",
             # Local File previews (account logos) use URL.createObjectURL().
             "img-src 'self' data: blob:",

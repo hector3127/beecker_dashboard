@@ -10,8 +10,9 @@ pytestmark = pytest.mark.django_db(transaction=True)
 PAGE = "/diccionario-datos/"
 
 
-def test_lists_every_concept_with_the_reference_layout(portal):
-    portal.goto(portal.base + PAGE)
+@pytest.mark.parametrize("query", ["", "?vista=anterior"])
+def test_lists_every_concept_with_the_reference_layout(portal, query):
+    portal.goto(portal.base + PAGE + query)
 
     expect(
         portal.get_by_role("heading", name="Diccionario de datos")
@@ -48,8 +49,9 @@ def test_search_ignores_accents_keeps_the_url_and_clears(portal):
     assert "q=" not in portal.url
 
 
-def test_the_search_in_the_url_is_applied_on_load(portal):
-    portal.goto(f"{portal.base}{PAGE}?q=clockify")
+@pytest.mark.parametrize("suffix", ["", "&vista=anterior"])
+def test_the_search_in_the_url_is_applied_on_load(portal, suffix):
+    portal.goto(f"{portal.base}{PAGE}?q=clockify{suffix}")
 
     expect(portal.locator("#dictionary-search")).to_have_value("clockify")
     assert portal.locator("[data-dictionary-entry]:visible").count() < len(
@@ -85,7 +87,7 @@ def test_reference_layout_preserves_every_original_definition(portal):
         expect(row.locator(".dictionary-source-badge")).to_have_text(source)
 
 
-def test_categories_search_order_and_reset_work_together(portal):
+def test_categories_search_order_and_reset_work_together(portal, enforced_csp):
     portal.goto(portal.base + PAGE)
     expect(portal.locator("#dictionary-count")).to_have_text(
         f"{len(CONCEPTS)} conceptos"
@@ -123,7 +125,7 @@ def test_categories_search_order_and_reset_work_together(portal):
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
-def test_dictionary_reference_design_is_responsive(portal, width):
+def test_dictionary_reference_design_is_responsive(portal, width, enforced_csp):
     from pathlib import Path
 
     portal.set_viewport_size({"width": width, "height": 1000})

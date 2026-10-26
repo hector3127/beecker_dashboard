@@ -1,4 +1,4 @@
-"""Shared PNG export on modular and previous dashboard screens."""
+"""Shared PNG export on modular screens, including obsolete saved links."""
 
 import re
 from pathlib import Path
@@ -34,10 +34,7 @@ STUB = """window.html2canvas = async (target, options) => {
         "/proyectos/AMK.008/",
     ],
 )
-def test_every_layout_exports_its_current_content(
-    portal, datos, monkeypatch, width, path
-):
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
+def test_every_layout_exports_its_current_content(portal, datos, width, path):
     portal.add_init_script(STUB)
     portal.set_viewport_size({"width": width, "height": 1000})
     portal.goto(portal.base + path)
@@ -62,9 +59,15 @@ def test_every_layout_exports_its_current_content(
     )
 
 
+@pytest.mark.parametrize("policy", ["default", "enforced"])
 def test_real_library_downloads_a_valid_png_and_loads_only_on_demand(
-    portal, datos
+    portal, datos, request, policy
 ):
+    from tests.e2e.conftest import watch
+
+    if policy == "enforced":
+        request.getfixturevalue("enforced_csp")
+    problems = watch(portal)
     portal.goto(portal.base + "/guia-de-interfaz/")
     assert portal.locator('script[src*="html2canvas"]').count() == 0
     with portal.expect_download(timeout=60000) as result:
@@ -76,6 +79,7 @@ def test_real_library_downloads_a_valid_png_and_loads_only_on_demand(
     expect(portal.locator(".capture-status")).to_have_text(
         "Captura descargada."
     )
+    assert problems == []
 
 
 def test_failed_library_download_allows_retry(portal, datos):

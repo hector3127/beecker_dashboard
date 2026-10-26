@@ -18,6 +18,14 @@ No recrearlas. Capturas vigentes idénticas antes/después a 1450/900/390 px;
 1682 servidor (portal/core/accesos), 498 Node y 38 Chrome pasan. `enforced_csp` sirve para las pruebas
 futuras; no hay bloqueo global. Faltan las otras referencias y CSP de captura
 real/gráficos/ventanas. La evidencia de preparación que sigue es previa.
+Segundo bloque posterior: diccionario sin vista/plantilla anterior, mantiene
+búsqueda y enlaces obsoletos; capturas vigentes idénticas en tres tamaños.
+La captura PNG real en la guía ya pasa con CSP gracias a dos huellas exactas
+de estilos estáticos en core.frontend, sin unsafe-inline. 1686 servidor,
+54 Chrome y 498 Node
+pasan; se repitieron las 15 pruebas de captura. Falta extender la comprobación
+a otras capturas, gráficas y ventanas y retirar las demás referencias. No
+activar CSP global ni permisos todavía; no recrear las pantallas retiradas.
 La migración local de logos está aplicada; en otros entornos ejecutar migrate.
 Se corrigió una regresión de rangos MPB repetidos respecto al cierre anterior
 y se probó CSP de la vista previa del logo en navegador, sin activar bloqueo

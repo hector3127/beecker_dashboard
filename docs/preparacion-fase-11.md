@@ -40,6 +40,39 @@ la preparación previa; el primer retiro ya se completó en el bloque siguiente.
   Quedan 32 HTML anteriores en portal; no borrarlos todos ni eliminar sus
   servicios Python por compartir carpeta con las vistas anteriores.
 
+## Segundo bloque: diccionario y captura con CSP
+
+- Retiradas `views.diccionario_datos`, su plantilla y la bifurcación de
+  `pages.dictionary`. Se conservan URL/nombre de ruta, definiciones/API,
+  login, regreso, búsqueda, categorías y orden. `vista=anterior` abre la
+  modular y mantiene `q`. Quedan 31 HTML anteriores en portal.
+- Referencia vigente antes/después idéntica píxel a píxel a 1450/900/390 px;
+  las posteriores se tomaron con CSP de bloqueo solo en pruebas. Copias en
+  `tmp/fase11/dictionary-before/` y `tmp/design/dictionary-reference/`.
+  SHA256 escritorio:
+  `37ad120db1099085fb472f4e2c9ad3352a04aed981b263d0841a145fed8bc58f`.
+- La prueba de captura con html2canvas REAL detectó dos estilos del documento
+  clonado bloqueados. La política propuesta permite SOLO sus dos huellas
+  SHA256 (`core.frontend.CAPTURE_STYLE_HASHES`): pseudoelementos de html2canvas
+  1.4.1 y reglas estáticas de animación/elementos ignorados de page-capture.js.
+  No se permite unsafe-inline ni estilo arbitrario; no se modifica vendor.
+  Si cambian versión o contenidos, revisar las huellas y repetir la prueba.
+- Tras corregir ese fallo diagnóstico, 54 Chrome aprobadas en
+  `test_diccionario.py`, `test_page_capture.py`, `test_eva4.py` y
+  `test_account_logos.py`. Revalidación del archivo de capturas tras quitar su
+  dependencia del corte antiguo: 15 aprobadas (solapan con las 54).
+  La biblioteca real se comprueba con política normal y de bloqueo en la guía:
+  PNG válido, carga diferida y ausencia de infracciones. No certifica todavía
+  la captura de todas las pantallas.
+- 498 Node aprobadas; Ruff/formato (707 archivos) y mypy aprobados.
+  Pruebas nuevas verifican login y shell sin datos con/sin parámetro obsoleto.
+  Las pruebas de captura ya no fuerzan disponibilidad de una versión anterior.
+- Revisión ampliada final: `pytest tests/portal tests/core tests/access -q
+  --no-cov --tb=short`: 1686 aprobadas en 101 s, sin omisiones ni fallos.
+  Incluye las 61 dirigidas iniciales; no sumar como casos distintos.
+- CSP global y accesos siguen sin activarse. Continuar otras referencias y
+  ampliar CSP real a gráficas, ventanas y capturas representativas.
+
 ## Integración revisada
 
 - Base revisada: `24cd3cf` (diseño/logos) y `834bbfa` (fechas de Capacidad).

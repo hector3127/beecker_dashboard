@@ -41,8 +41,14 @@ comparación. Los enlaces antiguos sirven la pantalla modular sin perder mes.
 1682 pruebas de servidor (portal/core/accesos), 498 Node y 38 Chrome aprobadas; imágenes
 antes/después idénticas a 1450/900/390 px, incluso con CSP real en las pruebas
 de paginación/CSV. `enforced_csp` permite validar otras pantallas sin activar
-bloqueo global. Continuar por las demás referencias y la captura real con CSP;
-no retirar todavía bases compartidas ni servicios JSON. Fase 11 no cerrada.
+bloqueo global. Segundo bloque: diccionario sin vista/plantilla anterior,
+enlaces obsoletos conservados y capturas vigentes idénticas en tres tamaños.
+PNG real en la guía pasa con CSP mediante dos huellas exactas de estilos
+estáticos (`CAPTURE_STYLE_HASHES`), sin unsafe-inline. 1686 servidor,
+54 Chrome y 498 Node
+pasan. Extender CSP a gráficas/ventanas/capturas representativas y continuar
+otras referencias. No borrar bases compartidas ni servicios JSON en bloque.
+Fase 11 no cerrada.
 ACCESS_ENFORCED/Genesis sigue siendo decisión de despliegue. Las frases
 «fase 10 parcial» de los bloques históricos siguientes no son el estado actual.
 

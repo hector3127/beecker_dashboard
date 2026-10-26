@@ -1,5 +1,7 @@
 """Soporte del frontend: CSP, importmap y tokens del sistema de diseno."""
 
+import base64
+import hashlib
 import json
 import logging
 import re
@@ -7,6 +9,8 @@ from pathlib import Path
 
 import pytest
 from django.test import Client
+
+from core.frontend import CAPTURE_STYLE_HASHES
 
 ROOT = Path(__file__).resolve().parents[2]
 FRONTEND = ROOT / "frontend"
@@ -34,6 +38,28 @@ def test_policy_is_only_announced_when_the_flag_is_on(client, settings):
     assert "img-src 'self' data: blob:" in policy
     assert "Content-Security-Policy" not in response
     assert "report-uri /csp-report/" in policy
+
+
+def test_capture_style_hashes_match_only_the_two_static_capture_styles():
+    pseudo = '{\n    content: "" !important;\n    display: none !important;\n}'
+    vendor_style = (
+        ".___html2canvas___pseudoelement_before:before"
+        + pseudo
+        + "\n         .___html2canvas___pseudoelement_after:after"
+        + pseudo
+    )
+    app_style = (
+        "*{animation:none!important;transition:none!important;"
+        "caret-color:transparent!important}"
+        "[data-html2canvas-ignore]{display:none!important}"
+    )
+    expected = tuple(
+        "'sha256-"
+        + base64.b64encode(hashlib.sha256(style.encode()).digest()).decode()
+        + "'"
+        for style in (vendor_style, app_style)
+    )
+    assert CAPTURE_STYLE_HASHES == expected
 
 
 def test_each_request_gets_its_own_nonce(client):

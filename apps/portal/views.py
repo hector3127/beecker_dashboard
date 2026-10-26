@@ -2163,20 +2163,6 @@ def cuenta_financiera(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
-def diccionario_datos(request: HttpRequest) -> HttpResponse:
-    """Muestra el diccionario de datos ejecutivo."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    from apps.portal.services.data_dictionary import CONCEPTS
-
-    return render(
-        request,
-        "portal/diccionario_datos.html",
-        {"concepts": CONCEPTS, "active": "ejecutiva"},
-    )
-
-
-@require_GET
 @period_view
 @require_capability("view_costs")
 def oportunidades_financieras(request: Any) -> Any:

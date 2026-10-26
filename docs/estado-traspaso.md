@@ -2,7 +2,24 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 11 iniciada, retirada referencia EVA-04 (26/10)
+## Bloque actual: fase 11, diccionario y captura con CSP (26/10)
+
+- Retiradas vista/plantilla anterior del diccionario y su bifurcación. Se
+  conservan URL/nombre, búsqueda/orden/categorías, definiciones/API y login.
+  Enlaces obsoletos mantienen búsqueda y pantalla modular. Referencias visuales
+  vigentes idénticas antes/después a 1450/900/390 px, con CSP real en pruebas.
+- La captura PNG REAL en la guía detectó dos estilos estáticos bloqueados.
+  `CAPTURE_STYLE_HASHES` permite solo sus huellas exactas, sin unsafe-inline
+  ni editar vendor. Revalidar si cambia html2canvas 1.4.1 o CSS de onclone.
+- 1686 servidor (portal/core/accesos), 54 Chrome y 498 Node aprobadas;
+  se repitieron las 15 pruebas de captura tras
+  eliminar su dependencia del corte anterior. Ruff/formato y mypy pasan.
+- Siguiente: otras referencias, gráficas/ventanas y capturas representativas
+  con CSP real. No confundir la captura de la guía con certificación de todas
+  las pantallas. Bloqueo global/accesos no activados. No borrar servicios JSON
+  ni bases compartidas en bloque; quedan 31 HTML anteriores. Sin push.
+
+## Bloque previo: fase 11 iniciada, retirada referencia EVA-04 (26/10)
 
 - Eliminadas `views.eva4`, su plantilla `portal/eva4_anterior.html` y la
   bifurcación de `pages.eva4`. El parámetro obsoleto no rompe enlaces guardados:

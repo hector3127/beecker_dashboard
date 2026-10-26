@@ -222,14 +222,9 @@ def account(request: HttpRequest, slug: str) -> HttpResponse:
 
 @require_GET
 def dictionary(request: HttpRequest) -> HttpResponse:
-    """Diccionario de datos: el JS pide las definiciones a la API.
-
-    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la pantalla de antes.
-    """
+    """Diccionario de datos: el JS pide las definiciones a la API."""
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if anterior_disponible() and request.GET.get("vista") == "anterior":
-        return views.diccionario_datos(request)
     return render(request, "pages/dictionary.html", {"active": "ejecutiva"})
 
 
