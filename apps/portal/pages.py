@@ -328,8 +328,7 @@ def all_accounts(request: HttpRequest) -> HttpResponse:
 def costs(request: HttpRequest) -> HttpResponse:
     """Detalle de costos por proyecto (o la comparativa de margenes).
 
-    Aqui ?vista= elige entre proyectos y margenes, asi que la pantalla
-    anterior se pide con ?anterior=1.
+    Aqui ?vista= elige entre proyectos y margenes.
     """
     scope = scope_for(request)
     named = request.GET.get("nombre", "").strip()
@@ -341,9 +340,7 @@ def costs(request: HttpRequest) -> HttpResponse:
         return margins(request)
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if not (anterior_disponible() and request.GET.get("anterior") == "1"):
-        request.portal_template = "pages/costs.html"  # type: ignore[attr-defined]
-    return views.costos_detalle(request)
+    return _current(request, views.costos_detalle, "pages/costs.html")
 
 
 @require_GET

@@ -283,3 +283,78 @@ def test_cost_reference_design_is_responsive(portal, width):
     output = Path("tmp/design/costs-reference")
     output.mkdir(parents=True, exist_ok=True)
     portal.screenshot(path=str(output / f"costs-{width}.png"), full_page=True)
+
+
+def test_partial_breakdown_updates_the_row_and_the_summary(portal, monkeypatch):
+    partial = {
+        "id": "AER.002",
+        "hours": 100,
+        "cost": 700,
+        "revenue": 10000,
+        "margin": 93,
+        "complete": False,
+        "missing_hours": 7,
+        "people": [DETAIL["people"][0] | {"hours": 93, "rate": 7, "cost": 651}],
+        "sprints": [],
+    }
+    monkeypatch.setattr(
+        "apps.portal.services.cost_audit_cache.prepared_detail",
+        lambda pid, account: partial,
+    )
+    portal.goto(portal.base + PAGE)
+    portal.locator("[data-persons='AER.002']").click()
+
+    row = portal.locator("#cost-audit-body > tr:not(.audit-detail-row)").nth(1)
+    expect(row).to_contain_text("93%*")
+    expect(row).to_contain_text("Costo parcial")
+    expect(row.locator("xpath=following-sibling::tr[1]")).to_contain_text("Ana")
+
+
+def test_prepared_sprint_breakdown_expands_without_new_requests(
+    portal, monkeypatch
+):
+    person = DETAIL["people"][0] | {
+        "name": "Ana <Test>",
+        "hours": 2,
+        "cost": 14,
+    }
+    detail = DETAIL | {
+        "people": [person],
+        "task_details_complete": True,
+        "sprints": [
+            {
+                "label": "S1",
+                "project_id": "AER.001_S1",
+                "hours": 2,
+                "cost": 14,
+                "complete": True,
+                "people": [person],
+            }
+        ],
+    }
+    summary = {
+        "projects": [detail],
+        "cost": 14,
+        "complete": True,
+        "pending": 0,
+        "future": 0,
+        "deduplicated_entries": 0,
+        "band_month": "2026-10",
+        "prepared_details": {"aer.001": detail},
+    }
+    monkeypatch.setattr(
+        "apps.portal.services.cost_audit_cache.prepared_summary",
+        lambda account: summary,
+    )
+    portal.goto(portal.base + PAGE)
+    requests = []
+    portal.on("request", lambda request: requests.append(request.url))
+    portal.locator("[data-persons='AER.001']").click()
+
+    panel = portal.locator(".audit-detail").first
+    expect(panel).to_contain_text("Consumo por sprint")
+    expect(panel).to_contain_text("AER.001_S1")
+    expect(panel).to_contain_text("Personas y esfuerzo")
+    expect(panel).to_contain_text("Ana <Test>")
+    assert portal.locator(".audit-detail b").count() == 0
+    assert not [url for url in requests if "/api/" in url]

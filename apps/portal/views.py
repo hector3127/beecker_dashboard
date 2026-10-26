@@ -1793,7 +1793,7 @@ def costos_detalle(request: HttpRequest) -> HttpResponse:
     navigation = return_context(request, back, account or "Business Overview")
     return render_page(
         request,
-        "portal/costos_detalle.html",
+        "pages/costs.html",
         {
             "active": "ejecutiva",
             "loaded_at": timezone.localtime(),
