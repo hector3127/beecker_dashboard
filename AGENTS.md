@@ -31,7 +31,12 @@ parametrización vacía por tres casos de acceso reales. Resultado consolidado:
 ejecuciones separadas; no se afirma una segunda corrida general de una hora.
 Ruff/formato, Django y mypy aprobados. Código en fa4bf11; cierre documentado.
 
-Lo siguiente es la **fase 11** (limpieza y CSP), cuando el usuario la pida.
+El usuario autorizó preparar la **fase 11**. La integración posterior del
+rediseño está validada: migración local de logos aplicada, regresión de rangos
+MPB restaurada al contrato previo y ajuste CSP de vista previa probado sin
+bloqueo global. Evidencia: 388 servidor, 498 Node, 74 Chrome; revalidación
+logos/CSP 15 casos (con solapamiento). Ver `docs/preparacion-fase-11.md`.
+Continuar con limpieza coordinada y auditoría CSP; fase 11 no está cerrada.
 ACCESS_ENFORCED/Genesis sigue siendo decisión de despliegue. Las frases
 «fase 10 parcial» de los bloques históricos siguientes no son el estado actual.
 

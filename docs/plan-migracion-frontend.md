@@ -7,6 +7,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Entrada a fase 11 preparada tras integrar el rediseño (26/10).** Se aplicó
+localmente la migración de logos, se corrigieron tipado/formato y se restauró
+el contrato previo de rangos MPB repetidos. 388 pruebas de servidor, 498 Node
+y 74 Chrome aprobadas; revalidación posterior CSP/logos: 15 aprobadas con
+solapamiento. La vista previa también funciona con CSP de bloqueo en la prueba,
+sin activarla en despliegue. Inventario, comandos y trabajo restante en
+`docs/preparacion-fase-11.md`. No se han retirado los originales ni cerrado
+la fase 11. La evidencia de cierre de fase 10 que sigue es anterior al rediseño.
+
 La ruta activa ya no carga script/shim/CSS de portal: arranca desde main con
 estado, controladores y delegados públicos modulares. El CSS compartido se
 traslada literalmente a `project_detail_base.css`, sin cambiar reglas. La

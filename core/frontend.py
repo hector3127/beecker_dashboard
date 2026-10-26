@@ -34,7 +34,8 @@ def build_policy(nonce: str) -> str:
             f"script-src 'self' 'nonce-{nonce}'",
             "style-src 'self' https://fonts.googleapis.com",
             "font-src https://fonts.gstatic.com",
-            "img-src 'self' data:",
+            # Local File previews (account logos) use URL.createObjectURL().
+            "img-src 'self' data: blob:",
             "connect-src 'self'",
             "base-uri 'self'",
             "form-action 'self'",

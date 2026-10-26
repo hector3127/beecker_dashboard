@@ -1,5 +1,6 @@
 """Upload preview, persistent logo, listing and removal in a real browser."""
 
+import re
 from io import BytesIO
 
 import pytest
@@ -10,6 +11,39 @@ from apps.portal.models import AccountLogo
 
 pytestmark = pytest.mark.django_db(transaction=True)
 PAGE = "/cuenta/clinica-sur/?nombre=Clinica+Sur"
+
+
+def test_logo_preview_with_enforced_csp(portal, datos, settings):
+    """Enforce the future policy in this browser only, not in deployment."""
+    settings.CSP_REPORT_ONLY = True
+
+    def enforce_policy(route):
+        response = route.fetch()
+        headers = dict(response.headers)
+        headers["content-security-policy"] = headers.pop(
+            "content-security-policy-report-only"
+        )
+        route.fulfill(response=response, headers=headers)
+
+    portal.route("**/cuenta/clinica-sur/?nombre=Clinica+Sur", enforce_policy)
+    portal.goto(portal.base + PAGE)
+    portal.get_by_role("button", name="Cambiar logo").click()
+    image = BytesIO()
+    Image.new("RGB", (80, 60), "green").save(image, "PNG")
+    portal.locator("#account-logo-file").set_input_files(
+        {
+            "name": "logo.png",
+            "mimeType": "image/png",
+            "buffer": image.getvalue(),
+        }
+    )
+    preview = portal.locator("#account-logo-preview")
+    expect(preview).to_be_visible()
+    expect(preview).to_have_attribute("src", re.compile(r"^blob:"))
+    expect(preview).to_have_js_property("naturalWidth", 80)
+    expect(
+        portal.get_by_role("button", name="Guardar logo", exact=True)
+    ).to_be_enabled()
 
 
 @pytest.mark.parametrize("width", [1450, 390])

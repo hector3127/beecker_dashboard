@@ -31,6 +31,8 @@ def test_policy_is_only_announced_when_the_flag_is_on(client, settings):
 
     assert f"'nonce-{nonce_of(response.content.decode())}'" in policy
     assert "'unsafe-inline'" not in policy
+    assert "img-src 'self' data: blob:" in policy
+    assert "Content-Security-Policy" not in response
     assert "report-uri /csp-report/" in policy
 
 

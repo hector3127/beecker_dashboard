@@ -2,7 +2,29 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 10 completada y validada (26/10/2026)
+## Bloque actual: integración validada; entrada a fase 11 (26/10/2026)
+
+La fase 10 sigue cerrada. Integrados y revisados los cambios de diseño/logos
+de `24cd3cf` y fechas de `834bbfa`. Migración local `portal.0003_account_logo`
+aplicada con respaldo previo; otros entornos deben ejecutar migrate.
+Corregidos tipado/formato y regresión del rango MPB repetido: el acceso normal
+vuelve a abarcar todas las filas, igual que antes de esa integración.
+Se conservan los demás cambios funcionales y el diseño del compañero.
+
+388 pruebas de servidor, 498 Node y 74 Chrome aprobadas. Una nueva prueba
+CSP confirma la decodificación de la vista previa del logo con bloqueo real
+solo en el navegador de pruebas; repetición completa logos/CSP: 15 aprobadas
+(solapan con las anteriores). Ruff/formato, mypy, check y migraciones pasan.
+No es una segunda ejecución de toda la suite general ni una certificación
+visual de todas las pantallas nuevas. No se activa CSP global ni accesos.
+
+**Continuar por `docs/preparacion-fase-11.md`:** retirar comparaciones/archivos
+anteriores conservando pruebas del producto vigente, no borrar servicios JSON
+ni cálculos de views.py, auditar CSP de captura/gráficos/ventanas y ejecutar
+el cierre completo. No reabrir fase 10 ni dar fase 11 por terminada.
+Temporales ajenos intactos. Sin push.
+
+## Cierre previo: fase 10 completada y validada (26/10/2026)
 
 - La plantilla activa ya no referencia `proyecto_detalle.js`, `gas_shim.js`
   ni el CSS de portal. El CSS compartido se copia sin cambios de bytes a

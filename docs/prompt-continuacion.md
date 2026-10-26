@@ -10,6 +10,16 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
+**Actualización 26/10 posterior al rediseño:** lee también
+`docs/preparacion-fase-11.md`. El usuario autorizó preparar la fase 11.
+La migración local de logos está aplicada; en otros entornos ejecutar migrate.
+Se corrigió una regresión de rangos MPB repetidos respecto al cierre anterior
+y se probó CSP de la vista previa del logo en navegador, sin activar bloqueo
+global. Pasan 388 servidor, 498 Node y 74 Chrome; revalidación logos/CSP 15
+casos solapados. Los apartados de evidencia que siguen son históricos.
+Continuar por limpieza de referencias y auditoría CSP del diseño vigente,
+conservando servicios JSON/cálculos y pruebas actuales. Fase 11 no terminada.
+
 **Estado vigente: la fase 10 está completada.** El detalle de AER/T&M e
 IXB/SaaS/RaaS y el Ejecutivo genérico usan HTML, CSS y JS de `frontend/`, con
 estado/controladores propios. La plantilla activa no carga
