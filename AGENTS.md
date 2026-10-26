@@ -303,8 +303,14 @@ y API v1 `screens/proyectos/<id>/clockify-rango/`, con el mismo resolver,
 permiso y alcance total. Conserva carga, texto, fechas locales y vacío ante
 fallos; ignora respuestas superadas o de un nodo reemplazado. El helper
 anterior solo delega en la ruta nueva y conserva RPC para la comparación.
-Siguen pendientes las fuentes RAID/tasks y acciones genéricas, estructura
-de tarjetas/botones y coordinación; después compatibilidad y arranque autónomo.
+RAID/tasks genéricos ya usan `generic_sources{,_model,_view}.js`, CSS externo
+y sus APIs v1 existentes (mismos servicios/permisos). Conservan totales del
+servidor, filas/duplicados, orden, inversión, rango, tareas sin horas y errores.
+Los dos helpers anteriores solo delegan en la ruta nueva; el respaldo RPC
+permanece para comparar. Texto con DOM seguro; respuestas superadas o nodos
+reemplazados no sobrescriben los paneles/totales vigentes.
+Siguen pendientes acciones genéricas, estructura de tarjetas/botones y
+coordinación; después compatibilidad y arranque autónomo.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

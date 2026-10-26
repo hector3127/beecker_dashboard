@@ -9,32 +9,35 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque migra el rango Clockify a
+   diferencia con `origin/main`. El último bloque migra las lecturas y vistas
+   RAID/tasks del genérico a `generic_sources{,_model,_view}.js` y CSS externo,
+   reutilizando API v1 y los mismos servicios/permisos. Conserva totales,
+   inversión, orden, duplicados, tareas sin horas y mensajes. Texto seguro y
+   protección de respuestas superadas/nodos reemplazados; helpers anteriores
+   solo delegan en la ruta nueva. No repetirlos. Siguen acciones, estructura
+   de tarjetas/botones y coordinación genérica; después compatibilidad sin
+   proyecto/cuenta y arranque autónomo. El bloque previo migra el rango Clockify a
    `project_clockify_range.js` y API v1 `clockify-rango/`, con el mismo servicio,
    fechas locales, carga y vacío ante fallos. El helper anterior delega; descarta
-   respuestas superadas/nodos reemplazados. No repetirlo. Siguen RAID/tasks,
-   acciones, tarjetas/botones y coordinación genéricos; después compatibilidad
-   sin proyecto/cuenta y arranque autónomo. El bloque previo migra las gráficas por área
+   respuestas superadas/nodos reemplazados. No repetirlo.
+   El bloque previo migra las gráficas por área
    y horas por recurso/rol en generic_charts{,_model,_view}.js y CSS externo.
    Conserva escala completa, paleta, orden y cinco filas iniciales; expansión
-   local sin RPC ni helpers anteriores. No repetirlas. Quedan fuentes/acciones,
-   estructura de tarjetas/botones y coordinación final del genérico.
+   local sin RPC ni helpers anteriores. No repetirlas.
    El bloque previo separa encabezado y seis KPIs
    genéricos en `generic_header_model.js`, `generic_header_view.js` y CSS externo.
    Conserva formatos/umbrales y crea el mini-donut con SVG DOM. Los flags de
-   estado/cierre siguen viniendo del renderer transitorio. Quedan gráficas,
-   fuentes y acciones: no repetir encabezado ni KPIs.
+   estado/cierre siguen viniendo del renderer transitorio.
+   No repetir encabezado ni KPIs.
    El bloque previo separa tabla de recursos y
    resumen de hitos genéricos con modelo/vista y CSS externos (`generic_panels*`).
    No repetir esos componentes: preservan datos, IDs y formato original.
-   Siguen pendientes encabezado/KPIs, gráficas, fuentes y acciones genéricas.
    El bloque previo migra el dibujo de la línea
    temporal genérica a `generic_timeline_view.js` y CSS externo, con DOM seguro.
    Se monta en el renderer transitorio sin ejecutar su Gantt HTML anterior.
-   El resto de la vista genérica, estilos, fuentes y formularios sigue pendiente.
    El bloque previo separa el cálculo temporal
    genérico en `generic_timeline_model.js`, con referencia al fallback original.
-   La vista/CSS y fuentes genéricas siguen pendientes: no marcarla migrada.
+   No marcar completo todo el Ejecutivo genérico por estos bloques.
    Se detectaron diferencias previas entre plantillas (botones 25/44 px);
    la comparación incremental del modelo usa la misma plantilla moderna.
    El bloque previo crea `project_entry_runtime.js`:

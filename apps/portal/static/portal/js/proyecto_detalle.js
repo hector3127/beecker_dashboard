@@ -1648,6 +1648,7 @@
   var idProyectoActualGlobal = window.beeProjectState ? window.beeProjectState.projectId : null;
 
   function cargarHorasTasksProyectoClockify(idProyecto) {
+    if (window.beeGenericSources) return window.beeGenericSources.tasks(idProyecto);
     const cont = document.getElementById('clockify-task-hours-proyecto');
     if (!cont || !idProyecto) return;
 
@@ -1739,6 +1740,7 @@
   }
 
   function cargarRaidProyectoEjecutivoAzure(idProyecto) {
+    if (window.beeGenericSources) return window.beeGenericSources.raid(idProyecto);
     const contRiesgos = document.getElementById('riesgos-criticos-proyecto-azure');
     const elRiesgos = document.getElementById('raid-proyecto-riesgos');
     const elPendientes = document.getElementById('raid-proyecto-pendientes');

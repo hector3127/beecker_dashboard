@@ -116,6 +116,39 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Fuentes RAID y horas por tarea del Ejecutivo genérico (25/10/2026)
+
+`generic_sources.js` controla ambas lecturas mediante las APIs v1 existentes
+`raid/` y `tasks/`. `generic_sources_model.js` conserva redondeo/locale, filas,
+duplicados, orden, inversión, total del servidor, rango truncado y agrupación
+de tareas sin horas (también negativas, presentadas como 0 h por la regla
+anterior). No se recalculan consumos ni se filtran riesgos adicionales.
+
+`generic_sources_view.js` presenta ambos paneles con DOM seguro y la hoja
+externa `project_detail_generic_sources.css`. Conserva tabla, colores, tamaños,
+espaciado, estados vacíos, mensajes de error y desplegable nativo. Los helpers
+anteriores delegan en la ruta nueva; su RPC permanece solo como respaldo para
+la comparación. El controlador descarta respuestas superadas y no modifica
+paneles/totales que hayan sido reemplazados. No se cambia backend, permisos,
+alcance ni servicios de datos; el contrato API existente se conserva.
+
+Cinco Node nuevos contrastan formato/badges con auxiliares originales y
+verifican orden, valores faltantes, no mutación, totales originales, errores y
+respuestas tardías. Suite completa: **450 aprobadas y tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). **64 pruebas únicas
+de navegador aprobadas**: 22 del bloque (18 comparaciones contra anterior en
+tres tamaños, dos errores de transporte, texto seguro y respuesta tardía),
+12 de modelo/fallback genérico, diez del rango Clockify y 20 de entrada/
+pestañas/recarga. Se compara también el desplegable abierto en tres tamaños.
+Capturas en `tmp/migration/project_detail/generic_sources/`; inspeccionados
+tareas móvil y RAID escritorio. **82 API aprobadas** para contratos/permisos
+reutilizados. Ruff/formato, sintaxis JS, Django y diff aprobados.
+Sin consultas reales a proveedores.
+
+**Fase 10 parcial.** Siguiente: acciones genéricas, estructura de tarjetas/
+botones y coordinación; después casos sin proyecto/cuenta y arranque
+independiente. Mantener script/shim y no activar ACCESS_ENFORCED.
+
 ### Rango de Clockify por API y controlador modular (25/10/2026)
 
 `project_clockify_range.js` sustituye la lectura RPC de Discovery→Deployment

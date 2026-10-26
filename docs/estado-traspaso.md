@@ -2,7 +2,40 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: rango Clockify por API (25/10/2026)
+## Bloque actual: fuentes RAID y tareas del Ejecutivo genérico (25/10/2026)
+
+- `generic_sources.js` usa las APIs v1 `raid/` y `tasks/` existentes;
+  `generic_sources_model.js` conserva formato, filas/duplicados, orden,
+  inversión, totales del servidor, rango truncado y tareas sin horas (incluye
+  negativas como antes). No cambia servicios, permisos, alcance ni cálculos.
+- `generic_sources_view.js` y `project_detail_generic_sources.css` conservan
+  tabla, resumen, desplegable, tamaños/colores y mensajes. DOM seguro y CSS
+  externo. Los dos helpers anteriores solo delegan en la ruta nueva; respaldo
+  RPC conservado para comparar. Respuestas superadas o de nodos reemplazados
+  no modifican los paneles/totales vigentes. El esqueleto de carga permanece.
+- Cinco Node nuevos verifican formato/badges contra originales, orden,
+  defaults, totales sin recálculo, no mutación, errores y respuestas tardías.
+  Suite completa **450 aprobadas y tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`).
+- **22 pruebas nuevas de navegador aprobadas**: 18 comparaciones con la
+  anterior a 1450/900/390 px (lleno/vacío/error, ambas fuentes), dos fallos
+  de transporte, texto seguro con `innerHTML` bloqueado y respuesta tardía
+  tras reemplazar el panel. Verifican lecturas API sin RPC de estas fuentes,
+  totales y desplegable abierto en tres tamaños. Capturas en
+  `tmp/migration/project_detail/generic_sources/`; inspeccionados tareas móvil
+  y tabla RAID escritorio. Proveedores simulados/red externa bloqueada.
+- Regresión final: **64 pruebas únicas de navegador aprobadas** (las 22
+  nuevas, 12 de modelo/fallback genérico, diez de rango Clockify y 20 de
+  entrada/pestañas/recarga). **82 API aprobadas**, incluidos los contratos y
+  permisos de las lecturas reutilizadas. Ruff/formato, sintaxis JS, Django y
+  diff aprobados. No se suman dos veces las pruebas nuevas repetidas.
+- **Fase 10 parcial.** Siguiente: acciones genéricas, incluido el formulario
+  de alta de riesgos (`abrirModalRiesgo`/`guardarRiesgoDesdeModal`), estructura
+  de tarjetas/botones y coordinación; después casos sin proyecto/cuenta y
+  arranque independiente. Mantener script/shim, no activar ACCESS_ENFORCED,
+  no tocar Horas por mes. Cambios/temporales ajenos intactos; sin push.
+
+## Bloque anterior: rango Clockify por API (25/10/2026)
 
 - `project_clockify_range.js` controla la lectura Discovery→Deployment por
   `screens/proyectos/<id>/clockify-rango/`. Backend con el mismo repositorio y
