@@ -1,0 +1,235 @@
+{
+  ".ban": [
+    {
+      "box": [
+        12,
+        -2111.6,
+        366,
+        178.9
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "18px",
+        "0px 0px 14px"
+      ],
+      "text": "Comercial\nCrecimiento y rentabilidad\nAño de referencia\n2026"
+    }
+  ],
+  ".k4": [
+    {
+      "box": [
+        29,
+        -1724.3,
+        332,
+        639
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "Ventas cerradas\nBooking\n50K\n1 registros ganados · Importes disponibles\nPrevias al cierre\nCapacidad comercial\n50K\n2 registros abiertos · Importes disponibles\nCuentas con oportunidades abiertas\n1\nCuentas identificadas con oportunidades abiertas\nOportunidades\n3\nRegistros dentro de los filtros seleccionados"
+    }
+  ],
+  ".card": [
+    {
+      "box": [
+        12,
+        -1050.3,
+        366,
+        426.2
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "0px 0px 18px"
+      ],
+      "text": "Oportunidades por etapa\nDistribución de registros y monto · USD\nConfirmed\n33.3%\n1\n30K\nDiagnóstico\n33.3%\n1\n20K\nGanada\n33.3%\n1\n50K"
+    },
+    {
+      "box": [
+        12,
+        -586.2,
+        366,
+        226.2
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "0px 0px 18px"
+      ],
+      "text": "Cuentas con más oportunidades abiertas\nCuentas ordenadas por registros abiertos · montos en USD\nCuenta\tRegistros\tMonto\nACME\t2\t50K"
+    }
+  ],
+  ".commercial-section": [
+    {
+      "box": [
+        12,
+        -1918.7,
+        366,
+        850.4
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "0px 0px 18px"
+      ],
+      "text": "Resumen comercial\n\nTodas las cifras monetarias en dólares estadounidenses · K = miles · M = millones · B = mil millones · sin centavos\n\nTrabajo por entregar: fuente de Poly pendiente de validar.\n\nVentas cerradas\nBooking\n50K\n1 registros ganados · Importes disponibles\nPrevias al cierre\nCapacidad comercial\n50K\n2 registros abiertos · Importes disponibles\nCuentas con oportunidades abiertas\n1\nCuentas identificadas con oportunidades abiertas\nOportunidades\n3\nRegistros dentro de los filtros seleccionados"
+    },
+    {
+      "box": [
+        12,
+        -318,
+        366,
+        1424.4
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(36, 21, 104)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "0px 0px 24px"
+      ],
+      "text": "Carga comercial prevista por mes\n\nHoras de oportunidades abiertas de Backlog_Proyectos, ubicadas en el mes de su fecha de cierre.\n\n📅\nAño\n2026\nHoras confirmadas\n200 h\nGrupos\n2\nRegistros\n2\nProbabilidad 70%+\n70% o más · sin firma\nOportunidades de alta probabilidad · 200 h\n\n2 grupos · 2 registros\n\nDesliza la tabla para ver los meses y totales →\n\nServicio / cuentas\tEne\tFeb\tMar\tAbr\tMay\tJun\tJul\tAgo\tSep\tOct\tNov\tDic\tTotal (h)\tProbabilidad\n\nAER · 1 cuentas\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t80\t80\t\n70%\n\n\nCuenta\tEne\tFeb\tMar\tAbr\tMay\tJun\tJul\tAgo\tSep\tOct\tNov\tDic\tTotal (h)\tProbabilidad\nACME\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t\n80\n\t80\t\n70%\n\n\nSaaS · 1 cuentas\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t120\t0\t120\t\n90%\n\nTotal de horas\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t120\t80\t200\t\n\nUnidad: horas (h). El total reúne todas las cuentas de todos los servicios, incluidos los desplegables cerrados.\n\nOportunidades en desarrollo · 0 h\n\n0 grupos · 0 registros\n\nDesliza la tabla para ver los meses y totales →\n\nServicio / cuentas\t2026\t2027\tTotal (h)\tProbabilidad\nSin cuentas en este periodo.\nTotal de horas\t0\t0\t0\t\n\nUnidad: horas (h). El total reúne todas las cuentas de todos los servicios, incluidos los desplegables cerrados."
+    }
+  ],
+  "table": [
+    {
+      "box": [
+        29,
+        -468,
+        332,
+        75
+      ],
+      "css": [
+        "14px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "Cuenta\tRegistros\tMonto\nACME\t2\t50K"
+    },
+    {
+      "box": [
+        43,
+        431.4,
+        1080,
+        301
+      ],
+      "css": [
+        "12px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "Servicio / cuentas\tEne\tFeb\tMar\tAbr\tMay\tJun\tJul\tAgo\tSep\tOct\tNov\tDic\tTotal (h)\tProbabilidad\n\nAER · 1 cuentas\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t80\t80\t\n70%\n\n\nCuenta\tEne\tFeb\tMar\tAbr\tMay\tJun\tJul\tAgo\tSep\tOct\tNov\tDic\tTotal (h)\tProbabilidad\nACME\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t\n80\n\t80\t\n70%\n\n\nSaaS · 1 cuentas\n\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t120\t0\t120\t\n90%\n\nTotal de horas\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t120\t80\t200\t"
+    },
+    {
+      "box": [
+        53,
+        540.4,
+        1080,
+        87
+      ],
+      "css": [
+        "12px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "Cuenta\tEne\tFeb\tMar\tAbr\tMay\tJun\tJul\tAgo\tSep\tOct\tNov\tDic\tTotal (h)\tProbabilidad\nACME\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t\n80\n\t80\t\n70%"
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "CuentaEneFebMarAbrMayJunJulAgoSepOctNovDicTotal (h)ProbabilidadACME0000000000120012090%\n"
+    },
+    {
+      "box": [
+        43,
+        915.4,
+        620,
+        114
+      ],
+      "css": [
+        "12px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "Servicio / cuentas\t2026\t2027\tTotal (h)\tProbabilidad\nSin cuentas en este periodo.\nTotal de horas\t0\t0\t0\t"
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "CuentaOportunidadDelivery ManagerEtapaFecha de cierreServicioHorasMontoProbabilidadDatos adicionales"
+    }
+  ],
+  ".portal-back": [
+    {
+      "box": [
+        12,
+        -2155.6,
+        225.5,
+        44
+      ],
+      "css": [
+        "13px",
+        "700",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "10px 14px",
+        "0px"
+      ],
+      "text": "← Regresar a Business Overview"
+    }
+  ]
+}

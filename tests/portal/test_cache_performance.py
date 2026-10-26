@@ -84,13 +84,20 @@ def test_stale_page_returns_saved_cut_without_source_calls(
         "apps.portal.services.commercial_view.build_commercial_context",
         lambda _: pytest.fail("External read"),
     )
-    html = getattr(views, name)(RequestFactory().get(path)).content
-    assert b"cached_page.js" in html
-    assert b'data-portal-ready="true"' in html
+    render = Mock(wraps=views.render)
+    monkeypatch.setattr(views, "render", render)
+    response = getattr(views, name)(RequestFactory().get(path))
+    assert response.status_code == 200
+    assert render.call_args.args[1] == "pages/commercial.html"
+    context = render.call_args.args[2]
+    assert context["page_stale"] is True
+    assert context["marker"] == "saved"
     assert cache.get(key)["marker"] == "saved"
 
 
 def test_failed_refresh_preserves_commercial_cut(monkeypatch):
+    render = Mock(wraps=views.render)
+    monkeypatch.setattr(views, "render", render)
     key = "portal:commercial:context:v1:" + timezone.localdate().isoformat()
     cache.set(key, {"active": "comercial", "marker": "saved"}, 86400)
     monkeypatch.setattr(
@@ -100,7 +107,8 @@ def test_failed_refresh_preserves_commercial_cut(monkeypatch):
     response = views.comercial(
         RequestFactory().get("/comercial/", {"actualizar": "1"})
     )
-    assert b'data-portal-ready="false"' in response.content
+    assert response.status_code == 200
+    assert render.call_args.args[2]["refresh_failed"] is True
     assert cache.get(key)["marker"] == "saved"
     assert not cache.get(key + ":fresh")
 

@@ -12,6 +12,17 @@ from django.urls import resolve
 from apps.portal.services.opportunity_profitability import OPPORTUNITY_VERSION
 
 ROOT = Path(__file__).resolve().parents[2] / "apps/portal/templates/portal"
+
+
+@pytest.fixture(autouse=True)
+def no_background_refresh(monkeypatch):
+    """Las pruebas de navegación no deben lanzar lecturas de proveedores."""
+    monkeypatch.setattr(
+        "apps.portal.services.executive_refresh.request_refresh",
+        lambda *a, **k: {"state": "running"},
+    )
+
+
 LINKS = []
 for source in ROOT.glob("*.html"):
     for anchor in re.findall(
@@ -50,7 +61,7 @@ def test_return_links_resolve_to_correct_section(name, anchor):
 
 def test_commercial_return_preserves_selected_executive_dates():
     html = render_to_string(
-        "portal/comercial.html",
+        "pages/commercial.html",
         {
             "from_executive": True,
             "start": "2026-03-01",
@@ -85,7 +96,7 @@ def test_project_return_is_visible_before_async_dashboard_loads():
 @pytest.mark.parametrize("from_executive", [False, True])
 def test_commercial_back_only_for_executive_entry(from_executive):
     html = render_to_string(
-        "portal/comercial.html",
+        "pages/commercial.html",
         {
             "from_executive": from_executive,
             "error": "Sin conexión",

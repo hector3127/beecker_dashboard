@@ -2,7 +2,24 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: Delivery Manager, base f38602b (26/10)
+## Bloque actual: Comercial, base ddb8ec2 (26/10)
+
+- Retiradas plantilla/CSS anteriores; ruta y respaldo `views.comercial`
+  sirven frontend. El respaldo sigue usado por warm_cache: conservarlo.
+  Contexto/caché, fórmulas, fuentes, diseño y 47d0364 intactos.
+- Seis snapshots con desglose abierto a 1450/900/390 px, entrada directa y
+  desde Business Overview, guardados antes del retiro pasan con CSP. Las
+  capturas solo cambian el minuto global; sin cambio de datos/estructura.
+- 1761 servidor, 11 Chrome y 502 Node aprobadas. Seis casos nuevos de acceso con/sin enlace
+  obsoleto; regreso conserva fechas al cambiar de año. Tests de caché validan
+  contexto/mensaje actual en lugar de hooks de la base retirada. Actualización
+  de fondo aislada solo en pruebas tras detectar un intento de lectura real.
+  Servidor y comandos en `docs/retiro-comercial.md`.
+- Quedan 11 HTML/29 estáticos portal. Continuar otras comparaciones/CSP;
+  no retirar componentes aún usados ni activar política/accesos globales.
+  Sin push, temporales ajenos intactos. Fase 11 abierta.
+
+## Bloque previo: Delivery Manager, base f38602b (26/10)
 
 - Retiradas plantilla/vista HTML anteriores y bifurcación de la página. Los
   enlaces obsoletos sirven frontend sin consultar fuentes al montar. API,

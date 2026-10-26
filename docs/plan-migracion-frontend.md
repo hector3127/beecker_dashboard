@@ -7,6 +7,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — Comercial, base ddb8ec2 (26/10).** Retiradas plantilla y CSS
+anteriores; la ruta y entrada de precarga sirven frontend con los mismos
+datos, fórmulas, filtros y caché. Se conserva 47d0364. Seis snapshots guardados
+ANTES del retiro a 1450/900/390 px pasan con CSP aplicada; las capturas solo
+cambian el minuto global. 1761 servidor, 11 Chrome y 502 Node aprobadas; evidencia
+en `docs/retiro-comercial.md`. Pruebas de caché comprueban contexto vigente;
+lecturas de fondo aisladas solo en pruebas. Quedan 11 HTML/29 estáticos.
+Fase 11 abierta, sin push ni activar política/accesos globales.
+
 **Fase 11 — Delivery Manager, base f38602b (26/10).** Retiradas plantilla y
 vista HTML anteriores. La API conserva dm_state/dm_rows, fuentes, cálculos,
 caché y alcance; la página sigue cargando por pasos. Seis referencias del

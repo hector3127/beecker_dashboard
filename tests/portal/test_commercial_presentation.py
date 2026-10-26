@@ -9,6 +9,38 @@ from apps.portal.templatetags.executive_numbers import hours_number
 from apps.portal.templatetags.presentation_labels import commercial_stage
 
 
+@pytest.mark.parametrize("previous", [False, True])
+@pytest.mark.parametrize("grant", ["anonymous", "limited", "wrong"])
+def test_saved_query_cannot_bypass_commercial_access(
+    client, enforced, monkeypatch, previous, grant
+):
+    from apps.access.scope import AccessScope
+
+    enforced(
+        "Ana",
+        caps=frozenset(
+            {"view_costs"} if grant == "wrong" else {"view_commercial"}
+        ),
+        scope=AccessScope.limited(accounts=["ACME"])
+        if grant == "limited"
+        else AccessScope.everything(),
+    )
+    if grant == "anonymous":
+        client.logout()
+
+    def unexpected(*args):
+        pytest.fail("Se leyeron datos comerciales sin acceso")
+
+    monkeypatch.setattr(
+        "apps.portal.services.commercial_view.build_commercial_context",
+        unexpected,
+    )
+    response = client.get(
+        "/comercial/", {"vista": "anterior"} if previous else {}
+    )
+    assert response.status_code == (302 if grant == "anonymous" else 403)
+
+
 def test_services_reconcile_to_rows_and_month_totals():
     rows = [
         {
@@ -45,7 +77,7 @@ def test_source_stage_keys_have_spanish_display_labels():
 
 def test_changed_templates_compile():
     for name in [
-        "portal/comercial.html",
+        "pages/commercial.html",
         "pages/operativa.html",
         "portal/ejecutiva.html",
     ]:

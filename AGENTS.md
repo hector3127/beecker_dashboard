@@ -23,6 +23,15 @@ Reglas que no se negocian:
 
 ## Estado vigente: fase 10 completada (26/10/2026)
 
+Bloque más reciente: Comercial, base ddb8ec2. Retiradas plantilla y CSS
+anteriores; ruta y entrada de precarga `views.comercial` sirven frontend.
+Conservar esa entrada: warm_cache la usa. Datos, fórmulas, caché/contexto y
+Previas al cierre de 47d0364 intactos. Seis referencias con desglose abierto,
+entrada directa/Business Overview a 1450/900/390 px pasan con CSP. 11 Chrome
+y 502 Node aprobadas; 1761 servidor aprobadas. Evidencia en `docs/retiro-comercial.md`.
+Quedan 11 HTML/29 estáticos portal. Sin push ni activar política/accesos
+globales; fase 11 abierta. Temporales ajenos intactos.
+
 Bloque más reciente: Delivery Manager, base f38602b. Retiradas su plantilla
 y vista HTML anteriores. API, dm_state/dm_rows, cálculos, caché por alcance
 y precalentamiento intactos; no retirarlos. Seis referencias de página y

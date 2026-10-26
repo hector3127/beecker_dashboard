@@ -31,6 +31,10 @@ def request(path, **params):
 
 
 def test_executive_page_does_not_read_sources_after_precache(monkeypatch):
+    monkeypatch.setattr(
+        "apps.portal.services.executive_refresh.request_refresh",
+        lambda *a, **k: {"state": "running"},
+    )
     load = Mock(
         return_value=PortfolioLoad(
             projects=(make_project(),),
@@ -77,7 +81,7 @@ def test_commercial_source_error_is_not_cached_as_a_ready_page(monkeypatch):
     )
     for _ in range(2):
         assert (
-            b'data-portal-ready="false"'
+            b"No se pudo leer Backlog_Proyectos"
             in views.comercial(request("/comercial/")).content
         )
     assert build.call_count == 2

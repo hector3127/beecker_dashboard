@@ -717,10 +717,10 @@ def comercial_response(request: HttpRequest, template: str) -> HttpResponse:
 @require_GET
 @require_capability("view_commercial", whole_portfolio=True)
 def comercial(request: HttpRequest) -> HttpResponse:
-    """Comercial con la plantilla anterior (la vigente es pages.commercial)."""
+    """Entrada usada por la precarga, con plantilla vigente y mismos datos."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
-    return comercial_response(request, "portal/comercial.html")
+    return comercial_response(request, "pages/commercial.html")
 
 
 _DM_SECONDS = 300

@@ -287,14 +287,9 @@ def executive(request: HttpRequest) -> HttpResponse:
 @require_GET
 @require_capability("view_commercial", whole_portfolio=True)
 def commercial(request: HttpRequest) -> HttpResponse:
-    """Comercial: la plantilla modular pinta el contexto de la vista.
-
-    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la pantalla de antes.
-    """
+    """Comercial: la plantilla modular pinta el contexto de la vista."""
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if anterior_disponible() and request.GET.get("vista") == "anterior":
-        return views.comercial(request)
     return views.comercial_response(request, "pages/commercial.html")
 
 

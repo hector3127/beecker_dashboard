@@ -10,7 +10,17 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
-**Último bloque: Delivery Manager sobre f38602b.** Leer
+**Último bloque: Comercial sobre ddb8ec2.** Leer `docs/retiro-comercial.md`.
+Retiradas plantilla/CSS anteriores; ruta y views.comercial sirven frontend.
+Conservar views.comercial/comercial_response: precarga y caché siguen usándolos.
+Contexto, fórmulas, diseño y 47d0364 intactos. Seis referencias con desglose
+abierto a 1450/900/390 px pasan con CSP; capturas solo cambian minuto global.
+1761 servidor, 11 Chrome y 502 Node pasan; comandos en el informe. Tests de caché adaptados
+al contexto vigente y lecturas de fondo aisladas solo en pruebas. Quedan
+11 HTML/29 estáticos; continuar otras comparaciones/CSP, sin push ni activar
+política/accesos globales. Temporales ajenos intactos.
+
+**Bloque previo: Delivery Manager sobre f38602b.** Leer
 `docs/retiro-delivery-manager.md`. Retiradas plantilla/vista HTML anteriores;
 API, cálculos, dm_state/dm_rows y caché intactos (no retirarlos). Seis
 referencias de página/detalle mensual a 1450/900/390 px guardadas ANTES del
