@@ -1,8 +1,7 @@
 // Presentación común de EVA 4: menús, exportación completa y páginas.
 import { el, svg } from '#app/lib/dom.js';
 import { mountTableColumns, cellText } from '../eva/table_columns.js';
-import { findAccountLogo } from '../account/logo-lookup.js';
-let logos;
+import { findAccountLogo, loadAccountLogos } from '#app/lib/account-logos.js';
 export function icon(name){const paths={gear:'m9 2-.5 3-2 1-2.8-1L1.5 9l2.5 2v2l-2.5 2 2.2 3.7L6.5 18l2 1 .5 3h5l.5-3 2-1 2.8.7 2.2-3.7-2.5-2v-2l2.5-2-2.2-3.7-2.8 1-2-1L14 2ZM16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0',layers:'m3 7 9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4',play:'m10 8 6 4-6 4zM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0',pause:'M9 8v8M15 8v8M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0',renew:'M20 8a8 8 0 0 0-14-3L3 8m0-5v5h5M4 16a8 8 0 0 0 14 3l3-3m0 5v-5h-5',clients:'M4 21V4h10v17M14 9h6v12M7 7h4M7 11h4M7 15h4M7 19h4M17 12v2M17 17v2',database:'M4 5c0-4 16-4 16 0s-16 4-16 0v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0'};return el('span',{class:`eva4-reference-icon icon-${name}`},svg('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor','stroke-width':1.8,'stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true'},svg('path',{d:paths[name]||paths.layers})));}
 export function countryCell(cell){
   const name=cell.textContent.trim(),code={MEX:'MX',MX:'MX',USA:'US',US:'US',GTM:'GT',GT:'GT',COL:'CO',CO:'CO',ECU:'EC',EC:'EC',CHL:'CL',CL:'CL',BRA:'BR',BR:'BR'}[name];if(!code)return;
@@ -14,7 +13,7 @@ export function countryCell(cell){
   if(code==='US'){flag.append(rect(0,0,24,16,'#fff'),...Array.from({length:7},(_,i)=>rect(0,i*16/6.5,24,16/13,'#c83d4b')),rect(0,0,10,9,'#29487d'),...Array.from({length:9},(_,i)=>svg('circle',{cx:2+(i%3)*3,cy:2+Math.floor(i/3)*2.5,r:.45,fill:'#fff'})));}
   cell.replaceChildren(flag,' ',name);
 }
-export function clientCell(cell){const name=cell.textContent.trim(),initials=name.split(/\s+/).slice(0,2).map(word=>word[0]).join('');const host=el('span',{class:'eva4-client-logo','aria-hidden':'true',text:initials});cell.replaceChildren(el('span',{class:'eva4-client-name'},host,el('span',{text:name})));if(!logos)logos=fetch('/api/v1/account-logos/',{credentials:'same-origin'}).then(r=>r.ok?r.json():null).then(body=>body?.data?.items||[]).catch(()=>[]);logos.then(items=>{const logo=findAccountLogo(items,name);if(!logo)return;const img=el('img',{src:logo.url,alt:'',loading:'lazy',decoding:'async'});img.addEventListener('error',()=>host.replaceChildren(initials),{once:true});host.replaceChildren(img);});}
+export function clientCell(cell){const name=cell.textContent.trim(),initials=name.split(/\s+/).slice(0,2).map(word=>word[0]).join('');const host=el('span',{class:'eva4-client-logo','aria-hidden':'true',text:initials});cell.replaceChildren(el('span',{class:'eva4-client-name'},host,el('span',{text:name})));loadAccountLogos().then(items=>{const logo=findAccountLogo(items,name);if(!logo)return;const img=el('img',{src:logo.url,alt:'',loading:'lazy',decoding:'async'});img.addEventListener('error',()=>host.replaceChildren(initials),{once:true});host.replaceChildren(img);});}
 const csvCell=value=>{let text=String(value??'');if(/^[=+@-]/.test(text))text="'"+text;return '"'+text.replaceAll('"','""')+'"';};
 export function mountReportTable({table,rows,types,kind,onCount=()=>{},totals=null}){
   const section=table.closest('section'),heading=section.querySelector('h2'),note=section.querySelector('.eva4-note');

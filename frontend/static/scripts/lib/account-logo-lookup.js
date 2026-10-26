@@ -1,23 +1,65 @@
-// Presentation-only account aliases; source names and permissions stay intact.
-export function logoName(value){
-  return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/\.+$/,'').trim().replace(/\s+/g,' ');
+// @ts-check
+// Busca el logo guardado de una cuenta. Solo cambia la presentacion: los
+// nombres de origen y los permisos no se tocan.
+
+/** @typedef {{account?: string, key?: string, url: string}} LogoItem */
+
+/** Nombres que se muestran distinto pero abren la misma cuenta. */
+const ALIASES = /** @type {Record<string, string>} */ ({
+  'acs industires': 'acs industries',
+  'atlas next wave': 'atlas nextwave',
+  'grupo allen': 'grupo alen',
+  'cadena comercial oxxo': 'oxxo',
+  'heineken mexico': 'heineken',
+});
+
+/** Fuentes mensuales que traen solo la marca; reutilizan el logo guardado. */
+const BRAND_LOGOS = /** @type {Record<string, string>} */ ({
+  aeromexico: 'aeromexico cargo',
+  nestle: 'nestle mexico',
+  'arca continental': 'arca continental mexico',
+});
+
+/**
+ * Nombre sin acentos, mayusculas, puntos finales ni espacios repetidos.
+ * @param {unknown} value
+ */
+export function logoName(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/\.+$/, '')
+    .trim()
+    .replace(/\s+/g, ' ');
 }
-function canonical(value){
-  const name=logoName(value);
-  return {'acs industires':'acs industries','atlas next wave':'atlas nextwave','grupo allen':'grupo alen','cadena comercial oxxo':'oxxo','heineken mexico':'heineken'}[name]||name;
+
+/** @param {unknown} value */
+function canonical(value) {
+  const name = logoName(value);
+  return ALIASES[name] || name;
 }
-export function findAccountLogo(items,name){
-  const exact=logoName(name);
-  // OXXO and the full legal name already open the same account detail.
-  if(canonical(name)==='oxxo'){
-    const shared=items.find(item=>logoName(item.key||item.account)==='cadena comercial oxxo');
-    if(shared)return shared;
+
+/**
+ * @param {LogoItem[]} items Logos guardados.
+ * @param {unknown} name Cuenta que se muestra.
+ * @returns {LogoItem | undefined}
+ */
+export function findAccountLogo(items, name) {
+  const exact = logoName(name);
+  const itemName = (/** @type {LogoItem} */ item) => item.key || item.account;
+  // OXXO y su nombre completo abren la misma cuenta.
+  if (canonical(name) === 'oxxo') {
+    const shared = items.find((item) => logoName(itemName(item)) === 'cadena comercial oxxo');
+    if (shared) return shared;
   }
-  // Prefer the account's own upload before trying explicitly known aliases.
-  const matched=items.find(item=>logoName(item.key||item.account)===exact)||items.find(item=>canonical(item.key||item.account)===canonical(name));
-  if(matched)return matched;
-  // Monthly sources sometimes provide only the brand. Reuse a saved brand
-  // image for explicitly known generic labels; never alias other accounts.
-  const brandLogo={'aeromexico':'aeromexico cargo','nestle':'nestle mexico','arca continental':'arca continental mexico'}[exact];
-  return brandLogo?items.find(item=>logoName(item.key||item.account)===brandLogo):undefined;
+  // Primero el logo propio de la cuenta; despues los alias conocidos.
+  const matched =
+    items.find((item) => logoName(itemName(item)) === exact) ||
+    items.find((item) => canonical(itemName(item)) === canonical(name));
+  if (matched) return matched;
+  // Nunca se reutiliza el logo de otra cuenta que no sea un alias explicito.
+  const brand = BRAND_LOGOS[exact];
+  return brand ? items.find((item) => logoName(itemName(item)) === brand) : undefined;
 }

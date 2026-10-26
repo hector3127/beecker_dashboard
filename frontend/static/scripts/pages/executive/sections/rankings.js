@@ -1,19 +1,14 @@
 // @ts-check
 // Rentabilidad por cuenta: dos grupos (mitad superior e inferior) segun el
 // criterio elegido, con busqueda y orden por columna guardados en la URL.
-import { findAccountLogo } from '../../account/logo-lookup.js';
+import { findAccountLogo, loadAccountLogos } from '#app/lib/account-logos.js';
 import { CRITERIA, numeric, rankAccounts } from '#app/lib/ranking.js';
 import { el } from '#app/lib/dom.js';
 import { formatCompact, plain } from '#app/lib/format.js';
 
 const KINDS = /** @type {const} */ (['healthy', 'unhealthy']);
 const LABELS = { gross_profit: 'utilidad bruta', revenue: 'facturación', margin: 'margen bruto' };
-let logoRequest;
 let mounted=0;
-function loadLogos(){
-  if(!logoRequest)logoRequest=fetch('/api/v1/account-logos/',{credentials:'same-origin'}).then(response=>response.ok?response.json():null).then(body=>body?.data?.items||[]).catch(()=>[]);
-  return logoRequest;
-}
 function avatar(name,url){
   const words=String(name).trim().split(/\s+/);
   const text=words.length===1?words[0].slice(0,3).toUpperCase():words.slice(0,2).map(word=>word[0]).join('').toUpperCase();
@@ -132,5 +127,5 @@ export function mountRankings(accounts, href) {
     }),
   );
   draw();
-  loadLogos().then(items=>{if(version!==mounted)return;logos=items;draw();});
+  loadAccountLogos().then(items=>{if(version!==mounted)return;logos=items;draw();});
 }

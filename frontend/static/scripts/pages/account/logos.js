@@ -1,6 +1,7 @@
-// Shared persistent logos: account detail and account list.
+// Shared persistent logos: account detail and account list. Reads use the
+// shared catalogue; uploads send multipart data, which the JSON client cannot.
 import { el } from '#app/lib/dom.js';
-import { findAccountLogo } from './logo-lookup.js';
+import { findAccountLogo, loadAccountLogoCatalog, resetAccountLogos } from '#app/lib/account-logos.js';
 import { config } from '#app/data/config.js';
 const endpoint = '/api/v1/account-logos/';
 const root = document.getElementById('account');
@@ -28,9 +29,7 @@ if(root){
 async function init(){
   let result;
   try{
-    const response=await fetch(endpoint,{credentials:'same-origin'});
-    if(!response.ok)throw Error();
-    result=(await response.json()).data;
+    result=await loadAccountLogoCatalog();
   }catch{
     if(editor){editor.hidden=false;document.getElementById('account-logo-status').textContent='No se pudieron consultar los logos. Recarga para reintentar.';}
     return;
@@ -102,6 +101,7 @@ async function init(){
       const body=new FormData();body.append('account',name);if(method==='POST')body.append('image',file.files[0]);
       const response=await fetch(endpoint+(method==='DELETE'?'?account='+encodeURIComponent(name):''),{method,credentials:'same-origin',headers:{'X-CSRFToken':decodeURIComponent(token)},...(method==='POST'?{body}:{})});
       const payload=await response.json();if(!response.ok)throw Error(payload.detail||payload.error?.message||'No se pudo guardar el cambio. Intenta de nuevo.');
+      resetAccountLogos();
       current=method==='POST'?payload.data:null;
       if(current)image(host,current.url,name);else restore(host);
       clear();status.textContent=current?'Logo guardado y optimizado. También se mostrará en Todas las cuentas.':'Logo eliminado.';

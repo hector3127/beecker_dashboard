@@ -2,18 +2,16 @@
 // Detalle mensual: filtros locales, orden y paginación; conserva las cifras de origen.
 import { el } from '#app/lib/dom.js';
 import { icon } from './kpis.js';
-import { findAccountLogo } from '../../account/logo-lookup.js';
+import { findAccountLogo, loadAccountLogos } from '#app/lib/account-logos.js';
 
 const KEYS = ['billable', 'operational', 'commercial'];
 const LABELS = ['Facturables', 'Inversión operativa', 'Inversión comercial'];
 const hours = value => `${Number(value || 0).toLocaleString('es-MX', {maximumFractionDigits: 1})} h`;
 const normalize = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-let logosRequest;
 function accountLogo(name) {
   const initials = name.trim().split(/\s+/).slice(0, 2).map(word => word[0]).join('').toUpperCase();
   const host = el('span', {class: 'dm-account-logo', 'aria-hidden': 'true', text: initials || '—'});
-  if (!logosRequest) logosRequest = fetch('/api/v1/account-logos/', {credentials: 'same-origin'}).then(r => r.ok ? r.json() : null).then(body => body?.data?.items || []).catch(() => []);
-  logosRequest.then(items => {
+  loadAccountLogos().then(items => {
     const logo = findAccountLogo(items, name);
     if (!logo) return;
     const image = el('img', {src: logo.url, alt: '', loading: 'lazy', decoding: 'async'});

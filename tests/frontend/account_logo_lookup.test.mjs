@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { findAccountLogo } from '../../frontend/static/scripts/pages/account/logo-lookup.js';
+import { findAccountLogo } from '../../frontend/static/scripts/lib/account-logo-lookup.js';
 const items=[{key:'cadena comercial oxxo',url:'oxxo.png'},{key:'grupo alen',url:'alen.png'},{key:'nestle mexico',url:'mexico.png'}];
 test('trailing punctuation and spaces reuse the saved logo',()=>assert.equal(findAccountLogo(items,'  Cadena   Comercial Oxxo.  ').url,'oxxo.png'));
 test('known Grupo Allen alias matches Grupo AlEn',()=>assert.equal(findAccountLogo(items,'Grupo Allen').url,'alen.png'));

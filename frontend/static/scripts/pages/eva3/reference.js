@@ -1,7 +1,7 @@
 import { mountTableColumns } from "../eva/table_columns.js";
 // EVA 3: presentación y controles locales; las cifras siguen en la fuente original.
 import { el, svg } from '#app/lib/dom.js';
-import { findAccountLogo } from '../account/logo-lookup.js';
+import { findAccountLogo, loadAccountLogos } from '#app/lib/account-logos.js';
 const csvCell = value => {let text = String(value ?? ''); if (/^[=+@-]/.test(text)) text = "'" + text; return '"' + text.replaceAll('"', '""') + '"';};
 function download(name, rows) {
   const url = URL.createObjectURL(new Blob(['\uFEFF' + rows.map(row => row.map(csvCell).join(',')).join('\r\n')], {type: 'text/csv;charset=utf-8'}));
@@ -57,14 +57,14 @@ export function mountReference() {
     const projectLink = record.row.cells[2].querySelector('a');
     record.row.append(el('td', {}, el('a', {class: 'eva3-row-link', href: projectLink.href, 'aria-label': `Ver proyecto ${record.row.dataset.project}`, text: '↗'})));
   });
-  fetch('/api/v1/account-logos/', {credentials: 'same-origin'}).then(response => response.ok ? response.json() : null).then(body => {
+  loadAccountLogos().then(items => {
     for (const record of records) {
-      const logo = findAccountLogo(body?.data?.items || [], record.account); if (!logo) continue;
+      const logo = findAccountLogo(items, record.account); if (!logo) continue;
       const image = el('img', {src: logo.url, alt: '', loading: 'lazy', decoding: 'async'});
       image.addEventListener('error', () => image.remove(), {once: true});
       image.addEventListener('load', () => record.logo.replaceChildren(image), {once: true}); image.loading = 'eager';
     }
-  }).catch(() => {});
+  });
   const history = document.getElementById('eva3-closed-box').closest('section');
   const note = document.querySelector('.note'); if (note) note.before(history);
   const summary = history.querySelector('summary'); summary.append(el('span', {class: 'eva3-history-arrow', 'aria-hidden': 'true', text: '›'}));

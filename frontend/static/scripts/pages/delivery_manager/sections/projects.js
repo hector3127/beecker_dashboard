@@ -1,7 +1,7 @@
 // @ts-check
 // Tabla de proyectos del Delivery Manager; los que piden atencion van primero.
 import { el } from '#app/lib/dom.js';
-import { findAccountLogo } from '../../account/logo-lookup.js';
+import { findAccountLogo, loadAccountLogos } from '#app/lib/account-logos.js';
 import { csvCell } from './hours.js';
 import { formatNumber } from '#app/lib/format.js';
 import { icon } from './kpis.js';
@@ -9,14 +9,12 @@ import { icon } from './kpis.js';
 const DASH = '—';
 const initial=new URLSearchParams(location.search);
 const filters={search:initial.get('dm_buscar')||'',state:initial.get('dm_estado')||'',service:initial.get('dm_servicio')||''};
-let logosRequest;
 const normalize=text=>String(text).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const match=row=>normalize(`${row.project_id} ${row.name} ${row.client} ${row.service}`).includes(normalize(filters.search))&&(!filters.state||row.status_code===filters.state)&&(!filters.service||row.service===filters.service);
 function accountLogo(name){
   const text=name.trim().split(/\s+/).slice(0,2).map(word=>word[0]).join('').toUpperCase();
   const host=el('span',{class:'dm-account-logo','aria-hidden':'true',text});
-  if(!logosRequest)logosRequest=fetch('/api/v1/account-logos/',{credentials:'same-origin'}).then(response=>response.ok?response.json():null).then(body=>body?.data?.items||[]).catch(()=>[]);
-  logosRequest.then(items=>{const logo=findAccountLogo(items,name);if(!logo)return;const img=el('img',{src:logo.url,alt:'',loading:'lazy',decoding:'async'});img.addEventListener('error',()=>host.replaceChildren(text),{once:true});host.replaceChildren(img);});
+  loadAccountLogos().then(items=>{const logo=findAccountLogo(items,name);if(!logo)return;const img=el('img',{src:logo.url,alt:'',loading:'lazy',decoding:'async'});img.addEventListener('error',()=>host.replaceChildren(text),{once:true});host.replaceChildren(img);});
   return host;
 }
 export function downloadProjects(data){

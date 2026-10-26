@@ -1,6 +1,6 @@
 // Controles del histórico AER/T&M. Conserva filas, consultas y reintentos.
 import { el } from '#app/lib/dom.js';
-import { findAccountLogo } from '../account/logo-lookup.js';
+import { findAccountLogo, loadAccountLogos } from '#app/lib/account-logos.js';
 import { columnColor, matchesColumn, openColumnMenu } from './column_menu.js';
 const normalize = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 const dateValue = text => {const m = text.trim().match(/^(\d{2})\/(\d{2})\/(\d{2}|\d{4})$/); return m ? `${m[3].length === 2 ? '20' : ''}${m[3]}-${m[2]}-${m[1]}` : '';};
@@ -13,7 +13,7 @@ export function mountHistoryReference(body) {
   const rows = [...table.querySelectorAll('tbody tr[data-closed-id]')];
   const records = rows.map(row => ({row, manager: text(row.cells[0]), id: row.dataset.closedId, service: text(row.cells[2]), name: text(row.cells[3]), status: status(text(row.cells[4])), start: dateValue(text(row.cells[5])), finish: dateValue(text(row.cells[6])), client: row.dataset.closedClient || ''}));
   table.tHead.rows[0].cells[0].after(el('th',{scope:'col',text:'Cuenta'}));
-  const logos=fetch('/api/v1/account-logos/',{credentials:'same-origin'}).then(response=>response.ok?response.json():null).then(body=>body?.data?.items||[]).catch(()=>[]);
+  const logos=loadAccountLogos();
   records.forEach(record=>{
     const initials=record.client.trim().split(/\s+/).filter(Boolean).slice(0,2).map(word=>word[0]).join('').toUpperCase()||'—';
     const host=el('span',{class:'eva3-account-logo','aria-hidden':'true',text:initials});
