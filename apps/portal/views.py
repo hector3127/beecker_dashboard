@@ -1003,7 +1003,7 @@ def eva1_cerrados(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return HttpResponse(status=401)
 
-    return render_page(request, "portal/_eva_closed.html", eva1_closed_data())
+    return render_page(request, "partials/eva_closed.html", eva1_closed_data())
 
 
 def eva1_closed_data() -> dict[str, Any]:
@@ -1068,7 +1068,7 @@ def eva1(request: HttpRequest) -> HttpResponse:
 
     return render_page(
         request,
-        "portal/eva1.html",
+        "pages/eva1.html",
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),
@@ -1121,7 +1121,7 @@ def eva3(request: HttpRequest) -> HttpResponse:
 
     return render_page(
         request,
-        "portal/eva3.html",
+        "pages/eva3.html",
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),
@@ -1585,7 +1585,7 @@ def eva3_cerrados(request: HttpRequest) -> HttpResponse:
     """Historico AER/T&M finalizado en 2026, exclusivamente desde MPB."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
-    return render_page(request, "portal/_eva3_closed.html", eva3_closed_data())
+    return render_page(request, "partials/eva3_closed.html", eva3_closed_data())
 
 
 def eva3_closed_data() -> dict[str, Any]:

@@ -1,0 +1,112 @@
+{
+  ".pgh": [
+    {
+      "box": [
+        28,
+        138,
+        844,
+        118
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "22px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    }
+  ],
+  ".tabs": [],
+  ".card": [
+    {
+      "box": [
+        28,
+        534,
+        844,
+        243.5
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "18px",
+        "0px 0px 18px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        28,
+        795.5,
+        844,
+        386.5
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "18px",
+        "0px 0px 18px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        28,
+        1200,
+        844,
+        89
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "18px",
+        "0px 0px 18px"
+      ],
+      "text": null
+    }
+  ],
+  "table": [
+    {
+      "box": [
+        47,
+        613.5,
+        850,
+        145
+      ],
+      "css": [
+        "11px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "DELIVERY MANAGER\tAER\tT&M\tDEV\tARQ\tIA\tSM\tBA\tTT\tCR\tDM\tTOTAL FTE\nLaura\t1\t1\t3\t0\t0\t0\t0\t0\t0\t0\t3\nSin asignar\t1\t0\t3\t0\t0\t0\t0\t0\t0\t0\t3\nTotal\t2\t1\t6\t0\t0\t0\t0\t0\t0\t0\t6"
+    },
+    {
+      "box": [
+        47,
+        923,
+        1280,
+        191
+      ],
+      "css": [
+        "13.5px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "Delivery Manager\n\t\nCuenta\n\t\nID del proyecto\n\t\nServicio\n\t\nFTE\n\t\nNombre del proyecto\n\t\nInicio\n\t\nFin\n\t\nPresupuesto\n\t\nConsumo\n\t\nHoras por terminar\n\t\nAvance\n\t\nRenovación (días)\n\t\nLaura\t\nA\nACME\n\tTYM.AMK.010\tT&M\t2\tSoporte\t01/03/26\t12/10/26\t1,000\t250\t750\t25%\t10\t↗\nLaura\t\nG\nGlobex\n\tAER.003\tAER\t1\tBacklog\t01/01/26\t01/03/27\t100\t120\t-20\t120%\t150\t↗\nSin asignar\t\nI\nInitech\n\tAER.004\tAER\t3\tSin consumo\t\t\t0\t20.25\t-20.25\t—\t—\t↗"
+    }
+  ],
+  ".table-bottom": []
+}

@@ -15,6 +15,53 @@ from tests.portal.test_eva2 import make_row
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
+@pytest.mark.parametrize("screen", [1, 3])
+@pytest.mark.parametrize("width", [1450, 900, 390])
+@pytest.mark.parametrize("history", [False, True])
+def test_eva13_keeps_approved_reference(
+    portal, evas, screen, width, history, snapshot, enforced_csp
+):
+    from tests.e2e.conftest import watch
+
+    problems = watch(portal)
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + f"/operativa/eva-{screen}/")
+    prefix = "eva" if screen == 1 else "eva3"
+    if screen == 3:
+        expect(
+            portal.locator('tr[data-project="AER.004"] [data-field="burn"]')
+        ).to_have_text("20.25")
+    if history:
+        portal.locator(f"#{prefix}-closed-box summary").click()
+        table_id = "eva-closed-table" if screen == 1 else "eva3-history-table"
+        expect(portal.locator(f"#{table_id}")).to_be_visible()
+        if screen == 3:
+            expect(
+                portal.locator(
+                    'tr[data-closed-id="PENDING.AER"] '
+                    '[data-closed-field="burn"]'
+                )
+            ).to_have_text("60.25")
+    portal.evaluate("document.fonts.ready")
+    portal.mouse.move(0, 0)
+    selectors = [".pgh", ".tabs", ".card", "table", ".table-bottom"]
+    measured = portal.evaluate(
+        """selectors=>selectors.map(s=>[...document.querySelectorAll(s)].map(el=>{
+          const b=el.getBoundingClientRect(),c=getComputedStyle(el);
+          return {box:['x','y','width','height'].map(k=>Math.round(b[k]*10)/10),
+            css:['fontSize','fontWeight','color','backgroundColor','padding',
+              'margin'].map(k=>c[k]),text:el.tagName==='TABLE'?el.innerText:null};
+        }))""",
+        selectors,
+    )
+    key = f"eva{screen}_layout_{width}_{'history' if history else 'active'}"
+    snapshot(key, dict(zip(selectors, measured, strict=True)))
+    output = Path(f"tmp/migration/eva13/{key}.png")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    portal.screenshot(path=str(output), full_page=True)
+    assert not problems
+
+
 @pytest.fixture
 def evas(monkeypatch, datos):
     calls = {"ixb": 0, "aer": 0, "active": [], "closed": []}
@@ -125,8 +172,13 @@ def evas(monkeypatch, datos):
     return calls
 
 
-def test_eva1_filters_export_and_lazy_history(portal, evas):
-    portal.goto(portal.base + "/operativa/eva-1/")
+@pytest.mark.parametrize("previous", [False, True])
+def test_eva1_filters_export_and_lazy_history(portal, evas, previous):
+    portal.goto(
+        portal.base
+        + "/operativa/eva-1/"
+        + ("?vista=anterior" if previous else "")
+    )
     expect(portal.locator("#eva-table tbody tr")).to_have_count(2)
     assert not evas["ixb"]
     portal.locator("#eva-manager").select_option("Mario")
@@ -161,8 +213,13 @@ def test_eva1_filters_export_and_lazy_history(portal, evas):
     )
 
 
-def test_eva3_fills_hours_and_closed_projects(portal, evas):
-    portal.goto(portal.base + "/operativa/eva-3/")
+@pytest.mark.parametrize("previous", [False, True])
+def test_eva3_fills_hours_and_closed_projects(portal, evas, previous):
+    portal.goto(
+        portal.base
+        + "/operativa/eva-3/"
+        + ("?vista=anterior" if previous else "")
+    )
     pending = portal.locator('tr[data-project="AER.004"]')
     expect(pending.locator('[data-field="burn"]')).to_have_text("20.25")
     assert evas["active"] == [["AER.004"]]

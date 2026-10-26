@@ -7,6 +7,16 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — EVA 1/3, base 8c47a2c (26/10).** Retiradas dos plantillas y tres
+fragmentos anteriores; páginas/históricos sirven frontend con contexto,
+fuentes, fórmulas, logos y diseño intactos. Login de fragmentos conserva las
+respuestas originales. Doce snapshots de tablas activas/históricas guardados
+ANTES del retiro pasan con CSP de prueba; las capturas conservan geometría.
+Salidas inline de filtros/CSV/fechas/costo guardadas mantienen las dos pruebas
+Node sin depender del código eliminado. 1751 servidor, 43 Chrome y 502 Node pasan;
+y evidencia en `docs/retiro-eva13.md`. Quedan 13 HTML/30 estáticos portal.
+Fase 11 abierta, sin push ni activar CSP/accesos globales.
+
 **Fase 11 — Facturabilidad por área, base 3a8ae34 (26/10).** Retiradas su
 plantilla/CSS/JS anteriores; contexto, año, CSRF, datos y permisos intactos.
 Dieciocho snapshots de diseño vigente registrados ANTES del retiro pasan

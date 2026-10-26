@@ -1,0 +1,254 @@
+{
+  "filters": [
+    {
+      "rows": [
+        {
+          "dataset": {
+            "manager": "Laura",
+            "service": "RaaS",
+            "start": "01/01/26",
+            "end": "30/09/26"
+          },
+          "cells": [
+            {
+              "innerText": "Laura"
+            },
+            {
+              "innerText": "Proyecto, \"A\""
+            }
+          ],
+          "hidden": true
+        },
+        {
+          "dataset": {
+            "manager": "Mario",
+            "service": "IXB",
+            "start": "",
+            "end": ""
+          },
+          "cells": [
+            {
+              "innerText": "Mario"
+            },
+            {
+              "innerText": "P2"
+            }
+          ],
+          "hidden": false
+        }
+      ],
+      "filters": {
+        "manager": "",
+        "service": "",
+        "from": "",
+        "to": ""
+      },
+      "visible": [
+        true,
+        true
+      ],
+      "csv": "\"Delivery Manager\",\"Project ID\",\"Service\",\"Nombre\",\"Estatus\",\"Start\",\"Finish\",\"Desv. dias\",\"Budget\",\"Burn\",\"ETC\",\"Desv. Hrs\",\"Avance\",\"Discovery Total\",\"Discovery Cerrados\",\"Discovery Pendientes\",\"Development Total\",\"Development Cerrados\",\"Development Pendientes\",\"Deployment Total\",\"Deployment Cerrados\",\"Deployment Pendientes\",\"General Total\",\"General Cerrados\",\"General Pendientes\",\"Riesgos\"\r\n\"Laura\",\"Proyecto, \"\"A\"\"\"\r\n\"Mario\",\"P2\""
+    },
+    {
+      "rows": [
+        {
+          "dataset": {
+            "manager": "Laura",
+            "service": "RaaS",
+            "start": "01/01/26",
+            "end": "30/09/26"
+          },
+          "cells": [
+            {
+              "innerText": "Laura"
+            },
+            {
+              "innerText": "Proyecto, \"A\""
+            }
+          ],
+          "hidden": true
+        },
+        {
+          "dataset": {
+            "manager": "Mario",
+            "service": "IXB",
+            "start": "",
+            "end": ""
+          },
+          "cells": [
+            {
+              "innerText": "Mario"
+            },
+            {
+              "innerText": "P2"
+            }
+          ],
+          "hidden": false
+        }
+      ],
+      "filters": {
+        "manager": "Mario",
+        "service": "",
+        "from": "",
+        "to": ""
+      },
+      "visible": [
+        false,
+        true
+      ],
+      "csv": "\"Delivery Manager\",\"Project ID\",\"Service\",\"Nombre\",\"Estatus\",\"Start\",\"Finish\",\"Desv. dias\",\"Budget\",\"Burn\",\"ETC\",\"Desv. Hrs\",\"Avance\",\"Discovery Total\",\"Discovery Cerrados\",\"Discovery Pendientes\",\"Development Total\",\"Development Cerrados\",\"Development Pendientes\",\"Deployment Total\",\"Deployment Cerrados\",\"Deployment Pendientes\",\"General Total\",\"General Cerrados\",\"General Pendientes\",\"Riesgos\"\r\n\"Mario\",\"P2\""
+    },
+    {
+      "rows": [
+        {
+          "dataset": {
+            "manager": "Laura",
+            "service": "RaaS",
+            "start": "01/01/26",
+            "end": "30/09/26"
+          },
+          "cells": [
+            {
+              "innerText": "Laura"
+            },
+            {
+              "innerText": "Proyecto, \"A\""
+            }
+          ],
+          "hidden": true
+        },
+        {
+          "dataset": {
+            "manager": "Mario",
+            "service": "IXB",
+            "start": "",
+            "end": ""
+          },
+          "cells": [
+            {
+              "innerText": "Mario"
+            },
+            {
+              "innerText": "P2"
+            }
+          ],
+          "hidden": false
+        }
+      ],
+      "filters": {
+        "manager": "",
+        "service": "RaaS",
+        "from": "2026-10-01",
+        "to": ""
+      },
+      "visible": [
+        false,
+        false
+      ],
+      "csv": "\"Delivery Manager\",\"Project ID\",\"Service\",\"Nombre\",\"Estatus\",\"Start\",\"Finish\",\"Desv. dias\",\"Budget\",\"Burn\",\"ETC\",\"Desv. Hrs\",\"Avance\",\"Discovery Total\",\"Discovery Cerrados\",\"Discovery Pendientes\",\"Development Total\",\"Development Cerrados\",\"Development Pendientes\",\"Deployment Total\",\"Deployment Cerrados\",\"Deployment Pendientes\",\"General Total\",\"General Cerrados\",\"General Pendientes\",\"Riesgos\""
+    },
+    {
+      "rows": [
+        {
+          "dataset": {
+            "manager": "Laura",
+            "service": "RaaS",
+            "start": "01/01/26",
+            "end": "30/09/26"
+          },
+          "cells": [
+            {
+              "innerText": "Laura"
+            },
+            {
+              "innerText": "Proyecto, \"A\""
+            }
+          ],
+          "hidden": true
+        },
+        {
+          "dataset": {
+            "manager": "Mario",
+            "service": "IXB",
+            "start": "",
+            "end": ""
+          },
+          "cells": [
+            {
+              "innerText": "Mario"
+            },
+            {
+              "innerText": "P2"
+            }
+          ],
+          "hidden": false
+        }
+      ],
+      "filters": {
+        "manager": "",
+        "service": "IXB",
+        "from": "2027-01-01",
+        "to": "2027-02-01"
+      },
+      "visible": [
+        false,
+        true
+      ],
+      "csv": "\"Delivery Manager\",\"Project ID\",\"Service\",\"Nombre\",\"Estatus\",\"Start\",\"Finish\",\"Desv. dias\",\"Budget\",\"Burn\",\"ETC\",\"Desv. Hrs\",\"Avance\",\"Discovery Total\",\"Discovery Cerrados\",\"Discovery Pendientes\",\"Development Total\",\"Development Cerrados\",\"Development Pendientes\",\"Deployment Total\",\"Deployment Cerrados\",\"Deployment Pendientes\",\"General Total\",\"General Cerrados\",\"General Pendientes\",\"Riesgos\"\r\n\"Mario\",\"P2\""
+    }
+  ],
+  "dates": [
+    {
+      "value": "",
+      "expected": ""
+    },
+    {
+      "value": "01/02/26",
+      "expected": "2026-02-01"
+    },
+    {
+      "value": "malformed",
+      "expected": ""
+    },
+    {
+      "value": "01/02/2026",
+      "expected": "202026-02-01"
+    }
+  ],
+  "costs": [
+    {
+      "rows": [],
+      "expected": "—"
+    },
+    {
+      "rows": [
+        {
+          "budget": "100",
+          "burn": ""
+        }
+      ],
+      "expected": "—"
+    },
+    {
+      "rows": [
+        {
+          "budget": "100",
+          "burn": "120"
+        },
+        {
+          "budget": "0",
+          "burn": "50"
+        },
+        {
+          "budget": "200",
+          "burn": "50"
+        },
+        {
+          "budget": "50",
+          "burn": ""
+        }
+      ],
+      "expected": "72.5%"
+    }
+  ]
+}

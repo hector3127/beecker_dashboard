@@ -125,7 +125,17 @@ def test_the_cost_list_of_an_account_follows_scope(client, enforced):
 
 
 @pytest.mark.parametrize(
-    "name", ["eva2", "capacidad", "capacidad_detalle", "facturabilidad_area"]
+    "name",
+    [
+        "eva1",
+        "eva1_cerrados",
+        "eva2",
+        "eva3",
+        "eva3_cerrados",
+        "capacidad",
+        "capacidad_detalle",
+        "facturabilidad_area",
+    ],
 )
 @pytest.mark.parametrize("grant", ["limited", "wrong", "anonymous"])
 def test_retired_query_does_not_bypass_page_access(

@@ -10,7 +10,17 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
-**Último bloque: Facturabilidad por área sobre 3a8ae34.** Leer
+**Último bloque: EVA 1/3 sobre 8c47a2c.** Leer `docs/retiro-eva13.md`.
+Retiradas sus dos plantillas y tres fragmentos anteriores, sin cambiar datos,
+fuentes, modelos ni diseños/logos. Doce referencias de tablas activas/históricas
+a 1450/900/390 px guardadas ANTES del retiro pasan con CSP de prueba.
+Salidas inline anteriores guardadas conservan tests de filtros/CSV/fechas/costo.
+1751 servidor, 43 Chrome y 502 Node pasan; comandos en el informe. EVA 1 conserva 401 sin
+login en el fragmento, EVA 3 redirige; no introducir `_current` en ellos.
+Quedan 13 HTML/30 estáticos; continuar otras comparaciones/CSP. Sin push ni
+activar política/accesos globales. Temporales ajenos intactos.
+
+**Bloque previo: Facturabilidad por área sobre 3a8ae34.** Leer
 `docs/retiro-facturabilidad-area.md`. Retiradas plantilla/CSS/JS anteriores;
 modelo, fuentes, contexto/año/CSRF/permisos intactos. Dieciocho referencias
 de apartados y área DEV a 1450/900/390 px pasan con CSP de prueba. Salidas del

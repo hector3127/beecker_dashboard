@@ -23,6 +23,15 @@ Reglas que no se negocian:
 
 ## Estado vigente: fase 10 completada (26/10/2026)
 
+Bloque más reciente: EVA 1 y EVA 3, base 8c47a2c. Retiradas sus dos plantillas
+y tres fragmentos anteriores. Datos, fuentes y cambios de diseño/logos
+intactos; histórico EVA 1 mantiene 401 ante login pendiente y EVA 3 redirige.
+Doce referencias de tablas activas/históricas a 1450/900/390 px pasan con CSP;
+las salidas inline anteriores de filtros/CSV/fechas/costo se guardaron ANTES
+de borrar. 1751 servidor, 43 Chrome y 502 Node aprobadas. Evidencia en
+`docs/retiro-eva13.md`. Quedan 13 HTML/30 estáticos portal; fase 11 abierta.
+Sin push ni activar CSP global/accesos; conservar temporales ajenos.
+
 Bloque más reciente: Facturabilidad por área, base 3a8ae34. Retiradas su
 plantilla/CSS/JS anteriores; `_current` conserva contexto, año, CSRF y permisos.
 Dieciocho referencias de los cinco apartados y área DEV a 1450/900/390 px

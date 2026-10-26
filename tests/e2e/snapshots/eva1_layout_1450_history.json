@@ -1,0 +1,198 @@
+{
+  ".pgh": [
+    {
+      "box": [
+        28,
+        -153,
+        1394,
+        92.8
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "16px 26px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    }
+  ],
+  ".tabs": [],
+  ".card": [
+    {
+      "box": [
+        28,
+        92.7,
+        689,
+        262
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "20px 24px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        733,
+        92.7,
+        689,
+        262
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "20px 24px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        28,
+        384.7,
+        1394,
+        408
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "20px 24px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        28,
+        806.7,
+        1394,
+        276
+      ],
+      "css": [
+        "16px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "20px 24px",
+        "0px 0px 14px"
+      ],
+      "text": null
+    }
+  ],
+  "table": [
+    {
+      "box": [
+        53,
+        173.7,
+        639,
+        160
+      ],
+      "css": [
+        "13.5px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "DELIVERY MANAGER\tIXB\tRAAS\tTOTAL\nLaura Vega\t0\t1\t1\nMario\t1\t0\t1\nTotal\t1\t1\t2"
+    },
+    {
+      "box": [
+        758,
+        173.7,
+        639,
+        160
+      ],
+      "css": [
+        "13.5px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "DELIVERY MANAGER\tSUS\tDIS\tDEV\tDEP\tTOTAL\nLaura Vega\t0\t0\t0\t1\t1\nMario\t1\t0\t0\t0\t1\nTotal\t1\t0\t0\t1\t2"
+    },
+    {
+      "box": [
+        53,
+        547.7,
+        2000,
+        170
+      ],
+      "css": [
+        "13.5px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "Delivery Manager\n\t\nCuenta\n\t\nProject ID\n\t\nService\n\t\nNombre\n\t\nEstatus\n\t\nStart\n\t\nFinish\n\t\nDesv. días\n\t\nBudget\n\t\nBurn\n\t\nETC\n\t\nDesv. Hrs\n\t\nAvance\n\tDiscovery\tDevelopment\tDeployment\tGeneral\t\nRiesgos\n\n\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\nLaura Vega\t\nNM\nNestlé México\n\tAMK.008_S4\tRaaS\tAlertas\t🚀 Deployment\t28/08/26\t13/10/26\t1\t141\t167.59\t-26.59\t-26.59\t\n118.8%\n\t41\t41\t0\t56\t50\t6\t39\t2\t37\t154\t102\t52\t2\nMario\t\n—\nSin cuenta\n\tIXB.2\tIXB\tProyecto suspendido\t⏸ Suspendido\t28/08/26\t13/10/26\t1\t141\t167.59\t-26.59\t-26.59\t\n118.8%\n\t41\t41\t0\t56\t50\t6\t39\t2\t37\t154\t102\t52\t2"
+    },
+    {
+      "box": [
+        53,
+        887.7,
+        2000,
+        123
+      ],
+      "css": [
+        "13.5px",
+        "400",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px"
+      ],
+      "text": "Delivery Manager\n\t\nCuenta\n\t\nProject ID\n\t\nService\n\t\nNombre\n\t\nEstatus\n\t\nStart\n\t\nFinish\n\t\nBudget\n\t\nBurn\n\t\nETC\n\t\nDesv. Hrs\n\t\n% Consumo\n\tDiscovery\tDevelopment\tDeployment\tGeneral\t\nRiesgos\n\n\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\nLaura Vega\t\nAN\nAtlas Next Wave\n\tCLOSED.1\tRaaS\tAlertas\t⚲ Cerrado\t28/08/26\t13/10/26\t1,000.50\t900.25\t100.25\t100.25\t\n90.0%\n\t41\t41\t0\t56\t50\t6\t39\t2\t37\t154\t102\t52\t2"
+    }
+  ],
+  ".table-bottom": [
+    {
+      "box": [
+        53,
+        731.7,
+        1344,
+        40
+      ],
+      "css": [
+        "12px",
+        "400",
+        "rgb(120, 113, 165)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "14px 0px 0px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        53,
+        1028.7,
+        1344,
+        33
+      ],
+      "css": [
+        "12px",
+        "400",
+        "rgb(130, 103, 171)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "18px 0px 0px"
+      ],
+      "text": null
+    }
+  ]
+}

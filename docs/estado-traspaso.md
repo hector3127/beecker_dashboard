@@ -2,7 +2,25 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: Facturabilidad por área, base 3a8ae34 (26/10)
+## Bloque actual: EVA 1 y EVA 3, base 8c47a2c (26/10)
+
+- Retiradas sus dos plantillas y tres fragmentos anteriores. Páginas y
+  respaldos Python usan frontend; históricos HTML/API y enlaces obsoletos
+  conservados. No cambian modelos, fuentes, fórmulas ni diseños/logos.
+- Doce snapshots de tablas activas/históricas a 1450/900/390 px guardados
+  ANTES del retiro se revalidan con CSP. Capturas mantienen dimensiones;
+  cambian minuto global y un gradiente/sombra, sin cambiar cajas ni texto.
+- Las dos pruebas Node conservan filtros/CSV/fechas/costo, con salidas inline
+  anteriores guardadas ANTES de borrar en snapshots/eva_models.json.
+- 1751 servidor, 43 Chrome y 502 Node aprobadas. Doce casos nuevos de plantilla y
+  login, otros doce de permisos; ver resultado servidor en `docs/retiro-eva13.md`.
+  EVA 1 conserva 401 sin login, EVA 3 redirige; no introducir `_current` en
+  esos fragmentos. Desborde móvil anterior EVA 1 conservado.
+- Quedan 13 HTML/30 estáticos portal. Continuar otras comparaciones y CSP;
+  no retirar servicios/shim compartidos todavía usados ni activar política
+  o accesos globales. Sin push, temporales ajenos intactos. Fase 11 abierta.
+
+## Bloque previo: Facturabilidad por área, base 3a8ae34 (26/10)
 
 - Retiradas plantilla/CSS/JS anteriores; entrada y respaldo Python sirven
   frontend con el mismo año/contexto/CSRF/permisos. Sin cambiar modelo GSE,
