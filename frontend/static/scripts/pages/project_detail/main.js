@@ -5,6 +5,7 @@ import { createClockifyRange } from "./sections/project_clockify_range.js";
 import { createGenericSources } from "./sections/generic_sources.js";
 import { createGenericRisk } from "./sections/generic_risk.js";
 import { mountGenericLayout } from "./sections/generic_layout_view.js";
+import { createGenericExecutive } from "./sections/generic_executive.js";
 import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
@@ -182,6 +183,15 @@ async function start() {
     window.beeIxsSupport = createIxsSupport(data, window);
     window.beeProjectState ||= createProjectState();
     bindProjectState(window, window.beeProjectState);
+    window.beeGenericExecutive = createGenericExecutive(
+      window.beeProjectState,
+      {
+        layout: window.beeGenericLayout,
+        charts: window.beeGenericCharts,
+        range: window.beeProjectClockifyRange,
+        sources: window.beeGenericSources,
+      },
+    );
     window.beeProjectPanels = createProjectPanels(window.beeProjectState);
     window.beeProjectFeedback = projectFeedback;
     window.beeProjectContexts = createProjectContexts(window.beeProjectState);
@@ -190,6 +200,7 @@ async function start() {
       entry: window.beeProjectEntry,
       aer: (data) => window.beeAerRuntime.initialize(data),
       ixs: (data) => window.beeIxsRuntime.initialize(data),
+      executive: (data) => window.beeGenericExecutive.mount(data),
     });
     window.beeGenericRisk = createGenericRisk(data, {
       current: (id) => window.beeProjectState.projectId === id,

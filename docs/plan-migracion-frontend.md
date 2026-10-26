@@ -116,6 +116,36 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Coordinación y derivados del Ejecutivo genérico (25/10/2026)
+
+`generic_executive_model.js` conserva servicio/fecha PRD, color/riesgo, resumen
+temporal y detección de cierre. Reutiliza los modelos contrastados y devuelve
+las dos asignaciones originales de proyecto completado; el controlador las
+aplica al objeto original, sin cambiar fórmulas, fuentes ni reglas.
+
+`generic_executive.js` coordina almacén, montaje de componentes y lecturas
+Clockify/RAID/tasks directamente. Errores/datos faltantes usan DOM seguro con
+el texto anterior. `project_entry_runtime.js` llama al controlador genérico
+cuando el servicio no es AER/IXS, sin renderer ni auxiliares anteriores. El
+nombre anterior delega si están sus módulos; su cuerpo permanece para comparar.
+
+Cinco Node nuevos contrastan flags/asignaciones contra el código original en
+los cortes/servicios/estados, prueban cierre, precedencia de metadatos/fechas,
+ausencia de mutación en el modelo y entrada directa. Suite completa:
+**460 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Sin cambios de backend/permisos ni consultas
+reales a proveedores. **106 pruebas únicas de navegador aprobadas**: nueve
+nuevas (entrada directa/recarga/reintento sin seis funciones anteriores, seis
+comparaciones de error/vacío y DOM seguro), diez de estructura completa,
+25 de encabezado/KPIs, 22 de fuentes, 20 del formulario de riesgos y 20 de
+entrada/pestañas/recarga. Capturas en
+`tmp/migration/project_detail/generic_executive/`; error móvil inspeccionado.
+Ruff/formato, sintaxis JS, Django y diff aprobados.
+
+**Fase 10 parcial.** Siguiente: auditar compatibilidad sin proyecto/cuenta,
+enlace de vista anterior y auxiliares activos; después arranque independiente.
+Mantener script/shim. No activar ACCESS_ENFORCED ni tocar Horas por mes.
+
 ### Estructura de tarjetas y controles genéricos (25/10/2026)
 
 `generic_layout_view.js` y `project_detail_generic_layout.css` montan la

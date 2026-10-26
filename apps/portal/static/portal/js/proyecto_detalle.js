@@ -7518,6 +7518,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   function ixsAz84CerrarDetalle(){if(window.beeIxsAzureGroups)window.beeIxsAzureGroups.close();const el=document.getElementById('ixs-az84-drawer-wrap');if(el)el.remove();window.removeEventListener('keydown',_ixsAz84EscKey);}
 
   function renderDashboardEjecutivoProyecto(data) {
+    if(window.beeGenericExecutive&&window.beeGenericLayout&&window.beeGenericTimeline&&window.beeGenericTimelineView&&window.beeGenericHeader&&window.beeGenericPanels&&window.beeGenericCharts)return window.beeGenericExecutive.mount(data);
     const cont = document.getElementById('dashboard-proyecto-detalle');
     if (!cont) { console.warn('renderDashboardEjecutivoProyecto: vista ya no está en el DOM.'); return; }
     if (!data || !data.proyecto) {

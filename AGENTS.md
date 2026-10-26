@@ -258,40 +258,37 @@ su pestaña e IA: `project_ixs_tools.js` abre/formatea manualmente la recomendac
 con `beeIxsRaidCreator`, sin las entradas anteriores. Conserva texto, tipo,
 guardia por ID y recarga del registro tras crear; no publica automáticamente.
 `project_entry_runtime.js` compone el contexto de entrada/recarga con renderers
-AER/IXS directos y el almacén; conserva callbacks para sin proyecto/cuenta,
-cambio de cliente y Ejecutivo genérico. La recarga de hitos en Planeación IXS
+AER/IXS/genérico directos y el almacén; conserva callbacks para sin proyecto/
+cuenta y cambio de cliente. La recarga de hitos en Planeación IXS
 usa ese controlador directamente, sin `loadDashboard`/`projectEntryContext`.
 Los contextos AER compartidos también llegan directamente desde su runtime.
 Se retira `ixsRuntimeBindings` y la conexión previa IXS; su única dependencia
 de renderizado anterior es `previous`, inyectada explícitamente desde main.
-Faltan vista anterior/Ejecutivo genérico, compatibilidad sin proyecto y arranque
+Faltan auditar vista anterior, compatibilidad sin proyecto y arranque
 independiente. No retirar todavía script/shim.
 El primer bloque genérico separa fechas, fases fusionadas, suspensiones,
 asignación de marcadores, resumen y detección de cierre en
 `generic_timeline_model.js`. El renderer de compatibilidad consume ese modelo
-cuando existe; conserva el cálculo original como fallback. Su vista/CSS,
-formularios y enriquecimientos siguen pendientes. No darla por migrada: hay
-diferencias previas entre plantillas (por ejemplo botones 25 vs. 44 px).
-La comparación incremental modelo/fallback usa la misma plantilla nueva;
-la comparación visual completa contra `?vista=anterior` aún falta para esta vista.
+cuando existe; conserva el cálculo original como fallback. La comparación
+incremental modelo/fallback usa la misma plantilla nueva; los bloques siguientes
+comparan la presentación y estructura contra `?vista=anterior`.
 Su línea de tiempo ya usa `generic_timeline_view.js` y CSS externo
 `project_detail_generic_timeline.css`: barras, estados, marcadores, eje y leyenda
 con DOM seguro. El componente reemplaza un marcador estático del renderer
 transitorio; no ejecuta la construcción HTML anterior de la línea de tiempo.
-El resto del Ejecutivo genérico sigue pendiente. Sus diferencias de botones
-se mantienen fuera de este componente hasta migrar la vista completa.
+La estructura posterior conserva también los tamaños originales de botones.
 La tabla de carga por recurso y el resumen de hitos también usan DOM seguro
 en `generic_panels_view.js`, modelo de presentación `generic_panels_model.js`
 y CSS externo `project_detail_generic_panels.css`. Conservan filas/totales,
 redondeo, estados, fechas, observaciones y orden. Mantienen los IDs de tarjeta
 y rango Clockify. La ruta nueva no construye su HTML anterior; el renderer
-transitorio sigue para fuentes, acciones y estructura final pendientes.
+transitorio queda como respaldo de comparación.
 Encabezado y seis KPIs genéricos usan `generic_header_model.js`,
 `generic_header_view.js` y CSS externo `project_detail_generic_header.css`.
 Conservan defaults, umbral de ritmo, etiquetas de cierre, presupuesto, fecha
 PRD/estimada e ID financiero. La gráfica circular pequeña se crea con SVG DOM;
 no se ejecuta su helper HTML anterior en esa ruta. Los flags de estado/cierre
-todavía llegan del renderer transitorio. No dar por migrado todo el genérico.
+ya llegan del modelo genérico modular, con las mismas reglas anteriores.
 Las gráficas de distribución por área y horas por recurso/rol usan
 `generic_charts_model.js`, `generic_charts_view.js`, `generic_charts.js` y CSS
 externo. SVG/textos seguros, paleta, redondeo, orden, escala de lista completa
@@ -319,14 +316,16 @@ La estructura de tarjetas y controles usa `generic_layout_view.js` y CSS
 externo `project_detail_generic_layout.css`: montaje DOM seguro, IDs/grillas,
 cargas y resumen RAID originales. Agregar Hito/Riesgo usa eventos externos
 y sus controladores migrados; guardar hito recarga por el runtime modular.
-El renderer transitorio delega la estructura cuando sus componentes están
-disponibles; mantiene el HTML anterior solo para compatibilidad/comparación.
-Siguen pendientes coordinación/estados y derivados genéricos en el archivo
-anterior; después compatibilidad sin proyecto/cuenta y arranque autónomo.
-Siguen anteriores las ramas
-de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
-se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;
-no reabrir vistas/formularios ya migrados.
+`generic_executive_model.js` conserva detección de cierre, flags de riesgo/color,
+servicio/fecha PRD y resumen temporal. `generic_executive.js` coordina estado,
+montaje y fuentes directamente. Conserva las dos asignaciones originales al
+proyecto completado; error/datos faltantes usan DOM seguro con el mismo texto.
+`project_entry_runtime.js` llama al genérico modular en servicios no AER/IXS;
+no ejecuta el renderer ni auxiliares anteriores de este Ejecutivo. El nombre
+anterior delega si están sus módulos; el cuerpo original sigue para comparar.
+La fase 10 sigue parcial: auditar las ramas de compatibilidad sin proyecto/
+cuenta, el enlace «vista anterior» y auxiliares activos; después arranque
+independiente. No reabrir vistas/formularios ya migrados.
 Mantener los puentes y comparación;
 no retirar aún script/shim. El manejador común showError puede reemplazar el
 dashboard ante errores; comportamiento preservado en el módulo nuevo.

@@ -2,7 +2,40 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: tarjetas y controles genéricos (25/10/2026)
+## Bloque actual: coordinación y derivados del Ejecutivo genérico (25/10/2026)
+
+- `generic_executive_model.js` conserva servicio/fecha PRD, riesgo/color,
+  resumen temporal y detección de cierre. Devuelve las dos asignaciones de
+  proyecto completado sin mutar los datos; `generic_executive.js` las aplica
+  al objeto original, como antes, y actualiza ID/hitos del almacén.
+- El controlador monta directamente estructura, encabezado/KPIs, recursos,
+  resumen, línea temporal, gráficas y fuentes API. No ejecuta renderer ni
+  auxiliares anteriores. Error/datos faltantes conservan texto/apariencia con
+  DOM seguro. `project_entry_runtime.js` llama al módulo en servicios no AER/
+  IXS. El nombre anterior delega cuando están los módulos; su cuerpo original
+  sigue disponible para comparar y para los respaldos temporales.
+- Cinco Node nuevos contrastan contexto/asignaciones con el código original
+  para cortes/servicios/estados y verifican cierre, metadatos/fechas, modelo
+  sin mutación y entrada directa. Suite completa: **460 aprobadas y tres
+  fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+- Nueve pruebas nuevas de navegador aprobadas: entrada genérica real y
+  actualización/reintento con seis funciones anteriores bloqueadas, seis
+  comparaciones de error/vacío a 1450/900/390 px y montaje/error con innerHTML
+  bloqueado. Verifican rango/RAID/tasks por API, sin RPC, estado y regreso.
+  Capturas en `tmp/migration/project_detail/generic_executive/`; error móvil
+  nuevo inspeccionado. Proveedores simulados/red externa bloqueada.
+- **106 pruebas únicas de navegador aprobadas**: nueve nuevas, diez de
+  estructura completa, 25 de encabezado/KPIs (incluido cierre), 22 de fuentes,
+  20 del formulario de riesgos y 20 de entrada/pestañas/recarga. No se suman
+  de nuevo las nueve repetidas en la regresión. Ruff/formato, sintaxis JS,
+  Django y diff aprobados.
+- **Fase 10 parcial.** Siguiente: auditar compatibilidad sin proyecto/cuenta,
+  enlace de vista anterior y auxiliares activos; después arranque independiente.
+  Mantener script/shim y comparación. No activar ACCESS_ENFORCED ni tocar
+  Horas por mes. Sin cambios de backend/permisos ni datos reales. Temporales/
+  herramientas ajenos intactos; sin push.
+
+## Bloque anterior: tarjetas y controles genéricos (25/10/2026)
 
 - `generic_layout_view.js` y `project_detail_generic_layout.css` construyen la
   estructura con DOM seguro, sin HTML interpolado ni eventos inline. Conserva

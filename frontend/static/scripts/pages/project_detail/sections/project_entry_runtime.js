@@ -1,5 +1,5 @@
-// Direct project loads use modular renderers. Generic/account fallbacks still
-// come from compatibility until those branches are migrated.
+// Direct project loads use modular renderers. Account/no-project fallbacks
+// still come from compatibility until those branches are migrated.
 export function createEntryRuntime(services) {
   let compatibility;
   const runtime = {
@@ -15,7 +15,7 @@ export function createEntryRuntime(services) {
         render: {
           aer: (data) => services.aer(data),
           ixs: (data) => services.ixs(data),
-          executive: compatibility.executive,
+          executive: services.executive || compatibility.executive,
         },
       });
     },

@@ -9,13 +9,19 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque migra estructura de tarjetas
+   diferencia con `origin/main`. El último bloque migra coordinación/derivados
+   genéricos a `generic_executive{,_model}.js`: monta directamente los módulos,
+   actualiza el almacén, conserva cierre/flags/PRD y usa DOM seguro para errores.
+   `project_entry_runtime.js` usa el genérico modular para servicios no AER/IXS,
+   sin renderer/auxiliares anteriores. El nombre anterior delega y conserva
+   su cuerpo para comparar. No repetir el genérico. Fase 10 parcial: auditar
+   compatibilidad sin proyecto/cuenta, enlace «vista anterior» y auxiliares
+   activos; después arranque independiente. No retirar aún script/shim.
+   El bloque previo migra estructura de tarjetas
    y controles a `generic_layout_view.js` y CSS externo, con DOM seguro e IDs,
    grillas, cargas y resumen RAID originales. Agregar Hito/Riesgo abre los
    controladores migrados sin helpers anteriores. Guardar hito recarga por el
-   runtime modular y permite reintentar. No repetir la estructura. El renderer
-   transitorio conserva coordinación/estados y derivados genéricos: seguir
-   por ahí, después compatibilidad sin proyecto/cuenta y arranque autónomo.
+   runtime modular y permite reintentar. No repetir la estructura.
    El bloque previo migra el alta manual de riesgos
    genéricos a `generic_risk{,_model,_view}.js`, CSS externo y POST API v1
    `riesgos-manuales/`. Mismo servicio `write_rpc.add_risk` (hojas, no otra
