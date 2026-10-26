@@ -1,0 +1,116 @@
+/* Operativa: jerarquía compacta de la referencia, con datos originales. */
+.ops{max-width:1520px;color:#21164f}
+.ops .ops-banner{position:relative;overflow:hidden;display:flex;flex-wrap:nowrap;gap:18px;padding:14px 22px;margin-bottom:14px;border-radius:14px;background:linear-gradient(110deg,#4530ef 0%,#7037ee 60%,#b84fd1 100%);min-height:118px;box-sizing:border-box}
+.ops .ops-banner:before{content:'';position:absolute;inset:45% -5% -90%;border-radius:50%;border-top:1px solid #ffffff26;box-shadow:0 -6px #ffffff09,0 -12px #ffffff08,0 -18px #ffffff07,0 -24px #ffffff06;transform:rotate(-5deg);pointer-events:none}
+.ops .ops-banner>*{z-index:1}
+.ops .ops-banner h1{font-size:32px;line-height:1.1;letter-spacing:-.5px;color:white;margin:0}
+.ops .ops-banner p{font-size:13px;color:#fff;margin:5px 0 0}
+.ops .ops-banner-icon{width:50px;height:54px;border-radius:12px;background:#ffffff20}
+.ops .ops-banner-icon svg{width:35px;height:35px}
+.ops .ops-filters{width:300px;gap:6px;padding:0;background:none;border:0;margin-left:auto}
+.ops .ops-filter{min-width:0;padding:5px 13px 5px 40px;border:1px solid #ede7fc;border-radius:9px;background:#fff;gap:1px;box-shadow:inset 0 0 0 3px #faf8ff}
+.ops .ops-filter:before{content:'♧';position:absolute;left:10px;top:9px;font-size:21px;color:#7542e9}
+.ops .ops-filter+label:before{content:'▤';font-size:20px}
+.ops .ops-filter>span{font-size:9px;color:#8b7caa;line-height:1.3}
+.ops .ops-filter select{font-size:11px;font-weight:600;min-height:19px;color:#30205f}
+.ops .ops-filter:after{width:5px;height:5px;bottom:13px;border-color:#7941e5}
+.ops .ops-section,.ops .ops-health-card{padding:14px;margin:0 0 14px;border:1px solid #e6e2f7;border-radius:13px;background:#fff;box-shadow:none}
+.ops .ops-head{margin-bottom:12px;padding-bottom:11px;gap:8px 12px;align-items:center;border-color:#f0ecfa;min-height:24px}
+.ops .ops-head h2,.ops .ops-health-header h2{font-size:19px;letter-spacing:-.5px;color:#24174f}
+.ops .ops-head>span{font-size:11px;color:#8d80a8}
+.ops .ops-summary-tools{margin-left:auto;display:flex;gap:8px;align-items:center;font-size:10px}
+.ops .ops-cut{font-size:10px;color:#8f80ab}
+.ops .ops-cut:before{display:none}
+.ops .ops-header-refresh{font-size:10px;min-height:29px;padding:5px 9px;border-radius:8px}
+.ops .ops-section-action{margin-left:auto;padding:7px 12px;border:1px solid #e6dcfc;border-radius:8px;font-size:10px;color:#7138de}
+.ops .ops-metrics{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.ops .ops-metric{position:relative;padding:14px 12px 12px;min-height:112px;border:1px solid #ede8fb;border-radius:11px;background:linear-gradient(130deg,#fff,#fcfbff)}
+.ops .ops-metric-head{font-size:12px;line-height:1.35;gap:11px;min-height:34px;align-items:center}
+.ops .ops-icon{width:36px;height:36px;border-radius:12px;box-shadow:inset 0 0 0 4px #ffffff1a}
+.ops .ops-icon svg{width:21px;height:21px}
+.ops .ops-icon.ok{background:#14b579}.ops .ops-icon.bad{background:#f2436c}.ops .ops-icon.blue{background:#3566fb}.ops .ops-icon.violet{background:#9844e8}.ops .ops-icon.amber{background:#f5a01c}
+.ops .ops-value{font-size:27px;line-height:1.15;margin:4px 0 0 47px}
+.ops .ops-note{font-size:10px;line-height:1.5;margin:7px 0 0 47px;color:#8c80a3}
+.ops #ops-metric-progress .ops-note,.ops #ops-metric-on-time .ops-note{background:#e9faf1;color:#129c65;border-radius:8px;padding:3px 7px;display:inline-block}
+.ops #ops-investment-operational .ops-value,.ops #ops-investment-commercial .ops-value{margin-left:47px}
+.ops #ops-investment-operational .ops-note,.ops #ops-investment-commercial .ops-note{margin-left:0;margin-top:8px}
+.ops .ops-health-header{padding-bottom:10px;margin-bottom:12px;border-color:#f0ecfa}
+.ops .ops-health-header p{font-size:10px;margin-top:4px}
+.ops .ops-health-layout{grid-template-columns:1fr .85fr 1fr;gap:15px;max-width:none;align-items:stretch}
+.ops .ops-health-figure{padding:8px;background:linear-gradient(140deg,#faf8ff,#fdfcff);border-radius:9px}
+.ops .ops-health-figure svg{width:205px;max-width:100%}
+.ops .ops-health-figure figcaption{font-size:10px;margin-top:0}
+.ops .ops-health-table{width:100%;font-size:12px}
+.ops .ops-health-table caption{font-size:12px;padding:5px 0 12px}
+.ops .ops-health-table th,.ops .ops-health-table td,.ops .ops-health-table tbody th{font-size:11px;padding:12px 8px;color:#4d3e77}
+.ops .ops-health-table thead th{padding:6px 8px;background:#faf8ff;font-size:9px}
+.ops .ops-health-table td:nth-child(2){font-size:12px}
+.ops .ops-health-state{gap:8px}
+.ops .state-dot{width:8px;height:8px}
+.ops .ops-health-help{margin-top:8px}
+.ops .ops-health-help>summary{width:24px;height:24px;font-size:12px}
+.ops .ops-service-distribution{border-left:1px solid #f0eafa;padding:6px 0 0 16px;min-width:0}
+.ops .ops-service-distribution h3{font-size:12px;margin:0 0 20px;color:#35205d}
+.ops .ops-service-row{display:grid;grid-template-columns:56px minmax(0,1fr) 24px 30px;gap:10px;align-items:center;margin:0 0 22px;font-size:11px;color:#4c397e}
+.ops .ops-service-row small{font-size:10px;color:#8473a0}
+.ops .ops-service-row progress{appearance:none;width:100%;height:16px;border:0;border-radius:4px;overflow:hidden;background:#efecfa}
+.ops .ops-service-row progress::-webkit-progress-bar{background:#efecfa}
+.ops .ops-service-row progress::-webkit-progress-value{background:#7842f1}
+.ops .ops-service-row progress::-moz-progress-bar{background:#7842f1}
+.ops .service-tone-1 progress::-webkit-progress-value{background:#3974ff}.ops .service-tone-2 progress::-webkit-progress-value{background:#ec4ba0}.ops .service-tone-3 progress::-webkit-progress-value{background:#f5a02d}
+.ops #ops-managers{position:relative}
+.ops .dm-carousel{padding:0;border-radius:0;background:none}
+.ops .dm-controls{position:absolute;top:10px;right:14px;gap:8px;margin:0}
+.ops .dm-controls button{width:29px;height:29px;font-size:14px;border-color:#e7def8;background:#faf8ff}
+.ops .dm-investment-link{font-size:10px;padding:8px 14px;border:1px solid #e7def8;border-radius:8px;background:#fff}
+.ops .dm-track{gap:12px;padding-bottom:0}
+.ops .dm-card{flex-basis:calc((100% - 24px)/3);border:1px solid #e9e2f7;border-radius:11px;box-shadow:none}
+.ops .dm-card-head{padding:12px;gap:10px;background:linear-gradient(120deg,#fcfaff,#fff);min-height:48px}
+.ops .dm-card-head .ops-icon{width:33px;height:33px;font-size:12px;border-radius:50%;background:#6434ed}
+.ops .dm-card-head b{font-size:12px;line-height:1.3}
+.ops .dm-role{font-size:9px;margin-top:3px}
+.ops .dm-bar{height:8px;margin:6px 12px}
+.ops .dm-counts{font-size:9px;gap:6px 10px;margin:5px 12px 8px}
+.ops .m2{min-height:0;padding:7px 12px;font-size:11px;border-color:#f1ecfb}
+.ops .m2 b{font-size:12px}
+.ops .dm-row-label{display:flex;align-items:center;gap:8px;color:#85729f}
+.ops .dm-row-label svg{color:#8150e5;flex:none}
+.ops .dm-investment{margin:0 8px 8px;background:#faf7ff;border-radius:7px}
+.ops .dm-investment .m2{padding:7px 6px}
+.ops .dm-investment b{color:#7441dc}
+.ops .eva-grid{gap:10px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.ops .eva-card{padding:7px;border-radius:10px;border-color:#ece6f9;box-shadow:none}
+.ops .eva-head{padding:8px;gap:8px;font-size:15px;background:linear-gradient(100deg,#f7f2ff,#fdfbff);border-radius:8px}
+.ops .eva-head small,.ops .eva-title small{font-size:10px;font-weight:400}
+.ops .eva-icon svg{width:20px;height:20px}
+.ops .eva-value{font-size:22px;margin-top:3px}
+.ops .eva-label{font-size:9px;color:#8b78a4}
+.ops .eva-more{font-size:11px;min-height:0;padding:7px;margin-top:9px;background:#f8f4ff;border-radius:6px}
+.ops .ops-strip{padding:0;gap:18px;border:0;background:none;grid-template-columns:245px minmax(0,1fr) 160px}
+.ops .ops-strip--two{grid-template-columns:minmax(0,1fr) 165px;gap:12px}
+.ops .ops-links{gap:6px}
+.ops .ops-button{min-height:0;padding:10px 12px;font-size:10px;border-radius:8px;background:#f8f5ff}
+.ops .billing{grid-template-columns:260px minmax(0,1fr);gap:18px}
+.ops .billing>div:first-child{padding:14px;background:linear-gradient(140deg,#fcf9ff,#fff);border:1px solid #f0eafb;border-radius:10px}
+.ops .billing-title{font-size:13px;gap:10px}
+.ops .billing-title .ops-icon{width:35px;height:35px}
+.ops .billing-value{font-size:34px;margin:5px 0 3px 45px}
+.ops .billing-gap{font-size:11px;line-height:1.5}
+.ops .billing-label{font-size:9px}
+.ops .billing-chip{font-size:10px;padding:4px 10px}
+.ops .billing-chart-title{font-size:11px;text-align:left;margin-bottom:12px}
+.ops .billing-svg{max-height:155px}
+.ops .ops-heading{font-size:13px;gap:10px}
+.ops .ops-heading .ops-icon{width:35px;height:35px}
+.ops .ops-number{font-size:28px;margin:5px 0 6px 45px}
+.ops .ops-number small{font-size:11px}
+.ops .ops-stats{font-size:10px;gap:10px}
+.ops .ops-muted{font-size:10px;line-height:1.6}
+.ops .ops-meter{height:11px;margin-bottom:12px;background:#eee5ff}
+.ops .ops-meter i{background:linear-gradient(90deg,#7431ef,#dfceff)}
+@media(max-width:1200px){.ops .ops-health-layout{grid-template-columns:1fr 1fr 1fr}.ops .ops-metric{padding:12px 9px}.ops .ops-metric-head{gap:7px;font-size:11px}.ops .ops-value{margin-left:0}.ops .ops-note{margin-left:0}.ops .billing{grid-template-columns:215px minmax(0,1fr)}.ops .ops-strip{grid-template-columns:200px minmax(0,1fr)}.ops .ops-strip--two{grid-template-columns:minmax(0,1fr) 155px}.ops .ops-links{grid-column:auto;grid-template-columns:1fr}.ops .ops-service-row{grid-template-columns:45px minmax(0,1fr) 20px 27px;gap:5px}}
+@media(max-width:950px){.ops .ops-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.ops .dm-card{flex-basis:calc((100% - 12px)/2)}.ops .ops-health-layout{grid-template-columns:1fr 1fr}.ops .ops-service-distribution{grid-column:1/-1;border-left:0;border-top:1px solid #eee7fa;padding:15px 0 0}.ops .ops-service-row{grid-template-columns:70px minmax(0,1fr) 25px 35px;margin-bottom:13px}.ops .billing{grid-template-columns:1fr}.ops .eva-head{flex-wrap:wrap}.ops .ops-summary-tools{width:100%;margin-left:0;justify-content:flex-end}}
+@media(max-width:700px){.ops .ops-banner{flex-wrap:wrap;padding:16px;gap:12px}.ops .ops-banner h1{font-size:27px}.ops .ops-filters{width:100%;gap:7px;padding:0}.ops .ops-section,.ops .ops-health-card{padding:12px;margin-bottom:12px}.ops .ops-head h2,.ops .ops-health-header h2{font-size:18px}.ops .ops-head>span{font-size:10px}.ops .ops-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.ops .ops-metric .ops-icon{display:grid}.ops .ops-metrics>:last-child{grid-column:auto}.ops .ops-metrics>:last-child{grid-column:1/-1}.ops .ops-metric-head{font-size:11px}.ops .ops-value{font-size:25px;margin-left:42px}.ops .ops-note{font-size:9px;margin-left:0}.ops .ops-health-layout{grid-template-columns:1fr;gap:12px}.ops .ops-service-distribution{grid-column:auto}.ops .ops-health-figure svg{width:190px}.ops .dm-controls{position:static;justify-content:flex-end;margin:0 0 12px}.ops .dm-card{flex-basis:100%}.ops .ops-head{gap:6px 9px}.ops .eva-grid{grid-template-columns:1fr}.ops .eva-head{flex-wrap:nowrap}.ops .eva-stats{margin-top:12px}.ops .eva-label{font-size:11px}.ops .eva-value{font-size:24px}.ops .ops-strip,.ops .ops-strip--two{grid-template-columns:1fr}.ops .ops-links{grid-template-columns:repeat(2,minmax(0,1fr))}.ops .billing{grid-template-columns:1fr}.ops .ops-number{margin-left:45px}.ops .ops-summary-tools{flex-wrap:wrap;justify-content:space-between}.ops .ops-cut{font-size:9px}.ops .ops-section-action{font-size:9px}.ops .ops-head:has(+.dm-carousel){margin-bottom:10px}}
+@media(prefers-reduced-motion:reduce){.ops *{scroll-behavior:auto!important}}
+
+.ops .ops-filter:before{display:none}.ops .ops-filter-icon{position:absolute;left:10px;top:11px;width:21px;height:21px;color:#7941e5}

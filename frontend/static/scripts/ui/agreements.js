@@ -3,8 +3,22 @@
 // Los datos y los cambios pasan por /api/v1/agreements/; este modulo solo
 // pinta la tabla y el formulario.
 import { apiGet, apiSend } from '#app/data/api-client.js';
-import { el } from '#app/lib/dom.js';
+import { el, svg } from '#app/lib/dom.js';
 import { plain } from '#app/lib/format.js';
+
+/** Decorative icons follow the existing SVG system. @param {string} name */
+function icon(name) {
+  const paths = {
+    document: 'M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h7M3 7v14h12',
+    plus: 'M12 5v14M5 12h14',
+    edit: 'm15 4 5 5M4 15 16 3l5 5L9 20l-6 1Z',
+    chevron: 'm6 9 6 6 6-6',
+    search: 'm16 16 5 5',
+  };
+  return svg('svg', { viewBox: '0 0 24 24', width: 20, height: 20, fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true', focusable: 'false' },
+    ...(name === 'search' ? [svg('circle', { cx: 10, cy: 10, r: 7 })] : []),
+    svg('path', { d: paths[name] || paths.document }));
+}
 
 const STATUS = { open: 'Abierto', progress: 'En curso', done: 'Completado' };
 const COLUMNS = ['Cuenta / acuerdo', 'Sesión', 'Tipo', 'Seguimiento', 'Acción', 'Compromiso', 'Estado', 'Acciones'];
@@ -76,26 +90,27 @@ export function createAgreements({ account = '', accounts = [] } = {}) {
   );
   const feedback = el('span', { id: 'agreement-feedback', role: 'status', 'aria-live': 'polite' });
   const body = el('tbody', { id: 'agreement-rows' }, el('tr', {}, el('td', { colspan: 8, text: 'Consultando acuerdos de dirección y consejo…' })));
-  const newButton = /** @type {HTMLButtonElement} */ (el('button', { type: 'button', id: 'agreement-new', text: '+ Agregar acuerdo o pendiente' }));
+  const newButton = /** @type {HTMLButtonElement} */ (el('button', { type: 'button', id: 'agreement-new' }, icon('plus'), el('span', { text: 'Agregar acuerdo o pendiente' })));
   const section = el(
     'section',
     { class: 'c p executive-followup executive-agreements', 'aria-labelledby': 'followup-title', id: 'executive-agreements' },
     el(
       'div',
       { class: 'agreements-heading' },
+      el('span', { class: 'agreements-title-icon', 'aria-hidden': 'true' }, icon('document')),
       el(
         'div',
-        {},
+        { class: 'agreements-title' },
         el('h3', { id: 'followup-title', text: 'Decisiones y seguimiento' }),
         el('p', {
           class: 'note',
           text: account ? `Pendientes y acuerdos abiertos o en curso de ${account}.` : 'Acuerdos de sesiones de dirección y consejo, organizados por cuenta.',
         }),
       ),
-      newButton,
+      el('div', { class: 'agreement-toolbar' }, el('div', { class: 'agreement-search-field' }, icon('search'), search), filter, newButton),
     ),
+    feedback,
     form,
-    el('div', { class: 'agreement-toolbar' }, search, filter, feedback),
     el(
       'div',
       { class: 'executive-table-scroll' },
@@ -106,11 +121,15 @@ export function createAgreements({ account = '', accounts = [] } = {}) {
   /** @type {any[]} */
   let items = [];
   let canEdit = true;
+  const collapsedAccounts = new Set();
   const field = (/** @type {string} */ name) => /** @type {HTMLInputElement} */ (form.elements.namedItem(name));
 
   /** @param {any} [item] */
   function edit(item = {}) {
     form.reset();
+    // Hidden inputs retain their default value after editing.
+    field('id').value = '';
+    field('owner').value = '';
     if (account) field('account').value = account;
     const accountSelect = /** @type {HTMLSelectElement} */ (form.elements.namedItem('account'));
     if (item.account && ![...accountSelect.options].some((option) => option.value === item.account)) {
@@ -157,10 +176,10 @@ export function createAgreements({ account = '', accounts = [] } = {}) {
       return td;
     };
     const tr = el('tr');
-    const when = item.meeting_date ? `${item.meeting_source === 'board' ? 'Consejo' : 'Dirección'} · ${dmy(item.meeting_date)}` : 'Sesión pendiente de identificar';
+    const when = item.meeting_date ? el('span', { class: 'agreement-session' }, item.meeting_source === 'board' ? 'Consejo' : 'Dirección', el('time', { datetime: item.meeting_date, text: dmy(item.meeting_date) })) : 'Sesión pendiente de identificar';
     cell(item.title);
     cell(when);
-    cell(item.kind === 'agreement' ? 'Acuerdo' : 'Pendiente');
+    cell(el('span', { class: `agreement-kind ${item.kind}`, text: item.kind === 'agreement' ? 'Acuerdo' : 'Pendiente' }));
     cell(item.notes || '—');
     cell(item.kind === 'agreement' ? 'Cumplir acuerdo' : 'Dar seguimiento');
     cell(item.due_date ? dmy(item.due_date) : 'Sin fecha');
@@ -176,7 +195,7 @@ export function createAgreements({ account = '', accounts = [] } = {}) {
     state.addEventListener('change', () => setStatus(item, state.value));
     cell(state);
     const actions = cell('', 'agreement-row-actions');
-    if (canEdit && item.actions?.edit) actions.append(el('button', { type: 'button', text: 'Editar', onclick: () => edit(item) }));
+    if (canEdit && item.actions?.edit) actions.append(el('button', { type: 'button', class: 'agreement-edit', onclick: () => edit(item) }, icon('edit'), el('span', { text: 'Editar' })));
     if (canEdit && item.status !== 'done' && item.actions?.change_status) {
       actions.append(
         el('button', { type: 'button', class: 'agreement-close', text: 'Cerrar', 'aria-label': `Completar ${item.title}`, onclick: () => setStatus(item, 'done') }),
@@ -195,10 +214,18 @@ export function createAgreements({ account = '', accounts = [] } = {}) {
     for (const item of list) {
       const name = item.account || 'Sin cuenta · pendiente de clasificar';
       if (name !== previous) {
-        rows.push(el('tr', { class: 'agreement-account-group' }, el('td', { colspan: 8, 'data-label': COLUMNS[0], text: name })));
+        const expanded = !collapsedAccounts.has(name);
+        const toggle = el('button', { type: 'button', class: 'agreement-group-toggle', 'aria-expanded': String(expanded), onclick: () => {
+          if (collapsedAccounts.has(name)) collapsedAccounts.delete(name);
+          else collapsedAccounts.add(name);
+          draw();
+        } }, icon('chevron'), el('span', { text: name }));
+        rows.push(el('tr', { class: 'agreement-account-group' }, el('td', { colspan: 8, 'data-label': COLUMNS[0] }, toggle)));
         previous = name;
       }
-      rows.push(row(item));
+      const itemRow = row(item);
+      itemRow.hidden = collapsedAccounts.has(name);
+      rows.push(itemRow);
     }
     if (!list.length) rows.push(el('tr', {}, el('td', { colspan: 8, text: 'Sin acuerdos de dirección o consejo registrados para esta búsqueda.' })));
     body.replaceChildren(...rows);

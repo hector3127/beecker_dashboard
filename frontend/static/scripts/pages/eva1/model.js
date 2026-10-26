@@ -36,8 +36,8 @@ export const headers = [
   ]),
   "Riesgos",
 ];
-export const csv = (rows) =>
-  [headers, ...rows]
+export const csv = (rows, columnHeaders = headers) =>
+  [columnHeaders, ...rows]
     .map((row) =>
       row.map((v) => '"' + String(v).replaceAll('"', '""') + '"').join(","),
     )

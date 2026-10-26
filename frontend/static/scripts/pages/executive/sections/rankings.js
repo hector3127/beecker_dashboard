@@ -1,29 +1,45 @@
 // @ts-check
 // Rentabilidad por cuenta: dos grupos (mitad superior e inferior) segun el
 // criterio elegido, con busqueda y orden por columna guardados en la URL.
+import { findAccountLogo } from '../../account/logo-lookup.js';
 import { CRITERIA, numeric, rankAccounts } from '#app/lib/ranking.js';
 import { el } from '#app/lib/dom.js';
 import { formatCompact, plain } from '#app/lib/format.js';
 
 const KINDS = /** @type {const} */ (['healthy', 'unhealthy']);
 const LABELS = { gross_profit: 'utilidad bruta', revenue: 'facturación', margin: 'margen bruto' };
+let logoRequest;
+let mounted=0;
+function loadLogos(){
+  if(!logoRequest)logoRequest=fetch('/api/v1/account-logos/',{credentials:'same-origin'}).then(response=>response.ok?response.json():null).then(body=>body?.data?.items||[]).catch(()=>[]);
+  return logoRequest;
+}
+function avatar(name,url){
+  const words=String(name).trim().split(/\s+/);
+  const text=words.length===1?words[0].slice(0,3).toUpperCase():words.slice(0,2).map(word=>word[0]).join('').toUpperCase();
+  const node=el('span',{class:'ranking-logo','aria-hidden':'true'});
+  const fallback=()=>{node.replaceChildren();node.dataset.initials=text;};
+  fallback();
+  if(url){const img=el('img',{src:url,alt:'',loading:'lazy',decoding:'async'});img.addEventListener('error',fallback,{once:true});node.replaceChildren(img);delete node.dataset.initials;}
+  return node;
+}
 const defaults = () => ({ healthy: 'descending', unhealthy: 'ascending' });
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
 
 /** @param {any} account @param {number} index @param {(account: any) => string} href */
-function rankRow(account, index, href) {
+function rankRow(account, index, href, logos) {
   const partial = account.pending || account.partial ? '*' : '';
   const margin = numeric(account.margin) ? `${Number(account.margin).toLocaleString('es-MX', { maximumFractionDigits: 2 })}%${partial}` : 'No aplica';
   return el(
     'tr',
     {},
     el('td', { text: index + 1 }),
-    el('td', {}, el('a', { class: 'ranking-account', href: href(account), text: account.name }), el('small', { text: `${account.projects ?? 0} proyectos${partial ? ' · Parcial*' : ''}` })),
+    el('td', {}, el('a', { class: 'ranking-account', href: href(account) },avatar(account.name,findAccountLogo(logos,account.name)?.url),el('span',{text:account.name})), el('small', { text: `${account.projects ?? 0} proyectos${partial ? ' · Parcial*' : ''}` })),
     el('td', { class: 'ranking-revenue', text: formatCompact(account.revenue) }),
-    el('td', { class: 'ranking-margin' }, el('strong', { text: formatCompact(account.gross_profit) + partial })),
-    el('td', { class: 'ranking-margin' }, el('b', { text: margin })),
+    el('td', { class: `ranking-margin ${numeric(account.gross_profit) && Number(account.gross_profit) < 0 ? 'ranking-negative' : 'ranking-positive'}` }, el('strong', { text: formatCompact(account.gross_profit) + partial })),
+    el('td', { class: `ranking-margin ${numeric(account.margin) && Number(account.margin) < 0 ? 'ranking-negative' : 'ranking-positive'}` }, el('b', { text: margin })),
   );
 }
 
@@ -32,6 +48,8 @@ function rankRow(account, index, href) {
  * @param {(account: any) => string} href Destino de cada cuenta.
  */
 export function mountRankings(accounts, href) {
+  const version=++mounted;
+  let logos=[];
   const search = /** @type {HTMLInputElement} */ (byId('ranking-search'));
   const select = /** @type {HTMLSelectElement} */ (byId('ranking-sort'));
   const status = byId('ranking-coverage');
@@ -65,7 +83,7 @@ export function mountRankings(accounts, href) {
       const group = result[kind];
       const body = byId(`${kind}-financial-accounts`);
       byId(`${kind}-account-count`).textContent = `${group.rows.length} de ${group.count} cuentas`;
-      body.replaceChildren(...(group.rows.length ? group.rows.map((/** @type {any} */ a, /** @type {number} */ i) => rankRow(a, i, href)) : [el('tr', {}, el('td', { colspan: 5, text: 'No hay cuentas con datos para este grupo y búsqueda.' }))]));
+      body.replaceChildren(...(group.rows.length ? group.rows.map((/** @type {any} */ a, /** @type {number} */ i) => rankRow(a, i, href, logos)) : [el('tr', {}, el('td', { colspan: 5, text: 'No hay cuentas con datos para este grupo y búsqueda.' }))]));
       const table = /** @type {HTMLElement} */ (body.closest('table'));
       table.querySelectorAll('[data-ranking-column]').forEach((header) => {
         const active = /** @type {HTMLElement} */ (header).dataset.rankingColumn === select.value;
@@ -114,4 +132,5 @@ export function mountRankings(accounts, href) {
     }),
   );
   draw();
+  loadLogos().then(items=>{if(version!==mounted)return;logos=items;draw();});
 }

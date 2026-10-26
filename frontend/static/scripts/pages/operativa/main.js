@@ -7,7 +7,6 @@ import { readParams, writeParams } from '#app/data/url-state.js';
 import { el } from '#app/lib/dom.js';
 import { formatDateTime } from '#app/lib/format.js';
 import { slugify } from '#app/lib/slug.js';
-import { mountPageCapture } from '#app/ui/page-capture.js';
 import { renderBilling } from './sections/billing.js';
 import { renderCapacity } from './sections/capacity.js';
 import { renderEva } from './sections/eva.js';
@@ -153,6 +152,8 @@ function applyBlock(block, data) {
     });
     Object.assign(view, {
       summary: data.summary,
+      service_distribution: data.service_distribution,
+      portfolio_total: data.portfolio_total,
       health_states: data.health_states,
       consumption_pending: data.consumption_pending,
       has_projects: data.has_projects,
@@ -317,10 +318,4 @@ regions.client.addEventListener('change', () => {
 addEventListener('popstate', start);
 addEventListener('pagehide', abortAll);
 
-mountPageCapture({
-  host: byId('ops-actions'),
-  target: byId('main-content'),
-  name: 'operativa',
-  libraryUrl: /** @type {string} */ (root.dataset.captureLibrary),
-});
 start();

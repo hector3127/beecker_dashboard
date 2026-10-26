@@ -497,3 +497,170 @@ def test_empty_portfolio_says_so(portal, datos, monkeypatch):
         "Sin proyectos que mostrar todavía."
     )
     expect(portal.locator("#ops-metric-progress")).to_contain_text("0")
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_reference_design_and_header_filters(portal, datos, billing, width):
+    from pathlib import Path
+
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    ready(portal)
+    expect(portal.locator(".ops-banner #ops-service")).to_be_visible()
+    expect(portal.locator(".ops-banner #ops-client")).to_be_visible()
+    expect(
+        portal.locator(".ops-summary-tools #ops-refresh-button")
+    ).to_be_enabled()
+    expect(portal.locator(".ops-service-row")).to_have_count(2)
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    target = Path("tmp/design/operativa-reference")
+    target.mkdir(parents=True, exist_ok=True)
+    portal.screenshot(
+        path=str(target / f"operativa-{width}.png"), full_page=True
+    )
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_billing_reference_range_and_target(portal, datos, monkeypatch, width):
+    from pathlib import Path
+
+    summary = build_operations_summary(
+        [
+            month(
+                f"2026-{i:02d}",
+                [
+                    "Enero",
+                    "Febrero",
+                    "Marzo",
+                    "Abril",
+                    "Mayo",
+                    "Junio",
+                    "Julio",
+                    "Agosto",
+                    "Septiembre",
+                ][i - 1]
+                + " 2026",
+                60 + i * 2,
+                12,
+                48 + i * 2,
+            )
+            for i in range(1, 10)
+        ],
+        month_closed=True,
+    )
+    monkeypatch.setattr(
+        views, "operations_summary_data", lambda refresh=False: summary
+    )
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    ready(portal)
+    panel = portal.locator(".ops-billing-section")
+    expect(panel.locator(".billing-bar")).to_have_count(9)
+    expect(panel.locator(".billing-target-line")).to_have_attribute(
+        "data-target", "70"
+    )
+    expect(panel.locator(".billing-value")).to_have_text("78%")
+    picker = portal.get_by_label("Meses de facturabilidad")
+    picker.select_option("3")
+    expect(panel.locator(".billing-bar")).to_have_count(3)
+    panel.locator(".billing-bar").first.click()
+    expect(panel.locator(".billing-value")).to_have_text("74%")
+    picker.select_option("6")
+    expect(panel.locator(".billing-bar")).to_have_count(6)
+    expect(panel.locator(".billing-value")).to_have_text("74%")
+    picker.select_option("all")
+    expect(panel.locator(".billing-bar")).to_have_count(9)
+    bar = panel.locator(".billing-bar").first
+    bar.focus()
+    portal.keyboard.press("Enter")
+    expect(panel.locator(".billing-value")).to_have_text("62%")
+    expect(panel.locator(".billing-gap")).to_have_text(
+        "↓ 8 puntos abajo de la meta"
+    )
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    target = Path("tmp/design/billing-reference")
+    target.mkdir(parents=True, exist_ok=True)
+    if width == 390:
+        assert (
+            panel.locator(".ops-billing-heading-text").bounding_box()["width"]
+            > 240
+        )
+    panel.get_by_role("heading", name="Facturabilidad", exact=True).click()
+    panel.screenshot(path=str(target / f"billing-{width}.png"))
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_eva_reference_cards_keep_source_values(portal, datos, width):
+    from pathlib import Path
+
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    ready(portal)
+    panel = portal.locator("#ops-evas")
+    expect(panel.locator(".eva-card")).to_have_count(3)
+    expect(
+        panel.locator("progress, .eva-progress-block, .eva-roc-note")
+    ).to_have_count(0)
+    expect(panel.locator(".eva-tone-blue progress")).to_have_count(0)
+    expect(panel.locator("#ops-eva4-card progress")).to_have_count(0)
+    expect(panel).not_to_contain_text("vs. mes anterior")
+    assert panel.locator(".eva-tone-violet .eva-value").all_inner_texts() == [
+        "4",
+        "4 d",
+        "50%",
+    ]
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    target = Path("tmp/design/eva-cards-reference")
+    target.mkdir(parents=True, exist_ok=True)
+    panel.screenshot(path=str(target / f"evas-{width}.png"))
+
+
+def test_selected_billing_month_uses_rounded_highlight(portal, datos, billing):
+    from pathlib import Path
+
+    portal.goto(portal.base + PAGE)
+    ready(portal)
+    panel = portal.locator(".ops-billing-section")
+    bar = panel.get_by_role("button", name=re.compile("Agosto 2026"))
+    bar.click()
+    expect(bar).to_have_attribute("aria-pressed", "true")
+    expect(panel.locator(".billing-value")).to_have_text("74.5%")
+    assert bar.locator(".billing-selection-bg").get_attribute("rx") == "12"
+    assert bar.evaluate("node=>getComputedStyle(node).outlineStyle") == "none"
+    assert (
+        bar.locator(".billing-selected-bar")
+        .get_attribute("fill")
+        .startswith("url(#billing-selected-")
+    )
+    bar.focus()
+    portal.keyboard.press("Enter")
+    expect(panel.locator(".billing-value")).to_have_text("74.5%")
+    panel.get_by_role("heading", name="Facturabilidad", exact=True).click()
+    target = Path("tmp/design/billing-selection")
+    target.mkdir(parents=True, exist_ok=True)
+    panel.screenshot(path=str(target / "selected-month.png"))
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_capacity_reference_keeps_hours_and_meter(portal, datos, width):
+    from pathlib import Path
+
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    ready(portal)
+    panel = portal.locator(".ops-capacity-section")
+    expect(panel.locator(".capacity-main-value")).to_have_text("96")
+    expect(panel.locator(".capacity-meter-value strong")).to_have_text("40%")
+    expect(panel.locator(".capacity-stat-billable strong")).to_have_text("64 h")
+    expect(panel.locator(".capacity-stat-available strong")).to_have_text(
+        "96 h"
+    )
+    expect(panel.locator(".capacity-stat-estimated strong")).to_have_text(
+        "100 h"
+    )
+    expect(panel.locator(".capacity-detail-row")).to_have_count(3)
+    expect(panel).not_to_contain_text("mes anterior")
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    target = Path("tmp/design/capacity-reference")
+    target.mkdir(parents=True, exist_ok=True)
+    panel.screenshot(path=str(target / f"capacity-{width}.png"))

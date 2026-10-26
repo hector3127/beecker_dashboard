@@ -58,3 +58,8 @@ table.h td:first-child,table.h th:first-child{text-align:left;padding-left:10px}
 .billability-page .portal-page-toolbar.crumb { margin-bottom: 16px; }
 .billability-page tr.hl td { background: #F3EEFF; }
 @media (max-width:650px) { .billability-page .portal-page-toolbar.crumb { margin-bottom:12px; } }
+
+.resource-inactive{color:#ae3665;text-decoration:line-through;text-decoration-thickness:1.5px;text-underline-offset:2px}
+#resource-history tfoot td{background:#f1ecfd;font-weight:700}
+#resource-history [hidden]{display:none!important}
+#resource-history th .eva-column-trigger{padding:7px 5px;font-size:inherit}

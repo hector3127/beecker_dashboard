@@ -170,7 +170,7 @@ def test_repeated_deployment_uses_extended_finish_without_losing_start(reverse):
     assert result.end_date == date(2026, 10, 20)
 
 
-def test_mpb_range_spans_repeated_rows():
+def test_full_range_spans_repeated_mpb_rows():
     mpb = [
         ["ID", "Service", "Inicio", "Fin"],
         ["AER.CCO.008", "AER", "18/05/2026", "20/05/2026"],
@@ -180,7 +180,54 @@ def test_mpb_range_spans_repeated_rows():
         InMemorySheetRepository({"MPB": mpb}), date(2026, 10, 2)
     )
 
-    date_range = resolver.resolve("AER.CCO.008")
+    first = resolver.resolve("AER.CCO.008")
+    full = resolver.resolve_full("AER.CCO.008")
 
-    assert date_range.start_date == date(2026, 5, 11)
-    assert date_range.end_date == date(2026, 12, 31)
+    assert (first.start_date, first.end_date) == (
+        date(2026, 5, 18),
+        date(2026, 5, 20),
+    )
+    assert (full.start_date, full.end_date) == (
+        date(2026, 5, 11),
+        date(2026, 12, 31),
+    )
+    assert resolver.resolve_full("TYM.NONE").start_date is None
+
+
+@pytest.mark.parametrize("history", [[], [HISTORY[1]]])
+def test_missing_history_uses_exact_mpb_project_without_widening_other_ranges(
+    history,
+):
+    rows = [
+        ["ID", "Service", "Inicio", "Fin"],
+        ["IXB.FALLBACK", "IxB", "01/02/2026", "28/02/2026"],
+        ["IXB.FALLBACK", "IxB", "01/03/2026", "30/04/2026"],
+        ["IXB.OTHER", "IxB", "01/01/2026", "31/12/2026"],
+    ]
+    resolver = ProjectDateRangeResolver(
+        InMemorySheetRepository({"Historico_Proyectos": history, "MPB": rows}),
+        date(2026, 10, 2),
+    )
+    result = resolver.resolve("IXB.FALLBACK")
+    assert (result.start_date, result.end_date, result.source) == (
+        date(2026, 2, 1),
+        date(2026, 4, 30),
+        "MPB",
+    )
+    assert resolver.resolve("IXB.UNKNOWN").start_date is None
+
+
+def test_existing_history_still_wins_over_mpb_fallback():
+    rows = [
+        ["ID", "Service", "Inicio", "Fin"],
+        ["AMK.008", "IxB", "01/01/2025", "31/12/2026"],
+    ]
+    resolver = ProjectDateRangeResolver(
+        InMemorySheetRepository({"Historico_Proyectos": HISTORY, "MPB": rows}),
+        date(2026, 10, 2),
+    )
+    result = resolver.resolve("AMK.008")
+    assert (result.start_date, result.end_date) == (
+        date(2026, 1, 5),
+        date(2026, 6, 30),
+    )

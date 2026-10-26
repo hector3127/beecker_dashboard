@@ -1,0 +1,38 @@
+/* Menús de columna del histórico, sobre la tabla sin recortar por su scroll. */
+.eva3-page table.eva3-history-table th button{justify-content:space-between}
+.eva3-column-chevron{font-size:13px;color:#9574cf;flex:none}
+.eva3-page table.eva3-history-table th.eva3-column-filtered{background:#d9c8ff;box-shadow:inset 0 -3px #7b43e9}
+.eva3-page table.eva3-history-table th.eva3-column-filtered .eva3-column-chevron{color:#5421bf}
+.eva3-column-menu{position:fixed;inset:auto;margin:0;width:310px;max-width:calc(100vw - 16px);max-height:calc(100dvh - 16px);overflow:auto;box-sizing:border-box;border:1px solid #e2daf1;border-radius:12px;padding:8px 0;background:#fff;color:#4e3b6b;box-shadow:0 12px 45px #2a0d592b;font-family:inherit;font-size:12px;z-index:100}
+.eva3-column-menu *{box-sizing:border-box}
+.eva3-column-menu::backdrop{background:transparent}
+.eva3-column-menu-title{padding:8px 16px;color:#442578;font-weight:700;font-size:13px}
+.eva3-column-command{width:100%;padding:10px 16px;text-align:left;border:0;background:#fff;color:#624c7a;font:inherit;cursor:pointer}
+.eva3-column-command:hover{background:#f5efff;color:#6131b3}
+.eva3-column-section{border-top:1px solid #eee7f7;padding:9px 14px}
+.eva3-column-section summary{cursor:pointer;color:#624d7d;padding:4px 0;font-size:12px}
+.eva3-column-section .eva3-column-command{padding:8px;border-radius:5px;font-size:12px}
+.eva3-column-condition{display:grid;gap:8px;padding-top:8px}
+.eva3-column-menu select,.eva3-column-menu input:not([type=checkbox]){width:100%;height:34px;padding:6px 9px;border:1px solid #e0d5ef;border-radius:6px;background:#fff;color:#59416e;font:inherit;min-width:0}
+.eva3-column-menu input[hidden]{display:none!important}
+.eva3-column-section>select{margin-top:8px}
+.eva3-column-values-heading{font-size:12px;margin:2px 0 10px}
+.eva3-column-select-actions{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:11px}
+.eva3-column-select-actions button,.eva3-column-reset{padding:0;background:none;color:#7b47c5;font:inherit;font-size:11px;border:0;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.eva3-column-value-count{margin-left:auto;color:#aa95b9;font-size:10px}
+.eva3-column-values{max-height:215px;overflow:auto;margin-top:8px}
+.eva3-column-values label{display:flex;align-items:flex-start;gap:9px;padding:7px 2px;color:#6c5683;cursor:pointer;line-height:1.5;font-size:12px;overflow-wrap:anywhere}
+.eva3-column-values input[type=checkbox]{width:15px;height:15px;flex:none;accent-color:#7b40de;margin:2px 0 0;appearance:auto}
+.eva3-column-values small{display:block;padding:8px;color:#9983ae;font-size:10px}
+.eva3-column-reset{margin:8px 14px 10px}
+.eva3-column-menu-footer{position:sticky;bottom:-8px;display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #eae1f5;padding:12px 14px;background:#fff}
+.eva3-column-menu-footer button{padding:8px 16px;border:1px solid #dfd2f1;border-radius:7px;color:#79539e;background:#fff;font:inherit;cursor:pointer}
+.eva3-column-menu-footer .eva3-column-accept{background:#7541dc;border-color:#7541dc;color:#fff}
+.eva3-column-menu :focus-visible{outline:2px solid #a580e8;outline-offset:2px}
+
+.eva-columns-table th.eva-column-leaf{padding:0!important}
+.eva-columns-table th .eva-column-trigger{display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;padding:10px 8px;border:0;background:transparent;color:inherit;font:inherit;text-align:inherit;cursor:pointer;min-height:36px}
+.eva-column-trigger:after{content:'▾';font-size:10px;opacity:.6;flex:none}
+.eva-columns-table th.eva3-column-filtered{box-shadow:inset 0 -3px #8050db;background:#e6d9ff!important}
+.eva-column-clear{display:block;margin:9px 0 9px auto;border:1px solid #e4d9f5;border-radius:7px;background:#faf7ff;color:#7546b1;padding:7px 10px;font:inherit;font-size:11px;cursor:pointer}
+.eva-column-clear[hidden]{display:none}

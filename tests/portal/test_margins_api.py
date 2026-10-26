@@ -92,6 +92,11 @@ def test_meta_tells_the_period_and_the_exclusions(client):
 
 def test_account_filter_keeps_only_that_account(client):
     assert set(rows(client, nombre="Acme")) == {"OP.1"}
+    accounts = client.get(URL, {**RANGE, "nombre": "Acme"}).json()["data"][
+        "accounts"
+    ]
+    assert [a["account"] for a in accounts] == ["Acme"]
+    assert accounts[0]["period_revenue"] == 100
 
 
 def test_invalid_period_is_a_400(client):
@@ -124,6 +129,9 @@ def test_limited_scope_only_sees_its_accounts(client, enforced):
     enforced("ana", caps=COSTS, scope=AccessScope.limited(accounts=["Beta"]))
 
     assert set(rows(client)) == {"OP.2"}
+    accounts = client.get(URL, RANGE).json()["data"]["accounts"]
+    assert [a["account"] for a in accounts] == ["Beta"]
+    assert accounts[0]["period_revenue"] == 50
 
 
 def test_account_outside_scope_does_not_exist(client, enforced):

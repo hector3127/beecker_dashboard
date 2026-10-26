@@ -4,7 +4,7 @@ import { apiGet } from '#app/data/api-client.js';
 import { el } from '#app/lib/dom.js';
 import { loadingHours, renderHours } from './sections/hours.js';
 import { loadingCards, renderCards, renderHead, subtitle } from './sections/kpis.js';
-import { loadingTable, renderTable } from './sections/projects.js';
+import { downloadProjects, loadingTable, renderTable } from './sections/projects.js';
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
@@ -30,7 +30,7 @@ const load = (stage) => apiGet(`screens/delivery-managers/${encodeURIComponent(s
 
 /** @param {any} data */
 function draw(data) {
-  head.replaceChildren(...renderHead(data.name, data.initials, subtitle(data.summary)));
+  head.replaceChildren(...renderHead(data.name, data.initials, subtitle(data.summary)),el('div',{class:'dm-head-actions'},el('span',{id:'dm-period',text:app.dataset.periodLabel||'Últimos 6 meses disponibles'}),el('button',{type:'button',id:'dm-project-export',text:'↓ Exportar CSV',onclick:()=>downloadProjects(data)})));
   kpis.removeAttribute('aria-busy');
   kpis.replaceChildren(...renderCards(data));
   table.replaceChildren(...renderTable(data, urls));
@@ -65,7 +65,7 @@ async function start() {
       .then(draw)
       .catch(() => fail(table, 'No se pudo cargar la inversión y los riesgos.')),
     load('horas')
-      .then((data) => byId('dm-monthly').replaceWith(renderHours(data.hours, data.name)))
+      .then((data) => {const months=data.hours.months;app.dataset.periodLabel=months.length?`${months[0].label} – ${months.at(-1).label}`:'Periodo sin registros';const label=byId('dm-period');if(label)label.textContent=app.dataset.periodLabel;byId('dm-monthly').replaceWith(renderHours(data.hours,data.name));})
       .catch(() => fail(byId('dm-monthly'), 'No se pudo cargar el consumo de horas.')),
   ]);
 }

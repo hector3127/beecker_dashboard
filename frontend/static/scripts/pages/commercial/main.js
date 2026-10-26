@@ -3,16 +3,9 @@
 // comportamiento (filas extra, desplegables, año de referencia y el detalle).
 import { el } from '#app/lib/dom.js';
 import { formatCompact } from '#app/lib/format.js';
-import { mountPageCapture } from '#app/ui/page-capture.js';
 import { watchLoadingMessages } from '#app/ui/portal-loading.js';
 
 watchLoadingMessages();
-mountPageCapture({
-  host: /** @type {HTMLElement} */ (document.querySelector('.fresh')),
-  target: /** @type {HTMLElement} */ (document.getElementById('main-content')),
-  name: 'comercial',
-  libraryUrl: /** @type {HTMLElement} */ (document.getElementById('commercial-page-data')).dataset.captureLibrary || '',
-});
 
 const PIPELINE = '#commercial-pipeline';
 const FIELDS = [

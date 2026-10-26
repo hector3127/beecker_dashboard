@@ -160,7 +160,9 @@ def test_summary_and_monthly_costs_do_not_double_count_shared_entries(
         )
     assert revenue_costs.cost_summary()["cost"] == 20
     result = monthly_profitability.load_monthly_profitability()
-    september = result["months"][-1]
+    september = next(
+        row for row in result["months"] if row["month"] == "2026-09"
+    )
     assert september["revenue"] == 150
     assert september["cost"] == 20
     assert september["gross_profit"] == 130
@@ -169,9 +171,13 @@ def test_summary_and_monthly_costs_do_not_double_count_shared_entries(
     cache.delete(revenue_costs.key("B"))
     cache.delete(revenue_costs.key("B") + ":last-known")
     assert (
-        monthly_profitability.load_monthly_profitability()["months"][-1][
-            "partial"
-        ]
+        next(
+            row
+            for row in monthly_profitability.load_monthly_profitability()[
+                "months"
+            ]
+            if row["month"] == "2026-09"
+        )["partial"]
         is True
     )
 
@@ -260,6 +266,13 @@ def test_precache_fills_all_financial_components_and_reuses_costs(monkeypatch):
     snapshot = financial_cache.cached_financial_snapshot()
     assert snapshot["revenue"]["total"] == "100.00"
     assert snapshot["costs"]["cost"] == 20
-    assert snapshot["profitability"]["months"][-1]["margin"] == 80
+    assert (
+        next(
+            row
+            for row in snapshot["profitability"]["months"]
+            if row["month"] == "2026-09"
+        )["margin"]
+        == 80
+    )
     financial_cache.warm_financial()
     assert loader.load_project.call_count == 1

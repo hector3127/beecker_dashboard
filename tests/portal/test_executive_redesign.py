@@ -52,7 +52,7 @@ def test_ranking_weights_margin_by_invoice_volume():
     cache.clear()
 
 
-def test_without_a_period_the_chart_shows_every_closed_month_of_the_year(
+def test_without_a_period_the_chart_shows_every_month_of_the_year(
     monkeypatch,
 ):
     monkeypatch.setattr(
@@ -62,7 +62,7 @@ def test_without_a_period_the_chart_shows_every_closed_month_of_the_year(
         m["month"]
         for m in load_monthly_profitability(source(), ids=[])["months"]
     ]
-    assert months == [f"2026-{n:02d}" for n in range(1, 10)]
+    assert months == [f"2026-{n:02d}" for n in range(1, 13)]
 
 
 def test_choosing_the_whole_year_shows_the_same_months_as_no_period(
@@ -82,7 +82,7 @@ def test_choosing_the_whole_year_shows_the_same_months_as_no_period(
     finally:
         period._current.reset(token)
     assert [m["month"] for m in chosen] == [m["month"] for m in default]
-    assert len(chosen) == 9
+    assert len(chosen) == 12
 
 
 def test_monthly_invoice_excludes_confirmed_and_is_scoped():
@@ -319,3 +319,33 @@ def test_classification_uses_available_partial_costs():
     result = rank_financial_accounts(rows)
     actual = {r["name"]: r["classification"] for r in result["accounts"]}
     assert actual == {n: expected for n, r, c, m, p, expected in cases}
+
+
+@pytest.mark.parametrize(
+    "selection",
+    [
+        {"periodo": "anio", "anio": "2026"},
+        {"periodo": "rango", "desde": "2026-01-01", "hasta": "2026-12-31"},
+    ],
+)
+def test_annual_chart_includes_current_and_future_months_without_fake_zero(
+    selection, monkeypatch
+):
+    monkeypatch.setattr(
+        monthly_profitability.timezone, "localdate", lambda: date(2026, 10, 24)
+    )
+    reader = InMemorySheetRepository(
+        {
+            "DataRevenue": [
+                ["Status", "Account", "", "", "ID", "", "Date", "USD"],
+                ["Invoiced", "A", "", "", "A", "", "2026-11-30", 125],
+                ["Confirmed", "A", "", "", "A", "", "2026-12-30", 999],
+            ]
+        }
+    )
+    with period.applied(period.parse(selection)):
+        rows = load_monthly_profitability(reader, ids=[])["months"]
+    assert [r["month"] for r in rows] == [f"2026-{n:02d}" for n in range(1, 13)]
+    assert rows[10]["revenue"] == 125 and rows[10]["cost"] is None
+    assert rows[11]["revenue"] is None and rows[11]["cost"] is None
+    assert rows[11]["future"] and rows[11]["margin"] is None

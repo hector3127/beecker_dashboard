@@ -43,6 +43,11 @@ def load_margins(account: str, scope: AccessScope) -> dict[str, Any]:
         request_refresh()
     return {
         "opportunities": rows,
+        "accounts": [
+            a
+            for a in data.get("accounts", [])
+            if a["account"] in {r["account"] for r in rows}
+        ],
         "summary": opportunity_summary(rows),
         "start": data["start"],
         "end": data["end"],

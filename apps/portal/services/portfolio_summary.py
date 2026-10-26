@@ -281,3 +281,19 @@ def budget_used_percent(project: ProjectView) -> int:
         return 0
 
     return round_half_up_int(project.burn_hours * 100 / project.budget_hours)
+
+
+def service_distribution(projects: Sequence[ProjectView]) -> list[dict]:
+    """Active projects by service, from the same scoped population."""
+    from collections import Counter
+
+    counts = Counter(
+        project.service or "Sin servicio"
+        for project in projects
+        if project.status_category == CATEGORY_ACTIVE
+    )
+    total = sum(counts.values())
+    return [
+        {"service": name, "count": count, "percent": percent_of(count, total)}
+        for name, count in sorted(counts.items())
+    ]

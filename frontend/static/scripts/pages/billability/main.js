@@ -1,3 +1,4 @@
+import { mountReference } from "./reference.js";
 // @ts-check
 import { bindPeriodPicker } from '#app/ui/period-picker.js';
 
@@ -12,3 +13,5 @@ document.querySelectorAll('[data-height]').forEach(element => {
   const bar = /** @type {HTMLElement} */ (element);
   bar.style.height = `${Number(bar.dataset.height)}%`;
 });
+
+mountReference();

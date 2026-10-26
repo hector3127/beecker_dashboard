@@ -28,3 +28,47 @@ td.df{background:#FBE3E7;color:#A31B33;font-weight:800}
 .billability-page .portal-page-toolbar.crumb { margin-bottom: 16px; }
 .billability-page tr.hl td { background: #F3EEFF; }
 @media (max-width:650px) { .billability-page .portal-page-toolbar.crumb { margin-bottom:12px; } }
+
+/* Tarjetas y resumen de especialidades según la referencia. */
+body.specialty-page{background:radial-gradient(ellipse at 70% 0,#faf8ff,#f2f3ff)}
+.specialty-page main.page,.specialty-page main.page *{box-sizing:border-box}
+.specialty-page .kp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:18px 0}
+.specialty-page .kp .kc{--specialty-color:#7537ff;--specialty-soft:#f0eaff;position:relative;display:flex;gap:16px;align-items:flex-start;min-width:0;overflow:hidden;padding:23px 20px;min-height:153px;border:1px solid #e7e1fa;border-bottom:4px solid var(--specialty-color);border-radius:16px;background:linear-gradient(135deg,#fff,#fefcff);box-shadow:0 3px 9px #47258908}
+.specialty-page .kp .kc:nth-child(2){--specialty-color:#ed37b9;--specialty-soft:#ffedf9}
+.specialty-page .kp .kc:nth-child(3){--specialty-color:#078cff;--specialty-soft:#e8f5ff}
+.specialty-page .kp .kc:nth-child(4){--specialty-color:#14b86a;--specialty-soft:#e8faee}
+.specialty-icon{display:grid;place-items:center;flex:none;width:58px;height:60px;border-radius:13px;background:var(--specialty-soft,#f0eaff);color:var(--specialty-color,#5d20ed)}
+.specialty-icon svg{width:33px;height:33px}
+.specialty-kpi-copy{position:relative;z-index:1;min-width:0}
+.specialty-page .kp .kl{font-size:14px;color:#20116c;font-weight:600;margin:0 0 5px}
+.specialty-page .kp .kv{font-size:38px;line-height:1.15;color:#15085c;margin:0 0 5px;letter-spacing:-1px}
+.specialty-page .kp .kv.neg{color:#b21b56}
+.specialty-page .kp .ke{font-size:11px;line-height:1.5;color:#8170b2}
+.specialty-card-decoration{position:absolute;right:12px;top:38px;opacity:.16}.specialty-card-decoration .specialty-icon{background:none;width:58px;height:58px}.specialty-card-decoration svg{width:53px;height:53px}
+.specialty-page .card{padding:22px;border:1px solid #e7e1fa;border-radius:17px;background:#fff;box-shadow:0 3px 12px #47258904}
+.specialty-heading{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
+.specialty-heading>div{min-width:0}
+.specialty-page .specialty-heading h2{font-size:21px;letter-spacing:-.4px;color:#3612c5;margin:0 0 5px}
+.specialty-page .specialty-heading .hs{font-size:12px;line-height:1.6;color:#8171af;margin:0}
+.specialty-scroll{max-width:100%;overflow:auto;border-radius:10px}
+.specialty-page #specialty-summary{min-width:780px;width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}
+.specialty-page #specialty-summary th{font-size:11px;font-weight:700;padding:12px 10px;background:#f0eaff;color:#4e19ce;text-align:center;white-space:nowrap;letter-spacing:0}
+.specialty-page #specialty-summary th:first-child{width:15%;text-align:left;padding-left:16px}
+.specialty-page #specialty-summary td{font-size:13px;padding:9px 10px;text-align:center;color:#44358a;border-bottom:1px solid #eee8fb;border-right:1px solid #eee8fb;line-height:1.35}
+.specialty-page #specialty-summary td:first-child{text-align:left;padding-left:16px;color:#20116c}
+.specialty-page #specialty-summary td:last-child{border-right:0}
+.specialty-page #specialty-summary tbody tr:nth-child(even){background:#fbf9ff}
+.specialty-page #specialty-summary tbody td:first-child b{display:flex;align-items:center;gap:12px}
+.specialty-page #specialty-summary tbody td:first-child b:before{content:'';width:11px;height:11px;flex:none;border-radius:50%;background:var(--specialty-dot,#a66cff)}
+.specialty-page #specialty-summary tr[data-specialty=dev]{--specialty-dot:#078cff}
+.specialty-page #specialty-summary tr[data-specialty=qa]{--specialty-dot:#ed29b9}
+.specialty-page #specialty-summary tr[data-specialty=arq]{--specialty-dot:#ff8b00}
+.specialty-page #specialty-summary tr[data-specialty=ba]{--specialty-dot:#00aa9b}
+.specialty-page #specialty-summary tr[data-specialty=sm]{--specialty-dot:#e7ce00}
+.specialty-free{display:block;margin:-5px -5px;padding:5px;border-radius:8px;font-weight:600}
+.specialty-free.positive{background:#dff9e9;color:#176a46}
+.specialty-free.negative{background:#ffdfeb;color:#b21b56}
+.specialty-page #specialty-summary tfoot td{background:#efe8ff;color:#3710cc;font-weight:800;padding-top:12px;padding-bottom:12px}
+.specialty-page .note{font-size:12px;line-height:1.65;color:#8173ad;margin-top:16px}
+@media(max-width:1100px){.specialty-page .kp{grid-template-columns:repeat(2,minmax(0,1fr))}.specialty-page .kp .kc{min-height:140px}.specialty-card-decoration{right:20px}}
+@media(max-width:600px){.specialty-page .kp{grid-template-columns:1fr;gap:10px}.specialty-page .kp .kc{min-height:126px;padding:18px}.specialty-page .card{padding:15px}.specialty-heading{gap:11px}.specialty-heading .specialty-icon{width:42px;height:44px}.specialty-heading .specialty-icon svg{width:25px;height:25px}.specialty-page .specialty-heading h2{font-size:17px}.specialty-page .specialty-heading .hs{font-size:11px}}

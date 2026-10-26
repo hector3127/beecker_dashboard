@@ -247,6 +247,8 @@ def operativa_screen(
             "on_time_percent": summary.on_time_percent,
             "health": _health(summary.health),
         },
+        "service_distribution": context.get("service_distribution"),
+        "portfolio_total": context.get("portfolio_total"),
         "health_states": [
             {
                 "state": state,
@@ -370,6 +372,7 @@ def margins_screen(result: dict[str, Any], account: str) -> dict[str, Any]:
     return {
         "data": {
             "opportunities": [_opportunity(o) for o in result["opportunities"]],
+            "accounts": result.get("accounts", []),
             "summary": result["summary"],
         },
         "meta": {

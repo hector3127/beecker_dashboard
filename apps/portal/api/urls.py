@@ -8,6 +8,10 @@ from apps.portal.api.account import (
     AccountScreenView,
 )
 from apps.portal.api.account_hours import AccountHoursView
+from apps.portal.api.account_logos import (
+    AccountLogoImageView,
+    AccountLogoListView,
+)
 from apps.portal.api.agreements import AgreementDetailView, AgreementListView
 from apps.portal.api.billability_area import (
     AreaBatchView,
@@ -202,6 +206,8 @@ urlpatterns = [
         "screens/proyectos/<str:project_id>/acciones/<slug:operation>/",
         ProjectActionsWriteView.as_view(),
     ),
+    path("account-logos/", AccountLogoListView.as_view()),
+    path("account-logos/<int:pk>/image/", AccountLogoImageView.as_view()),
     path(
         "screens/proyectos/<str:project_id>/ia/analizar/", AiAnalyze.as_view()
     ),

@@ -1,0 +1,52 @@
+.account-logo-anchor{position:relative;flex:none}
+.account-page .account-brand{color:#6b35d5;background:#f1ebff;border:1px solid #eae2fa;box-sizing:border-box;overflow:hidden}
+.account-initials{font-size:22px;font-weight:750;letter-spacing:.5px}
+.account-brand img{width:100%;height:100%;object-fit:contain;background:white}
+.account-page .account-hero{background:linear-gradient(110deg,#fff,#faf8ff);border-color:#e8e1fa}
+.account-page .account-logo-pencil{position:absolute;right:-6px;bottom:-4px;width:25px;height:25px;display:grid;place-items:center;padding:4px;border:2px solid #fff;border-radius:50%;background:#6b30ef;color:#fff;box-shadow:0 2px 6px #4c25812b;cursor:pointer}
+.account-page .account-logo-pencil svg{width:14px;height:14px}
+.account-page .account-logo-pencil[hidden],.account-logo-editor [hidden]{display:none}
+.account-logo-pencil:focus-visible,.account-logo-editor button:focus-visible{outline:2px solid #9765ec;outline-offset:3px}
+.account-logo-editor{margin:0;color:#33225f;font-size:12px}
+.account-logo-editor form{position:relative;margin:0 0 18px;padding:24px;border:1px solid #e7dfff;border-radius:14px;background:#fff;box-shadow:0 5px 20px #53319008}
+.account-logo-editor button{padding:10px 17px;border:1px solid #dcd1fc;border-radius:9px;background:#fff;color:#6025e8;cursor:pointer;font:inherit}
+.account-logo-editor button:disabled{opacity:.5;cursor:default}
+.account-logo-editor .logo-editor-heading{display:flex;align-items:center;gap:15px;margin-bottom:24px}
+.logo-editor-symbol{display:grid;place-items:center;width:50px;height:50px;border-radius:13px;background:#f0eaff;color:#753de1;flex:none}
+.logo-editor-symbol svg{width:28px;height:28px}
+.account-logo-editor h2{font-size:20px;line-height:1.4;margin:0;color:#24144e}
+.account-logo-editor .logo-editor-heading p{font-size:12px;line-height:1.6;margin:5px 0 0;color:#88799f}
+.account-logo-editor #logo-tips-toggle{margin-left:auto;white-space:nowrap;background:#f2edff;border:0;font-size:11px}
+.logo-editor-grid{display:grid;grid-template-columns:1.15fr 1fr .8fr;gap:24px;align-items:stretch}
+.logo-editor-grid:has(.logo-recommendations[hidden]){grid-template-columns:1.15fr 1fr}
+.account-logo-editor .logo-dropzone{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:25px 18px;border:1px dashed #cdb8f6;border-radius:12px;background:#fbf9ff;text-align:center;min-height:240px;box-sizing:border-box}
+.logo-dropzone.is-dragging{border-color:#7233e1;background:#f0e7ff}
+.logo-upload-icon{width:40px;height:40px;padding:13px;border-radius:50%;background:#f1eaff;color:#7940e8}
+.logo-dropzone strong{font-size:18px;color:#6833c8;overflow-wrap:anywhere;max-width:100%}
+.logo-dropzone small,.logo-dropzone>span{font-size:12px;color:#8c7eaa;line-height:1.5}
+.account-logo-editor #account-logo-select{background:linear-gradient(110deg,#6b30ef,#8046ee);color:white;border:0;padding:12px 30px;font-weight:600;margin-top:5px}
+.account-logo-editor #account-logo-file{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0}
+.logo-dropzone:has(#account-logo-file:focus-visible){outline:2px solid #9765ec;outline-offset:3px}
+.logo-preview-panel{padding-left:24px;border-left:1px solid #ece5fa;min-width:0}
+.logo-preview-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:4px 0 14px}
+.account-logo-editor h3{font-size:15px;margin:0;color:#26144f}
+#logo-preview-badge{font-size:10px;background:#e6f8f0;color:#15956b;border-radius:16px;padding:6px 10px}
+.logo-preview-frame{height:220px;display:grid;place-items:center;border:1px solid #eee8fa;border-radius:12px;background:#fbfaff;padding:14px;box-sizing:border-box}
+.account-logo-editor #account-logo-preview{width:100%;height:100%;max-height:190px;object-fit:contain;margin:0;border-radius:8px;min-width:0}
+.logo-preview-empty{display:grid;place-items:center;width:100px;height:100px;border-radius:20px;background:#f0e8ff;color:#7843d5;font-size:32px;font-weight:700}
+.logo-preview-panel p{font-size:11px;line-height:1.6;color:#8c7eaa;margin:12px 0 0}
+.logo-recommendations{background:linear-gradient(140deg,#f7f3ff,#fbf9ff);border:1px solid #efe8fc;border-radius:12px;padding:20px 18px}
+.logo-recommendations ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:16px}
+.logo-recommendations li{position:relative;padding-left:25px;color:#7c6a9e;font-size:12px;line-height:1.6}
+.logo-recommendations li:before{content:'✓';position:absolute;left:0;top:1px;display:grid;place-items:center;background:#a17aef;color:white;border-radius:50%;width:17px;height:17px;font-size:11px}
+.logo-editor-actions{display:flex;align-items:center;gap:10px;border-top:1px solid #f0eafa;margin-top:25px;padding-top:20px;flex-wrap:wrap}
+.account-logo-editor #account-logo-save{background:#6b30ef;color:#fff;font-weight:600}
+.account-logo-editor #account-logo-remove{margin-left:auto;color:#bd456d;border-color:#f3dbe4;background:#fffafd}
+.account-logo-editor #account-logo-status:not(:empty){font-size:11px;margin:0 0 15px;color:#6f568e}
+.account-logo-editor p:empty{display:none}
+.all-accounts-page .account-avatar.has-logo{background:white;border-radius:4px}
+.account-avatar img{width:100%;height:100%;object-fit:contain}
+@media(max-width:1050px){.logo-editor-grid{grid-template-columns:1fr 1fr;gap:20px}.logo-recommendations{grid-column:1/-1}.logo-recommendations ul{grid-template-columns:repeat(2,1fr)}.account-logo-editor .logo-editor-heading{flex-wrap:wrap}.account-logo-editor #logo-tips-toggle{margin-left:65px}}
+@media(max-width:600px){.account-logo-editor form{padding:16px}.account-logo-editor .logo-editor-heading{gap:10px;margin-bottom:18px}.logo-editor-symbol{width:38px;height:38px}.account-logo-editor h2{font-size:17px}.account-logo-editor .logo-editor-heading>div{flex:1;min-width:0}.account-logo-editor .logo-editor-heading p{font-size:11px}.account-logo-editor #logo-tips-toggle{margin-left:48px}.logo-editor-grid,.logo-editor-grid:has(.logo-recommendations[hidden]){grid-template-columns:1fr}.logo-preview-panel{padding:0;border:0}.logo-recommendations ul{grid-template-columns:1fr;gap:12px}.account-logo-editor .logo-dropzone{min-height:225px}.logo-preview-frame{height:200px}.account-logo-editor #account-logo-preview{max-height:170px}.logo-editor-actions{gap:8px}.account-logo-editor .logo-editor-actions button{padding:9px 12px;font-size:11px}}
+
+@media(max-width:600px){.account-logo-editor .logo-editor-heading{display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start}.account-logo-editor #logo-tips-toggle{grid-column:2;margin-left:0;justify-self:start}.account-logo-editor .logo-editor-heading>div{min-width:0}}

@@ -49,7 +49,7 @@ def test_page_uses_the_modular_frontend_and_summarises(portal, datos):
     expect(portal.locator("#summary-healthy")).to_have_text("1")
     expect(portal.locator("#summary-pending")).to_have_text("1")
     expect(portal.locator("#summary-margin")).to_have_text("50%")
-    expect(portal.locator("td.money").first).to_have_text("1M")
+    expect(portal.locator("td.money").first).to_have_text("$1M")
 
 
 def test_search_filter_and_sort(portal, datos):
@@ -78,3 +78,96 @@ def test_links_keep_the_way_back(portal, datos):
         "href"
     )
     assert "volver=" in href and "nombre=" in href
+
+
+def test_state_filters_reset_and_restore(portal, datos):
+    portal.goto(portal.base + PAGE)
+    portal.select_option("#account-state", "partial")
+    expect(portal.locator("tr[data-name]:visible")).to_have_attribute(
+        "data-name", "Gamma"
+    )
+    expect(portal.locator("#summary-healthy-percent")).to_have_text(
+        "33.3% del total"
+    )
+    portal.reload()
+    expect(portal.locator("#account-state")).to_have_value("partial")
+    expect(portal.locator("#account-count")).to_have_text("1 de 3 cuentas")
+    portal.get_by_role("button", name="Limpiar filtros").click()
+    expect(portal.locator("#account-count")).to_have_text("3 de 3 cuentas")
+    expect(portal.locator("#account-state")).to_have_value("")
+
+
+def test_pagination_and_return_context(portal, datos, monkeypatch):
+    from urllib.parse import parse_qs, urlparse
+
+    data = {
+        "year": 2026,
+        "accounts": [
+            {
+                "name": f"Cuenta {n:02d}",
+                "url": f"/cuenta/cuenta-{n}/?nombre=Cuenta{n}",
+                "revenue": n * 1000,
+                "cost": n * 100,
+                "gross_profit": n * 900,
+                "margin": 90,
+                "projects": 2,
+                "pending": 0,
+                "classification": "healthy",
+            }
+            for n in range(1, 33)
+        ],
+    }
+    monkeypatch.setattr(
+        "apps.portal.services.account_profitability.load_account_profitability",
+        lambda: data,
+    )
+    portal.goto(portal.base + PAGE)
+    expect(portal.locator("tr[data-name]:visible")).to_have_count(15)
+    portal.get_by_role("button", name="Página 2", exact=True).click()
+    expect(portal.locator("#accounts-page-label")).to_have_text(
+        "Mostrando 16–30 de 32 cuentas"
+    )
+    href = portal.locator(
+        "tr[data-name]:visible .detail-link"
+    ).first.get_attribute("href")
+    back = parse_qs(urlparse(href).query)["volver"][0]
+    assert parse_qs(urlparse(back).query)["pagina"] == ["2"]
+    portal.reload()
+    expect(portal.locator("#accounts-page-label")).to_have_text(
+        "Mostrando 16–30 de 32 cuentas"
+    )
+    portal.select_option("#accounts-page-size", "25")
+    expect(portal.locator("tr[data-name]:visible")).to_have_count(25)
+    portal.get_by_role("button", name="Página siguiente", exact=True).click()
+    expect(portal.locator("tr[data-name]:visible")).to_have_count(7)
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_reference_layout_is_responsive(portal, datos, width):
+    from pathlib import Path
+
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    expect(portal.locator(".account-avatar")).to_have_count(3)
+    expect(portal.locator("#summary-margin")).to_have_text("50%")
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    target = Path("tmp/design/all-accounts-reference")
+    target.mkdir(parents=True, exist_ok=True)
+    portal.screenshot(
+        path=str(target / f"accounts-{width}.png"), full_page=True
+    )
+
+
+def test_account_action_menu_keeps_return_context(portal, datos):
+    from urllib.parse import parse_qs, urlparse
+
+    portal.goto(portal.base + PAGE + "?buscar=Acme")
+    menu = portal.locator("tr[data-name='Acme'] .account-row-menu")
+    menu.locator("summary").click()
+    expect(menu.get_by_role("link", name="Abrir cuenta")).to_be_visible()
+    link = menu.get_by_role("link", name="Ver detalle de costos")
+    expect(link).to_be_visible()
+    back = parse_qs(urlparse(link.get_attribute("href")).query)["volver"][0]
+    assert parse_qs(urlparse(back).query)["buscar"] == ["Acme"]
+    portal.keyboard.press("Escape")
+    expect(menu.get_by_role("link", name="Abrir cuenta")).to_be_hidden()

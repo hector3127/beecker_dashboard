@@ -1,13 +1,12 @@
 """Ingresos por fecha revenue y costos por fecha real de las horas."""
 
 from collections.abc import Sequence
-from datetime import date
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
 from django.utils import timezone
 
-from apps.portal.services.executive_period import bounds, contains, current
+from apps.portal.services.executive_period import bounds, contains
 from apps.portal.services.revenue import INVOICE_STATUSES
 from apps.portal.services.revenue_costs import (
     cached_project_cost,
@@ -21,32 +20,20 @@ from core.utils.dates import to_datetime
 def load_monthly_profitability(
     reader: SheetReader | None = None, ids: Sequence[str] | None = None
 ) -> dict[str, Any]:
-    """Agrupa por mes el rango elegido o, sin rango, los meses cerrados.
-
-    Sin periodo se muestran todos los meses cerrados del ejercicio 2026
-    (de enero al mes anterior). Es lo mismo que ve quien elige el ano
-    completo, porque ambos comparten el corte preparado.
-    """
+    """Agrupa todos los meses del rango elegido, incluido el ano completo."""
     today = timezone.localdate()
-    end = today.year * 12 + today.month - 2
-    months = [
-        f"{index // 12:04d}-{index % 12 + 1:02d}"
-        for index in range(2026 * 12, min(end + 1, 2027 * 12))
-    ]
     first, last = bounds()
-    # El ano completo elegido a mano equivale al ejercicio predeterminado y
-    # comparte su corte preparado: se muestra igual (meses cerrados).
-    if current() and (first, last) != (date(2026, 1, 1), date(2026, 12, 31)):
-        months = [
-            f"{i // 12:04d}-{i % 12 + 1:02d}"
-            for i in range(
-                first.year * 12 + first.month - 1, last.year * 12 + last.month
-            )
-        ]
+    months = [
+        f"{i // 12:04d}-{i % 12 + 1:02d}"
+        for i in range(
+            first.year * 12 + first.month - 1, last.year * 12 + last.month
+        )
+    ]
     rows: dict[str, dict[str, Any]] = {
         month: {
             "month": month,
-            "revenue": 0.0,
+            "revenue": None if month > today.strftime("%Y-%m") else 0.0,
+            "future": month > today.strftime("%Y-%m"),
             "cost": None,
             "margin": None,
             "gross_profit": None,
@@ -78,7 +65,8 @@ def load_monthly_profitability(
         except InvalidOperation:
             continue
         if amount.is_finite():
-            rows[moment.strftime("%Y-%m")]["revenue"] += float(amount)
+            item = rows[moment.strftime("%Y-%m")]
+            item["revenue"] = (item["revenue"] or 0.0) + float(amount)
     complete = True
     pending = 0
     seen: set[str] = set()
@@ -99,13 +87,14 @@ def load_monthly_profitability(
             if month in rows:
                 rows[month]["cost"] = (rows[month]["cost"] or 0) + amount
     for item in rows.values():
-        item["revenue"] = round(item["revenue"], 2)
+        if item["revenue"] is not None:
+            item["revenue"] = round(item["revenue"], 2)
         item["partial"] = not complete
-        if complete and item["cost"] is None:
+        if complete and item["cost"] is None and not item["future"]:
             item["cost"] = 0
         if item["cost"] is not None:
             item["cost"] = round(item["cost"], 2)
-        if item["cost"] is not None:
+        if item["cost"] is not None and item["revenue"] is not None:
             item["gross_profit"] = round(item["revenue"] - item["cost"], 2)
             if item["revenue"] != 0:
                 item["margin"] = round(
@@ -113,6 +102,7 @@ def load_monthly_profitability(
                 )
     return {
         "months": list(rows.values()),
+        "calendar_version": 2,
         "pending_projects": pending,
         "complete": complete,
         "band_month": today.strftime("%Y-%m"),

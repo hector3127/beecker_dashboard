@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/eva3.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/eva3.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/eva_column_menus.css' %}">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if error %}Fuente no disponible{% elif loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
 {% block content %}
 {% if error %}<div class="err">No se pudo leer Google Sheets: {{ error }} Las cifras reales aparecerán cuando la conexión responda.</div>{% endif %}

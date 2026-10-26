@@ -1,3 +1,5 @@
+import { mountHistoryReference } from "./history_reference.js";
+import { mountReference } from "./reference.js";
 import { apiSend } from "#app/data/api-client.js";
 import { el } from "#app/lib/dom.js";
 import { mountHistory } from "../eva/history.js";
@@ -5,6 +7,7 @@ import { fmt, etc, advance, averageCost } from "./model.js";
 import { watchLoadingMessages } from "#app/ui/portal-loading.js";
 
 watchLoadingMessages();
+mountReference();
 
 function badge(cell, value, bad, suffix = "") {
   cell.replaceChildren(
@@ -76,6 +79,7 @@ async function fillActive() {
       }
     }
     cost();
+    document.getElementById('eva3-projects')?.dispatchEvent(new Event('eva3-active-updated'));
   }
 }
 async function fillHistoricBurn(body) {
@@ -121,6 +125,8 @@ async function fillHistoricBurn(body) {
           onclick: () => fill(row),
         }),
       );
+    } finally {
+      body.dispatchEvent(new Event("eva3-history-updated"));
     }
   }
   await Promise.all(
@@ -135,5 +141,5 @@ mountHistory({
   body: document.getElementById("eva3-closed-body"),
   path: "screens/eva-3/cerrados/",
   aer: true,
-  afterLoad: fillHistoricBurn,
+  afterLoad: (body) => {mountHistoryReference(body); fillHistoricBurn(body);},
 });

@@ -43,3 +43,14 @@ test('wide charts show margin labels and mark partial values explicitly', () => 
   assert.ok(texts(monthlyChartModel({ months, complete: true }, 900)).includes('75%'));
   assert.ok(texts(monthlyChartModel({ months, complete: false }, 900)).includes('75%*'));
 });
+
+
+test('annual data fits desktop and keeps twelve labels including future gaps', () => {
+  const months = Array.from({length: 12}, (_, i) => ({month: `2026-${String(i + 1).padStart(2, '0')}`, revenue: i < 10 ? 100 : null, cost: i < 10 ? 50 : null, margin: i < 10 ? 50 : null, future: i >= 10}));
+  const model = monthlyChartModel({months}, 980);
+  assert.equal(model.width, 980);
+  for (const month of ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']) assert.ok(texts(model).includes(month));
+  assert.equal(texts(model).filter(x => x === 'Futuro').length, 2);
+  assert.equal(count(model, 'rect'), 20);
+  assert.ok(monthlyChartModel({months}, 320).width > 320);
+});

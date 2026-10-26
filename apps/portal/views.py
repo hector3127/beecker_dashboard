@@ -263,7 +263,7 @@ def _operativa_key(request: Any) -> str:
         # Cada alcance tiene su propio corte: nunca se comparte con otro.
         filters += "|" + scope.signature()
     return (
-        "portal:operativa:snapshot:v10:"
+        "portal:operativa:snapshot:v11:"
         + timezone.localdate().isoformat()
         + ":"
         + hashlib.sha256(filters.encode()).hexdigest()
@@ -558,12 +558,16 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
         selected_service,
         selected_client,
     )
+    from apps.portal.services.portfolio_summary import service_distribution
+
     summary = summarize_portfolio(projects)
     context = _base_context(load)
     context.update(
         {
             "active": "operativa",
             "summary": summary,
+            "service_distribution": service_distribution(projects),
+            "portfolio_total": len(projects),
             "health": summary.health,
             "donut": build_donut_segments(summary.health),
             "managers": summarize_delivery_managers(projects),
@@ -613,6 +617,8 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
         context.update(
             {
                 "summary": enriched,
+                "service_distribution": service_distribution(projects),
+                "portfolio_total": len(projects),
                 "health": enriched.health,
                 "donut": build_donut_segments(enriched.health),
                 "managers": summarize_delivery_managers(projects),

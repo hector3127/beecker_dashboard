@@ -86,7 +86,7 @@ export function renderCards(data) {
     return investment.state === 'ready' && value !== null ? hoursText(value) : DASH;
   };
   const note = 'Proyectos en curso, incluidos suspendidos';
-  return [
+  const cards = [
     card('folder', 'Proyectos', String(summary.total), `${summary.in_progress} en ejecución y ${summary.paused} suspendido${plural(summary.paused, '', 's')}`),
     card('clock', 'En tiempo', String(health.on_time), `${health.at_risk} en riesgo y ${health.critical} crítico${plural(health.critical, '', 's')}`),
     card('warning', 'Proyectos críticos', String(health.critical), 'Proyectos activos en estado crítico'),
@@ -94,4 +94,12 @@ export function renderCards(data) {
     card('commercial', 'Inversión comercial', spent(investment.commercial), note),
     card('database', 'Inversión operativa', spent(investment.operational), note),
   ];
+  [[1,health.on_time,summary.in_progress],[2,health.critical,summary.in_progress],[3,summary.paused,summary.total]].forEach(([index,count,total])=>{
+    if(!total)return;
+    const percent=Math.round(count/total*100);
+    const ring=el('span',{class:'dm-kpi-ring',role:'img','aria-label':`${percent}% ${index===3?'del total':'en ejecución'}`},el('span',{text:`${percent}%`}));
+    ring.style.setProperty('--share',`${percent}%`);
+    cards[index].append(ring);
+  });
+  return cards;
 }

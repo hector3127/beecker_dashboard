@@ -38,3 +38,12 @@ class ExecutiveAgreement(models.Model):
         """Muestra primero los registros recientes."""
 
         ordering = ["-created_at", "-pk"]
+
+
+class AccountLogo(models.Model):
+    """Small validated account logo, stored with the database backup."""
+
+    key = models.CharField(max_length=150, unique=True)
+    account = models.CharField(max_length=150)
+    image = models.BinaryField()
+    updated_at = models.DateTimeField(auto_now=True)

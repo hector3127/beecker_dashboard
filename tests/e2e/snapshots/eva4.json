@@ -1,17 +1,17 @@
 {
   "processes": [
-    "DELIVERY MANAGER COUNTRY CLIENT BOT ID SERVICE PROCESS NAME STATUS ROC START FINISH AVERAGE LIMIT INVESTED HOURS HOURS BALANCE HOURS PACKAGE LIMIT AVAILABLE HOURS PACKAGE RISK",
-    "Ana MEX Nestlé 1 ROC Reporte Activo 01/01/2026 20/10/2026 Sin dato Sin dato Sin dato Sin dato 0 Riesgo",
-    "Ana MEX Nestlé 2 ROC Reporte Activo 01/01/2026 20/10/2026 Sin dato Sin dato Sin dato Sin dato 0 Riesgo"
+    "Delivery Manager Country Client BOT ID Service Process Name Status ROC Start Finish Average Limit Invested Hours Hours Balance Hours Package Limit Available Hours Package Risk",
+    "Ana MEX N Nestlé 1 ROC Reporte Activo 01/01/2026 20/10/2026 Sin dato Sin dato Sin dato Sin dato 0 Riesgo",
+    "Ana MEX N Nestlé 2 ROC Reporte Activo 01/01/2026 20/10/2026 Sin dato Sin dato Sin dato Sin dato 0 Riesgo"
   ],
   "renewals": [
-    "DM / AM ID DE PROYECTO PAÍS FIN DÍAS RESTANTES",
+    "DM / AM ID de proyecto País Fin Días restantes",
     "Ana / Beto ROC.NSC.001 MEX 20/10/2026 6"
   ],
   "clients": [
-    "CLIENTE SERVICIOS DE AUTOMATIZACIÓN TOTAL ESTADO",
-    "SAAS RAAS ROC T&M GARANTÍA SUSPENDIDOS ACTIVOS",
-    "Nestlé 0 0 2 0 0 2 0 2",
+    "Cliente SERVICIOS DE AUTOMATIZACIÓN Total ESTADO",
+    "SaaS RaaS ROC T&M Garantía Suspendidos Activos",
+    "N Nestlé 0 0 2 0 0 2 0 2",
     "Total 0 0 2 0 0 2 0 2"
   ]
 }

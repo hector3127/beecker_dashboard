@@ -1,7 +1,8 @@
+import { mountReportTable, countryCell, clientCell } from "../report_table.js";
 // @ts-check
 // Tabla principal de EVA-04: procesos activos con su consumo de horas.
 import { el } from '#app/lib/dom.js';
-import { formatDate, formatNumber, plain } from '#app/lib/format.js';
+import { formatDate, formatNumber } from '#app/lib/format.js';
 import { buildTable } from '#app/ui/data-table.js';
 
 const NO_LIMIT = 'Sin límite para este servicio';
@@ -47,7 +48,7 @@ const COLUMNS = [
  * Pinta la seccion y devuelve el filtro de busqueda sobre sus filas.
  * @param {HTMLElement} container
  * @param {any} data
- * @param {Node[]} toolbar Busqueda y contador, que van antes de la tabla.
+ * @param {Node[]} toolbar Contador, que van antes de la tabla.
  * @returns {{filter: (text: string) => {shown: number, total: number}}}
  */
 export function renderProcesses(container, data, toolbar) {
@@ -70,27 +71,14 @@ export function renderProcesses(container, data, toolbar) {
         'Consumo mensual de la base Clockify del Sheet. Hours Balance = Average Limit − Invested Hours; los excesos se muestran en negativo. Average Limit por servicio: ROC 30, AER 160, RaaS 40, SaaS 80, T&M 160.',
       ),
       notes.missing_columns.length ? note(`Columnas pendientes de fuente: ${notes.missing_columns.join(', ')}.`) : '',
-      notes.missing_limits
-        ? note(`${notes.missing_limits} procesos son de un servicio sin Average Limit definido; su balance permanece sin dato hasta que exista.`)
-        : '',
       notes.unmatched_tasks
         ? note(`${notes.unmatched_tasks} procesos no tienen coincidencia exacta de tarea en la base. Su consumo se muestra como «Sin dato» para evitar asignar horas de otro proceso.`)
         : '',
-      note('Las columnas de paquete permanecen sin dato cuando la fuente no especifica la bolsa contratada.'),
       ...toolbar,
       el('div', { class: 'eva4-scroll' }, table),
     ),
   );
   const rows = data.processes.length ? [.../** @type {NodeListOf<HTMLElement>} */ (table.querySelectorAll('tbody tr'))] : [];
-  return {
-    filter(text) {
-      const wanted = plain(text);
-      let shown = 0;
-      for (const row of rows) {
-        row.hidden = !plain(row.textContent || '').includes(wanted);
-        if (!row.hidden) shown += 1;
-      }
-      return { shown, total: rows.length };
-    },
-  };
+  rows.forEach(row=>{countryCell(row.cells[1]);clientCell(row.cells[2]);});
+  return mountReportTable({table,rows,kind:'processes',types:Object.fromEntries(COLUMNS.map((column,index)=>[index,[7,8].includes(index)?'date':column.numeric?'number':'text'])),onCount:({shown,total})=>{toolbar[0].textContent=`${shown} de ${total} procesos activos`;}});
 }

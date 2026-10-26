@@ -4,18 +4,34 @@
 {% block body_class %}account-body{% endblock %}
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/agreements.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/account.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/account.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/agreements_reference.css' %}?v=20261024-followup"><link rel="stylesheet" href="{% static 'app/styles/pages/account_logos.css' %}">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>Datos al {{ loaded_at|date:"d/m/Y, H:i" }}</span>{% endblock %}
 {% block content %}
 <div class="account-page" id="account" data-client="{{ client }}"
  data-project-url="{% url 'portal:proyecto_detalle' 'project-placeholder' %}"
  data-costs-url="{% url 'portal:costos_detalle' %}?nombre={{ client|urlencode }}">
 <div class="portal-page-toolbar"><a class="portal-back" data-portal-back href="{{ back_url }}">← Regresar a {{ back_label }}</a><a class="portal-page-action" href="{{ margins_url }}"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h16M8 14l4-4 4 2 4-6"/></svg>Comparar margen vendido y real</a><a class="portal-page-action" href="{{ hours_url }}">Ver horas por mes</a></div>
-<header class="account-hero"><span class="account-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 4-6 8 6 8M16 4l6 8-6 8M14 5 7 12l3 3M10 19l7-7-3-3"/></svg></span><div><h1>{{ client }}</h1><p>Portafolio, satisfacción y horas de la cuenta · Corte <span id="account-cutoff"></span></p></div></header>
+<header class="account-hero"><div class="account-logo-anchor"><span class="account-brand"><span class="account-initials" aria-hidden="true">{{ client|slice:":1"|upper }}</span></span><button type="button" id="account-logo-open" class="account-logo-pencil" hidden aria-label="Cambiar logo" title="Cambiar logo" aria-controls="account-logo-form" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m15 5 4 4M4 20l4-1L20 7a2.8 2.8 0 0 0-4-4L4 15z"/></svg></button></div><div><h1>{{ client }}</h1><p>Portafolio, satisfacción y horas de la cuenta · Corte <span id="account-cutoff"></span></p></div></header>
+<section id="account-logo-editor" class="account-logo-editor" hidden aria-label="Logo de la cuenta">
+<form id="account-logo-form" hidden>
+<div class="logo-editor-heading"><span class="logo-editor-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 6"/></svg></span><div><h2>Logo de la cuenta</h2><p>Elige una imagen para identificar esta cuenta. Se optimiza automáticamente para que cargue rápido.</p></div><button type="button" id="logo-tips-toggle" aria-expanded="true" aria-controls="logo-recommendations">ⓘ Recomendaciones</button></div>
+<div class="logo-editor-grid">
+<div id="logo-dropzone" class="logo-dropzone">
+<svg class="logo-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M7 18H6a4 4 0 0 1-1-8 7 7 0 0 1 13-1 4.5 4.5 0 0 1 0 9h-1M12 21V11m-4 4 4-4 4 4"/></svg>
+<strong id="account-logo-filename">Seleccionar imagen</strong><small>PNG, JPG o WebP · Hasta 2 MB</small>
+<button type="button" id="account-logo-select">↥ Subir imagen</button><span>o arrastra y suelta aquí</span>
+<input id="account-logo-file" type="file" accept="image/png,image/jpeg,image/webp" required aria-label="Seleccionar imagen del logo">
+</div>
+<div class="logo-preview-panel"><div class="logo-preview-heading"><h3>Vista previa</h3><span id="logo-preview-badge" hidden>Logo guardado</span></div><div class="logo-preview-frame"><img id="account-logo-preview" alt="Vista previa del logo" hidden><span id="logo-preview-empty" class="logo-preview-empty" aria-label="Sin logo"></span></div><p>Se ajusta conservando su proporción y transparencia.</p></div>
+<aside id="logo-recommendations" class="logo-recommendations"><h3>Recomendaciones</h3><ul><li>Formato: PNG, JPG o WebP</li><li>Tamaño máximo: 2 MB</li><li>Preferentemente cuadrada (1:1)</li><li>Fondo transparente o claro</li><li>Resolución sugerida: 300 × 300 px o más</li></ul></aside>
+</div>
+<div class="logo-editor-actions"><button type="submit" id="account-logo-save" disabled>Guardar logo</button><button type="button" id="account-logo-cancel">Cancelar</button><button type="button" id="account-logo-remove" hidden>Quitar logo</button></div>
+</form><p id="account-logo-status" role="status" aria-live="polite"></p>
+</section>
 <p class="portal-currency-note">Cifras monetarias en dólares estadounidenses · K = miles · M = millones · B = mil millones · sin centavos.</p>
 <p id="account-refresh" class="sr-only" role="status" aria-live="polite"></p>
 <div id="account-content"></div>
 <noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
 </div>
 {% endblock %}
-{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/account/main.js' %}"></script>{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/account/main.js' %}"></script><script type="module" src="{% static 'app/scripts/pages/account/logos.js' %}"></script>{% endblock %}

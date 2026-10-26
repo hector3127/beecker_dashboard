@@ -98,7 +98,7 @@ def test_account_comparison_searches_sorts_and_keeps_the_url(
     )
     default = groups(portal)
 
-    portal.get_by_label("Comparar cuentas por").select_option("margin")
+    portal.get_by_label("Comparar por").select_option("margin")
     expect(coverage).to_contain_text("4 cuentas comparadas por margen bruto")
     expect(coverage).to_contain_text("1 sin dato para este criterio")
     by_margin = groups(portal)
@@ -138,7 +138,7 @@ def test_comparison_state_is_restored_from_the_url(portal, executive):
     )
 
     expect(portal.get_by_label("Buscar cuenta")).to_have_value("gr")
-    expect(portal.get_by_label("Comparar cuentas por")).to_have_value("revenue")
+    expect(portal.get_by_label("Comparar por")).to_have_value("revenue")
     expect(portal.locator("#ranking-coverage")).to_contain_text("facturación")
 
 
@@ -146,7 +146,7 @@ def test_entering_an_account_and_coming_back_keeps_search_and_order(
     portal, executive
 ):
     portal.goto(portal.base + "/")
-    portal.get_by_label("Comparar cuentas por").select_option("revenue")
+    portal.get_by_label("Comparar por").select_option("revenue")
     portal.get_by_label("Buscar cuenta").fill("mexico")
     expect(portal.locator("#ranking-coverage")).to_contain_text(
         "1 cuenta comparada"
@@ -161,7 +161,7 @@ def test_entering_an_account_and_coming_back_keeps_search_and_order(
     portal.get_by_role("link", name=re.compile("^← Regresar a")).click()
     portal.wait_for_url(re.compile(r"ranking_buscar=mexico"))
     expect(portal.get_by_label("Buscar cuenta")).to_have_value("mexico")
-    expect(portal.get_by_label("Comparar cuentas por")).to_have_value("revenue")
+    expect(portal.get_by_label("Comparar por")).to_have_value("revenue")
     expect(portal.locator("#ranking-coverage")).to_contain_text("facturación")
 
 

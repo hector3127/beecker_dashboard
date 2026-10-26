@@ -20,7 +20,7 @@ PERIODO = "periodo=anio&anio=2026"
 def metric(portal, element_id, label, value):
     """Espera el numero de una tarjeta, no solo que el texto aparezca."""
     expect(portal.locator(f"#{element_id}")).to_have_text(
-        re.compile(rf"{label}\s*{value}\b")
+        re.compile(rf"{label}\s*{value}(?:\b|\d+%)")
     )
 
 
@@ -136,7 +136,7 @@ def test_acuerdos_se_consultan_y_modifican_con_sesion(
     seccion = portal.locator("#executive-agreements")
     expect(seccion).to_contain_text("Sin acuerdos")
 
-    seccion.get_by_role("button", name="+ Agregar acuerdo o pendiente").click()
+    seccion.get_by_role("button", name="Agregar acuerdo o pendiente").click()
     formulario = seccion.locator("#agreement-form")
     formulario.get_by_label("Fecha de sesión").fill("2026-10-01")
     formulario.get_by_label("Título").fill("Revisar alcance de fase 2")

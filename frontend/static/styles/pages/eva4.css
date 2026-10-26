@@ -59,3 +59,73 @@ table.eva4 tr.total td { background: var(--th-bg); font-weight: 800; }
   .eva4-detail th:nth-child(4), .eva4-detail th:nth-child(6) { z-index: 3; }
   .eva4-scroll { max-height: 70vh; }
 }
+
+/* EVA 4: referencia visual con tarjetas, exportaciones y páginas. */
+body.eva4-page{background:radial-gradient(ellipse at top,#f8f7ff,#f1f3ff)}
+body.eva4-page main.page{max-width:1700px;margin:auto;padding:18px 26px 30px}
+.eva4-page main.page,.eva4-page main.page *{box-sizing:border-box}
+.eva4-page .toolbar{margin-bottom:12px}
+.eva4-page .eva4-banner{display:flex;align-items:center;flex-wrap:nowrap;gap:18px;padding:15px 18px;min-height:98px;border-radius:13px;margin:12px 0 16px;background:linear-gradient(110deg,#4c28fa,#922eea 58%,#fa2c9d)}
+.eva4-banner-title{flex:1;min-width:0}
+.eva4-page .eva4-banner h1{font-size:32px;letter-spacing:-.6px;line-height:1.1}
+.eva4-page .eva4-banner p{font-size:13px;margin-top:5px}
+.eva4-page .eva4-month-form{width:235px;padding:10px 12px;gap:9px;border-radius:10px}
+.eva4-page .eva4-month-field input{font-size:18px;min-height:27px}
+.eva4-reference-icon{display:grid;place-items:center;flex:none;width:43px;height:44px;border-radius:11px;background:#f0e9ff;color:#7743f1}
+.eva4-reference-icon svg{width:26px;height:26px}
+.eva4-banner>.eva4-reference-icon{background:#ffffff30;color:white;width:59px;height:59px}
+.eva4-banner>.eva4-reference-icon svg{width:34px;height:34px}
+.eva4-page .eva4-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 16px}
+.eva4-page .eva4-kpis span{padding:0;background:none;border-radius:0}
+.eva4-kpi{display:flex;align-items:center;gap:16px;background:linear-gradient(140deg,#fff,#fefcff);border:1px solid #e5dfff;box-shadow:0 3px 9px #6241b507;padding:16px;border-radius:12px;min-height:94px}
+.eva4-kpi>div{display:flex;flex-direction:column;min-width:0}
+.eva4-kpi b{order:2;font-size:31px;line-height:1.2;color:#1c105b;letter-spacing:-.6px}
+.eva4-page .eva4-kpi>div>span{order:1;font-size:12px;font-weight:600;text-transform:capitalize;color:#392270;margin-bottom:6px}
+.eva4-page .eva4-kpi .eva4-reference-icon{width:55px;height:55px;border-radius:13px;background:#eee8ff;color:#7540ee}
+.eva4-page .eva4-kpi.kpi-play .eva4-reference-icon{background:#e6faf1;color:#11aa75}
+.eva4-page .eva4-kpi.kpi-pause .eva4-reference-icon{background:#ffe8f2;color:#f43585}
+.eva4-page .eva4-tables{grid-template-columns:1.12fr 1fr;gap:16px;align-items:stretch}
+.eva4-page .eva4-card{min-width:0;padding:16px;border-radius:14px;border-color:#e4defb;background:#ffffffed;box-shadow:0 4px 16px #7550cc04}
+.eva4-section-heading{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.eva4-section-heading>div{flex:1;min-width:0}
+.eva4-page .eva4-section-heading h2{font-size:18px;margin:0 0 4px;color:#3511bc;line-height:1.25;letter-spacing:-.3px}
+.eva4-page .eva4-section-heading .eva4-note{margin:0;font-size:11px;line-height:1.5;color:#9181b6}
+.eva4-export{flex:none;align-self:flex-start;padding:10px 12px;border:0;border-radius:8px;background:#f2ecff;color:#7140d6;font:inherit;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer}
+.eva4-page .eva4-note{font-size:11px;color:#9280ad;line-height:1.5;margin:7px 0 12px}
+.eva4-page .eva4-filter{width:min(360px,100%);font-size:12px;border:1px solid #e3d9f7;color:#72588e;height:36px;padding:8px 10px}
+.eva4-page .eva4-scroll{max-width:100%;border-radius:7px;max-height:610px}
+.eva4-page table.eva4{font-size:11px;border-collapse:separate;border-spacing:0;width:100%}
+.eva4-page table.eva4 th{font-size:10px;background:#f1ebff;color:#7252b1;font-weight:600;border:0;line-height:1.4;padding:10px 8px}
+.eva4-page table.eva4 td{font-size:11px;color:#725a9e;border:0;border-bottom:1px solid #eee8fb;padding:8px;line-height:1.4}
+.eva4-page table.eva4 tbody tr:nth-child(even){background:#faf8ff}
+.eva4-page table.eva4 tr[hidden]{display:none}
+.eva4-page table.eva4 tr.total td{background:#f4f0ff;color:#60418f}
+.eva4-page table.eva4 .eva-column-trigger{font-size:10px;min-height:36px;padding:9px 7px;white-space:nowrap}
+.eva4-page table.eva4 th[colspan]{position:static}
+.eva4-page table.eva4 td.critical{color:#e72e61}
+.eva4-page .eva4-detail{min-width:1550px}
+.eva4-page .eva4-detail th,.eva4-page .eva4-detail td{font-size:10px}
+.eva4-page .eva4-detail .eva-column-trigger{font-size:10px}
+.eva4-page .eva4-pill{font-size:10px;padding:4px 9px}
+.eva4-active-count{display:inline-block;min-width:42px;text-align:center;color:#18845e;background:#e0f8ec;border-radius:10px;padding:4px 8px;font-weight:600}
+.eva4-client-name{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.eva4-client-logo{display:grid;place-items:center;width:24px;height:24px;flex:none;background:#f2edff;color:#8a61cc;border-radius:5px;font-size:9px;overflow:hidden}
+.eva4-client-logo img{width:100%;height:100%;object-fit:contain;background:#fff}
+.eva4-country-flag{font-size:15px;margin-right:3px}
+.eva4-reference-footer{display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap;font-size:11px;color:#8b73b3}
+.eva4-reference-footer>span{margin-right:auto}
+.eva4-reference-pages{display:flex;align-items:center;gap:5px}
+.eva4-reference-pages button,.eva4-reference-footer select{height:32px;min-width:31px;border:1px solid #e7ddfb;background:#fff;color:#8052bf;padding:0 9px;border-radius:7px;font:inherit;font-size:11px;cursor:pointer}
+.eva4-reference-pages button[aria-current=page]{background:linear-gradient(140deg,#955aff,#682aeb);color:#fff;border-color:transparent}
+.eva4-reference-pages button:disabled{opacity:.4;cursor:default}
+.eva4-no-results td{text-align:center;color:#ab96bf!important;padding:20px!important}
+.eva4-page :focus-visible{outline:2px solid #a782ee;outline-offset:2px}
+@media(max-width:1100px){.eva4-page .eva4-tables{grid-template-columns:1fr}.eva4-page .eva4-banner h1{font-size:28px}.eva4-kpi{gap:10px;padding:14px}.eva4-page .eva4-kpi .eva4-reference-icon{width:42px;height:44px}.eva4-kpi b{font-size:28px}}
+@media(max-width:650px){body.eva4-page main.page{padding:15px 12px 25px}.eva4-page .eva4-banner{flex-wrap:wrap;padding:16px;gap:12px}.eva4-banner>.eva4-reference-icon{width:43px;height:45px}.eva4-page .eva4-banner-title{flex:1 1 220px}.eva4-page .eva4-banner h1{font-size:25px}.eva4-page .eva4-banner p{font-size:11px}.eva4-page .eva4-month-form{width:100%;flex-basis:100%;max-width:100%}.eva4-page .eva4-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.eva4-kpi{padding:12px 9px;gap:9px;min-height:91px}.eva4-page .eva4-kpi .eva4-reference-icon{width:33px;height:36px}.eva4-reference-icon svg{width:23px;height:23px}.eva4-page .eva4-kpi>div>span{font-size:10px}.eva4-kpi b{font-size:27px}.eva4-page .eva4-card{padding:12px}.eva4-section-heading{gap:8px;flex-wrap:wrap}.eva4-section-heading>div{flex-basis:calc(100% - 55px)}.eva4-page .eva4-section-heading h2{font-size:16px}.eva4-page .eva4-section-heading .eva4-note{font-size:10px}.eva4-export{margin-left:51px;padding:8px 12px}.eva4-reference-footer>span{width:100%}.eva4-reference-pages{flex-wrap:wrap}.eva4-page #eva4-clients{min-width:640px}.eva4-page #eva4-renewals{min-width:570px}.eva4-page .eva4-scroll{max-height:65vh}}
+
+.eva4-page .eva4-month-field{position:relative}
+.eva4-page .eva4-month-field input{position:absolute;inset:0;width:100%;height:100%;opacity:0;z-index:1}
+.eva4-month-display{display:block;font-size:19px;font-weight:700;color:#21105b;line-height:1.4;padding-right:16px}
+.eva4-month-display:after{content:'⌄';position:absolute;right:0;font-size:16px;color:#7942d8}
+.eva4-month-field:focus-within{outline:2px solid #ab83ee;outline-offset:4px;border-radius:4px}
+.eva4-page .eva4-country-flag{display:inline-block;vertical-align:middle;flex:none;margin-right:4px;border-radius:1px;box-shadow:0 0 0 1px #ebe4f4}

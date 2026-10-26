@@ -14,6 +14,10 @@ const hours = (/** @type {number | null} */ value) => (value === null || value =
 
 /** @param {any} person */
 function personRow(person) {
+  const cost = person.missing
+    ? person.cost > 0 ? `${formatMoney(person.cost)}*` : PENDING
+    : formatMoney(person.cost);
+  const personRate = person.missing && !(person.rate > 0) ? PENDING : rate(person.rate);
   const state = el('span', {
     class: `person-cost-state${person.missing ? ' missing' : ''}`,
     text: person.missing ? 'Falta banda o tarifa' : 'Horas × tarifa',
@@ -21,7 +25,7 @@ function personRow(person) {
   return el(
     'tr',
     {},
-    ...[person.name, hours(person.hours), person.band, person.band_month, rate(person.rate), formatMoney(person.cost)].map(
+    ...[person.name, hours(person.hours), person.band, person.band_month, personRate, cost].map(
       (value) => el('td', { text: text(value) }),
     ),
     el('td', {}, state),

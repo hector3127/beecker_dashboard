@@ -1,8 +1,9 @@
 {
   "cuenta": [],
   "margenes": [
-    "CUENTA / OPORTUNIDAD BOOKINGS REVENUE OPERADO FACTURADO COBRADO COSTOS TARIFA DE COSTO VENDIDA MARGEN VENDIDO MARGEN REAL DESVIACIÓN (PP) DETALLE",
-    "› Clinica Sur OP.7 T&M $1K Revenue del periodo: $1K $1K $0 $0 Pendiente 40.00% Pendiente Pendiente Ver IDs ligados (1)",
+    "CUENTA / OPORTUNIDAD BOOKINGS REVENUE OPERADO FACTURADO COBRADO COSTOS MARGEN VENDIDO MARGEN REAL DESVIACIÓN (PP) DETALLE",
+    "› Clinica Sur 1 oportunidad $1K $1K $0 $0 Pendiente 40.00% Pendiente Pendiente Ver oportunidades",
+    "OP.7T&M$1KRevenue del periodo: $1K$1K$0$0Pendiente40.00%PendientePendienteVer IDs ligados (1)",
     "↗OP.7 · IDs ligados · Parcial*Project IDHorasCostoRevenue del periodoMargen bruto (% / importe)Estado / error2PendientePendiente$1KPendienteCosto pendiente: sin corte disponibleVer personas y tarifasAbre para consultar el desglose.",
     "Project IDHorasCostoRevenue del periodoMargen bruto (% / importe)Estado / error",
     "2PendientePendiente$1KPendienteCosto pendiente: sin corte disponible",

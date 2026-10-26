@@ -1,0 +1,11 @@
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+{% if kind == 'calculator' %}<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 10h2m4 0h2M8 14h2m4 0h2M8 18h2m4 0h2"/>
+{% elif kind == 'folder' %}<path d="M3 6h7l2 3h9v12H3V6ZM3 13h18"/>
+{% elif kind == 'clock' %}<circle cx="12" cy="12" r="10"/><path d="M12 6v6l5 3"/>
+{% elif kind == 'file' %}<path d="M6 3h8l4 4v14H6V3ZM14 3v5h4M9 12h6M9 16h6"/>
+{% elif kind == 'database' %}<path d="M4 6c0 4 16 4 16 0S4 2 4 6ZM4 6v12c0 4 16 4 16 0V6M4 12c0 4 16 4 16 0"/>
+{% elif kind == 'calendar' %}<path d="M4 5h16v16H4zM4 10h16M8 3v4M16 3v4M8 14h2M14 14h2M8 18h2"/>
+{% elif kind == 'search' %}<circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/>
+{% elif kind == 'download' %}<path d="M12 3v13M7 11l5 5 5-5M4 18v3h16v-3"/>
+{% else %}<path d="M20 7a9 9 0 1 0 1 8M20 3v6h-6"/>{% endif %}
+</svg>

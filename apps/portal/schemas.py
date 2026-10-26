@@ -540,6 +540,7 @@ class ResourceRow:
     role: str
     percents: tuple[float | None, ...]
     average: float | None
+    inactive: bool = False
 
 
 @dataclass(frozen=True, slots=True)

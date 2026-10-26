@@ -107,6 +107,9 @@ def test_page_uses_the_modular_frontend(portal, backlog):
     expect(
         portal.get_by_role("heading", name="Comercial", exact=True)
     ).to_be_visible()
+    expect(
+        portal.get_by_role("button", name="↓ Descargar captura")
+    ).to_have_count(1)
     assert portal.locator("main").count() == 1
     assert portal.locator("link[href*='pages/commercial.css']").count() == 1
     expect(portal.locator(".k4 .kx")).to_have_count(4)

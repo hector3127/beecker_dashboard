@@ -66,6 +66,11 @@ def test_roster_reads_only_monthly_bands_without_resources_or_mpb():
     ]
     october = attach_month_roster(GSE, reader, "2026-10")
     assert october["plantilla"] == [{"nombre": "Karina Marmol", "rol": "DEV"}]
+    assert october["plantillaBajas"] == [
+        "Magda Perla González Sáenz", "Cesar Meza Hernandez"
+    ]
+    assert "No vigente" not in october["plantillaBajas"]
+    assert "Sin banda" not in october["plantillaBajas"]
 
 
 def test_missing_historical_band_keeps_hours_with_notice():

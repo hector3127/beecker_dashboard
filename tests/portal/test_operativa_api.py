@@ -62,6 +62,7 @@ def test_block_contract_has_only_what_the_screen_uses(client):
         "filters", "options", "loaded_at", "loading", "consumption_pending",
         "portfolio_unavailable", "stale", "error", "source_errors",
         "block_error", "has_projects", "summary", "health_states",
+        "service_distribution", "portfolio_total",
         "managers", "investment", "eva", "capacity", "restricted",
     }  # fmt: skip
     assert (
@@ -366,3 +367,15 @@ def test_scope_key_is_stable_and_separates_scopes():
 
     assert a.signature() == b.signature() != c.signature()
     assert AccessScope.everything().signature() != a.signature()
+
+
+def test_service_distribution_uses_filtered_active_projects(client):
+    data = data_of(client)
+    assert (
+        sum(row["count"] for row in data["service_distribution"])
+        == data["summary"]["in_progress"]
+    )
+    filtered = data_of(client, servicio="T&M")
+    assert filtered["service_distribution"] == [
+        {"service": "T&M", "count": 1, "percent": 100}
+    ]

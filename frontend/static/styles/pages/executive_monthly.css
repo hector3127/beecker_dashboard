@@ -1,0 +1,46 @@
+/* Monthly profitability: reference styling, original financial measures. */
+.executive-page .executive-monthly .monthly-panel {
+ padding:0;overflow:visible;border-radius:22px;border:1px solid #e8e1f9;
+ background:linear-gradient(120deg,#fff,#fdfcff);box-shadow:0 6px 24px #6246b30a;
+}
+.executive-page .executive-monthly .monthly-panel-header {
+ display:flex;align-items:center;gap:10px;padding:19px 22px;margin:0;
+ border-bottom:1px solid #f0edf8;border-radius:22px 22px 0 0;
+ background:linear-gradient(110deg,#fff,#faf8ff);flex-wrap:wrap;
+}
+.monthly-panel-icon {display:grid;place-items:center;flex:none;width:36px;height:38px;border-radius:11px;background:linear-gradient(140deg,#f7f2ff,#e8ddfc);color:#8254dc;border:1px solid #e1d4fa}
+.executive-page .executive-monthly h3 {font-size:19px;color:#191556;letter-spacing:-.025em;line-height:1.4}
+.monthly-panel-info {position:relative;flex:none;color:#9783bc;font-size:17px}
+.monthly-panel-info summary {display:grid;place-items:center;list-style:none;width:28px;height:30px;cursor:pointer;border-radius:8px}
+.monthly-panel-info summary::-webkit-details-marker {display:none}
+.monthly-panel-info summary:hover,.monthly-panel-info[open] summary {background:#f1eafb;color:#7443cb}
+.monthly-panel-info summary:focus-visible {outline:2px solid #8b5cf6;outline-offset:2px}
+.monthly-panel-info>div {position:absolute;z-index:20;left:0;top:36px;width:min(370px,calc(100vw - 60px));padding:16px 18px;background:white;border:1px solid #e3d8f6;border-radius:12px;box-shadow:0 8px 24px #36205b20;color:#67557f;font-size:12px;line-height:1.7}
+.monthly-panel-info p {margin:8px 0 0}
+.executive-page .executive-monthly .executive-chart-legend {margin-left:auto;gap:18px;align-items:center;width:auto;font-size:11px;color:#665b83;font-weight:550}
+.executive-chart-legend span {display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.monthly-legend-revenue:before,.monthly-legend-cost:before,.monthly-legend-margin:before {content:'';display:block;width:9px;height:9px;border-radius:50%;background:#8b5cf6;flex:none}
+.monthly-legend-cost:before {background:#bba4ed}
+.monthly-legend-margin {position:relative;padding-left:8px}
+.monthly-legend-margin:before {background:#ec70b0;box-shadow:0 0 0 2px #fff;z-index:1}
+.monthly-legend-margin:after {content:'';position:absolute;left:2px;top:50%;width:22px;height:2px;background:#ec70b0}
+.monthly-panel-state {padding:10px 22px 0}
+.executive-page .monthly-panel-state .ej {font-size:10px;margin:0;padding:3px 9px}
+.executive-page .executive-monthly #monthly-profit-chart {margin:0 18px;padding:6px 0 7px;overflow-x:auto;overflow-y:hidden;border-radius:0 0 22px 22px;scrollbar-width:thin;scrollbar-color:#d6c8ef transparent}
+.executive-page .executive-monthly #monthly-profit-chart svg {font-family:inherit}
+.executive-page .executive-monthly .monthly-margin-label {font-size:11px;font-weight:650;pointer-events:none}
+@media(max-width:1100px) {
+ .executive-page .executive-monthly .monthly-panel-header {gap:9px}
+ .executive-page .executive-monthly .executive-chart-legend {order:5;flex:1 1 100%;margin-left:0;padding:3px 0 0 46px;gap:16px}
+}
+@media(max-width:700px) {
+ .executive-page .executive-monthly .monthly-panel-header {padding:16px 14px}
+ .executive-page .executive-monthly h3 {font-size:16px;flex:1;min-width:140px}
+ .monthly-panel-icon {width:31px;height:34px}
+ .executive-page .executive-monthly .executive-chart-legend {padding-left:0;gap:10px;font-size:10px}
+ .monthly-panel-info {position:static}
+ .monthly-panel-header {position:relative}
+ .monthly-panel-info>div {left:12px;top:65px;max-width:calc(100% - 24px)}
+ .monthly-panel-state {padding-left:14px}
+ .executive-page .executive-monthly #monthly-profit-chart {margin:0;padding-left:0;padding-right:0}
+}

@@ -73,24 +73,40 @@ def test_structure_is_accessible_and_keeps_the_previous_order(portal, loads):
     ]  # las columnas del Excel, en su orden
 
 
-def test_search_filters_rows_ignoring_accents_and_updates_the_count(
-    portal, loads
-):
+def filter_client_column(portal, value):
+    table = portal.locator("#eva4-processes")
+    table.get_by_role("button", name="Opciones de Client", exact=False).click()
+    menu = portal.get_by_role("dialog", name="Opciones de Client", exact=True)
+    condition = menu.get_by_label("Condición", exact=True)
+    if not condition.is_visible():
+        menu.locator("summary").filter(has_text="Filtrar por condición").click()
+    condition.select_option("contains")
+    menu.get_by_label("Valor de la condición", exact=True).fill(value)
+    menu.get_by_role("button", name="Aceptar", exact=True).click()
+
+
+def clear_process_columns(portal):
+    portal.locator("#eva4-processes").locator(
+        "xpath=ancestor::section"
+    ).locator(".eva-column-clear").click()
+
+
+def test_column_filter_replaces_search_and_updates_the_count(portal, loads):
     portal.goto(portal.base + PAGE)
     count = portal.locator("#eva4-count")
     expect(count).to_have_text("3 de 3 procesos activos")
-    search = portal.get_by_label(re.compile("Buscar procesos"))
+    expect(portal.locator("#eva4-search")).to_have_count(0)
 
-    search.fill("cagsa")
+    filter_client_column(portal, "cagsa")
     expect(count).to_have_text("1 de 3 procesos activos")
     assert portal.locator("#eva4-processes tbody tr:visible").count() == 1
 
-    search.fill("NESTLE")  # sin acento y en mayusculas
+    filter_client_column(portal, "NESTLE")  # sin acento y en mayusculas
     expect(count).to_have_text("2 de 3 procesos activos")
 
-    search.fill("no existe")
+    filter_client_column(portal, "no existe")
     expect(count).to_have_text("0 de 3 procesos activos")
-    search.fill("")
+    clear_process_columns(portal)
     expect(count).to_have_text("3 de 3 procesos activos")
 
 
@@ -168,7 +184,7 @@ def test_source_without_data_explains_why_and_hides_the_tables(
         "Servicios de automa"
     )
     expect(portal.locator("#eva4-processes")).to_have_count(0)
-    expect(portal.locator("#eva4-search")).to_be_hidden()
+    expect(portal.locator("#eva4-search")).to_have_count(0)
 
 
 def test_stale_cut_is_shown_with_a_warning(portal, monkeypatch):
@@ -324,3 +340,169 @@ def test_negative_balance_is_highlighted(portal, monkeypatch):
     )
     expect(cell).to_have_text("-10")
     expect(cell).to_have_class(re.compile("critical"))
+
+
+@pytest.mark.parametrize("width", [1450, 390])
+def test_process_column_menus_combine_with_client_and_month(
+    portal, loads, width
+):
+    from pathlib import Path
+
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    table = portal.locator("#eva4-processes")
+    expect(table.locator("thead button.eva-column-trigger")).to_have_count(15)
+    table.get_by_role(
+        "button", name="Opciones de Invested Hours", exact=True
+    ).click()
+    menu = portal.get_by_role(
+        "dialog", name="Opciones de Invested Hours", exact=True
+    )
+    menu.locator("summary").filter(has_text="Filtrar por condición").click()
+    menu.get_by_label("Condición", exact=True).select_option("gt")
+    menu.get_by_label("Valor de la condición", exact=True).fill("10")
+    target = Path("tmp/design/eva-column-menus")
+    target.mkdir(parents=True, exist_ok=True)
+    portal.screenshot(path=str(target / f"eva4-{width}.png"))
+    menu.get_by_role("button", name="Aceptar", exact=True).click()
+    expect(table.locator("tbody tr:visible")).to_have_count(2)
+    filter_client_column(portal, "NESTLE")
+    expect(table.locator("tbody tr:visible")).to_have_count(1)
+    expect(portal.locator("#eva4-count")).to_have_text(
+        "1 de 3 procesos activos"
+    )
+    portal.locator("#eva4-processes").locator(
+        "xpath=ancestor::section"
+    ).locator(".eva-column-clear").click()
+    expect(table.locator("tbody tr:visible")).to_have_count(3)
+    month_input(portal).fill("2026-09")
+    expect(portal.locator("#eva4-source")).to_contain_text("Consumo 2026-09")
+    expect(table.locator("thead button.eva-column-trigger")).to_have_count(15)
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_eva4_reference_pagination_exports_and_responsive(
+    portal, monkeypatch, width
+):
+    from pathlib import Path
+
+    from tests.portal.test_eva4 import HEADER, row
+
+    records = []
+    for index in range(17):
+        record = row(str(index))
+        record[0] = "=1+1" if index == 0 else f"Cliente {index}"
+        record[2] = f"ROC.TEST.{index:03}"
+        records.append(record)
+    data = eva4.build_eva4([HEADER, *records], TODAY)
+    for process in data["processes"]:
+        process.update(
+            bot_label=process["bot_id"],
+            invested_hours=12.5,
+            average_limit=30,
+            hours_balance=17.5,
+        )
+    data.update(
+        month="2026-10",
+        hours_origin="database",
+        hours_source="08.Base Clockify 2026",
+        unmatched_tasks=0,
+        missing_limits=0,
+    )
+    monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
+    monkeypatch.setattr(eva4.timezone, "localdate", lambda: TODAY)
+    portal.set_viewport_size({"width": width, "height": 1100})
+    portal.goto(portal.base + PAGE)
+    table = portal.locator("#eva4-processes")
+    expect(table.locator("tbody tr:visible")).to_have_count(10)
+    expect(portal.locator("#eva4-processes-count")).to_have_text(
+        "Mostrando 10 de 17 procesos"
+    )
+    for kind in ["processes", "clients", "renewals"]:
+        with portal.expect_download() as result:
+            portal.locator(f"#eva4-{kind}-export").click()
+        content = Path(result.value.path()).read_text(encoding="utf-8-sig")
+        assert len(content.splitlines()) == 18
+        if kind in ["processes", "clients"]:
+            assert '"\'=1+1"' in content
+    portal.get_by_role(
+        "button", name="processes página siguiente", exact=True
+    ).click()
+    expect(table.locator("tbody tr:visible")).to_have_count(7)
+    filter_client_column(portal, "Cliente 16")
+    expect(table.locator("tbody tr:visible")).to_have_count(1)
+    with portal.expect_download() as result:
+        portal.locator("#eva4-processes-export").click()
+    assert (
+        len(
+            Path(result.value.path())
+            .read_text(encoding="utf-8-sig")
+            .splitlines()
+        )
+        == 2
+    )
+    clear_process_columns(portal)
+    expect(table.locator("tbody tr:visible")).to_have_count(10)
+    portal.get_by_label(
+        "Filas por página de processes", exact=True
+    ).select_option("25")
+    expect(table.locator("tbody tr:visible")).to_have_count(17)
+    portal.get_by_label(
+        "Filas por página de processes", exact=True
+    ).select_option("10")
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    target = Path("tmp/design/eva4-reference")
+    target.mkdir(parents=True, exist_ok=True)
+    portal.mouse.move(0, 0)
+    portal.screenshot(path=str(target / f"eva4-{width}.png"), full_page=True)
+
+
+def test_process_logos_and_removed_notices(portal, monkeypatch):
+    import base64
+    import json
+
+    data = report()
+    data["missing_limits"] = 1
+    monkeypatch.setattr(eva4, "load_eva4", lambda *a: data)
+    monkeypatch.setattr(eva4.timezone, "localdate", lambda: TODAY)
+    portal.route(
+        "**/api/v1/account-logos/",
+        lambda route: route.fulfill(
+            content_type="application/json",
+            body=json.dumps(
+                {
+                    "data": {
+                        "items": [
+                            {
+                                "key": "nestle mexico",
+                                "url": "/eva4-test-logo.png",
+                            }
+                        ]
+                    }
+                }
+            ),
+        ),
+    )
+    portal.route(
+        "**/eva4-test-logo.png",
+        lambda route: route.fulfill(
+            content_type="image/png",
+            body=base64.b64decode(
+                "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII="
+            ),
+        ),
+    )
+    portal.goto(portal.base + PAGE)
+    expect(portal.locator("#eva4-processes td:nth-child(3) img")).to_have_count(
+        2
+    )
+    expect(portal.locator("#eva4-search")).to_have_count(0)
+    section = portal.locator("#eva4-processes").locator(
+        "xpath=ancestor::section"
+    )
+    expect(section).not_to_contain_text(
+        "procesos son de un servicio sin Average Limit"
+    )
+    expect(section).not_to_contain_text(
+        "Las columnas de paquete permanecen sin dato"
+    )

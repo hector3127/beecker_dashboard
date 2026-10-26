@@ -238,3 +238,155 @@ table.d th.c {
     margin-bottom: 12px;
   }
 }
+
+/* Rediseño de EVA 3 solicitado por referencia. */
+body.eva3-page{background:radial-gradient(ellipse at 80% 0,#eee9ff88,transparent 45%),#f3f4ff}
+.eva3-page .page,.eva3-page .page *{box-sizing:border-box}
+body.eva3-page main.page{max-width:1680px;padding:20px 28px 36px;margin:auto}
+.eva3-page .pgh{position:relative;overflow:hidden;min-height:118px;padding:22px;gap:18px;border-radius:13px;background:linear-gradient(110deg,#4b26fb 0%,#7135e7 55%,#fc3c9e 100%);box-shadow:0 8px 20px #7044d91a}
+.eva3-page .pgh>div{position:relative;z-index:1}
+.eva3-page .pgh>div:nth-child(2){max-width:76%}
+.eva3-page .pgh .pgh-e{display:none}
+.eva3-page .pgh h1{font-size:32px;line-height:1.2}
+.eva3-page .pgh p{font-size:13px;max-width:720px;margin-top:6px}
+.eva3-page .pgh .pgh-i{width:64px;height:64px;border-radius:14px;background:#ffffff24;box-shadow:inset 0 1px 1px #ffffff40}
+.eva3-hero-art{position:absolute;right:12px;bottom:-16px;width:340px;height:145px;opacity:.85;filter:drop-shadow(0 8px 8px #34159b44)}
+.eva3-page .portal-page-toolbar.crumb{margin:0 0 16px;font-size:12px}
+.eva3-page .kp4{gap:14px;margin:16px 0}
+.eva3-page .kc{display:flex;gap:14px;align-items:flex-start;padding:18px 16px;border:1px solid #e8e2ff;border-radius:13px;box-shadow:0 4px 12px #5934b30a;min-height:116px;background:linear-gradient(145deg,#fff,#fefcff)}
+.eva3-page .kc .metric-icon{width:49px;height:49px;border-radius:13px}
+.eva3-page .kc:nth-child(2) .metric-icon{background:#ffe7f3;color:#f0188c}
+.eva3-page .kc:nth-child(4) .metric-icon{background:#e3f2ff;color:#087cf9}
+.eva3-page .kl{font-size:12px;color:#21105f}
+.eva3-page .kv{font-size:32px;margin:6px 0;color:#16094e}
+.eva3-page .ke{font-size:11px;color:#7766ad}
+.eva3-page .card{border:1px solid #e7e2ff;border-radius:15px;box-shadow:0 3px 12px #6139d005;padding:18px;margin:0 0 18px;min-width:0}
+.eva3-page .section-title{gap:12px;margin-bottom:16px;align-items:center}
+.eva3-page .section-title>div{min-width:0;flex:1}
+.eva3-page .card h2{font-size:18px;color:#3010b4}
+.eva3-page .section-title .hs{font-size:11px;color:#9584bc;line-height:1.5}
+.eva3-page .section-title .metric-icon{width:40px;height:40px;border-radius:10px}
+.eva3-page .section-title .metric-icon svg{width:24px;height:24px}
+.eva3-filters{display:grid;grid-template-columns:1.35fr 1fr .95fr .95fr 1.6fr auto;align-items:end;gap:14px;padding:15px;border:1px solid #e7e2ff;border-radius:14px;background:#fff;margin:0 0 18px;box-shadow:0 3px 12px #6139d005}
+.eva3-filters>label,.eva3-filter-label{display:flex;flex-direction:column;gap:6px;color:#8170b0;font-size:11px}
+.eva3-filter-label{margin-bottom:6px}
+.eva3-page .eva3-filters select,.eva3-page .eva3-filters input,.eva3-page .eva3-date-range summary{border:1px solid #ded5ff;border-radius:7px;height:37px;background:#fff;color:#584096;font:inherit;font-size:11px;padding:0 10px;width:100%;min-width:0}
+.eva3-page #eva3-search{font-size:11px}
+.eva3-date-range{position:relative;font-size:11px}
+.eva3-page .eva3-date-range summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer;list-style:none}
+.eva3-date-range summary:after{content:'⌄';color:#7348e4}
+.eva3-date-range>div{position:absolute;top:44px;left:0;z-index:4;min-width:240px;display:grid;gap:10px;border:1px solid #e1d7ff;border-radius:10px;background:#fff;box-shadow:0 10px 25px #2d135d1a;padding:14px}
+.eva3-date-range label{display:grid;gap:5px;color:#8170b0}
+.eva3-page .eva3-primary{height:37px;border:0;border-radius:8px;padding:0 14px;background:linear-gradient(130deg,#7950ff,#5d2aeb);color:#fff;font-size:11px;white-space:nowrap;cursor:pointer}
+.eva3-page .eva3-export{flex:none;margin-left:auto;border:1px solid #e8dfff;border-radius:8px;background:#f6f2ff;color:#6334df;font-size:11px;height:36px;padding:0 14px;cursor:pointer}
+.eva3-summary-scroll,.eva3-page .tw{overflow:auto;max-width:100%;border-radius:8px}
+.eva3-page .eva3-summary table{min-width:850px;font-size:11px}
+.eva3-page table.d th{font-size:10px;color:#7961bd;font-weight:600;background:#f1ecff;letter-spacing:0;line-height:1.5}
+.eva3-page table.d td{font-size:11px;padding:10px;color:#6f5ba3;border-color:#eee8ff}
+.eva3-page table.d tr.tot td{font-weight:700;color:#35217d;background:#f0eaff}
+.eva3-page table.d tr:nth-child(even){background:#fcfaff}
+.eva3-page table.d tr[hidden]{display:none}
+.eva3-page table.w{min-width:1280px;table-layout:fixed}
+.eva3-page table.w th,.eva3-page table.w td{padding:10px 7px;font-size:10px}
+.eva3-page table.w th{font-size:9px;white-space:normal;position:sticky;top:0;z-index:1}
+.eva3-page table.w th:first-child{width:12%}
+.eva3-page table.w th:nth-child(2){width:11%}
+.eva3-page table.w th:nth-child(3){width:9%}
+.eva3-page table.w th:nth-child(4){width:5%}
+.eva3-page table.w th:nth-child(5){width:4%}
+.eva3-page table.w th:nth-child(6){width:14%}
+.eva3-page table.w th:last-child{width:3%}
+.eva3-page table.w td:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.eva3-page table.w td:first-child:hover{white-space:normal}
+.eva3-page table.w td:nth-child(2),.eva3-page table.w td:nth-child(6){overflow-wrap:anywhere}
+.eva3-page table.w a{color:#5422ef;font-weight:600}
+.eva3-page table.w .bd{min-width:48px;border-radius:18px;padding:5px 8px;font-size:10px;white-space:nowrap}
+.eva3-page table.w .ok{color:#16815b;background:#e0f8ed}
+.eva3-page table.w .bad{color:#f0325b;background:#ffe5ed}
+.eva3-account{display:flex;align-items:center;gap:6px}
+.eva3-account-logo{display:grid;place-items:center;width:25px;height:25px;flex:none;border-radius:5px;background:#f3edff;color:#9a70dc;font-size:9px;overflow:hidden}
+.eva3-account-logo img{width:100%;height:100%;object-fit:contain;background:#fff}
+.eva3-service{display:inline-block;border-radius:5px;padding:5px 8px;font-size:10px;font-weight:600}
+.eva3-service.service-aer{color:#0781ed;background:#e0f2ff}
+.eva3-service.service-tym{color:#7141ea;background:#ede2ff}
+.eva3-page a.eva3-row-link{display:inline-grid;place-items:center;width:25px;height:27px;border:1px solid #e7ddff;border-radius:7px;background:#fff;font-size:14px}
+.eva3-tabs{display:flex;margin:0 0 14px;max-width:420px;background:#f4f0ff;border:1px solid #e7ddff;border-radius:7px;overflow:hidden}
+.eva3-tabs button{flex:1;border:0;background:none;font-size:11px;color:#7357b5;padding:10px 18px;cursor:pointer}
+.eva3-tabs button+button{border-left:1px solid #e7ddff}
+.eva3-tabs button[aria-pressed=true]{background:linear-gradient(120deg,#8754ff,#6231ee);color:#fff;border-radius:6px}
+.eva3-table-footer{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:18px;font-size:11px;color:#8d79b9}
+.eva3-pagination{display:flex;align-items:center;gap:5px}
+.eva3-pagination button,.eva3-page #eva3-page-size{border:1px solid #e8dfff;border-radius:7px;background:#fff;color:#7956c4;min-width:30px;height:31px;cursor:pointer}
+.eva3-pagination button:disabled{opacity:.4;cursor:default}
+.eva3-current{display:grid;place-items:center;min-width:40px;height:31px;background:#7640ee;color:#fff;border-radius:7px}
+.eva3-page #eva3-closed-box summary{padding:3px 4px;align-items:center;gap:18px}
+.eva3-page #eva3-closed-box h2{font-size:18px}
+.eva3-page #eva3-closed-box .hs{font-size:11px;color:#9381b9;margin:4px 0 0}
+.eva3-history-arrow{margin-left:auto;background:#f7f3ff;color:#6343bd;padding:7px 14px;border-radius:9px;font-size:23px}
+.eva3-page details[open] .eva3-history-arrow{transform:rotate(90deg)}
+.eva3-page .note{font-size:10px;color:#a08dbd;line-height:1.7}
+.eva3-page :focus-visible{outline:2px solid #9a76ec;outline-offset:3px}
+@media(min-width:1400px){.eva3-page table.w{min-width:1280px}.eva3-page table.w th,.eva3-page table.w td{font-size:11px}.eva3-page table.w th{font-size:10px}}
+@media(max-width:1100px){.eva3-filters{grid-template-columns:repeat(4,minmax(0,1fr))}.eva3-page #eva3-search{grid-column:span 3}.eva3-page .pgh h1{font-size:28px}.eva3-page .kc{padding:15px 12px;gap:10px}.eva3-page .kc .metric-icon{width:40px;height:42px}.eva3-page .kv{font-size:28px}}
+@media(max-width:650px){body.eva3-page main.page{padding:16px 12px 28px}.eva3-page .pgh{min-height:115px;padding:16px;gap:12px}.eva3-page .pgh>div:nth-child(2){max-width:calc(100% - 60px)}.eva3-page .pgh h1{font-size:23px}.eva3-page .pgh p{font-size:11px}.eva3-page .pgh .pgh-i{width:45px;height:48px}.eva3-hero-art{opacity:.18;right:-70px}.eva3-page .kp4{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.eva3-page .kc{padding:12px 10px;min-height:126px;gap:8px}.eva3-page .kc .metric-icon{width:31px;height:34px;border-radius:9px}.eva3-page .metric-icon svg{width:21px;height:21px}.eva3-page .kl{font-size:10px}.eva3-page .kv{font-size:26px}.eva3-page .ke{font-size:9px}.eva3-filters{grid-template-columns:1fr 1fr;padding:12px;gap:12px}.eva3-page #eva3-search{grid-column:span 2}.eva3-page #eva3-clear{grid-column:span 2}.eva3-page .card{padding:12px}.eva3-page .card h2,.eva3-page #eva3-closed-box h2{font-size:15px}.eva3-page .section-title{gap:8px;flex-wrap:wrap}.eva3-page .section-title .hs{font-size:10px}.eva3-page .section-title .metric-icon{width:31px;height:34px}.eva3-page .eva3-export{height:31px;font-size:10px}.eva3-table-footer{flex-wrap:wrap;justify-content:flex-start;gap:10px}.eva3-table-footer #eva3-count{width:100%}.eva3-tabs{max-width:100%}.eva3-tabs button{padding:10px 12px}.eva3-page #eva3-closed-box summary{gap:10px}.eva3-page #eva3-closed-box .hs{font-size:10px}}
+
+@media(max-width:650px){.eva3-filters>div:first-child{grid-column:span 2}.eva3-date-range>div{position:static;min-width:0;margin-top:8px;box-shadow:none}.eva3-date-range>div label{min-width:0}}
+
+/* Histórico AER / T&M: filtros, encabezados ordenables y paginación propia. */
+.eva3-page #eva3-closed-body{margin-top:20px;min-width:0}
+.eva3-page #eva3-closed-box>summary{flex-wrap:wrap}
+.eva3-page #eva3-history-export{order:2;margin-left:0}
+.eva3-page #eva3-closed-box>summary>div{flex:1;min-width:220px}
+.eva3-history-filters{display:grid;grid-template-columns:1.3fr 1fr 1fr .85fr .9fr 1.6fr;align-items:end;gap:18px;margin-bottom:18px}
+.eva3-history-filters>label{display:grid;gap:6px;color:#7966ad;font-size:12px;min-width:0}
+.eva3-page .eva3-history-filters select,.eva3-page .eva3-history-filters input,.eva3-page .eva3-history-dates summary{width:100%;min-width:0;height:39px;padding:0 12px;border:1px solid #dcd0ff;border-radius:7px;background:#fff;color:#5d439a;font:inherit;font-size:12px}
+.eva3-history-dates{position:relative}
+.eva3-page .eva3-history-dates summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer;list-style:none;font-size:11px}
+.eva3-history-dates summary:after{content:'⌄';color:#7245db}
+.eva3-history-dates>div{position:absolute;top:45px;left:0;z-index:5;min-width:250px;display:grid;gap:12px;padding:14px;border:1px solid #e5daff;border-radius:10px;background:#fff;box-shadow:0 10px 25px #39137d1a}
+.eva3-history-dates label{display:grid;gap:5px;font-size:12px;color:#8370af}
+.eva3-page #eva3-closed-body .sc{max-width:100%;overflow:auto;border:1px solid #eee8ff;border-radius:8px;max-height:650px}
+.eva3-page table.eva3-history-table{width:100%;min-width:1650px;table-layout:fixed;border-collapse:separate;border-spacing:0}
+.eva3-page table.eva3-history-table thead th{position:sticky;top:0;z-index:1;padding:0;background:#ede6ff;border:0;text-align:left;white-space:normal}
+.eva3-page table.eva3-history-table th:first-child{width:15%}
+.eva3-page table.eva3-history-table th:nth-child(2){width:13%}
+.eva3-page table.eva3-history-table th:nth-child(3){width:9%}
+.eva3-page table.eva3-history-table th:nth-child(4){width:6%}
+.eva3-page table.eva3-history-table th:nth-child(5){width:17%}
+.eva3-page table.eva3-history-table th:nth-child(6){width:8%}
+.eva3-page table.eva3-history-table th:last-child{width:6%}
+.eva3-page table.eva3-history-table th button{display:flex;align-items:center;gap:5px;width:100%;text-align:left;white-space:normal;border:0;background:none;font:inherit;font-size:10px;line-height:1.4;font-weight:700;color:#6334c6;cursor:pointer;padding:14px 10px;text-transform:uppercase}
+.eva3-page table.eva3-history-table th[aria-sort=ascending] button,.eva3-page table.eva3-history-table th[aria-sort=descending] button{color:#321080}
+.eva3-page table.eva3-history-table td{font-size:12px;padding:10px;border:0;border-bottom:1px solid #eee8ff;color:#5a428e;vertical-align:middle;overflow-wrap:anywhere;line-height:1.4}
+.eva3-page table.eva3-history-table td:nth-child(n+7){white-space:nowrap;overflow-wrap:normal}
+.eva3-page table.eva3-history-table td:nth-child(3) a{color:#7430ef;text-decoration:none;font-weight:600}
+.eva3-page table.eva3-history-table tr:nth-child(even){background:#faf8ff}
+.eva3-page table.eva3-history-table tr:hover{background:#f4efff}
+.eva3-page table.eva3-history-table tr[hidden]{display:none}
+.eva3-history-status{display:inline-block;padding:4px 10px;border-radius:9px;font-size:11px;font-weight:600;white-space:nowrap}
+.eva3-history-status.finished{background:#d9fae9;color:#0c855d}
+.eva3-history-status.cancelled{background:#ffe8ef;color:#d9476a}
+.eva3-history-status.unknown{background:#eeebf2;color:#77668e}
+.eva3-page table.eva3-history-table .bd{padding:4px 9px;border-radius:16px;min-width:50px;font-size:12px;white-space:nowrap}
+.eva3-page table.eva3-history-table .ok{background:#def9ec;color:#14865b}
+.eva3-page table.eva3-history-table .bad{background:#ffe5ed;color:#ed315b}
+.eva3-page table.eva3-history-table td:last-child .bd{min-width:73px}
+.eva3-page table.eva3-history-table td[data-closed-field=progress]:not(:has(.bd)){color:#8d819c}
+.eva3-history-footer{display:flex;align-items:center;gap:12px;margin-top:22px;font-size:12px;color:#715899}
+#eva3-history-count{margin-right:auto}
+.eva3-history-pages{display:flex;align-items:center;gap:6px}
+.eva3-history-pages button,.eva3-page #eva3-history-size{height:34px;min-width:34px;padding:0 10px;border:1px solid #e4d9ff;border-radius:7px;background:#fff;color:#7843ca;font:inherit;font-size:12px;cursor:pointer}
+.eva3-history-pages button[aria-current=page]{background:linear-gradient(140deg,#8b50fd,#6225e9);border-color:transparent;color:#fff;box-shadow:0 3px 8px #7533e322}
+.eva3-history-pages button:disabled{opacity:.4;cursor:default}
+.eva3-history-clear{border:0;background:none;color:#8e74ba;font:inherit;font-size:11px;padding:8px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.eva3-history-empty td{text-align:center!important;padding:28px!important;color:#a28abd!important}
+@media(max-width:1200px){.eva3-history-filters{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}}
+@media(max-width:650px){.eva3-page #eva3-closed-box>summary>div{min-width:0;flex-basis:calc(100% - 70px)}.eva3-page #eva3-history-export{margin-left:50px}.eva3-history-filters{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.eva3-history-filters>div:first-child,.eva3-page #eva3-history-search{grid-column:span 2}.eva3-history-dates>div{position:static;min-width:0;box-shadow:none;margin-top:8px}.eva3-page table.eva3-history-table{min-width:1650px}.eva3-history-footer{flex-wrap:wrap;gap:10px}#eva3-history-count{width:100%;margin:0}.eva3-history-clear{margin-right:auto}.eva3-history-pages{order:3}.eva3-page #eva3-history-size{order:4}.eva3-page #eva3-closed-body .sc{max-height:560px}}
+
+.eva3-page table.eva3-history-table td[data-closed-field=burn]{white-space:normal;overflow-wrap:normal}
+.eva3-page table.eva3-history-table td[data-closed-field=burn] button{display:block;max-width:100%;margin-top:5px;padding:4px;border:1px solid #ddcff7;background:#f5efff;color:#794cbd;border-radius:5px;font:inherit;font-size:10px;white-space:normal;cursor:pointer}
+
+.eva3-page table.eva3-history-table td{text-align:left}
+.eva3-page table.eva3-history-table td:nth-child(n+9){text-align:center}
+@media(max-width:650px){.eva3-page #eva3-closed-box>summary .eva3-history-arrow{display:none}}
+

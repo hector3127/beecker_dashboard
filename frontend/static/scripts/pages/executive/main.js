@@ -4,7 +4,6 @@ import { apiGet } from '#app/data/api-client.js';
 import { formatDateTime } from '#app/lib/format.js';
 import { createAgreements } from '#app/ui/agreements.js';
 import { mountDateRangePicker } from '#app/ui/date-range-picker.js';
-import { mountPageCapture } from '#app/ui/page-capture.js';
 import { watchLoadingMessages } from '#app/ui/portal-loading.js';
 import { mountCut } from './sections/cut.js';
 import { mountMethods } from './sections/methods.js';
@@ -14,7 +13,7 @@ import { mountRankings } from './sections/rankings.js';
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
 const form = /** @type {HTMLFormElement} */ (byId('executive-period-form'));
-const { accountUrl = '', query = '', captureLibrary = '' } = byId('executive-page-data').dataset;
+const { accountUrl = '', query = '' } = byId('executive-page-data').dataset;
 
 /** Los filtros de periodo de la URL, para la API. */
 function period() {
@@ -35,7 +34,6 @@ const accountHref = (account) =>
 mountDateRangePicker(/** @type {HTMLDetailsElement} */ (byId('executive-date-picker')), form);
 mountMethods();
 watchLoadingMessages();
-mountPageCapture({ host: /** @type {HTMLElement} */ (document.querySelector('.fresh')), target: byId('main-content'), name: 'business-overview', libraryUrl: captureLibrary });
 byId('revenue-cost-open').addEventListener('click', () => {
   const url = new URL(/** @type {string} */ (byId('revenue-cost-open').dataset.url), location.href);
   url.search = location.search;

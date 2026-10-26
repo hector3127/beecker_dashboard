@@ -1,3 +1,4 @@
+import { mountReportTable, clientCell } from "../report_table.js";
 // @ts-check
 // Procesos activos y suspendidos por cliente y servicio.
 import { el } from '#app/lib/dom.js';
@@ -63,4 +64,8 @@ export function renderClients(container, data) {
       ),
     ),
   );
+  const table=container.querySelector('#eva4-clients');
+  rows.forEach(row=>{clientCell(row.cells[0]);const cell=row.cells[row.cells.length-1];cell.replaceChildren(el('span',{class:'eva4-active-count',text:cell.textContent}));});
+  totals.title='Total del periodo completo';
+  mountReportTable({table,rows,totals,kind:'clients',types:Object.fromEntries(Array.from({length:services+4},(_,index)=>[index,index?'number':'text']))});
 }

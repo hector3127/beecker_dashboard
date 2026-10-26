@@ -1,8 +1,8 @@
 {% extends "layouts/app.html" %}
 {% load static %}
 {% block title %}Operativa{% endblock %}
-{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/operativa.css' %}">{% endblock %}
-{% block freshness %}<span id="ops-cut" class="ops-cut"></span><span id="ops-refresh-status" class="ops-refresh-status" role="status" aria-live="polite" aria-atomic="true"></span><span id="ops-actions" class="ops-actions"><button id="ops-refresh-button" class="ops-header-refresh" type="button" title="Actualizar los indicadores de Operativa" disabled>Actualizar datos</button></span>{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/operativa.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/operativa_reference.css' %}?v=20261025"><link rel="stylesheet" href="{% static 'app/styles/pages/operativa_billing_reference.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/operativa_eva_reference.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/operativa_capacity_reference.css' %}">{% endblock %}
+{% block freshness %}<span>Indicadores operativos</span>{% endblock %}
 {% block content %}
 <div class="ops" id="ops-dashboard"
  data-account-url="{% url 'portal:cuenta' slug='account-placeholder' %}"
@@ -14,11 +14,11 @@
  data-capture-library="{% static 'app/vendor/html2canvas-1.4.1.min.js' %}">
 
 <header class="pgh ops-banner" data-tone="operations">
-<div class="ops-banner-icon"><svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></div>
+<div class="ops-banner-icon"><svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.6"/><polygon points="22.00,12.00 21.81,13.95 19.39,15.06 18.65,16.44 19.07,19.07 17.56,20.31 15.06,19.39 13.56,19.85 12.00,22.00 10.05,21.81 8.94,19.39 7.56,18.65 4.93,19.07 3.69,17.56 4.61,15.06 4.15,13.56 2.00,12.00 2.19,10.05 4.61,8.94 5.35,7.56 4.93,4.93 6.44,3.69 8.94,4.61 10.44,4.15 12.00,2.00 13.95,2.19 15.06,4.61 16.44,5.35 19.07,4.93 20.31,6.44 19.39,8.94 19.85,10.44"/></svg></div>
 <div class="ops-banner-title"><h1>Operativo</h1><p>Ejecución, eficiencia y control</p></div>
 <form class="ops-filters" method="get" action="{% url 'portal:operativa' %}">
-<label class="ops-filter"><span>Servicio</span><select id="ops-service" name="servicio" aria-label="Filtrar portafolio por servicio"><option value="">Todos los servicios</option></select></label>
-<label class="ops-filter"><span>Cuenta · abrir detalle</span><select id="ops-client" name="cuenta" aria-label="Abrir detalle de cuenta"><option value="">Todas las cuentas</option></select></label>
+<label class="ops-filter"><svg class="ops-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 20v-3c0-5 12-5 12 0v3m2-15a3 3 0 0 1 0 6m1 4c3 0 4 2 4 5"/></svg><span>Servicio</span><select id="ops-service" name="servicio" aria-label="Filtrar portafolio por servicio"><option value="">Todos los servicios</option></select></label>
+<label class="ops-filter"><svg class="ops-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h2m2 0h2m-6 4h2m2 0h2m-6 4h2m2 0h2m-5 6v-3h4v3"/></svg><span>Cuenta</span><select id="ops-client" name="cuenta" aria-label="Abrir detalle de cuenta"><option value="">Todas las cuentas</option></select></label>
 </form>
 </header>
 
@@ -26,7 +26,7 @@
 <noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los indicadores.</div></noscript>
 
 <section class="card ops-section" aria-labelledby="ops-overview-title">
-<div class="ops-head"><h2 id="ops-overview-title">Resumen</h2><span>Estado del portafolio e inversión</span></div>
+<div class="ops-head"><h2 id="ops-overview-title">Resumen</h2><span>Estado del portafolio e inversión</span><div class="ops-summary-tools"><span id="ops-cut" class="ops-cut"></span><span id="ops-refresh-status" class="ops-refresh-status" role="status" aria-live="polite" aria-atomic="true"></span><span id="ops-actions" class="ops-actions"><button id="ops-refresh-button" class="ops-header-refresh" type="button" title="Actualizar los indicadores de Operativa" disabled>Actualizar datos</button></span></div></div>
 <div id="ops-metrics" class="ops-metrics"></div>
 </section>
 
@@ -37,29 +37,29 @@
 </section>
 
 <section class="card ops-section" id="ops-evas" aria-labelledby="ops-evas-title">
-<div class="ops-head"><h2 id="ops-evas-title">EVA</h2><span>Proyectos, desviación en días y avance en horas</span></div>
+<div class="ops-head"><span class="eva-section-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="14" width="4" height="7" rx="1"/><rect x="10" y="8" width="4" height="13" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg></span><div class="eva-section-title"><h2 id="ops-evas-title">EVA</h2><p>Proyectos, desviación en días y avance en horas</p></div><a class="ops-section-action" href="{% url 'portal:eva1' %}">Ver análisis EVA →</a></div>
 <div id="ops-eva-cards" class="eva-grid"></div>
 </section>
 
-<section class="card ops-section" aria-labelledby="ops-support-title">
-<div class="ops-head"><h2 id="ops-support-title">Facturabilidad</h2><span>Utilización facturable y KPIs del equipo</span></div>
+<section class="card ops-section ops-billing-section" aria-labelledby="ops-support-title">
+<div class="ops-head"><span class="ops-billing-heading-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 17v-5h3v5m3 0V4h3v13m3 0V8h3v9"/></svg></span><div class="ops-billing-heading-text"><h2 id="ops-support-title">Facturabilidad</h2><p>Utilización facturable y KPIs del equipo</p></div><label class="ops-billing-range"><span aria-hidden="true">▦</span><select id="ops-billing-range" aria-label="Meses de facturabilidad" disabled><option value="3">Últimos 3 meses</option><option value="6">Últimos 6 meses</option><option value="9" selected>Últimos 9 meses</option><option value="all">Todos los meses disponibles</option></select></label></div>
 <div class="ops-strip ops-strip--two">
 <div id="facturability-summary" aria-busy="true"><p class="ops-muted">Cargando facturabilidad...</p></div>
 <div class="ops-links">
-<a class="ops-button" href="{% url 'portal:facturabilidad' %}">Ver facturabilidad →</a>
-<a class="ops-button" href="{% url 'portal:facturabilidad_especialidad' %}">Por especialidad →</a>
-<a class="ops-button" href="{% url 'portal:facturabilidad_recurso' %}">Por recurso →</a>
-<a class="ops-button" href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers →</a>
-{% now "Y-m" as investment_month %}<a class="ops-button" href="{% url 'portal:facturabilidad_area' %}?periodo=mes&amp;mes={{ investment_month }}">Facturabilidad por área →</a>
+<a class="ops-button" href="{% url 'portal:facturabilidad' %}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 21h18M5 17v-5h3v5m3 0V4h3v13m3 0V8h3v9"/></svg>Ver facturabilidad →</a>
+<a class="ops-button" href="{% url 'portal:facturabilidad_especialidad' %}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 20v-3c0-5 12-5 12 0v3m2-15a3 3 0 0 1 0 6m1 4c3 0 4 2 4 5"/></svg>Por especialidad →</a>
+<a class="ops-button" href="{% url 'portal:facturabilidad_recurso' %}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7zm0 10 9-5M12 12 3 7m9 5v10"/></svg>Por recurso →</a>
+<a class="ops-button" href="{% url 'portal:kpis_dm' %}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 22v-3c0-7 16-7 16 0v3z"/></svg>KPIs de Delivery Managers →</a>
+{% now "Y-m" as investment_month %}<a class="ops-button" href="{% url 'portal:facturabilidad_area' %}?periodo=mes&amp;mes={{ investment_month }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-9zM15 2v7h7a8 8 0 0 0-7-7z"/></svg>Facturabilidad por área →</a>
 </div>
 </div>
 </section>
 
-<section class="card ops-section" aria-labelledby="ops-capacity-title">
-<div class="ops-head"><h2 id="ops-capacity-title">Capacidad del equipo</h2><span>Asignación y horas disponibles</span></div>
+<section class="card ops-section ops-capacity-section" aria-labelledby="ops-capacity-title">
+<div class="ops-head"><span class="capacity-section-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="7" r="3"/><path d="M3 21v-4c0-5 12-5 12 0v4m2-17a3 3 0 0 1 0 6m1 4c3 0 4 2 4 6"/></svg></span><div class="capacity-section-title"><h2 id="ops-capacity-title">Capacidad del equipo</h2><p>Asignación y horas disponibles</p></div><span id="ops-capacity-month" class="capacity-month-label">Consultando periodo…</span></div>
 <div class="ops-strip">
 <div id="ops-capacity" class="ops-capacity"></div>
-<div class="ops-links"><a class="ops-button" href="{% url 'portal:capacidad_detalle' %}">Ver capacidad instalada →</a></div>
+<aside class="capacity-detail-panel"><h3>Detalle de horas</h3><div id="ops-capacity-details"></div><a class="ops-button capacity-detail-link" href="{% url 'portal:capacidad_detalle' %}">Ver capacidad instalada →</a></aside>
 </div>
 </section>
 </div>

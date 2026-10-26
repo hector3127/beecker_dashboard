@@ -3,30 +3,32 @@
 {% block title %}Diccionario de datos · Beecker{% endblock %}
 {% block body_class %}dictionary-page{% endblock %}
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/dictionary.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/dictionary.css' %}?v=20261025-reference">{% endblock %}
 {% block content %}
 <section class="dictionary-page-content" aria-labelledby="dictionary-title">
-  <a class="portal-back" data-portal-back href="{% url 'portal:ejecutiva' %}">
+  <div class="dictionary-topbar"><a class="portal-back" data-portal-back href="{% url 'portal:ejecutiva' %}">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m12 5-7 7 7 7M5 12h14"/></svg>
     Regresar a Business Overview
-  </a>
+  </a><span class="dictionary-updated" id="dictionary-updated"></span></div>
   <header class="dictionary-heading">
-    <div><h1 id="dictionary-title">Diccionario de datos</h1><p>Consulta qué significa cada indicador, cómo se calcula y de dónde viene.</p></div>
-    <span class="dictionary-updated" id="dictionary-updated"></span>
+    <span class="dictionary-title-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5c-3-3-8-3-10-2v16c2-1 7-1 10 2 3-3 8-3 10-2V3c-2-1-7-1-10 2ZM12 5v16"/></svg></span><div><h1 id="dictionary-title">Diccionario de datos</h1><p>Consulta qué significa cada indicador, cómo se calcula y de dónde viene.</p></div>
   </header>
   <div class="dictionary-panel">
     <div class="dictionary-toolbar">
       <div class="dictionary-search-field">
-        <label for="dictionary-search">Buscar en el diccionario</label>
+        <label class="portal-sr-only" for="dictionary-search">Buscar en el diccionario</label>
         <div class="dictionary-search-control">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
-          <input type="search" id="dictionary-search" name="q" placeholder="Ej. margen, costos o Clockify…" autocomplete="off" spellcheck="false" aria-describedby="dictionary-count">
+          <input type="search" id="dictionary-search" name="q" placeholder="Buscar en el diccionario…" autocomplete="off" spellcheck="false" aria-describedby="dictionary-count">
         </div>
       </div>
       <div class="dictionary-search-actions">
-        <span id="dictionary-count" role="status" aria-live="polite"></span>
-        <button type="button" id="dictionary-clear" class="portal-button portal-button-secondary" hidden>Limpiar búsqueda</button>
+        <label class="portal-sr-only" for="dictionary-category">Categoría</label>
+        <select id="dictionary-category" aria-label="Categoría"></select>
+        <button type="button" id="dictionary-clear" class="portal-button"><span aria-hidden="true">⟳</span> Limpiar filtros</button>
       </div>
+      <nav class="dictionary-category-tabs" id="dictionary-categories" aria-label="Categorías del diccionario"></nav>
+      <span id="dictionary-count" role="status" aria-live="polite"></span>
     </div>
     <div class="dictionary-table-wrap" id="dictionary-content" aria-busy="true"></div>
   </div>

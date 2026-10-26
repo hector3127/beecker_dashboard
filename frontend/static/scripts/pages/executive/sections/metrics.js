@@ -2,6 +2,7 @@
 // Cifras de Financiera, Operaciones y Comercial, con el corte ya preparado.
 // Un dato que aun no se prepara muestra «Cargando dato…»; uno que llego vacio
 // dice «Pendiente», nunca cero.
+import { renderCardVisuals } from './card_visuals.js';
 import { el } from '#app/lib/dom.js';
 import { formatCompact } from '#app/lib/format.js';
 import { mountMonthlyChart } from '#app/lib/monthly-chart.js';
@@ -180,5 +181,6 @@ export function renderMetrics(model) {
   operations(model, set);
   commercial(model, set);
   monthly(model, set);
+  renderCardVisuals(model);
   return loading;
 }

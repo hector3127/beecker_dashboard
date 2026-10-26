@@ -1,3 +1,4 @@
+import { mountReportTable, countryCell } from "../report_table.js";
 // @ts-check
 // Contratos vencidos o que terminan en los proximos 90 dias.
 import { el } from '#app/lib/dom.js';
@@ -46,4 +47,7 @@ export function renderRenewals(container, data) {
       ),
     ),
   );
+  const table=container.querySelector('#eva4-renewals'),rows=data.renewals.length?[...table.tBodies[0].rows]:[];
+  rows.forEach(row=>countryCell(row.cells[2]));
+  mountReportTable({table,rows,kind:'renewals',types:{3:'date',4:'number'}});
 }

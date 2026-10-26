@@ -156,3 +156,268 @@ body{background:radial-gradient(ellipse at 50% 0,#f0edff,transparent 65%),#f8f7f
 .executive-glossary-grid{grid-template-columns:1fr;gap:8px}
 .glossary-summary-hint{display:none}
 .executive-glossary footer a{width:100%}}
+
+/* Referencia visual: controles integrados y oportunidades agrupadas por cuenta. */
+.margins-page .opportunity-page{max-width:1500px;padding:24px 26px 40px}
+.margins-page .opportunity-title{justify-content:flex-start;gap:14px;margin:8px 0 16px}
+.margins-title-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:16px;color:#5925df;background:#eae3fd;flex:none}
+.margins-title-icon svg{width:25px;height:25px}
+.margins-page .opportunity-title h1{font-size:28px;letter-spacing:-.025em}
+.margins-controls{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(330px,.85fr);gap:22px;align-items:start;padding:16px 20px;border:1px solid #e8e2fb;border-radius:18px;background:#ffffffbd;box-shadow:0 4px 20px #5c32b204}
+.margins-controls .opportunity-filters{display:flex;flex-wrap:wrap;align-items:end;gap:12px;min-width:0}
+.margins-controls .opportunity-filters label{min-width:135px;flex:1;font-size:12px;color:#13104d}
+.margins-controls .opportunity-filters input{padding:8px 11px;border-radius:11px;min-height:38px;height:38px}
+.margins-controls .opportunity-filters button{padding:10px 16px;border-radius:12px;min-height:40px;font-size:12px}
+.margins-controls #opportunity-refresh::before{content:'⟳';display:inline-block;margin-right:8px;font-size:19px;line-height:12px;vertical-align:-1px}
+.margins-controls #opportunity-refresh:disabled::before{animation:margins-refresh 1s linear infinite}
+.margins-controls .margins-glossary{margin:2px 0 0;border:0;border-left:1px solid #e3daf6;border-radius:0;background:transparent;overflow:visible;padding-left:22px}
+.margins-controls .margins-glossary>summary{padding:0;min-height:44px;gap:10px;font-size:12px;white-space:normal}
+.glossary-question-icon{display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:50%;background:#ede6fd;color:#5925df;font-weight:800;font-size:20px}
+.margins-controls .margins-glossary>summary::after{display:grid;place-items:center;flex:none;width:36px;height:36px;border:1px solid #e7dfff;border-radius:13px;background:#fff;color:#5925df}
+.margins-controls:has(.margins-glossary[open]){grid-template-columns:1fr}
+.margins-controls .margins-glossary[open]{border:0;border-top:1px solid #e8e0f6;padding:12px 0 0}
+.margins-controls .executive-glossary-grid{border:0;padding:16px 0}
+.margins-controls .executive-glossary footer{border-radius:12px}
+.margins-page .opportunity-method{margin:14px 0;padding:10px 18px!important;border-radius:18px}
+.margins-page .opportunity-method>summary{min-height:34px;color:#5925df}
+.margins-page .opportunity-method>summary strong{font-size:15px}
+.margins-page .summary-symbol{width:40px;height:40px;border-radius:14px;background:#ece5fd}
+.summary-symbol svg{width:25px;height:25px}
+.margins-page .opportunity-metrics{gap:12px;margin:0}
+.margins-page .opportunity-metrics article{box-sizing:border-box;min-height:160px;padding:17px 15px;gap:14px;border-radius:17px;background:linear-gradient(120deg,#fff,#f8f6ff)}
+.margins-page .opportunity-metrics h2{font-size:12px;line-height:1.5;min-height:36px;margin:1px 0 12px}
+.margins-page .opportunity-metrics strong{font-size:27px;line-height:1.25;color:#14104e}
+.margins-page .opportunity-metrics small{font-size:11px;color:#635889;margin-top:10px;line-height:1.5}
+.margins-page .opportunity-metrics .metric-green{background:linear-gradient(120deg,#effcf7,#fafffd)}
+.margins-page .metric-green .summary-symbol{background:#daf5ea;color:#00a67d}
+.margins-page .opportunity-metrics .metric-deviation{background:linear-gradient(120deg,#fff6fa,#fff1f6)}
+.margins-page .metric-deviation .summary-symbol{background:#ffe1ec;color:#e92b65}
+.margins-page .opportunity-metrics .bad{color:#e52760}
+.margins-page .opportunity-metrics .good{color:#009b79}
+.margins-page .metric-pending .summary-symbol{background:#e5edff;color:#3869d5}
+.margins-page .opportunity-summary-note{font-size:10px!important;line-height:1.5;margin:8px 5px 12px!important}
+.margins-page .opportunity-results{border-radius:18px;padding:14px 12px!important;margin-top:12px}
+.opportunity-search-field{position:relative;max-width:510px}
+.opportunity-search-field>svg{position:absolute;left:13px;top:12px;width:19px;height:19px;color:#5925df;pointer-events:none}
+.margins-page .opportunity-search-field input{box-sizing:border-box;width:100%;height:43px;border-radius:14px;padding:10px 12px 10px 42px;background:#fff;font-size:12px;color:#1d1757}
+.margins-page .opportunity-results>#opportunity-count{margin:8px 5px;font-size:10px}
+.margins-page .opportunity-results>.scroll>table{min-width:1180px}
+.margins-page .opportunity-results>.scroll>table>thead th{font-size:11px;letter-spacing:0;text-transform:none;color:#21135b;padding:13px 10px;background:#eee8fc}
+.margins-page .opportunity-results>.scroll>table>thead th:first-child{border-radius:12px 0 0 12px}
+.margins-page .opportunity-results>.scroll>table>thead th:last-child{border-radius:0 12px 12px 0}
+.margins-page .opportunity-results>.scroll>table>tbody>tr[data-opportunity]>td{padding:13px 10px;font-size:12px;background:#f9f7fe;vertical-align:middle}
+.margins-page .opportunity-results>.scroll>table>tbody>tr[data-opportunity]>td:first-child{padding-left:62px!important;min-width:185px;white-space:normal}
+.margins-page .opportunity-name strong{font-size:12px;font-weight:500;color:#29215e}
+.margins-page .opportunity-results td small{font-size:10px;color:#766b98}
+.opportunity-document-icon{position:absolute;left:28px;top:16px;color:#5925df}
+.opportunity-document-icon svg{width:19px;height:19px}
+.margins-page [data-opportunity-toggle]{margin-top:5px;padding:4px 7px;font-size:10px;background:#fff}
+.margins-page .account-group-row>td{padding:8px 4px;border-bottom:1px solid #eee8ff;background:#ffffffb8}
+.margins-page .account-group-toggle{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;padding:4px 8px;text-align:left;color:#17104c}
+.account-group-toggle strong{font-size:12px;font-weight:700}
+.account-group-toggle .account-group-count{font-size:10px;color:#766b98;margin-top:2px}
+.account-group-icon{display:grid;place-items:center;width:30px;height:30px;flex:none;background:#ede7fc;border-radius:11px;color:#5925df}
+.account-group-icon svg{width:19px;height:19px}
+.account-chevron{font-size:22px;color:#5925df;width:15px;flex:none}
+.account-group-toggle[aria-expanded=true] .account-chevron{transform:rotate(180deg)}
+.margins-page .account-opportunities[hidden],.margins-page tr[hidden]{display:none!important}
+.margins-page .deviation-value{min-width:56px;text-align:center;white-space:nowrap}
+.margins-page .deviation-cell.bad .deviation-value{color:#db1c55;background:#ffe2eb}
+.margins-page .deviation-cell.good .deviation-value{color:#008e64;background:#dcf5eb}
+@keyframes margins-refresh{to{transform:rotate(360deg)}}
+@media(min-width:1500px){.margins-controls{grid-template-columns:minmax(0,1.35fr) minmax(360px,.9fr)}}
+@media(max-width:1150px){.margins-controls{grid-template-columns:1fr}.margins-controls .margins-glossary{padding:12px 0 0;border-left:0;border-top:1px solid #e3daf6}.margins-page .opportunity-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){
+.margins-page .opportunity-page{padding:16px 12px 28px}
+.margins-page .opportunity-title{gap:10px}.margins-page .opportunity-title h1{font-size:22px}.margins-title-icon{width:36px;height:36px;border-radius:12px}.margins-title-icon svg{width:21px;height:21px}
+.margins-controls{padding:14px;gap:12px}.margins-controls .opportunity-filters{gap:10px}.margins-controls .opportunity-filters label{min-width:120px}.margins-controls .opportunity-filters button{flex:1;padding:10px 12px}
+.margins-controls .margins-glossary>summary{font-size:12px}.margins-controls .glossary-summary-hint{display:none}
+.margins-page .opportunity-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.margins-page .opportunity-metrics article{min-height:145px;padding:13px 10px;gap:9px}.margins-page .summary-symbol{width:30px;height:30px;border-radius:11px}.summary-symbol svg{width:20px;height:20px}
+.margins-page .opportunity-metrics strong{font-size:23px}.margins-page .opportunity-metrics h2{font-size:11px;line-height:1.5}.margins-page .opportunity-metrics small{font-size:10px}
+.margins-page .opportunity-method>summary strong{font-size:13px}
+.margins-page .portal-page-toolbar{align-items:stretch;gap:8px;flex-wrap:wrap}.margins-page .portal-page-toolbar a{font-size:11px;padding:10px}
+}
+@media(prefers-reduced-motion:reduce){.margins-controls #opportunity-refresh:disabled::before{animation:none}}
+
+/* Referencia compacta del 25/10: cuenta > oportunidades > IDs > personas. */
+.margins-page .opportunity-page{max-width:1380px;padding:14px 26px 30px}
+.margins-page .portal-page-toolbar a{min-height:36px;padding:7px 13px;font-size:11px;border-radius:8px}
+.margins-page .opportunity-title{margin:8px 0 12px;gap:12px}
+.margins-page .opportunity-title h1{font-size:26px;font-weight:700}
+.margins-title-icon{width:32px;height:30px;background:transparent;border-radius:0}
+.margins-title-icon svg{width:23px;height:23px}
+.margins-controls{grid-template-columns:minmax(0,1.35fr) minmax(360px,.8fr);padding:9px 16px;gap:18px;border-radius:11px;align-items:center}
+.margins-controls .opportunity-filters{gap:12px}
+.margins-controls .opportunity-filters label{min-width:125px;max-width:210px;font-size:11px;gap:3px}
+.margins-controls .opportunity-filters input{min-height:32px;height:32px;padding:6px 11px;border-radius:6px;font-size:11px}
+.margins-controls .opportunity-filters button{min-height:36px;padding:8px 16px;font-size:11px;border-radius:7px}
+.margins-controls .margins-glossary{padding-left:18px;margin:0}
+.margins-controls .margins-glossary>summary{min-height:36px;gap:8px;font-size:10px}
+.glossary-question-icon{width:29px;height:29px;border-radius:10px;font-size:20px}
+.margins-controls .glossary-summary-hint{display:flex;align-items:center;gap:13px;padding:10px 11px;border:1px solid #e5ddff;border-radius:7px;font-size:10px;background:#faf8ff;color:#6654a5;white-space:nowrap}
+.margins-controls .margins-glossary>summary::after{height:34px;width:34px;border-radius:7px}
+.margins-page .opportunity-method{padding:6px 12px!important;margin:8px 0;border-radius:10px}
+.margins-page .opportunity-method>summary{min-height:33px;gap:10px}
+.margins-page .opportunity-method>summary strong{font-size:14px}
+.margins-page .opportunity-method .summary-symbol{width:32px;height:32px;border-radius:12px}
+.margins-page .opportunity-method .summary-symbol svg{width:22px;height:22px}
+.margins-page .opportunity-metrics{gap:8px}
+.margins-page .opportunity-metrics article{min-height:140px;padding:13px 14px;gap:14px;border-radius:10px}
+.margins-page .opportunity-metrics h2{font-size:11px;min-height:34px;margin:0 0 10px}
+.margins-page .opportunity-metrics strong{font-size:27px;font-weight:700}
+.margins-page .opportunity-metrics small{font-size:10px;margin-top:6px}
+.margins-page .opportunity-metrics .summary-symbol{height:42px;width:42px;border-radius:14px}
+.margins-page .metric-pending .summary-symbol{background:#ece5fd;color:#5925df}
+.margins-page .opportunity-summary-note{position:relative;padding-left:29px;min-height:20px;display:flex;align-items:center;font-size:10px!important;margin:8px 0!important}
+.opportunity-summary-note::before{content:'ⓘ';position:absolute;left:0;color:#5925df;font-size:21px}
+.margins-page .opportunity-results{padding:12px 14px!important;border-radius:12px;margin-top:6px}
+.opportunity-search-field{max-width:460px}
+.margins-page .opportunity-search-field input{height:33px;border-radius:7px;font-size:11px;padding-left:39px}
+.opportunity-search-field>svg{top:8px;left:12px;width:17px;height:17px}
+.margins-page .opportunity-results>#opportunity-count{margin:6px 3px;font-size:10px}
+.margins-page .opportunity-results .opportunity-rate-note{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin:7px 0 12px;padding:6px 10px;font-size:10px;line-height:1.6;border-radius:7px;background:#fff8e9;border-color:#f4d69b;color:#714c1a}
+.rate-note-icon{font-size:18px;line-height:1;color:#e8a12d;margin-right:6px}
+.margins-page .opportunity-results>.scroll>table{min-width:1180px}
+.margins-page .opportunity-results>.scroll>table>thead th{padding:11px 8px;font-size:9px;text-transform:uppercase;color:#7664aa;font-weight:600}
+.margins-page .opportunity-results>.scroll>table>thead th:first-child{border-radius:9px 0 0 0}
+.margins-page .opportunity-results>.scroll>table>thead th:last-child{border-radius:0 9px 0 0}
+.margins-page .account-group-row>td{padding:5px 6px;font-size:11px;background:#fdfcff;vertical-align:middle}
+.margins-page .account-group-toggle{padding:2px 5px;gap:12px;min-height:36px}
+.account-group-toggle strong{color:#21135e;font-size:11px}
+.account-group-toggle .account-group-count{font-size:10px;color:#8a7cae}
+.account-group-icon{width:32px;height:32px;border-radius:12px}
+.account-chevron{font-size:23px;line-height:20px}
+.account-group-toggle[aria-expanded=true] .account-chevron{transform:rotate(90deg)}
+.margins-page .account-group-action,.margins-page [data-opportunity-toggle]{padding:7px 10px;min-height:30px;border-radius:6px;background:#fff;font-size:10px;white-space:nowrap;margin:0}
+.margins-page .opportunity-results>.scroll>table>tbody>tr[data-opportunity]>td{padding:10px 8px;font-size:11px;background:#faf8ff}
+.margins-page .opportunity-results>.scroll>table>tbody>tr[data-opportunity]>td:first-child{padding-left:50px!important;min-width:180px}
+.opportunity-document-icon{left:23px;top:12px}
+.margins-page .opportunity-name strong{font-size:11px}
+.margins-page .opportunity-panel-row>td{padding:2px 12px 10px!important}
+.margins-page .opportunity-panel{border-radius:9px;padding:10px}
+.margins-page .opportunity-panel h3{font-size:12px;margin:0 0 9px;gap:8px}
+.margins-page .link-symbol{width:26px;height:26px;font-size:17px}
+.margins-page .opportunity-panel th{font-size:9px;padding:8px 10px}
+.margins-page .opportunity-panel td{font-size:11px;padding:8px 10px}
+.margins-page .opportunity-people{padding:10px;border-radius:9px;margin:5px 0}
+.margins-page .opportunity-people>summary{font-size:11px}
+.margins-page .opportunity-people-content td{font-size:10px;padding:5px 10px}
+@media(max-width:1150px){.margins-controls{grid-template-columns:1fr}.margins-controls .margins-glossary{padding:10px 0 0;border-left:0}.margins-controls .opportunity-filters label{max-width:none}}
+@media(max-width:720px){
+.margins-page .opportunity-page{padding:14px 12px 26px}
+.margins-page .opportunity-title h1{font-size:22px}
+.margins-controls{padding:12px;gap:10px}.margins-controls .opportunity-filters label{min-width:120px}
+.margins-controls .glossary-summary-hint{display:none}
+.margins-page .opportunity-metrics article{gap:9px;padding:12px 10px;min-height:140px}
+.margins-page .opportunity-metrics .summary-symbol{width:29px;height:29px;border-radius:10px}
+.margins-page .opportunity-metrics strong{font-size:23px}
+.margins-page .opportunity-method>summary strong{font-size:13px}
+.margins-page .opportunity-results{padding:10px!important}
+}
+
+/* Un costo compartido no acredita un margen exclusivo por oportunidad. */
+.margins-page .margin-unassigned{color:#766b98;font-size:10px!important;white-space:normal!important;min-width:105px;line-height:1.4}
+.margins-page .opportunity-results td .margin-data-status{font-size:9px;color:#82759f;white-space:normal;max-width:130px;line-height:1.4;margin-top:4px}
+.margins-page .opportunity-results td .margin-source-warning{color:#956400}
+
+.margins-page .account-group-row>td:first-child{min-width:205px}
+.margins-page .account-group-row .number{font-weight:700;white-space:nowrap}
+.margins-page .account-group-row .account-group-toggle{min-width:195px}
+
+/* Metodología en tarjetas, con el mismo contenido y reglas vigentes. */
+.margins-page .opportunity-method{padding:14px 16px!important;border-radius:16px}
+.margins-page .opportunity-method>summary{gap:12px;align-items:center}
+.margins-page .opportunity-method .summary-symbol{width:42px;height:42px;border-radius:15px;flex:none}
+.margins-page .opportunity-method .summary-symbol svg{width:26px;height:26px}
+.method-heading{display:flex;flex-direction:column;gap:4px;min-width:0}
+.margins-page .opportunity-method>summary strong{font-size:16px;line-height:1.4;font-weight:700}
+.method-subtitle{font-size:11px;line-height:1.6;font-weight:400;color:#8a7cae}
+.margins-page .opportunity-method>summary::after{content:'';width:9px;height:9px;border-right:2px solid #6524ff;border-bottom:2px solid #6524ff;transform:rotate(45deg);margin-right:6px;flex:none;align-self:center}
+.margins-page .opportunity-method[open]>summary::after{transform:rotate(225deg)}
+.margins-page .method-info-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;padding:16px 0 0}
+.method-info-card{grid-column:span 4;display:flex;align-items:flex-start;gap:12px;padding:14px;border:1px solid #eae3fc;border-radius:12px;background:linear-gradient(130deg,#fff,#fbf9ff);min-width:0}
+.method-card-icon{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:12px;background:#eee7ff;color:#6025e8}
+.method-card-icon svg{width:22px;height:22px}
+.method-card-body{min-width:0}
+.margins-page .method-info-card h3{margin:1px 0 8px;color:#1b1454;font-size:13px;line-height:1.5;font-weight:700}
+.margins-page .method-info-card p,.margins-page .method-info-card ul{font-size:11px;line-height:1.65;color:#8274a7;margin:0 0 5px}
+.margins-page .method-info-card p:last-child,.margins-page .method-info-card ul:last-child{margin-bottom:0}
+.method-info-card ul{padding-left:17px}
+.method-info-card li::marker{color:#6524ff}
+.method-represents{grid-column:span 7}
+.method-includes{grid-column:span 5}
+.method-notes{grid-column:1/-1;background:linear-gradient(110deg,#faf7ff,#f6f2ff)}
+.method-notes .method-card-icon{background:transparent}
+.method-service-tags{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+.method-service-tags span{padding:3px 9px;border-radius:16px;background:#eee7ff;color:#7952dc;font-size:10px;line-height:1.6;font-weight:500}
+@media(max-width:1000px){.method-info-card{grid-column:span 6}.method-notes{grid-column:1/-1}.method-deviation{grid-column:1/-1}}
+@media(max-width:600px){
+.margins-page .opportunity-method{padding:12px!important}
+.margins-page .opportunity-method>summary strong{font-size:13px}
+.method-subtitle{font-size:10px}
+.margins-page .opportunity-method .summary-symbol{width:32px;height:32px;border-radius:12px}
+.margins-page .opportunity-method .summary-symbol svg{width:22px;height:22px}
+.margins-page .method-info-grid{gap:9px;padding-top:12px}
+.method-info-card{grid-column:1/-1;padding:12px;gap:10px}
+.method-card-icon{width:29px;height:29px;border-radius:10px}
+.method-card-icon svg{width:19px;height:19px}
+}
+
+/* Glosario de columnas: tarjetas de definiciones con iconos y separadores. */
+.glossary-heading-text{display:flex;flex-direction:column;gap:3px;min-width:0}
+.glossary-heading-text strong{font-size:inherit;line-height:1.4}
+.glossary-subtitle{display:none;font-size:11px;font-weight:400;line-height:1.6;color:#8275a8}
+.glossary-summary-hint>svg{width:16px;height:16px;flex:none}
+.margins-controls .margins-glossary[open]{border:1px solid #e8e0fa;border-radius:14px;background:#ffffffb8;padding:0;overflow:hidden}
+.margins-controls .margins-glossary[open]>summary{padding:14px 16px;border-bottom:1px solid #eee8fb;gap:13px;min-height:70px}
+.margins-glossary[open] .glossary-subtitle{display:block}
+.margins-controls .margins-glossary[open]>summary .glossary-heading-text{flex:1}
+.margins-controls .margins-glossary[open]>summary strong{font-size:17px;color:#18104f}
+.margins-glossary[open] .glossary-question-icon{width:43px;height:43px;font-size:30px;border-radius:14px}
+.margins-controls .margins-glossary[open] .glossary-summary-hint{gap:9px;padding:10px 13px;background:#fff;color:#5925df;font-size:11px}
+.margins-controls .margins-glossary[open] .executive-glossary-grid{gap:10px;padding:10px 12px 6px;align-items:stretch}
+.glossary-definition-card{padding:14px;border:1px solid #e8e1fa;border-radius:12px;background:linear-gradient(135deg,#fff,#fcfbff);min-width:0}
+.glossary-card-heading{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #eee8fb}
+.margins-page .glossary-card-heading h2{font-size:14px;line-height:1.5;margin:0 0 2px;color:#19114f}
+.glossary-card-heading p{font-size:11px;line-height:1.5;margin:0;color:#8173a7}
+.glossary-item-icon{display:grid;place-items:center;flex:none;width:37px;height:37px;border-radius:12px;background:#eee7ff;color:#6025e8}
+.glossary-item-icon svg{width:24px;height:24px}
+.glossary-item-icon.green{background:#def8ef;color:#00ae83}
+.glossary-item-icon.blue{background:#e3edff;color:#276fd5}
+.glossary-item-icon.pink{background:#ffe5ed;color:#dc285e}
+.glossary-definition{position:relative;padding:13px 0 13px 49px;border-bottom:1px solid #eee8fb;min-height:64px}
+.glossary-definition:last-child{border-bottom:0;padding-bottom:0}
+.glossary-definition dt .glossary-item-icon{position:absolute;left:0;top:13px}
+.margins-page .glossary-definition dt{margin:0 0 4px;font-size:12px;line-height:1.5;font-weight:700;color:#211553}
+.margins-page .glossary-definition dd{font-size:11px;line-height:1.65;color:#7c6e9f;margin:0}
+.margins-controls .margins-glossary footer{margin:0 12px 10px;padding:11px 14px;gap:12px;border:1px solid #e9e0fd;border-radius:11px;background:linear-gradient(110deg,#faf7ff,#f5f0ff);align-items:center;flex-wrap:nowrap}
+.glossary-footer-icon{color:#6524ff;display:grid;place-items:center;flex:none;width:32px}
+.glossary-footer-icon svg{width:25px;height:25px}
+.glossary-footer-copy{flex:1;min-width:0}
+.margins-page .glossary-footer-copy h3{font-size:12px;line-height:1.4;margin:0 0 2px;color:#5925df}
+.margins-page .glossary-footer-copy p{font-size:10px;line-height:1.65;color:#7b6ba5}
+.margins-controls .margins-glossary footer a{flex:none;gap:8px;font-size:11px;min-height:36px;padding:8px 12px;white-space:nowrap;background:#fff}
+.margins-glossary footer a svg{width:17px;height:17px;flex:none}
+@media(max-width:1000px) and (min-width:701px){
+.margins-controls .margins-glossary[open] .executive-glossary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.glossary-definition-card:last-child{grid-column:1/-1}
+.margins-controls .margins-glossary footer{flex-wrap:wrap}.margins-controls .margins-glossary footer a{margin-left:44px}
+}
+@media(max-width:700px){
+.margins-controls .margins-glossary[open]>summary{padding:12px;gap:9px;align-items:flex-start}
+.margins-controls .margins-glossary[open]>summary strong{font-size:14px}
+.margins-glossary[open] .glossary-question-icon{width:32px;height:32px;font-size:24px;border-radius:10px}
+.glossary-subtitle{font-size:10px}
+.margins-controls .margins-glossary[open] .glossary-summary-hint{display:none}
+.margins-controls .margins-glossary[open] .executive-glossary-grid{grid-template-columns:1fr;gap:9px;padding:9px}
+.glossary-definition-card{padding:12px}.glossary-card-heading{gap:10px}
+.glossary-item-icon{width:32px;height:32px;border-radius:10px}.glossary-item-icon svg{width:21px;height:21px}
+.glossary-definition{padding-left:43px}
+.margins-controls .margins-glossary footer{margin:0 9px 9px;flex-wrap:wrap;align-items:flex-start;padding:10px;gap:8px}
+.margins-controls .margins-glossary footer a{width:100%;font-size:10px;white-space:normal}
+.glossary-footer-icon{width:27px}.glossary-footer-copy{flex:1 1 calc(100% - 35px)}
+}
+
+/* El glosario se abre desde su encabezado, sin botón adicional +/−. */
+.margins-controls .margins-glossary>summary::after{content:none;display:none}

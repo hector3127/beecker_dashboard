@@ -1,7 +1,8 @@
 {% extends "layouts/app.html" %}
 {% load static %}
 {% block title %}EVA-04 Report{% endblock %}
-{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/eva4.css' %}">{% endblock %}
+{% block body_class %}eva4-page{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/eva4.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/eva_column_menus.css' %}">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>Datos al {{ loaded_at|date:"d/m/Y, H:i" }}</span>{% endblock %}
 {% block content %}
 <div class="toolbar"><a class="back" href="{% url 'portal:operativa' %}">← Regresar a Operativa</a><span class="page-context">EVA-04</span></div>

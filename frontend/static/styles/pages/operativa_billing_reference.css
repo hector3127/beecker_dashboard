@@ -1,0 +1,58 @@
+/* Panel de facturabilidad: indicador, gráfica y navegación. */
+.ops .ops-billing-section{padding:0;overflow:hidden;border-radius:15px}
+.ops .ops-billing-section>.ops-head{margin:0;padding:16px 20px;gap:14px;border-bottom:1px solid #eee8fa}
+.ops .ops-billing-heading-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:12px;background:#f5f0ff;color:#7340e6;flex:none}
+.ops-billing-heading-icon svg{width:26px;height:26px}
+.ops .ops-billing-heading-text h2{font-size:22px;margin:0}
+.ops .ops-billing-heading-text p{font-size:12px;color:#9483ad;margin:4px 0 0}
+.ops .ops-billing-range{margin-left:auto;display:flex;align-items:center;gap:10px;padding:10px 13px;border:1px solid #e8dffc;border-radius:10px;color:#7544df;background:#fdfbff;min-width:0}
+.ops .ops-billing-range select{border:0;background:transparent;color:#523482;font:inherit;font-size:11px;min-width:130px;max-width:100%;cursor:pointer}
+.ops .ops-billing-range>span{font-size:20px}
+.ops .ops-billing-section>.ops-strip{padding:15px 18px 18px;gap:15px;grid-template-columns:minmax(0,1fr) 190px;align-items:stretch}
+.ops .ops-billing-section .billing{grid-template-columns:235px minmax(0,1fr);gap:14px;align-items:stretch;height:100%}
+.ops .ops-billing-section .billing-main{background:linear-gradient(135deg,#f8f3ff,#f5f0ff);border:0;padding:20px 17px;border-radius:12px;display:flex;flex-direction:column;min-width:0}
+.ops .ops-billing-section .billing-title{font-size:14px;color:#25174e;justify-content:space-between;gap:8px;margin:0 0 21px}
+.ops .ops-billing-section .billing-value{font-size:45px;letter-spacing:-1px;line-height:1.15;margin:0 0 10px;color:#201042}
+.ops .ops-billing-section .billing-gap{font-size:12px;line-height:1.6;margin-bottom:8px}
+.ops .ops-billing-section .billing-main>.ops-muted{font-size:11px}
+.ops .ops-billing-section .billing-chips{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ops .ops-billing-section .billing-chip{padding:9px 10px;background:#ece3ff;border-radius:8px;text-align:center;font-size:12px}
+.ops .ops-billing-section .billing-label{margin-top:18px;color:#9382ac;font-size:10px;line-height:1.6}
+.ops .ops-billing-section .billing-chart{border:1px solid #eee8fa;border-radius:12px;padding:14px;min-width:0;display:flex;flex-direction:column;justify-content:space-between}
+.ops .billing-chart-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}
+.ops .ops-billing-section .billing-chart-title{font-size:13px;font-weight:700;margin:0}
+.ops .billing-legend{display:flex;gap:14px;font-size:10px;color:#8e7da9;flex-wrap:wrap}
+.ops .billing-legend-series:before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:#6b35db;margin-right:6px}
+.ops .billing-legend-target:before{content:'';display:inline-block;width:21px;border-top:2px dashed #a897cb;vertical-align:middle;margin-right:6px}
+.ops .ops-billing-section .billing-svg{max-height:none;min-height:185px;height:auto;width:100%;display:block}
+.ops .billing-gridline{stroke:#f5f1fa;stroke-width:1}
+.ops .billing-axis-label{fill:#9585ac;font-size:11px}
+.ops .billing-target-line{stroke:#a798c6;stroke-width:1.5;stroke-dasharray:5 5;pointer-events:none}
+.ops .ops-billing-section .billing-rect{fill:#d4c3f5}
+.ops .ops-billing-section .billing-bar.is-selected .billing-rect{fill:#6130d6}
+.ops .ops-billing-section .billing-text{font-size:12px;fill:#28174e;font-weight:700}
+.ops .ops-billing-section .billing-month{font-size:11px;fill:#9585ac}
+.ops .ops-billing-section .billing-bar.is-selected .billing-month{font-weight:700;fill:#43236e}
+.ops .ops-billing-section .ops-links{display:grid;grid-template-columns:1fr;gap:7px}
+.ops .ops-billing-section .ops-button{position:relative;justify-content:flex-start;background:linear-gradient(100deg,#f7f1ff,#f4eeff);padding:14px 12px;font-size:11px;gap:10px;line-height:1.5;text-align:left}
+.ops .ops-billing-section .ops-button:before{content:'↗';font-size:22px;line-height:1;color:#7b42e1;width:24px;flex:none}
+.ops .ops-billing-section .ops-button:hover{background:#eee3ff}
+@media(max-width:1200px){.ops .ops-billing-section>.ops-strip{grid-template-columns:minmax(0,1fr) 155px;gap:10px}.ops .ops-billing-section .billing{grid-template-columns:200px minmax(0,1fr)}.ops .ops-billing-section .billing-main{padding:18px 13px}.ops .ops-billing-section .billing-value{font-size:37px}.ops .ops-billing-section .billing-chart{padding:12px}}
+@media(max-width:950px){.ops .ops-billing-section>.ops-strip{grid-template-columns:1fr}.ops .ops-billing-section .billing{grid-template-columns:230px minmax(0,1fr)}.ops .ops-billing-section .ops-links{grid-template-columns:repeat(3,minmax(0,1fr))}.ops .ops-billing-section .billing-svg{min-height:155px}}
+@media(max-width:650px){.ops .ops-billing-section>.ops-head{padding:14px;gap:10px}.ops .ops-billing-heading-text{flex:1;min-width:0}.ops .ops-billing-heading-text h2{font-size:20px}.ops .ops-billing-heading-text p{font-size:10px}.ops .ops-billing-range{margin-left:53px;padding:8px 10px}.ops .ops-billing-range select{font-size:10px}.ops .ops-billing-section>.ops-strip{padding:12px;gap:12px}.ops .ops-billing-section .billing{grid-template-columns:1fr;gap:12px}.ops .ops-billing-section .billing-main{padding:17px}.ops .ops-billing-section .billing-title{margin-bottom:12px}.ops .ops-billing-section .billing-value{font-size:42px}.ops .ops-billing-section .billing-chips{margin-top:16px}.ops .ops-billing-section .billing-label{margin-top:12px}.ops .ops-billing-section .billing-chart{padding:12px 9px}.ops .ops-billing-section .billing-svg{min-height:140px}.ops .ops-billing-section .ops-links{grid-template-columns:repeat(2,minmax(0,1fr))}.ops .ops-billing-section .ops-button{padding:11px 9px;font-size:10px}.ops .ops-billing-section .ops-button:before{font-size:17px;width:17px}.ops .billing-legend{font-size:9px}}
+
+.ops .ops-billing-section .ops-billing-heading-icon{color:#713cda}
+.ops .ops-billing-section .ops-button:before{display:none}
+.ops .ops-billing-section .ops-button svg{width:23px;height:23px;flex:none;color:#7b42e1}
+.ops .billing-plot-scroll{min-width:0;overflow-x:auto;scrollbar-width:thin}
+@media(max-width:650px){.ops .ops-billing-section>.ops-head{display:grid;grid-template-columns:43px minmax(0,1fr);align-items:center}.ops .ops-billing-range{grid-column:2;margin-left:0;justify-self:start;max-width:100%;box-sizing:border-box}.ops .ops-billing-range select{min-width:0;width:100%}.ops .ops-billing-section .billing-svg{min-width:520px;min-height:185px}.ops .ops-billing-section .ops-button svg{width:20px;height:20px}}
+
+/* Selección y foco del mes con fondo redondeado, sin recuadro nativo. */
+.ops .ops-billing-section .billing-bar:focus,.ops .ops-billing-section .billing-bar:focus-visible{outline:none}
+.ops .billing-selection-bg,.ops .billing-selected-bar{opacity:0;pointer-events:none}
+.ops .billing-bar.is-selected .billing-selection-bg,.ops .billing-bar.is-selected .billing-selected-bar{opacity:1}
+.ops .billing-bar:hover .billing-selection-bg{opacity:.6}
+.ops .billing-bar:focus-visible .billing-selection-bg{opacity:1;stroke:#b5a0e1;stroke-width:1.2}
+.ops .ops-billing-section .billing-bar.is-selected .billing-text{font-size:13px;font-weight:800;fill:#24134c}
+.ops .ops-billing-section .billing-bar.is-selected .billing-month{font-weight:800;fill:#2c145a}
+@media(prefers-reduced-motion:no-preference){.ops .billing-selection-bg,.ops .billing-selected-bar{transition:opacity .15s ease}}

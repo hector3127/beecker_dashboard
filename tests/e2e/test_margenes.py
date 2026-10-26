@@ -39,8 +39,9 @@ def test_search_filters_rows_ignoring_accents(portal, datos):
 
     portal.fill("#opportunity-search", "OP.9")
     expect(count).to_have_text("1 de 2 oportunidades")
+    expect(portal.locator(".account-group-row:visible")).to_contain_text("ACME")
     expect(portal.locator("tr[data-opportunity]:visible")).to_contain_text(
-        "ACME"
+        "OP.9"
     )
 
 
@@ -50,6 +51,7 @@ def test_linked_ids_panel_opens_and_closes(portal, datos):
     panel = portal.locator(".opportunity-panel-row").first
     expect(panel).to_be_hidden()
 
+    portal.locator(".account-group-toggle").first.click()
     toggle.click()
     expect(panel).to_be_visible()
     expect(toggle).to_have_attribute("aria-expanded", "true")
@@ -117,7 +119,7 @@ def test_limited_scope_cannot_open_a_foreign_account(
         DictProvider.GRANTS = {}
 
 
-def test_pending_values_are_not_shown_but_the_columns_stay(portal, datos):
+def test_sold_cost_rate_column_is_removed(portal, datos):
     portal.goto(portal.base + PAGE)
     expect(portal.locator("#opportunity-count")).to_have_text(
         "2 de 2 oportunidades"
@@ -125,15 +127,22 @@ def test_pending_values_are_not_shown_but_the_columns_stay(portal, datos):
 
     expect(
         portal.locator("th", has_text="Tarifa de costo vendida")
-    ).to_be_visible()
+    ).to_have_count(0)
     expect(portal.locator("th", has_text="Revenue operado")).to_be_visible()
     table = portal.locator("#margins-content table").first
     expect(table).not_to_contain_text("G · por validar")
     expect(table).not_to_contain_text("Por validar con Florencia")
-    expect(portal.locator("td.sold-rate-pending").first).to_have_text("")
+    # Las diez celdas mantienen la alineación de los encabezados.
+    assert (
+        portal.locator("tr[data-opportunity]").first.locator("td").count() == 10
+    )
 
 
-def test_glossary_explains_every_column_and_opens_on_demand(portal, datos):
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_glossary_explains_every_column_and_opens_on_demand(
+    portal, datos, width
+):
+    portal.set_viewport_size({"width": width, "height": 1000})
     portal.goto(portal.base + PAGE)
     glossary = portal.locator("details.margins-glossary")
     expect(glossary).to_be_visible()
@@ -147,7 +156,6 @@ def test_glossary_explains_every_column_and_opens_on_demand(portal, datos):
         "Facturado",
         "Cobrado",
         "Costos",
-        "Tarifa de costo vendida",
         "Margen vendido",
         "Margen real",
         "Desviación (pp)",
@@ -156,3 +164,249 @@ def test_glossary_explains_every_column_and_opens_on_demand(portal, datos):
     expect(glossary.locator("footer a")).to_have_attribute(
         "href", "/diccionario-datos/"
     )
+    expect(glossary.locator(".glossary-definition-card")).to_have_count(3)
+    expect(glossary.locator(".glossary-definition")).to_have_count(11)
+    expect(glossary.locator(".glossary-definition svg")).to_have_count(11)
+    expect(
+        glossary.get_by_role("heading", name="Notas importantes")
+    ).to_be_visible()
+    assert glossary.evaluate("e => e.scrollWidth <= e.clientWidth + 1")
+    assert portal.evaluate(
+        "document.documentElement.scrollWidth <= window.innerWidth"
+    )
+    from pathlib import Path
+
+    output = Path("tmp/design/margins-glossary")
+    output.mkdir(parents=True, exist_ok=True)
+    glossary.screenshot(path=str(output / f"glossary-{width}.png"))
+    glossary.locator("summary").click()
+    expect(glossary.locator("dd").first).to_be_hidden()
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_redesigned_groups_and_responsive_controls(portal, datos, width):
+    from pathlib import Path
+
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(f"{portal.base}{PAGE}?periodo=anio&anio=2026")
+    expect(portal.locator("#opportunity-count")).to_have_text(
+        "2 de 2 oportunidades"
+    )
+    expect(portal.locator(".account-group-toggle")).to_have_count(2)
+    expect(portal.locator(".opportunity-metrics article")).to_have_count(5)
+    expect(portal.locator(".opportunity-metrics svg")).to_have_count(5)
+    group = portal.locator(".account-group-toggle").first
+    section = portal.locator(".account-opportunities").first
+    expect(section).to_be_hidden()
+    group.click()
+    expect(section).to_be_visible()
+    original = section.inner_text()
+    group.click()
+    expect(group).to_have_attribute("aria-expanded", "false")
+    expect(section).to_be_hidden()
+    # La búsqueda abre el grupo que contiene la coincidencia.
+    portal.fill("#opportunity-search", "OP.9")
+    expect(portal.locator("#opportunity-count")).to_have_text(
+        "1 de 2 oportunidades"
+    )
+    expect(portal.locator(".account-group-row:visible")).to_have_count(1)
+    portal.fill("#opportunity-search", "")
+    expect(section).to_be_visible()
+    assert section.inner_text() == original
+    assert portal.evaluate(
+        "document.documentElement.scrollWidth <= window.innerWidth"
+    )
+    glossary = portal.locator("details.margins-glossary")
+    glossary.locator("summary").click()
+    expect(glossary.locator("dd").first).to_be_visible()
+    assert portal.evaluate(
+        "document.documentElement.scrollWidth <= window.innerWidth"
+    )
+    glossary.locator("summary").click()
+    output = Path("tmp/design/margins-compact")
+    output.mkdir(parents=True, exist_ok=True)
+    portal.screenshot(path=str(output / f"margins-{width}.png"), full_page=True)
+
+
+def test_account_group_contains_multiple_opportunities_without_changing_values(
+    portal, datos
+):
+    def same_account(route):
+        response = route.fetch()
+        body = response.json()
+        for opportunity in body["data"]["opportunities"]:
+            opportunity["account"] = "Cuenta compartida de prueba"
+        route.fulfill(response=response, json=body)
+
+    portal.route("**/api/v1/screens/margenes/", same_account)
+    portal.goto(portal.base + PAGE)
+    expect(portal.locator("#opportunity-count")).to_have_text(
+        "2 de 2 oportunidades"
+    )
+    expect(portal.locator(".account-group-toggle")).to_have_count(1)
+    expect(portal.locator(".account-group-count")).to_have_text(
+        "2 oportunidades"
+    )
+    expect(portal.locator("tr[data-opportunity]")).to_have_count(2)
+    expect(portal.locator("tr[data-opportunity]").first).to_contain_text(
+        "55.00%"
+    )
+    expect(portal.locator("tr[data-opportunity]").last).to_contain_text(
+        "40.00%"
+    )
+    group = portal.locator(".account-group-toggle")
+    expect(portal.locator("tr[data-opportunity]:visible")).to_have_count(0)
+    group.click()
+    expect(portal.locator("tr[data-opportunity]:visible")).to_have_count(2)
+    portal.locator(".account-group-action").click()
+    expect(portal.locator("tr[data-opportunity]:visible")).to_have_count(0)
+
+
+def test_shared_cost_shows_available_values_with_partial_reference(
+    portal, datos
+):
+    def shared_opportunity(route):
+        response = route.fetch()
+        body = response.json()
+        row = body["data"]["opportunities"][0]
+        row.update(
+            allocation_pending=True,
+            partial=True,
+            cost=3550.26,
+            actual_margin=-44.18,
+            deviation_pp=-170.68,
+            sold_margin=126.5,
+        )
+        for project in row["projects"]:
+            project.update(
+                shared=True,
+                partial=True,
+                margin=-44.18,
+                gross_profit=-1087.86,
+            )
+        other = body["data"]["opportunities"][1]
+        other.update(
+            allocation_pending=False,
+            partial=False,
+            actual_margin=60,
+            deviation_pp=0,
+            sold_margin=60,
+        )
+        route.fulfill(response=response, json=body)
+
+    portal.route("**/api/v1/screens/margenes/", shared_opportunity)
+    portal.route(
+        "**/api/v1/costs/project/**",
+        lambda route: route.fulfill(
+            json={
+                "data": {
+                    "id": "SHARED",
+                    "scope_start": "2026-01-01",
+                    "scope_end": "2026-10-25",
+                    "sprints": [],
+                    "people": [
+                        {
+                            "name": "Sin tarifa",
+                            "hours": 10.25,
+                            "band": "",
+                            "band_month": "",
+                            "rate": None,
+                            "cost": 0,
+                            "missing": True,
+                        },
+                        {
+                            "name": "Cero conocido",
+                            "hours": 0,
+                            "band": "A2",
+                            "band_month": "octubre",
+                            "rate": 7.04,
+                            "cost": 0,
+                            "missing": False,
+                        },
+                    ],
+                },
+                "meta": {},
+            }
+        ),
+    )
+    portal.goto(portal.base + PAGE)
+    expect(portal.locator("#opportunity-count")).to_have_text(
+        "2 de 2 oportunidades"
+    )
+    portal.locator(".account-group-toggle").first.click()
+    main = portal.locator("tr[data-opportunity]").first
+    expect(main).to_contain_text("126.50%")
+    expect(main).to_contain_text("Validar dato de origen (>100%)")
+    expect(main).to_contain_text("Referencia compartida")
+    expect(main).not_to_contain_text("Pendiente de asignación")
+    expect(main).to_contain_text("-44.18%*")
+    expect(main).to_contain_text("-170.68 pp*")
+    other = portal.locator("tr[data-opportunity]").last
+    expect(other).to_contain_text("60.00%")
+    expect(other).to_contain_text("0.00 pp")
+    expect(other.locator(".margin-unassigned")).to_have_count(0)
+    main.locator("[data-opportunity-toggle]").click()
+    panel = portal.locator(".opportunity-panel-row").first
+    expect(panel).not_to_contain_text("Pendiente de asignación")
+    expect(panel).to_contain_text("-44.18%*")
+    panel.locator(".opportunity-people summary").first.click()
+    people = panel.locator(".opportunity-people-content").first
+    missing = people.get_by_role("row").filter(has_text="Sin tarifa")
+    expect(missing).to_contain_text("Pendiente")
+    expect(missing).not_to_contain_text("$0")
+    valid_zero = people.get_by_role("row").filter(has_text="Cero conocido")
+    expect(valid_zero).to_contain_text("$0")
+    expect(valid_zero).to_contain_text("Horas × tarifa")
+
+
+def test_collapsed_account_totals_stay_global_during_search(portal, datos):
+    portal.goto(portal.base + PAGE)
+    expect(portal.locator("#opportunity-count")).to_have_text(
+        "2 de 2 oportunidades"
+    )
+    header = portal.locator(".account-group-row").first
+    expect(header.locator("td")).to_have_count(10)
+    expect(header.locator("td").nth(1)).to_contain_text("$500")
+    expect(header.locator("td").nth(6)).to_contain_text("55.00%")
+    expect(header.locator("td").nth(5)).to_contain_text("Pendiente")
+    before = [header.locator("td").nth(i).inner_text() for i in range(1, 9)]
+    portal.fill("#opportunity-search", "OP.9")
+    expect(portal.locator(".account-group-row:visible")).to_have_count(1)
+    after = [header.locator("td").nth(i).inner_text() for i in range(1, 9)]
+    assert before == after
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_method_cards_keep_the_current_rules_and_fold(portal, datos, width):
+    from pathlib import Path
+
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    method = portal.locator(".opportunity-method")
+    expect(method).to_be_visible()
+    cards = method.locator(".method-info-card")
+    expect(cards).to_have_count(6)
+    expect(cards.first).to_be_hidden()
+    method.locator("summary").click()
+    expect(cards.first).to_be_visible()
+    expect(method.get_by_role("heading", name="Qué representa")).to_be_visible()
+    expect(method.get_by_role("heading", name="Qué incluye")).to_be_visible()
+    expect(method.locator(".method-scope")).to_contain_text("se excluyen")
+    expect(method.locator(".method-margins")).to_contain_text(
+        "(revenue del periodo − costos) ÷ revenue del periodo"
+    )
+    expect(method.locator(".method-deviation")).to_contain_text(
+        "Margen real − margen vendido"
+    )
+    expect(method.locator(".method-notes")).to_contain_text(
+        "una sola vez por registro de horas"
+    )
+    assert method.evaluate("e => e.scrollWidth <= e.clientWidth + 1")
+    assert portal.evaluate(
+        "document.documentElement.scrollWidth <= window.innerWidth"
+    )
+    output = Path("tmp/design/margins-method")
+    output.mkdir(parents=True, exist_ok=True)
+    method.screenshot(path=str(output / f"method-{width}.png"))
+    method.locator("summary").click()
+    expect(cards.first).to_be_hidden()

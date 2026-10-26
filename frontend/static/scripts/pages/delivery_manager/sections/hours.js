@@ -1,6 +1,7 @@
 // @ts-check
 // Consumo de horas de los ultimos seis meses: grafica, detalle y CSV.
 import { el, svg } from '#app/lib/dom.js';
+import { detailDialog } from './hours_detail.js';
 
 const COLORS = ['#6347ed', '#18ad78', '#f5b326'];
 const KEYS = ['billable', 'operational', 'commercial'];
@@ -31,39 +32,45 @@ const pending = (message) => el('section', { class: 'monthly-section', id: 'dm-m
 export const loadingHours = () => pending('Cargando consumo desde Clockify…');
 
 /** @param {any} months @param {HTMLElement} tooltip @param {(index: number) => void} open */
-function chart(months, tooltip, open) {
+function chart(months, tooltip, open, mode = 'hours') {
+  const percentage=mode==='percent';
+  const amount=(month,key)=>percentage?(month.budget>0?Number(month[key]||0)/month.budget*100:0):Number(month[key]||0);
+  const caption=(month,key)=>percentage?(month.budget>0?`${amount(month,key).toLocaleString('es-MX',{maximumFractionDigits:1})}%`:'—'):hours(month[key]);
   const root = svg('svg', { id: 'hours-chart', viewBox: '0 0 720 260', role: 'group', 'aria-label': 'Consumo de horas por mes. Selecciona un mes para ver sus proyectos.' });
-  const limit = Math.max(1, ...months.map((/** @type {any} */ m) => Math.max(m.total, m.budget || 0)));
+  root.append(svg('defs',{},...['#d8d0ff',...COLORS].map((color,index)=>svg('linearGradient',{id:`dm-hours-cylinder-${index}`,x1:0,y1:0,x2:1,y2:0},svg('stop',{offset:'0%','stop-color':color}),svg('stop',{offset:'35%','stop-color':color,'stop-opacity':'.7'}),svg('stop',{offset:'100%','stop-color':color})))));
+  const limit = Math.max(1, ...months.map((/** @type {any} */ m) => Math.max(amount(m,'total'),amount(m,'budget'))));
   const step = Math.pow(10, Math.floor(Math.log10(limit))) / 2;
   const top = Math.ceil(limit / step) * step;
   for (let tick = 0; tick <= 4; tick++) {
     const y = 215 - tick * 45;
     root.append(
       svg('line', { x1: 56, x2: 704, y1: y, y2: y, stroke: '#e4def4', 'stroke-dasharray': '3 4' }),
-      svg('text', { x: 48, y: y + 4, 'text-anchor': 'end', fill: '#8a7eae', 'font-size': 10 }, ((top * tick) / 4).toLocaleString('es-MX', { maximumFractionDigits: 0 })),
+      svg('text', { x: 48, y: y + 4, 'text-anchor': 'end', fill: '#8a7eae', 'font-size': 10 }, ((top * tick) / 4).toLocaleString('es-MX', { maximumFractionDigits: 0 })+(percentage?'%':'')),
     );
   }
-  root.append(svg('text', { x: 12, y: 135, fill: '#8a7eae', 'font-size': 11, transform: 'rotate(-90 12 135)' }, 'Horas'));
+  root.append(svg('text', { x: 12, y: 135, fill: '#8a7eae', 'font-size': 11, transform: 'rotate(-90 12 135)' }, percentage?'% del presupuesto':'Horas'));
 
   months.forEach((/** @type {any} */ month, /** @type {number} */ index) => {
-    const x = 74 + index * 105;
+    const slot=648/Math.max(1,months.length);
+    const x = 56+index*slot+(slot-80)/2;
     const group = svg('g', { tabindex: 0, role: 'button', 'aria-label': `${month.label}: ${hours(month.total)}. Ver proyectos` });
     group.style.cursor = 'pointer'; // CSSOM: sin atributo style
-    group.append(svg('rect', { x: x - 4, y: 25, width: 86, height: 200, fill: 'transparent', rx: 8 }));
-    const planned = ((month.budget || 0) / top) * 180;
+    group.append(svg('rect', {class:'dm-hours-focus', x: x - 4, y: 15, width: 86, height: 235, fill: 'transparent', rx: 10 }));
+    const planned = (amount(month,'budget') / top) * 180;
     group.append(
-      svg('rect', { x, y: 215 - planned, width: 36, height: planned, fill: '#d8d0ff', rx: 5 }),
-      svg('text', { x: x + 18, y: Math.max(20, 207 - planned), 'text-anchor': 'middle', fill: '#20145e', 'font-size': 9 }, hours(month.budget)),
+      svg('rect', { x, y: 215 - planned, width: 36, height: planned, fill: 'url(#dm-hours-cylinder-0)', rx: 5 }),
+      svg('ellipse',{cx:x+18,cy:215-planned,rx:18,ry:4,fill:'#e6deff'}),
+      svg('text', { x: x + 18, y: Math.max(20, 203 - planned), 'text-anchor': 'middle', fill: '#20145e', 'font-size': 9 }, caption(month,'budget')),
     );
     let y = 215;
     KEYS.forEach((key, i) => {
       if (month[key] <= 0) return;
-      const height = (month[key] / top) * 180;
+      const height = (amount(month,key) / top) * 180;
       y -= height;
-      group.append(svg('rect', { x: x + 42, y, width: 36, height, fill: COLORS[i] }));
+      group.append(svg('rect', { x: x + 42, y, width: 36, height, fill: `url(#dm-hours-cylinder-${i+1})` }),svg('ellipse',{cx:x+60,cy:y,rx:18,ry:4,fill:COLORS[i]}));
     });
     group.append(
-      svg('text', { x: x + 60, y: Math.max(20, y - 8), 'text-anchor': 'middle', fill: '#20145e', 'font-size': 9, 'font-weight': 700 }, hours(month.total)),
+      svg('text', { x: x + 60, y: Math.max(20, y - 8), 'text-anchor': 'middle', fill: '#20145e', 'font-size': 9, 'font-weight': 700 }, caption(month,'total')),
       svg('text', { x: x + 39, y: 240, 'text-anchor': 'middle', fill: '#8a7eae', 'font-size': 11 }, month.label),
     );
     const show = () => {
@@ -97,74 +104,6 @@ function chart(months, tooltip, open) {
   return root;
 }
 
-/** @param {any} months */
-function detailDialog(months) {
-  const select = /** @type {HTMLSelectElement} */ (
-    el('select', { id: 'hours-month' }, ...months.map((/** @type {any} */ m, /** @type {number} */ i) => el('option', { value: i, text: m.label })))
-  );
-  const title = el('h2', { id: 'hours-modal-title', text: 'Detalle de horas' });
-  const totals = el('div', { id: 'hours-totals', class: 'hours-totals' });
-  const body = el('tbody', { id: 'hours-projects' });
-  const heads = ['ID / Proyecto', 'Cuenta', 'Servicio', 'Presupuesto proyecto', 'Facturables', 'Inv. operativa', 'Inv. comercial', 'Total'];
-  const dialog = /** @type {HTMLDialogElement} */ (
-    el(
-      'dialog',
-      { id: 'hours-modal', 'aria-labelledby': 'hours-modal-title' },
-      el(
-        'div',
-        { class: 'hours-heading' },
-        el('div', {}, title, el('p', { class: 'hs', text: 'Proyectos que componen las horas del mes seleccionado.' })),
-        el('button', { type: 'button', id: 'hours-close', 'aria-label': 'Cerrar detalle', text: '×', onclick: () => dialog.close() }),
-      ),
-      el('div', { class: 'hours-controls' }, el('label', {}, 'Mes ', select), el('button', { type: 'button', class: 'hours-action', id: 'hours-download', text: 'Descargar CSV' })),
-      totals,
-      el('div', { class: 'table-scroll' }, el('table', {}, el('thead', {}, el('tr', {}, ...heads.map((text) => el('th', { text })))), body)),
-      el('p', { class: 'hs', text: 'Cada registro se cuenta una vez: operativa, comercial y después facturable. Otras horas no facturables no se incluyen.' }),
-    )
-  );
-
-  /** @param {number} index */
-  function fill(index) {
-    const month = months[index];
-    select.value = String(index);
-    title.textContent = `Detalle de horas · ${month.label}`;
-    totals.replaceChildren(
-      ...[['Total', month.total], ...KEYS.map((key, i) => [LABELS[i], month[key]])].map(([label, amount]) => el('span', {}, label, el('b', { text: hours(amount) }))),
-    );
-    const rows = [...month.projects]
-      .sort((a, b) => b.total - a.total)
-      .map((project) => {
-        const cells = [project.name, project.client || 'Sin cuenta', project.service || '—', project.project_budget == null ? 'Sin presupuesto' : hours(project.project_budget), ...KEYS.map((key) => hours(project[key])), hours(project.total)];
-        return el('tr', {}, ...cells.map((text, i) => el('td', {}, text, ...(i === 0 ? [el('small', { text: project.id })] : []))));
-      });
-    body.replaceChildren(...(rows.length ? rows : [el('tr', {}, el('td', { colspan: 8, text: 'Sin registros en estas categorías.' }))]));
-  }
-
-  select.addEventListener('change', () => fill(Number(select.value)));
-  dialog.addEventListener('click', (event) => {
-    if (event.target !== dialog) return;
-    const box = dialog.getBoundingClientRect();
-    const { clientX: x, clientY: y } = /** @type {MouseEvent} */ (event);
-    if (x < box.left || x > box.right || y < box.top || y > box.bottom) dialog.close();
-  });
-  dialog.querySelector('#hours-download')?.addEventListener('click', () => {
-    const month = months[Number(select.value)];
-    const text = csvRows(month).map((row) => row.map(csvCell).join(',')).join('\r\n');
-    const url = URL.createObjectURL(new Blob([`﻿${text}`], { type: 'text/csv;charset=utf-8' }));
-    const link = el('a', { href: url, download: `horas-${month.label.replaceAll(' ', '-')}.csv` });
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
-  return {
-    dialog,
-    /** @param {number} index */
-    open(index) {
-      fill(index);
-      if (!dialog.open) dialog.showModal();
-    },
-  };
-}
-
 /**
  * @param {any} data La seccion `hours` de la API y el nombre del DM.
  * @param {string} name
@@ -175,7 +114,24 @@ export function renderHours(data, name) {
   const card = el('div', { class: 'card hours-card' });
   section.append(card);
   const tooltip = el('div', { id: 'hours-tooltip', class: 'hours-tooltip', hidden: true });
-  const detail = detailDialog(months);
+  const detail = detailDialog(months, csvRows, csvCell);
+  let mode='hours',range=6;
+  const plot=el('div',{class:'hours-plot'});
+  const modeHours=el('button',{type:'button',id:'hours-view-hours','aria-pressed':'true',text:'Horas'});
+  const modePercent=el('button',{type:'button',id:'hours-view-percent','aria-pressed':'false',text:'% de uso',title:'Horas consumidas respecto al presupuesto prorrateado del mes',disabled:!months.some(month=>month.budget>0)});
+  const rangeSelect=el('select',{id:'hours-range','aria-label':'Meses de consumo'},el('option',{value:'3',text:'Últimos 3 meses'}),el('option',{value:'6',text:'Últimos 6 meses'}));
+  rangeSelect.value='6';
+  function update(){
+    const visible=months.slice(-range);
+    tooltip.hidden=true;
+    plot.replaceChildren(chart(visible,tooltip,index=>{tooltip.hidden=true;detail.open(months.indexOf(visible[index]));},mode),tooltip);
+    modeHours.setAttribute('aria-pressed',String(mode==='hours'));modePercent.setAttribute('aria-pressed',String(mode==='percent'));
+  }
+  modeHours.addEventListener('click',()=>{mode='hours';update();});
+  modePercent.addEventListener('click',()=>{mode='percent';update();});
+  rangeSelect.addEventListener('change',()=>{range=Number(rangeSelect.value);update();});
+  const chartControls=el('div',{class:'dm-hours-controls'},el('div',{class:'dm-hours-mode'},modeHours,modePercent),rangeSelect);
+
   const legend = (/** @type {string} */ color, /** @type {string} */ text) => {
     const dot = el('i');
     dot.style.background = color;
@@ -186,7 +142,7 @@ export function renderHours(data, name) {
       'div',
       { class: 'hours-heading' },
       el('div', {}, el('h2', { text: TITLE }), el('div', { class: 'hs', text: `Horas de los proyectos de ${name}. El mes actual está en curso.` })),
-      ...(months.length ? [el('button', { type: 'button', class: 'hours-action', id: 'hours-detail', text: 'Ver detalle de horas →', onclick: () => detail.open(months.length - 1) })] : []),
+      ...(months.length ? [chartControls,el('button', { type: 'button', class: 'hours-action', id: 'hours-detail', text: 'Ver detalle de horas →', onclick: () => detail.open(months.length - 1) })] : []),
     ),
   );
   if (!months.length) {
@@ -199,10 +155,7 @@ export function renderHours(data, name) {
     );
   }
   card.append(
-    el('div', { class: 'hours-plot' }, chart(months, tooltip, (index) => {
-      tooltip.hidden = true;
-      detail.open(index);
-    }), tooltip),
+    plot,
     el(
       'div',
       { class: 'monthly-legend comparison-legend' },
@@ -213,5 +166,10 @@ export function renderHours(data, name) {
     ...(data.has_data ? [] : [el('p', { class: 'hs', text: 'Sin horas registradas en estas categorías durante el período.' })]),
     detail.dialog,
   );
+  update();
+  const action=card.querySelector('#hours-detail');
+  const footer=el('div',{class:'dm-hours-footer'},el('span',{text:'ⓘ Selecciona un mes para ver sus proyectos. % de uso se calcula sobre el presupuesto del mes.'}));
+  if(action)footer.append(action);
+  card.append(footer);
   return section;
 }

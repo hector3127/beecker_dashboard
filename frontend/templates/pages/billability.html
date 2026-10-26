@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/billability.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/billability.css' %}?v=20261025-yellow-columns">
 <link rel="stylesheet" href="{% static 'app/styles/pages/period-picker.css' %}">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if error %}Fuente no disponible{% elif loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
 {% block content %}
@@ -43,7 +43,7 @@
 <h2>Facturabilidad global por mes</h2>
 <div class="hs">Porcentaje de la capacidad que se factura</div>
 <div class="bars" data-columns="{{ months|length }}">
-{% for m in months %}<div class="bc{% if m.month in in_period %} cu{% endif %}"><b>{% if m.global_percent is not None %}{{ m.global_percent|floatformat:"1" }}%{% else %}—{% endif %}</b><i data-height="{{ m.bar_height }}"></i>{{ m.short_label }}</div>
+{% for m in months %}<div class="bc{% if m.month in in_period %} cu{% endif %}" data-month="{{ m.month }}" data-label="{{ m.label }}" data-percent="{{ m.global_percent|default_if_none:''|stringformat:'s' }}" data-fixed="{{ m.fixed_hours|stringformat:'s' }}" data-variable="{{ m.variable_hours|stringformat:'s' }}" data-fixed-percent="{{ m.fixed_percent|default_if_none:''|stringformat:'s' }}" data-variable-percent="{{ m.variable_percent|default_if_none:''|stringformat:'s' }}"><b>{% if m.global_percent is not None %}{{ m.global_percent|floatformat:"1" }}%{% else %}—{% endif %}</b><i data-height="{{ m.bar_height }}"></i>{{ m.short_label }}</div>
 {% endfor %}</div>
 </section>
 {% if no_roster %}<p class="note">Bandas/rol no trae banda para: {{ no_roster }}. En esos meses la capacidad usa a las personas con horas en GSE, porque no se conoce la plantilla vigente.</p>{% endif %}

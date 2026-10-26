@@ -208,6 +208,19 @@ class CostSummaryView(APIView):
                 codes.get(response.status_code, "upstream"),
                 str(payload.get("error", "No se pudo consultar los costos.")),
             )
+        # Enriquecer solo las filas ya autorizadas con el catálogo local.
+        from apps.datastore.models import Project
+
+        projects = payload.get("projects", [])
+        names = dict(
+            Project.objects.filter(
+                internal_id__in=[p["id"] for p in projects]
+            ).values_list("internal_id", "name")
+        )
+        payload["projects"] = [
+            {**p, "name": p.get("name") or names.get(p["id"], "")}
+            for p in projects
+        ]
         return Response({"data": payload, "meta": {}})
 
 

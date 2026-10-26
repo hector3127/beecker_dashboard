@@ -28,6 +28,7 @@ function ixbRow(p) {
     "tr",
     {
       "data-manager": p.manager,
+      "data-client": p.client || "",
       "data-service": p.service,
       "data-start": p.start,
       "data-end": p.end,
@@ -151,6 +152,7 @@ export function renderAerHistory(data) {
       "tr",
       {
         "data-closed-id": p.project_id,
+        "data-closed-client": p.client || "",
         "data-budget": p.budget,
         ...(p.burn === null ? { "data-missing-burn": true } : {}),
       },

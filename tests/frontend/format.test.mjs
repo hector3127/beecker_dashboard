@@ -59,11 +59,15 @@ test('the compact figure has no currency symbol and shares the rules of money', 
   assert.equal(formatCompact(null), 'Pendiente');
 });
 
-test('amounts that the API sends as decimal text are formatted, never pending', async () => {
+
+test('finance decimal strings display their amount instead of pending', async () => {
   const { formatCompact, formatMoney } = await import('../../frontend/static/scripts/lib/format.js');
-  assert.equal(formatCompact('1950326.71'), '1.95M');
-  assert.equal(formatMoney('415926.17'), '$415K');
-  assert.equal(formatMoney('-1500'), '-$1K');
-  assert.equal(formatCompact(''), 'Pendiente');
-  assert.equal(formatCompact('abc'), 'Pendiente');
+  assert.equal(formatCompact('2006482.71'), '2M');
+  assert.equal(formatCompact('0.00'), '0');
+  assert.equal(formatCompact('-1500.00'), '-1K');
+  assert.equal(formatMoney('2006482.71'), '$2M');
+  assert.equal(formatCompact(' 425500.12 '), '425K');
+  for (const missing of ['', ' ', 'NaN', 'Infinity', '0x10', 'USD 100', null, undefined, false]) {
+    assert.equal(formatCompact(missing), 'Pendiente');
+  }
 });

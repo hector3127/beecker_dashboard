@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{% static 'app/styles/layout.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/components.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/a11y.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/page_capture.css' %}?v=20261024-all">
 {% block head %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -26,19 +27,19 @@
     "#app/data/url-state.js": "{% static 'app/scripts/data/url-state.js' %}",
     "#app/lib/account-summary.js": "{% static 'app/scripts/lib/account-summary.js' %}",
     "#app/lib/calendar.js": "{% static 'app/scripts/lib/calendar.js' %}",
-    "#app/lib/monthly-chart.js": "{% static 'app/scripts/lib/monthly-chart.js' %}",
+    "#app/lib/monthly-chart.js": "{% static 'app/scripts/lib/monthly-chart.js' %}?v=20261024-point-percentages",
     "#app/lib/ranking.js": "{% static 'app/scripts/lib/ranking.js' %}",
     "#app/lib/charts.js": "{% static 'app/scripts/lib/charts.js' %}",
     "#app/lib/dom.js": "{% static 'app/scripts/lib/dom.js' %}",
-    "#app/lib/format.js": "{% static 'app/scripts/lib/format.js' %}",
+    "#app/lib/format.js": "{% static 'app/scripts/lib/format.js' %}?v=20261023-decimal",
     "#app/lib/slug.js": "{% static 'app/scripts/lib/slug.js' %}",
-    "#app/ui/agreements.js": "{% static 'app/scripts/ui/agreements.js' %}",
+    "#app/ui/agreements.js": "{% static 'app/scripts/ui/agreements.js' %}?v=20261024-followup",
     "#app/ui/billing-chart.js": "{% static 'app/scripts/ui/billing-chart.js' %}",
     "#app/ui/data-table.js": "{% static 'app/scripts/ui/data-table.js' %}",
     "#app/ui/date-range-picker.js": "{% static 'app/scripts/ui/date-range-picker.js' %}",
     "#app/ui/icons.js": "{% static 'app/scripts/ui/icons.js' %}",
     "#app/ui/month-picker.js": "{% static 'app/scripts/ui/month-picker.js' %}",
-    "#app/ui/page-capture.js": "{% static 'app/scripts/ui/page-capture.js' %}",
+    "#app/ui/page-capture.js": "{% static 'app/scripts/ui/page-capture.js' %}?v=20261024-all",
     "#app/ui/pending-dialog.js": "{% static 'app/scripts/ui/pending-dialog.js' %}",
     "#app/ui/period-picker.js": "{% static 'app/scripts/ui/period-picker.js' %}",
     "#app/ui/portal-loading.js": "{% static 'app/scripts/ui/portal-loading.js' %}",
@@ -48,6 +49,7 @@
 }
 </script>
 <script type="module" src="{% static 'app/scripts/ui/return-links.js' %}"></script>
+<script type="module" src="{% static 'app/scripts/ui/page-capture.js' %}?v=20261024-all" data-auto-page-capture data-capture-library="{% static 'app/vendor/html2canvas-1.4.1.min.js' %}"></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

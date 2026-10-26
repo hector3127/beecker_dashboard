@@ -48,7 +48,13 @@ def attach_month_roster(
         and trimmed(cell_at(row, name_column))
         and trimmed(cell_at(row, role_column))
     ]
-    return {**gse, "plantilla": people}
+    bajas = [
+        trimmed(cell_at(row, name_column))
+        for row in sheet.data_rows
+        if norm(cell_at(row, column)) == "baja"
+        and trimmed(cell_at(row, name_column))
+    ]
+    return {**gse, "plantilla": people, "plantillaBajas": bajas}
 
 
 def apply_roster(

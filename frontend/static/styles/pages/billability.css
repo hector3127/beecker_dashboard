@@ -38,3 +38,71 @@ tr.cur td.free{background:#FFEFC2}
 .billability-page .portal-page-toolbar.crumb { margin-bottom: 16px; }
 .billability-page tr.hl td { background: #F3EEFF; }
 @media (max-width:650px) { .billability-page .portal-page-toolbar.crumb { margin-bottom:12px; } }
+
+/* Referencia de tarjetas, resumen y gráfica. */
+body.billability-page{background:radial-gradient(ellipse at 70% 0,#f9f7ff,#f2f3ff)}
+.billability-page main.page,.billability-page main.page *{box-sizing:border-box}
+.billability-page .hero{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:18px 0}
+.billability-page .hero>.kc,.billability-page .hero>.tot{position:relative;overflow:hidden;display:flex;align-items:flex-start;flex-direction:row;justify-content:flex-start;gap:16px;min-height:165px;padding:25px 22px;border:1px solid #e6defb;border-radius:17px;background:linear-gradient(140deg,#fff,#fefcff);box-shadow:0 4px 16px #703cbd08}
+.bill-reference-icon{display:grid;place-items:center;flex:none;width:57px;height:60px;border-radius:14px;color:#7844ed;background:#f0eaff}
+.bill-reference-icon svg{width:34px;height:34px}
+.billability-page .hero>.kc:nth-child(2) .bill-reference-icon{color:#dc3ab2;background:#ffedf9}
+.bill-kpi-copy{position:relative;z-index:1;min-width:0;flex:1}
+.billability-page .hero .kl{font-size:14px;color:#332366;line-height:1.5;font-weight:600}
+.billability-page .hero .kv{font-size:43px;line-height:1.15;letter-spacing:-1px;color:#1a0a58;margin:8px 0}
+.billability-page .hero .ke{font-size:12px;color:#9480b8;line-height:1.5}
+.billability-page .hero>.tot{background:linear-gradient(115deg,#4920cf,#7826dd 60%,#dc3abb);border:0}
+.billability-page .hero>.tot .bill-reference-icon{background:#ffffff30;color:white}
+.billability-page .hero>.tot .kl,.billability-page .hero>.tot .kv{color:white}
+.billability-page .hero>.tot .ke{color:#eadbff}
+.bill-sparkline{position:absolute;right:9px;bottom:5px;width:145px;height:66px;color:#b595f8;opacity:.7;pointer-events:none}
+.billability-page .hero>.kc:nth-child(2) .bill-sparkline{color:#f4a2e5}
+.bill-total-decoration{position:absolute;right:12px;bottom:0;display:flex;align-items:flex-end;gap:9px;height:95px;opacity:.2}
+.bill-total-decoration i{width:24px;height:40%;background:linear-gradient(#ffc1f3,transparent);border-radius:9px 9px 0 0}
+.bill-total-decoration i:nth-child(2){height:65%}.bill-total-decoration i:nth-child(3){height:95%}
+.billability-page .card{border-color:#e6dffa;border-radius:15px;padding:18px;margin-bottom:17px;box-shadow:0 3px 15px #6a38bb04}
+.billability-page .card h2{font-size:18px;color:#3611b5;letter-spacing:-.3px;margin:0 0 4px}
+.billability-page .card>.hs{font-size:11px;color:#9882ba;margin-bottom:15px}
+.billability-page #bill-summary{min-width:1100px;font-size:11px;border-collapse:separate;border-spacing:0}
+.billability-page #bill-summary th{font-size:9px;padding:10px 7px;background:#f4efff;color:#8263b3;font-weight:600;letter-spacing:0;line-height:1.5}
+.billability-page #bill-summary th.g{background:#ede5ff;color:#6f4aa8;border-left:1px solid #fff}
+.billability-page #bill-summary td{font-size:11px;padding:9px 7px;border-top:0;border-bottom:1px solid #f0eaf9;color:#7d65a7;white-space:nowrap}
+.billability-page #bill-summary tbody tr:nth-child(even){background:#fbf9ff}
+.billability-page #bill-summary tbody td.free{background:#fff7e0}
+.billability-page #bill-summary tbody tr.hl td{background:#f2ecff}
+.billability-page #bill-summary tbody tr.hl td.free{background:#fff7e0}
+.billability-page #bill-summary tbody td.gl{font-weight:600}
+.bill-global-pill{display:inline-block;border-radius:14px;min-width:61px;text-align:center;padding:4px 8px;font-size:10px}
+.bill-global-pill.good{background:#dff8eb;color:#1b9163}
+.bill-global-pill.warning{background:#fff2d6;color:#be8b19}
+.billability-page #bill-summary tr.hl .bill-global-pill{background:#7e45ee;color:#fff}
+.billability-page .bill-chart-card{padding:18px 20px}
+.bill-chart-heading{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.bill-chart-heading .bill-reference-icon{width:41px;height:43px;border-radius:11px}
+.bill-chart-heading .bill-reference-icon svg{width:24px;height:24px}
+.bill-chart-heading-copy{flex:1;min-width:0}
+.billability-page .bill-chart-heading h2{font-size:17px;margin:0 0 3px}
+.billability-page .bill-chart-heading .hs{font-size:10px;margin:0;color:#9a85b8}
+.bill-chart-controls{display:flex;gap:9px;align-items:center}
+.bill-chart-mode{display:flex;border:1px solid #e7dcfc;border-radius:7px;padding:2px;background:#fff}
+.bill-chart-mode button,.bill-chart-expand{font:inherit;border:0;padding:7px 10px;border-radius:5px;background:transparent;color:#8c68ba;font-size:10px;cursor:pointer;white-space:nowrap}
+.bill-chart-mode button[aria-pressed=true]{background:linear-gradient(130deg,#9a5aff,#6b2be6);color:#fff;box-shadow:0 2px 7px #7c3de12a}
+.bill-chart-expand{font-size:19px;padding:5px 9px;background:#f4edff;color:#8c53de}
+.bill-chart-body{display:flex;gap:20px;align-items:center;min-width:0}
+.bill-chart-plot{flex:1;min-width:0;overflow:auto}
+.bill-chart-plot svg{display:block;width:100%;min-width:700px}
+.bill-chart-plot g[role=button]{cursor:pointer;outline:none}
+.bill-chart-plot g[role=button]:focus-visible .bill-chart-focus{stroke:#9d72e3;stroke-width:1.5}
+.bill-chart-aside{width:122px;min-width:122px;border-radius:12px;background:linear-gradient(140deg,#f7f0ff,#f0eaff);padding:18px 10px;text-align:center;display:flex;flex-direction:column;gap:6px;color:#9c83b7}
+.bill-chart-aside small{font-size:10px;line-height:1.4}
+.bill-chart-aside strong{font-size:25px;color:#6220d1;line-height:1.2}
+.bill-chart-aside span{font-size:11px;font-weight:600}
+.bill-chart-aside .negative{color:#e74f7e}.bill-chart-aside .positive{color:#20a979}
+.bill-chart-legend{display:flex;justify-content:center;gap:24px;font-size:10px;color:#9a81bb;margin:2px 0 6px}
+.bill-chart-legend span:before{content:'';display:inline-block;vertical-align:middle;margin-right:5px}
+.bill-legend-bars:before{width:7px;height:7px;background:#8741eb;border-radius:50%}
+.bill-legend-average:before{width:25px;border-top:2px dashed #c19cf5}
+.billability-page .bill-chart-expanded{position:fixed;inset:24px;z-index:1000;overflow:auto;background:#fff;box-shadow:0 0 0 30px #28134b88;display:flex;flex-direction:column;margin:0}
+.bill-chart-expanded .bill-chart-body{flex:1}.bill-chart-expanded .bill-chart-plot svg{max-height:none}
+@media(max-width:1100px){.billability-page .hero>.kc,.billability-page .hero>.tot{padding:19px 15px;gap:12px;min-height:150px}.billability-page .hero .kv{font-size:34px}.bill-reference-icon{width:45px;height:48px}.bill-reference-icon svg{width:27px;height:27px}.billability-page .hero .kl{font-size:12px}.billability-page .hero .ke{font-size:11px}.bill-sparkline{width:110px;opacity:.4}}
+@media(max-width:700px){.billability-page .hero{grid-template-columns:1fr;gap:10px}.billability-page .hero>.kc,.billability-page .hero>.tot{min-height:135px;padding:20px}.billability-page .hero .kv{font-size:39px}.billability-page .hero .ke{font-size:12px}.billability-page .card{padding:14px}.bill-chart-heading{flex-wrap:wrap}.bill-chart-heading-copy{flex-basis:calc(100% - 55px)}.bill-chart-controls{margin-left:52px}.bill-chart-body{flex-direction:column;align-items:stretch}.bill-chart-aside{width:100%;min-width:0;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:12px 15px;text-align:left}.bill-chart-aside strong{grid-row:span 2;text-align:right}.bill-chart-legend{gap:13px;flex-wrap:wrap}.billability-page .bill-chart-expanded{inset:10px}.bill-chart-plot svg{min-width:700px}}

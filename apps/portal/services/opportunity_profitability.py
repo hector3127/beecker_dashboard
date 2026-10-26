@@ -14,7 +14,7 @@ from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
 
-OPPORTUNITY_VERSION = 6
+OPPORTUNITY_VERSION = 9
 # Revenue operado usa la fecha G como fecha del servicio mientras Finanzas no
 # confirme que lo es; el valor viaja en el contrato para poder mostrarlo.
 OPERATED_STATUS = "assumed_service_date_g"
@@ -29,14 +29,16 @@ def number(value: Any) -> Any:
         return None
 
 
-def sold_percent(value: Any) -> Any:
-    """Convierte un porcentaje vendido a fraccion; None si no es valido."""
+def sold_percent(value: Any, *, fractional: bool = False) -> Any:
+    """Convierte la fraccion de Sheets a puntos porcentuales."""
     if value is None or str(value).strip() == "":
         return None
     text = str(value).strip()
     result = number(text.replace("%", ""))
     if result is None:
         return None
+    if fractional and isinstance(value, (int, float, Decimal)):
+        return float(result * 100)
     return float(result if "%" in text or abs(result) > 1 else result * 100)
 
 
@@ -53,14 +55,15 @@ def build_opportunities(reader: Any = None) -> Any:
     """Arma el margen vendido y real de cada oportunidad."""
     reader = reader or build_sheet_repository()
     source = reader.read_values("DataRevenue")
-    # Booking is the recognized value of the whole opportunity, independent
-    # of the selected period. Keep period revenue and existing margins intact.
+    # Bookings usa el mismo rango G/H seleccionado en Business Overview.
+    # No incluir mensualidades de otros periodos de la oportunidad.
     bookings: dict[tuple[str, str], Decimal] = defaultdict(Decimal)
     for row in source[1:]:
         if (
             len(row) < 8
             or str(row[0]).strip().casefold() not in REVENUE_STATUSES
             or excluded_service(row[3])
+            or not contains(to_datetime(row[6]))
             or any(
                 str(cell).strip().casefold()
                 in {"total", "subtotal", "grand total", "total general"}
@@ -167,13 +170,22 @@ def build_opportunities(reader: Any = None) -> Any:
         else:
             item["issues"].append("Fila sin Project ID")
         item["services"].add(str(row[3]))
-        margin = sold_percent(row[8] if len(row) > 8 else None)
+        # DataRevenue se lee con UNFORMATTED_VALUE: 1.265 equivale a
+        # 126.5%, igual que 0.6 equivale a 60%; no inferir por magnitud.
+        margin = sold_percent(row[8] if len(row) > 8 else None, fractional=True)
         if margin is None:
             item["missing_margin"] += 1
         else:
             item["margins"].add(margin)
     result = []
+    account_costs: dict[str, Any] = {}
     for identity, item in groups.items():
+        account_cost = account_costs.setdefault(
+            item["account"],
+            {"entries": {}, "available": False, "partial": False},
+        )
+        if not item["ids"] or item["issues"]:
+            account_cost["partial"] = True
         entries = {}
         partial = False
         for pid in sorted(item["ids"], key=str.casefold):
@@ -202,6 +214,16 @@ def build_opportunities(reader: Any = None) -> Any:
                 )
             if saved:
                 entries.update(saved.get("entries", {}))
+                account_cost["entries"].update(saved.get("entries", {}))
+                account_cost["available"] |= bool(
+                    saved.get("entries") or saved.get("complete")
+                )
+            # Un ID compartido dentro de la cuenta cuenta una sola vez.
+            # Si abarca varias cuentas sigue siendo una referencia parcial.
+            account_cost["partial"] |= (
+                not bool(saved and saved.get("complete"))
+                or len({owner[0] for owner in owners[pid.casefold()]}) > 1
+            )
             partial = partial or bool(project_issues)
             project_revenue = float(item["project_revenue"][pid])
             project_cost = saved.get("cost") if saved else None
@@ -293,6 +315,7 @@ def build_opportunities(reader: Any = None) -> Any:
             }
         )
     return {
+        "accounts": account_totals(result, account_costs),
         "opportunities": sorted(
             result,
             key=lambda r: (r["account"].casefold(), r["name"].casefold()),
@@ -302,6 +325,78 @@ def build_opportunities(reader: Any = None) -> Any:
         "version": OPPORTUNITY_VERSION,
         "excluded": "Licencias, SaaS y servicios especializados",
     }
+
+
+def account_totals(rows: list[Any], costs: dict[str, Any]) -> list[Any]:
+    """Totales por cuenta; costo deduplicado y margen vendido ponderado."""
+    groups: dict[str, list[Any]] = defaultdict(list)
+    for row in rows:
+        groups[row["account"]].append(row)
+    result = []
+    for account, items in groups.items():
+
+        def total(field: str, source: list[Any] = items) -> float | None:
+            values = [
+                Decimal(str(r[field])) for r in source if r[field] is not None
+            ]
+            return round(float(sum(values)), 2) if values else None
+
+        revenue = total("revenue")
+        state = costs[account]
+        cost = (
+            round(sum(state["entries"].values()), 2)
+            if state["available"]
+            else None
+        )
+        known = [r for r in items if r["sold_margin"] is not None]
+        weight = sum(Decimal(str(r["revenue"])) for r in known)
+        sold = (
+            round(
+                float(
+                    sum(
+                        Decimal(str(r["revenue"]))
+                        * Decimal(str(r["sold_margin"]))
+                        for r in known
+                    )
+                    / weight
+                ),
+                2,
+            )
+            if weight
+            else None
+        )
+        actual = (
+            round((revenue - cost) / revenue * 100, 2)
+            if revenue and cost is not None
+            else None
+        )
+        sold_partial = len(known) != len(items)
+        result.append(
+            {
+                "account": account,
+                "count": len(items),
+                "bookings": total("bookings"),
+                "bookings_partial": any(r["bookings"] is None for r in items),
+                "period_revenue": revenue,
+                "operated_revenue": total("operated_revenue"),
+                "invoiced": total("invoiced"),
+                "collected": total("collected"),
+                "cost": cost,
+                "cost_partial": state["partial"],
+                "sold_margin": sold,
+                "sold_partial": sold_partial,
+                "actual_margin": actual,
+                "deviation_pp": round(actual - sold, 2)
+                if actual is not None and sold is not None
+                else None,
+                "partial": bool(state["partial"] or sold_partial),
+                "sold_source_warning": any(
+                    r["sold_margin"] is not None and r["sold_margin"] > 100
+                    for r in items
+                ),
+            }
+        )
+    return sorted(result, key=lambda r: r["account"].casefold())
 
 
 def opportunity_summary(rows: Any) -> Any:

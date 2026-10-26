@@ -87,6 +87,15 @@ export function renderHealth(root, view) {
           ),
         ),
       ),
+      el('section',{class:'ops-service-distribution','aria-label':'Distribución por servicio'},
+        el('h3',{text:'Distribución por servicio'}),
+        ...(!Array.isArray(view.service_distribution) || view.loading || view.portfolio_unavailable
+          ? [el('p',{class:'ops-muted',text:'Distribución pendiente de preparar.'})]
+          : view.service_distribution.length ? view.service_distribution.map((service,index)=>{
+            const meter=el('progress',{max:100,value:service.percent,'aria-label':`${service.service}: ${service.percent}%`});
+            return el('div',{class:`ops-service-row service-tone-${index%4}`},el('span',{text:service.service}),meter,el('b',{text:service.count}),el('small',{text:`${service.percent}%`}));
+          }) : [el('p',{class:'ops-muted',text:'Sin proyectos en ejecución.'})])
+      ),
     ),
     el(
       'details',

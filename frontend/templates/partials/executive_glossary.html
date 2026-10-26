@@ -1,8 +1,16 @@
-<details class="executive-glossary">
- <summary><span>¿Qué significa cada indicador?</span><span class="glossary-summary-hint">Consultar glosario</span></summary>
+<details class="executive-glossary indicator-glossary">
+ <summary>
+  <span class="indicator-question" aria-hidden="true">?</span>
+  <span class="indicator-glossary-heading"><strong>¿Qué significa cada indicador?</strong><span>Descripción de los principales indicadores y cómo se calculan en esta vista.</span></span>
+  <span class="glossary-summary-hint">{% include 'partials/indicator_glossary_icon.html' with name='book' %} Consultar glosario <span aria-hidden="true">⌄</span></span>
+ </summary>
  <div class="executive-glossary-grid">
-  {% for group in glossary %}<section><h2>{{ group.name }}</h2><dl>{% for item in group.terms %}<dt>{{ item.term }}</dt><dd>{{ item.summary }}</dd>{% endfor %}</dl></section>
+  {% for group in glossary %}
+  <section class="indicator-group indicator-group-{{ forloop.counter }}">
+   <div class="indicator-group-heading"><span class="indicator-group-icon">{% include 'partials/indicator_glossary_icon.html' with name=group.name %}</span><div><h2>{{ group.name }}</h2><p>{% if group.name == 'Financiera' %}Indicadores de ingresos, costos y rentabilidad.{% elif group.name == 'Operaciones' %}Indicadores de ejecución, capacidad y recursos.{% else %}Indicadores de oportunidades y ventas.{% endif %}</p></div></div>
+   <dl>{% for item in group.terms %}<div class="indicator-definition"><dt><span class="indicator-term-icon indicator-icon-{{ forloop.counter }}">{% include 'partials/indicator_glossary_icon.html' with name=item.concept %}</span>{{ item.term }}</dt><dd>{{ item.summary }}</dd></div>{% endfor %}</dl>
+  </section>
   {% endfor %}
  </div>
- <footer><p><strong>* Parcial:</strong> faltan datos para completar el indicador. <strong>Pendiente:</strong> no hay información suficiente; no equivale a cero.</p><a class="portal-button portal-button-secondary" href="{% url 'portal:diccionario_datos' %}">Ver fórmulas, fuentes y validaciones</a></footer>
+ <footer><span class="indicator-footer-icon">{% include 'partials/indicator_glossary_icon.html' with name='info' %}</span><p><strong>* Parcial:</strong> faltan datos para completar el indicador. <strong>Pendiente:</strong> no hay información suficiente; no equivale a cero.</p><a class="portal-button portal-button-secondary" href="{% url 'portal:diccionario_datos' %}">{% include 'partials/indicator_glossary_icon.html' with name='external' %}Ver fórmulas, fuentes y validaciones</a></footer>
 </details>

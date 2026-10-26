@@ -30,6 +30,7 @@ a[data-pronto]{cursor:help}
 <link rel="stylesheet" href="{% static 'portal/css/navigation.css' %}">
 <link rel="stylesheet" href="{% static 'portal/css/portal_loading.css' %}?v=20261021">
 <script src="{% static 'portal/js/portal_loading.js' %}?v=20261021" defer></script>
+<link rel="stylesheet" href="{% static 'app/styles/pages/page_capture.css' %}?v=20261024-all">
 {% block extra_head %}{% endblock %}
 <link rel="stylesheet" href="{% static 'portal/css/portal_controls.css' %}?v=20261021-navigation">
 </head>
@@ -63,8 +64,9 @@ document.addEventListener('click', function (event) {
 });
 </script>
 <script src="{% static 'portal/js/return_navigation.js' %}?v=20261021-opportunities" defer></script>
+<script type="importmap" nonce="{{ csp_nonce }}">{"imports":{"#app/lib/dom.js":"{% static 'app/scripts/lib/dom.js' %}"}}</script>
+<script type="module" src="{% static 'app/scripts/ui/page-capture.js' %}?v=20261024-all" data-auto-page-capture data-capture-library="{% static 'app/vendor/html2canvas-1.4.1.min.js' %}"></script>
 {% block scripts %}{% endblock %}
-<script src="{% static 'portal/js/page_capture.js' %}?v=20261016" data-library="{% static 'portal/vendor/html2canvas.min.js' %}" defer></script>
 {% if page_stale %}<script src="{% static 'portal/js/cached_page.js' %}" defer></script>{% endif %}
 </body>
 </html>

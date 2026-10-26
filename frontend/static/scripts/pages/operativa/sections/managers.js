@@ -1,6 +1,7 @@
 // @ts-check
 // Delivery Managers: una tarjeta por persona en un carrusel con desplazamiento.
 import { el } from '#app/lib/dom.js';
+import { icon } from '#app/ui/icons.js';
 import { formatNumber } from '#app/lib/format.js';
 
 const NO_VALUE = '—';
@@ -16,7 +17,7 @@ function emptyText(view) {
 /** @param {number} value @param {boolean} ready */
 const hours = (value, ready) => (ready ? `${formatNumber(value, 1)} h` : NO_VALUE);
 /** @param {string} label @param {string | number} value */
-const row = (label, value) => el('div', { class: 'm2' }, el('span', { text: label }), el('b', { text: value }));
+const row = (label, value) => el('div', { class: 'm2' }, el('span', { class:'dm-row-label' },icon(label==='Proyectos'?'people':label==='Suspendidos'?'pause':label==='En tiempo'?'check':label==='En ejecución'?'play':'chart',16),label), el('b', { text: value }));
 
 /**
  * @param {any} manager

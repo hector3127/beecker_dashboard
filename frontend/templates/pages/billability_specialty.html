@@ -1,12 +1,12 @@
 {% extends "layouts/app.html" %}
 {% load static  %}
 {% block title %}Facturabilidad por especialidad{% endblock %}
-{% block body_class %}ds billability-page{% endblock %}
+{% block body_class %}ds billability-page specialty-page{% endblock %}
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/billability_specialty.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/billability_specialty.css' %}?v=20261025-reference">
 <link rel="stylesheet" href="{% static 'app/styles/pages/period-picker.css' %}">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if error %}Fuente no disponible{% elif loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
 {% block content %}
@@ -18,22 +18,22 @@
 
 <form method="get" class="mf bii-e3dd54">{% include 'partials/period_picker.html' %}<span class="bii-d77876">Horas de Clockify con la lógica de GSE · Horas por área (solo lectura).</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="{{ picker.reset_href }}">Solo operativas</a></div></details>{% endif %}</form>
 <section class="kp">
-<div class="kc"><div class="kl">HC total</div><div class="kv">{{ headcount }}</div><div class="ke">Personas con horas en {{ selected.label|lower }}</div></div>
-<div class="kc"><div class="kl">HC variable</div><div class="kv">{{ selected.variable_hc }}</div><div class="ke">Personas equivalentes en TYM, IXB, SaaS y RaaS</div></div>
-<div class="kc"><div class="kl">Libre total</div><div class="kv{% if selected.free_fte < 0 %} neg{% endif %}">{{ selected.free_fte }}</div><div class="ke">{% if selected.free_fte < 0 %}Déficit de personas{% else %}Personas equivalentes libres{% endif %}</div></div>
-<div class="kc"><div class="kl">Libre en Dev</div><div class="kv{% if dev_free is not None and dev_free < 0 %} neg{% endif %}">{% if dev_free is not None %}{{ dev_free }}{% else %}—{% endif %}</div><div class="ke">{% if dev_free is not None and dev_free < 0 %}Déficit en Desarrollo{% else %}Personas equivalentes libres{% endif %}</div></div>
+<div class="kc">{% include "partials/billability_specialty_icon.html" with kind="team" %}<div class="specialty-kpi-copy"><div class="kl">HC total</div><div class="kv">{{ headcount }}</div><div class="ke">Personas con horas en {{ selected.label|lower }}</div></div><span class="specialty-card-decoration" aria-hidden="true">{% include "partials/billability_specialty_icon.html" with kind="team" %}</span></div>
+<div class="kc">{% include "partials/billability_specialty_icon.html" with kind="bars" %}<div class="specialty-kpi-copy"><div class="kl">HC variable</div><div class="kv">{{ selected.variable_hc }}</div><div class="ke">Personas equivalentes en TYM, IXB, SaaS y RaaS</div></div><span class="specialty-card-decoration" aria-hidden="true">{% include "partials/billability_specialty_icon.html" with kind="bars" %}</span></div>
+<div class="kc">{% include "partials/billability_specialty_icon.html" with kind="person" %}<div class="specialty-kpi-copy"><div class="kl">Libre total</div><div class="kv{% if selected.free_fte < 0 %} neg{% endif %}">{{ selected.free_fte }}</div><div class="ke">{% if selected.free_fte < 0 %}Déficit de personas{% else %}Personas equivalentes libres{% endif %}</div></div><span class="specialty-card-decoration" aria-hidden="true">{% include "partials/billability_specialty_icon.html" with kind="team" %}</span></div>
+<div class="kc">{% include "partials/billability_specialty_icon.html" with kind="laptop" %}<div class="specialty-kpi-copy"><div class="kl">Libre en Dev</div><div class="kv{% if dev_free is not None and dev_free < 0 %} neg{% endif %}">{% if dev_free is not None %}{{ dev_free }}{% else %}—{% endif %}</div><div class="ke">{% if dev_free is not None and dev_free < 0 %}Déficit en Desarrollo{% else %}Personas equivalentes libres{% endif %}</div></div><span class="specialty-card-decoration" aria-hidden="true">{% include "partials/billability_specialty_icon.html" with kind="laptop" %}</span></div>
 </section>
 <section class="card">
-<h2>Por especialidad · {{ selected.label }}</h2>
-<div class="hs">HC T: personas vigentes en Bandas/rol con horas registradas; si falta la columna del mes, personas con horas de GSE. Capacidad: HC T × días hábiles × 8 h. Fijo: facturables AER ÷ capacidad. Variable: demás facturables ÷ capacidad que queda. Libre: personas equivalentes sin asignar (negativo = déficit).</div>
-<table>
+<div class="specialty-heading">{% include "partials/billability_specialty_icon.html" with kind="table" %}<div><h2>Por especialidad · {{ selected.label }}</h2>
+<div class="hs">HC T: personas vigentes en Bandas/rol con horas registradas; si falta la columna del mes, personas con horas de GSE. Capacidad: HC T × días hábiles × 8 h. Fijo: facturables AER ÷ capacidad. Variable: demás facturables ÷ capacidad que queda. Libre: personas equivalentes sin asignar (negativo = déficit).</div></div></div>
+<div class="specialty-scroll" role="region" aria-label="Facturabilidad por especialidad" tabindex="0"><table id="specialty-summary">
 <thead><tr><th>Especialidad</th><th>HC T</th><th>Capacidad</th><th>Hrs fijo</th><th>Fijo</th><th>Hrs variable</th><th>Variable</th><th>Libre</th></tr></thead>
 <tbody>
-{% for r in specialties %}<tr><td><b>{{ r.name }}</b></td><td class="g">{{ r.headcount }}</td><td>{{ r.capacity|floatformat:"0g" }}</td><td>{{ r.fixed_hours|floatformat:"0g" }}</td><td>{% if r.fixed_percent is not None %}{{ r.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ r.variable_hours|floatformat:"0g" }}</td><td>{% if r.variable_percent is not None %}{{ r.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td class="{% if r.free_fte < 0 %}df{% else %}fr{% endif %}">{{ r.free_fte }}</td></tr>
+{% for r in specialties %}<tr data-specialty="{{ r.name|lower }}"><td><b>{{ r.name }}</b></td><td class="g">{{ r.headcount }}</td><td>{{ r.capacity|floatformat:"0g" }}</td><td>{{ r.fixed_hours|floatformat:"0g" }}</td><td>{% if r.fixed_percent is not None %}{{ r.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ r.variable_hours|floatformat:"0g" }}</td><td>{% if r.variable_percent is not None %}{{ r.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{% if r.free_fte > 0 %}<span class="specialty-free positive">{{ r.free_fte }}</span>{% elif r.free_fte < 0 %}<span class="specialty-free negative">{{ r.free_fte }}</span>{% else %}{{ r.free_fte }}{% endif %}</td></tr>
 {% empty %}<tr><td class="bii-81a741" colspan="8">Sin datos de ese mes.</td></tr>{% endfor %}
 </tbody>
 <tfoot><tr><td>Total</td><td class="g">{{ headcount }}</td><td>{{ selected.capacity|floatformat:"0g" }}</td><td>{{ selected.fixed_hours|floatformat:"0g" }}</td><td>{% if selected.fixed_percent is not None %}{{ selected.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td>{{ selected.variable_hours|floatformat:"0g" }}</td><td>{% if selected.variable_percent is not None %}{{ selected.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td><td class="{% if selected.free_fte < 0 %}df{% endif %}">{{ selected.free_fte }}</td></tr></tfoot>
-</table>
+</table></div>
 </section>
 {% if selected.notice %}<p class="note">{{ selected.notice }}</p>{% endif %}
 <p class="note">Misma lógica que GSE · Horas por área: horas = registros de Clockify con categoría «Facturable»; fijo = las del servicio AER; variable = las demás (TYM, IXB, SaaS, RaaS y otras). Capacidad = personas vigentes en Bandas/rol con horas registradas × días hábiles (lunes a viernes sin festivos de México) × 8 h. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona en el mes; libre = lo que sobra. Por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM; cámbialo en «Áreas mostradas». La especialidad es el ROL de Bandas/rol. Las gráficas de evolución por trimestre se agregarán después.</p>

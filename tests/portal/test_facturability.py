@@ -176,3 +176,15 @@ def test_only_operational_areas_by_default():
     assert display_role("ROC") == "ROC"
     assert display_role("Plataforma") == "Plataforma"
     assert display_role("") == "Sin rol"
+
+
+def test_resource_baja_is_explicit_and_selected_month_only():
+    old = gse({"DEV": ["Ana", "Eva"]})
+    old["plantillaBajas"] = ["Eva"]
+    current = {"plantillaBajas": ["Ána"]}
+    rows = build_resources([("2026-08", old), ("2026-09", current)])
+    by_name = {row.name: row for row in rows}
+    assert by_name["Ana"].inactive is True
+    assert by_name["Eva"].inactive is False
+    assert by_name["Ana"].percents[-1] is None
+    assert not build_resources([("2026-08", old), ("2026-09", {})])[0].inactive

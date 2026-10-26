@@ -24,7 +24,7 @@ def reader(*rows):
     return InMemorySheetRepository({"DataRevenue": [HEADER, *rows]})
 
 
-def test_bookings_include_other_periods_but_collection_does_not(monkeypatch):
+def test_bookings_and_collection_use_the_selected_period(monkeypatch):
     from datetime import date
 
     from apps.portal.services.executive_period import ExecutivePeriod, _current
@@ -84,7 +84,7 @@ def test_bookings_include_other_periods_but_collection_does_not(monkeypatch):
         )
     finally:
         _current.reset(token)
-    assert row["bookings"] == 1000
+    assert row["bookings"] == 500
     assert row["revenue"] == row["invoiced"] == 500
     assert row["collected"] == 300
     assert row["operated_revenue"] == 500
@@ -613,3 +613,272 @@ def test_cost_detail_opens_opportunity_hierarchy_by_default(monkeypatch):
     )
     assert response.content == b"hierarchy"
     assert captured == ["Heineken Mexico"]
+
+
+def test_unformatted_sheet_percentages_above_one_keep_their_scale():
+    from decimal import Decimal
+
+    for raw, expected in [
+        (1.265, 126.5),
+        (Decimal("1.3023"), 130.23),
+        (1.7262, 172.62),
+        (0.6, 60),
+        (1, 100),
+        (0, 0),
+        (-0.171, -17.1),
+        (-1.265, -126.5),
+        ("126.5%", 126.5),
+    ]:
+        assert sold_percent(raw, fractional=True) == expected
+    assert sold_percent(None, fractional=True) is None
+    assert sold_percent(float("nan"), fractional=True) is None
+
+
+def test_aer_monthly_revenue_and_shared_cost_keep_margin_percent_scale():
+    from datetime import date
+
+    from apps.portal.services.executive_period import ExecutivePeriod, _current
+
+    cache.clear()
+    token = _current.set(
+        ExecutivePeriod(date(2026, 1, 1), date(2026, 12, 31), "anio")
+    )
+    try:
+        source_rows = []
+        for offset in range(24):
+            month = 2026 * 12 + 8 + offset
+            source_rows.append(
+                [
+                    "Collected" if offset < 12 else "Confirmed",
+                    "Aeromexico Cargo",
+                    "AER-MX-RAAS-010",
+                    "RaaS",
+                    "ROC.AEC.001",
+                    0,
+                    date(month // 12, month % 12 + 1, 23).isoformat(),
+                    615.6,
+                    1.265,
+                ]
+            )
+        source_rows.append(
+            [
+                "Collected",
+                "Aeromexico Cargo",
+                "OTHER",
+                "RaaS",
+                "ROC.AEC.001",
+                0,
+                "2026-01-01",
+                100,
+                "60%",
+            ]
+        )
+        cache.set(
+            key("ROC.AEC.001"),
+            {
+                "complete": False,
+                "cost": 3550.26,
+                "hours": 332.18,
+                "entries": {"shared-entry": 3550.26},
+            },
+        )
+        data = build_opportunities(reader(*source_rows))
+        row = next(
+            r for r in data["opportunities"] if r["name"] == "AER-MX-RAAS-010"
+        )
+        assert row["sold_margin"] == 126.5
+        assert row["bookings"] == 2462.4
+        assert row["revenue"] == row["invoiced"] == row["collected"] == 2462.4
+        assert row["cost"] == 3550.26
+        assert row["actual_margin"] == -44.18
+        assert row["deviation_pp"] == -170.68
+        assert row["allocation_pending"] is True
+        assert row["partial"] is True
+    finally:
+        _current.reset(token)
+        cache.clear()
+
+
+def test_bookings_use_inclusive_date_boundaries_and_switch_periods():
+    from datetime import date
+
+    from apps.portal.services.executive_period import ExecutivePeriod, _current
+
+    source = reader(
+        *[
+            ["Confirmed", "Acme", "OP", "RaaS", "DEV", 0, day, amount, "60%"]
+            for day, amount in [
+                ("2025-12-31", 999),
+                ("2026-01-01", 100),
+                ("2026-01-31", 200),
+                ("2026-02-01", 400),
+                ("2026-12-31", 800),
+                ("2027-01-01", 999),
+            ]
+        ]
+    )
+    for start, end, expected in [
+        (date(2026, 1, 1), date(2026, 12, 31), 1500),
+        (date(2026, 1, 1), date(2026, 1, 31), 300),
+        (date(2026, 2, 1), date(2026, 2, 1), 400),
+    ]:
+        token = _current.set(ExecutivePeriod(start, end, "rango"))
+        try:
+            row = build_opportunities(source)["opportunities"][0]
+            assert row["bookings"] == row["revenue"] == expected
+        finally:
+            _current.reset(token)
+
+
+def test_account_totals_deduplicate_shared_entries_and_weight_sold_margin():
+    cache.clear()
+    cache.set(
+        key("SHARED"),
+        {
+            "complete": True,
+            "cost": 100,
+            "hours": 10,
+            "entries": {"same-entry": 100},
+        },
+    )
+    source = reader(
+        [
+            "Collected",
+            "Acme",
+            "OP1",
+            "RaaS",
+            "SHARED",
+            0,
+            "2026-01-01",
+            100,
+            "40%",
+        ],
+        [
+            "Collected",
+            "Acme",
+            "OP2",
+            "RaaS",
+            "SHARED",
+            0,
+            "2026-01-01",
+            300,
+            "60%",
+        ],
+    )
+    result = build_opportunities(source)
+    account = result["accounts"][0]
+    assert account["bookings"] == account["period_revenue"] == 400
+    assert account["invoiced"] == account["collected"] == 400
+    assert sum(r["cost"] for r in result["opportunities"]) == 200
+    assert account["cost"] == 100
+    assert account["actual_margin"] == 75
+    assert account["sold_margin"] == 55
+    assert account["deviation_pp"] == 20
+    assert account["partial"] is False
+    cache.clear()
+
+
+def test_account_totals_deduplicate_overlapping_project_entries():
+    cache.clear()
+    cache.set(
+        key("PARENT"),
+        {
+            "complete": True,
+            "cost": 70,
+            "entries": {"common": 50, "other": 20},
+        },
+    )
+    cache.set(
+        key("CHILD"),
+        {
+            "complete": True,
+            "cost": 50,
+            "entries": {"common": 50},
+        },
+    )
+    source = reader(
+        [
+            "Collected",
+            "Acme",
+            "OP1",
+            "RaaS",
+            "PARENT",
+            0,
+            "2026-01-01",
+            100,
+            "40%",
+        ],
+        [
+            "Collected",
+            "Acme",
+            "OP2",
+            "RaaS",
+            "CHILD",
+            0,
+            "2026-01-01",
+            100,
+            "60%",
+        ],
+    )
+    account = build_opportunities(source)["accounts"][0]
+    assert account["cost"] == 70
+    assert account["actual_margin"] == 65
+    cache.clear()
+
+
+def test_account_partial_totals_keep_known_values_and_unknowns_distinct():
+    cache.clear()
+    cache.set(
+        key("KNOWN"),
+        {
+            "complete": False,
+            "cost": 20,
+            "entries": {"known": 20},
+        },
+    )
+    source = reader(
+        [
+            "Collected",
+            "Acme",
+            "OP1",
+            "RaaS",
+            "KNOWN",
+            0,
+            "2026-01-01",
+            100,
+            "40%",
+        ],
+        [
+            "Collected",
+            "Acme",
+            "OP2",
+            "RaaS",
+            "UNKNOWN",
+            0,
+            "2026-01-01",
+            100,
+            "",
+        ],
+        [
+            "Collected",
+            "Other",
+            "OP3",
+            "RaaS",
+            "OTHER",
+            0,
+            "2026-01-01",
+            100,
+            "60%",
+        ],
+    )
+    accounts = {
+        a["account"]: a for a in build_opportunities(source)["accounts"]
+    }
+    assert accounts["Acme"]["cost"] == 20
+    assert accounts["Acme"]["actual_margin"] == 90
+    assert accounts["Acme"]["sold_margin"] == 40
+    assert accounts["Acme"]["sold_partial"] is True
+    assert accounts["Acme"]["cost_partial"] is True
+    assert accounts["Other"]["cost"] is None
+    assert accounts["Other"]["actual_margin"] is None
+    cache.clear()

@@ -47,14 +47,18 @@ const PENDING = 'Pendiente';
  * @param {number | string | null | undefined} value
  */
 export function formatCompact(value) {
-  // La API manda los importes Decimal como texto ("1950326.71").
-  const number = typeof value === 'string' && value.trim() !== '' ? Number(value) : value;
-  if (number === null || number === undefined || !Number.isFinite(number)) return PENDING;
-  const size = Math.abs(number);
+  // Decimal amounts are serialized as strings by the finance API.
+  if (typeof value === 'string') {
+    const decimal = value.trim();
+    if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(decimal)) return PENDING;
+    value = Number(decimal);
+  }
+  if (typeof value !== 'number' || !Number.isFinite(value)) return PENDING;
+  const size = Math.abs(value);
   const unit = size >= 1e9 ? 1e9 : size >= 1e6 ? 1e6 : size >= 1e3 ? 1e3 : 1;
   const suffix = { 1e9: 'B', 1e6: 'M', 1e3: 'K', 1: '' }[unit];
   const precision = unit >= 1e6 ? 100 : 1;
-  const shown = Math.trunc((number / unit) * precision) / precision;
+  const shown = Math.trunc((value / unit) * precision) / precision;
   return shown.toLocaleString('en-US', { maximumFractionDigits: unit >= 1e6 ? 2 : 0 }) + suffix;
 }
 

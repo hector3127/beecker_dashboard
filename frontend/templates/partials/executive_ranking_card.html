@@ -1,5 +1,5 @@
 <section class="c p ranking-card {{ kind }}">
- <div class="ranking-heading"><div class="ranking-title"><h3>{{ title }} · {{ executive_label|default:2026 }}</h3><p>{% if kind == 'healthy' %}Mitad superior de las cuentas según el indicador seleccionado.{% else %}Mitad inferior de las cuentas según el indicador seleccionado.{% endif %} Hasta 5 resultados.</p></div><span class="ranking-count" id="{{ kind }}-account-count" aria-live="polite">Consultando</span></div>
+ <div class="ranking-heading"><div class="ranking-title"><h3>{{ title }}</h3><p class="portal-sr-only">{% if kind == 'healthy' %}Mitad superior de las cuentas según el indicador seleccionado.{% else %}Mitad inferior de las cuentas según el indicador seleccionado.{% endif %} Hasta 5 resultados.</p></div><span class="ranking-count" id="{{ kind }}-account-count" aria-live="polite">Consultando</span></div>
  <div class="ranking-scroll" tabindex="0" role="region" aria-label="{{ title }}"><table>
   <caption class="portal-sr-only">{{ title }}. Ordena mediante los encabezados.</caption>
   <thead><tr><th scope="col">#</th><th scope="col">Cuenta</th>

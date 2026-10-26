@@ -294,6 +294,13 @@ def build_resources(
 
         by_month.append((person_month_hours(month, today), billed))
 
+    # Solo una baja explícita del mes seleccionado marca el nombre.
+    # Ausencia de horas o de banda no significa baja.
+    bajas = {
+        normalize_capacity_text(name)
+        for name in (months[-1][1].get("plantillaBajas") or [])
+    } if months else set()
+
     rows = [
         ResourceRow(
             name=name,
@@ -305,6 +312,7 @@ def build_resources(
                 )
             ),
             average=average(percents),
+            inactive=key in bajas,
         )
         for key, (name, role) in names.items()
     ]

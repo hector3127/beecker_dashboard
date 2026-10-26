@@ -188,6 +188,7 @@ class ClockifyTimeEntryLoader:
         self,
         internal_id: str,
         custom_range: tuple[date, date] | None = None,
+        full_span: bool = False,
     ) -> list[TimeEntry]:
         """
         Descarga las horas de un solo proyecto.
@@ -198,6 +199,7 @@ class ClockifyTimeEntryLoader:
             internal_id: ID interno del proyecto.
             custom_range: Inicio y fin; si no se da, se usa el rango del
                 proyecto (MPB o Historico_Proyectos).
+            full_span: Con filas repetidas en MPB, abarca todas.
 
         Returns:
             Los registros del proyecto en el rango.
@@ -206,10 +208,12 @@ class ClockifyTimeEntryLoader:
             ClockifyProjectError: Cuando falta el rango o el proyecto.
         """
         if custom_range is None:
-            date_range = ProjectDateRangeResolver(
-                self._reader,
-                self._today,
-            ).resolve(internal_id)
+            resolver = ProjectDateRangeResolver(self._reader, self._today)
+            date_range = (
+                resolver.resolve_full(internal_id)
+                if full_span
+                else resolver.resolve(internal_id)
+            )
         else:
             date_range = ProjectDateRange(
                 custom_range[0],

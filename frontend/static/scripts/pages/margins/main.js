@@ -81,7 +81,7 @@ function render(body) {
   /** @type {HTMLInputElement} */ (dates.elements.namedItem('hasta')).value = meta.end;
   clearState(content);
   content.append(renderMethod(meta.excluded), ...renderSummary(data.summary));
-  const results = renderResults(data.opportunities);
+  const results = renderResults(data.opportunities, data.accounts || []);
   content.append(results);
   bindPeople(results, filters);
   if (meta.preparing) {

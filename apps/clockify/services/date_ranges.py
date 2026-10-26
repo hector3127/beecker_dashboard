@@ -77,6 +77,20 @@ class ProjectDateRangeResolver:
 
         return self._resolve_from_history(project_id)
 
+    def resolve_full(self, project_id: str) -> ProjectDateRange:
+        """
+        Como resolve(), pero abarca todas las filas de MPB con el mismo ID.
+
+        Un proyecto puede tener una fila terminada y otra en curso; el
+        rango normal toma solo la primera y deja fuera horas reales.
+        """
+        if cr_nomenclature(project_id) or not (
+            project_id.strip().upper().startswith(MPB_PROJECT_PREFIXES)
+        ):
+            return self.resolve(project_id)
+
+        return self._resolve_from_mpb(project_id, union=True)
+
     def resolve_from_history(self, project_id: str) -> ProjectDateRange:
         """
         Rango Discovery -> Deployment de Historico_Proyectos A:I.
@@ -93,7 +107,7 @@ class ProjectDateRangeResolver:
         return self._resolve_from_history(project_id)
 
     def _resolve_from_mpb(
-        self, project_id: str, any_service: bool = False
+        self, project_id: str, union: bool = False, any_service: bool = False
     ) -> ProjectDateRange:
         """
         Lee INICIO y FIN de la hoja MPB.
@@ -148,9 +162,7 @@ class ProjectDateRangeResolver:
         if matches:
             starts = [m.start_date for m in matches if m.start_date]
             ends = [m.end_date for m in matches if m.end_date]
-            if starts and ends:
-                # Un ID puede estar repetido (una fila terminada y otra en
-                # curso): se abarcan todas para no perder horas.
+            if union and starts and ends:
                 return ProjectDateRange(min(starts), max(ends), SHEET_MPB)
             return matches[0]
 
@@ -180,8 +192,8 @@ class ProjectDateRangeResolver:
         return ProjectDateRange(None, None, SHEET_MPB)
 
     def _mpb_fallback(self, project_id: str, source: str) -> ProjectDateRange:
-        """Sin etapas en el historico, el rango de MPB (cualquier servicio)."""
-        found = self._resolve_from_mpb(project_id, any_service=True)
+        """Use MPB only when the historical stages provide no start."""
+        found = self._resolve_from_mpb(project_id, union=True, any_service=True)
         if found.start_date is None:
             return ProjectDateRange(None, None, source)
         return found
