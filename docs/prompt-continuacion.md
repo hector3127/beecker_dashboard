@@ -10,7 +10,17 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
-**Último bloque: Capacidad diaria sobre ad14366.** Leer
+**Último bloque: Facturabilidad por área sobre 3a8ae34.** Leer
+`docs/retiro-facturabilidad-area.md`. Retiradas plantilla/CSS/JS anteriores;
+modelo, fuentes, contexto/año/CSRF/permisos intactos. Dieciocho referencias
+de apartados y área DEV a 1450/900/390 px pasan con CSP de prueba. Salidas del
+modelo ANTERIOR guardadas antes de borrar mantienen comparación (12 variantes,
+144 meses, 13 KPI). 1729 servidor, 54 Chrome y 502 Node pasan; dos tests RPC retirados se
+cubren en navegador. Evidencia servidor en el informe. No recrear archivos;
+quedan 18 HTML/30 estáticos. Continuar otras comparaciones y CSP sin activar
+bloqueo/accesos globales ni retirar servicios/shim todavía usados. Sin push.
+
+**Bloque previo: Capacidad diaria sobre ad14366.** Leer
 `docs/retiro-capacidad-diaria.md`. Retirados vista/plantilla/CSS/JS anteriores;
 datos, fuentes y reglas de 834bbfa intactos. Ocho salidas del modelo ANTERIOR
 guardadas antes de borrar y seis referencias de matriz/recursos conservan

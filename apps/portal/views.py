@@ -1148,13 +1148,13 @@ def _read_capacity_filters(request: HttpRequest) -> CapacityFilters:
 @ensure_csrf_cookie
 @require_capability("view_operations", whole_portfolio=True)
 def facturabilidad_area(request: HttpRequest) -> HttpResponse:
-    """Muestra GSE con la plantilla modular o la anterior de comparación."""
+    """Muestra GSE con la plantilla modular y el contexto original."""
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
     period = _period(request)
     return render_page(
         request,
-        "portal/facturabilidad_area.html",
+        "pages/billability_area.html",
         {
             "active": "operativa",
             "area_year": period.end_month[:4],

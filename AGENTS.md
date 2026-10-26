@@ -23,6 +23,16 @@ Reglas que no se negocian:
 
 ## Estado vigente: fase 10 completada (26/10/2026)
 
+Bloque más reciente: Facturabilidad por área, base 3a8ae34. Retiradas su
+plantilla/CSS/JS anteriores; `_current` conserva contexto, año, CSRF y permisos.
+Dieciocho referencias de los cinco apartados y área DEV a 1450/900/390 px
+pasan con CSP de prueba. El modelo actual compara salidas del script anterior
+guardadas ANTES de borrar (12 variantes/144 meses y 13 KPI), sin cambios de
+cálculo. 1729 servidor, 54 Chrome y 502 Node pasan; dos tests RPC retirados se cubren en
+navegador. Ver `docs/retiro-facturabilidad-area.md` para evidencia completa.
+Quedan 18 HTML/30 estáticos portal. Fase 11 abierta; sin push ni activar CSP
+global/accesos. Conservar otros consumidores del shim y temporales ajenos.
+
 Bloque más reciente: Capacidad diaria sin plantilla/CSS/JS anteriores ni vista
 de comparación, sobre ad14366. Las fuentes y reglas de 834bbfa no cambian.
 Ocho escenarios del modelo anterior se capturaron antes del retiro y se

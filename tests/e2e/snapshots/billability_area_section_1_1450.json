@@ -1,0 +1,382 @@
+{
+  ".pgh": [
+    {
+      "box": [
+        28,
+        136,
+        1394,
+        108.8
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px 26px",
+        "0px 0px 14px",
+        "rgb(255, 255, 255)",
+        "none"
+      ]
+    }
+  ],
+  ".tabs": [
+    {
+      "box": [
+        28,
+        258.8,
+        1394,
+        51
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "6px",
+        "0px 0px 14px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    }
+  ],
+  ".gm-hero": [
+    {
+      "box": [
+        46,
+        341.8,
+        1358,
+        54
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "0px 0px 18px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ],
+  ".gse-tools": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "16px 0px",
+        "rgb(23, 23, 73)",
+        "rgba(48, 36, 119, 0.03) 0px 5px 20px 0px"
+      ]
+    },
+    {
+      "box": [
+        69,
+        520,
+        1312,
+        56
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "16px 0px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ],
+  ".gm-kpi": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    }
+  ],
+  ".gm-card": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "12px",
+        "400",
+        "16px",
+        "14px 0px 0px",
+        "rgb(119, 112, 150)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    }
+  ],
+  ".gm-table": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": "Área / ConceptoEneFebMarAbrMayJunJulAgoSepOctNovDicTotal Calendario01-0101-0201-0301-0401-0501-0601-0701-0801-0901-1001-1101-122,026Días laborables211921222022232121222022254Horas por recurso1681521681761601761841681681761601762,032› DEV8420NANANANANANANANANANA104› QA042NANANANANANANANANANA42Σ Total general8462NANANANANANANANANANA146% Facturabilidad global50%13.82%NANANANANANANANANANA26.69%",
+      "css": [
+        "13.5px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    }
+  ],
+  ".gse-resource-dialog": [
+    {
+      "box": [
+        46,
+        413.8,
+        1358,
+        528.6
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "22px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ],
+  ".gse-resource-table": [
+    {
+      "box": [
+        70,
+        593,
+        1900,
+        217
+      ],
+      "text": "RECURSO\tBANDA\tCATEGORÍA\tTIPO DE PROYECTO\tPROYECTO\tENERO\tFEBRERO\tMARZO\tABRIL\tMAYO\tJUNIO\tJULIO\tAGOSTO\tSEPTIEMBRE\tOCTUBRE\tNOVIEMBRE\tDICIEMBRE\tTOTAL HORAS\tSERVICIO\nANA\tSenior\tFacturable\tFacturable\tAER.1\t84\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\t84\tAER\nANA\tSenior\tVacaciones\tNo Facturables\tIXB.2\t0\t20\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\t20\tIxB\nEVA\tBaja\tInversión Operaciones\tFacturable\tTYM.3\t0\t42\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\t42\tTYM\nTOTAL DE FILAS FILTRADAS\t\t\t84\t62\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\t146\t",
+      "css": [
+        "13.5px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    }
+  ],
+  ".gpr-table": [],
+  ".ghr-kpi": [],
+  ".ghr-table": [],
+  "#gse-section-content": [
+    {
+      "box": [
+        46,
+        413.8,
+        1358,
+        528.6
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ]
+}

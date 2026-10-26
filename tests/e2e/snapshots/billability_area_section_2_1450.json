@@ -1,0 +1,585 @@
+{
+  ".pgh": [
+    {
+      "box": [
+        28,
+        136,
+        1394,
+        108.8
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px 26px",
+        "0px 0px 14px",
+        "rgb(255, 255, 255)",
+        "none"
+      ]
+    }
+  ],
+  ".tabs": [
+    {
+      "box": [
+        28,
+        258.8,
+        1394,
+        51
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "6px",
+        "0px 0px 14px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    }
+  ],
+  ".gm-hero": [
+    {
+      "box": [
+        46,
+        341.8,
+        1358,
+        54
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "0px 0px 18px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ],
+  ".gse-tools": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "16px 0px",
+        "rgb(23, 23, 73)",
+        "rgba(48, 36, 119, 0.03) 0px 5px 20px 0px"
+      ]
+    },
+    {
+      "box": [
+        69,
+        520,
+        1312,
+        56
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "16px 0px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ],
+  ".gm-kpi": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        69,
+        592,
+        319,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        400,
+        592,
+        319,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        731,
+        592,
+        319,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        1062,
+        592,
+        319,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    }
+  ],
+  ".gm-card": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "12px",
+        "400",
+        "16px",
+        "14px 0px 0px",
+        "rgb(119, 112, 150)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        69,
+        798,
+        429.3,
+        328.7
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        510.3,
+        798,
+        429.3,
+        328.7
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        951.7,
+        798,
+        429.3,
+        328.7
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        69,
+        1140.6,
+        680.9,
+        158
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "12px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        761.9,
+        1140.6,
+        619.1,
+        264
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "12px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        761.9,
+        1416.6,
+        619.1,
+        177
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "12px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    }
+  ],
+  ".gm-table": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": "Área / ConceptoEneFebMarAbrMayJunJulAgoSepOctNovDicTotal Calendario01-0101-0201-0301-0401-0501-0601-0701-0801-0901-1001-1101-122,026Días laborables211921222022232121222022254Horas por recurso1681521681761601761841681681761601762,032› DEV8420NANANANANANANANANANA104› QA042NANANANANANANANANANA42Σ Total general8462NANANANANANANANANANA146% Facturabilidad global50%13.82%NANANANANANANANANANA26.69%",
+      "css": [
+        "13.5px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    },
+    {
+      "box": [
+        82,
+        1188.6,
+        1065.6,
+        97
+      ],
+      "text": "EMPLEADO\tFACTURABLE\tNO FACTURABLE\tINV. OPERATIVA\tINV. COMERCIAL\tSIN CLASIFICAR\tREGISTRADAS H\tTOTAL HRS (CAPACIDAD)\t% ÚTIL\nANA\t84\t20\t0\t0\t0\t104\t320\t26.25%\nEVA\t42\t0\t42\t0\t0\t42\t152\t27.63%",
+      "css": [
+        "10px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    },
+    {
+      "box": [
+        774.9,
+        1188.6,
+        650,
+        203
+      ],
+      "text": "SERVICIO / MES\tENE\tFEB\tMAR\tABR\tMAY\tJUN\tJUL\tAGO\tSEP\tOCT\tNOV\tDIC\nAER\t84\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nTYM\t0\t42\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nIXB\t0\t20\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nSAAS\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nRAAS\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nOTROS\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA",
+      "css": [
+        "10px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    },
+    {
+      "box": [
+        774.9,
+        1464.6,
+        650,
+        116
+      ],
+      "text": "EMPLEADO / MES\tENE\tFEB\tMAR\tABR\tMAY\tJUN\tJUL\tAGO\tSEP\tOCT\tNOV\tDIC\nANA\t50%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nEVA\t0%\t27.63%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nOBJETIVO EDITABLE\t80%\t80%\t80%\t80%\t80%\t80%\t80%\t80%\t80%\t80%\t80%\t80%",
+      "css": [
+        "10px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    }
+  ],
+  ".gse-resource-dialog": [
+    {
+      "box": [
+        46,
+        413.8,
+        1358,
+        1312.8
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "22px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ],
+  ".gse-resource-table": [],
+  ".gpr-table": [],
+  ".ghr-kpi": [],
+  ".ghr-table": [],
+  "#gse-section-content": [
+    {
+      "box": [
+        46,
+        413.8,
+        1358,
+        1312.8
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ]
+}

@@ -2,7 +2,26 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: Capacidad diaria, base ad14366 (26/10)
+## Bloque actual: Facturabilidad por área, base 3a8ae34 (26/10)
+
+- Retiradas plantilla/CSS/JS anteriores; entrada y respaldo Python sirven
+  frontend con el mismo año/contexto/CSRF/permisos. Sin cambiar modelo GSE,
+  servicios, fuentes ni fórmulas. `vista=anterior` conserva pantalla vigente.
+- Salidas completas del script anterior capturadas antes de borrar: doce
+  variantes, 144 agregados mensuales/días laborables, recursos/bajas y trece
+  KPI. Tests del modelo actual conservan comparación sin el script retirado.
+- Dieciocho referencias de apartados/área DEV a 1450/900/390 px pasan con CSP
+  real en pruebas. Diecisiete PNG idénticos; General 900 solo cambia color
+  hasta 2/255, con cajas/estilos/textos exactos. Revisado visualmente.
+- 1729 servidor, 54 Chrome y 502 Node aprobadas; dos tests del controlador RPC retirado
+  quedan cubiertos por metadatos/año/error/reintento en navegador. CSV y
+  filtros se prueban con/sin parámetro obsoleto; tres casos adicionales de
+  permisos. Servidor y comandos en `docs/retiro-facturabilidad-area.md`.
+- Quedan 18 HTML/30 estáticos portal. Continuar otras comparaciones/CSP sin
+  retirar otros consumidores del shim ni activar política/accesos globales.
+  Temporales ajenos intactos; sin push. Fase 11 sigue abierta.
+
+## Bloque previo: Capacidad diaria, base ad14366 (26/10)
 
 - Retiradas vista/entrada anterior, plantilla y CSS/JS de Capacidad diaria.
   No se cambian servicios, fuentes Histórico/Azure, horas ni modelo vigente.

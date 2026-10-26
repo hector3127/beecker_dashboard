@@ -5,9 +5,8 @@ import pytest
 
 @pytest.mark.parametrize("previous", [False, True])
 def test_area_page_uses_portal_navigation_and_keeps_selected_year(
-    client, monkeypatch, previous
+    client, previous
 ):
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
     response = client.get(
         "/operativa/facturabilidad/area/",
         {
@@ -20,12 +19,9 @@ def test_area_page_uses_portal_navigation_and_keeps_selected_year(
     html = response.content.decode()
     assert 'data-year="2025"' in html
     assert "csrftoken" in response.cookies
-    if previous:
-        assert "portal/js/facturabilidad_area.js" in html
-        assert "core/js/gas_shim.js" in html
-    else:
-        assert "app/scripts/pages/billability_area/main.js" in html
-        assert "core/js/gas_shim.js" not in html
+    assert "app/scripts/pages/billability_area/main.js" in html
+    assert "portal/js/facturabilidad_area.js" not in html
+    assert "core/js/gas_shim.js" not in html
     assert "Panel anterior" not in html
     assert "ciMontarGSE" not in html
     tabs = html.split('<div class="tabs">', 1)[1].split("</div>", 1)[0]

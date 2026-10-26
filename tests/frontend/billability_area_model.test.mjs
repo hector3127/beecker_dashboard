@@ -1,30 +1,18 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import {
   createModel,
   baseApply,
   baseSnapshot,
 } from "../../frontend/static/scripts/pages/billability_area/model.js";
 
-const source = fs.readFileSync(
-  "apps/portal/static/portal/js/facturabilidad_area.js",
-  "utf8",
+const reference = JSON.parse(
+  fs.readFileSync(
+    new URL("./snapshots/billability_area_model.json", import.meta.url),
+    "utf8",
+  ),
 );
-function previous() {
-  const context = {
-    window: {},
-    document: { getElementById: () => ({ dataset: { year: "2026" } }) },
-  };
-  const end = source.lastIndexOf("\n})();");
-  const hook = `globalThis.old={state,aggregate,workdays,kpis:gseKPIMetrics,resourceRows,bajas:gseBajaSet,baseApply,basePublish,
-    filters(person,month){kpiPerson=person;kpiMonth=month;},
-    silent(){render=()=>{};keepLoadedGSE=()=>{};}};`;
-  vm.runInNewContext(source.slice(0, end) + hook + "\n})();", context);
-  context.old.silent();
-  return context.old;
-}
 function plain(value) {
   return JSON.parse(
     JSON.stringify(value, (_, v) => {
@@ -90,9 +78,7 @@ const records = [
 ];
 
 test("annual batches preserve deduplication, partial months and unknown categories", () => {
-  const old = previous(),
-    a = job(),
-    b = job();
+  const b = job();
   for (const [index, warning] of ["", "Catálogo no disponible"].entries()) {
     const batch = {
       ok: true,
@@ -105,13 +91,11 @@ test("annual batches preserve deduplication, partial months and unknown categori
       invalid: 1,
       unmatched: 2,
     };
-    old.baseApply(a, batch);
     baseApply(b, batch);
-    old.basePublish(a, 2);
-    assert.deepEqual(plain(baseSnapshot(b, 2)), plain(old.state.data));
+    assert.deepEqual(plain(baseSnapshot(b, 2)), reference.batches[index]);
     assert.equal(b.seen.size, 3);
-    assert.equal(b.invalid, a.invalid);
-    assert.equal(b.unmatched, a.unmatched);
+    assert.equal(b.invalid, index + 1);
+    assert.equal(b.unmatched, (index + 1) * 2);
   }
   assert.throws(
     () => baseApply(b, { ok: false, error: "Falló Sheets" }),
@@ -120,8 +104,7 @@ test("annual batches preserve deduplication, partial months and unknown categori
 });
 
 test("resource identities, bands, categories and KPI weights match the original model", () => {
-  const old = previous(),
-    batch = job();
+  const batch = job();
   baseApply(batch, {
     ok: true,
     records,
@@ -141,25 +124,30 @@ test("resource identities, bands, categories and KPI weights match the original 
   };
   const selection = { kpiPerson: "", kpiMonth: -1 },
     model = createModel(state, selection);
+  let variant = 0;
   for (const area of ["", "DEV", "QA"])
     for (const day of [6, 8])
       for (const month of [-1, 1]) {
         Object.assign(state, { area, day });
         selection.kpiMonth = month;
-        Object.assign(old.state, state);
-        old.filters("", month);
         for (let i = 0; i < 12; i++) {
-          assert.deepEqual(plain(model.aggregate(i)), plain(old.aggregate(i)));
-          assert.equal(model.workdays(i), old.workdays(i));
+          assert.deepEqual(
+            plain(model.aggregate(i)),
+            reference.aggregates[variant * 12 + i],
+          );
+          assert.equal(model.workdays(i), reference.workdays[variant * 12 + i]);
         }
-        assert.deepEqual(plain(model.kpis()), plain(old.kpis()));
+        assert.deepEqual(plain(model.kpis()), reference.kpis[variant]);
         assert.deepEqual(
           plain(model.resourceRows()),
-          plain(old.resourceRows()),
+          reference.resources[variant],
         );
-        assert.deepEqual(plain(model.bajas()), plain(old.bajas()));
+        assert.deepEqual(plain(model.bajas()), reference.bajas[variant]);
+        variant++;
       }
   selection.kpiPerson = "ana perez";
-  old.filters("ana perez", 1);
-  assert.deepEqual(plain(model.kpis()), plain(old.kpis()));
+  assert.equal(variant, 12);
+  assert.equal(reference.kpis.length, 13);
+  assert.equal(reference.aggregates.length, 144);
+  assert.deepEqual(plain(model.kpis()), reference.kpis[variant]);
 });

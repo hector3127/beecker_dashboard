@@ -1,4 +1,4 @@
-"""GSE por área: mismo conjunto de datos en la vista anterior y la modular."""
+"""GSE por área: referencias aprobadas, filtros y transporte modular."""
 
 from pathlib import Path
 
@@ -101,7 +101,6 @@ def area(monkeypatch, datos):
             return {"ok": True}
 
     monkeypatch.setattr("apps.gse.rpc.build_result_cache", Cache)
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
     return calls
 
 
@@ -114,10 +113,11 @@ def load(page):
     expect(page.locator("#gse-status")).to_contain_text("Base leída")
 
 
-def test_general_sections_filters_and_exports(portal, area):
+@pytest.mark.parametrize("previous", [False, True])
+def test_general_sections_filters_and_exports(portal, area, previous):
     errors = []
     portal.on("pageerror", lambda e: errors.append(str(e)))
-    portal.goto(portal.base + PAGE)
+    portal.goto(portal.base + PAGE + ("&vista=anterior" if previous else ""))
     ready(portal)
     assert portal.locator("script[src*='gas_shim']").count() == 0
     load(portal)
@@ -153,12 +153,17 @@ def test_general_sections_filters_and_exports(portal, area):
     assert not errors
 
 
-@pytest.mark.parametrize("width", [1450, 390])
+@pytest.mark.parametrize("width", [1450, 900, 390])
 @pytest.mark.parametrize(
     "section",
     ["General", "Detalle recurso", "KPIs", "% Recurso", "Detalle HRS"],
 )
-def test_matches_previous(portal, area, width, section):
+def test_section_keeps_approved_reference(
+    portal, area, width, section, snapshot, enforced_csp
+):
+    from tests.e2e.conftest import watch
+
+    problems = watch(portal)
     portal.set_viewport_size({"width": width, "height": 1000})
     selectors = [
         ".pgh",
@@ -195,55 +200,70 @@ def test_matches_previous(portal, area, width, section):
     )
     output.mkdir(parents=True, exist_ok=True)
     results = []
-    for mode in ["previous", "current"]:
-        # La navegación anterior se oculta por CSS en pantallas pequeñas.
-        # Seleccionamos el apartado en escritorio antes de medirlo en móvil.
-        portal.set_viewport_size({"width": 1450, "height": 1000})
-        portal.goto(
-            portal.base
-            + PAGE
-            + ("&vista=anterior" if mode == "previous" else "")
-        )
-        ready(portal)
-        load(portal)
-        portal.locator(".gse-sections button").filter(has_text=section).click()
-        portal.set_viewport_size({"width": width, "height": 1000})
-        portal.mouse.move(0, 0)
-        results.append(measure())
-        portal.screenshot(path=str(output / (mode + ".png")), full_page=True)
-    for selector, before, after in zip(selectors, *results, strict=True):
-        assert before == after, (selector, before, after)
+    # La navegación anterior se oculta por CSS en pantallas pequeñas.
+    # Seleccionamos el apartado en escritorio antes de medirlo en móvil.
+    portal.set_viewport_size({"width": 1450, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    ready(portal)
+    load(portal)
+    portal.locator(".gse-sections button").filter(has_text=section).click()
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.mouse.move(0, 0)
+    results.append(measure())
+    portal.screenshot(path=str(output / "current.png"), full_page=True)
+    key = [
+        "General",
+        "Detalle recurso",
+        "KPIs",
+        "% Recurso",
+        "Detalle HRS",
+    ].index(section)
+    snapshot(
+        f"billability_area_section_{key}_{width}",
+        dict(zip(selectors, results[0], strict=True)),
+    )
+    assert not problems
 
 
-@pytest.mark.parametrize("width", [1450, 390])
-def test_selected_area_matches_previous(portal, area, width):
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_selected_area_keeps_approved_reference(
+    portal, area, width, snapshot, enforced_csp
+):
+    from tests.e2e.conftest import watch
+
+    problems = watch(portal)
     portal.set_viewport_size({"width": width, "height": 1000})
     output = Path(f"tmp/migration/billability_area/{width}/selected")
     output.mkdir(parents=True, exist_ok=True)
     results = []
-    for mode in ["previous", "current"]:
-        portal.goto(
-            portal.base
-            + PAGE
-            + ("&vista=anterior" if mode == "previous" else "")
-        )
-        ready(portal)
-        load(portal)
-        portal.locator("#gse-area").select_option("DEV")
-        expect(portal.locator(".ga-kpis")).to_contain_text("104")
-        portal.mouse.move(0, 0)
-        results.append(
-            portal.evaluate("""()=>{
-          const selectors=['.ga-kpi','.ga-charts','.ga-holidays','.ga-report'];
-          return selectors.map(s=>[...document.querySelectorAll(s)].map(el=>{
-            const b=el.getBoundingClientRect(),c=getComputedStyle(el);
-            return {box:[b.x,b.y,b.width,b.height].map(v=>Math.round(v*10)/10),
-              css:[c.fontSize,c.color,c.padding]};
-          })).concat([document.querySelector('.ga-table').innerText]);
-        }""")
-        )
-        portal.screenshot(path=str(output / (mode + ".png")), full_page=True)
-    assert results[0] == results[1]
+    portal.goto(portal.base + PAGE)
+    ready(portal)
+    load(portal)
+    portal.locator("#gse-area").select_option("DEV")
+    expect(portal.locator(".ga-kpis")).to_contain_text("104")
+    portal.mouse.move(0, 0)
+    results.append(
+        portal.evaluate("""()=>{
+      const selectors=['.ga-kpi','.ga-charts','.ga-holidays','.ga-report'];
+      return selectors.map(s=>[...document.querySelectorAll(s)].map(el=>{
+        const b=el.getBoundingClientRect(),c=getComputedStyle(el);
+        return {box:[b.x,b.y,b.width,b.height].map(v=>Math.round(v*10)/10),
+          css:[c.fontSize,c.color,c.padding]};
+      })).concat([document.querySelector('.ga-table').innerText]);
+    }""")
+    )
+    portal.screenshot(path=str(output / "current.png"), full_page=True)
+    snapshot(f"billability_area_selected_{width}", {"state": results[0]})
+    assert not problems
+
+
+def test_initial_load_reads_only_metadata_and_keeps_year(portal, area):
+    portal.goto(portal.base + PAGE.replace("2026", "2025"))
+    ready(portal)
+    expect(portal.locator("#gse-year")).to_have_value("2025")
+    expect(portal.locator("#gse-load")).to_be_enabled()
+    assert portal.locator("#gse-area option[value='DEV']").count() == 1
+    assert not area
 
 
 def test_area_day_holidays_filters_and_force(portal, area):

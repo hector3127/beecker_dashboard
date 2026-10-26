@@ -1,0 +1,329 @@
+{
+  ".pgh": [
+    {
+      "box": [
+        28,
+        136,
+        1394,
+        108.8
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px 26px",
+        "0px 0px 14px",
+        "rgb(255, 255, 255)",
+        "none"
+      ]
+    }
+  ],
+  ".tabs": [
+    {
+      "box": [
+        28,
+        258.8,
+        1394,
+        51
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "6px",
+        "0px 0px 14px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    }
+  ],
+  ".gm-hero": [
+    {
+      "box": [
+        46,
+        341.8,
+        1358,
+        54
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "0px 0px 18px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ],
+  ".gse-tools": [
+    {
+      "box": [
+        46,
+        413.8,
+        1358,
+        85
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "16px 0px",
+        "rgb(23, 23, 73)",
+        "rgba(48, 36, 119, 0.03) 0px 5px 20px 0px"
+      ]
+    }
+  ],
+  ".gm-kpi": [
+    {
+      "box": [
+        46,
+        593,
+        182.8,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        238.8,
+        593,
+        182.8,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        431.6,
+        593,
+        182.8,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        624.4,
+        593,
+        182.8,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        817.3,
+        593,
+        182.8,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        1010.1,
+        593,
+        182.8,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        1202.9,
+        593,
+        201.1,
+        131
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "13px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    }
+  ],
+  ".gm-card": [
+    {
+      "box": [
+        46,
+        739,
+        1008,
+        290
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        1068,
+        739,
+        336,
+        303
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        1068,
+        1056,
+        336,
+        123
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        1068,
+        1193,
+        336,
+        136
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "16px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    },
+    {
+      "box": [
+        46,
+        1343,
+        1358,
+        57
+      ],
+      "text": null,
+      "css": [
+        "12px",
+        "400",
+        "16px",
+        "14px 0px 0px",
+        "rgb(119, 112, 150)",
+        "rgba(41, 33, 109, 0.016) 0px 4px 16px 0px"
+      ]
+    }
+  ],
+  ".gm-table": [
+    {
+      "box": [
+        47,
+        794,
+        1006,
+        234
+      ],
+      "text": "ÁREA / CONCEPTO\tENE\tFEB\tMAR\tABR\tMAY\tJUN\tJUL\tAGO\tSEP\tOCT\tNOV\tDIC\tTOTAL\n CALENDARIO\t01-01\t01-02\t01-03\t01-04\t01-05\t01-06\t01-07\t01-08\t01-09\t01-10\t01-11\t01-12\t2,026\nDÍAS LABORABLES\t21\t19\t21\t22\t20\t22\t23\t21\t21\t22\t20\t22\t254\nHORAS POR RECURSO\t168\t152\t168\t176\t160\t176\t184\t168\t168\t176\t160\t176\t2,032\n\n›\nDEV\n\t84\t20\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\t104\n\n›\nQA\n\t0\t42\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\t42\nΣ TOTAL GENERAL\t84\t62\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\t146\n% FACTURABILIDAD GLOBAL\t50%\t13.82%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\t26.69%",
+      "css": [
+        "13.5px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(27, 26, 107)",
+        "none"
+      ]
+    }
+  ],
+  ".gse-resource-dialog": [],
+  ".gse-resource-table": [],
+  ".gpr-table": [],
+  ".ghr-kpi": [],
+  ".ghr-table": [],
+  "#gse-section-content": [
+    {
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": null,
+      "css": [
+        "16px",
+        "400",
+        "0px",
+        "0px",
+        "rgb(23, 23, 73)",
+        "none"
+      ]
+    }
+  ]
+}

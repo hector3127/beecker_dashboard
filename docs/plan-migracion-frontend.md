@@ -7,6 +7,17 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — Facturabilidad por área, base 3a8ae34 (26/10).** Retiradas su
+plantilla/CSS/JS anteriores; contexto, año, CSRF, datos y permisos intactos.
+Dieciocho snapshots de diseño vigente registrados ANTES del retiro pasan
+con CSP aplicada. Diecisiete PNG idénticos y uno con variación de color de
+hasta 2/255, sin cambios de cajas/estilos/texto. Salidas del modelo anterior
+congeladas (12 variantes/144 meses/13 KPI) preservan comparación de cálculos.
+1729 servidor, 54 Chrome y 502 Node pasan; la cobertura de dos tests RPC retirados continúa
+en navegador, sin omisiones. Detalles y servidor en
+`docs/retiro-facturabilidad-area.md`. Quedan 18 HTML/30 estáticos portal;
+fase 11 sigue abierta, sin activar CSP global/accesos ni hacer push.
+
 **Fase 11 — Capacidad diaria, base ad14366 (26/10).** Retiradas plantilla,
 CSS/JS y vista anteriores; fuentes Histórico/Azure y modelo vigente intactos.
 Ocho salidas del modelo anterior capturadas antes del retiro conservan la

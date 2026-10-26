@@ -1,0 +1,130 @@
+{
+  "state": [
+    [
+      {
+        "box": [
+          46,
+          550,
+          218,
+          141
+        ],
+        "css": [
+          "16px",
+          "rgb(23, 23, 73)",
+          "13px"
+        ]
+      },
+      {
+        "box": [
+          274,
+          550,
+          218,
+          141
+        ],
+        "css": [
+          "16px",
+          "rgb(23, 23, 73)",
+          "13px"
+        ]
+      },
+      {
+        "box": [
+          502,
+          550,
+          218,
+          141
+        ],
+        "css": [
+          "16px",
+          "rgb(23, 23, 73)",
+          "13px"
+        ]
+      },
+      {
+        "box": [
+          730,
+          550,
+          218,
+          141
+        ],
+        "css": [
+          "16px",
+          "rgb(23, 23, 73)",
+          "13px"
+        ]
+      },
+      {
+        "box": [
+          958,
+          550,
+          218,
+          141
+        ],
+        "css": [
+          "16px",
+          "rgb(23, 23, 73)",
+          "13px"
+        ]
+      },
+      {
+        "box": [
+          1186,
+          550,
+          218,
+          141
+        ],
+        "css": [
+          "16px",
+          "rgb(23, 23, 73)",
+          "13px"
+        ]
+      }
+    ],
+    [
+      {
+        "box": [
+          46,
+          768,
+          1358,
+          301.5
+        ],
+        "css": [
+          "16px",
+          "rgb(23, 23, 73)",
+          "0px"
+        ]
+      }
+    ],
+    [
+      {
+        "box": [
+          46,
+          1084.5,
+          1358,
+          122
+        ],
+        "css": [
+          "16px",
+          "rgb(23, 23, 73)",
+          "16px"
+        ]
+      }
+    ],
+    [
+      {
+        "box": [
+          46,
+          1221.5,
+          1358,
+          779
+        ],
+        "css": [
+          "16px",
+          "rgb(23, 23, 73)",
+          "16px"
+        ]
+      }
+    ],
+    "CONCEPTO\tENERO\tFEBRERO\tMARZO\tABRIL\tMAYO\tJUNIO\tJULIO\tAGOSTO\tSEPTIEMBRE\tOCTUBRE\tNOVIEMBRE\tDICIEMBRE\n\nInformación general\n⌃\n\nESTADO DE CONSULTA\tDisponible\tDisponible\tSin registros\tSin registros\tSin registros\tSin registros\tSin registros\tSin registros\tSin registros\tSin registros\tSin consultar\tSin consultar\nINICIO MES\t01/01/2026\t01/02/2026\t01/03/2026\t01/04/2026\t01/05/2026\t01/06/2026\t01/07/2026\t01/08/2026\t01/09/2026\t01/10/2026\t01/11/2026\t01/12/2026\nFIN MES\t31/01/2026\t28/02/2026\t31/03/2026\t30/04/2026\t31/05/2026\t30/06/2026\t31/07/2026\t31/08/2026\t30/09/2026\t31/10/2026\t30/11/2026\t31/12/2026\nDÍAS FESTIVOS\t1\t1\t1\t0\t1\t0\t0\t0\t1\t0\t1\t1\nDÍAS LABORABLES\t21\t19\t21\t22\t20\t22\t23\t21\t21\t22\t20\t22\nRECURSOS\t1\t1\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nHORAS AL DÍA\t8\t8\t8\t8\t8\t8\t8\t8\t8\t8\t8\t8\nCAPACIDAD HORAS AL MES\t168\t152\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n\nHoras registradas\n⌃\n\nTOTAL HORAS REGISTRADAS\t84\t20\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n\nDetalle por concepto\n⌃\n\nFACTURABLE\t84\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nNO FACTURABLES\t0\t20\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nADMINISTRATIVO OPERACIONES\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nINVERSIÓN OPERACIONES\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nINVERSIÓN COMERCIAL\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nADMINISTRATIVAS\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nCONTINUOS IMPROVEMENT\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nVACACIONES\t0\t20\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nLABORATORIO\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nPRE-VENTA\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nINTERNOS\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nSIN ASIGNACIÓN\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nOPTIMIZACIÓN\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nAGENTES AUTÓNOMOS\t0\t0\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n\nPorcentajes\n⌃\n\n% FACTURABLE\t50%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% NO FACTURABLES\t0%\t13.16%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% ADMINISTRATIVO OPERACIONES\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% INVERSIÓN OPERACIONES\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% INVERSIÓN COMERCIAL\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% ADMINISTRATIVAS\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% CONTINUOS IMPROVEMENT\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% VACACIONES\t0%\t13.16%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% LABORATORIO\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% PRE-VENTA\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% INTERNOS\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% SIN ASIGNACIÓN\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% OPTIMIZACIÓN\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n% AGENTES AUTÓNOMOS\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\n\nIndicadores finales\n⌃\n\nFACTURABILIDAD\t50%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nCAPACIDAD\t100%\t100%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\nCLIENTES INTERNOS\t0%\t0%\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA\tNA"
+  ]
+}
