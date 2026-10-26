@@ -309,8 +309,14 @@ servidor, filas/duplicados, orden, inversión, rango, tareas sin horas y errores
 Los dos helpers anteriores solo delegan en la ruta nueva; el respaldo RPC
 permanece para comparar. Texto con DOM seguro; respuestas superadas o nodos
 reemplazados no sobrescriben los paneles/totales vigentes.
-Siguen pendientes acciones genéricas, estructura de tarjetas/botones y
-coordinación; después compatibilidad y arranque autónomo.
+El alta manual de riesgos usa `generic_risk{,_model,_view}.js`, CSS externo y
+POST API v1 `riesgos-manuales/`. Conserva `write_rpc.add_risk` (hojas Riesgos/
+Histórico y caché, sin crear otro registro Azure), validación, campos y mensajes;
+`edit_operations`, alcance total y CSRF. La recarga usa el runtime modular.
+Los tres helpers anteriores solo delegan; una respuesta de una ventana cerrada
+o de otro proyecto no cierra/reemplaza la nueva. No reabrir este formulario.
+Siguen pendientes estructura de tarjetas/botones y coordinación genéricas;
+después compatibilidad y arranque autónomo.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

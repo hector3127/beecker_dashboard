@@ -2,7 +2,43 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fuentes RAID y tareas del Ejecutivo genérico (25/10/2026)
+## Bloque actual: formulario de alta manual de riesgos genéricos (25/10/2026)
+
+- `generic_risk{,_model,_view}.js` y `project_detail_generic_risk.css` conservan
+  ventana, campos/opciones/defaults, validación, estados de guardado/error y
+  cierre por Cancelar/cruz/fondo. DOM seguro y eventos externos. Los botones
+  neutralizan las diferencias de la base nueva en tamaño/peso y deshabilitado.
+- POST API v1 `screens/proyectos/<id>/riesgos-manuales/` reutiliza exactamente
+  `write_rpc.add_risk`: hojas Riesgos/Histórico_Riesgos, validación y caché.
+  No se cambia esta alta manual por una creación Azure. ID de la ruta,
+  `edit_operations`, alcance total y CSRF. Los tres helpers anteriores solo
+  delegan; éxito recarga por `beeProjectEntryRuntime.load()`, sin loadDashboard.
+- Guardado único mientras está ocupado; respuesta de una ventana cerrada o
+  proyecto distinto no cierra/sobrescribe el formulario nuevo. Error del
+  servidor presentado como texto incluso con `innerHTML` bloqueado.
+- Cinco Node nuevos: payload (solo trim de descripción), validación, guardado
+  único, reintento, respuestas tardías y POST con ID codificado/timeout.
+  Suite completa **455 aprobadas y tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`).
+- Comparaciones en `tmp/migration/project_detail/generic_risk/`: formulario,
+  validación, error de servicio y guardado a 1450/900/390 px. Inspeccionada
+  ventana de error móvil y referencia escritorio. Proveedores simulados/red
+  externa bloqueada; ninguna escritura real. No se modifican los temporales
+  ni herramientas ajenos.
+- **62 pruebas únicas de navegador aprobadas**: 20 del formulario (12
+  comparaciones en cuatro estados/tres tamaños; guardado+recarga directa,
+  validación/reintento, tres cierres, fallo de transporte, respuesta tardía y
+  texto seguro), 22 de fuentes y 20 de entrada/pestañas/recarga.
+  Las repeticiones de verificación no se suman dos veces.
+  **100 pruebas backend aprobadas** (91 API y nueve del servicio anterior),
+  incluidos ID de ruta, permisos, alcance, CSRF y contrato de errores.
+  Ruff/formato, sintaxis JS, Django y diff aprobados.
+- **Fase 10 parcial.** Siguiente: estructura de tarjetas/botones y coordinación
+  del Ejecutivo genérico; después casos sin proyecto/cuenta y arranque
+  independiente. Mantener script/shim, no activar ACCESS_ENFORCED ni tocar
+  Horas por mes. Sin push.
+
+## Bloque anterior: fuentes RAID y tareas del Ejecutivo genérico (25/10/2026)
 
 - `generic_sources.js` usa las APIs v1 `raid/` y `tasks/` existentes;
   `generic_sources_model.js` conserva formato, filas/duplicados, orden,

@@ -3,6 +3,7 @@
 import { createProjectData } from "./data.js";
 import { createClockifyRange } from "./sections/project_clockify_range.js";
 import { createGenericSources } from "./sections/generic_sources.js";
+import { createGenericRisk } from "./sections/generic_risk.js";
 import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
@@ -180,6 +181,10 @@ async function start() {
       entry: window.beeProjectEntry,
       aer: (data) => window.beeAerRuntime.initialize(data),
       ixs: (data) => window.beeIxsRuntime.initialize(data),
+    });
+    window.beeGenericRisk = createGenericRisk(data, {
+      current: (id) => window.beeProjectState.projectId === id,
+      reload: () => window.beeProjectEntryRuntime.load(),
     });
     window.beeProjectFeatureContexts = createProjectFeatureContexts(
       window.beeProjectState,

@@ -107,6 +107,15 @@ export function createProjectData(get = apiGet, send = apiSend) {
       aiPost(id, "drive/minuta/generar", { archivos, tema, fecha, notas }),
     aiSaveAction: (id, payload) => aiPost(id, "accion/guardar", payload),
     filters: () => read("screens/proyectos/filtros/"),
+    saveManualRisk: async (id, payload) =>
+      (
+        await send(
+          "POST",
+          `screens/proyectos/${encodeURIComponent(id)}/riesgos-manuales/`,
+          payload,
+          { timeout: 90000 },
+        )
+      ).data,
     clockifyRange: (id) =>
       read(`screens/proyectos/${encodeURIComponent(id)}/clockify-rango/`),
     client: (id) =>

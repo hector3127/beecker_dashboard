@@ -78,6 +78,7 @@ from apps.portal.api.project_detail import (
     ProjectCommunicationsView,
     ProjectExecutiveView,
     ProjectFiltersView,
+    ProjectManualRiskSaveView,
     ProjectMilestoneDeleteView,
     ProjectMilestoneEditView,
     ProjectMilestoneSaveView,
@@ -340,6 +341,10 @@ urlpatterns = [
     path(
         "screens/proyectos/<str:project_id>/clockify-rango/",
         ProjectClockifyRangeView.as_view(),
+    ),
+    path(
+        "screens/proyectos/<str:project_id>/riesgos-manuales/",
+        ProjectManualRiskSaveView.as_view(),
     ),
     path(
         "screens/proyectos/<str:project_id>/etapas/",

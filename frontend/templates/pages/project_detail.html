@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_generic_header.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_generic_charts.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_generic_sources.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_generic_risk.css' %}">
 <link id="aer-dashboard-styles" rel="stylesheet" href="{% static 'app/styles/pages/project_detail_aer.css' %}">
 <link id="aer-ia-styles-v55" rel="stylesheet" href="{% static 'app/styles/pages/project_detail_aer_ai.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_aer_executive.css' %}">
@@ -48,5 +49,5 @@
 {{ project_context|json_script:'project-context' }}
 {% endblock %}
 {% block scripts %}
-<script type="module" src="{% static 'app/scripts/pages/project_detail/main.js' %}" data-project-detail-entry data-rpc-shim="{% static 'core/js/gas_shim.js' %}" data-legacy-script="{% static 'portal/js/proyecto_detalle.js' %}?v=20261025-generic-sources"></script>
+<script type="module" src="{% static 'app/scripts/pages/project_detail/main.js' %}" data-project-detail-entry data-rpc-shim="{% static 'core/js/gas_shim.js' %}" data-legacy-script="{% static 'portal/js/proyecto_detalle.js' %}?v=20261025-generic-risk"></script>
 {% endblock %}

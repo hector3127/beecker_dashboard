@@ -8602,6 +8602,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
    * desde la tarjeta "RIESGOS CRÍTICOS" del Dashboard Ejecutivo.
    */
   function abrirModalRiesgo(idProyecto) {
+    if (window.beeGenericRisk) return window.beeGenericRisk.open(idProyecto);
     cerrarModalRiesgo();
     const overlay = document.createElement('div');
     overlay.id = 'modal-riesgo-overlay';
@@ -8647,6 +8648,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
   function guardarRiesgoDesdeModal(idProyecto) {
+    if (window.beeGenericRisk) return window.beeGenericRisk.save();
     const descripcion = document.getElementById('mr-descripcion').value.trim();
     const impacto = document.getElementById('mr-impacto').value;
     const probabilidad = document.getElementById('mr-probabilidad').value;
@@ -8679,6 +8681,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
   }
 
   function cerrarModalRiesgo() {
+    if (window.beeGenericRisk) return window.beeGenericRisk.close();
     const overlay = document.getElementById('modal-riesgo-overlay');
     if (overlay) overlay.remove();
   }

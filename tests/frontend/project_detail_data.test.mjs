@@ -14,6 +14,29 @@ const context = {
 };
 vm.runInNewContext(code, context);
 
+test("manual risk uses exact project, POST body and shared timeout", async () => {
+  const calls = [],
+    result = { ok: true },
+    body = {
+      descripcion: "Risk",
+      impacto: "Medio",
+      probabilidad: "Media",
+      responsable: " Ana ",
+    };
+  const data = context.createProjectData(null, async (...args) => {
+    calls.push(args);
+    return { data: result };
+  });
+  assert.equal(await data.saveManualRisk("CCO.001 | CR", body), result);
+  assert.equal(calls[0][0], "POST");
+  assert.equal(
+    calls[0][1],
+    "screens/proyectos/CCO.001%20%7C%20CR/riesgos-manuales/",
+  );
+  assert.equal(calls[0][2], body);
+  assert.equal(calls[0][3].timeout, 90000);
+});
+
 test("Clockify range GET keeps exact encoded ID and read timeout", async () => {
   const calls = [],
     result = { ok: true, fechaInicio: "2026-01-01" };

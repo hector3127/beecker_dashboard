@@ -116,6 +116,40 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Alta manual de riesgos del Ejecutivo genérico (25/10/2026)
+
+`generic_risk.js`, `generic_risk_model.js` y `generic_risk_view.js` separan
+control, payload y vista del formulario. DOM seguro, eventos externos y CSS
+en `project_detail_generic_risk.css`. Conserva ventana, campos/opciones,
+defaults, validación de descripción, estados de guardado/error y tres formas
+de cerrar. Se neutralizan solo en la ventana los estilos de botones de la
+base nueva para reproducir tamaño, peso, cursor y opacidad anteriores.
+
+POST `screens/proyectos/<id>/riesgos-manuales/` reutiliza `write_rpc.add_risk`,
+incluidas las validaciones, escritura en Riesgos/Histórico_Riesgos y limpieza
+de caché. No se convierte esta alta manual en creación Azure. El ID procede
+de la ruta; conserva `edit_operations`, alcance total y CSRF. La recarga tras
+guardar usa `beeProjectEntryRuntime.load()`, sin pasar por `loadDashboard`.
+Los helpers anteriores delegan y se conservan para la comparación. Respuestas
+de una ventana cerrada o de otro proyecto no sobrescriben el formulario actual.
+
+Cinco Node nuevos verifican payload sin modificar responsable, validación,
+guardado único, reintento, respuestas tardías y POST con ID codificado/timeout.
+Suite completa: **455 aprobadas y los tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). **62 pruebas únicas
+de navegador aprobadas**: 20 del formulario (12 comparaciones en cuatro
+estados/tres tamaños y ocho funcionales), 22 de fuentes y 20 de entrada/
+pestañas/recarga. Se compara también cursor/opacidad durante el guardado.
+**100 backend aprobadas**: 91 API y nueve del servicio anterior. Incluyen
+ID de ruta, permisos, alcance, CSRF y errores. Capturas en
+`tmp/migration/project_detail/generic_risk/`; inspeccionados error móvil y
+referencia escritorio. Ruff/formato, sintaxis JS, Django y diff aprobados.
+Proveedores simulados, sin escrituras reales.
+
+**Fase 10 parcial.** Siguiente: estructura de tarjetas/botones y coordinación
+genéricas; después casos sin proyecto/cuenta y arranque independiente.
+Mantener script/shim y ACCESS_ENFORCED apagado. No tocar Horas por mes.
+
 ### Fuentes RAID y horas por tarea del Ejecutivo genérico (25/10/2026)
 
 `generic_sources.js` controla ambas lecturas mediante las APIs v1 existentes

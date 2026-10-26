@@ -411,6 +411,22 @@ class ProjectMilestoneSaveView(ProjectMilestoneWriteView):
         return milestones.save_milestone_batch(project_id, payload.get("hitos"))
 
 
+class ProjectManualRiskSaveView(ProjectMilestoneWriteView):
+    """Alta manual con permisos y servicio de agregarRiesgoManual."""
+
+    def perform(
+        self, project_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
+        """ID de la ruta; validación y caché en el servicio original."""
+        return milestones.add_risk(
+            project_id,
+            payload.get("descripcion", ""),
+            payload.get("impacto", ""),
+            payload.get("probabilidad", ""),
+            payload.get("responsable", ""),
+        )
+
+
 class ProjectMilestoneEditView(ProjectMilestoneWriteView):
     """Cambio de fecha y observación de una entrada (editarHitoAdicional)."""
 

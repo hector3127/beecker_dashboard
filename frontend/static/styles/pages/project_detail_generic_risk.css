@@ -1,0 +1,79 @@
+.gr-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.45);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.gr-panel {
+  background: var(--blanco);
+  border-radius: 12px;
+  padding: 22px;
+  width: 400px;
+  max-width: 95vw;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+.gr-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.gr-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gris-oscuro);
+}
+.gr-close {
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--gris);
+}
+.gr-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gris-oscuro);
+}
+.gr-panel .gr-description {
+  width: 100%;
+  margin: 4px 0 10px;
+  resize: vertical;
+  font-family: inherit;
+}
+.gr-panel .gr-select {
+  width: 100%;
+  margin: 4px 0 10px;
+}
+.gr-panel .gr-owner {
+  width: 100%;
+  margin: 4px 0 14px;
+}
+.gr-error {
+  color: var(--rojo);
+  font-size: 12px;
+  margin-bottom: 8px;
+  display: none;
+}
+.gr-error.gr-error-visible {
+  display: block;
+}
+.gr-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.gr-actions button.btn {
+  display: inline-block;
+  min-height: 0;
+  font-weight: 400;
+}
+.gr-actions button.btn-primary {
+  font-weight: 700;
+}
+.gr-actions button.btn:disabled {
+  opacity: 1;
+  cursor: pointer;
+}

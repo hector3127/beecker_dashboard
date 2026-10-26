@@ -9,14 +9,21 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque migra las lecturas y vistas
+   diferencia con `origin/main`. El último bloque migra el alta manual de riesgos
+   genéricos a `generic_risk{,_model,_view}.js`, CSS externo y POST API v1
+   `riesgos-manuales/`. Mismo servicio `write_rpc.add_risk` (hojas, no otra
+   creación Azure), campos, validación, errores, permisos/CSRF y caché.
+   Recarga modular directa y guardias para ventanas cerradas/proyecto distinto.
+   Los helpers solo delegan. No repetir el formulario. Siguen estructura de
+   tarjetas/botones y coordinación genéricas; después compatibilidad sin
+   proyecto/cuenta y arranque autónomo.
+   El bloque previo migra las lecturas y vistas
    RAID/tasks del genérico a `generic_sources{,_model,_view}.js` y CSS externo,
    reutilizando API v1 y los mismos servicios/permisos. Conserva totales,
    inversión, orden, duplicados, tareas sin horas y mensajes. Texto seguro y
    protección de respuestas superadas/nodos reemplazados; helpers anteriores
-   solo delegan en la ruta nueva. No repetirlos. Siguen acciones, estructura
-   de tarjetas/botones y coordinación genérica; después compatibilidad sin
-   proyecto/cuenta y arranque autónomo. El bloque previo migra el rango Clockify a
+   solo delegan en la ruta nueva. No repetirlos.
+   El bloque previo migra el rango Clockify a
    `project_clockify_range.js` y API v1 `clockify-rango/`, con el mismo servicio,
    fechas locales, carga y vacío ante fallos. El helper anterior delega; descarta
    respuestas superadas/nodos reemplazados. No repetirlo.
