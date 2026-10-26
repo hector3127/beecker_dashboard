@@ -8,6 +8,10 @@ import { createProjectEntry } from "./sections/project_entry.js";
 import { createEntryRuntime } from "./sections/project_entry_runtime.js";
 import { genericTimeline } from "./sections/generic_timeline_model.js";
 import { genericTimelineView } from "./sections/generic_timeline_view.js";
+import {
+  resourcePanel,
+  milestonePanel,
+} from "./sections/generic_panels_view.js";
 import { createIxsSupport } from "./sections/ixs_support.js";
 import {
   createProjectState,
@@ -101,6 +105,10 @@ async function start() {
       beeProjectData: data,
       beeGenericTimeline: genericTimeline,
       beeGenericTimelineView: genericTimelineView,
+      beeGenericPanels: {
+        resources: resourcePanel,
+        milestones: milestonePanel,
+      },
       beeProjectActionsModel: actionsModel,
       beeProjectActions: createActionsController(data),
       beeAerPlanning: createAerPlanning(data),

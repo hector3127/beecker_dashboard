@@ -7944,7 +7944,9 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     const hitosCompletados = todosHitos.filter(h => h.estado === 'Completado');
     const hitosProximos = todosHitos.filter(h => h.estado !== 'Completado');
 
-    const proximosHtml = todosHitos.length
+    const proximosHtml = window.beeGenericPanels
+      ? '<div id="generic-milestones-panel"></div>'
+      : todosHitos.length
       ? `
         ${hitosProximos.length ? `<div style="font-size:10.5px; font-weight:700; color:var(--gris); letter-spacing:.5px; margin-bottom:4px;">PRÓXIMOS</div>${hitosProximos.map(filaHitoResumen).join('')}` : ''}
         ${hitosCompletados.length ? `<div style="font-size:10.5px; font-weight:700; color:var(--gris); letter-spacing:.5px; margin:${hitosProximos.length ? '12px' : '0'} 0 4px;">COMPLETADOS</div>${hitosCompletados.map(filaHitoResumen).join('')}` : ''}
@@ -8038,6 +8040,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
         </div>
       </div>
 
+      ${window.beeGenericPanels ? '<div id="generic-resources-panel"></div>' : `
       <div class="card" id="card-carga-trabajo-recurso" style="margin-bottom:14px;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <h3 style="margin:0;">CARGA DE TRABAJO POR RECURSO</h3>
@@ -8079,7 +8082,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
             </tfoot>
           </table>
         </div>
-      </div>
+      </div>`}
 
       <div class="grid-3" style="grid-template-columns: 1fr 1fr;">
         <div class="card">
@@ -8142,6 +8145,10 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       </div>
     `;
 
+    if(window.beeGenericPanels){
+      document.getElementById('generic-resources-panel')?.replaceWith(window.beeGenericPanels.resources(data));
+      document.getElementById('generic-milestones-panel')?.replaceWith(window.beeGenericPanels.milestones(todosHitos));
+    }
     if(genericTimelineNode)document.getElementById('generic-project-timeline')?.replaceWith(genericTimelineNode);
     const totalArea = data.distribucionArea.reduce((a, d) => a + d.horas, 0);
     renderDonut('donut-area-ejecutivo', data.distribucionArea, Math.round(totalArea * 10) / 10, PALETA_BEECKER);

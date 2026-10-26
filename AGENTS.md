@@ -280,6 +280,12 @@ con DOM seguro. El componente reemplaza un marcador estático del renderer
 transitorio; no ejecuta la construcción HTML anterior de la línea de tiempo.
 El resto del Ejecutivo genérico sigue pendiente. Sus diferencias de botones
 se mantienen fuera de este componente hasta migrar la vista completa.
+La tabla de carga por recurso y el resumen de hitos también usan DOM seguro
+en `generic_panels_view.js`, modelo de presentación `generic_panels_model.js`
+y CSS externo `project_detail_generic_panels.css`. Conservan filas/totales,
+redondeo, estados, fechas, observaciones y orden. Mantienen los IDs de tarjeta
+y rango Clockify. La ruta nueva no construye su HTML anterior; el renderer
+transitorio sigue para encabezado/KPIs, gráficas, fuentes y acciones pendientes.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

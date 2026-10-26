@@ -2,7 +2,37 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: vista de la línea temporal genérica (25/10/2026)
+## Bloque actual: tabla de recursos y resumen de hitos genéricos (25/10/2026)
+
+- `generic_panels_model.js` conserva presentación de filas/totales, redondeo,
+  estados, formato de fechas, notas y agrupación/orden de hitos. La vista
+  `generic_panels_view.js` usa DOM seguro y CSS externo. No cambia reglas,
+  cifras, permisos ni fuentes. Mantiene IDs de tarjeta y rango Clockify.
+- El renderer transitorio monta ambos componentes en marcadores estáticos,
+  sin ejecutar su HTML anterior. El resto genérico sigue pendiente; no dar
+  por migrada toda la pantalla. Las comparaciones aisladas usan el mismo
+  ancho de referencia y posiciones relativas por las diferencias del
+  contenedor genérico todavía pendientes.
+- Cuatro Node nuevos contrastan estados/fechas contra helpers originales y
+  verifican redondeo, defaults, notas, orden y que no se muten los datos.
+  Suite completa **433 aprobadas y tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`).
+- **51 pruebas únicas de navegador aprobadas**: 19 de paneles (18 comparaciones
+  contra la anterior a 1450/900/390 px y texto seguro), 12 de pantalla moderna
+  modelo/fallback y 20 de entrada/pestañas/recarga. La segunda tanda repite
+  los 19 paneles con comprobación explícita de sus clases modulares; no se
+  suman dos veces. Se bloquea `innerHTML` para verificar nombres/notas como
+  texto y se comprueba el destino del rango Clockify. Capturas en
+  `tmp/migration/project_detail/generic_panels/` y `generic_timeline/`;
+  recursos escritorio e hitos con notas inspeccionados. Ruff/formato, sintaxis
+  JS, Django y diff aprobados. Proveedores simulados/red bloqueada, sin consultas
+  reales. Auxiliares en `tmp/` sin comitear.
+- **Fase 10 parcial.** Siguiente: encabezado/KPIs, gráficas, fuentes y
+  acciones genéricas; después casos sin proyecto/cuenta y arranque
+  independiente. No retirar script/shim ni activar ACCESS_ENFORCED ni tocar
+  Horas por mes. Sin push; temporales/cambios ajenos intactos.
+
+## Bloque anterior: vista de la línea temporal genérica (25/10/2026)
 
 - `generic_timeline_view.js` dibuja barras, estados, hitos adicionales, eje,
   leyenda y mensaje sin hitos con DOM seguro. Los estilos fijos están en

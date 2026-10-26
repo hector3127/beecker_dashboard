@@ -116,6 +116,35 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Tabla de recursos y resumen de hitos genéricos (25/10/2026)
+
+`generic_panels_model.js` conserva la presentación original de filas/totales,
+redondeo, clasificación de estados, formato de fechas, notas y agrupación de
+hitos. `generic_panels_view.js` construye tabla y resumen con DOM seguro y CSS
+externo `project_detail_generic_panels.css`. No cambia cálculos ni permisos.
+
+El renderer transitorio monta estos componentes en marcadores estáticos y no
+ejecuta su HTML anterior. Se preservan IDs de tarjeta/rango Clockify para los
+enriquecimientos existentes. El resto del Ejecutivo genérico sigue pendiente:
+encabezado/KPIs, gráficas, fuentes y acciones. No marcar la pantalla completa.
+
+Evidencia: **51 pruebas únicas de navegador aprobadas**: 19 de paneles,
+12 de modelo/fallback de la pantalla moderna y 20 de entrada/pestañas/recarga.
+Los paneles se comparan contra la anterior a 1450/900/390 px, con datos,
+vacíos, notas y suspensiones; mismo ancho de referencia y cajas relativas por
+el contenedor aún pendiente. Se verifica uso de clases modulares y texto seguro
+con `innerHTML` bloqueado, conservando el destino del rango Clockify. Cuatro Node
+nuevos contrastan estados/fechas con los helpers originales y verifican defaults,
+redondeo, orden, notas y ausencia de mutación. Suite completa **433 aprobadas y
+tres fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+Capturas en `tmp/migration/project_detail/generic_panels/` y `generic_timeline/`;
+recursos escritorio e hitos con notas inspeccionados. Ruff/formato, sintaxis JS,
+Django y diff aprobados. Proveedores simulados/red bloqueada, sin consultas
+reales ni push y con temporales/cambios ajenos intactos.
+
+**Fase 10 parcial.** Mantener script/shim; después del genérico faltan casos
+sin proyecto/cuenta y arranque independiente.
+
 ### Vista aislada de la línea temporal genérica (25/10/2026)
 
 `generic_timeline_view.js` dibuja eje/meses, barras, estados, marcadores y
