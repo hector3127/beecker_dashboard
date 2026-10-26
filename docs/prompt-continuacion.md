@@ -10,6 +10,14 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
+**Más reciente: Facturabilidad sobre 18e69a1.** Leer
+`docs/retiro-facturabilidad.md`. Retiradas las tres plantillas anteriores de
+general/especialidad/recurso; datos y permisos intactos. Nueve snapshots del
+diseño vigente registrados antes del retiro se revalidan con CSP de prueba.
+1724 servidor, 504 Node y 36 Chrome pasan; detalle en el informe. Área sigue con su
+comparación. Quedan 20 HTML/35 estáticos portal; continuar otras referencias
+y CSP sin retirar servicios/componentes aún usados. Sin push de este bloque.
+
 **Último bloque: EVA 2 y Capacidad mensual sobre 7420d17.** Leer
 `docs/retiro-capacidad-eva2.md`. Solo frontend en esas rutas; dos plantillas
 anteriores retiradas. Datos/permisos/CSV sin cambios. Seis snapshots vigentes

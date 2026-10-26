@@ -31,7 +31,6 @@ def facturability(monkeypatch, datos):
             for i in range(1, int(month[-2:]) + 1)
         ],
     )
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
 
 
 @pytest.mark.parametrize("screen", SCREENS)
@@ -91,23 +90,6 @@ def test_period_roles_tabs_and_return(portal, facturability, screen):
     expect(portal.locator(".pf summary small")).to_have_text("Mes")
     portal.get_by_role("link", name="← Regresar a Operativa").click()
     portal.wait_for_url("**/operativa/")
-
-
-@pytest.mark.parametrize("screen", ["recurso/"])
-@pytest.mark.parametrize("width", [1450, 390])
-def test_resource_source_values_match_previous(
-    portal, facturability, screen, width
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    path = BASE + screen + "?mes=2026-02"
-    cells = """table => [...table.rows].map(row =>
-      [...row.cells].map(cell => cell.textContent.trim()))"""
-    portal.goto(portal.base + path + "&vista=anterior")
-    original = portal.locator("table").evaluate(cells)
-    portal.goto(portal.base + path)
-    assert portal.locator("table").evaluate(cells) == original
-    expect(portal.locator(".pf summary")).to_contain_text("Febrero 2026")
-    expect(portal.locator(".rf summary")).to_contain_text("solo operativas")
 
 
 @pytest.mark.parametrize("screen", SCREENS)
@@ -319,3 +301,82 @@ def test_resource_bajas_and_column_menus(
     portal.screenshot(
         path=str(output / f"resource-{width}.png"), full_page=True
     )
+
+
+@pytest.mark.parametrize("screen", SCREENS)
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_approved_billability_layout(
+    portal, facturability, screen, width, snapshot, enforced_csp
+):
+    from datetime import datetime
+
+    portal.clock.set_fixed_time(
+        datetime.fromisoformat("2026-10-26T18:00:00+00:00")
+    )
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + BASE + screen + "?mes=2026-02")
+    portal.wait_for_load_state("networkidle")
+    selectors = [
+        ".pgh",
+        ".tabs",
+        ".pf",
+        ".rf",
+        ".hero",
+        ".card",
+        "table",
+        "#bill-chart",
+    ]
+    state = portal.evaluate(
+        """selectors => Object.fromEntries(selectors.map(selector => [selector,
+          [...document.querySelectorAll(selector)].map(node => {
+            const box = node.getBoundingClientRect();
+            const css = getComputedStyle(node);
+            return {
+              box: ['x','y','width','height']
+                .map(k => Math.round(box[k]*10)/10),
+              css: ['fontSize','color','backgroundColor','padding','margin',
+                'borderRadius'].map(k => css[k]),
+              text: node.tagName === 'TABLE' ? node.innerText : null
+            };
+          })]))""",
+        selectors,
+    )
+    key = screen.strip("/") or "general"
+    snapshot(f"billability_layout_{key}_{width}", state)
+    target = Path("tmp/design/billability-retirement")
+    target.mkdir(parents=True, exist_ok=True)
+    portal.mouse.move(0, 0)
+    portal.screenshot(path=str(target / f"{key}-{width}.png"), full_page=True)
+
+
+@pytest.mark.parametrize(
+    "screen,name",
+    list(
+        zip(
+            SCREENS,
+            ["billability", "billability_specialty", "billability_resource"],
+            strict=True,
+        )
+    ),
+)
+def test_saved_previous_link_keeps_month_roles_and_current_module(
+    portal, facturability, screen, name
+):
+    portal.goto(
+        portal.base
+        + BASE
+        + screen
+        + "?vista=anterior&mes=2026-02&rol=QA&roles=1"
+    )
+    expect(
+        portal.locator(f'script[src*="pages/{name}/main.js"]')
+    ).to_have_count(1)
+    expect(portal.locator(".pf summary")).to_contain_text("Febrero 2026")
+    expect(portal.locator('input[name="rol"][value="QA"]')).to_be_checked()
+    expect(portal.locator('input[name="rol"][value="DEV"]')).not_to_be_checked()
+    expect(
+        portal.get_by_role("link", name="← Regresar a Operativa")
+    ).to_have_attribute("href", "/operativa/")
+    if screen == "recurso/":
+        expect(portal.locator("table")).to_contain_text("Eva")
+        expect(portal.locator("table")).not_to_contain_text("Ana")

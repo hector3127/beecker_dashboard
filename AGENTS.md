@@ -23,6 +23,15 @@ Reglas que no se negocian:
 
 ## Estado vigente: fase 10 completada (26/10/2026)
 
+Bloque más reciente: retiradas las plantillas anteriores de Facturabilidad
+general, por especialidad y por recurso; `_current` conserva sus vistas de
+datos y permisos. Nueve snapshots del diseño vigente se registraron sobre
+18e69a1 antes de borrar y se revalidan con CSP de prueba. Mes/roles/enlaces
+antiguos conservados; no se toca Facturabilidad por área ni CSS compartido.
+1724 servidor, 504 Node y 36 Chrome aprobadas; evidencia en
+`docs/retiro-facturabilidad.md`. Quedan 20 HTML/35 estáticos portal. Sin push,
+sin activar CSP global ni accesos; fase 11 abierta.
+
 Bloque actual de fase 11: EVA 2 y Capacidad mensual sirven solo frontend;
 retiradas sus dos plantillas anteriores, sin modificar contexto ni CSV. Seis
 snapshots de diseño vigente se registraron sobre 7420d17 ANTES de borrarlas,

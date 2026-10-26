@@ -2,7 +2,25 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: EVA 2 y Capacidad mensual, base 7420d17 (26/10)
+## Bloque actual: Facturabilidad, base 18e69a1 (26/10)
+
+- Retiradas tres plantillas anteriores: general, especialidad y recurso. Las
+  rutas y respaldo Python usan frontend mediante `_current`, con el mismo
+  contexto/cálculos/permisos. Área conserva su comparación, sin cambios.
+- Nueve snapshots vigentes registrados ANTES del retiro a 1450/900/390 px
+  comparan cajas, estilos y tablas; se repiten con CSP real en navegador.
+  Seis PNG idénticos y tres solo cambian hora global. Mes y roles de enlaces
+  obsoletos se prueban expresamente; doce casos servidor adicionales mantienen
+  el rechazo antes de consultar fuentes y el montaje de plantilla vigente.
+- 1724 servidor, 504 Node y 36 Chrome aprobadas. Evidencia final en
+  `docs/retiro-facturabilidad.md`; los casos nuevos inicialmente esperaban QA
+  en un título fijo, corregidos para comprobar casillas y datos, sin cambiar
+  producción. No se omiten pruebas ni se actualizan snapshots tras borrar.
+- Quedan 20 HTML/35 estáticos portal. Continuar otras comparaciones/CSP sin
+  retirar componentes, servicios o motor aún usados. Temporales ajenos intactos,
+  sin push. No activar CSP global ni ACCESS_ENFORCED; fase 11 sigue abierta.
+
+## Bloque previo: EVA 2 y Capacidad mensual, base 7420d17 (26/10)
 
 - Dos plantillas anteriores retiradas; rutas y respaldo Python usan frontend,
   con el mismo contexto, permisos, filtros y CSV. No se modifica Capacidad

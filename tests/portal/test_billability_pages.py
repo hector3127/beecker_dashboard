@@ -18,9 +18,15 @@ BASE = "/operativa/facturabilidad/"
 
 
 @pytest.mark.parametrize(("suffix", "name"), SCREENS)
-def test_active_template_has_separate_assets(client, monkeypatch, suffix, name):
+@pytest.mark.parametrize("previous", [False, True])
+def test_active_template_has_separate_assets(
+    client, monkeypatch, suffix, name, previous
+):
     stub_facturability(monkeypatch)
-    response = client.get(BASE + suffix, {"mes": "2026-02"})
+    response = client.get(
+        BASE + suffix,
+        {"mes": "2026-02", **({"vista": "anterior"} if previous else {})},
+    )
     assert response.status_code == 200
     assert f"pages/{name}.html" in [t.name for t in response.templates]
     html = response.content.decode()
@@ -37,8 +43,9 @@ def test_active_template_has_separate_assets(client, monkeypatch, suffix, name):
 
 @pytest.mark.parametrize(("suffix", "name"), SCREENS)
 @pytest.mark.parametrize("grant", ["anonymous", "limited", "wrong"])
+@pytest.mark.parametrize("previous", [False, True])
 def test_rejects_before_loading_sources(
-    client, enforced, monkeypatch, suffix, name, grant
+    client, enforced, monkeypatch, suffix, name, grant, previous
 ):
     month = Mock(side_effect=AssertionError("Unexpected source read"))
     year = Mock(side_effect=AssertionError("Unexpected source read"))
@@ -55,7 +62,9 @@ def test_rejects_before_loading_sources(
     )
     if grant == "anonymous":
         client.logout()
-    response = client.get(BASE + suffix)
+    response = client.get(
+        BASE + suffix, {"vista": "anterior"} if previous else {}
+    )
     assert response.status_code in {302, 403}
     month.assert_not_called()
     year.assert_not_called()

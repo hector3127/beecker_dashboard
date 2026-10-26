@@ -7,6 +7,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — Facturabilidad, base 18e69a1 (26/10).** Tres plantillas anteriores
+retiradas (general, especialidad, recurso), con datos/permisos intactos. Nueve
+snapshots vigentes guardados antes de borrar se revalidan con CSP de prueba;
+las capturas conservan diseño, con variación solo de hora global en escritorio.
+1724 servidor, 504 Node y 36 Chrome aprobadas; doce casos adicionales comprueban plantilla
+y rechazo de acceso con vista=anterior. Navegador y evidencia detallados en
+`docs/retiro-facturabilidad.md`. Facturabilidad por área no cambia. Quedan
+20 HTML/35 estáticos portal; fase 11 sigue abierta, sin activar accesos ni CSP.
+
 **Fase 11 — EVA 2 y Capacidad mensual, base 7420d17 (26/10).** Retiradas sus
 dos plantillas anteriores, conservando vistas de datos, permisos, filtros y
 CSV. Seis snapshots del diseño vigente guardados antes de borrar se revalidan

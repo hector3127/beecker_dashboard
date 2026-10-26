@@ -1,0 +1,171 @@
+{
+  ".pgh": [
+    {
+      "box": [
+        28,
+        136,
+        1394,
+        108.8
+      ],
+      "css": [
+        "16px",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "16px 26px",
+        "0px 0px 14px",
+        "18px"
+      ],
+      "text": null
+    }
+  ],
+  ".tabs": [
+    {
+      "box": [
+        28,
+        258.8,
+        1394,
+        51
+      ],
+      "css": [
+        "16px",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "6px",
+        "0px 0px 14px",
+        "14px"
+      ],
+      "text": null
+    }
+  ],
+  ".pf": [
+    {
+      "box": [
+        28,
+        323.8,
+        174.8,
+        37
+      ],
+      "css": [
+        "14px",
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px",
+        "0px"
+      ],
+      "text": null
+    }
+  ],
+  ".rf": [
+    {
+      "box": [
+        648,
+        323.8,
+        250,
+        37
+      ],
+      "css": [
+        "14px",
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px",
+        "0px"
+      ],
+      "text": null
+    }
+  ],
+  ".hero": [
+    {
+      "box": [
+        28,
+        378.8,
+        1394,
+        165
+      ],
+      "css": [
+        "16px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "18px 0px",
+        "0px"
+      ],
+      "text": null
+    }
+  ],
+  ".card": [
+    {
+      "box": [
+        28,
+        561.8,
+        1394,
+        245.9
+      ],
+      "css": [
+        "16px",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "18px",
+        "0px 0px 17px",
+        "15px"
+      ],
+      "text": null
+    },
+    {
+      "box": [
+        28,
+        824.7,
+        1394,
+        335
+      ],
+      "css": [
+        "16px",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "18px 20px",
+        "0px 0px 17px",
+        "15px"
+      ],
+      "text": null
+    }
+  ],
+  "table": [
+    {
+      "box": [
+        47,
+        639.7,
+        1356,
+        149
+      ],
+      "css": [
+        "11px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px",
+        "0px"
+      ],
+      "text": "MES\tTRABAJO FIJO\tTRABAJO VARIABLE\tDISPONIBLE\nCAPACIDAD\tHRS AER\t% FIJO\tHC\tCAPACIDAD\tHRS\t% VARIABLE\tHC\tTYM\tIXB\tSAAS\tRAAS\tOTROS\tLIBRE\tFTE LIBRE\tGLOBAL\nEnero\t336\t84\t25%\t1\t252\t42\t16.67%\t0\t0\t42\t0\t0\t0\t210\t1\t37.50%\nFebrero\t304\t84\t27.63%\t1\t220\t42\t19.09%\t0\t0\t42\t0\t0\t0\t178\t1\t41.45%"
+    }
+  ],
+  "#bill-chart": [
+    {
+      "box": [
+        49,
+        898.7,
+        1210,
+        220
+      ],
+      "css": [
+        "16px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "0px",
+        "0px",
+        "0px"
+      ],
+      "text": null
+    }
+  ]
+}

@@ -382,13 +382,13 @@ def capacity_daily(request: HttpRequest) -> HttpResponse:
 @require_GET
 def billability(request: HttpRequest) -> HttpResponse:
     """Facturabilidad modular con los datos y permisos originales."""
-    return _modern(request, views.facturabilidad, "pages/billability.html")
+    return _current(request, views.facturabilidad, "pages/billability.html")
 
 
 @require_GET
 def billability_specialty(request: HttpRequest) -> HttpResponse:
     """Facturabilidad modular con los datos y permisos originales."""
-    return _modern(
+    return _current(
         request,
         views.facturabilidad_especialidad,
         "pages/billability_specialty.html",
@@ -398,7 +398,7 @@ def billability_specialty(request: HttpRequest) -> HttpResponse:
 @require_GET
 def billability_resource(request: HttpRequest) -> HttpResponse:
     """Facturabilidad modular con los datos y permisos originales."""
-    return _modern(
+    return _current(
         request, views.facturabilidad_recurso, "pages/billability_resource.html"
     )
 
