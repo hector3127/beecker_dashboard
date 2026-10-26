@@ -2,7 +2,40 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: tabla de recursos y resumen de hitos genéricos (25/10/2026)
+## Bloque actual: encabezado y seis indicadores genéricos (25/10/2026)
+
+- `generic_header_model.js` conserva metadatos, defaults, presupuesto, umbral
+  de ritmo, etiquetas de cierre y fecha PRD/estimada. La vista usa DOM seguro
+  y SVG nativo para el mini-donut; CSS fijo externo. Se conserva el ID financiero.
+- El renderer transitorio suministra flags de color/riesgo/cierre y monta los
+  componentes; no construye el HTML anterior de encabezado/KPIs ni el helper
+  HTML del mini-donut. La coordinación y las demás gráficas/fuentes/acciones
+  genéricas siguen pendientes. No marcar completa toda la pantalla.
+- Cuatro Node nuevos contrastan geometría/etiqueta del donut con su helper
+  original y verifican umbral, cierre, defaults, strings numéricos y fecha
+  PRD/estimada. Suite completa **437 aprobadas y tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`).
+- Observación heredada, sin corregir: el formatter original `new Date(valor)`
+  más `toLocaleDateString('es-MX')` muestra `2026-08-01` (sin hora) como
+  `31 jul 2026` en el entorno local. Se verificó igual en referencia/modular
+  durante el caso completado. Revisar funcionalmente las fechas sin hora fuera
+  de la migración; no se cambiaron las reglas ni se consultaron datos reales.
+- **57 pruebas únicas de navegador aprobadas**: 25 de encabezado/KPIs,
+  12 de pantalla moderna modelo/fallback y 20 de entrada/pestañas/recarga.
+  Se comparan metadatos e indicadores contra la anterior a 1450/900/390 px,
+  con datos faltantes, cierre y salida no PRD, en igual ancho de referencia
+  y posiciones relativas. Se contrasta también namespace/estilos SVG y texto
+  seguro con `innerHTML` bloqueado, conservando el ID financiero. Capturas en
+  `tmp/migration/project_detail/generic_header/` y `generic_timeline/`;
+  cierre escritorio y metadatos faltantes móvil inspeccionados. Ruff/formato,
+  sintaxis JS, Django y diff aprobados. Proveedores simulados/red bloqueada;
+  auxiliares en `tmp/` sin comitear.
+- **Fase 10 parcial.** Siguiente: gráficas/fuentes/acciones genéricas y su
+  coordinación; después casos sin proyecto/cuenta y arranque independiente.
+  Mantener script/shim. No activar ACCESS_ENFORCED ni tocar Horas por mes.
+  Sin push y con temporales/cambios ajenos intactos.
+
+## Bloque anterior: tabla de recursos y resumen de hitos genéricos (25/10/2026)
 
 - `generic_panels_model.js` conserva presentación de filas/totales, redondeo,
   estados, formato de fechas, notas y agrupación/orden de hitos. La vista

@@ -1,0 +1,94 @@
+.gh-header {
+  margin-bottom: 14px;
+}
+.gh-fields {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+.gh-field {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.gh-field-icon {
+  font-size: 20px;
+}
+.gh-field-label {
+  font-size: 10.5px;
+  color: var(--gris);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.gh-project {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gris-oscuro);
+}
+.gh-client {
+  font-size: 12px;
+  color: var(--gris);
+}
+.gh-field-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--negro);
+}
+.gh-delivery {
+  font-size: 11px;
+  color: var(--gris);
+}
+.gh-kpis.kpi-grid {
+  grid-template-columns: repeat(6, 1fr);
+}
+.gh-kpis > .kpi-card {
+  text-align: center;
+}
+.gh-state-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px auto;
+  font-size: 26px;
+}
+.gh-state {
+  font-weight: 700;
+  font-size: 12px;
+}
+.gh-donut {
+  display: flex;
+  justify-content: center;
+}
+.gh-donut-label {
+  font-size: 16px;
+  font-weight: 700;
+  fill: var(--negro);
+}
+.gh-kpis .gh-number {
+  font-size: 26px;
+}
+.gh-kpis .kpi-card.gh-budget {
+  background: linear-gradient(135deg, #4a2a94, #e0298b);
+}
+.gh-budget .gh-budget-bg {
+  background: rgba(255, 255, 255, 0.25);
+}
+.gh-budget .gh-budget-fill {
+  background: #fff;
+}
+.gh-kpis .kpi-card.gh-budget .gh-budget-sub {
+  color: #fff;
+}
+.gh-exit-date {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gris-oscuro);
+  margin-top: 6px;
+}
+.gh-exit-sub {
+  margin-top: 6px;
+}

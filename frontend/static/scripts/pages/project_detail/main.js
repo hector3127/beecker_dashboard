@@ -8,6 +8,7 @@ import { createProjectEntry } from "./sections/project_entry.js";
 import { createEntryRuntime } from "./sections/project_entry_runtime.js";
 import { genericTimeline } from "./sections/generic_timeline_model.js";
 import { genericTimelineView } from "./sections/generic_timeline_view.js";
+import { genericHeader } from "./sections/generic_header_view.js";
 import {
   resourcePanel,
   milestonePanel,
@@ -105,6 +106,7 @@ async function start() {
       beeProjectData: data,
       beeGenericTimeline: genericTimeline,
       beeGenericTimelineView: genericTimelineView,
+      beeGenericHeader: genericHeader,
       beeGenericPanels: {
         resources: resourcePanel,
         milestones: milestonePanel,

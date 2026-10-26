@@ -116,6 +116,41 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Encabezado y seis indicadores genéricos (25/10/2026)
+
+`generic_header_model.js` conserva la presentación de metadatos, defaults,
+presupuesto, umbral de ritmo, etiquetas de cierre y fecha PRD/estimada.
+`generic_header_view.js` usa DOM seguro y SVG nativo para el mini-donut; estilos
+en `project_detail_generic_header.css`. Preserva el ID del indicador financiero.
+No cambia cifras, cálculos de negocio, API ni permisos.
+
+El renderer transitorio suministra los flags de color/riesgo/cierre y monta
+ambos componentes en marcadores estáticos; la ruta nueva no construye su HTML
+anterior ni llama al helper HTML del mini-donut. El resto genérico sigue
+pendiente: gráficas, fuentes, acciones y coordinación final. No marcar la
+pantalla completa ni retirar todavía script/shim.
+
+Evidencia: **57 pruebas únicas de navegador aprobadas**: 25 de encabezado/KPIs,
+12 de modelo/fallback de pantalla moderna y 20 de entrada/pestañas/recarga.
+Se compara contra la anterior a 1450/900/390 px, con datos completos/faltantes,
+cierre y salida no PRD, mismo ancho y cajas relativas. SVG namespace/estilos
+y texto seguro con `innerHTML` bloqueado comprobados; ID financiero conservado.
+Cuatro Node nuevos contrastan mini-donut con el helper original y prueban umbral,
+cierre, defaults, strings numéricos y salida PRD/estimada: suite completa
+**437 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Capturas en
+`tmp/migration/project_detail/generic_header/` y `generic_timeline/`; cierre
+escritorio y metadatos faltantes móvil inspeccionados. Ruff/formato, sintaxis JS,
+Django y diff aprobados. Proveedores simulados/red bloqueada, sin consultas
+reales ni push; temporales/cambios ajenos intactos.
+
+Observación heredada: fecha sin hora `2026-08-01` se presenta como `31 jul 2026`
+en el entorno local por `new Date`/zona horaria; referencia y módulo coinciden.
+Se registra para revisión funcional posterior, sin cambiar reglas de fechas.
+
+**Siguiente:** gráficas/fuentes/acciones genéricas; casos sin proyecto/cuenta
+y arranque independiente. Fase 10 parcial.
+
 ### Tabla de recursos y resumen de hitos genéricos (25/10/2026)
 
 `generic_panels_model.js` conserva la presentación original de filas/totales,

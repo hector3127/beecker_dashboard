@@ -7957,6 +7957,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       '<div id="riesgos-criticos-proyecto-azure" class="loading" style="padding:16px 0;">Cargando riesgos desde Azure...</div>';
 
     cont.innerHTML = `
+      ${window.beeGenericHeader ? '<div id="generic-header-placeholder"></div><div id="generic-kpis-placeholder"></div>' : `
       <div class="card" style="margin-bottom:14px;">
         <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:22px;">
           <div style="display:flex; gap:10px; align-items:flex-start;">
@@ -8024,7 +8025,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
           <div style="font-size:18px; font-weight:700; color:var(--gris-oscuro); margin-top:6px;">${aplicaSalidaPRD?(fechaSalidaPRDLegacy?fmtFechaCorta(fechaSalidaPRDLegacy):'—'):fmtFechaCorta(p.fechaFinEstimada)}</div>
           <div style="margin-top:6px;">${aplicaSalidaPRD?'Fin de Deployment':`<span class="badge ${riesgoFechaClase}">Riesgo ${p.nivelRiesgoFecha}</span>`}</div>
         </div>
-      </div>
+      </div>`}
 
       <div class="grid-3" style="grid-template-columns: 1.4fr 1fr;">
         <div class="card">
@@ -8145,6 +8146,11 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       </div>
     `;
 
+    if(window.beeGenericHeader){
+      const blocks=window.beeGenericHeader(data,{color:colorEstado,riskClass:riesgoFechaClase,prd:aplicaSalidaPRD,prdDate:fechaSalidaPRDLegacy,completed:proyectoCompletadoDetectado});
+      document.getElementById('generic-header-placeholder')?.replaceWith(blocks.header);
+      document.getElementById('generic-kpis-placeholder')?.replaceWith(blocks.kpis);
+    }
     if(window.beeGenericPanels){
       document.getElementById('generic-resources-panel')?.replaceWith(window.beeGenericPanels.resources(data));
       document.getElementById('generic-milestones-panel')?.replaceWith(window.beeGenericPanels.milestones(todosHitos));

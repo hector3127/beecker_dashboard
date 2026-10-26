@@ -285,7 +285,13 @@ en `generic_panels_view.js`, modelo de presentación `generic_panels_model.js`
 y CSS externo `project_detail_generic_panels.css`. Conservan filas/totales,
 redondeo, estados, fechas, observaciones y orden. Mantienen los IDs de tarjeta
 y rango Clockify. La ruta nueva no construye su HTML anterior; el renderer
-transitorio sigue para encabezado/KPIs, gráficas, fuentes y acciones pendientes.
+transitorio sigue para gráficas, fuentes y acciones pendientes.
+Encabezado y seis KPIs genéricos usan `generic_header_model.js`,
+`generic_header_view.js` y CSS externo `project_detail_generic_header.css`.
+Conservan defaults, umbral de ritmo, etiquetas de cierre, presupuesto, fecha
+PRD/estimada e ID financiero. La gráfica circular pequeña se crea con SVG DOM;
+no se ejecuta su helper HTML anterior en esa ruta. Los flags de estado/cierre
+todavía llegan del renderer transitorio. No dar por migrado todo el genérico.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;
