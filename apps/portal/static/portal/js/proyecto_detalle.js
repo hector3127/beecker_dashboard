@@ -6531,6 +6531,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     }, e=>{const el=document.getElementById('ixs-tab-contenido');if(el)el.textContent='Error actualizando: '+(e&&e.message||e);});
   }
   function ixsAbrirVistaAnterior(){
+    if(window.beeProjectPrevious)return window.beeProjectPrevious.open();
     if(!ixsProyectoActual||!ixsProyectoActual.proyecto)return;
     const id=ixsProyectoActual.proyecto.id;
     // El renderer anterior sigue intacto y está disponible durante la migración.
@@ -6539,6 +6540,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     if(cont)cont.insertAdjacentHTML('afterbegin',`<div class="ixs-shell" style="margin-bottom:9px"><button class="ixs-btn primary" onclick="ixsVolverEjecutivoNuevo('${_ixsTxt(id)}')">← Volver al nuevo ejecutivo</button></div>`);
   }
   function ixsVolverEjecutivoNuevo(id){
+    if(window.beeProjectPrevious)return window.beeProjectPrevious.back(id);
     if(!ixsProyectoActual||ixsProyectoActual.proyecto.id!==id)return;
     ixsTabActual='resumen';_ixsRenderShell();
   }

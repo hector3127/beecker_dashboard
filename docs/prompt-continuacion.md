@@ -9,14 +9,22 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque migra coordinación/derivados
+   diferencia con `origin/main`. El último bloque migra IXS→genérico→IXS a
+   `project_previous.js`, con DOM seguro, estilo original, guardia por ID y
+   montaje directo sin recarga. `main.js` ya no llama a ixsAbrirVistaAnterior;
+   los dos nombres anteriores solo delegan. No repetir este enlace.
+   Auditoría: la ruta de detalle siempre recibe un ID y project_context lo
+   prioriza frente al query, incluso con cuenta=...; Cuenta tiene ruta nueva
+   propia. Se conservan los casos especiales de compatibilidad, sin borrarlos.
+   Seguir por el arranque (renderView al final del script anterior) y contratos
+   previousStart/previousLoad/clientChanged; auditar auxiliares activos antes
+   de retirar dependencias. Fase 10 parcial, mantener script/shim.
+   El bloque previo migra coordinación/derivados
    genéricos a `generic_executive{,_model}.js`: monta directamente los módulos,
    actualiza el almacén, conserva cierre/flags/PRD y usa DOM seguro para errores.
    `project_entry_runtime.js` usa el genérico modular para servicios no AER/IXS,
    sin renderer/auxiliares anteriores. El nombre anterior delega y conserva
-   su cuerpo para comparar. No repetir el genérico. Fase 10 parcial: auditar
-   compatibilidad sin proyecto/cuenta, enlace «vista anterior» y auxiliares
-   activos; después arranque independiente. No retirar aún script/shim.
+   su cuerpo para comparar. No repetir el genérico.
    El bloque previo migra estructura de tarjetas
    y controles a `generic_layout_view.js` y CSS externo, con DOM seguro e IDs,
    grillas, cargas y resumen RAID originales. Agregar Hito/Riesgo abre los

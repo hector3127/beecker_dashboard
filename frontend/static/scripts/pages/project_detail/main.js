@@ -6,6 +6,7 @@ import { createGenericSources } from "./sections/generic_sources.js";
 import { createGenericRisk } from "./sections/generic_risk.js";
 import { mountGenericLayout } from "./sections/generic_layout_view.js";
 import { createGenericExecutive } from "./sections/generic_executive.js";
+import { createProjectPrevious } from "./sections/project_previous.js";
 import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
@@ -218,7 +219,7 @@ async function start() {
       panels: window.beeIxsAiPanels,
     });
     window.beeIxsRuntime = createIxsRuntime(window.beeProjectState, {
-      previous: () => window.ixsAbrirVistaAnterior(),
+      previous: () => window.beeProjectPrevious.open(),
       reload: () => window.beeProjectEntryRuntime.load(),
       aerTabs: () => window.beeAerRuntime.tabs(),
       tools: createIxsTools(
@@ -245,6 +246,10 @@ async function start() {
       entry: window.beeProjectEntry,
       feedback: projectFeedback,
       selectIxs: (tab) => window.beeIxsRuntime.select(tab),
+    });
+    window.beeProjectPrevious = createProjectPrevious(window.beeProjectState, {
+      executive: window.beeGenericExecutive,
+      mountIxs: () => window.beeIxsRuntime.mount(),
     });
     await loadScript(renderer);
   } catch {

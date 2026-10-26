@@ -1,5 +1,5 @@
-// Direct IXS navigation/rendering/editors/RAID/reload. The previous executive
-// view still comes from compatibility until its generic renderer is migrated.
+// Direct IXS navigation/rendering/editors/RAID/reload, with modular navigation
+// to the generic executive and back.
 export function createIxsRuntime(store, services) {
   const aiCallbacks = () => ({
     paint: () => runtime.paintAi(),

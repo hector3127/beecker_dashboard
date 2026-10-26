@@ -262,9 +262,9 @@ AER/IXS/genérico directos y el almacén; conserva callbacks para sin proyecto/
 cuenta y cambio de cliente. La recarga de hitos en Planeación IXS
 usa ese controlador directamente, sin `loadDashboard`/`projectEntryContext`.
 Los contextos AER compartidos también llegan directamente desde su runtime.
-Se retira `ixsRuntimeBindings` y la conexión previa IXS; su única dependencia
-de renderizado anterior es `previous`, inyectada explícitamente desde main.
-Faltan auditar vista anterior, compatibilidad sin proyecto y arranque
+Se retira `ixsRuntimeBindings` y la conexión previa IXS. El enlace `previous`
+ya usa el controlador modular `project_previous.js` y el genérico migrado.
+Faltan auditar los contratos de compatibilidad sin proyecto y el arranque
 independiente. No retirar todavía script/shim.
 El primer bloque genérico separa fechas, fases fusionadas, suspensiones,
 asignación de marcadores, resumen y detección de cierre en
@@ -323,9 +323,16 @@ proyecto completado; error/datos faltantes usan DOM seguro con el mismo texto.
 `project_entry_runtime.js` llama al genérico modular en servicios no AER/IXS;
 no ejecuta el renderer ni auxiliares anteriores de este Ejecutivo. El nombre
 anterior delega si están sus módulos; el cuerpo original sigue para comparar.
-La fase 10 sigue parcial: auditar las ramas de compatibilidad sin proyecto/
-cuenta, el enlace «vista anterior» y auxiliares activos; después arranque
-independiente. No reabrir vistas/formularios ya migrados.
+`project_previous.js` también maneja IXS→genérico→IXS, con el mismo control,
+guardia por ID, pestaña resumen y montaje sin recarga. Sus dos nombres
+anteriores solo delegan en la ruta nueva; no reabrir este enlace.
+Auditoría: `proyectos/<str:project_id>/` siempre recibe ID y lo siembra en
+`project_context`; `projectParams` le da prioridad frente al query. Cuenta usa
+su ruta/plantilla modular separada. Se conserva la compatibilidad de casos
+especiales (`previousStart`, `previousLoad`, `clientChanged`) hasta separar
+el arranque, hoy disparado por `renderView('dashboard')` al final del script
+anterior. Fase 10 parcial: seguir por arranque/contratos y auxiliares activos.
+No retirar script/shim ni reabrir vistas/formularios ya migrados.
 Mantener los puentes y comparación;
 no retirar aún script/shim. El manejador común showError puede reemplazar el
 dashboard ante errores; comportamiento preservado en el módulo nuevo.

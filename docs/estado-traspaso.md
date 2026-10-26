@@ -2,7 +2,40 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: coordinación y derivados del Ejecutivo genérico (25/10/2026)
+## Bloque actual: enlace al genérico y auditoría de compatibilidad (25/10/2026)
+
+- `project_previous.js` maneja IXS→genérico→IXS desde el respaldo de pestaña
+  desconocida. Usa controladores migrados, DOM seguro y evento externo para
+  regresar. Conserva objeto de proyecto, guardia por ID, pestaña resumen y
+  montaje sin recarga. Main ya no invoca `ixsAbrirVistaAnterior`; sus dos
+  nombres anteriores solo delegan. CSS en la hoja genérica existente.
+- Auditoría: detalle usa `proyectos/<str:project_id>/`, siembra ese ID en
+  `project_context` y `projectParams` lo prioriza al query. Cuenta usa su
+  ruta/frontend independiente. El query de cuenta no convierte el detalle en
+  la ruta de cuenta (prueba con cuenta=ACME&proyecto=OTHER y ruta AMK.008).
+- Se conservan los casos especiales sin proyecto/cuenta. Siguen conectados
+  por `projectEntryContext` como previousStart/previousLoad/clientChanged.
+  El arranque real todavía ocurre con `renderView('dashboard')` al final del
+  script anterior, cargado por main. Seguir por ese arranque y sus contratos;
+  no migrar ni borrar ramas solo por inferir que no se usan en navegación normal.
+- Tres Node nuevos cubren proyecto ausente, objeto/ID exactos (incluye comillas),
+  montaje directo y guardia del regreso de otro proyecto. Suite completa:
+  **463 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). Cinco pruebas nuevas de navegador aprobadas:
+  tres comparaciones completas a 1450/900/390 px con regreso, navegación con
+  cinco funciones anteriores bloqueadas y prioridad del ID ante query cuenta.
+  Capturas en `tmp/migration/project_detail/project_previous/`; escritorio
+  nuevo inspeccionado. Proveedores simulados/red externa bloqueada.
+- **46 pruebas únicas de navegador aprobadas**: cinco nuevas, nueve de
+  genérico directo, diez de estructura, dos de runtime IXS y 20 de entrada/
+  pestañas/recarga. Las cinco repetidas no se suman de nuevo. Ruff/formato,
+  sintaxis JS, Django y diff aprobados.
+- **Fase 10 parcial.** Siguiente: arranque, contratos de compatibilidad y
+  auxiliares activos. Mantener script/shim y comparación. No activar
+  ACCESS_ENFORCED ni tocar Horas por mes. Sin cambios de backend/cálculos.
+  Temporales/herramientas ajenos intactos; sin push.
+
+## Bloque anterior: coordinación y derivados del Ejecutivo genérico (25/10/2026)
 
 - `generic_executive_model.js` conserva servicio/fecha PRD, riesgo/color,
   resumen temporal y detección de cierre. Devuelve las dos asignaciones de
