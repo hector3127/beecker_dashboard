@@ -296,10 +296,14 @@ def build_resources(
 
     # Solo una baja explícita del mes seleccionado marca el nombre.
     # Ausencia de horas o de banda no significa baja.
-    bajas = {
-        normalize_capacity_text(name)
-        for name in (months[-1][1].get("plantillaBajas") or [])
-    } if months else set()
+    bajas = (
+        {
+            normalize_capacity_text(name)
+            for name in (months[-1][1].get("plantillaBajas") or [])
+        }
+        if months
+        else set()
+    )
 
     rows = [
         ResourceRow(

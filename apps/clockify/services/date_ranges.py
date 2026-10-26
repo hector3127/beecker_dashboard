@@ -73,16 +73,18 @@ class ProjectDateRangeResolver:
         if cr_nomenclature(project_id):
             return self._resolve_from_history(project_id)
         if project_id.strip().upper().startswith(MPB_PROJECT_PREFIXES):
-            return self._resolve_from_mpb(project_id)
+            # Preserve the original range contract for every consumer, not only
+            # the dashboard that explicitly requests resolve_full().
+            return self._resolve_from_mpb(project_id, union=True)
 
         return self._resolve_from_history(project_id)
 
     def resolve_full(self, project_id: str) -> ProjectDateRange:
         """
-        Como resolve(), pero abarca todas las filas de MPB con el mismo ID.
+        Alias explícito del rango completo de resolve().
 
-        Un proyecto puede tener una fila terminada y otra en curso; el
-        rango normal toma solo la primera y deja fuera horas reales.
+        Un proyecto puede tener una fila terminada y otra en curso;
+        ambos accesos conservan el rango histórico que abarca todas sus filas.
         """
         if cr_nomenclature(project_id) or not (
             project_id.strip().upper().startswith(MPB_PROJECT_PREFIXES)

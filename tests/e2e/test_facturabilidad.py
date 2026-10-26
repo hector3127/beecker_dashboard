@@ -189,16 +189,22 @@ def test_specialty_reference_keeps_source_values(portal, facturability, width):
     )
     portal.goto(portal.base + path)
     table = portal.locator("#specialty-summary")
-    assert table.evaluate(
-        """table => [...table.rows].map(row =>
+    assert (
+        table.evaluate(
+            """table => [...table.rows].map(row =>
           [...row.cells].map(cell => cell.textContent.trim()))"""
-    ) == original
+        )
+        == original
+    )
     expect(portal.locator(".kp .kc")).to_have_count(4)
     expect(portal.locator(".kp .kc > .specialty-icon svg")).to_have_count(4)
     expect(table.locator("tfoot tr")).to_have_count(1)
-    assert table.locator('tr[data-specialty="dev"] b').evaluate(
-        "node => getComputedStyle(node, '::before').backgroundColor"
-    ) == "rgb(7, 140, 255)"
+    assert (
+        table.locator('tr[data-specialty="dev"] b').evaluate(
+            "node => getComputedStyle(node, '::before').backgroundColor"
+        )
+        == "rgb(7, 140, 255)"
+    )
     for badge in table.locator(".specialty-free").all():
         positive = float(badge.inner_text()) > 0
         expect(badge).to_have_class(
@@ -221,15 +227,13 @@ def test_specialty_reference_keeps_source_values(portal, facturability, width):
 def test_resource_bajas_and_column_menus(
     portal, facturability, monkeypatch, width
 ):
-    old = facturable_gse(("Ana", "DEV", "AER", 84),
-                         ("Eva", "QA", "IXB", 42))
+    old = facturable_gse(("Ana", "DEV", "AER", 84), ("Eva", "QA", "IXB", 42))
     current = facturable_gse(("Eva", "QA", "IXB", 42))
     current["plantillaBajas"] = ["Ána"]
     monkeypatch.setattr(
         "apps.portal.views.load_year_sources",
         lambda month: [
-            MonthSources(month=f"2026-{i:02d}",
-                         gse=current if i == 9 else old)
+            MonthSources(month=f"2026-{i:02d}", gse=current if i == 9 else old)
             for i in range(1, 10)
         ],
     )
@@ -247,7 +251,8 @@ def test_resource_bajas_and_column_menus(
     footer = table.locator("tfoot").inner_text()
     days = table.locator("thead .dl").inner_text()
     for condition, expected in [
-        ("resource-active", "Eva"), ("resource-inactive", "Ana"),
+        ("resource-active", "Eva"),
+        ("resource-inactive", "Ana"),
         ("resource-all", None),
     ]:
         table.locator('th[data-column-index="0"] button').click()
@@ -258,9 +263,9 @@ def test_resource_bajas_and_column_menus(
         if details.get_attribute("open") is None:
             menu.get_by_text("Filtrar por condición", exact=True).click()
         menu.get_by_label("Condición", exact=True).select_option(condition)
-        expect(menu.get_by_label(
-            "Valor de la condición", exact=True
-        )).to_be_hidden()
+        expect(
+            menu.get_by_label("Valor de la condición", exact=True)
+        ).to_be_hidden()
         menu.get_by_role("button", name="Aceptar", exact=True).click()
         expect(visible_rows).to_have_count(1 if expected else 2)
         if expected:

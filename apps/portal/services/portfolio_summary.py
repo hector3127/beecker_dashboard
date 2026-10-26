@@ -283,7 +283,9 @@ def budget_used_percent(project: ProjectView) -> int:
     return round_half_up_int(project.burn_hours * 100 / project.budget_hours)
 
 
-def service_distribution(projects: Sequence[ProjectView]) -> list[dict]:
+def service_distribution(
+    projects: Sequence[ProjectView],
+) -> list[dict[str, str | int]]:
     """Active projects by service, from the same scoped population."""
     from collections import Counter
 
