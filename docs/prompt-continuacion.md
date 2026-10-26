@@ -10,6 +10,13 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
+**Último bloque: EVA 2 y Capacidad mensual sobre 7420d17.** Leer
+`docs/retiro-capacidad-eva2.md`. Solo frontend en esas rutas; dos plantillas
+anteriores retiradas. Datos/permisos/CSV sin cambios. Seis snapshots vigentes
+guardados antes de borrar se revalidan con CSP de prueba; 1715 servidor y
+504 Node y 34 Chrome pasan. No recrear plantillas ni modificar Capacidad diaria.
+Quedan 23 HTML/35 estáticos portal; continuar referencias restantes y CSP.
+
 **Último bloque: limpieza agrupada sobre 1e17d99.** Leer
 `docs/limpieza-por-lotes.md`. 21 archivos/1.42 MB retirados: comparaciones de
 Inversión, Proyecto simple y Todas las cuentas; cuatro huérfanos y el árbol

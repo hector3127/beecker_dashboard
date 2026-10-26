@@ -1,6 +1,5 @@
 """Asignaciones mensuales: misma presentacion, filtros y exportacion."""
 
-import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -24,7 +23,6 @@ def capacity(monkeypatch, datos):
         "apps.portal.views.load_capacity",
         lambda *a, **k: SimpleNamespace(data=data, error=""),
     )
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
 
 
 def test_filters_export_and_return(portal, capacity):
@@ -50,8 +48,10 @@ def test_filters_export_and_return(portal, capacity):
     ).to_have_attribute("href", "/operativa/")
 
 
-@pytest.mark.parametrize("width", [1450, 390])
-def test_layout_matches_previous(portal, capacity, width):
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_layout_keeps_approved_reference(
+    portal, capacity, width, snapshot, enforced_csp
+):
     portal.set_viewport_size({"width": width, "height": 1000})
     selectors = [
         ".top",
@@ -87,18 +87,26 @@ def test_layout_matches_previous(portal, capacity, width):
 
     output = Path(f"tmp/migration/capacity/{width}")
     output.mkdir(parents=True, exist_ok=True)
-    portal.goto(portal.base + PAGE + "&vista=anterior")
-    before = boxes()
-    portal.screenshot(path=str(output / "previous.png"), full_page=True)
     portal.goto(portal.base + PAGE)
     after = boxes()
-    portal.screenshot(path=str(output / "current.png"), full_page=True)
-    differences = {
-        selector: (old, new)
-        for selector, old, new in zip(selectors, before, after, strict=True)
-        if new != old
-    }
-    (output / "differences.json").write_text(
-        json.dumps(differences, indent=2), encoding="utf-8"
+    snapshot(
+        f"capacity_layout_{width}", dict(zip(selectors, after, strict=True))
     )
-    assert not differences, differences
+    portal.screenshot(path=str(output / "current.png"), full_page=True)
+
+
+def test_saved_previous_link_keeps_current_filters_and_csv(portal, capacity):
+    portal.goto(portal.base + PAGE + "&vista=anterior&buscar=Ana&jornada=6")
+    expect(portal.locator("input[name='buscar']")).to_have_value("Ana")
+    expect(portal.locator("input[name='jornada']")).to_have_value("6")
+    expect(portal.locator("tbody")).to_contain_text("Ana Perez")
+    expect(portal.locator("tbody")).not_to_contain_text("Luis")
+    link = portal.get_by_role("link", name="↓ Exportar CSV")
+    response = portal.context.request.get(
+        portal.base + link.get_attribute("href")
+    )
+    assert response.status == 200
+    assert "Ana Perez" in response.text() and "Luis" not in response.text()
+    expect(
+        portal.locator('script[src*="pages/capacity/main.js"]')
+    ).to_have_count(1)

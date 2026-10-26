@@ -249,9 +249,10 @@ def test_deferred_consumption_keeps_a_partial_failure(
     ).to_have_text("120")
 
 
-@pytest.mark.parametrize("screen", [2])
-@pytest.mark.parametrize("width", [1450, 390])
-def test_matches_previous(portal, evas, screen, width):
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_eva2_keeps_approved_reference(
+    portal, evas, width, snapshot, enforced_csp
+):
     portal.set_viewport_size({"width": width, "height": 1000})
     selectors = [
         ".pgh",
@@ -283,62 +284,24 @@ def test_matches_previous(portal, evas, screen, width):
             selectors,
         )
 
-    output = Path(f"tmp/migration/eva{screen}/{width}")
+    output = Path(f"tmp/migration/eva2/{width}")
     output.mkdir(parents=True, exist_ok=True)
-    captures = []
-    for mode in ["previous", "current"]:
-        legacy_path = (
-            "**/operativa/eva-1/cerrados/"
-            if screen == 1
-            else "**/operativa/eva3/cerrados/"
-        )
+    portal.goto(portal.base + "/operativa/eva-2/")
+    portal.mouse.move(0, 0)
+    snapshot(
+        f"eva2_layout_{width}", dict(zip(selectors, measure(), strict=True))
+    )
+    portal.screenshot(path=str(output / "current.png"), full_page=True)
 
-        def previous_fragment(route):
-            route.continue_(url=route.request.url + "?vista=anterior")
 
-        if mode == "previous" and screen != 2:
-            portal.route(legacy_path, previous_fragment)
-        portal.goto(
-            portal.base
-            + f"/operativa/eva-{screen}/"
-            + ("?vista=anterior" if mode == "previous" else "")
-        )
-        if screen == 3:
-            expect(
-                portal.locator('tr[data-project="AER.004"] [data-field="burn"]')
-            ).to_have_text("20.25")
-        portal.mouse.move(0, 0)
-        active = measure()
-        portal.screenshot(path=str(output / (mode + ".png")), full_page=True)
-        if screen != 2:
-            prefix = "eva" if screen == 1 else "eva3"
-            portal.locator(f"#{prefix}-closed-box summary").click()
-            if screen == 1:
-                expect(portal.locator("#eva-closed-table")).to_be_visible()
-            else:
-                expect(
-                    portal.locator(
-                        'tr[data-closed-id="PENDING.AER"] '
-                        '[data-closed-field="burn"]'
-                    )
-                ).to_have_text("60.25")
-            portal.mouse.move(0, 0)
-            closed = measure()
-            portal.screenshot(
-                path=str(output / (mode + "-closed.png")), full_page=True
-            )
-        else:
-            closed = []
-        captures.append((active, closed))
-        if mode == "previous" and screen != 2:
-            portal.unroute(legacy_path, previous_fragment)
-    for state in [0, 1]:
-        if not captures[0][state]:
-            continue
-        for selector, before, after in zip(
-            selectors, captures[0][state], captures[1][state], strict=True
-        ):
-            assert before == after, (state, selector, before, after)
+def test_eva2_saved_previous_link_keeps_tables_and_return(portal, evas):
+    portal.goto(portal.base + "/operativa/eva-2/?vista=anterior")
+    expect(portal.locator('script[src*="pages/eva2/main.js"]')).to_have_count(1)
+    expect(portal.locator("table").last).to_contain_text("AMK.008")
+    expect(portal.locator("table").last).to_contain_text("IXB.2")
+    expect(
+        portal.get_by_role("link", name="← Regresar a Operativa")
+    ).to_have_attribute("href", "/operativa/")
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])

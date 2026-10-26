@@ -1094,7 +1094,7 @@ def eva2(request: HttpRequest) -> HttpResponse:
 
     return render_page(
         request,
-        "portal/eva2.html",
+        "pages/eva2.html",
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),
@@ -1192,7 +1192,7 @@ def capacidad_instalada(request: HttpRequest) -> HttpResponse:
 
     return render_page(
         request,
-        "portal/capacidad_instalada.html",
+        "pages/capacity.html",
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),

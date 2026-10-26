@@ -7,6 +7,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — EVA 2 y Capacidad mensual, base 7420d17 (26/10).** Retiradas sus
+dos plantillas anteriores, conservando vistas de datos, permisos, filtros y
+CSV. Seis snapshots del diseño vigente guardados antes de borrar se revalidan
+con CSP de prueba; capturas mantienen geometría y solo cambia hora de corte.
+1715 servidor, 504 Node y 34 Chrome pasan; seis pruebas nuevas evitan bypass de acceso
+mediante vista=anterior. Ver `docs/retiro-capacidad-eva2.md` para navegador,
+referencias y límites (desborde móvil previo conservado). No se modifica
+Capacidad diaria. Fase 11 continúa, sin activar CSP global ni accesos.
+
 **Fase 11 — lote de limpieza sobre 1e17d99 (26/10).** 21 archivos y 1.42 MB
 retirados: tres comparaciones de pantalla, cuatro huérfanos y 14 del panel
 original no renderizado. /legacy/ conserva redirecciones/login. Siete snapshots

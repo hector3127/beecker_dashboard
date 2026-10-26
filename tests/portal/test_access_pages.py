@@ -122,3 +122,23 @@ def test_the_cost_list_of_an_account_follows_scope(client, enforced):
 
     assert client.get(url, {"nombre": "Clinica Sur"}).status_code == 404
     assert client.get(url).status_code == 403
+
+
+@pytest.mark.parametrize("name", ["eva2", "capacidad"])
+@pytest.mark.parametrize("grant", ["limited", "wrong", "anonymous"])
+def test_retired_query_does_not_bypass_page_access(
+    client, enforced, name, grant
+):
+    enforced(
+        "ana",
+        caps=frozenset(
+            {"view_costs"} if grant == "wrong" else {"view_operations"}
+        ),
+        scope=AccessScope.limited(accounts=["Acme"])
+        if grant == "limited"
+        else AccessScope.everything(),
+    )
+    if grant == "anonymous":
+        client.logout()
+    response = client.get(reverse(f"portal:{name}"), {"vista": "anterior"})
+    assert response.status_code == (302 if grant == "anonymous" else 403)

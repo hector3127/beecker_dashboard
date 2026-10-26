@@ -365,7 +365,7 @@ def investment(request: HttpRequest) -> HttpResponse:
 @require_GET
 def capacity(request: HttpRequest) -> HttpResponse:
     """Asignaciones mensuales con los mismos filtros, calculos y CSV."""
-    return _modern(request, views.capacidad_instalada, "pages/capacity.html")
+    return _current(request, views.capacidad_instalada, "pages/capacity.html")
 
 
 @require_GET
@@ -420,7 +420,7 @@ def eva1(request: HttpRequest) -> HttpResponse:
 @require_GET
 def eva2(request: HttpRequest) -> HttpResponse:
     """Pantalla EVA modular con el contexto y acceso originales."""
-    return _modern(request, views.eva2, "pages/eva2.html")
+    return _current(request, views.eva2, "pages/eva2.html")
 
 
 @require_GET

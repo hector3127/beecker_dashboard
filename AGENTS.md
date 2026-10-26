@@ -23,6 +23,15 @@ Reglas que no se negocian:
 
 ## Estado vigente: fase 10 completada (26/10/2026)
 
+Bloque actual de fase 11: EVA 2 y Capacidad mensual sirven solo frontend;
+retiradas sus dos plantillas anteriores, sin modificar contexto ni CSV. Seis
+snapshots de diseño vigente se registraron sobre 7420d17 ANTES de borrarlas,
+y se revalidan con CSP de prueba. Seis casos nuevos de acceso comprueban que
+vista=anterior no evita login/permisos. 1715 servidor, 504 Node y 34 Chrome pasan.
+Ver `docs/retiro-capacidad-eva2.md` para navegador, referencias y límites.
+Quedan 23 HTML/35 estáticos de portal; no tocar Capacidad diaria ni sus reglas.
+Fase 11 sigue abierta; sin push de este bloque.
+
 Último bloque fase 11: limpieza agrupada sobre **1e17d99**, 21 archivos y
 1.42 MB retirados. Inversión, Proyecto simple y Todas las cuentas ya no sirven
 plantilla anterior. Cuatro huérfanos del portal y el árbol del panel original

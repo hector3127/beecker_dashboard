@@ -2,7 +2,24 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: limpieza agrupada sobre 1e17d99 (26/10)
+## Bloque actual: EVA 2 y Capacidad mensual, base 7420d17 (26/10)
+
+- Dos plantillas anteriores retiradas; rutas y respaldo Python usan frontend,
+  con el mismo contexto, permisos, filtros y CSV. No se modifica Capacidad
+  diaria ni las fórmulas o datos de EVA. Se conservan enlaces obsoletos.
+- Seis snapshots vigentes guardados ANTES del retiro a 1450/900/390 px:
+  cajas/estilos y tablas; las pruebas posteriores usan CSP real de navegador.
+  Capturas mantienen geometría, solo cambia hora global. Se conserva desborde
+  móvil previo (no confundir igualdad con arreglo responsive).
+- 1715 servidor, 504 Node y 34 Chrome pasan, sin omisiones. Seis casos nuevos comprueban
+  alcance/login/capacidad con parámetro obsoleto. El caso nuevo de navegador
+  de EVA 2 inicialmente miraba la tabla resumen; se corrigió para mirar la de
+  proyectos, sin tocar producción. Evidencia final en `docs/retiro-capacidad-eva2.md`.
+- Quedan 23 HTML/35 estáticos de portal. Continuar otras comparaciones y CSP
+  sin borrar bases/servicios/RPC aún utilizados. Bloqueo global y accesos sin
+  activar; temporales ajenos intactos. Fase 11 abierta y cambios sin push.
+
+## Bloque previo: limpieza agrupada sobre 1e17d99 (26/10)
 
 - 21 archivos/1 420 452 bytes retirados, con consumidores auditados. Las
   versiones anteriores de Inversión/Proyecto simple/Todas las cuentas ya no
