@@ -5,6 +5,28 @@ funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus
 respuestas; la migración del frontend sí avanza.
 
+## Bloque verificado: inicio especial modular (26/10/2026)
+
+`project_entry.startCompatibility` sustituye `initDashboard(true)` en el puente
+moderno. Conserva ausencia de llamadas sin parámetros, filtros API, selección
+de cuenta/proyecto (prioridad de proyecto), opciones ausentes, Actualizar y
+carga única incluso ante fallo de filtros. Los parámetros se releen después
+de obtener filtros. `project_entry_view.selectAccount` usa DOM seguro; el cuerpo
+anterior sigue para comparación. No cambian servicios, cálculos ni estilos.
+
+Evidencia: **475 Node aprobadas, cero fallos; 30 navegador aprobadas** con
+`test_project_compatibility_start.py` (13), `test_project_bootstrap.py`,
+`test_project_detail_entry.py` y `test_project_entry_runtime.py`. Las nuevas
+contrastan el inicio original y modular a 1450/390 px: cuenta existente/nueva,
+proyecto, ambos parámetros, ausencia de parámetros y fallo de filtros, con
+opciones/metadatos, selección y refresco iguales. Incluye el arranque modular
+sin ejecutar previousStart. Las restantes conservan comparación de entrada,
+reintentos y navegación. Ruff/formato, Django y diff aprobados; red bloqueada.
+
+**Fase 10 parcial:** faltan carga sin proyecto y presentación de reportes/
+riesgos especiales. Todavía se cargan script/shim; no retirarlos ni declarar
+independencia completa. Mantener comparación y no reabrir pestañas migradas.
+
 ## Bloque verificado: estado de reportes de compatibilidad (26/10/2026)
 
 `project_state.js` posee cachés de reportes AER/IXS, secuencia de consumos e

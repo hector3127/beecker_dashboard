@@ -39,6 +39,20 @@ export function selectProject(id) {
   if (client?.options.length) client.selectedIndex = 0;
 }
 
+export function selectAccount(account) {
+  const client = document.getElementById("f-cliente");
+  const project = document.getElementById("f-proyecto");
+  if (client) {
+    const wanted = account.trim().toLocaleLowerCase("es");
+    const match = [...client.options].find(
+      (option) => option.value.trim().toLocaleLowerCase("es") === wanted,
+    );
+    if (!match) client.append(el("option", { value: account }, account));
+    client.value = match?.value || account;
+  }
+  if (project) project.value = "Todos los proyectos";
+}
+
 export function loading(target, title) {
   target.style.display = "block";
   target.replaceChildren(

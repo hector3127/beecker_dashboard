@@ -799,7 +799,7 @@
 
   function projectCompatibilityBindings(){
     if(window.beeProjectCompatibility)return window.beeProjectCompatibility.reports(window.beeProjectState,{
-      start:()=>initDashboard(true),load:()=>loadDashboard(true),
+      start:()=>window.beeProjectEntry.startCompatibility(window.beeProjectEntryRuntime.context()),load:()=>loadDashboard(true),
       refresh:()=>loadDashboard(),
       renderAer:renderReporteAERTYM,renderIxs:renderReporteIXBRaaS,
       risks:cargarTopRiesgosAzurePortafolio,executive:renderDashboardEjecutivoProyecto});

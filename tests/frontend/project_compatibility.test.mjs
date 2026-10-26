@@ -177,3 +177,37 @@ test("store reports handle absent client and project selectors", () => {
     .clientChanged();
   assert.deepEqual(calls, ["refresh", "risks"]);
 });
+
+test("real modern bridge starts through modular entry with a fresh context", () => {
+  const state = { reportAer: null, reportIxs: null },
+    calls = [];
+  let current = { version: 1 };
+  const context = {
+    window: {
+      beeProjectState: state,
+      beeProjectCompatibility: createProjectCompatibility({
+        getElementById: () => null,
+      }),
+      beeProjectEntry: {
+        startCompatibility: (env) => {
+          calls.push(env);
+          return "modular-start";
+        },
+      },
+      beeProjectEntryRuntime: { context: () => current },
+    },
+    initDashboard: () => {
+      throw Error("Old startup used");
+    },
+    loadDashboard: () => {},
+    renderReporteAERTYM: () => {},
+    renderReporteIXBRaaS: () => {},
+    cargarTopRiesgosAzurePortafolio: () => {},
+    renderDashboardEjecutivoProyecto: () => {},
+  };
+  vm.runInNewContext(bridge, context);
+  const bindings = context.projectCompatibilityBindings();
+  current = { version: 2 };
+  assert.equal(bindings.previousStart(), "modular-start");
+  assert.deepEqual(calls, [current]);
+});

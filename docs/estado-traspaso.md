@@ -2,7 +2,28 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: estado de reportes de compatibilidad (26/10/2026)
+## Bloque actual: inicio especial modular (26/10/2026)
+
+- `project_entry.startCompatibility` reemplaza el inicio especial anterior:
+  sin proyecto/cuenta no hace lecturas; obtiene filtros por API, conserva
+  selección por nombre sin distinguir mayúsculas y agrega opciones ausentes.
+  Si existen ambos parámetros, proyecto conserva prioridad y restablece cliente.
+  Lee los parámetros después de filtros, conecta Actualizar y carga una vez,
+  incluso si fallan filtros. La selección segura vive en `project_entry_view`.
+- El puente moderno inicia directamente con ese controlador y un contexto
+  vigente, sin llamar `initDashboard(true)`. La comparación conserva el cuerpo
+  anterior. No se cambian backend, cifras, diseño ni permisos.
+- **475 Node aprobadas, cero fallos; 30 navegador aprobadas**: 13 nuevas
+  comparan selección/opciones/metadatos/orden de carga/refresco con el inicio
+  original a 1450/390 px y bloquean el callback anterior; 17 de arranque,
+  entrada/recarga existentes incluyen sus comparaciones visuales. Ruff/formato,
+  Django y diff aprobados. Datos simulados y red externa bloqueada.
+- **Fase 10 parcial**: la carga sin proyecto (`previousLoad`), reportes y
+  riesgos especiales siguen en compatibilidad. No retirar script/shim todavía.
+  Mantener comparación y continuar por esos proveedores; no reabrir pestañas.
+  Temporales ajenos intactos; sin push.
+
+## Bloque anterior: estado de reportes de compatibilidad (26/10/2026)
 
 - Los cachés AER/IXS, la secuencia de consumos y el indicador de arranque de
   reportes pertenecen a `project_state.js`. Los cuatro nombres anteriores son

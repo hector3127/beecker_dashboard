@@ -19,6 +19,14 @@ Reglas que no se negocian:
 
 ## Último bloque (26/10/2026)
 
+El inicio especial sin proyecto ya usa `project_entry.startCompatibility`:
+filtros API, selección inicial de cuenta/proyecto y carga tras éxito/error.
+El puente moderno no llama `initDashboard(true)`; la comparación lo conserva.
+475 Node y 30 navegador aprobadas (13 nuevas de compatibilidad). Todavía
+faltan carga/presentación especiales antes de retirar script/shim. Ver traspaso.
+
+## Bloque previo: estado de reportes (26/10/2026)
+
 Los cuatro estados de reportes de compatibilidad (cachés AER/IXS, secuencia de
 consumos y arranque) pertenecen a `project_state.js`; sus nombres anteriores
 son accesores. `project_compatibility.js` lee cuenta/cachés directamente.

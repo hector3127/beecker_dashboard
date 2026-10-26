@@ -12,7 +12,13 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
    diferencia con `origin/main`. Los tres fallos Node anteriores ya están
    corregidos en sus pruebas (parser de Costos y expectativas comerciales),
    sin cambiar producción ni fórmulas. La suite vuelve a pasar completa.
-   El último bloque mueve cachés de reportes AER/IXS, secuencia de consumos
+   El último bloque migra el inicio especial a project_entry.startCompatibility:
+   filtros, cuenta/proyecto, opciones ausentes, refresco y carga ante errores.
+   El puente moderno no llama initDashboard(true). 475 Node y 30 navegador
+   aprobadas; 13 nuevas comparan los casos especiales contra el inicio original.
+   Seguir por previousLoad y presentación de reportes/riesgos especiales;
+   todavía requiere script/shim. No repetir este inicio.
+   El bloque previo mueve cachés de reportes AER/IXS, secuencia de consumos
    y arranque a project_state.js, con accesores anteriores. La compatibilidad
    lee cuenta/cachés directamente. 474 Node y 27 navegador aprobadas.
    Siguen pendientes los proveedores de inicio/carga y presentación especiales:

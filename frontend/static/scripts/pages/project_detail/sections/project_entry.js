@@ -18,13 +18,34 @@ export function createProjectEntry(api) {
     },
     async start(env) {
       const id = params().get("proyecto");
-      if (!id) return env.previousStart();
+      if (!id) return controller.startCompatibility(env);
       const refresh = document.getElementById("btn-refresh");
       if (refresh) refresh.onclick = () => controller.load(env);
       try {
         const data = await api.filters();
         controller.populate(data, env);
         view.selectProject(params().get("proyecto"));
+      } catch (error) {
+        console.error(
+          "No se pudieron cargar los filtros del dashboard:",
+          error,
+        );
+      }
+      return controller.load(env);
+    },
+    async startCompatibility(env) {
+      const initial = params();
+      if (!initial.get("proyecto") && !initial.get("cuenta")) return;
+      const refresh = document.getElementById("btn-refresh");
+      if (refresh) refresh.onclick = () => controller.load(env);
+      try {
+        const data = await api.filters();
+        controller.populate(data, env);
+        // Read parameters after the filter response, as the previous entry did.
+        const account = params().get("cuenta");
+        if (account) view.selectAccount(account);
+        const id = params().get("proyecto");
+        if (id) view.selectProject(id);
       } catch (error) {
         console.error(
           "No se pudieron cargar los filtros del dashboard:",
