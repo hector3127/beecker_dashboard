@@ -116,6 +116,31 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Contratos de compatibilidad como módulo (25/10/2026)
+
+`project_compatibility.js` separa selección de proyecto, refresco, segunda
+comprobación de cuenta y presentación de reportes/riesgos. Conserva el orden
+original y obtiene las cachés al invocar el evento, no al construir el contrato.
+Los callbacks de inicio/carga conservan identidad, argumentos, resultado y
+ejecución síncrona. El script anterior suministra sus proveedores explícitos
+mediante el puente; sigue existiendo el respaldo original para comparar.
+
+Tres Node nuevos contrastan la secuencia con ese respaldo para cuenta/no
+cuenta antes/después de refrescar, cachés presentes/ausentes y selector ausente.
+Verifican también identidad de callbacks y lectura del corte más reciente.
+Suite completa: **472 aprobadas, cero fallos**. Las tres pruebas anteriores
+desactualizadas se corrigieron en el bloque inmediatamente previo.
+**51 pruebas de navegador aprobadas**: cinco de arranque/reintento, 20 de
+entrada/pestañas/recarga, cinco del enlace anterior, nueve de genérico, diez de
+estructura y dos de runtime IXS. Se conservan las comparaciones visuales de
+entrada AER/IXS y genérico. Django, sintaxis JS y diff aprobados. Proveedores
+simulados/red externa bloqueada; sin operaciones reales.
+
+**Fase 10 parcial.** Todavía se carga el script/shim por los proveedores de
+inicio/carga/cuenta, cachés y reportes. Siguiente: sustituir esas dependencias
+activas; no volver a migrar sus pantallas ni confundir mover el contrato con
+haber retirado el archivo. No se cambian reglas de negocio ni permisos.
+
 ### Corrección de las tres pruebas Node anteriores (25/10/2026)
 
 Se reparan las pruebas, sin modificar comportamiento ni cálculos de producción:

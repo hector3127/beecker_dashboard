@@ -2,7 +2,32 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: pruebas anteriores corregidas (25/10/2026)
+## Bloque actual: contratos de compatibilidad separados (25/10/2026)
+
+- `project_compatibility.js` conserva selección/refresco, segunda comprobación
+  de cuenta, lectura actual de cachés y orden de reportes/riesgos. Inicio/carga
+  conservan callbacks síncronos, argumentos y resultados. La coordinación ya
+  no está en el cuerpo anterior; este suministra proveedores explícitos y
+  conserva un respaldo de comparación. No se cambian cálculos, vistas ni permisos.
+- Tres Node nuevos contrastan el módulo con el respaldo para las combinaciones
+  de cuenta antes/después de refrescar, cachés y selector ausente; verifican
+  identidad de callbacks y lectura del corte más reciente.
+- **472 Node aprobadas, cero fallos**. Los tres fallos anteriores fueron
+  corregidos en `1108577` (pruebas desactualizadas, sin cambios de producción).
+  Cuatro pruebas backend del contrato comercial también aprobadas.
+- **51 pruebas únicas de navegador aprobadas**: cinco de arranque/reintento,
+  20 de entrada/pestañas/recarga, cinco del enlace anterior, nueve de genérico,
+  diez de estructura y dos de runtime IXS. Conservan comparaciones AER/IXS a
+  1450/390 px y contenido genérico en tres tamaños. Proveedores simulados,
+  red externa bloqueada y sin operaciones reales. Django, sintaxis JS y diff
+  aprobados; archivos de pruebas Python sin cambios en este bloque.
+- **Fase 10 parcial.** Aún se carga script/shim por los proveedores de inicio/
+  carga/cuenta, cachés y reportes. Seguir sustituyendo esas dependencias activas;
+  no confundir mover el contrato con haber eliminado la dependencia. Mantener
+  comparación, ACCESS_ENFORCED apagado y Horas por mes intacta. Temporales/
+  herramientas ajenos conservados. Sin push.
+
+## Bloque anterior: pruebas anteriores corregidas (25/10/2026)
 
 - Los tres fallos Node eran pruebas desactualizadas: parser del bloque scripts
   de Costos (ahora precedido por formatter externo) y expectativas comerciales

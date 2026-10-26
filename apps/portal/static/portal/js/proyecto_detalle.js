@@ -798,6 +798,12 @@
   }
 
   function projectCompatibilityBindings(){
+    if(window.beeProjectCompatibility)return window.beeProjectCompatibility.bindings({
+      start:()=>initDashboard(true),load:()=>loadDashboard(true),
+      account:_clienteSeleccionadoDashboard,refresh:()=>loadDashboard(),
+      aer:()=>cacheReporteAERTYM,ixs:()=>cacheReporteIXB,
+      renderAer:renderReporteAERTYM,renderIxs:renderReporteIXBRaaS,
+      risks:cargarTopRiesgosAzurePortafolio,executive:renderDashboardEjecutivoProyecto});
     return {
       previousStart:()=>initDashboard(true),previousLoad:()=>loadDashboard(true),
       clientChanged:()=>{const fp=document.getElementById('f-proyecto');

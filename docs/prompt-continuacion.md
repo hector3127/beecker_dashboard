@@ -9,7 +9,15 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque traslada el arranque a main:
+   diferencia con `origin/main`. Los tres fallos Node anteriores ya están
+   corregidos en sus pruebas (parser de Costos y expectativas comerciales),
+   sin cambiar producción ni fórmulas. La suite vuelve a pasar completa.
+   El último bloque separa los contratos de compatibilidad en
+   project_compatibility.js: selección/refresco/puerta de cuenta/cachés actuales
+   y orden de reportes/riesgos. El script anterior solo suministra proveedores
+   explícitos. No repetir el contrato; seguir por esos proveedores/definiciones
+   que aún obligan a cargar el script y shim. Fase 10 parcial.
+   El bloque previo traslada el arranque a main:
    carga el script en modo manual, conecta projectCompatibilityBindings y llama
    beeProjectEntry.mount. No usa renderView/projectEntryContext/initDashboard
    en el inicio moderno; la anterior conserva autoinicio. project_script_loader.js
@@ -338,8 +346,10 @@ export MSYS_NO_PATHCONV=1
 .venv/Scripts/ruff check apps tests && .venv/Scripts/ruff format apps tests
 node --test tests/frontend/*.test.*
 ```
-- Fallos conocidos y anteriores: 3 de Node (`cost_sprint_details`,
-  `executive_report`, `financial`); `test_ixs_effort::test_modals_match_previous`
+- Los tres fallos Node anteriores ya están corregidos; no volver a asumirlos
+  como esperados ni forzar importes comerciales a Pendiente.
+- Incidencias de navegador registradas en bloques anteriores, no revalidadas
+  por este bloque: `test_ixs_effort::test_modals_match_previous`
   (activity, por hover) y `test_late_response_does_not_modify_reentered_view` de
   Work Items; el 403 intermitente de Acuerdos.
 - Al escribir archivos con comandos de shell evita heredocs con comillas o

@@ -330,7 +330,10 @@ Auditoría: `proyectos/<str:project_id>/` siempre recibe ID y lo siembra en
 `project_context`; `projectParams` le da prioridad frente al query. Cuenta usa
 su ruta/plantilla modular separada. Se conserva la compatibilidad de casos
 especiales (`previousStart`, `previousLoad`, `clientChanged`) mediante
-`projectCompatibilityBindings`, sin cambiar sus callbacks/cachés. El arranque
+`projectCompatibilityBindings`. La coordinación está en `project_compatibility.js`:
+conserva selección, refresco, segunda comprobación de cuenta y lectura actual
+de cachés antes de pintar reportes/riesgos. El script anterior solo suministra
+proveedores explícitos; aún deben sustituirse para retirar su carga. El arranque
 ya lo hace main: carga definiciones con `data-project-bootstrap=manual`, conecta
 el puente y llama `beeProjectEntry.mount`, sin renderView/projectEntryContext/
 initDashboard. La comparación anterior conserva autoinicio. El cargador

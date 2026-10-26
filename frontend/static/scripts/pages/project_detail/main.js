@@ -8,6 +8,7 @@ import { mountGenericLayout } from "./sections/generic_layout_view.js";
 import { createGenericExecutive } from "./sections/generic_executive.js";
 import { createProjectPrevious } from "./sections/project_previous.js";
 import { createProjectScriptLoader } from "./sections/project_script_loader.js";
+import { createProjectCompatibility } from "./sections/project_compatibility.js";
 import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
@@ -100,6 +101,7 @@ async function start() {
     const raidCreator = createRaidCreator(data);
     Object.assign(window, {
       beeProjectData: data,
+      beeProjectCompatibility: createProjectCompatibility(),
       beeProjectClockifyRange: createClockifyRange(data),
       beeGenericSources: createGenericSources(data),
       beeGenericLayout: (target, project, milestones) =>

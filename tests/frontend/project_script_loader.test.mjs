@@ -68,6 +68,7 @@ test("compatibility bridge preserves account gate, cache rendering order and exa
       const calls = [],
         select = { value: "P" };
       const context = {
+        window: {},
         document: { getElementById: () => select },
         _clienteSeleccionadoDashboard: () => account,
         initDashboard: (...args) => calls.push(["start", ...args]),
