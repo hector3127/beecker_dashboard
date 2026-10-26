@@ -315,8 +315,14 @@ Histórico y caché, sin crear otro registro Azure), validación, campos y mensa
 `edit_operations`, alcance total y CSRF. La recarga usa el runtime modular.
 Los tres helpers anteriores solo delegan; una respuesta de una ventana cerrada
 o de otro proyecto no cierra/reemplaza la nueva. No reabrir este formulario.
-Siguen pendientes estructura de tarjetas/botones y coordinación genéricas;
-después compatibilidad y arranque autónomo.
+La estructura de tarjetas y controles usa `generic_layout_view.js` y CSS
+externo `project_detail_generic_layout.css`: montaje DOM seguro, IDs/grillas,
+cargas y resumen RAID originales. Agregar Hito/Riesgo usa eventos externos
+y sus controladores migrados; guardar hito recarga por el runtime modular.
+El renderer transitorio delega la estructura cuando sus componentes están
+disponibles; mantiene el HTML anterior solo para compatibilidad/comparación.
+Siguen pendientes coordinación/estados y derivados genéricos en el archivo
+anterior; después compatibilidad sin proyecto/cuenta y arranque autónomo.
 Siguen anteriores las ramas
 de compatibilidad sin proyecto y el Ejecutivo genérico usado si el servicio no
 se reconoce como AER/IXS. Continuar por esos casos, estados y auxiliares;

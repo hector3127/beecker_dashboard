@@ -39,9 +39,12 @@ def test_generic_timeline_model_preserves_the_existing_modern_view(
         portal.goto(portal.base + "/proyectos/AMK.008/")
         expect(portal.locator(".ixs-head")).to_be_visible()
         portal.wait_for_load_state("networkidle")
+        # Isolate the temporal model; the layout is compared against legacy
+        # in test_generic_layout (including original button sizes).
+        portal.evaluate("window.beeGenericLayout = undefined")
         if previous:
             # Use the untouched calculation block with the same template CSS.
-            # Generic old-vs-new template styling has not been migrated yet.
+            # Layout parity is covered separately against the old template.
             portal.evaluate("window.beeGenericTimeline = undefined")
             portal.evaluate("window.beeGenericTimelineView = undefined")
             portal.evaluate("window.beeGenericPanels = undefined")

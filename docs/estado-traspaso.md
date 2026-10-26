@@ -2,7 +2,39 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: formulario de alta manual de riesgos genéricos (25/10/2026)
+## Bloque actual: tarjetas y controles genéricos (25/10/2026)
+
+- `generic_layout_view.js` y `project_detail_generic_layout.css` construyen la
+  estructura con DOM seguro, sin HTML interpolado ni eventos inline. Conserva
+  grillas, IDs, cargas, textos/iconos y resumen RAID; reutiliza los componentes
+  ya migrados. Tipografía y botones conservan los valores de la anterior.
+- Agregar Hito/Riesgo abre directamente los controladores migrados. Guardar
+  hito recarga por el runtime modular y conserva el reintento. El renderer
+  transitorio delega la estructura solo si sus componentes están disponibles;
+  el HTML original sigue como respaldo de comparación/compatibilidad.
+- Se compara el contenido completo contra la plantilla anterior a igual ancho
+  y con cajas relativas, con datos/sin datos a 1450/900/390 px. Esto no equivale
+  a completar la ruta genérica autónoma. Las limitaciones de desbordamiento
+  móvil de la anterior se conservan. El test de modelo temporal desactiva la
+  estructura en ambas referencias para aislar ese modelo; no cambiar sus datos.
+- Capturas y diferencias en `tmp/migration/project_detail/generic_layout/`.
+  Inspeccionada la captura nueva móvil completa. Suite Node completa:
+  **455 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+  `executive_report`, `financial`). No se cambian cálculos, backend, servicios
+  ni permisos. Pruebas con proveedores simulados y red externa bloqueada.
+- **84 pruebas únicas de navegador aprobadas**: diez de estructura (seis
+  comparaciones de contenido completo, formularios sin helpers anteriores,
+  DOM sin innerHTML y dos guardados/recarga/reintento), 12 del modelo temporal,
+  20 del formulario de riesgos, 22 de fuentes y 20 de entrada/pestañas/recarga.
+  Ruff/formato, sintaxis JS, Django y diff aprobados. No se suman las
+  comparaciones repetidas durante el ajuste de tipografía.
+- **Fase 10 parcial.** Siguiente: coordinación/estados y derivados genéricos
+  que conserva `renderDashboardEjecutivoProyecto` (incluida su rama de error).
+  Después: compatibilidad sin proyecto/cuenta y arranque independiente.
+  Mantener script/shim y comparación. No activar ACCESS_ENFORCED ni tocar
+  Horas por mes. Temporales/herramientas ajenos intactos; sin push.
+
+## Bloque anterior: formulario de alta manual de riesgos genéricos (25/10/2026)
 
 - `generic_risk{,_model,_view}.js` y `project_detail_generic_risk.css` conservan
   ventana, campos/opciones/defaults, validación, estados de guardado/error y

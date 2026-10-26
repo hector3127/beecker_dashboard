@@ -7961,6 +7961,9 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
     const riesgosHtml =
       '<div id="riesgos-criticos-proyecto-azure" class="loading" style="padding:16px 0;">Cargando riesgos desde Azure...</div>';
 
+    if(window.beeGenericLayout&&window.beeGenericHeader&&window.beeGenericPanels&&window.beeGenericTimelineView){
+      window.beeGenericLayout(cont,p.id,hitosAdicionalesActuales);
+    }else{
     cont.innerHTML = `
       ${window.beeGenericHeader ? '<div id="generic-header-placeholder"></div><div id="generic-kpis-placeholder"></div>' : `
       <div class="card" style="margin-bottom:14px;">
@@ -8151,6 +8154,7 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       </div>
     `;
 
+    }
     if(window.beeGenericHeader){
       const blocks=window.beeGenericHeader(data,{color:colorEstado,riskClass:riesgoFechaClase,prd:aplicaSalidaPRD,prdDate:fechaSalidaPRDLegacy,completed:proyectoCompletadoDetectado});
       document.getElementById('generic-header-placeholder')?.replaceWith(blocks.header);

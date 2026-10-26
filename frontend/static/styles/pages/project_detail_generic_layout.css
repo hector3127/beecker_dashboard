@@ -1,0 +1,86 @@
+.gl-top-grid {
+  grid-template-columns: 1.4fr 1fr;
+}
+.gl-hours-grid {
+  grid-template-columns: 1fr 1fr;
+}
+.gl-bottom-grid {
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr);
+  align-items: start;
+}
+.gl-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gl-timeline-head {
+  margin-bottom: 2px;
+}
+.gl-card-head .gl-card-title {
+  margin: 0;
+}
+.gl-card-head button.gl-card-action {
+  font-size: 11.5px;
+  padding: 5px 10px;
+  background: linear-gradient(90deg, #4a2a94, #e0298b);
+  color: #fff;
+  border: none;
+  display: inline-block;
+  min-height: 0;
+  font-weight: 400;
+}
+html body .card h3.gl-hours-title {
+  font-size: 12.5px;
+}
+.gl-hours-chart {
+  font-size: 11px;
+}
+.gl-raid-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.gl-raid-summary {
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: #f0f0f0;
+}
+.gl-raid-risks {
+  background: #fdecec;
+}
+.gl-raid-pending {
+  background: #fff6e0;
+}
+.gl-raid-icon {
+  font-size: 22px;
+}
+.gl-raid-decisions .gl-raid-icon,
+.gl-raid-opportunities .gl-raid-icon {
+  font-size: 20px;
+}
+.gl-raid-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--rojo);
+}
+.gl-raid-pending .gl-raid-value {
+  color: var(--amarillo);
+}
+.gl-raid-opportunities .gl-raid-value {
+  color: var(--verde);
+}
+.gl-raid-decisions .gl-raid-value {
+  font-size: 14px;
+  color: var(--gris);
+}
+.gl-raid-label {
+  font-size: 10.5px;
+  color: var(--gris);
+}
+.loading.gl-raid-loading {
+  padding: 16px 0;
+}
+.loading.gl-tasks-loading {
+  padding: 12px 0;
+}

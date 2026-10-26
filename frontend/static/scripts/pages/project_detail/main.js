@@ -4,6 +4,7 @@ import { createProjectData } from "./data.js";
 import { createClockifyRange } from "./sections/project_clockify_range.js";
 import { createGenericSources } from "./sections/generic_sources.js";
 import { createGenericRisk } from "./sections/generic_risk.js";
+import { mountGenericLayout } from "./sections/generic_layout_view.js";
 import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
@@ -110,6 +111,14 @@ async function start() {
       beeProjectData: data,
       beeProjectClockifyRange: createClockifyRange(data),
       beeGenericSources: createGenericSources(data),
+      beeGenericLayout: (target, project, milestones) =>
+        mountGenericLayout(target, {
+          milestone: () =>
+            window.beeProjectMilestones.open(project, milestones, () =>
+              window.beeProjectEntryRuntime.load(),
+            ),
+          risk: () => window.beeGenericRisk.open(project),
+        }),
       beeGenericTimeline: genericTimeline,
       beeGenericTimelineView: genericTimelineView,
       beeGenericHeader: genericHeader,

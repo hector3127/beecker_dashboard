@@ -116,6 +116,39 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Estructura de tarjetas y controles genéricos (25/10/2026)
+
+`generic_layout_view.js` y `project_detail_generic_layout.css` montan la
+estructura del Ejecutivo genérico con DOM seguro, sin HTML interpolado ni
+eventos inline. Conserva grillas, IDs, cargas, resumen RAID, textos, iconos y
+posiciones. Reutiliza encabezado/KPIs, línea temporal, tablas y gráficas ya
+migrados. Las reglas de tipografía y botones neutralizan solo las diferencias
+de la base nueva respecto a los estilos anteriores.
+
+Agregar Hito/Riesgo usa directamente los controladores modulares; el hito
+recarga por `beeProjectEntryRuntime.load()` y conserva el reintento de carga.
+El renderer transitorio delega la estructura si están disponibles todos sus
+componentes; mantiene el HTML anterior para compatibilidad/comparación. Sus
+derivados y coordinación de montaje/cargas siguen pendientes: no dar por
+migrado todo el Ejecutivo genérico ni retirar el script/shim.
+
+La prueba del modelo temporal desactiva esta estructura en ambas referencias
+para seguir aislando ese modelo; una prueba nueva compara el contenido completo
+contra la plantilla anterior, al mismo ancho de referencia y con cajas relativas.
+No se cambia ninguna cifra, fórmula, servicio, permiso ni Horas por mes.
+Suite Node completa: **455 aprobadas y tres fallos anteriores**
+(`cost_sprint_details`, `executive_report`, `financial`). **84 pruebas únicas
+de navegador aprobadas**: diez de estructura (seis comparaciones completas con
+datos/sin datos a 1450/900/390 px y cuatro funcionales), 12 del modelo temporal,
+20 del formulario de riesgos, 22 de fuentes y 20 de entrada/pestañas/recarga.
+Capturas/diferencias en `tmp/migration/project_detail/generic_layout/`; móvil
+nuevo inspeccionado. Se conserva el desbordamiento móvil anterior, sin rediseño.
+Ruff/formato, sintaxis JS, Django y diff aprobados. Sin consultas reales a
+proveedores ni cambios de backend.
+
+**Fase 10 parcial.** Siguiente: coordinación/estados y derivados genéricos;
+después casos sin proyecto/cuenta y arranque independiente. Sin push.
+
 ### Alta manual de riesgos del Ejecutivo genérico (25/10/2026)
 
 `generic_risk.js`, `generic_risk_model.js` y `generic_risk_view.js` separan
