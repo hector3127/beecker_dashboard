@@ -112,18 +112,13 @@ def account_hours(request: HttpRequest, slug: str) -> HttpResponse:
 @period_view
 @require_capability("view_costs")
 def margins(request: HttpRequest) -> HttpResponse:
-    """Margen vendido vs. real: el JS pide las cifras a la API.
-
-    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la pantalla de antes.
-    """
+    """Margen vendido vs. real: el JS pide las cifras a la API."""
     from urllib.parse import urlencode
 
     from django.urls import reverse
 
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if anterior_disponible() and request.GET.get("vista") == "anterior":
-        return views.oportunidades_financieras(request)
     account = request.GET.get("nombre", "").strip()
     if account and not scope_for(request).allows_account(account):
         raise Http404("No existe esa cuenta.")

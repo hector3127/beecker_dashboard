@@ -1782,8 +1782,6 @@ def costos_detalle(request: HttpRequest) -> HttpResponse:
     if not named and not scope.unrestricted:
         # El listado completo es del portafolio entero.
         raise PermissionDenied
-    if request.GET.get("vista") != "proyectos":
-        return oportunidades_financieras(request)
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
     from apps.portal.services.return_navigation import account_back_url
@@ -2146,48 +2144,3 @@ def cuenta_financiera(request: HttpRequest) -> HttpResponse:
             {"error": "No se pudo consultar la informacion financiera"},
             status=502,
         )
-
-
-@require_GET
-@period_view
-@require_capability("view_costs")
-def oportunidades_financieras(request: Any) -> Any:
-    """Florencia: margen vendido y real por oportunidad, no por Project ID."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    from apps.portal.services.margins_screen import load_margins
-    from apps.portal.services.return_navigation import account_back_url
-
-    scope = scope_for(request)
-    account_filter = request.GET.get("nombre", "").strip()
-    if account_filter and not scope.allows_account(account_filter):
-        raise Http404("No existe esa cuenta.")
-    result = load_margins(account_filter, scope)
-    navigation = return_context(
-        request,
-        account_back_url(account_filter),
-        account_filter or "Business Overview",
-    )
-    data = {
-        key: result[key]
-        for key in ("opportunities", "start", "end", "excluded")
-    }
-    year = int(data["start"][:4])
-    return render(
-        request,
-        "portal/oportunidades_financieras.html",
-        {
-            **navigation,
-            "active": "ejecutiva",
-            "data": data,
-            "preparing": result["preparing"],
-            "account_filter": account_filter,
-            "summary": result["summary"],
-            "selected_year": year,
-            "year_options": range(year - 2, year + 2),
-            "executive_query": executive_query_string(),
-            "executive_label": period.label
-            if (period := executive_period())
-            else "2026",
-        },
-    )
