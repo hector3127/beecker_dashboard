@@ -36,8 +36,11 @@ def month_input(portal):
     return portal.locator("#eva4-month")
 
 
-def test_structure_is_accessible_and_keeps_the_previous_order(portal, loads):
-    portal.goto(portal.base + PAGE)
+@pytest.mark.parametrize("query", ["", "?vista=anterior"])
+def test_structure_is_accessible_and_keeps_the_previous_order(
+    portal, loads, query
+):
+    portal.goto(portal.base + PAGE + query)
 
     expect(portal.locator("#eva4-processes")).to_be_visible()
     assert portal.locator("main").count() == 1
@@ -239,11 +242,11 @@ def test_back_link_returns_to_operativa(portal, loads, datos):
     portal.wait_for_url(re.compile(r"/operativa/$"))
 
 
-def test_page_has_no_errors_or_csp_violations(portal, loads, settings):
-    settings.CSP_REPORT_ONLY = True
+def test_page_has_no_errors_or_csp_violations(portal, loads, enforced_csp):
     problems = watch(portal)
 
-    portal.goto(portal.base + PAGE)
+    response = portal.goto(portal.base + PAGE)
+    assert "script-src" in response.header_value("content-security-policy")
     expect(portal.locator("#eva4-processes")).to_be_visible()
     month_input(portal).fill("2026-09")
     expect(portal.locator("#eva4-source")).to_contain_text("2026-09")
@@ -382,11 +385,18 @@ def test_process_column_menus_combine_with_client_and_month(
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
 def test_eva4_reference_pagination_exports_and_responsive(
-    portal, monkeypatch, width
+    portal, monkeypatch, width, enforced_csp
 ):
+    from datetime import datetime
     from pathlib import Path
 
     from tests.portal.test_eva4 import HEADER, row
+
+    monkeypatch.setattr(
+        eva4.timezone,
+        "now",
+        lambda: datetime.fromisoformat("2026-10-14T12:00:00+00:00"),
+    )
 
     records = []
     for index in range(17):

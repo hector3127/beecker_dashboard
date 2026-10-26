@@ -244,10 +244,16 @@ def test_page_sends_anonymous_people_to_login_when_enforced(client, enforced):
     assert response.url.startswith("/admin/login/")
 
 
-def test_anterior_view_is_still_served_before_the_cutoff(client, monkeypatch):
+def test_retired_parameter_preserves_shell_month_and_defers_sources(
+    client, monkeypatch, served
+):
     monkeypatch.setattr(eva4.timezone, "localdate", lambda: date(2026, 10, 22))
-    monkeypatch.setattr(eva4, "load_eva4", lambda *a: report())
-
-    html = client.get("/operativa/eva-4/", {"vista": "anterior"}).content
-
-    assert "Estás viendo la pantalla anterior" in html.decode()
+    response = client.get(
+        "/operativa/eva-4/", {"vista": "anterior", "mes": "2026-09"}
+    )
+    html = response.content.decode()
+    assert response.status_code == 200
+    assert 'id="eva4-content"' in html
+    assert '"value": "2026-09"' in html
+    assert "Estás viendo la pantalla anterior" not in html
+    assert served == []

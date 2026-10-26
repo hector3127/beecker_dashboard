@@ -156,6 +156,30 @@ def portal(live_server: Any, page: Any) -> Iterator[Any]:
     yield page
 
 
+@pytest.fixture
+def enforced_csp(portal: Any, settings: Any) -> Iterator[None]:
+    """Apply the proposed policy to local HTML only in this test browser."""
+    settings.CSP_REPORT_ONLY = True
+
+    def enforce(route: Any) -> None:
+        if (
+            not route.request.url.startswith(portal.base)
+            or route.request.resource_type != "document"
+        ):
+            route.fallback()
+            return
+        response = route.fetch()
+        headers = dict(response.headers)
+        policy = headers.pop("content-security-policy-report-only", None)
+        if policy:
+            headers["content-security-policy"] = policy
+        route.fulfill(response=response, headers=headers)
+
+    portal.route("**/*", enforce)
+    yield
+    portal.unroute("**/*", enforce)
+
+
 def watch(portal):
     """Anota lo que sale mal en la pagina; las fuentes de Google se ignoran."""
     problems = []

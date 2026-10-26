@@ -1078,41 +1078,6 @@ def eva1(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
-def eva4(request: HttpRequest) -> HttpResponse:
-    """Pantalla anterior de EVA-04, para comparar hasta ANTERIOR_HASTA.
-
-    La pantalla vigente la entrega pages.eva4, que llama a esta vista solo
-    con ?vista=anterior mientras la fecha lo permita.
-    """
-    from apps.portal.services.eva4 import (
-        ANTERIOR_HASTA,
-        load_eva4,
-        month_picker,
-    )
-
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    result = (
-        load_eva4(request.GET["mes"]) if request.GET.get("mes") else load_eva4()
-    )
-    return render(
-        request,
-        "portal/eva4_anterior.html",
-        {
-            "active": "operativa",
-            "eva4": result,
-            "loaded_at": result.get("loaded_at"),
-            "error": result.get("error"),
-            "anterior_hasta": ANTERIOR_HASTA,
-            "picker": month_picker(
-                request.GET.get("mes") or result.get("month"),
-                timezone.localdate(),
-            ),
-        },
-    )
-
-
-@require_GET
 @require_capability("view_operations", whole_portfolio=True)
 def eva2(request: HttpRequest) -> HttpResponse:
     """

@@ -121,11 +121,13 @@ def render_eva4(monkeypatch, params=None, today=TODAY):
     return pages.eva4(request).content.decode()
 
 
-def test_anterior_view_is_available_until_the_cutoff_date(monkeypatch):
-    html = render_eva4(monkeypatch, {"vista": "anterior"})
-    assert "Estás viendo la pantalla anterior" in html
-    assert "03/11/2026" in html
-    assert "eva4-month-form" in html  # sigue siendo EVA-04
+@pytest.mark.parametrize("today", [TODAY, date(2026, 11, 4)])
+def test_retired_parameter_keeps_the_modular_page(monkeypatch, today):
+    html = render_eva4(monkeypatch, {"vista": "anterior"}, today=today)
+    assert 'id="eva4-content"' in html
+    assert "/static/app/scripts/pages/eva4/main.js" in html
+    assert "Estás viendo la pantalla anterior" not in html
+    assert "portal/js/" not in html
 
 
 def test_new_view_does_not_show_a_link_to_the_anterior_one(monkeypatch):
@@ -133,17 +135,6 @@ def test_new_view_does_not_show_a_link_to_the_anterior_one(monkeypatch):
     assert "ver la pantalla anterior" not in html
     assert "Validación:" not in html
     assert "Estás viendo la pantalla anterior" not in html
-
-
-def test_anterior_param_is_ignored_after_the_cutoff(monkeypatch):
-    html = render_eva4(
-        monkeypatch,
-        {"vista": "anterior"},
-        today=eva4.ANTERIOR_HASTA.replace(day=eva4.ANTERIOR_HASTA.day + 1),
-    )
-    assert "Estás viendo la pantalla anterior" not in html
-    assert "vista=anterior" not in html
-    assert 'id="eva4-content"' in html  # la pantalla vigente
 
 
 def test_month_picker_lists_years_months_and_limits():

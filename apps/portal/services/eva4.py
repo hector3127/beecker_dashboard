@@ -20,11 +20,8 @@ from core.exceptions import DashboardError
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 
-# Validacion del rediseno (DESIGN-IS-2026-10-20/05-plan.md, fase 6).
-# Hasta esta fecha se puede ver la pantalla anterior con ?vista=anterior.
-# Para retirarla: borrar ANTERIOR_HASTA, anterior_disponible(), views.eva4, la
-# plantilla eva4_anterior.html, la rama ?vista=anterior de pages.eva4 y las
-# pruebas test_anterior_*.
+# Fecha compartida de las comparaciones que siguen pendientes de retirar.
+# EVA-04 ya no tiene plantilla ni entrada anterior (fase 11).
 ANTERIOR_HASTA = date(2026, 11, 3)
 
 # Primer mes con horas de Clockify en la base: limite inferior del selector.

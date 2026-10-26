@@ -12,6 +12,12 @@ No hagas push sin petición expresa del usuario.
 
 **Actualización 26/10 posterior al rediseño:** lee también
 `docs/preparacion-fase-11.md`. El usuario autorizó preparar la fase 11.
+La fase 11 ya tiene un primer bloque completado: EVA-04 perdió su vista y
+plantilla anteriores; el parámetro obsoleto abre la modular y conserva mes.
+No recrearlas. Capturas vigentes idénticas antes/después a 1450/900/390 px;
+1682 servidor (portal/core/accesos), 498 Node y 38 Chrome pasan. `enforced_csp` sirve para las pruebas
+futuras; no hay bloqueo global. Faltan las otras referencias y CSP de captura
+real/gráficos/ventanas. La evidencia de preparación que sigue es previa.
 La migración local de logos está aplicada; en otros entornos ejecutar migrate.
 Se corrigió una regresión de rangos MPB repetidos respecto al cierre anterior
 y se probó CSP de la vista previa del logo en navegador, sin activar bloqueo

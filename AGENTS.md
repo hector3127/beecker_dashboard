@@ -36,7 +36,13 @@ rediseño está validada: migración local de logos aplicada, regresión de rang
 MPB restaurada al contrato previo y ajuste CSP de vista previa probado sin
 bloqueo global. Evidencia: 388 servidor, 498 Node, 74 Chrome; revalidación
 logos/CSP 15 casos (con solapamiento). Ver `docs/preparacion-fase-11.md`.
-Continuar con limpieza coordinada y auditoría CSP; fase 11 no está cerrada.
+Fase 11 iniciada: retirada la vista/plantilla anterior de EVA-04 y su rama de
+comparación. Los enlaces antiguos sirven la pantalla modular sin perder mes.
+1682 pruebas de servidor (portal/core/accesos), 498 Node y 38 Chrome aprobadas; imágenes
+antes/después idénticas a 1450/900/390 px, incluso con CSP real en las pruebas
+de paginación/CSV. `enforced_csp` permite validar otras pantallas sin activar
+bloqueo global. Continuar por las demás referencias y la captura real con CSP;
+no retirar todavía bases compartidas ni servicios JSON. Fase 11 no cerrada.
 ACCESS_ENFORCED/Genesis sigue siendo decisión de despliegue. Las frases
 «fase 10 parcial» de los bloques históricos siguientes no son el estado actual.
 

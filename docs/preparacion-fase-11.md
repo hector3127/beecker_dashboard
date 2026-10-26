@@ -2,7 +2,43 @@
 
 La fase 10 sigue cerrada. El usuario autorizó integrar los cambios nuevos y
 preparar la fase 11. Este bloque valida la integración; no elimina todavía
-referencias ni activa una política de bloqueo global.
+referencias ni activa una política de bloqueo global. Ese párrafo describe
+la preparación previa; el primer retiro ya se completó en el bloque siguiente.
+
+## Primer bloque de limpieza completado: EVA-04
+
+- Retiradas la vista `views.eva4`, la plantilla `portal/eva4_anterior.html`
+  y la bifurcación de `pages.eva4`. La ruta actual, sus servicios, cálculos,
+  permisos y estilos se conservan. No quedan referencias a esos dos nombres
+  en código/pruebas vigentes.
+- `vista=anterior` ahora entrega la plantilla modular incluso antes del corte
+  anterior; conserva `mes` y sigue sin consultar fuentes en la carga HTML.
+  Pruebas antiguas sustituidas por verificaciones de ese contrato.
+- Antes del retiro se ejecutó la referencia visual vigente con reloj fijo;
+  después se repitió con CSP de bloqueo solo en el navegador. Las imágenes
+  son idénticas píxel a píxel a 1450/900/390 px. Ejemplo SHA256 escritorio:
+  `c29364cc9bbf6dc787f1b13406bfd0435fc944f8d637db99875535df3af6c115`.
+  Las copias locales están en `tmp/fase11/eva4-before/` y
+  `tmp/design/eva4-reference/`. El rediseño posterior a fase 10 es la referencia.
+- 93 pruebas dirigidas de servidor aprobadas: `test_eva4.py`,
+  `test_eva4_api.py`, `test_eva4_hours.py` en `tests/portal/` y
+  `tests/core/test_frontend_support.py`. Una expectativa residual de servir
+  la plantilla retirada falló en la primera corrida; se actualizó al contrato
+  nuevo y se repitieron los cuatro archivos completos, sin omisiones.
+- Revisión ampliada final: `pytest tests/portal tests/core tests/access -q
+  --no-cov --tb=short`, **1682 aprobadas** en 94 s. Incluye las pruebas
+  dirigidas anteriores, sin sumarlas dos veces; no es la suite general e2e.
+- 38 Chrome aprobadas: `tests/e2e/test_eva4.py` y `test_page_capture.py`.
+  Incluyen estructura con/sin parámetro obsoleto, filtros/paginación y CSV
+  bajo CSP real, permisos limitados, errores/reintento y navegación de regreso.
+  La captura real se probó sin bloqueo CSP; su certificación sigue pendiente.
+- 498 Node, Ruff/formato de `apps core tests` y mypy de páginas aprobados.
+- Nuevo fixture reutilizable `enforced_csp`: aplica la cabecera de bloqueo
+  exclusivamente a documentos locales del navegador de pruebas. Sigue sin
+  activar CSP global, ACCESS_ENFORCED ni proveedores reales.
+- Se conservan el corte compartido y las referencias de las otras pantallas.
+  Quedan 32 HTML anteriores en portal; no borrarlos todos ni eliminar sus
+  servicios Python por compartir carpeta con las vistas anteriores.
 
 ## Integración revisada
 

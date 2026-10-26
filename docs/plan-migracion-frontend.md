@@ -7,6 +7,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 en curso — primer retiro completado (26/10).** EVA-04 ya no tiene
+vista/plantilla antigua ni bifurcación de comparación; los enlaces guardados
+con `vista=anterior` conservan la pantalla nueva y su selector de mes. No se
+tocaron datos, estilos ni cálculos. 1682 pruebas de servidor (portal/core/accesos), 498 Node
+y 38 Chrome aprobadas. Las capturas vigentes antes/después son idénticas
+píxel a píxel a 1450/900/390 px; las posteriores también usan CSP real de
+bloqueo solo dentro de las pruebas de filtros/paginación/CSV. Se conserva la
+fecha compartida de las otras comparaciones. Ver `docs/preparacion-fase-11.md`.
+
 **Entrada a fase 11 preparada tras integrar el rediseño (26/10).** Se aplicó
 localmente la migración de logos, se corrigieron tipado/formato y se restauró
 el contrato previo de rangos MPB repetidos. 388 pruebas de servidor, 498 Node

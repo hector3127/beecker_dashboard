@@ -2,7 +2,30 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: integración validada; entrada a fase 11 (26/10/2026)
+## Bloque actual: fase 11 iniciada, retirada referencia EVA-04 (26/10)
+
+- Eliminadas `views.eva4`, su plantilla `portal/eva4_anterior.html` y la
+  bifurcación de `pages.eva4`. El parámetro obsoleto no rompe enlaces guardados:
+  presenta frontend modular, mantiene mes y no consulta fuentes en el HTML.
+- Las pruebas de disponibilidad/caducidad anteriores se sustituyeron por
+  comprobaciones del contrato actual; no se eliminó cobertura de API/datos.
+- Se guardaron capturas deterministas antes del retiro y se repitieron con
+  CSP de bloqueo en el navegador. Son idénticas píxel a píxel a 1450/900/390.
+  Referencias locales ignoradas: `tmp/fase11/eva4-before/`; resultado en
+  `tmp/design/eva4-reference/`. No se modificaron estilos ni fórmulas.
+- 1682 pruebas de servidor (portal/core/accesos), 498 Node y 38 Chrome aprobadas. Incluyen
+  fuente/fallos/reintento, filtros, CSV, alcance limitado, navegación, logos y
+  captura compartida. La captura real NO se ha certificado con CSP de bloqueo.
+- Fixture `enforced_csp` en `tests/e2e/conftest.py`: aplica la política recibida
+  a documentos locales del navegador de prueba, manteniendo bloqueo de red
+  externa. No cambia middleware/configuración/despliegue; el caso CSP verifica
+  además que recibió cabecera efectiva de bloqueo.
+- `ANTERIOR_HASTA`/`anterior_disponible` siguen compartidos por otras pantallas;
+  no borrarlos todavía. Próximo bloque: retirar comparaciones de otras pantallas
+  con sus referencias vigentes y validar captura/gráficos/ventanas con CSP real.
+  No borrar servicios de views.py ni bases compartidas en bloque. Sin push.
+
+## Bloque previo: integración validada; entrada a fase 11 (26/10/2026)
 
 La fase 10 sigue cerrada. Integrados y revisados los cambios de diseño/logos
 de `24cd3cf` y fechas de `834bbfa`. Migración local `portal.0003_account_logo`
