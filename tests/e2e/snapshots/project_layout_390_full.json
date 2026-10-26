@@ -1,0 +1,2071 @@
+{
+  "main.page": [
+    {
+      "box": [
+        0,
+        118.4,
+        390,
+        1775.2
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "22px",
+        "40px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "←RegresaraOperativaProyectosenejecución›HISHISCrítico3·ACME·DeliveryManager:Alberto·Entregaestimada:28/12/2026RequieredecisióndedirecciónDecidirsiseapruebaunajustedepresupuesto.Yausó125%desupresupuesto:excedeen25%.—ImpactoendineroPendientePresupuestousado125%125hconsumidasde100hpresupuestadasAvanceenhoras50%AvancecalculadodelproyectoETC60hHorasquefaltanparaterminarGrossMargin—AúnsinfuenteconectadaPendientePresupuestocontraavanceLalíneaverticalmarcael100%delpresupuestoPresupuestousado125%Avanceenhoras50%Tiempotranscurrido65%0%50%100%150%Logastadova75puntosporencimadeltrabajoavanzado.Con65%deltiempotranscurrido,quedan75díasparalafechadeentrega.RiesgosabiertosLosdemayorimpactoprimero.ResponsableydíasabiertoaúnnoseregistranPendienteRiesgoImpactoProbabilidadSinaccesoAltoAltaValidaciónMedio—DependenciaBajo—EquipoasignadoHorasregistradasenelproyectoRolPersonasHorasQA251hHistorialdelproyectoHitosyfechasdelahojaProyectoseHistorico_Proyectos,delmásnuevoalmásantiguo28/12/2026FechaestimadadeentregaFinestimadosegúnlahojaProyectos.02/02/2026ArranqueCompletado01/01/2026IniciodelproyectoFechadeinicioregistradaenlahojaProyectos.Presupuesto,avance,ETC,tiempotranscurrido,riesgos,equipoehistorialsondatosreales(sololectura).EldineroenUSD,elGrossMargin,elresponsableylosdíasabiertosdecadariesgonoexistenenSheets.LaprimeracargadeunproyectopuedetardarporqueleeClockify;despuésseguarda10minutos."
+    }
+  ],
+  ".crumb": [
+    {
+      "box": [
+        36,
+        140.4,
+        318,
+        44
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13.5px",
+        "400",
+        "normal",
+        "0px",
+        "12px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "←RegresaraOperativaProyectosenejecución›HIS"
+    }
+  ],
+  ".hd": [
+    {
+      "box": [
+        36,
+        196.4,
+        318,
+        106
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "20px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "HISCrítico3·ACME·DeliveryManager:Alberto·Entregaestimada:28/12/2026"
+    }
+  ],
+  "h1": [
+    {
+      "box": [
+        36,
+        196.4,
+        56,
+        46
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "34px",
+        "800",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "HIS"
+    }
+  ],
+  ".badge": [
+    {
+      "box": [
+        106,
+        205.9,
+        70,
+        27
+      ],
+      "css": [
+        "rgb(255, 255, 255)",
+        "rgb(192, 35, 62)",
+        "13px",
+        "800",
+        "normal",
+        "0px",
+        "0px",
+        "5px",
+        "5px",
+        "none",
+        "999px",
+        "content-box"
+      ],
+      "text": "Crítico"
+    }
+  ],
+  ".sub": [
+    {
+      "box": [
+        36,
+        260.4,
+        318,
+        42
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "4px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "3·ACME·DeliveryManager:Alberto·Entregaestimada:28/12/2026"
+    }
+  ],
+  ".dec": [
+    {
+      "box": [
+        36,
+        322.4,
+        318,
+        260.4
+      ],
+      "css": [
+        "rgb(255, 255, 255)",
+        "rgb(75, 37, 201)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "14px",
+        "20px",
+        "20px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "RequieredecisióndedirecciónDecidirsiseapruebaunajustedepresupuesto.Yausó125%desupresupuesto:excedeen25%.—ImpactoendineroPendiente"
+    }
+  ],
+  ".dec h2": [
+    {
+      "box": [
+        62,
+        342.4,
+        115.4,
+        51
+      ],
+      "css": [
+        "rgb(207, 196, 255)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Requieredecisióndedirección"
+    }
+  ],
+  ".dec .amt": [
+    {
+      "box": [
+        201.4,
+        424.6,
+        126.6,
+        55.9
+      ],
+      "css": [
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "22px",
+        "800",
+        "24.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "—ImpactoendineroPendiente"
+    }
+  ],
+  ".kp": [
+    {
+      "box": [
+        36,
+        596.8,
+        318,
+        234.3
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "14px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuestousado125%125hconsumidasde100hpresupuestadasAvanceenhoras50%AvancecalculadodelproyectoETC60hHorasquefaltanparaterminarGrossMargin—AúnsinfuenteconectadaPendiente"
+    }
+  ],
+  ".kc": [
+    {
+      "box": [
+        36,
+        596.8,
+        140,
+        234.3
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "18px",
+        "18px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "Presupuestousado125%125hconsumidasde100hpresupuestadas"
+    },
+    {
+      "box": [
+        190,
+        596.8,
+        122.2,
+        234.3
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "18px",
+        "18px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "Avanceenhoras50%Avancecalculadodelproyecto"
+    },
+    {
+      "box": [
+        326.2,
+        596.8,
+        98.6,
+        234.3
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "18px",
+        "18px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "ETC60hHorasquefaltanparaterminar"
+    },
+    {
+      "box": [
+        438.8,
+        596.8,
+        132.2,
+        234.3
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "18px",
+        "18px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "GrossMargin—AúnsinfuenteconectadaPendiente"
+    }
+  ],
+  ".kl": [
+    {
+      "box": [
+        61,
+        615.8,
+        90,
+        38
+      ],
+      "css": [
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuestousado"
+    },
+    {
+      "box": [
+        215,
+        615.8,
+        72.2,
+        38
+      ],
+      "css": [
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Avanceenhoras"
+    },
+    {
+      "box": [
+        351.2,
+        615.8,
+        48.6,
+        19
+      ],
+      "css": [
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "ETC"
+    },
+    {
+      "box": [
+        463.8,
+        615.8,
+        82.2,
+        38
+      ],
+      "css": [
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "GrossMargin"
+    }
+  ],
+  ".kv": [
+    {
+      "box": [
+        61,
+        653.8,
+        90,
+        43.2
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "125%"
+    },
+    {
+      "box": [
+        215,
+        653.8,
+        72.2,
+        43.2
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "50%"
+    },
+    {
+      "box": [
+        351.2,
+        634.8,
+        48.6,
+        86.4
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "60h"
+    },
+    {
+      "box": [
+        463.8,
+        653.8,
+        82.2,
+        43.2
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "—"
+    }
+  ],
+  ".kv small": [
+    {
+      "box": [
+        351.2,
+        698,
+        8,
+        20
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "15px",
+        "700",
+        "18px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "h"
+    }
+  ],
+  ".kv span": [
+    {
+      "box": [
+        463.8,
+        650.8,
+        34.9,
+        48
+      ],
+      "css": [
+        "rgb(138, 129, 184)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "—"
+    }
+  ],
+  ".ke": [
+    {
+      "box": [
+        61,
+        697,
+        90,
+        72.8
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "400",
+        "18.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "125hconsumidasde100hpresupuestadas"
+    },
+    {
+      "box": [
+        215,
+        697,
+        72.2,
+        54.6
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "400",
+        "18.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Avancecalculadodelproyecto"
+    },
+    {
+      "box": [
+        351.2,
+        721.1,
+        48.6,
+        90.9
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "400",
+        "18.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Horasquefaltanparaterminar"
+    },
+    {
+      "box": [
+        463.8,
+        697,
+        82.2,
+        74.4
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "400",
+        "18.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "AúnsinfuenteconectadaPendiente"
+    }
+  ],
+  ".two": [
+    {
+      "box": [
+        36,
+        845.1,
+        318,
+        458
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "14px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "PresupuestocontraavanceLalíneaverticalmarcael100%delpresupuestoPresupuestousado125%Avanceenhoras50%Tiempotranscurrido65%0%50%100%150%Logastadova75puntosporencimadeltrabajoavanzado.Con65%deltiempotranscurrido,quedan75díasparalafechadeentrega.RiesgosabiertosLosdemayorimpactoprimero.ResponsableydíasabiertoaúnnoseregistranPendienteRiesgoImpactoProbabilidadSinaccesoAltoAltaValidaciónMedio—DependenciaBajo—EquipoasignadoHorasregistradasenelproyectoRolPersonasHorasQA251h"
+    }
+  ],
+  ".card": [
+    {
+      "box": [
+        36,
+        845.1,
+        312,
+        458
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "22px",
+        "22px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "PresupuestocontraavanceLalíneaverticalmarcael100%delpresupuestoPresupuestousado125%Avanceenhoras50%Tiempotranscurrido65%0%50%100%150%Logastadova75puntosporencimadeltrabajoavanzado.Con65%deltiempotranscurrido,quedan75díasparalafechadeentrega."
+    },
+    {
+      "box": [
+        362,
+        845.1,
+        361.8,
+        458
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "22px",
+        "22px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "RiesgosabiertosLosdemayorimpactoprimero.ResponsableydíasabiertoaúnnoseregistranPendienteRiesgoImpactoProbabilidadSinaccesoAltoAltaValidaciónMedio—DependenciaBajo—EquipoasignadoHorasregistradasenelproyectoRolPersonasHorasQA251h"
+    },
+    {
+      "box": [
+        36,
+        1317.1,
+        318,
+        414
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "22px",
+        "22px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "HistorialdelproyectoHitosyfechasdelahojaProyectoseHistorico_Proyectos,delmásnuevoalmásantiguo28/12/2026FechaestimadadeentregaFinestimadosegúnlahojaProyectos.02/02/2026ArranqueCompletado01/01/2026IniciodelproyectoFechadeinicioregistradaenlahojaProyectos."
+    }
+  ],
+  ".card h2": [
+    {
+      "box": [
+        63,
+        868.1,
+        258,
+        27
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "20px",
+        "700",
+        "normal",
+        "0px",
+        "2px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuestocontraavance"
+    },
+    {
+      "box": [
+        389,
+        868.1,
+        307.8,
+        27
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "20px",
+        "700",
+        "normal",
+        "0px",
+        "2px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Riesgosabiertos"
+    },
+    {
+      "box": [
+        389,
+        1136.1,
+        307.8,
+        27
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "20px",
+        "700",
+        "normal",
+        "20px",
+        "2px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Equipoasignado"
+    },
+    {
+      "box": [
+        63,
+        1340.1,
+        264,
+        27
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "20px",
+        "700",
+        "normal",
+        "0px",
+        "2px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Historialdelproyecto"
+    }
+  ],
+  ".hs": [
+    {
+      "box": [
+        63,
+        897.1,
+        258,
+        38
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "16px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Lalíneaverticalmarcael100%delpresupuesto"
+    },
+    {
+      "box": [
+        389,
+        897.1,
+        307.8,
+        39
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "16px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Losdemayorimpactoprimero.ResponsableydíasabiertoaúnnoseregistranPendiente"
+    },
+    {
+      "box": [
+        389,
+        1165.1,
+        307.8,
+        19
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "16px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Horasregistradasenelproyecto"
+    },
+    {
+      "box": [
+        63,
+        1369.1,
+        264,
+        57
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "16px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "HitosyfechasdelahojaProyectoseHistorico_Proyectos,delmásnuevoalmásantiguo"
+    }
+  ],
+  ".br": [
+    {
+      "box": [
+        63,
+        951.1,
+        258,
+        37
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "9px",
+        "9px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuestousado125%"
+    },
+    {
+      "box": [
+        63,
+        988.1,
+        258,
+        37
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "9px",
+        "9px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Avanceenhoras50%"
+    },
+    {
+      "box": [
+        63,
+        1025.1,
+        258,
+        37
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "9px",
+        "9px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Tiempotranscurrido65%"
+    }
+  ],
+  ".tr": [
+    {
+      "box": [
+        227,
+        962.6,
+        0,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(238, 234, 251)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        227,
+        999.6,
+        0,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(238, 234, 251)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        227,
+        1036.6,
+        0,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(238, 234, 251)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    }
+  ],
+  ".tr i": [
+    {
+      "box": [
+        227,
+        962.6,
+        0,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(214, 48, 75)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        227,
+        999.6,
+        0,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(91, 47, 214)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        227,
+        1036.6,
+        0,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(138, 129, 184)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    }
+  ],
+  ".tr u": [
+    {
+      "box": [
+        227,
+        957.6,
+        2,
+        24
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(27, 26, 74)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        227,
+        994.6,
+        2,
+        24
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(27, 26, 74)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        227,
+        1031.6,
+        2,
+        24
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(27, 26, 74)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": ""
+    }
+  ],
+  ".ax": [
+    {
+      "box": [
+        63,
+        1062.1,
+        258,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "0%50%100%150%"
+    }
+  ],
+  ".ax em": [
+    {
+      "box": [
+        227,
+        1062.1,
+        16.3,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "0%"
+    },
+    {
+      "box": [
+        227,
+        1062.1,
+        22.8,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "50%"
+    },
+    {
+      "box": [
+        212.4,
+        1062.1,
+        29.2,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "100%"
+    },
+    {
+      "box": [
+        197.8,
+        1062.1,
+        29.2,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "150%"
+    }
+  ],
+  "table": [
+    {
+      "box": [
+        389,
+        952.1,
+        307.8,
+        164
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "border-box"
+      ],
+      "text": "RiesgoImpactoProbabilidadSinaccesoAltoAltaValidaciónMedio—DependenciaBajo—"
+    },
+    {
+      "box": [
+        389,
+        1200.1,
+        307.8,
+        80
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "border-box"
+      ],
+      "text": "RolPersonasHorasQA251h"
+    }
+  ],
+  "th": [
+    {
+      "box": [
+        389,
+        952.1,
+        109.6,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Riesgo"
+    },
+    {
+      "box": [
+        498.6,
+        952.1,
+        80.8,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Impacto"
+    },
+    {
+      "box": [
+        579.3,
+        952.1,
+        117.5,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Probabilidad"
+    },
+    {
+      "box": [
+        389,
+        1200.1,
+        72.3,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Rol"
+    },
+    {
+      "box": [
+        461.3,
+        1200.1,
+        134.3,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Personas"
+    },
+    {
+      "box": [
+        595.6,
+        1200.1,
+        101.2,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Horas"
+    }
+  ],
+  "td": [
+    {
+      "box": [
+        389,
+        990.6,
+        109.6,
+        42
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Sinacceso"
+    },
+    {
+      "box": [
+        498.6,
+        990.6,
+        80.8,
+        42
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Alto"
+    },
+    {
+      "box": [
+        579.3,
+        990.6,
+        117.5,
+        42
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Alta"
+    },
+    {
+      "box": [
+        389,
+        1032.6,
+        109.6,
+        42
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Validación"
+    },
+    {
+      "box": [
+        498.6,
+        1032.6,
+        80.8,
+        42
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Medio"
+    },
+    {
+      "box": [
+        579.3,
+        1032.6,
+        117.5,
+        42
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "—"
+    },
+    {
+      "box": [
+        389,
+        1074.6,
+        109.6,
+        41.5
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Dependencia"
+    },
+    {
+      "box": [
+        498.6,
+        1074.6,
+        80.8,
+        41.5
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Bajo"
+    },
+    {
+      "box": [
+        579.3,
+        1074.6,
+        117.5,
+        41.5
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "—"
+    },
+    {
+      "box": [
+        389,
+        1238.6,
+        72.3,
+        41.5
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "QA"
+    },
+    {
+      "box": [
+        461.3,
+        1238.6,
+        134.3,
+        41.5
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "2"
+    },
+    {
+      "box": [
+        595.6,
+        1238.6,
+        101.2,
+        41.5
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "51h"
+    }
+  ],
+  ".st": [
+    {
+      "box": [
+        510.6,
+        1003.6,
+        42.8,
+        17
+      ],
+      "css": [
+        "rgb(163, 27, 51)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Alto"
+    },
+    {
+      "box": [
+        510.6,
+        1045.6,
+        56.2,
+        17
+      ],
+      "css": [
+        "rgb(122, 77, 0)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Medio"
+    },
+    {
+      "box": [
+        510.6,
+        1087.6,
+        44,
+        17
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Bajo"
+    }
+  ],
+  ".ev": [
+    {
+      "box": [
+        63,
+        1442.1,
+        264,
+        102
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "10px",
+        "10px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "28/12/2026FechaestimadadeentregaFinestimadosegúnlahojaProyectos."
+    },
+    {
+      "box": [
+        63,
+        1544.1,
+        264,
+        61
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "10px",
+        "10px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "02/02/2026ArranqueCompletado"
+    },
+    {
+      "box": [
+        63,
+        1605.1,
+        264,
+        103
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "10px",
+        "10px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "01/01/2026IniciodelproyectoFechadeinicioregistradaenlahojaProyectos."
+    }
+  ],
+  ".ev i": [
+    {
+      "box": [
+        171,
+        1456.1,
+        10,
+        10
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "4px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "50%",
+        "border-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        171,
+        1558.1,
+        10,
+        10
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(91, 47, 214)",
+        "16px",
+        "400",
+        "normal",
+        "4px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "50%",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        171,
+        1619.1,
+        10,
+        10
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(91, 47, 214)",
+        "16px",
+        "400",
+        "normal",
+        "4px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "50%",
+        "content-box"
+      ],
+      "text": ""
+    }
+  ],
+  ".note": [
+    {
+      "box": [
+        36,
+        1745.1,
+        318,
+        96
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12.5px",
+        "400",
+        "normal",
+        "14px",
+        "12.5px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuesto,avance,ETC,tiempotranscurrido,riesgos,equipoehistorialsondatosreales(sololectura).EldineroenUSD,elGrossMargin,elresponsableylosdíasabiertosdecadariesgonoexistenenSheets.LaprimeracargadeunproyectopuedetardarporqueleeClockify;despuésseguarda10minutos."
+    }
+  ],
+  ".vacio": [],
+  ".err": []
+}

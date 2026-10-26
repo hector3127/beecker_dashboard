@@ -312,15 +312,25 @@ def _modern(
     """
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if not (anterior_disponible() and request.GET.get("vista") == "anterior"):
-        request.portal_template = template  # type: ignore[attr-defined]
+    if anterior_disponible() and request.GET.get("vista") == "anterior":
+        return view(request, *args)  # type: ignore[no-any-return]
+    return _current(request, view, template, *args)
+
+
+def _current(
+    request: HttpRequest, view: Any, template: str, *args: Any
+) -> HttpResponse:
+    """Sirve solo la plantilla vigente con el contexto y permisos existentes."""
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    request.portal_template = template  # type: ignore[attr-defined]
     return view(request, *args)  # type: ignore[no-any-return]
 
 
 @require_GET
 def all_accounts(request: HttpRequest) -> HttpResponse:
     """Todas las cuentas: auditoria financiera del año."""
-    return _modern(request, views.todas_cuentas, "pages/all_accounts.html")
+    return _current(request, views.todas_cuentas, "pages/all_accounts.html")
 
 
 @require_GET
@@ -349,7 +359,7 @@ def costs(request: HttpRequest) -> HttpResponse:
 @require_GET
 def investment(request: HttpRequest) -> HttpResponse:
     """Inversion operativa y comercial del mes."""
-    return _modern(request, views.inversion, "pages/investment.html")
+    return _current(request, views.inversion, "pages/investment.html")
 
 
 @require_GET
@@ -438,7 +448,7 @@ def eva3_cerrados(request: HttpRequest) -> HttpResponse:
 @require_GET
 def project(request: HttpRequest, project_id: str) -> HttpResponse:
     """Proyecto simple con los mismos datos, calculos y alcance por cuenta."""
-    return _modern(request, views.proyecto, "pages/project.html", project_id)
+    return _current(request, views.proyecto, "pages/project.html", project_id)
 
 
 @require_GET

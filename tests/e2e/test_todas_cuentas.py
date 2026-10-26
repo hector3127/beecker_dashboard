@@ -143,9 +143,16 @@ def test_pagination_and_return_context(portal, datos, monkeypatch):
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
-def test_reference_layout_is_responsive(portal, datos, width):
+def test_reference_layout_is_responsive(
+    portal, datos, width, monkeypatch, enforced_csp
+):
+    from datetime import datetime
     from pathlib import Path
 
+    monkeypatch.setattr(
+        "django.utils.timezone.now",
+        lambda: datetime.fromisoformat("2026-10-26T18:00:00+00:00"),
+    )
     portal.set_viewport_size({"width": width, "height": 1000})
     portal.goto(portal.base + PAGE)
     expect(portal.locator(".account-avatar")).to_have_count(3)
@@ -171,3 +178,12 @@ def test_account_action_menu_keeps_return_context(portal, datos):
     assert parse_qs(urlparse(back).query)["buscar"] == ["Acme"]
     portal.keyboard.press("Escape")
     expect(menu.get_by_role("link", name="Abrir cuenta")).to_be_hidden()
+
+
+def test_saved_previous_link_retains_search_and_modular_controls(portal, datos):
+    portal.goto(portal.base + PAGE + "?vista=anterior&buscar=Acme")
+    expect(portal.locator("#account-search")).to_have_value("Acme")
+    expect(portal.locator("tr[data-name]:visible")).to_have_count(1)
+    expect(
+        portal.locator('script[src*="pages/all_accounts/main.js"]')
+    ).to_have_count(1)

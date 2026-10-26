@@ -18,7 +18,6 @@ def investment(monkeypatch, datos):
         "apps.portal.views.load_month_sources",
         lambda month: MonthSources(month=month, gse=GSE),
     )
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
 
 
 def test_month_totals_bars_and_return(portal, investment):
@@ -47,7 +46,9 @@ def test_month_totals_bars_and_return(portal, investment):
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
-def test_layout_matches_previous_with_same_data(portal, investment, width):
+def test_layout_keeps_the_approved_reference(
+    portal, investment, width, snapshot, enforced_csp
+):
     portal.set_viewport_size({"width": width, "height": 1000})
     selectors = [
         ".top",
@@ -81,16 +82,12 @@ def test_layout_matches_previous_with_same_data(portal, investment, width):
 
     output = Path(f"tmp/migration/investment/{width}")
     output.mkdir(parents=True, exist_ok=True)
-    portal.goto(portal.base + PAGE + "&vista=anterior")
-    previous = measure()
-    portal.screenshot(path=str(output / "previous.png"), full_page=True)
     portal.goto(portal.base + PAGE)
     current = measure()
+    snapshot(
+        f"investment_layout_{width}", dict(zip(selectors, current, strict=True))
+    )
     portal.screenshot(path=str(output / "current.png"), full_page=True)
-    for selector, before, after in zip(
-        selectors, previous, current, strict=True
-    ):
-        assert after == before, (selector, before, after)
 
 
 def test_missing_source_is_explained(portal, investment, monkeypatch):
@@ -103,3 +100,16 @@ def test_missing_source_is_explained(portal, investment, monkeypatch):
     expect(portal.locator(".two table")).to_contain_text(
         "Sin horas de inversión en ese mes."
     )
+
+
+def test_saved_previous_link_retains_month_and_current_module(
+    portal, investment
+):
+    portal.goto(portal.base + PAGE + "&vista=anterior")
+    expect(portal.locator("#mes")).to_have_value("2026-10")
+    expect(portal.locator(".kp .kv")).to_have_text(
+        ["70 horas", "100 horas", "170 horas"]
+    )
+    expect(
+        portal.locator('script[src*="pages/investment/main.js"]')
+    ).to_have_count(1)

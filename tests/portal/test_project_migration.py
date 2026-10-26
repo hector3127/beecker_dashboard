@@ -1,4 +1,4 @@
-"""Proyecto simple: contexto, acceso por cuenta y alternativa anterior."""
+"""Proyecto simple: contexto, acceso por cuenta y enlaces obsoletos."""
 
 from pathlib import Path
 from unittest.mock import Mock
@@ -14,14 +14,12 @@ pytestmark = pytest.mark.django_db
 
 @pytest.mark.parametrize("previous", [False, True])
 def test_template_and_context(client, monkeypatch, previous):
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
     stub_portfolio(monkeypatch, portfolio())
     stub_project(monkeypatch)
     response = client.get(
         "/proyecto/3/", {"vista": "anterior"} if previous else {}
     )
-    template = "portal/proyecto.html" if previous else "pages/project.html"
-    assert template in [t.name for t in response.templates]
+    assert "pages/project.html" in [t.name for t in response.templates]
     assert response.context["page"].name == "HIS"
     if not previous:
         html = response.content.decode()
@@ -62,8 +60,9 @@ def test_access(client, enforced, monkeypatch, grant):
         detail.assert_not_called()
 
 
-def test_previous_option_expires_and_page_is_read_only(client, monkeypatch):
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: False)
+def test_retired_option_keeps_current_page_and_is_read_only(
+    client, monkeypatch
+):
     stub_portfolio(monkeypatch, portfolio())
     stub_project(monkeypatch)
     response = client.get("/proyecto/1/?vista=anterior")

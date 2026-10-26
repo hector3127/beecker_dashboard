@@ -985,7 +985,7 @@ def proyecto(request: HttpRequest, project_id: str) -> HttpResponse:
         },
     )
 
-    return render_page(request, "portal/proyecto.html", context)
+    return render_page(request, "pages/project.html", context)
 
 
 @require_GET
@@ -1520,7 +1520,7 @@ def inversion(request: HttpRequest) -> HttpResponse:
     context = _facturability_context(month, "inversion")
     context.update(inversion_data(month))
 
-    return render_page(request, "portal/inversion.html", context)
+    return render_page(request, "pages/investment.html", context)
 
 
 def _role_scope(
@@ -1863,7 +1863,7 @@ def todas_cuentas(request: HttpRequest) -> HttpResponse:
     period = executive_period()
     context["executive_label"] = period.label if period else ""
     context["loaded_at"] = timezone.localtime()
-    return render_page(request, "portal/todas_cuentas.html", context)
+    return render_page(request, "pages/all_accounts.html", context)
 
 
 @require_http_methods(["GET", "POST"])

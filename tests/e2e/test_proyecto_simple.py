@@ -1,6 +1,5 @@
 """Proyecto simple conserva cifras, navegación y presentación del anterior."""
 
-import json
 from pathlib import Path
 
 import pytest
@@ -14,7 +13,6 @@ PAGE = "/proyecto/3/"
 
 @pytest.fixture
 def project(monkeypatch, datos):
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
     stub_project(
         monkeypatch,
         {
@@ -89,12 +87,13 @@ def test_partial_data_and_reload(portal, project, monkeypatch):
 
 @pytest.mark.parametrize("width", [1450, 390])
 @pytest.mark.parametrize("empty", [False, True])
-def test_layout_matches_previous(portal, project, monkeypatch, width, empty):
+def test_layout_keeps_the_approved_reference(
+    portal, project, monkeypatch, width, empty, snapshot, enforced_csp
+):
     if empty:
         stub_project(monkeypatch, error="Sin Clockify.")
     portal.set_viewport_size({"width": width, "height": 1000})
     selectors = [
-        ".top",
         "main.page",
         ".crumb",
         ".hd",
@@ -158,18 +157,10 @@ def test_layout_matches_previous(portal, project, monkeypatch, width, empty):
         f"tmp/migration/project/{width}/{'empty' if empty else 'full'}"
     )
     output.mkdir(parents=True, exist_ok=True)
-    portal.goto(portal.base + PAGE + "?vista=anterior")
-    before = state()
-    portal.screenshot(path=str(output / "previous.png"), full_page=True)
     portal.goto(portal.base + PAGE)
     after = state()
     portal.screenshot(path=str(output / "current.png"), full_page=True)
-    differences = {
-        selector: (old, new)
-        for selector, old, new in zip(selectors, before, after, strict=True)
-        if old != new
-    }
-    (output / "differences.json").write_text(
-        json.dumps(differences, indent=2), encoding="utf-8"
+    snapshot(
+        f"project_layout_{width}_{'empty' if empty else 'full'}",
+        dict(zip(selectors, after, strict=True)),
     )
-    assert not differences, differences

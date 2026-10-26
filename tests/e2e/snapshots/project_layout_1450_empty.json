@@ -1,0 +1,1633 @@
+{
+  "main.page": [
+    {
+      "box": [
+        5,
+        58,
+        1440,
+        1207.1
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "22px",
+        "40px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "SinClockify.Semuestransololosdatosdelportafolio.←RegresaraOperativaProyectosenejecución›HISHISCrítico3·ACME·DeliveryManager:AlbertoRequieredecisióndedirecciónDecidirsiseapruebaunajustedepresupuesto.Yausó125%desupresupuesto:excedeen25%.—ImpactoendineroPendientePresupuestousado125%125hconsumidasde100hpresupuestadasAvanceenhoras50%AvancecalculadodelproyectoETC60hHorasquefaltanparaterminarGrossMargin—AúnsinfuenteconectadaPendientePresupuestocontraavanceLalíneaverticalmarcael100%delpresupuestoPresupuestousado125%Avanceenhoras50%0%50%100%150%Logastadova75puntosporencimadeltrabajoavanzado.RiesgosabiertosLosdemayorimpactoprimero.ResponsableydíasabiertoaúnnoseregistranPendienteRiesgoImpactoProbabilidadSinriesgosabiertos.EquipoasignadoHorasregistradasenelproyectoRolPersonasHorasSinhorasregistradas.HistorialdelproyectoHitosyfechasdelahojaProyectoseHistorico_Proyectos,delmásnuevoalmásantiguoSinhitosregistrados.Presupuesto,avance,ETC,tiempotranscurrido,riesgos,equipoehistorialsondatosreales(sololectura).EldineroenUSD,elGrossMargin,elresponsableylosdíasabiertosdecadariesgonoexistenenSheets.LaprimeracargadeunproyectopuedetardarporqueleeClockify;despuésseguarda10minutos."
+    }
+  ],
+  ".crumb": [
+    {
+      "box": [
+        41,
+        136,
+        1368,
+        44
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13.5px",
+        "400",
+        "normal",
+        "0px",
+        "16px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "←RegresaraOperativaProyectosenejecución›HIS"
+    }
+  ],
+  ".hd": [
+    {
+      "box": [
+        41,
+        196,
+        1368,
+        85
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "20px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "HISCrítico3·ACME·DeliveryManager:Alberto"
+    }
+  ],
+  "h1": [
+    {
+      "box": [
+        41,
+        196,
+        56,
+        46
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "34px",
+        "800",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "HIS"
+    }
+  ],
+  ".badge": [
+    {
+      "box": [
+        111,
+        205.5,
+        70,
+        27
+      ],
+      "css": [
+        "rgb(255, 255, 255)",
+        "rgb(192, 35, 62)",
+        "13px",
+        "800",
+        "normal",
+        "0px",
+        "0px",
+        "5px",
+        "5px",
+        "none",
+        "999px",
+        "content-box"
+      ],
+      "text": "Crítico"
+    }
+  ],
+  ".sub": [
+    {
+      "box": [
+        41,
+        260,
+        1368,
+        21
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "4px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "3·ACME·DeliveryManager:Alberto"
+    }
+  ],
+  ".dec": [
+    {
+      "box": [
+        41,
+        301,
+        1368,
+        104.6
+      ],
+      "css": [
+        "rgb(255, 255, 255)",
+        "rgb(75, 37, 201)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "14px",
+        "20px",
+        "20px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "RequieredecisióndedirecciónDecidirsiseapruebaunajustedepresupuesto.Yausó125%desupresupuesto:excedeen25%.—ImpactoendineroPendiente"
+    }
+  ],
+  ".dec h2": [
+    {
+      "box": [
+        67,
+        321,
+        1085.9,
+        17
+      ],
+      "css": [
+        "rgb(207, 196, 255)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Requieredecisióndedirección"
+    }
+  ],
+  ".dec .amt": [
+    {
+      "box": [
+        1176.9,
+        332.5,
+        206.1,
+        41.6
+      ],
+      "css": [
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "22px",
+        "800",
+        "24.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "—ImpactoendineroPendiente"
+    }
+  ],
+  ".kp": [
+    {
+      "box": [
+        41,
+        419.6,
+        1368,
+        120
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "14px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuestousado125%125hconsumidasde100hpresupuestadasAvanceenhoras50%AvancecalculadodelproyectoETC60hHorasquefaltanparaterminarGrossMargin—AúnsinfuenteconectadaPendiente"
+    }
+  ],
+  ".kc": [
+    {
+      "box": [
+        41,
+        419.6,
+        331.5,
+        120
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "18px",
+        "18px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "Presupuestousado125%125hconsumidasde100hpresupuestadas"
+    },
+    {
+      "box": [
+        386.5,
+        419.6,
+        331.5,
+        120
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "18px",
+        "18px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "Avanceenhoras50%Avancecalculadodelproyecto"
+    },
+    {
+      "box": [
+        732,
+        419.6,
+        331.5,
+        120
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "18px",
+        "18px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "ETC60hHorasquefaltanparaterminar"
+    },
+    {
+      "box": [
+        1077.5,
+        419.6,
+        331.5,
+        120
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "18px",
+        "18px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "GrossMargin—AúnsinfuenteconectadaPendiente"
+    }
+  ],
+  ".kl": [
+    {
+      "box": [
+        66,
+        438.6,
+        281.5,
+        19
+      ],
+      "css": [
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuestousado"
+    },
+    {
+      "box": [
+        411.5,
+        438.6,
+        281.5,
+        19
+      ],
+      "css": [
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Avanceenhoras"
+    },
+    {
+      "box": [
+        757,
+        438.6,
+        281.5,
+        19
+      ],
+      "css": [
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "ETC"
+    },
+    {
+      "box": [
+        1102.5,
+        438.6,
+        281.5,
+        19
+      ],
+      "css": [
+        "rgb(58, 56, 112)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "GrossMargin"
+    }
+  ],
+  ".kv": [
+    {
+      "box": [
+        66,
+        457.6,
+        281.5,
+        43.2
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "125%"
+    },
+    {
+      "box": [
+        411.5,
+        457.6,
+        281.5,
+        43.2
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "50%"
+    },
+    {
+      "box": [
+        757,
+        457.6,
+        281.5,
+        43.2
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "60h"
+    },
+    {
+      "box": [
+        1102.5,
+        457.6,
+        281.5,
+        43.2
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "—"
+    }
+  ],
+  ".kv small": [
+    {
+      "box": [
+        806.9,
+        477.6,
+        8,
+        20
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "15px",
+        "700",
+        "18px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "h"
+    }
+  ],
+  ".kv span": [
+    {
+      "box": [
+        1102.5,
+        454.6,
+        34.9,
+        48
+      ],
+      "css": [
+        "rgb(138, 129, 184)",
+        "rgba(0, 0, 0, 0)",
+        "36px",
+        "800",
+        "43.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "—"
+    }
+  ],
+  ".ke": [
+    {
+      "box": [
+        66,
+        500.8,
+        281.5,
+        18.2
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "400",
+        "18.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "125hconsumidasde100hpresupuestadas"
+    },
+    {
+      "box": [
+        411.5,
+        500.8,
+        281.5,
+        18.2
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "400",
+        "18.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Avancecalculadodelproyecto"
+    },
+    {
+      "box": [
+        757,
+        500.8,
+        281.5,
+        18.2
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "400",
+        "18.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Horasquefaltanparaterminar"
+    },
+    {
+      "box": [
+        1102.5,
+        500.8,
+        281.5,
+        19.8
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "13px",
+        "400",
+        "18.2px",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "AúnsinfuenteconectadaPendiente"
+    }
+  ],
+  ".two": [
+    {
+      "box": [
+        41,
+        553.6,
+        1368,
+        417
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "14px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "PresupuestocontraavanceLalíneaverticalmarcael100%delpresupuestoPresupuestousado125%Avanceenhoras50%0%50%100%150%Logastadova75puntosporencimadeltrabajoavanzado.RiesgosabiertosLosdemayorimpactoprimero.ResponsableydíasabiertoaúnnoseregistranPendienteRiesgoImpactoProbabilidadSinriesgosabiertos.EquipoasignadoHorasregistradasenelproyectoRolPersonasHorasSinhorasregistradas."
+    }
+  ],
+  ".card": [
+    {
+      "box": [
+        41,
+        553.6,
+        677,
+        417
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "22px",
+        "22px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "PresupuestocontraavanceLalíneaverticalmarcael100%delpresupuestoPresupuestousado125%Avanceenhoras50%0%50%100%150%Logastadova75puntosporencimadeltrabajoavanzado."
+    },
+    {
+      "box": [
+        732,
+        553.6,
+        677,
+        417
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "22px",
+        "22px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "RiesgosabiertosLosdemayorimpactoprimero.ResponsableydíasabiertoaúnnoseregistranPendienteRiesgoImpactoProbabilidadSinriesgosabiertos.EquipoasignadoHorasregistradasenelproyectoRolPersonasHorasSinhorasregistradas."
+    },
+    {
+      "box": [
+        41,
+        984.6,
+        1368,
+        182
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(255, 255, 255)",
+        "16px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "22px",
+        "22px",
+        "none",
+        "16px",
+        "content-box"
+      ],
+      "text": "HistorialdelproyectoHitosyfechasdelahojaProyectoseHistorico_Proyectos,delmásnuevoalmásantiguoSinhitosregistrados."
+    }
+  ],
+  ".card h2": [
+    {
+      "box": [
+        68,
+        576.6,
+        623,
+        27
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "20px",
+        "700",
+        "normal",
+        "0px",
+        "2px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuestocontraavance"
+    },
+    {
+      "box": [
+        759,
+        576.6,
+        623,
+        27
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "20px",
+        "700",
+        "normal",
+        "0px",
+        "2px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Riesgosabiertos"
+    },
+    {
+      "box": [
+        759,
+        772.6,
+        623,
+        27
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "20px",
+        "700",
+        "normal",
+        "20px",
+        "2px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Equipoasignado"
+    },
+    {
+      "box": [
+        68,
+        1007.6,
+        1314,
+        27
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "20px",
+        "700",
+        "normal",
+        "0px",
+        "2px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Historialdelproyecto"
+    }
+  ],
+  ".hs": [
+    {
+      "box": [
+        68,
+        605.6,
+        623,
+        19
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "16px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Lalíneaverticalmarcael100%delpresupuesto"
+    },
+    {
+      "box": [
+        759,
+        605.6,
+        623,
+        20
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "16px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Losdemayorimpactoprimero.ResponsableydíasabiertoaúnnoseregistranPendiente"
+    },
+    {
+      "box": [
+        759,
+        801.6,
+        623,
+        19
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "16px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Horasregistradasenelproyecto"
+    },
+    {
+      "box": [
+        68,
+        1036.6,
+        1314,
+        19
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "16px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "HitosyfechasdelahojaProyectoseHistorico_Proyectos,delmásnuevoalmásantiguo"
+    }
+  ],
+  ".br": [
+    {
+      "box": [
+        68,
+        640.6,
+        623,
+        37
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "9px",
+        "9px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuestousado125%"
+    },
+    {
+      "box": [
+        68,
+        677.6,
+        623,
+        37
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "9px",
+        "9px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Avanceenhoras50%"
+    }
+  ],
+  ".tr": [
+    {
+      "box": [
+        232,
+        652.1,
+        365,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(238, 234, 251)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        232,
+        689.1,
+        365,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(238, 234, 251)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    }
+  ],
+  ".tr i": [
+    {
+      "box": [
+        232,
+        652.1,
+        304,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(214, 48, 75)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        232,
+        689.1,
+        121.5,
+        14
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(91, 47, 214)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "7px",
+        "content-box"
+      ],
+      "text": ""
+    }
+  ],
+  ".tr u": [
+    {
+      "box": [
+        475.5,
+        647.1,
+        2,
+        24
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(27, 26, 74)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": ""
+    },
+    {
+      "box": [
+        475.5,
+        684.1,
+        2,
+        24
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgb(27, 26, 74)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": ""
+    }
+  ],
+  ".ax": [
+    {
+      "box": [
+        68,
+        714.6,
+        623,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "0%50%100%150%"
+    }
+  ],
+  ".ax em": [
+    {
+      "box": [
+        232,
+        714.6,
+        16.3,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "0%"
+    },
+    {
+      "box": [
+        353.5,
+        714.6,
+        22.8,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "50%"
+    },
+    {
+      "box": [
+        460.8,
+        714.6,
+        29.2,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "100%"
+    },
+    {
+      "box": [
+        567.8,
+        714.6,
+        29.2,
+        16
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "150%"
+    }
+  ],
+  "table": [
+    {
+      "box": [
+        759,
+        641.6,
+        623,
+        111
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "border-box"
+      ],
+      "text": "RiesgoImpactoProbabilidadSinriesgosabiertos."
+    },
+    {
+      "box": [
+        759,
+        836.6,
+        623,
+        111
+      ],
+      "css": [
+        "rgb(27, 26, 74)",
+        "rgba(0, 0, 0, 0)",
+        "14px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "border-box"
+      ],
+      "text": "RolPersonasHorasSinhorasregistradas."
+    }
+  ],
+  "th": [
+    {
+      "box": [
+        759,
+        641.6,
+        161.3,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Riesgo"
+    },
+    {
+      "box": [
+        920.3,
+        641.6,
+        188.1,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Impacto"
+    },
+    {
+      "box": [
+        1108.4,
+        641.6,
+        273.6,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Probabilidad"
+    },
+    {
+      "box": [
+        759,
+        836.6,
+        146.4,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Rol"
+    },
+    {
+      "box": [
+        905.4,
+        836.6,
+        271.9,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Personas"
+    },
+    {
+      "box": [
+        1177.3,
+        836.6,
+        204.8,
+        38.5
+      ],
+      "css": [
+        "rgb(74, 72, 114)",
+        "rgba(0, 0, 0, 0)",
+        "12px",
+        "700",
+        "normal",
+        "0px",
+        "0px",
+        "11px",
+        "11px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Horas"
+    }
+  ],
+  "td": [
+    {
+      "box": [
+        759,
+        680.1,
+        623,
+        72.5
+      ],
+      "css": [
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "15px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "26px",
+        "26px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Sinriesgosabiertos."
+    },
+    {
+      "box": [
+        759,
+        875.1,
+        623,
+        72.5
+      ],
+      "css": [
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "15px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "26px",
+        "26px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Sinhorasregistradas."
+    }
+  ],
+  ".st": [],
+  ".ev": [],
+  ".ev i": [],
+  ".note": [
+    {
+      "box": [
+        41,
+        1180.6,
+        1368,
+        32
+      ],
+      "css": [
+        "rgb(85, 83, 127)",
+        "rgba(0, 0, 0, 0)",
+        "12.5px",
+        "400",
+        "normal",
+        "14px",
+        "12.5px",
+        "0px",
+        "0px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Presupuesto,avance,ETC,tiempotranscurrido,riesgos,equipoehistorialsondatosreales(sololectura).EldineroenUSD,elGrossMargin,elresponsableylosdíasabiertosdecadariesgonoexistenenSheets.LaprimeracargadeunproyectopuedetardarporqueleeClockify;despuésseguarda10minutos."
+    }
+  ],
+  ".vacio": [
+    {
+      "box": [
+        759,
+        680.1,
+        623,
+        72.5
+      ],
+      "css": [
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "15px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "26px",
+        "26px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Sinriesgosabiertos."
+    },
+    {
+      "box": [
+        759,
+        875.1,
+        623,
+        72.5
+      ],
+      "css": [
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "15px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "26px",
+        "26px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Sinhorasregistradas."
+    },
+    {
+      "box": [
+        68,
+        1071.6,
+        1314,
+        72
+      ],
+      "css": [
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "15px",
+        "400",
+        "normal",
+        "0px",
+        "0px",
+        "26px",
+        "26px",
+        "none",
+        "0px",
+        "content-box"
+      ],
+      "text": "Sinhitosregistrados."
+    }
+  ],
+  ".err": [
+    {
+      "box": [
+        41,
+        80,
+        1368,
+        44
+      ],
+      "css": [
+        "rgb(163, 27, 51)",
+        "rgb(251, 227, 231)",
+        "14.5px",
+        "600",
+        "normal",
+        "0px",
+        "12px",
+        "12px",
+        "12px",
+        "none",
+        "12px",
+        "content-box"
+      ],
+      "text": "SinClockify.Semuestransololosdatosdelportafolio."
+    }
+  ]
+}
