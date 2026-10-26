@@ -1062,17 +1062,15 @@ def test_kpis_page_filters_a_closed_month_and_a_quarter(client, monkeypatch):
     assert quarter["cut_label"] == "31/03/2026"
 
 
-def test_account_page_lists_its_projects(client, monkeypatch):
+def test_account_page_serves_the_modular_template(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
 
-    response = client.get("/cuenta/clinica-sur/?vista=anterior")
+    response = client.get("/cuenta/clinica-sur/")
     html = response.content.decode()
 
     assert response.status_code == 200
-    assert response.context["client"] == "Clinica Sur"
-    assert "Portal Pacientes" in html
-    assert response.context["alerts"][0]["id"] == "2"
-    assert response.context["risk_count"] == 1
+    assert "pages/account.html" in [t.name for t in response.templates]
+    assert 'data-client="Clinica Sur"' in html
     assert 'href="/operativa/"' in html
 
 
@@ -1132,10 +1130,8 @@ def test_other_pages_link_to_the_project(client, monkeypatch):
     manager = client.get(
         "/api/v1/screens/delivery-managers/alberto/?bloque=inv"
     ).json()["data"]
-    account = client.get("/cuenta/clinica-sur/?vista=anterior").content.decode()
 
     assert any(row["project_id"] == "3" for row in manager["rows"])
-    assert 'href="/proyectos/2/"' in account
 
 
 def test_manager_detail_keeps_time_cost(client, monkeypatch):

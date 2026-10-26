@@ -170,17 +170,12 @@ def delivery_manager(request: HttpRequest, slug: str) -> HttpResponse:
 @ensure_csrf_cookie  # el JS firma los cambios de acuerdos
 @period_view
 def account(request: HttpRequest, slug: str) -> HttpResponse:
-    """Cuenta: el JS pide el resumen, las horas y las finanzas a la API.
-
-    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la pantalla de antes.
-    """
+    """Cuenta: el JS pide el resumen, las horas y las finanzas a la API."""
     from django.urls import reverse
     from django.utils.text import slugify
 
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
-    if anterior_disponible() and request.GET.get("vista") == "anterior":
-        return views.cuenta(request, slug)
     client = views.authorized_account(request, slug)
     if isinstance(client, HttpResponse):
         return client
