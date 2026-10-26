@@ -329,9 +329,15 @@ anteriores solo delegan en la ruta nueva; no reabrir este enlace.
 Auditoría: `proyectos/<str:project_id>/` siempre recibe ID y lo siembra en
 `project_context`; `projectParams` le da prioridad frente al query. Cuenta usa
 su ruta/plantilla modular separada. Se conserva la compatibilidad de casos
-especiales (`previousStart`, `previousLoad`, `clientChanged`) hasta separar
-el arranque, hoy disparado por `renderView('dashboard')` al final del script
-anterior. Fase 10 parcial: seguir por arranque/contratos y auxiliares activos.
+especiales (`previousStart`, `previousLoad`, `clientChanged`) mediante
+`projectCompatibilityBindings`, sin cambiar sus callbacks/cachés. El arranque
+ya lo hace main: carga definiciones con `data-project-bootstrap=manual`, conecta
+el puente y llama `beeProjectEntry.mount`, sin renderView/projectEntryContext/
+initDashboard. La comparación anterior conserva autoinicio. El cargador
+`project_script_loader.js` reutiliza scripts evaluados y reintenta descargas
+fallidas, evitando redeclarar globals al recuperar un fallo de inicialización.
+Fase 10 parcial: auditar dependencias/contratos activos y sustituir los que aún
+obligan a cargar el archivo/shim; no llamarlo arranque totalmente independiente.
 No retirar script/shim ni reabrir vistas/formularios ya migrados.
 Mantener los puentes y comparación;
 no retirar aún script/shim. El manejador común showError puede reemplazar el

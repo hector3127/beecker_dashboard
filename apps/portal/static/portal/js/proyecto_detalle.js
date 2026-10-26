@@ -797,15 +797,18 @@
       .obtenerTopRiesgosPortafolioAzure();
   }
 
-  function projectEntryContext(){
-    if(window.beeProjectEntryRuntime)return window.beeProjectEntryRuntime.connect({
+  function projectCompatibilityBindings(){
+    return {
       previousStart:()=>initDashboard(true),previousLoad:()=>loadDashboard(true),
       clientChanged:()=>{const fp=document.getElementById('f-proyecto');
         if(_clienteSeleccionadoDashboard()&&fp)fp.value='Todos los proyectos';
         loadDashboard();if(_clienteSeleccionadoDashboard())return;
         if(cacheReporteAERTYM)renderReporteAERTYM(cacheReporteAERTYM);
         if(cacheReporteIXB)renderReporteIXBRaaS(cacheReporteIXB);cargarTopRiesgosAzurePortafolio();},
-      executive:renderDashboardEjecutivoProyecto}).context();
+      executive:renderDashboardEjecutivoProyecto};
+  }
+  function projectEntryContext(){
+    if(window.beeProjectEntryRuntime)return window.beeProjectEntryRuntime.connect(projectCompatibilityBindings()).context();
     if(window.beeProjectContexts)return window.beeProjectContexts.entry({
       previousStart:()=>initDashboard(true),previousLoad:()=>loadDashboard(true),
       clientChanged:()=>{const fp=document.getElementById('f-proyecto');
@@ -12291,4 +12294,4 @@ function _renderGraficaHorasDia(contenedorId, dias) {
   }
   function beeCuentaEsc(value){return String(value==null?'':value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
-  renderView('dashboard');
+  if(document.currentScript?.dataset.projectBootstrap!=='manual')renderView('dashboard');

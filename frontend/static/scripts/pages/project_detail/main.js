@@ -7,6 +7,7 @@ import { createGenericRisk } from "./sections/generic_risk.js";
 import { mountGenericLayout } from "./sections/generic_layout_view.js";
 import { createGenericExecutive } from "./sections/generic_executive.js";
 import { createProjectPrevious } from "./sections/project_previous.js";
+import { createProjectScriptLoader } from "./sections/project_script_loader.js";
 import { createProjectShell } from "./sections/project_shell.js";
 import { createProjectTabs } from "./sections/project_tabs.js";
 import { createProjectSession } from "./sections/project_session.js";
@@ -81,19 +82,7 @@ import { watchLoadingMessages } from "#app/ui/portal-loading.js";
 const root = document.getElementById("view-container");
 const entry = document.querySelector("[data-project-detail-entry]");
 
-/** @param {string} src @returns {Promise<void>} */
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = () => resolve();
-    script.onerror = () => {
-      script.remove();
-      reject(new Error("No se pudo cargar la interfaz del proyecto."));
-    };
-    document.head.append(script);
-  });
-}
+const loadScript = createProjectScriptLoader();
 
 let started = false;
 async function start() {
@@ -251,7 +240,11 @@ async function start() {
       executive: window.beeGenericExecutive,
       mountIxs: () => window.beeIxsRuntime.mount(),
     });
-    await loadScript(renderer);
+    await loadScript(renderer, true);
+    window.beeProjectEntryRuntime.connect(
+      window.projectCompatibilityBindings(),
+    );
+    await window.beeProjectEntry.mount(window.beeProjectEntryRuntime.context());
   } catch {
     started = false;
     const retry = el("button", { type: "button", class: "btn" }, "Reintentar");

@@ -29,7 +29,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para pestañas migradas, incluidas lecturas y acciones IA AER; auxiliares compartidos aún por retirar | **Parcial**: ambos Ejecutivos, Cliente, Acciones, Planeación, Esfuerzo, Recursos e IA; Riesgos AER y RAID/Azure/Comunicación IXS usan módulos. Falta estructura/estado/auxiliares compartidos | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para pestañas migradas, incluidas lecturas y acciones IA AER; compatibilidad aún por retirar | **Parcial**: pestañas, genérico, estructura/estado y arranque explícito usan módulos. Todavía carga script/shim por definiciones y puentes; falta sustituir las dependencias activas | **Parcial**, no completada |
 | 11 | Limpieza y CSP obligatoria; permisos/Genesis como decisión de despliegue | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -115,6 +115,39 @@ Planeación conserva puentes de estado en el archivo anterior. Los auxiliares
 adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
+
+### Arranque explícito y reintento de carga (25/10/2026)
+
+`main.js` carga el script de definiciones con `data-project-bootstrap=manual`,
+conecta `projectCompatibilityBindings` y monta con `beeProjectEntry.mount`.
+No llama renderView/projectEntryContext/initDashboard para iniciar la ruta
+moderna. El documento anterior conserva su autoinicio sin ese atributo.
+El puente conserva exactamente previousStart/previousLoad/clientChanged,
+sus cachés, orden y puerta de cuenta; no se borran los casos especiales.
+
+`project_script_loader.js` conserva promesas de scripts cargados: solicitudes
+concurrentes o un reintento posterior no reevalúan sus variables globales.
+Una descarga fallida se elimina y se puede reintentar. Se mantiene el aviso y
+botón de reintento de main. Esto permite recuperar un fallo posterior a evaluar
+el script sin provocar errores por redeclarar sus variables léxicas.
+
+Tres Node nuevos cubren carga única, fallo/reintento y contrato del puente en
+cuenta/no cuenta con/sin cachés. Suite completa: **466 aprobadas y los tres
+fallos anteriores** (`cost_sprint_details`, `executive_report`, `financial`).
+No cambia diseño, cálculos, backend, permisos ni Horas por mes.
+**51 pruebas únicas de navegador aprobadas**: cinco nuevas de arranque,
+20 de entrada/pestañas/recarga, cinco del enlace anterior, nueve del genérico,
+diez de estructura y dos de runtime IXS. Cubren inicio AER/IXS bloqueando las
+tres entradas anteriores, dos descargas fallidas y recuperación tras evaluar
+el script sin redeclararlo. Incluyen comparación anterior/nueva de entrada a
+1450/390 px para AER/IXS; capturas en `tmp/migration/project_detail/entry/`
+y carpetas de los componentes. AER móvil actual inspeccionado.
+Ruff/formato, sintaxis JS, Django y diff aprobados; proveedores simulados.
+
+**Fase 10 parcial.** El arranque ya pertenece a main, pero aún carga el archivo
+y shim por sus definiciones/puentes. Siguiente: inventariar referencias activas
+y resolver esos contratos para retirar la dependencia. No confundir esto con
+borrar los archivos de comparación ni activar CSP (fase 11).
 
 ### Enlace IXS al genérico y auditoría de compatibilidad (25/10/2026)
 

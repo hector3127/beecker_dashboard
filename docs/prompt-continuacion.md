@@ -9,16 +9,24 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque migra IXS→genérico→IXS a
+   diferencia con `origin/main`. El último bloque traslada el arranque a main:
+   carga el script en modo manual, conecta projectCompatibilityBindings y llama
+   beeProjectEntry.mount. No usa renderView/projectEntryContext/initDashboard
+   en el inicio moderno; la anterior conserva autoinicio. project_script_loader.js
+   reutiliza scripts evaluados y reintenta descargas fallidas, sin redeclaraciones
+   al recuperar un fallo de inicialización. No repetir este bloque.
+   Todavía carga el archivo/shim para definiciones y puente de casos especiales:
+   auditar referencias/contratos activos antes de quitar esa dependencia. Fase 10
+   parcial; no llamarlo todavía arranque totalmente independiente.
+   El bloque previo migra IXS→genérico→IXS a
    `project_previous.js`, con DOM seguro, estilo original, guardia por ID y
    montaje directo sin recarga. `main.js` ya no llama a ixsAbrirVistaAnterior;
    los dos nombres anteriores solo delegan. No repetir este enlace.
    Auditoría: la ruta de detalle siempre recibe un ID y project_context lo
    prioriza frente al query, incluso con cuenta=...; Cuenta tiene ruta nueva
    propia. Se conservan los casos especiales de compatibilidad, sin borrarlos.
-   Seguir por el arranque (renderView al final del script anterior) y contratos
-   previousStart/previousLoad/clientChanged; auditar auxiliares activos antes
-   de retirar dependencias. Fase 10 parcial, mantener script/shim.
+   Mantener los contratos previousStart/previousLoad/clientChanged y sus cachés
+   hasta resolver su compatibilidad. No retirar aún script/shim.
    El bloque previo migra coordinación/derivados
    genéricos a `generic_executive{,_model}.js`: monta directamente los módulos,
    actualiza el almacén, conserva cierre/flags/PRD y usa DOM seguro para errores.

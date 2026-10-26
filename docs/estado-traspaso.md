@@ -2,7 +2,41 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: enlace al genérico y auditoría de compatibilidad (25/10/2026)
+## Bloque actual: arranque explícito y carga única (25/10/2026)
+
+- Main carga las definiciones anteriores en modo manual, conecta el puente
+  `projectCompatibilityBindings` y llama `beeProjectEntry.mount`. El inicio
+  moderno no ejecuta renderView/projectEntryContext/initDashboard. El script
+  anterior conserva autoinicio para comparar cuando no tiene el atributo manual.
+- El puente mantiene los callbacks especiales previousStart/previousLoad/
+  clientChanged, sus cachés, orden y puerta de cuenta. No se eliminan ni cambian
+  sus reglas. Todavía dependen de definiciones del archivo anterior.
+- `project_script_loader.js` reutiliza scripts evaluados entre intentos y
+  comparte descargas concurrentes; una descarga fallida se elimina y puede
+  reintentarse. Así el reintento tras fallar la conexión del puente no vuelve
+  a declarar variables léxicas globales. Aviso/botón de recuperación conservados.
+- Tres Node nuevos: carga única/concurrencia, fallo/reintento y callbacks del
+  puente en cuenta/no cuenta con/sin cachés. Suite completa: **466 aprobadas y
+  tres fallos anteriores** (`cost_sprint_details`, `executive_report`,
+  `financial`). Cinco pruebas nuevas de navegador aprobadas: arranque AER/IXS
+  bloqueando tres entradas anteriores, descarga fallida de shim/script y
+  reintento después de evaluar el script sin descargarlo ni ejecutarlo de nuevo.
+- **51 pruebas únicas de navegador aprobadas**: cinco nuevas, 20 de entrada/
+  pestañas/recarga, cinco de navegación anterior, nueve de genérico, diez de
+  estructura y dos de runtime IXS. Incluyen comparación de entrada anterior/
+  nueva en AER/IXS a 1450/390 px y las comparaciones existentes en tres tamaños.
+  Capturas en `tmp/migration/project_detail/entry/`, `project_previous/`,
+  `generic_executive/` y `generic_layout/`. AER móvil actual inspeccionado.
+  Ruff/formato, sintaxis JS, Django y diff aprobados. Proveedores simulados/
+  red externa bloqueada, sin operaciones reales.
+- **Fase 10 parcial.** El arranque ya pertenece a main, pero el script/shim
+  aún se cargan por definiciones/puentes. Seguir por inventario de referencias
+  activas y sustitución de esos contratos; no llamarlo todavía arranque
+  totalmente independiente. No borrar comparación ni activar CSP (fase 11).
+  ACCESS_ENFORCED apagado; Horas por mes y temporales/herramientas ajenos intactos.
+  Sin cambios de backend/cálculos/permisos y sin push.
+
+## Bloque anterior: enlace al genérico y auditoría de compatibilidad (25/10/2026)
 
 - `project_previous.js` maneja IXS→genérico→IXS desde el respaldo de pestaña
   desconocida. Usa controladores migrados, DOM seguro y evento externo para
