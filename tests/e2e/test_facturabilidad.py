@@ -36,6 +36,13 @@ def facturability(monkeypatch, datos):
 
 @pytest.mark.parametrize("screen", SCREENS)
 def test_period_roles_tabs_and_return(portal, facturability, screen):
+    def open_period():
+        if screen == "recurso/":
+            # This table is mounted after period handlers are bound. Wait for
+            # the module, not just the server-rendered heading after navigation.
+            expect(portal.locator(".eva-column-trigger").first).to_be_visible()
+        portal.locator(".pf summary").click()
+
     portal.goto(portal.base + BASE + screen + "?mes=2026-02")
     assert portal.locator("main").count() == 1
     assert portal.locator("main style, main script").count() == 0
@@ -56,7 +63,7 @@ def test_period_roles_tabs_and_return(portal, facturability, screen):
     if screen == "recurso/":
         expect(portal.locator("table")).to_contain_text("Eva")
         expect(portal.locator("table")).not_to_contain_text("Ana")
-    portal.locator(".pf summary").click()
+    open_period()
     portal.locator('.pfp button[data-k="trimestre"]').click()
     quarter = portal.locator(
         '.pfk[data-k="trimestre"] .pfr:not([hidden]) a'
@@ -64,11 +71,11 @@ def test_period_roles_tabs_and_return(portal, facturability, screen):
     assert "rol=QA" in quarter.get_attribute("href")
     quarter.click()
     expect(portal.locator(".pf summary small")).to_have_text("Trimestre")
-    portal.locator(".pf summary").click()
+    open_period()
     portal.locator('.pfp button[data-k="anio"]').click()
     portal.locator('.pfk[data-k="anio"] a').last.click()
     expect(portal.locator(".pf summary small")).to_have_text("Año")
-    portal.locator(".pf summary").click()
+    open_period()
     portal.locator('.pfp button[data-k="mes"]').click()
     portal.locator('.pfk[data-k="mes"] .pfr:not([hidden]) a').first.click()
     expect(portal.locator(".pf summary small")).to_have_text("Mes")
