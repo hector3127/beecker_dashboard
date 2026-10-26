@@ -9,7 +9,12 @@ Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
 **Antes de tocar nada**
 1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
 2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. El último bloque separa encabezado y seis KPIs
+   diferencia con `origin/main`. El último bloque migra las gráficas por área
+   y horas por recurso/rol en generic_charts{,_model,_view}.js y CSS externo.
+   Conserva escala completa, paleta, orden y cinco filas iniciales; expansión
+   local sin RPC ni helpers anteriores. No repetirlas. Quedan fuentes/acciones,
+   estructura de tarjetas/botones y coordinación final del genérico.
+   El bloque previo separa encabezado y seis KPIs
    genéricos en `generic_header_model.js`, `generic_header_view.js` y CSS externo.
    Conserva formatos/umbrales y crea el mini-donut con SVG DOM. Los flags de
    estado/cierre siguen viniendo del renderer transitorio. Quedan gráficas,
@@ -265,7 +270,9 @@ Su cálculo temporal ya está en generic_timeline_model.js: reutilizarlo sin
 cambiar reglas. Su Gantt ya usa generic_timeline_view.js y estilos externos:
 no repetir ese componente. Tabla de recursos y resumen de hitos también usan
 generic_panels* y no deben rehacerse. Encabezado/KPIs ya usan generic_header*.
-Continuar por gráficas, fuentes/acciones y su coordinación. Resolver los estilos
+Las gráficas principales ya usan generic_charts*: no repetirlas.
+Continuar por fuentes/acciones, estructura de tarjetas/botones y coordinación.
+Resolver los estilos
 restantes y validar el conjunto contra
 ?vista=anterior antes de marcar la vista completa. La recarga de hitos
 en Planeación ya usa el controlador/contexto nuevos; no repetirla.

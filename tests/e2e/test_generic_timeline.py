@@ -46,6 +46,7 @@ def test_generic_timeline_model_preserves_the_existing_modern_view(
             portal.evaluate("window.beeGenericTimelineView = undefined")
             portal.evaluate("window.beeGenericPanels = undefined")
             portal.evaluate("window.beeGenericHeader = undefined")
+            portal.evaluate("window.beeGenericCharts = undefined")
         portal.evaluate(
             """data => {
           cargarRaidProyectoEjecutivoAzure=()=>{};

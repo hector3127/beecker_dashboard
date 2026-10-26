@@ -9,6 +9,7 @@ import { createEntryRuntime } from "./sections/project_entry_runtime.js";
 import { genericTimeline } from "./sections/generic_timeline_model.js";
 import { genericTimelineView } from "./sections/generic_timeline_view.js";
 import { genericHeader } from "./sections/generic_header_view.js";
+import { mountGenericCharts } from "./sections/generic_charts.js";
 import {
   resourcePanel,
   milestonePanel,
@@ -107,6 +108,7 @@ async function start() {
       beeGenericTimeline: genericTimeline,
       beeGenericTimelineView: genericTimelineView,
       beeGenericHeader: genericHeader,
+      beeGenericCharts: { mount: mountGenericCharts },
       beeGenericPanels: {
         resources: resourcePanel,
         milestones: milestonePanel,

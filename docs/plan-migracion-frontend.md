@@ -116,6 +116,37 @@ adaptadores/almacenamiento compartidos y la compatibilidad genérica.
 El retiro de archivos anteriores del repositorio y la CSP obligatoria
 pertenecen a la fase 11, posterior a completar este detalle.
 
+### Gráficas genéricas por área, recurso y rol (25/10/2026)
+
+`generic_charts_model.js` conserva sumas/redondeo, arcos/offsets SVG, paleta,
+orden por consumo en recursos, orden de roles y escala de toda la lista.
+`generic_charts_view.js` dibuja con DOM/SVG seguro y CSS externo;
+`generic_charts.js` monta y controla Ver todos/menos localmente. Conserva cinco
+filas iniciales, IDs y leyenda; expandir no consulta servicios.
+
+El renderer transitorio delega directamente. Los helpers anteriores siguen
+intactos para otras rutas/comparación, pero no se llaman en estas gráficas.
+No cambian cifras, fuentes, reglas ni permisos. Sigue pendiente la estructura
+genérica restante, sus fuentes/acciones y la coordinación completa.
+
+Evidencia: **61 pruebas únicas de navegador aprobadas**: 29 de gráficas,
+12 de pantalla modelo/fallback y 20 de entrada/pestañas/recarga. Las 27
+comparaciones visuales contra la anterior usan 1450/900/390 px, datos/vacíos/
+listas largas y el mismo ancho de referencia con posiciones relativas;
+incluyen namespace y estilos/offsets SVG. Expansión sin solicitudes ni tres
+helpers anteriores; nombres seguros con `innerHTML` bloqueado. Tres Node
+nuevos contrastan geometría y barras con helpers originales y verifican
+escala completa, orden, paleta y ausencia de mutación. Suite completa
+**440 aprobadas y tres fallos anteriores** (`cost_sprint_details`,
+`executive_report`, `financial`). Capturas en
+`tmp/migration/project_detail/generic_charts/` y `generic_timeline/`; área y
+recursos con filas ocultas inspeccionados. Ruff/formato, sintaxis JS, Django
+y diff aprobados. Proveedores simulados/red bloqueada, sin consultas reales
+ni push, con temporales/cambios ajenos intactos.
+
+**Fase 10 parcial.** Después del genérico: casos sin proyecto/cuenta y arranque
+independiente. Mantener todavía script/shim.
+
 ### Encabezado y seis indicadores genéricos (25/10/2026)
 
 `generic_header_model.js` conserva la presentación de metadatos, defaults,

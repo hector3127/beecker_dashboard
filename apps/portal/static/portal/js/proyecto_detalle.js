@@ -8156,10 +8156,12 @@ Esta acción elimina las filas de AER_Planeacion.`)) return;
       document.getElementById('generic-milestones-panel')?.replaceWith(window.beeGenericPanels.milestones(todosHitos));
     }
     if(genericTimelineNode)document.getElementById('generic-project-timeline')?.replaceWith(genericTimelineNode);
+    if(window.beeGenericCharts)window.beeGenericCharts.mount(data);else{
     const totalArea = data.distribucionArea.reduce((a, d) => a + d.horas, 0);
     renderDonut('donut-area-ejecutivo', data.distribucionArea, Math.round(totalArea * 10) / 10, PALETA_BEECKER);
     renderComparativoConVerTodos('comparativo-recurso-mini', (data.filasRecursosCompleto || []).slice().sort((a, b) => b.horasReales - a.horasReales).map(f => ({ nombre: f.nombre + (f.posicion ? ' — ' + f.posicion : ''), horasEstimadas: f.horasEstimadas, horasReales: f.horasReales })));
     renderComparativo('comparativo-rol-mini', (data.porRol || []).map(r => ({ nombre: r.rol, horasEstimadas: r.horasEstimadas, horasReales: r.horasReales })));
+    }
     _pintarRangoClockifyProyecto(p.id, 'rango-clockify-dashboard');
 
     // Riesgos/RAID del proyecto se enriquecen desde Azure + Pendientes_Daily

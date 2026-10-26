@@ -2,7 +2,35 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: encabezado y seis indicadores genéricos (25/10/2026)
+## Bloque actual: gráficas genéricas por área, recurso y rol (25/10/2026)
+
+- `generic_charts_model.js` conserva total/redondeo, SVG, paleta, orden y escala
+  de toda la lista. `generic_charts_view.js` dibuja con DOM/SVG seguro y CSS
+  externo. `generic_charts.js` monta y controla Ver todos/menos con eventos
+  externos locales. Mantiene cinco filas iniciales e IDs originales.
+- El renderer transitorio delega directamente; los helpers anteriores no se
+  ejecutan en estas gráficas y se conservan para otras rutas/comparación.
+  No cambia cálculos, fuentes, permisos ni datos. Expandir no realiza lecturas.
+- Tres Node nuevos contrastan arcos/offsets, total y barras contra helpers
+  originales; verifican escala de filas ocultas, orden, paleta y ausencia de
+  mutación. Suite completa **440 aprobadas y tres fallos anteriores**
+  (`cost_sprint_details`, `executive_report`, `financial`).
+- **61 pruebas únicas de navegador aprobadas**: 29 de gráficas (27
+  comparaciones contra la anterior a 1450/900/390 px, expansión local y texto
+  seguro), 12 de pantalla modelo/fallback y 20 de entrada/pestañas/recarga.
+  Igual ancho de referencia y cajas relativas; se contrastan también SVG
+  namespace/fill/stroke/offsets. La expansión bloquea tres helpers anteriores
+  y verifica que no haya solicitudes. Texto probado con `innerHTML` bloqueado.
+  Capturas en `tmp/migration/project_detail/generic_charts/` y
+  `generic_timeline/`; área y recursos con filas ocultas inspeccionados.
+  Ruff/formato, sintaxis JS, Django y diff aprobados. Proveedores simulados/red
+  bloqueada, sin consultas reales. No se modifican auxiliares/temporales ajenos.
+- **Fase 10 parcial.** Siguiente: fuentes/acciones, estructura de tarjetas/
+  botones y coordinación genérica; después casos sin proyecto/cuenta y arranque
+  independiente. Mantener script/shim, no activar ACCESS_ENFORCED ni tocar
+  Horas por mes. Sin push; cambios/temporales ajenos intactos.
+
+## Bloque anterior: encabezado y seis indicadores genéricos (25/10/2026)
 
 - `generic_header_model.js` conserva metadatos, defaults, presupuesto, umbral
   de ritmo, etiquetas de cierre y fecha PRD/estimada. La vista usa DOM seguro
