@@ -103,3 +103,138 @@ button[data-persons]{color:#6126f0;font-weight:700;font-size:11px;padding:8px 12
 /* Estilos que estaban en linea. */
 
 body.costs-page main.page { max-width: none; padding: 0; }
+
+/* Integrated from costs_reference.css; original cascade retained. */
+/* Detalle de costos: referencia visual con datos del corte existente. */
+.costs-page .cost-page,.costs-page .cost-page *{box-sizing:border-box}
+.costs-page .cost-page{max-width:1480px;padding:18px 26px 34px}
+.costs-page .cost-back{min-height:36px;padding:8px 13px;font-size:11px;border-radius:9px;margin-bottom:4px}
+.costs-page .portal-currency-note{font-size:10px;margin:8px 0 14px;color:#8b7dad}
+.costs-page .cost-heading{gap:20px;align-items:center}
+.costs-page .cost-heading h1{font-size:32px;line-height:1.25;font-weight:700;margin:0;letter-spacing:-.025em}
+.costs-page .cost-heading p{font-size:12px;color:#8978ad;line-height:1.6;margin:5px 0 0}
+.costs-page .updated{gap:10px;border-radius:10px;padding:8px 10px;background:#faf8ff}
+.costs-page .updated .audit-icon{width:30px;height:30px;border-radius:9px}
+.costs-page .updated .audit-icon svg{width:21px;height:21px}
+.costs-page .updated small,.costs-page .updated b{font-size:10px;line-height:1.6}
+#cost-refresh-top{display:grid;place-items:center;padding:7px;border-radius:8px;width:31px;height:31px;background:#fff}
+#cost-refresh-top svg{width:17px;height:17px;color:#6b2ee4}
+.costs-page .cost-summary{display:grid;grid-template-columns:1.75fr 1.15fr .95fr 1.2fr 1.1fr;gap:8px;padding:0;margin:14px 0;background:transparent;border:0;align-items:stretch}
+.costs-page .cost-summary .cost-card{display:flex;align-items:flex-start;gap:13px;padding:16px 14px;margin:0;min-width:0;min-height:125px;border:1px solid #e7defa;border-radius:11px;background:linear-gradient(135deg,#fff,#fcfaff);box-shadow:none;flex:auto}
+.costs-page .cost-summary .audit-icon{width:44px;height:46px;border-radius:13px;font-size:24px;background:#eee5ff}
+.costs-page .cost-summary .audit-icon svg{width:28px;height:28px}
+.costs-page .cost-summary .audit-icon.big{width:49px;height:52px;background:#e8ddff}
+.costs-page .cost-summary .audit-icon.big svg{width:32px;height:32px}
+.costs-page .cost-summary .audit-icon.blue{background:#e2f1ff;color:#2085e4}
+.costs-page .cost-summary .audit-icon.amber{background:#fff3dc;color:#e99b12}
+.costs-page .cost-summary .audit-icon.pink{background:#ffe4ee;color:#d92a66}
+.costs-page .summary-main small,.costs-page .summary-stat small{display:block;font-size:10px;color:#8b7aaa;line-height:1.5;font-weight:400}
+.costs-page .summary-main small:first-child,.costs-page .summary-stat small:first-child{color:#66518f;margin:0 0 5px;text-transform:none}
+.costs-page .summary-main #cost-total{font-size:29px;font-weight:700;line-height:1.2;color:#1c1253}
+.costs-page .summary-main p{font-size:10px;line-height:1.6;margin:5px 0 0;color:#8a7aae}
+.costs-page .summary-stat{border-left:0;padding-left:0}
+.costs-page .summary-stat b{font-size:22px;line-height:1.3;margin:0 0 4px;letter-spacing:-.035em;color:#1d1356}
+.costs-page .cost-card{border:1px solid #e8e0fa;border-radius:12px;box-shadow:none;padding:14px;margin:12px 0;background:#ffffffd9}
+.costs-page .cost-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;padding:12px 14px}
+.costs-page .cost-controls{display:flex;align-items:center;gap:8px;flex:1;min-width:0;flex-wrap:wrap}
+.cost-search-field{position:relative;flex:1 1 320px;min-width:220px;max-width:440px}
+.cost-search-field>svg{position:absolute;left:12px;top:10px;width:18px;height:18px;color:#6b29e4;pointer-events:none}
+.costs-page .cost-search-field input{width:100%;min-width:0;padding:9px 11px 9px 37px}
+.costs-page .cost-controls :is(input,select),.costs-page #cost-export{font-size:11px;height:37px;min-height:37px;border-radius:7px;border-color:#e2d6fd;color:#35235f;background:#fff}
+.costs-page .cost-controls select{min-width:145px;max-width:190px;flex:0 1 auto;padding:8px 12px}
+.costs-page #cost-refresh,.costs-page #cost-export{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;min-height:37px;padding:8px 14px;white-space:nowrap;font-weight:600}
+.costs-page #cost-refresh{background:linear-gradient(120deg,#6428ec,#7532f5);border-radius:7px}
+.costs-page #cost-export{color:#6125db;border:1px solid #dfd2ff}
+#cost-refresh svg,#cost-export svg{width:18px;height:18px;flex:none}
+#cost-refresh:disabled svg,#cost-refresh-top:disabled svg{animation:cost-refresh-spin 1s linear infinite}
+#cost-note{flex:1 1 100%;margin:0;font-size:10px;line-height:1.5;color:#9a8ab8}
+.costs-page .cost-results{padding:12px 14px}
+.costs-page .cost-scroll{border-radius:9px;overflow:auto}
+.costs-page .cost-scroll>table{min-width:1080px;width:100%;border-collapse:separate;border-spacing:0}
+.costs-page .cost-scroll th{padding:0;font-size:10px;line-height:1.5;background:#f1eafa;color:#25135c;text-transform:uppercase;font-weight:600;border:0}
+.costs-page .cost-scroll th:last-child{padding:10px 12px}
+.costs-page .cost-scroll th button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 12px;border:0;border-radius:0;background:transparent;color:inherit;font-size:10px;line-height:1.5;text-transform:uppercase;font-weight:600;text-align:left;white-space:nowrap}
+.costs-page .cost-scroll th button span{font-size:15px;color:#8e5bee}
+.costs-page .cost-scroll td{font-size:11px;padding:12px 12px;vertical-align:middle;border-color:#eee6fc;background:transparent}
+.costs-page .cost-scroll .cost-number{text-align:left}
+.costs-page .cost-project-name{min-width:170px;max-width:235px;color:#9482b5}
+.costs-page .project-id{min-width:120px;white-space:nowrap}
+.costs-page .cost-project-link,.costs-page .cost-project-unavailable{color:#6626e5;font-size:11px;font-weight:600}
+.costs-page .audit-pill{font-size:10px;line-height:1.5;padding:4px 9px;border-radius:15px;background:#def7eb;color:#07986c;gap:6px}
+.costs-page .audit-pill:before{width:6px;height:6px}
+.costs-page .audit-pill.partial{background:#fff2dc;color:#d78d0b}
+.costs-page .audit-pill.error{background:#ffe4ec;color:#da255e}
+.costs-page .audit-pill.future{background:#e8efff;color:#6578b6}
+.costs-page .audit-error{font-size:9px;line-height:1.5;margin:3px 0 0;color:#9c8bbb}
+.costs-page button[data-persons]{font-size:10px;padding:7px 10px;border-radius:6px;font-weight:500;background:#fff;color:#6730dc}
+.costs-page .cost-method{font-size:10px;line-height:1.6;color:#9786b5;margin:7px 0 0}
+.costs-page .pagination{gap:14px;margin-top:12px;font-size:11px;color:#332261;flex-wrap:wrap}
+.cost-pagination-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.cost-pagination-controls button,.cost-pagination-controls select{min-height:33px;height:33px;font-size:11px;padding:6px 10px;border-radius:7px;color:#6228d6}
+.cost-pagination-controls button:disabled{opacity:.4;cursor:default}
+#cost-pages{display:flex;gap:4px;align-items:center}
+#cost-pages button{min-width:31px;border-color:transparent;background:transparent}
+#cost-pages button[aria-current=page]{background:linear-gradient(130deg,#7834f2,#6024e7);border-color:transparent;color:white;box-shadow:0 3px 8px #6a2de51a}
+.cost-page-gap{color:#8f7db3}
+.costs-page .cost-empty{text-align:center;padding:24px}
+.costs-page :is(button,input,select):focus-visible{outline:3px solid #8a5de2;outline-offset:2px}
+@keyframes cost-refresh-spin{to{transform:rotate(360deg)}}
+@media(max-width:1150px){.costs-page .cost-summary{grid-template-columns:repeat(4,minmax(0,1fr))}.costs-page .cost-summary .summary-main{grid-column:1/-1;min-height:95px}.costs-page .cost-heading h1{font-size:28px}.costs-page .cost-summary .cost-card{gap:10px;padding:14px 12px}.costs-page .summary-stat b{font-size:21px}}
+@media(max-width:700px){
+.costs-page .cost-page{padding:16px 12px 28px}.costs-page .cost-heading{align-items:flex-start;flex-wrap:wrap;gap:12px}.costs-page .cost-heading h1{font-size:24px}.costs-page .cost-heading p{font-size:11px}
+.costs-page .cost-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.costs-page .cost-summary .cost-card{padding:12px 10px;min-height:112px;gap:9px}.costs-page .cost-summary .summary-main{min-height:105px}
+.costs-page .cost-summary .audit-icon{width:32px;height:34px;border-radius:10px}.costs-page .cost-summary .audit-icon svg{width:22px;height:22px}.costs-page .summary-stat b{font-size:19px}
+.costs-page .cost-toolbar{padding:12px}.costs-page .cost-controls{gap:8px;flex-basis:100%}.cost-search-field{min-width:0;flex:1 1 100%;max-width:none}
+.costs-page .cost-controls select{flex:1;min-width:0;max-width:none}.costs-page #cost-refresh{flex:1 1 100%}.costs-page #cost-export{width:100%}
+.costs-page .cost-controls :is(input,select),.costs-page #cost-refresh,.costs-page #cost-export{min-height:40px;height:40px}.cost-search-field>svg{top:11px}
+.costs-page .cost-results{padding:10px}.costs-page .pagination{align-items:flex-start;gap:10px}.cost-pagination-controls{gap:5px}.cost-pagination-controls button,.cost-pagination-controls select{padding:6px 8px;font-size:10px}#cost-pages{gap:1px}
+}
+@media(prefers-reduced-motion:reduce){#cost-refresh:disabled svg,#cost-refresh-top:disabled svg{animation:none}}
+
+.costs-page .audit-pill.no-hours{background:#e1f0ff;color:#2680de}
+
+/* Cuatro KPIs: jerarquía más clara y avance real del corte. */
+.costs-page .cost-summary{grid-template-columns:1.5fr 1.12fr 1fr 1.15fr;gap:12px}
+.costs-page .cost-summary .cost-card{position:relative;overflow:hidden;min-height:150px;padding:20px 18px;gap:15px;border-radius:15px;background:linear-gradient(135deg,#fff,#fcfaff);box-shadow:0 4px 14px #7054ba05}
+.costs-page .cost-summary .cost-card::after{content:'';position:absolute;right:-7px;bottom:-8px;width:145px;height:55px;border-radius:100% 0 0 0;background:linear-gradient(145deg,#f8f3ff,#e6dbff);opacity:.7;pointer-events:none}
+.costs-page .cost-summary .cost-card:nth-child(2)::after{background:linear-gradient(145deg,#f4fbff,#dff0ff)}
+.costs-page .cost-summary .cost-card:nth-child(3)::after{background:linear-gradient(145deg,#fffdf5,#fff0d6)}
+.costs-page .cost-summary .cost-card>*{position:relative;z-index:1}
+.costs-page .cost-summary .cost-card>div{flex:1;min-width:0}
+.costs-page .cost-summary .audit-icon{width:49px;height:51px;border-radius:14px;background:linear-gradient(130deg,#f1e9ff,#e5d8ff)}
+.costs-page .cost-summary .audit-icon.big{width:58px;height:60px;border-radius:16px}
+.costs-page .cost-summary .audit-icon svg{width:30px;height:30px}.costs-page .cost-summary .audit-icon.big svg{width:36px;height:36px}
+.costs-page .cost-summary .audit-icon.blue{background:linear-gradient(130deg,#e7f5ff,#dfefff)}
+.costs-page .cost-summary .audit-icon.amber{background:linear-gradient(130deg,#fff8e9,#fff0d2)}
+.costs-page .cost-summary .summary-main small:first-child,.costs-page .cost-summary .summary-stat small:first-child{font-size:12px;font-weight:600;color:#2d205f;margin:1px 0 11px;line-height:1.5}
+.costs-page .summary-main #cost-total{font-size:33px;letter-spacing:-.025em;font-weight:700}
+.costs-page .cost-summary .summary-stat b{font-size:28px;margin-bottom:10px;line-height:1.2}
+.costs-page .summary-main p{font-size:10px;line-height:1.65;margin-top:8px}
+.costs-page .cost-summary .summary-stat small{font-size:11px;color:#9481b8;line-height:1.5}
+.cost-kpi-progress{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:5px}
+#cost-progress{width:100%;height:8px;flex:1 1 80px;max-width:150px;appearance:none;border:0;border-radius:10px;overflow:hidden;background:#ede6ff;accent-color:#6c2fea}
+#cost-progress::-webkit-progress-bar{background:#ede6ff;border-radius:10px}
+#cost-progress::-webkit-progress-value{background:linear-gradient(100deg,#7030ef,#8d52f6);border-radius:10px}
+#cost-progress::-moz-progress-bar{background:linear-gradient(100deg,#7030ef,#8d52f6);border-radius:10px}
+.costs-page .cost-summary #cost-consulted-percent{font-size:10px;font-weight:600;color:#6d3cd3;margin:0}
+@media(max-width:1150px){
+.costs-page .cost-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+.costs-page .cost-summary .summary-main{grid-column:auto}
+.costs-page .cost-summary .cost-card{min-height:150px}
+}
+@media(max-width:700px){
+.costs-page .cost-summary{gap:8px}
+.costs-page .cost-summary .cost-card{padding:14px 12px;gap:10px;min-height:130px}
+.costs-page .cost-summary .summary-main,.costs-page .cost-summary .cost-card:last-child{grid-column:1/-1;min-height:120px}
+.costs-page .cost-summary .audit-icon{width:34px;height:36px;border-radius:11px}.costs-page .cost-summary .audit-icon svg{width:23px;height:23px}
+.costs-page .cost-summary .audit-icon.big{width:46px;height:48px;border-radius:13px}.costs-page .cost-summary .audit-icon.big svg{width:30px;height:30px}
+.costs-page .cost-summary .summary-main small:first-child,.costs-page .cost-summary .summary-stat small:first-child{font-size:11px;margin-bottom:9px}
+.costs-page .cost-summary .summary-stat b{font-size:23px}.costs-page .summary-main #cost-total{font-size:30px}
+.costs-page .cost-summary .summary-stat small{font-size:10px}.costs-page .cost-summary #cost-consulted-percent{font-size:9px}
+}
+
+/* Encabezados visibles al recorrer proyectos y desgloses extensos. */
+.costs-page .cost-scroll{max-height:72vh;max-height:72dvh;overscroll-behavior-x:contain}
+.costs-page .cost-scroll>table>thead>tr>th{position:sticky;top:0;z-index:10;background:#f1eafa;box-shadow:0 1px 0 #e3d7f8}
+@media print{.costs-page .cost-scroll{max-height:none;overflow:visible}.costs-page .cost-scroll>table>thead>tr>th{position:static}}

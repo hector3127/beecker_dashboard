@@ -16,8 +16,22 @@ Reglas que no se negocian:
 6. Nunca subas `.env`, `key.json` ni credenciales. No toques cambios sin commitear que no sean tuyos.
 7. Solo marca una pantalla como terminada cuando su ruta activa usa la plantilla de `frontend/`, conserva su funcionamiento y tiene prueba y comparación visual con la anterior.
 8. Actualiza `docs/plan-migracion-frontend.md` con evidencia real en cada bloque.
+9. Lecturas de frontend con `apiGet` o el catálogo compartido de logos; no
+   añadir fetch directo para leer datos. Conservar la excepción documentada
+   de escritura multipart de logos. No revertir 0de6c7d, 3410e89, 47d0364
+   ni el comportamiento de Capacidad diaria de 834bbfa.
 
 ## Estado vigente: fase 10 completada (26/10/2026)
+
+Integración posterior de Christian reorganizada sobre **3410e89**: 17 entradas
+documentadas y con modelos/vistas/controladores separados; 12 hojas exclusivas
+fusionadas en seis destinos, conservando acuerdos compartidos. 1691 servidor,
+505 Node y 57 navegador finales aprobadas. Referencia controlada: 54 casos
+contra ese commit, 53 capturas comparadas (42 idénticas; resto hora/pintado).
+Ver `docs/integracion-christian.md` para pantallas, diferencias y revalidaciones.
+La corrida amplia previa tuvo un fallo de sincronización de prueba; su espera
+se corrigió y se comprobó en la corrida final, sin omitirlo. Fase 11 sigue
+abierta; continuar otras referencias y CSP, no reabrir los logos unificados.
 
 El detalle activo ya arranca sin script/shim anteriores. Los contratos públicos
 delegan a módulos en `project_commands.js`, y CSS base está copiado sin cambios

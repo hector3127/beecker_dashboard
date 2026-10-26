@@ -2,7 +2,31 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: fase 11, diccionario y captura con CSP (26/10)
+## Bloque actual: integración Christian, base 3410e89 (26/10)
+
+- No revertir logos unificados (0de6c7d), comando de datos (3410e89), Previas
+  al cierre (47d0364), ni Capacidad diaria (834bbfa). Lecturas nuevas con
+  apiGet o catálogo común; multipart de logos conserva su excepción.
+- Reorganizadas las 17 entradas indicadas: datos puros, vistas y coordinación
+  separados, JSDoc y ts-check. Las fachadas conservan imports públicos. Los
+  renderizadores usan contratos de estado vivo/callbacks para no copiar filtros
+  o página obsoletos. No modificar las fórmulas para coincidir con otro reporte.
+- Doce CSS exclusivos integrados en seis hojas; acuerdos_reference sigue
+  compartida. IA IXB conserva id base; se retiró su enlace ref redundante y se
+  ajustó la comprobación de estilos. No reintroducir las hojas retiradas.
+- 1691 servidor, 505 Node, 57 navegador finales aprobadas. Base 3410e89:
+  54 referencias, 53 capturas (42 exactas, restantes hora/pintado). La corrida
+  amplia anterior y las revalidaciones solapadas están documentadas, incluido
+  un fallo de prueba por usar el selector antes de completar el módulo.
+  La espera ahora usa los controles montados, sin cambiar producción.
+- Leer `docs/integracion-christian.md` para la lista de pantallas y evidencia.
+  El arnés local sirve assets/plantillas desde git show, sin checkout ni revertir
+  cambios. Los temporales y credenciales no se incluyen. Sin push.
+- Fase 11 sigue abierta: otras referencias antiguas, CSP de gráficas/ventanas
+  y capturas representativas y cierre integral. No activar permisos ni CSP
+  global, no borrar servicios JSON ni bases compartidas en bloque.
+
+## Bloque previo: fase 11, diccionario y captura con CSP (26/10)
 
 - Retiradas vista/plantilla anterior del diccionario y su bifurcación. Se
   conservan URL/nombre, búsqueda/orden/categorías, definiciones/API y login.

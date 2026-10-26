@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/all_accounts.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/all_accounts_reference.css' %}?v=20261025-polish"><link rel="stylesheet" href="{% static 'app/styles/pages/account_logos.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/all_accounts.css' %}?v=20261026-integrated"><link rel="stylesheet" href="{% static 'app/styles/pages/account_logos.css' %}">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
 {% block content %}<section class="accounts-page">
 <div class="portal-page-toolbar"><a class="portal-back" data-portal-back href="{% url 'portal:ejecutiva' %}{% if executive_query %}?{{ executive_query }}{% endif %}">← Regresar a Business Overview</a><a class="portal-page-action" href="{% url 'portal:oportunidades_financieras' %}{% if executive_query %}?{{ executive_query }}{% endif %}"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h16M8 14l4-4 4 2 4-6"/></svg>Comparar margen vendido y real</a></div><h1>Todas las cuentas · {{ year }}</h1>{% if executive_label %}<p class="muted">Periodo: {{ executive_label }}</p>{% endif %}

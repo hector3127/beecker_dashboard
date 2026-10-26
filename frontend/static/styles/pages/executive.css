@@ -620,3 +620,239 @@ body.executive-page .page { max-width: none; padding: 0; }
 .executive-page td { font-variant-numeric: normal; }
 .executive-page th { letter-spacing: normal; text-transform: none; }
 .executive-page thead tr:first-child th:first-child, .executive-page thead tr:first-child th:last-child { border-radius: 0; }
+
+/* Integrated from executive_cards.css; original cascade retained. */
+/* Illustrated cards with the original dashboard sizes and colors. */
+.executive-page .executive-cards>.executive-card {
+ --card-accent:#7631ee; --card-tint:#f1eaff; --card-art-light:#c5adef;
+ position:relative;overflow:hidden;
+}
+.executive-page .executive-cards>.executive-card:nth-child(2) {
+ --card-accent:#00a573; --card-tint:#ecfaf5; --card-art-light:#99d9c4;
+}
+.executive-page .executive-cards>.executive-card:nth-child(3) {
+ --card-accent:#bc22ce; --card-tint:#fbe8fc; --card-art-light:#dfb1e5;
+}
+.executive-page .executive-cards .executive-card-header,
+.executive-page .executive-cards .ops-card-header {
+ position:relative;isolation:isolate;padding-right:38px!important;
+}
+.executive-page .executive-cards .executive-card-header>div,
+.executive-page .executive-cards .ops-heading,
+.executive-page .executive-cards .ops-cut-context {position:relative;z-index:1}
+.executive-page .executive-cards .executive-info-button {
+ position:absolute;right:5px;top:8px;width:30px;height:32px;z-index:2;
+}
+.executive-card-art {
+ position:absolute;right:12px;bottom:0;width:72px;height:48px;
+ opacity:.45;z-index:0;pointer-events:none;
+}
+.executive-page .executive-cards .metric-visual {
+ display:block;width:65px;height:32px;position:absolute;right:0;top:0;
+ overflow:visible;color:var(--card-art-light);
+}
+.executive-page .executive-cards .m2.kx>div:last-child {position:relative}
+.executive-page .executive-cards .has-metric-visual {padding-right:72px}
+.executive-page .executive-cards .metric-gauge {
+ display:block;width:100%;max-width:100px;height:6px;margin-top:6px;
+ border-radius:8px;overflow:hidden;color:var(--card-accent);
+}
+.executive-page .executive-cards .ops-featured .metric-gauge {max-width:95px}
+@media(max-width:700px) {
+ .executive-page .executive-cards .executive-card-art {width:65px;height:44px;opacity:.3}
+}
+
+/* Integrated from executive_monthly.css; original cascade retained. */
+/* Monthly profitability: reference styling, original financial measures. */
+.executive-page .executive-monthly .monthly-panel {
+ padding:0;overflow:visible;border-radius:22px;border:1px solid #e8e1f9;
+ background:linear-gradient(120deg,#fff,#fdfcff);box-shadow:0 6px 24px #6246b30a;
+}
+.executive-page .executive-monthly .monthly-panel-header {
+ display:flex;align-items:center;gap:10px;padding:19px 22px;margin:0;
+ border-bottom:1px solid #f0edf8;border-radius:22px 22px 0 0;
+ background:linear-gradient(110deg,#fff,#faf8ff);flex-wrap:wrap;
+}
+.monthly-panel-icon {display:grid;place-items:center;flex:none;width:36px;height:38px;border-radius:11px;background:linear-gradient(140deg,#f7f2ff,#e8ddfc);color:#8254dc;border:1px solid #e1d4fa}
+.executive-page .executive-monthly h3 {font-size:19px;color:#191556;letter-spacing:-.025em;line-height:1.4}
+.monthly-panel-info {position:relative;flex:none;color:#9783bc;font-size:17px}
+.monthly-panel-info summary {display:grid;place-items:center;list-style:none;width:28px;height:30px;cursor:pointer;border-radius:8px}
+.monthly-panel-info summary::-webkit-details-marker {display:none}
+.monthly-panel-info summary:hover,.monthly-panel-info[open] summary {background:#f1eafb;color:#7443cb}
+.monthly-panel-info summary:focus-visible {outline:2px solid #8b5cf6;outline-offset:2px}
+.monthly-panel-info>div {position:absolute;z-index:20;left:0;top:36px;width:min(370px,calc(100vw - 60px));padding:16px 18px;background:white;border:1px solid #e3d8f6;border-radius:12px;box-shadow:0 8px 24px #36205b20;color:#67557f;font-size:12px;line-height:1.7}
+.monthly-panel-info p {margin:8px 0 0}
+.executive-page .executive-monthly .executive-chart-legend {margin-left:auto;gap:18px;align-items:center;width:auto;font-size:11px;color:#665b83;font-weight:550}
+.executive-chart-legend span {display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.monthly-legend-revenue:before,.monthly-legend-cost:before,.monthly-legend-margin:before {content:'';display:block;width:9px;height:9px;border-radius:50%;background:#8b5cf6;flex:none}
+.monthly-legend-cost:before {background:#bba4ed}
+.monthly-legend-margin {position:relative;padding-left:8px}
+.monthly-legend-margin:before {background:#ec70b0;box-shadow:0 0 0 2px #fff;z-index:1}
+.monthly-legend-margin:after {content:'';position:absolute;left:2px;top:50%;width:22px;height:2px;background:#ec70b0}
+.monthly-panel-state {padding:10px 22px 0}
+.executive-page .monthly-panel-state .ej {font-size:10px;margin:0;padding:3px 9px}
+.executive-page .executive-monthly #monthly-profit-chart {margin:0 18px;padding:6px 0 7px;overflow-x:auto;overflow-y:hidden;border-radius:0 0 22px 22px;scrollbar-width:thin;scrollbar-color:#d6c8ef transparent}
+.executive-page .executive-monthly #monthly-profit-chart svg {font-family:inherit}
+.executive-page .executive-monthly .monthly-margin-label {font-size:11px;font-weight:650;pointer-events:none}
+@media(max-width:1100px) {
+ .executive-page .executive-monthly .monthly-panel-header {gap:9px}
+ .executive-page .executive-monthly .executive-chart-legend {order:5;flex:1 1 100%;margin-left:0;padding:3px 0 0 46px;gap:16px}
+}
+@media(max-width:700px) {
+ .executive-page .executive-monthly .monthly-panel-header {padding:16px 14px}
+ .executive-page .executive-monthly h3 {font-size:16px;flex:1;min-width:140px}
+ .monthly-panel-icon {width:31px;height:34px}
+ .executive-page .executive-monthly .executive-chart-legend {padding-left:0;gap:10px;font-size:10px}
+ .monthly-panel-info {position:static}
+ .monthly-panel-header {position:relative}
+ .monthly-panel-info>div {left:12px;top:65px;max-width:calc(100% - 24px)}
+ .monthly-panel-state {padding-left:14px}
+ .executive-page .executive-monthly #monthly-profit-chart {margin:0;padding-left:0;padding-right:0}
+}
+
+/* Integrated from executive_rankings.css; original cascade retained. */
+/* Account comparison: compact tables, original ranking and filters. */
+.executive-page .ranking-section {padding:16px!important;border-radius:16px;border-color:#e6e0f6;box-shadow:0 2px 12px #53407805}
+.ranking-toolbar {display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px;min-width:0}
+.executive-page .ranking-section .ranking-section-heading {display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:10px;flex:1;min-width:0;margin:0;padding:0;border:0}
+.ranking-section-icon {display:grid;place-items:center;width:30px;height:32px;flex:none;border-radius:10px;background:#f0eaff;color:#7950d5}
+.executive-page .ranking-section-heading h2 {font-size:17px;line-height:1.4;color:#201a64;letter-spacing:-.02em}
+.executive-page #ranking-coverage {font-size:10px;line-height:1.5;color:#8678a4;font-weight:400;margin:3px 0 0;max-width:650px}
+.executive-page .ranking-section .ranking-controls {display:flex;align-items:flex-end;flex-wrap:nowrap;gap:12px;margin:0;flex:0 0 auto}
+.executive-page .ranking-section .ranking-controls>div:first-child {flex:0 1 205px;width:205px}
+.executive-page .ranking-section .ranking-controls>div:nth-child(2) {flex:0 1 160px;width:160px}
+.executive-page .ranking-section .ranking-controls label:not(.portal-sr-only) {font-size:10px;font-weight:500;color:#85749f;margin-bottom:3px}
+.executive-page .ranking-section .ranking-controls :is(input,select) {min-height:32px;height:32px;padding:6px 9px;border-radius:8px;border-color:#e5ddf6;background:#fdfcff;font-size:11px;color:#5f5084}
+.executive-page .ranking-section .ranking-all {display:flex;align-items:center;justify-content:center;min-height:32px;padding:6px 12px;margin:0;border-radius:8px;background:#fff;border-color:#ded0ff;font-size:11px;white-space:nowrap}
+.ranking-help {position:relative;flex:none;color:#917bab;font-size:14px}
+.ranking-help summary {cursor:pointer;list-style:none;display:grid;place-items:center;width:24px;height:28px;border-radius:7px}
+.ranking-help summary::-webkit-details-marker {display:none}
+.ranking-help summary:hover {background:#f3edfc}
+.ranking-help>p {position:absolute;z-index:10;top:28px;left:0;width:min(360px,calc(100vw - 50px));padding:14px;margin:0;background:#fff;border:1px solid #e5dcf5;box-shadow:0 6px 20px #35204a18;border-radius:10px;font-size:11px;line-height:1.7;color:#69577f}
+.executive-page .ranking-section .executive-rankings {gap:16px;align-items:stretch;margin:0}
+.executive-page .ranking-section .ranking-card {padding:0!important;border:1px solid #dcf0e7;border-radius:12px;background:linear-gradient(135deg,#fff,#fbfefc);box-shadow:none;overflow:hidden;min-width:0}
+.executive-page .ranking-section .ranking-card.unhealthy {border-color:#f5dce5;background:linear-gradient(135deg,#fff,#fffafb)}
+.executive-page .ranking-section .ranking-heading {display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:10px;padding:9px 12px;margin:0;background:linear-gradient(100deg,#edf9f3,#f7fdf9);min-height:38px}
+.executive-page .ranking-section .unhealthy .ranking-heading {background:linear-gradient(100deg,#fff0f5,#fff7fa)}
+.executive-page .ranking-section .ranking-title h3 {margin:0!important;font-size:12px!important;line-height:1.5;letter-spacing:-.015em;color:#168761}
+.executive-page .ranking-section .unhealthy .ranking-title h3 {color:#c94675}
+.executive-page .ranking-section .ranking-count {padding:3px 8px;margin:0;border-radius:7px;background:#def5e9;color:#208c68;font-size:9px;font-weight:650;line-height:1.5}
+.executive-page .ranking-section .unhealthy .ranking-count {background:#ffe3ed;color:#cf4b79}
+.executive-page .ranking-section .ranking-scroll {padding:4px 10px 5px;overflow:auto;scrollbar-width:thin}
+.executive-page .ranking-section .ranking-scroll table {table-layout:auto;min-width:0;width:100%;font-size:11px}
+.executive-page .ranking-section .ranking-scroll th {font-size:10px!important;font-weight:600;color:#665291;background:#f1edfc;padding:1px 7px!important;line-height:1.4;white-space:nowrap}
+.executive-page .ranking-section .ranking-scroll th[aria-sort] {background:#ebe4fb}
+.executive-page .ranking-section .ranking-scroll th button {min-height:27px;padding:3px 0;gap:4px;font-size:inherit;font-weight:600}
+.executive-page .ranking-section .ranking-scroll th:first-child {border-radius:6px 0 0 6px;width:22px}
+.executive-page .ranking-section .ranking-scroll th:last-child {border-radius:0 6px 6px 0;width:auto}
+.executive-page .ranking-section .ranking-scroll td {padding:5px 7px!important;font-size:11px;line-height:1.5;border:0;border-bottom:1px solid #f0ebfa;vertical-align:middle}
+.executive-page .ranking-section .ranking-scroll tbody tr:last-child td {border-bottom:0}
+.executive-page .ranking-section .ranking-scroll tbody tr:hover {background:#f9f7fd}
+.executive-page .ranking-section .ranking-scroll td:first-child {width:22px;color:#84729f}
+.executive-page .ranking-section .ranking-account {font-size:11px;font-weight:600;color:#5925df!important;line-height:1.5}
+.executive-page .ranking-section .ranking-scroll td small {position:absolute;width:1px;height:1px;padding:0;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.executive-page .ranking-section .ranking-margin {min-width:0;width:auto;white-space:nowrap;font-variant-numeric:tabular-nums}
+.executive-page .ranking-section .ranking-margin :is(strong,b) {font-size:11px;font-weight:650}
+.executive-page .ranking-section .ranking-positive :is(strong,b) {color:#23945f}
+.executive-page .ranking-section .ranking-negative :is(strong,b) {color:#d54874}
+.ranking-help summary:focus-visible {outline:2px solid #8c5ad9;outline-offset:2px}
+@media(max-width:1250px) {
+ .ranking-toolbar {flex-wrap:wrap;gap:12px}
+ .executive-page .ranking-section .ranking-section-heading {flex:1 1 100%}
+ .executive-page .ranking-section .ranking-controls {flex:1 1 100%}
+ .executive-page .ranking-section .ranking-controls>div:first-child {flex:1;width:auto}
+}
+@media(max-width:1000px) and (min-width:851px) {
+ .executive-page .ranking-section .ranking-scroll table {min-width:455px}
+}
+@media(max-width:850px) {
+ .executive-page .ranking-section .executive-rankings {grid-template-columns:1fr}
+}
+@media(max-width:700px) {
+ .executive-page .ranking-section {padding:12px!important}
+ .executive-page .ranking-section .ranking-controls {flex-wrap:wrap;gap:10px}
+ .executive-page .ranking-section .ranking-controls>div:first-child {flex:1 1 100%}
+ .executive-page .ranking-section .ranking-controls>div:nth-child(2) {flex:1;min-width:130px}
+ .executive-page .ranking-section .ranking-controls :is(input,select),.executive-page .ranking-section .ranking-all {min-height:40px;height:40px}
+ .executive-page .ranking-section .ranking-all {font-size:10px;padding:7px 9px}
+ .executive-page .ranking-section .ranking-heading {flex-wrap:wrap;gap:5px;padding:9px 10px}
+ .executive-page .ranking-section .ranking-title h3 {font-size:11px!important}
+ .executive-page .ranking-section .ranking-count {margin-left:auto}
+ .executive-page .ranking-section .ranking-scroll table {display:table;min-width:490px}
+ .executive-page .ranking-section .ranking-scroll thead {display:table-header-group}
+ .executive-page .ranking-section .ranking-scroll tbody {display:table-row-group}
+ .executive-page .ranking-section .ranking-scroll tbody tr {display:table-row;padding:0;border:0}
+ .executive-page .ranking-section .ranking-scroll td,.executive-page .ranking-section .ranking-scroll td:first-child:not([colspan]) {display:table-cell}
+ .executive-page .ranking-section .ranking-scroll td:before {display:none!important;content:none!important}
+ .ranking-help {position:static}
+ .ranking-section-heading {position:relative}
+ .ranking-help>p {left:0;top:40px;width:100%;box-sizing:border-box}
+}
+
+/* Alinear los controles del encabezado con los campos de búsqueda y criterio. */
+.executive-page .ranking-section .ranking-controls .ranking-all{align-self:flex-end;box-sizing:border-box;height:32px;min-height:32px}
+@media(max-width:700px){.executive-page .ranking-section .ranking-controls .ranking-all{height:40px;min-height:40px}}
+
+/* Logos reutilizados del catálogo de cuentas, sin añadir columnas. */
+.executive-page .ranking-section .ranking-account{display:flex;align-items:center;gap:9px;min-width:115px}
+.executive-page .ranking-section .ranking-logo{display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:6px;background:#f1eaff;color:#8557c4;font-size:9px;font-weight:700;overflow:hidden}
+.executive-page .ranking-section .ranking-logo[data-initials]:before{content:attr(data-initials)}
+.executive-page .ranking-section .ranking-logo:has(img){background:#fff}
+.executive-page .ranking-section .ranking-logo img{width:100%;height:100%;object-fit:contain}
+.executive-page .ranking-section .ranking-scroll td{padding-top:7px!important;padding-bottom:7px!important}
+
+/* Integrated from executive_glossary.css; original cascade retained. */
+/* Glosario de indicadores de Business Overview, según referencia visual. */
+.executive-page .indicator-glossary{border:1px solid #e5def9;border-radius:15px;background:#ffffffd6;overflow:hidden}
+.executive-page .indicator-glossary>summary{gap:13px;padding:13px 16px;min-height:70px;border-bottom:1px solid transparent;align-items:center}
+.executive-page .indicator-glossary[open]>summary{border-bottom-color:#ebe5fb}
+.indicator-question{display:grid;place-items:center;flex:none;width:43px;height:43px;border-radius:14px;background:#eae3ff;color:#6025e8;font-size:30px;font-weight:700}
+.indicator-glossary-heading{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.indicator-glossary-heading strong{font-size:17px;font-weight:700;line-height:1.4;color:#191150}
+.indicator-glossary-heading>span{color:#8278a8;font-size:11px;font-weight:400;line-height:1.6}
+.executive-page .indicator-glossary .glossary-summary-hint{display:flex;align-items:center;gap:10px;border:1px solid #e2d8ff;border-radius:10px;padding:10px 14px;background:#fff;color:#5925df;font-size:11px;white-space:nowrap}
+.indicator-glossary .glossary-summary-hint svg{width:19px;height:19px}
+.executive-page .indicator-glossary>summary::after{display:grid;place-items:center;flex:none;width:36px;height:36px;border:1px solid #e2d8ff;border-radius:10px;background:#fff;color:#5925df;font-size:24px}
+.executive-page .indicator-glossary .executive-glossary-grid{gap:0;padding:12px 10px;border:0;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+.indicator-group{padding:0 10px;border-right:1px solid #eee8fb;min-width:0}
+.indicator-group:last-child{border:0}
+.indicator-group-heading{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:linear-gradient(110deg,#eef2ff,#f4f6ff);min-height:64px}
+.indicator-group-2 .indicator-group-heading{background:linear-gradient(110deg,#edfcf5,#f2fcf8)}
+.indicator-group-3 .indicator-group-heading{background:linear-gradient(110deg,#fff0f6,#fff5fa)}
+.indicator-group-icon,.indicator-term-icon{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:12px;background:#ebe5ff;color:#6d36e8}
+.indicator-group-icon svg{width:26px;height:26px}
+.indicator-group-1 .indicator-group-icon{background:#dfe7ff;color:#5925df}
+.indicator-group-2 .indicator-group-icon{background:#dff9ed;color:#00a97d}
+.indicator-group-3 .indicator-group-icon{background:#ffe0ed;color:#cd2962}
+.executive-page .indicator-group-heading h2{font-size:15px;line-height:1.4;color:#1b1455;margin:0 0 3px;font-weight:700}
+.indicator-group-heading p{font-size:11px;line-height:1.5;color:#8073a4;margin:0}
+.indicator-definition{position:relative;min-height:66px;padding:14px 2px 14px 59px;border-bottom:1px solid #eee8fb}
+.indicator-definition:last-child{border:0;padding-bottom:4px}
+.indicator-definition dt .indicator-term-icon{position:absolute;left:10px;top:14px;width:34px;height:36px;border-radius:11px}
+.indicator-term-icon svg{width:23px;height:23px}
+.executive-page .indicator-definition dt{font-size:12px;line-height:1.5;font-weight:700;color:#211650;margin:0 0 4px}
+.executive-page .indicator-definition dd{font-size:11px;line-height:1.65;color:#8577ab;margin:0}
+.indicator-group-1 .indicator-icon-2{background:#e2f9ee;color:#00a777}
+.indicator-group-1 .indicator-icon-3,.indicator-group-3 .indicator-icon-1{background:#ffe3ec;color:#d42462}
+.indicator-group-2 .indicator-icon-1,.indicator-group-3 .indicator-icon-2{background:#e3edff;color:#317be0}
+.indicator-group-2 .indicator-icon-3{background:#fff4df;color:#d88c00}
+.executive-page .indicator-glossary footer{gap:12px;padding:12px 16px;background:linear-gradient(110deg,#faf7ff,#f5f1ff);border-top:1px solid #ebe3fc;flex-wrap:nowrap}
+.indicator-footer-icon{display:grid;place-items:center;flex:none;color:#9277e9}
+.indicator-footer-icon svg{width:28px;height:28px}
+.executive-page .indicator-glossary footer p{font-size:10px;line-height:1.6;color:#8273a8;flex:1}
+.executive-page .indicator-glossary footer a{display:flex;align-items:center;gap:8px;flex:none;min-height:36px;padding:8px 12px;background:#fff;font-size:11px;white-space:nowrap;border-color:#ded0ff;color:#5925df}
+.indicator-glossary footer a svg{width:18px;height:18px}
+@media(max-width:1000px){.executive-page .indicator-glossary .executive-glossary-grid{grid-template-columns:1fr}.indicator-group{border:0;padding:0 0 14px}.indicator-group:last-child{padding-bottom:0}.executive-page .indicator-glossary footer{flex-wrap:wrap}.executive-page .indicator-glossary footer a{margin-left:40px}}
+@media(max-width:600px){
+.executive-page .indicator-glossary>summary{padding:12px;gap:9px;align-items:flex-start}
+.indicator-question{width:32px;height:32px;border-radius:10px;font-size:24px}
+.indicator-glossary-heading strong{font-size:14px}.indicator-glossary-heading>span{font-size:10px}
+.executive-page .indicator-glossary .glossary-summary-hint{display:none}
+.executive-page .indicator-glossary>summary::after{width:30px;height:30px;font-size:20px}
+.indicator-group-heading{padding:10px;gap:10px}.executive-page .indicator-group-heading h2{font-size:14px}
+.indicator-definition{padding-left:52px}.indicator-definition dt .indicator-term-icon{left:6px}
+.executive-page .indicator-glossary footer{padding:12px;gap:9px}.executive-page .indicator-glossary footer a{margin:0;width:100%;font-size:10px;white-space:normal}
+}
+
+/* Apertura desde el encabezado, sin indicador adicional +/−. */
+.executive-page .indicator-glossary>summary::after{content:none;display:none}

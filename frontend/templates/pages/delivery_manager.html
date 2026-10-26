@@ -3,7 +3,7 @@
 {% block title %}Delivery Manager{% endblock %}
 {% block body_class %}dm-body{% endblock %}
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/delivery_manager.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/delivery_manager_reference.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/delivery_manager.css' %}?v=20261026-integrated">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>Datos al {{ loaded_at|date:"d/m/Y, H:i" }}</span>{% endblock %}
 {% block content %}
 <div class="dm-page" id="dm-app" data-slug="{{ slug }}"

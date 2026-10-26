@@ -229,9 +229,10 @@ def test_same_view_and_external_styles(portal, ia, fixed_day, width, variant):
             full_page=True,
         )
     assert states[0] == states[1]
-    for id in ["ixs-ia-styles", "ixai-ref-styles", "ixs-ia-extended-style"]:
+    for id in ["ixs-ia-styles", "ixs-ia-extended-style"]:
         expect(portal.locator("link#" + id)).to_have_count(1)
         expect(portal.locator("style#" + id)).to_have_count(0)
+    expect(portal.locator("#ixai-ref-styles")).to_have_count(0)
 
 
 def test_modular_panels_safe_text_and_resource_navigation(

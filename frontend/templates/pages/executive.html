@@ -5,7 +5,7 @@
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/executive.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/executive_cards.css' %}?v=20261024-original-size"><link rel="stylesheet" href="{% static 'app/styles/pages/executive_monthly.css' %}?v=20261024-margin-labels"><link rel="stylesheet" href="{% static 'app/styles/pages/executive_rankings.css' %}?v=20261025-controls-aligned"><link rel="stylesheet" href="{% static 'app/styles/pages/agreements_reference.css' %}?v=20261024-followup"><link rel="stylesheet" href="{% static 'app/styles/pages/executive_glossary.css' %}?v=20261025-reference">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/executive.css' %}?v=20261026-integrated"><link rel="stylesheet" href="{% static 'app/styles/pages/agreements_reference.css' %}?v=20261024-followup">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span id="portal-freshness-text">Cargando datos</span>{% endblock %}
 {% block content %}
 <div id="executive-page-data" hidden data-account-url="{% url 'portal:cuenta' slug='account-placeholder' %}" data-query="{{ executive_query }}" data-capture-library="{% static 'app/vendor/html2canvas-1.4.1.min.js' %}"></div>

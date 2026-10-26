@@ -201,3 +201,289 @@
   .ops-number { font-size: 30px; }
   .billing-value { font-size: 44px; }
 }
+
+/* Integrated from operativa_reference.css; original cascade retained. */
+/* Operativa: jerarquía compacta de la referencia, con datos originales. */
+.ops{max-width:1520px;color:#21164f}
+.ops .ops-banner{position:relative;overflow:hidden;display:flex;flex-wrap:nowrap;gap:18px;padding:14px 22px;margin-bottom:14px;border-radius:14px;background:linear-gradient(110deg,#4530ef 0%,#7037ee 60%,#b84fd1 100%);min-height:118px;box-sizing:border-box}
+.ops .ops-banner:before{content:'';position:absolute;inset:45% -5% -90%;border-radius:50%;border-top:1px solid #ffffff26;box-shadow:0 -6px #ffffff09,0 -12px #ffffff08,0 -18px #ffffff07,0 -24px #ffffff06;transform:rotate(-5deg);pointer-events:none}
+.ops .ops-banner>*{z-index:1}
+.ops .ops-banner h1{font-size:32px;line-height:1.1;letter-spacing:-.5px;color:white;margin:0}
+.ops .ops-banner p{font-size:13px;color:#fff;margin:5px 0 0}
+.ops .ops-banner-icon{width:50px;height:54px;border-radius:12px;background:#ffffff20}
+.ops .ops-banner-icon svg{width:35px;height:35px}
+.ops .ops-filters{width:300px;gap:6px;padding:0;background:none;border:0;margin-left:auto}
+.ops .ops-filter{min-width:0;padding:5px 13px 5px 40px;border:1px solid #ede7fc;border-radius:9px;background:#fff;gap:1px;box-shadow:inset 0 0 0 3px #faf8ff}
+.ops .ops-filter:before{content:'♧';position:absolute;left:10px;top:9px;font-size:21px;color:#7542e9}
+.ops .ops-filter+label:before{content:'▤';font-size:20px}
+.ops .ops-filter>span{font-size:9px;color:#8b7caa;line-height:1.3}
+.ops .ops-filter select{font-size:11px;font-weight:600;min-height:19px;color:#30205f}
+.ops .ops-filter:after{width:5px;height:5px;bottom:13px;border-color:#7941e5}
+.ops .ops-section,.ops .ops-health-card{padding:14px;margin:0 0 14px;border:1px solid #e6e2f7;border-radius:13px;background:#fff;box-shadow:none}
+.ops .ops-head{margin-bottom:12px;padding-bottom:11px;gap:8px 12px;align-items:center;border-color:#f0ecfa;min-height:24px}
+.ops .ops-head h2,.ops .ops-health-header h2{font-size:19px;letter-spacing:-.5px;color:#24174f}
+.ops .ops-head>span{font-size:11px;color:#8d80a8}
+.ops .ops-summary-tools{margin-left:auto;display:flex;gap:8px;align-items:center;font-size:10px}
+.ops .ops-cut{font-size:10px;color:#8f80ab}
+.ops .ops-cut:before{display:none}
+.ops .ops-header-refresh{font-size:10px;min-height:29px;padding:5px 9px;border-radius:8px}
+.ops .ops-section-action{margin-left:auto;padding:7px 12px;border:1px solid #e6dcfc;border-radius:8px;font-size:10px;color:#7138de}
+.ops .ops-metrics{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.ops .ops-metric{position:relative;padding:14px 12px 12px;min-height:112px;border:1px solid #ede8fb;border-radius:11px;background:linear-gradient(130deg,#fff,#fcfbff)}
+.ops .ops-metric-head{font-size:12px;line-height:1.35;gap:11px;min-height:34px;align-items:center}
+.ops .ops-icon{width:36px;height:36px;border-radius:12px;box-shadow:inset 0 0 0 4px #ffffff1a}
+.ops .ops-icon svg{width:21px;height:21px}
+.ops .ops-icon.ok{background:#14b579}.ops .ops-icon.bad{background:#f2436c}.ops .ops-icon.blue{background:#3566fb}.ops .ops-icon.violet{background:#9844e8}.ops .ops-icon.amber{background:#f5a01c}
+.ops .ops-value{font-size:27px;line-height:1.15;margin:4px 0 0 47px}
+.ops .ops-note{font-size:10px;line-height:1.5;margin:7px 0 0 47px;color:#8c80a3}
+.ops #ops-metric-progress .ops-note,.ops #ops-metric-on-time .ops-note{background:#e9faf1;color:#129c65;border-radius:8px;padding:3px 7px;display:inline-block}
+.ops #ops-investment-operational .ops-value,.ops #ops-investment-commercial .ops-value{margin-left:47px}
+.ops #ops-investment-operational .ops-note,.ops #ops-investment-commercial .ops-note{margin-left:0;margin-top:8px}
+.ops .ops-health-header{padding-bottom:10px;margin-bottom:12px;border-color:#f0ecfa}
+.ops .ops-health-header p{font-size:10px;margin-top:4px}
+.ops .ops-health-layout{grid-template-columns:1fr .85fr 1fr;gap:15px;max-width:none;align-items:stretch}
+.ops .ops-health-figure{padding:8px;background:linear-gradient(140deg,#faf8ff,#fdfcff);border-radius:9px}
+.ops .ops-health-figure svg{width:205px;max-width:100%}
+.ops .ops-health-figure figcaption{font-size:10px;margin-top:0}
+.ops .ops-health-table{width:100%;font-size:12px}
+.ops .ops-health-table caption{font-size:12px;padding:5px 0 12px}
+.ops .ops-health-table th,.ops .ops-health-table td,.ops .ops-health-table tbody th{font-size:11px;padding:12px 8px;color:#4d3e77}
+.ops .ops-health-table thead th{padding:6px 8px;background:#faf8ff;font-size:9px}
+.ops .ops-health-table td:nth-child(2){font-size:12px}
+.ops .ops-health-state{gap:8px}
+.ops .state-dot{width:8px;height:8px}
+.ops .ops-health-help{margin-top:8px}
+.ops .ops-health-help>summary{width:24px;height:24px;font-size:12px}
+.ops .ops-service-distribution{border-left:1px solid #f0eafa;padding:6px 0 0 16px;min-width:0}
+.ops .ops-service-distribution h3{font-size:12px;margin:0 0 20px;color:#35205d}
+.ops .ops-service-row{display:grid;grid-template-columns:56px minmax(0,1fr) 24px 30px;gap:10px;align-items:center;margin:0 0 22px;font-size:11px;color:#4c397e}
+.ops .ops-service-row small{font-size:10px;color:#8473a0}
+.ops .ops-service-row progress{appearance:none;width:100%;height:16px;border:0;border-radius:4px;overflow:hidden;background:#efecfa}
+.ops .ops-service-row progress::-webkit-progress-bar{background:#efecfa}
+.ops .ops-service-row progress::-webkit-progress-value{background:#7842f1}
+.ops .ops-service-row progress::-moz-progress-bar{background:#7842f1}
+.ops .service-tone-1 progress::-webkit-progress-value{background:#3974ff}.ops .service-tone-2 progress::-webkit-progress-value{background:#ec4ba0}.ops .service-tone-3 progress::-webkit-progress-value{background:#f5a02d}
+.ops #ops-managers{position:relative}
+.ops .dm-carousel{padding:0;border-radius:0;background:none}
+.ops .dm-controls{position:absolute;top:10px;right:14px;gap:8px;margin:0}
+.ops .dm-controls button{width:29px;height:29px;font-size:14px;border-color:#e7def8;background:#faf8ff}
+.ops .dm-investment-link{font-size:10px;padding:8px 14px;border:1px solid #e7def8;border-radius:8px;background:#fff}
+.ops .dm-track{gap:12px;padding-bottom:0}
+.ops .dm-card{flex-basis:calc((100% - 24px)/3);border:1px solid #e9e2f7;border-radius:11px;box-shadow:none}
+.ops .dm-card-head{padding:12px;gap:10px;background:linear-gradient(120deg,#fcfaff,#fff);min-height:48px}
+.ops .dm-card-head .ops-icon{width:33px;height:33px;font-size:12px;border-radius:50%;background:#6434ed}
+.ops .dm-card-head b{font-size:12px;line-height:1.3}
+.ops .dm-role{font-size:9px;margin-top:3px}
+.ops .dm-bar{height:8px;margin:6px 12px}
+.ops .dm-counts{font-size:9px;gap:6px 10px;margin:5px 12px 8px}
+.ops .m2{min-height:0;padding:7px 12px;font-size:11px;border-color:#f1ecfb}
+.ops .m2 b{font-size:12px}
+.ops .dm-row-label{display:flex;align-items:center;gap:8px;color:#85729f}
+.ops .dm-row-label svg{color:#8150e5;flex:none}
+.ops .dm-investment{margin:0 8px 8px;background:#faf7ff;border-radius:7px}
+.ops .dm-investment .m2{padding:7px 6px}
+.ops .dm-investment b{color:#7441dc}
+.ops .eva-grid{gap:10px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.ops .eva-card{padding:7px;border-radius:10px;border-color:#ece6f9;box-shadow:none}
+.ops .eva-head{padding:8px;gap:8px;font-size:15px;background:linear-gradient(100deg,#f7f2ff,#fdfbff);border-radius:8px}
+.ops .eva-head small,.ops .eva-title small{font-size:10px;font-weight:400}
+.ops .eva-icon svg{width:20px;height:20px}
+.ops .eva-value{font-size:22px;margin-top:3px}
+.ops .eva-label{font-size:9px;color:#8b78a4}
+.ops .eva-more{font-size:11px;min-height:0;padding:7px;margin-top:9px;background:#f8f4ff;border-radius:6px}
+.ops .ops-strip{padding:0;gap:18px;border:0;background:none;grid-template-columns:245px minmax(0,1fr) 160px}
+.ops .ops-strip--two{grid-template-columns:minmax(0,1fr) 165px;gap:12px}
+.ops .ops-links{gap:6px}
+.ops .ops-button{min-height:0;padding:10px 12px;font-size:10px;border-radius:8px;background:#f8f5ff}
+.ops .billing{grid-template-columns:260px minmax(0,1fr);gap:18px}
+.ops .billing>div:first-child{padding:14px;background:linear-gradient(140deg,#fcf9ff,#fff);border:1px solid #f0eafb;border-radius:10px}
+.ops .billing-title{font-size:13px;gap:10px}
+.ops .billing-title .ops-icon{width:35px;height:35px}
+.ops .billing-value{font-size:34px;margin:5px 0 3px 45px}
+.ops .billing-gap{font-size:11px;line-height:1.5}
+.ops .billing-label{font-size:9px}
+.ops .billing-chip{font-size:10px;padding:4px 10px}
+.ops .billing-chart-title{font-size:11px;text-align:left;margin-bottom:12px}
+.ops .billing-svg{max-height:155px}
+.ops .ops-heading{font-size:13px;gap:10px}
+.ops .ops-heading .ops-icon{width:35px;height:35px}
+.ops .ops-number{font-size:28px;margin:5px 0 6px 45px}
+.ops .ops-number small{font-size:11px}
+.ops .ops-stats{font-size:10px;gap:10px}
+.ops .ops-muted{font-size:10px;line-height:1.6}
+.ops .ops-meter{height:11px;margin-bottom:12px;background:#eee5ff}
+.ops .ops-meter i{background:linear-gradient(90deg,#7431ef,#dfceff)}
+@media(max-width:1200px){.ops .ops-health-layout{grid-template-columns:1fr 1fr 1fr}.ops .ops-metric{padding:12px 9px}.ops .ops-metric-head{gap:7px;font-size:11px}.ops .ops-value{margin-left:0}.ops .ops-note{margin-left:0}.ops .billing{grid-template-columns:215px minmax(0,1fr)}.ops .ops-strip{grid-template-columns:200px minmax(0,1fr)}.ops .ops-strip--two{grid-template-columns:minmax(0,1fr) 155px}.ops .ops-links{grid-column:auto;grid-template-columns:1fr}.ops .ops-service-row{grid-template-columns:45px minmax(0,1fr) 20px 27px;gap:5px}}
+@media(max-width:950px){.ops .ops-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.ops .dm-card{flex-basis:calc((100% - 12px)/2)}.ops .ops-health-layout{grid-template-columns:1fr 1fr}.ops .ops-service-distribution{grid-column:1/-1;border-left:0;border-top:1px solid #eee7fa;padding:15px 0 0}.ops .ops-service-row{grid-template-columns:70px minmax(0,1fr) 25px 35px;margin-bottom:13px}.ops .billing{grid-template-columns:1fr}.ops .eva-head{flex-wrap:wrap}.ops .ops-summary-tools{width:100%;margin-left:0;justify-content:flex-end}}
+@media(max-width:700px){.ops .ops-banner{flex-wrap:wrap;padding:16px;gap:12px}.ops .ops-banner h1{font-size:27px}.ops .ops-filters{width:100%;gap:7px;padding:0}.ops .ops-section,.ops .ops-health-card{padding:12px;margin-bottom:12px}.ops .ops-head h2,.ops .ops-health-header h2{font-size:18px}.ops .ops-head>span{font-size:10px}.ops .ops-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.ops .ops-metric .ops-icon{display:grid}.ops .ops-metrics>:last-child{grid-column:auto}.ops .ops-metrics>:last-child{grid-column:1/-1}.ops .ops-metric-head{font-size:11px}.ops .ops-value{font-size:25px;margin-left:42px}.ops .ops-note{font-size:9px;margin-left:0}.ops .ops-health-layout{grid-template-columns:1fr;gap:12px}.ops .ops-service-distribution{grid-column:auto}.ops .ops-health-figure svg{width:190px}.ops .dm-controls{position:static;justify-content:flex-end;margin:0 0 12px}.ops .dm-card{flex-basis:100%}.ops .ops-head{gap:6px 9px}.ops .eva-grid{grid-template-columns:1fr}.ops .eva-head{flex-wrap:nowrap}.ops .eva-stats{margin-top:12px}.ops .eva-label{font-size:11px}.ops .eva-value{font-size:24px}.ops .ops-strip,.ops .ops-strip--two{grid-template-columns:1fr}.ops .ops-links{grid-template-columns:repeat(2,minmax(0,1fr))}.ops .billing{grid-template-columns:1fr}.ops .ops-number{margin-left:45px}.ops .ops-summary-tools{flex-wrap:wrap;justify-content:space-between}.ops .ops-cut{font-size:9px}.ops .ops-section-action{font-size:9px}.ops .ops-head:has(+.dm-carousel){margin-bottom:10px}}
+@media(prefers-reduced-motion:reduce){.ops *{scroll-behavior:auto!important}}
+
+.ops .ops-filter:before{display:none}.ops .ops-filter-icon{position:absolute;left:10px;top:11px;width:21px;height:21px;color:#7941e5}
+
+/* Integrated from operativa_billing_reference.css; original cascade retained. */
+/* Panel de facturabilidad: indicador, gráfica y navegación. */
+.ops .ops-billing-section{padding:0;overflow:hidden;border-radius:15px}
+.ops .ops-billing-section>.ops-head{margin:0;padding:16px 20px;gap:14px;border-bottom:1px solid #eee8fa}
+.ops .ops-billing-heading-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:12px;background:#f5f0ff;color:#7340e6;flex:none}
+.ops-billing-heading-icon svg{width:26px;height:26px}
+.ops .ops-billing-heading-text h2{font-size:22px;margin:0}
+.ops .ops-billing-heading-text p{font-size:12px;color:#9483ad;margin:4px 0 0}
+.ops .ops-billing-range{margin-left:auto;display:flex;align-items:center;gap:10px;padding:10px 13px;border:1px solid #e8dffc;border-radius:10px;color:#7544df;background:#fdfbff;min-width:0}
+.ops .ops-billing-range select{border:0;background:transparent;color:#523482;font:inherit;font-size:11px;min-width:130px;max-width:100%;cursor:pointer}
+.ops .ops-billing-range>span{font-size:20px}
+.ops .ops-billing-section>.ops-strip{padding:15px 18px 18px;gap:15px;grid-template-columns:minmax(0,1fr) 190px;align-items:stretch}
+.ops .ops-billing-section .billing{grid-template-columns:235px minmax(0,1fr);gap:14px;align-items:stretch;height:100%}
+.ops .ops-billing-section .billing-main{background:linear-gradient(135deg,#f8f3ff,#f5f0ff);border:0;padding:20px 17px;border-radius:12px;display:flex;flex-direction:column;min-width:0}
+.ops .ops-billing-section .billing-title{font-size:14px;color:#25174e;justify-content:space-between;gap:8px;margin:0 0 21px}
+.ops .ops-billing-section .billing-value{font-size:45px;letter-spacing:-1px;line-height:1.15;margin:0 0 10px;color:#201042}
+.ops .ops-billing-section .billing-gap{font-size:12px;line-height:1.6;margin-bottom:8px}
+.ops .ops-billing-section .billing-main>.ops-muted{font-size:11px}
+.ops .ops-billing-section .billing-chips{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ops .ops-billing-section .billing-chip{padding:9px 10px;background:#ece3ff;border-radius:8px;text-align:center;font-size:12px}
+.ops .ops-billing-section .billing-label{margin-top:18px;color:#9382ac;font-size:10px;line-height:1.6}
+.ops .ops-billing-section .billing-chart{border:1px solid #eee8fa;border-radius:12px;padding:14px;min-width:0;display:flex;flex-direction:column;justify-content:space-between}
+.ops .billing-chart-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}
+.ops .ops-billing-section .billing-chart-title{font-size:13px;font-weight:700;margin:0}
+.ops .billing-legend{display:flex;gap:14px;font-size:10px;color:#8e7da9;flex-wrap:wrap}
+.ops .billing-legend-series:before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:#6b35db;margin-right:6px}
+.ops .billing-legend-target:before{content:'';display:inline-block;width:21px;border-top:2px dashed #a897cb;vertical-align:middle;margin-right:6px}
+.ops .ops-billing-section .billing-svg{max-height:none;min-height:185px;height:auto;width:100%;display:block}
+.ops .billing-gridline{stroke:#f5f1fa;stroke-width:1}
+.ops .billing-axis-label{fill:#9585ac;font-size:11px}
+.ops .billing-target-line{stroke:#a798c6;stroke-width:1.5;stroke-dasharray:5 5;pointer-events:none}
+.ops .ops-billing-section .billing-rect{fill:#d4c3f5}
+.ops .ops-billing-section .billing-bar.is-selected .billing-rect{fill:#6130d6}
+.ops .ops-billing-section .billing-text{font-size:12px;fill:#28174e;font-weight:700}
+.ops .ops-billing-section .billing-month{font-size:11px;fill:#9585ac}
+.ops .ops-billing-section .billing-bar.is-selected .billing-month{font-weight:700;fill:#43236e}
+.ops .ops-billing-section .ops-links{display:grid;grid-template-columns:1fr;gap:7px}
+.ops .ops-billing-section .ops-button{position:relative;justify-content:flex-start;background:linear-gradient(100deg,#f7f1ff,#f4eeff);padding:14px 12px;font-size:11px;gap:10px;line-height:1.5;text-align:left}
+.ops .ops-billing-section .ops-button:before{content:'↗';font-size:22px;line-height:1;color:#7b42e1;width:24px;flex:none}
+.ops .ops-billing-section .ops-button:hover{background:#eee3ff}
+@media(max-width:1200px){.ops .ops-billing-section>.ops-strip{grid-template-columns:minmax(0,1fr) 155px;gap:10px}.ops .ops-billing-section .billing{grid-template-columns:200px minmax(0,1fr)}.ops .ops-billing-section .billing-main{padding:18px 13px}.ops .ops-billing-section .billing-value{font-size:37px}.ops .ops-billing-section .billing-chart{padding:12px}}
+@media(max-width:950px){.ops .ops-billing-section>.ops-strip{grid-template-columns:1fr}.ops .ops-billing-section .billing{grid-template-columns:230px minmax(0,1fr)}.ops .ops-billing-section .ops-links{grid-template-columns:repeat(3,minmax(0,1fr))}.ops .ops-billing-section .billing-svg{min-height:155px}}
+@media(max-width:650px){.ops .ops-billing-section>.ops-head{padding:14px;gap:10px}.ops .ops-billing-heading-text{flex:1;min-width:0}.ops .ops-billing-heading-text h2{font-size:20px}.ops .ops-billing-heading-text p{font-size:10px}.ops .ops-billing-range{margin-left:53px;padding:8px 10px}.ops .ops-billing-range select{font-size:10px}.ops .ops-billing-section>.ops-strip{padding:12px;gap:12px}.ops .ops-billing-section .billing{grid-template-columns:1fr;gap:12px}.ops .ops-billing-section .billing-main{padding:17px}.ops .ops-billing-section .billing-title{margin-bottom:12px}.ops .ops-billing-section .billing-value{font-size:42px}.ops .ops-billing-section .billing-chips{margin-top:16px}.ops .ops-billing-section .billing-label{margin-top:12px}.ops .ops-billing-section .billing-chart{padding:12px 9px}.ops .ops-billing-section .billing-svg{min-height:140px}.ops .ops-billing-section .ops-links{grid-template-columns:repeat(2,minmax(0,1fr))}.ops .ops-billing-section .ops-button{padding:11px 9px;font-size:10px}.ops .ops-billing-section .ops-button:before{font-size:17px;width:17px}.ops .billing-legend{font-size:9px}}
+
+.ops .ops-billing-section .ops-billing-heading-icon{color:#713cda}
+.ops .ops-billing-section .ops-button:before{display:none}
+.ops .ops-billing-section .ops-button svg{width:23px;height:23px;flex:none;color:#7b42e1}
+.ops .billing-plot-scroll{min-width:0;overflow-x:auto;scrollbar-width:thin}
+@media(max-width:650px){.ops .ops-billing-section>.ops-head{display:grid;grid-template-columns:43px minmax(0,1fr);align-items:center}.ops .ops-billing-range{grid-column:2;margin-left:0;justify-self:start;max-width:100%;box-sizing:border-box}.ops .ops-billing-range select{min-width:0;width:100%}.ops .ops-billing-section .billing-svg{min-width:520px;min-height:185px}.ops .ops-billing-section .ops-button svg{width:20px;height:20px}}
+
+/* Selección y foco del mes con fondo redondeado, sin recuadro nativo. */
+.ops .ops-billing-section .billing-bar:focus,.ops .ops-billing-section .billing-bar:focus-visible{outline:none}
+.ops .billing-selection-bg,.ops .billing-selected-bar{opacity:0;pointer-events:none}
+.ops .billing-bar.is-selected .billing-selection-bg,.ops .billing-bar.is-selected .billing-selected-bar{opacity:1}
+.ops .billing-bar:hover .billing-selection-bg{opacity:.6}
+.ops .billing-bar:focus-visible .billing-selection-bg{opacity:1;stroke:#b5a0e1;stroke-width:1.2}
+.ops .ops-billing-section .billing-bar.is-selected .billing-text{font-size:13px;font-weight:800;fill:#24134c}
+.ops .ops-billing-section .billing-bar.is-selected .billing-month{font-weight:800;fill:#2c145a}
+@media(prefers-reduced-motion:no-preference){.ops .billing-selection-bg,.ops .billing-selected-bar{transition:opacity .15s ease}}
+
+/* Integrated from operativa_eva_reference.css; original cascade retained. */
+/* EVA: three cards with source indicators and available hour progress. */
+.ops #ops-evas{padding:16px;border-radius:14px}
+.ops #ops-evas>.ops-head{padding:0 3px 15px;margin-bottom:13px;gap:14px}
+.ops .eva-section-icon{display:grid;place-items:center;width:49px;height:49px;border-radius:12px;background:#f6f1ff;color:#7843ef;flex:none}
+.ops .eva-section-icon svg{width:27px;height:27px}
+.ops .eva-section-title{min-width:0}
+.ops .eva-section-title h2{font-size:23px;margin:0 0 3px}
+.ops .eva-section-title p{font-size:12px;color:#9585ae;margin:0;line-height:1.5}
+.ops #ops-evas .ops-section-action{padding:10px 14px;font-size:11px;white-space:nowrap;background:#fdfbff}
+.ops #ops-evas .eva-grid{gap:12px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.ops #ops-evas .eva-card{--eva-accent:#854cf1;--eva-soft:#f0e8ff;--eva-header:#faf7ff;display:flex;flex-direction:column;padding:0;border:1px solid #eae3fa;border-radius:12px;overflow:hidden;background:#fff;min-width:0}
+.ops #ops-evas .eva-tone-blue{--eva-accent:#3978ff;--eva-soft:#e9f0ff;--eva-header:#f7faff}
+.ops #ops-evas .eva-tone-orange{--eva-accent:#fa922c;--eva-soft:#fff1df;--eva-header:#fffcf7}
+.ops #ops-evas .eva-head{padding:12px 13px;gap:12px;border-radius:0;background:linear-gradient(110deg,var(--eva-header),#fff);min-height:50px;flex-wrap:nowrap}
+.ops #ops-evas .eva-icon{width:39px;height:42px;display:grid;place-items:center;flex:none;border-radius:11px;background:var(--eva-soft);color:var(--eva-accent)}
+.ops #ops-evas .eva-icon svg{width:26px;height:26px}
+.ops #ops-evas .eva-title{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap;line-height:1.4;min-width:0}
+.ops #ops-evas .eva-title strong{font-size:18px;letter-spacing:-.4px;white-space:nowrap}
+.ops #ops-evas .eva-title small{font-size:11px;font-weight:400;color:#8b79a7}
+.ops #ops-evas .eva-tone-orange .eva-title{display:block}
+.ops #ops-evas .eva-go{display:grid;place-items:center;width:29px;height:29px;border-radius:10px;background:var(--eva-soft);color:var(--eva-accent);flex:none}
+.ops #ops-evas .eva-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:17px 13px 0;text-align:left;gap:0}
+.ops #ops-evas .eva-stat{padding:0 10px;min-width:0}
+.ops #ops-evas .eva-stat:first-child{padding-left:0}
+.ops #ops-evas .eva-stats>.eva-stat:nth-child(2){border-inline:1px solid #eee6fa}
+.ops #ops-evas .eva-label{display:flex;gap:7px;align-items:flex-start;font-size:10px;color:#9181ab;line-height:1.5;min-height:32px}
+.ops #ops-evas .eva-label svg{width:17px;height:17px;color:var(--eva-accent);flex:none}
+.ops #ops-evas .eva-value{margin:5px 0 0 24px;font-size:27px;line-height:1.15;letter-spacing:-.5px;color:#27154d;overflow-wrap:anywhere}
+.ops #ops-evas .eva-negative{color:#ed315b}
+.ops #ops-evas .eva-stats-two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ops #ops-evas .eva-stats-two>.eva-stat:nth-child(2){border-inline:0;border-left:1px dashed #e5d7fa;padding-left:24px}
+.ops #ops-evas .eva-progress-block{margin:22px 14px 16px}
+.ops #ops-evas .eva-progress-caption{font-size:11px;color:#9584aa;margin-bottom:7px}
+.ops #ops-evas .eva-progress-row{display:flex;align-items:center;gap:12px}
+.ops #ops-evas .eva-progress-row strong{font-size:12px;color:#332052}
+.ops #ops-evas progress{appearance:none;border:0;border-radius:20px;height:10px;flex:1;width:100%;min-width:0;overflow:hidden;background:#f0eafd}
+.ops #ops-evas progress::-webkit-progress-bar{background:#f0eafd;border-radius:20px}
+.ops #ops-evas progress::-webkit-progress-value{background:var(--eva-accent);border-radius:20px}
+.ops #ops-evas progress::-moz-progress-bar{background:var(--eva-accent);border-radius:20px}
+.ops #ops-evas .eva-data-note{color:#a08fb3;font-size:10px;line-height:1.6;margin:0}
+.ops #ops-evas .eva-roc-note{margin:26px 14px 18px;padding:10px;background:#fffcf7;border:1px solid #fff1de;border-radius:8px}
+.ops #ops-evas .eva-restricted{padding:18px 14px}
+.ops #ops-evas .eva-more{margin:auto 12px 12px;padding:10px 7px;border-radius:9px;background:linear-gradient(110deg,#f5efff,#f8f4ff);font-size:11px;line-height:1.5;min-height:0;text-align:center}
+@media(max-width:1200px){.ops #ops-evas .eva-head{gap:8px;padding:10px}.ops #ops-evas .eva-title{gap:2px 6px}.ops #ops-evas .eva-title strong{font-size:16px}.ops #ops-evas .eva-icon{width:32px;height:36px}.ops #ops-evas .eva-stats{margin-inline:9px}.ops #ops-evas .eva-stat{padding-inline:7px}.ops #ops-evas .eva-value{font-size:24px;margin-left:0}.ops #ops-evas .eva-label{font-size:9px;gap:5px}.ops #ops-evas .eva-label svg{width:15px;height:15px}.ops #ops-evas .eva-title small{font-size:10px}}
+@media(max-width:950px){.ops #ops-evas .eva-grid{grid-template-columns:1fr}.ops #ops-evas .eva-title{display:flex;gap:10px}.ops #ops-evas .eva-tone-orange .eva-title{display:flex}.ops #ops-evas .eva-label{min-height:0;font-size:11px}.ops #ops-evas .eva-value{margin:8px 0 0 24px;font-size:29px}.ops #ops-evas .eva-stats{margin:16px}.ops #ops-evas .eva-stat{padding-inline:15px}.ops #ops-evas .eva-head{padding:12px 14px}.ops #ops-evas .eva-title strong{font-size:19px}.ops #ops-evas .eva-title small{font-size:11px}.ops #ops-evas .eva-icon{width:39px;height:42px}.ops #ops-evas .eva-progress-block{margin:18px 16px}.ops #ops-evas .eva-roc-note{margin:16px}}
+@media(max-width:600px){.ops #ops-evas{padding:12px}.ops #ops-evas>.ops-head{display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px}.ops .eva-section-icon{width:42px;height:43px}.ops .eva-section-title h2{font-size:21px}.ops .eva-section-title p{font-size:10px}.ops #ops-evas .ops-section-action{grid-column:2;margin-left:0;justify-self:start;font-size:10px;padding:8px 11px}.ops #ops-evas .eva-stats{margin:15px 12px 0}.ops #ops-evas .eva-label{font-size:10px;min-height:30px;gap:5px}.ops #ops-evas .eva-stat{padding-inline:8px}.ops #ops-evas .eva-value{font-size:25px;margin-left:0}.ops #ops-evas .eva-head{gap:10px}.ops #ops-evas .eva-title{gap:5px 9px}.ops #ops-evas .eva-title strong{font-size:18px}.ops #ops-evas .eva-progress-block{margin:18px 12px}.ops #ops-evas .eva-stats-two>.eva-stat:nth-child(2){padding-left:18px}}
+
+.ops #ops-evas .eva-section-icon{color:#7843ef}
+
+.ops #ops-evas .eva-stats{margin-bottom:22px}
+
+/* Indicadores de EVA 4 centrados en cada mitad de la tarjeta. */
+.ops #ops-evas #ops-eva4-card .eva-stat{padding-inline:10px;text-align:center}
+.ops #ops-evas #ops-eva4-card .eva-label{justify-content:center;align-items:center}
+.ops #ops-evas #ops-eva4-card .eva-value{margin-left:0;text-align:center}
+
+/* Integrated from operativa_capacity_reference.css; original cascade retained. */
+/* Capacity: prominent availability, unchanged usage meter and hour detail. */
+.ops .ops-capacity-section{padding:0;border-radius:14px;overflow:hidden}
+.ops .ops-capacity-section>.ops-head{padding:16px 20px;margin:0;gap:14px;border-bottom:1px solid #eee7fa}
+.ops .ops-capacity-section .capacity-section-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;background:#f7f2ff;color:#7746dc;flex:none}
+.capacity-section-icon svg{width:27px;height:27px}
+.ops .capacity-section-title h2{font-size:22px;margin:0 0 4px}
+.ops .capacity-section-title p{font-size:12px;color:#9482ab;margin:0}
+.ops .ops-capacity-section .capacity-month-label{margin-left:auto;padding:10px 16px;border:1px solid #e8e0fa;border-radius:10px;background:#fefcff;font-size:12px;color:#60448e}
+.ops .ops-capacity-section>.ops-strip{display:grid;grid-template-columns:250px minmax(0,1fr) 275px;gap:18px;align-items:stretch;padding:18px}
+.ops .ops-capacity-section .ops-capacity{display:contents}
+.capacity-main{padding:18px 16px;border-radius:12px;background:linear-gradient(130deg,#f9f5ff,#f5f1fc);display:flex;flex-direction:column;min-width:0}
+.capacity-main-heading{display:flex;gap:10px;align-items:center;color:#49256e}
+.capacity-main-heading h3{font-size:13px;margin:0;font-weight:650;line-height:1.5}
+.capacity-main-icon{display:grid;place-items:center;width:36px;height:38px;border-radius:10px;background:#e9ddff;color:#8042de;flex:none}
+.capacity-info{font-size:14px;color:#8c58dc;cursor:help}
+.capacity-main-value{font-size:45px;line-height:1.15;letter-spacing:-1px;margin:21px 0 6px;color:#231044;font-variant-numeric:tabular-nums}
+.capacity-main-caption{font-size:14px;color:#9885b0;margin:0 0 20px}
+.capacity-main-period{font-size:10px;line-height:1.6;color:#9986b0;margin:auto 0 0;padding-top:20px}
+.capacity-usage{display:flex;flex-direction:column;min-width:0;padding:4px 0}
+.capacity-usage h3,.capacity-detail-panel h3{font-size:14px;margin:0 0 20px;color:#30194f}
+.capacity-meter-row{display:flex;align-items:center;gap:16px;margin:10px 0 30px}
+.ops .capacity-meter-row .ops-meter{flex:1;height:16px;border-radius:20px;margin:0;background:#e9defb}
+.ops .capacity-meter-row .ops-meter i{border-radius:20px;background:linear-gradient(90deg,#7540d6,#b18bea)}
+.capacity-meter-value{display:flex;flex-direction:column;align-items:center;color:#50347d}
+.capacity-meter-value strong{font-size:23px;line-height:1.3;color:#251346}
+.capacity-meter-value span{font-size:10px}
+.capacity-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:20px}
+.capacity-stat{min-width:0;padding-left:12px;border-left:1px solid #ece4f9;display:flex;flex-direction:column;gap:6px}
+.capacity-stat:first-child{border:0;padding-left:0}
+.capacity-stat-label{font-size:10px;color:#8a76a3;line-height:1.4}
+.capacity-stat-label:before{content:'';display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:#cbb6f3}
+.capacity-stat-billable .capacity-stat-label:before{background:#8a50e2}
+.capacity-stat strong{font-size:18px;color:#3d205e;overflow-wrap:anywhere;line-height:1.3}
+.capacity-stat small{font-size:9px;color:#9b86b0;line-height:1.5}
+.capacity-notes{display:flex;align-items:flex-start;gap:12px;background:#f9f5ff;border-radius:10px;padding:12px;margin-top:auto;color:#9680ab;font-size:10px;line-height:1.6}
+.capacity-notes>span{font-size:20px;color:#8b50e0}
+.capacity-notes p{margin:0}
+.capacity-detail-panel{border-left:1px solid #f0e9fa;padding:4px 0 0 16px;min-width:0;display:flex;flex-direction:column}
+.capacity-detail-panel h3{margin-bottom:12px}
+.capacity-detail-row{display:flex;align-items:center;gap:8px;padding:12px 9px;border-radius:9px;background:#fbf8ff;margin-bottom:5px;color:#8b72a5;font-size:10px;line-height:1.5}
+.capacity-detail-icon{color:#8650df;display:flex;flex:none}
+.capacity-detail-row>div{display:flex;flex-direction:column;text-align:right;margin-left:auto;flex:none}
+.capacity-detail-row strong{color:#392057;font-size:12px}
+.capacity-detail-row small{font-size:9px;color:#a28db4}
+.ops .ops-capacity-section .capacity-detail-link{margin-top:auto;padding:13px 9px;background:linear-gradient(100deg,#9462df,#aa7be7);color:#fff;border-radius:9px;font-size:11px;text-align:center}
+.capacity-message{grid-column:2/-1;padding:15px;background:#fbf8ff;border-radius:10px}
+@media(max-width:1200px){.ops .ops-capacity-section>.ops-strip{grid-template-columns:210px minmax(0,1fr) 225px;gap:14px}.capacity-main{padding:15px}.capacity-main-value{font-size:38px}.capacity-detail-panel{padding-left:12px}.capacity-stat strong{font-size:15px}.capacity-stats{gap:8px}.capacity-detail-row{flex-wrap:wrap}.capacity-main-heading{gap:7px}.capacity-main-heading h3{font-size:12px}}
+@media(max-width:1000px){.ops .ops-capacity-section>.ops-strip{grid-template-columns:230px minmax(0,1fr)}.capacity-detail-panel{grid-column:1/-1;border:0;border-top:1px solid #eee6fa;padding:15px 0 0}.capacity-detail-panel #ops-capacity-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ops .ops-capacity-section .capacity-detail-link{align-self:flex-end;margin-top:8px;padding:11px 18px}.capacity-main-value{font-size:42px}}
+@media(max-width:650px){.ops .ops-capacity-section>.ops-head{display:grid;grid-template-columns:43px minmax(0,1fr);padding:14px;gap:10px}.ops .ops-capacity-section .capacity-section-icon{width:43px;height:43px}.ops .capacity-section-title h2{font-size:20px}.ops .capacity-section-title p{font-size:10px}.ops .ops-capacity-section .capacity-month-label{grid-column:2;margin-left:0;justify-self:start;font-size:11px;padding:8px 12px}.ops .ops-capacity-section>.ops-strip{grid-template-columns:1fr;padding:12px;gap:16px}.capacity-detail-panel{grid-column:auto}.capacity-detail-panel #ops-capacity-details{grid-template-columns:1fr;gap:0}.capacity-main{padding:17px}.capacity-main-value{font-size:45px;margin-top:17px}.capacity-main-period{padding-top:12px}.capacity-main-caption{margin-bottom:5px}.capacity-stats{gap:10px}.capacity-stat{padding-left:10px}.capacity-stat strong{font-size:16px}.capacity-stat-label{font-size:9px}.capacity-stat small{font-size:9px}.capacity-usage h3{font-size:14px;margin-bottom:12px}.capacity-meter-row{margin:8px 0 24px}.capacity-detail-row{font-size:11px}.capacity-detail-row strong{font-size:13px}.capacity-detail-row small{font-size:10px}.ops .ops-capacity-section .capacity-detail-link{align-self:stretch}.capacity-message{grid-column:auto}}

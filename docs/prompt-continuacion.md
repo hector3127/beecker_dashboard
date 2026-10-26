@@ -10,6 +10,15 @@ los últimos commits y los cambios pendientes antes de editar. Trabajamos
 directamente en `main`, con commits pequeños y archivos añadidos por nombre.
 No hagas push sin petición expresa del usuario.
 
+**Actualización más reciente: integración Christian sobre 3410e89.** Leer
+`docs/integracion-christian.md`. Los logos unificados/comando nuevo, Previas al
+cierre y Capacidad diaria están preservados. Reorganizadas las 17 entradas
+JS indicadas y fusionadas doce CSS exclusivos en seis destinos. 1691 servidor,
+505 Node y 57 navegador finales pasan. Base visual: 3410e89, 54 referencias y
+53 PNG (42 exactas; restantes hora/pintado, ver detalle). No sumar las corridas
+solapadas ni afirmar una segunda corrida amplia íntegra. Continuar referencias
+antiguas y CSP; no recrear hojas retiradas ni añadir fetch directo para lecturas.
+
 **Actualización 26/10 posterior al rediseño:** lee también
 `docs/preparacion-fase-11.md`. El usuario autorizó preparar la fase 11.
 La fase 11 ya tiene un primer bloque completado: EVA-04 perdió su vista y

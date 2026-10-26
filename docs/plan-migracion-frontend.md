@@ -7,6 +7,17 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+**Fase 11 — integración de Christian reorganizada sobre 3410e89 (26/10).**
+Se conservan los logos unificados/comando de datos, Previas al cierre y fechas
+de Capacidad diaria. Las 17 entradas indicadas usan formato legible, JSDoc y
+`@ts-check`, con modelos y vistas separados de coordinación/estado. Doce hojas
+de uso exclusivo se integran en seis destinos; acuerdos sigue compartida.
+1691 servidor, 505 Node y 57 navegador finales aprobadas. Comparación contra
+3410e89: 54 casos de referencia y 53 PNG (42 idénticos; resto hora/pintado).
+La corrida amplia y revalidaciones se desglosan sin sumar casos solapados en
+`docs/integracion-christian.md`, junto a pantallas/tamaños y el fallo de espera
+de la prueba corregido. No se cambian cálculos ni se activa CSP/accesos.
+
 **Fase 11 — segundo bloque (26/10).** Diccionario sin vista/plantilla anterior,
 manteniendo búsqueda y enlaces obsoletos. Capturas vigentes idénticas antes/
 después a 1450/900/390 px. PNG con html2canvas real validado bajo CSP de bloqueo

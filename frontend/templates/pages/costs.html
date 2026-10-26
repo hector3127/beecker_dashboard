@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/costs.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/costs_reference.css' %}?v=20261025-kpi-cards">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/costs.css' %}?v=20261026-integrated">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
 {% block content %}
 <div id="cost-page-data" hidden data-account="{{ cost_account }}" data-project-url="{% url 'portal:proyecto_detalle' 'project-placeholder' %}"></div>
