@@ -90,7 +90,15 @@ def test_charts_match_previous(portal, ixs, fixed_day, width, kind, variant):
         x, y = state[0]["box"][:2]
         for item in state:
             box = item["box"]
-            item["box"] = [round(box[0] - x, 1), round(box[1] - y, 1), *box[2:]]
+            # Hidden descendants have a viewport rect of all zeroes, not a
+            # position relative to their host. Preserve that assertion; moving
+            # the component must not invent negative coordinates for them.
+            if box != [0, 0, 0, 0]:
+                item["box"] = [
+                    round(box[0] - x, 1),
+                    round(box[1] - y, 1),
+                    *box[2:],
+                ]
         states.append(state)
         svg_states.append(
             target.locator("svg, svg *").evaluate_all("""nodes=>nodes.map(n=>{

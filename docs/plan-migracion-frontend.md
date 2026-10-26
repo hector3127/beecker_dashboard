@@ -5,7 +5,7 @@ funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus
 respuestas; la migración del frontend sí avanza.
 
-## Candidato a cierre de fase 10: arranque independiente (26/10/2026)
+## Fase 10 completada: arranque independiente (26/10/2026)
 
 La ruta activa ya no carga script/shim/CSS de portal: arranca desde main con
 estado, controladores y delegados públicos modulares. El CSS compartido se
@@ -25,11 +25,28 @@ comparar cálculos, `project_reference.py` carga las definiciones originales de
 forma explícita, sin autoinicio ni servicios reales. Las pruebas normales no
 usan ese auxiliar. Los espías de recarga observan el runtime actual.
 
-**478 Node y 38 navegador dirigidas aprobadas**. Ruff/formato, Django y mypy
-aprobados. **Validación integral pendiente:** en ejecución 3862 pruebas de
-`tests` (solo excluye los cuatro temporales no versionados `test_zz_*`). Ya
-apareció un fallo adicional: resolver el informe antes de marcar completada.
-No retirar referencias ni activar CSP/ACCESS_ENFORCED: pertenecen a fase 11.
+**Validación integral realizada:** la suite de 3862 casos dio 3853 aprobadas,
+ocho fallos y una parametrización vacía omitida. Se corrigieron las pruebas:
+expectativa de cargar el script anterior (1), normalizador privado sustituido
+(3), espías del renderizador sustituido (2) y origen de rectángulos nulos en
+gráficas con filas ocultas (2). Las capturas afectadas son idénticas byte por
+byte a 1450 y 900 px: no se cambió producto para hacerlas coincidir.
+
+La parametrización vacía de login se reemplazó por tres endpoints vigentes,
+comprobando rechazo anónimo antes de consultar datos. Revalidación de todos
+los archivos afectados: **55 aprobadas, sin fallos ni omisiones**. Resultado
+consolidado: **3864 casos Python verificados** (corrida general + revalidación,
+no una segunda corrida general). Incluye 1264 pruebas de navegador y sus
+comparaciones en tres tamaños. Solo se excluyeron los cuatro diagnósticos
+`test_zz_*` ajenos/no versionados. Comandos y desglose en el traspaso.
+
+**478 Node aprobadas**; Ruff/formato (653 archivos), Django y mypy aprobados.
+Ninguna fórmula, permiso ni servicio se cambió para corregir diferencias.
+Código independiente en `fa4bf11`. La limpieza de originales y pruebas de
+referencia, CSP y despliegue de accesos corresponden a **fase 11**, pendiente.
+
+Los bloques de implementación inferiores son históricos: sus anotaciones
+«fase 10 parcial» describen el momento de cada bloque y no el estado vigente.
 
 ## Bloque verificado: inicio especial modular (26/10/2026)
 
@@ -73,7 +90,7 @@ Ruff/formato, Django y diff aprobados; red externa bloqueada/datos simulados.
 todavía llegan del archivo anterior. Conservar script/shim y comparación hasta
 sustituir esos proveedores; no declarar independencia por mover el estado.
 
-## Estado real (23/10/2026)
+## Estado consolidado (26/10/2026)
 
 Tres cosas distintas, que no se confunden:
 
@@ -97,7 +114,7 @@ Una pantalla solo cuenta como migrada si cumple las tres.
 | 7 | Comparativa, cuenta, Delivery Manager | Hecha | Hecha | Hecha (23/10) |
 | 8 | Business Overview, diccionario, KPIs de DMs | Hecha | Hecha | Hecha (23/10) |
 | 9 | Resto de pantallas | APIs de EVA 1-3 (incluidos históricos y consumos), Inversión, Capacidad mensual y diaria, las cuatro vistas de Facturabilidad y Costos; varias pantallas conservan contexto de servidor | **Hecha**: Comercial, Todas las cuentas, Costos, Inversión, ambas pantallas de Capacidad, Facturabilidad, EVA 1–3 y Proyecto simple | Hecha; Proyecto simple conserva contexto Python, con comparación visual y pruebas |
-| 10 | `proyecto_detalle` y fin de `/api/rpc/` | API v1 para pestañas migradas, incluidas lecturas y acciones IA AER; compatibilidad aún por retirar | **Parcial**: pestañas, genérico, estructura/estado y arranque explícito usan módulos. Todavía carga script/shim por definiciones y puentes; falta sustituir las dependencias activas | **Parcial**, no completada |
+| 10 | `proyecto_detalle` y fin de `/api/rpc/` en la ruta activa | API v1 para todas las pestañas y acciones | **Hecha**: HTML/CSS/JS en frontend, estado y arranque independientes; sin script/shim/RPC anterior. Los originales solo sirven para comparar | **Completada** (26/10; validación integral y revalidación de afectados, detalladas arriba) |
 | 11 | Limpieza y CSP obligatoria; permisos/Genesis como decisión de despliegue | n/a | **No** | **Pendiente** |
 
 **Antecedente del cambio de alcance.** Las primeras versiones nuevas de las
@@ -145,7 +162,8 @@ Incluye también los fragmentos de `partials/`.
 
 ### Fase 10: inventario pendiente por pestaña
 
-Estimación orientativa al 25/10/2026: **alrededor del 85%**, por alcance
+Registro histórico superado por el cierre del 26/10. Estimación orientativa
+al 25/10/2026: **alrededor del 85%**, por alcance
 funcional revisado, no por líneas de código ni como criterio de aceptación.
 Las pestañas principales están migradas; el cierre incluye compatibilidad
 genérica/sin proyecto, arranque sin el script anterior y validación final.

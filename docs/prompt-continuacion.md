@@ -1,388 +1,73 @@
 # Mensaje para continuar la migración
 
-Pega esto tal cual en la sesión nueva (Codex o Claude Code):
+Pega el texto que sigue en la sesión nueva:
 
 ---
 
-Continúa la migración del frontend de Beecker en `C:\beecker_dashboard`.
+Continúa en `C:\beecker_dashboard`. Lee primero `AGENTS.md`, el primer bloque
+de `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`. Revisa Git,
+los últimos commits y los cambios pendientes antes de editar. Trabajamos
+directamente en `main`, con commits pequeños y archivos añadidos por nombre.
+No hagas push sin petición expresa del usuario.
 
-**Antes de tocar nada**
-1. Lee `AGENTS.md`, `docs/estado-traspaso.md` y `docs/plan-migracion-frontend.md`.
-2. Revisa Git: debes estar en `main`; comprueba los últimos commits y la
-   diferencia con `origin/main`. Estado vigente: el detalle activo ya no carga
-   JS/shim/CSS de portal; main y sus contratos son independientes. Cuenta tiene
-   ruta propia; el ID sembrado gobierna el detalle y sus selectores ocultos.
-   Hay 478 Node y 38 navegador dirigidas aprobadas, pero la ejecución integral
-   de 3862 pruebas está pendiente de informe/revalidación de fallos. Lee el
-   primer bloque del traspaso antes de declarar fase 10 completa o repetir
-   implementaciones. Mantén los originales para comparación; no hagas push.
-   Los siguientes puntos describen los bloques anteriores:
-   comprueba los últimos commits y la
-   diferencia con `origin/main`. Los tres fallos Node anteriores ya están
-   corregidos en sus pruebas (parser de Costos y expectativas comerciales),
-   sin cambiar producción ni fórmulas. La suite vuelve a pasar completa.
-   El último bloque migra el inicio especial a project_entry.startCompatibility:
-   filtros, cuenta/proyecto, opciones ausentes, refresco y carga ante errores.
-   El puente moderno no llama initDashboard(true). 475 Node y 30 navegador
-   aprobadas; 13 nuevas comparan los casos especiales contra el inicio original.
-   Seguir por previousLoad y presentación de reportes/riesgos especiales;
-   todavía requiere script/shim. No repetir este inicio.
-   El bloque previo mueve cachés de reportes AER/IXS, secuencia de consumos
-   y arranque a project_state.js, con accesores anteriores. La compatibilidad
-   lee cuenta/cachés directamente. 474 Node y 27 navegador aprobadas.
-   Siguen pendientes los proveedores de inicio/carga y presentación especiales:
-   todavía carga script/shim. No repetir este bloque.
-   El bloque previo separa los contratos de compatibilidad en
-   project_compatibility.js: selección/refresco/puerta de cuenta/cachés actuales
-   y orden de reportes/riesgos. El script anterior solo suministra proveedores
-   explícitos. No repetir el contrato; seguir por esos proveedores/definiciones
-   que aún obligan a cargar el script y shim. Fase 10 parcial.
-   El bloque previo traslada el arranque a main:
-   carga el script en modo manual, conecta projectCompatibilityBindings y llama
-   beeProjectEntry.mount. No usa renderView/projectEntryContext/initDashboard
-   en el inicio moderno; la anterior conserva autoinicio. project_script_loader.js
-   reutiliza scripts evaluados y reintenta descargas fallidas, sin redeclaraciones
-   al recuperar un fallo de inicialización. No repetir este bloque.
-   Todavía carga el archivo/shim para definiciones y puente de casos especiales:
-   auditar referencias/contratos activos antes de quitar esa dependencia. Fase 10
-   parcial; no llamarlo todavía arranque totalmente independiente.
-   El bloque previo migra IXS→genérico→IXS a
-   `project_previous.js`, con DOM seguro, estilo original, guardia por ID y
-   montaje directo sin recarga. `main.js` ya no llama a ixsAbrirVistaAnterior;
-   los dos nombres anteriores solo delegan. No repetir este enlace.
-   Auditoría: la ruta de detalle siempre recibe un ID y project_context lo
-   prioriza frente al query, incluso con cuenta=...; Cuenta tiene ruta nueva
-   propia. Se conservan los casos especiales de compatibilidad, sin borrarlos.
-   Mantener los contratos previousStart/previousLoad/clientChanged y sus cachés
-   hasta resolver su compatibilidad. No retirar aún script/shim.
-   El bloque previo migra coordinación/derivados
-   genéricos a `generic_executive{,_model}.js`: monta directamente los módulos,
-   actualiza el almacén, conserva cierre/flags/PRD y usa DOM seguro para errores.
-   `project_entry_runtime.js` usa el genérico modular para servicios no AER/IXS,
-   sin renderer/auxiliares anteriores. El nombre anterior delega y conserva
-   su cuerpo para comparar. No repetir el genérico.
-   El bloque previo migra estructura de tarjetas
-   y controles a `generic_layout_view.js` y CSS externo, con DOM seguro e IDs,
-   grillas, cargas y resumen RAID originales. Agregar Hito/Riesgo abre los
-   controladores migrados sin helpers anteriores. Guardar hito recarga por el
-   runtime modular y permite reintentar. No repetir la estructura.
-   El bloque previo migra el alta manual de riesgos
-   genéricos a `generic_risk{,_model,_view}.js`, CSS externo y POST API v1
-   `riesgos-manuales/`. Mismo servicio `write_rpc.add_risk` (hojas, no otra
-   creación Azure), campos, validación, errores, permisos/CSRF y caché.
-   Recarga modular directa y guardias para ventanas cerradas/proyecto distinto.
-   Los helpers solo delegan. No repetir el formulario.
-   El bloque previo migra las lecturas y vistas
-   RAID/tasks del genérico a `generic_sources{,_model,_view}.js` y CSS externo,
-   reutilizando API v1 y los mismos servicios/permisos. Conserva totales,
-   inversión, orden, duplicados, tareas sin horas y mensajes. Texto seguro y
-   protección de respuestas superadas/nodos reemplazados; helpers anteriores
-   solo delegan en la ruta nueva. No repetirlos.
-   El bloque previo migra el rango Clockify a
-   `project_clockify_range.js` y API v1 `clockify-rango/`, con el mismo servicio,
-   fechas locales, carga y vacío ante fallos. El helper anterior delega; descarta
-   respuestas superadas/nodos reemplazados. No repetirlo.
-   El bloque previo migra las gráficas por área
-   y horas por recurso/rol en generic_charts{,_model,_view}.js y CSS externo.
-   Conserva escala completa, paleta, orden y cinco filas iniciales; expansión
-   local sin RPC ni helpers anteriores. No repetirlas.
-   El bloque previo separa encabezado y seis KPIs
-   genéricos en `generic_header_model.js`, `generic_header_view.js` y CSS externo.
-   Conserva formatos/umbrales y crea el mini-donut con SVG DOM. Los flags de
-   estado/cierre siguen viniendo del renderer transitorio.
-   No repetir encabezado ni KPIs.
-   El bloque previo separa tabla de recursos y
-   resumen de hitos genéricos con modelo/vista y CSS externos (`generic_panels*`).
-   No repetir esos componentes: preservan datos, IDs y formato original.
-   El bloque previo migra el dibujo de la línea
-   temporal genérica a `generic_timeline_view.js` y CSS externo, con DOM seguro.
-   Se monta en el renderer transitorio sin ejecutar su Gantt HTML anterior.
-   El bloque previo separa el cálculo temporal
-   genérico en `generic_timeline_model.js`, con referencia al fallback original.
-   No marcar completo todo el Ejecutivo genérico por estos bloques.
-   Se detectaron diferencias previas entre plantillas (botones 25/44 px);
-   la comparación incremental del modelo usa la misma plantilla moderna.
-   El bloque previo crea `project_entry_runtime.js`:
-   contexto/recarga con renderers AER/IXS directos y almacén. La recarga de hitos
-   en Planeación no pasa por loadDashboard ni projectEntryContext. Se retira
-   ixsRuntimeBindings; los contextos AER llegan desde su runtime. Solo la vista
-   anterior se inyecta desde main como dependencia de renderizado IXS.
-   Quedan callbacks de compatibilidad sin proyecto/cuenta/cliente/genérico.
-   El bloque previo conecta IA→RAID directamente:
-   `project_ixs_tools.js` usa `beeIxsRaidCreator`, compartido con Gestión RAID,
-   sin abrir/rellenar desde funciones anteriores. Conserva texto/tipo y requiere
-   pulsar Crear.
-   El bloque previo crea `project_ixs_tools.js`:
-   editores de Planeación y Comunicados IXS conectados directamente a sus
-   controladores; estilos ya enlazados, sin inyectores anteriores en el runtime.
-   El bloque previo crea `project_aer_runtime.js`:
-   coordinación directa AER de montaje/pestañas/refresco, paneles, IA y Comunicados.
-   Conserva la pestaña al actualizar y el orden de las cinco cargas IA.
-   Cliente/Acciones IXS usa sus contextos AER sin el adaptador anterior.
-   El bloque previo crea `project_ixs_runtime.js`:
-   montaje/navegación/refresco/IA y Cliente/Acciones IXS entre módulos.
-   `project_ixs_adapters.paint` usa directamente la vista IA modular.
-   El bloque previo crea `project_ixs_adapters.js`:
-   datos/cargas/acciones IA IXS y enlace directo al editor modular de hitos.
-   El bloque anterior separa `project_feature_contexts.js`: Acciones, Riesgos, tres contratos
-   IA AER y guardia IXS. Sus callbacks todavía vienen de compatibilidad.
-   El bloque anterior separa `project_contexts.js`:
-   contratos compartidos de entrada/sesión/shell/montaje. Sus callbacks aún se
-   suministran desde compatibilidad. El bloque anterior separa `project_feedback.js`:
-   avisos, guardado/restauración del botón, selección del principal y cierres.
-   El bloque previo amplía `project_state.js` con siete estados de paneles
-   (19 valores totales) y añade `project_panels.js`
-   para contextos Planeación/Esfuerzo/Recursos AER, enlazado por accesores temporales.
-   Los auxiliares de Planeación usan `ixs_support{,_model}.js`: recursos, edición de
-   hitos y fechas sugeridas de Comunicados. La entrada de proyectos usa
-   `project_entry{,_model,_view}.js`, incluidos mensajes/reintento
-   y `showError`. Inicialización/sesión usa `project_session{,_model,_view}.js`.
-   El montaje de
-   pestañas usa `project_tabs.js` y sus respaldos `project_tabs_view.js`.
-   Encabezados/navegación/refresco ya usan `project_shell{,_model,_view}.js`.
-   IA AER ya está completa, incluidas acciones por API, validaciones y copiado.
-   La fase 10 sigue parcial por entrada, almacenamiento global de estados,
-   adaptadores de contexto y auxiliares compartidos.
-   Recursos AER está completo,
-   incluidas evaluaciones, editor y guardado/borrado por API. Riesgos AER,
-   Esfuerzo AER (registros por rango
-   y «Ver más»), Planeación AER y
-   Acciones AER/IXS también están completas.
-   Claude completó Cliente y el Centro
-   de Comunicación IXB/SaaS/RaaS (posterior al glosario
-   `b1ca4b4`). No hagas push
-   salvo que te lo pida expresamente.
-3. Conserva sin comitear ni modificar lo que no es tuyo:
-   `tools/migracion/inline2css.py`, `tools/migracion/migrate_page.py`,
-   `shots_tmp/` y los cuatro `tests/e2e/test_zz_*.py`. Al comitear agrega
-   archivos por nombre, nunca `git add tests` ni `git add .`.
+**Estado vigente: la fase 10 está completada.** El detalle de AER/T&M e
+IXB/SaaS/RaaS y el Ejecutivo genérico usan HTML, CSS y JS de `frontend/`, con
+estado/controladores propios. La plantilla activa no carga
+`proyecto_detalle.js`, `gas_shim.js` ni CSS de portal. No hay RPC en el grafo
+activo ni al recorrer las pestañas. Los nombres públicos restantes delegan a
+módulos en `project_commands.js`; no son renderizadores anteriores.
 
-**Reglas que no se negocian** (están en `AGENTS.md`)
-- Diseño idéntico al anterior; compara cada cambio contra `?vista=anterior`
-  (cajas y estilos calculados a 1450/900/390 px) y no cambies cálculos ni reglas
-  de negocio.
-- No actives `ACCESS_ENFORCED`; no toques Horas por mes (`cuenta/<slug>/horas/`).
-- Commits pequeños directo en `main`, con pruebas y plan/traspaso actualizados con
-  evidencia real. La fase 10 (detalle del proyecto) sigue **parcial**: no la
-  marques terminada, no retires `gas_shim.js` ni `proyecto_detalle.js`.
+El código del cierre independiente está en `fa4bf11`; consulta los commits
+posteriores para el cierre de pruebas/documentación. La ruta del proyecto
+siempre recibe ID desde Django. Cuenta tiene su propia ruta: las ramas del
+dashboard antiguo sin proyecto/cuenta ya no son dependencias del detalle.
+Las anotaciones «fase 10 parcial» en bloques históricos no son tareas vigentes.
+No reabras pestañas, modelos, editores o proveedores ya migrados.
 
-**Patrón ya establecido para una pestaña del detalle** (mira
-`sections/raid*.js`, `milestones*.js` y `communique*.js` como ejemplo)
-1. Endpoints en `apps/portal/api/project_detail.py` y `urls.py` que llaman, sin
-   cambiarlos, a los servicios del RPC; lecturas con `view_operations`,
-   escrituras con `edit_operations` + alcance total + CSRF (o la capacidad que
-   marque `apps/access/rpc_policy.py`). Importa el módulo (`from apps.x import y`)
-   para poder hacer monkeypatch en las pruebas.
-2. Métodos en `project_detail/data.js`, y modelo / vista (DOM con `el()`, nunca
-   `innerHTML` con datos) / controlador en `project_detail/sections/`, registrado
-   en `main.js` como `window.bee…`. El script anterior delega si el módulo existe
-   y conserva su código para `?vista=anterior`.
-3. CSS externo en `frontend/static/styles/pages/` y enlazado en
-   `frontend/templates/pages/project_detail.html` (sube la versión `?v=` del script).
-4. Pruebas: API en `tests/portal/`, comparación vieja-vs-nueva en `tests/e2e/`
-   (copia el estilo de `test_ixs_raid.py` / `test_ixs_raid_create.py`), Node en
-   `tests/frontend/` contrastando contra las funciones originales.
+**Validación realizada:** 478 pruebas Node aprobadas. La corrida general de
+3862 casos Python dio 3853 aprobadas, ocho fallos de pruebas y una lista de
+parámetros vacía omitida. Se corrigieron expectativas/referencias y el origen
+de rectángulos nulos de elementos ocultos; las capturas de las gráficas
+afectadas son idénticas byte por byte. La lista vacía ahora tiene tres casos
+reales de rechazo anónimo antes de consultar datos. La revalidación de todos
+los archivos afectados dio 55 aprobadas, sin fallos ni omisiones. Son 3864
+casos Python verificados en conjunto, incluidas 1264 pruebas de navegador;
+no se afirma una segunda corrida general. Ruff/formato, Django y mypy pasan.
+El traspaso conserva los comandos y el desglose de evidencia.
 
-**Avance posterior:** Azure DevOps ya carga y actualiza por API v1, con
-`sections/ixs_azure{,_model,_loading}.js`. Las agrupaciones por persona/iteración
-y etapa, búsqueda y ventanas de detalle también son modulares en
-`ixs_azure_groups{,_model,_view}.js`. El resumen, indicadores, atención,
-carga y fechas usan `ixs_azure_summary{,_model,_view}.js`. La pestaña completa
-usa `ixs_azure_tab*.js`, el modelo de filtros `ixs_azure_table_model.js` y los
-controles/acciones compartidos con Planeación. Azure sí está migrada; la fase
-10 sigue parcial. Los seis errores antiguos de mypy los corrigió Claude en
-`c82b6d0`; la revisión posterior pasó sin errores de tipos.
+**Si el usuario pide seguir, lo siguiente es fase 11:** auditar y retirar
+archivos anteriores que ya no tengan consumidores, las rutas de comparación
+y sus pruebas, y preparar CSP. Conserva diseño, cifras, filtros, exportaciones,
+permisos y regreso. Retirar los originales exige retirar a la vez sus pruebas
+de referencia: `project_reference.py` solo existe para esos contrastes.
+La ruta nueva ya es independiente; no dupliques el megabyte ni crees otra API.
+Genesis/ACCESS_ENFORCED es decisión de despliegue; no lo actives sin accesos
+configurados. Horas por mes se conserva tal cual.
 
-**IA completada:** `project_ai.py` conserva servicios y permisos originales;
-fuentes/historial/Drive y las acciones usan API. `ixs_ai_model.js` conserva
-contexto/snapshot/cambios/capacidad; `ixs_ai_view.js`, `ixs_ai_panels_view.js`
-y `ixs_ai_controller.js` presentan la pestaña y sus formularios con DOM seguro
-y eventos externos. Comparados con la anterior en tres tamaños. No consultar
-modelos o servicios reales durante las pruebas. Fase 10 todavía parcial.
+**Archivos ajenos que debes conservar y no comitear:**
 
-**Cliente completo:** `client{,_model,_view}.js` y API `project_client.py` en
-ambas familias. **Centro de Comunicación completo:** `bee_com{,_model,_view}.js`
-y API v1 para IXS. Revisión directa: 94 e2e, 26 API y siete Node aprobadas.
-`ixs_client_actions.js` mantiene la caché compartida de IXB.
+- `tools/migracion/inline2css.py`
+- `tools/migracion/migrate_page.py`
+- `shots_tmp/`
+- `tests/e2e/test_zz_dom.py`, `test_zz_pages.py`, `test_zz_seq.py`,
+  `test_zz_styles.py`
 
-**Acciones completada (ambas familias):** `actions_model.js` separa el resumen; `actions.js` usa
-lecturas y siete mutaciones de API v1 (`project_actions.py`) para ambas familias.
-`actions_view.js` presenta tablas, búsqueda y formularios con DOM seguro/eventos
-externos. Las comparaciones cubren estados y formularios a 1450/900/390 px.
-Conserva los puentes de entrada/estado y el fallback anterior.
+No uses `git add tests` ni `git add .`. No subas `.env`, `key.json`,
+`db.sqlite3` o credenciales. El `.env` local tiene `GMAIL_DELIVERY_MODE=send`:
+las operaciones reales de Comunicados pueden enviar correos. Las pruebas
+usan proveedores simulados, borradores y red externa bloqueada.
 
-**Planeación AER completa:** `project_aer_planning.py` expone ocho POST explícitos
-en `screens/proyectos/<id>/planeacion-aer/<operacion>/`; `aer_planning.js` separa
-guardado, cierre/estado, vacaciones, importación y borrado simple/por lote.
-Conserva confirmación de sobreasignación, confirmación física del borrado por
-lote, borradores al reintentar y protección frente a respuestas antiguas.
-`aer_planning_forms.js` ya presenta los tres formularios y sus avisos con DOM
-seguro/eventos externos. `aer_planning_model.js` contiene recursos, ocupación,
-capacidad y parser sin cambiar resultados; hay comparación Node con el original.
-La vista principal ya usa `aer_planning_view.js`, `aer_planning_timeline.js` y
-`aer_planning_tables.js`; indicadores/fechas del Gantt están en el modelo.
-La ruta nueva no ejecuta `_aerVistaPlaneacion`. Filtros, selección y rango usan
-`aer_planning_controls.js`, `aer_planning_filters_model.js` y
-`aer_planning_filter_view.js`. Los puentes mantienen solamente el enlace al estado
-y ciclo de vida compartidos; los controles no ejecutan sus auxiliares anteriores.
+**Pruebas en Windows / PowerShell:**
 
-**Esfuerzo AER completo:** `aer_effort{,_model,_view}.js`, con consulta
-`screens/proyectos/<id>/aer/registros/?desde=...&hasta=...` por API, servicio
-anterior y permiso de lectura/alcance total. El filtro solo cambia los registros;
-indicadores/gráficas/consumo siguen del proyecto completo. Preserva vista previa
-de cinco y ventana completa. No ejecuta su renderer ni ventana HTML anteriores.
-Las respuestas antiguas de otra consulta/proyecto se descartan.
-
-**Riesgos AER completo:** `aer_risks{,_model,_view}.js` y API
-`project_aer_risks.py` para lectura, guardado, borrado y limpieza. Mismos
-servicios/permisos, DOM seguro y editor de acciones reutilizado. Dieciocho
-comparaciones en tres tamaños; ver pruebas/evidencia en el traspaso. Conservar
-la agrupación por título anterior, incluido el hallazgo de responsables/fechas
-distintos; no corregirlo durante la migración.
-
-**Recursos AER completo:** `aer_resources{,_model,_view}.js` y API
-`project_aer_resources.py` para guardado/borrado de evaluaciones. Lectura en
-dashboard AER existente; conserva servicios, firmas y permisos. Selección por
-persona solo cambia resumen individual: gráfica/últimas evaluaciones siguen
-del proyecto completo y próxima evaluación incluye fechas pasadas. DOM seguro,
-SVG y editor externo; no ejecuta renderer/formulario anteriores. Quince
-comparaciones en tres tamaños; pruebas y evidencia en el traspaso.
-
-**IA AER completa:** `project_aer_ai.py` expone seis GET de análisis/resumen
-guardados, minutas, configuración, archivos y prompt. `aer_ai_sources.js` maneja
-caché/estados y respuestas tardías; `aer_ai_model.js` conserva contexto y
-hechos/alertas. CSS principal externo `project_detail_aer_ai.css`, con link
-`aer-ia-styles-v55`. Comparado contra la anterior en tres tamaños. Mantener
-límite de 28 compromisos en contexto, ocupación de toda la planeación y umbral
-6 puntos. No consultar Claude/Drive/Sheets reales en pruebas.
-
-**Presentación IA AER separada:** `aer_ai_presentation{,_model}.js`,
-`aer_ai_view.js`, `aer_ai_documents_view.js`, `aer_ai_forms_view.js` y
-`aer_ai_dom.js` usan DOM seguro y eventos externos. Historial, selección máxima
-de cinco, sugerencias y seis formularios comparados en tres tamaños, incluido
-borrador editable. No ejecuta renderer ni formularios anteriores.
-
-**Acciones IA AER completas:** `aer_ai_actions.js`, `aer_ai_minutes_actions.js`
-y `aer_ai_actions_model.js` controlan análisis, preguntas, resumen, correo,
-minutas, configuración/prompt y copiado. Ocho POST con servicios/permisos
-originales, alcance total y CSRF. Sin acciones RPC anteriores en la pestaña.
-Se conservan validación, borradores, coste/caché/persistencia y reintento;
-respuestas tardías no sustituyen otro proyecto/estado/formulario.
-
-**Encabezados/navegación/refresco separados:** DOM seguro, eventos externos,
-iconos/CSS originales y comparación en tres tamaños. AER mantiene pestaña al
-actualizar, alias minutas→IA y cargas en su orden. IXS vuelve a Ejecutivo e
-invalida Cliente/Acciones, como antes. Respuestas superadas/de otra familia se
-descartan. Los contextos de estado aún enlazan con el archivo anterior.
-
-**Montaje de pestañas separado:** `project_tabs.js` elige los módulos existentes
-con sus contextos AER diferidos, lifecycle y estados Planeación/Azure. Conserva
-la precarga de recursos y el presentador compartido Cliente/Acciones. Los
-respaldos de pestaña desconocida están comparados; el botón de compatibilidad
-IXS mantiene su callback anterior. Los dispatch globales solo delegan.
-`projectTabsContext` todavía enlaza a los globals/contextos del archivo anterior.
-
-**Inicialización separada:** `project_session{,_model,_view}.js` conserva las
-reglas de selección/reinicio, caché de Cliente/Acciones y apertura de IA IXS.
-El histórico diferido usa la API existente; errores y aviso mantienen su aspecto.
-`projectSessionContext` enlaza a los globals; todavía no es un almacén nuevo.
-
-**Entrada de proyectos separada:** `project_entry{,_model,_view}.js` monta el
-template, carga filtros, selecciona ID, clasifica y consulta el dashboard por
-API. Cargas/errores/reintento y `showError` son seguros, con el mismo aspecto.
-`showError` conserva el reemplazo global. Quedan ramas sin proyecto/cuenta y
-el Ejecutivo genérico de servicio no reconocido como AER/IXS en el script previo.
-
-**Estados centrales separados:** `project_state.js` posee dashboards/pestañas,
-IA, Clockify, metadata/secuencia, hitos/ID y caché Cliente/Acciones. Los nombres
-anteriores se enlazan por accesores; aún se requiere el script para contextos.
-
-**Paneles separados:** los siete estados anteriores ya están en el almacén;
-`project_panels.js` crea contextos AER de Planeación/Esfuerzo/Recursos. Los
-callbacks comunes se inyectan desde el archivo anterior; no se han retirado.
-
-**Guardado/avisos separados:** `project_feedback.js` conserva toast, estados del
-botón, selector de principal y cierres. Los wrappers anteriores solo delegan;
-todavía son inyectados por contextos. No repetir esa implementación.
-
-**Contratos compartidos separados:** `project_contexts.js` construye entrada,
-sesión, shell y montaje desde el almacén. Conserva guardias, actualización,
-caché y sincronización Azure. Las cuatro funciones anteriores todavía aportan
-callbacks, pero no implementan de nuevo esa lógica de estados.
-
-**Contratos específicos separados:** `project_feature_contexts.js` mantiene
-Acciones compartidas, Riesgos y fuentes/presentación/acciones IA AER. La guardia
-IXS es común a cuatro entradas. Conserva familia/caché y vigencia por ID/estado.
-Los callbacks de UI/servicios todavía se inyectan; no repetir estos constructores.
-
-**Adaptadores IXS separados:** `project_ixs_adapters.js` compone datos/modelos,
-fuentes/historial/Drive, acciones IA y enlace directo al editor modular de hitos.
-Conserva guardias, paso a RAID y recarga. La prueba de datos IA desactiva modelo
-y adaptador para leer la referencia original. No repetir esas composiciones.
-
-**Coordinación IXS separada:** `project_ixs_runtime.js` conecta módulos para
-montaje/dispatch, selección/refresco, IA y Cliente/Acciones. Los eventos creados
-por esa coordinación no llaman a los renderizadores anteriores; sus entradas
-solo delegan. `ixsRuntimeBindings` todavía proporciona callbacks de compatibilidad.
-
-**Coordinación AER separada:** `project_aer_runtime.js` conecta shell, sesión,
-pestañas, paneles, fuentes/acciones/presentación IA y Comunicados directamente.
-Las entradas anteriores delegan; la coordinación no vuelve a ellas. Los
-contextos AER compartidos con Cliente/Acciones IXS también salen de este módulo.
-
-**Herramientas IXS separadas:** `project_ixs_tools.js` conecta Planeación y
-Comunicados directamente, con UID, estado, guardias y fechas sugeridas originales.
-El runtime no llama a inyectores de estilos: las hojas ya están enlazadas.
-
-**Siguiente bloque sugerido:** cierre de callbacks IXS restantes
-(vista/CSS/controlador y fuentes del Ejecutivo genérico, sin proyecto y arranque).
-Su cálculo temporal ya está en generic_timeline_model.js: reutilizarlo sin
-cambiar reglas. Su Gantt ya usa generic_timeline_view.js y estilos externos:
-no repetir ese componente. Tabla de recursos y resumen de hitos también usan
-generic_panels* y no deben rehacerse. Encabezado/KPIs ya usan generic_header*.
-Las gráficas principales ya usan generic_charts*: no repetirlas.
-Continuar por fuentes/acciones, estructura de tarjetas/botones y coordinación.
-Resolver los estilos
-restantes y validar el conjunto contra
-?vista=anterior antes de marcar la vista completa. La recarga de hitos
-en Planeación ya usa el controlador/contexto nuevos; no repetirla.
-IA→RAID ya usa el creador modular compartido;
-no reabrir los formularios ni alterar su publicación explícita.
-Después compatibilidad genérica/
-sin proyecto y arranque independiente. El inventario de cierre está en el plan.
-No repetir los estados centrales/paneles ni esas tres construcciones de contexto.
-No reabrir IA como pendiente ni retirar aún script/shim.
-No reabrir Planeación, Esfuerzo, Riesgos ni Recursos como pendientes. Quedan también
-los adaptadores/estado. Los auxiliares `ixsEditarHitoTimeline`,
-`_ixsCargarEstadosRecursos` y `_ixeAuto` ya delegan a `ixs_support{,_model}.js`;
-conservan caché, estados, índice del hito y reglas de fechas. No repetirlos.
-Al final: limpieza de archivos anteriores y CSP. Genesis/accesos
-es decisión de despliegue: no activar ACCESS_ENFORCED.
-
-**Cómo probar (Windows, Git Bash)**
-```bash
-export MSYS_NO_PATHCONV=1
-.venv/Scripts/python -m pytest tests/portal tests/gmail tests/ejecutivo tests/aer tests/clockify tests/e2e -q --no-cov
-.venv/Scripts/ruff check apps tests && .venv/Scripts/ruff format apps tests
+```powershell
+.venv/Scripts/python.exe -m pytest tests -q --no-cov --browser-channel chrome --ignore=tests/e2e/test_zz_dom.py --ignore=tests/e2e/test_zz_pages.py --ignore=tests/e2e/test_zz_seq.py --ignore=tests/e2e/test_zz_styles.py
+.venv/Scripts/ruff.exe check apps tests --exclude 'test_zz_*.py'
+.venv/Scripts/ruff.exe format --check apps tests --exclude 'test_zz_*.py'
+.venv/Scripts/mypy.exe apps/portal/pages.py
 node --test tests/frontend/*.test.*
 ```
-- Los tres fallos Node anteriores ya están corregidos; no volver a asumirlos
-  como esperados ni forzar importes comerciales a Pendiente.
-- Incidencias de navegador registradas en bloques anteriores, no revalidadas
-  por este bloque: `test_ixs_effort::test_modals_match_previous`
-  (activity, por hover) y `test_late_response_does_not_modify_reentered_view` de
-  Work Items; el 403 intermitente de Acuerdos.
-- Al escribir archivos con comandos de shell evita heredocs con comillas o
-  barras invertidas (se pierden); usa el editor de archivos.
-- `ruff format` de todo `tests/` también toca los `test_zz_*`; formatea archivos
-  concretos.
 
-**Cosas a tener presentes**
-- El `.env` local tiene `GMAIL_DELIVERY_MODE=send`: la ventana de comunicados
-  envía correos de verdad (con confirmación). Las pruebas fijan `draft`.
-- `.env`, `key.json` y `db.sqlite3` no se suben nunca a Git.
-- Presupuesto vs. consumo (cuenta) usa un rango por fila de MPB y puede no
-  coincidir con el detalle del proyecto; está documentado, no lo "arregles".
-
-**Antes de empezar, dime en pocas líneas** qué encontraste en Git y en el
-traspaso, y qué bloque vas a tomar.
+Solo se excluyen los diagnósticos ajenos no versionados. No añadas marcas de
+omisión para hacer pasar una revisión. Compara siempre con datos simulados y
+sin enviar correos ni consultar Azure/Sheets/Clockify reales. Antes de editar,
+explica brevemente qué encontraste y qué bloque vas a tomar.

@@ -2,7 +2,7 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
-## Bloque actual: cierre independiente, validación integral en curso (26/10/2026)
+## Bloque actual: fase 10 completada y validada (26/10/2026)
 
 - La plantilla activa ya no referencia `proyecto_detalle.js`, `gas_shim.js`
   ni el CSS de portal. El CSS compartido se copia sin cambios de bytes a
@@ -19,18 +19,44 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 - `project_reference.py` carga definiciones originales SOLO en las pruebas
   que desactivan modelos para contrastar cálculos o el inicio especial. Las
   pruebas normales no lo usan y comprueban cero descargas de script/shim/RPC.
-- Hasta ahora: **478 Node aprobadas**; **38 navegador dirigidas aprobadas**.
+- **478 Node aprobadas**; **38 navegador dirigidas aprobadas** inicialmente.
   Incluyen cinco familias, ruta/controles, inicio/reintento y referencias.
   Ruff/formato (653 archivos), Django y mypy aprobados. El único cambio Python
   de producción es formato de una expresión en `project_ai.py`.
 - La primera revisión amplia dio 1356 aprobadas y cinco fallos: dos espías de
   recarga antiguos, dos referencias que esperaban el script implícito y un
   cierre de Comunicados conectado al modal incorrecto. Corregidos y revisados.
-- **No marcar fase 10 terminada todavía**: está en ejecución la suite completa
-  de 3862 pruebas bajo `tests`, ignorando solo los cuatro `test_zz_*` ajenos y
-  no versionados. Ya apareció un fallo adicional; falta revisar su informe y
-  reparar/repetir lo necesario. Proveedores simulados y red externa bloqueada.
-  No activar ACCESS_ENFORCED, ni iniciar limpieza/CSP de fase 11, ni hacer push.
+- Se ejecutó la suite general completa: **3853 aprobadas, 8 fallidas y una
+  parametrización vacía omitida**, de 3862 casos, en 54 min. Los ocho fallos
+  eran una expectativa del script anterior, tres usos del normalizador privado
+  anterior, dos espías del renderizador sustituido y dos comparaciones de
+  coordenadas de nodos ocultos. Las capturas de estas últimas son idénticas
+  byte por byte a 1450 y 900 px; se conservan todos los controles de texto,
+  estilos, dimensiones y SVG, sin restar el origen a rectángulos nulos.
+- La lista vacía de login se sustituyó por **tres APIs vigentes**, con rechazo
+  anónimo antes de consultar fuentes. No se añadió ninguna marca de omisión.
+- Revalidación completa de archivos afectados: **55 aprobadas, cero fallos,
+  cero omisiones**, en 135 s. Código de producción estable durante la corrida
+  general; las correcciones posteriores son pruebas. Resultado consolidado:
+  **3864 casos Python verificados**, sin casos pendientes. No confundir esta
+  evidencia (corrida general + revalidación) con una segunda corrida general.
+- Comando general: `.venv/Scripts/python.exe -u -m pytest tests -q --no-cov
+  --browser-channel chrome --ignore=tests/e2e/test_zz_dom.py
+  --ignore=tests/e2e/test_zz_pages.py --ignore=tests/e2e/test_zz_seq.py
+  --ignore=tests/e2e/test_zz_styles.py`. Solo excluye diagnósticos ajenos,
+  no versionados. Incluye **1264 pruebas de navegador**, con referencias en
+  tres tamaños; capturas de entrada AER escritorio e IXS móvil inspeccionadas.
+- Revalidación: prueba de encabezado inicial en `tests/test_api.py`, archivos
+  `test_ixs_support.py`, `test_project_entry_loading.py`, `test_generic_charts.py`
+  y `tests/portal/test_executive_merge.py`, con `-q --no-cov
+  --browser-channel chrome -rs`.
+- **Fase 10 cerrada.** Lo pendiente es fase 11: retirar originales/pruebas de
+  comparación y preparar CSP, sin modificar diseño/cálculos. No activar
+  ACCESS_ENFORCED ni enviar correos reales. Proveedores simulados/red externa
+  bloqueada en navegador. Temporales ajenos intactos y sin push.
+
+Los bloques inferiores son históricos; sus estados «parcial» no sustituyen
+este cierre vigente. No repetir la migración de pestañas o proveedores retirados.
 
 ## Bloque anterior: inicio especial modular (26/10/2026)
 

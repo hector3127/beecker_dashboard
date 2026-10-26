@@ -1,12 +1,11 @@
 """Funciones ejecutivas integradas conservan fuentes, CR y precarga."""
 
 from datetime import datetime
-from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
 from django.core.cache import cache
-from django.test import RequestFactory, override_settings
+from django.test import override_settings
 
 from apps.portal.services import account_profitability as accounts
 from apps.portal.services import executive_operations as operations
@@ -162,14 +161,31 @@ def test_account_cost_scope_keeps_explicit_revenue_of_the_account():
 
 
 @override_settings(PORTAL_LOGIN_REQUIRED=True)
+@pytest.mark.django_db
 @pytest.mark.parametrize(
-    "view",
-    [],
+    "path",
+    [
+        "filtros/",
+        "AER.001/ejecutivo/",
+        "AER.001/aer/",
+    ],
 )
-def test_new_apis_require_login(view):
-    request = RequestFactory().get("/")
-    request.user = SimpleNamespace(is_authenticated=False)
-    assert view(request).status_code == 401
+def test_new_apis_require_login(client, enforced, monkeypatch, path):
+    from apps.portal.api import project_detail as api
+
+    sources = []
+    for name in (
+        "get_available_filters",
+        "get_executive_dashboard",
+        "aer_dashboard",
+    ):
+        source = Mock(side_effect=AssertionError("Anonymous source access"))
+        monkeypatch.setattr(api, name, source)
+        sources.append(source)
+    response = client.get("/api/v1/screens/proyectos/" + path)
+    assert response.status_code in {401, 403}
+    for source in sources:
+        source.assert_not_called()
 
 
 def test_account_page_and_audit_keep_portal_navigation(client, monkeypatch):

@@ -17,16 +17,23 @@ Reglas que no se negocian:
 7. Solo marca una pantalla como terminada cuando su ruta activa usa la plantilla de `frontend/`, conserva su funcionamiento y tiene prueba y comparación visual con la anterior.
 8. Actualiza `docs/plan-migracion-frontend.md` con evidencia real en cada bloque.
 
-## Último bloque (26/10/2026)
+## Estado vigente: fase 10 completada (26/10/2026)
 
 El detalle activo ya arranca sin script/shim anteriores. Los contratos públicos
 delegan a módulos en `project_commands.js`, y CSS base está copiado sin cambios
 a frontend. La ruta requiere ID; Cuenta es una ruta distinta, y el centinela
 oculto recupera el ID sembrado. Las referencias originales solo se cargan en
 pruebas explícitas de comparación. No retirar los archivos de referencia.
-478 Node y 38 navegador dirigidas aprobadas. **Fase 10 pendiente de validación
-integral:** corre la suite completa (3862 pruebas); apareció un fallo adicional.
-Revisar resultados y resolver antes de declarar cierre. Ver traspaso.
+Validación: 478 Node aprobadas; suite general de 3862 casos ejecutada y
+revalidación de 55 casos aprobada tras corregir ocho pruebas y reemplazar una
+parametrización vacía por tres casos de acceso reales. Resultado consolidado:
+3864 casos Python verificados, sin omisiones pendientes. El plan registra las
+ejecuciones separadas; no se afirma una segunda corrida general de una hora.
+Ruff/formato, Django y mypy aprobados. Código en fa4bf11; cierre documentado.
+
+Lo siguiente es la **fase 11** (limpieza y CSP), cuando el usuario la pida.
+ACCESS_ENFORCED/Genesis sigue siendo decisión de despliegue. Las frases
+«fase 10 parcial» de los bloques históricos siguientes no son el estado actual.
 
 ## Bloque previo: inicio especial (26/10/2026)
 
@@ -74,7 +81,7 @@ Migradas (ruta → plantilla de `frontend/templates/pages/`, con la anterior en 
 | EVA 3 (con histórico) | `/operativa/eva-3/` | `eva3.html` |
 | Proyecto simple | `/proyecto/<id>/` | `project.html` |
 
-**Pendiente, en este orden:**
+**Histórico de los bloques implementados (no pendientes actuales):**
 
 Consulta `docs/estado-traspaso.md` para el punto exacto: Inversión y ambas
 pantallas de Capacidad ya se completaron. El detalle diario usa API v1 y
@@ -382,7 +389,7 @@ anteriores solo delegan en la ruta nueva. Quedan contextos/adaptadores y
 compatibilidad genérica antes de retirar el shim. No reabrir Cliente ni el
 Centro de Comunicación como pendientes.
 
-1. Detalle del proyecto (`proyectos/<id>/`, `proyecto_detalle.js` ≈ 1 MB y `gas_shim.js`): continuar por pestaña y sustituir gradualmente las llamadas a `/api/rpc/`. No duplicar el megabyte en `frontend/` ni dar por migradas las pestañas por tener una entrada nueva.
+1. Detalle del proyecto: fase 10 completada el 26/10, con arranque independiente y pestañas modulares, sin script/shim/RPC en la ruta nueva. No reabrir las pestañas como pendientes. Los originales se conservan para comparar hasta la fase 11.
 2. Limpieza final: borrar plantillas, CSS y JS anteriores (`apps/portal/templates/portal/`, `apps/portal/static/portal/`), las pruebas que usan `?vista=anterior` y las pruebas de node del JS anterior; luego CSP obligatoria (hoy no hay política por defecto).
 3. Genesis / `ACCESS_ENFORCED`: decisión de despliegue, no de código.
 
