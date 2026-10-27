@@ -22,13 +22,24 @@ fallidas en 1 h 20 min.
   con una cadena (necesita `eval`, que la CSP prohíbe). No son fallas de la
   aplicación.
 
+## Segunda pasada (terminada)
+
+Los 52 archivos del detalle de proyecto con la dirección de cada aviso
+(1 h 15 min; 251 aprobadas, 792 fallidas por comparar contra la referencia):
+
+- 90,249 avisos en total. **90,224 (99.97 %) vienen de la página anterior**
+  (`?vista=anterior`). Desaparecen al retirar `tests/reference`.
+- **25 avisos en la página nueva** (`/proyectos/AMK.008/`), todos «script en
+  línea» en tres pruebas: `test_project_compatibility_start`,
+  `test_generic_timeline` y `test_ixs_ai_sources`. Esas pruebas inyectan el JS
+  original con `load_project_reference` (herramienta de pruebas), así que no
+  son código de la aplicación.
+- Conclusión: **ninguna violación atribuible al código de la aplicación**.
+  Nada que corregir antes de activar la política.
+
 ## Pendiente, en orden
 
-1. Repetir la auditoría solo con los 52 archivos del detalle de proyecto (ya
-   guarda la dirección de cada aviso):
-   `E2E_CSP=1 pytest <archivos> -q --no-cov` y revisar
-   `cut -f2,3 tmp/csp-violations.log`. Descartar las filas con
-   `vista=anterior`; lo que quede es de la página nueva y se corrige.
+1. (Hecho) Auditoría del detalle de proyecto: sin violaciones propias.
 2. Hacer la política obligatoria por defecto (`CSP_REPORT_ONLY` → cabecera
    `Content-Security-Policy`) y una prueba que compruebe la cabecera.
 3. Suite completa en verde.
