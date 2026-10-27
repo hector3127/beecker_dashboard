@@ -156,11 +156,13 @@ def compare(portal, name, selector, modal=None):
     open_effort(portal, True)
     if modal:
         open_modal(portal, modal)
+    portal.mouse.move(0, 0)  # un puntero sobre una fila cambia su fondo
     before = state(portal, selector)
     portal.screenshot(path=str(out / "previous.png"), full_page=True)
     open_effort(portal)
     if modal:
         open_modal(portal, modal)
+    portal.mouse.move(0, 0)
     after = state(portal, selector)
     portal.screenshot(path=str(out / "current.png"), full_page=True)
     (out / "differences.json").write_text(
