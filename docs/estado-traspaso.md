@@ -4,6 +4,17 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
+**Último bloque:** piloto de congelación de Claude integrado en main mediante
+cherry-pick `2e580ec` (original `4103ed6`, rama local intacta). Se congelan
+también aer_ai_actions_model, aer_planning_filters y generic_header. Las 26
+pruebas de esos archivos y las 472 Node completas pasan sin omisiones; cuatro
+mutaciones en copias temporales se detectan. JSON reproducibles desde el
+original normalizando CRLF/LF. No cambian aplicación, cálculos, diseño o CSP.
+Quedan 37 archivos Node que leen directamente el script anterior (antes 41).
+Continuar por simples/intermedios; no repetir el piloto integrado. Navegador
+todavía sin piloto de congelación. Evidencia en `congelacion-referencias.md`.
+Sin push; los párrafos siguientes describen la base previa a este bloque.
+
 Fase 10 completada; fase 11 abierta. `main` está en `a370589`, igual que la
 referencia local origin/main. Claude confirma que lo publicó. Ya no quedan
 plantillas/estáticos de portal en apps: Costos, Oportunidades, Cuenta,

@@ -9,6 +9,19 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Avance de congelación posterior a la auditoría:** piloto `4103ed6` revisado
+e integrado por cherry-pick en main como `2e580ec`, rama local intacta. Se
+congelan también aer_ai_actions_model, aer_planning_filters y generic_header.
+26 dirigidas y 472 Node completas pasan, sin omisiones; cuatro alteraciones
+en copias temporales se detectan. Los cuatro JSON se reproducen con el original
+normalizando CRLF/LF. No se cambia código de aplicación, CSP ni cálculos.
+Quedan 37 archivos Node que leen directamente el script anterior, frente a
+41 al comenzar; el piloto de navegador sigue pendiente. Comandos, escenarios
+y límites en `congelacion-referencias.md`. No hay nueva corrida servidor/e2e
+en este bloque de pruebas Node. Sin push; fase 11 abierta.
+
+Los párrafos siguientes registran la base auditada antes de esa integración:
+
 Main a370589, publicada según el traspaso de Claude y coincidente con la
 referencia local origin/main. Todas las rutas activas usan frontend. No
 quedan directorios de plantillas/estáticos anteriores en apps/portal. El

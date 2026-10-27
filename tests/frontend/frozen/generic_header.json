@@ -1,0 +1,92 @@
+{
+  "progress": [
+    {
+      "input": {
+        "kind": "value",
+        "value": -15
+      },
+      "expected": {
+        "dash": "0 210.48670779051614",
+        "label": "-15%"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 0
+      },
+      "expected": {
+        "dash": "0 210.48670779051614",
+        "label": "0%"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 43.5
+      },
+      "expected": {
+        "dash": "91.56171788887451 118.92498990164162",
+        "label": "44%"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 100
+      },
+      "expected": {
+        "dash": "210.48670779051614 0",
+        "label": "100%"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 120
+      },
+      "expected": {
+        "dash": "210.48670779051614 0",
+        "label": "120%"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": null
+      },
+      "expected": {
+        "dash": "0 210.48670779051614",
+        "label": "0%"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "50"
+      },
+      "expected": {
+        "dash": "105.24335389525807 105.24335389525807",
+        "label": "50%"
+      }
+    },
+    {
+      "input": {
+        "kind": "undefined"
+      },
+      "expected": {
+        "dash": "NaN NaN",
+        "label": "NaN%"
+      }
+    },
+    {
+      "input": {
+        "kind": "nan"
+      },
+      "expected": {
+        "dash": "NaN NaN",
+        "label": "NaN%"
+      }
+    }
+  ]
+}

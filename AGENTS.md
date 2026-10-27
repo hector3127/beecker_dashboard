@@ -29,18 +29,20 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
-- `main` y la referencia local `origin/main`: `a370589`. La limpieza está
-  publicada según el traspaso de Claude. Comprobar Git al comenzar cada sesión;
-  no asumir que sigue en ese commit ni hacer push sin petición expresa.
+- Base publicada: `a370589`; main ya incluye la actualización documental
+  `1c37925` y el piloto integrado en `2e580ec`, con nuevos cambios locales de
+  congelación. Comprobar Git al comenzar; no hacer push sin petición expresa.
 - Rama local existente `congelar-referencias`: `4103ed6`, un commit sobre main.
   Primer caso: `tests/frontend/aer_executive.test.mjs` compara contra
   `tests/frontend/frozen/aer_executive.json`; el generador está en
-  `tests/frontend/frozen/gen/aer_executive.gen.mjs`. **No está en main** y
-  la rama no figura publicada. No repetir el piloto ni mezclarlo sin revisar
-  el diff. Mantener la rama intacta hasta decidir cómo integrar su trabajo.
-- Claude reportó prueba positiva, comprobación de fallo al alterar el modelo
-  y 472 Node aprobadas en el piloto. La auditoría de main no reejecutó el
-  piloto ni su comprobación de fallo: distinguir esos dos tipos de evidencia.
+  `tests/frontend/frozen/gen/aer_executive.gen.mjs`. **Integrado en main**
+  mediante cherry-pick `2e580ec`; la rama local se conserva intacta y no
+  figura publicada. No volver a aplicar ese commit ni repetir el piloto.
+- El bloque siguiente congela aer_ai_actions_model, aer_planning_filters y
+  generic_header: 26 pruebas en los cuatro archivos y 472 Node completas
+  aprobadas. Cuatro alteraciones deliberadas en copias temporales fueron
+  detectadas. Generadores reproducibles normalizando CRLF/LF, sin cambiar
+  valores JSON. Ver `docs/congelacion-referencias.md`.
 
 ### Aplicación y seguridad
 
@@ -95,12 +97,12 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
 
 ### Siguiente bloque, en orden
 
-1. Revisar e integrar deliberadamente el piloto existente, sin rehacerlo ni
-   cambiar de rama con cambios pendientes ajenos. No se integra por este
-   cambio de documentación; el desarrollo normal sigue directo en main.
+1. Piloto ya integrado: no rehacerlo ni cambiar de rama con cambios ajenos.
+   Continuar por modelos Node sencillos y después intermedios/complejos;
+   el desarrollo normal sigue directo en main.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, 41 archivos Node aún leen el script anterior. El piloto de
+   En main, 37 archivos Node aún leen el script anterior (41 antes del bloque). El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que

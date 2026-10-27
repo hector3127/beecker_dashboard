@@ -1,0 +1,191 @@
+{
+  "rows": [
+    {
+      "tipo": "Actividad",
+      "actividad": "Revisión técnica",
+      "responsable": "Ana",
+      "estado": "Completado",
+      "compromiso": "2026-10-24",
+      "cierre": "2026-10-23"
+    },
+    {
+      "tipo": "Hito",
+      "actividad": "Entrega",
+      "responsable": "Sin responsable",
+      "estado": "Por validar",
+      "compromiso": "2026-10-25",
+      "cierre": ""
+    },
+    {
+      "tipo": "Actividad",
+      "actividad": "Diseño",
+      "responsable": "Beto",
+      "estado": "En progreso",
+      "compromiso": "",
+      "cierre": ""
+    }
+  ],
+  "filters": [
+    {
+      "patch": {},
+      "expected": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "patch": {
+        "tipo": "Hito"
+      },
+      "expected": [
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "patch": {
+        "actividad": "revision TECNICA"
+      },
+      "expected": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "patch": {
+        "actividad": "ñ"
+      },
+      "expected": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "patch": {
+        "responsable": "Ana"
+      },
+      "expected": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "patch": {
+        "responsable": "ana"
+      },
+      "expected": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "patch": {
+        "estado": "Por validar"
+      },
+      "expected": [
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "patch": {
+        "compromisoDesde": "2026-10-24",
+        "compromisoHasta": "2026-10-24"
+      },
+      "expected": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "patch": {
+        "cierreDesde": "2026-10-23",
+        "cierreHasta": "2026-10-23"
+      },
+      "expected": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "patch": {
+        "compromisoDesde": "2026-10-25",
+        "compromisoHasta": "2026-10-24"
+      },
+      "expected": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "patch": {
+        "actividad": "entrega",
+        "estado": "Completado"
+      },
+      "expected": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "patch": {
+        "cierreDesde": "2026-10-24"
+      },
+      "expected": [
+        false,
+        false,
+        false
+      ]
+    }
+  ],
+  "ranges": [
+    {
+      "input": {},
+      "expected": {
+        "desde": "2026-09",
+        "hasta": "2026-10"
+      }
+    },
+    {
+      "input": {
+        "desde": "2026-01",
+        "hasta": ""
+      },
+      "expected": {
+        "desde": "2026-09",
+        "hasta": "2026-10"
+      }
+    },
+    {
+      "input": {
+        "desde": "",
+        "hasta": "2026-12"
+      },
+      "expected": {
+        "desde": "2026-09",
+        "hasta": "2026-10"
+      }
+    },
+    {
+      "input": {
+        "desde": "2026-12",
+        "hasta": "2026-01"
+      },
+      "expected": {
+        "desde": "2026-12",
+        "hasta": "2026-01"
+      }
+    }
+  ]
+}

@@ -10,6 +10,8 @@
 - [Auditoría del 27/10](auditoria-fase11-2026-10-27.md): comprobaciones
   independientes de main, CSP, archivos retirados y límites de cobertura.
 - [CSP](estado-csp.md) y [permisos/Genesis](permisos.md).
+- [Congelación de referencias](congelacion-referencias.md): piloto integrado,
+  modelos ya independientes del original y siguiente bloque.
 
 ## Operación y datos
 

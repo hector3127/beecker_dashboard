@@ -1,0 +1,74 @@
+{
+  "questions": [
+    {
+      "input": "Resume el proyecto para comité",
+      "expected": true
+    },
+    {
+      "input": " RESUMEN EJECUTIVO ",
+      "expected": true
+    },
+    {
+      "input": "Resumen del estado",
+      "expected": false
+    },
+    {
+      "input": "¿Cuál es el riesgo?",
+      "expected": false
+    },
+    {
+      "input": "Puedes resume el proyecto para COMITÉ hoy",
+      "expected": true
+    },
+    {
+      "input": "resumen ejecutivo del cliente",
+      "expected": true
+    }
+  ],
+  "payloads": [
+    {
+      "input": {
+        "seleccion": []
+      },
+      "expected": {
+        "ids": [],
+        "instrucciones": "Estado actual, semana próxima, pendientes del cliente, pendientes Beecker y riesgos."
+      }
+    },
+    {
+      "input": {
+        "seleccion": [
+          "a"
+        ]
+      },
+      "expected": {
+        "ids": [
+          "a"
+        ],
+        "instrucciones": "Estado actual, semana próxima, pendientes del cliente, pendientes Beecker y riesgos."
+      }
+    },
+    {
+      "input": {
+        "seleccion": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6"
+        ]
+      },
+      "expected": {
+        "ids": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "instrucciones": "Estado actual, semana próxima, pendientes del cliente, pendientes Beecker y riesgos."
+      }
+    }
+  ]
+}

@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import { genericHeaderModel } from "../../frontend/static/scripts/pages/project_detail/sections/generic_header_model.js";
 const base = () => ({
   proyecto: {
@@ -20,25 +19,27 @@ const context = {
   prd: false,
   completed: false,
 };
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
-);
-const donut = vm.runInNewContext(
-  "(" + source.match(/  function renderDonutMini\([\s\S]*?\n  \}/)[0] + ")",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/generic_header.json", import.meta.url),
+    "utf8",
+  ),
 );
 
 test("progress SVG geometry and raw rounded label retain the original helper behavior", () => {
-  for (const pct of [-15, 0, 43.5, 100, 120, null, "50", undefined, NaN]) {
+  assert.equal(frozen.progress.length, 9);
+  for (const { input, expected } of frozen.progress) {
+    const pct =
+      input.kind === "undefined"
+        ? undefined
+        : input.kind === "nan"
+          ? NaN
+          : input.value;
     const data = base();
     data.avance.pct = pct;
     const progress = genericHeaderModel(data, context).progress;
-    const html = donut(pct, "#4A2A94");
-    assert.equal(
-      `${progress.arc} ${progress.rest}`,
-      html.match(/stroke-dasharray="([^"]*)"/)[1],
-    );
-    assert.equal(progress.label, html.match(/<text[^>]*>([^<]*)<\/text>/)[1]);
+    assert.equal(`${progress.arc} ${progress.rest}`, expected.dash);
+    assert.equal(progress.label, expected.label);
   }
 });
 
