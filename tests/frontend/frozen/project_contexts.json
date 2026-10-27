@@ -1,0 +1,382 @@
+{
+  "entry": {
+    "keys": [
+      "clientChanged",
+      "invalidatePrevious",
+      "metadata",
+      "previousLoad",
+      "previousStart",
+      "render"
+    ],
+    "callbacks": {
+      "previousStart": {
+        "$callback": "callback.previousStart"
+      },
+      "previousLoad": {
+        "$callback": "callback.previousLoad"
+      },
+      "clientChanged": {
+        "$callback": "callback.clientChanged"
+      },
+      "render": {
+        "aer": {
+          "$callback": "renderDashboardAERTYMProyecto"
+        },
+        "ixs": {
+          "$callback": "renderDashboardIXBSaaSRaaS"
+        },
+        "executive": {
+          "$callback": "renderDashboardEjecutivoProyecto"
+        }
+      }
+    },
+    "sameMetadata": true,
+    "metadata": {},
+    "request": 2
+  },
+  "session": {
+    "keys": [
+      "aer",
+      "aerAi",
+      "aerTab",
+      "aiLoads",
+      "cache",
+      "clockify",
+      "globalId",
+      "ixs",
+      "ixsAi",
+      "ixsTab",
+      "render",
+      "styles"
+    ],
+    "callbacks": {
+      "styles": {
+        "aer": {
+          "$callback": "_aerEnsureStyles"
+        },
+        "ixs": {
+          "$callback": "_ixsEnsureStyles"
+        },
+        "ai": {
+          "$callback": "ixsIAStyles"
+        }
+      },
+      "render": {
+        "aer": {
+          "$callback": "_aerRenderShell"
+        },
+        "ixs": {
+          "$callback": "_ixsRenderShell"
+        },
+        "aerTab": {
+          "$callback": "_aerRenderTab"
+        },
+        "ai": {
+          "$callback": "ixsIAPintar"
+        }
+      },
+      "aiLoads": {
+        "sources": {
+          "$callback": "ixsIACargarFuentes"
+        },
+        "history": {
+          "$callback": "ixsIACargarHistoria"
+        },
+        "drive": {
+          "$callback": "ixsIACargarDrive"
+        }
+      }
+    },
+    "cells": [
+      {
+        "key": "aer",
+        "same": true,
+        "cleared": null
+      },
+      {
+        "key": "ixs",
+        "same": true,
+        "cleared": null
+      },
+      {
+        "key": "aerAi",
+        "same": true,
+        "cleared": null
+      },
+      {
+        "key": "ixsAi",
+        "same": true,
+        "cleared": null
+      },
+      {
+        "key": "clockify",
+        "same": true,
+        "cleared": null
+      },
+      {
+        "key": "aerTab",
+        "same": true,
+        "cleared": null
+      },
+      {
+        "key": "ixsTab",
+        "same": true,
+        "cleared": null
+      }
+    ],
+    "first": "P",
+    "second": "Q",
+    "cacheSame": true
+  },
+  "shells": [
+    {
+      "family": "aer",
+      "keys": [
+        "apply",
+        "current",
+        "dispatch",
+        "error",
+        "family",
+        "loads",
+        "metadata",
+        "project",
+        "render",
+        "tab"
+      ],
+      "project": {
+        "proyecto": {
+          "id": "AER"
+        }
+      },
+      "callbacks": {
+        "render": {
+          "$callback": "_aerRenderShell"
+        },
+        "dispatch": {
+          "$callback": "_aerRenderTab"
+        },
+        "error": {
+          "$callback": "showError"
+        },
+        "loads": {
+          "analysis": {
+            "$callback": "aerIACargarAnalisis"
+          },
+          "minutes": {
+            "$callback": "aerIACargarMinutas"
+          },
+          "config": {
+            "$callback": "aerIACargarConfigMinutas"
+          },
+          "summary": {
+            "$callback": "aerIACargarResumenEjecutivo"
+          },
+          "parts": {
+            "$callback": "aerIACargarAccionesPartes"
+          }
+        },
+        "initializeIxs": {
+          "$callback": "renderDashboardIXBSaaSRaaS"
+        }
+      },
+      "current": true,
+      "absent": false,
+      "firstTab": "planeacion",
+      "secondTab": "ia",
+      "applied": {
+        "calls": [
+          [
+            "_aerRenderShell"
+          ]
+        ],
+        "state": {
+          "proyecto": {
+            "id": "updated"
+          }
+        },
+        "tab": "recursos",
+        "cache": {
+          "IXS": {
+            "cached": true
+          }
+        }
+      },
+      "replaced": false
+    },
+    {
+      "family": "ixs",
+      "keys": [
+        "apply",
+        "current",
+        "dispatch",
+        "error",
+        "family",
+        "loads",
+        "metadata",
+        "project",
+        "render",
+        "tab"
+      ],
+      "project": {
+        "proyecto": {
+          "id": "IXS"
+        }
+      },
+      "callbacks": {
+        "render": {
+          "$callback": "_ixsRenderShell"
+        },
+        "dispatch": {
+          "$callback": "_ixsRenderTab"
+        },
+        "error": {
+          "$callback": "showError"
+        },
+        "loads": {
+          "analysis": {
+            "$callback": "aerIACargarAnalisis"
+          },
+          "minutes": {
+            "$callback": "aerIACargarMinutas"
+          },
+          "config": {
+            "$callback": "aerIACargarConfigMinutas"
+          },
+          "summary": {
+            "$callback": "aerIACargarResumenEjecutivo"
+          },
+          "parts": {
+            "$callback": "aerIACargarAccionesPartes"
+          }
+        },
+        "initializeIxs": {
+          "$callback": "renderDashboardIXBSaaSRaaS"
+        }
+      },
+      "current": true,
+      "absent": false,
+      "firstTab": "planeacion",
+      "secondTab": "ia",
+      "applied": {
+        "calls": [
+          [
+            "renderDashboardIXBSaaSRaaS",
+            {
+              "proyecto": {
+                "id": "updated"
+              }
+            }
+          ]
+        ],
+        "state": {
+          "proyecto": {
+            "id": "IXS"
+          }
+        },
+        "tab": "ia",
+        "cache": {}
+      },
+      "replaced": false
+    }
+  ],
+  "tabs": {
+    "keys": [
+      "aer",
+      "aerContexts",
+      "aerTab",
+      "createRaid",
+      "ixs",
+      "ixsStates",
+      "ixsTab",
+      "loadClientActions",
+      "openAi",
+      "planningActions",
+      "previous",
+      "resources",
+      "selectAer",
+      "selectIxs",
+      "syncAzure",
+      "syncPlanningAzure"
+    ],
+    "actionKeys": [
+      "azure",
+      "edit",
+      "editMarker",
+      "extension"
+    ],
+    "callbacks": {
+      "selectAer": {
+        "$callback": "aerCambiarTab"
+      },
+      "selectIxs": {
+        "$callback": "ixsCambiarTab"
+      },
+      "aerContexts": {
+        "planning": {
+          "$callback": "aerPlaneacionContexto"
+        },
+        "effort": {
+          "$callback": "aerEsfuerzoContexto"
+        },
+        "risks": {
+          "$callback": "aerRiesgosContexto"
+        },
+        "actions": {
+          "$callback": "aerAccionesContexto"
+        },
+        "resources": {
+          "$callback": "aerRecursosContexto"
+        },
+        "ai": {
+          "$callback": "aerIAPresentacionContexto"
+        }
+      },
+      "resources": {
+        "$callback": "_ixsCargarEstadosRecursos"
+      },
+      "openAi": {
+        "$callback": "ixsIAAbrir"
+      },
+      "loadClientActions": {
+        "$callback": "ixsCargarClienteAcciones"
+      },
+      "createRaid": {
+        "$callback": "ixsRaidAbrirCrear"
+      },
+      "previous": {
+        "$callback": "ixsAbrirVistaAnterior"
+      },
+      "editPlanning": {
+        "$callback": "ixsAbrirPlanEditor"
+      },
+      "editMarker": {
+        "$callback": "ixsEditarHitoTimeline"
+      },
+      "extension": {
+        "$callback": "ixsAbrirExtension"
+      }
+    },
+    "sameAzure": true,
+    "synced": {
+      "items": [
+        1
+      ],
+      "projectId": "P"
+    },
+    "samePlanning": true,
+    "calls": [
+      [
+        "ixsAbrirPlanEditor",
+        "Hito",
+        "%C3%81%27%20%2F%26",
+        {
+          "fecha": "2026-10-23"
+        }
+      ],
+      [
+        "ixsCambiarTab",
+        "azure"
+      ]
+    ]
+  }
+}

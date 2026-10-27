@@ -9,7 +9,18 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
-**Último bloque, base 611e820:** Ejecutivo genérico, fuentes diferidas
+**Último bloque, base 52fb330:** estado compartido, adaptadores IXB,
+contextos comunes y contextos de funciones ya no leen el original. Se conservan
+las 24 pruebas; estado, callbacks, setters, guardias y seis integraciones de
+adaptadores siguen ejecutándose. 472 Node y 24 dirigidas pasan en UTC/México;
+doce mutaciones en copias detectadas, cuatro JSON reproducibles. Añadida
+comprobación de identidad al escribir objetos mediante setters. Quedan 2
+archivos Node dependientes del original: legacy_tools y project_compatibility;
+39 convertidos. No borrar las referencias: falta también navegador. Sin
+cambios de aplicación/diseño/cálculos/CSP ni nueva corrida servidor/e2e.
+Ver `docs/congelacion-referencias.md`. Fase 11 abierta, sin push.
+
+**Bloque previo, base 611e820:** Ejecutivo genérico, fuentes diferidas
 RAID/Clockify, paneles AER y puente de carga dejan de leer el original.
 Se conservan 23 pruebas: los controladores/cargador y ciclo de vida siguen
 ejecutando módulos actuales. 472 Node y 23 dirigidas pasan en UTC/México;

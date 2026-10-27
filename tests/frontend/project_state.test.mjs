@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import {
   createProjectState,
   bindProjectState,
@@ -39,11 +38,18 @@ test("compatibility callbacks read and replace the same state in both directions
   bindProjectState(target, state);
   assert.equal(target.ixsIAState, ai);
 });
-test("real legacy declarations attach to the store without resetting existing values", () => {
-  const source = fs.readFileSync(
-    "tests/reference/static/portal/js/proyecto_detalle.js",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/project_state.json", import.meta.url),
     "utf8",
-  );
+  ),
+);
+
+test("recorded legacy cells bind to the store without resetting existing values", () => {
+  assert.equal(frozen.defaults.length, 23);
+  const clean = createProjectState();
+  for (const { key, expected } of frozen.defaults)
+    assert.deepEqual(clean[key], expected, key);
   const state = createProjectState();
   state.aer = { cached: true };
   state.request = 7;
@@ -51,36 +57,29 @@ test("real legacy declarations attach to the store without resetting existing va
   state.reportAer = report;
   state.reportConsumptionRequest = 4;
   state.reportsStarted = true;
-  const scope = { beeProjectState: state };
-  scope.window = scope;
+  const scope = {};
   bindProjectState(scope, state);
-  const declarations = source.match(
-    /^  (?:var|const) \w+ = window\.beeProjectState[^\n]+/gm,
+  assert.deepEqual(
+    Object.keys(scope).sort(),
+    frozen.defaults.map((x) => x.name).sort(),
   );
-  assert.equal(declarations.length, 23);
-  vm.runInNewContext(
-    declarations.join("\n") +
-      "\naerTabActual='planeacion'; dashboardRequestSeq++;",
-    scope,
-  );
+  for (const { name, key } of frozen.defaults)
+    assert.equal(scope[name], state[key], name);
+  scope.aerTabActual = "planeacion";
+  scope.dashboardRequestSeq++;
   assert.equal(state.aer.cached, true);
   assert.equal(state.aerTab, "planeacion");
   assert.equal(state.request, 8);
-  assert.equal(vm.runInNewContext("cacheReporteAERTYM", scope), report);
+  assert.equal(scope.cacheReporteAERTYM, report);
   assert.equal(state.reportConsumptionRequest, 4);
   assert.equal(state.reportsStarted, true);
-  vm.runInNewContext(
-    "cacheReporteIXB=cacheReporteAERTYM; reporteAERConsumosSecuencia++;",
-    scope,
-  );
+  scope.cacheReporteIXB = scope.cacheReporteAERTYM;
+  scope.reporteAERConsumosSecuencia++;
   assert.equal(state.reportIxs, report);
   assert.equal(state.reportConsumptionRequest, 5);
   assert.equal(createProjectState().reportAer, null);
   assert.equal(createProjectState().reportsStarted, false);
-  assert.equal(
-    vm.runInNewContext("ixsClienteAccionesCache", scope),
-    state.clientCache,
-  );
+  assert.equal(scope.ixsClienteAccionesCache, state.clientCache);
   state.ixs = { proyecto: { id: "P" } };
-  assert.equal(vm.runInNewContext("ixsProyectoActual", scope), state.ixs);
+  assert.equal(scope.ixsProyectoActual, state.ixs);
 });

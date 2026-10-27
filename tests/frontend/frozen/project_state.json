@@ -1,0 +1,210 @@
+{
+  "defaults": [
+    {
+      "name": "cacheReporteAERTYM",
+      "key": "reportAer",
+      "expected": null
+    },
+    {
+      "name": "cacheReporteIXB",
+      "key": "reportIxs",
+      "expected": null
+    },
+    {
+      "name": "reporteAERConsumosSecuencia",
+      "key": "reportConsumptionRequest",
+      "expected": 0
+    },
+    {
+      "name": "mapaMetaProyectosDashboard",
+      "key": "metadata",
+      "expected": {}
+    },
+    {
+      "name": "dashboardRequestSeq",
+      "key": "request",
+      "expected": 0
+    },
+    {
+      "name": "reportesBootstrapIniciado",
+      "key": "reportsStarted",
+      "expected": false
+    },
+    {
+      "name": "hitosAdicionalesActuales",
+      "key": "milestones",
+      "expected": []
+    },
+    {
+      "name": "idProyectoActualGlobal",
+      "key": "projectId",
+      "expected": null
+    },
+    {
+      "name": "aerDashboardData",
+      "key": "aer",
+      "expected": null
+    },
+    {
+      "name": "aerTabActual",
+      "key": "aerTab",
+      "expected": "ejecutivo"
+    },
+    {
+      "name": "aerPlanFiltroMes",
+      "key": "aerPlanningRange",
+      "expected": {
+        "desde": "",
+        "hasta": ""
+      }
+    },
+    {
+      "name": "aerPlanTableFilters",
+      "key": "aerPlanningFilters",
+      "expected": {
+        "tipo": "",
+        "actividad": "",
+        "responsable": "",
+        "compromisoDesde": "",
+        "compromisoHasta": "",
+        "estado": "",
+        "cierreDesde": "",
+        "cierreHasta": ""
+      }
+    },
+    {
+      "name": "aerClockifyFiltro",
+      "key": "aerRecords",
+      "expected": {
+        "desde": "",
+        "hasta": "",
+        "registros": null,
+        "total": 0,
+        "cargando": false
+      }
+    },
+    {
+      "name": "aerEvalRecursoSeleccionado",
+      "key": "aerResourceSelection",
+      "expected": ""
+    },
+    {
+      "name": "ixsProyectoActual",
+      "key": "ixs",
+      "expected": null
+    },
+    {
+      "name": "ixsTabActual",
+      "key": "ixsTab",
+      "expected": "resumen"
+    },
+    {
+      "name": "ixsClienteAccionesCache",
+      "key": "clientCache",
+      "expected": {}
+    },
+    {
+      "name": "ixsClockifyState",
+      "key": "clockify",
+      "expected": {
+        "proyectoId": "",
+        "registros": null,
+        "cargando": false,
+        "error": "",
+        "desde": "",
+        "hasta": "",
+        "requestId": 0
+      }
+    },
+    {
+      "name": "ixsPlanState",
+      "key": "ixsPlanning",
+      "expected": {
+        "proyectoId": "",
+        "vacaciones": [],
+        "compromisos": [],
+        "cargando": false,
+        "error": "",
+        "requestId": 0
+      }
+    },
+    {
+      "name": "ixsPlanAzureState",
+      "key": "ixsPlanningAzure",
+      "expected": {
+        "proyectoId": "",
+        "items": [],
+        "allItems": [],
+        "cargando": false,
+        "error": "",
+        "requestId": 0
+      }
+    },
+    {
+      "name": "ixsAzureState",
+      "key": "ixsAzure",
+      "expected": {
+        "projectId": "",
+        "items": [],
+        "allItems": [],
+        "stale": [],
+        "requestId": 0,
+        "sinPAT": false,
+        "error": "",
+        "notice": ""
+      }
+    },
+    {
+      "name": "aerIAState",
+      "key": "aerAi",
+      "expected": {
+        "id": "",
+        "analisis": null,
+        "minutas": null,
+        "resumenEjecutivo": null,
+        "respuestaChatResumen": null,
+        "resumenConsultado": false,
+        "cargandoResumen": false,
+        "accionesPartes": null,
+        "cargandoPartes": false,
+        "cargando": false,
+        "cargandoAnalisis": false,
+        "analisisConsultado": false,
+        "config": null,
+        "archivos": null,
+        "seleccion": [],
+        "mostrarArchivos": false,
+        "archivosOcultos": false,
+        "historialCompleto": false,
+        "errorBusqueda": ""
+      }
+    },
+    {
+      "name": "ixsIAState",
+      "key": "ixsAi",
+      "expected": {
+        "id": "",
+        "azure": null,
+        "plan": null,
+        "resources": null,
+        "clockify": null,
+        "cliente": null,
+        "raid": null,
+        "memoria": null,
+        "minutas": [],
+        "driveConfig": null,
+        "driveFiles": [],
+        "driveSelected": [],
+        "driveError": "",
+        "driveLoading": false,
+        "analisis": null,
+        "error": "",
+        "loading": false,
+        "question": "",
+        "respuesta": "",
+        "sourceErrors": {},
+        "request": 0
+      }
+    }
+  ]
+}

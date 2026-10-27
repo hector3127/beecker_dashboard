@@ -29,7 +29,15 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
-- Último bloque sobre `611e820`: Ejecutivo genérico, fuentes diferidas,
+- Último bloque sobre `52fb330`: estado, adaptadores IXB y ambos grupos de
+  contextos ya no leen el original. 24 pruebas conservadas; 472 Node y 24
+  dirigidas pasan en UTC/México. Doce mutaciones en copias detectadas y
+  cuatro JSON reproducibles. Los setters ahora prueban identidad al escribir
+  objetos. Quedan 2 archivos Node: legacy_tools y project_compatibility,
+  39 convertidos; navegador pendiente. El helper original_state solo se usa
+  por generadores temporales, nunca por los tests normales. Sin cambios de
+  aplicación ni nueva corrida servidor/e2e o push. Ver congelacion-referencias.
+- Bloque previo sobre `611e820`: Ejecutivo genérico, fuentes diferidas,
   paneles AER y puente de carga congelados. 23 pruebas conservadas; 472 Node
   y 23 dirigidas pasan en UTC/México. Diez mutaciones en copias detectadas,
   cuatro JSON reproducibles. El cierre esperado usa la línea de tiempo
@@ -164,7 +172,7 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
    el desarrollo normal sigue directo en main.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, 6 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
+   En main, 2 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que

@@ -1,5 +1,58 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Duodécimo bloque: estado, contextos y adaptadores IXB
+
+Base `52fb330`. Cuatro archivos dejan de leer el original conservando sus
+**24 pruebas**, sin skips. No se guardan cuerpos de funciones ni código
+anterior dentro de los JSON: se capturan valores, claves, trazas e identidad
+esperada. Los tests ejecutan el almacén, bindings, contratos y adaptadores
+actuales con callbacks instrumentados.
+
+| Archivo | Referencia original guardada / comportamiento vigente probado |
+|---|---|
+| project_state | 23 defaults y correspondencias nombre/celda; aislamiento, lectura/escritura en ambos sentidos y preservación de cachés calientes |
+| project_ixs_adapters | 3 estados completos de contexto/snapshot/cambios/capacidad; 6 integraciones de editor, fuentes/history/Drive, RAID y guardias siguen vivas |
+| project_contexts | Entrada, sesión, dos shells y pestañas: claves, referencias, secuencia, caché, callbacks, sincronización Azure y UID escapado |
+| project_feature_contexts | 2 familias de Acciones, 4 contratos Riesgos/IA y 5 resultados de guardia IA IXB; conserva sus diferencias al refrescar |
+
+Generadores temporales `project_{state,ixs_adapters,contexts,feature_contexts}`
+y helper `project_original_state.mjs` en `frozen/gen/`, solo originales. El
+helper evalúa las 23 declaraciones de fallback y sus funciones sobre un
+estado enlazado por el harness; no importa createProjectState ni bindProjectState.
+La memoria previa del adaptador se captura desde su snapshot original, que
+antes se fabricaba con el adaptador actual. Las wrappers de render/dispatch
+se identifican observando su delegación original; los tests reconstruyen
+callbacks de prueba con esos nombres e identidades, no sus implementaciones.
+Cuatro JSON reproducibles exactamente normalizando CRLF/LF. Fechas fijas
+para los fixtures de IA/hitos, sin llamadas a proveedores.
+
+Se conserva que Riesgos/Acciones invalidan por reemplazo de dashboard, mientras
+las fuentes IA pueden mantener validez ante refresh del mismo ID si conserva
+estado; reemplazar el estado IA invalida esas cargas. También se mantienen
+las guardias DOM, selección de pestaña, caché compartida, actualización de
+partes, retorno de contexto y orden del traspaso RAID.
+
+**472 Node completas y 24 dirigidas pasan en UTC y America/Mexico_City**,
+cero fallos/omisiones. Doce mutaciones en copias temporales detectadas:
+request inicial, escritura de aliases, preparación de hitos, orden RAID,
+incremento de secuencia, identidad de setter, guardia de shell, escape de
+UID, guardia de snapshot, guardia de estado IA, caché de partes y pintado en IA.
+La mutación de identidad inicialmente no falló: el caso anterior escribía
+solo null mediante el setter moderno. Se añadió escribir un objeto y verificar
+que conserva exactamente su referencia, comparando con la identidad capturada
+del setter original. Con eso se detecta introducir structuredClone.
+
+Prettier de JS/diff aprobados. Evidencia local ignorada:
+`tmp/frozen-runtime-before.log`, `tmp/frozen-runtime-after.log`,
+`tmp/frozen-runtime-{UTC,America-Mexico_City}.log`,
+`tmp/frozen-runtime-all-{UTC,America-Mexico_City}.log` y
+`tmp/frozen-runtime-*.mutation.log`. No se editó código de aplicación ni
+se repitieron servidor/e2e: cambian pruebas, generadores, JSON y documentación.
+Diseño/cálculos/CSP/permisos intactos. Quedan **2 archivos Node** que leen el
+original: `legacy_tools.test.cjs` y `project_compatibility.test.mjs` (6 antes,
+41 al inicio), 39 convertidos. No retirar aún los originales: siguen esos
+consumidores y las comparaciones de navegador. Fase 11 abierta, sin push.
+
 ## Undécimo bloque agrupado: modelos genéricos y contratos de paneles/carga
 
 Base `611e820`. Cuatro archivos dejan de ejecutar el original, conservando

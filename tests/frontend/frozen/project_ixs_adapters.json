@@ -1,0 +1,558 @@
+[
+  {
+    "variant": "empty",
+    "input": {
+      "ixs": null,
+      "ixsAi": {
+        "id": "P",
+        "azure": null,
+        "plan": null,
+        "resources": null,
+        "clockify": null,
+        "cliente": null,
+        "raid": null,
+        "memoria": null,
+        "minutas": [],
+        "driveConfig": null,
+        "driveFiles": [],
+        "driveSelected": [],
+        "driveError": "",
+        "driveLoading": false,
+        "analisis": null,
+        "error": "",
+        "loading": false,
+        "question": "",
+        "respuesta": "",
+        "sourceErrors": {},
+        "request": 0
+      }
+    },
+    "expected": {
+      "context": {
+        "proyecto": "P",
+        "nombreProyecto": "",
+        "fechaCorte": "",
+        "etapaActual": "",
+        "avance": {},
+        "presupuesto": {},
+        "kpis": {},
+        "totalesRecursos": {},
+        "etapas": [],
+        "fuentesDisponibles": [
+          "dashboard"
+        ],
+        "fuentesNoDisponibles": {},
+        "workItems": [],
+        "workItemsTotal": 0,
+        "workItemsSinSeguimiento": 0,
+        "workItemsPorEstado": {},
+        "workItemsPorIteracion": {},
+        "workItemsPorAsignado": {},
+        "vacaciones": [],
+        "compromisos": [],
+        "recursos": [],
+        "horasPorRecurso": [],
+        "horasPorFecha": [],
+        "horasClockifyTotal": 0,
+        "registrosClockifyTotal": 0,
+        "acciones": [],
+        "raid": [],
+        "minutas": [],
+        "memoriaAnterior": null
+      },
+      "snapshot": {
+        "proyecto": "P",
+        "fuentes": [
+          "dashboard"
+        ],
+        "workItems": [],
+        "totalWorkItems": 0,
+        "cerrados": 0,
+        "horas": 0,
+        "raidIds": [],
+        "acciones": [],
+        "recursos": [],
+        "compromisos": [],
+        "vacaciones": []
+      },
+      "changes": null,
+      "capacity": []
+    }
+  },
+  {
+    "variant": "milestones",
+    "input": {
+      "ixs": {
+        "proyecto": {
+          "id": "P",
+          "nombre": "Proyecto"
+        },
+        "hitos": [
+          {
+            "nombre": "Discovery",
+            "fechaInicioPlan": "2010-01-01",
+            "fechaFinPlan": "2010-02-01"
+          }
+        ],
+        "historialCompleto": [
+          {
+            "fase": "Discovery",
+            "fechaInicio": "2010-01-02",
+            "fechaFin": "2010-02-05"
+          }
+        ],
+        "hitosAdicionales": [
+          {
+            "tipo": "🎥 Demo <cliente>",
+            "fecha": "2010-01-20",
+            "indice": 7,
+            "observacion": "Notas"
+          }
+        ]
+      },
+      "ixsAi": {
+        "id": "P",
+        "azure": {
+          "allItems": [
+            {
+              "id": 1,
+              "state": "Closed",
+              "assignedTo": {
+                "displayName": "Ana"
+              }
+            }
+          ]
+        },
+        "plan": {
+          "compromisos": [],
+          "vacaciones": []
+        },
+        "resources": {
+          "filas": [
+            {
+              "nombre": "Ana",
+              "horasEstimadas": 8,
+              "activo": true
+            }
+          ]
+        },
+        "clockify": {
+          "registros": [
+            {
+              "recurso": "Ana",
+              "duracion": 2.5,
+              "fecha": "2010-01-01"
+            }
+          ]
+        },
+        "cliente": {
+          "acciones": {
+            "filas": []
+          }
+        },
+        "raid": null,
+        "memoria": null,
+        "minutas": [],
+        "driveConfig": null,
+        "driveFiles": [],
+        "driveSelected": [],
+        "driveError": "",
+        "driveLoading": false,
+        "analisis": null,
+        "error": "",
+        "loading": false,
+        "question": "",
+        "respuesta": "",
+        "sourceErrors": {},
+        "request": 0
+      }
+    },
+    "expected": {
+      "context": {
+        "proyecto": "P",
+        "nombreProyecto": "Proyecto",
+        "fechaCorte": "",
+        "etapaActual": "",
+        "avance": {},
+        "presupuesto": {},
+        "kpis": {},
+        "totalesRecursos": {},
+        "etapas": [
+          {
+            "id": "ETAPA-1",
+            "nombre": "Discovery",
+            "inicio": "2010-01-02",
+            "fin": "2010-02-05",
+            "estado": "Completado",
+            "grupo": "",
+            "observacion": ""
+          },
+          {
+            "id": "ETAPA-2",
+            "nombre": "Demo <cliente>",
+            "inicio": "2010-01-20",
+            "fin": "2010-01-20",
+            "estado": "Completado",
+            "grupo": "Demostraciones",
+            "observacion": "Notas"
+          }
+        ],
+        "fuentesDisponibles": [
+          "dashboard",
+          "azure",
+          "plan",
+          "resources",
+          "clockify",
+          "cliente"
+        ],
+        "fuentesNoDisponibles": {},
+        "workItems": [
+          {
+            "id": 1,
+            "titulo": "",
+            "estado": "Closed",
+            "asignado": "Ana",
+            "iteracion": "",
+            "fechaLimite": "",
+            "tipo": ""
+          }
+        ],
+        "workItemsTotal": 1,
+        "workItemsSinSeguimiento": 0,
+        "workItemsPorEstado": {
+          "Closed": 1
+        },
+        "workItemsPorIteracion": {
+          "Sin asignar": 1
+        },
+        "workItemsPorAsignado": {
+          "Ana": 1
+        },
+        "vacaciones": [],
+        "compromisos": [],
+        "recursos": [
+          {
+            "nombre": "Ana",
+            "horasEstimadas": 8,
+            "activo": true
+          }
+        ],
+        "horasPorRecurso": [
+          {
+            "nombre": "Ana",
+            "horas": 2.5
+          }
+        ],
+        "horasPorFecha": [
+          {
+            "fecha": "2010-01-01",
+            "horas": 2.5
+          }
+        ],
+        "horasClockifyTotal": 2.5,
+        "registrosClockifyTotal": 1,
+        "acciones": [],
+        "raid": [],
+        "minutas": [],
+        "memoriaAnterior": null
+      },
+      "snapshot": {
+        "proyecto": "P",
+        "fuentes": [
+          "dashboard",
+          "azure",
+          "plan",
+          "resources",
+          "clockify",
+          "cliente"
+        ],
+        "workItems": [
+          {
+            "id": "1",
+            "estado": "Closed"
+          }
+        ],
+        "totalWorkItems": 1,
+        "cerrados": 1,
+        "horas": 2.5,
+        "raidIds": [],
+        "acciones": [],
+        "recursos": [
+          {
+            "nombre": "Ana",
+            "estimadas": 8,
+            "activo": true
+          }
+        ],
+        "compromisos": [],
+        "vacaciones": []
+      },
+      "changes": null,
+      "capacity": [
+        {
+          "nombre": "Ana",
+          "estimadas": 8,
+          "consumidas": 2.5
+        }
+      ]
+    }
+  },
+  {
+    "variant": "memory",
+    "input": {
+      "ixs": {
+        "proyecto": {
+          "id": "P",
+          "nombre": "Proyecto"
+        },
+        "hitos": [
+          {
+            "nombre": "Discovery",
+            "fechaInicioPlan": "2010-01-01",
+            "fechaFinPlan": "2010-02-01"
+          }
+        ],
+        "historialCompleto": [
+          {
+            "fase": "Discovery",
+            "fechaInicio": "2010-01-02",
+            "fechaFin": "2010-02-05"
+          }
+        ],
+        "hitosAdicionales": [
+          {
+            "tipo": "🎥 Demo <cliente>",
+            "fecha": "2010-01-20",
+            "indice": 7,
+            "observacion": "Notas"
+          }
+        ]
+      },
+      "ixsAi": {
+        "id": "P",
+        "azure": {
+          "allItems": [
+            {
+              "id": 1,
+              "state": "Closed",
+              "assignedTo": {
+                "displayName": "Ana"
+              }
+            }
+          ]
+        },
+        "plan": {
+          "compromisos": [],
+          "vacaciones": []
+        },
+        "resources": {
+          "filas": [
+            {
+              "nombre": "Ana",
+              "horasEstimadas": 8,
+              "activo": true
+            }
+          ]
+        },
+        "clockify": {
+          "registros": [
+            {
+              "recurso": "Ana",
+              "duracion": 2.5,
+              "fecha": "2010-01-01"
+            }
+          ]
+        },
+        "cliente": {
+          "acciones": {
+            "filas": []
+          }
+        },
+        "raid": null,
+        "memoria": {
+          "actual": {
+            "snapshot": {
+              "proyecto": "P",
+              "fuentes": [
+                "dashboard",
+                "azure",
+                "plan",
+                "resources",
+                "clockify",
+                "cliente"
+              ],
+              "workItems": [
+                {
+                  "id": "1",
+                  "estado": "Active"
+                }
+              ],
+              "totalWorkItems": 1,
+              "cerrados": 1,
+              "horas": 1,
+              "raidIds": [],
+              "acciones": [],
+              "recursos": [
+                {
+                  "nombre": "Ana",
+                  "estimadas": 8,
+                  "activo": true
+                }
+              ],
+              "compromisos": [],
+              "vacaciones": []
+            }
+          }
+        },
+        "minutas": [],
+        "driveConfig": null,
+        "driveFiles": [],
+        "driveSelected": [],
+        "driveError": "",
+        "driveLoading": false,
+        "analisis": null,
+        "error": "",
+        "loading": false,
+        "question": "",
+        "respuesta": "",
+        "sourceErrors": {},
+        "request": 0
+      }
+    },
+    "expected": {
+      "context": {
+        "proyecto": "P",
+        "nombreProyecto": "Proyecto",
+        "fechaCorte": "",
+        "etapaActual": "",
+        "avance": {},
+        "presupuesto": {},
+        "kpis": {},
+        "totalesRecursos": {},
+        "etapas": [
+          {
+            "id": "ETAPA-1",
+            "nombre": "Discovery",
+            "inicio": "2010-01-02",
+            "fin": "2010-02-05",
+            "estado": "Completado",
+            "grupo": "",
+            "observacion": ""
+          },
+          {
+            "id": "ETAPA-2",
+            "nombre": "Demo <cliente>",
+            "inicio": "2010-01-20",
+            "fin": "2010-01-20",
+            "estado": "Completado",
+            "grupo": "Demostraciones",
+            "observacion": "Notas"
+          }
+        ],
+        "fuentesDisponibles": [
+          "dashboard",
+          "azure",
+          "plan",
+          "resources",
+          "clockify",
+          "cliente"
+        ],
+        "fuentesNoDisponibles": {},
+        "workItems": [
+          {
+            "id": 1,
+            "titulo": "",
+            "estado": "Closed",
+            "asignado": "Ana",
+            "iteracion": "",
+            "fechaLimite": "",
+            "tipo": ""
+          }
+        ],
+        "workItemsTotal": 1,
+        "workItemsSinSeguimiento": 0,
+        "workItemsPorEstado": {
+          "Closed": 1
+        },
+        "workItemsPorIteracion": {
+          "Sin asignar": 1
+        },
+        "workItemsPorAsignado": {
+          "Ana": 1
+        },
+        "vacaciones": [],
+        "compromisos": [],
+        "recursos": [
+          {
+            "nombre": "Ana",
+            "horasEstimadas": 8,
+            "activo": true
+          }
+        ],
+        "horasPorRecurso": [
+          {
+            "nombre": "Ana",
+            "horas": 2.5
+          }
+        ],
+        "horasPorFecha": [
+          {
+            "fecha": "2010-01-01",
+            "horas": 2.5
+          }
+        ],
+        "horasClockifyTotal": 2.5,
+        "registrosClockifyTotal": 1,
+        "acciones": [],
+        "raid": [],
+        "minutas": [],
+        "memoriaAnterior": {}
+      },
+      "snapshot": {
+        "proyecto": "P",
+        "fuentes": [
+          "dashboard",
+          "azure",
+          "plan",
+          "resources",
+          "clockify",
+          "cliente"
+        ],
+        "workItems": [
+          {
+            "id": "1",
+            "estado": "Closed"
+          }
+        ],
+        "totalWorkItems": 1,
+        "cerrados": 1,
+        "horas": 2.5,
+        "raidIds": [],
+        "acciones": [],
+        "recursos": [
+          {
+            "nombre": "Ana",
+            "estimadas": 8,
+            "activo": true
+          }
+        ],
+        "compromisos": [],
+        "vacaciones": []
+      },
+      "changes": {
+        "horas": 1.5,
+        "cerrados": 1,
+        "nuevos": 0,
+        "nuevosRaid": 0,
+        "accionesCompletadas": 0
+      },
+      "capacity": [
+        {
+          "nombre": "Ana",
+          "estimadas": 8,
+          "consumidas": 2.5
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,306 @@
+{
+  "actions": [
+    {
+      "family": "aer",
+      "keys": [
+        "actions",
+        "active",
+        "current",
+        "dashboard",
+        "error",
+        "family",
+        "id",
+        "loadingParts",
+        "paint",
+        "paintParts",
+        "parts",
+        "partsLoading",
+        "setParts",
+        "storeActions",
+        "toast"
+      ],
+      "observedFamily": "aer",
+      "callbacks": {
+        "paint": {
+          "$callback": "_aerRenderTab"
+        },
+        "toast": {
+          "$callback": "_aerToast"
+        },
+        "error": {
+          "$callback": "showError"
+        }
+      },
+      "paints": 1,
+      "sameActions": true,
+      "partsLoading": true,
+      "sameParts": true,
+      "cacheSame": false,
+      "inactive": false,
+      "partsPaints": 1,
+      "stored": true,
+      "replaced": false
+    },
+    {
+      "family": "ixs",
+      "keys": [
+        "actions",
+        "active",
+        "current",
+        "dashboard",
+        "error",
+        "family",
+        "id",
+        "loadingParts",
+        "paint",
+        "paintParts",
+        "parts",
+        "partsLoading",
+        "setParts",
+        "storeActions",
+        "toast"
+      ],
+      "observedFamily": "ixs",
+      "callbacks": {
+        "paint": {
+          "$callback": "_aerRenderTab"
+        },
+        "toast": {
+          "$callback": "_aerToast"
+        },
+        "error": {
+          "$callback": "showError"
+        }
+      },
+      "paints": 1,
+      "sameActions": true,
+      "partsLoading": true,
+      "sameParts": true,
+      "cacheSame": true,
+      "inactive": false,
+      "partsPaints": 0,
+      "stored": true,
+      "replaced": false
+    }
+  ],
+  "contracts": [
+    {
+      "method": "risks",
+      "name": "aerRiesgosContexto",
+      "tab": "riesgos",
+      "keys": [
+        "active",
+        "current",
+        "dashboard",
+        "error",
+        "id",
+        "openAction",
+        "paint",
+        "saving"
+      ],
+      "callbacks": {
+        "paint": {
+          "$callback": "_aerRenderTab"
+        },
+        "saving": {
+          "$callback": "_aerStartSaving"
+        },
+        "error": {
+          "$callback": "showError"
+        },
+        "openAction": {
+          "$callback": "callback.openAction"
+        }
+      },
+      "sameState": false,
+      "sameDashboard": true,
+      "guards": [
+        true,
+        false,
+        false,
+        false
+      ],
+      "active": true,
+      "inactive": false
+    },
+    {
+      "method": "aerSources",
+      "name": "aerIAFuentesModulares",
+      "tab": "ia",
+      "keys": [
+        "active",
+        "context",
+        "current",
+        "id",
+        "openConfig",
+        "paint",
+        "state",
+        "toast"
+      ],
+      "callbacks": {
+        "paint": {
+          "$callback": "_aerRenderTab"
+        },
+        "context": {
+          "$callback": "aerIAContexto"
+        },
+        "toast": {
+          "$callback": "_aerToast"
+        },
+        "openConfig": {
+          "$callback": "aerIAAbrirConfigMinutas"
+        }
+      },
+      "sameState": true,
+      "sameDashboard": false,
+      "guards": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "active": true,
+      "inactive": false
+    },
+    {
+      "method": "aerPresentation",
+      "name": "aerIAPresentacionContexto",
+      "tab": "ia",
+      "keys": [
+        "actions",
+        "active",
+        "current",
+        "dashboard",
+        "paint",
+        "state",
+        "toast"
+      ],
+      "callbacks": {
+        "paint": {
+          "$callback": "_aerRenderTab"
+        },
+        "toast": {
+          "$callback": "_aerToast"
+        },
+        "actions": {
+          "analyze": {
+            "$callback": "callback.actions.analyze"
+          },
+          "generateSummary": {
+            "$callback": "callback.actions.generateSummary"
+          },
+          "generateMail": {
+            "$callback": "callback.actions.generateMail"
+          },
+          "generateMinute": {
+            "$callback": "callback.actions.generateMinute"
+          },
+          "saveMinute": {
+            "$callback": "callback.actions.saveMinute"
+          },
+          "copyMinute": {
+            "$callback": "callback.actions.copyMinute"
+          },
+          "copySavedMinute": {
+            "$callback": "callback.actions.copySavedMinute"
+          },
+          "copySummary": {
+            "$callback": "callback.actions.copySummary"
+          },
+          "saveConfig": {
+            "$callback": "callback.actions.saveConfig"
+          },
+          "resetPrompt": {
+            "$callback": "callback.actions.resetPrompt"
+          },
+          "loadConfig": {
+            "$callback": "callback.actions.loadConfig"
+          },
+          "files": {
+            "$callback": "callback.actions.files"
+          },
+          "tab": {
+            "$callback": "callback.actions.tab"
+          },
+          "ask": {
+            "$callback": "callback.actions.ask"
+          },
+          "action": {
+            "$callback": "callback.actions.action"
+          },
+          "risk": {
+            "$callback": "callback.actions.risk"
+          }
+        }
+      },
+      "sameState": true,
+      "sameDashboard": true,
+      "guards": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "active": true,
+      "inactive": false
+    },
+    {
+      "method": "aerActions",
+      "name": "aerIAAccionesModulares",
+      "tab": "ia",
+      "keys": [
+        "active",
+        "context",
+        "current",
+        "error",
+        "id",
+        "paint",
+        "presentation",
+        "sources",
+        "state",
+        "tab",
+        "toast"
+      ],
+      "callbacks": {
+        "paint": {
+          "$callback": "_aerRenderTab"
+        },
+        "toast": {
+          "$callback": "_aerToast"
+        },
+        "error": {
+          "$callback": "showError"
+        },
+        "context": {
+          "$callback": "aerIAContexto"
+        },
+        "presentation": {
+          "$callback": "aerIAPresentacionModular"
+        },
+        "sources": {
+          "$callback": "callback.sources"
+        },
+        "tab": {
+          "$callback": "callback.tab"
+        }
+      },
+      "sameState": true,
+      "sameDashboard": false,
+      "guards": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "active": true,
+      "inactive": false
+    }
+  ],
+  "ixsGuards": [
+    true,
+    false,
+    false,
+    false,
+    false
+  ]
+}

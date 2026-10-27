@@ -1,102 +1,38 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import { createIxsAdapters } from "../../frontend/static/scripts/pages/project_detail/sections/project_ixs_adapters.js";
-import {
-  createProjectState,
-  bindProjectState,
-} from "../../frontend/static/scripts/pages/project_detail/sections/project_state.js";
+import { createProjectState } from "../../frontend/static/scripts/pages/project_detail/sections/project_state.js";
 import { createProjectFeatureContexts } from "../../frontend/static/scripts/pages/project_detail/sections/project_feature_contexts.js";
 
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/project_ixs_adapters.json", import.meta.url),
+    "utf8",
+  ),
 );
 const plain = (value) => JSON.parse(JSON.stringify(value));
-function original(store) {
-  const scope = { window: {} };
-  bindProjectState(scope, store);
-  vm.runInNewContext(source.match(/const EMOJI_REGEX[^\n]+/)[0], scope);
-  for (const name of [
-    "_ixsDateMs",
-    "_ixsFases",
-    "_ixsHitos",
-    "nombreLimpioHito",
-    "categoriaHito",
-    "ixsIAContexto",
-    "ixsIASnapshot",
-    "ixsIACambios",
-    "ixsIACapacidad",
-  ])
-    vm.runInNewContext(
-      source.match(new RegExp(`  function ${name}\\([\\s\\S]*?\\n  \\}`))[0],
-      scope,
-    );
-  return scope;
-}
-for (const variant of ["empty", "milestones", "memory"])
+assert.equal(frozen.length, 3);
+for (const { variant, input, expected } of frozen) {
   test(`${variant}: composed IA data matches original formulas and milestone preparation`, () => {
-    const store = createProjectState();
-    store.ixsAi.id = "P";
-    if (variant !== "empty") {
-      store.ixs = {
-        proyecto: { id: "P", nombre: "Proyecto" },
-        hitos: [
-          {
-            nombre: "Discovery",
-            fechaInicioPlan: "2010-01-01",
-            fechaFinPlan: "2010-02-01",
-          },
-        ],
-        historialCompleto: [
-          {
-            fase: "Discovery",
-            fechaInicio: "2010-01-02",
-            fechaFin: "2010-02-05",
-          },
-        ],
-        hitosAdicionales: [
-          {
-            tipo: "🎥 Demo <cliente>",
-            fecha: "2010-01-20",
-            indice: 7,
-            observacion: "Notas",
-          },
-        ],
+    const store = Object.assign(createProjectState(), structuredClone(input));
+    const NativeDate = Date,
+      before = plain(input);
+    try {
+      globalThis.Date = class extends NativeDate {
+        constructor(...args) {
+          super(...(args.length ? args : ["2026-10-23T18:00:00Z"]));
+        }
       };
-      Object.assign(store.ixsAi, {
-        azure: {
-          allItems: [
-            { id: 1, state: "Closed", assignedTo: { displayName: "Ana" } },
-          ],
-        },
-        clockify: {
-          registros: [{ recurso: "Ana", duracion: 2.5, fecha: "2010-01-01" }],
-        },
-        resources: {
-          filas: [{ nombre: "Ana", horasEstimadas: 8, activo: true }],
-        },
-        plan: { compromisos: [], vacaciones: [] },
-        cliente: { acciones: { filas: [] } },
-      });
+      const adapter = createIxsAdapters(store, {});
+      for (const key of ["context", "snapshot", "changes", "capacity"])
+        assert.deepEqual(plain(adapter[key]()), expected[key]);
+      assert.deepEqual({ ixs: store.ixs, ixsAi: store.ixsAi }, before);
+    } finally {
+      globalThis.Date = NativeDate;
     }
-    const adapter = createIxsAdapters(store, {}),
-      old = original(store);
-    if (variant === "memory") {
-      const previous = plain(adapter.snapshot());
-      previous.workItems[0].estado = "Active";
-      previous.horas = 1;
-      store.ixsAi.memoria = { actual: { snapshot: previous } };
-    }
-    for (const [key, name] of [
-      ["context", "ixsIAContexto"],
-      ["snapshot", "ixsIASnapshot"],
-      ["changes", "ixsIACambios"],
-      ["capacity", "ixsIACapacidad"],
-    ])
-      assert.deepEqual(plain(adapter[key]()), plain(old[name]()));
   });
+}
 test("timeline support opens the modular editor with the same project/index/reload", () => {
   const store = createProjectState(),
     calls = [],
