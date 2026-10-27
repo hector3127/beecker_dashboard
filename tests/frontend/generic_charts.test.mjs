@@ -1,85 +1,45 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import {
   chartsModel,
   barsModel,
   palette,
 } from "../../frontend/static/scripts/pages/project_detail/sections/generic_charts_model.js";
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/generic_charts.json", import.meta.url),
+    "utf8",
+  ),
 );
-const original = (name) =>
-  source.match(new RegExp(`  function ${name}\\([\\s\\S]*?\\n  \\}`))[0];
-function render(name, args) {
-  const nodes = {};
-  const document = {
-    getElementById: (id) => (nodes[id] ||= { innerHTML: "", style: {} }),
-  };
-  vm.runInNewContext(`${original(name)};${name}(...args);`, {
-    document,
-    args,
-    PALETA_DONUT: palette,
-    COLOR_ESTIMADA: "#C9C9CC",
-    COLOR_REAL: "var(--vino)",
-  });
-  return nodes.chart.innerHTML;
-}
 test("area geometry, offsets and rounded total match the original SVG", () => {
-  for (const hours of [
-    [2.5, 3.25, 0],
-    [0, 0],
-    [0.04, 0.04],
-    [-1, 3],
-    [5, -2],
-  ]) {
-    const data = {
-      distribucionArea: hours.map((horas, i) => ({
-        nombre: "A" + i,
-        horas,
-        pct: 17,
-      })),
-    };
-    const before = structuredClone(data),
+  assert.equal(frozen.areas.length, 5);
+  assert.deepEqual(palette, frozen.palette);
+  for (const { input, geometry, label } of frozen.areas) {
+    const data = structuredClone(input),
       model = chartsModel(data);
-    const total = Math.round(hours.reduce((a, b) => a + b, 0) * 10) / 10;
-    const html = render("renderDonut", [
-      "chart",
-      data.distribucionArea,
-      total,
-      palette,
-    ]);
     assert.deepEqual(
       model.areas.map((x) => [x.dash, String(x.offset)]),
-      [
-        ...html.matchAll(
-          /stroke-dasharray="([^"]*)" stroke-dashoffset="([^"]*)"/g,
-        ),
-      ].map((x) => [x[1], x[2]]),
+      geometry,
     );
-    assert.ok(html.includes(`>${model.total}</text>`));
-    assert.deepEqual(data, before);
+    assert.equal(String(model.total), label);
+    assert.deepEqual(data, input);
   }
 });
 test("bars keep the full-list scale including hidden rows and original widths", () => {
-  const items = Array.from({ length: 8 }, (_, i) => ({
-    nombre: "R" + i,
-    horasEstimadas: i === 7 ? 1000 : i * 3,
-    horasReales: i - 1,
-  }));
-  for (const name of ["renderComparativo", "renderComparativoConVerTodos"]) {
-    const html = render(name, ["chart", items]);
+  assert.equal(frozen.bars.length, 2);
+  for (const { input, widths } of frozen.bars) {
+    const items = structuredClone(input);
+    assert.equal(items.length, 8);
     assert.deepEqual(
       barsModel(items).flatMap((x) => [String(x.estimated), String(x.real)]),
-      [...html.matchAll(/class="barra-fill" style="width:([^%]+)%;/g)].map(
-        (x) => x[1],
-      ),
+      widths,
     );
+    assert.equal(barsModel(items)[1].estimated, 0.3);
+    assert.deepEqual(items, input);
   }
-  assert.equal(barsModel(items)[1].estimated, 0.3);
 });
+
 test("resource order/role order, labels, palette cycle and empty data stay unchanged", () => {
   const data = {
     distribucionArea: Array.from({ length: 8 }, (_, i) => ({

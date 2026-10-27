@@ -4,7 +4,16 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 1f0dbef:** aer_ai_model, aer_effort_model y raid_model
+**Último bloque, base 15f619d:** project_shell_model, generic_charts e
+ixs_azure_table ya no leen el original. Etapas/estados, geometrías/barras y
+filtros/parsing guardados desde el original; JSON reproducibles. 472 Node
+completas y 14 dirigidas en UTC/México aprobadas, cuatro mutaciones en copias
+detectadas. No cambian aplicación, diseño, cálculos o CSP. Quedan 23 archivos
+Node dependientes del original, dieciocho congelados en total. Continuar por
+los restantes; piloto de navegador pendiente. Ver congelacion-referencias,
+sin nueva corrida servidor/e2e ni push. Lo siguiente es histórico:
+
+**Bloque previo, base 1f0dbef:** aer_ai_model, aer_effort_model y raid_model
 ya no leen el original. Se guardan 6 contextos/hechos, 12 resúmenes/estados
 y auxiliares RAID completos. 472 Node aprobadas; 22 dirigidas pasan en UTC
 y México. Cuatro mutaciones en copias detectadas; JSON reproducibles con

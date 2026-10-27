@@ -1,0 +1,238 @@
+{
+  "rows": [
+    {
+      "id": 1,
+      "titulo": "AMK.008 - Descripción á",
+      "estado": "Active",
+      "asignadoA": "Ana",
+      "tipo": "To Be",
+      "demo": "Demo final"
+    },
+    {
+      "id": 2,
+      "titulo": "ABC.001.003 | Pruebas",
+      "estado": "Closed",
+      "asignadoA": "Luis",
+      "tipo": "Change Request"
+    },
+    {
+      "id": 3,
+      "titulo": "Sin código",
+      "estado": "Proposed",
+      "asignadoA": " Ana ",
+      "tipo": "To Be"
+    },
+    {
+      "id": 4,
+      "titulo": "XYZ.001_S1",
+      "estado": "Active",
+      "asignadoA": "Ana",
+      "tipo": ""
+    }
+  ],
+  "filters": [
+    {
+      "input": {},
+      "expected": [
+        {
+          "id": 1,
+          "titulo": "AMK.008 - Descripción á",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "tipo": "To Be",
+          "demo": "Demo final"
+        },
+        {
+          "id": 2,
+          "titulo": "ABC.001.003 | Pruebas",
+          "estado": "Closed",
+          "asignadoA": "Luis",
+          "tipo": "Change Request"
+        },
+        {
+          "id": 3,
+          "titulo": "Sin código",
+          "estado": "Proposed",
+          "asignadoA": " Ana ",
+          "tipo": "To Be"
+        },
+        {
+          "id": 4,
+          "titulo": "XYZ.001_S1",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "tipo": ""
+        }
+      ]
+    },
+    {
+      "input": {
+        "status": "Active"
+      },
+      "expected": [
+        {
+          "id": 1,
+          "titulo": "AMK.008 - Descripción á",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "tipo": "To Be",
+          "demo": "Demo final"
+        },
+        {
+          "id": 4,
+          "titulo": "XYZ.001_S1",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "tipo": ""
+        }
+      ]
+    },
+    {
+      "input": {
+        "person": "Ana",
+        "type": "To Be"
+      },
+      "expected": [
+        {
+          "id": 1,
+          "titulo": "AMK.008 - Descripción á",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "tipo": "To Be",
+          "demo": "Demo final"
+        }
+      ]
+    },
+    {
+      "input": {
+        "query": "DESCRIPCIÓN"
+      },
+      "expected": [
+        {
+          "id": 1,
+          "titulo": "AMK.008 - Descripción á",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "tipo": "To Be",
+          "demo": "Demo final"
+        }
+      ]
+    },
+    {
+      "input": {
+        "query": "demo final",
+        "status": "Closed"
+      },
+      "expected": []
+    },
+    {
+      "input": {
+        "query": "ABC.001.003"
+      },
+      "expected": [
+        {
+          "id": 2,
+          "titulo": "ABC.001.003 | Pruebas",
+          "estado": "Closed",
+          "asignadoA": "Luis",
+          "tipo": "Change Request"
+        }
+      ]
+    },
+    {
+      "input": {
+        "query": "  Ana ",
+        "status": "Active"
+      },
+      "expected": [
+        {
+          "id": 1,
+          "titulo": "AMK.008 - Descripción á",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "tipo": "To Be",
+          "demo": "Demo final"
+        },
+        {
+          "id": 4,
+          "titulo": "XYZ.001_S1",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "tipo": ""
+        }
+      ]
+    },
+    {
+      "input": {
+        "query": "descripcion"
+      },
+      "expected": []
+    }
+  ],
+  "options": [
+    {
+      "key": "estado",
+      "expected": [
+        "Active",
+        "Closed",
+        "Proposed"
+      ]
+    },
+    {
+      "key": "asignadoA",
+      "expected": [
+        "Ana",
+        "Luis"
+      ]
+    },
+    {
+      "key": "tipo",
+      "expected": [
+        "Change Request",
+        "To Be"
+      ]
+    }
+  ],
+  "titles": [
+    {
+      "input": "AMK.008 - Descripción á",
+      "requirement": "AMK.008",
+      "title": "Descripción á"
+    },
+    {
+      "input": "ABC.001.003 | Pruebas",
+      "requirement": "ABC.001.003",
+      "title": "Pruebas"
+    },
+    {
+      "input": "Sin código",
+      "requirement": "—",
+      "title": "Sin código"
+    },
+    {
+      "input": "XYZ.001_S1",
+      "requirement": "XYZ.001_S1",
+      "title": "XYZ.001_S1"
+    },
+    {
+      "input": "ABC.001: Título",
+      "requirement": "ABC.001",
+      "title": "Título"
+    },
+    {
+      "input": "abc.001.002 - Algo",
+      "requirement": "abc.001.002",
+      "title": "Algo"
+    },
+    {
+      "input": "",
+      "requirement": "—",
+      "title": ""
+    },
+    {
+      "input": null,
+      "requirement": "—",
+      "title": ""
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "palette": [
+    "#4A2A94",
+    "#E0298B",
+    "#8B5CF6",
+    "#F472B6",
+    "#6D28D9",
+    "#C026A3"
+  ],
+  "areas": [
+    {
+      "input": {
+        "distribucionArea": [
+          {
+            "nombre": "A0",
+            "horas": 2.5,
+            "pct": 17
+          },
+          {
+            "nombre": "A1",
+            "horas": 3.25,
+            "pct": 17
+          },
+          {
+            "nombre": "A2",
+            "horas": 0,
+            "pct": 17
+          }
+        ]
+      },
+      "geometry": [
+        [
+          "208.5367537296673 275.26851492316086",
+          "0"
+        ],
+        [
+          "271.09777984856754 212.7074888042606",
+          "-208.5367537296673"
+        ],
+        [
+          "0 483.80526865282815",
+          "-479.6345335782348"
+        ]
+      ],
+      "label": "5.8"
+    },
+    {
+      "input": {
+        "distribucionArea": [
+          {
+            "nombre": "A0",
+            "horas": 0,
+            "pct": 17
+          },
+          {
+            "nombre": "A1",
+            "horas": 0,
+            "pct": 17
+          }
+        ]
+      },
+      "geometry": [
+        [
+          "0 483.80526865282815",
+          "0"
+        ],
+        [
+          "0 483.80526865282815",
+          "0"
+        ]
+      ],
+      "label": "0"
+    },
+    {
+      "input": {
+        "distribucionArea": [
+          {
+            "nombre": "A0",
+            "horas": 0.04,
+            "pct": 17
+          },
+          {
+            "nombre": "A1",
+            "horas": 0.04,
+            "pct": 17
+          }
+        ]
+      },
+      "geometry": [
+        [
+          "193.52210746113124 290.2831611916969",
+          "0"
+        ],
+        [
+          "193.52210746113124 290.2831611916969",
+          "-193.52210746113124"
+        ]
+      ],
+      "label": "0.1"
+    },
+    {
+      "input": {
+        "distribucionArea": [
+          {
+            "nombre": "A0",
+            "horas": -1,
+            "pct": 17
+          },
+          {
+            "nombre": "A1",
+            "horas": 3,
+            "pct": 17
+          }
+        ]
+      },
+      "geometry": [
+        [
+          "-241.90263432641407 725.7079029792422",
+          "0"
+        ],
+        [
+          "725.7079029792422 -241.9026343264141",
+          "241.90263432641407"
+        ]
+      ],
+      "label": "2"
+    },
+    {
+      "input": {
+        "distribucionArea": [
+          {
+            "nombre": "A0",
+            "horas": 5,
+            "pct": 17
+          },
+          {
+            "nombre": "A1",
+            "horas": -2,
+            "pct": 17
+          }
+        ]
+      },
+      "geometry": [
+        [
+          "806.3421144213803 -322.53684576855215",
+          "0"
+        ],
+        [
+          "-322.5368457685521 806.3421144213803",
+          "-806.3421144213803"
+        ]
+      ],
+      "label": "3"
+    }
+  ],
+  "bars": [
+    {
+      "name": "renderComparativo",
+      "input": [
+        {
+          "nombre": "R0",
+          "horasEstimadas": 0,
+          "horasReales": -1
+        },
+        {
+          "nombre": "R1",
+          "horasEstimadas": 3,
+          "horasReales": 0
+        },
+        {
+          "nombre": "R2",
+          "horasEstimadas": 6,
+          "horasReales": 1
+        },
+        {
+          "nombre": "R3",
+          "horasEstimadas": 9,
+          "horasReales": 2
+        },
+        {
+          "nombre": "R4",
+          "horasEstimadas": 12,
+          "horasReales": 3
+        },
+        {
+          "nombre": "R5",
+          "horasEstimadas": 15,
+          "horasReales": 4
+        },
+        {
+          "nombre": "R6",
+          "horasEstimadas": 18,
+          "horasReales": 5
+        },
+        {
+          "nombre": "R7",
+          "horasEstimadas": 1000,
+          "horasReales": 6
+        }
+      ],
+      "widths": [
+        "0",
+        "-0.1",
+        "0.3",
+        "0",
+        "0.6",
+        "0.1",
+        "0.8999999999999999",
+        "0.2",
+        "1.2",
+        "0.3",
+        "1.5",
+        "0.4",
+        "1.7999999999999998",
+        "0.5",
+        "100",
+        "0.6"
+      ]
+    },
+    {
+      "name": "renderComparativoConVerTodos",
+      "input": [
+        {
+          "nombre": "R0",
+          "horasEstimadas": 0,
+          "horasReales": -1
+        },
+        {
+          "nombre": "R1",
+          "horasEstimadas": 3,
+          "horasReales": 0
+        },
+        {
+          "nombre": "R2",
+          "horasEstimadas": 6,
+          "horasReales": 1
+        },
+        {
+          "nombre": "R3",
+          "horasEstimadas": 9,
+          "horasReales": 2
+        },
+        {
+          "nombre": "R4",
+          "horasEstimadas": 12,
+          "horasReales": 3
+        },
+        {
+          "nombre": "R5",
+          "horasEstimadas": 15,
+          "horasReales": 4
+        },
+        {
+          "nombre": "R6",
+          "horasEstimadas": 18,
+          "horasReales": 5
+        },
+        {
+          "nombre": "R7",
+          "horasEstimadas": 1000,
+          "horasReales": 6
+        }
+      ],
+      "widths": [
+        "0",
+        "-0.1",
+        "0.3",
+        "0",
+        "0.6",
+        "0.1",
+        "0.8999999999999999",
+        "0.2",
+        "1.2",
+        "0.3",
+        "1.5",
+        "0.4",
+        "1.7999999999999998",
+        "0.5",
+        "100",
+        "0.6"
+      ]
+    }
+  ]
+}

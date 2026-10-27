@@ -1,5 +1,41 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Quinto bloque: encabezado, gráficas y tabla Azure
+
+Base `15f619d`. Se congelan tres archivos adicionales:
+
+| Archivo | Salidas originales guardadas |
+|---|---|
+| project_shell_model | 8 etapas y 11 clasificaciones de estado AER |
+| generic_charts | Paleta original Beecker, 5 geometrías/etiquetas SVG y anchos de dos renderers de barras |
+| ixs_azure_table | 8 filtros, 3 listas de opciones y 8 títulos/requerimientos |
+
+Se mantienen los escenarios de vacío, cierre, suspensión, fase activa,
+primer día, fase futura, última fase y fechas inválidas. Las gráficas siguen
+comprobando ceros, negativos, fracciones, redondeo, filas ocultas que fijan
+la escala, orden de recursos/roles, colores y no mutación. Azure conserva
+selectores exactos, búsquedas combinadas, espacios/acentos, parsing de códigos
+y los datos originales de las cuatro filas.
+
+Generadores explícitos en frozen/gen: project_shell, generic_charts e
+ixs_azure_table. No importan modelos actuales; capturan funciones del original
+y, en gráficas, extraen geometría y anchos del HTML original. La paleta se
+extrae de PALETA_BEECKER, no del modelo comprobado. Tres JSON reproducibles
+normalizando CRLF/LF, sin guardar ni ejecutar el renderer anterior en tests.
+
+**472 Node completas aprobadas** y **14 dirigidas aprobadas tanto en UTC
+como en America/Mexico_City**, sin omisiones. Cuatro mutaciones en copias
+temporales se detectan: Cerrado→Abierto, radio 77→78, escala de barras 100→90
+y búsqueda alterada. No se modifica la aplicación. Prettier/diff comprobados;
+sin nueva corrida de servidor/e2e por este bloque exclusivo de pruebas Node.
+Registros ignorados: `tmp/frozen-shell-charts-*.log` y
+`tmp/*.next-mutation.log`.
+
+Quedan **23 archivos Node** que leen directamente el script anterior
+(26 antes, 41 al comenzar). Dieciocho archivos congelados en total. El piloto
+de navegador sigue pendiente y las referencias/servicios aún no se retiran.
+Fase 11 abierta; sin push ni cambios de diseño/cálculos/CSP/permisos.
+
 ## Cuarto bloque: contexto IA, esfuerzo AER y severidad RAID
 
 Base `1f0dbef`. Tres archivos dejan de leer/ejecutar el script original:
@@ -32,7 +68,7 @@ diseño, cálculo, seguridad ni permisos; sin nueva corrida servidor/e2e por
 este bloque de pruebas Node. Logs ignorados: `tmp/frozen-context-effort-*.log`
 y `tmp/*.next-mutation.log`.
 
-Quedan **26 archivos Node** que leen directamente el original (29 antes del
+Al cierre del cuarto bloque quedaban **26 archivos Node** que leían directamente el original (29 antes del
 bloque, 41 al empezar). Quince archivos congelados en total. Piloto de
 navegador pendiente; no retirar aún referencias/generadores ni servicios.
 Fase 11 abierta, sin push.

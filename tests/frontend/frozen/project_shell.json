@@ -1,0 +1,176 @@
+{
+  "stages": [
+    {
+      "label": "empty",
+      "data": {},
+      "expected": {
+        "texto": "Sin etapa",
+        "clase": ""
+      }
+    },
+    {
+      "label": "closed",
+      "data": {
+        "cerrado": true
+      },
+      "expected": {
+        "texto": "Cerrado",
+        "clase": "green"
+      }
+    },
+    {
+      "label": "suspended",
+      "data": {
+        "suspensiones": [
+          {
+            "fechaInicio": "2026-10-20",
+            "fechaFin": "2026-10-25"
+          }
+        ]
+      },
+      "expected": {
+        "texto": "Suspendido",
+        "clase": "orange"
+      }
+    },
+    {
+      "label": "active",
+      "data": {
+        "historialCompleto": [
+          {
+            "fase": "R&D <fase>",
+            "fechaInicio": "2026-10-01",
+            "fechaFin": "2026-11-01",
+            "enCurso": true
+          }
+        ]
+      },
+      "expected": {
+        "texto": "R&amp;D &lt;fase&gt;",
+        "clase": ""
+      }
+    },
+    {
+      "label": "first day",
+      "data": {
+        "historialCompleto": [
+          {
+            "fase": "Inicio",
+            "fechaInicio": "2026-10-23",
+            "fechaFin": "2026-10-24"
+          }
+        ]
+      },
+      "expected": {
+        "texto": "Inicio",
+        "clase": ""
+      }
+    },
+    {
+      "label": "future",
+      "data": {
+        "hitos": [
+          {
+            "nombre": "Futuro",
+            "fechaInicioPlan": "2026-10-30"
+          },
+          {
+            "nombre": "Más cercano",
+            "fechaInicioPlan": "2026-10-24"
+          }
+        ]
+      },
+      "expected": {
+        "texto": "Más cercano",
+        "clase": ""
+      }
+    },
+    {
+      "label": "last",
+      "data": {
+        "historialCompleto": [
+          {
+            "fase": "Primera",
+            "fechaInicio": "2026-08-01",
+            "fechaFin": "2026-08-10"
+          },
+          {
+            "fase": "Última",
+            "fechaInicio": "2026-09-01",
+            "fechaFin": "2026-09-10"
+          }
+        ]
+      },
+      "expected": {
+        "texto": "Última",
+        "clase": ""
+      }
+    },
+    {
+      "label": "invalid dates",
+      "data": {
+        "suspensiones": [
+          {
+            "fechaInicio": "bad"
+          }
+        ],
+        "hitos": [
+          {
+            "nombre": "bad",
+            "fechaInicioPlan": "bad"
+          }
+        ]
+      },
+      "expected": {
+        "texto": "Sin etapa",
+        "clase": ""
+      }
+    }
+  ],
+  "statuses": [
+    {
+      "input": null,
+      "expected": "info"
+    },
+    {
+      "input": "",
+      "expected": "info"
+    },
+    {
+      "input": "Crítico",
+      "expected": "info"
+    },
+    {
+      "input": "Atrasado",
+      "expected": "bad"
+    },
+    {
+      "input": "En tiempo",
+      "expected": "ok"
+    },
+    {
+      "input": "Cerrado",
+      "expected": "ok"
+    },
+    {
+      "input": "Pendiente",
+      "expected": "warn"
+    },
+    {
+      "input": "Pausado",
+      "expected": "warn"
+    },
+    {
+      "input": "En progreso",
+      "expected": "info"
+    },
+    {
+      "input": "Por validar",
+      "expected": "info"
+    },
+    {
+      "input": "Otro",
+      "expected": "info"
+    }
+  ]
+}

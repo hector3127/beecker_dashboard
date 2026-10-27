@@ -54,11 +54,16 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
   formatos de fechas se comprueban en UTC y America/Mexico_City, restaurando
   TZ. Cuatro JSON reproducibles desde el original; doce archivos congelados
   en total. No cambian aplicación, cálculos, diseño, CSP ni permisos.
-- Último bloque sobre `1f0dbef`: aer_ai_model, aer_effort_model y raid_model
+- Bloque previo sobre `1f0dbef`: aer_ai_model, aer_effort_model y raid_model
   usan JSON del original. 6 contextos/hechos, 12 resúmenes/estados y auxiliares
   de severidad/cierre. 22 dirigidas pasan en UTC y México; 472 Node completas
   aprobadas. Cuatro mutaciones en copias se detectan; resultados reproducibles
   normalizando CRLF/LF. Quince archivos congelados en total, sin cambiar aplicación.
+- Último bloque sobre `15f619d`: project_shell_model, generic_charts e
+  ixs_azure_table usan JSON del original (etapas/estados, geometrías/barras y
+  filtros/parsing). 472 Node y 14 dirigidas en UTC/México aprobadas; cuatro
+  mutaciones en copias detectadas. JSON reproducibles, sin cambiar aplicación.
+  Dieciocho archivos congelados en total; evidencia en congelacion-referencias.
 
 ### Aplicación y seguridad
 
@@ -118,7 +123,7 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
    el desarrollo normal sigue directo en main.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, 26 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
+   En main, 23 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que
