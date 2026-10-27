@@ -25,3 +25,27 @@ test('links to other screens or other sites are left alone', () => {
   assert.equal(withReturn(at('/operativa/'), at('/operativa/eva-4/')), null);
   assert.equal(withReturn(new URL('https://otro.example/cuenta/x/'), at('/operativa/')), null);
 });
+
+test('clicking the hours back link keeps the account original return chain', async () => {
+  const previousDocument = globalThis.document;
+  const previousLocation = globalThis.location;
+  let click;
+  const original = at('/cuenta/heineken/?nombre=Heineken&volver=%2Foperativa%2F').href;
+  const link = {
+    href: original,
+    hasAttribute: (name) => name === 'data-portal-back',
+    classList: { contains: () => false },
+  };
+  try {
+    globalThis.document = { addEventListener: (name, handler) => { click = handler; } };
+    globalThis.location = at('/cuenta/heineken/horas/');
+    await import('../../frontend/static/scripts/ui/return-links.js?hours-back-regression');
+    click({ target: { closest: () => link } });
+    assert.equal(link.href, original);
+  } finally {
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+    if (previousLocation === undefined) delete globalThis.location;
+    else globalThis.location = previousLocation;
+  }
+});

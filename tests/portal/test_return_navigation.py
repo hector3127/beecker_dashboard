@@ -188,6 +188,40 @@ def test_return_rejects_non_page_destinations(target):
     }
 
 
+@pytest.mark.parametrize(
+    "origin,label",
+    [("/", "Business Overview"), ("/operativa/?servicio=AER", "Operativa")],
+)
+def test_hours_return_preserves_account_origin(
+    client, monkeypatch, settings, origin, label
+):
+    from html import unescape
+    from urllib.parse import urlencode
+
+    settings.PORTAL_LOGIN_REQUIRED = False
+    monkeypatch.setattr(
+        "apps.portal.views.authorized_account",
+        lambda request, slug: "Heineken Mexico",
+    )
+    parent = "/cuenta/heineken-mexico/?" + urlencode(
+        {"nombre": "Heineken Mexico", "volver": origin}
+    )
+    response = client.get(
+        "/cuenta/heineken-mexico/horas/",
+        {"nombre": "Heineken Mexico", "volver": parent},
+    )
+    assert response.status_code == 200
+    link = re.search(
+        r'<a[^>]*data-portal-back[^>]*href="([^"]+)"', response.content.decode()
+    )
+    assert link is not None
+    target = unescape(link.group(1))
+    assert target == parent
+    account = client.get(target)
+    assert account.context["back_url"] == origin
+    assert account.context["back_label"] == label
+
+
 def test_account_returns_to_account_list_instead_of_operations(
     client, monkeypatch, settings
 ):

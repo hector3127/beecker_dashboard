@@ -3,7 +3,7 @@
 {% block title %}Horas por mes · {{ client }}{% endblock %}
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/account_hours.css' %}">{% endblock %}
 {% block content %}
-<div class="hours-toolbar"><a class="btn btn-ghost" href="{{ back_url }}">← Regresar a {{ back_label }}</a><a class="btn btn-ghost" id="hours-download" hidden>Descargar CSV para Excel</a></div>
+<div class="hours-toolbar"><a class="btn btn-ghost" data-portal-back href="{{ back_url }}">← Regresar a {{ back_label }}</a><a class="btn btn-ghost" id="hours-download" hidden>Descargar CSV para Excel</a></div>
 <header class="hours-heading"><h1>Horas por mes</h1><p>{{ client }} · consumo registrado por proyecto</p></header>
 <form id="hours-filters" class="hours-filters" data-client="{{ client }}" data-year="{{ year }}" data-today="{{ today }}" data-project-url="{% url 'portal:proyecto_detalle' 'PROJECT_ID' %}">
 <label>Periodo<select id="hours-period"><option value="anio">Año completo</option><option value="rango">Rango de fechas</option></select></label>

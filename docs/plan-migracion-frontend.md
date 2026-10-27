@@ -9,6 +9,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Corrección de navegación (27/10):** el regreso de Horas por mes lleva
+`data-portal-back`, evitando que el manejador compartido reemplace el origen
+de la cuenta por el reporte. Conserva el regreso a Business Overview u
+Operativa y sus parámetros. Sin cambios visuales ni cálculos. Evidencia:
+38 pruebas de servidor (return_navigation y account_hours) y cuatro Node
+de return_links aprobadas; incluyen cadena completa de ida/regreso y clic
+del manejador compartido. Sin comparación visual nueva: solo atributo de
+comportamiento, sin modificar clases, contenido o estilos.
+
 **Último bloque, base 1478793:** Recursos AER conserva el diseño actual
 mediante 15 referencias: nueve estados de la pestaña y seis formularios a
 1450/900/390. Las 18 pruebas del archivo pasan con CSP, config.urls y sin
