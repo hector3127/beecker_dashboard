@@ -46,7 +46,10 @@ def test_all_executive_elements_match(
             f"tests/e2e/frozen/aer_executive/{variant}-{width}.json"
         ).read_text(encoding="utf-8")
     )
-    assert reference["schema"] == 1 and reference["source"] == "original"
+    assert (
+        reference["schema"] == 1
+        and reference["source"] == "approved_current_design"
+    )
     assert reference["variant"] == variant
     assert reference["viewport"] == {"width": width, "height": 1000}
     assert reference["input_sha256"] == input_digest(data)
@@ -60,10 +63,10 @@ def test_all_executive_elements_match(
     (out / "differences.json").write_text(
         json.dumps(
             {
-                "original_count": len(before),
+                "approved_count": len(before),
                 "current_count": len(after),
                 "elements": [
-                    {"index": i, "original": a, "current": b}
+                    {"index": i, "approved": a, "current": b}
                     for i, (a, b) in enumerate(zip_longest(before, after))
                     if a != b
                 ],

@@ -8,13 +8,13 @@ Pasar cada pantalla del portal a `frontend/` con HTML, CSS y JS separados. Djang
 
 Reglas que no se negocian:
 
-1. **Diseño idéntico** al de la pantalla anterior (misma estructura visual, cifras, filtros, exportaciones, permisos y navegación de regreso).
+1. **Conservar el diseño actual aprobado por el usuario.** No modificar estilos, estructura visual ni componentes para igualarlos al old. Comparar apariencia con la línea base actual; conservar cifras, filtros, exportaciones, permisos y regreso.
 2. **No cambiar cálculos ni reglas de negocio.** Si algo parece mal, repórtalo; no lo "arregles" para que coincidan reportes.
 3. **No activar `ACCESS_ENFORCED` en producción** sin accesos configurados.
 4. **Horas por mes** (`cuenta/<slug>/horas/`) se conserva tal cual: filtros de fechas y proyectos, CSV, permisos y regreso a la cuenta.
 5. Commits pequeños y cuidados **directo en `main`** (único desarrollador, sin ramas). **No hagas push** salvo que el usuario lo pida expresamente.
 6. Nunca subas `.env`, `key.json` ni credenciales. No toques cambios sin commitear que no sean tuyos.
-7. Solo marca una pantalla como terminada cuando su ruta activa usa la plantilla de `frontend/`, conserva su funcionamiento y tiene prueba y comparación visual con la anterior.
+7. Solo marca una pantalla como terminada cuando su ruta activa usa la plantilla de `frontend/`, conserva su funcionamiento y tiene pruebas y comparación visual con el diseño actual aprobado.
 8. Actualiza `docs/plan-migracion-frontend.md` con evidencia real en cada bloque.
 9. Lecturas de frontend con `apiGet` o el catálogo compartido de logos; no
    añadir fetch directo para leer datos. Conservar la excepción documentada
@@ -22,6 +22,14 @@ Reglas que no se negocian:
    ni el comportamiento de Capacidad diaria de 834bbfa.
 
 ## Estado vigente (27/10/2026)
+
+**Criterio vigente por instrucción del usuario:** conservar el diseño actual
+aprobado, sin cambios en HTML/CSS/JS de la aplicación para igualarlo al old.
+Las referencias visuales se capturan de la pantalla actual sobre 0dbb3f7.
+Las expectativas originales de Node validan funcionamiento/cálculos, no
+imponen el aspecto antiguo. El piloto AER se actualiza a este criterio;
+los demás tests visuales anteriores requieren clasificación antes de seguir.
+No regenerar referencias automáticamente ante un fallo: investigar primero.
 
 **Fase 10 completada; fase 11 abierta.** Este apartado sustituye los estados
 históricos del plan y del traspaso. No reabrir pantallas migradas ni restaurar
@@ -203,8 +211,9 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
 1. Piloto ya integrado: no rehacerlo ni cambiar de rama con cambios ajenos.
    Continuar por modelos Node sencillos y después intermedios/complejos;
    el desarrollo normal sigue directo en main.
-2. Congelar las comparaciones de navegador con resultados obtenidos del
-   **original**, nunca del modelo que se comprueba. Node ya no lee ningún
+2. Guardar la apariencia del diseño actual aprobado como línea base visual.
+   Las expectativas originales sirven para funcionamiento/cálculos, no para
+   imponer el diseño old. No editar la aplicación durante esta limpieza. Node ya no lee ningún
    archivo de tests/reference: completados el motor y los cuatro auxiliares.
    El piloto de Ejecutivo AER ya está terminado; seguir otros bloques y
    la auditoría final de consumidores. Preservar entradas, casos límite y cobertura; comprobar que

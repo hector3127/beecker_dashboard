@@ -1,5 +1,32 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Corrección de criterio visual solicitada por el usuario
+
+El usuario aclaró que el diseño vigente es el aprobado y no debe ajustarse
+al old. Esta instrucción sustituye el requisito histórico de paridad visual
+con la pantalla anterior. No se cambia aplicación ni se revierten rediseños.
+Las referencias originales Node siguen siendo útiles para comprobar cálculos
+y contratos; no representan una decisión estética.
+
+El generador del piloto AER ahora captura exclusivamente la ruta actual con
+config.urls, CSP y sin directorios de referencia. Sus nueve JSON se etiquetan
+approved_current_design con base 0dbb3f7, inputs y hashes vigentes. Se mantienen
+las mismas variantes, tamaños, mediciones y 13 pruebas, sin bajar precisión.
+Se comparan los elementos antes/después de recapturar para identificar si
+hubiera cambios: las expectativas antiguas son evidencia histórica, no una
+meta a la que modificar el producto. El resto de comparaciones old debe
+clasificarse antes de continuar, sin cambios automáticos al frontend.
+
+Validación de este ajuste: nueve capturas actuales aprobadas; los nueve
+arrays de elementos coinciden exactamente con los guardados antes de la
+corrección de criterio. Trece pruebas Chrome y 473 Node aprobadas; Ruff y
+formato pasan. Ningún archivo de apps/ ni frontend/ modificado. Registros
+ignorados: tmp/approved-design-{capture,final,node}.log.
+
+Los bloques siguientes describen el criterio histórico de sus respectivas
+fechas; no prevalecen sobre esta instrucción. No regenerar baselines ante
+fallos sin investigar ni afirmar validación visual de pantallas no revisadas.
+
 ## Decimosexto bloque: piloto de navegador, Ejecutivo AER
 
 Base `3c0f9cc`. Se conserva el archivo y sus **13 pruebas**: nueve variantes

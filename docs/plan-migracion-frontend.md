@@ -9,6 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Criterio vigente por instrucción del usuario:** conservar el diseño actual
+aprobado, sin cambios en HTML/CSS/JS de la aplicación para igualarlo al old.
+Las referencias visuales se capturan de la pantalla actual sobre 0dbb3f7.
+Las expectativas originales de Node validan funcionamiento/cálculos, no
+imponen el aspecto antiguo. El piloto AER se actualiza a este criterio;
+los demás tests visuales anteriores requieren clasificación antes de seguir.
+No regenerar referencias automáticamente ante un fallo: investigar primero.
+
 **Último bloque, base 3c0f9cc:** piloto de congelación de navegador
 completado en Ejecutivo AER. Nueve escenarios (full/empty/attention por
 1450/900/390) guardan 1905 elementos originales con todos los campos que

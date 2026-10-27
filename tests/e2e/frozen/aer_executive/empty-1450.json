@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "source": "original",
-  "base_commit": "3c0f9cc",
+  "source": "approved_current_design",
+  "base_commit": "0dbb3f7",
   "variant": "empty",
   "viewport": {
     "width": 1450,
@@ -12,9 +12,9 @@
   "browser": "156.0.8078.48",
   "platform": "Windows",
   "source_sha256": {
-    "tests/reference/static/portal/js/proyecto_detalle.js": "d0ae3a7c11dc40e6f71a983bd8d1c27d204cdf81a0d4190a03ff21aed3d81d98",
-    "tests/reference/static/portal/css/proyecto_detalle.css": "f2517d3405e1a8898fbdd230e959334091d21bbdeb02fcbe37a3475a444e89d3",
-    "tests/reference/templates/portal/proyecto_detalle.html": "ed93c5045010ec7087bbc4c13ba06396545e0f9ca255513a212d3c1ccf7b9b3b",
+    "frontend/static/scripts/pages/project_detail/sections/aer_executive.js": "692c7e5192d5a561c97614a0eefba8e52d2fe240ecccd13d4fa0d530e4c9a717",
+    "frontend/static/styles/pages/project_detail_aer.css": "2e725abde44e463a3515530bca0d0228d57c3e1407943f9f78991bd01061b154",
+    "frontend/templates/pages/project_detail.html": "4556a71336c14a1f6280dd25ebf942031022dd1ae2cd2dd7bb4d18ae4ab2da1c",
     "tests/aer/aer_expected.json": "a08a0a706ea678b7249ea5034a500d84e76e08993b86fc4e3c752bc794262092",
     "tests/ejecutivo/project_integrated_expected.json": "05360de0eea49a15cbed5372c7049a0f4c13f157aae23f0a3e7992a0532ae6be"
   },
