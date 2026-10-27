@@ -2680,6 +2680,25 @@ Estado a 22/10/2026, comprobado en el código:
   Costos, Todas las cuentas, Comercial y la barra de «corte anterior» los usan, y
   `eva4_anterior` hasta el 3/11/2026 (`ANTERIOR_HASTA`).
 
+## Fase 11: avance del 26/10/2026 (tarde)
+
+Retiradas las presentaciones anteriores de Costos (`061cdce`), Oportunidades
+financieras (`de4505d`), Cuenta (`7231c5f`) y Business Overview (`a1b5a6a`);
+detalle en `docs/retiro-costos.md`, `retiro-oportunidades.md`, `retiro-cuenta.md`
+y `retiro-business-overview.md`. Con eso solo queda una plantilla anterior,
+`portal/proyecto_detalle.html` (junto con `base.html`, `proyecto_detalle.js/css`
+y `gas_shim.js`), servida con `?vista=anterior` por `pages.project_detail`
+(`_modern`). Sigue pendiente, en este orden:
+
+1. **Detalle de proyecto**: unas 45 pruebas de Node y 45 de navegador usan
+   `proyecto_detalle.js` o `?vista=anterior` como referencia. Hay que congelar
+   sus salidas como valores esperados antes de borrarlo; no se hace con borrado
+   directo.
+2. Quitar `anterior_disponible()` y `_modern` cuando el punto 1 termine, y las
+   menciones sobrantes de `?vista=anterior` en pruebas ya retiradas.
+3. CSP: auditar en modo solo reportar y hacerla obligatoria.
+4. Separar de `views.py` lo que ya no se usa tras estos retiros.
+
 ## Fases siguientes con lo nuevo integrado
 
 - **7. Cuenta y Delivery Manager**: flujos «DM → proyecto → regresar» y
