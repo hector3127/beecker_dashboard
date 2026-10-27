@@ -9,7 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
-**Último bloque de congelación, base 81b6d12:** aer_resources_model,
+**Último bloque, base 4c7767a:** Recursos IXB/SaaS/RaaS congelado:
+cuatro resultados completos y cuatro casos del editor guardados desde el
+original. 472 Node aprobadas, tres mutaciones en copias detectadas y JSON
+reproducible. Quedan 19 archivos Node dependientes del original, 22 congelados.
+No cambia aplicación/diseño/cálculos/CSP; sin nueva corrida servidor/e2e ni
+push. Ver `docs/congelacion-referencias.md`. Piloto de navegador pendiente.
+
+**Bloque previo, base 81b6d12:** aer_resources_model,
 actions_model y aer_ai_presentation_model usan resultados originales guardados.
 16 resúmenes de recursos/14 límites/fechas en dos zonas, 17 helpers y 3
 resúmenes de Acciones, extractos/escape/timestamps y 8 presentaciones IA.

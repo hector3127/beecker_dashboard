@@ -29,6 +29,12 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
+- Último bloque sobre `4c7767a`: ixs_resources compara cuatro resultados
+  completos y cuatro casos del editor contra JSON original reproducible.
+  472 Node pasan; tres mutaciones en copias detectadas. No cambia aplicación,
+  diseño, cálculos, CSP ni permisos; sin nueva corrida servidor/e2e o push.
+  Quedan 19 archivos Node dependientes del original, 22 congelados en total.
+  Ver `docs/congelacion-referencias.md`; piloto de navegador pendiente.
 - Base publicada: `a370589`; main ya incluye la actualización documental
   `1c37925` y el piloto integrado en `2e580ec`, con nuevos cambios locales de
   congelación. Comprobar Git al comenzar; no hacer push sin petición expresa.
@@ -64,7 +70,7 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
   filtros/parsing). 472 Node y 14 dirigidas en UTC/México aprobadas; cuatro
   mutaciones en copias detectadas. JSON reproducibles, sin cambiar aplicación.
   Dieciocho archivos congelados en total; evidencia en congelacion-referencias.
-- Último bloque sobre `81b6d12`: aer_resources_model, actions_model y
+- Bloque previo sobre `81b6d12`: aer_resources_model, actions_model y
   aer_ai_presentation_model ya no leen el original. 472 Node y 41 dirigidas
   en UTC/México aprobadas; cinco mutaciones en copias detectadas. Generadores
   independientes, incluida presentación IA con hechos/contexto originales.
@@ -128,7 +134,7 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
    el desarrollo normal sigue directo en main.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, 20 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
+   En main, 19 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que

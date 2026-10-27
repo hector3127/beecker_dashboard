@@ -1,0 +1,1081 @@
+{
+  "models": [
+    {
+      "data": {},
+      "state": {
+        "filas": [],
+        "registros": []
+      },
+      "expected": {
+        "rows": [],
+        "hours": [],
+        "missing": [],
+        "inactive": []
+      }
+    },
+    {
+      "data": {
+        "proyecto": {
+          "id": "AMK.008",
+          "nombre": "Robot AMK",
+          "cliente": "ACME",
+          "sponsor": "Laura",
+          "pm": "Pedro SM",
+          "deliveryManager": "DM Uno",
+          "fechaCorte": "2026-10-02T18:00:00.000Z",
+          "fechaInicio": "2026-07-01T06:00:00.000Z",
+          "fechaFinEstimada": "2026-12-31T06:00:00.000Z",
+          "estadoGeneral": "EN CONTROL",
+          "estadoColor": "verde",
+          "nivelRiesgoFecha": "Bajo"
+        },
+        "avance": {
+          "pct": 42.8,
+          "fuente": "Consumo presupuestal",
+          "hitosCompletados": 1,
+          "hitosTotal": 2,
+          "etapaActualPct": null,
+          "pctTiempoTranscurrido": 51.1,
+          "indiceRitmo": 0.84
+        },
+        "presupuesto": {
+          "budget": 100,
+          "burn": 42.75,
+          "etc": 57.25,
+          "pctEjecutado": 42.8,
+          "pctConsumoRaw": 42.8,
+          "fuente": "Registros_Tiempo",
+          "consumoDisponible": true,
+          "registros": 3
+        },
+        "kpisExtra": {
+          "recursosAsignados": 5,
+          "costoEstimado": 1425,
+          "costoReal": 893.1,
+          "pctCumplimientoFinanciero": 62.7,
+          "horasNoFact": 4
+        },
+        "distribucionArea": [
+          {
+            "nombre": "Desarrollo",
+            "horas": 31.36,
+            "pct": 68.4
+          },
+          {
+            "nombre": "Testing",
+            "horas": 12.5,
+            "pct": 27.3
+          },
+          {
+            "nombre": "Otros",
+            "horas": 2,
+            "pct": 4.4
+          },
+          {
+            "nombre": "Soporte",
+            "horas": 0,
+            "pct": 0
+          }
+        ],
+        "filasRecursosTop": [
+          {
+            "posicion": "Developer",
+            "nombre": "Ana Pérez",
+            "banda": "B2",
+            "costingRate": 22.5,
+            "horasEstimadas": 50,
+            "horasReales": 31.36,
+            "horasNoFact": 0,
+            "costoEstimado": 1125,
+            "costoReal": 705.6,
+            "balance": 18.64,
+            "pctCumplimiento": 62.7,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "QA Tester",
+            "nombre": "Luis Gómez",
+            "banda": " b1 ",
+            "costingRate": 15,
+            "horasEstimadas": 20,
+            "horasReales": 12.5,
+            "horasNoFact": 4,
+            "costoEstimado": 300,
+            "costoReal": 187.5,
+            "balance": 7.5,
+            "pctCumplimiento": 62.5,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "Sin asignacion en Recursos",
+            "nombre": "Externo",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 0,
+            "horasReales": 2,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": -2,
+            "pctCumplimiento": 0,
+            "estado": "Sin estimacion en Recursos"
+          },
+          {
+            "posicion": "",
+            "nombre": "Sin Horas",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 10,
+            "horasReales": 0,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": 10,
+            "pctCumplimiento": 0,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "Project Manager",
+            "nombre": "María López",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 0,
+            "horasReales": 0,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": 0,
+            "pctCumplimiento": 0,
+            "estado": "En tiempo"
+          }
+        ],
+        "filasRecursosCompleto": [
+          {
+            "posicion": "Developer",
+            "nombre": "Ana Pérez",
+            "banda": "B2",
+            "costingRate": 22.5,
+            "horasEstimadas": 50,
+            "horasReales": 31.36,
+            "horasNoFact": 0,
+            "costoEstimado": 1125,
+            "costoReal": 705.6,
+            "balance": 18.64,
+            "pctCumplimiento": 62.7,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "QA Tester",
+            "nombre": "Luis Gómez",
+            "banda": " b1 ",
+            "costingRate": 15,
+            "horasEstimadas": 20,
+            "horasReales": 12.5,
+            "horasNoFact": 4,
+            "costoEstimado": 300,
+            "costoReal": 187.5,
+            "balance": 7.5,
+            "pctCumplimiento": 62.5,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "Sin asignacion en Recursos",
+            "nombre": "Externo",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 0,
+            "horasReales": 2,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": -2,
+            "pctCumplimiento": 0,
+            "estado": "Sin estimacion en Recursos"
+          },
+          {
+            "posicion": "",
+            "nombre": "Sin Horas",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 10,
+            "horasReales": 0,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": 10,
+            "pctCumplimiento": 0,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "Project Manager",
+            "nombre": "María López",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 0,
+            "horasReales": 0,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": 0,
+            "pctCumplimiento": 0,
+            "estado": "En tiempo"
+          }
+        ],
+        "totalesRecursos": {
+          "horasEstimadas": 80,
+          "horasReales": 45.86,
+          "horasNoFact": 4,
+          "costoEstimado": 1425,
+          "costoReal": 893.1,
+          "balance": 34.14,
+          "pctCumplimientoHoras": 57.3,
+          "pctCumplimientoFinanciero": 62.7
+        },
+        "porRol": [
+          {
+            "rol": "Developer",
+            "horasEstimadas": 50,
+            "horasReales": 31.36
+          },
+          {
+            "rol": "QA Tester",
+            "horasEstimadas": 20,
+            "horasReales": 12.5
+          },
+          {
+            "rol": "Sin rol",
+            "horasEstimadas": 10,
+            "horasReales": 0
+          },
+          {
+            "rol": "Sin asignacion en Recursos",
+            "horasEstimadas": 0,
+            "horasReales": 2
+          },
+          {
+            "rol": "Project Manager",
+            "horasEstimadas": 0,
+            "horasReales": 0
+          }
+        ],
+        "riesgosCriticos": [
+          {
+            "descripcion": "Alto uno",
+            "impacto": "Alto",
+            "probabilidad": "Media"
+          },
+          {
+            "descripcion": "Alto dos",
+            "impacto": "Alto",
+            "probabilidad": "Baja"
+          },
+          {
+            "descripcion": "Medio uno",
+            "impacto": "Medio",
+            "probabilidad": ""
+          },
+          {
+            "descripcion": "Medio dos",
+            "impacto": "Medio",
+            "probabilidad": "Baja"
+          },
+          {
+            "descripcion": "Bajo uno",
+            "impacto": "Bajo",
+            "probabilidad": "Alta"
+          }
+        ],
+        "raid": {
+          "riesgosCriticos": 6,
+          "asuntosPendientes": 1
+        },
+        "hitos": [
+          {
+            "orden": 1,
+            "nombre": "Discovery",
+            "fechaInicioPlan": "2026-07-01T06:00:00.000Z",
+            "fechaFinPlan": "2026-07-31T06:00:00.000Z",
+            "fechaInicioReal": "2026-07-02T06:00:00.000Z",
+            "fechaFinReal": "2026-08-03T06:00:00.000Z",
+            "estado": "Completado"
+          },
+          {
+            "orden": 2,
+            "nombre": "Development",
+            "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+            "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+            "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+            "fechaFinReal": null,
+            "estado": "En curso"
+          }
+        ],
+        "hitosAdicionales": [
+          {
+            "tipo": "Go Live",
+            "indice": 0,
+            "fecha": "2026-11-15",
+            "observacion": "Salida"
+          },
+          {
+            "tipo": "Go Live",
+            "indice": 1,
+            "fecha": "2026-12-01",
+            "observacion": ""
+          },
+          {
+            "tipo": "Kickoff",
+            "indice": 0,
+            "fecha": "2026-07-01",
+            "observacion": "Inicio"
+          }
+        ],
+        "proximosHitos": [
+          {
+            "orden": 2,
+            "nombre": "Development",
+            "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+            "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+            "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+            "fechaFinReal": null,
+            "estado": "En curso"
+          }
+        ],
+        "periodosSuspension": [],
+        "historialCompleto": [
+          {
+            "fase": "Discovery",
+            "fechaInicio": "2026-07-02T06:00:00.000Z",
+            "fechaFin": "2026-08-03T06:00:00.000Z",
+            "enCurso": false
+          },
+          {
+            "fase": "Development",
+            "fechaInicio": "2026-08-04T06:00:00.000Z",
+            "fechaFin": null,
+            "enCurso": true
+          }
+        ],
+        "suspensiones": []
+      },
+      "state": {
+        "filas": [],
+        "registros": []
+      },
+      "expected": {
+        "rows": [
+          [
+            "ana perez",
+            {
+              "nombre": "Ana Pérez",
+              "rol": "Developer",
+              "horasEstimadas": 50,
+              "activo": true
+            }
+          ],
+          [
+            "externo",
+            {
+              "nombre": "Externo",
+              "rol": "Sin asignacion en Recursos",
+              "horasEstimadas": 0,
+              "activo": true
+            }
+          ],
+          [
+            "luis gomez",
+            {
+              "nombre": "Luis Gómez",
+              "rol": "QA Tester",
+              "horasEstimadas": 20,
+              "activo": true
+            }
+          ],
+          [
+            "maria lopez",
+            {
+              "nombre": "María López",
+              "rol": "Project Manager",
+              "horasEstimadas": 0,
+              "activo": true
+            }
+          ],
+          [
+            "sin horas",
+            {
+              "nombre": "Sin Horas",
+              "rol": "",
+              "horasEstimadas": 10,
+              "activo": true
+            }
+          ]
+        ],
+        "hours": [],
+        "missing": [],
+        "inactive": []
+      }
+    },
+    {
+      "data": {
+        "proyecto": {
+          "id": "AMK.008",
+          "nombre": "Robot AMK",
+          "cliente": "ACME",
+          "sponsor": "Laura",
+          "pm": "Pedro SM",
+          "deliveryManager": "DM Uno",
+          "fechaCorte": "2026-10-02T18:00:00.000Z",
+          "fechaInicio": "2026-07-01T06:00:00.000Z",
+          "fechaFinEstimada": "2026-12-31T06:00:00.000Z",
+          "estadoGeneral": "EN CONTROL",
+          "estadoColor": "verde",
+          "nivelRiesgoFecha": "Bajo"
+        },
+        "avance": {
+          "pct": 42.8,
+          "fuente": "Consumo presupuestal",
+          "hitosCompletados": 1,
+          "hitosTotal": 2,
+          "etapaActualPct": null,
+          "pctTiempoTranscurrido": 51.1,
+          "indiceRitmo": 0.84
+        },
+        "presupuesto": {
+          "budget": 100,
+          "burn": 42.75,
+          "etc": 57.25,
+          "pctEjecutado": 42.8,
+          "pctConsumoRaw": 42.8,
+          "fuente": "Registros_Tiempo",
+          "consumoDisponible": true,
+          "registros": 3
+        },
+        "kpisExtra": {
+          "recursosAsignados": 5,
+          "costoEstimado": 1425,
+          "costoReal": 893.1,
+          "pctCumplimientoFinanciero": 62.7,
+          "horasNoFact": 4
+        },
+        "distribucionArea": [
+          {
+            "nombre": "Desarrollo",
+            "horas": 31.36,
+            "pct": 68.4
+          },
+          {
+            "nombre": "Testing",
+            "horas": 12.5,
+            "pct": 27.3
+          },
+          {
+            "nombre": "Otros",
+            "horas": 2,
+            "pct": 4.4
+          },
+          {
+            "nombre": "Soporte",
+            "horas": 0,
+            "pct": 0
+          }
+        ],
+        "filasRecursosTop": [
+          {
+            "posicion": "Developer",
+            "nombre": "Ana Pérez",
+            "banda": "B2",
+            "costingRate": 22.5,
+            "horasEstimadas": 50,
+            "horasReales": 31.36,
+            "horasNoFact": 0,
+            "costoEstimado": 1125,
+            "costoReal": 705.6,
+            "balance": 18.64,
+            "pctCumplimiento": 62.7,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "QA Tester",
+            "nombre": "Luis Gómez",
+            "banda": " b1 ",
+            "costingRate": 15,
+            "horasEstimadas": 20,
+            "horasReales": 12.5,
+            "horasNoFact": 4,
+            "costoEstimado": 300,
+            "costoReal": 187.5,
+            "balance": 7.5,
+            "pctCumplimiento": 62.5,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "Sin asignacion en Recursos",
+            "nombre": "Externo",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 0,
+            "horasReales": 2,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": -2,
+            "pctCumplimiento": 0,
+            "estado": "Sin estimacion en Recursos"
+          },
+          {
+            "posicion": "",
+            "nombre": "Sin Horas",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 10,
+            "horasReales": 0,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": 10,
+            "pctCumplimiento": 0,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "Project Manager",
+            "nombre": "María López",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 0,
+            "horasReales": 0,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": 0,
+            "pctCumplimiento": 0,
+            "estado": "En tiempo"
+          }
+        ],
+        "filasRecursosCompleto": [
+          {
+            "posicion": "Developer",
+            "nombre": "Ana Pérez",
+            "banda": "B2",
+            "costingRate": 22.5,
+            "horasEstimadas": 50,
+            "horasReales": 31.36,
+            "horasNoFact": 0,
+            "costoEstimado": 1125,
+            "costoReal": 705.6,
+            "balance": 18.64,
+            "pctCumplimiento": 62.7,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "QA Tester",
+            "nombre": "Luis Gómez",
+            "banda": " b1 ",
+            "costingRate": 15,
+            "horasEstimadas": 20,
+            "horasReales": 12.5,
+            "horasNoFact": 4,
+            "costoEstimado": 300,
+            "costoReal": 187.5,
+            "balance": 7.5,
+            "pctCumplimiento": 62.5,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "Sin asignacion en Recursos",
+            "nombre": "Externo",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 0,
+            "horasReales": 2,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": -2,
+            "pctCumplimiento": 0,
+            "estado": "Sin estimacion en Recursos"
+          },
+          {
+            "posicion": "",
+            "nombre": "Sin Horas",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 10,
+            "horasReales": 0,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": 10,
+            "pctCumplimiento": 0,
+            "estado": "En tiempo"
+          },
+          {
+            "posicion": "Project Manager",
+            "nombre": "María López",
+            "banda": "",
+            "costingRate": 0,
+            "horasEstimadas": 0,
+            "horasReales": 0,
+            "horasNoFact": 0,
+            "costoEstimado": 0,
+            "costoReal": 0,
+            "balance": 0,
+            "pctCumplimiento": 0,
+            "estado": "En tiempo"
+          }
+        ],
+        "totalesRecursos": {
+          "horasEstimadas": 80,
+          "horasReales": 45.86,
+          "horasNoFact": 4,
+          "costoEstimado": 1425,
+          "costoReal": 893.1,
+          "balance": 34.14,
+          "pctCumplimientoHoras": 57.3,
+          "pctCumplimientoFinanciero": 62.7
+        },
+        "porRol": [
+          {
+            "rol": "Developer",
+            "horasEstimadas": 50,
+            "horasReales": 31.36
+          },
+          {
+            "rol": "QA Tester",
+            "horasEstimadas": 20,
+            "horasReales": 12.5
+          },
+          {
+            "rol": "Sin rol",
+            "horasEstimadas": 10,
+            "horasReales": 0
+          },
+          {
+            "rol": "Sin asignacion en Recursos",
+            "horasEstimadas": 0,
+            "horasReales": 2
+          },
+          {
+            "rol": "Project Manager",
+            "horasEstimadas": 0,
+            "horasReales": 0
+          }
+        ],
+        "riesgosCriticos": [
+          {
+            "descripcion": "Alto uno",
+            "impacto": "Alto",
+            "probabilidad": "Media"
+          },
+          {
+            "descripcion": "Alto dos",
+            "impacto": "Alto",
+            "probabilidad": "Baja"
+          },
+          {
+            "descripcion": "Medio uno",
+            "impacto": "Medio",
+            "probabilidad": ""
+          },
+          {
+            "descripcion": "Medio dos",
+            "impacto": "Medio",
+            "probabilidad": "Baja"
+          },
+          {
+            "descripcion": "Bajo uno",
+            "impacto": "Bajo",
+            "probabilidad": "Alta"
+          }
+        ],
+        "raid": {
+          "riesgosCriticos": 6,
+          "asuntosPendientes": 1
+        },
+        "hitos": [
+          {
+            "orden": 1,
+            "nombre": "Discovery",
+            "fechaInicioPlan": "2026-07-01T06:00:00.000Z",
+            "fechaFinPlan": "2026-07-31T06:00:00.000Z",
+            "fechaInicioReal": "2026-07-02T06:00:00.000Z",
+            "fechaFinReal": "2026-08-03T06:00:00.000Z",
+            "estado": "Completado"
+          },
+          {
+            "orden": 2,
+            "nombre": "Development",
+            "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+            "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+            "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+            "fechaFinReal": null,
+            "estado": "En curso"
+          }
+        ],
+        "hitosAdicionales": [
+          {
+            "tipo": "Go Live",
+            "indice": 0,
+            "fecha": "2026-11-15",
+            "observacion": "Salida"
+          },
+          {
+            "tipo": "Go Live",
+            "indice": 1,
+            "fecha": "2026-12-01",
+            "observacion": ""
+          },
+          {
+            "tipo": "Kickoff",
+            "indice": 0,
+            "fecha": "2026-07-01",
+            "observacion": "Inicio"
+          }
+        ],
+        "proximosHitos": [
+          {
+            "orden": 2,
+            "nombre": "Development",
+            "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+            "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+            "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+            "fechaFinReal": null,
+            "estado": "En curso"
+          }
+        ],
+        "periodosSuspension": [],
+        "historialCompleto": [
+          {
+            "fase": "Discovery",
+            "fechaInicio": "2026-07-02T06:00:00.000Z",
+            "fechaFin": "2026-08-03T06:00:00.000Z",
+            "enCurso": false
+          },
+          {
+            "fase": "Development",
+            "fechaInicio": "2026-08-04T06:00:00.000Z",
+            "fechaFin": null,
+            "enCurso": true
+          }
+        ],
+        "suspensiones": []
+      },
+      "state": {
+        "filas": [
+          {
+            "nombre": "  ANA PEREZ ",
+            "rol": "Lead",
+            "horasEstimadas": 0,
+            "activo": false
+          },
+          {
+            "nombre": "O'Connor",
+            "rol": "QA",
+            "horasEstimadas": 12.25,
+            "activo": true
+          }
+        ],
+        "registros": [
+          {
+            "id": "same",
+            "recurso": "Ana Pérez",
+            "duracion": 8
+          },
+          {
+            "id": "same",
+            "recurso": "ANA PEREZ",
+            "duracion": 8
+          },
+          {
+            "recurso": "Sin asignación",
+            "duracion": 1.5
+          },
+          {
+            "recurso": "O'Connor",
+            "duracion": -2
+          },
+          {
+            "recurso": "",
+            "duracion": 8
+          },
+          {
+            "recurso": "Otro",
+            "duracion": "invalid"
+          }
+        ]
+      },
+      "expected": {
+        "rows": [
+          [
+            "ana perez",
+            {
+              "nombre": "  ANA PEREZ ",
+              "rol": "Lead",
+              "horasEstimadas": 0,
+              "activo": false
+            }
+          ],
+          [
+            "externo",
+            {
+              "nombre": "Externo",
+              "rol": "Sin asignacion en Recursos",
+              "horasEstimadas": 0,
+              "activo": true
+            }
+          ],
+          [
+            "luis gomez",
+            {
+              "nombre": "Luis Gómez",
+              "rol": "QA Tester",
+              "horasEstimadas": 20,
+              "activo": true
+            }
+          ],
+          [
+            "maria lopez",
+            {
+              "nombre": "María López",
+              "rol": "Project Manager",
+              "horasEstimadas": 0,
+              "activo": true
+            }
+          ],
+          [
+            "o'connor",
+            {
+              "nombre": "O'Connor",
+              "rol": "QA",
+              "horasEstimadas": 12.25,
+              "activo": true
+            }
+          ],
+          [
+            "sin horas",
+            {
+              "nombre": "Sin Horas",
+              "rol": "",
+              "horasEstimadas": 10,
+              "activo": true
+            }
+          ]
+        ],
+        "hours": [
+          [
+            "ana perez",
+            {
+              "nombre": "Ana Pérez",
+              "horas": 16
+            }
+          ],
+          [
+            "sin asignacion",
+            {
+              "nombre": "Sin asignación",
+              "horas": 1.5
+            }
+          ],
+          [
+            "o'connor",
+            {
+              "nombre": "O'Connor",
+              "horas": -2
+            }
+          ]
+        ],
+        "missing": [
+          [
+            "sin asignacion",
+            {
+              "nombre": "Sin asignación",
+              "horas": 1.5
+            }
+          ]
+        ],
+        "inactive": [
+          [
+            "ana perez",
+            {
+              "nombre": "  ANA PEREZ ",
+              "rol": "Lead",
+              "horasEstimadas": 0,
+              "activo": false
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "data": {
+        "filasRecursosCompleto": [
+          {
+            "nombre": "A",
+            "posicion": "Base",
+            "horasEstimadas": 10
+          },
+          {
+            "nombre": "a",
+            "posicion": "Duplicate",
+            "horasEstimadas": 99
+          }
+        ]
+      },
+      "state": {
+        "filas": [
+          {
+            "nombre": "A",
+            "rol": "QA",
+            "activo": true
+          },
+          {
+            "nombre": "a",
+            "rol": "Last",
+            "activo": false
+          }
+        ],
+        "registros": [
+          {
+            "recurso": "A",
+            "duracion": 0
+          }
+        ]
+      },
+      "expected": {
+        "rows": [
+          [
+            "a",
+            {
+              "nombre": "a",
+              "rol": "Last",
+              "horasEstimadas": 10,
+              "activo": false
+            }
+          ]
+        ],
+        "hours": [
+          [
+            "a",
+            {
+              "nombre": "A",
+              "horas": 0
+            }
+          ]
+        ],
+        "missing": [],
+        "inactive": []
+      }
+    }
+  ],
+  "editors": [
+    {
+      "data": {
+        "filasRecursosCompleto": [
+          {
+            "nombre": "Ana Pérez",
+            "posicion": "Developer",
+            "horasEstimadas": 10
+          },
+          {
+            "nombre": "Fallback",
+            "posicion": "PM"
+          }
+        ]
+      },
+      "state": {
+        "filas": [
+          {
+            "nombre": "ANA PEREZ",
+            "rol": "QA",
+            "activo": false
+          }
+        ]
+      },
+      "name": "Ana Pérez",
+      "expected": {
+        "nombre": "ANA PEREZ",
+        "rol": "QA",
+        "activo": false
+      }
+    },
+    {
+      "data": {
+        "filasRecursosCompleto": [
+          {
+            "nombre": "Ana Pérez",
+            "posicion": "Developer",
+            "horasEstimadas": 10
+          },
+          {
+            "nombre": "Fallback",
+            "posicion": "PM"
+          }
+        ]
+      },
+      "state": {
+        "filas": [
+          {
+            "nombre": "ANA PEREZ",
+            "rol": "QA",
+            "activo": false
+          }
+        ]
+      },
+      "name": "Fallback",
+      "expected": {
+        "nombre": "Fallback",
+        "posicion": "PM"
+      }
+    },
+    {
+      "data": {
+        "filasRecursosCompleto": [
+          {
+            "nombre": "Ana Pérez",
+            "posicion": "Developer",
+            "horasEstimadas": 10
+          },
+          {
+            "nombre": "Fallback",
+            "posicion": "PM"
+          }
+        ]
+      },
+      "state": {
+        "filas": [
+          {
+            "nombre": "ANA PEREZ",
+            "rol": "QA",
+            "activo": false
+          }
+        ]
+      },
+      "name": "O'Connor",
+      "expected": {}
+    },
+    {
+      "data": {
+        "filasRecursosCompleto": [
+          {
+            "nombre": "Ana Pérez",
+            "posicion": "Developer",
+            "horasEstimadas": 10
+          },
+          {
+            "nombre": "Fallback",
+            "posicion": "PM"
+          }
+        ]
+      },
+      "state": {
+        "filas": [
+          {
+            "nombre": "ANA PEREZ",
+            "rol": "QA",
+            "activo": false
+          }
+        ]
+      },
+      "name": "",
+      "expected": {}
+    }
+  ]
+}

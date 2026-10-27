@@ -1,5 +1,23 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Séptimo bloque: Recursos IXB/SaaS/RaaS
+
+Base `4c7767a`. Recursos IXB/SaaS/RaaS (`ixs_resources.test.mjs`) compara
+contra cuatro resultados completos del original y cuatro casos del editor,
+capturados antes de cambiar el test. Conserva normalización, duplicados,
+prioridad de asignaciones, horas negativas/inválidas, alertas y no mutación.
+El generador temporal `frozen/gen/ixs_resources.gen.mjs` solo ejecuta el original;
+el JSON se reproduce exactamente normalizando CRLF/LF.
+
+**472 Node completas aprobadas**, sin omisiones. Tres mutaciones en copias
+temporales detectadas: suma de horas +1, activo por defecto invertido y
+prioridad de asignaciones eliminada. Prettier y diff comprobados. No cambia
+aplicación, diseño, cálculos, CSP o permisos; no se repiten servidor/e2e en
+este bloque exclusivamente Node. Evidencia local ignorada:
+`tmp/frozen-ixs-resources-node.log` y `tmp/ixs_resources.next-mutation.log`.
+Quedan **19 archivos Node** que leen el original y 22 congelados en total.
+Piloto de navegador pendiente; fase 11 abierta, sin push.
+
 ## Sexto bloque: Recursos, Acciones y presentación IA AER
 
 Base `81b6d12`. Tres archivos adicionales dejan de ejecutar el original:

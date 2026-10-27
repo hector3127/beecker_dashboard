@@ -4,7 +4,14 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 81b6d12:** aer_resources_model, actions_model y
+**Último bloque, base 4c7767a:** Recursos IXB/SaaS/RaaS congelado:
+cuatro resultados completos y cuatro casos del editor guardados desde el
+original. 472 Node aprobadas, tres mutaciones en copias detectadas y JSON
+reproducible. Quedan 19 archivos Node dependientes del original, 22 congelados.
+No cambia aplicación/diseño/cálculos/CSP; sin nueva corrida servidor/e2e ni
+push. Ver `docs/congelacion-referencias.md`. Piloto de navegador pendiente.
+
+**Bloque previo, base 81b6d12:** aer_resources_model, actions_model y
 aer_ai_presentation_model congelados. 472 Node y 41 dirigidas en UTC/México
 aprobadas; cinco mutaciones detectadas. JSON reproducibles desde el original;
 presentación IA usa también hechos/contexto originales al capturar. Sin
