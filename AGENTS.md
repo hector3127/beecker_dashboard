@@ -25,7 +25,8 @@ Reglas que no se negocian:
 
 **Criterio vigente por instrucción del usuario:** conservar el diseño actual
 aprobado, sin cambios en HTML/CSS/JS de la aplicación para igualarlo al old.
-Las referencias visuales se capturan de la pantalla actual sobre 0dbb3f7.
+Las referencias visuales se capturan del diseño actual; la base de cada
+bloque queda registrada en sus archivos y evidencia.
 Las expectativas originales de Node validan funcionamiento/cálculos, no
 imponen el aspecto antiguo. El piloto AER se actualiza a este criterio;
 los demás tests visuales anteriores requieren clasificación antes de seguir.
@@ -37,6 +38,12 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
+- Último bloque sobre `1478793`: Recursos AER usa 15 referencias del diseño
+  actual (9 vistas y 6 formularios). 18 Chrome con CSP/rutas de producción
+  y 473 Node pasan; pruebas CRUD/selección/respuestas tardías conservadas.
+  No se modificó apps/ ni frontend/. Quince capturas reproducibles; dos alteraciones
+  detectadas (geometría y formulario). Seguir navegador con
+  diseño actual; no imponer el old. Ver congelacion-referencias. Sin push.
 - Último bloque sobre `3c0f9cc`: piloto navegador de Ejecutivo AER completado.
   Nueve JSON originales (1905 elementos) reproducibles byte por byte. Las 13
   pruebas permanentes pasan con CSP y rutas de producción, sin directorios

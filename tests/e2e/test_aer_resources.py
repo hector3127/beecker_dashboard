@@ -1,15 +1,28 @@
-"""Evaluaciones AER: paridad, selección, API y formularios seguros."""
+"""Evaluaciones AER: diseño actual, selección, API y formularios seguros."""
 
+import json
 from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
+from tests.e2e.frozen.aer_executive_support import (
+    production_site as production_site,
+)
+from tests.e2e.frozen.aer_resources_support import (
+    enter,
+    input_digest,
+    measure_editor,
+    measure_view,
+    prepare,
+)
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
-pytestmark = pytest.mark.django_db(transaction=True)
+pytestmark = [
+    pytest.mark.django_db(transaction=True),
+    pytest.mark.usefixtures("production_site", "enforced_csp"),
+]
 
 
 @pytest.fixture
@@ -50,50 +63,29 @@ def resources(portal, project_detail):
     return data, responses, calls
 
 
-def enter(page, previous=False):
-    page.goto(
-        page.base
-        + "/proyectos/AER.001/"
-        + ("?vista=anterior" if previous else "")
+def approved(name, width, data):
+    reference = json.loads(
+        Path(f"tests/e2e/frozen/aer_resources/{name}-{width}.json").read_text(
+            encoding="utf-8"
+        )
     )
-    page.locator(".aer-tabs").get_by_role(
-        "button", name="Recursos", exact=True
-    ).click()
-    expect(page.locator(".aer-eval-kpis")).to_be_visible()
+    assert reference["source"] == "approved_current_design"
+    assert reference["viewport"] == {"width": width, "height": 1000}
+    assert reference["input_sha256"] == input_digest(data)
+    return reference["state"]
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
 @pytest.mark.parametrize("variant", ["full", "empty", "selected"])
-def test_view_matches_previous(portal, resources, fixed_day, width, variant):
+def test_view_keeps_current_design(
+    portal, resources, fixed_day, width, variant
+):
     data, _, _ = resources
-    if variant == "empty":
-        data.update(
-            {
-                "evaluaciones": {},
-                "detalleRecursos": [],
-                "plan": {},
-                "vacaciones": {},
-            }
-        )
+    prepare(data, variant)
     portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/aer_resources")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    states = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        if variant == "selected":
-            portal.locator(".aer-eval-select").select_option("Beto")
-        portal.mouse.move(0, 0)
-        states.append(state(portal, ".aer-vivid-grid, .aer-vivid-grid *"))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
+    expected = approved(f"view-{variant}", width, data)
+    actual = measure_view(portal, variant)
+    assert actual == expected
     assert (
         portal.locator(
             ".aer-vivid-grid [onchange], .aer-vivid-grid [onclick]"
@@ -104,22 +96,11 @@ def test_view_matches_previous(portal, resources, fixed_day, width, variant):
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
 @pytest.mark.parametrize("uid", ["", "e1"])
-def test_editor_matches_previous(portal, resources, fixed_day, width, uid):
+def test_editor_keeps_current_design(portal, resources, fixed_day, width, uid):
     portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.evaluate("uid=>aerAbrirEvaluacion(uid)", uid)
-        portal.mouse.move(0, 0)
-        states.append(
-            (
-                state(portal, "#aer-modal-back, #aer-modal-back *"),
-                portal.locator("#aer-modal-back").evaluate(
-                    "r=>[...r.querySelectorAll('input,select,textarea')].map(x=>[x.id,x.value])"
-                ),
-            )
-        )
-    assert states[0] == states[1]
+    expected = approved(f"editor-{uid or 'new'}", width, resources[0])
+    actual = measure_editor(portal, uid)
+    assert actual == expected
     assert portal.locator("#aer-modal-back [onclick]").count() == 0
 
 

@@ -1,0 +1,4310 @@
+{
+  "schema": 1,
+  "source": "approved_current_design",
+  "base_commit": "1478793",
+  "viewport": {
+    "width": 1450,
+    "height": 1000
+  },
+  "input_sha256": "b2cc11e10415208ecb36332c91a319ad44b3cb045189098c8a5bcf1aacc4cc86",
+  "browser": "156.0.8078.48",
+  "platform": "Windows",
+  "state": [
+    {
+      "tag": "div",
+      "box": [
+        24,
+        290.5,
+        1402,
+        794
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "EvaluaciónderecursosSeguimientodeldesempeño,históricodeevaluacionesycomentarios.+Nuevaevaluación◉Recursosevaluados0Totaldelacélula▥Promediogeneral0/100sinevaluaciones◫Pendientesporevaluar0Requierenevaluación!Enobservación0Requiereseguimiento★Topperformers0DesempeñosobresalienteResumenporrecurso?SinrecursoRecursodelproyecto0/100CríticoCalidad0%Cumplimiento0%Comunicación0%Colaboración0%Autonomía0%FortalezasidentificadasSindatostodavíaHistóricodeevaluacionesÚltimas5evaluacionesregistradasSinhistórico.—Desempeño—Cambioperiodo—ÚltimaevaluaciónSinevaluacionesregistradas.Distribucióndedesempeño0recursosAltodesempeño0Sólido0Enseguimiento0Crítico0ComentariosrecientesSincomentarios.ÚltimasevaluacionesFechaRecursoEvaluadorResultadoEstadoSinevaluaciones.HistorialdetalladoEvaluacionespersistidasenAER_Evaluaciones.FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditarSinhistorial."
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        290.5,
+        1402,
+        157.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "EvaluaciónderecursosSeguimientodeldesempeño,históricodeevaluacionesycomentarios.+Nuevaevaluación◉Recursosevaluados0Totaldelacélula▥Promediogeneral0/100sinevaluaciones◫Pendientesporevaluar0Requierenevaluación!Enobservación0Requiereseguimiento★Topperformers0Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        303.5,
+        1374,
+        35.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "12px"
+      ],
+      "text": "EvaluaciónderecursosSeguimientodeldesempeño,históricodeevaluacionesycomentarios.+Nuevaevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        303.5,
+        324.7,
+        35.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "EvaluaciónderecursosSeguimientodeldesempeño,históricodeevaluacionesycomentarios."
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        303.5,
+        324.7,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Evaluaciónderecursos"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        325.2,
+        324.7,
+        13.6
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "13.65px",
+        "rgb(123, 116, 150)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Seguimientodeldesempeño,históricodeevaluacionesycomentarios."
+    },
+    {
+      "tag": "button",
+      "box": [
+        1289.3,
+        303.5,
+        122.7,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(255, 255, 255)",
+        "rgb(75, 37, 201)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "+Nuevaevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        350.8,
+        1374,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "12px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "◉Recursosevaluados0Totaldelacélula▥Promediogeneral0/100sinevaluaciones◫Pendientesporevaluar0Requierenevaluación!Enobservación0Requiereseguimiento★Topperformers0Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        350.8,
+        266.8,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "◉Recursosevaluados0Totaldelacélula"
+    },
+    {
+      "tag": "div",
+      "box": [
+        52,
+        363.8,
+        238.8,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "◉Recursosevaluados0Totaldelacélula"
+    },
+    {
+      "tag": "span",
+      "box": [
+        52,
+        375.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(90, 43, 215)",
+        "rgb(240, 234, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "◉"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        363.8,
+        105.7,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Recursosevaluados0Totaldelacélula"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        363.8,
+        105.7,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Recursosevaluados"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        378.6,
+        105.7,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        403,
+        105.7,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Totaldelacélula"
+    },
+    {
+      "tag": "div",
+      "box": [
+        314.8,
+        350.8,
+        266.8,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "▥Promediogeneral0/100sinevaluaciones"
+    },
+    {
+      "tag": "div",
+      "box": [
+        328.8,
+        363.8,
+        238.8,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "▥Promediogeneral0/100sinevaluaciones"
+    },
+    {
+      "tag": "span",
+      "box": [
+        328.8,
+        375.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(65, 101, 255)",
+        "rgb(237, 242, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "▥"
+    },
+    {
+      "tag": "div",
+      "box": [
+        362.8,
+        363.8,
+        94.8,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Promediogeneral0/100sinevaluaciones"
+    },
+    {
+      "tag": "div",
+      "box": [
+        362.8,
+        363.8,
+        94.8,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Promediogeneral"
+    },
+    {
+      "tag": "div",
+      "box": [
+        362.8,
+        378.6,
+        94.8,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0/100"
+    },
+    {
+      "tag": "div",
+      "box": [
+        362.8,
+        403,
+        94.8,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "sinevaluaciones"
+    },
+    {
+      "tag": "div",
+      "box": [
+        591.6,
+        350.8,
+        266.8,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "◫Pendientesporevaluar0Requierenevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        605.6,
+        363.8,
+        238.8,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "◫Pendientesporevaluar0Requierenevaluación"
+    },
+    {
+      "tag": "span",
+      "box": [
+        605.6,
+        375.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(228, 58, 84)",
+        "rgb(255, 236, 239)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "◫"
+    },
+    {
+      "tag": "div",
+      "box": [
+        639.6,
+        363.8,
+        124.3,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Pendientesporevaluar0Requierenevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        639.6,
+        363.8,
+        124.3,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Pendientesporevaluar"
+    },
+    {
+      "tag": "div",
+      "box": [
+        639.6,
+        378.6,
+        124.3,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        639.6,
+        403,
+        124.3,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Requierenevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        868.4,
+        350.8,
+        266.8,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "!Enobservación0Requiereseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        882.4,
+        363.8,
+        238.8,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "!Enobservación0Requiereseguimiento"
+    },
+    {
+      "tag": "span",
+      "box": [
+        882.4,
+        375.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(228, 58, 84)",
+        "rgb(255, 236, 239)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "!"
+    },
+    {
+      "tag": "div",
+      "box": [
+        916.4,
+        363.8,
+        84.6,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Enobservación0Requiereseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        916.4,
+        363.8,
+        84.6,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Enobservación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        916.4,
+        378.6,
+        84.6,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        916.4,
+        403,
+        84.6,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Requiereseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1145.2,
+        350.8,
+        266.8,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "★Topperformers0Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1159.2,
+        363.8,
+        238.8,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "★Topperformers0Desempeñosobresaliente"
+    },
+    {
+      "tag": "span",
+      "box": [
+        1159.2,
+        375.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(28, 160, 96)",
+        "rgb(232, 247, 239)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "★"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1193.2,
+        363.8,
+        100.4,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Topperformers0Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1193.2,
+        363.8,
+        100.4,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Topperformers"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1193.2,
+        378.6,
+        100.4,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1193.2,
+        403,
+        100.4,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        459.8,
+        1402,
+        357.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "Resumenporrecurso?SinrecursoRecursodelproyecto0/100CríticoCalidad0%Cumplimiento0%Comunicación0%Colaboración0%Autonomía0%FortalezasidentificadasSindatostodavíaHistóricodeevaluacionesÚltimas5evaluacionesregistradasSinhistórico.—Desempeño—Cambioperiodo—ÚltimaevaluaciónSinevaluacionesregistradas.Distribucióndedesempeño0recursosAltodesempeño0Sólido0Enseguimiento0Crítico0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        459.8,
+        468.5,
+        357.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Resumenporrecurso?SinrecursoRecursodelproyecto0/100CríticoCalidad0%Cumplimiento0%Comunicación0%Colaboración0%Autonomía0%FortalezasidentificadasSindatostodavía"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        472.8,
+        440.5,
+        32
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "Resumenporrecurso"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        472.8,
+        149,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Resumenporrecurso"
+    },
+    {
+      "tag": "select",
+      "box": [
+        288.5,
+        472.8,
+        190,
+        32
+      ],
+      "css": [
+        "10px",
+        "400",
+        "normal",
+        "rgb(43, 36, 86)",
+        "rgb(255, 255, 255)",
+        "none",
+        "7px",
+        "7px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        514.8,
+        440.5,
+        55
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "?SinrecursoRecursodelproyecto0/100Crítico"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        522.3,
+        133.7,
+        40
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "?SinrecursoRecursodelproyecto"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        522.3,
+        40,
+        40
+      ],
+      "css": [
+        "14px",
+        "900",
+        "normal",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(135deg, rgb(93, 45, 221), rgb(139, 97, 239))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "?"
+    },
+    {
+      "tag": "div",
+      "box": [
+        88,
+        527.8,
+        83.7,
+        29
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "SinrecursoRecursodelproyecto"
+    },
+    {
+      "tag": "b",
+      "box": [
+        88,
+        527.8,
+        83.7,
+        15
+      ],
+      "css": [
+        "11px",
+        "700",
+        "normal",
+        "rgb(33, 25, 79)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sinrecurso"
+    },
+    {
+      "tag": "small",
+      "box": [
+        88,
+        544.8,
+        83.7,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(129, 122, 153)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "2px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Recursodelproyecto"
+    },
+    {
+      "tag": "div",
+      "box": [
+        418.1,
+        514.8,
+        60.4,
+        55
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0/100Crítico"
+    },
+    {
+      "tag": "b",
+      "box": [
+        418.1,
+        514.8,
+        60.4,
+        30
+      ],
+      "css": [
+        "22px",
+        "700",
+        "normal",
+        "rgb(22, 138, 86)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0/100"
+    },
+    {
+      "tag": "span",
+      "box": [
+        434.1,
+        548.8,
+        44.4,
+        21
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "normal",
+        "rgb(22, 138, 86)",
+        "rgb(232, 247, 239)",
+        "none",
+        "5px",
+        "5px",
+        "4px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Crítico"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        579.8,
+        440.5,
+        88
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "7px"
+      ],
+      "text": "Calidad0%Cumplimiento0%Comunicación0%Colaboración0%Autonomía0%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        579.8,
+        440.5,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Calidad0%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        579.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Calidad"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        581.3,
+        300.5,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        581.3,
+        0,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        442.5,
+        579.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        598.8,
+        440.5,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Cumplimiento0%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        598.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Cumplimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        600.3,
+        300.5,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        600.3,
+        0,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        442.5,
+        598.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        617.8,
+        440.5,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Comunicación0%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        617.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Comunicación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        619.3,
+        300.5,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        619.3,
+        0,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        442.5,
+        617.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        636.8,
+        440.5,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Colaboración0%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        636.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Colaboración"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        638.3,
+        300.5,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        638.3,
+        0,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        442.5,
+        636.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        655.8,
+        440.5,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Autonomía0%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        655.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Autonomía"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        657.3,
+        300.5,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        657.3,
+        0,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        442.5,
+        655.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        677.8,
+        440.5,
+        66
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(246, 243, 255)",
+        "none",
+        "10px",
+        "10px",
+        "10px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "FortalezasidentificadasSindatostodavía"
+    },
+    {
+      "tag": "b",
+      "box": [
+        48,
+        690.8,
+        110.5,
+        14
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "Fortalezasidentificadas"
+    },
+    {
+      "tag": "div",
+      "box": [
+        48,
+        711.8,
+        420.5,
+        22
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "flex",
+        "6px"
+      ],
+      "text": "Sindatostodavía"
+    },
+    {
+      "tag": "span",
+      "box": [
+        48,
+        711.8,
+        91,
+        22
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 139, 88)",
+        "rgb(223, 245, 232)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sindatostodavía"
+    },
+    {
+      "tag": "div",
+      "box": [
+        504.5,
+        459.8,
+        496.1,
+        357.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HistóricodeevaluacionesÚltimas5evaluacionesregistradasSinhistórico.—Desempeño—Cambioperiodo—ÚltimaevaluaciónSinevaluacionesregistradas."
+    },
+    {
+      "tag": "div",
+      "box": [
+        518.5,
+        472.8,
+        468.1,
+        31.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "HistóricodeevaluacionesÚltimas5evaluacionesregistradas"
+    },
+    {
+      "tag": "div",
+      "box": [
+        518.5,
+        472.8,
+        179.6,
+        31.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HistóricodeevaluacionesÚltimas5evaluacionesregistradas"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        518.5,
+        472.8,
+        179.6,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Históricodeevaluaciones"
+    },
+    {
+      "tag": "div",
+      "box": [
+        518.5,
+        490.5,
+        179.6,
+        13.6
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "13.65px",
+        "rgb(123, 116, 146)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Últimas5evaluacionesregistradas"
+    },
+    {
+      "tag": "div",
+      "box": [
+        518.5,
+        514.1,
+        468.1,
+        160
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "10px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sinhistórico."
+    },
+    {
+      "tag": "div",
+      "box": [
+        519.5,
+        514.1,
+        467.1,
+        13.6
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "13.65px",
+        "rgb(119, 116, 137)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sinhistórico."
+    },
+    {
+      "tag": "div",
+      "box": [
+        518.5,
+        680.1,
+        468.1,
+        0
+      ],
+      "css": [
+        "8px",
+        "400",
+        "normal",
+        "rgb(131, 123, 154)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "6px",
+        "0px",
+        "flex",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        518.5,
+        692.1,
+        468.1,
+        49
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "12px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "—Desempeño—Cambioperiodo—Últimaevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        518.5,
+        692.1,
+        150.7,
+        49
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(247, 245, 252)",
+        "none",
+        "10px",
+        "10px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "—Desempeño"
+    },
+    {
+      "tag": "b",
+      "box": [
+        528.5,
+        702.1,
+        130.7,
+        15
+      ],
+      "css": [
+        "11px",
+        "700",
+        "normal",
+        "rgb(91, 43, 213)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "—"
+    },
+    {
+      "tag": "span",
+      "box": [
+        528.5,
+        720.1,
+        130.7,
+        11
+      ],
+      "css": [
+        "8.5px",
+        "400",
+        "normal",
+        "rgb(127, 119, 150)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Desempeño"
+    },
+    {
+      "tag": "div",
+      "box": [
+        677.2,
+        692.1,
+        150.7,
+        49
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(247, 245, 252)",
+        "none",
+        "10px",
+        "10px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "—Cambioperiodo"
+    },
+    {
+      "tag": "b",
+      "box": [
+        687.2,
+        702.1,
+        130.7,
+        15
+      ],
+      "css": [
+        "11px",
+        "700",
+        "normal",
+        "rgb(91, 43, 213)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "—"
+    },
+    {
+      "tag": "span",
+      "box": [
+        687.2,
+        720.1,
+        130.7,
+        11
+      ],
+      "css": [
+        "8.5px",
+        "400",
+        "normal",
+        "rgb(127, 119, 150)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Cambioperiodo"
+    },
+    {
+      "tag": "div",
+      "box": [
+        835.9,
+        692.1,
+        150.7,
+        49
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(247, 245, 252)",
+        "none",
+        "10px",
+        "10px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "—Últimaevaluación"
+    },
+    {
+      "tag": "b",
+      "box": [
+        845.9,
+        702.1,
+        130.7,
+        15
+      ],
+      "css": [
+        "11px",
+        "700",
+        "normal",
+        "rgb(91, 43, 213)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "—"
+    },
+    {
+      "tag": "span",
+      "box": [
+        845.9,
+        720.1,
+        130.7,
+        11
+      ],
+      "css": [
+        "8.5px",
+        "400",
+        "normal",
+        "rgb(127, 119, 150)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Últimaevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        518.5,
+        750.1,
+        468.1,
+        16.6
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "9px",
+        "0px",
+        "grid",
+        "6px"
+      ],
+      "text": "Sinevaluacionesregistradas."
+    },
+    {
+      "tag": "div",
+      "box": [
+        518.5,
+        753.1,
+        468.1,
+        13.6
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "13.65px",
+        "rgb(119, 116, 137)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sinevaluacionesregistradas."
+    },
+    {
+      "tag": "div",
+      "box": [
+        1012.6,
+        459.8,
+        413.4,
+        357.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Distribucióndedesempeño0recursosAltodesempeño0Sólido0Enseguimiento0Crítico0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1026.6,
+        472.8,
+        385.4,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "Distribucióndedesempeño"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1026.6,
+        472.8,
+        193.3,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Distribucióndedesempeño"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        1026.6,
+        472.8,
+        193.3,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Distribucióndedesempeño"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1026.6,
+        500.5,
+        385.4,
+        304
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "4px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "0recursosAltodesempeño0Sólido0Enseguimiento0Crítico0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1125.3,
+        508.5,
+        188,
+        188
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "conic-gradient(rgb(57, 191, 121) 0deg, rgb(57, 191, 121) 0%, rgb(115, 80, 233) 0%, rgb(115, 80, 233) 0%, rgb(244, 189, 62) 0%, rgb(244, 189, 62) 0%, rgb(230, 74, 93) 0%, rgb(230, 74, 93) 100%)",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "0recursos"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1197.2,
+        580.5,
+        44.2,
+        44
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0recursos"
+    },
+    {
+      "tag": "b",
+      "box": [
+        1197.2,
+        580.5,
+        44.2,
+        27
+      ],
+      "css": [
+        "20px",
+        "700",
+        "normal",
+        "rgb(24, 19, 76)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "small",
+      "box": [
+        1197.2,
+        608.5,
+        44.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "recursos"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1026.6,
+        706.5,
+        385.4,
+        94
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Altodesempeño0Sólido0Enseguimiento0Crítico0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        1026.6,
+        706.5,
+        385.4,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Altodesempeño0"
+    },
+    {
+      "tag": "span",
+      "box": [
+        1026.6,
+        706.5,
+        358.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(49, 42, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "9px"
+      ],
+      "text": "Altodesempeño"
+    },
+    {
+      "tag": "i",
+      "box": [
+        1026.6,
+        708.5,
+        12,
+        12
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgb(57, 191, 121)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        1394.8,
+        706.5,
+        7.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "i",
+      "box": [
+        1412,
+        714.5,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        1026.6,
+        732.5,
+        385.4,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Sólido0"
+    },
+    {
+      "tag": "span",
+      "box": [
+        1026.6,
+        732.5,
+        358.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(49, 42, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "9px"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "i",
+      "box": [
+        1026.6,
+        734.5,
+        12,
+        12
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgb(115, 80, 233)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        1394.8,
+        732.5,
+        7.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "i",
+      "box": [
+        1412,
+        740.5,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        1026.6,
+        758.5,
+        385.4,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Enseguimiento0"
+    },
+    {
+      "tag": "span",
+      "box": [
+        1026.6,
+        758.5,
+        358.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(49, 42, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "9px"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "i",
+      "box": [
+        1026.6,
+        760.5,
+        12,
+        12
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgb(244, 189, 62)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        1394.8,
+        758.5,
+        7.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "i",
+      "box": [
+        1412,
+        766.5,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        1026.6,
+        784.5,
+        385.4,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Crítico0"
+    },
+    {
+      "tag": "span",
+      "box": [
+        1026.6,
+        784.5,
+        358.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(49, 42, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "9px"
+      ],
+      "text": "Crítico"
+    },
+    {
+      "tag": "i",
+      "box": [
+        1026.6,
+        786.5,
+        12,
+        12
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgb(230, 74, 93)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        1394.8,
+        784.5,
+        7.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "i",
+      "box": [
+        1412,
+        792.5,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        829.5,
+        1402,
+        114.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "ComentariosrecientesSincomentarios.ÚltimasevaluacionesFechaRecursoEvaluadorResultadoEstadoSinevaluaciones."
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        829.5,
+        646.5,
+        114.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "ComentariosrecientesSincomentarios."
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        842.5,
+        618.5,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "Comentariosrecientes"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        842.5,
+        156.8,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Comentariosrecientes"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        870.2,
+        618.5,
+        16.6
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "4px"
+      ],
+      "text": "Sincomentarios."
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        873.2,
+        618.5,
+        13.6
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "13.65px",
+        "rgb(119, 116, 137)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sincomentarios."
+    },
+    {
+      "tag": "div",
+      "box": [
+        682.5,
+        829.5,
+        743.5,
+        114.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "ÚltimasevaluacionesFechaRecursoEvaluadorResultadoEstadoSinevaluaciones."
+    },
+    {
+      "tag": "div",
+      "box": [
+        696.5,
+        842.5,
+        715.5,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "Últimasevaluaciones"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        696.5,
+        842.5,
+        147.7,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Últimasevaluaciones"
+    },
+    {
+      "tag": "table",
+      "box": [
+        696.5,
+        870.2,
+        715.5,
+        61
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table",
+        "normal"
+      ],
+      "text": "FechaRecursoEvaluadorResultadoEstadoSinevaluaciones."
+    },
+    {
+      "tag": "thead",
+      "box": [
+        696.5,
+        870.2,
+        715.5,
+        31.5
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-header-group",
+        "normal"
+      ],
+      "text": "FechaRecursoEvaluadorResultadoEstado"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        696.5,
+        870.2,
+        715.5,
+        31.5
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "FechaRecursoEvaluadorResultadoEstado"
+    },
+    {
+      "tag": "th",
+      "box": [
+        696.5,
+        870.2,
+        103.4,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Fecha"
+    },
+    {
+      "tag": "th",
+      "box": [
+        799.9,
+        870.2,
+        134.8,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Recurso"
+    },
+    {
+      "tag": "th",
+      "box": [
+        934.7,
+        870.2,
+        167,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Evaluador"
+    },
+    {
+      "tag": "th",
+      "box": [
+        1101.7,
+        870.2,
+        161.1,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Resultado"
+    },
+    {
+      "tag": "th",
+      "box": [
+        1262.8,
+        870.2,
+        118.8,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Estado"
+    },
+    {
+      "tag": "th",
+      "box": [
+        1381.6,
+        870.2,
+        30.4,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "tbody",
+      "box": [
+        696.5,
+        901.7,
+        715.5,
+        29
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row-group",
+        "normal"
+      ],
+      "text": "Sinevaluaciones."
+    },
+    {
+      "tag": "tr",
+      "box": [
+        696.5,
+        901.7,
+        715.5,
+        29
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "Sinevaluaciones."
+    },
+    {
+      "tag": "td",
+      "box": [
+        696.5,
+        901.7,
+        715.5,
+        29
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Sinevaluaciones."
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        956.2,
+        1402,
+        128.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HistorialdetalladoEvaluacionespersistidasenAER_Evaluaciones.FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditarSinhistorial."
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        969.2,
+        1374,
+        31.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "HistorialdetalladoEvaluacionespersistidasenAER_Evaluaciones."
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        969.2,
+        211.8,
+        31.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HistorialdetalladoEvaluacionespersistidasenAER_Evaluaciones."
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        969.2,
+        211.8,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Historialdetallado"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        986.9,
+        211.8,
+        13.6
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "13.65px",
+        "rgb(123, 116, 146)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "EvaluacionespersistidasenAER_Evaluaciones."
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1010.5,
+        1374,
+        61
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditarSinhistorial."
+    },
+    {
+      "tag": "table",
+      "box": [
+        38,
+        1010.5,
+        1374,
+        61
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table",
+        "normal"
+      ],
+      "text": "FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditarSinhistorial."
+    },
+    {
+      "tag": "thead",
+      "box": [
+        38,
+        1010.5,
+        1374,
+        31.5
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-header-group",
+        "normal"
+      ],
+      "text": "FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditar"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        1010.5,
+        1374,
+        31.5
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditar"
+    },
+    {
+      "tag": "th",
+      "box": [
+        38,
+        1010.5,
+        108,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Fecha"
+    },
+    {
+      "tag": "th",
+      "box": [
+        146,
+        1010.5,
+        140.8,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Recurso"
+    },
+    {
+      "tag": "th",
+      "box": [
+        286.9,
+        1010.5,
+        137.8,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Periodo"
+    },
+    {
+      "tag": "th",
+      "box": [
+        424.7,
+        1010.5,
+        174.5,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Evaluador"
+    },
+    {
+      "tag": "th",
+      "box": [
+        599.1,
+        1010.5,
+        107.4,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Score"
+    },
+    {
+      "tag": "th",
+      "box": [
+        706.5,
+        1010.5,
+        165.8,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Categoría"
+    },
+    {
+      "tag": "th",
+      "box": [
+        872.3,
+        1010.5,
+        191.3,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Comentario"
+    },
+    {
+      "tag": "th",
+      "box": [
+        1063.6,
+        1010.5,
+        232.3,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Plandeacción"
+    },
+    {
+      "tag": "th",
+      "box": [
+        1295.8,
+        1010.5,
+        116.2,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Editar"
+    },
+    {
+      "tag": "tbody",
+      "box": [
+        38,
+        1042,
+        1374,
+        29
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row-group",
+        "normal"
+      ],
+      "text": "Sinhistorial."
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        1042,
+        1374,
+        29
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "Sinhistorial."
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        1042,
+        1374,
+        29
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Sinhistorial."
+    }
+  ]
+}

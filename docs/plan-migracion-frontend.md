@@ -9,9 +9,19 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Último bloque, base 1478793:** Recursos AER conserva el diseño actual
+mediante 15 referencias: nueve estados de la pestaña y seis formularios a
+1450/900/390. Las 18 pruebas del archivo pasan con CSP, config.urls y sin
+carpetas de referencia. Guardar/reintentar/eliminar, selección, texto seguro
+y respuestas tardías siguen activos. 473 Node aprobadas. No se modificó
+ningún archivo de apps/ o frontend/. Quince capturas reproducidas byte por byte; dos alteraciones de DOM
+detectadas (geometría y valor de formulario). Seguir otros bloques
+de navegador usando el diseño actual; fase 11 abierta, sin push.
+
 **Criterio vigente por instrucción del usuario:** conservar el diseño actual
 aprobado, sin cambios en HTML/CSS/JS de la aplicación para igualarlo al old.
-Las referencias visuales se capturan de la pantalla actual sobre 0dbb3f7.
+Las referencias visuales se capturan del diseño actual; la base de cada
+bloque queda registrada en sus archivos y evidencia.
 Las expectativas originales de Node validan funcionamiento/cálculos, no
 imponen el aspecto antiguo. El piloto AER se actualiza a este criterio;
 los demás tests visuales anteriores requieren clasificación antes de seguir.

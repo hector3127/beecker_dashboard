@@ -1,0 +1,974 @@
+{
+  "schema": 1,
+  "source": "approved_current_design",
+  "base_commit": "1478793",
+  "viewport": {
+    "width": 900,
+    "height": 1000
+  },
+  "input_sha256": "4867ad3e223a3efa4a92335b577496db6d4fedd91aa29c06dc6fc29979ff41e3",
+  "browser": "156.0.8078.48",
+  "platform": "Windows",
+  "state": {
+    "elements": [
+      {
+        "tag": "div",
+        "box": [
+          0,
+          0,
+          900,
+          1000
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(20, 12, 55, 0.46)",
+          "none",
+          "20px",
+          "20px",
+          "0px",
+          "0px",
+          "flex",
+          "normal"
+        ],
+        "text": "Editarevaluación✕RecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoeEvaluadorFechaevaluaciónPróximaevaluaciónCalidadCumplimientoComunicaciónColaboraciónAutonomíaComentarioComentario1PlandeacciónSeguimientoEliminarGuardarevaluación"
+      },
+      {
+        "tag": "div",
+        "box": [
+          90,
+          181.8,
+          720,
+          636.4
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgb(255, 255, 255)",
+          "none",
+          "18px",
+          "18px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Editarevaluación✕RecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoeEvaluadorFechaevaluaciónPróximaevaluaciónCalidadCumplimientoComunicaciónColaboraciónAutonomíaComentarioComentario1PlandeacciónSeguimientoEliminarGuardarevaluación"
+      },
+      {
+        "tag": "div",
+        "box": [
+          108,
+          199.8,
+          684,
+          62.4
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "flex",
+          "normal"
+        ],
+        "text": "Editarevaluación✕"
+      },
+      {
+        "tag": "h3",
+        "box": [
+          108,
+          218.5,
+          150.6,
+          25
+        ],
+        "css": [
+          "18.72px",
+          "700",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "18.72px",
+          "18.72px",
+          "block",
+          "normal"
+        ],
+        "text": "Editarevaluación"
+      },
+      {
+        "tag": "button",
+        "box": [
+          761.8,
+          199.8,
+          30.2,
+          62.4
+        ],
+        "css": [
+          "10px",
+          "700",
+          "normal",
+          "rgb(56, 32, 111)",
+          "rgb(255, 255, 255)",
+          "none",
+          "7px",
+          "7px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "✕"
+      },
+      {
+        "tag": "div",
+        "box": [
+          108,
+          262.2,
+          684,
+          496
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "grid",
+          "10px"
+        ],
+        "text": "RecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoeEvaluadorFechaevaluaciónPróximaevaluaciónCalidadCumplimientoComunicaciónColaboraciónAutonomíaComentarioComentario1PlandeacciónSeguimiento"
+      },
+      {
+        "tag": "label",
+        "box": [
+          108,
+          262.2,
+          337,
+          52
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "RecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoe"
+      },
+      {
+        "tag": "select",
+        "box": [
+          108,
+          280.2,
+          337,
+          34
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": "AnaAnaLópezBetocarlosCarlosSinrecursoZoe"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Ana"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "AnaLópez"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Beto"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "carlos"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Carlos"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Sinrecurso"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Zoe"
+      },
+      {
+        "tag": "label",
+        "box": [
+          455,
+          262.2,
+          337,
+          52
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Evaluador"
+      },
+      {
+        "tag": "input",
+        "box": [
+          455,
+          280.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          108,
+          324.2,
+          337,
+          52
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Fechaevaluación"
+      },
+      {
+        "tag": "input",
+        "box": [
+          108,
+          342.2,
+          337,
+          34
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          455,
+          324.2,
+          337,
+          52
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Próximaevaluación"
+      },
+      {
+        "tag": "input",
+        "box": [
+          455,
+          342.2,
+          337,
+          34
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          108,
+          386.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Calidad"
+      },
+      {
+        "tag": "input",
+        "box": [
+          108,
+          404.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          455,
+          386.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Cumplimiento"
+      },
+      {
+        "tag": "input",
+        "box": [
+          455,
+          404.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          108,
+          446.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Comunicación"
+      },
+      {
+        "tag": "input",
+        "box": [
+          108,
+          464.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          455,
+          446.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Colaboración"
+      },
+      {
+        "tag": "input",
+        "box": [
+          455,
+          464.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          108,
+          506.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Autonomía"
+      },
+      {
+        "tag": "input",
+        "box": [
+          108,
+          524.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          108,
+          566.2,
+          684,
+          91
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "ComentarioComentario1"
+      },
+      {
+        "tag": "textarea",
+        "box": [
+          108,
+          584.2,
+          684,
+          70
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": "Comentario1"
+      },
+      {
+        "tag": "label",
+        "box": [
+          108,
+          667.2,
+          684,
+          91
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "PlandeacciónSeguimiento"
+      },
+      {
+        "tag": "textarea",
+        "box": [
+          108,
+          685.2,
+          684,
+          70
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": "Seguimiento"
+      },
+      {
+        "tag": "div",
+        "box": [
+          108,
+          770.2,
+          684,
+          30
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "12px",
+          "0px",
+          "flex",
+          "7px"
+        ],
+        "text": "EliminarGuardarevaluación"
+      },
+      {
+        "tag": "button",
+        "box": [
+          613.6,
+          770.2,
+          60.4,
+          30
+        ],
+        "css": [
+          "10px",
+          "700",
+          "normal",
+          "rgb(198, 40, 66)",
+          "rgb(255, 246, 247)",
+          "none",
+          "7px",
+          "7px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Eliminar"
+      },
+      {
+        "tag": "button",
+        "box": [
+          681.1,
+          770.2,
+          110.9,
+          30
+        ],
+        "css": [
+          "10px",
+          "700",
+          "normal",
+          "rgb(255, 255, 255)",
+          "rgba(0, 0, 0, 0)",
+          "linear-gradient(90deg, rgb(53, 20, 185), rgb(116, 49, 232))",
+          "7px",
+          "7px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Guardarevaluación"
+      }
+    ],
+    "values": [
+      [
+        "ae-rec",
+        "Ana"
+      ],
+      [
+        "ae-eval",
+        "DM"
+      ],
+      [
+        "ae-fecha",
+        "2026-10-02"
+      ],
+      [
+        "ae-prox",
+        "2026-11-01"
+      ],
+      [
+        "ae-cal",
+        "95"
+      ],
+      [
+        "ae-cum",
+        "80"
+      ],
+      [
+        "ae-comu",
+        "70"
+      ],
+      [
+        "ae-col",
+        "90"
+      ],
+      [
+        "ae-aut",
+        "60"
+      ],
+      [
+        "ae-com",
+        "Comentario 1"
+      ],
+      [
+        "ae-plan",
+        "Seguimiento"
+      ]
+    ]
+  }
+}

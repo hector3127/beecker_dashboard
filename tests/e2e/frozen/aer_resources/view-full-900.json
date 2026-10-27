@@ -1,0 +1,9062 @@
+{
+  "schema": 1,
+  "source": "approved_current_design",
+  "base_commit": "1478793",
+  "viewport": {
+    "width": 900,
+    "height": 1000
+  },
+  "input_sha256": "4867ad3e223a3efa4a92335b577496db6d4fedd91aa29c06dc6fc29979ff41e3",
+  "browser": "156.0.8078.48",
+  "platform": "Windows",
+  "state": [
+    {
+      "tag": "div",
+      "box": [
+        24,
+        290.5,
+        852,
+        2538.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "EvaluaciónderecursosSeguimientodeldesempeño,históricodeevaluacionesycomentarios.+Nuevaevaluación◉Recursosevaluados2Totaldelacélula▥Promediogeneral88/100últimaevaluaciónporrecurso◫Pendientesporevaluar5Requierenevaluación!Enobservación0Requiereseguimiento★Topperformers1DesempeñosobresalienteResumenporrecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoeAAnaRecursodelproyecto85/100SólidoCalidad95%Cumplimiento80%Comunicación70%Colaboración90%Autonomía60%FortalezasidentificadasCalidad95%Colaboración90%Cumplimiento80%HistóricodeevaluacionesÚltimas5evaluacionesregistradas707580859003/10/202604/10/202605/10/202606/10/202607/10/2026TendenciapositivaDesempeño+20ptsCambioperiodo07/10/2026Últimaevaluación07/10/2026Beto90/10006/10/2026Ana85/10005/10/2026Beto80/10004/10/2026Ana75/10003/10/2026Beto70/100Distribucióndedesempeño2recursosAltodesempeño1Sólido1Enseguimiento0Crítico0Próximaevaluación01/11/2026Beto·Responsable:DMComentariosrecientes07/10/2026Beto“Comentario6”Altodesempeño06/10/2026Ana“Comentario5”Sólido05/10/2026Beto“Comentario4”Sólido04/10/2026Ana“Comentario3”Enseguimiento03/10/2026Beto“Comentario2”EnseguimientoÚltimasevaluacionesFechaRecursoEvaluadorResultadoEstado07/10/2026BetoDM90/100Altodesempeño⋯06/10/2026AnaDM85/100Sólido⋯05/10/2026BetoDM80/100Sólido⋯04/10/2026AnaDM75/100Enseguimiento⋯03/10/2026BetoDM70/100Enseguimiento⋯HistorialdetalladoEvaluacionespersistidasenAER_Evaluaciones.FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditar07/10/2026BetoOctubreDM90/100AltodesempeñoComentario6Seguimiento✎06/10/2026AnaOctubreDM85/100SólidoComentario5Seguimiento✎05/10/2026BetoOctubreDM80/100SólidoComentario4Seguimiento✎04/10/2026AnaOctubreDM75/100EnseguimientoComentario3Seguimiento✎03/10/2026BetoOctubreDM70/100EnseguimientoComentario2Seguimiento✎02/10/2026AnaOctubreDM65/100CríticoComentario1Seguimiento✎01/10/2026BetoOctubreDM60/100CríticoComentario0Seguimiento✎"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        290.5,
+        852,
+        251.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "EvaluaciónderecursosSeguimientodeldesempeño,históricodeevaluacionesycomentarios.+Nuevaevaluación◉Recursosevaluados2Totaldelacélula▥Promediogeneral88/100últimaevaluaciónporrecurso◫Pendientesporevaluar5Requierenevaluación!Enobservación0Requiereseguimiento★Topperformers1Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        303.5,
+        824,
+        35.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "12px"
+      ],
+      "text": "EvaluaciónderecursosSeguimientodeldesempeño,históricodeevaluacionesycomentarios.+Nuevaevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        303.5,
+        324.7,
+        35.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "EvaluaciónderecursosSeguimientodeldesempeño,históricodeevaluacionesycomentarios."
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        303.5,
+        324.7,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Evaluaciónderecursos"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        325.2,
+        324.7,
+        13.6
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "13.65px",
+        "rgb(123, 116, 150)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Seguimientodeldesempeño,históricodeevaluacionesycomentarios."
+    },
+    {
+      "tag": "button",
+      "box": [
+        739.3,
+        303.5,
+        122.7,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(255, 255, 255)",
+        "rgb(75, 37, 201)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "+Nuevaevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        350.8,
+        824,
+        178
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "12px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "◉Recursosevaluados2Totaldelacélula▥Promediogeneral88/100últimaevaluaciónporrecurso◫Pendientesporevaluar5Requierenevaluación!Enobservación0Requiereseguimiento★Topperformers1Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        350.8,
+        268,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "◉Recursosevaluados2Totaldelacélula"
+    },
+    {
+      "tag": "div",
+      "box": [
+        52,
+        363.8,
+        240,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "◉Recursosevaluados2Totaldelacélula"
+    },
+    {
+      "tag": "span",
+      "box": [
+        52,
+        375.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(90, 43, 215)",
+        "rgb(240, 234, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "◉"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        363.8,
+        105.7,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Recursosevaluados2Totaldelacélula"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        363.8,
+        105.7,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Recursosevaluados"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        378.6,
+        105.7,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        403,
+        105.7,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Totaldelacélula"
+    },
+    {
+      "tag": "div",
+      "box": [
+        316,
+        350.8,
+        268,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "▥Promediogeneral88/100últimaevaluaciónporrecurso"
+    },
+    {
+      "tag": "div",
+      "box": [
+        330,
+        363.8,
+        240,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "▥Promediogeneral88/100últimaevaluaciónporrecurso"
+    },
+    {
+      "tag": "span",
+      "box": [
+        330,
+        375.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(65, 101, 255)",
+        "rgb(237, 242, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "▥"
+    },
+    {
+      "tag": "div",
+      "box": [
+        364,
+        363.8,
+        114.8,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Promediogeneral88/100últimaevaluaciónporrecurso"
+    },
+    {
+      "tag": "div",
+      "box": [
+        364,
+        363.8,
+        114.8,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Promediogeneral"
+    },
+    {
+      "tag": "div",
+      "box": [
+        364,
+        378.6,
+        114.8,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "88/100"
+    },
+    {
+      "tag": "div",
+      "box": [
+        364,
+        403,
+        114.8,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "últimaevaluaciónporrecurso"
+    },
+    {
+      "tag": "div",
+      "box": [
+        594,
+        350.8,
+        268,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "◫Pendientesporevaluar5Requierenevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        608,
+        363.8,
+        240,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "◫Pendientesporevaluar5Requierenevaluación"
+    },
+    {
+      "tag": "span",
+      "box": [
+        608,
+        375.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(228, 58, 84)",
+        "rgb(255, 236, 239)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "◫"
+    },
+    {
+      "tag": "div",
+      "box": [
+        642,
+        363.8,
+        124.3,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Pendientesporevaluar5Requierenevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        642,
+        363.8,
+        124.3,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Pendientesporevaluar"
+    },
+    {
+      "tag": "div",
+      "box": [
+        642,
+        378.6,
+        124.3,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "5"
+    },
+    {
+      "tag": "div",
+      "box": [
+        642,
+        403,
+        124.3,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Requierenevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        444.8,
+        268,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "!Enobservación0Requiereseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        52,
+        457.8,
+        240,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "!Enobservación0Requiereseguimiento"
+    },
+    {
+      "tag": "span",
+      "box": [
+        52,
+        469.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(228, 58, 84)",
+        "rgb(255, 236, 239)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "!"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        457.8,
+        84.6,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Enobservación0Requiereseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        457.8,
+        84.6,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Enobservación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        472.6,
+        84.6,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        86,
+        497,
+        84.6,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Requiereseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        316,
+        444.8,
+        268,
+        84
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(rgb(255, 255, 255), rgb(251, 250, 255))",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "★Topperformers1Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        330,
+        457.8,
+        240,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "7px"
+      ],
+      "text": "★Topperformers1Desempeñosobresaliente"
+    },
+    {
+      "tag": "span",
+      "box": [
+        330,
+        469.3,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(28, 160, 96)",
+        "rgb(232, 247, 239)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "★"
+    },
+    {
+      "tag": "div",
+      "box": [
+        364,
+        457.8,
+        100.4,
+        50
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Topperformers1Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        364,
+        457.8,
+        100.4,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "9.856px",
+        "rgb(93, 88, 119)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Topperformers"
+    },
+    {
+      "tag": "div",
+      "box": [
+        364,
+        472.6,
+        100.4,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "900",
+        "21.42px",
+        "rgb(24, 19, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "1"
+    },
+    {
+      "tag": "div",
+      "box": [
+        364,
+        497,
+        100.4,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(115, 107, 144)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Desempeñosobresaliente"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        553.8,
+        852,
+        1211.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "ResumenporrecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoeAAnaRecursodelproyecto85/100SólidoCalidad95%Cumplimiento80%Comunicación70%Colaboración90%Autonomía60%FortalezasidentificadasCalidad95%Colaboración90%Cumplimiento80%HistóricodeevaluacionesÚltimas5evaluacionesregistradas707580859003/10/202604/10/202605/10/202606/10/202607/10/2026TendenciapositivaDesempeño+20ptsCambioperiodo07/10/2026Últimaevaluación07/10/2026Beto90/10006/10/2026Ana85/10005/10/2026Beto80/10004/10/2026Ana75/10003/10/2026Beto70/100Distribucióndedesempeño2recursosAltodesempeño1Sólido1Enseguimiento0Crítico0Próximaevaluación01/11/2026Beto·Responsable:DM"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        553.8,
+        852,
+        297
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "ResumenporrecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoeAAnaRecursodelproyecto85/100SólidoCalidad95%Cumplimiento80%Comunicación70%Colaboración90%Autonomía60%FortalezasidentificadasCalidad95%Colaboración90%Cumplimiento80%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        566.8,
+        824,
+        32
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "ResumenporrecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoe"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        566.8,
+        149,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Resumenporrecurso"
+    },
+    {
+      "tag": "select",
+      "box": [
+        672,
+        566.8,
+        190,
+        32
+      ],
+      "css": [
+        "10px",
+        "400",
+        "normal",
+        "rgb(43, 36, 86)",
+        "rgb(255, 255, 255)",
+        "none",
+        "7px",
+        "7px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "AnaAnaLópezBetocarlosCarlosSinrecursoZoe"
+    },
+    {
+      "tag": "option",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "10px",
+        "400",
+        "normal",
+        "rgb(43, 36, 86)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "1px",
+        "0px",
+        "0px",
+        "block",
+        "5px"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "option",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "10px",
+        "400",
+        "normal",
+        "rgb(43, 36, 86)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "1px",
+        "0px",
+        "0px",
+        "block",
+        "5px"
+      ],
+      "text": "AnaLópez"
+    },
+    {
+      "tag": "option",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "10px",
+        "400",
+        "normal",
+        "rgb(43, 36, 86)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "1px",
+        "0px",
+        "0px",
+        "block",
+        "5px"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "option",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "10px",
+        "400",
+        "normal",
+        "rgb(43, 36, 86)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "1px",
+        "0px",
+        "0px",
+        "block",
+        "5px"
+      ],
+      "text": "carlos"
+    },
+    {
+      "tag": "option",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "10px",
+        "400",
+        "normal",
+        "rgb(43, 36, 86)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "1px",
+        "0px",
+        "0px",
+        "block",
+        "5px"
+      ],
+      "text": "Carlos"
+    },
+    {
+      "tag": "option",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "10px",
+        "400",
+        "normal",
+        "rgb(43, 36, 86)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "1px",
+        "0px",
+        "0px",
+        "block",
+        "5px"
+      ],
+      "text": "Sinrecurso"
+    },
+    {
+      "tag": "option",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "css": [
+        "10px",
+        "400",
+        "normal",
+        "rgb(43, 36, 86)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "1px",
+        "0px",
+        "0px",
+        "block",
+        "5px"
+      ],
+      "text": "Zoe"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        608.8,
+        824,
+        55
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "AAnaRecursodelproyecto85/100Sólido"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        616.3,
+        133.7,
+        40
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "AAnaRecursodelproyecto"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        616.3,
+        40,
+        40
+      ],
+      "css": [
+        "14px",
+        "900",
+        "normal",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(135deg, rgb(93, 45, 221), rgb(139, 97, 239))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "A"
+    },
+    {
+      "tag": "div",
+      "box": [
+        88,
+        621.8,
+        83.7,
+        29
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "AnaRecursodelproyecto"
+    },
+    {
+      "tag": "b",
+      "box": [
+        88,
+        621.8,
+        83.7,
+        15
+      ],
+      "css": [
+        "11px",
+        "700",
+        "normal",
+        "rgb(33, 25, 79)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "small",
+      "box": [
+        88,
+        638.8,
+        83.7,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(129, 122, 153)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "2px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Recursodelproyecto"
+    },
+    {
+      "tag": "div",
+      "box": [
+        789,
+        608.8,
+        73,
+        55
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "85/100Sólido"
+    },
+    {
+      "tag": "b",
+      "box": [
+        789,
+        608.8,
+        73,
+        30
+      ],
+      "css": [
+        "22px",
+        "700",
+        "normal",
+        "rgb(22, 138, 86)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "85/100"
+    },
+    {
+      "tag": "span",
+      "box": [
+        818.7,
+        642.8,
+        43.3,
+        21
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "normal",
+        "rgb(22, 138, 86)",
+        "rgb(232, 247, 239)",
+        "none",
+        "5px",
+        "5px",
+        "4px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        673.8,
+        824,
+        88
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "7px"
+      ],
+      "text": "Calidad95%Cumplimiento80%Comunicación70%Colaboración90%Autonomía60%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        673.8,
+        824,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Calidad95%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        673.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Calidad"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        675.3,
+        684,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        675.3,
+        649.8,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        826,
+        673.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "95%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        692.8,
+        824,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Cumplimiento80%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        692.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Cumplimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        694.3,
+        684,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        694.3,
+        547.2,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        826,
+        692.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "80%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        711.8,
+        824,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Comunicación70%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        711.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Comunicación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        713.3,
+        684,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        713.3,
+        478.8,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        826,
+        711.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "70%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        730.8,
+        824,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Colaboración90%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        730.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Colaboración"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        732.3,
+        684,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        732.3,
+        615.6,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        826,
+        730.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "90%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        749.8,
+        824,
+        12
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "Autonomía60%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        749.8,
+        88,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(95, 88, 125)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Autonomía"
+    },
+    {
+      "tag": "div",
+      "box": [
+        134,
+        751.3,
+        684,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(235, 231, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "i",
+      "box": [
+        134,
+        751.3,
+        410.4,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(113, 64, 231), rgb(155, 114, 242))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        826,
+        749.8,
+        36,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "60%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        771.8,
+        824,
+        66
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(246, 243, 255)",
+        "none",
+        "10px",
+        "10px",
+        "10px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "FortalezasidentificadasCalidad95%Colaboración90%Cumplimiento80%"
+    },
+    {
+      "tag": "b",
+      "box": [
+        48,
+        784.8,
+        110.5,
+        14
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "Fortalezasidentificadas"
+    },
+    {
+      "tag": "div",
+      "box": [
+        48,
+        805.8,
+        804,
+        22
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "flex",
+        "6px"
+      ],
+      "text": "Calidad95%Colaboración90%Cumplimiento80%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        48,
+        805.8,
+        70.2,
+        22
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 139, 88)",
+        "rgb(223, 245, 232)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Calidad95%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        124.2,
+        805.8,
+        94.5,
+        22
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 139, 88)",
+        "rgb(223, 245, 232)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Colaboración90%"
+    },
+    {
+      "tag": "span",
+      "box": [
+        224.7,
+        805.8,
+        98.7,
+        22
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 139, 88)",
+        "rgb(223, 245, 232)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Cumplimiento80%"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        862.8,
+        852,
+        462.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HistóricodeevaluacionesÚltimas5evaluacionesregistradas707580859003/10/202604/10/202605/10/202606/10/202607/10/2026TendenciapositivaDesempeño+20ptsCambioperiodo07/10/2026Últimaevaluación07/10/2026Beto90/10006/10/2026Ana85/10005/10/2026Beto80/10004/10/2026Ana75/10003/10/2026Beto70/100"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        875.8,
+        824,
+        31.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "HistóricodeevaluacionesÚltimas5evaluacionesregistradas"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        875.8,
+        179.6,
+        31.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HistóricodeevaluacionesÚltimas5evaluacionesregistradas"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        875.8,
+        179.6,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Históricodeevaluaciones"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        893.5,
+        179.6,
+        13.6
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "13.65px",
+        "rgb(123, 116, 146)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Últimas5evaluacionesregistradas"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        917.1,
+        824,
+        160
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "10px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "7075808590"
+    },
+    {
+      "tag": "svg",
+      "box": [
+        39,
+        917.1,
+        823,
+        159
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "7075808590"
+    },
+    {
+      "tag": "polyline",
+      "box": [
+        121.3,
+        952.9,
+        658.4,
+        23.8
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "circle",
+      "box": [
+        103.2,
+        973.3,
+        36.2,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "text",
+      "box": [
+        103.6,
+        961.8,
+        35.8,
+        8.6
+      ],
+      "css": [
+        "4px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "70"
+    },
+    {
+      "tag": "circle",
+      "box": [
+        267.8,
+        967.3,
+        36.2,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "text",
+      "box": [
+        268.2,
+        955.9,
+        35.5,
+        8.6
+      ],
+      "css": [
+        "4px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "75"
+    },
+    {
+      "tag": "circle",
+      "box": [
+        432.4,
+        961.3,
+        36.2,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "text",
+      "box": [
+        432.8,
+        949.9,
+        35.8,
+        8.6
+      ],
+      "css": [
+        "4px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "80"
+    },
+    {
+      "tag": "circle",
+      "box": [
+        597,
+        955.4,
+        36.2,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "text",
+      "box": [
+        597.4,
+        943.9,
+        35.5,
+        8.6
+      ],
+      "css": [
+        "4px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "85"
+    },
+    {
+      "tag": "circle",
+      "box": [
+        761.6,
+        949.4,
+        36.2,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "text",
+      "box": [
+        762,
+        938,
+        35.8,
+        8.6
+      ],
+      "css": [
+        "4px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "90"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1083.1,
+        824,
+        11
+      ],
+      "css": [
+        "8px",
+        "400",
+        "normal",
+        "rgb(131, 123, 154)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "6px",
+        "0px",
+        "flex",
+        "normal"
+      ],
+      "text": "03/10/202604/10/202605/10/202606/10/202607/10/2026"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1083.1,
+        40.7,
+        11
+      ],
+      "css": [
+        "8px",
+        "400",
+        "normal",
+        "rgb(131, 123, 154)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "03/10/2026"
+    },
+    {
+      "tag": "span",
+      "box": [
+        233.8,
+        1083.1,
+        40.7,
+        11
+      ],
+      "css": [
+        "8px",
+        "400",
+        "normal",
+        "rgb(131, 123, 154)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "04/10/2026"
+    },
+    {
+      "tag": "span",
+      "box": [
+        429.6,
+        1083.1,
+        40.7,
+        11
+      ],
+      "css": [
+        "8px",
+        "400",
+        "normal",
+        "rgb(131, 123, 154)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "05/10/2026"
+    },
+    {
+      "tag": "span",
+      "box": [
+        625.5,
+        1083.1,
+        40.7,
+        11
+      ],
+      "css": [
+        "8px",
+        "400",
+        "normal",
+        "rgb(131, 123, 154)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "06/10/2026"
+    },
+    {
+      "tag": "span",
+      "box": [
+        821.3,
+        1083.1,
+        40.7,
+        11
+      ],
+      "css": [
+        "8px",
+        "400",
+        "normal",
+        "rgb(131, 123, 154)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "07/10/2026"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1106.1,
+        824,
+        49
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "12px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "TendenciapositivaDesempeño+20ptsCambioperiodo07/10/2026Últimaevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1106.1,
+        269.3,
+        49
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(247, 245, 252)",
+        "none",
+        "10px",
+        "10px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "TendenciapositivaDesempeño"
+    },
+    {
+      "tag": "b",
+      "box": [
+        48,
+        1116.1,
+        249.3,
+        15
+      ],
+      "css": [
+        "11px",
+        "700",
+        "normal",
+        "rgb(91, 43, 213)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Tendenciapositiva"
+    },
+    {
+      "tag": "span",
+      "box": [
+        48,
+        1134.1,
+        249.3,
+        11
+      ],
+      "css": [
+        "8.5px",
+        "400",
+        "normal",
+        "rgb(127, 119, 150)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Desempeño"
+    },
+    {
+      "tag": "div",
+      "box": [
+        315.3,
+        1106.1,
+        269.3,
+        49
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(247, 245, 252)",
+        "none",
+        "10px",
+        "10px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "+20ptsCambioperiodo"
+    },
+    {
+      "tag": "b",
+      "box": [
+        325.3,
+        1116.1,
+        249.3,
+        15
+      ],
+      "css": [
+        "11px",
+        "700",
+        "normal",
+        "rgb(91, 43, 213)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "+20pts"
+    },
+    {
+      "tag": "span",
+      "box": [
+        325.3,
+        1134.1,
+        249.3,
+        11
+      ],
+      "css": [
+        "8.5px",
+        "400",
+        "normal",
+        "rgb(127, 119, 150)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Cambioperiodo"
+    },
+    {
+      "tag": "div",
+      "box": [
+        592.7,
+        1106.1,
+        269.3,
+        49
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(247, 245, 252)",
+        "none",
+        "10px",
+        "10px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "07/10/2026Últimaevaluación"
+    },
+    {
+      "tag": "b",
+      "box": [
+        602.7,
+        1116.1,
+        249.3,
+        15
+      ],
+      "css": [
+        "11px",
+        "700",
+        "normal",
+        "rgb(91, 43, 213)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "07/10/2026"
+    },
+    {
+      "tag": "span",
+      "box": [
+        602.7,
+        1134.1,
+        249.3,
+        11
+      ],
+      "css": [
+        "8.5px",
+        "400",
+        "normal",
+        "rgb(127, 119, 150)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Últimaevaluación"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1164.1,
+        824,
+        148
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "9px",
+        "0px",
+        "grid",
+        "6px"
+      ],
+      "text": "07/10/2026Beto90/10006/10/2026Ana85/10005/10/2026Beto80/10004/10/2026Ana75/10003/10/2026Beto70/100"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1164.1,
+        824,
+        24
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "6px",
+        "6px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "07/10/2026Beto90/100"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1170.6,
+        74,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "07/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        120,
+        1170.1,
+        692,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 25, 78)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "span",
+      "box": [
+        820,
+        1170.6,
+        42,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "normal",
+        "rgb(84, 39, 210)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "90/100"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1194.1,
+        824,
+        25
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "6px",
+        "6px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "06/10/2026Ana85/100"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1201.6,
+        74,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "06/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        120,
+        1201.1,
+        692,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 25, 78)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "span",
+      "box": [
+        820,
+        1201.6,
+        42,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "normal",
+        "rgb(84, 39, 210)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "85/100"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1225.1,
+        824,
+        25
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "6px",
+        "6px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "05/10/2026Beto80/100"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1232.6,
+        74,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "05/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        120,
+        1232.1,
+        692,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 25, 78)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "span",
+      "box": [
+        820,
+        1232.6,
+        42,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "normal",
+        "rgb(84, 39, 210)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "80/100"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1256.1,
+        824,
+        25
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "6px",
+        "6px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "04/10/2026Ana75/100"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1263.6,
+        74,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "04/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        120,
+        1263.1,
+        692,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 25, 78)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "span",
+      "box": [
+        820,
+        1263.6,
+        42,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "normal",
+        "rgb(84, 39, 210)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "75/100"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1287.1,
+        824,
+        25
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "6px",
+        "6px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "03/10/2026Beto70/100"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1294.6,
+        74,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 88, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "03/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        120,
+        1294.1,
+        692,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(33, 25, 78)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "span",
+      "box": [
+        820,
+        1294.6,
+        42,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "normal",
+        "rgb(84, 39, 210)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "70/100"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        1337.1,
+        852,
+        427.8
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Distribucióndedesempeño2recursosAltodesempeño1Sólido1Enseguimiento0Crítico0Próximaevaluación01/11/2026Beto·Responsable:DM"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1350.1,
+        824,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "Distribucióndedesempeño"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1350.1,
+        193.3,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Distribucióndedesempeño"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        1350.1,
+        193.3,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Distribucióndedesempeño"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1377.8,
+        824,
+        304
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "4px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "2recursosAltodesempeño1Sólido1Enseguimiento0Crítico0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        356,
+        1385.8,
+        188,
+        188
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "conic-gradient(rgb(57, 191, 121) 0deg, rgb(57, 191, 121) 50%, rgb(115, 80, 233) 50%, rgb(115, 80, 233) 100%, rgb(244, 189, 62) 100%, rgb(244, 189, 62) 100%, rgb(230, 74, 93) 100%, rgb(230, 74, 93) 100%)",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "2recursos"
+    },
+    {
+      "tag": "div",
+      "box": [
+        427.9,
+        1457.8,
+        44.2,
+        44
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2recursos"
+    },
+    {
+      "tag": "b",
+      "box": [
+        427.9,
+        1457.8,
+        44.2,
+        27
+      ],
+      "css": [
+        "20px",
+        "700",
+        "normal",
+        "rgb(24, 19, 76)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2"
+    },
+    {
+      "tag": "small",
+      "box": [
+        427.9,
+        1485.8,
+        44.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "recursos"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1583.8,
+        824,
+        94
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Altodesempeño1Sólido1Enseguimiento0Crítico0"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1583.8,
+        824,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Altodesempeño1"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1583.8,
+        798.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(49, 42, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "9px"
+      ],
+      "text": "Altodesempeño"
+    },
+    {
+      "tag": "i",
+      "box": [
+        38,
+        1585.8,
+        12,
+        12
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgb(57, 191, 121)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        846.2,
+        1583.8,
+        5.8,
+        16
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "1"
+    },
+    {
+      "tag": "i",
+      "box": [
+        862,
+        1591.8,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1609.8,
+        824,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Sólido1"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1609.8,
+        798.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(49, 42, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "9px"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "i",
+      "box": [
+        38,
+        1611.8,
+        12,
+        12
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgb(115, 80, 233)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        846.2,
+        1609.8,
+        5.8,
+        16
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "1"
+    },
+    {
+      "tag": "i",
+      "box": [
+        862,
+        1617.8,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1635.8,
+        824,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Enseguimiento0"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1635.8,
+        796.8,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(49, 42, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "9px"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "i",
+      "box": [
+        38,
+        1637.8,
+        12,
+        12
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgb(244, 189, 62)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        844.8,
+        1635.8,
+        7.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "i",
+      "box": [
+        862,
+        1643.8,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1661.8,
+        824,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "Crítico0"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1661.8,
+        796.8,
+        16
+      ],
+      "css": [
+        "12px",
+        "400",
+        "normal",
+        "rgb(49, 42, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "9px"
+      ],
+      "text": "Crítico"
+    },
+    {
+      "tag": "i",
+      "box": [
+        38,
+        1663.8,
+        12,
+        12
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgb(230, 74, 93)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "b",
+      "box": [
+        844.8,
+        1661.8,
+        7.2,
+        16
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0"
+    },
+    {
+      "tag": "i",
+      "box": [
+        862,
+        1669.8,
+        0,
+        0
+      ],
+      "css": [
+        "12px",
+        "900",
+        "normal",
+        "rgb(26, 21, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1681.8,
+        824,
+        70.1
+      ],
+      "css": [
+        "11px",
+        "400",
+        "14.3px",
+        "rgb(95, 52, 207)",
+        "rgb(245, 241, 255)",
+        "none",
+        "11px",
+        "11px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Próximaevaluación01/11/2026Beto·Responsable:DM"
+    },
+    {
+      "tag": "b",
+      "box": [
+        50,
+        1691.8,
+        101,
+        15
+      ],
+      "css": [
+        "11px",
+        "700",
+        "14.3px",
+        "rgb(95, 52, 207)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "Próximaevaluación"
+    },
+    {
+      "tag": "br",
+      "box": [
+        151,
+        1691.8,
+        0,
+        15
+      ],
+      "css": [
+        "11px",
+        "400",
+        "14.3px",
+        "rgb(95, 52, 207)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "span",
+      "box": [
+        50,
+        1706.1,
+        81.2,
+        20
+      ],
+      "css": [
+        "15px",
+        "900",
+        "19.5px",
+        "rgb(95, 52, 207)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "01/11/2026"
+    },
+    {
+      "tag": "br",
+      "box": [
+        131.2,
+        1710.1,
+        0,
+        15
+      ],
+      "css": [
+        "11px",
+        "400",
+        "14.3px",
+        "rgb(95, 52, 207)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        1776.9,
+        852,
+        597.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "Comentariosrecientes07/10/2026Beto“Comentario6”Altodesempeño06/10/2026Ana“Comentario5”Sólido05/10/2026Beto“Comentario4”Sólido04/10/2026Ana“Comentario3”Enseguimiento03/10/2026Beto“Comentario2”EnseguimientoÚltimasevaluacionesFechaRecursoEvaluadorResultadoEstado07/10/2026BetoDM90/100Altodesempeño⋯06/10/2026AnaDM85/100Sólido⋯05/10/2026BetoDM80/100Sólido⋯04/10/2026AnaDM75/100Enseguimiento⋯03/10/2026BetoDM70/100Enseguimiento⋯"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        1776.9,
+        852,
+        254.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Comentariosrecientes07/10/2026Beto“Comentario6”Altodesempeño06/10/2026Ana“Comentario5”Sólido05/10/2026Beto“Comentario4”Sólido04/10/2026Ana“Comentario3”Enseguimiento03/10/2026Beto“Comentario2”Enseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1789.9,
+        824,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "Comentariosrecientes"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        1789.9,
+        156.8,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Comentariosrecientes"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1817.6,
+        824,
+        201
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "4px"
+      ],
+      "text": "07/10/2026Beto“Comentario6”Altodesempeño06/10/2026Ana“Comentario5”Sólido05/10/2026Beto“Comentario4”Sólido04/10/2026Ana“Comentario3”Enseguimiento03/10/2026Beto“Comentario2”Enseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1817.6,
+        824,
+        37
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "07/10/2026Beto“Comentario6”Altodesempeño"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1825.6,
+        82,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "07/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        128,
+        1825.6,
+        120,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "span",
+      "box": [
+        256,
+        1825.6,
+        509.6,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "“Comentario6”"
+    },
+    {
+      "tag": "span",
+      "box": [
+        773.6,
+        1825.6,
+        88.4,
+        20
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(25, 137, 84)",
+        "rgb(230, 247, 236)",
+        "none",
+        "4px",
+        "4px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Altodesempeño"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1858.6,
+        824,
+        37
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "06/10/2026Ana“Comentario5”Sólido"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1866.6,
+        82,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "06/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        128,
+        1866.6,
+        120,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "span",
+      "box": [
+        256,
+        1866.6,
+        554.1,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "“Comentario5”"
+    },
+    {
+      "tag": "span",
+      "box": [
+        818.1,
+        1866.6,
+        43.9,
+        20
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(25, 137, 84)",
+        "rgb(230, 247, 236)",
+        "none",
+        "4px",
+        "4px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1899.6,
+        824,
+        37
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "05/10/2026Beto“Comentario4”Sólido"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1907.6,
+        82,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "05/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        128,
+        1907.6,
+        120,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "span",
+      "box": [
+        256,
+        1907.6,
+        554.1,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "“Comentario4”"
+    },
+    {
+      "tag": "span",
+      "box": [
+        818.1,
+        1907.6,
+        43.9,
+        20
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(25, 137, 84)",
+        "rgb(230, 247, 236)",
+        "none",
+        "4px",
+        "4px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1940.6,
+        824,
+        37
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "04/10/2026Ana“Comentario3”Enseguimiento"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1948.6,
+        82,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "04/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        128,
+        1948.6,
+        120,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "span",
+      "box": [
+        256,
+        1948.6,
+        513.9,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "“Comentario3”"
+    },
+    {
+      "tag": "span",
+      "box": [
+        777.9,
+        1948.6,
+        84.1,
+        20
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(25, 137, 84)",
+        "rgb(230, 247, 236)",
+        "none",
+        "4px",
+        "4px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        1981.6,
+        824,
+        37
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "03/10/2026Beto“Comentario2”Enseguimiento"
+    },
+    {
+      "tag": "span",
+      "box": [
+        38,
+        1989.6,
+        82,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "03/10/2026"
+    },
+    {
+      "tag": "b",
+      "box": [
+        128,
+        1989.6,
+        120,
+        12
+      ],
+      "css": [
+        "9px",
+        "700",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "span",
+      "box": [
+        256,
+        1989.6,
+        513.9,
+        12
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "“Comentario2”"
+    },
+    {
+      "tag": "span",
+      "box": [
+        777.9,
+        1989.6,
+        84.1,
+        20
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(25, 137, 84)",
+        "rgb(230, 247, 236)",
+        "none",
+        "4px",
+        "4px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        2043.6,
+        852,
+        330.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "ÚltimasevaluacionesFechaRecursoEvaluadorResultadoEstado07/10/2026BetoDM90/100Altodesempeño⋯06/10/2026AnaDM85/100Sólido⋯05/10/2026BetoDM80/100Sólido⋯04/10/2026AnaDM75/100Enseguimiento⋯03/10/2026BetoDM70/100Enseguimiento⋯"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        2056.6,
+        824,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "Últimasevaluaciones"
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        2056.6,
+        147.7,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Últimasevaluaciones"
+    },
+    {
+      "tag": "table",
+      "box": [
+        38,
+        2084.3,
+        824,
+        277
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table",
+        "normal"
+      ],
+      "text": "FechaRecursoEvaluadorResultadoEstado07/10/2026BetoDM90/100Altodesempeño⋯06/10/2026AnaDM85/100Sólido⋯05/10/2026BetoDM80/100Sólido⋯04/10/2026AnaDM75/100Enseguimiento⋯03/10/2026BetoDM70/100Enseguimiento⋯"
+    },
+    {
+      "tag": "thead",
+      "box": [
+        38,
+        2084.3,
+        824,
+        31.5
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-header-group",
+        "normal"
+      ],
+      "text": "FechaRecursoEvaluadorResultadoEstado"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2084.3,
+        824,
+        31.5
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "FechaRecursoEvaluadorResultadoEstado"
+    },
+    {
+      "tag": "th",
+      "box": [
+        38,
+        2084.3,
+        109.6,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Fecha"
+    },
+    {
+      "tag": "th",
+      "box": [
+        147.6,
+        2084.3,
+        125.9,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Recurso"
+    },
+    {
+      "tag": "th",
+      "box": [
+        273.5,
+        2084.3,
+        156,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Evaluador"
+    },
+    {
+      "tag": "th",
+      "box": [
+        429.4,
+        2084.3,
+        150.4,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Resultado"
+    },
+    {
+      "tag": "th",
+      "box": [
+        579.8,
+        2084.3,
+        185,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Estado"
+    },
+    {
+      "tag": "th",
+      "box": [
+        764.9,
+        2084.3,
+        97.1,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "tbody",
+      "box": [
+        38,
+        2115.8,
+        824,
+        245
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row-group",
+        "normal"
+      ],
+      "text": "07/10/2026BetoDM90/100Altodesempeño⋯06/10/2026AnaDM85/100Sólido⋯05/10/2026BetoDM80/100Sólido⋯04/10/2026AnaDM75/100Enseguimiento⋯03/10/2026BetoDM70/100Enseguimiento⋯"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2115.8,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "07/10/2026BetoDM90/100Altodesempeño⋯"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2115.8,
+        109.6,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "07/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        147.6,
+        2115.8,
+        125.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "td",
+      "box": [
+        273.5,
+        2115.8,
+        156,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        429.4,
+        2115.8,
+        150.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "90/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        579.8,
+        2115.8,
+        185,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Altodesempeño"
+    },
+    {
+      "tag": "span",
+      "box": [
+        587.8,
+        2124.3,
+        88.4,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(31, 156, 97)",
+        "rgb(232, 246, 238)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Altodesempeño"
+    },
+    {
+      "tag": "td",
+      "box": [
+        764.9,
+        2115.8,
+        97.1,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "button",
+      "box": [
+        772.9,
+        2124.3,
+        38.8,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2164.8,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(251, 250, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "06/10/2026AnaDM85/100Sólido⋯"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2164.8,
+        109.6,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "06/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        147.6,
+        2164.8,
+        125.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "td",
+      "box": [
+        273.5,
+        2164.8,
+        156,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        429.4,
+        2164.8,
+        150.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "85/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        579.8,
+        2164.8,
+        185,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "span",
+      "box": [
+        587.8,
+        2173.3,
+        43.9,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(99, 49, 223)",
+        "rgb(239, 232, 255)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "td",
+      "box": [
+        764.9,
+        2164.8,
+        97.1,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "button",
+      "box": [
+        772.9,
+        2173.3,
+        38.8,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2213.8,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "05/10/2026BetoDM80/100Sólido⋯"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2213.8,
+        109.6,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "05/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        147.6,
+        2213.8,
+        125.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "td",
+      "box": [
+        273.5,
+        2213.8,
+        156,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        429.4,
+        2213.8,
+        150.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "80/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        579.8,
+        2213.8,
+        185,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "span",
+      "box": [
+        587.8,
+        2222.3,
+        43.9,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(99, 49, 223)",
+        "rgb(239, 232, 255)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "td",
+      "box": [
+        764.9,
+        2213.8,
+        97.1,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "button",
+      "box": [
+        772.9,
+        2222.3,
+        38.8,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2262.8,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(251, 250, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "04/10/2026AnaDM75/100Enseguimiento⋯"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2262.8,
+        109.6,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "04/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        147.6,
+        2262.8,
+        125.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "td",
+      "box": [
+        273.5,
+        2262.8,
+        156,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        429.4,
+        2262.8,
+        150.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "75/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        579.8,
+        2262.8,
+        185,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "span",
+      "box": [
+        587.8,
+        2271.3,
+        84.1,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(199, 134, 0)",
+        "rgb(255, 244, 223)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        764.9,
+        2262.8,
+        97.1,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "button",
+      "box": [
+        772.9,
+        2271.3,
+        38.8,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2311.8,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "03/10/2026BetoDM70/100Enseguimiento⋯"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2311.8,
+        109.6,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "03/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        147.6,
+        2311.8,
+        125.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "td",
+      "box": [
+        273.5,
+        2311.8,
+        156,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        429.4,
+        2311.8,
+        150.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "70/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        579.8,
+        2311.8,
+        185,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "span",
+      "box": [
+        587.8,
+        2320.3,
+        84.1,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(199, 134, 0)",
+        "rgb(255, 244, 223)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        764.9,
+        2311.8,
+        97.1,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "button",
+      "box": [
+        772.9,
+        2320.3,
+        38.8,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "⋯"
+    },
+    {
+      "tag": "div",
+      "box": [
+        24,
+        2386.3,
+        852,
+        442.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HistorialdetalladoEvaluacionespersistidasenAER_Evaluaciones.FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditar07/10/2026BetoOctubreDM90/100AltodesempeñoComentario6Seguimiento✎06/10/2026AnaOctubreDM85/100SólidoComentario5Seguimiento✎05/10/2026BetoOctubreDM80/100SólidoComentario4Seguimiento✎04/10/2026AnaOctubreDM75/100EnseguimientoComentario3Seguimiento✎03/10/2026BetoOctubreDM70/100EnseguimientoComentario2Seguimiento✎02/10/2026AnaOctubreDM65/100CríticoComentario1Seguimiento✎01/10/2026BetoOctubreDM60/100CríticoComentario0Seguimiento✎"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        2399.3,
+        824,
+        31.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "flex",
+        "10px"
+      ],
+      "text": "HistorialdetalladoEvaluacionespersistidasenAER_Evaluaciones."
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        2399.3,
+        211.8,
+        31.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HistorialdetalladoEvaluacionespersistidasenAER_Evaluaciones."
+    },
+    {
+      "tag": "h3",
+      "box": [
+        38,
+        2399.3,
+        211.8,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "700",
+        "17.7px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Historialdetallado"
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        2417,
+        211.8,
+        13.6
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "13.65px",
+        "rgb(123, 116, 146)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "EvaluacionespersistidasenAER_Evaluaciones."
+    },
+    {
+      "tag": "div",
+      "box": [
+        38,
+        2440.6,
+        824,
+        375
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditar07/10/2026BetoOctubreDM90/100AltodesempeñoComentario6Seguimiento✎06/10/2026AnaOctubreDM85/100SólidoComentario5Seguimiento✎05/10/2026BetoOctubreDM80/100SólidoComentario4Seguimiento✎04/10/2026AnaOctubreDM75/100EnseguimientoComentario3Seguimiento✎03/10/2026BetoOctubreDM70/100EnseguimientoComentario2Seguimiento✎02/10/2026AnaOctubreDM65/100CríticoComentario1Seguimiento✎01/10/2026BetoOctubreDM60/100CríticoComentario0Seguimiento✎"
+    },
+    {
+      "tag": "table",
+      "box": [
+        38,
+        2440.6,
+        824,
+        375
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table",
+        "normal"
+      ],
+      "text": "FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditar07/10/2026BetoOctubreDM90/100AltodesempeñoComentario6Seguimiento✎06/10/2026AnaOctubreDM85/100SólidoComentario5Seguimiento✎05/10/2026BetoOctubreDM80/100SólidoComentario4Seguimiento✎04/10/2026AnaOctubreDM75/100EnseguimientoComentario3Seguimiento✎03/10/2026BetoOctubreDM70/100EnseguimientoComentario2Seguimiento✎02/10/2026AnaOctubreDM65/100CríticoComentario1Seguimiento✎01/10/2026BetoOctubreDM60/100CríticoComentario0Seguimiento✎"
+    },
+    {
+      "tag": "thead",
+      "box": [
+        38,
+        2440.6,
+        824,
+        31.5
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-header-group",
+        "normal"
+      ],
+      "text": "FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditar"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2440.6,
+        824,
+        31.5
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "FechaRecursoPeriodoEvaluadorScoreCategoríaComentarioPlandeacciónEditar"
+    },
+    {
+      "tag": "th",
+      "box": [
+        38,
+        2440.6,
+        70.7,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Fecha"
+    },
+    {
+      "tag": "th",
+      "box": [
+        108.7,
+        2440.6,
+        81.2,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Recurso"
+    },
+    {
+      "tag": "th",
+      "box": [
+        189.8,
+        2440.6,
+        79.4,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Periodo"
+    },
+    {
+      "tag": "th",
+      "box": [
+        269.2,
+        2440.6,
+        100.5,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Evaluador"
+    },
+    {
+      "tag": "th",
+      "box": [
+        369.8,
+        2440.6,
+        61.9,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Score"
+    },
+    {
+      "tag": "th",
+      "box": [
+        431.6,
+        2440.6,
+        119.3,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Categoría"
+    },
+    {
+      "tag": "th",
+      "box": [
+        551,
+        2440.6,
+        110.3,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Comentario"
+    },
+    {
+      "tag": "th",
+      "box": [
+        661.2,
+        2440.6,
+        133.8,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Plandeacción"
+    },
+    {
+      "tag": "th",
+      "box": [
+        795,
+        2440.6,
+        67,
+        31.5
+      ],
+      "css": [
+        "11.5px",
+        "700",
+        "normal",
+        "rgb(97, 89, 125)",
+        "rgb(244, 241, 251)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Editar"
+    },
+    {
+      "tag": "tbody",
+      "box": [
+        38,
+        2472.1,
+        824,
+        343
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row-group",
+        "normal"
+      ],
+      "text": "07/10/2026BetoOctubreDM90/100AltodesempeñoComentario6Seguimiento✎06/10/2026AnaOctubreDM85/100SólidoComentario5Seguimiento✎05/10/2026BetoOctubreDM80/100SólidoComentario4Seguimiento✎04/10/2026AnaOctubreDM75/100EnseguimientoComentario3Seguimiento✎03/10/2026BetoOctubreDM70/100EnseguimientoComentario2Seguimiento✎02/10/2026AnaOctubreDM65/100CríticoComentario1Seguimiento✎01/10/2026BetoOctubreDM60/100CríticoComentario0Seguimiento✎"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2472.1,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "07/10/2026BetoOctubreDM90/100AltodesempeñoComentario6Seguimiento✎"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2472.1,
+        70.7,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "07/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        108.7,
+        2472.1,
+        81.2,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "td",
+      "box": [
+        189.8,
+        2472.1,
+        79.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Octubre"
+    },
+    {
+      "tag": "td",
+      "box": [
+        269.2,
+        2472.1,
+        100.5,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        369.8,
+        2472.1,
+        61.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "90/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        431.6,
+        2472.1,
+        119.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Altodesempeño"
+    },
+    {
+      "tag": "span",
+      "box": [
+        439.6,
+        2480.6,
+        88.4,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(31, 156, 97)",
+        "rgb(232, 246, 238)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Altodesempeño"
+    },
+    {
+      "tag": "td",
+      "box": [
+        551,
+        2472.1,
+        110.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Comentario6"
+    },
+    {
+      "tag": "td",
+      "box": [
+        661.2,
+        2472.1,
+        133.8,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Seguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        795,
+        2472.1,
+        67,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "button",
+      "box": [
+        803,
+        2480.6,
+        40,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2521.1,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(251, 250, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "06/10/2026AnaOctubreDM85/100SólidoComentario5Seguimiento✎"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2521.1,
+        70.7,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "06/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        108.7,
+        2521.1,
+        81.2,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "td",
+      "box": [
+        189.8,
+        2521.1,
+        79.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Octubre"
+    },
+    {
+      "tag": "td",
+      "box": [
+        269.2,
+        2521.1,
+        100.5,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        369.8,
+        2521.1,
+        61.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "85/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        431.6,
+        2521.1,
+        119.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "span",
+      "box": [
+        439.6,
+        2529.6,
+        43.9,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(99, 49, 223)",
+        "rgb(239, 232, 255)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "td",
+      "box": [
+        551,
+        2521.1,
+        110.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Comentario5"
+    },
+    {
+      "tag": "td",
+      "box": [
+        661.2,
+        2521.1,
+        133.8,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Seguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        795,
+        2521.1,
+        67,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "button",
+      "box": [
+        803,
+        2529.6,
+        40,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2570.1,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "05/10/2026BetoOctubreDM80/100SólidoComentario4Seguimiento✎"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2570.1,
+        70.7,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "05/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        108.7,
+        2570.1,
+        81.2,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "td",
+      "box": [
+        189.8,
+        2570.1,
+        79.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Octubre"
+    },
+    {
+      "tag": "td",
+      "box": [
+        269.2,
+        2570.1,
+        100.5,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        369.8,
+        2570.1,
+        61.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "80/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        431.6,
+        2570.1,
+        119.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "span",
+      "box": [
+        439.6,
+        2578.6,
+        43.9,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(99, 49, 223)",
+        "rgb(239, 232, 255)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Sólido"
+    },
+    {
+      "tag": "td",
+      "box": [
+        551,
+        2570.1,
+        110.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Comentario4"
+    },
+    {
+      "tag": "td",
+      "box": [
+        661.2,
+        2570.1,
+        133.8,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Seguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        795,
+        2570.1,
+        67,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "button",
+      "box": [
+        803,
+        2578.6,
+        40,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2619.1,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(251, 250, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "04/10/2026AnaOctubreDM75/100EnseguimientoComentario3Seguimiento✎"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2619.1,
+        70.7,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "04/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        108.7,
+        2619.1,
+        81.2,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "td",
+      "box": [
+        189.8,
+        2619.1,
+        79.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Octubre"
+    },
+    {
+      "tag": "td",
+      "box": [
+        269.2,
+        2619.1,
+        100.5,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        369.8,
+        2619.1,
+        61.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "75/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        431.6,
+        2619.1,
+        119.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "span",
+      "box": [
+        439.6,
+        2627.6,
+        84.1,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(199, 134, 0)",
+        "rgb(255, 244, 223)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        551,
+        2619.1,
+        110.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Comentario3"
+    },
+    {
+      "tag": "td",
+      "box": [
+        661.2,
+        2619.1,
+        133.8,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Seguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        795,
+        2619.1,
+        67,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "button",
+      "box": [
+        803,
+        2627.6,
+        40,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2668.1,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "03/10/2026BetoOctubreDM70/100EnseguimientoComentario2Seguimiento✎"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2668.1,
+        70.7,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "03/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        108.7,
+        2668.1,
+        81.2,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "td",
+      "box": [
+        189.8,
+        2668.1,
+        79.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Octubre"
+    },
+    {
+      "tag": "td",
+      "box": [
+        269.2,
+        2668.1,
+        100.5,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        369.8,
+        2668.1,
+        61.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "70/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        431.6,
+        2668.1,
+        119.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "span",
+      "box": [
+        439.6,
+        2676.6,
+        84.1,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(199, 134, 0)",
+        "rgb(255, 244, 223)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Enseguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        551,
+        2668.1,
+        110.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Comentario2"
+    },
+    {
+      "tag": "td",
+      "box": [
+        661.2,
+        2668.1,
+        133.8,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Seguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        795,
+        2668.1,
+        67,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "button",
+      "box": [
+        803,
+        2676.6,
+        40,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2717.1,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(251, 250, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "02/10/2026AnaOctubreDM65/100CríticoComentario1Seguimiento✎"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2717.1,
+        70.7,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "02/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        108.7,
+        2717.1,
+        81.2,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Ana"
+    },
+    {
+      "tag": "td",
+      "box": [
+        189.8,
+        2717.1,
+        79.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Octubre"
+    },
+    {
+      "tag": "td",
+      "box": [
+        269.2,
+        2717.1,
+        100.5,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        369.8,
+        2717.1,
+        61.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "65/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        431.6,
+        2717.1,
+        119.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Crítico"
+    },
+    {
+      "tag": "span",
+      "box": [
+        439.6,
+        2725.6,
+        45.1,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(227, 58, 82)",
+        "rgb(255, 236, 239)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Crítico"
+    },
+    {
+      "tag": "td",
+      "box": [
+        551,
+        2717.1,
+        110.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Comentario1"
+    },
+    {
+      "tag": "td",
+      "box": [
+        661.2,
+        2717.1,
+        133.8,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Seguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        795,
+        2717.1,
+        67,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "button",
+      "box": [
+        803,
+        2725.6,
+        40,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "tr",
+      "box": [
+        38,
+        2766.1,
+        824,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "table-row",
+        "normal"
+      ],
+      "text": "01/10/2026BetoOctubreDM60/100CríticoComentario0Seguimiento✎"
+    },
+    {
+      "tag": "td",
+      "box": [
+        38,
+        2766.1,
+        70.7,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "01/10/2026"
+    },
+    {
+      "tag": "td",
+      "box": [
+        108.7,
+        2766.1,
+        81.2,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "td",
+      "box": [
+        189.8,
+        2766.1,
+        79.4,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Octubre"
+    },
+    {
+      "tag": "td",
+      "box": [
+        269.2,
+        2766.1,
+        100.5,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "DM"
+    },
+    {
+      "tag": "td",
+      "box": [
+        369.8,
+        2766.1,
+        61.9,
+        49
+      ],
+      "css": [
+        "9px",
+        "900",
+        "normal",
+        "rgb(23, 135, 85)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "60/100"
+    },
+    {
+      "tag": "td",
+      "box": [
+        431.6,
+        2766.1,
+        119.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Crítico"
+    },
+    {
+      "tag": "span",
+      "box": [
+        439.6,
+        2774.6,
+        45.1,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(227, 58, 82)",
+        "rgb(255, 236, 239)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Crítico"
+    },
+    {
+      "tag": "td",
+      "box": [
+        551,
+        2766.1,
+        110.3,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Comentario0"
+    },
+    {
+      "tag": "td",
+      "box": [
+        661.2,
+        2766.1,
+        133.8,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "Seguimiento"
+    },
+    {
+      "tag": "td",
+      "box": [
+        795,
+        2766.1,
+        67,
+        49
+      ],
+      "css": [
+        "9px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "table-cell",
+        "normal"
+      ],
+      "text": "✎"
+    },
+    {
+      "tag": "button",
+      "box": [
+        803,
+        2774.6,
+        40,
+        32
+      ],
+      "css": [
+        "10px",
+        "700",
+        "normal",
+        "rgb(75, 37, 201)",
+        "rgb(255, 255, 255)",
+        "none",
+        "8px",
+        "8px",
+        "0px",
+        "0px",
+        "inline-block",
+        "normal"
+      ],
+      "text": "✎"
+    }
+  ]
+}

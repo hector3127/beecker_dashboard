@@ -1,5 +1,54 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Recursos AER: referencia del diseño actual aprobado
+
+Base `1478793`, posterior a la aclaración del usuario. No se cambia ningún
+archivo de aplicación, CSS, plantilla ni cálculos. Se conserva la interfaz
+vigente y se reemplazan únicamente comparaciones old→nuevo por referencias
+estáticas del diseño actual. No usar el antiguo diseño como objetivo visual.
+
+Quince escenarios en tests/e2e/frozen/aer_resources:
+
+- Vista full/empty/selected, cada una a 1450/900/390 por 1000 px de viewport.
+- Editor nuevo y e1, cada uno en los mismos tres tamaños; conserva todos
+  los valores de input/select/textarea además del estado visual del modal.
+
+Se mantienen los mismos selectores, texto, orden DOM, estilos computados y
+geometría a precisión 0.1 px de las pruebas anteriores. Son 3024 elementos
+medidos, más valores de formularios, aproximadamente 1.3 MB de JSON. Se
+registra source=approved_current_design, commit base, digest de datos,
+viewport, versión de navegador y plataforma. No se afirma identidad de
+píxeles, ni se usa un margen de tolerancia nuevo. No regenerar expectativas
+automáticamente ante un fallo.
+
+Generador manual: tests/e2e/frozen/gen/aer_resources_capture.py, fuera del
+patrón normal test_*.py. Usa las rutas actuales con config.urls, CSP efectiva
+y sin carpetas templates/static de referencia. Sólo ese generador escribe
+JSON; las pruebas normales únicamente leen/comparan. El helper
+frozen/aer_resources_support.py comparte preparación/medición y no importa
+modelos de negocio para producir expectativas. Estas referencias son
+visuales del diseño actual, no expectativas de cálculos originales.
+
+Las **18 Chrome** del archivo pasan: quince comparaciones más tres pruebas
+de funcionamiento preservadas (guardado con error/reintento, eliminación
+confirmada/cancelada, selección, texto seguro y respuesta tardía que no
+sobrescribe otro editor/proyecto). La lectura y escrituras siguen probadas
+por API con dobles locales; no se consulta a proveedores ni se envían correos.
+**473 Node** aprobadas; Ruff y formato pasan. No se repiten servidor/mypy:
+sólo cambian pruebas/referencias y documentación.
+
+Las quince capturas se reprodujeron byte por byte. Dos controles negativos
+con plugin temporal modifican únicamente el DOM del navegador de pruebas:
+padding de la vista y valor de input del editor. Ambos fallan precisamente
+en assert actual == expected; no se tocó producción ni se guardaron esas
+alteraciones como referencias. Los plugins viven en tmp/ y no se comitean. La corrida final de Chrome sin alteraciones
+se registra en tmp/current-resources-final.log. También quedan logs ignorados
+current-resources-capture/reproduce/node y current-resources-negative-*.
+
+No retirar referencias compartidas todavía. Otros módulos de navegador aún
+usan comparaciones antiguas y deben pasar al criterio de diseño actual sin
+modificar la aplicación. Fase 11 abierta; sin push.
+
 ## Corrección de criterio visual solicitada por el usuario
 
 El usuario aclaró que el diseño vigente es el aprobado y no debe ajustarse

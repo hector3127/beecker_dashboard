@@ -1,0 +1,950 @@
+{
+  "schema": 1,
+  "source": "approved_current_design",
+  "base_commit": "1478793",
+  "viewport": {
+    "width": 1450,
+    "height": 1000
+  },
+  "input_sha256": "4867ad3e223a3efa4a92335b577496db6d4fedd91aa29c06dc6fc29979ff41e3",
+  "browser": "156.0.8078.48",
+  "platform": "Windows",
+  "state": {
+    "elements": [
+      {
+        "tag": "div",
+        "box": [
+          0,
+          0,
+          1450,
+          1000
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(20, 12, 55, 0.46)",
+          "none",
+          "20px",
+          "20px",
+          "0px",
+          "0px",
+          "flex",
+          "normal"
+        ],
+        "text": "Nuevaevaluación✕RecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoeEvaluadorFechaevaluaciónPróximaevaluaciónCalidadCumplimientoComunicaciónColaboraciónAutonomíaComentarioPlandeacciónGuardarevaluación"
+      },
+      {
+        "tag": "div",
+        "box": [
+          365,
+          182.8,
+          720,
+          634.4
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgb(255, 255, 255)",
+          "none",
+          "18px",
+          "18px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Nuevaevaluación✕RecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoeEvaluadorFechaevaluaciónPróximaevaluaciónCalidadCumplimientoComunicaciónColaboraciónAutonomíaComentarioPlandeacciónGuardarevaluación"
+      },
+      {
+        "tag": "div",
+        "box": [
+          383,
+          200.8,
+          684,
+          62.4
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "flex",
+          "normal"
+        ],
+        "text": "Nuevaevaluación✕"
+      },
+      {
+        "tag": "h3",
+        "box": [
+          383,
+          219.5,
+          155.1,
+          25
+        ],
+        "css": [
+          "18.72px",
+          "700",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "18.72px",
+          "18.72px",
+          "block",
+          "normal"
+        ],
+        "text": "Nuevaevaluación"
+      },
+      {
+        "tag": "button",
+        "box": [
+          1036.8,
+          200.8,
+          30.2,
+          62.4
+        ],
+        "css": [
+          "10px",
+          "700",
+          "normal",
+          "rgb(56, 32, 111)",
+          "rgb(255, 255, 255)",
+          "none",
+          "7px",
+          "7px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "✕"
+      },
+      {
+        "tag": "div",
+        "box": [
+          383,
+          263.2,
+          684,
+          496
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "grid",
+          "10px"
+        ],
+        "text": "RecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoeEvaluadorFechaevaluaciónPróximaevaluaciónCalidadCumplimientoComunicaciónColaboraciónAutonomíaComentarioPlandeacción"
+      },
+      {
+        "tag": "label",
+        "box": [
+          383,
+          263.2,
+          337,
+          52
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "RecursoAnaAnaLópezBetocarlosCarlosSinrecursoZoe"
+      },
+      {
+        "tag": "select",
+        "box": [
+          383,
+          281.2,
+          337,
+          34
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": "AnaAnaLópezBetocarlosCarlosSinrecursoZoe"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Ana"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "AnaLópez"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Beto"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "carlos"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Carlos"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Sinrecurso"
+      },
+      {
+        "tag": "option",
+        "box": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "css": [
+          "10px",
+          "400",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "1px",
+          "0px",
+          "0px",
+          "block",
+          "5px"
+        ],
+        "text": "Zoe"
+      },
+      {
+        "tag": "label",
+        "box": [
+          730,
+          263.2,
+          337,
+          52
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Evaluador"
+      },
+      {
+        "tag": "input",
+        "box": [
+          730,
+          281.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          383,
+          325.2,
+          337,
+          52
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Fechaevaluación"
+      },
+      {
+        "tag": "input",
+        "box": [
+          383,
+          343.2,
+          337,
+          34
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          730,
+          325.2,
+          337,
+          52
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Próximaevaluación"
+      },
+      {
+        "tag": "input",
+        "box": [
+          730,
+          343.2,
+          337,
+          34
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          383,
+          387.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Calidad"
+      },
+      {
+        "tag": "input",
+        "box": [
+          383,
+          405.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          730,
+          387.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Cumplimiento"
+      },
+      {
+        "tag": "input",
+        "box": [
+          730,
+          405.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          383,
+          447.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Comunicación"
+      },
+      {
+        "tag": "input",
+        "box": [
+          383,
+          465.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          730,
+          447.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Colaboración"
+      },
+      {
+        "tag": "input",
+        "box": [
+          730,
+          465.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          383,
+          507.2,
+          337,
+          50
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Autonomía"
+      },
+      {
+        "tag": "input",
+        "box": [
+          383,
+          525.2,
+          337,
+          32
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          383,
+          567.2,
+          684,
+          91
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Comentario"
+      },
+      {
+        "tag": "textarea",
+        "box": [
+          383,
+          585.2,
+          684,
+          70
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "label",
+        "box": [
+          383,
+          668.2,
+          684,
+          91
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(85, 78, 112)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Plandeacción"
+      },
+      {
+        "tag": "textarea",
+        "box": [
+          383,
+          686.2,
+          684,
+          70
+        ],
+        "css": [
+          "10px",
+          "750",
+          "normal",
+          "rgb(0, 0, 0)",
+          "rgb(255, 255, 255)",
+          "none",
+          "8px",
+          "8px",
+          "4px",
+          "0px",
+          "inline-block",
+          "normal"
+        ],
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "box": [
+          383,
+          771.2,
+          684,
+          28
+        ],
+        "css": [
+          "16px",
+          "400",
+          "normal",
+          "rgb(27, 26, 107)",
+          "rgba(0, 0, 0, 0)",
+          "none",
+          "0px",
+          "0px",
+          "12px",
+          "0px",
+          "flex",
+          "7px"
+        ],
+        "text": "Guardarevaluación"
+      },
+      {
+        "tag": "button",
+        "box": [
+          956.1,
+          771.2,
+          110.9,
+          28
+        ],
+        "css": [
+          "10px",
+          "700",
+          "normal",
+          "rgb(255, 255, 255)",
+          "rgba(0, 0, 0, 0)",
+          "linear-gradient(90deg, rgb(53, 20, 185), rgb(116, 49, 232))",
+          "7px",
+          "7px",
+          "0px",
+          "0px",
+          "block",
+          "normal"
+        ],
+        "text": "Guardarevaluación"
+      }
+    ],
+    "values": [
+      [
+        "ae-rec",
+        "Ana"
+      ],
+      [
+        "ae-eval",
+        ""
+      ],
+      [
+        "ae-fecha",
+        "2026-10-23"
+      ],
+      [
+        "ae-prox",
+        ""
+      ],
+      [
+        "ae-cal",
+        "0"
+      ],
+      [
+        "ae-cum",
+        "0"
+      ],
+      [
+        "ae-comu",
+        "0"
+      ],
+      [
+        "ae-col",
+        "0"
+      ],
+      [
+        "ae-aut",
+        "0"
+      ],
+      [
+        "ae-com",
+        ""
+      ],
+      [
+        "ae-plan",
+        ""
+      ]
+    ]
+  }
+}
