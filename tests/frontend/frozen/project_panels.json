@@ -1,0 +1,233 @@
+{
+  "defaults": [
+    {
+      "name": "aerPlanFiltroMes",
+      "key": "aerPlanningRange",
+      "expected": {
+        "desde": "",
+        "hasta": ""
+      }
+    },
+    {
+      "name": "aerPlanTableFilters",
+      "key": "aerPlanningFilters",
+      "expected": {
+        "tipo": "",
+        "actividad": "",
+        "responsable": "",
+        "compromisoDesde": "",
+        "compromisoHasta": "",
+        "estado": "",
+        "cierreDesde": "",
+        "cierreHasta": ""
+      }
+    },
+    {
+      "name": "aerClockifyFiltro",
+      "key": "aerRecords",
+      "expected": {
+        "desde": "",
+        "hasta": "",
+        "registros": null,
+        "total": 0,
+        "cargando": false
+      }
+    },
+    {
+      "name": "aerEvalRecursoSeleccionado",
+      "key": "aerResourceSelection",
+      "expected": ""
+    },
+    {
+      "name": "ixsPlanState",
+      "key": "ixsPlanning",
+      "expected": {
+        "proyectoId": "",
+        "vacaciones": [],
+        "compromisos": [],
+        "cargando": false,
+        "error": "",
+        "requestId": 0
+      }
+    },
+    {
+      "name": "ixsPlanAzureState",
+      "key": "ixsPlanningAzure",
+      "expected": {
+        "proyectoId": "",
+        "items": [],
+        "allItems": [],
+        "cargando": false,
+        "error": "",
+        "requestId": 0
+      }
+    },
+    {
+      "name": "ixsAzureState",
+      "key": "ixsAzure",
+      "expected": {
+        "projectId": "",
+        "items": [],
+        "allItems": [],
+        "stale": [],
+        "requestId": 0,
+        "sinPAT": false,
+        "error": "",
+        "notice": ""
+      }
+    }
+  ],
+  "contracts": [
+    {
+      "method": "effort",
+      "name": "aerEsfuerzoContexto",
+      "tab": "esfuerzo",
+      "keys": [
+        "active",
+        "current",
+        "dashboard",
+        "error",
+        "id",
+        "paint",
+        "setState",
+        "state"
+      ],
+      "dashboard": {
+        "proyecto": {
+          "id": "AER.001"
+        }
+      },
+      "id": "AER.001",
+      "current": true,
+      "active": true,
+      "callbacks": [
+        {
+          "key": "paint",
+          "same": true
+        },
+        {
+          "key": "error",
+          "same": true
+        }
+      ],
+      "update": {
+        "records": {
+          "registros": [
+            {
+              "id": 1
+            }
+          ],
+          "desde": "2026-01-01"
+        },
+        "same": true
+      },
+      "inactive": false,
+      "replaced": false
+    },
+    {
+      "method": "planning",
+      "name": "aerPlaneacionContexto",
+      "tab": "planeacion",
+      "keys": [
+        "active",
+        "communique",
+        "current",
+        "dashboard",
+        "error",
+        "filters",
+        "id",
+        "paint",
+        "range",
+        "reload",
+        "saving",
+        "setFilters",
+        "setRange"
+      ],
+      "dashboard": {
+        "proyecto": {
+          "id": "AER.001"
+        }
+      },
+      "id": "AER.001",
+      "current": true,
+      "active": true,
+      "callbacks": [
+        {
+          "key": "paint",
+          "same": true
+        },
+        {
+          "key": "error",
+          "same": true
+        },
+        {
+          "key": "saving",
+          "same": true
+        },
+        {
+          "key": "reload",
+          "same": true
+        },
+        {
+          "key": "communique",
+          "same": true
+        }
+      ],
+      "update": {
+        "range": {
+          "desde": "2026-04",
+          "hasta": "2026-06"
+        },
+        "filters": {
+          "tipo": "Hito"
+        },
+        "sameRange": true,
+        "sameFilters": true
+      },
+      "inactive": false,
+      "replaced": false
+    },
+    {
+      "method": "resources",
+      "name": "aerRecursosContexto",
+      "tab": "recursos",
+      "keys": [
+        "active",
+        "current",
+        "dashboard",
+        "error",
+        "id",
+        "paint",
+        "saving",
+        "selected"
+      ],
+      "dashboard": {
+        "proyecto": {
+          "id": "AER.001"
+        }
+      },
+      "id": "AER.001",
+      "current": true,
+      "active": true,
+      "callbacks": [
+        {
+          "key": "paint",
+          "same": true
+        },
+        {
+          "key": "error",
+          "same": true
+        },
+        {
+          "key": "saving",
+          "same": true
+        }
+      ],
+      "update": {
+        "selected": "Ana"
+      },
+      "inactive": false,
+      "replaced": false
+    }
+  ]
+}

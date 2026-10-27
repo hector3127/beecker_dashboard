@@ -1,0 +1,104 @@
+{
+  "hours": [
+    {
+      "input": {
+        "kind": "value",
+        "value": null
+      },
+      "expected": "0 h"
+    },
+    {
+      "input": {
+        "kind": "undefined"
+      },
+      "expected": "0 h"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": ""
+      },
+      "expected": "0 h"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 0
+      },
+      "expected": "0 h"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": -2
+      },
+      "expected": "-2 h"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 1.005
+      },
+      "expected": "1 h"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 123456.789
+      },
+      "expected": "123,456.79 h"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "2.345"
+      },
+      "expected": "2.35 h"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "invalid"
+      },
+      "expected": "NaN h"
+    }
+  ],
+  "badges": [
+    {
+      "value": null,
+      "expected": ""
+    },
+    {
+      "value": "",
+      "expected": ""
+    },
+    {
+      "value": "Alto",
+      "expected": "badge-alto"
+    },
+    {
+      "value": "MEDIO",
+      "expected": "badge-medio"
+    },
+    {
+      "value": "bajo",
+      "expected": "badge-bajo"
+    },
+    {
+      "value": " Alto ",
+      "expected": ""
+    },
+    {
+      "value": "unknown",
+      "expected": ""
+    },
+    {
+      "value": "constructor",
+      "expected": ""
+    },
+    {
+      "value": "__proto__",
+      "expected": ""
+    }
+  ]
+}

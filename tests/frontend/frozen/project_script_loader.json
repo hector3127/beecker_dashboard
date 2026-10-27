@@ -1,0 +1,120 @@
+[
+  {
+    "account": "",
+    "cached": false,
+    "calls": [
+      [
+        "start",
+        true
+      ],
+      [
+        "load",
+        true
+      ],
+      [
+        "load"
+      ],
+      [
+        "risks"
+      ]
+    ],
+    "selected": "P",
+    "keys": [
+      "clientChanged",
+      "executive",
+      "previousLoad",
+      "previousStart"
+    ],
+    "sameExecutive": true
+  },
+  {
+    "account": "",
+    "cached": true,
+    "calls": [
+      [
+        "start",
+        true
+      ],
+      [
+        "load",
+        true
+      ],
+      [
+        "load"
+      ],
+      [
+        "aer",
+        {
+          "aer": 1
+        }
+      ],
+      [
+        "ixs",
+        {
+          "ixs": 1
+        }
+      ],
+      [
+        "risks"
+      ]
+    ],
+    "selected": "P",
+    "keys": [
+      "clientChanged",
+      "executive",
+      "previousLoad",
+      "previousStart"
+    ],
+    "sameExecutive": true
+  },
+  {
+    "account": "ACME",
+    "cached": false,
+    "calls": [
+      [
+        "start",
+        true
+      ],
+      [
+        "load",
+        true
+      ],
+      [
+        "load"
+      ]
+    ],
+    "selected": "Todos los proyectos",
+    "keys": [
+      "clientChanged",
+      "executive",
+      "previousLoad",
+      "previousStart"
+    ],
+    "sameExecutive": true
+  },
+  {
+    "account": "ACME",
+    "cached": true,
+    "calls": [
+      [
+        "start",
+        true
+      ],
+      [
+        "load",
+        true
+      ],
+      [
+        "load"
+      ]
+    ],
+    "selected": "Todos los proyectos",
+    "keys": [
+      "clientChanged",
+      "executive",
+      "previousLoad",
+      "previousStart"
+    ],
+    "sameExecutive": true
+  }
+]

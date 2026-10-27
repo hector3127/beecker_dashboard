@@ -4,7 +4,18 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 6336783:** IA IXB, Esfuerzo IXB, soporte IXB y
+**Último bloque, base 611e820:** Ejecutivo genérico, fuentes diferidas
+RAID/Clockify, paneles AER y puente de carga dejan de leer el original.
+Se conservan 23 pruebas: los controladores/cargador y ciclo de vida siguen
+ejecutando módulos actuales. 472 Node y 23 dirigidas pasan en UTC/México;
+diez mutaciones en copias detectadas, cuatro JSON reproducibles. El cierre
+esperado ahora se calcula con la línea de tiempo original, sin consultar al
+modelo nuevo. Quedan 6 archivos Node dependientes del original, 35 congelados.
+Sin cambios de aplicación/diseño/cálculos/CSP ni nueva corrida servidor/e2e.
+Seguir estado, contextos, adaptadores y compatibilidad; piloto de navegador
+pendiente. Ver `docs/congelacion-referencias.md`. Sin push.
+
+**Bloque previo, base 6336783:** IA IXB, Esfuerzo IXB, soporte IXB y
 Planeación AER usan resultados originales guardados. Se conservan las 40
 pruebas del bloque, incluidos caché, reintentos y respuestas tardías que
 siguen ejecutando controladores actuales. 472 Node completas y 40 dirigidas

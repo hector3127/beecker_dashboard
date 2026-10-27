@@ -9,44 +9,25 @@ import {
   raidModel,
 } from "../../frontend/static/scripts/pages/project_detail/sections/generic_sources_model.js";
 
-const original = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/generic_sources.json", import.meta.url),
+    "utf8",
+  ),
 );
 test("task hours preserve original rounding, locale and missing values", () => {
-  const format = vm.runInNewContext(
-    "(" + original.match(/const fmtH = ([\s\S]*?\n    });/)[1] + ")",
-  );
-  for (const value of [
-    null,
-    undefined,
-    "",
-    0,
-    -2,
-    1.005,
-    123456.789,
-    "2.345",
-    "invalid",
-  ])
-    assert.equal(hoursText(value), format(value));
+  assert.equal(frozen.hours.length, 9);
+  for (const { input, expected } of frozen.hours)
+    assert.equal(
+      hoursText(input.kind === "undefined" ? undefined : input.value),
+      expected,
+    );
 });
 
 test("risk badges preserve original mappings without normalization or deduplication", () => {
-  const badge = vm.runInNewContext(
-    "(" + original.match(/const badgeClass = ([\s\S]*?\n  });/)[1] + ")",
-  );
-  for (const value of [
-    null,
-    "",
-    "Alto",
-    "MEDIO",
-    "bajo",
-    " Alto ",
-    "unknown",
-    "constructor",
-    "__proto__",
-  ])
-    assert.equal(impactClass(value), badge(value));
+  assert.equal(frozen.badges.length, 9);
+  for (const { value, expected } of frozen.badges)
+    assert.equal(impactClass(value), expected);
   const model = raidModel({
     riesgos: [
       {

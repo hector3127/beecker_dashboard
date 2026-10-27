@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
+import { createProjectCompatibility } from "../../frontend/static/scripts/pages/project_detail/sections/project_compatibility.js";
 import { createProjectScriptLoader } from "../../frontend/static/scripts/pages/project_detail/sections/project_script_loader.js";
 
 function setup() {
@@ -55,58 +55,44 @@ test("failed download is removed and can retry without reloading other successfu
   await retry;
 });
 
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/project_script_loader.json", import.meta.url),
+    "utf8",
+  ),
 );
-const bridge = source.match(
-  /  function projectCompatibilityBindings\([\s\S]*?\n  \}/,
-)[0];
+
 test("compatibility bridge preserves account gate, cache rendering order and exact callbacks", () => {
-  for (const account of ["", "ACME"])
-    for (const cached of [false, true]) {
-      const calls = [],
-        select = { value: "P" };
-      const context = {
-        window: {},
-        document: { getElementById: () => select },
-        _clienteSeleccionadoDashboard: () => account,
-        initDashboard: (...args) => calls.push(["start", ...args]),
-        loadDashboard: (...args) => calls.push(["load", ...args]),
-        cacheReporteAERTYM: cached ? { aer: 1 } : null,
-        cacheReporteIXB: cached ? { ixs: 1 } : null,
-        renderReporteAERTYM: (data) => calls.push(["aer", data]),
-        renderReporteIXBRaaS: (data) => calls.push(["ixs", data]),
-        cargarTopRiesgosAzurePortafolio: () => calls.push(["risks"]),
-        renderDashboardEjecutivoProyecto: () => {},
-      };
-      vm.runInNewContext(bridge, context);
-      const bindings = context.projectCompatibilityBindings();
-      bindings.previousStart();
-      bindings.previousLoad();
-      bindings.clientChanged();
-      assert.deepEqual(calls.slice(0, 3), [
-        ["start", true],
-        ["load", true],
-        ["load"],
-      ]);
-      assert.equal(select.value, account ? "Todos los proyectos" : "P");
-      const after = calls.slice(3);
-      assert.deepEqual(
-        after,
-        account
-          ? []
-          : cached
-            ? [
-                ["aer", context.cacheReporteAERTYM],
-                ["ixs", context.cacheReporteIXB],
-                ["risks"],
-              ]
-            : [["risks"]],
-      );
-      assert.equal(
-        bindings.executive,
-        context.renderDashboardEjecutivoProyecto,
-      );
-    }
+  assert.equal(frozen.length, 4);
+  for (const entry of frozen) {
+    const calls = [],
+      select = { value: "P" };
+    const aer = entry.cached ? { aer: 1 } : null,
+      ixs = entry.cached ? { ixs: 1 } : null;
+    const executive = () => {};
+    const previous = {
+      start: () => calls.push(["start", true]),
+      load: () => calls.push(["load", true]),
+      account: () => entry.account,
+      refresh: () => calls.push(["load"]),
+      aer: () => aer,
+      ixs: () => ixs,
+      renderAer: (data) => calls.push(["aer", data]),
+      renderIxs: (data) => calls.push(["ixs", data]),
+      risks: () => calls.push(["risks"]),
+      executive,
+    };
+    const bindings = createProjectCompatibility({
+      getElementById: () => select,
+    }).bindings(previous);
+    bindings.previousStart();
+    bindings.previousLoad();
+    bindings.clientChanged();
+    assert.deepEqual(calls, entry.calls);
+    assert.equal(select.value, entry.selected);
+    assert.deepEqual(Object.keys(bindings).sort(), entry.keys);
+    assert.equal(bindings.executive === executive, entry.sameExecutive);
+    assert.equal(bindings.previousStart, previous.start);
+    assert.equal(bindings.previousLoad, previous.load);
+  }
 });

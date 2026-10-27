@@ -1,5 +1,55 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Undécimo bloque agrupado: modelos genéricos y contratos de paneles/carga
+
+Base `611e820`. Cuatro archivos dejan de ejecutar el original, conservando
+las **23 pruebas** del bloque y sus casos. No se guarda código de funciones
+como expectativa: se guardan valores, identidad esperada de callbacks/estado,
+claves de contratos y trazas del comportamiento original.
+
+| Archivo | Expectativas originales guardadas |
+|---|---|
+| generic_sources | 9 formatos de horas (undefined etiquetado) y 9 clases de impacto; modelos/lecturas/respuestas tardías se siguen ejecutando |
+| generic_executive | 105 cortes por zona a partir de 7 fixtures compartidas y 6 clasificaciones de servicio; casos directos de cierre y dispatch actuales conservados |
+| project_panels | 7 valores iniciales y 3 contratos AER completos: callbacks, setters, identidad, selección y guardias de ciclo de vida |
+| project_script_loader | 4 combinaciones cuenta/caché, secuencia de llamadas y selección; las dos pruebas concurrentes/reintento del cargador actual se conservan |
+
+Los cuatro generadores temporales de `frozen/gen/` solo ejecutan el original.
+JSON reproducibles exactamente normalizando CRLF/LF. Ejecutivo anteriormente
+recibía el flag de cierre del modelo actual dentro de la expectativa; ahora
+el generador ejecuta la línea de tiempo original para calcular ese flag. Las
+105 variantes siguen coincidiendo, en UTC y America/Mexico_City. Los inputs
+compartidos se guardan una vez para evitar repetir siete fixtures en cada
+combinación. Se conserva precedencia de metadata, límites de palabras de
+servicio (xIXB no cuenta), PRD, cierre y ausencia de hitos planificados.
+
+En paneles, los defaults se capturan de los literales originales; el generador
+no usa createProjectState para fabricar las expectativas. El test nuevo
+comprueba el almacén y contratos actuales, referencias de callbacks, getters/
+setters, instancias independientes y respuesta tras cambiar pestaña/proyecto.
+El puente de carga antes comprobaba solo la función anterior; ahora ejecuta
+createProjectCompatibility.bindings con callbacks explícitos contra las trazas
+originales. Conserva orden AER→IXB→riesgos, navegación con/sin cuenta y caché.
+No se sustituye la ejecución de callbacks por comparaciones de JSON estáticas.
+
+**472 Node completas y 23 dirigidas pasan en ambas zonas**, sin skips.
+Diez mutaciones en copias temporales detectadas: redondeo, clase Alto,
+límites de servicio, estado de cierre, guardia de proyecto reemplazado,
+identidad del rango, default sinPAT, puerta por cuenta, omisión de caché AER
+y marca manual del cargador. Producción intacta. Prettier de JS y diff pasan.
+Evidencia ignorada: `tmp/frozen-contract-before.log`,
+`tmp/frozen-contract-after.log`, `tmp/frozen-contract-{UTC,America-Mexico_City}.log`,
+`tmp/frozen-contract-all-{UTC,America-Mexico_City}.log` y
+`tmp/frozen-contract-*.mutation.log`.
+
+Quedan **6 archivos Node** que leen el original: legacy_tools,
+project_compatibility, project_contexts, project_feature_contexts,
+project_ixs_adapters y project_state (10 antes, 41 al inicio), 35 congelados.
+No borrar todavía el original: siguen estas dependencias y las de navegador.
+Sin nueva corrida servidor/e2e porque solo cambian tests, JSON, generadores
+y documentación. Diseño, cálculos, CSP y permisos intactos. El piloto de
+navegador y el cierre completo de fase 11 siguen pendientes. Sin push.
+
 ## Décimo bloque agrupado: IA, Esfuerzo, soporte IXB y Planeación AER
 
 Base `6336783`. Cuatro archivos más dejan de leer el script anterior.
