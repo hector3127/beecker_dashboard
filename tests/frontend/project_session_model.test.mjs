@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import {
   initialAerAi,
   initialIxsAi,
@@ -11,22 +10,19 @@ import {
   outdatedAer,
 } from "../../frontend/static/scripts/pages/project_detail/sections/project_session_model.js";
 
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/project_session_initial.json", import.meta.url),
+    "utf8",
+  ),
 );
+assert.deepEqual(Object.keys(frozen).sort(), ["aerIAState", "ixsIAState"]);
 for (const [name, factory] of [
   ["aerIAState", initialAerAi],
   ["ixsIAState", initialIxsAi],
 ]) {
   test(`${name}: same initial fields as the previous implementation`, () => {
-    const literal = source.match(
-      new RegExp(
-        `var ${name} = window\\.beeProjectState \\? window\\.beeProjectState\\.\\w+ : (\\{[^\\n]+\\});`,
-      ),
-    )[1];
-    const original = vm.runInNewContext(`(${literal})`);
-    assert.deepEqual(factory(), JSON.parse(JSON.stringify(original)));
+    assert.deepEqual(factory(), frozen[name]);
     const first = factory(),
       second = factory();
     for (const key of Object.keys(first)) {

@@ -1,0 +1,82 @@
+{
+  "levels": [
+    {
+      "input": "Alto",
+      "expected": "green"
+    },
+    {
+      "input": "medio",
+      "expected": "yellow"
+    },
+    {
+      "input": "Bajo",
+      "expected": "red"
+    },
+    {
+      "input": "",
+      "expected": "red"
+    },
+    {
+      "input": null,
+      "expected": "red"
+    },
+    {
+      "input": "x",
+      "expected": "red"
+    }
+  ],
+  "initials": [
+    {
+      "input": "Ana Pérez",
+      "expected": "AP"
+    },
+    {
+      "input": "  luis  soto gil ",
+      "expected": "LS"
+    },
+    {
+      "input": "",
+      "expected": "?"
+    },
+    {
+      "input": null,
+      "expected": "?"
+    },
+    {
+      "input": "x",
+      "expected": "X"
+    }
+  ],
+  "csv": [
+    {
+      "input": "a\"b",
+      "expected": "\"a\"\"b\""
+    },
+    {
+      "input": null,
+      "expected": "\"\""
+    },
+    {
+      "input": 12,
+      "expected": "\"12\""
+    },
+    {
+      "input": "x,y",
+      "expected": "\"x,y\""
+    }
+  ],
+  "normalize": [
+    {
+      "input": "ÁÉÍ  Ñu ",
+      "expected": "aei  nu"
+    },
+    {
+      "input": null,
+      "expected": ""
+    },
+    {
+      "input": "Hola",
+      "expected": "hola"
+    }
+  ]
+}

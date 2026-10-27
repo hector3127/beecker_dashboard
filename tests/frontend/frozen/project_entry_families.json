@@ -1,0 +1,371 @@
+[
+  {
+    "service": "AER",
+    "cases": [
+      {
+        "id": "AER.001",
+        "map": {
+          "AER.001": {
+            "servicio": "AER"
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "TYM.001",
+        "map": {
+          "TYM.001": {
+            "servicio": "AER"
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "AMK.008",
+        "map": {
+          "AMK.008": {
+            "servicio": "AER"
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "other",
+        "map": {
+          "other": {
+            "servicio": "AER"
+          }
+        },
+        "expected": "aer"
+      }
+    ]
+  },
+  {
+    "service": "T&M",
+    "cases": [
+      {
+        "id": "AER.001",
+        "map": {
+          "AER.001": {
+            "servicio": "T&M"
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "TYM.001",
+        "map": {
+          "TYM.001": {
+            "servicio": "T&M"
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "AMK.008",
+        "map": {
+          "AMK.008": {
+            "servicio": "T&M"
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "other",
+        "map": {
+          "other": {
+            "servicio": "T&M"
+          }
+        },
+        "expected": "aer"
+      }
+    ]
+  },
+  {
+    "service": "TYM",
+    "cases": [
+      {
+        "id": "AER.001",
+        "map": {
+          "AER.001": {
+            "servicio": "TYM"
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "TYM.001",
+        "map": {
+          "TYM.001": {
+            "servicio": "TYM"
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "AMK.008",
+        "map": {
+          "AMK.008": {
+            "servicio": "TYM"
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "other",
+        "map": {
+          "other": {
+            "servicio": "TYM"
+          }
+        },
+        "expected": "aer"
+      }
+    ]
+  },
+  {
+    "service": "IXB",
+    "cases": [
+      {
+        "id": "AER.001",
+        "map": {
+          "AER.001": {
+            "servicio": "IXB"
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "TYM.001",
+        "map": {
+          "TYM.001": {
+            "servicio": "IXB"
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "AMK.008",
+        "map": {
+          "AMK.008": {
+            "servicio": "IXB"
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "other",
+        "map": {
+          "other": {
+            "servicio": "IXB"
+          }
+        },
+        "expected": "ixs"
+      }
+    ]
+  },
+  {
+    "service": "SaaS",
+    "cases": [
+      {
+        "id": "AER.001",
+        "map": {
+          "AER.001": {
+            "servicio": "SaaS"
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "TYM.001",
+        "map": {
+          "TYM.001": {
+            "servicio": "SaaS"
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "AMK.008",
+        "map": {
+          "AMK.008": {
+            "servicio": "SaaS"
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "other",
+        "map": {
+          "other": {
+            "servicio": "SaaS"
+          }
+        },
+        "expected": "ixs"
+      }
+    ]
+  },
+  {
+    "service": "RaaS",
+    "cases": [
+      {
+        "id": "AER.001",
+        "map": {
+          "AER.001": {
+            "servicio": "RaaS"
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "TYM.001",
+        "map": {
+          "TYM.001": {
+            "servicio": "RaaS"
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "AMK.008",
+        "map": {
+          "AMK.008": {
+            "servicio": "RaaS"
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "other",
+        "map": {
+          "other": {
+            "servicio": "RaaS"
+          }
+        },
+        "expected": "ixs"
+      }
+    ]
+  },
+  {
+    "service": "",
+    "cases": [
+      {
+        "id": "AER.001",
+        "map": {
+          "AER.001": {
+            "servicio": ""
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "TYM.001",
+        "map": {
+          "TYM.001": {
+            "servicio": ""
+          }
+        },
+        "expected": "aer"
+      },
+      {
+        "id": "AMK.008",
+        "map": {
+          "AMK.008": {
+            "servicio": ""
+          }
+        },
+        "expected": "executive"
+      },
+      {
+        "id": "other",
+        "map": {
+          "other": {
+            "servicio": ""
+          }
+        },
+        "expected": "executive"
+      }
+    ]
+  },
+  {
+    "service": "OTHER",
+    "cases": [
+      {
+        "id": "AER.001",
+        "map": {
+          "AER.001": {
+            "servicio": "OTHER"
+          }
+        },
+        "expected": "executive"
+      },
+      {
+        "id": "TYM.001",
+        "map": {
+          "TYM.001": {
+            "servicio": "OTHER"
+          }
+        },
+        "expected": "executive"
+      },
+      {
+        "id": "AMK.008",
+        "map": {
+          "AMK.008": {
+            "servicio": "OTHER"
+          }
+        },
+        "expected": "executive"
+      },
+      {
+        "id": "other",
+        "map": {
+          "other": {
+            "servicio": "OTHER"
+          }
+        },
+        "expected": "executive"
+      }
+    ]
+  },
+  {
+    "service": "  i-x-b  ",
+    "cases": [
+      {
+        "id": "AER.001",
+        "map": {
+          "AER.001": {
+            "servicio": "  i-x-b  "
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "TYM.001",
+        "map": {
+          "TYM.001": {
+            "servicio": "  i-x-b  "
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "AMK.008",
+        "map": {
+          "AMK.008": {
+            "servicio": "  i-x-b  "
+          }
+        },
+        "expected": "ixs"
+      },
+      {
+        "id": "other",
+        "map": {
+          "other": {
+            "servicio": "  i-x-b  "
+          }
+        },
+        "expected": "ixs"
+      }
+    ]
+  }
+]

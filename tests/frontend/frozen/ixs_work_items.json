@@ -1,0 +1,82 @@
+[
+  {
+    "dev": 0,
+    "qa": true,
+    "expected": 20
+  },
+  {
+    "dev": 0,
+    "qa": false,
+    "expected": 0
+  },
+  {
+    "dev": "",
+    "qa": true,
+    "expected": 20
+  },
+  {
+    "dev": "",
+    "qa": false,
+    "expected": 0
+  },
+  {
+    "dev": 60,
+    "qa": true,
+    "expected": 68
+  },
+  {
+    "dev": 60,
+    "qa": false,
+    "expected": 48
+  },
+  {
+    "dev": "45.5",
+    "qa": true,
+    "expected": 56
+  },
+  {
+    "dev": "45.5",
+    "qa": false,
+    "expected": 36
+  },
+  {
+    "dev": -10,
+    "qa": true,
+    "expected": 12
+  },
+  {
+    "dev": -10,
+    "qa": false,
+    "expected": -8
+  },
+  {
+    "dev": 125,
+    "qa": true,
+    "expected": 120
+  },
+  {
+    "dev": 125,
+    "qa": false,
+    "expected": 100
+  },
+  {
+    "dev": "invalid",
+    "qa": true,
+    "expected": 20
+  },
+  {
+    "dev": "invalid",
+    "qa": false,
+    "expected": 0
+  },
+  {
+    "dev": null,
+    "qa": true,
+    "expected": 20
+  },
+  {
+    "dev": null,
+    "qa": false,
+    "expected": 0
+  }
+]

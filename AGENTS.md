@@ -43,6 +43,11 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
   aprobadas. Cuatro alteraciones deliberadas en copias temporales fueron
   detectadas. Generadores reproducibles normalizando CRLF/LF, sin cambiar
   valores JSON. Ver `docs/congelacion-referencias.md`.
+- Último bloque sobre `7d59edf`: client_model, project_entry_model,
+  ixs_work_items y project_session_model ya no leen el original. Sus 22
+  dirigidas y 472 Node completas pasan; cuatro mutaciones en copias se
+  detectan. Cuatro JSON originales reproducibles normalizando CRLF/LF.
+  Ocho archivos congelados en total; no se modifica código de aplicación.
 
 ### Aplicación y seguridad
 
@@ -102,7 +107,7 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
    el desarrollo normal sigue directo en main.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, 37 archivos Node aún leen el script anterior (41 antes del bloque). El piloto de
+   En main, 33 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que

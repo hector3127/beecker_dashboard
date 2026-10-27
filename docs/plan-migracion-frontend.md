@@ -9,6 +9,19 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Último bloque de congelación, base 7d59edf:** client_model,
+project_entry_model, ixs_work_items y project_session_model comparan contra
+salidas del original guardadas en frozen. 18 helpers, 36 clasificaciones,
+16 avances y dos estados iniciales completos; 22 dirigidas y 472 Node
+completas pasan sin omisiones. Cuatro mutaciones en copias temporales se
+detectan y los JSON son reproducibles normalizando CRLF/LF. Se conservan
+el resto de casos y la no mutación/identidad de entradas. No cambian modelos,
+diseño, CSP ni permisos. Quedan 33 archivos Node que leen el original, ocho
+congelados en total. Piloto de navegador pendiente. Evidencia en
+`congelacion-referencias.md`. Sin nueva corrida servidor/e2e ni push.
+
+Los avances siguientes son evidencia de los bloques previos:
+
 **Avance de congelación posterior a la auditoría:** piloto `4103ed6` revisado
 e integrado por cherry-pick en main como `2e580ec`, rama local intacta. Se
 congelan también aer_ai_actions_model, aer_planning_filters y generic_header.

@@ -4,6 +4,16 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
+**Último bloque, base 7d59edf:** se congelan client_model,
+project_entry_model, ixs_work_items y project_session_model. Resultados del
+original: 18 helpers, 36 familias, 16 avances y dos estados iniciales de IA.
+22 dirigidas y 472 Node completas pasan, sin omisiones; cuatro alteraciones
+en copias temporales se detectan. JSON reproducibles normalizando CRLF/LF.
+Sin cambios de aplicación/diseño/cálculos/CSP, sin repetir servidor/e2e.
+Quedan 33 archivos Node que leen directamente el script anterior (ocho ya
+congelados). Continuar simples/intermedios; piloto de navegador pendiente.
+Ver `congelacion-referencias.md`; sin push. Lo siguiente es histórico:
+
 **Último bloque:** piloto de congelación de Claude integrado en main mediante
 cherry-pick `2e580ec` (original `4103ed6`, rama local intacta). Se congelan
 también aer_ai_actions_model, aer_planning_filters y generic_header. Las 26
