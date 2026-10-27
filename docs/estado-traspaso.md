@@ -1,6 +1,44 @@
-# Estado de traspaso de la migración (24/10/2026)
+# Estado de traspaso de la migración (actualizado 27/10/2026)
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
+
+## Estado vigente y siguiente trabajo (27/10/2026)
+
+Fase 10 completada; fase 11 abierta. `main` está en `a370589`, igual que la
+referencia local origin/main. Claude confirma que lo publicó. Ya no quedan
+plantillas/estáticos de portal en apps: Costos, Oportunidades, Cuenta,
+Business Overview y detalle anterior también se retiraron. La referencia
+del detalle permanece solo en tests/reference; producción no sirve RPC.
+CSP obligatoria por defecto; para solo reportar hacen falta CSP_ENFORCE=0
+y CSP_REPORT_ONLY=1 juntos. ACCESS_ENFORCED sigue sin activarse por defecto.
+
+La rama local `congelar-referencias` contiene un piloto en `4103ed6`, fuera
+de main: aer_executive compara contra un JSON del original, con generador
+temporal en frozen/gen. Claude reportó 472 Node y comprobación negativa al
+alterar el modelo; no se reejecutó ese piloto en la auditoría de main.
+No repetirlo ni integrarlo accidentalmente: revisar ese commit antes del
+siguiente bloque. El piloto de congelación de navegador sigue pendiente.
+
+Auditoría independiente de main a370589: 1759 servidor, 472 Node y 61 Chrome
+con rutas reales/CSP aprobadas, más una prueba de preview de logos aparte.
+Ruff, mypy, check y collectstatic simulado aprobados. No fue una ejecución
+completa de e2e. Evidencia y límites en `auditoria-fase11-2026-10-27.md`.
+
+Continuar congelando referencias antes de borrarlas. No borrar core/rpc
+completo: warm_cache y otros módulos siguen usando el registro interno.
+Mantener pruebas separadas con config.urls/CSP; reference_site automático
+de la suite no reproduce las rutas de producción. Cerrar fase 11 solo tras
+la regresión final. Los bloques que siguen son históricos, no pendientes.
+
+La limpieza a370589 retiró maquetas y archivó notas; las eliminaciones de
+cachés/tmp que reportó Claude son locales y no comprobables con Git.
+Conservar backups, datos y credenciales. No tocar los cambios ajenos de
+tools/migracion, shots_tmp y test_zz. El prompt antiguo de continuación se
+eliminó por duplicado/desactualizado; empezar por AGENTS y este apartado.
+Ver `README.md` para el criterio de conservación de docs. Sin push de esta
+actualización; no se cambió de rama ni se integró el piloto.
+
+## Histórico de bloques (no describe el estado vigente)
 
 ## Bloque actual: Comercial, base ddb8ec2 (26/10)
 

@@ -7,6 +7,44 @@ respuestas; la migración del frontend sí avanza.
 
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
+## Estado vigente de fase 11 (27/10/2026)
+
+Main a370589, publicada según el traspaso de Claude y coincidente con la
+referencia local origin/main. Todas las rutas activas usan frontend. No
+quedan directorios de plantillas/estáticos anteriores en apps/portal. El
+detalle antiguo, sus assets y shim viven solo en tests/reference; config.urls
+ya no publica RPC ni selecciona la presentación anterior. CSP_ENFORCE está
+activo por defecto; ACCESS_ENFORCED sigue siendo una decisión de despliegue.
+Para solo reportar CSP se necesitan CSP_ENFORCE=0 y CSP_REPORT_ONLY=1 juntos.
+
+La congelación sigue pendiente en main. La rama local congelar-referencias
+contiene el piloto aer_executive en 4103ed6: resultados originales en
+tests/frontend/frozen/aer_executive.json, test independiente del original y
+generador temporal en frozen/gen. No está integrado ni publicado. Claude
+reportó 472 Node y comprobación de fallo deliberado; no confundirlo con la
+auditoría independiente de main ni repetir ese piloto. El piloto de navegador
+todavía no se ha realizado.
+
+Auditoría independiente de a370589: 1759 servidor, 472 Node, 61 Chrome con
+rutas reales/CSP, y una prueba de preview aparte, aprobadas. Ruff/mypy/check
+y collectstatic simulado aprobados. Alcance, comandos y hallazgos en
+`auditoria-fase11-2026-10-27.md`; no se afirma corrida completa de e2e.
+
+Siguiente: revisar deliberadamente el piloto existente, congelar el resto
+de comparaciones desde el original, separar dependencias internas del RPC y
+retirar únicamente referencias/transporte sin consumidores. warm_cache usa
+el registro RPC; no borrarlo en bloque. Mantener pruebas permanentes con
+config.urls y CSP, sin reference_site, y ejecutar regresión final para cerrar.
+
+Se elimina docs/prompt-continuacion.md por duplicar instrucciones obsoletas;
+AGENTS y el primer apartado del traspaso son la entrada. Los informes de
+retiro/integración se conservan por su evidencia. Ver docs/README.md.
+Esta actualización solo cambia documentación: sin cambiar cálculos, diseño,
+ramas, piloto ni accesos; sin push. Los avances siguientes son históricos y
+sus frases «pendiente», «CSP sin activar» y recuentos no son el estado vigente.
+
+## Evidencia histórica de los bloques
+
 **Fase 11 — Comercial, base ddb8ec2 (26/10).** Retiradas plantilla y CSS
 anteriores; la ruta y entrada de precarga sirven frontend con los mismos
 datos, fórmulas, filtros y caché. Se conserva 47d0364. Seis snapshots guardados

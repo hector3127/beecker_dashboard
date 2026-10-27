@@ -6,7 +6,8 @@
 La política ya existe (`core/frontend.py`: `build_policy`, `CspMiddleware`,
 `/csp-report/`) y desde el 27/10 se envía como `Content-Security-Policy` (excepto en
 `/admin/` y `/static/`). `CSP_ENFORCE=0` la apaga sin tocar código;
-`CSP_REPORT_ONLY=1` solo anota. En pruebas queda apagada
+Para solo anotar se necesitan `CSP_ENFORCE=0` y `CSP_REPORT_ONLY=1` juntos;
+si `CSP_ENFORCE=1`, el bloqueo tiene prioridad. En pruebas queda apagada
 (`config/settings/test.py`) y se aplica donde la prueba lo pide.
 
 ## Auditoría hecha

@@ -25,9 +25,15 @@ Las comparaciones con el original se conservan sin pasar por la app:
 
 ## Qué falta para borrar la referencia
 
-Congelar como valores esperados lo que hoy comparan unas 45 pruebas Node y
-unas 30 de navegador con el original; después se eliminan `tests/reference`,
-`core/static/core/js/gas_shim.js`, `core/rpc/` y `access/rpc_policy.py`.
+Congelar como valores esperados las comparaciones Node y de navegador con el
+original. Al 27/10 main conserva 41 archivos Node que leen ese script. El
+piloto aer_executive está en `4103ed6`, rama local `congelar-referencias`,
+todavía fuera de main. Después se podrán retirar tests/reference y los
+generadores sin consumidores. El shim ya está dentro de tests/reference.
+
+No eliminar `core/rpc/` en bloque: `warm_cache` usa get_rpc_function y varios
+módulos registran funciones internas. Separar el transporte HTTP/política de
+referencia del registro/servicios todavía usados antes de decidir su retiro.
 
 ## Verificación
 
