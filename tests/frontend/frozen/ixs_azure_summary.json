@@ -1,0 +1,598 @@
+{
+  "fields": [
+    "total",
+    "closed",
+    "qa",
+    "avg",
+    "riskCount",
+    "entries",
+    "totalDist",
+    "donut",
+    "notes",
+    "byAssigned",
+    "maxOpen",
+    "byDate"
+  ],
+  "cases": [
+    {
+      "name": "full",
+      "state": {
+        "items": [
+          {
+            "id": 100,
+            "estado": "Active",
+            "titulo": "AMK.008 - Tarea 0",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 0,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 0
+          },
+          {
+            "id": 101,
+            "estado": "Closed",
+            "titulo": "AMK.008 - Tarea 1",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 17,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 3
+          },
+          {
+            "id": 102,
+            "estado": "Cancelled",
+            "titulo": "AMK.008 - Tarea 2",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 34,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 6
+          }
+        ],
+        "allItems": [
+          {
+            "id": 100,
+            "estado": "Active",
+            "titulo": "AMK.008 - Tarea 0",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 0,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 0
+          },
+          {
+            "id": 101,
+            "estado": "Closed",
+            "titulo": "AMK.008 - Tarea 1",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 17,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 3
+          },
+          {
+            "id": 102,
+            "estado": "Cancelled",
+            "titulo": "AMK.008 - Tarea 2",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 34,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 6
+          },
+          {
+            "id": 103,
+            "estado": "Blocked",
+            "titulo": "AMK.008 - Tarea 3",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 51,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 9
+          },
+          {
+            "id": 104,
+            "estado": "Proposed",
+            "titulo": "AMK.008 - Tarea 4",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 68,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 12
+          },
+          {
+            "id": 105,
+            "estado": "In progress",
+            "titulo": "AMK.008 - Tarea 5",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 85,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 15
+          },
+          {
+            "id": 106,
+            "estado": "Rejected",
+            "titulo": "AMK.008 - Tarea 6",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 102,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 18
+          },
+          {
+            "id": 107,
+            "estado": "Completed",
+            "titulo": "AMK.008 - Tarea 7",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 119,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 21
+          },
+          {
+            "id": 108,
+            "estado": "Risk",
+            "titulo": "AMK.008 - Tarea 8",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 136,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 24
+          }
+        ],
+        "stale": [
+          {
+            "id": 102,
+            "estado": "Cancelled",
+            "titulo": "AMK.008 - Tarea 2",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 34,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 6
+          },
+          {
+            "id": 103,
+            "estado": "Blocked",
+            "titulo": "AMK.008 - Tarea 3",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 51,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 9
+          },
+          {
+            "id": 104,
+            "estado": "Proposed",
+            "titulo": "AMK.008 - Tarea 4",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 68,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 12
+          },
+          {
+            "id": 105,
+            "estado": "In progress",
+            "titulo": "AMK.008 - Tarea 5",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 85,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 15
+          },
+          {
+            "id": 106,
+            "estado": "Rejected",
+            "titulo": "AMK.008 - Tarea 6",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 102,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 18
+          },
+          {
+            "id": 107,
+            "estado": "Completed",
+            "titulo": "AMK.008 - Tarea 7",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 119,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 21
+          },
+          {
+            "id": 108,
+            "estado": "Risk",
+            "titulo": "AMK.008 - Tarea 8",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 136,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 24
+          }
+        ]
+      },
+      "expected": {
+        "total": 9,
+        "closed": 4,
+        "qa": 2,
+        "avg": 17,
+        "riskCount": 5,
+        "entries": [
+          [
+            "Closed",
+            4
+          ],
+          [
+            "Active",
+            2
+          ],
+          [
+            "Proposed",
+            1
+          ],
+          [
+            "Blocked",
+            2
+          ]
+        ],
+        "totalDist": 9,
+        "donut": "conic-gradient(#6cd18b 0% 44.44444444444444%, #ad8cff 44.44444444444444% 66.66666666666667%, #7eb6ff 66.66666666666667% 77.77777777777777%, #ff819b 77.77777777777777% 100%)",
+        "notes": [
+          {
+            "cls": "bad",
+            "text": "7 ítems sin seguimiento por más de 7 días."
+          },
+          {
+            "cls": "warn",
+            "text": "Hay Work Items que siguen abiertos."
+          },
+          {
+            "cls": "warn",
+            "text": "5 ítems con riesgo o bloqueo registrado."
+          },
+          {
+            "cls": "warn",
+            "text": "Avance promedio de 17% en los Work Items con seguimiento de avance."
+          }
+        ],
+        "byAssigned": [
+          {
+            "nombre": "Ana",
+            "total": 5,
+            "abiertos": 3,
+            "cerrados": 2
+          },
+          {
+            "nombre": "Luis",
+            "total": 4,
+            "abiertos": 2,
+            "cerrados": 2
+          }
+        ],
+        "maxOpen": 3,
+        "byDate": [
+          {
+            "fecha": "3/10/2026",
+            "req": "AMK.008",
+            "titulo": "Tarea 0",
+            "url": "#"
+          },
+          {
+            "fecha": "3/10/2026",
+            "req": "AMK.008",
+            "titulo": "Tarea 2",
+            "url": "#"
+          },
+          {
+            "fecha": "2026-10-04",
+            "req": "AMK.008",
+            "titulo": "Tarea 1",
+            "url": "#"
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty",
+      "state": {},
+      "expected": {
+        "total": 0,
+        "closed": 0,
+        "qa": 0,
+        "avg": 0,
+        "riskCount": 0,
+        "entries": [],
+        "totalDist": 1,
+        "donut": "conic-gradient(#ece9fa 0 100%)",
+        "notes": [
+          {
+            "cls": "",
+            "text": "No hay ítems sin seguimiento por más de 7 días."
+          },
+          {
+            "cls": "warn",
+            "text": "Hay Work Items que siguen abiertos."
+          },
+          {
+            "cls": "warn",
+            "text": "Avance promedio de 0% en los Work Items con seguimiento de avance."
+          }
+        ],
+        "byAssigned": [],
+        "maxOpen": 1,
+        "byDate": []
+      }
+    },
+    {
+      "name": "emptyAll",
+      "state": {
+        "items": [
+          {
+            "id": 100,
+            "estado": "Active",
+            "titulo": "AMK.008 - Tarea 0",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 0,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 0
+          },
+          {
+            "id": 101,
+            "estado": "Closed",
+            "titulo": "AMK.008 - Tarea 1",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 17,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 3
+          },
+          {
+            "id": 102,
+            "estado": "Cancelled",
+            "titulo": "AMK.008 - Tarea 2",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 34,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 6
+          },
+          {
+            "id": 103,
+            "estado": "Blocked",
+            "titulo": "AMK.008 - Tarea 3",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 51,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 9
+          },
+          {
+            "id": 104,
+            "estado": "Proposed",
+            "titulo": "AMK.008 - Tarea 4",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 68,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 12
+          },
+          {
+            "id": 105,
+            "estado": "In progress",
+            "titulo": "AMK.008 - Tarea 5",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 85,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 15
+          },
+          {
+            "id": 106,
+            "estado": "Rejected",
+            "titulo": "AMK.008 - Tarea 6",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 102,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 18
+          },
+          {
+            "id": 107,
+            "estado": "Completed",
+            "titulo": "AMK.008 - Tarea 7",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 119,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 21
+          },
+          {
+            "id": 108,
+            "estado": "Risk",
+            "titulo": "AMK.008 - Tarea 8",
+            "tipo": "Risk",
+            "asignadoA": "Ana",
+            "avanceTotal": 136,
+            "qaListo": true,
+            "fechaLimiteDev": "3/10/2026",
+            "diasSinActualizar": 24
+          }
+        ],
+        "allItems": [],
+        "stale": []
+      },
+      "expected": {
+        "total": 0,
+        "closed": 0,
+        "qa": 5,
+        "avg": 68,
+        "riskCount": 0,
+        "entries": [],
+        "totalDist": 1,
+        "donut": "conic-gradient(#ece9fa 0 100%)",
+        "notes": [
+          {
+            "cls": "",
+            "text": "No hay ítems sin seguimiento por más de 7 días."
+          },
+          {
+            "cls": "warn",
+            "text": "Hay Work Items que siguen abiertos."
+          },
+          {
+            "cls": "warn",
+            "text": "Avance promedio de 68% en los Work Items con seguimiento de avance."
+          }
+        ],
+        "byAssigned": [],
+        "maxOpen": 1,
+        "byDate": [
+          {
+            "fecha": "3/10/2026",
+            "req": "AMK.008",
+            "titulo": "Tarea 0",
+            "url": "#"
+          },
+          {
+            "fecha": "3/10/2026",
+            "req": "AMK.008",
+            "titulo": "Tarea 2",
+            "url": "#"
+          },
+          {
+            "fecha": "3/10/2026",
+            "req": "AMK.008",
+            "titulo": "Tarea 4",
+            "url": "#"
+          },
+          {
+            "fecha": "3/10/2026",
+            "req": "AMK.008",
+            "titulo": "Tarea 6",
+            "url": "#"
+          },
+          {
+            "fecha": "3/10/2026",
+            "req": "AMK.008",
+            "titulo": "Tarea 8",
+            "url": "#"
+          },
+          {
+            "fecha": "2026-10-04",
+            "req": "AMK.008",
+            "titulo": "Tarea 1",
+            "url": "#"
+          },
+          {
+            "fecha": "2026-10-04",
+            "req": "AMK.008",
+            "titulo": "Tarea 3",
+            "url": "#"
+          },
+          {
+            "fecha": "2026-10-04",
+            "req": "AMK.008",
+            "titulo": "Tarea 5",
+            "url": "#"
+          }
+        ]
+      }
+    },
+    {
+      "name": "closed",
+      "state": {
+        "items": [
+          {
+            "id": 101,
+            "estado": "Closed",
+            "titulo": "AMK.008 - Tarea 1",
+            "tipo": "To Be",
+            "asignadoA": "Luis",
+            "avanceTotal": 17,
+            "qaListo": false,
+            "fechaLimiteDev": "2026-10-04",
+            "diasSinActualizar": 3
+          }
+        ],
+        "stale": []
+      },
+      "expected": {
+        "total": 1,
+        "closed": 1,
+        "qa": 0,
+        "avg": 17,
+        "riskCount": 0,
+        "entries": [
+          [
+            "Closed",
+            1
+          ]
+        ],
+        "totalDist": 1,
+        "donut": "conic-gradient(#6cd18b 0% 100%)",
+        "notes": [
+          {
+            "cls": "",
+            "text": "No hay ítems sin seguimiento por más de 7 días."
+          },
+          {
+            "cls": "",
+            "text": "La mayoría de los Work Items ya está cerrada."
+          },
+          {
+            "cls": "warn",
+            "text": "Avance promedio de 17% en los Work Items con seguimiento de avance."
+          }
+        ],
+        "byAssigned": [
+          {
+            "nombre": "Luis",
+            "total": 1,
+            "abiertos": 0,
+            "cerrados": 1
+          }
+        ],
+        "maxOpen": 1,
+        "byDate": [
+          {
+            "fecha": "2026-10-04",
+            "req": "AMK.008",
+            "titulo": "Tarea 1",
+            "url": "#"
+          }
+        ]
+      }
+    }
+  ]
+}

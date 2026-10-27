@@ -4,7 +4,16 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 4c7767a:** Recursos IXB/SaaS/RaaS congelado:
+**Último bloque, base c1d0308:** resumen Azure IXB congelado: cuatro
+estados y doce campos guardados desde el original; se conservan las cinco
+pruebas. 472 Node completas y cinco dirigidas en UTC/México aprobadas; dos
+mutaciones en copias detectadas y JSON reproducible. El test ejecuta los
+clasificadores actuales, sin depender de helpers del original. Quedan 18
+archivos Node dependientes del original, 23 congelados. Sin cambios de
+aplicación/diseño/cálculos/CSP; sin nueva corrida servidor/e2e ni push.
+Piloto de navegador pendiente; ver `docs/congelacion-referencias.md`.
+
+**Bloque previo, base 4c7767a:** Recursos IXB/SaaS/RaaS congelado:
 cuatro resultados completos y cuatro casos del editor guardados desde el
 original. 472 Node aprobadas, tres mutaciones en copias detectadas y JSON
 reproducible. Quedan 19 archivos Node dependientes del original, 22 congelados.

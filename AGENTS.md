@@ -29,7 +29,13 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
-- Último bloque sobre `4c7767a`: ixs_resources compara cuatro resultados
+- Último bloque sobre `c1d0308`: resumen Azure IXB congelado (cuatro estados,
+  doce campos, cinco pruebas conservadas). 472 Node y cinco dirigidas en
+  UTC/México aprobadas; dos mutaciones en copias detectadas y JSON reproducible.
+  Clasificadores actuales sin helpers originales en el test. Quedan 18
+  archivos Node dependientes del original, 23 congelados. Sin cambios de
+  aplicación ni nueva corrida servidor/e2e o push; piloto navegador pendiente.
+- Bloque previo sobre `4c7767a`: ixs_resources compara cuatro resultados
   completos y cuatro casos del editor contra JSON original reproducible.
   472 Node pasan; tres mutaciones en copias detectadas. No cambia aplicación,
   diseño, cálculos, CSP ni permisos; sin nueva corrida servidor/e2e o push.
@@ -134,7 +140,7 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
    el desarrollo normal sigue directo en main.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, 19 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
+   En main, 18 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que

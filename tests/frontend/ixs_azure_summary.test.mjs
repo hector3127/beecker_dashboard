@@ -2,52 +2,24 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import vm from "node:vm";
+import { groupStatus } from "../../frontend/static/scripts/pages/project_detail/sections/ixs_azure_groups_model.js";
 
-const code = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const captured = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/ixs_azure_summary.json", import.meta.url),
+    "utf8",
+  ),
 );
-const pick = (name) =>
-  code.match(new RegExp(String.raw`  function ${name}\([\s\S]*?\n  \}`))[0];
-const context = {
-  window: {},
-  document: { getElementById: () => null },
-  _ixsAzureRenderSelect: () => {},
-  _ixsAzureUniqueOptions: () => [],
-};
-const fields = [
-  "total",
-  "closed",
-  "qa",
-  "avg",
-  "riskCount",
-  "entries",
-  "totalDist",
-  "donut",
-  "notes",
-  "byAssigned",
-  "maxOpen",
-  "byDate",
-];
-vm.runInNewContext(
-  [
-    "_ixsAzureStatusClass",
-    "_ixsAz84Status",
-    "_ixsDateMs",
-    "_ixsAzureReq",
-    "_ixsAzureTitleOnly",
-  ]
-    .map(pick)
-    .join("\n") +
-    "\n" +
-    pick("_ixsRenderAzureSummary").replace(
-      /\n  }$/,
-      `\n return {${fields.join(",")}};\n }`,
-    ),
-  context,
-);
-context.statusClass = context._ixsAzureStatusClass;
-context.groupStatus = context._ixsAz84Status;
+// Evaluate the current pure classifier without loading its DOM-only imports.
+const classifier = fs
+  .readFileSync(
+    "frontend/static/scripts/pages/project_detail/sections/ixs_planning_azure.js",
+    "utf8",
+  )
+  .match(/export function statusClass\([\s\S]*?\n}/)[0]
+  .replace("export ", "");
+const context = { groupStatus };
+vm.runInNewContext(classifier, context);
 vm.runInNewContext(
   fs
     .readFileSync(
@@ -58,45 +30,18 @@ vm.runInNewContext(
     .replaceAll("export ", ""),
   context,
 );
-const rows = [
-  "Active",
-  "Closed",
-  "Cancelled",
-  "Blocked",
-  "Proposed",
-  "In progress",
-  "Rejected",
-  "Completed",
-  "Risk",
-].map((estado, i) => ({
-  id: 100 + i,
-  estado,
-  titulo: `AMK.008 - Tarea ${i}`,
-  tipo: i % 2 ? "To Be" : "Risk",
-  asignadoA: i % 2 ? "Luis" : "Ana",
-  avanceTotal: i * 17,
-  qaListo: i % 2 === 0,
-  fechaLimiteDev: i % 2 ? "2026-10-04" : "3/10/2026",
-  diasSinActualizar: i * 3,
-}));
 
-for (const [name, state] of Object.entries({
-  full: { items: rows.slice(0, 3), allItems: rows, stale: rows.slice(2) },
-  empty: {},
-  emptyAll: { items: rows, allItems: [], stale: [] },
-  closed: { items: rows.filter((x) => x.estado === "Closed"), stale: [] },
-})) {
+for (const { name, state, expected } of captured.cases) {
   test(`summary equals original figures, distribution, ordering and dates: ${name}`, () => {
-    context.ixsAzureState = structuredClone(state);
-    const expected = context._ixsRenderAzureSummary();
-    const before = JSON.stringify(state),
-      actual = context.azureSummary(state);
-    for (const field of fields)
+    const before = JSON.stringify(state);
+    const actual = context.azureSummary(state);
+    for (const field of captured.fields) {
       assert.equal(
         JSON.stringify(actual[field]),
         JSON.stringify(expected[field]),
         field,
       );
+    }
     assert.equal(JSON.stringify(state), before);
     assert.equal(
       actual.staleSorted.length,

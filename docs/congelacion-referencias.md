@@ -1,5 +1,28 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Octavo bloque: resumen Azure IXB/SaaS/RaaS
+
+Base `c1d0308`. `ixs_azure_summary.test.mjs` conserva sus cinco pruebas;
+cuatro estados guardan doce campos originales: totales, cerrados, QA,
+avance, riesgos, distribución/gradiente, notas, responsables y próximas fechas.
+Conserva vacío, allItems vacío, cerrado, orden y límite de ocho elementos,
+avance sin recorte y no mutación. La captura se ejecutó antes del reemplazo.
+
+El generador temporal `frozen/gen/ixs_azure_summary.gen.mjs` solo ejecuta
+funciones originales. JSON reproducible exactamente con CRLF/LF normalizado
+(se mantiene JSON.stringify, sin reformatear arrays con Prettier). El test
+carga el clasificador actual de Planeación sin sus imports DOM y el módulo
+actual de agrupación; ya no inyecta clasificadores anteriores al modelo nuevo.
+
+**472 Node completas y cinco dirigidas en UTC y America/Mexico_City pasan**,
+sin omisiones. Dos mutaciones en copias temporales detectadas: riesgos +1 y
+límite de fechas 8→1. No cambia producción, diseño, fórmulas, CSP ni permisos;
+sin nueva corrida servidor/e2e para este bloque de tests. Prettier del JS y
+diff comprobados; registros ignorados `tmp/frozen-azure-summary-node.log` y
+`tmp/ixs_azure_summary.next-mutation.log`. Quedan **18 archivos Node** que
+leen el original, 23 congelados; fase 11 abierta, piloto navegador pendiente.
+Sin push.
+
 ## Séptimo bloque: Recursos IXB/SaaS/RaaS
 
 Base `4c7767a`. Recursos IXB/SaaS/RaaS (`ixs_resources.test.mjs`) compara
