@@ -14,7 +14,7 @@ from core.frontend import CAPTURE_STYLE_HASHES
 
 ROOT = Path(__file__).resolve().parents[2]
 FRONTEND = ROOT / "frontend"
-PORTAL_CSS = ROOT / "apps/portal/static/portal/css/portal.css"
+PORTAL_CSS = ROOT / "tests/reference/static/portal/css/portal.css"
 PAGE = "/guia-de-interfaz/"
 HEADER = "Content-Security-Policy-Report-Only"
 

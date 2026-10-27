@@ -41,7 +41,7 @@ test("compatibility callbacks read and replace the same state in both directions
 });
 test("real legacy declarations attach to the store without resetting existing values", () => {
   const source = fs.readFileSync(
-    "apps/portal/static/portal/js/proyecto_detalle.js",
+    "tests/reference/static/portal/js/proyecto_detalle.js",
     "utf8",
   );
   const state = createProjectState();

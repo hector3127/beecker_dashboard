@@ -130,8 +130,7 @@ def test_aer_records_missing_dates_still_use_service_validation(
     load.assert_called_once_with("AER.001", "", "")
 
 
-def test_active_entry_and_comparison(client, monkeypatch):
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
+def test_active_entry_and_comparison(client, monkeypatch, reference_site):
     current = client.get(
         "/proyectos/CCO.001%20%7C%20CR/?volver=%2Foperativa%2F"
     )

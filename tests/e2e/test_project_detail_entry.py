@@ -63,7 +63,6 @@ def project_detail(portal, monkeypatch, datos):
     ):
         monkeypatch.setattr(api, source, lambda project: {"ok": True})
     monkeypatch.setattr(api, "get_ixs_panel", lambda *args: {"ok": True})
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
 
     def rpc(route):
         name = route.request.url.rstrip("/").rsplit("/", 1)[-1]

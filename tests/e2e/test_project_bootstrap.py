@@ -12,7 +12,7 @@ from tests.e2e.test_project_detail_entry import project_detail as project_detail
 pytestmark = pytest.mark.django_db(transaction=True)
 RENDERER = "**/portal/js/proyecto_detalle.js?*"
 SHIM = "**/core/js/gas_shim.js"
-SOURCE = Path("apps/portal/static/portal/js/proyecto_detalle.js")
+SOURCE = Path("tests/reference/static/portal/js/proyecto_detalle.js")
 
 
 @pytest.mark.parametrize("family", ["ixs", "aer"])

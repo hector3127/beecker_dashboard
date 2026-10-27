@@ -168,7 +168,6 @@ def evas(monkeypatch, datos):
 
     monkeypatch.setattr("apps.portal.views.fill_closed_burn", burn)
     monkeypatch.setattr("apps.portal.api.eva.fill_closed_burn", burn)
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
     return calls
 
 

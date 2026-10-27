@@ -10,7 +10,7 @@ import {
 } from "../../frontend/static/scripts/pages/project_detail/sections/ixs_azure_groups_model.js";
 
 const code = fs.readFileSync(
-  "apps/portal/static/portal/js/proyecto_detalle.js",
+  "tests/reference/static/portal/js/proyecto_detalle.js",
   "utf8",
 );
 const pick = (name) =>

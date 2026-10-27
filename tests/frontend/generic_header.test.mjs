@@ -21,7 +21,7 @@ const context = {
   completed: false,
 };
 const source = fs.readFileSync(
-  "apps/portal/static/portal/js/proyecto_detalle.js",
+  "tests/reference/static/portal/js/proyecto_detalle.js",
   "utf8",
 );
 const donut = vm.runInNewContext(

@@ -6,7 +6,7 @@ import { genericExecutiveModel } from "../../frontend/static/scripts/pages/proje
 import { createEntryRuntime } from "../../frontend/static/scripts/pages/project_detail/sections/project_entry_runtime.js";
 
 const source = fs.readFileSync(
-  "apps/portal/static/portal/js/proyecto_detalle.js",
+  "tests/reference/static/portal/js/proyecto_detalle.js",
   "utf8",
 );
 const begin = source.indexOf(

@@ -10,7 +10,7 @@ import {
 } from "../../frontend/static/scripts/pages/project_detail/sections/generic_sources_model.js";
 
 const original = fs.readFileSync(
-  "apps/portal/static/portal/js/proyecto_detalle.js",
+  "tests/reference/static/portal/js/proyecto_detalle.js",
   "utf8",
 );
 test("task hours preserve original rounding, locale and missing values", () => {

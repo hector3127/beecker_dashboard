@@ -2,7 +2,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const vm=require('node:vm');
 const fs=require('node:fs');
-const source=fs.readFileSync(require('node:path').join(__dirname,'../../apps/portal/static/portal/js/return_navigation.js'),'utf8');
+const source=fs.readFileSync(require('node:path').join(__dirname,'../../tests/reference/static/portal/js/return_navigation.js'),'utf8');
 function run(href,target,back=false){
  const location=new URL(href), listeners={};
  const link={href:target,hasAttribute:key=>back&&key==='data-portal-back',classList:{contains:()=>false}};

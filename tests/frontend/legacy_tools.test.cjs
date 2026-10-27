@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const path = require('node:path');
-const main = '<script>' + fs.readFileSync(path.join(__dirname, '../../apps/portal/static/portal/js/proyecto_detalle.js'), 'utf8') + '</script>'; 
+const main = '<script>' + fs.readFileSync(path.join(__dirname, '../../tests/reference/static/portal/js/proyecto_detalle.js'), 'utf8') + '</script>'; 
 // Isolated functions now call these real transport helpers; keep RPC assertions.
 const projectReads = ['readProjectFilters', 'readProjectDashboard'].map(name =>
   main.match(new RegExp('function ' + name + '\\([^]*?\\n  \\}'))[0]

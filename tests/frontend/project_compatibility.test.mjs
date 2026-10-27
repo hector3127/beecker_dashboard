@@ -5,7 +5,7 @@ import vm from "node:vm";
 import { createProjectCompatibility } from "../../frontend/static/scripts/pages/project_detail/sections/project_compatibility.js";
 
 const source = fs.readFileSync(
-  "apps/portal/static/portal/js/proyecto_detalle.js",
+  "tests/reference/static/portal/js/proyecto_detalle.js",
   "utf8",
 );
 const bridge = source.match(

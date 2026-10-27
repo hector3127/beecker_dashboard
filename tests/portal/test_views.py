@@ -29,12 +29,6 @@ LOADED_AT = datetime(
 
 
 @pytest.fixture(autouse=True)
-def anterior_screens(monkeypatch):
-    """Estas pruebas leen la pantalla anterior (?vista=anterior)."""
-    monkeypatch.setattr("apps.portal.pages.anterior_disponible", lambda: True)
-
-
-@pytest.fixture(autouse=True)
 def no_real_eva1(monkeypatch):
     """Operativa lee EVA 1; en pruebas nunca se consulta la hoja MPB."""
     monkeypatch.setattr(

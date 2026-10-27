@@ -1,7 +1,7 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const domState=require('./dom_state.cjs');
-const {isLoadingMessage,begin,inspect}=require('../../apps/portal/static/portal/js/portal_loading.js');
+const {isLoadingMessage,begin,inspect}=require('../../tests/reference/static/portal/js/portal_loading.js');
 
 test('loading distinguishes an in-flight query from missing business data',()=>{
  for(const message of ['Consultando…','Preparando corte del periodo…','Cargando datos','Guardando estado…'])assert.equal(isLoadingMessage(message),true);

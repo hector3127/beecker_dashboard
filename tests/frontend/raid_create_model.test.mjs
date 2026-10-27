@@ -4,7 +4,7 @@ import fs from "node:fs";
 import vm from "node:vm";
 import { createdNotice, parentStatus, planLines, prepareCreate, suggestions } from "../../frontend/static/scripts/pages/project_detail/sections/raid_create_model.js";
 
-const original = fs.readFileSync("apps/portal/static/portal/js/proyecto_detalle.js", "utf8");
+const original = fs.readFileSync("tests/reference/static/portal/js/proyecto_detalle.js", "utf8");
 const legacyPlan = {};
 vm.runInNewContext(original.match(/  function ixsRaidPlanEnLineas\([\s\S]*?\n  \}/)[0] + "\nthis.f=ixsRaidPlanEnLineas;", legacyPlan);
 

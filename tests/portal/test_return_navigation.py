@@ -11,7 +11,7 @@ from django.urls import resolve
 
 from apps.portal.services.opportunity_profitability import OPPORTUNITY_VERSION
 
-ROOT = Path(__file__).resolve().parents[2] / "apps/portal/templates/portal"
+ROOT = Path(__file__).resolve().parents[2] / "tests/reference/templates/portal"
 
 
 @pytest.fixture(autouse=True)
@@ -85,7 +85,7 @@ def test_commercial_return_preserves_selected_executive_dates():
 
 def test_project_return_is_visible_before_async_dashboard_loads():
     html = render_to_string(
-        "portal/proyecto_detalle.html",
+        "pages/project_detail.html",
         {"project_id": "TYM.AAU.001", "project_context": {"id": "TYM.AAU.001"}},
     )
     assert html.index("Regresar a Operativa") < html.index(

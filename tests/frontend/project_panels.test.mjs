@@ -6,7 +6,7 @@ import { createProjectPanels } from "../../frontend/static/scripts/pages/project
 import { createProjectState } from "../../frontend/static/scripts/pages/project_detail/sections/project_state.js";
 
 const source = fs.readFileSync(
-  "apps/portal/static/portal/js/proyecto_detalle.js",
+  "tests/reference/static/portal/js/proyecto_detalle.js",
   "utf8",
 );
 const bindings = {

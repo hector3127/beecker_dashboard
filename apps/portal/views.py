@@ -831,28 +831,6 @@ def dm_state(
     return base, extra, hours
 
 
-@require_GET
-@ensure_csrf_cookie
-@require_capability("view_operations")
-def proyecto_detalle(request: HttpRequest, project_id: str) -> HttpResponse:
-    """Abre todas las secciones del proyecto dentro del portal."""
-    if _needs_login(request):
-        return redirect_to_login(request.get_full_path())
-    ensure_project_visible(request, project_id)
-    from django.urls import reverse
-
-    return render_page(
-        request,
-        "portal/proyecto_detalle.html",
-        {
-            **return_context(request, reverse("portal:operativa"), "Operativa"),
-            "active": "operativa",
-            "project_id": project_id,
-            "project_context": {"id": project_id},
-        },
-    )
-
-
 def ensure_project_visible(request: HttpRequest, project_id: str) -> None:
     """404 si el proyecto es de una cuenta fuera del alcance de la persona.
 

@@ -4,7 +4,7 @@ import fs from "node:fs";
 import vm from "node:vm";
 import { EMPTY_FILTERS, clientModel, contactsCsv, csvCell, initials, levelClass, linkTarget, normalize } from "../../frontend/static/scripts/pages/project_detail/sections/client_model.js";
 
-const original = fs.readFileSync("apps/portal/static/portal/js/proyecto_detalle.js", "utf8");
+const original = fs.readFileSync("tests/reference/static/portal/js/proyecto_detalle.js", "utf8");
 const pick = (name) => original.match(new RegExp(String.raw`  function ${name}\([\s\S]*?\n  \}`))[0];
 const legacy = {};
 vm.runInNewContext(

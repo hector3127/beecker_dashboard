@@ -42,3 +42,20 @@ def enforced(settings, django_user_model, client):
 
     yield sign_in
     DictProvider.GRANTS = {}
+
+
+@pytest.fixture
+def reference_site(settings: "SettingsWrapper") -> None:
+    """Sirve el detalle anterior en ?vista=anterior, solo en pruebas.
+
+    La aplicacion ya no lo incluye: sus plantillas y estaticos viven en
+    tests/reference y se agregan aqui, junto con la ruta que lo entrega.
+    """
+    from pathlib import Path
+
+    root = Path(__file__).parent / "reference"
+    settings.ROOT_URLCONF = "tests.reference.urls"
+    templates = [dict(engine) for engine in settings.TEMPLATES]
+    templates[0]["DIRS"] = [*templates[0]["DIRS"], root / "templates"]
+    settings.TEMPLATES = templates
+    settings.STATICFILES_DIRS = [*settings.STATICFILES_DIRS, root / "static"]

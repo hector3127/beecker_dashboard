@@ -11,7 +11,7 @@ const modern = fs
   .replace(/import[^;]+;/, "")
   .replaceAll("export function", "function");
 const original = fs
-  .readFileSync("apps/portal/static/portal/js/proyecto_detalle.js", "utf8")
+  .readFileSync("tests/reference/static/portal/js/proyecto_detalle.js", "utf8")
   .match(/  function _recalcularAvanceFilaWorkItem\([\s\S]*?\n  \}/)[0];
 const context = {};
 vm.runInNewContext(modern, context);

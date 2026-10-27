@@ -7,7 +7,7 @@ import {
   summaryPayload,
 } from "../../frontend/static/scripts/pages/project_detail/sections/aer_ai_actions_model.js";
 const source = fs.readFileSync(
-  "apps/portal/static/portal/js/proyecto_detalle.js",
+  "tests/reference/static/portal/js/proyecto_detalle.js",
   "utf8",
 );
 const start = source.indexOf("  function aerIAPreguntar()");

@@ -14,7 +14,7 @@ from django.views.decorators.http import require_GET
 
 from apps.access.checks import require_capability, scope_for
 from apps.portal import views
-from apps.portal.services.eva4 import anterior_disponible, month_picker
+from apps.portal.services.eva4 import month_picker
 from apps.portal.services.executive_period import (
     period_view,
 )
@@ -280,20 +280,6 @@ def commercial(request: HttpRequest) -> HttpResponse:
     return views.comercial_response(request, "pages/commercial.html")
 
 
-def _modern(
-    request: HttpRequest, view: Any, template: str, *args: Any
-) -> HttpResponse:
-    """Sirve la plantilla de frontend/ con la vista de siempre.
-
-    Hasta ANTERIOR_HASTA, ?vista=anterior entrega la plantilla de antes.
-    """
-    if _login_needed(request):
-        return redirect_to_login(request.get_full_path())
-    if anterior_disponible() and request.GET.get("vista") == "anterior":
-        return view(request, *args)  # type: ignore[no-any-return]
-    return _current(request, view, template, *args)
-
-
 def _current(
     request: HttpRequest, view: Any, template: str, *args: Any
 ) -> HttpResponse:
@@ -423,8 +409,22 @@ def project(request: HttpRequest, project_id: str) -> HttpResponse:
 
 
 @require_GET
+@ensure_csrf_cookie  # el JS firma las escrituras del proyecto
+@require_capability("view_operations")
 def project_detail(request: HttpRequest, project_id: str) -> HttpResponse:
-    """Entrada transitoria: API para carga inicial, pestañas aún anteriores."""
-    return _modern(
-        request, views.proyecto_detalle, "pages/project_detail.html", project_id
+    """Detalle del proyecto: el JS pide todo a la API."""
+    from django.urls import reverse
+
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    views.ensure_project_visible(request, project_id)
+    return render(
+        request,
+        "pages/project_detail.html",
+        {
+            **return_context(request, reverse("portal:operativa"), "Operativa"),
+            "active": "operativa",
+            "project_id": project_id,
+            "project_context": {"id": project_id},
+        },
     )

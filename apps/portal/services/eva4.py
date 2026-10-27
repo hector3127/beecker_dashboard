@@ -20,10 +20,6 @@ from core.exceptions import DashboardError
 from core.sheets.factory import build_sheet_repository
 from core.utils.dates import to_datetime
 
-# Fecha compartida de las comparaciones que siguen pendientes de retirar.
-# EVA-04 ya no tiene plantilla ni entrada anterior (fase 11).
-ANTERIOR_HASTA = date(2026, 11, 3)
-
 # Primer mes con horas de Clockify en la base: limite inferior del selector.
 FIRST_MONTH = date(2024, 8, 1)
 MONTH_NAMES = (
@@ -68,11 +64,6 @@ FIELDS = {
     "risk": ("Risk",),
     "account_manager": ("Account Manager", "AM"),
 }
-
-
-def anterior_disponible() -> bool:
-    """Indica si la pantalla anterior sigue disponible para comparar."""
-    return timezone.localdate() <= ANTERIOR_HASTA
 
 
 def month_picker(selected: str | None, today: date) -> dict[str, Any]:

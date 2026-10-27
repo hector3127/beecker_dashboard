@@ -56,7 +56,7 @@ test("failed download is removed and can retry without reloading other successfu
 });
 
 const source = fs.readFileSync(
-  "apps/portal/static/portal/js/proyecto_detalle.js",
+  "tests/reference/static/portal/js/proyecto_detalle.js",
   "utf8",
 );
 const bridge = source.match(

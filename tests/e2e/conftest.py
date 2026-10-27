@@ -198,3 +198,8 @@ def watch(portal):
         lambda r: problems.append(r.url) if portal.base in r.url else None,
     )
     return problems
+
+
+@pytest.fixture(autouse=True)
+def _previous_project_detail(reference_site: None) -> None:
+    """Las comparaciones usan la referencia anterior que viven en pruebas."""

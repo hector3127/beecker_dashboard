@@ -4,7 +4,7 @@ import fs from "node:fs";
 import vm from "node:vm";
 
 const code = fs.readFileSync(
-  "apps/portal/static/portal/js/proyecto_detalle.js",
+  "tests/reference/static/portal/js/proyecto_detalle.js",
   "utf8",
 );
 const pick = (name) =>

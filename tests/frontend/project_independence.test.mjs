@@ -46,6 +46,6 @@ test("the active project dependency graph has no legacy loader, shim or RPC tran
 test("shared project CSS is relocated verbatim to preserve the reference appearance", () => {
   assert.deepEqual(
     fs.readFileSync("frontend/static/styles/pages/project_detail_base.css"),
-    fs.readFileSync("apps/portal/static/portal/css/proyecto_detalle.css"),
+    fs.readFileSync("tests/reference/static/portal/css/proyecto_detalle.css"),
   );
 });

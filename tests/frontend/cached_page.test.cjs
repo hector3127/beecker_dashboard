@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const path = require('node:path');
 const source = fs.readFileSync(path.join(__dirname,
-  '../../apps/portal/static/portal/js/cached_page.js'), 'utf8');
+  '../../tests/reference/static/portal/js/cached_page.js'), 'utf8');
 
 function harness(ok) {
   const state = {textContent: 'Último corte', appendChild(button) {this.button = button;}};
