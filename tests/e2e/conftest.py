@@ -203,3 +203,30 @@ def watch(portal):
 @pytest.fixture(autouse=True)
 def _previous_project_detail(reference_site: None) -> None:
     """Las comparaciones usan la referencia anterior que viven en pruebas."""
+
+
+@pytest.fixture(autouse=True)
+def _csp_everywhere(request: pytest.FixtureRequest) -> Iterator[None]:
+    """E2E_CSP=1: toda la suite con la politica aplicada y avisos en un archivo.
+
+    Sirve para auditar la CSP: cada aviso del navegador queda en
+    tmp/csp-violations.log con la prueba que lo provoco.
+    """
+    if os.environ.get("E2E_CSP") != "1" or "portal" not in request.fixturenames:
+        yield
+        return
+    request.getfixturevalue("enforced_csp")
+    page = request.getfixturevalue("portal")
+    log = Path("tmp/csp-violations.log")
+    log.parent.mkdir(exist_ok=True)
+
+    def note(message: Any) -> None:
+        if "Content Security" in message.text:
+            with log.open("a", encoding="utf-8") as handle:
+                line = (
+                    f"{request.node.nodeid}\t{page.url}\t{message.text[:200]}"
+                )
+                handle.write(line.replace("\n", " ") + "\n")
+
+    page.on("console", note)
+    yield
