@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import {
   azureGroups,
   groupStatus,
@@ -9,68 +8,30 @@ import {
   matchesPerson,
 } from "../../frontend/static/scripts/pages/project_detail/sections/ixs_azure_groups_model.js";
 
-const code = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
-);
-const pick = (name) =>
-  code.match(new RegExp(String.raw`  function ${name}\([\s\S]*?\n  \}`))[0];
-const legacy = { ixsAzureState: {} };
-vm.runInNewContext(
-  ["_ixsAz84Status", "_ixsAz84Stage", "_ixsAz84GroupData"].map(pick).join("\n"),
-  legacy,
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/ixs_azure_groups.json", import.meta.url),
+    "utf8",
+  ),
 );
 const same = (a, b) => assert.equal(JSON.stringify(a), JSON.stringify(b));
-
 test("group status and iteration preserve the original classifiers", () => {
-  for (const state of [
-    " Active ",
-    "In progress",
-    "blocked",
-    "CANCELLED",
-    "Closed",
-    "Not applicable",
-    "Completed",
-    "Inactive",
-    "Rejected",
-    "Proposed",
-    "Risk",
-    "",
-    null,
-  ]) {
-    assert.equal(groupStatus(state), legacy._ixsAz84Status(state));
-  }
-  for (const path of ["A\\Dev", "A\\QA\\", " ", "\\", null])
-    assert.equal(iterationStage(path), legacy._ixsAz84Stage(path));
+  assert.equal(frozen.statuses.length, 13);
+  assert.equal(frozen.stages.length, 5);
+  for (const { input, expected } of frozen.statuses)
+    assert.equal(groupStatus(input), expected);
+  for (const { input, expected } of frozen.stages)
+    assert.equal(
+      iterationStage(input),
+      expected.kind === "undefined" ? undefined : expected.value,
+    );
 });
-
 test("people, iterations, stages and ordering match the original without changing inputs", () => {
-  const allItems = [
-    "Active",
-    "Closed",
-    "Cancelled",
-    "Blocked",
-    "Proposed",
-    "In progress",
-    "Rejected",
-    "Completed",
-    "",
-  ].map((estado, i) => ({
-    id: i,
-    estado,
-    asignadoA: ["Ana", " Luis ", "", "Ana"][i % 4],
-    iterationPath: ["A\\Dev", "B\\Dev", "A\\QA", ""][i % 4],
-  }));
-  for (const state of [
-    { allItems },
-    { allItems: [] },
-    {},
-    { allItems: "invalid" },
-  ]) {
-    const before = JSON.stringify(state);
-    legacy.ixsAzureState = state;
-    same(azureGroups(state), legacy._ixsAz84GroupData());
-    assert.equal(JSON.stringify(state), before);
+  assert.equal(frozen.groups.length, 4);
+  for (const { input, expected } of frozen.groups) {
+    const state = structuredClone(input);
+    same(azureGroups(state), expected);
+    assert.deepEqual(state, input);
   }
 });
 

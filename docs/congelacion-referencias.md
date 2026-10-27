@@ -1,5 +1,41 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Tercer bloque: RAID, Azure, paneles y rango Clockify
+
+Base `5814968`. Cuatro archivos adicionales dejan de ejecutar la referencia:
+
+| Archivo | Salidas conservadas del original |
+|---|---|
+| raid_create_model | 6 formatos de líneas de plan, viñetas y saltos de línea |
+| ixs_azure_groups | 13 estados, 5 rutas de iteración y 4 agrupaciones completas |
+| generic_panels | 8 clases de estado y 9 fechas en dos zonas horarias |
+| project_clockify_range | 3 textos de rango en dos zonas horarias |
+
+Se conservan los demás casos: validación/publicación RAID, sugerencias/padre,
+búsqueda sin normalizar acentos en Azure, orden y no mutación de agrupaciones,
+totales/redondeo/observaciones de paneles, errores/rango sin ID, respuestas
+tardías y reemplazo de nodos Clockify. Los valores undefined siguen explícitos
+en los JSON; no se convierten a null ni a una cadena accidentalmente.
+
+Los formatos de fecha del original dependen de la zona local. Se capturan en
+UTC y America/Mexico_City; las pruebas se ejecutan en ambas y restauran TZ
+con finally. No cambia el formato ni la zona de la aplicación. Esta ampliación
+evita expectativas que solo funcionen en el equipo que generó el archivo.
+
+Generador temporal `frozen/gen/raid_azure_panels.gen.mjs`, ejecutado solo
+expresamente, sin importar modelos actuales. Cuatro JSON reproducibles desde
+el original normalizando CRLF/LF. **472 Node completas y 14 dirigidas pasan**,
+sin omisiones. Cinco mutaciones en copias temporales se detectaron: viñeta
+RAID, ACTIVE→other en Azure, badge de riesgo, locale de fecha y texto de rango.
+No se alteraron fuentes de aplicación. Prettier y diff de espacios comprobados.
+Registros ignorados en `tmp/frozen-raid-azure-node.log` y
+`tmp/*.next-mutation.log`; no se repite servidor/e2e por cambios solo de tests.
+
+Quedan **29 archivos Node** que leen directamente proyecto_detalle.js
+(33 antes de este bloque, 41 al empezar). Doce archivos congelados en total;
+no es un porcentaje de fase. Continúan pendientes el piloto de navegador y
+los modelos más complejos. No borrar todavía referencias ni servicios. Sin push.
+
 ## Segundo bloque: contactos, entrada, avance y sesión
 
 Base `7d59edf`. Cuatro archivos adicionales dejan de leer el original:
@@ -33,7 +69,7 @@ Prettier y diff de espacios comprobados. No se repite servidor/navegador por
 un bloque exclusivo de pruebas Node. Registros ignorados:
 `tmp/frozen-entry-client-node.log`, `tmp/*.next-mutation.log`.
 
-Quedan **33 archivos de pruebas Node** que leen directamente el script
+Al cierre del segundo bloque quedaban **33 archivos de pruebas Node** que leían directamente el script
 anterior (37 antes de este bloque, 41 al empezar). Ocho archivos congelados
 en total. El piloto de navegador sigue pendiente; no borrar la referencia,
 sus generadores o servicios compartidos todavía usados. Sin push.

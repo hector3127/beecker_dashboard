@@ -1,18 +1,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import {
   createClockifyRange,
   rangeText,
 } from "../../frontend/static/scripts/pages/project_detail/sections/project_clockify_range.js";
 
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
-);
-const shortDate = vm.runInNewContext(
-  "(" + source.match(/  function fmtFechaCorta\([\s\S]*?\n  \}/)[0] + ")",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/project_clockify_range.json", import.meta.url),
+    "utf8",
+  ),
 );
 const valid = {
   ok: true,
@@ -31,15 +29,24 @@ const pending = () => {
 test("range presentation keeps original local dates and empty/error rules", () => {
   for (const result of [null, {}, { ok: false }, { ok: true, fechaFin: "x" }])
     assert.equal(rangeText(result), "");
-  for (const result of [
-    valid,
-    { ...valid, fechaFin: null },
-    { ...valid, fechaInicio: "invalid" },
-  ]) {
-    assert.equal(
-      rangeText(result),
-      `Clockify: ${shortDate(result.fechaInicio)} → ${shortDate(result.fechaFin)}`,
-    );
+  assert.deepEqual(
+    frozen.map((x) => x.timezone),
+    ["UTC", "America/Mexico_City"],
+  );
+  const before = process.env.TZ;
+  try {
+    for (const { timezone, cases } of frozen) {
+      process.env.TZ = timezone;
+      assert.equal(cases.length, 3);
+      for (const { input, expected } of cases) {
+        const data = structuredClone(input);
+        assert.equal(rangeText(data), expected);
+        assert.deepEqual(data, input);
+      }
+    }
+  } finally {
+    if (before === undefined) delete process.env.TZ;
+    else process.env.TZ = before;
   }
 });
 

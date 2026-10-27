@@ -1,0 +1,195 @@
+{
+  "badges": [
+    {
+      "input": {
+        "kind": "value",
+        "value": "Retrasado"
+      },
+      "expected": "badge-error"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "Excedido"
+      },
+      "expected": "badge-error"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "En riesgo"
+      },
+      "expected": "badge-warning"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "En tiempo"
+      },
+      "expected": "badge-ok"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "Sin estimacion en Recursos"
+      },
+      "expected": "badge-ok"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": ""
+      },
+      "expected": "badge-ok"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": null
+      },
+      "expected": "badge-ok"
+    },
+    {
+      "input": {
+        "kind": "undefined"
+      },
+      "expected": "badge-ok"
+    }
+  ],
+  "dates": [
+    {
+      "timezone": "UTC",
+      "cases": [
+        {
+          "input": {
+            "kind": "value",
+            "value": null
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "undefined"
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": ""
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": 0
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "bad"
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "2026-10-23"
+          },
+          "expected": "23 oct 2026"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "2026-10-23T23:30:00Z"
+          },
+          "expected": "23 oct 2026"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "2027-01-01T00:00:00Z"
+          },
+          "expected": "01 ene 2027"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "23/10/2026"
+          },
+          "expected": "?"
+        }
+      ]
+    },
+    {
+      "timezone": "America/Mexico_City",
+      "cases": [
+        {
+          "input": {
+            "kind": "value",
+            "value": null
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "undefined"
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": ""
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": 0
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "bad"
+          },
+          "expected": "?"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "2026-10-23"
+          },
+          "expected": "22 oct 2026"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "2026-10-23T23:30:00Z"
+          },
+          "expected": "23 oct 2026"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "2027-01-01T00:00:00Z"
+          },
+          "expected": "31 dic 2026"
+        },
+        {
+          "input": {
+            "kind": "value",
+            "value": "23/10/2026"
+          },
+          "expected": "?"
+        }
+      ]
+    }
+  ]
+}

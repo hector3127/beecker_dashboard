@@ -4,7 +4,17 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 7d59edf:** se congelan client_model,
+**Último bloque, base 5814968:** se congelan raid_create_model,
+ixs_azure_groups, generic_panels y project_clockify_range. 14 dirigidas y
+472 Node completas aprobadas; cinco mutaciones en copias detectadas.
+Resultados originales en frozen, reproducibles normalizando CRLF/LF.
+Fechas/rangos se comprueban en UTC y America/Mexico_City, restaurando TZ;
+se conservan undefined y todos los casos existentes. No cambia aplicación,
+diseño/cálculos/CSP/permisos. Quedan 29 archivos Node que leen el original,
+doce congelados en total. Piloto de navegador sigue pendiente. Sin push;
+ver `congelacion-referencias.md`. Los bloques siguientes son históricos.
+
+**Bloque previo, base 7d59edf:** se congelan client_model,
 project_entry_model, ixs_work_items y project_session_model. Resultados del
 original: 18 helpers, 36 familias, 16 avances y dos estados iniciales de IA.
 22 dirigidas y 472 Node completas pasan, sin omisiones; cuatro alteraciones

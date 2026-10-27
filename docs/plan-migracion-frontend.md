@@ -9,7 +9,18 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
-**Último bloque de congelación, base 7d59edf:** client_model,
+**Último bloque de congelación, base 5814968:** raid_create_model,
+ixs_azure_groups, generic_panels y project_clockify_range usan resultados
+originales guardados. 6 planes, 13 estados/5 iteraciones/4 grupos, 8 badges,
+18 fechas y 6 rangos. 14 dirigidas y 472 Node completas pasan sin omisiones;
+cinco mutaciones en copias se detectan. Fechas en UTC y America/Mexico_City
+con TZ restaurada. Generador reproducible sin modelos actuales, valores
+undefined explícitos. No cambia código de aplicación. Quedan 29 archivos
+Node dependientes del original, doce congelados en total. Piloto de navegador
+pendiente; no retirar referencias todavía. Ver `congelacion-referencias.md`.
+Sin nueva corrida servidor/e2e ni push por este bloque de tests Node.
+
+**Bloque previo, base 7d59edf:** client_model,
 project_entry_model, ixs_work_items y project_session_model comparan contra
 salidas del original guardadas en frozen. 18 helpers, 36 clasificaciones,
 16 avances y dos estados iniciales completos; 22 dirigidas y 472 Node

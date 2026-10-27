@@ -1,0 +1,60 @@
+[
+  {
+    "timezone": "UTC",
+    "cases": [
+      {
+        "input": {
+          "ok": true,
+          "fechaInicio": "2026-08-01",
+          "fechaFin": "2026-10-23T12:00:00"
+        },
+        "expected": "Clockify: 01 ago 2026 → 23 oct 2026"
+      },
+      {
+        "input": {
+          "ok": true,
+          "fechaInicio": "2026-08-01",
+          "fechaFin": null
+        },
+        "expected": "Clockify: 01 ago 2026 → ?"
+      },
+      {
+        "input": {
+          "ok": true,
+          "fechaInicio": "invalid",
+          "fechaFin": "2026-10-23T12:00:00"
+        },
+        "expected": "Clockify: ? → 23 oct 2026"
+      }
+    ]
+  },
+  {
+    "timezone": "America/Mexico_City",
+    "cases": [
+      {
+        "input": {
+          "ok": true,
+          "fechaInicio": "2026-08-01",
+          "fechaFin": "2026-10-23T12:00:00"
+        },
+        "expected": "Clockify: 31 jul 2026 → 23 oct 2026"
+      },
+      {
+        "input": {
+          "ok": true,
+          "fechaInicio": "2026-08-01",
+          "fechaFin": null
+        },
+        "expected": "Clockify: 31 jul 2026 → ?"
+      },
+      {
+        "input": {
+          "ok": true,
+          "fechaInicio": "invalid",
+          "fechaFin": "2026-10-23T12:00:00"
+        },
+        "expected": "Clockify: ? → 23 oct 2026"
+      }
+    ]
+  }
+]

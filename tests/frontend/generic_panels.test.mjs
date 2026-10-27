@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import {
   resourcesModel,
   resourceStateClass,
@@ -9,46 +8,36 @@ import {
   milestonesModel,
 } from "../../frontend/static/scripts/pages/project_detail/sections/generic_panels_model.js";
 
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/generic_panel_helpers.json", import.meta.url),
+    "utf8",
+  ),
 );
-const original = (name) =>
-  vm.runInNewContext(
-    "(" +
-      source.match(new RegExp(`  function ${name}\\([\\s\\S]*?\\n  \\}`))[0] +
-      ")",
-  );
-
+const restore = (input) =>
+  input.kind === "undefined" ? undefined : input.value;
 test("resource badges keep all original state mappings including unknown values", () => {
-  const badge = original("badgeEstadoClass");
-  for (const state of [
-    "Retrasado",
-    "Excedido",
-    "En riesgo",
-    "En tiempo",
-    "Sin estimacion en Recursos",
-    "",
-    null,
-    undefined,
-  ])
-    assert.equal(resourceStateClass(state), badge(state));
+  assert.equal(frozen.badges.length, 8);
+  for (const { input, expected } of frozen.badges)
+    assert.equal(resourceStateClass(restore(input)), expected);
 });
-
 test("milestone dates keep the original date formatter for valid, missing and invalid values", () => {
-  const format = original("fmtFechaCorta");
-  for (const value of [
-    null,
-    undefined,
-    "",
-    0,
-    "bad",
-    "2026-10-23",
-    "2026-10-23T23:30:00Z",
-    "2027-01-01T00:00:00Z",
-    "23/10/2026",
-  ])
-    assert.equal(shortDate(value), format(value));
+  assert.deepEqual(
+    frozen.dates.map((x) => x.timezone),
+    ["UTC", "America/Mexico_City"],
+  );
+  const before = process.env.TZ;
+  try {
+    for (const { timezone, cases } of frozen.dates) {
+      process.env.TZ = timezone;
+      assert.equal(cases.length, 9);
+      for (const { input, expected } of cases)
+        assert.equal(shortDate(restore(input)), expected);
+    }
+  } finally {
+    if (before === undefined) delete process.env.TZ;
+    else process.env.TZ = before;
+  }
 });
 
 test("resource presentation keeps rounding/defaults and does not change source values", () => {

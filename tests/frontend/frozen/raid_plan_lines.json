@@ -1,0 +1,26 @@
+[
+  {
+    "input": "",
+    "expected": ""
+  },
+  {
+    "input": null,
+    "expected": ""
+  },
+  {
+    "input": "• a • b ● c",
+    "expected": "• a\n• b\n• c"
+  },
+  {
+    "input": "- uno\n* dos\n3) tres\n4. cuatro",
+    "expected": "• uno\n• dos\n• tres\n• cuatro"
+  },
+  {
+    "input": "Una sola\r\nlinea",
+    "expected": "• Una sola\n• linea"
+  },
+  {
+    "input": "1. x 2. y",
+    "expected": "• x 2. y"
+  }
+]

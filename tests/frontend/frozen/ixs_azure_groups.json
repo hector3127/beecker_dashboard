@@ -1,0 +1,440 @@
+{
+  "statuses": [
+    {
+      "input": " Active ",
+      "expected": "active"
+    },
+    {
+      "input": "In progress",
+      "expected": "other"
+    },
+    {
+      "input": "blocked",
+      "expected": "blocked"
+    },
+    {
+      "input": "CANCELLED",
+      "expected": "cancelled"
+    },
+    {
+      "input": "Closed",
+      "expected": "closed"
+    },
+    {
+      "input": "Not applicable",
+      "expected": "closed"
+    },
+    {
+      "input": "Completed",
+      "expected": "closed"
+    },
+    {
+      "input": "Inactive",
+      "expected": "closed"
+    },
+    {
+      "input": "Rejected",
+      "expected": "closed"
+    },
+    {
+      "input": "Proposed",
+      "expected": "proposed"
+    },
+    {
+      "input": "Risk",
+      "expected": "other"
+    },
+    {
+      "input": "",
+      "expected": "other"
+    },
+    {
+      "input": null,
+      "expected": "other"
+    }
+  ],
+  "stages": [
+    {
+      "input": "A\\Dev",
+      "expected": {
+        "kind": "value",
+        "value": "Dev"
+      }
+    },
+    {
+      "input": "A\\QA\\",
+      "expected": {
+        "kind": "value",
+        "value": "QA"
+      }
+    },
+    {
+      "input": " ",
+      "expected": {
+        "kind": "value",
+        "value": "Sin iteración"
+      }
+    },
+    {
+      "input": "\\",
+      "expected": {
+        "kind": "undefined"
+      }
+    },
+    {
+      "input": null,
+      "expected": {
+        "kind": "value",
+        "value": "Sin iteración"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "input": {
+        "allItems": [
+          {
+            "id": 0,
+            "estado": "Active",
+            "asignadoA": "Ana",
+            "iterationPath": "A\\Dev"
+          },
+          {
+            "id": 1,
+            "estado": "Closed",
+            "asignadoA": " Luis ",
+            "iterationPath": "B\\Dev"
+          },
+          {
+            "id": 2,
+            "estado": "Cancelled",
+            "asignadoA": "",
+            "iterationPath": "A\\QA"
+          },
+          {
+            "id": 3,
+            "estado": "Blocked",
+            "asignadoA": "Ana",
+            "iterationPath": ""
+          },
+          {
+            "id": 4,
+            "estado": "Proposed",
+            "asignadoA": "Ana",
+            "iterationPath": "A\\Dev"
+          },
+          {
+            "id": 5,
+            "estado": "In progress",
+            "asignadoA": " Luis ",
+            "iterationPath": "B\\Dev"
+          },
+          {
+            "id": 6,
+            "estado": "Rejected",
+            "asignadoA": "",
+            "iterationPath": "A\\QA"
+          },
+          {
+            "id": 7,
+            "estado": "Completed",
+            "asignadoA": "Ana",
+            "iterationPath": ""
+          },
+          {
+            "id": 8,
+            "estado": "",
+            "asignadoA": "Ana",
+            "iterationPath": "A\\Dev"
+          }
+        ]
+      },
+      "expected": {
+        "people": [
+          {
+            "persona": "Ana",
+            "items": [
+              {
+                "id": 0,
+                "estado": "Active",
+                "asignadoA": "Ana",
+                "iterationPath": "A\\Dev"
+              },
+              {
+                "id": 3,
+                "estado": "Blocked",
+                "asignadoA": "Ana",
+                "iterationPath": ""
+              },
+              {
+                "id": 4,
+                "estado": "Proposed",
+                "asignadoA": "Ana",
+                "iterationPath": "A\\Dev"
+              },
+              {
+                "id": 7,
+                "estado": "Completed",
+                "asignadoA": "Ana",
+                "iterationPath": ""
+              },
+              {
+                "id": 8,
+                "estado": "",
+                "asignadoA": "Ana",
+                "iterationPath": "A\\Dev"
+              }
+            ],
+            "iteraciones": [
+              {
+                "persona": "Ana",
+                "etapa": "Dev",
+                "iterationPath": "A\\Dev",
+                "items": [
+                  {
+                    "id": 0,
+                    "estado": "Active",
+                    "asignadoA": "Ana",
+                    "iterationPath": "A\\Dev"
+                  },
+                  {
+                    "id": 4,
+                    "estado": "Proposed",
+                    "asignadoA": "Ana",
+                    "iterationPath": "A\\Dev"
+                  },
+                  {
+                    "id": 8,
+                    "estado": "",
+                    "asignadoA": "Ana",
+                    "iterationPath": "A\\Dev"
+                  }
+                ],
+                "closed": 0,
+                "active": 1,
+                "proposed": 1,
+                "cancelled": 0,
+                "other": 1
+              },
+              {
+                "persona": "Ana",
+                "etapa": "Sin iteración",
+                "iterationPath": "Sin iteración",
+                "items": [
+                  {
+                    "id": 3,
+                    "estado": "Blocked",
+                    "asignadoA": "Ana",
+                    "iterationPath": ""
+                  },
+                  {
+                    "id": 7,
+                    "estado": "Completed",
+                    "asignadoA": "Ana",
+                    "iterationPath": ""
+                  }
+                ],
+                "closed": 1,
+                "active": 0,
+                "proposed": 0,
+                "cancelled": 0,
+                "other": 1
+              }
+            ],
+            "closed": 1,
+            "active": 1,
+            "proposed": 1,
+            "cancelled": 0,
+            "other": 2,
+            "total": 5
+          },
+          {
+            "persona": "Luis",
+            "items": [
+              {
+                "id": 1,
+                "estado": "Closed",
+                "asignadoA": " Luis ",
+                "iterationPath": "B\\Dev"
+              },
+              {
+                "id": 5,
+                "estado": "In progress",
+                "asignadoA": " Luis ",
+                "iterationPath": "B\\Dev"
+              }
+            ],
+            "iteraciones": [
+              {
+                "persona": "Luis",
+                "etapa": "Dev",
+                "iterationPath": "B\\Dev",
+                "items": [
+                  {
+                    "id": 1,
+                    "estado": "Closed",
+                    "asignadoA": " Luis ",
+                    "iterationPath": "B\\Dev"
+                  },
+                  {
+                    "id": 5,
+                    "estado": "In progress",
+                    "asignadoA": " Luis ",
+                    "iterationPath": "B\\Dev"
+                  }
+                ],
+                "closed": 1,
+                "active": 0,
+                "proposed": 0,
+                "cancelled": 0,
+                "other": 1
+              }
+            ],
+            "closed": 1,
+            "active": 0,
+            "proposed": 0,
+            "cancelled": 0,
+            "other": 1,
+            "total": 2
+          },
+          {
+            "persona": "Sin asignar",
+            "items": [
+              {
+                "id": 2,
+                "estado": "Cancelled",
+                "asignadoA": "",
+                "iterationPath": "A\\QA"
+              },
+              {
+                "id": 6,
+                "estado": "Rejected",
+                "asignadoA": "",
+                "iterationPath": "A\\QA"
+              }
+            ],
+            "iteraciones": [
+              {
+                "persona": "Sin asignar",
+                "etapa": "QA",
+                "iterationPath": "A\\QA",
+                "items": [
+                  {
+                    "id": 2,
+                    "estado": "Cancelled",
+                    "asignadoA": "",
+                    "iterationPath": "A\\QA"
+                  },
+                  {
+                    "id": 6,
+                    "estado": "Rejected",
+                    "asignadoA": "",
+                    "iterationPath": "A\\QA"
+                  }
+                ],
+                "closed": 1,
+                "active": 0,
+                "proposed": 0,
+                "cancelled": 1,
+                "other": 0
+              }
+            ],
+            "closed": 1,
+            "active": 0,
+            "proposed": 0,
+            "cancelled": 1,
+            "other": 0,
+            "total": 2
+          }
+        ],
+        "stages": [
+          {
+            "etapa": "Dev",
+            "iterationPath": "A\\Dev",
+            "items": [
+              {
+                "id": 0,
+                "estado": "Active",
+                "asignadoA": "Ana",
+                "iterationPath": "A\\Dev"
+              },
+              {
+                "id": 4,
+                "estado": "Proposed",
+                "asignadoA": "Ana",
+                "iterationPath": "A\\Dev"
+              },
+              {
+                "id": 8,
+                "estado": "",
+                "asignadoA": "Ana",
+                "iterationPath": "A\\Dev"
+              }
+            ],
+            "active": 1,
+            "proposed": 1,
+            "blocked": 0,
+            "other": 1
+          },
+          {
+            "etapa": "Dev",
+            "iterationPath": "B\\Dev",
+            "items": [
+              {
+                "id": 5,
+                "estado": "In progress",
+                "asignadoA": " Luis ",
+                "iterationPath": "B\\Dev"
+              }
+            ],
+            "active": 0,
+            "proposed": 0,
+            "blocked": 0,
+            "other": 1
+          },
+          {
+            "etapa": "Sin iteración",
+            "iterationPath": "Sin iteración",
+            "items": [
+              {
+                "id": 3,
+                "estado": "Blocked",
+                "asignadoA": "Ana",
+                "iterationPath": ""
+              }
+            ],
+            "active": 0,
+            "proposed": 0,
+            "blocked": 1,
+            "other": 0
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "allItems": []
+      },
+      "expected": {
+        "people": [],
+        "stages": []
+      }
+    },
+    {
+      "input": {},
+      "expected": {
+        "people": [],
+        "stages": []
+      }
+    },
+    {
+      "input": {
+        "allItems": "invalid"
+      },
+      "expected": {
+        "people": [],
+        "stages": []
+      }
+    }
+  ]
+}
