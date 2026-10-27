@@ -69,6 +69,28 @@ def draft(portal, text):
     )
 
 
+def settle(portal, quiet=150):
+    """Espera a que la pagina deje de repintarse durante `quiet` ms.
+
+    La vista de Planeacion se pinta en varios pasos al volver a entrar; sin
+    esperar el ultimo, un borrador escrito entre dos pasos se pierde y la
+    prueba falla segun el momento exacto.
+    """
+    portal.evaluate(
+        """quiet => new Promise(resolve => {
+          let timer;
+          const done = () => { observer.disconnect(); resolve(); };
+          const observer = new MutationObserver(() => {
+            clearTimeout(timer);
+            timer = setTimeout(done, quiet);
+          });
+          observer.observe(document.body, {childList: true, subtree: true});
+          timer = setTimeout(done, quiet);
+        })""",
+        quiet,
+    )
+
+
 def send(portal):
     portal.locator("#wi-row-101 .ixs-azure-comment button").evaluate(
         "button=>button.click()"
@@ -264,11 +286,13 @@ def test_late_response_does_not_modify_reentered_view(
         "button", name="Planeación", exact=True
     ).click()
     expect(portal.locator("#wi-row-101")).to_be_visible()
+    settle(portal)
     draft(portal, "Nuevo borrador")
     held[0].fulfill(
         json={"data": {"ok": ok, "error": "Respuesta anterior"}, "meta": {}}
     )
     portal.wait_for_load_state("networkidle")
+    settle(portal)
     expect(portal.locator("#wi-avance-101")).to_contain_text("40%")
     expect(portal.locator("#wi-comentario-101")).to_have_value("Nuevo borrador")
     expect(portal.locator("#wi-comentario-status-101")).to_be_empty()
