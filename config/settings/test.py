@@ -27,6 +27,10 @@ SHEETS_READ_CACHE_SECONDS = 0
 
 PORTAL_LOGIN_REQUIRED = False
 
+# Las pruebas de navegador comparan contra la referencia anterior, que lleva
+# estilos en linea: la politica se aplica solo donde la prueba lo pide.
+CSP_ENFORCE = False
+
 REST_FRAMEWORK = {
     **REST_FRAMEWORK,
     "DEFAULT_PERMISSION_CLASSES": [

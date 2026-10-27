@@ -40,6 +40,31 @@ def test_policy_is_only_announced_when_the_flag_is_on(client, settings):
     assert "report-uri /csp-report/" in policy
 
 
+def test_policy_is_enforced_when_enabled(client, settings):
+    settings.CSP_ENFORCE = True
+    settings.CSP_REPORT_ONLY = True  # obligatoria gana sobre solo reportar
+    response = client.get(PAGE)
+    policy = response["Content-Security-Policy"]
+
+    assert HEADER not in response
+    assert f"'nonce-{nonce_of(response.content.decode())}'" in policy
+    assert "'unsafe-inline'" not in policy
+    assert "'unsafe-eval'" not in policy
+
+
+def test_enforced_policy_skips_admin_and_static(client, settings):
+    settings.CSP_ENFORCE = True
+    response = client.get("/admin/login/")
+
+    assert "Content-Security-Policy" not in response
+
+
+def test_policy_is_enforced_by_default_outside_tests():
+    from config.settings import base
+
+    assert base.CSP_ENFORCE is True
+
+
 def test_capture_style_hashes_match_only_the_two_static_capture_styles():
     pseudo = '{\n    content: "" !important;\n    display: none !important;\n}'
     vendor_style = (
@@ -151,3 +176,9 @@ def test_new_styles_do_not_define_loose_colors():
             continue
         loose = re.findall(r"#[0-9a-fA-F]{3,8}\b", sheet.read_text("utf-8"))
         assert set(loose) <= {"#fff"}, (sheet.name, loose)
+
+
+def test_production_routes_do_not_publish_the_rpc(client, settings):
+    settings.ROOT_URLCONF = "config.urls"
+
+    assert client.post("/api/rpc/obtenerVistaCuentaBeecker/").status_code == 404

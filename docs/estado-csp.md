@@ -1,7 +1,13 @@
-# CSP: dónde se quedó (26/10/2026, noche)
+# CSP: estado (27/10/2026)
+
+**La política ya es obligatoria por defecto** (`CSP_ENFORCE`, activo salvo
+`CSP_ENFORCE=0`). Lo que sigue describe la auditoría que lo permitió.
 
 La política ya existe (`core/frontend.py`: `build_policy`, `CspMiddleware`,
-`/csp-report/`) y sigue **apagada por defecto** (`CSP_REPORT_ONLY=0`).
+`/csp-report/`) y desde el 27/10 se envía como `Content-Security-Policy` (excepto en
+`/admin/` y `/static/`). `CSP_ENFORCE=0` la apaga sin tocar código;
+`CSP_REPORT_ONLY=1` solo anota. En pruebas queda apagada
+(`config/settings/test.py`) y se aplica donde la prueba lo pide.
 
 ## Auditoría hecha
 
@@ -40,13 +46,16 @@ Los 52 archivos del detalle de proyecto con la dirección de cada aviso
 ## Pendiente, en orden
 
 1. (Hecho) Auditoría del detalle de proyecto: sin violaciones propias.
-2. Hacer la política obligatoria por defecto (`CSP_REPORT_ONLY` → cabecera
-   `Content-Security-Policy`) y una prueba que compruebe la cabecera.
-3. Suite completa en verde.
+2. (Hecho) Política obligatoria por defecto con prueba de la cabecera
+   (`tests/core/test_frontend_support.py`) y carga real de seis pantallas bajo
+   la cabecera (`tests/e2e/test_csp_enforced.py`).
+3. (Con la suite completa del 27/10) Suite en verde.
 
 ## Otros pendientes de la fase 11
 
-- Opción A recomendada: sacar `/api/rpc/` de `config/urls.py` y dejarlo solo
-  en `tests/reference/urls.py` (con `gas_shim.js`).
+- (Hecho 27/10) `/api/rpc/` ya no está en `config/urls.py`: solo lo monta
+  `tests/reference/urls.py`, junto con `gas_shim.js` (movido a
+  `tests/reference/static/core/js/`). Una prueba comprueba el 404 en rutas
+  reales.
 - Más adelante: congelar las comparaciones y borrar `tests/reference`, el RPC y
   su política (ver `docs/retiro-detalle-anterior.md`).

@@ -7,7 +7,8 @@ from core.frontend import csp_report
 
 """BKD.001.005 - Ruteo principal
 Expone las vistas nuevas del portal en la raiz, los enlaces de compatibilidad
-en /legacy/, la API RPC y el administrador de Django.
+en /legacy/ y el administrador de Django. La API RPC ya no se publica:
+solo la monta tests/reference/urls.py para las comparaciones de pruebas.
 """
 
 urlpatterns = [
@@ -18,10 +19,6 @@ urlpatterns = [
     path(
         "api/v1/",
         include("apps.portal.api.urls"),
-    ),
-    path(
-        "api/",
-        include("core.rpc.urls"),
     ),
     path(
         "csp-report/",

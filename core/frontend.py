@@ -14,8 +14,8 @@ from django.views.decorators.http import require_POST
 
 """BKD.001.006 - Soporte del frontend
 Cada peticion recibe un nonce para el unico script en linea del layout (el
-importmap). La politica CSP solo reporta mientras queden paginas con
-scripts o estilos en linea; los avisos llegan a /csp-report/.
+importmap). La politica CSP es obligatoria (CSP_ENFORCE); con
+CSP_REPORT_ONLY solo reporta. Los avisos llegan a /csp-report/.
 """
 
 logger = logging.getLogger("csp")
@@ -53,7 +53,7 @@ def build_policy(nonce: str) -> str:
 
 
 class CspMiddleware:
-    """Genera el nonce de la peticion y, si se pide, anuncia la politica."""
+    """Genera el nonce de la peticion y anuncia la politica (CSP_ENFORCE)."""
 
     def __init__(
         self, get_response: Callable[[HttpRequest], HttpResponse]
@@ -65,9 +65,11 @@ class CspMiddleware:
         nonce = secrets.token_urlsafe(16)
         request.csp_nonce = nonce  # type: ignore[attr-defined]
         response = self.get_response(request)
-        if settings.CSP_REPORT_ONLY and not request.path.startswith(
-            UNREPORTED_PREFIXES
-        ):
+        if request.path.startswith(UNREPORTED_PREFIXES):
+            return response
+        if settings.CSP_ENFORCE:
+            response["Content-Security-Policy"] = build_policy(nonce)
+        elif settings.CSP_REPORT_ONLY:
             response["Content-Security-Policy-Report-Only"] = build_policy(
                 nonce
             )

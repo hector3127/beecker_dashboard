@@ -19,7 +19,9 @@ Las comparaciones con el original se conservan sin pasar por la app:
   `tests/reference`. Por eso las pruebas de navegador no cambiaron de URL.
 - Las pruebas Node y `tests/e2e/project_reference.py` leen
   `tests/reference/static/portal/js/proyecto_detalle.js`.
-- `gas_shim.js` y `/api/rpc/` siguen existiendo porque esa referencia los usa.
+- `/api/rpc/` y `gas_shim.js` ya no se publican (27/10): `tests/reference/urls.py`
+  monta el RPC y `tests/reference/static/core/js/gas_shim.js` lo sirve, solo
+  para esas comparaciones. La reference_site es automática en toda la suite.
 
 ## Qué falta para borrar la referencia
 

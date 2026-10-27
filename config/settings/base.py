@@ -220,8 +220,11 @@ ACCESS_ENFORCED = os.getenv("ACCESS_ENFORCED", "").strip() == "1"
 # Fuente de capacidades y alcance; Genesis entrara aqui como otro proveedor.
 ACCESS_PROVIDER = "apps.access.providers.DjangoAccessProvider"
 
-# Politica CSP en modo "solo reportar": no bloquea nada, anota en el log
-# lo que una politica estricta rechazaria. Solo el valor 1 la enciende.
+# Politica CSP (core/frontend.py). Obligatoria por defecto: el navegador
+# rechaza scripts y estilos en linea. CSP_ENFORCE=0 la apaga de inmediato
+# si una pantalla se rompiera en produccion; con CSP_REPORT_ONLY=1 solo
+# anota en el log lo que rechazaria, sin bloquear.
+CSP_ENFORCE = os.getenv("CSP_ENFORCE", "1") != "0"
 CSP_REPORT_ONLY = os.getenv("CSP_REPORT_ONLY", "0") == "1"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

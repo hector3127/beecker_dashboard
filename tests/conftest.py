@@ -44,7 +44,7 @@ def enforced(settings, django_user_model, client):
     DictProvider.GRANTS = {}
 
 
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def reference_site(settings: "SettingsWrapper") -> None:
     """Sirve el detalle anterior en ?vista=anterior, solo en pruebas.
 
