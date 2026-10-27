@@ -1,0 +1,5796 @@
+{
+  "cases": [
+    {
+      "label": "empty",
+      "dashboard": {},
+      "selected": "",
+      "expected": {
+        "ev": [],
+        "evOrdenadas": [],
+        "recursos": [],
+        "selected": "",
+        "porRecurso": {},
+        "latest": [],
+        "avg": 0,
+        "pendientes": 0,
+        "observacion": 0,
+        "top": 0,
+        "hist": [],
+        "sel": {
+          "recurso": "",
+          "score": 0,
+          "calidad": 0,
+          "cumplimiento": 0,
+          "comunicacion": 0,
+          "colaboracion": 0,
+          "autonomia": 0,
+          "categoria": "Sin evaluación"
+        },
+        "pts": [],
+        "xs": [],
+        "ys": [],
+        "poly": "",
+        "ptsDelta": 0,
+        "cats": {
+          "Alto desempeño": 0,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 1,
+        "a1": 0,
+        "a2": 0,
+        "a3": 0,
+        "strengths": []
+      }
+    },
+    {
+      "label": "empty",
+      "dashboard": {},
+      "selected": "Beto",
+      "expected": {
+        "ev": [],
+        "evOrdenadas": [],
+        "recursos": [],
+        "selected": "",
+        "porRecurso": {},
+        "latest": [],
+        "avg": 0,
+        "pendientes": 0,
+        "observacion": 0,
+        "top": 0,
+        "hist": [],
+        "sel": {
+          "recurso": "",
+          "score": 0,
+          "calidad": 0,
+          "cumplimiento": 0,
+          "comunicacion": 0,
+          "colaboracion": 0,
+          "autonomia": 0,
+          "categoria": "Sin evaluación"
+        },
+        "pts": [],
+        "xs": [],
+        "ys": [],
+        "poly": "",
+        "ptsDelta": 0,
+        "cats": {
+          "Alto desempeño": 0,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 1,
+        "a1": 0,
+        "a2": 0,
+        "a3": 0,
+        "strengths": []
+      }
+    },
+    {
+      "label": "empty",
+      "dashboard": {},
+      "selected": "Sin evaluación",
+      "expected": {
+        "ev": [],
+        "evOrdenadas": [],
+        "recursos": [],
+        "selected": "",
+        "porRecurso": {},
+        "latest": [],
+        "avg": 0,
+        "pendientes": 0,
+        "observacion": 0,
+        "top": 0,
+        "hist": [],
+        "sel": {
+          "recurso": "",
+          "score": 0,
+          "calidad": 0,
+          "cumplimiento": 0,
+          "comunicacion": 0,
+          "colaboracion": 0,
+          "autonomia": 0,
+          "categoria": "Sin evaluación"
+        },
+        "pts": [],
+        "xs": [],
+        "ys": [],
+        "poly": "",
+        "ptsDelta": 0,
+        "cats": {
+          "Alto desempeño": 0,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 1,
+        "a1": 0,
+        "a2": 0,
+        "a3": 0,
+        "strengths": []
+      }
+    },
+    {
+      "label": "empty",
+      "dashboard": {},
+      "selected": "Inexistente",
+      "expected": {
+        "ev": [],
+        "evOrdenadas": [],
+        "recursos": [],
+        "selected": "",
+        "porRecurso": {},
+        "latest": [],
+        "avg": 0,
+        "pendientes": 0,
+        "observacion": 0,
+        "top": 0,
+        "hist": [],
+        "sel": {
+          "recurso": "",
+          "score": 0,
+          "calidad": 0,
+          "cumplimiento": 0,
+          "comunicacion": 0,
+          "colaboracion": 0,
+          "autonomia": 0,
+          "categoria": "Sin evaluación"
+        },
+        "pts": [],
+        "xs": [],
+        "ys": [],
+        "poly": "",
+        "ptsDelta": 0,
+        "cats": {
+          "Alto desempeño": 0,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 1,
+        "a1": 0,
+        "a2": 0,
+        "a3": 0,
+        "strengths": []
+      }
+    },
+    {
+      "label": "history",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "detalleRecursos": [
+          {
+            "recurso": "Sin evaluación"
+          }
+        ]
+      },
+      "selected": "",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "recursos": [
+          "Ana",
+          "Beto",
+          "Sin evaluación"
+        ],
+        "selected": "Ana",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ],
+          "Ana": [
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 96,
+        "pendientes": 1,
+        "observacion": 0,
+        "top": 2,
+        "hist": [
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Ana",
+          "score": 99,
+          "fechaEvaluacion": "2026-10-8",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          10,
+          30,
+          50,
+          70,
+          90
+        ],
+        "ys": [
+          36.75,
+          31.5,
+          26.25,
+          21,
+          15.75
+        ],
+        "poly": "10,36.75 30,31.5 50,26.25 70,21 90,15.75",
+        "ptsDelta": 28,
+        "cats": {
+          "Alto desempeño": 2,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 2,
+        "a1": 100,
+        "a2": 100,
+        "a3": 100,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "history",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "detalleRecursos": [
+          {
+            "recurso": "Sin evaluación"
+          }
+        ]
+      },
+      "selected": "Beto",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "recursos": [
+          "Ana",
+          "Beto",
+          "Sin evaluación"
+        ],
+        "selected": "Beto",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ],
+          "Ana": [
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 96,
+        "pendientes": 1,
+        "observacion": 0,
+        "top": 2,
+        "hist": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Beto",
+          "score": 92,
+          "fechaEvaluacion": "2026-10-7",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          10,
+          30,
+          50,
+          70,
+          90
+        ],
+        "ys": [
+          36.75,
+          31.5,
+          26.25,
+          21,
+          15.75
+        ],
+        "poly": "10,36.75 30,31.5 50,26.25 70,21 90,15.75",
+        "ptsDelta": 28,
+        "cats": {
+          "Alto desempeño": 2,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 2,
+        "a1": 100,
+        "a2": 100,
+        "a3": 100,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "history",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "detalleRecursos": [
+          {
+            "recurso": "Sin evaluación"
+          }
+        ]
+      },
+      "selected": "Sin evaluación",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "recursos": [
+          "Ana",
+          "Beto",
+          "Sin evaluación"
+        ],
+        "selected": "Sin evaluación",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ],
+          "Ana": [
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 96,
+        "pendientes": 1,
+        "observacion": 0,
+        "top": 2,
+        "hist": [],
+        "sel": {
+          "recurso": "Sin evaluación",
+          "score": 0,
+          "calidad": 0,
+          "cumplimiento": 0,
+          "comunicacion": 0,
+          "colaboracion": 0,
+          "autonomia": 0,
+          "categoria": "Sin evaluación"
+        },
+        "pts": [
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          10,
+          30,
+          50,
+          70,
+          90
+        ],
+        "ys": [
+          36.75,
+          31.5,
+          26.25,
+          21,
+          15.75
+        ],
+        "poly": "10,36.75 30,31.5 50,26.25 70,21 90,15.75",
+        "ptsDelta": 28,
+        "cats": {
+          "Alto desempeño": 2,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 2,
+        "a1": 100,
+        "a2": 100,
+        "a3": 100,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": []
+      }
+    },
+    {
+      "label": "history",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "detalleRecursos": [
+          {
+            "recurso": "Sin evaluación"
+          }
+        ]
+      },
+      "selected": "Inexistente",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "recursos": [
+          "Ana",
+          "Beto",
+          "Sin evaluación"
+        ],
+        "selected": "Ana",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ],
+          "Ana": [
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 96,
+        "pendientes": 1,
+        "observacion": 0,
+        "top": 2,
+        "hist": [
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Ana",
+          "score": 99,
+          "fechaEvaluacion": "2026-10-8",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          10,
+          30,
+          50,
+          70,
+          90
+        ],
+        "ys": [
+          36.75,
+          31.5,
+          26.25,
+          21,
+          15.75
+        ],
+        "poly": "10,36.75 30,31.5 50,26.25 70,21 90,15.75",
+        "ptsDelta": 28,
+        "cats": {
+          "Alto desempeño": 2,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 2,
+        "a1": 100,
+        "a2": 100,
+        "a3": 100,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "single",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        }
+      },
+      "selected": "",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "recursos": [
+          "Beto"
+        ],
+        "selected": "Beto",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 50,
+        "pendientes": 0,
+        "observacion": 1,
+        "top": 0,
+        "hist": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          50
+        ],
+        "ys": [
+          52.5
+        ],
+        "poly": "50,52.5",
+        "ptsDelta": 0,
+        "cats": {
+          "Alto desempeño": 0,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 1
+        },
+        "totalCat": 1,
+        "a1": 0,
+        "a2": 0,
+        "a3": 0,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "single",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        }
+      },
+      "selected": "Beto",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "recursos": [
+          "Beto"
+        ],
+        "selected": "Beto",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 50,
+        "pendientes": 0,
+        "observacion": 1,
+        "top": 0,
+        "hist": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          50
+        ],
+        "ys": [
+          52.5
+        ],
+        "poly": "50,52.5",
+        "ptsDelta": 0,
+        "cats": {
+          "Alto desempeño": 0,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 1
+        },
+        "totalCat": 1,
+        "a1": 0,
+        "a2": 0,
+        "a3": 0,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "single",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        }
+      },
+      "selected": "Sin evaluación",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "recursos": [
+          "Beto"
+        ],
+        "selected": "Beto",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 50,
+        "pendientes": 0,
+        "observacion": 1,
+        "top": 0,
+        "hist": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          50
+        ],
+        "ys": [
+          52.5
+        ],
+        "poly": "50,52.5",
+        "ptsDelta": 0,
+        "cats": {
+          "Alto desempeño": 0,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 1
+        },
+        "totalCat": 1,
+        "a1": 0,
+        "a2": 0,
+        "a3": 0,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "single",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        }
+      },
+      "selected": "Inexistente",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "recursos": [
+          "Beto"
+        ],
+        "selected": "Beto",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 50,
+        "pendientes": 0,
+        "observacion": 1,
+        "top": 0,
+        "hist": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          50
+        ],
+        "ys": [
+          52.5
+        ],
+        "poly": "50,52.5",
+        "ptsDelta": 0,
+        "cats": {
+          "Alto desempeño": 0,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 1
+        },
+        "totalCat": 1,
+        "a1": 0,
+        "a2": 0,
+        "a3": 0,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "mixed dates",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 90,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 91,
+              "fechaEvaluacion": "12/10/2026"
+            }
+          ]
+        },
+        "plan": {
+          "filas": [
+            {
+              "responsable": "Pendiente"
+            },
+            {
+              "responsable": " Otro "
+            }
+          ]
+        }
+      },
+      "selected": "",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          }
+        ],
+        "recursos": [
+          "Ana",
+          "Beto",
+          "Otro"
+        ],
+        "selected": "Ana",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ],
+          "Ana": [
+            {
+              "recurso": "Ana",
+              "score": 90,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 91,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 96,
+        "pendientes": 1,
+        "observacion": 0,
+        "top": 2,
+        "hist": [
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Ana",
+          "score": 99,
+          "fechaEvaluacion": "2026-10-8",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          10,
+          30,
+          50,
+          70,
+          90
+        ],
+        "ys": [
+          36.75,
+          31.5,
+          26.25,
+          21,
+          15.75
+        ],
+        "poly": "10,36.75 30,31.5 50,26.25 70,21 90,15.75",
+        "ptsDelta": 28,
+        "cats": {
+          "Alto desempeño": 2,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 2,
+        "a1": 100,
+        "a2": 100,
+        "a3": 100,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "mixed dates",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 90,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 91,
+              "fechaEvaluacion": "12/10/2026"
+            }
+          ]
+        },
+        "plan": {
+          "filas": [
+            {
+              "responsable": "Pendiente"
+            },
+            {
+              "responsable": " Otro "
+            }
+          ]
+        }
+      },
+      "selected": "Beto",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          }
+        ],
+        "recursos": [
+          "Ana",
+          "Beto",
+          "Otro"
+        ],
+        "selected": "Beto",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ],
+          "Ana": [
+            {
+              "recurso": "Ana",
+              "score": 90,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 91,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 96,
+        "pendientes": 1,
+        "observacion": 0,
+        "top": 2,
+        "hist": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Beto",
+          "score": 92,
+          "fechaEvaluacion": "2026-10-7",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          10,
+          30,
+          50,
+          70,
+          90
+        ],
+        "ys": [
+          36.75,
+          31.5,
+          26.25,
+          21,
+          15.75
+        ],
+        "poly": "10,36.75 30,31.5 50,26.25 70,21 90,15.75",
+        "ptsDelta": 28,
+        "cats": {
+          "Alto desempeño": 2,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 2,
+        "a1": 100,
+        "a2": 100,
+        "a3": 100,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "mixed dates",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 90,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 91,
+              "fechaEvaluacion": "12/10/2026"
+            }
+          ]
+        },
+        "plan": {
+          "filas": [
+            {
+              "responsable": "Pendiente"
+            },
+            {
+              "responsable": " Otro "
+            }
+          ]
+        }
+      },
+      "selected": "Sin evaluación",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          }
+        ],
+        "recursos": [
+          "Ana",
+          "Beto",
+          "Otro"
+        ],
+        "selected": "Ana",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ],
+          "Ana": [
+            {
+              "recurso": "Ana",
+              "score": 90,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 91,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 96,
+        "pendientes": 1,
+        "observacion": 0,
+        "top": 2,
+        "hist": [
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Ana",
+          "score": 99,
+          "fechaEvaluacion": "2026-10-8",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          10,
+          30,
+          50,
+          70,
+          90
+        ],
+        "ys": [
+          36.75,
+          31.5,
+          26.25,
+          21,
+          15.75
+        ],
+        "poly": "10,36.75 30,31.5 50,26.25 70,21 90,15.75",
+        "ptsDelta": 28,
+        "cats": {
+          "Alto desempeño": 2,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 2,
+        "a1": 100,
+        "a2": 100,
+        "a3": 100,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "label": "mixed dates",
+      "dashboard": {
+        "evaluaciones": {
+          "filas": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 90,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 91,
+              "fechaEvaluacion": "12/10/2026"
+            }
+          ]
+        },
+        "plan": {
+          "filas": [
+            {
+              "responsable": "Pendiente"
+            },
+            {
+              "responsable": " Otro "
+            }
+          ]
+        }
+      },
+      "selected": "Inexistente",
+      "expected": {
+        "ev": [
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          }
+        ],
+        "evOrdenadas": [
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 64,
+            "fechaEvaluacion": "2026-10-3",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 50,
+            "fechaEvaluacion": "2026-10-1",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          }
+        ],
+        "recursos": [
+          "Ana",
+          "Beto",
+          "Otro"
+        ],
+        "selected": "Ana",
+        "porRecurso": {
+          "Beto": [
+            {
+              "recurso": "Beto",
+              "score": 50,
+              "fechaEvaluacion": "2026-10-1",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 64,
+              "fechaEvaluacion": "2026-10-3",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 78,
+              "fechaEvaluacion": "2026-10-5",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Beto",
+              "score": 92,
+              "fechaEvaluacion": "2026-10-7",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ],
+          "Ana": [
+            {
+              "recurso": "Ana",
+              "score": 90,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 91,
+              "fechaEvaluacion": "12/10/2026"
+            },
+            {
+              "recurso": "Ana",
+              "score": 57,
+              "fechaEvaluacion": "2026-10-2",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 71,
+              "fechaEvaluacion": "2026-10-4",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 85,
+              "fechaEvaluacion": "2026-10-6",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            },
+            {
+              "recurso": "Ana",
+              "score": 99,
+              "fechaEvaluacion": "2026-10-8",
+              "proximaEvaluacion": "2026-09-01",
+              "calidad": 90,
+              "cumplimiento": 80,
+              "comunicacion": 70,
+              "colaboracion": 60,
+              "autonomia": 50
+            }
+          ]
+        },
+        "latest": [
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "avg": 96,
+        "pendientes": 1,
+        "observacion": 0,
+        "top": 2,
+        "hist": [
+          {
+            "recurso": "Ana",
+            "score": 90,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 91,
+            "fechaEvaluacion": "12/10/2026"
+          },
+          {
+            "recurso": "Ana",
+            "score": 57,
+            "fechaEvaluacion": "2026-10-2",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "sel": {
+          "recurso": "Ana",
+          "score": 99,
+          "fechaEvaluacion": "2026-10-8",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "pts": [
+          {
+            "recurso": "Ana",
+            "score": 71,
+            "fechaEvaluacion": "2026-10-4",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 78,
+            "fechaEvaluacion": "2026-10-5",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 85,
+            "fechaEvaluacion": "2026-10-6",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Beto",
+            "score": 92,
+            "fechaEvaluacion": "2026-10-7",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          },
+          {
+            "recurso": "Ana",
+            "score": 99,
+            "fechaEvaluacion": "2026-10-8",
+            "proximaEvaluacion": "2026-09-01",
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 60,
+            "autonomia": 50
+          }
+        ],
+        "xs": [
+          10,
+          30,
+          50,
+          70,
+          90
+        ],
+        "ys": [
+          36.75,
+          31.5,
+          26.25,
+          21,
+          15.75
+        ],
+        "poly": "10,36.75 30,31.5 50,26.25 70,21 90,15.75",
+        "ptsDelta": 28,
+        "cats": {
+          "Alto desempeño": 2,
+          "Sólido": 0,
+          "En seguimiento": 0,
+          "Crítico": 0
+        },
+        "totalCat": 2,
+        "a1": 100,
+        "a2": 100,
+        "a3": 100,
+        "prox": {
+          "recurso": "Beto",
+          "score": 50,
+          "fechaEvaluacion": "2026-10-1",
+          "proximaEvaluacion": "2026-09-01",
+          "calidad": 90,
+          "cumplimiento": 80,
+          "comunicacion": 70,
+          "colaboracion": 60,
+          "autonomia": 50
+        },
+        "strengths": [
+          [
+            "Calidad",
+            90
+          ],
+          [
+            "Cumplimiento",
+            80
+          ],
+          [
+            "Comunicación",
+            70
+          ]
+        ]
+      }
+    }
+  ],
+  "categories": [
+    {
+      "input": {
+        "kind": "undefined"
+      },
+      "category": "Crítico",
+      "className": "red"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": null
+      },
+      "category": "Crítico",
+      "className": "red"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": ""
+      },
+      "category": "Crítico",
+      "className": "red"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 0
+      },
+      "category": "Crítico",
+      "className": "red"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 69
+      },
+      "category": "Crítico",
+      "className": "red"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 70
+      },
+      "category": "En seguimiento",
+      "className": "yellow"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 79
+      },
+      "category": "En seguimiento",
+      "className": "yellow"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 80
+      },
+      "category": "Sólido",
+      "className": "purple"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 89
+      },
+      "category": "Sólido",
+      "className": "purple"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 90
+      },
+      "category": "Alto desempeño",
+      "className": "green"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 100
+      },
+      "category": "Alto desempeño",
+      "className": "green"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": 110
+      },
+      "category": "Alto desempeño",
+      "className": "green"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "85"
+      },
+      "category": "Sólido",
+      "className": "purple"
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "invalid"
+      },
+      "category": "Crítico",
+      "className": "red"
+    }
+  ],
+  "dates": [
+    {
+      "timezone": "UTC",
+      "cases": [
+        {
+          "input": null,
+          "expected": 0
+        },
+        {
+          "input": "",
+          "expected": 0
+        },
+        {
+          "input": "2026-10-02",
+          "expected": 20261002
+        },
+        {
+          "input": "2026-10-02T18:00:00Z",
+          "expected": 20261002
+        },
+        {
+          "input": "02/10/2026",
+          "expected": 20261002
+        },
+        {
+          "input": "bad",
+          "expected": 0
+        },
+        {
+          "input": "October 2, 2026",
+          "expected": 1790899200000
+        }
+      ]
+    },
+    {
+      "timezone": "America/Mexico_City",
+      "cases": [
+        {
+          "input": null,
+          "expected": 0
+        },
+        {
+          "input": "",
+          "expected": 0
+        },
+        {
+          "input": "2026-10-02",
+          "expected": 20261002
+        },
+        {
+          "input": "2026-10-02T18:00:00Z",
+          "expected": 20261002
+        },
+        {
+          "input": "02/10/2026",
+          "expected": 20261002
+        },
+        {
+          "input": "bad",
+          "expected": 0
+        },
+        {
+          "input": "October 2, 2026",
+          "expected": 1790920800000
+        }
+      ]
+    }
+  ]
+}

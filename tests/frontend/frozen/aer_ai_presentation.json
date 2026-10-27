@@ -1,0 +1,766 @@
+{
+  "minutes": [
+    {
+      "input": "",
+      "expected": ""
+    },
+    {
+      "input": "Sin encabezado <texto> & comillas ' \"",
+      "expected": "Sin encabezado <texto> & comillas ' \""
+    },
+    {
+      "input": "**RESUMEN**\r\nAvance\r\n\r\n**PENDIENTES**\r\nAcciones",
+      "expected": "Avance"
+    },
+    {
+      "input": "## ESTADO GENERAL\nEstable\n⚠ PUNTOS DE ATENCIÓN\nPendiente",
+      "expected": "Estable"
+    },
+    {
+      "input": "**MINUTA proyecto**\nLargo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo ",
+      "expected": "Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo Largo…"
+    }
+  ],
+  "stamps": [
+    {
+      "input": null,
+      "expected": ""
+    },
+    {
+      "input": "",
+      "expected": ""
+    },
+    {
+      "input": "2026-10-22T14:30:00Z",
+      "expected": "22/10/2026 a las 14:30"
+    },
+    {
+      "input": "2026-10-22 14:30",
+      "expected": "22/10/2026 a las 14:30"
+    },
+    {
+      "input": " 22/10/2026 14:30 ",
+      "expected": "22/10/2026 14:30"
+    }
+  ],
+  "markup": [
+    {
+      "input": "***Título***\n\n**Avance:** estable\n- Revisar",
+      "expected": "<strong>Título</strong><br><strong>Avance:</strong> estable<br>&bull; Revisar"
+    },
+    {
+      "input": "<script>alert(1)</script> &amp; <strong>Texto</strong>",
+      "expected": "&lt;script&gt;alert(1)&lt;/script&gt; &amp;amp; &lt;strong&gt;Texto&lt;/strong&gt;"
+    },
+    {
+      "input": "**texto & 'comillas'**\n• Uno\nDos",
+      "expected": "<strong>texto &amp; &#039;comillas&#039;</strong><br>&bull; Uno<br>Dos"
+    },
+    {
+      "input": "***Título***\n \nNueva línea\n**sin cierre",
+      "expected": "<strong>Título</strong><br>Nueva línea<br>**sin cierre"
+    },
+    {
+      "input": "**<br>** y &bull; y &#039;",
+      "expected": "<strong>&lt;br&gt;</strong> y &amp;bull; y &amp;#039;"
+    },
+    {
+      "input": "***Anidado*** y **otro**",
+      "expected": "*<strong>Anidado</strong>* y <strong>otro</strong>"
+    }
+  ],
+  "cases": [
+    {
+      "dashboard": {
+        "kpis": {
+          "consumoPct": 0
+        }
+      },
+      "state": {
+        "minutas": []
+      },
+      "expected": {
+        "f": {
+          "c": {
+            "id": "",
+            "n": "",
+            "cliente": "",
+            "etapa": "",
+            "fecha": "2026-10-23",
+            "k": {
+              "horas": 0,
+              "fact": 0,
+              "presupuesto": 0,
+              "consumoPct": 0,
+              "tiempoPct": 0,
+              "health": 0,
+              "vencidos": 0,
+              "desviacion": 0,
+              "horasFueraHorario": 0
+            },
+            "p": [],
+            "r": [],
+            "a": [],
+            "v": [],
+            "c": [],
+            "b": []
+          },
+          "activos": [],
+          "venc": [],
+          "prox": [],
+          "sobre": [],
+          "vac": [],
+          "abiertos": [],
+          "riesgo": [],
+          "alerts": [],
+          "to": "2026-11-22"
+        },
+        "s": {
+          "minutas": []
+        },
+        "mins": [],
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 0,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "resumen": [
+          "Sin alertas automáticas con los datos cargados."
+        ],
+        "recs": [],
+        "dim": 100
+      }
+    },
+    {
+      "dashboard": {
+        "kpis": {
+          "consumoPct": 0
+        }
+      },
+      "state": {
+        "analisis": {
+          "analisis": {
+            "resumen": [
+              "Guardado"
+            ],
+            "recomendaciones": []
+          },
+          "guardadoEn": "2026-10-22 14:30",
+          "restaurado": true
+        },
+        "minutas": [
+          {
+            "tema": "Comité"
+          }
+        ]
+      },
+      "expected": {
+        "f": {
+          "c": {
+            "id": "",
+            "n": "",
+            "cliente": "",
+            "etapa": "",
+            "fecha": "2026-10-23",
+            "k": {
+              "horas": 0,
+              "fact": 0,
+              "presupuesto": 0,
+              "consumoPct": 0,
+              "tiempoPct": 0,
+              "health": 0,
+              "vencidos": 0,
+              "desviacion": 0,
+              "horasFueraHorario": 0
+            },
+            "p": [],
+            "r": [],
+            "a": [],
+            "v": [],
+            "c": [],
+            "b": []
+          },
+          "activos": [],
+          "venc": [],
+          "prox": [],
+          "sobre": [],
+          "vac": [],
+          "abiertos": [],
+          "riesgo": [],
+          "alerts": [],
+          "to": "2026-11-22"
+        },
+        "s": {
+          "analisis": {
+            "analisis": {
+              "resumen": [
+                "Guardado"
+              ],
+              "recomendaciones": []
+            },
+            "guardadoEn": "2026-10-22 14:30",
+            "restaurado": true
+          },
+          "minutas": [
+            {
+              "tema": "Comité"
+            }
+          ]
+        },
+        "anal": {
+          "resumen": [
+            "Guardado"
+          ],
+          "recomendaciones": []
+        },
+        "mins": [
+          {
+            "tema": "Comité"
+          }
+        ],
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 0,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "memoria": "2026-10-22 14:30",
+        "resumen": [
+          "Guardado"
+        ],
+        "recs": [],
+        "dim": 100
+      }
+    },
+    {
+      "dashboard": {
+        "kpis": {
+          "consumoPct": 90
+        }
+      },
+      "state": {
+        "minutas": []
+      },
+      "expected": {
+        "f": {
+          "c": {
+            "id": "",
+            "n": "",
+            "cliente": "",
+            "etapa": "",
+            "fecha": "2026-10-23",
+            "k": {
+              "horas": 0,
+              "fact": 0,
+              "presupuesto": 0,
+              "consumoPct": 90,
+              "tiempoPct": 0,
+              "health": 0,
+              "vencidos": 0,
+              "desviacion": 0,
+              "horasFueraHorario": 0
+            },
+            "p": [],
+            "r": [],
+            "a": [],
+            "v": [],
+            "c": [],
+            "b": []
+          },
+          "activos": [],
+          "venc": [],
+          "prox": [],
+          "sobre": [],
+          "vac": [],
+          "abiertos": [],
+          "riesgo": [],
+          "alerts": [],
+          "to": "2026-11-22"
+        },
+        "s": {
+          "minutas": []
+        },
+        "mins": [],
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 90,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "resumen": [
+          "Sin alertas automáticas con los datos cargados."
+        ],
+        "recs": [],
+        "dim": 100
+      }
+    },
+    {
+      "dashboard": {
+        "kpis": {
+          "consumoPct": 90
+        }
+      },
+      "state": {
+        "analisis": {
+          "analisis": {
+            "resumen": [
+              "Guardado"
+            ],
+            "recomendaciones": []
+          },
+          "guardadoEn": "2026-10-22 14:30",
+          "restaurado": true
+        },
+        "minutas": [
+          {
+            "tema": "Comité"
+          }
+        ]
+      },
+      "expected": {
+        "f": {
+          "c": {
+            "id": "",
+            "n": "",
+            "cliente": "",
+            "etapa": "",
+            "fecha": "2026-10-23",
+            "k": {
+              "horas": 0,
+              "fact": 0,
+              "presupuesto": 0,
+              "consumoPct": 90,
+              "tiempoPct": 0,
+              "health": 0,
+              "vencidos": 0,
+              "desviacion": 0,
+              "horasFueraHorario": 0
+            },
+            "p": [],
+            "r": [],
+            "a": [],
+            "v": [],
+            "c": [],
+            "b": []
+          },
+          "activos": [],
+          "venc": [],
+          "prox": [],
+          "sobre": [],
+          "vac": [],
+          "abiertos": [],
+          "riesgo": [],
+          "alerts": [],
+          "to": "2026-11-22"
+        },
+        "s": {
+          "analisis": {
+            "analisis": {
+              "resumen": [
+                "Guardado"
+              ],
+              "recomendaciones": []
+            },
+            "guardadoEn": "2026-10-22 14:30",
+            "restaurado": true
+          },
+          "minutas": [
+            {
+              "tema": "Comité"
+            }
+          ]
+        },
+        "anal": {
+          "resumen": [
+            "Guardado"
+          ],
+          "recomendaciones": []
+        },
+        "mins": [
+          {
+            "tema": "Comité"
+          }
+        ],
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 90,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "memoria": "2026-10-22 14:30",
+        "resumen": [
+          "Guardado"
+        ],
+        "recs": [],
+        "dim": 100
+      }
+    },
+    {
+      "dashboard": {
+        "kpis": {
+          "consumoPct": 110
+        }
+      },
+      "state": {
+        "minutas": []
+      },
+      "expected": {
+        "f": {
+          "c": {
+            "id": "",
+            "n": "",
+            "cliente": "",
+            "etapa": "",
+            "fecha": "2026-10-23",
+            "k": {
+              "horas": 0,
+              "fact": 0,
+              "presupuesto": 0,
+              "consumoPct": 110,
+              "tiempoPct": 0,
+              "health": 0,
+              "vencidos": 0,
+              "desviacion": 0,
+              "horasFueraHorario": 0
+            },
+            "p": [],
+            "r": [],
+            "a": [],
+            "v": [],
+            "c": [],
+            "b": []
+          },
+          "activos": [],
+          "venc": [],
+          "prox": [],
+          "sobre": [],
+          "vac": [],
+          "abiertos": [],
+          "riesgo": [],
+          "alerts": [],
+          "to": "2026-11-22"
+        },
+        "s": {
+          "minutas": []
+        },
+        "mins": [],
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 110,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "resumen": [
+          "Sin alertas automáticas con los datos cargados."
+        ],
+        "recs": [],
+        "dim": 90
+      }
+    },
+    {
+      "dashboard": {
+        "kpis": {
+          "consumoPct": 110
+        }
+      },
+      "state": {
+        "analisis": {
+          "analisis": {
+            "resumen": [
+              "Guardado"
+            ],
+            "recomendaciones": []
+          },
+          "guardadoEn": "2026-10-22 14:30",
+          "restaurado": true
+        },
+        "minutas": [
+          {
+            "tema": "Comité"
+          }
+        ]
+      },
+      "expected": {
+        "f": {
+          "c": {
+            "id": "",
+            "n": "",
+            "cliente": "",
+            "etapa": "",
+            "fecha": "2026-10-23",
+            "k": {
+              "horas": 0,
+              "fact": 0,
+              "presupuesto": 0,
+              "consumoPct": 110,
+              "tiempoPct": 0,
+              "health": 0,
+              "vencidos": 0,
+              "desviacion": 0,
+              "horasFueraHorario": 0
+            },
+            "p": [],
+            "r": [],
+            "a": [],
+            "v": [],
+            "c": [],
+            "b": []
+          },
+          "activos": [],
+          "venc": [],
+          "prox": [],
+          "sobre": [],
+          "vac": [],
+          "abiertos": [],
+          "riesgo": [],
+          "alerts": [],
+          "to": "2026-11-22"
+        },
+        "s": {
+          "analisis": {
+            "analisis": {
+              "resumen": [
+                "Guardado"
+              ],
+              "recomendaciones": []
+            },
+            "guardadoEn": "2026-10-22 14:30",
+            "restaurado": true
+          },
+          "minutas": [
+            {
+              "tema": "Comité"
+            }
+          ]
+        },
+        "anal": {
+          "resumen": [
+            "Guardado"
+          ],
+          "recomendaciones": []
+        },
+        "mins": [
+          {
+            "tema": "Comité"
+          }
+        ],
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 110,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "memoria": "2026-10-22 14:30",
+        "resumen": [
+          "Guardado"
+        ],
+        "recs": [],
+        "dim": 90
+      }
+    },
+    {
+      "dashboard": {
+        "kpis": {
+          "consumoPct": 250
+        }
+      },
+      "state": {
+        "minutas": []
+      },
+      "expected": {
+        "f": {
+          "c": {
+            "id": "",
+            "n": "",
+            "cliente": "",
+            "etapa": "",
+            "fecha": "2026-10-23",
+            "k": {
+              "horas": 0,
+              "fact": 0,
+              "presupuesto": 0,
+              "consumoPct": 250,
+              "tiempoPct": 0,
+              "health": 0,
+              "vencidos": 0,
+              "desviacion": 0,
+              "horasFueraHorario": 0
+            },
+            "p": [],
+            "r": [],
+            "a": [],
+            "v": [],
+            "c": [],
+            "b": []
+          },
+          "activos": [],
+          "venc": [],
+          "prox": [],
+          "sobre": [],
+          "vac": [],
+          "abiertos": [],
+          "riesgo": [],
+          "alerts": [],
+          "to": "2026-11-22"
+        },
+        "s": {
+          "minutas": []
+        },
+        "mins": [],
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 250,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "resumen": [
+          "Sin alertas automáticas con los datos cargados."
+        ],
+        "recs": [],
+        "dim": 0
+      }
+    },
+    {
+      "dashboard": {
+        "kpis": {
+          "consumoPct": 250
+        }
+      },
+      "state": {
+        "analisis": {
+          "analisis": {
+            "resumen": [
+              "Guardado"
+            ],
+            "recomendaciones": []
+          },
+          "guardadoEn": "2026-10-22 14:30",
+          "restaurado": true
+        },
+        "minutas": [
+          {
+            "tema": "Comité"
+          }
+        ]
+      },
+      "expected": {
+        "f": {
+          "c": {
+            "id": "",
+            "n": "",
+            "cliente": "",
+            "etapa": "",
+            "fecha": "2026-10-23",
+            "k": {
+              "horas": 0,
+              "fact": 0,
+              "presupuesto": 0,
+              "consumoPct": 250,
+              "tiempoPct": 0,
+              "health": 0,
+              "vencidos": 0,
+              "desviacion": 0,
+              "horasFueraHorario": 0
+            },
+            "p": [],
+            "r": [],
+            "a": [],
+            "v": [],
+            "c": [],
+            "b": []
+          },
+          "activos": [],
+          "venc": [],
+          "prox": [],
+          "sobre": [],
+          "vac": [],
+          "abiertos": [],
+          "riesgo": [],
+          "alerts": [],
+          "to": "2026-11-22"
+        },
+        "s": {
+          "analisis": {
+            "analisis": {
+              "resumen": [
+                "Guardado"
+              ],
+              "recomendaciones": []
+            },
+            "guardadoEn": "2026-10-22 14:30",
+            "restaurado": true
+          },
+          "minutas": [
+            {
+              "tema": "Comité"
+            }
+          ]
+        },
+        "anal": {
+          "resumen": [
+            "Guardado"
+          ],
+          "recomendaciones": []
+        },
+        "mins": [
+          {
+            "tema": "Comité"
+          }
+        ],
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 250,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "memoria": "2026-10-22 14:30",
+        "resumen": [
+          "Guardado"
+        ],
+        "recs": [],
+        "dim": 0
+      }
+    }
+  ]
+}

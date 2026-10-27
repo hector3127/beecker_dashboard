@@ -9,7 +9,18 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
-**Último bloque de congelación, base 15f619d:** project_shell_model,
+**Último bloque de congelación, base 81b6d12:** aer_resources_model,
+actions_model y aer_ai_presentation_model usan resultados originales guardados.
+16 resúmenes de recursos/14 límites/fechas en dos zonas, 17 helpers y 3
+resúmenes de Acciones, extractos/escape/timestamps y 8 presentaciones IA.
+472 Node completas y 41 dirigidas en UTC/México aprobadas; cinco mutaciones
+en copias detectadas. JSON reproducibles y presentación generada con hechos
+originales, sin dependencia de modelos actuales. Quedan 20 archivos Node
+que leen el original, veintiún congelados. Piloto de navegador pendiente.
+Ver `congelacion-referencias.md`; sin cambios de aplicación, nueva corrida
+servidor/e2e o push.
+
+**Bloque previo, base 15f619d:** project_shell_model,
 generic_charts e ixs_azure_table guardan resultados originales: 8 etapas/11
 estados, paleta/5 geometrías/dos barras y 8 filtros/3 opciones/8 títulos.
 472 Node completas y 14 dirigidas en UTC/México aprobadas; cuatro mutaciones

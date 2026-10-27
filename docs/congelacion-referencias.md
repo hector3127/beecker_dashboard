@@ -1,5 +1,43 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Sexto bloque: Recursos, Acciones y presentación IA AER
+
+Base `81b6d12`. Tres archivos adicionales dejan de ejecutar el original:
+
+| Archivo | Salidas originales guardadas |
+|---|---|
+| aer_resources_model | 16 resúmenes completos, 14 límites de categoría/clase y 7 fechas en dos zonas |
+| actions_model | 17 triples de normalización/fecha/color y 3 resúmenes completos |
+| aer_ai_presentation_model | 5 extractos de minuta, 5 timestamps, 6 textos escapados y 8 presentaciones |
+
+Se conservan selección/fallback de recursos, fechas mixtas/duplicadas,
+gráfica global de últimas cinco evaluaciones, métricas por recurso y límites
+de categoría. Acciones mantiene prioridades, responsables, semanas, vencidas,
+detenidas y ausencia de fechas. IA mantiene memoria, recomendaciones,
+extractos, saltos de línea, escape HTML y consumo de 0/90/110/250%.
+Los tests siguen ejecutando los modelos actuales y comprueban no mutación.
+
+Generadores temporales aer_resources, actions y aer_ai_presentation en
+frozen/gen. No importan modelos actuales. La presentación anterior antes
+recibía facts del modelo nuevo en su harness; el generador ahora ejecuta
+aerIAContexto/aerIAHechos originales con el mismo instante fijo, para evitar
+que el modelo comprobado genere parte de su propia expectativa. Las
+presentaciones siguen coincidiendo. Los tres JSON se reproducen exactamente
+normalizando CRLF/LF. Los casos undefined de categoría se guardan con tipo
+explícito y Date.parse se comprueba en UTC y America/Mexico_City.
+
+**472 Node completas y 41 dirigidas aprobadas**, sin omisiones; las 41 pasan
+en ambas zonas horarias. Cinco mutaciones en copias temporales detectadas:
+historial de 5→4, umbral 90→91, vencidas +1, escape HTML eliminado y mínimo
+del indicador 0→1. Prettier/diff comprobados. No cambia aplicación, diseño,
+cálculos, CSP ni permisos; sin nueva corrida servidor/e2e por tests Node.
+Registros ignorados: `tmp/frozen-resources-actions-*.log` y
+`tmp/*.next-mutation.log`.
+
+Quedan **20 archivos Node** que leen el original (23 antes, 41 al comenzar),
+veintiún archivos congelados en total. Piloto de navegador pendiente; no
+retirar aún referencias ni servicios compartidos. Fase 11 abierta, sin push.
+
 ## Quinto bloque: encabezado, gráficas y tabla Azure
 
 Base `15f619d`. Se congelan tres archivos adicionales:
@@ -31,7 +69,7 @@ sin nueva corrida de servidor/e2e por este bloque exclusivo de pruebas Node.
 Registros ignorados: `tmp/frozen-shell-charts-*.log` y
 `tmp/*.next-mutation.log`.
 
-Quedan **23 archivos Node** que leen directamente el script anterior
+Al cierre del quinto bloque quedaban **23 archivos Node** que leían directamente el script anterior
 (26 antes, 41 al comenzar). Dieciocho archivos congelados en total. El piloto
 de navegador sigue pendiente y las referencias/servicios aún no se retiran.
 Fase 11 abierta; sin push ni cambios de diseño/cálculos/CSP/permisos.

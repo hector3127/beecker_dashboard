@@ -1,0 +1,391 @@
+{
+  "helpers": [
+    {
+      "input": null,
+      "normalize": "",
+      "date": "—",
+      "state": "soft"
+    },
+    {
+      "input": "",
+      "normalize": "",
+      "date": "—",
+      "state": "soft"
+    },
+    {
+      "input": 0,
+      "normalize": "",
+      "date": "—",
+      "state": "soft"
+    },
+    {
+      "input": "Revisión TÉCNICA",
+      "normalize": "revision tecnica",
+      "date": "Revisión TÉCNICA",
+      "state": "review"
+    },
+    {
+      "input": "2026-10-23T12:00:00Z",
+      "normalize": "2026-10-23t12:00:00z",
+      "date": "23/10/2026",
+      "state": "soft"
+    },
+    {
+      "input": "Pendiente",
+      "normalize": "pendiente",
+      "date": "Pendiente",
+      "state": "soft"
+    },
+    {
+      "input": "Vencido",
+      "normalize": "vencido",
+      "date": "Vencido",
+      "state": "bad"
+    },
+    {
+      "input": "Completado",
+      "normalize": "completado",
+      "date": "Completado",
+      "state": "ok"
+    },
+    {
+      "input": "En progreso",
+      "normalize": "en progreso",
+      "date": "En progreso",
+      "state": "info"
+    },
+    {
+      "input": "Detenido",
+      "normalize": "detenido",
+      "date": "Detenido",
+      "state": "warn"
+    },
+    {
+      "input": "Por validar",
+      "normalize": "por validar",
+      "date": "Por validar",
+      "state": "review"
+    },
+    {
+      "input": "En revisión",
+      "normalize": "en revision",
+      "date": "En revisión",
+      "state": "review"
+    },
+    {
+      "input": "Cerrado",
+      "normalize": "cerrado",
+      "date": "Cerrado",
+      "state": "ok"
+    },
+    {
+      "input": "Crítico",
+      "normalize": "critico",
+      "date": "Crítico",
+      "state": "bad"
+    },
+    {
+      "input": "Saludable",
+      "normalize": "saludable",
+      "date": "Saludable",
+      "state": "ok"
+    },
+    {
+      "input": "Bloqueado",
+      "normalize": "bloqueado",
+      "date": "Bloqueado",
+      "state": "warn"
+    },
+    {
+      "input": "Desconocido",
+      "normalize": "desconocido",
+      "date": "Desconocido",
+      "state": "soft"
+    }
+  ],
+  "cases": [
+    {
+      "name": "empty",
+      "dashboard": {},
+      "expected": {
+        "ac": {},
+        "filas": [],
+        "hoyIso": "2026-10-23",
+        "abiertas": 0,
+        "vencidas": 0,
+        "detenidas": 0,
+        "proximas": null,
+        "urgente": null,
+        "respCount": {},
+        "weeks": [
+          {
+            "iso": "2026-10-23",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-10-30",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-11-06",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-11-13",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-11-20",
+            "cnt": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "full",
+      "dashboard": {
+        "acciones": {
+          "filas": [
+            {
+              "uid": "1",
+              "responsable": " Ana ",
+              "estado": "Completado",
+              "fechaLimite": "2026-10-23"
+            },
+            {
+              "uid": "2",
+              "responsable": "Luis",
+              "estado": "Detenido",
+              "fechaInicio": "2026-11-03"
+            },
+            {
+              "uid": "3",
+              "responsable": "",
+              "proximaRevision": "2026-10-30"
+            },
+            {
+              "uid": "4",
+              "responsable": "Luis",
+              "fechaReal": "2026-10-24"
+            },
+            {
+              "uid": "5",
+              "responsable": "Ana",
+              "fechaLimite": "invalid"
+            }
+          ],
+          "abiertas": [
+            1,
+            2
+          ],
+          "vencidas": [
+            {
+              "uid": "3",
+              "accion": "Prioritaria"
+            }
+          ],
+          "detenidas": [
+            1
+          ]
+        }
+      },
+      "expected": {
+        "ac": {
+          "filas": [
+            {
+              "uid": "1",
+              "responsable": " Ana ",
+              "estado": "Completado",
+              "fechaLimite": "2026-10-23"
+            },
+            {
+              "uid": "2",
+              "responsable": "Luis",
+              "estado": "Detenido",
+              "fechaInicio": "2026-11-03"
+            },
+            {
+              "uid": "3",
+              "responsable": "",
+              "proximaRevision": "2026-10-30"
+            },
+            {
+              "uid": "4",
+              "responsable": "Luis",
+              "fechaReal": "2026-10-24"
+            },
+            {
+              "uid": "5",
+              "responsable": "Ana",
+              "fechaLimite": "invalid"
+            }
+          ],
+          "abiertas": [
+            1,
+            2
+          ],
+          "vencidas": [
+            {
+              "uid": "3",
+              "accion": "Prioritaria"
+            }
+          ],
+          "detenidas": [
+            1
+          ]
+        },
+        "filas": [
+          {
+            "uid": "1",
+            "responsable": " Ana ",
+            "estado": "Completado",
+            "fechaLimite": "2026-10-23"
+          },
+          {
+            "uid": "2",
+            "responsable": "Luis",
+            "estado": "Detenido",
+            "fechaInicio": "2026-11-03"
+          },
+          {
+            "uid": "3",
+            "responsable": "",
+            "proximaRevision": "2026-10-30"
+          },
+          {
+            "uid": "4",
+            "responsable": "Luis",
+            "fechaReal": "2026-10-24"
+          },
+          {
+            "uid": "5",
+            "responsable": "Ana",
+            "fechaLimite": "invalid"
+          }
+        ],
+        "hoyIso": "2026-10-23",
+        "abiertas": 2,
+        "vencidas": 1,
+        "detenidas": 1,
+        "proximas": {
+          "uid": "1",
+          "responsable": " Ana ",
+          "estado": "Completado",
+          "fechaLimite": "2026-10-23"
+        },
+        "urgente": {
+          "uid": "3",
+          "accion": "Prioritaria"
+        },
+        "respCount": {
+          "Ana": 2,
+          "Luis": 2,
+          "Sin responsable": 1
+        },
+        "respTop": [
+          "Ana",
+          2
+        ],
+        "weeks": [
+          {
+            "iso": "2026-10-23",
+            "cnt": 2
+          },
+          {
+            "iso": "2026-10-30",
+            "cnt": 2
+          },
+          {
+            "iso": "2026-11-06",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-11-13",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-11-20",
+            "cnt": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "no dates",
+      "dashboard": {
+        "acciones": {
+          "filas": [
+            {
+              "responsable": "Ana"
+            },
+            {
+              "responsable": "Luis",
+              "estado": "Detenido"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "ac": {
+          "filas": [
+            {
+              "responsable": "Ana"
+            },
+            {
+              "responsable": "Luis",
+              "estado": "Detenido"
+            }
+          ]
+        },
+        "filas": [
+          {
+            "responsable": "Ana"
+          },
+          {
+            "responsable": "Luis",
+            "estado": "Detenido"
+          }
+        ],
+        "hoyIso": "2026-10-23",
+        "abiertas": 0,
+        "vencidas": 0,
+        "detenidas": 0,
+        "proximas": null,
+        "urgente": {
+          "responsable": "Luis",
+          "estado": "Detenido"
+        },
+        "respCount": {
+          "Ana": 1,
+          "Luis": 1
+        },
+        "respTop": [
+          "Ana",
+          1
+        ],
+        "weeks": [
+          {
+            "iso": "2026-10-23",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-10-30",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-11-06",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-11-13",
+            "cnt": 0
+          },
+          {
+            "iso": "2026-11-20",
+            "cnt": 0
+          }
+        ]
+      }
+    }
+  ]
+}

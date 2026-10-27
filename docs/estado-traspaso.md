@@ -4,7 +4,16 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 15f619d:** project_shell_model, generic_charts e
+**Último bloque, base 81b6d12:** aer_resources_model, actions_model y
+aer_ai_presentation_model congelados. 472 Node y 41 dirigidas en UTC/México
+aprobadas; cinco mutaciones detectadas. JSON reproducibles desde el original;
+presentación IA usa también hechos/contexto originales al capturar. Sin
+cambiar aplicación/diseño/cálculos/CSP, sin nueva corrida servidor/e2e.
+Quedan 20 archivos Node que leen el script anterior, veintiún congelados.
+Continuar por los restantes; piloto de navegador pendiente. Evidencia en
+congelacion-referencias, sin push. Los bloques siguientes son históricos.
+
+**Bloque previo, base 15f619d:** project_shell_model, generic_charts e
 ixs_azure_table ya no leen el original. Etapas/estados, geometrías/barras y
 filtros/parsing guardados desde el original; JSON reproducibles. 472 Node
 completas y 14 dirigidas en UTC/México aprobadas, cuatro mutaciones en copias
