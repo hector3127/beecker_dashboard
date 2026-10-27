@@ -1,5 +1,59 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Decimotercer bloque: arranque, enlaces directos y compatibilidad
+
+Base `884fb69`. Se conservan las **10 pruebas** de los dos últimos archivos
+Node que leían el motor de proyectos. Dos generadores temporales originales
+`project_compatibility.gen.mjs` y `project_startup.gen.mjs` capturan antes del
+cambio 16 transiciones de cuenta/caché/selector y los seis escenarios de las
+cuatro pruebas de entrada. Ambos JSON son reproducibles exactamente
+normalizando CRLF/LF; no importan implementaciones actuales.
+
+`legacy_tools.test.cjs` ahora ejecuta el controlador project_entry, su modelo,
+su vista y el helper el actuales sobre un DOM de prueba. No copia la lógica
+del controlador para fabricar resultados. Conserva: entrada vacía sin lecturas,
+dos enlaces directos que consultan filtros, TYM sin metadata por endpoint
+AER/T&M, montaje de template y dos arranques desde ID en JSON con filtros antes
+del dashboard. Las solicitudes se normalizan al tipo de servicio original;
+el transporte actual es la API inyectada, sin RPC ni proveedores reales.
+El aviso mantiene clase, texto Consultando y ausencia de selectores.
+
+`project_compatibility.test.mjs` ejecuta createProjectCompatibility sobre las
+16 trazas de antes/después de refresh, con/sin caché y selector. Las otras
+pruebas siguen activas: argumentos/identidad/retorno síncrono de callbacks,
+caché leída al momento del cambio, 18 combinaciones de reportes del almacén
+y selectores ausentes. La última comprueba el arranque modular real a través
+de createEntryRuntime, con un contexto fresco al invocarlo, en vez de ejecutar
+la rama modular de la wrapper anterior.
+
+**472 Node completas y 10 dirigidas pasan en UTC y America/Mexico_City**,
+sin fallos, cancelaciones u omisiones. Ocho mutaciones en copias temporales
+detectadas: envolver callback perdiendo identidad, omitir puerta de cuenta,
+ignorar caché AER, perder contexto fresco, quitar TYM del fallback, ignorar
+seed JSON, omitir consulta de filtros y cambiar encabezado de carga. Prettier
+de JS y diff comprobados. No cambia código de producción, diseño, cálculos,
+CSP o permisos; no se repiten servidor/e2e en este bloque de tests Node.
+
+Evidencia ignorada: `tmp/frozen-startup-before.log`,
+`tmp/frozen-startup-after.log`, `tmp/frozen-startup-{UTC,America-Mexico_City}.log`,
+`tmp/frozen-startup-all-{UTC,America-Mexico_City}.log` y
+`tmp/frozen-startup-*.mutation.log`.
+
+**Cero tests Node leen proyecto_detalle.js: los 41 del inventario inicial
+están convertidos.** El conteo se refiere a ese motor, no a todas las
+referencias del repositorio. Una búsqueda amplia de tests/reference en
+los tests Node identifica cuatro archivos auxiliares aún pendientes:
+
+- cached_page.test.cjs: actualización de cortes.
+- portal_loading.test.cjs: marcadores de carga.
+- return_navigation.test.cjs: navegación de regreso y filtros.
+- project_independence.test.mjs: comparación del CSS base original.
+
+Revisar sus equivalentes vigentes antes de reemplazar/retirar expectativas;
+no asumir que las pruebas de los archivos anteriores validan la ruta actual.
+Además siguen pendientes el piloto y las referencias de navegador. No borrar
+originales ni generadores todavía. Fase 11 abierta, sin push.
+
 ## Duodécimo bloque: estado, contextos y adaptadores IXB
 
 Base `52fb330`. Cuatro archivos dejan de leer el original conservando sus

@@ -1,0 +1,61 @@
+{
+  "empty": {
+    "search": "",
+    "requests": []
+  },
+  "direct": [
+    {
+      "search": "?proyecto=AIN.002%20CR",
+      "requests": [
+        "filters"
+      ]
+    },
+    {
+      "search": "?cuenta=Nestle",
+      "requests": [
+        "filters"
+      ]
+    }
+  ],
+  "tym": {
+    "id": "TYM.AAU.001",
+    "requests": [
+      "TYM.AAU.001"
+    ],
+    "loading": {
+      "head": true,
+      "consulting": true,
+      "noSelect": true
+    }
+  },
+  "boot": [
+    {
+      "id": "AMK.004_CR",
+      "service": "IXB",
+      "requests": [
+        {
+          "kind": "filters"
+        },
+        {
+          "kind": "executive",
+          "pid": "AMK.004_CR"
+        }
+      ],
+      "head": true
+    },
+    {
+      "id": "TYM.AAU.001",
+      "service": "TYM",
+      "requests": [
+        {
+          "kind": "filters"
+        },
+        {
+          "kind": "aer",
+          "pid": "TYM.AAU.001"
+        }
+      ],
+      "head": true
+    }
+  ]
+}

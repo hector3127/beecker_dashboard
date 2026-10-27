@@ -4,7 +4,19 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 52fb330:** estado compartido, adaptadores IXB,
+**Último bloque, base 884fb69:** los dos últimos tests del motor de
+proyectos (legacy_tools y project_compatibility) usan módulos actuales y
+expectativas originales guardadas. Se conservan sus 10 pruebas. 472 Node y
+10 dirigidas pasan en UTC/México; ocho mutaciones en copias detectadas y dos
+JSON reproducibles. Cero tests Node leen proyecto_detalle.js: los 41 archivos
+de ese inventario están convertidos. Esto no cierra toda la congelación:
+la búsqueda amplia conserva 4 referencias auxiliares Node (cached_page,
+portal_loading, return_navigation y CSS en project_independence), además de
+navegador. No borrar tests/reference. Sin cambios de aplicación/diseño/
+cálculos/CSP ni nueva corrida servidor/e2e. Ver congelacion-referencias.
+Fase 11 abierta, sin push.
+
+**Bloque previo, base 52fb330:** estado compartido, adaptadores IXB,
 contextos comunes y contextos de funciones ya no leen el original. Se conservan
 las 24 pruebas; estado, callbacks, setters, guardias y seis integraciones de
 adaptadores siguen ejecutándose. 472 Node y 24 dirigidas pasan en UTC/México;

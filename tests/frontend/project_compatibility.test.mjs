@@ -1,18 +1,17 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
+import { createEntryRuntime } from "../../frontend/static/scripts/pages/project_detail/sections/project_entry_runtime.js";
 import { createProjectCompatibility } from "../../frontend/static/scripts/pages/project_detail/sections/project_compatibility.js";
 
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/project_compatibility.json", import.meta.url),
+    "utf8",
+  ),
 );
-const bridge = source.match(
-  /  function projectCompatibilityBindings\([\s\S]*?\n  \}/,
-)[0];
 
-function scenario(modern, before, after, cached, hasSelect = true) {
+function scenario(before, after, cached, hasSelect = true) {
   const calls = [],
     project = { value: "P" };
   let account = before;
@@ -44,26 +43,7 @@ function scenario(modern, before, after, cached, hasSelect = true) {
     executive: () => {},
   };
   const doc = { getElementById: () => (hasSelect ? project : null) };
-  let bindings;
-  if (modern) bindings = createProjectCompatibility(doc).bindings(provider);
-  else {
-    const context = {
-      window: {},
-      document: doc,
-      _clienteSeleccionadoDashboard: provider.account,
-      cacheReporteAERTYM: aer,
-      cacheReporteIXB: ixs,
-      initDashboard: () => provider.start(),
-      loadDashboard: (previous) =>
-        previous ? provider.load() : provider.refresh(),
-      renderReporteAERTYM: provider.renderAer,
-      renderReporteIXBRaaS: provider.renderIxs,
-      cargarTopRiesgosAzurePortafolio: provider.risks,
-      renderDashboardEjecutivoProyecto: provider.executive,
-    };
-    vm.runInNewContext(bridge, context);
-    bindings = context.projectCompatibilityBindings();
-  }
+  const bindings = createProjectCompatibility(doc).bindings(provider);
   return {
     provider,
     bindings,
@@ -77,21 +57,17 @@ function scenario(modern, before, after, cached, hasSelect = true) {
 }
 
 test("client contract preserves original order and account recheck after refresh", () => {
-  for (const before of ["", "ACME"])
-    for (const after of ["", "OTHER"])
-      for (const cached of [false, true])
-        for (const selected of [false, true]) {
-          const old = scenario(false, before, after, cached, selected),
-            modern = scenario(true, before, after, cached, selected);
-          old.bindings.clientChanged();
-          modern.bindings.clientChanged();
-          assert.deepEqual(modern.calls, old.calls);
-          assert.equal(modern.project.value, old.project.value);
-        }
+  assert.equal(frozen.length, 16);
+  for (const { before, after, cached, selected, expected } of frozen) {
+    const modern = scenario(before, after, cached, selected);
+    modern.bindings.clientChanged();
+    assert.deepEqual(modern.calls, expected.calls);
+    assert.equal(modern.project.value, expected.selected);
+  }
 });
 
 test("callbacks retain identity, arguments, result and synchronous invocation", () => {
-  const s = scenario(true, "", "", false);
+  const s = scenario("", "", false);
   assert.equal(s.bindings.previousStart, s.provider.start);
   assert.equal(s.bindings.previousLoad, s.provider.load);
   assert.equal(s.bindings.executive, s.provider.executive);
@@ -104,7 +80,7 @@ test("callbacks retain identity, arguments, result and synchronous invocation", 
 });
 
 test("report caches are read at the time of change, not when bindings are built", () => {
-  const s = scenario(true, "", "", false),
+  const s = scenario("", "", false),
     latest = { cut: "new" };
   s.updateCache(latest);
   s.bindings.clientChanged();
@@ -179,35 +155,21 @@ test("store reports handle absent client and project selectors", () => {
 });
 
 test("real modern bridge starts through modular entry with a fresh context", () => {
-  const state = { reportAer: null, reportIxs: null },
-    calls = [];
-  let current = { version: 1 };
-  const context = {
-    window: {
-      beeProjectState: state,
-      beeProjectCompatibility: createProjectCompatibility({
-        getElementById: () => null,
-      }),
-      beeProjectEntry: {
-        startCompatibility: (env) => {
-          calls.push(env);
-          return "modular-start";
-        },
+  const calls = [];
+  let version = 1;
+  const runtime = createEntryRuntime({
+    contexts: { entry: (callbacks) => ({ ...callbacks, version }) },
+    entry: {
+      startCompatibility: (env) => {
+        calls.push(env);
+        return "modular-start";
       },
-      beeProjectEntryRuntime: { context: () => current },
     },
-    initDashboard: () => {
-      throw Error("Old startup used");
-    },
-    loadDashboard: () => {},
-    renderReporteAERTYM: () => {},
-    renderReporteIXBRaaS: () => {},
-    cargarTopRiesgosAzurePortafolio: () => {},
-    renderDashboardEjecutivoProyecto: () => {},
-  };
-  vm.runInNewContext(bridge, context);
-  const bindings = context.projectCompatibilityBindings();
-  current = { version: 2 };
+  });
+  const bindings = runtime.context();
+  version = 2;
   assert.equal(bindings.previousStart(), "modular-start");
-  assert.deepEqual(calls, [current]);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].version, 2);
+  assert.notEqual(calls[0], bindings);
 });

@@ -1,0 +1,298 @@
+[
+  {
+    "before": "",
+    "after": "",
+    "cached": false,
+    "selected": false,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ],
+        [
+          "risks"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "",
+    "after": "",
+    "cached": false,
+    "selected": true,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ],
+        [
+          "risks"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "",
+    "after": "",
+    "cached": true,
+    "selected": false,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ],
+        [
+          "aer",
+          {
+            "aer": 1
+          }
+        ],
+        [
+          "ixs",
+          {
+            "ixs": 1
+          }
+        ],
+        [
+          "risks"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "",
+    "after": "",
+    "cached": true,
+    "selected": true,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ],
+        [
+          "aer",
+          {
+            "aer": 1
+          }
+        ],
+        [
+          "ixs",
+          {
+            "ixs": 1
+          }
+        ],
+        [
+          "risks"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "",
+    "after": "OTHER",
+    "cached": false,
+    "selected": false,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "",
+    "after": "OTHER",
+    "cached": false,
+    "selected": true,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "",
+    "after": "OTHER",
+    "cached": true,
+    "selected": false,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "",
+    "after": "OTHER",
+    "cached": true,
+    "selected": true,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "ACME",
+    "after": "",
+    "cached": false,
+    "selected": false,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ],
+        [
+          "risks"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "ACME",
+    "after": "",
+    "cached": false,
+    "selected": true,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ],
+        [
+          "risks"
+        ]
+      ],
+      "selected": "Todos los proyectos"
+    }
+  },
+  {
+    "before": "ACME",
+    "after": "",
+    "cached": true,
+    "selected": false,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ],
+        [
+          "aer",
+          {
+            "aer": 1
+          }
+        ],
+        [
+          "ixs",
+          {
+            "ixs": 1
+          }
+        ],
+        [
+          "risks"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "ACME",
+    "after": "",
+    "cached": true,
+    "selected": true,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ],
+        [
+          "aer",
+          {
+            "aer": 1
+          }
+        ],
+        [
+          "ixs",
+          {
+            "ixs": 1
+          }
+        ],
+        [
+          "risks"
+        ]
+      ],
+      "selected": "Todos los proyectos"
+    }
+  },
+  {
+    "before": "ACME",
+    "after": "OTHER",
+    "cached": false,
+    "selected": false,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "ACME",
+    "after": "OTHER",
+    "cached": false,
+    "selected": true,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ]
+      ],
+      "selected": "Todos los proyectos"
+    }
+  },
+  {
+    "before": "ACME",
+    "after": "OTHER",
+    "cached": true,
+    "selected": false,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ]
+      ],
+      "selected": "P"
+    }
+  },
+  {
+    "before": "ACME",
+    "after": "OTHER",
+    "cached": true,
+    "selected": true,
+    "expected": {
+      "calls": [
+        [
+          "refresh"
+        ]
+      ],
+      "selected": "Todos los proyectos"
+    }
+  }
+]

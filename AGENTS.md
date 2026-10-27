@@ -29,7 +29,16 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
-- Último bloque sobre `52fb330`: estado, adaptadores IXB y ambos grupos de
+- Último bloque sobre `884fb69`: legacy_tools y project_compatibility ya no
+  leen el motor original. Diez pruebas conservadas, con controlador/vista/DOM
+  y runtime actuales. 472 Node y 10 dirigidas en UTC/México pasan; ocho
+  mutaciones en copias detectadas y dos JSON reproducibles. Los 41 tests del
+  inventario de proyecto_detalle.js están convertidos. Aún quedan 4 archivos
+  con referencias auxiliares Node: cached_page, portal_loading,
+  return_navigation y CSS en project_independence; además, navegador.
+  No borrar tests/reference ni dar por cerrada fase 11. Sin cambios de
+  aplicación, nueva corrida servidor/e2e o push. Ver congelacion-referencias.
+- Bloque previo sobre `52fb330`: estado, adaptadores IXB y ambos grupos de
   contextos ya no leen el original. 24 pruebas conservadas; 472 Node y 24
   dirigidas pasan en UTC/México. Doce mutaciones en copias detectadas y
   cuatro JSON reproducibles. Los setters ahora prueban identidad al escribir
@@ -172,7 +181,8 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
    el desarrollo normal sigue directo en main.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, 2 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
+   En main, ningún test Node lee proyecto_detalle.js (41 al comenzar).
+   Quedan cuatro archivos con referencias auxiliares Node y el trabajo de navegador. El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que
