@@ -9,130 +9,30 @@ import {
   excessByPerson,
   currentWeek,
 } from "../../frontend/static/scripts/pages/project_detail/sections/ixs_effort_model.js";
-
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const frozen = JSON.parse(
+  fs.readFileSync(new URL("./frozen/ixs_effort.json", import.meta.url), "utf8"),
 );
-function original(name) {
-  const line = source
-    .split("\n")
-    .find((line) => line.startsWith(`  function ${name}(`));
-  return line.trim().endsWith("}")
-    ? line
-    : source.match(new RegExp(`  function ${name}\\([\\s\\S]*?\\n  \\}`))[0];
-}
-const helperNames = [
-  "_ixsCalcEffort",
-  "_ixsActividadRows",
-  "_ixsTrendRows",
-  "_ixsExcessByPerson",
-  "_ixsRecursoClave",
-  "_ixsYmdLocal",
-  "_ixsSemanaActual",
-];
-const context = { Date };
-vm.runInNewContext(helperNames.map(original).join("\n"), context);
-const json = (value) => JSON.parse(JSON.stringify(value));
-
+const plain = (value) => JSON.parse(JSON.stringify(value));
+const json = plain;
 test("effort keeps original totals, zero fallbacks, nonbillable hours and rounding", () => {
-  const samples = JSON.parse(
-    fs.readFileSync("tests/ejecutivo/project_integrated_expected.json", "utf8"),
-  ).slice(5, 12);
-  const variants = [{}, ...samples];
-  for (const value of [0, null, -2.1234, 17.99999]) {
-    const d = structuredClone(samples[0]);
-    d.totalesRecursos = {
-      horasReales: value,
-      horasNoFact: value,
-      horasEstimadas: value,
-      costoReal: value,
-      pctCumplimientoFinanciero: value,
-    };
-    d.kpisExtra.horasFueraHorario = 2.5;
-    variants.push(d);
-  }
-  for (const data of variants) {
-    const snapshot = JSON.stringify(data);
-    assert.deepEqual(
-      json(effortModel(data)),
-      json(context._ixsCalcEffort(data)),
-    );
-    assert.equal(JSON.stringify(data), snapshot);
+  assert.equal(frozen.totals.length, 12);
+  for (const { data, expected } of frozen.totals) {
+    const before = plain(data);
+    assert.deepEqual(plain(effortModel(data)), expected);
+    assert.deepEqual(data, before);
   }
 });
-
 test("activities, trend and billable excess preserve grouping, chronology and deduplication", () => {
-  const resources = [
-    { nombre: "Ana Pérez", posicion: "Developer", horasEstimadas: 10 },
-    { nombre: "Sin horas", horasEstimadas: 0 },
-  ];
-  const records = [
-    {
-      id: "2",
-      recurso: "ANA PEREZ",
-      fecha: "2026-10-03",
-      inicio: "10:00",
-      duracion: 8,
-      billable: true,
-      actividad: "Dev",
-    },
-    {
-      id: "1",
-      recurso: "Ana Pérez",
-      fecha: "2026-10-01",
-      inicio: "09:00",
-      duracion: 8,
-      billable: true,
-      actividad: "Dev",
-    },
-    {
-      id: "2",
-      recurso: "ANA PEREZ",
-      fecha: "2026-10-03",
-      inicio: "10:00",
-      duracion: 8,
-      billable: true,
-      actividad: "Dev",
-    },
-    { recurso: "Externo", fecha: "2026-09-01", duracion: 1.5, billable: true },
-    {
-      recurso: "Ana Pérez",
-      fecha: "2026-08-01",
-      duracion: 4,
-      billable: false,
-      actividad: "INV_OPERATIVA",
-    },
-    { recurso: "Ana Pérez", fecha: "invalid", duracion: -1, billable: true },
-    { recurso: "Ana Pérez", fecha: "2026-07-01", duracion: 0, billable: true },
-    {
-      recurso: "Ana Pérez",
-      fecha: "2026-06-01",
-      duracion: 4,
-      billable: "true",
-    },
-    {
-      recurso: " ",
-      fecha: "2026-05-01",
-      duracion: 3,
-      billable: true,
-      actividad: " ",
-    },
-  ];
-  for (const rows of [[], records, [...records].reverse()]) {
-    const snapshot = JSON.stringify(rows);
-    assert.deepEqual(
-      json(activityRows(rows)),
-      json(context._ixsActividadRows(rows)),
-    );
-    assert.deepEqual(json(trendRows(rows)), json(context._ixsTrendRows(rows)));
-    assert.deepEqual(
-      json(excessByPerson(resources, rows)),
-      json(context._ixsExcessByPerson(resources, rows)),
-    );
-    assert.equal(JSON.stringify(rows), snapshot);
+  assert.equal(frozen.rows.length, 3);
+  for (const { resources, input, expected } of frozen.rows) {
+    const before = plain({ resources, input });
+    assert.deepEqual(plain(activityRows(input)), expected.activities);
+    assert.deepEqual(plain(trendRows(input)), expected.trend);
+    assert.deepEqual(plain(excessByPerson(resources, input)), expected.excess);
+    assert.deepEqual({ resources, input }, before);
   }
-  const ana = excessByPerson(resources, records).find(
+  const { resources, input } = frozen.rows[1];
+  const ana = excessByPerson(resources, input).find(
     (x) => x.name === "Ana Pérez",
   );
   assert.equal(ana.excess, 6);
@@ -140,31 +40,22 @@ test("activities, trend and billable excess preserve grouping, chronology and de
   assert.equal(ana.records[0].duracion, 8);
   assert.equal(ana.records[0].excess, 6);
 });
-
 test("default week preserves local Monday through Sunday across year boundaries", () => {
+  assert.equal(frozen.weeks.length, 4);
   const NativeDate = Date;
   try {
-    for (const date of [
-      "2026-10-23T18:00:00Z",
-      "2026-10-25T18:00:00Z",
-      "2026-10-26T18:00:00Z",
-      "2027-01-01T18:00:00Z",
-    ]) {
-      class FixedDate extends NativeDate {
+    for (const { date, expected } of frozen.weeks) {
+      globalThis.Date = class extends NativeDate {
         constructor(...args) {
           super(...(args.length ? args : [date]));
         }
-      }
-      globalThis.Date = FixedDate;
-      context.Date = FixedDate;
-      assert.deepEqual(json(currentWeek()), json(context._ixsSemanaActual()));
+      };
+      assert.deepEqual(plain(currentWeek()), expected);
     }
   } finally {
     globalThis.Date = NativeDate;
-    context.Date = NativeDate;
   }
 });
-
 test("effort cache resets even when the intermediate project never opens Effort", async () => {
   const code = fs
     .readFileSync(

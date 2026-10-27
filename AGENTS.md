@@ -29,7 +29,15 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
-- Último bloque sobre `98698cd`: Riesgos AER, línea de tiempo general,
+- Último bloque sobre `6336783`: IA, Esfuerzo y soporte IXB, Planeación AER
+  congelados desde el original. Cuarenta pruebas conservadas, incluidas seis
+  de controladores/estados que siguen activas. 472 Node y 40 dirigidas en
+  UTC/México pasan; diez mutaciones en copias detectadas y cuatro JSON
+  reproducibles. Quedan 10 archivos Node dependientes del original, 31
+  congelados. Seguir modelos genéricos y después contratos/arranque.
+  No cambia aplicación ni se repiten servidor/e2e; piloto navegador pendiente.
+  Ver `docs/congelacion-referencias.md`. Sin push.
+- Bloque previo sobre `98698cd`: Riesgos AER, línea de tiempo general,
   Ejecutivo IXB y Planeación IXB congelados desde el original. Quince pruebas
   conservadas; añadido un caso de vencimientos a mitad/final de semana que
   faltaba. 472 Node y 15 dirigidas en UTC/México pasan; ocho mutaciones en
@@ -148,7 +156,7 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
    el desarrollo normal sigue directo en main.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, 14 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
+   En main, 10 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que

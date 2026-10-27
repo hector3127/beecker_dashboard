@@ -1,0 +1,136 @@
+[
+  {
+    "label": "empty",
+    "data": {},
+    "expected": {
+      "stage": "",
+      "closes": {
+        "Discovery": "",
+        "Development": "",
+        "Deployment": ""
+      }
+    }
+  },
+  {
+    "label": "planned",
+    "data": {
+      "hitos": [
+        {
+          "nombre": "Discovery EST",
+          "fechaFinPlan": "2010-03-20"
+        }
+      ]
+    },
+    "expected": {
+      "stage": "",
+      "closes": {
+        "Discovery": "2010-03-20",
+        "Development": "",
+        "Deployment": ""
+      }
+    }
+  },
+  {
+    "label": "closed",
+    "data": {
+      "historialCompleto": [
+        {
+          "fase": "Development",
+          "fechaInicio": "2010-01-01",
+          "fechaFin": "2010-03-02"
+        }
+      ],
+      "hitos": [
+        {
+          "nombre": "Development EST",
+          "fechaFinPlan": "2010-04-01"
+        }
+      ]
+    },
+    "expected": {
+      "stage": "Development",
+      "closes": {
+        "Discovery": "",
+        "Development": "2010-03-02",
+        "Deployment": ""
+      }
+    }
+  },
+  {
+    "label": "active prefers planned close",
+    "data": {
+      "historialCompleto": [
+        {
+          "fase": "Deployment",
+          "fechaInicio": "2010-01-01",
+          "fechaFin": "2010-03-02",
+          "enCurso": true
+        }
+      ],
+      "hitos": [
+        {
+          "nombre": "Deployment EST",
+          "fechaFinPlan": "2010-04-01"
+        }
+      ]
+    },
+    "expected": {
+      "stage": "Deployment",
+      "closes": {
+        "Discovery": "",
+        "Development": "",
+        "Deployment": "2010-04-01"
+      }
+    }
+  },
+  {
+    "label": "multiple cuts",
+    "data": {
+      "historialCompleto": [
+        {
+          "fase": "Development",
+          "fechaInicio": "2010-01-01",
+          "fechaFin": "2010-02-02"
+        },
+        {
+          "fase": "Development",
+          "fechaInicio": "2010-02-01",
+          "fechaFin": "2010-03-01"
+        },
+        {
+          "fase": "Other",
+          "fechaInicio": "2010-04-01",
+          "fechaFin": "2010-05-01"
+        }
+      ]
+    },
+    "expected": {
+      "stage": "Development",
+      "closes": {
+        "Discovery": "",
+        "Development": "2010-03-01",
+        "Deployment": ""
+      }
+    }
+  },
+  {
+    "label": "Latin dates",
+    "data": {
+      "historialCompleto": [
+        {
+          "fase": "DISCOVERY",
+          "fechaInicio": "01/02/2010",
+          "fechaFin": "28/02/2010"
+        }
+      ]
+    },
+    "expected": {
+      "stage": "Discovery",
+      "closes": {
+        "Discovery": "2010-02-28",
+        "Development": "",
+        "Deployment": ""
+      }
+    }
+  }
+]

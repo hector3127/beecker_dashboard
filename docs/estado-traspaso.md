@@ -4,7 +4,17 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 98698cd:** congelación agrupada de Riesgos AER,
+**Último bloque, base 6336783:** IA IXB, Esfuerzo IXB, soporte IXB y
+Planeación AER usan resultados originales guardados. Se conservan las 40
+pruebas del bloque, incluidos caché, reintentos y respuestas tardías que
+siguen ejecutando controladores actuales. 472 Node completas y 40 dirigidas
+pasan en UTC/México; diez mutaciones en copias detectadas y cuatro JSON
+reproducibles. Quedan 10 archivos Node que leen el original, 31 congelados.
+No cambia aplicación/diseño/cálculos/CSP; sin nueva corrida servidor/e2e.
+Continuar modelos genéricos y después contratos/arranque; piloto de navegador
+pendiente. Ver `docs/congelacion-referencias.md`. Sin push.
+
+**Bloque previo, base 98698cd:** congelación agrupada de Riesgos AER,
 línea de tiempo general, Ejecutivo IXB y Planeación IXB. Cuatro archivos más
 usan resultados originales guardados; se conservan las 15 pruebas y todos
 sus casos, añadiendo un límite semanal antes descubierto sin cobertura.

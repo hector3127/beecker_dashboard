@@ -1,5 +1,55 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Décimo bloque agrupado: IA, Esfuerzo, soporte IXB y Planeación AER
+
+Base `6336783`. Cuatro archivos más dejan de leer el script anterior.
+Se conservan sus **40 pruebas**, sin eliminar casos. Las pruebas de caché,
+recursos en vuelo, respuestas tardías, errores/reintentos y editor de hitos
+siguen ejecutando los controladores actuales: no se sustituyen por JSON.
+El comportamiento lazy de IA también sigue probado con un callback que lanza
+si se solicita un snapshot sin memoria.
+
+| Archivo | Expectativas originales guardadas |
+|---|---|
+| ixs_ai_model | 4 estados: contexto, snapshot, cambios y capacidad, con fuentes completas/vacías/parciales |
+| ixs_support | 6 sugerencias de etapa/fecha; los 5 tests restantes de estados/controladores siguen vivos |
+| ixs_effort | 12 totales, 3 variantes de actividades/tendencia/exceso y 4 semanas; la regresión de caché sigue viva |
+| aer_planning_model | Por zona: 3 recursos/ocupaciones y sus filas, 7 consultas de capacidad por conjunto, 8 parsers, 18 fechas y 9 modelos completos con funciones derivadas |
+
+Los generadores temporales ixs_ai, ixs_support, ixs_effort y aer_planning en
+`tests/frontend/frozen/gen/` solo usan el código original. Los cuatro JSON se
+reproducen exactamente normalizando CRLF/LF, sin importar modelos actuales.
+Se preservan en IA las sumas originales distintas de contexto (9.35 h) y
+snapshot (10.35 h): no se intentó hacerlas iguales. Se conservan horas negativas,
+no facturables, IDs duplicados, acentos y recursos inactivos. Soporte fija la
+fecha de captura y evaluación, manteniendo sus fixtures de 2010.
+
+Planeación AER guarda sus resultados por UTC y America/Mexico_City. Además
+del JSON del modelo, captura estado de compromiso/dependencia y cada posición,
+formato y ancho por fila. Undefined y números no finitos se etiquetan para
+conservar su significado; no se confunden con null al serializar. Mantiene
+limitaciones del parser, año del proyecto, fechas sin reconocer, esfuerzo,
+capacidad, vacaciones, rangos invertidos, ocupación y alertas. Los tests
+comprueban no mutación de las entradas; los modelos siguen siendo los actuales.
+
+**472 Node completas y 40 dirigidas pasan en ambas zonas**, cero fallos,
+cancelaciones u omisiones. Diez mutaciones en copias temporales detectadas:
+minutas 3→2, inclusión de recursos inactivos, prioridad de cierre real/plan,
+aplicación de estados, redondeo a la baja, desactivar deduplicación, incluir
+horas no facturables en exceso, consumir capacidad en hitos, cierre de importación
+con avance cero y ancho mínimo del Gantt 0.8→0.9. Ningún archivo de producción
+se editó para estas comprobaciones. Prettier de JS y diff comprobados.
+
+Evidencia ignorada: `tmp/frozen-next-before.log`, `tmp/frozen-next-after.log`,
+`tmp/frozen-next-{UTC,America-Mexico_City}.log`,
+`tmp/frozen-next-all-{UTC,America-Mexico_City}.log` y
+`tmp/frozen-next-*.mutation.log`. Sin nueva corrida servidor/navegador porque
+el bloque solo cambia pruebas, JSON, generadores y documentación; sin cambios
+de diseño, fórmulas, permisos o CSP. Quedan **10 archivos Node** que leen el
+original (14 antes, 41 al inicio), 31 congelados. Seguir los modelos genéricos;
+los contratos/arranque y el piloto de navegador siguen pendientes. No borrar
+las referencias originales todavía. Fase 11 abierta, sin push.
+
 ## Noveno bloque agrupado: Riesgos AER, líneas de tiempo y Planeación IXB
 
 Base `98698cd`. Cuatro archivos adicionales dejan de ejecutar el original.
