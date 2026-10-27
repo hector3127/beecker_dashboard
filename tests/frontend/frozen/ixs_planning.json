@@ -1,0 +1,3889 @@
+{
+  "UTC": {
+    "summary": [
+      {
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": []
+        },
+        "expected": {
+          "abiertas": [],
+          "late": [],
+          "soon": [],
+          "vacaciones": []
+        }
+      },
+      {
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "abiertas": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "late": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development",
+              "limite": 1792670400000
+            }
+          ],
+          "soon": [
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development",
+              "limite": 1792756800000
+            }
+          ],
+          "vacaciones": []
+        }
+      },
+      {
+        "plan": {
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            },
+            {
+              "recurso": "Luis",
+              "inicio": "2026-10-24",
+              "fin": "2026-10-27",
+              "estado": "Cancelada"
+            },
+            {
+              "recurso": "Lea",
+              "inicio": "2026-11-22",
+              "fin": "2026-11-28"
+            },
+            {
+              "recurso": "Sin fecha",
+              "inicio": "invalid",
+              "fin": "2026-10-30"
+            }
+          ],
+          "compromisos": [
+            {
+              "tipo": "Hito",
+              "actividad": "Entrega",
+              "fecha": "2026-11-02",
+              "estado": "Pendiente"
+            }
+          ]
+        },
+        "azure": {
+          "items": []
+        },
+        "expected": {
+          "abiertas": [],
+          "late": [],
+          "soon": [],
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            }
+          ]
+        }
+      },
+      {
+        "plan": {
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            },
+            {
+              "recurso": "Luis",
+              "inicio": "2026-10-24",
+              "fin": "2026-10-27",
+              "estado": "Cancelada"
+            },
+            {
+              "recurso": "Lea",
+              "inicio": "2026-11-22",
+              "fin": "2026-11-28"
+            },
+            {
+              "recurso": "Sin fecha",
+              "inicio": "invalid",
+              "fin": "2026-10-30"
+            }
+          ],
+          "compromisos": [
+            {
+              "tipo": "Hito",
+              "actividad": "Entrega",
+              "fecha": "2026-11-02",
+              "estado": "Pendiente"
+            }
+          ]
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "abiertas": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "late": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development",
+              "limite": 1792670400000
+            }
+          ],
+          "soon": [
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development",
+              "limite": 1792756800000
+            }
+          ],
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            }
+          ]
+        }
+      },
+      {
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 20,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 21,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-23"
+            },
+            {
+              "id": 22,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-24"
+            },
+            {
+              "id": 23,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-26"
+            },
+            {
+              "id": 24,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-29"
+            },
+            {
+              "id": 25,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-30"
+            },
+            {
+              "id": 26,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-31"
+            }
+          ]
+        },
+        "expected": {
+          "abiertas": [
+            {
+              "id": 20,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 21,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-23"
+            },
+            {
+              "id": 22,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-24"
+            },
+            {
+              "id": 23,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-26"
+            },
+            {
+              "id": 24,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-29"
+            },
+            {
+              "id": 25,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-30"
+            },
+            {
+              "id": 26,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-31"
+            }
+          ],
+          "late": [
+            {
+              "id": 20,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-22",
+              "limite": 1792670400000
+            }
+          ],
+          "soon": [
+            {
+              "id": 21,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-23",
+              "limite": 1792756800000
+            },
+            {
+              "id": 22,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-24",
+              "limite": 1792843200000
+            },
+            {
+              "id": 23,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-26",
+              "limite": 1793016000000
+            },
+            {
+              "id": 24,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-29",
+              "limite": 1793275200000
+            }
+          ],
+          "vacaciones": []
+        }
+      }
+    ],
+    "model": [
+      {
+        "data": {
+          "proyecto": {
+            "id": "Empty"
+          }
+        },
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "summary": {
+            "abiertas": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 3,
+                "estado": "Proposed",
+                "fechaLimiteDev": "2026-10-30",
+                "iterationPath": "AMK\\Deployment"
+              },
+              {
+                "id": 6,
+                "estado": "Other",
+                "fechaLimiteDev": "invalid"
+              }
+            ],
+            "late": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792670400000
+              }
+            ],
+            "soon": [
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792756800000
+              }
+            ],
+            "vacaciones": []
+          },
+          "hitos": [],
+          "completed": 0,
+          "underway": 0,
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "closed": 1,
+          "dated": 5,
+          "resources": 0,
+          "weeks": [
+            {
+              "fecha": "23 oct",
+              "count": 0
+            },
+            {
+              "fecha": "30 oct",
+              "count": 0
+            },
+            {
+              "fecha": "6 nov",
+              "count": 0
+            },
+            {
+              "fecha": "13 nov",
+              "count": 0
+            },
+            {
+              "fecha": "20 nov",
+              "count": 0
+            },
+            {
+              "fecha": "27 nov",
+              "count": 0
+            }
+          ],
+          "byStage": [
+            [
+              "Sin iteración",
+              3
+            ],
+            [
+              "Development",
+              2
+            ],
+            [
+              "Deployment",
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "data": {
+          "proyecto": {
+            "id": "Empty"
+          }
+        },
+        "plan": {
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            },
+            {
+              "recurso": "Luis",
+              "inicio": "2026-10-24",
+              "fin": "2026-10-27",
+              "estado": "Cancelada"
+            },
+            {
+              "recurso": "Lea",
+              "inicio": "2026-11-22",
+              "fin": "2026-11-28"
+            },
+            {
+              "recurso": "Sin fecha",
+              "inicio": "invalid",
+              "fin": "2026-10-30"
+            }
+          ],
+          "compromisos": [
+            {
+              "tipo": "Hito",
+              "actividad": "Entrega",
+              "fecha": "2026-11-02",
+              "estado": "Pendiente"
+            }
+          ]
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "summary": {
+            "abiertas": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 3,
+                "estado": "Proposed",
+                "fechaLimiteDev": "2026-10-30",
+                "iterationPath": "AMK\\Deployment"
+              },
+              {
+                "id": 6,
+                "estado": "Other",
+                "fechaLimiteDev": "invalid"
+              }
+            ],
+            "late": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792670400000
+              }
+            ],
+            "soon": [
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792756800000
+              }
+            ],
+            "vacaciones": [
+              {
+                "recurso": "Ana Pérez",
+                "inicio": "2026-10-23",
+                "fin": "2026-10-30",
+                "estado": "Aprobada"
+              },
+              {
+                "recurso": "ANA PEREZ",
+                "inicio": "2026-10-26",
+                "fin": "2026-11-03",
+                "estado": "Pendiente"
+              }
+            ]
+          },
+          "hitos": [],
+          "completed": 0,
+          "underway": 0,
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "closed": 1,
+          "dated": 5,
+          "resources": 0,
+          "weeks": [
+            {
+              "fecha": "23 oct",
+              "count": 1
+            },
+            {
+              "fecha": "30 oct",
+              "count": 1
+            },
+            {
+              "fecha": "6 nov",
+              "count": 0
+            },
+            {
+              "fecha": "13 nov",
+              "count": 0
+            },
+            {
+              "fecha": "20 nov",
+              "count": 1
+            },
+            {
+              "fecha": "27 nov",
+              "count": 1
+            }
+          ],
+          "byStage": [
+            [
+              "Sin iteración",
+              3
+            ],
+            [
+              "Development",
+              2
+            ],
+            [
+              "Deployment",
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "data": {
+          "proyecto": {
+            "id": "AMK.008",
+            "nombre": "Robot AMK",
+            "cliente": "ACME",
+            "sponsor": "Laura",
+            "pm": "Pedro SM",
+            "deliveryManager": "DM Uno",
+            "fechaCorte": "2026-10-02T18:00:00.000Z",
+            "fechaInicio": "2026-07-01T06:00:00.000Z",
+            "fechaFinEstimada": "2026-12-31T06:00:00.000Z",
+            "estadoGeneral": "EN CONTROL",
+            "estadoColor": "verde",
+            "nivelRiesgoFecha": "Bajo"
+          },
+          "avance": {
+            "pct": 42.8,
+            "fuente": "Consumo presupuestal",
+            "hitosCompletados": 1,
+            "hitosTotal": 2,
+            "etapaActualPct": null,
+            "pctTiempoTranscurrido": 51.1,
+            "indiceRitmo": 0.84
+          },
+          "presupuesto": {
+            "budget": 100,
+            "burn": 42.75,
+            "etc": 57.25,
+            "pctEjecutado": 42.8,
+            "pctConsumoRaw": 42.8,
+            "fuente": "Registros_Tiempo",
+            "consumoDisponible": true,
+            "registros": 3
+          },
+          "kpisExtra": {
+            "recursosAsignados": 5,
+            "costoEstimado": 1425,
+            "costoReal": 893.1,
+            "pctCumplimientoFinanciero": 62.7,
+            "horasNoFact": 4
+          },
+          "distribucionArea": [
+            {
+              "nombre": "Desarrollo",
+              "horas": 31.36,
+              "pct": 68.4
+            },
+            {
+              "nombre": "Testing",
+              "horas": 12.5,
+              "pct": 27.3
+            },
+            {
+              "nombre": "Otros",
+              "horas": 2,
+              "pct": 4.4
+            },
+            {
+              "nombre": "Soporte",
+              "horas": 0,
+              "pct": 0
+            }
+          ],
+          "filasRecursosTop": [
+            {
+              "posicion": "Developer",
+              "nombre": "Ana Pérez",
+              "banda": "B2",
+              "costingRate": 22.5,
+              "horasEstimadas": 50,
+              "horasReales": 31.36,
+              "horasNoFact": 0,
+              "costoEstimado": 1125,
+              "costoReal": 705.6,
+              "balance": 18.64,
+              "pctCumplimiento": 62.7,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "QA Tester",
+              "nombre": "Luis Gómez",
+              "banda": " b1 ",
+              "costingRate": 15,
+              "horasEstimadas": 20,
+              "horasReales": 12.5,
+              "horasNoFact": 4,
+              "costoEstimado": 300,
+              "costoReal": 187.5,
+              "balance": 7.5,
+              "pctCumplimiento": 62.5,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Sin asignacion en Recursos",
+              "nombre": "Externo",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 2,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": -2,
+              "pctCumplimiento": 0,
+              "estado": "Sin estimacion en Recursos"
+            },
+            {
+              "posicion": "",
+              "nombre": "Sin Horas",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 10,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 10,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Project Manager",
+              "nombre": "María López",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 0,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            }
+          ],
+          "filasRecursosCompleto": [
+            {
+              "posicion": "Developer",
+              "nombre": "Ana Pérez",
+              "banda": "B2",
+              "costingRate": 22.5,
+              "horasEstimadas": 50,
+              "horasReales": 31.36,
+              "horasNoFact": 0,
+              "costoEstimado": 1125,
+              "costoReal": 705.6,
+              "balance": 18.64,
+              "pctCumplimiento": 62.7,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "QA Tester",
+              "nombre": "Luis Gómez",
+              "banda": " b1 ",
+              "costingRate": 15,
+              "horasEstimadas": 20,
+              "horasReales": 12.5,
+              "horasNoFact": 4,
+              "costoEstimado": 300,
+              "costoReal": 187.5,
+              "balance": 7.5,
+              "pctCumplimiento": 62.5,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Sin asignacion en Recursos",
+              "nombre": "Externo",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 2,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": -2,
+              "pctCumplimiento": 0,
+              "estado": "Sin estimacion en Recursos"
+            },
+            {
+              "posicion": "",
+              "nombre": "Sin Horas",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 10,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 10,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Project Manager",
+              "nombre": "María López",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 0,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            }
+          ],
+          "totalesRecursos": {
+            "horasEstimadas": 80,
+            "horasReales": 45.86,
+            "horasNoFact": 4,
+            "costoEstimado": 1425,
+            "costoReal": 893.1,
+            "balance": 34.14,
+            "pctCumplimientoHoras": 57.3,
+            "pctCumplimientoFinanciero": 62.7
+          },
+          "porRol": [
+            {
+              "rol": "Developer",
+              "horasEstimadas": 50,
+              "horasReales": 31.36
+            },
+            {
+              "rol": "QA Tester",
+              "horasEstimadas": 20,
+              "horasReales": 12.5
+            },
+            {
+              "rol": "Sin rol",
+              "horasEstimadas": 10,
+              "horasReales": 0
+            },
+            {
+              "rol": "Sin asignacion en Recursos",
+              "horasEstimadas": 0,
+              "horasReales": 2
+            },
+            {
+              "rol": "Project Manager",
+              "horasEstimadas": 0,
+              "horasReales": 0
+            }
+          ],
+          "riesgosCriticos": [
+            {
+              "descripcion": "Alto uno",
+              "impacto": "Alto",
+              "probabilidad": "Media"
+            },
+            {
+              "descripcion": "Alto dos",
+              "impacto": "Alto",
+              "probabilidad": "Baja"
+            },
+            {
+              "descripcion": "Medio uno",
+              "impacto": "Medio",
+              "probabilidad": ""
+            },
+            {
+              "descripcion": "Medio dos",
+              "impacto": "Medio",
+              "probabilidad": "Baja"
+            },
+            {
+              "descripcion": "Bajo uno",
+              "impacto": "Bajo",
+              "probabilidad": "Alta"
+            }
+          ],
+          "raid": {
+            "riesgosCriticos": 6,
+            "asuntosPendientes": 1
+          },
+          "hitos": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-07-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-07-31T06:00:00.000Z",
+              "fechaInicioReal": "2026-07-02T06:00:00.000Z",
+              "fechaFinReal": "2026-08-03T06:00:00.000Z",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+              "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+              "fechaFinReal": null,
+              "estado": "En curso"
+            }
+          ],
+          "hitosAdicionales": [
+            {
+              "tipo": "Go Live",
+              "indice": 0,
+              "fecha": "2026-11-15",
+              "observacion": "Salida"
+            },
+            {
+              "tipo": "Go Live",
+              "indice": 1,
+              "fecha": "2026-12-01",
+              "observacion": ""
+            },
+            {
+              "tipo": "Kickoff",
+              "indice": 0,
+              "fecha": "2026-07-01",
+              "observacion": "Inicio"
+            }
+          ],
+          "proximosHitos": [
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+              "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+              "fechaFinReal": null,
+              "estado": "En curso"
+            }
+          ],
+          "periodosSuspension": [],
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-07-02T06:00:00.000Z",
+              "fechaFin": "2026-08-03T06:00:00.000Z",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-08-04T06:00:00.000Z",
+              "fechaFin": null,
+              "enCurso": true
+            }
+          ],
+          "suspensiones": []
+        },
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "summary": {
+            "abiertas": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 3,
+                "estado": "Proposed",
+                "fechaLimiteDev": "2026-10-30",
+                "iterationPath": "AMK\\Deployment"
+              },
+              {
+                "id": 6,
+                "estado": "Other",
+                "fechaLimiteDev": "invalid"
+              }
+            ],
+            "late": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792670400000
+              }
+            ],
+            "soon": [
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792756800000
+              }
+            ],
+            "vacaciones": []
+          },
+          "hitos": [
+            {
+              "name": "Discovery",
+              "start": "2026-07-02T06:00:00.000Z",
+              "finish": "2026-08-03T06:00:00.000Z",
+              "state": "Completado",
+              "extra": false
+            },
+            {
+              "name": "Development",
+              "start": "2026-08-04T06:00:00.000Z",
+              "finish": "2026-11-15T06:00:00.000Z",
+              "state": "En curso",
+              "extra": false
+            }
+          ],
+          "completed": 1,
+          "underway": 1,
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "closed": 1,
+          "dated": 5,
+          "resources": 5,
+          "weeks": [
+            {
+              "fecha": "23 oct",
+              "count": 0
+            },
+            {
+              "fecha": "30 oct",
+              "count": 0
+            },
+            {
+              "fecha": "6 nov",
+              "count": 0
+            },
+            {
+              "fecha": "13 nov",
+              "count": 0
+            },
+            {
+              "fecha": "20 nov",
+              "count": 0
+            },
+            {
+              "fecha": "27 nov",
+              "count": 0
+            }
+          ],
+          "byStage": [
+            [
+              "Sin iteración",
+              3
+            ],
+            [
+              "Development",
+              2
+            ],
+            [
+              "Deployment",
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "data": {
+          "proyecto": {
+            "id": "AMK.008",
+            "nombre": "Robot AMK",
+            "cliente": "ACME",
+            "sponsor": "Laura",
+            "pm": "Pedro SM",
+            "deliveryManager": "DM Uno",
+            "fechaCorte": "2026-10-02T18:00:00.000Z",
+            "fechaInicio": "2026-07-01T06:00:00.000Z",
+            "fechaFinEstimada": "2026-12-31T06:00:00.000Z",
+            "estadoGeneral": "EN CONTROL",
+            "estadoColor": "verde",
+            "nivelRiesgoFecha": "Bajo"
+          },
+          "avance": {
+            "pct": 42.8,
+            "fuente": "Consumo presupuestal",
+            "hitosCompletados": 1,
+            "hitosTotal": 2,
+            "etapaActualPct": null,
+            "pctTiempoTranscurrido": 51.1,
+            "indiceRitmo": 0.84
+          },
+          "presupuesto": {
+            "budget": 100,
+            "burn": 42.75,
+            "etc": 57.25,
+            "pctEjecutado": 42.8,
+            "pctConsumoRaw": 42.8,
+            "fuente": "Registros_Tiempo",
+            "consumoDisponible": true,
+            "registros": 3
+          },
+          "kpisExtra": {
+            "recursosAsignados": 5,
+            "costoEstimado": 1425,
+            "costoReal": 893.1,
+            "pctCumplimientoFinanciero": 62.7,
+            "horasNoFact": 4
+          },
+          "distribucionArea": [
+            {
+              "nombre": "Desarrollo",
+              "horas": 31.36,
+              "pct": 68.4
+            },
+            {
+              "nombre": "Testing",
+              "horas": 12.5,
+              "pct": 27.3
+            },
+            {
+              "nombre": "Otros",
+              "horas": 2,
+              "pct": 4.4
+            },
+            {
+              "nombre": "Soporte",
+              "horas": 0,
+              "pct": 0
+            }
+          ],
+          "filasRecursosTop": [
+            {
+              "posicion": "Developer",
+              "nombre": "Ana Pérez",
+              "banda": "B2",
+              "costingRate": 22.5,
+              "horasEstimadas": 50,
+              "horasReales": 31.36,
+              "horasNoFact": 0,
+              "costoEstimado": 1125,
+              "costoReal": 705.6,
+              "balance": 18.64,
+              "pctCumplimiento": 62.7,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "QA Tester",
+              "nombre": "Luis Gómez",
+              "banda": " b1 ",
+              "costingRate": 15,
+              "horasEstimadas": 20,
+              "horasReales": 12.5,
+              "horasNoFact": 4,
+              "costoEstimado": 300,
+              "costoReal": 187.5,
+              "balance": 7.5,
+              "pctCumplimiento": 62.5,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Sin asignacion en Recursos",
+              "nombre": "Externo",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 2,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": -2,
+              "pctCumplimiento": 0,
+              "estado": "Sin estimacion en Recursos"
+            },
+            {
+              "posicion": "",
+              "nombre": "Sin Horas",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 10,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 10,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Project Manager",
+              "nombre": "María López",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 0,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            }
+          ],
+          "filasRecursosCompleto": [
+            {
+              "posicion": "Developer",
+              "nombre": "Ana Pérez",
+              "banda": "B2",
+              "costingRate": 22.5,
+              "horasEstimadas": 50,
+              "horasReales": 31.36,
+              "horasNoFact": 0,
+              "costoEstimado": 1125,
+              "costoReal": 705.6,
+              "balance": 18.64,
+              "pctCumplimiento": 62.7,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "QA Tester",
+              "nombre": "Luis Gómez",
+              "banda": " b1 ",
+              "costingRate": 15,
+              "horasEstimadas": 20,
+              "horasReales": 12.5,
+              "horasNoFact": 4,
+              "costoEstimado": 300,
+              "costoReal": 187.5,
+              "balance": 7.5,
+              "pctCumplimiento": 62.5,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Sin asignacion en Recursos",
+              "nombre": "Externo",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 2,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": -2,
+              "pctCumplimiento": 0,
+              "estado": "Sin estimacion en Recursos"
+            },
+            {
+              "posicion": "",
+              "nombre": "Sin Horas",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 10,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 10,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Project Manager",
+              "nombre": "María López",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 0,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            }
+          ],
+          "totalesRecursos": {
+            "horasEstimadas": 80,
+            "horasReales": 45.86,
+            "horasNoFact": 4,
+            "costoEstimado": 1425,
+            "costoReal": 893.1,
+            "balance": 34.14,
+            "pctCumplimientoHoras": 57.3,
+            "pctCumplimientoFinanciero": 62.7
+          },
+          "porRol": [
+            {
+              "rol": "Developer",
+              "horasEstimadas": 50,
+              "horasReales": 31.36
+            },
+            {
+              "rol": "QA Tester",
+              "horasEstimadas": 20,
+              "horasReales": 12.5
+            },
+            {
+              "rol": "Sin rol",
+              "horasEstimadas": 10,
+              "horasReales": 0
+            },
+            {
+              "rol": "Sin asignacion en Recursos",
+              "horasEstimadas": 0,
+              "horasReales": 2
+            },
+            {
+              "rol": "Project Manager",
+              "horasEstimadas": 0,
+              "horasReales": 0
+            }
+          ],
+          "riesgosCriticos": [
+            {
+              "descripcion": "Alto uno",
+              "impacto": "Alto",
+              "probabilidad": "Media"
+            },
+            {
+              "descripcion": "Alto dos",
+              "impacto": "Alto",
+              "probabilidad": "Baja"
+            },
+            {
+              "descripcion": "Medio uno",
+              "impacto": "Medio",
+              "probabilidad": ""
+            },
+            {
+              "descripcion": "Medio dos",
+              "impacto": "Medio",
+              "probabilidad": "Baja"
+            },
+            {
+              "descripcion": "Bajo uno",
+              "impacto": "Bajo",
+              "probabilidad": "Alta"
+            }
+          ],
+          "raid": {
+            "riesgosCriticos": 6,
+            "asuntosPendientes": 1
+          },
+          "hitos": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-07-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-07-31T06:00:00.000Z",
+              "fechaInicioReal": "2026-07-02T06:00:00.000Z",
+              "fechaFinReal": "2026-08-03T06:00:00.000Z",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+              "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+              "fechaFinReal": null,
+              "estado": "En curso"
+            }
+          ],
+          "hitosAdicionales": [
+            {
+              "tipo": "Go Live",
+              "indice": 0,
+              "fecha": "2026-11-15",
+              "observacion": "Salida"
+            },
+            {
+              "tipo": "Go Live",
+              "indice": 1,
+              "fecha": "2026-12-01",
+              "observacion": ""
+            },
+            {
+              "tipo": "Kickoff",
+              "indice": 0,
+              "fecha": "2026-07-01",
+              "observacion": "Inicio"
+            }
+          ],
+          "proximosHitos": [
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+              "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+              "fechaFinReal": null,
+              "estado": "En curso"
+            }
+          ],
+          "periodosSuspension": [],
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-07-02T06:00:00.000Z",
+              "fechaFin": "2026-08-03T06:00:00.000Z",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-08-04T06:00:00.000Z",
+              "fechaFin": null,
+              "enCurso": true
+            }
+          ],
+          "suspensiones": []
+        },
+        "plan": {
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            },
+            {
+              "recurso": "Luis",
+              "inicio": "2026-10-24",
+              "fin": "2026-10-27",
+              "estado": "Cancelada"
+            },
+            {
+              "recurso": "Lea",
+              "inicio": "2026-11-22",
+              "fin": "2026-11-28"
+            },
+            {
+              "recurso": "Sin fecha",
+              "inicio": "invalid",
+              "fin": "2026-10-30"
+            }
+          ],
+          "compromisos": [
+            {
+              "tipo": "Hito",
+              "actividad": "Entrega",
+              "fecha": "2026-11-02",
+              "estado": "Pendiente"
+            }
+          ]
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "summary": {
+            "abiertas": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 3,
+                "estado": "Proposed",
+                "fechaLimiteDev": "2026-10-30",
+                "iterationPath": "AMK\\Deployment"
+              },
+              {
+                "id": 6,
+                "estado": "Other",
+                "fechaLimiteDev": "invalid"
+              }
+            ],
+            "late": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792670400000
+              }
+            ],
+            "soon": [
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792756800000
+              }
+            ],
+            "vacaciones": [
+              {
+                "recurso": "Ana Pérez",
+                "inicio": "2026-10-23",
+                "fin": "2026-10-30",
+                "estado": "Aprobada"
+              },
+              {
+                "recurso": "ANA PEREZ",
+                "inicio": "2026-10-26",
+                "fin": "2026-11-03",
+                "estado": "Pendiente"
+              }
+            ]
+          },
+          "hitos": [
+            {
+              "name": "Discovery",
+              "start": "2026-07-02T06:00:00.000Z",
+              "finish": "2026-08-03T06:00:00.000Z",
+              "state": "Completado",
+              "extra": false
+            },
+            {
+              "name": "Development",
+              "start": "2026-08-04T06:00:00.000Z",
+              "finish": "2026-11-15T06:00:00.000Z",
+              "state": "En curso",
+              "extra": false
+            }
+          ],
+          "completed": 1,
+          "underway": 1,
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "closed": 1,
+          "dated": 5,
+          "resources": 5,
+          "weeks": [
+            {
+              "fecha": "23 oct",
+              "count": 1
+            },
+            {
+              "fecha": "30 oct",
+              "count": 1
+            },
+            {
+              "fecha": "6 nov",
+              "count": 0
+            },
+            {
+              "fecha": "13 nov",
+              "count": 0
+            },
+            {
+              "fecha": "20 nov",
+              "count": 1
+            },
+            {
+              "fecha": "27 nov",
+              "count": 1
+            }
+          ],
+          "byStage": [
+            [
+              "Sin iteración",
+              3
+            ],
+            [
+              "Development",
+              2
+            ],
+            [
+              "Deployment",
+              1
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "America/Mexico_City": {
+    "summary": [
+      {
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": []
+        },
+        "expected": {
+          "abiertas": [],
+          "late": [],
+          "soon": [],
+          "vacaciones": []
+        }
+      },
+      {
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "abiertas": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "late": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development",
+              "limite": 1792692000000
+            }
+          ],
+          "soon": [
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development",
+              "limite": 1792778400000
+            }
+          ],
+          "vacaciones": []
+        }
+      },
+      {
+        "plan": {
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            },
+            {
+              "recurso": "Luis",
+              "inicio": "2026-10-24",
+              "fin": "2026-10-27",
+              "estado": "Cancelada"
+            },
+            {
+              "recurso": "Lea",
+              "inicio": "2026-11-22",
+              "fin": "2026-11-28"
+            },
+            {
+              "recurso": "Sin fecha",
+              "inicio": "invalid",
+              "fin": "2026-10-30"
+            }
+          ],
+          "compromisos": [
+            {
+              "tipo": "Hito",
+              "actividad": "Entrega",
+              "fecha": "2026-11-02",
+              "estado": "Pendiente"
+            }
+          ]
+        },
+        "azure": {
+          "items": []
+        },
+        "expected": {
+          "abiertas": [],
+          "late": [],
+          "soon": [],
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            }
+          ]
+        }
+      },
+      {
+        "plan": {
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            },
+            {
+              "recurso": "Luis",
+              "inicio": "2026-10-24",
+              "fin": "2026-10-27",
+              "estado": "Cancelada"
+            },
+            {
+              "recurso": "Lea",
+              "inicio": "2026-11-22",
+              "fin": "2026-11-28"
+            },
+            {
+              "recurso": "Sin fecha",
+              "inicio": "invalid",
+              "fin": "2026-10-30"
+            }
+          ],
+          "compromisos": [
+            {
+              "tipo": "Hito",
+              "actividad": "Entrega",
+              "fecha": "2026-11-02",
+              "estado": "Pendiente"
+            }
+          ]
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "abiertas": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "late": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development",
+              "limite": 1792692000000
+            }
+          ],
+          "soon": [
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development",
+              "limite": 1792778400000
+            }
+          ],
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            }
+          ]
+        }
+      },
+      {
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 20,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 21,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-23"
+            },
+            {
+              "id": 22,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-24"
+            },
+            {
+              "id": 23,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-26"
+            },
+            {
+              "id": 24,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-29"
+            },
+            {
+              "id": 25,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-30"
+            },
+            {
+              "id": 26,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-31"
+            }
+          ]
+        },
+        "expected": {
+          "abiertas": [
+            {
+              "id": 20,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 21,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-23"
+            },
+            {
+              "id": 22,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-24"
+            },
+            {
+              "id": 23,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-26"
+            },
+            {
+              "id": 24,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-29"
+            },
+            {
+              "id": 25,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-30"
+            },
+            {
+              "id": 26,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-31"
+            }
+          ],
+          "late": [
+            {
+              "id": 20,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-22",
+              "limite": 1792692000000
+            }
+          ],
+          "soon": [
+            {
+              "id": 21,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-23",
+              "limite": 1792778400000
+            },
+            {
+              "id": 22,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-24",
+              "limite": 1792864800000
+            },
+            {
+              "id": 23,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-26",
+              "limite": 1793037600000
+            },
+            {
+              "id": 24,
+              "estado": "Active",
+              "fechaLimiteDev": "2026-10-29",
+              "limite": 1793296800000
+            }
+          ],
+          "vacaciones": []
+        }
+      }
+    ],
+    "model": [
+      {
+        "data": {
+          "proyecto": {
+            "id": "Empty"
+          }
+        },
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "summary": {
+            "abiertas": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 3,
+                "estado": "Proposed",
+                "fechaLimiteDev": "2026-10-30",
+                "iterationPath": "AMK\\Deployment"
+              },
+              {
+                "id": 6,
+                "estado": "Other",
+                "fechaLimiteDev": "invalid"
+              }
+            ],
+            "late": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792692000000
+              }
+            ],
+            "soon": [
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792778400000
+              }
+            ],
+            "vacaciones": []
+          },
+          "hitos": [],
+          "completed": 0,
+          "underway": 0,
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "closed": 1,
+          "dated": 5,
+          "resources": 0,
+          "weeks": [
+            {
+              "fecha": "23 oct",
+              "count": 0
+            },
+            {
+              "fecha": "30 oct",
+              "count": 0
+            },
+            {
+              "fecha": "6 nov",
+              "count": 0
+            },
+            {
+              "fecha": "13 nov",
+              "count": 0
+            },
+            {
+              "fecha": "20 nov",
+              "count": 0
+            },
+            {
+              "fecha": "27 nov",
+              "count": 0
+            }
+          ],
+          "byStage": [
+            [
+              "Sin iteración",
+              3
+            ],
+            [
+              "Development",
+              2
+            ],
+            [
+              "Deployment",
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "data": {
+          "proyecto": {
+            "id": "Empty"
+          }
+        },
+        "plan": {
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            },
+            {
+              "recurso": "Luis",
+              "inicio": "2026-10-24",
+              "fin": "2026-10-27",
+              "estado": "Cancelada"
+            },
+            {
+              "recurso": "Lea",
+              "inicio": "2026-11-22",
+              "fin": "2026-11-28"
+            },
+            {
+              "recurso": "Sin fecha",
+              "inicio": "invalid",
+              "fin": "2026-10-30"
+            }
+          ],
+          "compromisos": [
+            {
+              "tipo": "Hito",
+              "actividad": "Entrega",
+              "fecha": "2026-11-02",
+              "estado": "Pendiente"
+            }
+          ]
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "summary": {
+            "abiertas": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 3,
+                "estado": "Proposed",
+                "fechaLimiteDev": "2026-10-30",
+                "iterationPath": "AMK\\Deployment"
+              },
+              {
+                "id": 6,
+                "estado": "Other",
+                "fechaLimiteDev": "invalid"
+              }
+            ],
+            "late": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792692000000
+              }
+            ],
+            "soon": [
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792778400000
+              }
+            ],
+            "vacaciones": [
+              {
+                "recurso": "Ana Pérez",
+                "inicio": "2026-10-23",
+                "fin": "2026-10-30",
+                "estado": "Aprobada"
+              },
+              {
+                "recurso": "ANA PEREZ",
+                "inicio": "2026-10-26",
+                "fin": "2026-11-03",
+                "estado": "Pendiente"
+              }
+            ]
+          },
+          "hitos": [],
+          "completed": 0,
+          "underway": 0,
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "closed": 1,
+          "dated": 5,
+          "resources": 0,
+          "weeks": [
+            {
+              "fecha": "23 oct",
+              "count": 1
+            },
+            {
+              "fecha": "30 oct",
+              "count": 1
+            },
+            {
+              "fecha": "6 nov",
+              "count": 0
+            },
+            {
+              "fecha": "13 nov",
+              "count": 0
+            },
+            {
+              "fecha": "20 nov",
+              "count": 1
+            },
+            {
+              "fecha": "27 nov",
+              "count": 1
+            }
+          ],
+          "byStage": [
+            [
+              "Sin iteración",
+              3
+            ],
+            [
+              "Development",
+              2
+            ],
+            [
+              "Deployment",
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "data": {
+          "proyecto": {
+            "id": "AMK.008",
+            "nombre": "Robot AMK",
+            "cliente": "ACME",
+            "sponsor": "Laura",
+            "pm": "Pedro SM",
+            "deliveryManager": "DM Uno",
+            "fechaCorte": "2026-10-02T18:00:00.000Z",
+            "fechaInicio": "2026-07-01T06:00:00.000Z",
+            "fechaFinEstimada": "2026-12-31T06:00:00.000Z",
+            "estadoGeneral": "EN CONTROL",
+            "estadoColor": "verde",
+            "nivelRiesgoFecha": "Bajo"
+          },
+          "avance": {
+            "pct": 42.8,
+            "fuente": "Consumo presupuestal",
+            "hitosCompletados": 1,
+            "hitosTotal": 2,
+            "etapaActualPct": null,
+            "pctTiempoTranscurrido": 51.1,
+            "indiceRitmo": 0.84
+          },
+          "presupuesto": {
+            "budget": 100,
+            "burn": 42.75,
+            "etc": 57.25,
+            "pctEjecutado": 42.8,
+            "pctConsumoRaw": 42.8,
+            "fuente": "Registros_Tiempo",
+            "consumoDisponible": true,
+            "registros": 3
+          },
+          "kpisExtra": {
+            "recursosAsignados": 5,
+            "costoEstimado": 1425,
+            "costoReal": 893.1,
+            "pctCumplimientoFinanciero": 62.7,
+            "horasNoFact": 4
+          },
+          "distribucionArea": [
+            {
+              "nombre": "Desarrollo",
+              "horas": 31.36,
+              "pct": 68.4
+            },
+            {
+              "nombre": "Testing",
+              "horas": 12.5,
+              "pct": 27.3
+            },
+            {
+              "nombre": "Otros",
+              "horas": 2,
+              "pct": 4.4
+            },
+            {
+              "nombre": "Soporte",
+              "horas": 0,
+              "pct": 0
+            }
+          ],
+          "filasRecursosTop": [
+            {
+              "posicion": "Developer",
+              "nombre": "Ana Pérez",
+              "banda": "B2",
+              "costingRate": 22.5,
+              "horasEstimadas": 50,
+              "horasReales": 31.36,
+              "horasNoFact": 0,
+              "costoEstimado": 1125,
+              "costoReal": 705.6,
+              "balance": 18.64,
+              "pctCumplimiento": 62.7,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "QA Tester",
+              "nombre": "Luis Gómez",
+              "banda": " b1 ",
+              "costingRate": 15,
+              "horasEstimadas": 20,
+              "horasReales": 12.5,
+              "horasNoFact": 4,
+              "costoEstimado": 300,
+              "costoReal": 187.5,
+              "balance": 7.5,
+              "pctCumplimiento": 62.5,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Sin asignacion en Recursos",
+              "nombre": "Externo",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 2,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": -2,
+              "pctCumplimiento": 0,
+              "estado": "Sin estimacion en Recursos"
+            },
+            {
+              "posicion": "",
+              "nombre": "Sin Horas",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 10,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 10,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Project Manager",
+              "nombre": "María López",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 0,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            }
+          ],
+          "filasRecursosCompleto": [
+            {
+              "posicion": "Developer",
+              "nombre": "Ana Pérez",
+              "banda": "B2",
+              "costingRate": 22.5,
+              "horasEstimadas": 50,
+              "horasReales": 31.36,
+              "horasNoFact": 0,
+              "costoEstimado": 1125,
+              "costoReal": 705.6,
+              "balance": 18.64,
+              "pctCumplimiento": 62.7,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "QA Tester",
+              "nombre": "Luis Gómez",
+              "banda": " b1 ",
+              "costingRate": 15,
+              "horasEstimadas": 20,
+              "horasReales": 12.5,
+              "horasNoFact": 4,
+              "costoEstimado": 300,
+              "costoReal": 187.5,
+              "balance": 7.5,
+              "pctCumplimiento": 62.5,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Sin asignacion en Recursos",
+              "nombre": "Externo",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 2,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": -2,
+              "pctCumplimiento": 0,
+              "estado": "Sin estimacion en Recursos"
+            },
+            {
+              "posicion": "",
+              "nombre": "Sin Horas",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 10,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 10,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Project Manager",
+              "nombre": "María López",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 0,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            }
+          ],
+          "totalesRecursos": {
+            "horasEstimadas": 80,
+            "horasReales": 45.86,
+            "horasNoFact": 4,
+            "costoEstimado": 1425,
+            "costoReal": 893.1,
+            "balance": 34.14,
+            "pctCumplimientoHoras": 57.3,
+            "pctCumplimientoFinanciero": 62.7
+          },
+          "porRol": [
+            {
+              "rol": "Developer",
+              "horasEstimadas": 50,
+              "horasReales": 31.36
+            },
+            {
+              "rol": "QA Tester",
+              "horasEstimadas": 20,
+              "horasReales": 12.5
+            },
+            {
+              "rol": "Sin rol",
+              "horasEstimadas": 10,
+              "horasReales": 0
+            },
+            {
+              "rol": "Sin asignacion en Recursos",
+              "horasEstimadas": 0,
+              "horasReales": 2
+            },
+            {
+              "rol": "Project Manager",
+              "horasEstimadas": 0,
+              "horasReales": 0
+            }
+          ],
+          "riesgosCriticos": [
+            {
+              "descripcion": "Alto uno",
+              "impacto": "Alto",
+              "probabilidad": "Media"
+            },
+            {
+              "descripcion": "Alto dos",
+              "impacto": "Alto",
+              "probabilidad": "Baja"
+            },
+            {
+              "descripcion": "Medio uno",
+              "impacto": "Medio",
+              "probabilidad": ""
+            },
+            {
+              "descripcion": "Medio dos",
+              "impacto": "Medio",
+              "probabilidad": "Baja"
+            },
+            {
+              "descripcion": "Bajo uno",
+              "impacto": "Bajo",
+              "probabilidad": "Alta"
+            }
+          ],
+          "raid": {
+            "riesgosCriticos": 6,
+            "asuntosPendientes": 1
+          },
+          "hitos": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-07-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-07-31T06:00:00.000Z",
+              "fechaInicioReal": "2026-07-02T06:00:00.000Z",
+              "fechaFinReal": "2026-08-03T06:00:00.000Z",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+              "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+              "fechaFinReal": null,
+              "estado": "En curso"
+            }
+          ],
+          "hitosAdicionales": [
+            {
+              "tipo": "Go Live",
+              "indice": 0,
+              "fecha": "2026-11-15",
+              "observacion": "Salida"
+            },
+            {
+              "tipo": "Go Live",
+              "indice": 1,
+              "fecha": "2026-12-01",
+              "observacion": ""
+            },
+            {
+              "tipo": "Kickoff",
+              "indice": 0,
+              "fecha": "2026-07-01",
+              "observacion": "Inicio"
+            }
+          ],
+          "proximosHitos": [
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+              "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+              "fechaFinReal": null,
+              "estado": "En curso"
+            }
+          ],
+          "periodosSuspension": [],
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-07-02T06:00:00.000Z",
+              "fechaFin": "2026-08-03T06:00:00.000Z",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-08-04T06:00:00.000Z",
+              "fechaFin": null,
+              "enCurso": true
+            }
+          ],
+          "suspensiones": []
+        },
+        "plan": {
+          "vacaciones": [],
+          "compromisos": []
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "summary": {
+            "abiertas": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 3,
+                "estado": "Proposed",
+                "fechaLimiteDev": "2026-10-30",
+                "iterationPath": "AMK\\Deployment"
+              },
+              {
+                "id": 6,
+                "estado": "Other",
+                "fechaLimiteDev": "invalid"
+              }
+            ],
+            "late": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792692000000
+              }
+            ],
+            "soon": [
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792778400000
+              }
+            ],
+            "vacaciones": []
+          },
+          "hitos": [
+            {
+              "name": "Discovery",
+              "start": "2026-07-02T06:00:00.000Z",
+              "finish": "2026-08-03T06:00:00.000Z",
+              "state": "Completado",
+              "extra": false
+            },
+            {
+              "name": "Development",
+              "start": "2026-08-04T06:00:00.000Z",
+              "finish": "2026-11-15T06:00:00.000Z",
+              "state": "En curso",
+              "extra": false
+            }
+          ],
+          "completed": 1,
+          "underway": 1,
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "closed": 1,
+          "dated": 5,
+          "resources": 5,
+          "weeks": [
+            {
+              "fecha": "23 oct",
+              "count": 0
+            },
+            {
+              "fecha": "30 oct",
+              "count": 0
+            },
+            {
+              "fecha": "6 nov",
+              "count": 0
+            },
+            {
+              "fecha": "13 nov",
+              "count": 0
+            },
+            {
+              "fecha": "20 nov",
+              "count": 0
+            },
+            {
+              "fecha": "27 nov",
+              "count": 0
+            }
+          ],
+          "byStage": [
+            [
+              "Sin iteración",
+              3
+            ],
+            [
+              "Development",
+              2
+            ],
+            [
+              "Deployment",
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "data": {
+          "proyecto": {
+            "id": "AMK.008",
+            "nombre": "Robot AMK",
+            "cliente": "ACME",
+            "sponsor": "Laura",
+            "pm": "Pedro SM",
+            "deliveryManager": "DM Uno",
+            "fechaCorte": "2026-10-02T18:00:00.000Z",
+            "fechaInicio": "2026-07-01T06:00:00.000Z",
+            "fechaFinEstimada": "2026-12-31T06:00:00.000Z",
+            "estadoGeneral": "EN CONTROL",
+            "estadoColor": "verde",
+            "nivelRiesgoFecha": "Bajo"
+          },
+          "avance": {
+            "pct": 42.8,
+            "fuente": "Consumo presupuestal",
+            "hitosCompletados": 1,
+            "hitosTotal": 2,
+            "etapaActualPct": null,
+            "pctTiempoTranscurrido": 51.1,
+            "indiceRitmo": 0.84
+          },
+          "presupuesto": {
+            "budget": 100,
+            "burn": 42.75,
+            "etc": 57.25,
+            "pctEjecutado": 42.8,
+            "pctConsumoRaw": 42.8,
+            "fuente": "Registros_Tiempo",
+            "consumoDisponible": true,
+            "registros": 3
+          },
+          "kpisExtra": {
+            "recursosAsignados": 5,
+            "costoEstimado": 1425,
+            "costoReal": 893.1,
+            "pctCumplimientoFinanciero": 62.7,
+            "horasNoFact": 4
+          },
+          "distribucionArea": [
+            {
+              "nombre": "Desarrollo",
+              "horas": 31.36,
+              "pct": 68.4
+            },
+            {
+              "nombre": "Testing",
+              "horas": 12.5,
+              "pct": 27.3
+            },
+            {
+              "nombre": "Otros",
+              "horas": 2,
+              "pct": 4.4
+            },
+            {
+              "nombre": "Soporte",
+              "horas": 0,
+              "pct": 0
+            }
+          ],
+          "filasRecursosTop": [
+            {
+              "posicion": "Developer",
+              "nombre": "Ana Pérez",
+              "banda": "B2",
+              "costingRate": 22.5,
+              "horasEstimadas": 50,
+              "horasReales": 31.36,
+              "horasNoFact": 0,
+              "costoEstimado": 1125,
+              "costoReal": 705.6,
+              "balance": 18.64,
+              "pctCumplimiento": 62.7,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "QA Tester",
+              "nombre": "Luis Gómez",
+              "banda": " b1 ",
+              "costingRate": 15,
+              "horasEstimadas": 20,
+              "horasReales": 12.5,
+              "horasNoFact": 4,
+              "costoEstimado": 300,
+              "costoReal": 187.5,
+              "balance": 7.5,
+              "pctCumplimiento": 62.5,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Sin asignacion en Recursos",
+              "nombre": "Externo",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 2,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": -2,
+              "pctCumplimiento": 0,
+              "estado": "Sin estimacion en Recursos"
+            },
+            {
+              "posicion": "",
+              "nombre": "Sin Horas",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 10,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 10,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Project Manager",
+              "nombre": "María López",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 0,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            }
+          ],
+          "filasRecursosCompleto": [
+            {
+              "posicion": "Developer",
+              "nombre": "Ana Pérez",
+              "banda": "B2",
+              "costingRate": 22.5,
+              "horasEstimadas": 50,
+              "horasReales": 31.36,
+              "horasNoFact": 0,
+              "costoEstimado": 1125,
+              "costoReal": 705.6,
+              "balance": 18.64,
+              "pctCumplimiento": 62.7,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "QA Tester",
+              "nombre": "Luis Gómez",
+              "banda": " b1 ",
+              "costingRate": 15,
+              "horasEstimadas": 20,
+              "horasReales": 12.5,
+              "horasNoFact": 4,
+              "costoEstimado": 300,
+              "costoReal": 187.5,
+              "balance": 7.5,
+              "pctCumplimiento": 62.5,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Sin asignacion en Recursos",
+              "nombre": "Externo",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 2,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": -2,
+              "pctCumplimiento": 0,
+              "estado": "Sin estimacion en Recursos"
+            },
+            {
+              "posicion": "",
+              "nombre": "Sin Horas",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 10,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 10,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            },
+            {
+              "posicion": "Project Manager",
+              "nombre": "María López",
+              "banda": "",
+              "costingRate": 0,
+              "horasEstimadas": 0,
+              "horasReales": 0,
+              "horasNoFact": 0,
+              "costoEstimado": 0,
+              "costoReal": 0,
+              "balance": 0,
+              "pctCumplimiento": 0,
+              "estado": "En tiempo"
+            }
+          ],
+          "totalesRecursos": {
+            "horasEstimadas": 80,
+            "horasReales": 45.86,
+            "horasNoFact": 4,
+            "costoEstimado": 1425,
+            "costoReal": 893.1,
+            "balance": 34.14,
+            "pctCumplimientoHoras": 57.3,
+            "pctCumplimientoFinanciero": 62.7
+          },
+          "porRol": [
+            {
+              "rol": "Developer",
+              "horasEstimadas": 50,
+              "horasReales": 31.36
+            },
+            {
+              "rol": "QA Tester",
+              "horasEstimadas": 20,
+              "horasReales": 12.5
+            },
+            {
+              "rol": "Sin rol",
+              "horasEstimadas": 10,
+              "horasReales": 0
+            },
+            {
+              "rol": "Sin asignacion en Recursos",
+              "horasEstimadas": 0,
+              "horasReales": 2
+            },
+            {
+              "rol": "Project Manager",
+              "horasEstimadas": 0,
+              "horasReales": 0
+            }
+          ],
+          "riesgosCriticos": [
+            {
+              "descripcion": "Alto uno",
+              "impacto": "Alto",
+              "probabilidad": "Media"
+            },
+            {
+              "descripcion": "Alto dos",
+              "impacto": "Alto",
+              "probabilidad": "Baja"
+            },
+            {
+              "descripcion": "Medio uno",
+              "impacto": "Medio",
+              "probabilidad": ""
+            },
+            {
+              "descripcion": "Medio dos",
+              "impacto": "Medio",
+              "probabilidad": "Baja"
+            },
+            {
+              "descripcion": "Bajo uno",
+              "impacto": "Bajo",
+              "probabilidad": "Alta"
+            }
+          ],
+          "raid": {
+            "riesgosCriticos": 6,
+            "asuntosPendientes": 1
+          },
+          "hitos": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-07-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-07-31T06:00:00.000Z",
+              "fechaInicioReal": "2026-07-02T06:00:00.000Z",
+              "fechaFinReal": "2026-08-03T06:00:00.000Z",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+              "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+              "fechaFinReal": null,
+              "estado": "En curso"
+            }
+          ],
+          "hitosAdicionales": [
+            {
+              "tipo": "Go Live",
+              "indice": 0,
+              "fecha": "2026-11-15",
+              "observacion": "Salida"
+            },
+            {
+              "tipo": "Go Live",
+              "indice": 1,
+              "fecha": "2026-12-01",
+              "observacion": ""
+            },
+            {
+              "tipo": "Kickoff",
+              "indice": 0,
+              "fecha": "2026-07-01",
+              "observacion": "Inicio"
+            }
+          ],
+          "proximosHitos": [
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-08-01T06:00:00.000Z",
+              "fechaFinPlan": "2026-11-15T06:00:00.000Z",
+              "fechaInicioReal": "2026-08-04T06:00:00.000Z",
+              "fechaFinReal": null,
+              "estado": "En curso"
+            }
+          ],
+          "periodosSuspension": [],
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-07-02T06:00:00.000Z",
+              "fechaFin": "2026-08-03T06:00:00.000Z",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-08-04T06:00:00.000Z",
+              "fechaFin": null,
+              "enCurso": true
+            }
+          ],
+          "suspensiones": []
+        },
+        "plan": {
+          "vacaciones": [
+            {
+              "recurso": "Ana Pérez",
+              "inicio": "2026-10-23",
+              "fin": "2026-10-30",
+              "estado": "Aprobada"
+            },
+            {
+              "recurso": "ANA PEREZ",
+              "inicio": "2026-10-26",
+              "fin": "2026-11-03",
+              "estado": "Pendiente"
+            },
+            {
+              "recurso": "Luis",
+              "inicio": "2026-10-24",
+              "fin": "2026-10-27",
+              "estado": "Cancelada"
+            },
+            {
+              "recurso": "Lea",
+              "inicio": "2026-11-22",
+              "fin": "2026-11-28"
+            },
+            {
+              "recurso": "Sin fecha",
+              "inicio": "invalid",
+              "fin": "2026-10-30"
+            }
+          ],
+          "compromisos": [
+            {
+              "tipo": "Hito",
+              "actividad": "Entrega",
+              "fecha": "2026-11-02",
+              "estado": "Pendiente"
+            }
+          ]
+        },
+        "azure": {
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ]
+        },
+        "expected": {
+          "summary": {
+            "abiertas": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development"
+              },
+              {
+                "id": 3,
+                "estado": "Proposed",
+                "fechaLimiteDev": "2026-10-30",
+                "iterationPath": "AMK\\Deployment"
+              },
+              {
+                "id": 6,
+                "estado": "Other",
+                "fechaLimiteDev": "invalid"
+              }
+            ],
+            "late": [
+              {
+                "id": 1,
+                "estado": " Active ",
+                "fechaLimiteDev": "2026-10-22",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792692000000
+              }
+            ],
+            "soon": [
+              {
+                "id": 2,
+                "estado": "Blocked",
+                "fechaLimiteDev": "2026-10-23",
+                "iterationPath": "AMK\\Development",
+                "limite": 1792778400000
+              }
+            ],
+            "vacaciones": [
+              {
+                "recurso": "Ana Pérez",
+                "inicio": "2026-10-23",
+                "fin": "2026-10-30",
+                "estado": "Aprobada"
+              },
+              {
+                "recurso": "ANA PEREZ",
+                "inicio": "2026-10-26",
+                "fin": "2026-11-03",
+                "estado": "Pendiente"
+              }
+            ]
+          },
+          "hitos": [
+            {
+              "name": "Discovery",
+              "start": "2026-07-02T06:00:00.000Z",
+              "finish": "2026-08-03T06:00:00.000Z",
+              "state": "Completado",
+              "extra": false
+            },
+            {
+              "name": "Development",
+              "start": "2026-08-04T06:00:00.000Z",
+              "finish": "2026-11-15T06:00:00.000Z",
+              "state": "En curso",
+              "extra": false
+            }
+          ],
+          "completed": 1,
+          "underway": 1,
+          "items": [
+            {
+              "id": 1,
+              "estado": " Active ",
+              "fechaLimiteDev": "2026-10-22",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 2,
+              "estado": "Blocked",
+              "fechaLimiteDev": "2026-10-23",
+              "iterationPath": "AMK\\Development"
+            },
+            {
+              "id": 3,
+              "estado": "Proposed",
+              "fechaLimiteDev": "2026-10-30",
+              "iterationPath": "AMK\\Deployment"
+            },
+            {
+              "id": 4,
+              "estado": "Closed",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 5,
+              "estado": "Cancelled",
+              "fechaLimiteDev": "2026-10-22"
+            },
+            {
+              "id": 6,
+              "estado": "Other",
+              "fechaLimiteDev": "invalid"
+            }
+          ],
+          "closed": 1,
+          "dated": 5,
+          "resources": 5,
+          "weeks": [
+            {
+              "fecha": "23 oct",
+              "count": 1
+            },
+            {
+              "fecha": "30 oct",
+              "count": 1
+            },
+            {
+              "fecha": "6 nov",
+              "count": 0
+            },
+            {
+              "fecha": "13 nov",
+              "count": 0
+            },
+            {
+              "fecha": "20 nov",
+              "count": 1
+            },
+            {
+              "fecha": "27 nov",
+              "count": 1
+            }
+          ],
+          "byStage": [
+            [
+              "Sin iteración",
+              3
+            ],
+            [
+              "Development",
+              2
+            ],
+            [
+              "Deployment",
+              1
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "now": "2026-10-23T18:00:00Z"
+}

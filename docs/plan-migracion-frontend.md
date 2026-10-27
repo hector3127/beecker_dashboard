@@ -9,7 +9,17 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
-**Último bloque, base c1d0308:** resumen Azure IXB congelado: cuatro
+**Último bloque, base 98698cd:** congelación agrupada de Riesgos AER,
+línea de tiempo general, Ejecutivo IXB y Planeación IXB. Cuatro archivos más
+usan resultados originales guardados; se conservan las 15 pruebas y todos
+sus casos, añadiendo un límite semanal antes descubierto sin cobertura.
+472 Node completas y 15 dirigidas en UTC/México aprobadas; ocho mutaciones
+en copias detectadas. Cuatro JSON reproducibles; los generadores no importan
+modelos actuales. Quedan 14 archivos Node que leen el original, 27 congelados.
+Sin cambios de aplicación/diseño/cálculos/CSP ni nueva corrida servidor/e2e.
+Piloto de navegador pendiente; ver `docs/congelacion-referencias.md`. Sin push.
+
+**Bloque previo, base c1d0308:** resumen Azure IXB congelado: cuatro
 estados y doce campos guardados desde el original; se conservan las cinco
 pruebas. 472 Node completas y cinco dirigidas en UTC/México aprobadas; dos
 mutaciones en copias detectadas y JSON reproducible. El test ejecuta los

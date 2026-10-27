@@ -1,143 +1,70 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import {
   executiveModel,
   timelineModel,
 } from "../../frontend/static/scripts/pages/project_detail/sections/ixs_executive_model.js";
-
-const source = fs.readFileSync(
-  "tests/reference/static/portal/js/proyecto_detalle.js",
-  "utf8",
+const frozen = JSON.parse(
+  fs.readFileSync(
+    new URL("./frozen/ixs_executive.json", import.meta.url),
+    "utf8",
+  ),
 );
-function original(name) {
-  const line = source
-    .split("\n")
-    .find((line) => line.startsWith(`  function ${name}(`));
-  return line.trim().endsWith("}")
-    ? line
-    : source.match(new RegExp(`  function ${name}\\([\\s\\S]*?\\n  \\}`))[0];
+const plain = (value) => JSON.parse(JSON.stringify(value));
+function inZones(callback) {
+  const previous = process.env.TZ;
+  try {
+    for (const zone of ["UTC", "America/Mexico_City"]) {
+      process.env.TZ = zone;
+      callback(frozen[zone]);
+    }
+  } finally {
+    if (previous === undefined) delete process.env.TZ;
+    else process.env.TZ = previous;
+  }
 }
-const helperNames = [
-  "_ixsNum",
-  "_ixsPct",
-  "_ixsLimit",
-  "_ixsDate",
-  "_ixsDateMs",
-  "_ixsFases",
-  "_ixsHitos",
-  "_ixsFechaSalidaPRD",
-  "nombreLimpioHito",
-  "categoriaHito",
-];
-const helpers =
-  "const EMOJI_REGEX = /\\p{Extended_Pictographic}/u;\n" +
-  helperNames.map(original).join("\n");
 const NativeDate = Date;
 class FixedDate extends NativeDate {
   constructor(...args) {
-    super(...(args.length ? args : ["2026-10-23T18:00:00Z"]));
+    super(...(args.length ? args : [frozen.now]));
   }
   static now() {
-    return +new NativeDate("2026-10-23T18:00:00Z");
+    return +new NativeDate(frozen.now);
   }
 }
-const json = (value) => JSON.parse(JSON.stringify(value));
-const samples = JSON.parse(
-  fs.readFileSync("tests/ejecutivo/project_integrated_expected.json", "utf8"),
-).slice(5, 12);
+function atFixedDate(callback) {
+  try {
+    globalThis.Date = FixedDate;
+    inZones(callback);
+  } finally {
+    globalThis.Date = NativeDate;
+  }
+}
 
 test("IXS executive preserves original thresholds, missing sources and presentation values", () => {
-  const variants = [{}, ...samples];
-  for (const fuente of [
-    "Hitos principales",
-    "Hitos y fechas de etapa",
-    "Sin hitos planificados",
-    "Consumo presupuestal",
-  ]) {
-    for (const indiceRitmo of [null, 0, 0.89, 0.9, 1.1, 1.11]) {
-      const data = structuredClone(samples[0]);
-      data.avance = {
-        fuente,
-        indiceRitmo,
-        pct: 0,
-        pctTiempoTranscurrido: 20,
-        etapaActualPct: 0,
-      };
-      data.presupuesto.consumoDisponible = false;
-      data.kpisExtra.pctCumplimientoFinanciero = indiceRitmo ? 130 : 0;
-      data.proyecto.nivelRiesgoFecha = "Alto";
-      variants.push(data);
+  atFixedDate((group) => {
+    assert.equal(group.executive.length, 32);
+    for (const { data, expected } of group.executive) {
+      const before = plain(data);
+      assert.deepEqual(plain(executiveModel(data)), expected);
+      assert.deepEqual(data, before);
     }
-  }
-  const keys = Object.keys(executiveModel({}));
-  const calculation = original("_ixsRenderTab")
-    .split("    const d=ixsProyectoActual,p=")[1]
-    .split("    el.innerHTML=`")[0];
-  try {
-    globalThis.Date = FixedDate;
-    for (const data of variants) {
-      const snapshot = JSON.stringify(data);
-      const context = { ixsProyectoActual: data, Date: FixedDate };
-      vm.runInNewContext(
-        helpers +
-          "\nconst d=ixsProyectoActual,p=" +
-          calculation +
-          `\nglobalThis.observed={${keys.join(",")}};`,
-        context,
-      );
-      assert.deepEqual(json(executiveModel(data)), json(context.observed));
-      assert.equal(JSON.stringify(data), snapshot);
-    }
-  } finally {
-    globalThis.Date = NativeDate;
-  }
-});
-
-test("IXS timeline preserves phase matching, markers, suspensions and bounds", () => {
-  const variants = [
-    {},
-    ...samples,
-    {
-      hitosAdicionales: [
-        { tipo: "Demo", fecha: "2026-10-23" },
-        { tipo: "UAT", fecha: "2026-10-23" },
-        { tipo: "QA", fecha: "invalid" },
-      ],
-    },
-  ];
-  const busy = structuredClone(samples[0]);
-  busy.suspensiones = [{ fechaInicio: "2026-09-01" }];
-  busy.historialCompleto.push({
-    ...busy.historialCompleto[0],
-    fechaInicio: "2026-06-01",
   });
-  variants.push(busy);
-  const setup =
-    original("_ixsGantt")
-      .split("    const row=x=>")[0]
-      .replace("  function _ixsGantt", "function oracle")
-      .replace(
-        "return '<div class=\"ixs-empty\">Sin fases disponibles en Historico_Proyectos.</div>';",
-        "return null;",
-      ) + "return {plan,real,holds,markers,loneMarkers,min,max,range,pos};}";
-  try {
-    globalThis.Date = FixedDate;
-    for (const data of variants) {
-      const context = { data, Date: FixedDate };
-      vm.runInNewContext(
-        helpers + setup + "\nglobalThis.observed=oracle(data);",
-        context,
-      );
-      const actual = timelineModel(data),
-        previous = context.observed;
-      assert.deepEqual(json(actual), json(previous));
-      if (actual)
-        for (const date of ["2026-01-01", "2026-10-23", "2026-12-31"])
-          assert.equal(actual.pos(date), previous.pos(date));
+});
+test("IXS timeline preserves phase matching, markers, suspensions and bounds", () => {
+  atFixedDate((group) => {
+    assert.equal(group.timeline.length, 10);
+    for (const { data, expected, positions } of group.timeline) {
+      const before = plain(data);
+      const actual = timelineModel(data);
+      assert.deepEqual(plain(actual), expected);
+      if (actual) {
+        assert.equal(positions.length, 3);
+        for (const { date, expected: position } of positions)
+          assert.equal(actual.pos(date), position);
+      }
+      assert.deepEqual(data, before);
     }
-  } finally {
-    globalThis.Date = NativeDate;
-  }
+  });
 });

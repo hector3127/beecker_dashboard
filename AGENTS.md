@@ -29,7 +29,15 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
-- Último bloque sobre `c1d0308`: resumen Azure IXB congelado (cuatro estados,
+- Último bloque sobre `98698cd`: Riesgos AER, línea de tiempo general,
+  Ejecutivo IXB y Planeación IXB congelados desde el original. Quince pruebas
+  conservadas; añadido un caso de vencimientos a mitad/final de semana que
+  faltaba. 472 Node y 15 dirigidas en UTC/México pasan; ocho mutaciones en
+  copias detectadas. Cuatro JSON reproducibles sin modelos actuales en sus
+  generadores. Quedan 14 archivos Node dependientes del original, 27
+  congelados. Sin cambios de aplicación ni nueva corrida servidor/e2e o push.
+  Ver `docs/congelacion-referencias.md`; piloto navegador pendiente.
+- Bloque previo sobre `c1d0308`: resumen Azure IXB congelado (cuatro estados,
   doce campos, cinco pruebas conservadas). 472 Node y cinco dirigidas en
   UTC/México aprobadas; dos mutaciones en copias detectadas y JSON reproducible.
   Clasificadores actuales sin helpers originales en el test. Quedan 18
@@ -140,7 +148,7 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
    el desarrollo normal sigue directo en main.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, 18 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
+   En main, 14 archivos Node aún leen el script anterior (41 al comenzar). El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que

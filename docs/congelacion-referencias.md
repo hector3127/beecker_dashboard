@@ -1,5 +1,53 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Noveno bloque agrupado: Riesgos AER, líneas de tiempo y Planeación IXB
+
+Base `98698cd`. Cuatro archivos adicionales dejan de ejecutar el original.
+Las 15 pruebas existentes siguen presentes, sin omitir casos ni aserciones
+funcionales; se amplía no mutación donde antes no se comprobaba.
+
+| Archivo | Expectativas originales guardadas |
+|---|---|
+| aer_risks_model | 4 resúmenes, 25 porcentajes por resumen, 4 variantes de deduplicación y conservación del primer responsable/fecha |
+| generic_timeline | 63 cortes/estados y 16 límites de suspensión por zona, con estados derivados de cada fila |
+| ixs_executive | 32 resúmenes y 10 líneas de tiempo por zona, con tres posiciones de fechas para cada línea no vacía |
+| ixs_planning | 4 resúmenes originales y 1 caso semanal nuevo, 4 modelos de indicadores/etapas/vacaciones por zona |
+
+Se conservan agrupación por título de riesgos aunque cambie responsable/fecha,
+precedencia de suspensiones/fases repetidas, marcadores y detección de cierre,
+umbrales de ritmo, fuentes ausentes, semanas de vacaciones y responsables
+normalizados. No se corrige ninguna regla de negocio. Los resultados que son
+funciones (porcentaje, estado por fila y posición) se guardan explícitamente,
+además del JSON de los demás campos.
+
+Los cuatro generadores temporales en `tests/frontend/frozen/gen/` ejecutan
+solo el original, capturado antes del reemplazo. Planeación antes inyectaba
+dateMs/milestones/resourceKey actuales en su expectativa: ahora se capturan
+sus equivalentes originales. Ejecutivo usa una lista explícita de campos,
+sin consultar al modelo actual para decidir qué comprobar. Los cuatro JSON
+se reproducen exactamente normalizando CRLF/LF. Los casos temporales se
+capturan y ejecutan en UTC y America/Mexico_City, restaurando TZ y Date.
+
+**472 Node completas y 15 dirigidas aprobadas en ambas zonas**, sin skips.
+Ocho mutaciones en copias temporales se detectan: peso de impacto, elección
+del responsable, ancho de etiquetas, regla de cierre, umbral de ritmo,
+posición del Gantt, ventana semanal y cantidad de semanas. La mutación de
+ventana semanal inicialmente no falló: los casos antiguos no tenían fechas
+a mitad de semana. Se añadió al generador un caso original con fechas del
+22 al 31 de octubre (incluye 26 y 29); con él sí detecta pasar de 7 a 1 día.
+No se modificó producción para probar errores.
+
+Prettier de JS y diff comprobados; los JSON conservan el formato reproducible
+de JSON.stringify. Evidencia local ignorada: `tmp/frozen-group-before.log`,
+`tmp/frozen-group-after.log`, `tmp/frozen-group-node.log`,
+`tmp/frozen-group-UTC.log`, `tmp/frozen-group-America-Mexico_City.log` y
+`tmp/frozen-group-*.mutation.log`. Sin nueva corrida de servidor/navegador:
+este bloque solo cambia tests, referencias JSON, generadores y documentación.
+Diseño, datos, cálculos, CSP y permisos intactos. Quedan **14 archivos Node**
+que leen el original (18 antes, 41 al inicio), 27 congelados. No representa
+un porcentaje de toda la fase 11: aún falta el piloto de navegador y los
+bloques restantes. Sin push; fase 11 abierta.
+
 ## Octavo bloque: resumen Azure IXB/SaaS/RaaS
 
 Base `c1d0308`. `ixs_azure_summary.test.mjs` conserva sus cinco pruebas;

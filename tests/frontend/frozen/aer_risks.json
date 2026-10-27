@@ -1,0 +1,1538 @@
+{
+  "summaries": [
+    {
+      "name": "empty",
+      "dashboard": {},
+      "expected": {
+        "r": {},
+        "k": {},
+        "ac": {},
+        "activos": [],
+        "crit": [],
+        "abiertos": [],
+        "matrix": {},
+        "hoyIso": "2026-10-23",
+        "vencidasAcc": [],
+        "exposure": "Baja",
+        "abiertosCnt": 0,
+        "mitigCnt": 0,
+        "cerrCnt": 0,
+        "atencion": null,
+        "alerts": 0
+      },
+      "percentages": [
+        {
+          "impacto": "",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Baja",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Media",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Alta",
+          "expected": 40
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Crítica",
+          "expected": 55
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Crítica",
+          "expected": 72
+        }
+      ]
+    },
+    {
+      "name": "duplicates and statuses",
+      "dashboard": {
+        "riesgos": {
+          "activos": [
+            {
+              "uid": "a",
+              "riesgo": " Retraso ",
+              "responsable": "José",
+              "fechaLimite": "2026-10-01",
+              "estado": "Abierto",
+              "impacto": "Alto",
+              "probabilidad": "Media"
+            },
+            {
+              "uid": "b",
+              "riesgo": "retraso",
+              "responsable": "Jose",
+              "fechaLimite": "2026-10-01",
+              "accion": "Escalar",
+              "notas": "Seguimiento"
+            },
+            {
+              "uid": "c",
+              "riesgo": "Retraso",
+              "responsable": "Otra persona",
+              "fechaLimite": "2026-11-01",
+              "impacto": "Bajo"
+            },
+            {
+              "uid": "d",
+              "riesgo": "Otro",
+              "estado": "En progreso",
+              "probabilidad": "Alta"
+            },
+            {
+              "uid": "e",
+              "riesgo": "Resuelto",
+              "estado": "Resuelto",
+              "impacto": "Medio"
+            },
+            {
+              "uid": "f",
+              "riesgo": "Mitigado",
+              "estado": "Mitigado"
+            },
+            {
+              "uid": "g",
+              "riesgo": "Propuesto",
+              "estado": "Proposed",
+              "probabilidad": "Crítica"
+            },
+            {
+              "uid": "h",
+              "riesgo": "Sin estado",
+              "probabilidad": " Alta "
+            },
+            {
+              "uid": "i",
+              "riesgo": "Personalizado",
+              "estado": "Otro"
+            },
+            {}
+          ]
+        },
+        "alertas": [
+          {
+            "nivel": "ok"
+          },
+          {
+            "nivel": "warning"
+          }
+        ]
+      },
+      "expected": {
+        "r": {
+          "activos": [
+            {
+              "uid": "a",
+              "riesgo": " Retraso ",
+              "responsable": "José",
+              "fechaLimite": "2026-10-01",
+              "estado": "Abierto",
+              "impacto": "Alto",
+              "probabilidad": "Media"
+            },
+            {
+              "uid": "b",
+              "riesgo": "retraso",
+              "responsable": "Jose",
+              "fechaLimite": "2026-10-01",
+              "accion": "Escalar",
+              "notas": "Seguimiento"
+            },
+            {
+              "uid": "c",
+              "riesgo": "Retraso",
+              "responsable": "Otra persona",
+              "fechaLimite": "2026-11-01",
+              "impacto": "Bajo"
+            },
+            {
+              "uid": "d",
+              "riesgo": "Otro",
+              "estado": "En progreso",
+              "probabilidad": "Alta"
+            },
+            {
+              "uid": "e",
+              "riesgo": "Resuelto",
+              "estado": "Resuelto",
+              "impacto": "Medio"
+            },
+            {
+              "uid": "f",
+              "riesgo": "Mitigado",
+              "estado": "Mitigado"
+            },
+            {
+              "uid": "g",
+              "riesgo": "Propuesto",
+              "estado": "Proposed",
+              "probabilidad": "Crítica"
+            },
+            {
+              "uid": "h",
+              "riesgo": "Sin estado",
+              "probabilidad": " Alta "
+            },
+            {
+              "uid": "i",
+              "riesgo": "Personalizado",
+              "estado": "Otro"
+            },
+            {}
+          ]
+        },
+        "k": {},
+        "ac": {},
+        "activos": [
+          {
+            "uid": "a",
+            "riesgo": " Retraso ",
+            "responsable": "José",
+            "fechaLimite": "2026-10-01",
+            "accion": "Escalar",
+            "notas": "Seguimiento",
+            "estado": "Abierto",
+            "impacto": "Alto",
+            "probabilidad": "Media"
+          },
+          {
+            "uid": "d",
+            "riesgo": "Otro",
+            "estado": "En progreso",
+            "probabilidad": "Alta"
+          },
+          {
+            "uid": "e",
+            "riesgo": "Resuelto",
+            "estado": "Resuelto",
+            "impacto": "Medio"
+          },
+          {
+            "uid": "f",
+            "riesgo": "Mitigado",
+            "estado": "Mitigado"
+          },
+          {
+            "uid": "g",
+            "riesgo": "Propuesto",
+            "estado": "Proposed",
+            "probabilidad": "Crítica"
+          },
+          {
+            "uid": "h",
+            "riesgo": "Sin estado",
+            "probabilidad": " Alta "
+          },
+          {
+            "uid": "i",
+            "riesgo": "Personalizado",
+            "estado": "Otro"
+          }
+        ],
+        "crit": [
+          {
+            "uid": "a",
+            "riesgo": " Retraso ",
+            "responsable": "José",
+            "fechaLimite": "2026-10-01",
+            "accion": "Escalar",
+            "notas": "Seguimiento",
+            "estado": "Abierto",
+            "impacto": "Alto",
+            "probabilidad": "Media"
+          },
+          {
+            "uid": "d",
+            "riesgo": "Otro",
+            "estado": "En progreso",
+            "probabilidad": "Alta"
+          },
+          {
+            "uid": "h",
+            "riesgo": "Sin estado",
+            "probabilidad": " Alta "
+          }
+        ],
+        "abiertos": [
+          {
+            "uid": "a",
+            "riesgo": " Retraso ",
+            "responsable": "José",
+            "fechaLimite": "2026-10-01",
+            "accion": "Escalar",
+            "notas": "Seguimiento",
+            "estado": "Abierto",
+            "impacto": "Alto",
+            "probabilidad": "Media"
+          },
+          {
+            "uid": "d",
+            "riesgo": "Otro",
+            "estado": "En progreso",
+            "probabilidad": "Alta"
+          },
+          {
+            "uid": "g",
+            "riesgo": "Propuesto",
+            "estado": "Proposed",
+            "probabilidad": "Crítica"
+          },
+          {
+            "uid": "h",
+            "riesgo": "Sin estado",
+            "probabilidad": " Alta "
+          },
+          {
+            "uid": "i",
+            "riesgo": "Personalizado",
+            "estado": "Otro"
+          }
+        ],
+        "matrix": {
+          "media|alto": 1,
+          "alta|medio": 1,
+          "media|medio": 3,
+          "crítica|medio": 1,
+          " alta |medio": 1
+        },
+        "hoyIso": "2026-10-23",
+        "vencidasAcc": [],
+        "exposure": "Alta",
+        "abiertosCnt": 3,
+        "mitigCnt": 1,
+        "cerrCnt": 3,
+        "atencion": null,
+        "alerts": 1
+      },
+      "percentages": [
+        {
+          "impacto": "",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Baja",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Media",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Alta",
+          "expected": 40
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Crítica",
+          "expected": 55
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Crítica",
+          "expected": 72
+        }
+      ]
+    },
+    {
+      "name": "attention fallback",
+      "dashboard": {
+        "riesgos": {
+          "activos": [
+            {
+              "uid": "d",
+              "riesgo": "Otro",
+              "estado": "En progreso",
+              "probabilidad": "Alta"
+            },
+            {
+              "uid": "e",
+              "riesgo": "Resuelto",
+              "estado": "Resuelto",
+              "impacto": "Medio"
+            },
+            {
+              "uid": "f",
+              "riesgo": "Mitigado",
+              "estado": "Mitigado"
+            },
+            {
+              "uid": "g",
+              "riesgo": "Propuesto",
+              "estado": "Proposed",
+              "probabilidad": "Crítica"
+            },
+            {
+              "uid": "h",
+              "riesgo": "Sin estado",
+              "probabilidad": " Alta "
+            },
+            {
+              "uid": "i",
+              "riesgo": "Personalizado",
+              "estado": "Otro"
+            },
+            {}
+          ]
+        },
+        "acciones": {
+          "vencidas": [
+            {
+              "fechaLimite": "2026-11-01"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "r": {
+          "activos": [
+            {
+              "uid": "d",
+              "riesgo": "Otro",
+              "estado": "En progreso",
+              "probabilidad": "Alta"
+            },
+            {
+              "uid": "e",
+              "riesgo": "Resuelto",
+              "estado": "Resuelto",
+              "impacto": "Medio"
+            },
+            {
+              "uid": "f",
+              "riesgo": "Mitigado",
+              "estado": "Mitigado"
+            },
+            {
+              "uid": "g",
+              "riesgo": "Propuesto",
+              "estado": "Proposed",
+              "probabilidad": "Crítica"
+            },
+            {
+              "uid": "h",
+              "riesgo": "Sin estado",
+              "probabilidad": " Alta "
+            },
+            {
+              "uid": "i",
+              "riesgo": "Personalizado",
+              "estado": "Otro"
+            },
+            {}
+          ]
+        },
+        "k": {},
+        "ac": {
+          "vencidas": [
+            {
+              "fechaLimite": "2026-11-01"
+            }
+          ]
+        },
+        "activos": [
+          {
+            "uid": "d",
+            "riesgo": "Otro",
+            "estado": "En progreso",
+            "probabilidad": "Alta"
+          },
+          {
+            "uid": "e",
+            "riesgo": "Resuelto",
+            "estado": "Resuelto",
+            "impacto": "Medio"
+          },
+          {
+            "uid": "f",
+            "riesgo": "Mitigado",
+            "estado": "Mitigado"
+          },
+          {
+            "uid": "g",
+            "riesgo": "Propuesto",
+            "estado": "Proposed",
+            "probabilidad": "Crítica"
+          },
+          {
+            "uid": "h",
+            "riesgo": "Sin estado",
+            "probabilidad": " Alta "
+          },
+          {
+            "uid": "i",
+            "riesgo": "Personalizado",
+            "estado": "Otro"
+          }
+        ],
+        "crit": [
+          {
+            "uid": "d",
+            "riesgo": "Otro",
+            "estado": "En progreso",
+            "probabilidad": "Alta"
+          },
+          {
+            "uid": "h",
+            "riesgo": "Sin estado",
+            "probabilidad": " Alta "
+          }
+        ],
+        "abiertos": [
+          {
+            "uid": "d",
+            "riesgo": "Otro",
+            "estado": "En progreso",
+            "probabilidad": "Alta"
+          },
+          {
+            "uid": "g",
+            "riesgo": "Propuesto",
+            "estado": "Proposed",
+            "probabilidad": "Crítica"
+          },
+          {
+            "uid": "h",
+            "riesgo": "Sin estado",
+            "probabilidad": " Alta "
+          },
+          {
+            "uid": "i",
+            "riesgo": "Personalizado",
+            "estado": "Otro"
+          }
+        ],
+        "matrix": {
+          "alta|medio": 1,
+          "media|medio": 3,
+          "crítica|medio": 1,
+          " alta |medio": 1
+        },
+        "hoyIso": "2026-10-23",
+        "vencidasAcc": [],
+        "exposure": "Alta",
+        "abiertosCnt": 2,
+        "mitigCnt": 1,
+        "cerrCnt": 3,
+        "atencion": {
+          "fechaLimite": "2026-11-01"
+        },
+        "alerts": 0
+      },
+      "percentages": [
+        {
+          "impacto": "",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Baja",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Media",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Alta",
+          "expected": 40
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Crítica",
+          "expected": 55
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Crítica",
+          "expected": 72
+        }
+      ]
+    },
+    {
+      "name": "overdue attention",
+      "dashboard": {
+        "riesgos": {
+          "activos": [
+            {
+              "uid": "a",
+              "riesgo": " Retraso ",
+              "responsable": "José",
+              "fechaLimite": "2026-10-01",
+              "estado": "Abierto",
+              "impacto": "Alto",
+              "probabilidad": "Media"
+            },
+            {
+              "uid": "b",
+              "riesgo": "retraso",
+              "responsable": "Jose",
+              "fechaLimite": "2026-10-01",
+              "accion": "Escalar",
+              "notas": "Seguimiento"
+            },
+            {
+              "uid": "c",
+              "riesgo": "Retraso",
+              "responsable": "Otra persona",
+              "fechaLimite": "2026-11-01",
+              "impacto": "Bajo"
+            },
+            {
+              "uid": "d",
+              "riesgo": "Otro",
+              "estado": "En progreso",
+              "probabilidad": "Alta"
+            },
+            {
+              "uid": "e",
+              "riesgo": "Resuelto",
+              "estado": "Resuelto",
+              "impacto": "Medio"
+            },
+            {
+              "uid": "f",
+              "riesgo": "Mitigado",
+              "estado": "Mitigado"
+            },
+            {
+              "uid": "g",
+              "riesgo": "Propuesto",
+              "estado": "Proposed",
+              "probabilidad": "Crítica"
+            },
+            {
+              "uid": "h",
+              "riesgo": "Sin estado",
+              "probabilidad": " Alta "
+            },
+            {
+              "uid": "i",
+              "riesgo": "Personalizado",
+              "estado": "Otro"
+            },
+            {}
+          ]
+        },
+        "acciones": {
+          "vencidas": [
+            {
+              "fechaLimite": "2026-11-01"
+            },
+            {
+              "fechaLimite": "2026-10-22"
+            },
+            {
+              "fechaLimite": "2026-10-23"
+            }
+          ]
+        },
+        "kpis": {
+          "healthScore": 80
+        }
+      },
+      "expected": {
+        "r": {
+          "activos": [
+            {
+              "uid": "a",
+              "riesgo": " Retraso ",
+              "responsable": "José",
+              "fechaLimite": "2026-10-01",
+              "estado": "Abierto",
+              "impacto": "Alto",
+              "probabilidad": "Media"
+            },
+            {
+              "uid": "b",
+              "riesgo": "retraso",
+              "responsable": "Jose",
+              "fechaLimite": "2026-10-01",
+              "accion": "Escalar",
+              "notas": "Seguimiento"
+            },
+            {
+              "uid": "c",
+              "riesgo": "Retraso",
+              "responsable": "Otra persona",
+              "fechaLimite": "2026-11-01",
+              "impacto": "Bajo"
+            },
+            {
+              "uid": "d",
+              "riesgo": "Otro",
+              "estado": "En progreso",
+              "probabilidad": "Alta"
+            },
+            {
+              "uid": "e",
+              "riesgo": "Resuelto",
+              "estado": "Resuelto",
+              "impacto": "Medio"
+            },
+            {
+              "uid": "f",
+              "riesgo": "Mitigado",
+              "estado": "Mitigado"
+            },
+            {
+              "uid": "g",
+              "riesgo": "Propuesto",
+              "estado": "Proposed",
+              "probabilidad": "Crítica"
+            },
+            {
+              "uid": "h",
+              "riesgo": "Sin estado",
+              "probabilidad": " Alta "
+            },
+            {
+              "uid": "i",
+              "riesgo": "Personalizado",
+              "estado": "Otro"
+            },
+            {}
+          ]
+        },
+        "k": {
+          "healthScore": 80
+        },
+        "ac": {
+          "vencidas": [
+            {
+              "fechaLimite": "2026-11-01"
+            },
+            {
+              "fechaLimite": "2026-10-22"
+            },
+            {
+              "fechaLimite": "2026-10-23"
+            }
+          ]
+        },
+        "activos": [
+          {
+            "uid": "a",
+            "riesgo": " Retraso ",
+            "responsable": "José",
+            "fechaLimite": "2026-10-01",
+            "accion": "Escalar",
+            "notas": "Seguimiento",
+            "estado": "Abierto",
+            "impacto": "Alto",
+            "probabilidad": "Media"
+          },
+          {
+            "uid": "d",
+            "riesgo": "Otro",
+            "estado": "En progreso",
+            "probabilidad": "Alta"
+          },
+          {
+            "uid": "e",
+            "riesgo": "Resuelto",
+            "estado": "Resuelto",
+            "impacto": "Medio"
+          },
+          {
+            "uid": "f",
+            "riesgo": "Mitigado",
+            "estado": "Mitigado"
+          },
+          {
+            "uid": "g",
+            "riesgo": "Propuesto",
+            "estado": "Proposed",
+            "probabilidad": "Crítica"
+          },
+          {
+            "uid": "h",
+            "riesgo": "Sin estado",
+            "probabilidad": " Alta "
+          },
+          {
+            "uid": "i",
+            "riesgo": "Personalizado",
+            "estado": "Otro"
+          }
+        ],
+        "crit": [
+          {
+            "uid": "a",
+            "riesgo": " Retraso ",
+            "responsable": "José",
+            "fechaLimite": "2026-10-01",
+            "accion": "Escalar",
+            "notas": "Seguimiento",
+            "estado": "Abierto",
+            "impacto": "Alto",
+            "probabilidad": "Media"
+          },
+          {
+            "uid": "d",
+            "riesgo": "Otro",
+            "estado": "En progreso",
+            "probabilidad": "Alta"
+          },
+          {
+            "uid": "h",
+            "riesgo": "Sin estado",
+            "probabilidad": " Alta "
+          }
+        ],
+        "abiertos": [
+          {
+            "uid": "a",
+            "riesgo": " Retraso ",
+            "responsable": "José",
+            "fechaLimite": "2026-10-01",
+            "accion": "Escalar",
+            "notas": "Seguimiento",
+            "estado": "Abierto",
+            "impacto": "Alto",
+            "probabilidad": "Media"
+          },
+          {
+            "uid": "d",
+            "riesgo": "Otro",
+            "estado": "En progreso",
+            "probabilidad": "Alta"
+          },
+          {
+            "uid": "g",
+            "riesgo": "Propuesto",
+            "estado": "Proposed",
+            "probabilidad": "Crítica"
+          },
+          {
+            "uid": "h",
+            "riesgo": "Sin estado",
+            "probabilidad": " Alta "
+          },
+          {
+            "uid": "i",
+            "riesgo": "Personalizado",
+            "estado": "Otro"
+          }
+        ],
+        "matrix": {
+          "media|alto": 1,
+          "alta|medio": 1,
+          "media|medio": 3,
+          "crítica|medio": 1,
+          " alta |medio": 1
+        },
+        "hoyIso": "2026-10-23",
+        "vencidasAcc": [
+          {
+            "fechaLimite": "2026-10-22"
+          }
+        ],
+        "exposure": "Alta",
+        "abiertosCnt": 3,
+        "mitigCnt": 1,
+        "cerrCnt": 3,
+        "atencion": {
+          "fechaLimite": "2026-10-22"
+        },
+        "alerts": 0
+      },
+      "percentages": [
+        {
+          "impacto": "",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Bajo",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Medio",
+          "probabilidad": "Crítica",
+          "expected": 72
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Baja",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Media",
+          "expected": 55
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Alta",
+          "expected": 40
+        },
+        {
+          "impacto": "Alto",
+          "probabilidad": "Crítica",
+          "expected": 55
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Baja",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Media",
+          "expected": 72
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Alta",
+          "expected": 57
+        },
+        {
+          "impacto": "Crítico",
+          "probabilidad": "Crítica",
+          "expected": 72
+        }
+      ]
+    }
+  ],
+  "dedup": [
+    {
+      "input": [],
+      "expected": []
+    },
+    {
+      "input": [
+        {
+          "uid": "a",
+          "riesgo": " Retraso ",
+          "responsable": "José",
+          "fechaLimite": "2026-10-01",
+          "estado": "Abierto",
+          "impacto": "Alto",
+          "probabilidad": "Media"
+        },
+        {
+          "uid": "b",
+          "riesgo": "retraso",
+          "responsable": "Jose",
+          "fechaLimite": "2026-10-01",
+          "accion": "Escalar",
+          "notas": "Seguimiento"
+        },
+        {
+          "uid": "c",
+          "riesgo": "Retraso",
+          "responsable": "Otra persona",
+          "fechaLimite": "2026-11-01",
+          "impacto": "Bajo"
+        },
+        {
+          "uid": "d",
+          "riesgo": "Otro",
+          "estado": "En progreso",
+          "probabilidad": "Alta"
+        },
+        {
+          "uid": "e",
+          "riesgo": "Resuelto",
+          "estado": "Resuelto",
+          "impacto": "Medio"
+        },
+        {
+          "uid": "f",
+          "riesgo": "Mitigado",
+          "estado": "Mitigado"
+        },
+        {
+          "uid": "g",
+          "riesgo": "Propuesto",
+          "estado": "Proposed",
+          "probabilidad": "Crítica"
+        },
+        {
+          "uid": "h",
+          "riesgo": "Sin estado",
+          "probabilidad": " Alta "
+        },
+        {
+          "uid": "i",
+          "riesgo": "Personalizado",
+          "estado": "Otro"
+        },
+        {}
+      ],
+      "expected": [
+        {
+          "uid": "a",
+          "riesgo": " Retraso ",
+          "responsable": "José",
+          "fechaLimite": "2026-10-01",
+          "accion": "Escalar",
+          "notas": "Seguimiento",
+          "estado": "Abierto",
+          "impacto": "Alto",
+          "probabilidad": "Media"
+        },
+        {
+          "uid": "d",
+          "riesgo": "Otro",
+          "estado": "En progreso",
+          "probabilidad": "Alta"
+        },
+        {
+          "uid": "e",
+          "riesgo": "Resuelto",
+          "estado": "Resuelto",
+          "impacto": "Medio"
+        },
+        {
+          "uid": "f",
+          "riesgo": "Mitigado",
+          "estado": "Mitigado"
+        },
+        {
+          "uid": "g",
+          "riesgo": "Propuesto",
+          "estado": "Proposed",
+          "probabilidad": "Crítica"
+        },
+        {
+          "uid": "h",
+          "riesgo": "Sin estado",
+          "probabilidad": " Alta "
+        },
+        {
+          "uid": "i",
+          "riesgo": "Personalizado",
+          "estado": "Otro"
+        }
+      ]
+    },
+    {
+      "input": [
+        {},
+        {
+          "uid": "i",
+          "riesgo": "Personalizado",
+          "estado": "Otro"
+        },
+        {
+          "uid": "h",
+          "riesgo": "Sin estado",
+          "probabilidad": " Alta "
+        },
+        {
+          "uid": "g",
+          "riesgo": "Propuesto",
+          "estado": "Proposed",
+          "probabilidad": "Crítica"
+        },
+        {
+          "uid": "f",
+          "riesgo": "Mitigado",
+          "estado": "Mitigado"
+        },
+        {
+          "uid": "e",
+          "riesgo": "Resuelto",
+          "estado": "Resuelto",
+          "impacto": "Medio"
+        },
+        {
+          "uid": "d",
+          "riesgo": "Otro",
+          "estado": "En progreso",
+          "probabilidad": "Alta"
+        },
+        {
+          "uid": "c",
+          "riesgo": "Retraso",
+          "responsable": "Otra persona",
+          "fechaLimite": "2026-11-01",
+          "impacto": "Bajo"
+        },
+        {
+          "uid": "b",
+          "riesgo": "retraso",
+          "responsable": "Jose",
+          "fechaLimite": "2026-10-01",
+          "accion": "Escalar",
+          "notas": "Seguimiento"
+        },
+        {
+          "uid": "a",
+          "riesgo": " Retraso ",
+          "responsable": "José",
+          "fechaLimite": "2026-10-01",
+          "estado": "Abierto",
+          "impacto": "Alto",
+          "probabilidad": "Media"
+        }
+      ],
+      "expected": [
+        {
+          "uid": "i",
+          "riesgo": "Personalizado",
+          "estado": "Otro"
+        },
+        {
+          "uid": "h",
+          "riesgo": "Sin estado",
+          "probabilidad": " Alta "
+        },
+        {
+          "uid": "g",
+          "riesgo": "Propuesto",
+          "estado": "Proposed",
+          "probabilidad": "Crítica"
+        },
+        {
+          "uid": "f",
+          "riesgo": "Mitigado",
+          "estado": "Mitigado"
+        },
+        {
+          "uid": "e",
+          "riesgo": "Resuelto",
+          "estado": "Resuelto",
+          "impacto": "Medio"
+        },
+        {
+          "uid": "d",
+          "riesgo": "Otro",
+          "estado": "En progreso",
+          "probabilidad": "Alta"
+        },
+        {
+          "uid": "c",
+          "riesgo": "Retraso",
+          "responsable": "Otra persona",
+          "fechaLimite": "2026-11-01",
+          "impacto": "Bajo"
+        }
+      ]
+    },
+    {
+      "input": [
+        {
+          "riesgo": "Sin responsable"
+        },
+        {
+          "riesgo": "Sin responsable",
+          "responsable": "Ana",
+          "notas": "Más completo"
+        }
+      ],
+      "expected": [
+        {
+          "riesgo": "Sin responsable",
+          "responsable": "Ana",
+          "notas": "Más completo"
+        }
+      ]
+    }
+  ],
+  "now": "2026-10-23T18:00:00Z",
+  "firstOwner": {
+    "input": [
+      {
+        "uid": "a",
+        "riesgo": " Retraso ",
+        "responsable": "José",
+        "fechaLimite": "2026-10-01",
+        "estado": "Abierto",
+        "impacto": "Alto",
+        "probabilidad": "Media"
+      },
+      {
+        "uid": "c",
+        "riesgo": "Retraso",
+        "responsable": "Otra persona",
+        "fechaLimite": "2026-11-01",
+        "impacto": "Bajo"
+      }
+    ],
+    "expected": [
+      {
+        "uid": "a",
+        "riesgo": " Retraso ",
+        "responsable": "José",
+        "fechaLimite": "2026-10-01",
+        "estado": "Abierto",
+        "impacto": "Alto",
+        "probabilidad": "Media"
+      }
+    ]
+  }
+}
