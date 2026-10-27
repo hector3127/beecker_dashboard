@@ -214,6 +214,38 @@ def test_eva1_filters_export_and_lazy_history(portal, evas, saved_link):
     )
 
 
+def test_eva1_dates_apply_without_blur_and_survive_refresh(
+    portal, evas, enforced_csp
+):
+    portal.goto(portal.base + "/operativa/eva-1/?volver=%2Foperativa%2F")
+    expect(portal.locator("#eva-count")).to_have_text(
+        "Mostrando 2 de 2 proyectos"
+    )
+    portal.locator("#eva-from").fill("2026-01-01")
+    portal.locator("#eva-to").fill("2026-01-29")
+    expect(portal.locator("#eva-count")).to_have_text(
+        "Mostrando 0 de 2 proyectos"
+    )
+    expect(portal.locator("#eva-table tbody tr:visible")).to_have_count(0)
+    portal.locator("[data-eva-refresh]").click()
+    portal.wait_for_load_state()
+    expect(portal.locator("#eva-to")).to_have_value("2026-01-29")
+    expect(portal.locator("#eva-count")).to_have_text(
+        "Mostrando 0 de 2 proyectos"
+    )
+    portal.locator("#eva-to").fill("2026-08-28")
+    expect(portal.locator("#eva-count")).to_have_text(
+        "Mostrando 2 de 2 proyectos"
+    )
+    portal.locator("#eva-manager").select_option("Mario")
+    portal.reload()
+    expect(portal.locator("#eva-manager")).to_have_value("Mario")
+    expect(portal.locator("#eva-count")).to_have_text(
+        "Mostrando 1 de 2 proyectos"
+    )
+    assert "volver=%2Foperativa%2F" in portal.url
+
+
 @pytest.mark.parametrize(
     "saved_link", [False, True], ids=["current_url", "obsolete_url"]
 )

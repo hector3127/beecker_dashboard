@@ -9,6 +9,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Filtro EVA 1 (27/10):** rango aplicado también con evento input, sin
+esperar a salir del campo. Fechas, servicio y DM se guardan en la URL y se
+aplican al arrancar, incluido después de Actualizar. Se conservan otros
+parámetros, incluido volver. Sin cambios HTML/CSS, fórmulas o fuentes.
+Tres Chrome aprobadas (filtros/CSV/histórico y rango/recarga; caso nuevo con
+CSP) y dos Node de modelos EVA. El rango sigue seleccionando proyectos
+cuyas fechas se solapan: no reconstruye estados, horas ni tareas históricos;
+las tarjetas/resúmenes mantienen su alcance general existente.
+
 **Corrección de navegación (27/10):** el regreso de Horas por mes lleva
 `data-portal-back`, evitando que el manejador compartido reemplace el origen
 de la cuenta por el reporte. Conserva el regreso a Business Overview u

@@ -18,6 +18,11 @@ if (table) {
       document.getElementById("eva-" + key),
     ]),
   );
+  const query = new URLSearchParams(location.search);
+  const filterKeys = { manager: "manager", service: "service", from: "desde", to: "hasta" };
+  for (const [key, control] of Object.entries(controls)) {
+    control.value = query.get(filterKeys[key]) || "";
+  }
   let columns;
   function filter() {
     columns?.sort(rows).forEach((row) => table.tBodies[0].append(row));
@@ -38,6 +43,12 @@ if (table) {
     }
     document.getElementById("eva-count").textContent =
       "Mostrando " + count + " de " + rows.length + " proyectos";
+    const url = new URL(location.href);
+    for (const [key, control] of Object.entries(controls)) {
+      if (control.value) url.searchParams.set(filterKeys[key], control.value);
+      else url.searchParams.delete(filterKeys[key]);
+    }
+    history.replaceState(null, "", url);
   }
   columns = mountTableColumns({
     table,
@@ -53,6 +64,10 @@ if (table) {
   Object.values(controls).forEach((control) =>
     control.addEventListener("change", filter),
   );
+  [controls.from, controls.to].forEach((control) =>
+    control.addEventListener("input", filter),
+  );
+  filter();
   document.getElementById("eva-export").addEventListener("click", () => {
     const content = csv(
       columns
