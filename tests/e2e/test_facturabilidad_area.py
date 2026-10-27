@@ -113,11 +113,13 @@ def load(page):
     expect(page.locator("#gse-status")).to_contain_text("Base leída")
 
 
-@pytest.mark.parametrize("previous", [False, True])
-def test_general_sections_filters_and_exports(portal, area, previous):
+@pytest.mark.parametrize(
+    "saved_link", [False, True], ids=["current_url", "obsolete_url"]
+)
+def test_general_sections_filters_and_exports(portal, area, saved_link):
     errors = []
     portal.on("pageerror", lambda e: errors.append(str(e)))
-    portal.goto(portal.base + PAGE + ("&vista=anterior" if previous else ""))
+    portal.goto(portal.base + PAGE + ("&vista=anterior" if saved_link else ""))
     ready(portal)
     assert portal.locator("script[src*='gas_shim']").count() == 0
     load(portal)

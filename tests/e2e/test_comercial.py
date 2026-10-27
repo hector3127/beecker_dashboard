@@ -167,10 +167,12 @@ def test_page_uses_the_modular_frontend(portal, backlog):
     )
 
 
-@pytest.mark.parametrize("previous", [False, True])
-def test_service_rows_open_and_the_year_reloads(portal, backlog, previous):
+@pytest.mark.parametrize(
+    "saved_link", [False, True], ids=["current_url", "obsolete_url"]
+)
+def test_service_rows_open_and_the_year_reloads(portal, backlog, saved_link):
     portal.goto(
-        portal.base + "/comercial/" + ("?vista=anterior" if previous else "")
+        portal.base + "/comercial/" + ("?vista=anterior" if saved_link else "")
     )
     detail = portal.locator(".service-detail-row").first
     expect(detail).to_be_hidden()
@@ -181,16 +183,18 @@ def test_service_rows_open_and_the_year_reloads(portal, backlog, previous):
     portal.wait_for_url("**pipeline_year=2026*")
 
 
-@pytest.mark.parametrize("previous", [False, True])
+@pytest.mark.parametrize(
+    "saved_link", [False, True], ids=["current_url", "obsolete_url"]
+)
 def test_executive_origin_keeps_dates_when_year_changes(
-    portal, backlog, previous
+    portal, backlog, saved_link
 ):
     query = "?origen=business-overview&desde=2026-01-01&hasta=2026-12-31"
     portal.goto(
         portal.base
         + "/comercial/"
         + query
-        + ("&vista=anterior" if previous else "")
+        + ("&vista=anterior" if saved_link else "")
     )
     expected = "/?periodo=rango&desde=2026-01-01&hasta=2026-12-31"
     expect(portal.locator("[data-portal-back]")).to_have_attribute(

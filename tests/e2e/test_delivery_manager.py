@@ -118,9 +118,11 @@ def test_page_fills_by_steps_with_the_previous_layout(portal, datos, hours):
     expect(portal.locator("#hours-chart")).to_be_visible()
 
 
-@pytest.mark.parametrize("previous", [False, True])
-def test_links_carry_the_way_back(portal, datos, hours, previous):
-    portal.goto(portal.base + PAGE + ("&vista=anterior" if previous else ""))
+@pytest.mark.parametrize(
+    "saved_link", [False, True], ids=["current_url", "obsolete_url"]
+)
+def test_links_carry_the_way_back(portal, datos, hours, saved_link):
+    portal.goto(portal.base + PAGE + ("&vista=anterior" if saved_link else ""))
     expect(
         portal.locator("#dm-table a.dm-account-link").first
     ).to_have_attribute("href", "/cuenta/clinica-sur/")
@@ -136,11 +138,13 @@ def test_links_carry_the_way_back(portal, datos, hours, previous):
     assert "delivery-manager%2Falberto" in portal.url
 
 
-@pytest.mark.parametrize("previous", [False, True])
+@pytest.mark.parametrize(
+    "saved_link", [False, True], ids=["current_url", "obsolete_url"]
+)
 def test_month_detail_opens_filters_and_downloads_a_safe_csv(
-    portal, datos, hours, previous
+    portal, datos, hours, saved_link
 ):
-    portal.goto(portal.base + PAGE + ("&vista=anterior" if previous else ""))
+    portal.goto(portal.base + PAGE + ("&vista=anterior" if saved_link else ""))
     portal.locator("#hours-chart g[role=button]").last.click()
 
     dialog = portal.locator("#hours-modal")

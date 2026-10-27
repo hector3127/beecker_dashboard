@@ -52,11 +52,13 @@ def ready(portal):
     )
 
 
-@pytest.mark.parametrize("previous", [False, True])
-def test_matrix_filters_resources_csv_and_refresh(portal, daily, previous):
+@pytest.mark.parametrize(
+    "saved_link", [False, True], ids=["current_url", "obsolete_url"]
+)
+def test_matrix_filters_resources_csv_and_refresh(portal, daily, saved_link):
     errors = []
     portal.on("pageerror", lambda error: errors.append(str(error)))
-    portal.goto(portal.base + PAGE + ("&vista=anterior" if previous else ""))
+    portal.goto(portal.base + PAGE + ("&vista=anterior" if saved_link else ""))
     ready(portal)
     expect(portal.locator(".ci-stat strong")).to_have_text(
         ["2", "352 h", "16 h", "338 h", "1"]

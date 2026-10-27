@@ -171,12 +171,14 @@ def evas(monkeypatch, datos):
     return calls
 
 
-@pytest.mark.parametrize("previous", [False, True])
-def test_eva1_filters_export_and_lazy_history(portal, evas, previous):
+@pytest.mark.parametrize(
+    "saved_link", [False, True], ids=["current_url", "obsolete_url"]
+)
+def test_eva1_filters_export_and_lazy_history(portal, evas, saved_link):
     portal.goto(
         portal.base
         + "/operativa/eva-1/"
-        + ("?vista=anterior" if previous else "")
+        + ("?vista=anterior" if saved_link else "")
     )
     expect(portal.locator("#eva-table tbody tr")).to_have_count(2)
     assert not evas["ixb"]
@@ -212,12 +214,14 @@ def test_eva1_filters_export_and_lazy_history(portal, evas, previous):
     )
 
 
-@pytest.mark.parametrize("previous", [False, True])
-def test_eva3_fills_hours_and_closed_projects(portal, evas, previous):
+@pytest.mark.parametrize(
+    "saved_link", [False, True], ids=["current_url", "obsolete_url"]
+)
+def test_eva3_fills_hours_and_closed_projects(portal, evas, saved_link):
     portal.goto(
         portal.base
         + "/operativa/eva-3/"
-        + ("?vista=anterior" if previous else "")
+        + ("?vista=anterior" if saved_link else "")
     )
     pending = portal.locator('tr[data-project="AER.004"]')
     expect(pending.locator('[data-field="burn"]')).to_have_text("20.25")
