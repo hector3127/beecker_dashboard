@@ -1,0 +1,6343 @@
+[
+  {
+    "label": "empty",
+    "dashboard": {},
+    "state": {},
+    "context": {
+      "id": "",
+      "n": "",
+      "cliente": "",
+      "etapa": "",
+      "fecha": "2026-10-23",
+      "k": {
+        "horas": 0,
+        "fact": 0,
+        "presupuesto": 0,
+        "consumoPct": 0,
+        "tiempoPct": 0,
+        "health": 0,
+        "vencidos": 0,
+        "desviacion": 0,
+        "horasFueraHorario": 0
+      },
+      "p": [],
+      "r": [],
+      "a": [],
+      "v": [],
+      "c": [],
+      "b": []
+    },
+    "facts": {
+      "c": {
+        "id": "",
+        "n": "",
+        "cliente": "",
+        "etapa": "",
+        "fecha": "2026-10-23",
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 0,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "p": [],
+        "r": [],
+        "a": [],
+        "v": [],
+        "c": [],
+        "b": []
+      },
+      "activos": [],
+      "venc": [],
+      "prox": [],
+      "sobre": [],
+      "vac": [],
+      "abiertos": [],
+      "riesgo": [],
+      "alerts": [],
+      "to": "2026-11-22"
+    }
+  },
+  {
+    "label": "empty",
+    "dashboard": {},
+    "state": {
+      "accionesPartes": [
+        {
+          "accion": "A",
+          "estado": "Completado"
+        },
+        {
+          "accion": "B",
+          "estado": "completado"
+        },
+        {
+          "accion": "C",
+          "estado": "Pendiente"
+        }
+      ]
+    },
+    "context": {
+      "id": "",
+      "n": "",
+      "cliente": "",
+      "etapa": "",
+      "fecha": "2026-10-23",
+      "k": {
+        "horas": 0,
+        "fact": 0,
+        "presupuesto": 0,
+        "consumoPct": 0,
+        "tiempoPct": 0,
+        "health": 0,
+        "vencidos": 0,
+        "desviacion": 0,
+        "horasFueraHorario": 0
+      },
+      "p": [],
+      "r": [],
+      "a": [],
+      "v": [],
+      "c": [],
+      "b": [
+        {
+          "a": "B",
+          "e": "completado"
+        },
+        {
+          "a": "C",
+          "e": "Pendiente"
+        }
+      ]
+    },
+    "facts": {
+      "c": {
+        "id": "",
+        "n": "",
+        "cliente": "",
+        "etapa": "",
+        "fecha": "2026-10-23",
+        "k": {
+          "horas": 0,
+          "fact": 0,
+          "presupuesto": 0,
+          "consumoPct": 0,
+          "tiempoPct": 0,
+          "health": 0,
+          "vencidos": 0,
+          "desviacion": 0,
+          "horasFueraHorario": 0
+        },
+        "p": [],
+        "r": [],
+        "a": [],
+        "v": [],
+        "c": [],
+        "b": [
+          {
+            "a": "B",
+            "e": "completado"
+          },
+          {
+            "a": "C",
+            "e": "Pendiente"
+          }
+        ]
+      },
+      "activos": [],
+      "venc": [],
+      "prox": [],
+      "sobre": [],
+      "vac": [],
+      "abiertos": [],
+      "riesgo": [],
+      "alerts": [],
+      "to": "2026-11-22"
+    }
+  },
+  {
+    "label": "fixture",
+    "dashboard": {
+      "ok": true,
+      "backendVersion": "AER_DASHBOARD_V8_CLIENTE_CONTACTOS",
+      "proyecto": {
+        "id": "AER.001",
+        "nombre": "Bot facturas",
+        "cliente": "ACME",
+        "servicio": "AER",
+        "deliveryManager": "Ana López",
+        "estado": "En curso",
+        "fechaInicio": "2026-08-01T06:00:00.000Z",
+        "fechaFin": "2026-11-30T06:00:00.000Z"
+      },
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 14.75,
+        "horasFacturables": 5.75,
+        "horasNoFacturables": 9,
+        "balanceHoras": 85.25,
+        "pctFacturables": 39,
+        "pctNoFacturables": 61,
+        "horasFueraHorario": 3.25,
+        "pctFueraHorario": 22,
+        "pctTiempo": 51.2,
+        "consumoPct": 14.8,
+        "desviacionPts": -36.4,
+        "diasRestantes": 59,
+        "costoReal": 84,
+        "healthScore": 70,
+        "healthLabel": "En seguimiento",
+        "healthDimensiones": {
+          "tiempo": 70,
+          "esfuerzo": 70,
+          "costo": 100,
+          "riesgo": 40
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": true
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "alto",
+          "titulo": "Compromisos vencidos",
+          "detalle": "1 compromiso(s) siguen abiertos después de su fecha.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas no facturables elevadas",
+          "detalle": "61% del total.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas fuera de horario",
+          "detalle": "3.25 h (22%).",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Riesgos críticos abiertos",
+          "detalle": "2 riesgo(s) requieren atención.",
+          "fuente": "Riesgos"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Acciones vencidas",
+          "detalle": "1 acción(es) vencidas.",
+          "fuente": "Acciones"
+        }
+      ],
+      "tareas": [
+        {
+          "nombre": "2026",
+          "horas": 8
+        },
+        {
+          "nombre": "Desarrollo",
+          "horas": 3.5
+        },
+        {
+          "nombre": "QA",
+          "horas": 2.25
+        },
+        {
+          "nombre": "Sin task / actividad",
+          "horas": 1
+        }
+      ],
+      "capacidad": [
+        {
+          "nombre": "Ana López",
+          "rol": "Dev",
+          "horasEstimadas": 60,
+          "horasReales": 4
+        },
+        {
+          "nombre": "Carlos",
+          "rol": "QA",
+          "horasEstimadas": 20,
+          "horasReales": 2.25
+        }
+      ],
+      "detalleRecursos": [
+        {
+          "recurso": "Zoe",
+          "rol": "",
+          "horasTotales": 8,
+          "facturables": 0,
+          "noFacturables": 8,
+          "fueraHorario": 0,
+          "costo": 44,
+          "pctTotal": 54.2
+        },
+        {
+          "recurso": "Ana López",
+          "rol": "",
+          "horasTotales": 4,
+          "facturables": 3,
+          "noFacturables": 1,
+          "fueraHorario": 1,
+          "costo": 40,
+          "pctTotal": 27.1
+        },
+        {
+          "recurso": "carlos",
+          "rol": "",
+          "horasTotales": 2.25,
+          "facturables": 2.25,
+          "noFacturables": 0,
+          "fueraHorario": 2.25,
+          "costo": 0,
+          "pctTotal": 15.3
+        },
+        {
+          "recurso": "Sin recurso",
+          "rol": "",
+          "horasTotales": 0.5,
+          "facturables": 0.5,
+          "noFacturables": 0,
+          "fueraHorario": 0,
+          "costo": 0,
+          "pctTotal": 3.4
+        }
+      ],
+      "tendenciaMensual": [
+        {
+          "mes": "2026-08",
+          "horas": 8,
+          "acumulado": 8
+        },
+        {
+          "mes": "2026-09",
+          "horas": 6.25,
+          "acumulado": 14.25
+        },
+        {
+          "mes": "2026-10",
+          "horas": 0.5,
+          "acumulado": 14.75
+        }
+      ],
+      "registros": [
+        {
+          "fecha": "2026-10-01",
+          "recurso": "",
+          "actividad": "Desarrollo",
+          "descripcion": "x",
+          "inicio": "",
+          "fin": "",
+          "duracion": 0.5,
+          "billable": true,
+          "fueraHorario": false
+        },
+        {
+          "fecha": "2026-09-30",
+          "recurso": "carlos",
+          "actividad": "QA",
+          "descripcion": "Pruebas",
+          "inicio": "",
+          "fin": "",
+          "duracion": 2.25,
+          "billable": true,
+          "fueraHorario": true
+        },
+        {
+          "fecha": "2026-09-02",
+          "recurso": "Ana López",
+          "actividad": "Sin task",
+          "descripcion": "",
+          "inicio": "",
+          "fin": "",
+          "duracion": 1,
+          "billable": false,
+          "fueraHorario": true
+        },
+        {
+          "fecha": "2026-09-01",
+          "recurso": "Ana López",
+          "actividad": "Desarrollo",
+          "descripcion": "Diseño",
+          "inicio": "",
+          "fin": "",
+          "duracion": 3,
+          "billable": true,
+          "fueraHorario": false
+        },
+        {
+          "fecha": "2026-08-15",
+          "recurso": "Zoe",
+          "actividad": "2026",
+          "descripcion": "Kickoff",
+          "inicio": "",
+          "fin": "",
+          "duracion": 8,
+          "billable": false,
+          "fueraHorario": false
+        }
+      ],
+      "plan": {
+        "filas": [
+          {
+            "uid": "p9",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Kickoff",
+            "responsable": "Ana",
+            "inicioPlan": "2026-08-01",
+            "finPlan": "2026-08-02",
+            "inicioReal": "",
+            "finReal": "2026-08-05",
+            "avance": 100,
+            "estado": "Completado",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 10
+          },
+          {
+            "uid": "p1",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Diseño",
+            "responsable": "Ana",
+            "inicioPlan": "2026-08-01",
+            "finPlan": "2026-08-31",
+            "inicioReal": "",
+            "finReal": "2026-08-30",
+            "avance": 100,
+            "estado": "Completado",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 1,
+            "esfuerzo": 1,
+            "actualizado": "",
+            "_row": 2
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Desarrollo",
+            "responsable": "Ana",
+            "inicioPlan": "2026-09-01",
+            "finPlan": "2026-10-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 40,
+            "estado": "En progreso",
+            "dependencia": "Accesos",
+            "estadoDependencia": "Abierta",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 3
+          },
+          {
+            "uid": "p6",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Pruebas",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-02",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por validar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 7
+          },
+          {
+            "uid": "p4",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Entrega UAT",
+            "responsable": "Beto",
+            "inicioPlan": "2026-09-20",
+            "finPlan": "2026-09-25",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 5
+          },
+          {
+            "uid": "p5",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Go Live",
+            "responsable": "Beto",
+            "inicioPlan": "2026-11-01",
+            "finPlan": "2026-11-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 6
+          },
+          {
+            "uid": "p7",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Documentar",
+            "responsable": "Carlos",
+            "inicioPlan": "2026-09-10",
+            "finPlan": "2026-09-20",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Detenido",
+            "dependencia": "Cliente",
+            "estadoDependencia": "Detenida",
+            "notas": "",
+            "orden": 4,
+            "esfuerzo": 4,
+            "actualizado": "",
+            "_row": 8
+          }
+        ],
+        "actividades": [
+          {
+            "uid": "p1",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Diseño",
+            "responsable": "Ana",
+            "inicioPlan": "2026-08-01",
+            "finPlan": "2026-08-31",
+            "inicioReal": "",
+            "finReal": "2026-08-30",
+            "avance": 100,
+            "estado": "Completado",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 1,
+            "esfuerzo": 1,
+            "actualizado": "",
+            "_row": 2
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Desarrollo",
+            "responsable": "Ana",
+            "inicioPlan": "2026-09-01",
+            "finPlan": "2026-10-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 40,
+            "estado": "En progreso",
+            "dependencia": "Accesos",
+            "estadoDependencia": "Abierta",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 3
+          },
+          {
+            "uid": "p6",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Pruebas",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-02",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por validar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 7
+          },
+          {
+            "uid": "p7",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Documentar",
+            "responsable": "Carlos",
+            "inicioPlan": "2026-09-10",
+            "finPlan": "2026-09-20",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Detenido",
+            "dependencia": "Cliente",
+            "estadoDependencia": "Detenida",
+            "notas": "",
+            "orden": 4,
+            "esfuerzo": 4,
+            "actualizado": "",
+            "_row": 8
+          }
+        ],
+        "hitos": [
+          {
+            "uid": "p9",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Kickoff",
+            "responsable": "Ana",
+            "inicioPlan": "2026-08-01",
+            "finPlan": "2026-08-02",
+            "inicioReal": "",
+            "finReal": "2026-08-05",
+            "avance": 100,
+            "estado": "Completado",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 10,
+            "statusCalculado": "Atrasado"
+          },
+          {
+            "uid": "p4",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Entrega UAT",
+            "responsable": "Beto",
+            "inicioPlan": "2026-09-20",
+            "finPlan": "2026-09-25",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 5,
+            "statusCalculado": "Riesgo"
+          },
+          {
+            "uid": "p5",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Go Live",
+            "responsable": "Beto",
+            "inicioPlan": "2026-11-01",
+            "finPlan": "2026-11-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 6,
+            "statusCalculado": "Pendiente"
+          }
+        ],
+        "avancePlan": 92.63,
+        "avanceReal": 35,
+        "desviacion": -57.63,
+        "hitosCumplidos": 0,
+        "hitosTotal": 3,
+        "proximosHitos": [
+          {
+            "uid": "p4",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Entrega UAT",
+            "responsable": "Beto",
+            "inicioPlan": "2026-09-20",
+            "finPlan": "2026-09-25",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 5,
+            "statusCalculado": "Riesgo"
+          },
+          {
+            "uid": "p5",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Go Live",
+            "responsable": "Beto",
+            "inicioPlan": "2026-11-01",
+            "finPlan": "2026-11-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 6,
+            "statusCalculado": "Pendiente"
+          }
+        ],
+        "compromisosTotal": 7,
+        "cerradosTotal": 2,
+        "cerradosATiempo": 1,
+        "vencidosAbiertos": 1,
+        "vencenHoy": 0,
+        "vencidosDetalle": [
+          {
+            "uid": "p4",
+            "actividad": "Entrega UAT",
+            "responsable": "Beto",
+            "fecha": "2026-09-25",
+            "estado": "Por iniciar"
+          }
+        ],
+        "vencenHoyDetalle": [],
+        "proximosCompromisos": [
+          {
+            "uid": "p6",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Pruebas",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-02",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por validar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 7
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Desarrollo",
+            "responsable": "Ana",
+            "inicioPlan": "2026-09-01",
+            "finPlan": "2026-10-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 40,
+            "estado": "En progreso",
+            "dependencia": "Accesos",
+            "estadoDependencia": "Abierta",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 3
+          },
+          {
+            "uid": "p5",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Go Live",
+            "responsable": "Beto",
+            "inicioPlan": "2026-11-01",
+            "finPlan": "2026-11-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 6
+          }
+        ],
+        "pctCerrados": 28.6,
+        "pctCerradosATiempo": 50,
+        "tieneDatos": true,
+        "avancePlanReferencia": 92.63
+      },
+      "riesgos": {
+        "filas": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r5",
+            "riesgo": "Rotación",
+            "impacto": "Bajo",
+            "probabilidad": "Baja",
+            "responsable": "Carlos",
+            "fechaLimite": "2026-11-01",
+            "accion": "",
+            "estado": "Cerrado",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "activos": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "criticos": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "score": 40,
+        "tieneDatos": true
+      },
+      "acciones": {
+        "filas": [
+          {
+            "uid": "a4",
+            "idProyecto": "AER.001",
+            "accion": "Cerrar UAT",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-01",
+            "fechaReal": "2026-09-02",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "abiertas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "vencidas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          }
+        ],
+        "completadas": [
+          {
+            "uid": "a4",
+            "idProyecto": "AER.001",
+            "accion": "Cerrar UAT",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-01",
+            "fechaReal": "2026-09-02",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "detenidas": [
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "tieneDatos": true
+      },
+      "vacaciones": {
+        "filas": []
+      },
+      "evaluaciones": {
+        "filas": [
+          {
+            "uid": "e2",
+            "recurso": "Carlos",
+            "fechaEvaluacion": "2026-09-15",
+            "periodo": "",
+            "evaluador": "Beto",
+            "score": 65,
+            "calidad": 0,
+            "cumplimiento": 0,
+            "comunicacion": 0,
+            "colaboracion": 0,
+            "autonomia": 0,
+            "categoria": "Crítico",
+            "comentario": "",
+            "planAccion": "",
+            "proximaEvaluacion": ""
+          },
+          {
+            "uid": "e1",
+            "recurso": "Ana",
+            "fechaEvaluacion": "2026-09-01",
+            "periodo": "Sep 2026",
+            "evaluador": "Beto",
+            "score": 87,
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 100,
+            "autonomia": 95,
+            "categoria": "Sólido",
+            "comentario": "",
+            "planAccion": "",
+            "proximaEvaluacion": ""
+          }
+        ]
+      },
+      "cliente": {
+        "contactos": [
+          {
+            "uid": "c2",
+            "nombre": "Álvaro",
+            "cargo": "PO",
+            "rol": "PO",
+            "area": "Finanzas",
+            "correo": "",
+            "telefono": "",
+            "nivelDecision": "Bajo",
+            "estado": "Inactivo",
+            "esDecisor": false,
+            "canal": "Correo; Teams",
+            "alcance": "",
+            "requerimientos": false,
+            "aprueba": false,
+            "valida": false,
+            "decide": false,
+            "informado": false,
+            "notas": ""
+          },
+          {
+            "uid": "c1",
+            "nombre": "Zoe",
+            "cargo": "CTO",
+            "rol": "Sponsor",
+            "area": "TI",
+            "correo": "z@x.com",
+            "telefono": "",
+            "nivelDecision": "Alto",
+            "estado": "Activo",
+            "esDecisor": true,
+            "canal": "Teams",
+            "alcance": "",
+            "requerimientos": true,
+            "aprueba": true,
+            "valida": false,
+            "decide": false,
+            "informado": false,
+            "notas": ""
+          }
+        ],
+        "info": {
+          "uid": "i1",
+          "areaPrincipal": "TI",
+          "sponsor": "Zoe",
+          "productOwner": "Álvaro",
+          "correoDistribucion": "",
+          "rutaEscalamiento": "",
+          "canales": "",
+          "proximaReunion": "2026-10-07",
+          "tipoReunion": "Comité",
+          "cliente": "ACME",
+          "deliveryManager": "Ana López"
+        },
+        "gobierno": [
+          {
+            "uid": "",
+            "reunion": "Seguimiento semanal",
+            "frecuencia": "Semanal",
+            "participantes": "PO + Delivery + Cliente",
+            "canal": "Teams",
+            "notas": ""
+          },
+          {
+            "uid": "",
+            "reunion": "Comité operativo",
+            "frecuencia": "Quincenal",
+            "participantes": "Sponsor + PO + Delivery",
+            "canal": "Correo",
+            "notas": ""
+          },
+          {
+            "uid": "",
+            "reunion": "Comité ejecutivo",
+            "frecuencia": "Mensual",
+            "participantes": "Sponsor + Dirección",
+            "canal": "Teams",
+            "notas": ""
+          }
+        ],
+        "documentos": [
+          {
+            "uid": "d1",
+            "nombre": "Contrato",
+            "tipo": "Legal",
+            "url": "https://x",
+            "accion": "Abrir",
+            "notas": ""
+          }
+        ],
+        "resumen": {
+          "contactosClave": 1,
+          "decisores": 1,
+          "areas": 2,
+          "canales": 2,
+          "proximaReunion": "2026-10-07"
+        }
+      },
+      "clockify": {
+        "ok": true,
+        "proyectoClockify": "AER-001 Bot",
+        "rango": {
+          "fechaInicio": "2026-08-01",
+          "fechaFin": "2026-10-02",
+          "fuente": "MPB"
+        },
+        "error": null
+      }
+    },
+    "state": {},
+    "context": {
+      "id": "AER.001",
+      "n": "Bot facturas",
+      "cliente": "ACME",
+      "etapa": "",
+      "fecha": "2026-10-23",
+      "k": {
+        "horas": 14.75,
+        "fact": 5.75,
+        "presupuesto": 100,
+        "consumoPct": 14.8,
+        "tiempoPct": 51.2,
+        "health": 70,
+        "vencidos": 1,
+        "desviacion": -36.4,
+        "horasFueraHorario": 3.25
+      },
+      "p": [
+        {
+          "a": "Kickoff",
+          "r": "Ana",
+          "f": "2026-08-02",
+          "e": "Completado",
+          "z": 0,
+          "d": ""
+        },
+        {
+          "a": "Diseño",
+          "r": "Ana",
+          "f": "2026-08-31",
+          "e": "Completado",
+          "z": 1,
+          "d": ""
+        },
+        {
+          "a": "Desarrollo",
+          "r": "Ana",
+          "f": "2026-10-15",
+          "e": "En progreso",
+          "z": 2,
+          "d": "Accesos"
+        },
+        {
+          "a": "Pruebas",
+          "r": "",
+          "f": "2026-10-02",
+          "e": "Por validar",
+          "z": 2,
+          "d": ""
+        },
+        {
+          "a": "Entrega UAT",
+          "r": "Beto",
+          "f": "2026-09-25",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        },
+        {
+          "a": "Go Live",
+          "r": "Beto",
+          "f": "2026-11-15",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        },
+        {
+          "a": "Documentar",
+          "r": "Carlos",
+          "f": "2026-09-20",
+          "e": "Detenido",
+          "z": 4,
+          "d": "Cliente"
+        }
+      ],
+      "r": [
+        {
+          "a": "Accesos tardíos",
+          "i": "Alto",
+          "e": "Abierto"
+        },
+        {
+          "a": "Rotación",
+          "i": "Bajo",
+          "e": "Cerrado"
+        },
+        {
+          "a": "Cambio de alcance",
+          "i": "Crítico",
+          "e": "Abierto"
+        }
+      ],
+      "a": [
+        {
+          "a": "Cerrar UAT",
+          "r": "Beto",
+          "f": "2026-09-01",
+          "e": "Completado"
+        },
+        {
+          "a": "revisar accesos",
+          "r": "ana",
+          "f": "2026-09-30",
+          "e": "En progreso"
+        },
+        {
+          "a": "Firmar contrato",
+          "r": "Beto",
+          "f": "2026-10-20",
+          "e": "Detenido"
+        }
+      ],
+      "v": [],
+      "c": [
+        {
+          "r": "Ana",
+          "o": 2
+        },
+        {
+          "r": "Beto",
+          "o": 6
+        }
+      ],
+      "b": []
+    },
+    "facts": {
+      "c": {
+        "id": "AER.001",
+        "n": "Bot facturas",
+        "cliente": "ACME",
+        "etapa": "",
+        "fecha": "2026-10-23",
+        "k": {
+          "horas": 14.75,
+          "fact": 5.75,
+          "presupuesto": 100,
+          "consumoPct": 14.8,
+          "tiempoPct": 51.2,
+          "health": 70,
+          "vencidos": 1,
+          "desviacion": -36.4,
+          "horasFueraHorario": 3.25
+        },
+        "p": [
+          {
+            "a": "Kickoff",
+            "r": "Ana",
+            "f": "2026-08-02",
+            "e": "Completado",
+            "z": 0,
+            "d": ""
+          },
+          {
+            "a": "Diseño",
+            "r": "Ana",
+            "f": "2026-08-31",
+            "e": "Completado",
+            "z": 1,
+            "d": ""
+          },
+          {
+            "a": "Desarrollo",
+            "r": "Ana",
+            "f": "2026-10-15",
+            "e": "En progreso",
+            "z": 2,
+            "d": "Accesos"
+          },
+          {
+            "a": "Pruebas",
+            "r": "",
+            "f": "2026-10-02",
+            "e": "Por validar",
+            "z": 2,
+            "d": ""
+          },
+          {
+            "a": "Entrega UAT",
+            "r": "Beto",
+            "f": "2026-09-25",
+            "e": "Por iniciar",
+            "z": 3,
+            "d": ""
+          },
+          {
+            "a": "Go Live",
+            "r": "Beto",
+            "f": "2026-11-15",
+            "e": "Por iniciar",
+            "z": 3,
+            "d": ""
+          },
+          {
+            "a": "Documentar",
+            "r": "Carlos",
+            "f": "2026-09-20",
+            "e": "Detenido",
+            "z": 4,
+            "d": "Cliente"
+          }
+        ],
+        "r": [
+          {
+            "a": "Accesos tardíos",
+            "i": "Alto",
+            "e": "Abierto"
+          },
+          {
+            "a": "Rotación",
+            "i": "Bajo",
+            "e": "Cerrado"
+          },
+          {
+            "a": "Cambio de alcance",
+            "i": "Crítico",
+            "e": "Abierto"
+          }
+        ],
+        "a": [
+          {
+            "a": "Cerrar UAT",
+            "r": "Beto",
+            "f": "2026-09-01",
+            "e": "Completado"
+          },
+          {
+            "a": "revisar accesos",
+            "r": "ana",
+            "f": "2026-09-30",
+            "e": "En progreso"
+          },
+          {
+            "a": "Firmar contrato",
+            "r": "Beto",
+            "f": "2026-10-20",
+            "e": "Detenido"
+          }
+        ],
+        "v": [],
+        "c": [
+          {
+            "r": "Ana",
+            "o": 2
+          },
+          {
+            "r": "Beto",
+            "o": 6
+          }
+        ],
+        "b": []
+      },
+      "activos": [
+        {
+          "a": "Desarrollo",
+          "r": "Ana",
+          "f": "2026-10-15",
+          "e": "En progreso",
+          "z": 2,
+          "d": "Accesos"
+        },
+        {
+          "a": "Entrega UAT",
+          "r": "Beto",
+          "f": "2026-09-25",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        },
+        {
+          "a": "Go Live",
+          "r": "Beto",
+          "f": "2026-11-15",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        }
+      ],
+      "venc": [
+        {
+          "a": "Desarrollo",
+          "r": "Ana",
+          "f": "2026-10-15",
+          "e": "En progreso",
+          "z": 2,
+          "d": "Accesos"
+        },
+        {
+          "a": "Entrega UAT",
+          "r": "Beto",
+          "f": "2026-09-25",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        }
+      ],
+      "prox": [
+        {
+          "a": "Go Live",
+          "r": "Beto",
+          "f": "2026-11-15",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        }
+      ],
+      "sobre": [],
+      "vac": [],
+      "abiertos": [
+        {
+          "a": "revisar accesos",
+          "r": "ana",
+          "f": "2026-09-30",
+          "e": "En progreso"
+        },
+        {
+          "a": "Firmar contrato",
+          "r": "Beto",
+          "f": "2026-10-20",
+          "e": "Detenido"
+        }
+      ],
+      "riesgo": [
+        {
+          "a": "Accesos tardíos",
+          "i": "Alto",
+          "e": "Abierto"
+        },
+        {
+          "a": "Cambio de alcance",
+          "i": "Crítico",
+          "e": "Abierto"
+        }
+      ],
+      "alerts": [
+        "2 compromiso(s) vencido(s)"
+      ],
+      "to": "2026-11-22"
+    }
+  },
+  {
+    "label": "fixture",
+    "dashboard": {
+      "ok": true,
+      "backendVersion": "AER_DASHBOARD_V8_CLIENTE_CONTACTOS",
+      "proyecto": {
+        "id": "AER.001",
+        "nombre": "Bot facturas",
+        "cliente": "ACME",
+        "servicio": "AER",
+        "deliveryManager": "Ana López",
+        "estado": "En curso",
+        "fechaInicio": "2026-08-01T06:00:00.000Z",
+        "fechaFin": "2026-11-30T06:00:00.000Z"
+      },
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 14.75,
+        "horasFacturables": 5.75,
+        "horasNoFacturables": 9,
+        "balanceHoras": 85.25,
+        "pctFacturables": 39,
+        "pctNoFacturables": 61,
+        "horasFueraHorario": 3.25,
+        "pctFueraHorario": 22,
+        "pctTiempo": 51.2,
+        "consumoPct": 14.8,
+        "desviacionPts": -36.4,
+        "diasRestantes": 59,
+        "costoReal": 84,
+        "healthScore": 70,
+        "healthLabel": "En seguimiento",
+        "healthDimensiones": {
+          "tiempo": 70,
+          "esfuerzo": 70,
+          "costo": 100,
+          "riesgo": 40
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": true
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "alto",
+          "titulo": "Compromisos vencidos",
+          "detalle": "1 compromiso(s) siguen abiertos después de su fecha.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas no facturables elevadas",
+          "detalle": "61% del total.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas fuera de horario",
+          "detalle": "3.25 h (22%).",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Riesgos críticos abiertos",
+          "detalle": "2 riesgo(s) requieren atención.",
+          "fuente": "Riesgos"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Acciones vencidas",
+          "detalle": "1 acción(es) vencidas.",
+          "fuente": "Acciones"
+        }
+      ],
+      "tareas": [
+        {
+          "nombre": "2026",
+          "horas": 8
+        },
+        {
+          "nombre": "Desarrollo",
+          "horas": 3.5
+        },
+        {
+          "nombre": "QA",
+          "horas": 2.25
+        },
+        {
+          "nombre": "Sin task / actividad",
+          "horas": 1
+        }
+      ],
+      "capacidad": [
+        {
+          "nombre": "Ana López",
+          "rol": "Dev",
+          "horasEstimadas": 60,
+          "horasReales": 4
+        },
+        {
+          "nombre": "Carlos",
+          "rol": "QA",
+          "horasEstimadas": 20,
+          "horasReales": 2.25
+        }
+      ],
+      "detalleRecursos": [
+        {
+          "recurso": "Zoe",
+          "rol": "",
+          "horasTotales": 8,
+          "facturables": 0,
+          "noFacturables": 8,
+          "fueraHorario": 0,
+          "costo": 44,
+          "pctTotal": 54.2
+        },
+        {
+          "recurso": "Ana López",
+          "rol": "",
+          "horasTotales": 4,
+          "facturables": 3,
+          "noFacturables": 1,
+          "fueraHorario": 1,
+          "costo": 40,
+          "pctTotal": 27.1
+        },
+        {
+          "recurso": "carlos",
+          "rol": "",
+          "horasTotales": 2.25,
+          "facturables": 2.25,
+          "noFacturables": 0,
+          "fueraHorario": 2.25,
+          "costo": 0,
+          "pctTotal": 15.3
+        },
+        {
+          "recurso": "Sin recurso",
+          "rol": "",
+          "horasTotales": 0.5,
+          "facturables": 0.5,
+          "noFacturables": 0,
+          "fueraHorario": 0,
+          "costo": 0,
+          "pctTotal": 3.4
+        }
+      ],
+      "tendenciaMensual": [
+        {
+          "mes": "2026-08",
+          "horas": 8,
+          "acumulado": 8
+        },
+        {
+          "mes": "2026-09",
+          "horas": 6.25,
+          "acumulado": 14.25
+        },
+        {
+          "mes": "2026-10",
+          "horas": 0.5,
+          "acumulado": 14.75
+        }
+      ],
+      "registros": [
+        {
+          "fecha": "2026-10-01",
+          "recurso": "",
+          "actividad": "Desarrollo",
+          "descripcion": "x",
+          "inicio": "",
+          "fin": "",
+          "duracion": 0.5,
+          "billable": true,
+          "fueraHorario": false
+        },
+        {
+          "fecha": "2026-09-30",
+          "recurso": "carlos",
+          "actividad": "QA",
+          "descripcion": "Pruebas",
+          "inicio": "",
+          "fin": "",
+          "duracion": 2.25,
+          "billable": true,
+          "fueraHorario": true
+        },
+        {
+          "fecha": "2026-09-02",
+          "recurso": "Ana López",
+          "actividad": "Sin task",
+          "descripcion": "",
+          "inicio": "",
+          "fin": "",
+          "duracion": 1,
+          "billable": false,
+          "fueraHorario": true
+        },
+        {
+          "fecha": "2026-09-01",
+          "recurso": "Ana López",
+          "actividad": "Desarrollo",
+          "descripcion": "Diseño",
+          "inicio": "",
+          "fin": "",
+          "duracion": 3,
+          "billable": true,
+          "fueraHorario": false
+        },
+        {
+          "fecha": "2026-08-15",
+          "recurso": "Zoe",
+          "actividad": "2026",
+          "descripcion": "Kickoff",
+          "inicio": "",
+          "fin": "",
+          "duracion": 8,
+          "billable": false,
+          "fueraHorario": false
+        }
+      ],
+      "plan": {
+        "filas": [
+          {
+            "uid": "p9",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Kickoff",
+            "responsable": "Ana",
+            "inicioPlan": "2026-08-01",
+            "finPlan": "2026-08-02",
+            "inicioReal": "",
+            "finReal": "2026-08-05",
+            "avance": 100,
+            "estado": "Completado",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 10
+          },
+          {
+            "uid": "p1",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Diseño",
+            "responsable": "Ana",
+            "inicioPlan": "2026-08-01",
+            "finPlan": "2026-08-31",
+            "inicioReal": "",
+            "finReal": "2026-08-30",
+            "avance": 100,
+            "estado": "Completado",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 1,
+            "esfuerzo": 1,
+            "actualizado": "",
+            "_row": 2
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Desarrollo",
+            "responsable": "Ana",
+            "inicioPlan": "2026-09-01",
+            "finPlan": "2026-10-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 40,
+            "estado": "En progreso",
+            "dependencia": "Accesos",
+            "estadoDependencia": "Abierta",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 3
+          },
+          {
+            "uid": "p6",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Pruebas",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-02",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por validar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 7
+          },
+          {
+            "uid": "p4",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Entrega UAT",
+            "responsable": "Beto",
+            "inicioPlan": "2026-09-20",
+            "finPlan": "2026-09-25",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 5
+          },
+          {
+            "uid": "p5",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Go Live",
+            "responsable": "Beto",
+            "inicioPlan": "2026-11-01",
+            "finPlan": "2026-11-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 6
+          },
+          {
+            "uid": "p7",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Documentar",
+            "responsable": "Carlos",
+            "inicioPlan": "2026-09-10",
+            "finPlan": "2026-09-20",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Detenido",
+            "dependencia": "Cliente",
+            "estadoDependencia": "Detenida",
+            "notas": "",
+            "orden": 4,
+            "esfuerzo": 4,
+            "actualizado": "",
+            "_row": 8
+          }
+        ],
+        "actividades": [
+          {
+            "uid": "p1",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Diseño",
+            "responsable": "Ana",
+            "inicioPlan": "2026-08-01",
+            "finPlan": "2026-08-31",
+            "inicioReal": "",
+            "finReal": "2026-08-30",
+            "avance": 100,
+            "estado": "Completado",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 1,
+            "esfuerzo": 1,
+            "actualizado": "",
+            "_row": 2
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Desarrollo",
+            "responsable": "Ana",
+            "inicioPlan": "2026-09-01",
+            "finPlan": "2026-10-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 40,
+            "estado": "En progreso",
+            "dependencia": "Accesos",
+            "estadoDependencia": "Abierta",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 3
+          },
+          {
+            "uid": "p6",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Pruebas",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-02",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por validar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 7
+          },
+          {
+            "uid": "p7",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Documentar",
+            "responsable": "Carlos",
+            "inicioPlan": "2026-09-10",
+            "finPlan": "2026-09-20",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Detenido",
+            "dependencia": "Cliente",
+            "estadoDependencia": "Detenida",
+            "notas": "",
+            "orden": 4,
+            "esfuerzo": 4,
+            "actualizado": "",
+            "_row": 8
+          }
+        ],
+        "hitos": [
+          {
+            "uid": "p9",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Kickoff",
+            "responsable": "Ana",
+            "inicioPlan": "2026-08-01",
+            "finPlan": "2026-08-02",
+            "inicioReal": "",
+            "finReal": "2026-08-05",
+            "avance": 100,
+            "estado": "Completado",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 10,
+            "statusCalculado": "Atrasado"
+          },
+          {
+            "uid": "p4",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Entrega UAT",
+            "responsable": "Beto",
+            "inicioPlan": "2026-09-20",
+            "finPlan": "2026-09-25",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 5,
+            "statusCalculado": "Riesgo"
+          },
+          {
+            "uid": "p5",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Go Live",
+            "responsable": "Beto",
+            "inicioPlan": "2026-11-01",
+            "finPlan": "2026-11-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 6,
+            "statusCalculado": "Pendiente"
+          }
+        ],
+        "avancePlan": 92.63,
+        "avanceReal": 35,
+        "desviacion": -57.63,
+        "hitosCumplidos": 0,
+        "hitosTotal": 3,
+        "proximosHitos": [
+          {
+            "uid": "p4",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Entrega UAT",
+            "responsable": "Beto",
+            "inicioPlan": "2026-09-20",
+            "finPlan": "2026-09-25",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 5,
+            "statusCalculado": "Riesgo"
+          },
+          {
+            "uid": "p5",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Go Live",
+            "responsable": "Beto",
+            "inicioPlan": "2026-11-01",
+            "finPlan": "2026-11-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 6,
+            "statusCalculado": "Pendiente"
+          }
+        ],
+        "compromisosTotal": 7,
+        "cerradosTotal": 2,
+        "cerradosATiempo": 1,
+        "vencidosAbiertos": 1,
+        "vencenHoy": 0,
+        "vencidosDetalle": [
+          {
+            "uid": "p4",
+            "actividad": "Entrega UAT",
+            "responsable": "Beto",
+            "fecha": "2026-09-25",
+            "estado": "Por iniciar"
+          }
+        ],
+        "vencenHoyDetalle": [],
+        "proximosCompromisos": [
+          {
+            "uid": "p6",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Pruebas",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-02",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por validar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 7
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.001",
+            "tipo": "Actividad",
+            "actividad": "Desarrollo",
+            "responsable": "Ana",
+            "inicioPlan": "2026-09-01",
+            "finPlan": "2026-10-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 40,
+            "estado": "En progreso",
+            "dependencia": "Accesos",
+            "estadoDependencia": "Abierta",
+            "notas": "",
+            "orden": 2,
+            "esfuerzo": 2,
+            "actualizado": "",
+            "_row": 3
+          },
+          {
+            "uid": "p5",
+            "idProyecto": "AER.001",
+            "tipo": "Hito",
+            "actividad": "Go Live",
+            "responsable": "Beto",
+            "inicioPlan": "2026-11-01",
+            "finPlan": "2026-11-15",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 3,
+            "esfuerzo": 3,
+            "actualizado": "",
+            "_row": 6
+          }
+        ],
+        "pctCerrados": 28.6,
+        "pctCerradosATiempo": 50,
+        "tieneDatos": true,
+        "avancePlanReferencia": 92.63
+      },
+      "riesgos": {
+        "filas": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r5",
+            "riesgo": "Rotación",
+            "impacto": "Bajo",
+            "probabilidad": "Baja",
+            "responsable": "Carlos",
+            "fechaLimite": "2026-11-01",
+            "accion": "",
+            "estado": "Cerrado",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "activos": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "criticos": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "score": 40,
+        "tieneDatos": true
+      },
+      "acciones": {
+        "filas": [
+          {
+            "uid": "a4",
+            "idProyecto": "AER.001",
+            "accion": "Cerrar UAT",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-01",
+            "fechaReal": "2026-09-02",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "abiertas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "vencidas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          }
+        ],
+        "completadas": [
+          {
+            "uid": "a4",
+            "idProyecto": "AER.001",
+            "accion": "Cerrar UAT",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-01",
+            "fechaReal": "2026-09-02",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "detenidas": [
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "tieneDatos": true
+      },
+      "vacaciones": {
+        "filas": []
+      },
+      "evaluaciones": {
+        "filas": [
+          {
+            "uid": "e2",
+            "recurso": "Carlos",
+            "fechaEvaluacion": "2026-09-15",
+            "periodo": "",
+            "evaluador": "Beto",
+            "score": 65,
+            "calidad": 0,
+            "cumplimiento": 0,
+            "comunicacion": 0,
+            "colaboracion": 0,
+            "autonomia": 0,
+            "categoria": "Crítico",
+            "comentario": "",
+            "planAccion": "",
+            "proximaEvaluacion": ""
+          },
+          {
+            "uid": "e1",
+            "recurso": "Ana",
+            "fechaEvaluacion": "2026-09-01",
+            "periodo": "Sep 2026",
+            "evaluador": "Beto",
+            "score": 87,
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 100,
+            "autonomia": 95,
+            "categoria": "Sólido",
+            "comentario": "",
+            "planAccion": "",
+            "proximaEvaluacion": ""
+          }
+        ]
+      },
+      "cliente": {
+        "contactos": [
+          {
+            "uid": "c2",
+            "nombre": "Álvaro",
+            "cargo": "PO",
+            "rol": "PO",
+            "area": "Finanzas",
+            "correo": "",
+            "telefono": "",
+            "nivelDecision": "Bajo",
+            "estado": "Inactivo",
+            "esDecisor": false,
+            "canal": "Correo; Teams",
+            "alcance": "",
+            "requerimientos": false,
+            "aprueba": false,
+            "valida": false,
+            "decide": false,
+            "informado": false,
+            "notas": ""
+          },
+          {
+            "uid": "c1",
+            "nombre": "Zoe",
+            "cargo": "CTO",
+            "rol": "Sponsor",
+            "area": "TI",
+            "correo": "z@x.com",
+            "telefono": "",
+            "nivelDecision": "Alto",
+            "estado": "Activo",
+            "esDecisor": true,
+            "canal": "Teams",
+            "alcance": "",
+            "requerimientos": true,
+            "aprueba": true,
+            "valida": false,
+            "decide": false,
+            "informado": false,
+            "notas": ""
+          }
+        ],
+        "info": {
+          "uid": "i1",
+          "areaPrincipal": "TI",
+          "sponsor": "Zoe",
+          "productOwner": "Álvaro",
+          "correoDistribucion": "",
+          "rutaEscalamiento": "",
+          "canales": "",
+          "proximaReunion": "2026-10-07",
+          "tipoReunion": "Comité",
+          "cliente": "ACME",
+          "deliveryManager": "Ana López"
+        },
+        "gobierno": [
+          {
+            "uid": "",
+            "reunion": "Seguimiento semanal",
+            "frecuencia": "Semanal",
+            "participantes": "PO + Delivery + Cliente",
+            "canal": "Teams",
+            "notas": ""
+          },
+          {
+            "uid": "",
+            "reunion": "Comité operativo",
+            "frecuencia": "Quincenal",
+            "participantes": "Sponsor + PO + Delivery",
+            "canal": "Correo",
+            "notas": ""
+          },
+          {
+            "uid": "",
+            "reunion": "Comité ejecutivo",
+            "frecuencia": "Mensual",
+            "participantes": "Sponsor + Dirección",
+            "canal": "Teams",
+            "notas": ""
+          }
+        ],
+        "documentos": [
+          {
+            "uid": "d1",
+            "nombre": "Contrato",
+            "tipo": "Legal",
+            "url": "https://x",
+            "accion": "Abrir",
+            "notas": ""
+          }
+        ],
+        "resumen": {
+          "contactosClave": 1,
+          "decisores": 1,
+          "areas": 2,
+          "canales": 2,
+          "proximaReunion": "2026-10-07"
+        }
+      },
+      "clockify": {
+        "ok": true,
+        "proyectoClockify": "AER-001 Bot",
+        "rango": {
+          "fechaInicio": "2026-08-01",
+          "fechaFin": "2026-10-02",
+          "fuente": "MPB"
+        },
+        "error": null
+      }
+    },
+    "state": {
+      "accionesPartes": [
+        {
+          "accion": "A",
+          "estado": "Completado"
+        },
+        {
+          "accion": "B",
+          "estado": "completado"
+        },
+        {
+          "accion": "C",
+          "estado": "Pendiente"
+        }
+      ]
+    },
+    "context": {
+      "id": "AER.001",
+      "n": "Bot facturas",
+      "cliente": "ACME",
+      "etapa": "",
+      "fecha": "2026-10-23",
+      "k": {
+        "horas": 14.75,
+        "fact": 5.75,
+        "presupuesto": 100,
+        "consumoPct": 14.8,
+        "tiempoPct": 51.2,
+        "health": 70,
+        "vencidos": 1,
+        "desviacion": -36.4,
+        "horasFueraHorario": 3.25
+      },
+      "p": [
+        {
+          "a": "Kickoff",
+          "r": "Ana",
+          "f": "2026-08-02",
+          "e": "Completado",
+          "z": 0,
+          "d": ""
+        },
+        {
+          "a": "Diseño",
+          "r": "Ana",
+          "f": "2026-08-31",
+          "e": "Completado",
+          "z": 1,
+          "d": ""
+        },
+        {
+          "a": "Desarrollo",
+          "r": "Ana",
+          "f": "2026-10-15",
+          "e": "En progreso",
+          "z": 2,
+          "d": "Accesos"
+        },
+        {
+          "a": "Pruebas",
+          "r": "",
+          "f": "2026-10-02",
+          "e": "Por validar",
+          "z": 2,
+          "d": ""
+        },
+        {
+          "a": "Entrega UAT",
+          "r": "Beto",
+          "f": "2026-09-25",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        },
+        {
+          "a": "Go Live",
+          "r": "Beto",
+          "f": "2026-11-15",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        },
+        {
+          "a": "Documentar",
+          "r": "Carlos",
+          "f": "2026-09-20",
+          "e": "Detenido",
+          "z": 4,
+          "d": "Cliente"
+        }
+      ],
+      "r": [
+        {
+          "a": "Accesos tardíos",
+          "i": "Alto",
+          "e": "Abierto"
+        },
+        {
+          "a": "Rotación",
+          "i": "Bajo",
+          "e": "Cerrado"
+        },
+        {
+          "a": "Cambio de alcance",
+          "i": "Crítico",
+          "e": "Abierto"
+        }
+      ],
+      "a": [
+        {
+          "a": "Cerrar UAT",
+          "r": "Beto",
+          "f": "2026-09-01",
+          "e": "Completado"
+        },
+        {
+          "a": "revisar accesos",
+          "r": "ana",
+          "f": "2026-09-30",
+          "e": "En progreso"
+        },
+        {
+          "a": "Firmar contrato",
+          "r": "Beto",
+          "f": "2026-10-20",
+          "e": "Detenido"
+        }
+      ],
+      "v": [],
+      "c": [
+        {
+          "r": "Ana",
+          "o": 2
+        },
+        {
+          "r": "Beto",
+          "o": 6
+        }
+      ],
+      "b": [
+        {
+          "a": "B",
+          "e": "completado"
+        },
+        {
+          "a": "C",
+          "e": "Pendiente"
+        }
+      ]
+    },
+    "facts": {
+      "c": {
+        "id": "AER.001",
+        "n": "Bot facturas",
+        "cliente": "ACME",
+        "etapa": "",
+        "fecha": "2026-10-23",
+        "k": {
+          "horas": 14.75,
+          "fact": 5.75,
+          "presupuesto": 100,
+          "consumoPct": 14.8,
+          "tiempoPct": 51.2,
+          "health": 70,
+          "vencidos": 1,
+          "desviacion": -36.4,
+          "horasFueraHorario": 3.25
+        },
+        "p": [
+          {
+            "a": "Kickoff",
+            "r": "Ana",
+            "f": "2026-08-02",
+            "e": "Completado",
+            "z": 0,
+            "d": ""
+          },
+          {
+            "a": "Diseño",
+            "r": "Ana",
+            "f": "2026-08-31",
+            "e": "Completado",
+            "z": 1,
+            "d": ""
+          },
+          {
+            "a": "Desarrollo",
+            "r": "Ana",
+            "f": "2026-10-15",
+            "e": "En progreso",
+            "z": 2,
+            "d": "Accesos"
+          },
+          {
+            "a": "Pruebas",
+            "r": "",
+            "f": "2026-10-02",
+            "e": "Por validar",
+            "z": 2,
+            "d": ""
+          },
+          {
+            "a": "Entrega UAT",
+            "r": "Beto",
+            "f": "2026-09-25",
+            "e": "Por iniciar",
+            "z": 3,
+            "d": ""
+          },
+          {
+            "a": "Go Live",
+            "r": "Beto",
+            "f": "2026-11-15",
+            "e": "Por iniciar",
+            "z": 3,
+            "d": ""
+          },
+          {
+            "a": "Documentar",
+            "r": "Carlos",
+            "f": "2026-09-20",
+            "e": "Detenido",
+            "z": 4,
+            "d": "Cliente"
+          }
+        ],
+        "r": [
+          {
+            "a": "Accesos tardíos",
+            "i": "Alto",
+            "e": "Abierto"
+          },
+          {
+            "a": "Rotación",
+            "i": "Bajo",
+            "e": "Cerrado"
+          },
+          {
+            "a": "Cambio de alcance",
+            "i": "Crítico",
+            "e": "Abierto"
+          }
+        ],
+        "a": [
+          {
+            "a": "Cerrar UAT",
+            "r": "Beto",
+            "f": "2026-09-01",
+            "e": "Completado"
+          },
+          {
+            "a": "revisar accesos",
+            "r": "ana",
+            "f": "2026-09-30",
+            "e": "En progreso"
+          },
+          {
+            "a": "Firmar contrato",
+            "r": "Beto",
+            "f": "2026-10-20",
+            "e": "Detenido"
+          }
+        ],
+        "v": [],
+        "c": [
+          {
+            "r": "Ana",
+            "o": 2
+          },
+          {
+            "r": "Beto",
+            "o": 6
+          }
+        ],
+        "b": [
+          {
+            "a": "B",
+            "e": "completado"
+          },
+          {
+            "a": "C",
+            "e": "Pendiente"
+          }
+        ]
+      },
+      "activos": [
+        {
+          "a": "Desarrollo",
+          "r": "Ana",
+          "f": "2026-10-15",
+          "e": "En progreso",
+          "z": 2,
+          "d": "Accesos"
+        },
+        {
+          "a": "Entrega UAT",
+          "r": "Beto",
+          "f": "2026-09-25",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        },
+        {
+          "a": "Go Live",
+          "r": "Beto",
+          "f": "2026-11-15",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        }
+      ],
+      "venc": [
+        {
+          "a": "Desarrollo",
+          "r": "Ana",
+          "f": "2026-10-15",
+          "e": "En progreso",
+          "z": 2,
+          "d": "Accesos"
+        },
+        {
+          "a": "Entrega UAT",
+          "r": "Beto",
+          "f": "2026-09-25",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        }
+      ],
+      "prox": [
+        {
+          "a": "Go Live",
+          "r": "Beto",
+          "f": "2026-11-15",
+          "e": "Por iniciar",
+          "z": 3,
+          "d": ""
+        }
+      ],
+      "sobre": [],
+      "vac": [],
+      "abiertos": [
+        {
+          "a": "revisar accesos",
+          "r": "ana",
+          "f": "2026-09-30",
+          "e": "En progreso"
+        },
+        {
+          "a": "Firmar contrato",
+          "r": "Beto",
+          "f": "2026-10-20",
+          "e": "Detenido"
+        }
+      ],
+      "riesgo": [
+        {
+          "a": "Accesos tardíos",
+          "i": "Alto",
+          "e": "Abierto"
+        },
+        {
+          "a": "Cambio de alcance",
+          "i": "Crítico",
+          "e": "Abierto"
+        }
+      ],
+      "alerts": [
+        "2 compromiso(s) vencido(s)"
+      ],
+      "to": "2026-11-22"
+    }
+  },
+  {
+    "label": "overload and truncation",
+    "dashboard": {
+      "ok": true,
+      "backendVersion": "AER_DASHBOARD_V8_CLIENTE_CONTACTOS",
+      "proyecto": {
+        "id": "AER.001",
+        "nombre": "Bot facturas",
+        "cliente": "ACME",
+        "servicio": "AER",
+        "deliveryManager": "Ana López",
+        "estado": "En curso",
+        "fechaInicio": "2026-08-01T06:00:00.000Z",
+        "fechaFin": "2026-11-30T06:00:00.000Z"
+      },
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 110,
+        "horasFacturables": 5.75,
+        "horasNoFacturables": 9,
+        "balanceHoras": 85.25,
+        "pctFacturables": 39,
+        "pctNoFacturables": 61,
+        "horasFueraHorario": 3.25,
+        "pctFueraHorario": 22,
+        "pctTiempo": 51.2,
+        "consumoPct": 14.8,
+        "desviacionPts": -36.4,
+        "diasRestantes": 59,
+        "costoReal": 84,
+        "healthScore": 70,
+        "healthLabel": "En seguimiento",
+        "healthDimensiones": {
+          "tiempo": 70,
+          "esfuerzo": 70,
+          "costo": 100,
+          "riesgo": 40
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": true
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "alto",
+          "titulo": "Compromisos vencidos",
+          "detalle": "1 compromiso(s) siguen abiertos después de su fecha.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas no facturables elevadas",
+          "detalle": "61% del total.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas fuera de horario",
+          "detalle": "3.25 h (22%).",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Riesgos críticos abiertos",
+          "detalle": "2 riesgo(s) requieren atención.",
+          "fuente": "Riesgos"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Acciones vencidas",
+          "detalle": "1 acción(es) vencidas.",
+          "fuente": "Acciones"
+        }
+      ],
+      "tareas": [
+        {
+          "nombre": "2026",
+          "horas": 8
+        },
+        {
+          "nombre": "Desarrollo",
+          "horas": 3.5
+        },
+        {
+          "nombre": "QA",
+          "horas": 2.25
+        },
+        {
+          "nombre": "Sin task / actividad",
+          "horas": 1
+        }
+      ],
+      "capacidad": [
+        {
+          "nombre": "Ana López",
+          "rol": "Dev",
+          "horasEstimadas": 60,
+          "horasReales": 4
+        },
+        {
+          "nombre": "Carlos",
+          "rol": "QA",
+          "horasEstimadas": 20,
+          "horasReales": 2.25
+        }
+      ],
+      "detalleRecursos": [
+        {
+          "recurso": "Zoe",
+          "rol": "",
+          "horasTotales": 8,
+          "facturables": 0,
+          "noFacturables": 8,
+          "fueraHorario": 0,
+          "costo": 44,
+          "pctTotal": 54.2
+        },
+        {
+          "recurso": "Ana López",
+          "rol": "",
+          "horasTotales": 4,
+          "facturables": 3,
+          "noFacturables": 1,
+          "fueraHorario": 1,
+          "costo": 40,
+          "pctTotal": 27.1
+        },
+        {
+          "recurso": "carlos",
+          "rol": "",
+          "horasTotales": 2.25,
+          "facturables": 2.25,
+          "noFacturables": 0,
+          "fueraHorario": 2.25,
+          "costo": 0,
+          "pctTotal": 15.3
+        },
+        {
+          "recurso": "Sin recurso",
+          "rol": "",
+          "horasTotales": 0.5,
+          "facturables": 0.5,
+          "noFacturables": 0,
+          "fueraHorario": 0,
+          "costo": 0,
+          "pctTotal": 3.4
+        }
+      ],
+      "tendenciaMensual": [
+        {
+          "mes": "2026-08",
+          "horas": 8,
+          "acumulado": 8
+        },
+        {
+          "mes": "2026-09",
+          "horas": 6.25,
+          "acumulado": 14.25
+        },
+        {
+          "mes": "2026-10",
+          "horas": 0.5,
+          "acumulado": 14.75
+        }
+      ],
+      "registros": [
+        {
+          "fecha": "2026-10-01",
+          "recurso": "",
+          "actividad": "Desarrollo",
+          "descripcion": "x",
+          "inicio": "",
+          "fin": "",
+          "duracion": 0.5,
+          "billable": true,
+          "fueraHorario": false
+        },
+        {
+          "fecha": "2026-09-30",
+          "recurso": "carlos",
+          "actividad": "QA",
+          "descripcion": "Pruebas",
+          "inicio": "",
+          "fin": "",
+          "duracion": 2.25,
+          "billable": true,
+          "fueraHorario": true
+        },
+        {
+          "fecha": "2026-09-02",
+          "recurso": "Ana López",
+          "actividad": "Sin task",
+          "descripcion": "",
+          "inicio": "",
+          "fin": "",
+          "duracion": 1,
+          "billable": false,
+          "fueraHorario": true
+        },
+        {
+          "fecha": "2026-09-01",
+          "recurso": "Ana López",
+          "actividad": "Desarrollo",
+          "descripcion": "Diseño",
+          "inicio": "",
+          "fin": "",
+          "duracion": 3,
+          "billable": true,
+          "fueraHorario": false
+        },
+        {
+          "fecha": "2026-08-15",
+          "recurso": "Zoe",
+          "actividad": "2026",
+          "descripcion": "Kickoff",
+          "inicio": "",
+          "fin": "",
+          "duracion": 8,
+          "billable": false,
+          "fueraHorario": false
+        }
+      ],
+      "plan": {
+        "filas": [
+          {
+            "actividad": "Tarea 0",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 1",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 2",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 3",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 4",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 5",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 6",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 7",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 8",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 9",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 10",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 11",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 12",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 13",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 14",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 15",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 16",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 17",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 18",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 19",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 20",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 21",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 22",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 23",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 24",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 25",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 26",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 27",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 28",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 29",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 30",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 31",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          }
+        ]
+      },
+      "riesgos": {
+        "filas": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r5",
+            "riesgo": "Rotación",
+            "impacto": "Bajo",
+            "probabilidad": "Baja",
+            "responsable": "Carlos",
+            "fechaLimite": "2026-11-01",
+            "accion": "",
+            "estado": "Cerrado",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "activos": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "criticos": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "score": 40,
+        "tieneDatos": true
+      },
+      "acciones": {
+        "filas": [
+          {
+            "uid": "a4",
+            "idProyecto": "AER.001",
+            "accion": "Cerrar UAT",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-01",
+            "fechaReal": "2026-09-02",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "abiertas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "vencidas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          }
+        ],
+        "completadas": [
+          {
+            "uid": "a4",
+            "idProyecto": "AER.001",
+            "accion": "Cerrar UAT",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-01",
+            "fechaReal": "2026-09-02",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "detenidas": [
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "tieneDatos": true
+      },
+      "vacaciones": {
+        "filas": [
+          {
+            "recurso": "Ana",
+            "inicio": "2026-10-24",
+            "fin": "2026-10-25",
+            "estado": "Aprobada"
+          },
+          {
+            "recurso": "Beto",
+            "inicio": "2026-10-24",
+            "fin": "2026-10-25",
+            "estado": "Pendiente"
+          }
+        ]
+      },
+      "evaluaciones": {
+        "filas": [
+          {
+            "uid": "e2",
+            "recurso": "Carlos",
+            "fechaEvaluacion": "2026-09-15",
+            "periodo": "",
+            "evaluador": "Beto",
+            "score": 65,
+            "calidad": 0,
+            "cumplimiento": 0,
+            "comunicacion": 0,
+            "colaboracion": 0,
+            "autonomia": 0,
+            "categoria": "Crítico",
+            "comentario": "",
+            "planAccion": "",
+            "proximaEvaluacion": ""
+          },
+          {
+            "uid": "e1",
+            "recurso": "Ana",
+            "fechaEvaluacion": "2026-09-01",
+            "periodo": "Sep 2026",
+            "evaluador": "Beto",
+            "score": 87,
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 100,
+            "autonomia": 95,
+            "categoria": "Sólido",
+            "comentario": "",
+            "planAccion": "",
+            "proximaEvaluacion": ""
+          }
+        ]
+      },
+      "cliente": {
+        "contactos": [
+          {
+            "uid": "c2",
+            "nombre": "Álvaro",
+            "cargo": "PO",
+            "rol": "PO",
+            "area": "Finanzas",
+            "correo": "",
+            "telefono": "",
+            "nivelDecision": "Bajo",
+            "estado": "Inactivo",
+            "esDecisor": false,
+            "canal": "Correo; Teams",
+            "alcance": "",
+            "requerimientos": false,
+            "aprueba": false,
+            "valida": false,
+            "decide": false,
+            "informado": false,
+            "notas": ""
+          },
+          {
+            "uid": "c1",
+            "nombre": "Zoe",
+            "cargo": "CTO",
+            "rol": "Sponsor",
+            "area": "TI",
+            "correo": "z@x.com",
+            "telefono": "",
+            "nivelDecision": "Alto",
+            "estado": "Activo",
+            "esDecisor": true,
+            "canal": "Teams",
+            "alcance": "",
+            "requerimientos": true,
+            "aprueba": true,
+            "valida": false,
+            "decide": false,
+            "informado": false,
+            "notas": ""
+          }
+        ],
+        "info": {
+          "uid": "i1",
+          "areaPrincipal": "TI",
+          "sponsor": "Zoe",
+          "productOwner": "Álvaro",
+          "correoDistribucion": "",
+          "rutaEscalamiento": "",
+          "canales": "",
+          "proximaReunion": "2026-10-07",
+          "tipoReunion": "Comité",
+          "cliente": "ACME",
+          "deliveryManager": "Ana López"
+        },
+        "gobierno": [
+          {
+            "uid": "",
+            "reunion": "Seguimiento semanal",
+            "frecuencia": "Semanal",
+            "participantes": "PO + Delivery + Cliente",
+            "canal": "Teams",
+            "notas": ""
+          },
+          {
+            "uid": "",
+            "reunion": "Comité operativo",
+            "frecuencia": "Quincenal",
+            "participantes": "Sponsor + PO + Delivery",
+            "canal": "Correo",
+            "notas": ""
+          },
+          {
+            "uid": "",
+            "reunion": "Comité ejecutivo",
+            "frecuencia": "Mensual",
+            "participantes": "Sponsor + Dirección",
+            "canal": "Teams",
+            "notas": ""
+          }
+        ],
+        "documentos": [
+          {
+            "uid": "d1",
+            "nombre": "Contrato",
+            "tipo": "Legal",
+            "url": "https://x",
+            "accion": "Abrir",
+            "notas": ""
+          }
+        ],
+        "resumen": {
+          "contactosClave": 1,
+          "decisores": 1,
+          "areas": 2,
+          "canales": 2,
+          "proximaReunion": "2026-10-07"
+        }
+      },
+      "clockify": {
+        "ok": true,
+        "proyectoClockify": "AER-001 Bot",
+        "rango": {
+          "fechaInicio": "2026-08-01",
+          "fechaFin": "2026-10-02",
+          "fuente": "MPB"
+        },
+        "error": null
+      }
+    },
+    "state": {},
+    "context": {
+      "id": "AER.001",
+      "n": "Bot facturas",
+      "cliente": "ACME",
+      "etapa": "",
+      "fecha": "2026-10-23",
+      "k": {
+        "horas": 110,
+        "fact": 5.75,
+        "presupuesto": 100,
+        "consumoPct": 14.8,
+        "tiempoPct": 51.2,
+        "health": 70,
+        "vencidos": 0,
+        "desviacion": -36.4,
+        "horasFueraHorario": 3.25
+      },
+      "p": [
+        {
+          "a": "Tarea 0",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 1",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 2",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 3",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 4",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 5",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 6",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 7",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 8",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 9",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 10",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 11",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 12",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 13",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 14",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 15",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 16",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 17",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 18",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 19",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 20",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 21",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 22",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 23",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 24",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 25",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 26",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 27",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        }
+      ],
+      "r": [
+        {
+          "a": "Accesos tardíos",
+          "i": "Alto",
+          "e": "Abierto"
+        },
+        {
+          "a": "Rotación",
+          "i": "Bajo",
+          "e": "Cerrado"
+        },
+        {
+          "a": "Cambio de alcance",
+          "i": "Crítico",
+          "e": "Abierto"
+        }
+      ],
+      "a": [
+        {
+          "a": "Cerrar UAT",
+          "r": "Beto",
+          "f": "2026-09-01",
+          "e": "Completado"
+        },
+        {
+          "a": "revisar accesos",
+          "r": "ana",
+          "f": "2026-09-30",
+          "e": "En progreso"
+        },
+        {
+          "a": "Firmar contrato",
+          "r": "Beto",
+          "f": "2026-10-20",
+          "e": "Detenido"
+        }
+      ],
+      "v": [
+        {
+          "r": "Ana",
+          "i": "2026-10-24",
+          "f": "2026-10-25",
+          "e": "Aprobada"
+        }
+      ],
+      "c": [
+        {
+          "r": "Ana",
+          "o": 22
+        }
+      ],
+      "b": []
+    },
+    "facts": {
+      "c": {
+        "id": "AER.001",
+        "n": "Bot facturas",
+        "cliente": "ACME",
+        "etapa": "",
+        "fecha": "2026-10-23",
+        "k": {
+          "horas": 110,
+          "fact": 5.75,
+          "presupuesto": 100,
+          "consumoPct": 14.8,
+          "tiempoPct": 51.2,
+          "health": 70,
+          "vencidos": 0,
+          "desviacion": -36.4,
+          "horasFueraHorario": 3.25
+        },
+        "p": [
+          {
+            "a": "Tarea 0",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 1",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 2",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 3",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 4",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 5",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 6",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 7",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 8",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 9",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 10",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 11",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 12",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 13",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 14",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 15",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 16",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 17",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 18",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 19",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 20",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 21",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 22",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 23",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 24",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 25",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 26",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 27",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          }
+        ],
+        "r": [
+          {
+            "a": "Accesos tardíos",
+            "i": "Alto",
+            "e": "Abierto"
+          },
+          {
+            "a": "Rotación",
+            "i": "Bajo",
+            "e": "Cerrado"
+          },
+          {
+            "a": "Cambio de alcance",
+            "i": "Crítico",
+            "e": "Abierto"
+          }
+        ],
+        "a": [
+          {
+            "a": "Cerrar UAT",
+            "r": "Beto",
+            "f": "2026-09-01",
+            "e": "Completado"
+          },
+          {
+            "a": "revisar accesos",
+            "r": "ana",
+            "f": "2026-09-30",
+            "e": "En progreso"
+          },
+          {
+            "a": "Firmar contrato",
+            "r": "Beto",
+            "f": "2026-10-20",
+            "e": "Detenido"
+          }
+        ],
+        "v": [
+          {
+            "r": "Ana",
+            "i": "2026-10-24",
+            "f": "2026-10-25",
+            "e": "Aprobada"
+          }
+        ],
+        "c": [
+          {
+            "r": "Ana",
+            "o": 22
+          }
+        ],
+        "b": []
+      },
+      "activos": [
+        {
+          "a": "Tarea 1",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 2",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 4",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 5",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 7",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 8",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 10",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 11",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 13",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 14",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 16",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 17",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 19",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 20",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 22",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 23",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 25",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 26",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        }
+      ],
+      "venc": [
+        {
+          "a": "Tarea 1",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 5",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 7",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 11",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 13",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 17",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 19",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 23",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 25",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        }
+      ],
+      "prox": [
+        {
+          "a": "Tarea 2",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 4",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 8",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 10",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 14",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 16",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 20",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 22",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 26",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        }
+      ],
+      "sobre": [
+        {
+          "r": "Ana",
+          "o": 22
+        }
+      ],
+      "vac": [
+        {
+          "r": "Ana",
+          "i": "2026-10-24",
+          "f": "2026-10-25",
+          "e": "Aprobada"
+        }
+      ],
+      "abiertos": [
+        {
+          "a": "revisar accesos",
+          "r": "ana",
+          "f": "2026-09-30",
+          "e": "En progreso"
+        },
+        {
+          "a": "Firmar contrato",
+          "r": "Beto",
+          "f": "2026-10-20",
+          "e": "Detenido"
+        }
+      ],
+      "riesgo": [
+        {
+          "a": "Accesos tardíos",
+          "i": "Alto",
+          "e": "Abierto"
+        },
+        {
+          "a": "Cambio de alcance",
+          "i": "Crítico",
+          "e": "Abierto"
+        }
+      ],
+      "alerts": [
+        "9 compromiso(s) vencido(s)",
+        "1 recurso(s) con esfuerzo superior a 6 puntos",
+        "1 vacaciones aprobadas en los próximos 30 días",
+        "Horas consumidas superan el presupuesto"
+      ],
+      "to": "2026-11-22"
+    }
+  },
+  {
+    "label": "overload and truncation",
+    "dashboard": {
+      "ok": true,
+      "backendVersion": "AER_DASHBOARD_V8_CLIENTE_CONTACTOS",
+      "proyecto": {
+        "id": "AER.001",
+        "nombre": "Bot facturas",
+        "cliente": "ACME",
+        "servicio": "AER",
+        "deliveryManager": "Ana López",
+        "estado": "En curso",
+        "fechaInicio": "2026-08-01T06:00:00.000Z",
+        "fechaFin": "2026-11-30T06:00:00.000Z"
+      },
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 110,
+        "horasFacturables": 5.75,
+        "horasNoFacturables": 9,
+        "balanceHoras": 85.25,
+        "pctFacturables": 39,
+        "pctNoFacturables": 61,
+        "horasFueraHorario": 3.25,
+        "pctFueraHorario": 22,
+        "pctTiempo": 51.2,
+        "consumoPct": 14.8,
+        "desviacionPts": -36.4,
+        "diasRestantes": 59,
+        "costoReal": 84,
+        "healthScore": 70,
+        "healthLabel": "En seguimiento",
+        "healthDimensiones": {
+          "tiempo": 70,
+          "esfuerzo": 70,
+          "costo": 100,
+          "riesgo": 40
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": true
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "alto",
+          "titulo": "Compromisos vencidos",
+          "detalle": "1 compromiso(s) siguen abiertos después de su fecha.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas no facturables elevadas",
+          "detalle": "61% del total.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas fuera de horario",
+          "detalle": "3.25 h (22%).",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Riesgos críticos abiertos",
+          "detalle": "2 riesgo(s) requieren atención.",
+          "fuente": "Riesgos"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Acciones vencidas",
+          "detalle": "1 acción(es) vencidas.",
+          "fuente": "Acciones"
+        }
+      ],
+      "tareas": [
+        {
+          "nombre": "2026",
+          "horas": 8
+        },
+        {
+          "nombre": "Desarrollo",
+          "horas": 3.5
+        },
+        {
+          "nombre": "QA",
+          "horas": 2.25
+        },
+        {
+          "nombre": "Sin task / actividad",
+          "horas": 1
+        }
+      ],
+      "capacidad": [
+        {
+          "nombre": "Ana López",
+          "rol": "Dev",
+          "horasEstimadas": 60,
+          "horasReales": 4
+        },
+        {
+          "nombre": "Carlos",
+          "rol": "QA",
+          "horasEstimadas": 20,
+          "horasReales": 2.25
+        }
+      ],
+      "detalleRecursos": [
+        {
+          "recurso": "Zoe",
+          "rol": "",
+          "horasTotales": 8,
+          "facturables": 0,
+          "noFacturables": 8,
+          "fueraHorario": 0,
+          "costo": 44,
+          "pctTotal": 54.2
+        },
+        {
+          "recurso": "Ana López",
+          "rol": "",
+          "horasTotales": 4,
+          "facturables": 3,
+          "noFacturables": 1,
+          "fueraHorario": 1,
+          "costo": 40,
+          "pctTotal": 27.1
+        },
+        {
+          "recurso": "carlos",
+          "rol": "",
+          "horasTotales": 2.25,
+          "facturables": 2.25,
+          "noFacturables": 0,
+          "fueraHorario": 2.25,
+          "costo": 0,
+          "pctTotal": 15.3
+        },
+        {
+          "recurso": "Sin recurso",
+          "rol": "",
+          "horasTotales": 0.5,
+          "facturables": 0.5,
+          "noFacturables": 0,
+          "fueraHorario": 0,
+          "costo": 0,
+          "pctTotal": 3.4
+        }
+      ],
+      "tendenciaMensual": [
+        {
+          "mes": "2026-08",
+          "horas": 8,
+          "acumulado": 8
+        },
+        {
+          "mes": "2026-09",
+          "horas": 6.25,
+          "acumulado": 14.25
+        },
+        {
+          "mes": "2026-10",
+          "horas": 0.5,
+          "acumulado": 14.75
+        }
+      ],
+      "registros": [
+        {
+          "fecha": "2026-10-01",
+          "recurso": "",
+          "actividad": "Desarrollo",
+          "descripcion": "x",
+          "inicio": "",
+          "fin": "",
+          "duracion": 0.5,
+          "billable": true,
+          "fueraHorario": false
+        },
+        {
+          "fecha": "2026-09-30",
+          "recurso": "carlos",
+          "actividad": "QA",
+          "descripcion": "Pruebas",
+          "inicio": "",
+          "fin": "",
+          "duracion": 2.25,
+          "billable": true,
+          "fueraHorario": true
+        },
+        {
+          "fecha": "2026-09-02",
+          "recurso": "Ana López",
+          "actividad": "Sin task",
+          "descripcion": "",
+          "inicio": "",
+          "fin": "",
+          "duracion": 1,
+          "billable": false,
+          "fueraHorario": true
+        },
+        {
+          "fecha": "2026-09-01",
+          "recurso": "Ana López",
+          "actividad": "Desarrollo",
+          "descripcion": "Diseño",
+          "inicio": "",
+          "fin": "",
+          "duracion": 3,
+          "billable": true,
+          "fueraHorario": false
+        },
+        {
+          "fecha": "2026-08-15",
+          "recurso": "Zoe",
+          "actividad": "2026",
+          "descripcion": "Kickoff",
+          "inicio": "",
+          "fin": "",
+          "duracion": 8,
+          "billable": false,
+          "fueraHorario": false
+        }
+      ],
+      "plan": {
+        "filas": [
+          {
+            "actividad": "Tarea 0",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 1",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 2",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 3",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 4",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 5",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 6",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 7",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 8",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 9",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 10",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 11",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 12",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 13",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 14",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 15",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 16",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 17",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 18",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 19",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 20",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 21",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 22",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 23",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 24",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 25",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 26",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 27",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 28",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 29",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          },
+          {
+            "actividad": "Tarea 30",
+            "responsable": "Pendiente",
+            "esfuerzo": 2,
+            "estado": "Completado",
+            "finPlan": "2026-11-10"
+          },
+          {
+            "actividad": "Tarea 31",
+            "responsable": "Ana",
+            "esfuerzo": 2,
+            "estado": "En progreso",
+            "finPlan": "2026-10-22"
+          }
+        ]
+      },
+      "riesgos": {
+        "filas": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r5",
+            "riesgo": "Rotación",
+            "impacto": "Bajo",
+            "probabilidad": "Baja",
+            "responsable": "Carlos",
+            "fechaLimite": "2026-11-01",
+            "accion": "",
+            "estado": "Cerrado",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "activos": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "criticos": [
+          {
+            "uid": "r1",
+            "riesgo": "Accesos tardíos",
+            "impacto": "Alto",
+            "probabilidad": "Media",
+            "responsable": "Ana",
+            "fechaLimite": "2026-10-10",
+            "accion": "Escalar",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r4",
+            "riesgo": "Cambio de alcance",
+            "impacto": "Crítico",
+            "probabilidad": "Alta",
+            "responsable": "Beto",
+            "fechaLimite": "",
+            "accion": "Comité",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "score": 40,
+        "tieneDatos": true
+      },
+      "acciones": {
+        "filas": [
+          {
+            "uid": "a4",
+            "idProyecto": "AER.001",
+            "accion": "Cerrar UAT",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-01",
+            "fechaReal": "2026-09-02",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "abiertas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "vencidas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.001",
+            "accion": "revisar accesos",
+            "responsable": "ana",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-30",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "Cliente",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "nota",
+            "notas": "nota",
+            "actualizado": ""
+          }
+        ],
+        "completadas": [
+          {
+            "uid": "a4",
+            "idProyecto": "AER.001",
+            "accion": "Cerrar UAT",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-09-01",
+            "fechaReal": "2026-09-02",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "detenidas": [
+          {
+            "uid": "a3",
+            "idProyecto": "AER.001",
+            "accion": "Firmar contrato",
+            "responsable": "Beto",
+            "fechaInicio": "",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "tieneDatos": true
+      },
+      "vacaciones": {
+        "filas": [
+          {
+            "recurso": "Ana",
+            "inicio": "2026-10-24",
+            "fin": "2026-10-25",
+            "estado": "Aprobada"
+          },
+          {
+            "recurso": "Beto",
+            "inicio": "2026-10-24",
+            "fin": "2026-10-25",
+            "estado": "Pendiente"
+          }
+        ]
+      },
+      "evaluaciones": {
+        "filas": [
+          {
+            "uid": "e2",
+            "recurso": "Carlos",
+            "fechaEvaluacion": "2026-09-15",
+            "periodo": "",
+            "evaluador": "Beto",
+            "score": 65,
+            "calidad": 0,
+            "cumplimiento": 0,
+            "comunicacion": 0,
+            "colaboracion": 0,
+            "autonomia": 0,
+            "categoria": "Crítico",
+            "comentario": "",
+            "planAccion": "",
+            "proximaEvaluacion": ""
+          },
+          {
+            "uid": "e1",
+            "recurso": "Ana",
+            "fechaEvaluacion": "2026-09-01",
+            "periodo": "Sep 2026",
+            "evaluador": "Beto",
+            "score": 87,
+            "calidad": 90,
+            "cumplimiento": 80,
+            "comunicacion": 70,
+            "colaboracion": 100,
+            "autonomia": 95,
+            "categoria": "Sólido",
+            "comentario": "",
+            "planAccion": "",
+            "proximaEvaluacion": ""
+          }
+        ]
+      },
+      "cliente": {
+        "contactos": [
+          {
+            "uid": "c2",
+            "nombre": "Álvaro",
+            "cargo": "PO",
+            "rol": "PO",
+            "area": "Finanzas",
+            "correo": "",
+            "telefono": "",
+            "nivelDecision": "Bajo",
+            "estado": "Inactivo",
+            "esDecisor": false,
+            "canal": "Correo; Teams",
+            "alcance": "",
+            "requerimientos": false,
+            "aprueba": false,
+            "valida": false,
+            "decide": false,
+            "informado": false,
+            "notas": ""
+          },
+          {
+            "uid": "c1",
+            "nombre": "Zoe",
+            "cargo": "CTO",
+            "rol": "Sponsor",
+            "area": "TI",
+            "correo": "z@x.com",
+            "telefono": "",
+            "nivelDecision": "Alto",
+            "estado": "Activo",
+            "esDecisor": true,
+            "canal": "Teams",
+            "alcance": "",
+            "requerimientos": true,
+            "aprueba": true,
+            "valida": false,
+            "decide": false,
+            "informado": false,
+            "notas": ""
+          }
+        ],
+        "info": {
+          "uid": "i1",
+          "areaPrincipal": "TI",
+          "sponsor": "Zoe",
+          "productOwner": "Álvaro",
+          "correoDistribucion": "",
+          "rutaEscalamiento": "",
+          "canales": "",
+          "proximaReunion": "2026-10-07",
+          "tipoReunion": "Comité",
+          "cliente": "ACME",
+          "deliveryManager": "Ana López"
+        },
+        "gobierno": [
+          {
+            "uid": "",
+            "reunion": "Seguimiento semanal",
+            "frecuencia": "Semanal",
+            "participantes": "PO + Delivery + Cliente",
+            "canal": "Teams",
+            "notas": ""
+          },
+          {
+            "uid": "",
+            "reunion": "Comité operativo",
+            "frecuencia": "Quincenal",
+            "participantes": "Sponsor + PO + Delivery",
+            "canal": "Correo",
+            "notas": ""
+          },
+          {
+            "uid": "",
+            "reunion": "Comité ejecutivo",
+            "frecuencia": "Mensual",
+            "participantes": "Sponsor + Dirección",
+            "canal": "Teams",
+            "notas": ""
+          }
+        ],
+        "documentos": [
+          {
+            "uid": "d1",
+            "nombre": "Contrato",
+            "tipo": "Legal",
+            "url": "https://x",
+            "accion": "Abrir",
+            "notas": ""
+          }
+        ],
+        "resumen": {
+          "contactosClave": 1,
+          "decisores": 1,
+          "areas": 2,
+          "canales": 2,
+          "proximaReunion": "2026-10-07"
+        }
+      },
+      "clockify": {
+        "ok": true,
+        "proyectoClockify": "AER-001 Bot",
+        "rango": {
+          "fechaInicio": "2026-08-01",
+          "fechaFin": "2026-10-02",
+          "fuente": "MPB"
+        },
+        "error": null
+      }
+    },
+    "state": {
+      "accionesPartes": [
+        {
+          "accion": "A",
+          "estado": "Completado"
+        },
+        {
+          "accion": "B",
+          "estado": "completado"
+        },
+        {
+          "accion": "C",
+          "estado": "Pendiente"
+        }
+      ]
+    },
+    "context": {
+      "id": "AER.001",
+      "n": "Bot facturas",
+      "cliente": "ACME",
+      "etapa": "",
+      "fecha": "2026-10-23",
+      "k": {
+        "horas": 110,
+        "fact": 5.75,
+        "presupuesto": 100,
+        "consumoPct": 14.8,
+        "tiempoPct": 51.2,
+        "health": 70,
+        "vencidos": 0,
+        "desviacion": -36.4,
+        "horasFueraHorario": 3.25
+      },
+      "p": [
+        {
+          "a": "Tarea 0",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 1",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 2",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 3",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 4",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 5",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 6",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 7",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 8",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 9",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 10",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 11",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 12",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 13",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 14",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 15",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 16",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 17",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 18",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 19",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 20",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 21",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 22",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 23",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 24",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "Completado",
+          "z": 2
+        },
+        {
+          "a": "Tarea 25",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 26",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 27",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "Completado",
+          "z": 2
+        }
+      ],
+      "r": [
+        {
+          "a": "Accesos tardíos",
+          "i": "Alto",
+          "e": "Abierto"
+        },
+        {
+          "a": "Rotación",
+          "i": "Bajo",
+          "e": "Cerrado"
+        },
+        {
+          "a": "Cambio de alcance",
+          "i": "Crítico",
+          "e": "Abierto"
+        }
+      ],
+      "a": [
+        {
+          "a": "Cerrar UAT",
+          "r": "Beto",
+          "f": "2026-09-01",
+          "e": "Completado"
+        },
+        {
+          "a": "revisar accesos",
+          "r": "ana",
+          "f": "2026-09-30",
+          "e": "En progreso"
+        },
+        {
+          "a": "Firmar contrato",
+          "r": "Beto",
+          "f": "2026-10-20",
+          "e": "Detenido"
+        }
+      ],
+      "v": [
+        {
+          "r": "Ana",
+          "i": "2026-10-24",
+          "f": "2026-10-25",
+          "e": "Aprobada"
+        }
+      ],
+      "c": [
+        {
+          "r": "Ana",
+          "o": 22
+        }
+      ],
+      "b": [
+        {
+          "a": "B",
+          "e": "completado"
+        },
+        {
+          "a": "C",
+          "e": "Pendiente"
+        }
+      ]
+    },
+    "facts": {
+      "c": {
+        "id": "AER.001",
+        "n": "Bot facturas",
+        "cliente": "ACME",
+        "etapa": "",
+        "fecha": "2026-10-23",
+        "k": {
+          "horas": 110,
+          "fact": 5.75,
+          "presupuesto": 100,
+          "consumoPct": 14.8,
+          "tiempoPct": 51.2,
+          "health": 70,
+          "vencidos": 0,
+          "desviacion": -36.4,
+          "horasFueraHorario": 3.25
+        },
+        "p": [
+          {
+            "a": "Tarea 0",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 1",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 2",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 3",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 4",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 5",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 6",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 7",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 8",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 9",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 10",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 11",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 12",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 13",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 14",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 15",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 16",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 17",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 18",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 19",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 20",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 21",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 22",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 23",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 24",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "Completado",
+            "z": 2
+          },
+          {
+            "a": "Tarea 25",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 26",
+            "r": "Pendiente",
+            "f": "2026-11-10",
+            "e": "En progreso",
+            "z": 2
+          },
+          {
+            "a": "Tarea 27",
+            "r": "Ana",
+            "f": "2026-10-22",
+            "e": "Completado",
+            "z": 2
+          }
+        ],
+        "r": [
+          {
+            "a": "Accesos tardíos",
+            "i": "Alto",
+            "e": "Abierto"
+          },
+          {
+            "a": "Rotación",
+            "i": "Bajo",
+            "e": "Cerrado"
+          },
+          {
+            "a": "Cambio de alcance",
+            "i": "Crítico",
+            "e": "Abierto"
+          }
+        ],
+        "a": [
+          {
+            "a": "Cerrar UAT",
+            "r": "Beto",
+            "f": "2026-09-01",
+            "e": "Completado"
+          },
+          {
+            "a": "revisar accesos",
+            "r": "ana",
+            "f": "2026-09-30",
+            "e": "En progreso"
+          },
+          {
+            "a": "Firmar contrato",
+            "r": "Beto",
+            "f": "2026-10-20",
+            "e": "Detenido"
+          }
+        ],
+        "v": [
+          {
+            "r": "Ana",
+            "i": "2026-10-24",
+            "f": "2026-10-25",
+            "e": "Aprobada"
+          }
+        ],
+        "c": [
+          {
+            "r": "Ana",
+            "o": 22
+          }
+        ],
+        "b": [
+          {
+            "a": "B",
+            "e": "completado"
+          },
+          {
+            "a": "C",
+            "e": "Pendiente"
+          }
+        ]
+      },
+      "activos": [
+        {
+          "a": "Tarea 1",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 2",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 4",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 5",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 7",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 8",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 10",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 11",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 13",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 14",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 16",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 17",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 19",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 20",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 22",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 23",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 25",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 26",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        }
+      ],
+      "venc": [
+        {
+          "a": "Tarea 1",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 5",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 7",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 11",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 13",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 17",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 19",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 23",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 25",
+          "r": "Ana",
+          "f": "2026-10-22",
+          "e": "En progreso",
+          "z": 2
+        }
+      ],
+      "prox": [
+        {
+          "a": "Tarea 2",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 4",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 8",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 10",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 14",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 16",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 20",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 22",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        },
+        {
+          "a": "Tarea 26",
+          "r": "Pendiente",
+          "f": "2026-11-10",
+          "e": "En progreso",
+          "z": 2
+        }
+      ],
+      "sobre": [
+        {
+          "r": "Ana",
+          "o": 22
+        }
+      ],
+      "vac": [
+        {
+          "r": "Ana",
+          "i": "2026-10-24",
+          "f": "2026-10-25",
+          "e": "Aprobada"
+        }
+      ],
+      "abiertos": [
+        {
+          "a": "revisar accesos",
+          "r": "ana",
+          "f": "2026-09-30",
+          "e": "En progreso"
+        },
+        {
+          "a": "Firmar contrato",
+          "r": "Beto",
+          "f": "2026-10-20",
+          "e": "Detenido"
+        }
+      ],
+      "riesgo": [
+        {
+          "a": "Accesos tardíos",
+          "i": "Alto",
+          "e": "Abierto"
+        },
+        {
+          "a": "Cambio de alcance",
+          "i": "Crítico",
+          "e": "Abierto"
+        }
+      ],
+      "alerts": [
+        "9 compromiso(s) vencido(s)",
+        "1 recurso(s) con esfuerzo superior a 6 puntos",
+        "1 vacaciones aprobadas en los próximos 30 días",
+        "Horas consumidas superan el presupuesto"
+      ],
+      "to": "2026-11-22"
+    }
+  }
+]

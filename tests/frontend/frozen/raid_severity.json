@@ -1,0 +1,253 @@
+{
+  "values": [
+    {
+      "input": {
+        "kind": "value",
+        "value": "1 - Crítico"
+      },
+      "severity": {
+        "kind": "value",
+        "value": "1"
+      },
+      "level": {
+        "kind": "value",
+        "value": "Alto"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "2"
+      },
+      "severity": {
+        "kind": "value",
+        "value": "2"
+      },
+      "level": {
+        "kind": "value",
+        "value": "Medio"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "3 – Bajo"
+      },
+      "severity": {
+        "kind": "value",
+        "value": "3"
+      },
+      "level": {
+        "kind": "value",
+        "value": "Bajo"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "4"
+      },
+      "severity": {
+        "kind": "value",
+        "value": "4"
+      },
+      "level": {
+        "kind": "value",
+        "value": "Bajo"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "5"
+      },
+      "severity": {
+        "kind": "value",
+        "value": "5"
+      },
+      "level": {
+        "kind": "value",
+        "value": ""
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "Very High"
+      },
+      "severity": {
+        "kind": "value",
+        "value": ""
+      },
+      "level": {
+        "kind": "value",
+        "value": "Alto"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "Alto"
+      },
+      "severity": {
+        "kind": "value",
+        "value": ""
+      },
+      "level": {
+        "kind": "value",
+        "value": "Alto"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "medium"
+      },
+      "severity": {
+        "kind": "value",
+        "value": ""
+      },
+      "level": {
+        "kind": "value",
+        "value": "Medio"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "Bajo"
+      },
+      "severity": {
+        "kind": "value",
+        "value": ""
+      },
+      "level": {
+        "kind": "value",
+        "value": "Bajo"
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": ""
+      },
+      "severity": {
+        "kind": "value",
+        "value": ""
+      },
+      "level": {
+        "kind": "value",
+        "value": ""
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": null
+      },
+      "severity": {
+        "kind": "value",
+        "value": ""
+      },
+      "level": {
+        "kind": "value",
+        "value": ""
+      }
+    },
+    {
+      "input": {
+        "kind": "undefined"
+      },
+      "severity": {
+        "kind": "value",
+        "value": ""
+      },
+      "level": {
+        "kind": "value",
+        "value": ""
+      }
+    },
+    {
+      "input": {
+        "kind": "value",
+        "value": "x"
+      },
+      "severity": {
+        "kind": "value",
+        "value": ""
+      },
+      "level": {
+        "kind": "value",
+        "value": ""
+      }
+    }
+  ],
+  "closed": [
+    {
+      "input": {
+        "estado": "closed"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "estado": "Active"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "cerrado": true
+      },
+      "expected": true
+    },
+    {
+      "input": {},
+      "expected": false
+    },
+    {
+      "input": {
+        "estado": "Completed"
+      },
+      "expected": true
+    }
+  ],
+  "normalized": [
+    {
+      "input": {
+        "tipo": "Issue",
+        "severidad": "2 - Alto",
+        "probabilidad": "x"
+      },
+      "expected": {
+        "tipo": "Issue",
+        "severidad": "2 - Alto",
+        "probabilidad": "2",
+        "impacto": "2"
+      }
+    },
+    {
+      "input": {
+        "tipo": "Risk",
+        "severidad": "1",
+        "probabilidad": "y"
+      },
+      "expected": {
+        "tipo": "Risk",
+        "severidad": "1",
+        "probabilidad": "y",
+        "impacto": "1"
+      }
+    },
+    {
+      "input": {
+        "tipo": "Risk",
+        "severidad": ""
+      },
+      "expected": {
+        "tipo": "Risk",
+        "severidad": ""
+      }
+    }
+  ]
+}

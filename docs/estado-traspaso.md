@@ -4,7 +4,16 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 5814968:** se congelan raid_create_model,
+**Último bloque, base 1f0dbef:** aer_ai_model, aer_effort_model y raid_model
+ya no leen el original. Se guardan 6 contextos/hechos, 12 resúmenes/estados
+y auxiliares RAID completos. 472 Node aprobadas; 22 dirigidas pasan en UTC
+y México. Cuatro mutaciones en copias detectadas; JSON reproducibles con
+CRLF/LF normalizados. No cambia código de aplicación. Quedan 26 archivos
+dependientes del script anterior, quince congelados. Piloto de navegador
+pendiente; continuar por modelos restantes. Evidencia en
+`congelacion-referencias.md`, sin nueva corrida servidor/e2e ni push.
+
+**Bloque previo, base 5814968:** se congelan raid_create_model,
 ixs_azure_groups, generic_panels y project_clockify_range. 14 dirigidas y
 472 Node completas aprobadas; cinco mutaciones en copias detectadas.
 Resultados originales en frozen, reproducibles normalizando CRLF/LF.

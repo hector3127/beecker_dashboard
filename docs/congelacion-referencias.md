@@ -1,5 +1,42 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Cuarto bloque: contexto IA, esfuerzo AER y severidad RAID
+
+Base `1f0dbef`. Tres archivos dejan de leer/ejecutar el script original:
+
+| Archivo | Resultados del original conservados |
+|---|---|
+| aer_ai_model | 6 contextos y hechos completos: vacío, fixture y sobrecarga/truncado, con/sin acciones de partes |
+| aer_effort_model | 12 resúmenes y estados resultantes: vacío/fixture/truncado × cuatro estados de rango/registros |
+| raid_model | 13 pares severidad/nivel, 5 estados de cierre y 3 filas normalizadas |
+
+Los JSON incluyen entradas y resultados completos; no solo cifras escogidas.
+Se conserva la no mutación de dashboards y estados, límites de 28 compromisos,
+8 tareas/10 recursos y 5 registros de vista previa, vacaciones, estados de
+acciones y valores pendientes. Las pruebas de semana lunes→domingo, fechas
+elegidas, salud/matriz/etapas, filtros y enlaces seguros permanecen intactas.
+Undefined se codifica explícitamente donde formaba parte de las entradas RAID.
+
+Generadores temporales originales e independientes de los modelos actuales:
+`aer_ai_context.gen.mjs`, `aer_effort.gen.mjs` y `raid_severity.gen.mjs` en
+frozen/gen. Los tres JSON se reproducen exactamente normalizando CRLF/LF.
+Contexto/hechos y esfuerzo capturan las funciones originales con el mismo
+instante fijo de sus pruebas previas (2026-10-23T18:00:00Z).
+
+**472 Node completas aprobadas**, sin omisiones. Las **22 dirigidas** pasan
+tanto en UTC como en America/Mexico_City, restaurando la variable TZ después
+de las comprobaciones. Cuatro alteraciones en copias temporales se detectaron:
+contexto 28→27, alerta de esfuerzo >6→>100, preview 5→4 y CLOSED dejado de
+reconocer. Prettier y diff de espacios comprobados. No cambia aplicación,
+diseño, cálculo, seguridad ni permisos; sin nueva corrida servidor/e2e por
+este bloque de pruebas Node. Logs ignorados: `tmp/frozen-context-effort-*.log`
+y `tmp/*.next-mutation.log`.
+
+Quedan **26 archivos Node** que leen directamente el original (29 antes del
+bloque, 41 al empezar). Quince archivos congelados en total. Piloto de
+navegador pendiente; no retirar aún referencias/generadores ni servicios.
+Fase 11 abierta, sin push.
+
 ## Tercer bloque: RAID, Azure, paneles y rango Clockify
 
 Base `5814968`. Cuatro archivos adicionales dejan de ejecutar la referencia:
@@ -31,7 +68,7 @@ No se alteraron fuentes de aplicación. Prettier y diff de espacios comprobados.
 Registros ignorados en `tmp/frozen-raid-azure-node.log` y
 `tmp/*.next-mutation.log`; no se repite servidor/e2e por cambios solo de tests.
 
-Quedan **29 archivos Node** que leen directamente proyecto_detalle.js
+Al cierre del tercer bloque quedaban **29 archivos Node** que leían directamente proyecto_detalle.js
 (33 antes de este bloque, 41 al empezar). Doce archivos congelados en total;
 no es un porcentaje de fase. Continúan pendientes el piloto de navegador y
 los modelos más complejos. No borrar todavía referencias ni servicios. Sin push.

@@ -9,7 +9,17 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
-**Último bloque de congelación, base 5814968:** raid_create_model,
+**Último bloque de congelación, base 1f0dbef:** aer_ai_model,
+aer_effort_model y raid_model usan resultados originales guardados: 6
+contextos/hechos, 12 resúmenes/estados y severidad/cierre/normalización RAID.
+22 dirigidas pasan en UTC y America/Mexico_City; 472 Node completas pasan sin
+omisiones. Cuatro mutaciones detectadas en copias; JSON reproducibles desde
+el original. Se mantienen los límites y escenarios previos, sin cambiar
+aplicación, diseño, cálculos, CSP ni permisos. Quedan 26 archivos Node que
+leen el script original, quince congelados. Piloto de navegador pendiente.
+Evidencia en `congelacion-referencias.md`; sin nueva corrida servidor/e2e ni push.
+
+**Bloque previo, base 5814968:** raid_create_model,
 ixs_azure_groups, generic_panels y project_clockify_range usan resultados
 originales guardados. 6 planes, 13 estados/5 iteraciones/4 grupos, 8 badges,
 18 fechas y 6 rangos. 14 dirigidas y 472 Node completas pasan sin omisiones;
