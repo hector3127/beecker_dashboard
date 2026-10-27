@@ -29,7 +29,15 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
-- Último bloque sobre `6f69346`: actualización de cortes usa tests del
+- Último bloque sobre `3c0f9cc`: piloto navegador de Ejecutivo AER completado.
+  Nueve JSON originales (1905 elementos) reproducibles byte por byte. Las 13
+  pruebas permanentes pasan con CSP y rutas de producción, sin directorios
+  de referencia; no abren vista=anterior. Tres alteraciones de DOM detectadas,
+  473 Node pasan. PNG: 6 idénticos y 3 con mínima diferencia de pintado en el
+  texto de la dona móvil, diagnosticada sin cambiar app/CSS ni tolerancias.
+  Seguir otros bloques de navegador; no repetir el piloto. Sólo cambia tests/
+  documentación; no se repiten servidor ni se hace push. Ver congelacion-referencias.
+- Bloque previo sobre `6f69346`: actualización de cortes usa tests del
   controlador/cliente actuales; ningún test Node lee tests/reference.
   Restaurados no-store de cliente/API y parada de sondeo tras fallo, sin
   cambios de diseño, cifras, fórmulas o permisos. 473 Node en UTC/México,
@@ -198,8 +206,8 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
 2. Congelar las comparaciones de navegador con resultados obtenidos del
    **original**, nunca del modelo que se comprueba. Node ya no lee ningún
    archivo de tests/reference: completados el motor y los cuatro auxiliares.
-   El piloto de navegador y la auditoría final de consumidores siguen
-   pendientes. Preservar entradas, casos límite y cobertura; comprobar que
+   El piloto de Ejecutivo AER ya está terminado; seguir otros bloques y
+   la auditoría final de consumidores. Preservar entradas, casos límite y cobertura; comprobar que
    las pruebas detectan alteraciones deliberadas usando copias temporales.
 3. Solo después retirar referencias/generadores y transporte de pruebas que
    ya no tengan consumidores. Mantener el registro/servicios internos usados.

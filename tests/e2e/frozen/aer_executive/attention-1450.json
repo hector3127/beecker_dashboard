@@ -1,0 +1,5759 @@
+{
+  "schema": 1,
+  "source": "original",
+  "base_commit": "3c0f9cc",
+  "variant": "attention",
+  "viewport": {
+    "width": 1450,
+    "height": 1000
+  },
+  "fixed_day": "2026-10-23T18:00:00Z",
+  "input_sha256": "2849bcb1e88d180686750252e16d66c82bae7dc423a0b06f4c24c43363552c5c",
+  "browser": "156.0.8078.48",
+  "platform": "Windows",
+  "source_sha256": {
+    "tests/reference/static/portal/js/proyecto_detalle.js": "d0ae3a7c11dc40e6f71a983bd8d1c27d204cdf81a0d4190a03ff21aed3d81d98",
+    "tests/reference/static/portal/css/proyecto_detalle.css": "f2517d3405e1a8898fbdd230e959334091d21bbdeb02fcbe37a3475a444e89d3",
+    "tests/reference/templates/portal/proyecto_detalle.html": "ed93c5045010ec7087bbc4c13ba06396545e0f9ca255513a212d3c1ccf7b9b3b",
+    "tests/aer/aer_expected.json": "a08a0a706ea678b7249ea5034a500d84e76e08993b86fc4e3c752bc794262092",
+    "tests/ejecutivo/project_integrated_expected.json": "05360de0eea49a15cbed5372c7049a0f4c13f157aae23f0a3e7992a0532ae6be"
+  },
+  "elements": [
+    {
+      "tag": "DIV",
+      "box": [
+        24,
+        290.5,
+        1402,
+        749.8
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "♡HealthScore92/100Saludable▥Avanceglobal29%2de7compromisoscerrados◔Tiempovsplan70%sinperiodobase◉Presupuestoconsumido100%14.75hregistradas$Costoreal$84segúncostingrate⚠Riesgoscríticos22riesgo(s)activos⚑Próximohito23/10/20263eventospróximosResumenejecutivo✓ElproyectomantieneunasaludgeneralSaludable,conavanceparcialycontrolfavorabledelcosto.!Hoyvencen2compromisos;convieneconfirmarcierreoreplanearconelresponsable.✓ElpróximocompromisorelevanteesHoy,confecha23/10/2026.•Seidentifican2riesgoscríticosqueconvienemonitorearencomité.◉ProyectoencontrolconpuntosdeatenciónTiempo70%Esfuerzo70%Costo100%Riesgo40%Cumplimientodecompromisos2de729%cerradosatiempo0vencido(s)AtenciónejecutivaVertodaslasacciones→EntregaUATVencido👤Beto📅25/09/2026PlaneaciónDesarrolloVencido👤Ana📅15/10/2026Planeaciónrevisaraccesosnota👤ana📅30/09/2026AccionesAccesostardíosRiesgocrítico👤Ana📅10/10/2026RiesgosPróximoshitos/decisiones(30días)Vertodos→HoySinresponsablePorvalidar23/10/2026HitocercanoSinresponsable24/10/2026GoLiveBeto15/11/2026Finanzasyesfuerzo14.75consumoConsumo14.75hFacturables5.75hNofacturables9hFueradehorario3.25hCostoreal$84RiesgosydependenciasVertodos→2riesgocrítico3dependenciasclave2bloqueoscríticosAccesosDesarrolloVencidaClienteDocumentarDetenidaDatosHoy·2actividadesAbierta"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        24,
+        290.5,
+        1402,
+        105.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "9px"
+      ],
+      "text": "♡HealthScore92/100Saludable▥Avanceglobal29%2de7compromisoscerrados◔Tiempovsplan70%sinperiodobase◉Presupuestoconsumido100%14.75hregistradas$Costoreal$84segúncostingrate⚠Riesgoscríticos22riesgo(s)activos⚑Próximohito23/10/20263eventospróximos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        24,
+        290.5,
+        192.6,
+        105.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "10px",
+        "9px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "♡HealthScore92/100Saludable"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        35,
+        301.5,
+        170.6,
+        27
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "♡HealthScore"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        35,
+        301.5,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(26, 162, 95)",
+        "rgb(232, 247, 239)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "♡"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        69,
+        310,
+        69,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "9.856px",
+        "rgb(43, 47, 168)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HealthScore"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        35,
+        335.5,
+        170.6,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "800",
+        "21.42px",
+        "rgb(20, 18, 94)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "92/100"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        35,
+        360.9,
+        170.6,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Saludable"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        35,
+        378.6,
+        170.6,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(237, 233, 246)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        35,
+        378.6,
+        156.9,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(45, 184, 116), rgb(97, 211, 154))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        225.6,
+        290.5,
+        192.6,
+        105.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "10px",
+        "9px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "▥Avanceglobal29%2de7compromisoscerrados"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        236.6,
+        301.5,
+        170.6,
+        27
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "▥Avanceglobal"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        236.6,
+        301.5,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(60, 99, 255)",
+        "rgb(238, 241, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "▥"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        270.6,
+        310,
+        77.3,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "9.856px",
+        "rgb(43, 47, 168)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Avanceglobal"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        236.6,
+        335.5,
+        170.6,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "800",
+        "21.42px",
+        "rgb(20, 18, 94)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "29%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        236.6,
+        360.9,
+        170.6,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2de7compromisoscerrados"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        236.6,
+        378.6,
+        170.6,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(237, 233, 246)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        236.6,
+        378.6,
+        48.8,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(77, 114, 255), rgb(93, 180, 255))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        427.1,
+        290.5,
+        192.6,
+        105.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "10px",
+        "9px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "◔Tiempovsplan70%sinperiodobase"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        438.1,
+        301.5,
+        170.6,
+        27
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "◔Tiempovsplan"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        438.1,
+        301.5,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(227, 154, 7)",
+        "rgb(255, 243, 223)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "◔"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        472.1,
+        310,
+        77.9,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "9.856px",
+        "rgb(43, 47, 168)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Tiempovsplan"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        438.1,
+        335.5,
+        170.6,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "800",
+        "21.42px",
+        "rgb(20, 18, 94)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "70%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        438.1,
+        360.9,
+        170.6,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "sinperiodobase"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        438.1,
+        378.6,
+        170.6,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(237, 233, 246)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        438.1,
+        378.6,
+        119.4,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(243, 168, 0), rgb(255, 200, 74))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        628.7,
+        290.5,
+        192.6,
+        105.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "10px",
+        "9px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "◉Presupuestoconsumido100%14.75hregistradas"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        639.7,
+        301.5,
+        170.6,
+        27
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "◉Presupuestoconsumido"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        639.7,
+        301.5,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(107, 50, 223)",
+        "rgb(239, 232, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "◉"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        673.7,
+        310,
+        125.5,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "9.856px",
+        "rgb(43, 47, 168)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Presupuestoconsumido"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        639.7,
+        335.5,
+        170.6,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "800",
+        "21.42px",
+        "rgb(20, 18, 94)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "100%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        639.7,
+        360.9,
+        170.6,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "14.75hregistradas"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        639.7,
+        378.6,
+        170.6,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(237, 233, 246)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        639.7,
+        378.6,
+        170.6,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(107, 50, 223), rgb(142, 86, 236))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        830.3,
+        290.5,
+        192.6,
+        105.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "10px",
+        "9px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "$Costoreal$84segúncostingrate"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        841.3,
+        301.5,
+        170.6,
+        27
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "$Costoreal"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        841.3,
+        301.5,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(107, 50, 223)",
+        "rgb(238, 232, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "$"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        875.3,
+        310,
+        56.3,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "9.856px",
+        "rgb(43, 47, 168)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Costoreal"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        841.3,
+        335.5,
+        170.6,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "800",
+        "21.42px",
+        "rgb(20, 18, 94)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "$84"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        841.3,
+        360.9,
+        170.6,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "segúncostingrate"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1031.8,
+        290.5,
+        192.6,
+        105.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "10px",
+        "9px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "⚠Riesgoscríticos22riesgo(s)activos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1042.8,
+        301.5,
+        170.6,
+        27
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "⚠Riesgoscríticos"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1042.8,
+        301.5,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(227, 58, 82)",
+        "rgb(255, 236, 239)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "⚠"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1076.8,
+        310,
+        83.4,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "9.856px",
+        "rgb(43, 47, 168)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Riesgoscríticos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1042.8,
+        335.5,
+        170.6,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "800",
+        "21.42px",
+        "rgb(20, 18, 94)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1042.8,
+        360.9,
+        170.6,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2riesgo(s)activos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1042.8,
+        378.6,
+        170.6,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(237, 233, 246)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        1042.8,
+        378.6,
+        170.6,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(239, 56, 81), rgb(255, 122, 142))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1233.4,
+        290.5,
+        192.6,
+        105.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "10px",
+        "9px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "⚑Próximohito23/10/20263eventospróximos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1244.4,
+        301.5,
+        170.6,
+        27
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "⚑Próximohito"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1244.4,
+        301.5,
+        27,
+        27
+      ],
+      "css": [
+        "13px",
+        "900",
+        "normal",
+        "rgb(107, 50, 223)",
+        "rgb(239, 234, 255)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "⚑"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1278.4,
+        310,
+        70.3,
+        9.8
+      ],
+      "css": [
+        "8.8px",
+        "900",
+        "9.856px",
+        "rgb(43, 47, 168)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Próximohito"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1244.4,
+        335.5,
+        170.6,
+        21.4
+      ],
+      "css": [
+        "21px",
+        "800",
+        "21.42px",
+        "rgb(20, 18, 94)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "7px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "23/10/2026"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1244.4,
+        360.9,
+        170.6,
+        10.7
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.736px",
+        "rgb(74, 77, 134)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "3eventospróximos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        24,
+        407.6,
+        1402,
+        349.2
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "Resumenejecutivo✓ElproyectomantieneunasaludgeneralSaludable,conavanceparcialycontrolfavorabledelcosto.!Hoyvencen2compromisos;convieneconfirmarcierreoreplanearconelresponsable.✓ElpróximocompromisorelevanteesHoy,confecha23/10/2026.•Seidentifican2riesgoscríticosqueconvienemonitorearencomité.◉ProyectoencontrolconpuntosdeatenciónTiempo70%Esfuerzo70%Costo100%Riesgo40%Cumplimientodecompromisos2de729%cerradosatiempo0vencido(s)AtenciónejecutivaVertodaslasacciones→EntregaUATVencido👤Beto📅25/09/2026PlaneaciónDesarrolloVencido👤Ana📅15/10/2026Planeaciónrevisaraccesosnota👤ana📅30/09/2026AccionesAccesostardíosRiesgocrítico👤Ana📅10/10/2026Riesgos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        24,
+        407.6,
+        873,
+        349.2
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "20px",
+        "20px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Resumenejecutivo✓ElproyectomantieneunasaludgeneralSaludable,conavanceparcialycontrolfavorabledelcosto.!Hoyvencen2compromisos;convieneconfirmarcierreoreplanearconelresponsable.✓ElpróximocompromisorelevanteesHoy,confecha23/10/2026.•Seidentifican2riesgoscríticosqueconvienemonitorearencomité.◉ProyectoencontrolconpuntosdeatenciónTiempo70%Esfuerzo70%Costo100%Riesgo40%Cumplimientodecompromisos2de729%cerradosatiempo0vencido(s)"
+    },
+    {
+      "tag": "H3",
+      "box": [
+        49,
+        428.6,
+        823,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "800",
+        "17.7px",
+        "rgb(27, 26, 158)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "14px",
+        "block",
+        "normal"
+      ],
+      "text": "Resumenejecutivo"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        460.3,
+        823,
+        264.8
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "✓ElproyectomantieneunasaludgeneralSaludable,conavanceparcialycontrolfavorabledelcosto.!Hoyvencen2compromisos;convieneconfirmarcierreoreplanearconelresponsable.✓ElpróximocompromisorelevanteesHoy,confecha23/10/2026.•Seidentifican2riesgoscríticosqueconvienemonitorearencomité.◉ProyectoencontrolconpuntosdeatenciónTiempo70%Esfuerzo70%Costo100%Riesgo40%Cumplimientodecompromisos2de729%cerradosatiempo0vencido(s)"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        460.3,
+        385.2,
+        126.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "✓ElproyectomantieneunasaludgeneralSaludable,conavanceparcialycontrolfavorabledelcosto.!Hoyvencen2compromisos;convieneconfirmarcierreoreplanearconelresponsable.✓ElpróximocompromisorelevanteesHoy,confecha23/10/2026.•Seidentifican2riesgoscríticosqueconvienemonitorearencomité."
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        460.3,
+        372.2,
+        28.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "✓ElproyectomantieneunasaludgeneralSaludable,conavanceparcialycontrolfavorabledelcosto."
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        49,
+        461.3,
+        22,
+        22
+      ],
+      "css": [
+        "10px",
+        "900",
+        "normal",
+        "rgb(28, 152, 92)",
+        "rgb(233, 248, 240)",
+        "none",
+        "0px",
+        "0px",
+        "1px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "✓"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        83,
+        460.3,
+        338.2,
+        28.3
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "14.175px",
+        "rgb(46, 40, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "ElproyectomantieneunasaludgeneralSaludable,conavanceparcialycontrolfavorabledelcosto."
+    },
+    {
+      "tag": "B",
+      "box": [
+        268.9,
+        460.3,
+        48.2,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "14.175px",
+        "rgb(46, 40, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "Saludable"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        496.6,
+        372.2,
+        28.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "!Hoyvencen2compromisos;convieneconfirmarcierreoreplanearconelresponsable."
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        49,
+        497.6,
+        22,
+        22
+      ],
+      "css": [
+        "10px",
+        "900",
+        "normal",
+        "rgb(215, 141, 0)",
+        "rgb(255, 243, 222)",
+        "none",
+        "0px",
+        "0px",
+        "1px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "!"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        83,
+        496.6,
+        338.2,
+        28.3
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "14.175px",
+        "rgb(46, 40, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Hoyvencen2compromisos;convieneconfirmarcierreoreplanearconelresponsable."
+    },
+    {
+      "tag": "B",
+      "box": [
+        140.2,
+        496.6,
+        75.3,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "14.175px",
+        "rgb(46, 40, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "2compromisos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        533,
+        372.2,
+        23
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "✓ElpróximocompromisorelevanteesHoy,confecha23/10/2026."
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        49,
+        534,
+        22,
+        22
+      ],
+      "css": [
+        "10px",
+        "900",
+        "normal",
+        "rgb(28, 152, 92)",
+        "rgb(233, 248, 240)",
+        "none",
+        "0px",
+        "0px",
+        "1px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "✓"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        83,
+        533,
+        338.2,
+        14.2
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "14.175px",
+        "rgb(46, 40, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "ElpróximocompromisorelevanteesHoy,confecha23/10/2026."
+    },
+    {
+      "tag": "B",
+      "box": [
+        254.5,
+        533,
+        20.1,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "14.175px",
+        "rgb(46, 40, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "Hoy"
+    },
+    {
+      "tag": "B",
+      "box": [
+        327.4,
+        533,
+        57.6,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "14.175px",
+        "rgb(46, 40, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "23/10/2026"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        564,
+        372.2,
+        23
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "•Seidentifican2riesgoscríticosqueconvienemonitorearencomité."
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        49,
+        565,
+        22,
+        22
+      ],
+      "css": [
+        "10px",
+        "900",
+        "normal",
+        "rgb(221, 48, 72)",
+        "rgb(255, 237, 240)",
+        "none",
+        "0px",
+        "0px",
+        "1px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "•"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        83,
+        564,
+        338.2,
+        14.2
+      ],
+      "css": [
+        "10.5px",
+        "400",
+        "14.175px",
+        "rgb(46, 40, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Seidentifican2riesgoscríticosqueconvienemonitorearencomité."
+    },
+    {
+      "tag": "B",
+      "box": [
+        148,
+        564,
+        82.2,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "14.175px",
+        "rgb(46, 40, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "2riesgoscríticos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        460.3,
+        425.8,
+        264.8
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "6px"
+      ],
+      "text": "◉ProyectoencontrolconpuntosdeatenciónTiempo70%Esfuerzo70%Costo100%Riesgo40%Cumplimientodecompromisos2de729%cerradosatiempo0vencido(s)"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        460.3,
+        425.8,
+        28
+      ],
+      "css": [
+        "9.5px",
+        "800",
+        "10.925px",
+        "rgb(88, 40, 207)",
+        "rgb(240, 235, 255)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "2px",
+        "flex",
+        "7px"
+      ],
+      "text": "◉Proyectoencontrolconpuntosdeatención"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        500.3,
+        425.8,
+        21.9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "4px",
+        "block",
+        "normal"
+      ],
+      "text": "Tiempo70%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        500.3,
+        425.8,
+        10.9
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "10.925px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "4px",
+        "grid",
+        "8px"
+      ],
+      "text": "Tiempo70%"
+    },
+    {
+      "tag": "B",
+      "box": [
+        446.2,
+        500.3,
+        400.7,
+        10.9
+      ],
+      "css": [
+        "9.5px",
+        "700",
+        "10.925px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Tiempo"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        855,
+        500.6,
+        17.1,
+        10.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "10.35px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "70%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        515.2,
+        425.8,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(236, 234, 244)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        446.2,
+        515.2,
+        298,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(240, 178, 42)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        536.2,
+        425.8,
+        21.9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "4px",
+        "block",
+        "normal"
+      ],
+      "text": "Esfuerzo70%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        536.2,
+        425.8,
+        10.9
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "10.925px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "4px",
+        "grid",
+        "8px"
+      ],
+      "text": "Esfuerzo70%"
+    },
+    {
+      "tag": "B",
+      "box": [
+        446.2,
+        536.2,
+        400.7,
+        10.9
+      ],
+      "css": [
+        "9.5px",
+        "700",
+        "10.925px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Esfuerzo"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        855,
+        536.5,
+        17.1,
+        10.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "10.35px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "70%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        551.1,
+        425.8,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(236, 234, 244)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        446.2,
+        551.1,
+        298,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(243, 168, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        572.1,
+        425.8,
+        21.9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "4px",
+        "block",
+        "normal"
+      ],
+      "text": "Costo100%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        572.1,
+        425.8,
+        10.9
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "10.925px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "4px",
+        "grid",
+        "8px"
+      ],
+      "text": "Costo100%"
+    },
+    {
+      "tag": "B",
+      "box": [
+        446.2,
+        572.1,
+        395.9,
+        10.9
+      ],
+      "css": [
+        "9.5px",
+        "700",
+        "10.925px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Costo"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        850.1,
+        572.4,
+        21.9,
+        10.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "10.35px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "100%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        587,
+        425.8,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(236, 234, 244)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        446.2,
+        587,
+        425.8,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(32, 173, 104)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        608,
+        425.8,
+        21.9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "4px",
+        "block",
+        "normal"
+      ],
+      "text": "Riesgo40%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        608,
+        425.8,
+        10.9
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "10.925px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "4px",
+        "grid",
+        "8px"
+      ],
+      "text": "Riesgo40%"
+    },
+    {
+      "tag": "B",
+      "box": [
+        446.2,
+        608,
+        400.7,
+        10.9
+      ],
+      "css": [
+        "9.5px",
+        "700",
+        "10.925px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Riesgo"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        855,
+        608.3,
+        17.1,
+        10.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "10.35px",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "40%"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        623,
+        425.8,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(236, 234, 244)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        446.2,
+        623,
+        170.3,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(231, 53, 79)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        446.2,
+        643,
+        425.8,
+        82.1
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(247, 245, 252)",
+        "none",
+        "8px",
+        "8px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Cumplimientodecompromisos2de729%cerradosatiempo0vencido(s)"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        456.2,
+        652,
+        405.8,
+        36
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "12px",
+        "12px",
+        "0px",
+        "6px",
+        "flex",
+        "6px"
+      ],
+      "text": "Cumplimientodecompromisos2de7"
+    },
+    {
+      "tag": "B",
+      "box": [
+        492.2,
+        664,
+        139.8,
+        10.9
+      ],
+      "css": [
+        "9.5px",
+        "700",
+        "10.925px",
+        "rgb(42, 37, 80)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Cumplimientodecompromisos"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        800,
+        664,
+        26,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "800",
+        "normal",
+        "rgb(123, 115, 150)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2de7"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        456.2,
+        694,
+        405.8,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(236, 234, 244)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "I",
+      "box": [
+        456.2,
+        694,
+        116,
+        7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "linear-gradient(90deg, rgb(90, 43, 215), rgb(142, 87, 236))",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        456.2,
+        706,
+        405.8,
+        10.1
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.12px",
+        "rgb(105, 95, 136)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "flex",
+        "5px"
+      ],
+      "text": "29%cerradosatiempo0vencido(s)"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        456.2,
+        706,
+        89.4,
+        10.1
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "10.12px",
+        "rgb(105, 95, 136)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "29%cerradosatiempo"
+    },
+    {
+      "tag": "B",
+      "box": [
+        811.8,
+        706,
+        50.2,
+        10.1
+      ],
+      "css": [
+        "8.8px",
+        "700",
+        "10.12px",
+        "rgb(105, 95, 136)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "0vencido(s)"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        909,
+        407.6,
+        516.9,
+        349.2
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "20px",
+        "20px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "AtenciónejecutivaVertodaslasacciones→EntregaUATVencido👤Beto📅25/09/2026PlaneaciónDesarrolloVencido👤Ana📅15/10/2026Planeaciónrevisaraccesosnota👤ana📅30/09/2026AccionesAccesostardíosRiesgocrítico👤Ana📅10/10/2026Riesgos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        934,
+        428.6,
+        466.9,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "6px",
+        "flex",
+        "8px"
+      ],
+      "text": "AtenciónejecutivaVertodaslasacciones→"
+    },
+    {
+      "tag": "H3",
+      "box": [
+        934,
+        428.6,
+        136.8,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "800",
+        "17.7px",
+        "rgb(27, 26, 158)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Atenciónejecutiva"
+    },
+    {
+      "tag": "A",
+      "box": [
+        1287.7,
+        431.7,
+        113.3,
+        11.4
+      ],
+      "css": [
+        "9.5px",
+        "800",
+        "11.4px",
+        "rgb(75, 37, 201)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Vertodaslasacciones→"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        934,
+        452.3,
+        466.9,
+        283.5
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "EntregaUATVencido👤Beto📅25/09/2026PlaneaciónDesarrolloVencido👤Ana📅15/10/2026Planeaciónrevisaraccesosnota👤ana📅30/09/2026AccionesAccesostardíosRiesgocrítico👤Ana📅10/10/2026Riesgos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        934,
+        452.3,
+        466.9,
+        63.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "9px",
+        "9px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "EntregaUATVencido👤Beto📅25/09/2026Planeación"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        945,
+        466.3,
+        10,
+        10
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(239, 56, 81)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        963,
+        462.3,
+        354.9,
+        43.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "EntregaUATVencido👤Beto📅25/09/2026"
+    },
+    {
+      "tag": "B",
+      "box": [
+        963,
+        462.3,
+        354.9,
+        13.1
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "13.125px",
+        "rgb(38, 33, 76)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "EntregaUAT"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        963,
+        478.4,
+        354.9,
+        11.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "11.25px",
+        "rgb(132, 125, 153)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Vencido"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        963,
+        494.7,
+        354.9,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "👤Beto📅25/09/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        963,
+        494.7,
+        32.3,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "5px"
+      ],
+      "text": "👤Beto"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1005.3,
+        494.7,
+        59.3,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "5px"
+      ],
+      "text": "📅25/09/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1326,
+        462.3,
+        64,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(210, 46, 71)",
+        "rgb(255, 240, 242)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "flex",
+        "normal"
+      ],
+      "text": "Planeación"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        934,
+        525.7,
+        466.9,
+        63.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "9px",
+        "9px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "DesarrolloVencido👤Ana📅15/10/2026Planeación"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        945,
+        539.7,
+        10,
+        10
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(239, 56, 81)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        963,
+        535.7,
+        354.9,
+        43.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "DesarrolloVencido👤Ana📅15/10/2026"
+    },
+    {
+      "tag": "B",
+      "box": [
+        963,
+        535.7,
+        354.9,
+        13.1
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "13.125px",
+        "rgb(38, 33, 76)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Desarrollo"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        963,
+        551.8,
+        354.9,
+        11.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "11.25px",
+        "rgb(132, 125, 153)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Vencido"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        963,
+        568,
+        354.9,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "👤Ana📅15/10/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        963,
+        568,
+        29.6,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "5px"
+      ],
+      "text": "👤Ana"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1002.7,
+        568,
+        59.3,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "5px"
+      ],
+      "text": "📅15/10/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1326,
+        535.7,
+        64,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(210, 46, 71)",
+        "rgb(255, 240, 242)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "flex",
+        "normal"
+      ],
+      "text": "Planeación"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        934,
+        599,
+        466.9,
+        63.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "9px",
+        "9px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "revisaraccesosnota👤ana📅30/09/2026Acciones"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        945,
+        613,
+        10,
+        10
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(239, 56, 81)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        963,
+        609,
+        363.8,
+        43.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "revisaraccesosnota👤ana📅30/09/2026"
+    },
+    {
+      "tag": "B",
+      "box": [
+        963,
+        609,
+        363.8,
+        13.1
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "13.125px",
+        "rgb(38, 33, 76)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "revisaraccesos"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        963,
+        625.2,
+        363.8,
+        11.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "11.25px",
+        "rgb(132, 125, 153)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "nota"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        963,
+        641.4,
+        363.8,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "👤ana📅30/09/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        963,
+        641.4,
+        28.4,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "5px"
+      ],
+      "text": "👤ana"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1001.5,
+        641.4,
+        59.3,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "5px"
+      ],
+      "text": "📅30/09/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1334.8,
+        609,
+        55.2,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(210, 46, 71)",
+        "rgb(255, 240, 242)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "flex",
+        "normal"
+      ],
+      "text": "Acciones"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        934,
+        672.4,
+        466.9,
+        63.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "9px",
+        "9px",
+        "0px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "AccesostardíosRiesgocrítico👤Ana📅10/10/2026Riesgos"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        945,
+        686.4,
+        10,
+        10
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(239, 56, 81)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        963,
+        682.4,
+        368.8,
+        43.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "AccesostardíosRiesgocrítico👤Ana📅10/10/2026"
+    },
+    {
+      "tag": "B",
+      "box": [
+        963,
+        682.4,
+        368.8,
+        13.1
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "13.125px",
+        "rgb(38, 33, 76)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Accesostardíos"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        963,
+        698.5,
+        368.8,
+        11.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "11.25px",
+        "rgb(132, 125, 153)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "3px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Riesgocrítico"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        963,
+        714.8,
+        368.8,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "👤Ana📅10/10/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        963,
+        714.8,
+        29.6,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "5px"
+      ],
+      "text": "👤Ana"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1002.7,
+        714.8,
+        59.3,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "normal",
+        "rgb(95, 87, 124)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "5px"
+      ],
+      "text": "📅10/10/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1339.8,
+        682.4,
+        50.1,
+        22
+      ],
+      "css": [
+        "9px",
+        "800",
+        "normal",
+        "rgb(210, 46, 71)",
+        "rgb(255, 240, 242)",
+        "none",
+        "5px",
+        "5px",
+        "0px",
+        "0px",
+        "flex",
+        "normal"
+      ],
+      "text": "Riesgos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        24,
+        768.8,
+        1402,
+        271.5
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "12px"
+      ],
+      "text": "Próximoshitos/decisiones(30días)Vertodos→HoySinresponsablePorvalidar23/10/2026HitocercanoSinresponsable24/10/2026GoLiveBeto15/11/2026Finanzasyesfuerzo14.75consumoConsumo14.75hFacturables5.75hNofacturables9hFueradehorario3.25hCostoreal$84RiesgosydependenciasVertodos→2riesgocrítico3dependenciasclave2bloqueoscríticosAccesosDesarrolloVencidaClienteDocumentarDetenidaDatosHoy·2actividadesAbierta"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        24,
+        768.8,
+        459.3,
+        271.5
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "20px",
+        "20px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Próximoshitos/decisiones(30días)Vertodos→HoySinresponsablePorvalidar23/10/2026HitocercanoSinresponsable24/10/2026GoLiveBeto15/11/2026"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        789.8,
+        409.3,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "7px",
+        "flex",
+        "8px"
+      ],
+      "text": "Próximoshitos/decisiones(30días)Vertodos→"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        789.8,
+        272.5,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Próximoshitos/decisiones(30días)"
+    },
+    {
+      "tag": "H3",
+      "box": [
+        49,
+        789.8,
+        272.5,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "800",
+        "17.7px",
+        "rgb(27, 26, 158)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Próximoshitos/decisiones(30días)"
+    },
+    {
+      "tag": "A",
+      "box": [
+        402,
+        789.8,
+        56.3,
+        11.4
+      ],
+      "css": [
+        "9.5px",
+        "800",
+        "11.4px",
+        "rgb(75, 37, 201)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Vertodos→"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        814.5,
+        409.3,
+        165.4
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "2px"
+      ],
+      "text": "HoySinresponsablePorvalidar23/10/2026HitocercanoSinresponsable24/10/2026GoLiveBeto15/11/2026"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        814.5,
+        409.3,
+        72.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "9px",
+        "9px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "HoySinresponsablePorvalidar23/10/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        49,
+        827.5,
+        9,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(138, 108, 255)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        69,
+        823.5,
+        325.7,
+        53.3
+      ],
+      "css": [
+        "11px",
+        "400",
+        "13.75px",
+        "rgb(41, 34, 79)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HoySinresponsablePorvalidar"
+    },
+    {
+      "tag": "B",
+      "box": [
+        69,
+        823.5,
+        325.7,
+        12.8
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "12.81px",
+        "rgb(41, 34, 79)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Hoy"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        69,
+        838.3,
+        325.7,
+        11.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "11.25px",
+        "rgb(140, 132, 158)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "2px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sinresponsable"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        69,
+        857.5,
+        64.7,
+        19.3
+      ],
+      "css": [
+        "9px",
+        "800",
+        "11.25px",
+        "rgb(194, 122, 0)",
+        "rgb(255, 244, 223)",
+        "none",
+        "4px",
+        "4px",
+        "8px",
+        "0px",
+        "inline-flex",
+        "normal"
+      ],
+      "text": "Porvalidar"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        404.7,
+        823.5,
+        53.6,
+        12
+      ],
+      "css": [
+        "9.5px",
+        "900",
+        "normal",
+        "rgb(34, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "23/10/2026"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        888.8,
+        409.3,
+        45
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "9px",
+        "9px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "HitocercanoSinresponsable24/10/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        49,
+        901.8,
+        9,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(107, 50, 223)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        69,
+        897.8,
+        325.5,
+        26
+      ],
+      "css": [
+        "11px",
+        "400",
+        "13.75px",
+        "rgb(41, 34, 79)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "HitocercanoSinresponsable"
+    },
+    {
+      "tag": "B",
+      "box": [
+        69,
+        897.8,
+        325.5,
+        12.8
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "12.81px",
+        "rgb(41, 34, 79)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Hitocercano"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        69,
+        912.6,
+        325.5,
+        11.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "11.25px",
+        "rgb(140, 132, 158)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "2px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Sinresponsable"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        404.5,
+        897.8,
+        53.8,
+        12
+      ],
+      "css": [
+        "9.5px",
+        "900",
+        "normal",
+        "rgb(34, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "24/10/2026"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        49,
+        935.8,
+        409.3,
+        44
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "9px",
+        "9px",
+        "0px",
+        "0px",
+        "grid",
+        "10px"
+      ],
+      "text": "GoLiveBeto15/11/2026"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        49,
+        948.8,
+        9,
+        9
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(107, 50, 223)",
+        "none",
+        "0px",
+        "0px",
+        "4px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        69,
+        944.8,
+        327.9,
+        26
+      ],
+      "css": [
+        "11px",
+        "400",
+        "13.75px",
+        "rgb(41, 34, 79)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "GoLiveBeto"
+    },
+    {
+      "tag": "B",
+      "box": [
+        69,
+        944.8,
+        327.9,
+        12.8
+      ],
+      "css": [
+        "10.5px",
+        "700",
+        "12.81px",
+        "rgb(41, 34, 79)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "GoLive"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        69,
+        959.6,
+        327.9,
+        11.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "11.25px",
+        "rgb(140, 132, 158)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "2px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Beto"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        406.9,
+        944.8,
+        51.4,
+        12
+      ],
+      "css": [
+        "9.5px",
+        "900",
+        "normal",
+        "rgb(34, 26, 77)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "15/11/2026"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        495.3,
+        768.8,
+        459.3,
+        271.5
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "20px",
+        "20px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Finanzasyesfuerzo14.75consumoConsumo14.75hFacturables5.75hNofacturables9hFueradehorario3.25hCostoreal$84"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        520.3,
+        789.8,
+        409.3,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "7px",
+        "flex",
+        "8px"
+      ],
+      "text": "Finanzasyesfuerzo"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        520.3,
+        789.8,
+        143.8,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Finanzasyesfuerzo"
+    },
+    {
+      "tag": "H3",
+      "box": [
+        520.3,
+        789.8,
+        143.8,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "800",
+        "17.7px",
+        "rgb(27, 26, 158)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Finanzasyesfuerzo"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        520.3,
+        814.5,
+        409.3,
+        134
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "10px",
+        "6px",
+        "0px",
+        "0px",
+        "flex",
+        "16px"
+      ],
+      "text": "14.75consumoConsumo14.75hFacturables5.75hNofacturables9hFueradehorario3.25hCostoreal$84"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        520.3,
+        824.5,
+        118,
+        118
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "conic-gradient(rgb(90, 43, 215) 0deg, rgb(90, 43, 215) 100%, rgb(232, 229, 242) 100%, rgb(232, 229, 242) 100%)",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "normal"
+      ],
+      "text": "14.75consumo"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        556.2,
+        863,
+        46.3,
+        41
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "14.75consumo"
+    },
+    {
+      "tag": "B",
+      "box": [
+        556.2,
+        863,
+        46.3,
+        24
+      ],
+      "css": [
+        "18px",
+        "700",
+        "normal",
+        "rgb(24, 19, 76)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "14.75"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        557.4,
+        889,
+        43.9,
+        15
+      ],
+      "css": [
+        "10.8333px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "inline",
+        "normal"
+      ],
+      "text": "consumo"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        654.3,
+        824.5,
+        275.3,
+        118
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "grid",
+        "7px"
+      ],
+      "text": "Consumo14.75hFacturables5.75hNofacturables9hFueradehorario3.25hCostoreal$84"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        654.3,
+        824.5,
+        275.3,
+        18
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "2px",
+        "2px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "Consumo14.75h"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        654.3,
+        827.5,
+        57,
+        12
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "Consumo"
+    },
+    {
+      "tag": "I",
+      "box": [
+        654.3,
+        828.5,
+        10,
+        10
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgb(90, 43, 215)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        892.7,
+        826.5,
+        36.9,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "900",
+        "normal",
+        "rgb(28, 22, 75)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "14.75h"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        654.3,
+        849.5,
+        275.3,
+        18
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "2px",
+        "2px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "Facturables5.75h"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        654.3,
+        852.5,
+        64.2,
+        12
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "Facturables"
+    },
+    {
+      "tag": "I",
+      "box": [
+        654.3,
+        853.5,
+        10,
+        10
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgb(141, 101, 237)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        898,
+        851.5,
+        31.6,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "900",
+        "normal",
+        "rgb(28, 22, 75)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "5.75h"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        654.3,
+        874.5,
+        275.3,
+        18
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "2px",
+        "2px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "Nofacturables9h"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        654.3,
+        877.5,
+        78.1,
+        12
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "Nofacturables"
+    },
+    {
+      "tag": "I",
+      "box": [
+        654.3,
+        878.5,
+        10,
+        10
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgb(198, 185, 248)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        914,
+        876.5,
+        15.7,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "900",
+        "normal",
+        "rgb(28, 22, 75)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "9h"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        654.3,
+        899.5,
+        275.3,
+        18
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "2px",
+        "2px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "Fueradehorario3.25h"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        654.3,
+        902.5,
+        86.1,
+        12
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "Fueradehorario"
+    },
+    {
+      "tag": "I",
+      "box": [
+        654.3,
+        903.5,
+        10,
+        10
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgb(223, 216, 245)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        898,
+        901.5,
+        31.6,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "900",
+        "normal",
+        "rgb(28, 22, 75)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "3.25h"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        654.3,
+        924.5,
+        275.3,
+        18
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "2px",
+        "2px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "Costoreal$84"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        654.3,
+        927.5,
+        59.3,
+        12
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "flex",
+        "7px"
+      ],
+      "text": "Costoreal"
+    },
+    {
+      "tag": "I",
+      "box": [
+        654.3,
+        928.5,
+        10,
+        10
+      ],
+      "css": [
+        "9.5px",
+        "400",
+        "normal",
+        "rgb(52, 45, 88)",
+        "rgb(122, 67, 232)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": ""
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        910.5,
+        926.5,
+        19.1,
+        14
+      ],
+      "css": [
+        "10.5px",
+        "900",
+        "normal",
+        "rgb(28, 22, 75)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "$84"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        966.7,
+        768.8,
+        459.3,
+        271.5
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 255, 255)",
+        "none",
+        "20px",
+        "20px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "RiesgosydependenciasVertodos→2riesgocrítico3dependenciasclave2bloqueoscríticosAccesosDesarrolloVencidaClienteDocumentarDetenidaDatosHoy·2actividadesAbierta"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        789.8,
+        409.3,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "7px",
+        "flex",
+        "8px"
+      ],
+      "text": "RiesgosydependenciasVertodos→"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        789.8,
+        174.4,
+        17.7
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Riesgosydependencias"
+    },
+    {
+      "tag": "H3",
+      "box": [
+        991.7,
+        789.8,
+        174.4,
+        17.7
+      ],
+      "css": [
+        "15px",
+        "800",
+        "17.7px",
+        "rgb(27, 26, 158)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Riesgosydependencias"
+    },
+    {
+      "tag": "A",
+      "box": [
+        1344.7,
+        789.8,
+        56.3,
+        11.4
+      ],
+      "css": [
+        "9.5px",
+        "800",
+        "11.4px",
+        "rgb(75, 37, 201)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Vertodos→"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        814.5,
+        409.3,
+        58.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "10px",
+        "grid",
+        "8px"
+      ],
+      "text": "2riesgocrítico3dependenciasclave2bloqueoscríticos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        814.5,
+        131.1,
+        58.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(255, 240, 242)",
+        "none",
+        "10px",
+        "10px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2riesgocrítico"
+    },
+    {
+      "tag": "B",
+      "box": [
+        1000.7,
+        824.5,
+        113.1,
+        23
+      ],
+      "css": [
+        "23px",
+        "700",
+        "23px",
+        "rgb(213, 45, 70)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1000.7,
+        852.5,
+        113.1,
+        10.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "10.35px",
+        "rgb(116, 108, 143)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "riesgocrítico"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1130.8,
+        814.5,
+        131.1,
+        58.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(238, 243, 255)",
+        "none",
+        "10px",
+        "10px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "3dependenciasclave"
+    },
+    {
+      "tag": "B",
+      "box": [
+        1139.8,
+        824.5,
+        113.1,
+        23
+      ],
+      "css": [
+        "23px",
+        "700",
+        "23px",
+        "rgb(53, 96, 255)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "3"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1139.8,
+        852.5,
+        113.1,
+        10.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "10.35px",
+        "rgb(116, 108, 143)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "dependenciasclave"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        1269.9,
+        814.5,
+        131.1,
+        58.3
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgb(237, 249, 242)",
+        "none",
+        "10px",
+        "10px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2bloqueoscríticos"
+    },
+    {
+      "tag": "B",
+      "box": [
+        1278.9,
+        824.5,
+        113.1,
+        23
+      ],
+      "css": [
+        "23px",
+        "700",
+        "23px",
+        "rgb(22, 136, 79)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "2"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1278.9,
+        852.5,
+        113.1,
+        10.3
+      ],
+      "css": [
+        "9px",
+        "400",
+        "10.35px",
+        "rgb(116, 108, 143)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "5px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "bloqueoscríticos"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        882.8,
+        409.3,
+        136.5
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "6px",
+        "0px",
+        "grid",
+        "8px"
+      ],
+      "text": "AccesosDesarrolloVencidaClienteDocumentarDetenidaDatosHoy·2actividadesAbierta"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        882.8,
+        409.3,
+        40.5
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "7px",
+        "7px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "AccesosDesarrolloVencida"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        889.8,
+        39.7,
+        25.5
+      ],
+      "css": [
+        "10.2px",
+        "400",
+        "12.75px",
+        "rgb(45, 39, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "AccesosDesarrollo"
+    },
+    {
+      "tag": "B",
+      "box": [
+        991.7,
+        889.8,
+        39.7,
+        12.5
+      ],
+      "css": [
+        "10px",
+        "700",
+        "12.5px",
+        "rgb(45, 39, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Accesos"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        991.7,
+        904.3,
+        39.7,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "11px",
+        "rgb(139, 132, 160)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "2px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Desarrollo"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1352,
+        889.8,
+        49,
+        18
+      ],
+      "css": [
+        "9px",
+        "750",
+        "normal",
+        "rgb(195, 39, 62)",
+        "rgb(255, 232, 236)",
+        "none",
+        "3px",
+        "3px",
+        "0px",
+        "0px",
+        "flex",
+        "normal"
+      ],
+      "text": "Vencida"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        931.3,
+        409.3,
+        40.5
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "7px",
+        "7px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "ClienteDocumentarDetenida"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        938.3,
+        48.1,
+        25.5
+      ],
+      "css": [
+        "10.2px",
+        "400",
+        "12.75px",
+        "rgb(45, 39, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "ClienteDocumentar"
+    },
+    {
+      "tag": "B",
+      "box": [
+        991.7,
+        938.3,
+        48.1,
+        12.5
+      ],
+      "css": [
+        "10px",
+        "700",
+        "12.5px",
+        "rgb(45, 39, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Cliente"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        991.7,
+        952.8,
+        48.1,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "11px",
+        "rgb(139, 132, 160)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "2px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Documentar"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1346.7,
+        938.3,
+        54.3,
+        18
+      ],
+      "css": [
+        "9px",
+        "750",
+        "normal",
+        "rgb(148, 101, 0)",
+        "rgb(255, 245, 216)",
+        "none",
+        "3px",
+        "3px",
+        "0px",
+        "0px",
+        "flex",
+        "normal"
+      ],
+      "text": "Detenida"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        979.8,
+        409.3,
+        39.5
+      ],
+      "css": [
+        "13px",
+        "400",
+        "normal",
+        "rgb(27, 26, 107)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "7px",
+        "7px",
+        "0px",
+        "0px",
+        "flex",
+        "10px"
+      ],
+      "text": "DatosHoy·2actividadesAbierta"
+    },
+    {
+      "tag": "DIV",
+      "box": [
+        991.7,
+        986.8,
+        72.7,
+        25.5
+      ],
+      "css": [
+        "10.2px",
+        "400",
+        "12.75px",
+        "rgb(45, 39, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "DatosHoy·2actividades"
+    },
+    {
+      "tag": "B",
+      "box": [
+        991.7,
+        986.8,
+        72.7,
+        12.5
+      ],
+      "css": [
+        "10px",
+        "700",
+        "12.5px",
+        "rgb(45, 39, 82)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "0px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Datos"
+    },
+    {
+      "tag": "SMALL",
+      "box": [
+        991.7,
+        1001.3,
+        72.7,
+        11
+      ],
+      "css": [
+        "8.8px",
+        "400",
+        "11px",
+        "rgb(139, 132, 160)",
+        "rgba(0, 0, 0, 0)",
+        "none",
+        "0px",
+        "0px",
+        "2px",
+        "0px",
+        "block",
+        "normal"
+      ],
+      "text": "Hoy·2actividades"
+    },
+    {
+      "tag": "SPAN",
+      "box": [
+        1353.5,
+        986.8,
+        47.5,
+        18
+      ],
+      "css": [
+        "9px",
+        "750",
+        "normal",
+        "rgb(91, 43, 199)",
+        "rgb(238, 232, 255)",
+        "none",
+        "3px",
+        "3px",
+        "0px",
+        "0px",
+        "flex",
+        "normal"
+      ],
+      "text": "Abierta"
+    }
+  ]
+}

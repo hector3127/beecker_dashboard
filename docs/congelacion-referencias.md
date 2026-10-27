@@ -1,5 +1,83 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Decimosexto bloque: piloto de navegador, Ejecutivo AER
+
+Base `3c0f9cc`. Se conserva el archivo y sus **13 pruebas**: nueve variantes
+visuales y cuatro casos de navegación por teclado/texto seguro. El test de
+paridad deja de abrir ?vista=anterior y carga JSON generados exclusivamente
+desde esa ruta antes del cambio. No se reduce la comparación: mismo selector,
+orden, texto sin espacios, tag, 12 propiedades CSS y cuatro coordenadas con
+la precisión original de 0.1 px. Se espera a document.fonts.ready para evitar
+capturar una fuente todavía pendiente.
+
+| Variante | 1450 px | 900 px | 390 px |
+|---|---|---|---|
+| full | 221 elementos | 221 | 221 |
+| empty | 175 | 175 | 175 |
+| attention | 239 | 239 | 239 |
+
+Son **1905 elementos** en nueve JSON, unos 0.8 MB en el checkout de captura. Cada archivo
+registra fuente original, commit base, instante fijo, viewport, Chrome,
+plataforma, digest de inputs y hashes de JS/CSS/template originales y fixtures.
+Capturado con Chrome 156.0.8078.48 sobre Windows. No se afirma portabilidad
+pixel a pixel a otro motor, versión o fuentes; un cambio ambiental debe
+investigarse, nunca regenerar expectativas desde la pantalla actual.
+
+El generador temporal explícito es
+`tests/e2e/frozen/gen/aer_executive_capture.py`. No coincide con test_*.py y
+no entra en la suite normal. Sólo él escribe expectativas. Antes de escribir
+comprueba que cargó el script original y que el renderer no es modular.
+Comando desde raíz: `.venv/Scripts/python.exe -m pytest
+ tests/e2e/frozen/gen/aer_executive_capture.py -q --no-cov --browser chromium
+ --browser-channel chrome`. La repetición produjo los nueve JSON idénticos
+byte por byte; el runner temporal conserva/restaura los guardados para impedir
+que una diferencia de captura sustituya una referencia aprobada.
+
+El helper aer_executive_support conserva inputs y medición, además de la
+fixture production_site. Los **13 casos permanentes** usan config.urls,
+retiran las carpetas templates/static de tests/reference y aplican CSP real
+en las respuestas HTML. Los nueve casos comparan contra los JSON originales,
+validan el digest de inputs y comprueban que no hay RPC ni script anterior.
+Conservan data-renderer modular, ausencia de onclick y hoja externa única.
+El generador no aplica esa fixture: necesita únicamente el original para
+producir expectativas. No importa modelos/renderizadores modernos.
+
+Validación antes: 13 Chrome con comparación anterior→actual aprobadas.
+Captura: 9 aprobadas; reproducción: 9 aprobadas y archivos idénticos. Final:
+**13 Chrome y 473 Node aprobadas**, sin omisiones. Tres controles negativos
+ejecutan el mismo test permanente con un plugin temporal que altera su DOM:
+texto, padding/geometría y color. Las tres ejecuciones fallan precisamente
+en `assert after == before`; la corrida final sin plugin vuelve a pasar.
+No se editó código de producción para estos controles. Ruff y formato pasan.
+No se repiten servidor/mypy porque sólo cambian tests, JSON y documentación.
+
+Comparación adicional de imágenes (no se añade una tolerancia al test):
+seis recortes son idénticos RGB. Los tres de 390 px difieren sólo en las
+letras centrales de la dona: 240–365 píxeles, entre 0.034% y 0.043% del recorte.
+En full-390, el diagnóstico confirmó HTML, tipografía y rectángulos sin
+redondear idénticos, antes y después de scroll; dos capturas consecutivas
+por ruta también son estables. Una prueba sólo diagnóstica que fuerza la
+misma composición con opacity=0.999999 en ambos textos da imágenes idénticas.
+No se aplica ese estilo a producción ni a los tests permanentes y no se
+ocultan/máscaran las letras. El flag --disable-lcd-text por sí solo no eliminó
+la variación. Se registra la diferencia de pintado, no se afirma que los nueve
+PNG normales sean idénticos ni se cambia el diseño para forzarlo.
+
+Evidencia ignorada: `tmp/frozen-browser-pilot-{before,after,final}.log`,
+`tmp/frozen-browser-{capture,reproduce}.log`, `tmp/frozen-browser-negative-*.log`,
+`tmp/frozen-browser-pilot-node.log`, `tmp/frozen-browser-pixels.json`,
+`tmp/frozen-browser-pixel-probe-standard.json`,
+`tmp/frozen-browser-composition-pixels.json` y recortes original/current en
+`tmp/frozen-browser/aer_executive/<variante>-<ancho>/`. El diagnóstico temporal
+se guardó en tmp/frozen-browser-pixel-probe-source.py y no se comitea.
+
+Piloto completado; no equivale a congelar todo navegador. La búsqueda literal
+de vista=anterior encuentra también enlaces antiguos que ya sirven frontend:
+no usarla como conteo de pantallas pendientes sin clasificar consumidores.
+Seguir otros bloques de proyecto (por ejemplo Riesgos/Esfuerzo AER) y después
+inventario final antes de retirar originales y generadores. Conservar los
+JSON y helpers que usan las pruebas actuales. Fase 11 abierta, sin push.
+
 ## Decimoquinto bloque: actualización del corte por la API vigente
 
 Base `6f69346`. `cached_page.test.cjs`, último consumidor Node de archivos

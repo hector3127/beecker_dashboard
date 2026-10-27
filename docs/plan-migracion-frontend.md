@@ -9,7 +9,20 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
-**Último bloque, base 6f69346:** cached_page ya comprueba el controlador
+**Último bloque, base 3c0f9cc:** piloto de congelación de navegador
+completado en Ejecutivo AER. Nueve escenarios (full/empty/attention por
+1450/900/390) guardan 1905 elementos originales con todos los campos que
+comparaba el test. Las 13 pruebas permanentes pasan con config.urls, sin
+plantillas/estáticos de referencia y con CSP efectiva; ya no abren la vista
+anterior. Captura original reproducida byte por byte, tres mutaciones de
+DOM detectadas y 473 Node aprobadas. Seis PNG idénticos; en tres móviles hay
+pequeña variación de pintado en el texto de la dona, documentada y diagnosticada
+sin cambiar CSS ni relajar comparación. Sólo cambian pruebas/documentación.
+Continuar el resto de navegador e inventario de consumidores; no repetir
+este piloto ni borrar originales/generadores aún. Ver congelacion-referencias.
+Fase 11 abierta, sin push.
+
+**Bloque previo, base 6f69346:** cached_page ya comprueba el controlador
 cut.js y el cliente API actuales, con cuatro casos conservados y evidencia
 original guardada. Se restauró no-store en el sondeo y la respuesta API;
 el cliente admite esa opción sin cambiar las demás peticiones. Un fallo

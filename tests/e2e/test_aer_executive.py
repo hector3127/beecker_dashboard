@@ -1,14 +1,22 @@
 """Ejecutivo AER: paridad, navegación, fuentes vacías y texto seguro."""
 
 import json
+from itertools import zip_longest
 from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
+from tests.e2e.frozen.aer_executive_support import input_digest, prepare, state
+from tests.e2e.frozen.aer_executive_support import (
+    production_site as production_site,
+)
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
-pytestmark = pytest.mark.django_db(transaction=True)
+pytestmark = [
+    pytest.mark.django_db(transaction=True),
+    pytest.mark.usefixtures("production_site", "enforced_csp"),
+]
 PAGE = "/proyectos/AER.001/"
 
 
@@ -31,73 +39,43 @@ def test_all_executive_elements_match(
     portal, project_detail, fixed_day, variant, width
 ):
     _, data = project_detail
-    if variant == "empty":
-        data.clear()
-        data.update(
-            {
-                "ok": True,
-                "backendVersion": "fixture",
-                "proyecto": {"id": "AER.001"},
-            }
-        )
-    elif variant == "attention":
-        data["kpis"].update(
-            {"healthScore": 92, "healthLabel": "Saludable", "consumoPct": 140}
-        )
-        data["plan"].update(
-            {"vencidosAbiertos": 0, "vencenHoy": 2, "pctCerradosATiempo": 0}
-        )
-        data["plan"]["filas"].extend(
-            [
-                {
-                    "actividad": "Hoy",
-                    "finPlan": "2026-10-23",
-                    "estado": "Por validar",
-                    "dependencia": "Datos",
-                },
-                {
-                    "actividad": "Hito cercano",
-                    "finPlan": "2026-10-24",
-                    "tipo": "Hito",
-                    "dependencia": "DATOS",
-                },
-            ]
-        )
+    prepare(data, variant)
     portal.set_viewport_size({"width": width, "height": 1000})
-
-    def state():
-        expect(portal.locator(".aer-exec-view")).to_be_visible()
-        return portal.evaluate("""() => [...document.querySelectorAll(
-          '.aer-exec-view, .aer-exec-view *')].map(el => {
-            const r = el.getBoundingClientRect(), c = getComputedStyle(el);
-            return {tag:el.tagName,
-              box:['x','y','width','height'].map(k=>Math.round(r[k]*10)/10),
-              css:['fontSize','fontWeight','lineHeight','color','backgroundColor',
-                'backgroundImage','paddingTop','paddingBottom','marginTop',
-                'marginBottom','display','gap'].map(k=>c[k]),
-              text:el.textContent.replace(/\\s+/g,'')};
-          })""")
-
-    out = Path(f"tmp/migration/project_detail/aer_executive/{variant}/{width}")
-    out.mkdir(parents=True, exist_ok=True)
-    portal.goto(portal.base + PAGE + "?vista=anterior")
-    before = state()
-    portal.screenshot(path=str(out / "previous.png"), full_page=True)
+    reference = json.loads(
+        Path(
+            f"tests/e2e/frozen/aer_executive/{variant}-{width}.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert reference["schema"] == 1 and reference["source"] == "original"
+    assert reference["variant"] == variant
+    assert reference["viewport"] == {"width": width, "height": 1000}
+    assert reference["input_sha256"] == input_digest(data)
+    requests = []
+    portal.on("request", lambda request: requests.append(request.url))
     portal.goto(portal.base + PAGE)
-    after = state()
-    portal.screenshot(path=str(out / "current.png"), full_page=True)
+    before, after = reference["elements"], state(portal)
+    out = Path(f"tmp/frozen-browser/aer_executive/{variant}-{width}")
+    out.mkdir(parents=True, exist_ok=True)
+    portal.locator(".aer-exec-view").screenshot(path=str(out / "current.png"))
     (out / "differences.json").write_text(
         json.dumps(
-            [
-                {"index": i, "previous": a, "current": b}
-                for i, (a, b) in enumerate(zip(before, after, strict=True))
-                if a != b
-            ],
+            {
+                "original_count": len(before),
+                "current_count": len(after),
+                "elements": [
+                    {"index": i, "original": a, "current": b}
+                    for i, (a, b) in enumerate(zip_longest(before, after))
+                    if a != b
+                ],
+            },
             indent=2,
         ),
         encoding="utf-8",
     )
     assert after == before
+    assert not any(
+        "/api/rpc/" in url or "/static/portal/js/" in url for url in requests
+    )
     expect(portal.locator(".aer-exec-view")).to_have_attribute(
         "data-renderer", "modular"
     )
