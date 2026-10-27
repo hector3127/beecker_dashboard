@@ -63,7 +63,7 @@ async function failure(response) {
 /**
  * @param {string} method
  * @param {string} path Ruta relativa a la raiz de la API, por ejemplo "ping/".
- * @param {{params?: Record<string, unknown>, body?: unknown, signal?: AbortSignal, timeout?: number}} [options]
+ * @param {{params?: Record<string, unknown>, body?: unknown, signal?: AbortSignal, timeout?: number, cache?: RequestCache}} [options]
  * @returns {Promise<any>} El cuerpo JSON completo: {data, meta}.
  */
 async function request(method, path, options = {}) {
@@ -86,6 +86,7 @@ async function request(method, path, options = {}) {
       method,
       headers,
       credentials: 'same-origin',
+      ...(options.cache ? { cache: options.cache } : {}),
       body: options.body === undefined ? undefined : JSON.stringify(options.body),
       signal: AbortSignal.any(signals),
     });
@@ -110,8 +111,8 @@ async function request(method, path, options = {}) {
   }
 }
 
-/** @type {(path: string, params?: Record<string, unknown>, options?: {signal?: AbortSignal, timeout?: number}) => Promise<any>} */
+/** @type {(path: string, params?: Record<string, unknown>, options?: {signal?: AbortSignal, timeout?: number, cache?: RequestCache}) => Promise<any>} */
 export const apiGet = (path, params, options) => request('GET', path, { ...options, params });
 
-/** @type {(method: 'POST'|'PATCH'|'PUT'|'DELETE', path: string, body?: unknown, options?: {signal?: AbortSignal, timeout?: number}) => Promise<any>} */
+/** @type {(method: 'POST'|'PATCH'|'PUT'|'DELETE', path: string, body?: unknown, options?: {signal?: AbortSignal, timeout?: number, cache?: RequestCache}) => Promise<any>} */
 export const apiSend = (method, path, body, options) => request(method, path, { ...options, body });

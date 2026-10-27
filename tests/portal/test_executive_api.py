@@ -152,3 +152,22 @@ def test_refresh_needs_the_capability(client, enforced):
     enforced("sin", caps=frozenset({"view_operations"}))
 
     assert client.post(URL + "actualizar/").status_code == 403
+
+
+@pytest.mark.parametrize("method", ["get", "post"])
+@pytest.mark.parametrize("state", ["queued", "running", "ready", "failed"])
+def test_refresh_status_is_never_cached(client, monkeypatch, method, state):
+    from apps.portal.services import executive_refresh
+
+    monkeypatch.setattr(
+        executive_refresh, "refresh_status", lambda: {"state": state}
+    )
+    monkeypatch.setattr(
+        executive_refresh,
+        "request_refresh",
+        lambda force=False: {"state": state},
+    )
+    response = getattr(client, method)(URL + "actualizar/")
+    assert response.status_code == 200
+    assert response.json()["data"]["state"] == state
+    assert "no-store" in response["Cache-Control"]

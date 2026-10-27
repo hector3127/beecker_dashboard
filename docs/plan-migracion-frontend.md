@@ -9,7 +9,20 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
-**Último bloque, base b33c4f1:** tres referencias auxiliares convertidas:
+**Último bloque, base 6f69346:** cached_page ya comprueba el controlador
+cut.js y el cliente API actuales, con cuatro casos conservados y evidencia
+original guardada. Se restauró no-store en el sondeo y la respuesta API;
+el cliente admite esa opción sin cambiar las demás peticiones. Un fallo
+ahora desactiva la aplicación pendiente y no vuelve a iniciar el intervalo.
+Sin cambios de cifras, fórmulas, permisos o diseño. 473 Node pasan en UTC/
+México; ocho mutaciones detectadas, 23 servidor dirigidas, 29 Chrome y una
+revalidación de producción con CSP aprobadas (con solapamiento). Regresión
+amplia de servidor aprobada: 1747 casos (portal/core/access).
+Cero tests Node leen tests/reference. Siguen navegador y auditoría final de
+consumidores antes de retirar originales/generadores. Ver congelacion-referencias.
+Fase 11 abierta; sin push.
+
+**Bloque previo, base b33c4f1:** tres referencias auxiliares convertidas:
 portal_loading, return_navigation y CSS en project_independence. Se conservan
 las 10 pruebas. 472 Node y 10 dirigidas pasan en UTC/México; seis mutaciones
 en copias detectadas y JSON original reproducible. Carga usa el módulo actual;

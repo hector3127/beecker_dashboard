@@ -136,3 +136,12 @@ test('a missing CSRF cookie sends an empty token instead of failing', async () =
   document.cookie = saved;
   assert.equal(calls.at(-1).init.headers['X-CSRFToken'], '');
 });
+
+
+test('a status read can bypass cache without changing other requests', async () => {
+  await apiGet('ordinary/');
+  assert.equal(Object.hasOwn(calls[0].init, 'cache'), false);
+  await apiGet('status/', { anio: '2026' }, { cache: 'no-store' });
+  assert.equal(calls[1].init.cache, 'no-store');
+  assert.equal(new URL(calls[1].url).searchParams.get('anio'), '2026');
+});

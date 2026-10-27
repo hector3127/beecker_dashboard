@@ -1,5 +1,72 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Decimoquinto bloque: actualización del corte por la API vigente
+
+Base `6f69346`. `cached_page.test.cjs`, último consumidor Node de archivos
+anteriores, conserva sus cuatro pruebas y ahora ejecuta cut.js junto con el
+cliente api-client.js real sobre DOM/transporte de prueba. No se simula
+apiGet/apiSend: se comprueban los argumentos que llegan a fetch, el token
+CSRF, los filtros y los intervalos. `cached_page.gen.mjs` registra las cuatro
+salidas originales antes del cambio; cached_page_previous.json se reproduce
+exactamente normalizando CRLF/LF. Guarda invariantes y mensajes históricos;
+no se afirma que los dos protocolos sean idénticos.
+
+Diferencias vigentes conservadas: el modo HTML antiguo de Comercial ya no es
+el controlador de esta pantalla. Business Overview usa API v1 y un botón
+persistente. En un corte cargado espera la acción del usuario; al solicitar
+actualización aplica el resultado mediante recarga cuando termina. El sondeo
+pasivo puede ofrecer un corte parcial mediante «Ver corte preparado» o aplicar
+bloques recién disponibles. Esas decisiones ya existían y no se reescriben
+para imitar el script anterior. Las pruebas ejercitan corte visible/periodo,
+espera, aplicación, reintento, parcial, fuente financiera ausente, error de
+red e inicio fallido. Los textos vigentes se conservan.
+
+La auditoría encontró dos diferencias reales que sí impedían conservar la
+protección anterior:
+
+- El GET anterior pedía cache:no-store y su respuesta llevaba Cache-Control.
+  El cliente y API actuales no lo indicaban. Se añade cache opcional al
+  cliente (sin propiedad cache en otras lecturas) y no-store solo al sondeo;
+  ExecutiveRefreshView devuelve Cache-Control:no-store para GET/POST.
+- fail() detenía el timer, pero el onclick lo rearmaba al terminar check()
+  porque applyWhenReady seguía true. Se limpia esa bandera tras fallo;
+  el botón queda habilitado y el corte visible se conserva para reintentar.
+
+Antes de corregir fallan la regresión de cache del cliente, tres pruebas del
+corte y ocho combinaciones de estado/método del servidor. Después pasan:
+
+- 473 Node completas en UTC y America/Mexico_City; 20 dirigidas cliente/corte.
+- 23 servidor dirigidas (test_executive_api y test_executive_refresh), incluidas
+  ocho respuestas queued/running/ready/failed por GET/POST sin caché.
+- 29 Chrome de Business Overview. Tras reforzar la prueba nueva, revalidación
+  separada: 1 Chrome con config.urls, sin carpetas de referencia en templates/
+  staticfiles y con CSP efectiva. Comprueba periodo, valores, GET no-store,
+  ausencia de intervalos tras fallo y reintento con recarga. Hay solapamiento;
+  no sumar ambas ejecuciones como 30 escenarios diferentes.
+- Regresión amplia: 1747 aprobadas en tests/portal, tests/core y tests/access
+  con --no-cov; incluye las 23 dirigidas. No equivale a ejecutar todos los
+  directorios del repositorio. Ningún caso omitido en estas ejecuciones.
+- Ocho mutaciones en copias temporales detectadas: caché del sondeo, bandera
+  de fallo, filtros del POST, CSRF, aplicación del resultado, bloqueo ante
+  fuente financiera ausente, etiqueta parcial y transmisión de cache.
+- Ruff/formato, mypy de screens.py y manage.py check con settings de prueba
+  aprobados. No se activan accesos ni se cambia la política CSP global.
+
+La primera corrida de navegador tuvo 29 errores de setup porque faltaba el
+Chromium distribuido por Playwright; se repitió con el Chrome instalado
+(--browser-channel chrome), sin descargar ni instalar navegadores. La nueva
+prueba con CSP usa solo mocks y servidor local: no envía correos ni consulta
+fuentes reales. La advertencia staticfiles inexistente ya estaba presente.
+
+Evidencia local ignorada: cut-cache-before-node/server, cut-current-before/
+after, cut-server-after/regression, cut-browser, cut-browser-chrome,
+cut-browser-production, cut-all-{UTC,America-Mexico_City}, cut-mypy,
+cut-django-check y cut-*.mutation.log en tmp/. Ningún test Node normal lee
+ya tests/reference (41 del motor más cuatro auxiliares convertidos).
+No retirar aún originales ni generadores: falta congelación de navegador,
+inventario completo de otros consumidores y regresión final de fase 11.
+Sin cambios de diseño, cálculos o permisos. Sin push; fase 11 abierta.
+
 ## Decimocuarto bloque: carga, navegación y CSS
 
 Base `b33c4f1`. Tres archivos auxiliares dejan de leer tests/reference sin

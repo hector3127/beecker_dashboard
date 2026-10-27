@@ -1,0 +1,31 @@
+{
+  "genericReady": {
+    "reloadsBefore": 0,
+    "message": "Nuevo corte disponible. ",
+    "reloadsAfter": 1
+  },
+  "genericFailure": {
+    "reloads": 0,
+    "message": "No se pudo actualizar. Se conserva el último corte; vuelve a intentar al recargar.",
+    "offersApply": false
+  },
+  "poll": {
+    "methods": [
+      "POST",
+      "GET",
+      "GET"
+    ],
+    "csrf": "csrf-token",
+    "cache": "no-store"
+  },
+  "partial": {
+    "reloads": 0,
+    "offersApply": true,
+    "message": "Nuevo corte parcial disponible. "
+  },
+  "failure": {
+    "reloads": 0,
+    "offersApply": false,
+    "message": "No se pudo actualizar. Se conserva el último corte; vuelve a intentar al recargar."
+  }
+}

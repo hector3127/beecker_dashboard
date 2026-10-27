@@ -2,6 +2,7 @@
 
 import json
 import re
+from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
@@ -679,3 +680,90 @@ def test_ranking_uses_account_logo_without_date_titles(portal, served):
     portal.locator(".ranking-section").screenshot(
         path=str(folder / "rankings.png")
     )
+
+
+def test_failed_update_stops_polling_and_can_retry_with_csp(
+    portal, datos, enforced_csp, settings
+):
+    reference = Path(__file__).resolve().parents[1] / "reference"
+    settings.ROOT_URLCONF = "config.urls"
+    settings.TEMPLATES = [
+        {
+            **engine,
+            "DIRS": [
+                directory
+                for directory in engine["DIRS"]
+                if Path(directory).resolve() != reference / "templates"
+            ],
+        }
+        for engine in settings.TEMPLATES
+    ]
+    settings.STATICFILES_DIRS = [
+        entry
+        for entry in settings.STATICFILES_DIRS
+        if Path(
+            entry[1] if isinstance(entry, (tuple, list)) else entry
+        ).resolve()
+        != reference / "static"
+    ]
+    state = {"failed": True}
+    meta = {"loaded_at": "2026-10-22T10:00:00-06:00", "blocks": {}}
+    portal.route(SCREEN, lambda r: reply(r, FIGURES, meta))
+    portal.route(SCREEN_BARE, lambda r: reply(r, FIGURES, meta))
+
+    def refresh(route):
+        reply(
+            route,
+            {
+                "state": "queued"
+                if route.request.method == "POST"
+                else "failed"
+                if state["failed"]
+                else "ready",
+                "blocks": {
+                    "financial": True,
+                    "commercial": True,
+                    "operations": True,
+                },
+            },
+        )
+
+    portal.route(REFRESH, refresh)
+    portal.add_init_script("""
+        window.__cutIntervals = [];
+        window.__cutReads = [];
+        const interval = window.setInterval;
+        window.setInterval = (callback, delay, ...args) => {
+            if (delay === 5000) window.__cutIntervals.push(delay);
+            return interval(callback, delay, ...args);
+        };
+        const request = window.fetch;
+        window.fetch = (url, options) => {
+            if (String(url).includes('/screens/executive/actualizar/')) {
+                window.__cutReads.push({
+                    method: options.method, cache: options.cache
+                });
+            }
+            return request(url, options);
+        };
+    """)
+    portal.goto(portal.base + "/?periodo=mes&anio=2026&mes=9")
+    expect(portal.locator("#executive-revenue")).to_have_text("1.89M")
+    before = portal.url
+    portal.locator("#executive-prepare").click()
+    expect(portal.locator("#executive-cut-status")).to_have_text(
+        "No se pudo completar. Se conserva el corte mostrado."
+    )
+    expect(portal.locator("#executive-prepare")).to_be_enabled()
+    assert portal.evaluate("window.__cutIntervals") == []
+    reads = portal.evaluate("window.__cutReads")
+    assert [read["method"] for read in reads] == ["POST", "GET"]
+    assert reads[1]["cache"] == "no-store"
+    assert portal.url == before
+    expect(portal.locator("#executive-revenue")).to_have_text("1.89M")
+
+    state["failed"] = False
+    with portal.expect_navigation():
+        portal.locator("#executive-prepare").click()
+    expect(portal.locator("#executive-revenue")).to_have_text("1.89M")
+    assert portal.url == before

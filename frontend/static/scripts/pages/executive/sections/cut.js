@@ -34,6 +34,7 @@ export function mountCut({ model, loading, period }) {
   };
   const fail = (/** @type {string} */ text) => {
     stop();
+    applyWhenReady = false;
     finishLoading(loading);
     control.disabled = false;
     status.textContent = text;
@@ -41,7 +42,7 @@ export function mountCut({ model, loading, period }) {
 
   async function check() {
     try {
-      const { data } = await apiGet('screens/executive/actualizar/', period);
+      const { data } = await apiGet('screens/executive/actualizar/', period, { cache: 'no-store' });
       const blocks = data.blocks || {};
       if ((!model.loadedAt && blocks.financial) || (!model.commercial && blocks.commercial) || (!hasOperations && blocks.operations)) {
         stop();

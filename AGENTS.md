@@ -29,7 +29,15 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
-- Último bloque sobre `b33c4f1`: carga, navegación y CSS ya no leen referencias
+- Último bloque sobre `6f69346`: actualización de cortes usa tests del
+  controlador/cliente actuales; ningún test Node lee tests/reference.
+  Restaurados no-store de cliente/API y parada de sondeo tras fallo, sin
+  cambios de diseño, cifras, fórmulas o permisos. 473 Node en UTC/México,
+  ocho mutaciones, 23 servidor dirigidas, 29 Chrome y una revalidación de
+  producción con CSP pasan (hay solapamiento). Regresión amplia servidor
+  aprobada: 1747 casos (portal/core/access). Navegador/congelación general
+  siguen pendientes; no borrar originales/generadores aún. Sin push.
+- Bloque previo sobre `b33c4f1`: carga, navegación y CSS ya no leen referencias
   anteriores. Diez pruebas conservadas; 472 Node y 10 dirigidas pasan en
   UTC/México. Seis mutaciones en copias detectadas y JSON reproducible.
   Carga/navegación ejecutan módulos actuales; CSS se contrasta con SHA-256
@@ -187,12 +195,12 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
 1. Piloto ya integrado: no rehacerlo ni cambiar de rama con cambios ajenos.
    Continuar por modelos Node sencillos y después intermedios/complejos;
    el desarrollo normal sigue directo en main.
-2. Congelar progresivamente las comparaciones Node y de navegador con
-   resultados obtenidos del **original**, nunca del modelo que se comprueba.
-   En main, ningún test Node lee proyecto_detalle.js (41 al comenzar).
-   Queda cached_page.test.cjs con referencia auxiliar Node y el trabajo de navegador. El piloto de
-   navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
-   comprobar que las pruebas detectan una alteración deliberada y restaurarla.
+2. Congelar las comparaciones de navegador con resultados obtenidos del
+   **original**, nunca del modelo que se comprueba. Node ya no lee ningún
+   archivo de tests/reference: completados el motor y los cuatro auxiliares.
+   El piloto de navegador y la auditoría final de consumidores siguen
+   pendientes. Preservar entradas, casos límite y cobertura; comprobar que
+   las pruebas detectan alteraciones deliberadas usando copias temporales.
 3. Solo después retirar referencias/generadores y transporte de pruebas que
    ya no tengan consumidores. Mantener el registro/servicios internos usados.
 4. Mantener pruebas permanentes con rutas de producción y CSP; ejecutar

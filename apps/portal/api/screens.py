@@ -323,7 +323,8 @@ class ExecutiveRefreshView(APIView):
                         "operations": operations.get("projects") is not None,
                     },
                 }
-            }
+            },
+            headers={"Cache-Control": "no-store"},
         )
 
     def get(self, request: Request) -> Response:
