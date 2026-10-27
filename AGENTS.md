@@ -29,7 +29,15 @@ presentaciones retiradas. Leer primero el bloque vigente de ambos documentos.
 
 ### Git y piloto de congelación
 
-- Último bloque sobre `884fb69`: legacy_tools y project_compatibility ya no
+- Último bloque sobre `b33c4f1`: carga, navegación y CSS ya no leen referencias
+  anteriores. Diez pruebas conservadas; 472 Node y 10 dirigidas pasan en
+  UTC/México. Seis mutaciones en copias detectadas y JSON reproducible.
+  Carga/navegación ejecutan módulos actuales; CSS se contrasta con SHA-256
+  original (solo CRLF/LF normalizados). Queda una lectura auxiliar Node:
+  cached_page.test.cjs; auditar el flujo API de cut.js frente al anterior
+  antes de reemplazar caché/reintento/aplicación del corte. Navegador pendiente.
+  No cambia aplicación ni se repiten servidor/e2e o push. Ver congelacion-referencias.
+- Bloque previo sobre `884fb69`: legacy_tools y project_compatibility ya no
   leen el motor original. Diez pruebas conservadas, con controlador/vista/DOM
   y runtime actuales. 472 Node y 10 dirigidas en UTC/México pasan; ocho
   mutaciones en copias detectadas y dos JSON reproducibles. Los 41 tests del
@@ -182,7 +190,7 @@ instrucciones y `docs/estado-traspaso.md` son la entrada vigente.
 2. Congelar progresivamente las comparaciones Node y de navegador con
    resultados obtenidos del **original**, nunca del modelo que se comprueba.
    En main, ningún test Node lee proyecto_detalle.js (41 al comenzar).
-   Quedan cuatro archivos con referencias auxiliares Node y el trabajo de navegador. El piloto de
+   Queda cached_page.test.cjs con referencia auxiliar Node y el trabajo de navegador. El piloto de
    navegador sigue pendiente. Preservar entradas, casos límite y cobertura;
    comprobar que las pruebas detectan una alteración deliberada y restaurarla.
 3. Solo después retirar referencias/generadores y transporte de pruebas que

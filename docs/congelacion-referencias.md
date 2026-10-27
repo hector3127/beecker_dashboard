@@ -1,5 +1,56 @@
 # Congelación de comparaciones: avance del 27/10/2026
 
+## Decimocuarto bloque: carga, navegación y CSS
+
+Base `b33c4f1`. Tres archivos auxiliares dejan de leer tests/reference sin
+cambiar producción. Se conservan sus **10 pruebas**. El generador temporal
+`portal_auxiliary.gen.mjs` captura del original, antes de reemplazarlo:
+10 mensajes, cuatro estados de consultas superpuestas, dos estados de
+skeleton, cinco enlaces y restauración/edición de filtros de cuentas,
+además del hash y longitud del CSS. JSON reproducible exactamente con
+normalización CRLF/LF.
+
+- portal_loading.test.cjs ejecuta el módulo vigente ui/portal-loading.js.
+  Conserva isLoadingMessage, contador/fin idempotente y limpieza del skeleton.
+  inspect se expone solo en el sandbox de la prueba, sin cambiar exports
+  de producción. Pendiente nunca se toma por carga.
+- return_navigation.test.cjs ejecuta el listener de ui/return-links.js para
+  preservar padre inmediato, cadena anidada, nombre y periodo, excluyendo
+  regreso/exteriores. El último caso ahora ejecuta el controlador completo
+  all_accounts/main.js y url-state.js actuales sobre una lista vacía. Comprueba
+  restauración, pintado inicial y guardado de búsqueda/clasificación/año;
+  no pretende validar filas pobladas ni apariencia de la tabla en este bloque.
+  El controlador pinta directamente: no emite el input sintético del helper
+  anterior, por lo que esa señal interna se reemplaza por comprobar que pintó.
+- project_independence conserva la auditoría del grafo activo y compara el
+  CSS base contra SHA-256 y longitud capturados del original. Solo se
+  normalizan CRLF→LF para admitir distintos checkouts; no se normalizan
+  reglas, espacios, comentarios ni BOM. El test anterior pasó antes de
+  capturar, verificando que la copia vigente tenía los mismos bytes.
+
+**472 Node completas y 10 dirigidas pasan en UTC y America/Mexico_City**,
+ninguna omisión. Seis mutaciones en copias temporales detectadas: añadir
+Pendiente a mensajes de carga, quitar idempotencia del cierre, perder periodo,
+reescribir regreso, perder clasificación y modificar color CSS. Prettier
+JS/diff comprobados. Evidencia ignorada: `tmp/frozen-aux-before.log`,
+`tmp/frozen-aux-after.log`, `tmp/frozen-aux-{UTC,America-Mexico_City}.log`,
+`tmp/frozen-aux-all-{UTC,America-Mexico_City}.log` y
+`tmp/frozen-aux-*.mutation.log`. No se repiten servidor/e2e ni se afirma una
+comparación visual nueva. Diseño, datos, fórmulas, CSP y permisos intactos.
+
+Queda **un archivo Node** que lee tests/reference: cached_page.test.cjs,
+con sus cuatro pruebas intactas. Su modo HTML y endpoint anterior no están
+presentes en el controlador vigente executive/sections/cut.js, que usa
+apiGet/apiSend. Antes de reemplazarlo contrastar los casos de actualización,
+conservación de filtros/corte visible, reintento, parcial, CSRF, caché y
+momento de recarga. No afirmar equivalencia de protocolos ni cambiar el
+controlador para que copie el anterior; documentar las diferencias vigentes.
+La suite completa sigue incluyendo esas cuatro pruebas del anterior.
+
+Los 41 archivos del motor de proyectos continúan sin leer su script anterior.
+También falta navegador. No borrar tests/reference ni generadores aún.
+Fase 11 abierta, sin push.
+
 ## Decimotercer bloque: arranque, enlaces directos y compatibilidad
 
 Base `884fb69`. Se conservan las **10 pruebas** de los dos últimos archivos

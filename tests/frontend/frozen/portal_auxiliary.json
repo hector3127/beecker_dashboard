@@ -1,0 +1,116 @@
+{
+  "loading": {
+    "messages": [
+      {
+        "value": "Consultando…",
+        "expected": true
+      },
+      {
+        "value": "Preparando corte del periodo…",
+        "expected": true
+      },
+      {
+        "value": "Cargando datos",
+        "expected": true
+      },
+      {
+        "value": "Guardando estado…",
+        "expected": true
+      },
+      {
+        "value": "Pendiente",
+        "expected": false
+      },
+      {
+        "value": "No disponible",
+        "expected": false
+      },
+      {
+        "value": "Sin presupuesto",
+        "expected": false
+      },
+      {
+        "value": "0",
+        "expected": false
+      },
+      {
+        "value": "31 costos pendientes",
+        "expected": false
+      },
+      {
+        "value": "Sin acuerdos registrados",
+        "expected": false
+      }
+    ],
+    "overlap": [
+      {
+        "busy": "true",
+        "region": true
+      },
+      {
+        "busy": "true",
+        "region": true
+      },
+      {
+        "busy": "true",
+        "region": true
+      },
+      {
+        "busy": "false",
+        "region": false
+      }
+    ],
+    "skeleton": [
+      true,
+      false
+    ]
+  },
+  "navigation": {
+    "links": [
+      {
+        "href": "http://localhost/ejecutiva/cuentas/?periodo=mes&anio=2026&mes=10&buscar=Heineken",
+        "target": "http://localhost/ejecutiva/costos/detalle/?nombre=Heineken",
+        "back": false,
+        "expected": "http://localhost/ejecutiva/costos/detalle/?nombre=Heineken&periodo=mes&anio=2026&mes=10&volver=%2Fejecutiva%2Fcuentas%2F%3Fperiodo%3Dmes%26anio%3D2026%26mes%3D10%26buscar%3DHeineken"
+      },
+      {
+        "href": "http://localhost/cuenta/a/?nombre=A&volver=%2Fejecutiva%2Fcuentas%2F",
+        "target": "http://localhost/ejecutiva/costos/detalle/?nombre=A",
+        "back": false,
+        "expected": "http://localhost/ejecutiva/costos/detalle/?nombre=A&volver=%2Fcuenta%2Fa%2F%3Fnombre%3DA%26volver%3D%252Fejecutiva%252Fcuentas%252F"
+      },
+      {
+        "href": "http://localhost/cuenta/heineken-mexico/?nombre=Heineken+Mexico&volver=%2F&periodo=mes&anio=2026&mes=10",
+        "target": "http://localhost/ejecutiva/oportunidades/?nombre=Heineken+Mexico",
+        "back": false,
+        "expected": "http://localhost/ejecutiva/oportunidades/?nombre=Heineken+Mexico&periodo=mes&anio=2026&mes=10&volver=%2Fcuenta%2Fheineken-mexico%2F%3Fnombre%3DHeineken%2BMexico%26volver%3D%252F%26periodo%3Dmes%26anio%3D2026%26mes%3D10"
+      },
+      {
+        "href": "http://localhost/ejecutiva/costos/detalle/",
+        "target": "http://localhost/cuenta/a/?nombre=A&volver=%2Fejecutiva%2Fcuentas%2F",
+        "back": true,
+        "expected": "http://localhost/cuenta/a/?nombre=A&volver=%2Fejecutiva%2Fcuentas%2F"
+      },
+      {
+        "href": "http://localhost/",
+        "target": "https://other.test/cuenta/a/",
+        "back": false,
+        "expected": "https://other.test/cuenta/a/"
+      }
+    ],
+    "account": {
+      "href": "http://localhost/ejecutiva/cuentas/?periodo=anio&anio=2026&buscar=Heineken&clasificacion=pending",
+      "restored": {
+        "search": "Heineken",
+        "classification": "pending"
+      },
+      "nextSearch": "Otra cuenta",
+      "saved": "/ejecutiva/cuentas/?periodo=anio&anio=2026&buscar=Otra+cuenta&clasificacion=pending"
+    }
+  },
+  "css": {
+    "sha256": "f2517d3405e1a8898fbdd230e959334091d21bbdeb02fcbe37a3475a444e89d3",
+    "bytes": 26967,
+    "normalization": "CRLF to LF only"
+  }
+}

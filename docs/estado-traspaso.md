@@ -4,7 +4,20 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
-**Último bloque, base 884fb69:** los dos últimos tests del motor de
+**Último bloque, base b33c4f1:** tres referencias auxiliares convertidas:
+portal_loading, return_navigation y CSS en project_independence. Se conservan
+las 10 pruebas. 472 Node y 10 dirigidas pasan en UTC/México; seis mutaciones
+en copias detectadas y JSON original reproducible. Carga usa el módulo actual;
+navegación usa return-links y el controlador actual de Todas las cuentas;
+CSS usa SHA-256 del original, normalizando solo CRLF/LF. Queda una lectura
+Node a tests/reference: cached_page.test.cjs. Su flujo antiguo de HTML/
+actualizacion no es equivalente directo al cut.js actual: auditar caché,
+reintento y aplicación de corte antes de reemplazar esos casos. Navegador
+sigue pendiente; no borrar referencias. Sin cambios de aplicación/diseño/
+cálculos/CSP ni nueva corrida servidor/e2e. Ver congelacion-referencias.
+Fase 11 abierta, sin push.
+
+**Bloque previo, base 884fb69:** los dos últimos tests del motor de
 proyectos (legacy_tools y project_compatibility) usan módulos actuales y
 expectativas originales guardadas. Se conservan sus 10 pruebas. 472 Node y
 10 dirigidas pasan en UTC/México; ocho mutaciones en copias detectadas y dos

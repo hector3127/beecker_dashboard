@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { createHash } from "node:crypto";
 
 const base = "frontend/static/scripts/pages/project_detail";
 function localGraph(file, visited = new Map()) {
@@ -44,8 +45,18 @@ test("the active project dependency graph has no legacy loader, shim or RPC tran
 });
 
 test("shared project CSS is relocated verbatim to preserve the reference appearance", () => {
-  assert.deepEqual(
-    fs.readFileSync("frontend/static/styles/pages/project_detail_base.css"),
-    fs.readFileSync("tests/reference/static/portal/css/proyecto_detalle.css"),
-  );
+  const frozen = JSON.parse(
+    fs.readFileSync(
+      new URL("./frozen/portal_auxiliary.json", import.meta.url),
+      "utf8",
+    ),
+  ).css;
+  const css = fs
+    .readFileSync(
+      "frontend/static/styles/pages/project_detail_base.css",
+      "utf8",
+    )
+    .replaceAll("\r\n", "\n");
+  assert.equal(Buffer.byteLength(css, "utf8"), frozen.bytes);
+  assert.equal(createHash("sha256").update(css).digest("hex"), frozen.sha256);
 });
