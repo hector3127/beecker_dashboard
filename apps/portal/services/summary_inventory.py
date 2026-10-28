@@ -1,5 +1,6 @@
 """Local Summary inventory, independent of EVA eligibility and cuts."""
 
+import re
 import time
 from datetime import date
 from typing import Any
@@ -22,9 +23,12 @@ from core.exceptions import DashboardError
 from core.utils.parallel import map_in_parallel
 
 
-def extract_summaries() -> EvaExtraction:
+def extract_summaries(*, from_local: bool = False) -> EvaExtraction:
     """Store every PAT-visible project, without service or closure filters."""
     started = time.perf_counter()
+    previous = inventory_rows()[0] if from_local else None
+    if from_local and previous is None:
+        raise ValueError("No hay un inventario local para reprocesar.")
     run = EvaExtraction.objects.create(
         cut=timezone.localdate(),
         started_at=timezone.now(),
@@ -32,24 +36,48 @@ def extract_summaries() -> EvaExtraction:
         metrics={"kind": "summary_inventory"},
     )
     try:
-        gateway = AzureDevOpsGateway()
-        catalog = gateway.create_client().list_summary_projects()
+        gateway = None if from_local else AzureDevOpsGateway()
+        if from_local:
+            catalog = [
+                s.payload["summary"]
+                for s in EvaAzureSource.objects.filter(extraction=previous)
+            ]
+        else:
+            assert gateway is not None
+            catalog = gateway.create_client().list_summary_projects()
 
         def read(
             project: dict[str, Any],
         ) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
-            summary = (
-                project
-                if "description" in project
-                else gateway.create_client().get_project_summary(project["id"])
-            )
+            summary = project
+            if "description" not in project and gateway is not None:
+                summary = gateway.create_client().get_project_summary(
+                    project["id"]
+                )
             name = str(project["name"])
             match = BUSINESS_ID.match(name.upper())
             base = match[0].split("_", 1)[0] if match else name
             rows = candidate_rows(base, str(summary.get("description") or ""))
+            # User rule: / SPRNT 1 (or SPRINT 1) on a change-request
+            # heading is redundant. Preserve its original parsed identity.
+            for row in rows:
+                if match_scope := re.fullmatch(r"(CR\d*)_S1", row["scope"]):
+                    row.update(
+                        summary_scope=row["scope"],
+                        scope=match_scope[1],
+                        project_id=f"{base}_{match_scope[1]}",
+                        scope_link_evidence="user_rule_ignore_cr_sprint1",
+                    )
             try:
-                tree = gateway.create_client().get_iteration_tree(project["id"])
-                iteration_error = ""
+                if from_local:
+                    tree = project.get("iteration_tree", {})
+                    iteration_error = project.get("iteration_error", "")
+                else:
+                    assert gateway is not None
+                    tree = gateway.create_client().get_iteration_tree(
+                        project["id"]
+                    )
+                    iteration_error = ""
             except DashboardError:
                 tree, iteration_error = {}, "iteration_extraction_failed"
             summary = {
@@ -129,6 +157,13 @@ def extract_summaries() -> EvaExtraction:
             run.finished_at = timezone.now()
             run.metrics = {
                 "kind": "summary_inventory",
+                "reprocessed_from": previous.pk if previous else None,
+                "source_observed_at": (
+                    previous.metrics.get("source_observed_at")
+                    or (previous.finished_at or previous.started_at).isoformat()
+                    if previous
+                    else run.started_at.isoformat()
+                ),
                 "projects": len(results),
                 "blocks": sum(len(r[2]) for r in results),
                 "iteration_failures": sum(

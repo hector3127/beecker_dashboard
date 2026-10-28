@@ -9,6 +9,13 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Encabezados CR, 28/10:** por aclaración del usuario se ignora el sufijo
+/ SPRNT 1 o / SPRINT 1 de los change requests en el inventario:
+CR1_S1 → CR1 y CR2_S1 → CR2. Original preservado en summary_scope y Summary.
+Reproceso local, sin llamadas Azure ni modificar cortes EVA/KPI; fecha de
+fuente original conservada. AMK.012_CR2 recupera Alberto/RaaS/90 horas.
+16 servidor aprobadas; ver inventario-summary.md. Sin push.
+
 **Resumen DM del inventario, 28/10:** tabla adicional por DM/servicio/etapa
 con totales, misma selección de corte y búsqueda del detalle. Categorías
 pendientes adicionales conservan conciliación; sin cambiar EVA/KPI ni datos.

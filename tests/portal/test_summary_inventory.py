@@ -151,3 +151,54 @@ def test_failed_transport_keeps_last_inventory(inventory):
     ):
         extract_summaries()
     assert inventory_rows()[0] == inventory
+
+
+@pytest.mark.parametrize(
+    "number,spelling", [(1, "SPRNT"), (2, "SPRNT"), (2, "SPRINT")]
+)
+def test_local_replay_links_cr_summary_without_provider_calls(
+    inventory, number, spelling
+):
+    source = inventory.evaazuresource_set.get(azure_id="one")
+    summary = source.payload["summary"]
+    summary["description"] = (
+        f"CHANGE REQUEST {number} / {spelling} 1\nDM: Alberto\nService: RaaS\n"
+        "Project Name: Asistencia\nBudget: 90\n"
+        "Start: 22/12/2025\nFinish: 24/04/2026"
+    )
+    summary["iteration_tree"] = {
+        "name": f"General_CR{number}",
+        "children": [
+            {
+                "name": f"Discovery_CR{number}",
+                "attributes": {
+                    "startDate": "2025-12-22",
+                    "finishDate": "2026-01-02",
+                },
+            },
+            {
+                "name": f"Deployment_CR{number}",
+                "attributes": {
+                    "startDate": "2026-01-28",
+                    "finishDate": "2026-04-24",
+                },
+            },
+        ],
+    }
+    source.save()
+    with patch(
+        "apps.portal.services.summary_inventory.AzureDevOpsGateway",
+        side_effect=AssertionError("external read"),
+    ):
+        replay = extract_summaries(from_local=True)
+    run, rows = inventory_rows("AMK.012", date(2026, 1, 29))
+    assert run == replay
+    assert len(rows) == 1
+    assert rows[0]["display_id"] == f"AMK.012_CR{number}"
+    assert rows[0]["summary_scope"] == f"CR{number}_S1"
+    assert rows[0]["fields"]["delivery_manager"] == "Alberto"
+    assert rows[0]["budget"] == "90"
+    assert (
+        replay.metrics["source_observed_at"]
+        == inventory.metrics["source_observed_at"]
+    )

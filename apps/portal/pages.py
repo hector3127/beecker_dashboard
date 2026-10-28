@@ -43,6 +43,8 @@ def _login_needed(request: HttpRequest) -> bool:
 @require_capability("view_operations", whole_portfolio=True)
 def summary_inventory(request: HttpRequest) -> HttpResponse:
     """Search the persisted, unfiltered Azure Summary inventory."""
+    from django.utils.dateparse import parse_datetime
+
     from apps.portal.services.summary_dm_totals import dm_totals
     from apps.portal.services.summary_inventory import inventory_rows
 
@@ -68,6 +70,13 @@ def summary_inventory(request: HttpRequest) -> HttpResponse:
         {
             "active": "operativa",
             "inventory_run": run,
+            "inventory_observed_at": (
+                parse_datetime(run.metrics["source_observed_at"])
+                if run and run.metrics.get("source_observed_at")
+                else run.finished_at
+                if run
+                else None
+            ),
             "rows": rows,
             "query": query,
             "count": len(rows),

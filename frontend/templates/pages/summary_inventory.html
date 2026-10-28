@@ -11,7 +11,7 @@
 <label for="summary-query">Buscar proyecto, ID, sprint, CR o Delivery Manager<input id="summary-query" name="q" value="{{ query }}" type="search" placeholder="Ej. AMK.004 o nombre del DM"></label>
 <button type="submit">Consultar corte</button><a href="?corte={{ cut }}">Limpiar búsqueda</a></form>
 {% if cut_error %}<p role="alert">{{ cut_error }}</p>{% endif %}
-{% if inventory_run %}<p role="status">{{ count }} bloques encontrados · Corte: {{ cut }} · Fuente guardada: {{ inventory_run.finished_at|date:'d/m/Y H:i' }}</p>{% else %}<p role="status">Todavía no hay una extracción guardada.</p>{% endif %}
+{% if inventory_run %}<p role="status">{{ count }} bloques encontrados · Corte: {{ cut }} · Fuente guardada: {{ inventory_observed_at|date:'d/m/Y H:i' }}</p>{% else %}<p role="status">Todavía no hay una extracción guardada.</p>{% endif %}
 <p class="hs">Start y Finish provienen de iteraciones. Estatus indica la etapa cuyo rango incluye el corte (hoy por defecto). El filtro usa inicio ≤ corte ≤ fin; las cifras aún no extraídas aparecen pendientes.</p>
 <section aria-labelledby="dm-summary-title" class="inventory-dm-section">
 <h2 id="dm-summary-title">Proyectos por Delivery Manager</h2>

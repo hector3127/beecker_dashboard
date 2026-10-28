@@ -1,5 +1,27 @@
 # Inventario de Summary — primer bloque
 
+## Corrección de encabezados CR — 28/10
+
+Instrucción posterior explícita del usuario: CHANGE REQUEST 1 / SPRNT 1
+se identifica como CR1; CHANGE REQUEST 2 / SPRNT 1 como CR2. Se admite
+también SPRINT 1. Esta regla sustituye el requisito de igualdad literal
+CR2_S1/CR2 para el inventario. No elimina S2 ni une CR1 con CR sin número.
+El original sigue guardado en Summary y summary_scope; la identidad visible
+y la relación de iteraciones usan CR1/CR2. Otros campos conflictivos siguen
+pendientes. No se cambian el parser compartido ni los cortes EVA/KPI.
+
+La fila vacía AMK.012_CR2 se debía a que el Summary se guardó en CR2_S1
+y las fechas en una fila exclusiva de iteraciones CR2. Corregido: al corte
+29/01/2026 muestra Alberto Carlos Rodriguez Veloz, RaaS, Corrección de
+asistencia, Budget 90 y Deployment.
+
+Comando --from-local permite reprocesar el último inventario con su evidencia
+guardada, sin peticiones externas y conservando source_observed_at. Se guarda
+una nueva observación derivada; no se modifica el original. Último reproceso:
+450 proyectos, 694 bloques, 0.828 s. No equivale a una extracción nueva.
+16 servidor dirigidas aprobadas, incluidas variantes CR1/CR2 y replay con
+proveedor bloqueado; Ruff/mypy aprobados. Sin push.
+
 ## Resumen por Delivery Manager — 28/10
 
 Tabla adicional antes del detalle con Service (IXB, PoC, RaaS, RaaS+, SaaS)
