@@ -139,7 +139,7 @@
         "0px",
         "0px"
       ],
-      "text": "Delivery Manager\n\t\nCuenta\n\t\nProject ID\n\t\nService\n\t\nNombre\n\t\nEstatus\n\t\nStart\n\t\nFinish\n\t\nDesv. días\n\t\nBudget\n\t\nBurn\n\t\nETC\n\t\nDesv. Hrs\n\t\nAvance\n\tDiscovery\tDevelopment\tDeployment\tGeneral\t\nRiesgos\n\n\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\nLaura Vega\t\nNM\nNestlé México\n\tAMK.008_S4\tRaaS\tAlertas\t🚀 Deployment\t28/08/26\t13/10/26\t1\t141\t167.59\t-26.59\t-26.59\t\n118.8%\n\t41\t41\t0\t56\t50\t6\t39\t2\t37\t154\t102\t52\t2\nMario\t\n—\nSin cuenta\n\tIXB.2\tIXB\tProyecto suspendido\t⏸ Suspendido\t28/08/26\t13/10/26\t1\t141\t167.59\t-26.59\t-26.59\t\n118.8%\n\t41\t41\t0\t56\t50\t6\t39\t2\t37\t154\t102\t52\t2"
+      "text": "Delivery Manager\n\t\nCuenta\n\t\nProject ID\n\t\nService\n\t\nNombre\n\t\nEstatus\n\t\nStart\n\t\nFinish\n\t\nDesv. días\n\t\nBudget\n\t\nBurn\n\t\nETC\n\t\nDesv. Hrs\n\t\nAvance\n\tDiscovery\tDevelopment\tDeployment\tGeneral\t\nRiesgos\n\n\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\t\n🤖\n\t\n✅\n\t\n⌛\n\nLaura Vega\t\nNM\nNestlé México\n\tAMK.008_S4\tRaaS\tAlertas\t🚀 Deployment\t28/08/26\t13/10/26\t-1\t141\t167.59\t-26.59\t-26.59\t\n118.8%\n\t41\t41\t0\t56\t50\t6\t39\t2\t37\t154\t102\t52\t2\nMario\t\n—\nSin cuenta\n\tIXB.2\tIXB\tProyecto suspendido\t⏸ Suspendido\t28/08/26\t13/10/26\t-1\t141\t167.59\t-26.59\t-26.59\t\n118.8%\n\t41\t41\t0\t56\t50\t6\t39\t2\t37\t154\t102\t52\t2"
     },
     {
       "box": [

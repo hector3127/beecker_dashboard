@@ -9,6 +9,27 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Reglas de KPIs DM confirmadas por el usuario (27/10):** la pantalla usa
+EVA 1, no la mezcla anterior con MPB: corte al último lunes–jueves, TP abierto
+incluidos suspendidos; T = proyectos con desviación <=0/TP; C = proyectos con
+avance <=100/TP. Incluye límites 0/100; faltantes conservan TP y dejan pendiente
+el porcentaje. Totales ponderados por proyectos, precisión hasta presentar.
+EVA 1 invierte el signo respecto al cargador compartido (que no cambia para
+otras pantallas). Consultar corte explícito, incluido hoy, comparte la
+reconstrucción/presupuesto con KPIs; entrada sin corte conserva consulta
+actual. Trimestres mantienen promedios mensuales, ahora de cumplimiento.
+API declara unidades y expone fuera de tiempo/costo como conteos independientes.
+Reglas, diferencias de fuente y límites: [kpis-dm-reglas.md](kpis-dm-reglas.md).
+
+Evidencia: regresión amplia 1773 servidor, 474 Node y 63 Chrome
+(KPIs, Business Overview y EVA 1–3), más revalidación final dirigida de cinco
+Chrome tras ajustar textos/ruta real/CSP. PNG a 1450/900/390 revisados, sin
+cambiar CSS. Referencias EVA: solo cambio de signo en textos de seis JSON,
+sin recapturar geometrías; referencia KPI actualizada con resultados manuales
+de un caso de 3 proyectos (Ana 50/50, Beto 100/100, total 66.7/66.7).
+Ruff/formato, mypy de los cuatro módulos afectados y check aprobados.
+No acredita coincidencia de datos con los correos ni cierra fase 11. Sin push.
+
 **EVA 1: corte histórico, por solicitud del usuario (27/10):** el control
 de rango fue sustituido por Fecha de corte/Consultar corte. Para días
 pasados se reconstruyen IDs abiertos desde el histórico (incluye suspendidos

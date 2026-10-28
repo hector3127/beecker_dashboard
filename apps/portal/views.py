@@ -989,9 +989,28 @@ def eva1(request: HttpRequest) -> HttpResponse:
                 "Fecha de corte inválida: usa un día no futuro (AAAA-MM-DD).",
                 status=400,
             )
-    historical_cut = cut < timezone.localdate()
-    data = load_cut(cut) if historical_cut else eva2_data()
+    # An explicit cut (including today) must use the same inventory and
+    # budget as monthly KPIs. Entry without a cut retains the live summary.
+    reconstructed_cut = bool(raw_cut)
+    data = load_cut(cut) if reconstructed_cut else eva2_data()
     available = data["eva"]
+    if not reconstructed_cut:
+        from dataclasses import replace
+
+        # Only EVA 1 changes sign; other users of the shared loader retain
+        # their existing days-until semantics.
+        available = replace(
+            available,
+            projects=tuple(
+                replace(
+                    p,
+                    deviation_days=-p.deviation_days
+                    if p.deviation_days is not None
+                    else None,
+                )
+                for p in available.projects
+            ),
+        )
     data["eva"] = select_view(
         available,
         request.GET.get("manager", ""),
@@ -1010,7 +1029,7 @@ def eva1(request: HttpRequest) -> HttpResponse:
             "eva_available_total": available.total_projects,
             "eva_cut": cut.isoformat(),
             "eva_today": timezone.localdate().isoformat(),
-            "eva_reconstructed": historical_cut,
+            "eva_reconstructed": reconstructed_cut,
         },
     )
 
@@ -1185,8 +1204,18 @@ def kpi_context(request: HttpRequest) -> dict[str, Any]:
             history.history.managers,
         )
         end_cut = next(
-            cut for cut in history.history.months if cut.key == period.end_month
+            (
+                cut
+                for cut in history.history.months
+                if cut.key == period.end_month
+            ),
+            None,
         )
+        if end_cut is None:
+            context["history_notice"] = (
+                "Aún no hay un corte de lunes a jueves en el mes elegido."
+            )
+            return context
 
         context.update(
             {

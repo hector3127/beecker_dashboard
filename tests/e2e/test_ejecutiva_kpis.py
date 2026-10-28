@@ -8,7 +8,7 @@ import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.conftest import rows, visible
-from tests.portal.test_views import stub_history
+from tests.portal.test_kpi_eva import stub_compliance_history
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
@@ -188,7 +188,7 @@ def kpis(monkeypatch, datos):
     from django.utils import timezone
 
     monkeypatch.setattr(timezone, "localdate", lambda: TODAY)
-    stub_history(monkeypatch)
+    stub_compliance_history(monkeypatch, TODAY)
 
 
 def test_kpis_open_on_the_whole_year_with_tp_t_c_history(
@@ -220,12 +220,10 @@ def test_kpis_explain_the_units_without_changing_the_numbers(portal, kpis):
 
     note = portal.locator(".kpi-definition-note")
     note.get_by_text("Cómo interpretar TP, T y C en esta pantalla").click()
-    expect(note).to_contain_text("T es desviación media en días")
-    expect(note).to_contain_text(
-        "C es consumo medio de horas sobre presupuesto"
-    )
+    expect(note).to_contain_text("T: proyectos con desviación ≤ 0 / TP × 100")
+    expect(note).to_contain_text("C: proyectos con avance ≤ 100% / TP × 100")
     assert portal.locator(".kc .kl").all_inner_texts() == [
-        "Consumo promedio (C)",
+        "Cumplimiento en costo (C)",
         "Carga total (TP)",
         "Mayor proporción en tiempo",
         "Menor proporción en tiempo",

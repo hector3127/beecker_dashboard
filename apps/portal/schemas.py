@@ -473,6 +473,8 @@ class KpiManagerRow:
     health: HealthCount
     on_time_percent: int
     time_cost: TimeCost
+    time_late: int | None = None
+    cost_over: int | None = None
 
 
 @dataclass(frozen=True, slots=True)

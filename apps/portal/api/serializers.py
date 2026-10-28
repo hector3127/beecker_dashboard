@@ -596,6 +596,12 @@ def _kpi_row(row: Any) -> dict[str, Any]:
         "at_risk": row.health.at_risk,
         "critical": row.health.critical,
         "on_time_percent": row.on_time_percent,
+        "time_late": row.time_late
+        if row.time_late is not None
+        else row.health.at_risk,
+        "cost_over": row.cost_over
+        if row.cost_over is not None
+        else row.health.critical,
     }
 
 
@@ -621,12 +627,19 @@ def _link(link: Any) -> dict[str, Any]:
 def kpi_screen(context: dict[str, Any]) -> dict[str, Any]:
     """KPIs de Delivery Managers: corte, historico mensual y trimestral.
 
-    T y C salen sin redondear; el redondeo es de presentacion.
+    T y C son porcentajes de proyectos que cumplen, sin redondear;
+    el redondeo es de presentacion.
     """
     kpis, picker, period = context["kpis"], context["picker"], context["period"]
     month, quarter = context.get("month_matrix"), context.get("quarter_matrix")
     return {
         "data": {
+            "metrics": {
+                "basis": "eva1_compliance",
+                "t_unit": "percent",
+                "c_unit": "percent",
+                "cut_weekdays": [0, 1, 2, 3],
+            },
             "period": {
                 "kind": period.kind,
                 "label": period.label,

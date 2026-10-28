@@ -31,6 +31,7 @@ from apps.portal.services.eva2 import _pivot_rows, build_eva2_view
 from apps.portal.services.time_cost import build_time_cost
 from core.exceptions import DashboardError
 from core.sheets.factory import build_sheet_repository
+from core.sheets.protocols import SheetReader
 from core.time_entries.models import TimeEntry
 from core.utils.dates import to_datetime
 
@@ -169,23 +170,33 @@ def cut_rows(
         row["deliveryManager"] = managers[key]
         row["budget_pending"] = key in pending_budget
         row["hours_pending"] = key in pending_hours
+        # EVA email convention: before Finish is negative; overdue positive.
+        if row["desviacionDias"] is not None:
+            row["desviacionDias"] = -row["desviacionDias"]
     return rows
+
+
+def read_sources(
+    reader: SheetReader,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Shared inventory/event blocks for EVA 1 and its monthly DM KPIs."""
+    values = reader.read_values("Historico_Proyectos")
+    history = build_history_block_rows(values, [])
+    event_values = [
+        row
+        for row in values[1:]
+        if any(cell not in (None, "") for cell in row[:9])
+    ]
+    for event, raw in zip(history, event_values, strict=True):
+        event["Budget  (Hrs)"] = raw[9] if len(raw) > 9 else ""
+    return list(reader.read_as_objects("Proyectos")), history
 
 
 def load_cut(cut: date) -> dict[str, Any]:
     """Load source data without changing other EVA/Operations loaders."""
     try:
         reader = build_sheet_repository()
-        values = reader.read_values("Historico_Proyectos")
-        history = build_history_block_rows(values, [])
-        # J belongs to the A:I event record. K onward is a different table.
-        event_values = [
-            row
-            for row in values[1:]
-            if any(cell not in (None, "") for cell in row[:9])
-        ]
-        for event, raw in zip(history, event_values, strict=True):
-            event["Budget  (Hrs)"] = raw[9] if len(raw) > 9 else ""
+        projects, history = read_sources(reader)
         loader: ClockifyTimeEntryLoader | None = None
 
         def entries(pid: str) -> list[TimeEntry]:
@@ -202,9 +213,7 @@ def load_cut(cut: date) -> dict[str, Any]:
             ]
             return loader.load_project(pid, custom_range=(min(starts), cut))
 
-        rows = cut_rows(
-            reader.read_as_objects("Proyectos"), history, cut, entries
-        )
+        rows = cut_rows(projects, history, cut, entries)
         view = build_eva2_view(rows)
         flags = {row["idProyecto"]: row for row in rows}
         view = replace(

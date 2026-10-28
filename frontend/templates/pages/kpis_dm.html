@@ -10,7 +10,7 @@
 {% block content %}
 <div id="kpis-notice"></div>
 <div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Operations</span></div>
-{% include "partials/hero.html" with title="KPIs de Delivery Managers" subtitle="Carga y cumplimiento de cada Delivery Manager · MPB y Historico_Proyectos" tone="operations" icon="target" eyebrow="Operations" %}
+{% include "partials/hero.html" with title="KPIs de Delivery Managers" subtitle="Carga y cumplimiento de cada Delivery Manager · Cortes de EVA 1" tone="operations" icon="target" eyebrow="Operations" %}
 <div id="kpis-content" aria-busy="true"
  data-facturabilidad="{% url 'portal:facturabilidad' %}" data-especialidad="{% url 'portal:facturabilidad_especialidad' %}"
  data-recurso="{% url 'portal:facturabilidad_recurso' %}" data-kpis="{% url 'portal:kpis_dm' %}" data-area="{% url 'portal:facturabilidad_area' %}"

@@ -6,7 +6,6 @@ from unittest.mock import Mock
 from django.core.cache import cache
 from django.test import override_settings
 
-from apps.portal.constants import KPI_HISTORY_CACHE_KEY
 from apps.portal.services import kpi_history_loader
 from apps.portal.services.kpi_history import HistorySources, build_kpi_history
 from apps.portal.services.kpi_sources import KpiSheetReader, load_kpi_sources
@@ -214,8 +213,16 @@ def test_budget_from_j_is_shared_by_project_id_without_using_right_block():
 
 @override_settings(TIME_ENTRY_SOURCE="sheet")
 def test_loader_reads_only_source_catalog_and_caches_it(monkeypatch):
-    cache.delete(KPI_HISTORY_CACHE_KEY + ":2026")
-    r = reader()
+    cache.clear()
+    r = InMemorySheetRepository(
+        {
+            **reader().sheets,
+            "Proyectos": [
+                ["ID_Proyecto", "Servicio", "Budget_Hrs"],
+                ["IXB.001_CR", "IXB", 200],
+            ],
+        }
+    )
     monkeypatch.setattr(kpi_history_loader, "build_sheet_repository", lambda: r)
     provider = Mock()
     provider.load_time_entries.return_value = TimeEntryBatch(entries=())
@@ -227,23 +234,31 @@ def test_loader_reads_only_source_catalog_and_caches_it(monkeypatch):
     assert not result.error
     assert result.history is not None
     catalog = factory.call_args.args[0].read_as_objects("Proyectos")
-    assert {r["ID_Proyecto"] for r in catalog} == {"AER.001", "IXB.001_CR"}
+    assert {r["ID_Proyecto"] for r in catalog} == {"IXB.001_CR"}
     kpi_history_loader.load_kpi_history(2026)
     provider.load_time_entries.assert_called_once()
-    cache.delete(KPI_HISTORY_CACHE_KEY + ":2026")
+    cache.clear()
 
 
 @override_settings(TIME_ENTRY_SOURCE="clockify")
 def test_clockify_uses_source_ids_and_preserves_exact_cr(monkeypatch):
     cache.clear()
-    r = reader()
+    r = InMemorySheetRepository(
+        {
+            **reader().sheets,
+            "Proyectos": [
+                ["ID_Proyecto", "Servicio", "Budget_Hrs"],
+                ["IXB.001_CR", "IXB", 200],
+            ],
+        }
+    )
     monkeypatch.setattr(kpi_history_loader, "build_sheet_repository", lambda: r)
     calls = []
 
     def factory(scoped):
         assert {
             row["ID_Proyecto"] for row in scoped.read_as_objects("Proyectos")
-        } == {"AER.001", "IXB.001_CR"}
+        } == {"IXB.001_CR"}
         loader = Mock()
 
         def hours(pid, period):
@@ -256,17 +271,25 @@ def test_clockify_uses_source_ids_and_preserves_exact_cr(monkeypatch):
     monkeypatch.setattr(kpi_history_loader, "build_clockify_loader", factory)
     result = kpi_history_loader.load_kpi_history(2026)
     assert not result.error
-    assert {pid for pid, _ in calls} == {"AER.001", "IXB.001_CR"}
+    assert {pid for pid, _ in calls} == {"IXB.001_CR"}
     assert all(period[0] == date(2026, 1, 1) for _, period in calls)
     kpi_history_loader.load_kpi_history(2026)
-    assert len(calls) == 2
+    assert len(calls) == 1
     cache.clear()
 
 
 @override_settings(TIME_ENTRY_SOURCE="clockify")
-def test_invalid_source_dates_do_not_block_other_projects(monkeypatch):
+def test_overdue_finish_does_not_truncate_clockify_hours(monkeypatch):
     cache.clear()
-    r = reader()
+    r = InMemorySheetRepository(
+        {
+            **reader().sheets,
+            "Proyectos": [
+                ["ID_Proyecto", "Servicio", "Budget_Hrs"],
+                ["IXB.001_CR", "IXB", 200],
+            ],
+        }
+    )
     # La etapa anterior trae una fecha fin anterior a Discovery.
     r.sheets["Historico_Proyectos"][2][6] = "Deployment"
     r.sheets["Historico_Proyectos"][2][8] = "2025-12-01"
@@ -280,12 +303,12 @@ def test_invalid_source_dates_do_not_block_other_projects(monkeypatch):
     result = kpi_history_loader.load_kpi_history(2026)
     assert result.history is not None
     assert result.error == ""
-    assert "IXB.001_CR" in result.notice
-    assert "posterior al fin" in result.notice
+    assert result.notice == ""
     row = next(
         r for r in result.history.months[0].view.rows if r.name == "Stage DM"
     )
-    assert row.time_cost.cost_percent is None
+    assert row.time_cost.cost_percent == 100
+    assert row.time_cost.time_days == 0
     assert loader.load_project.call_count == 1
     assert kpi_history_loader.load_kpi_history(2026).notice == result.notice
     cache.clear()

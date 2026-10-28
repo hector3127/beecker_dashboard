@@ -5,6 +5,7 @@ import re
 import pytest
 from playwright.sync_api import expect
 
+from tests.e2e.frozen.aer_executive_support import production_site  # noqa: F401
 from tests.portal.test_views import portfolio, stub_history, stub_portfolio
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -14,8 +15,12 @@ PAGE = "/operativa/kpis-delivery-managers/"
 
 @pytest.fixture(autouse=True)
 def sources(monkeypatch):
+    from django.utils import timezone
+
+    from tests.portal.test_kpi_eva import stub_compliance_history
+
     stub_portfolio(monkeypatch, portfolio())
-    stub_history(monkeypatch)
+    stub_compliance_history(monkeypatch, timezone.localdate())
 
 
 @pytest.mark.parametrize("query", ["", "?vista=anterior"])
@@ -41,7 +46,7 @@ def test_page_uses_the_modular_frontend_with_the_previous_layout(portal, query):
     assert portal.locator("#kpi-quarter-history").count() == 1
     assert portal.locator("#kpi-month-history thead [colspan='3']").count() > 1
     expect(portal.locator(".kpi-definition-note")).to_contain_text(
-        "no un porcentaje de proyectos que cumplen"
+        "T: proyectos con desviación ≤ 0 / TP × 100"
     )
 
 
@@ -137,3 +142,27 @@ def test_missing_history_keeps_the_explanation_and_no_false_tables(
     )
     expect(portal.locator("#kpi-month-history")).to_have_count(0)
     expect(portal.locator("#kpi-quarter-history")).to_have_count(0)
+
+
+@pytest.mark.usefixtures("production_site")
+def test_monthly_compliance_uses_percentages_and_explicit_definitions(
+    portal, enforced_csp
+):
+    portal.goto(portal.base + PAGE + "?periodo=anio&anio=2026")
+    expect(portal.locator("#kpi-month-history tbody tr").first).to_contain_text(
+        "Ana"
+    )
+    expect(portal.locator("#kpi-month-history tbody tr").first).to_contain_text(
+        "50%"
+    )
+    expect(
+        portal.locator("#kpi-month-history tbody tr").nth(1)
+    ).to_contain_text("100%")
+    expect(portal.locator(".kp .kc").first).to_contain_text(
+        "Cumplimiento en costo"
+    )
+    expect(portal.locator(".kpi-definition-note")).to_contain_text(
+        "último lunes a jueves"
+    )
+    expect(portal.locator(".two table")).to_contain_text("Fuera de tiempo")
+    assert not portal.locator("#kpi-month-history").inner_text().endswith(" d")

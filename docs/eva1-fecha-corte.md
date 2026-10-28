@@ -3,6 +3,13 @@
 Cambio solicitado por el usuario para consultar proyectos abiertos en un día,
 incluyendo suspendidos/vencidos, en vez de filtrar por solapamiento Start–Finish.
 
+Actualización posterior: el usuario confirmó los KPIs T/C por cumplimiento.
+EVA 1 usa ahora corte menos Finish (negativo antes del vencimiento y positivo
+después). La convención del cargador compartido para otras pantallas no cambia.
+Ver [reglas de KPIs](kpis-dm-reglas.md).
+Una fecha consultada explícitamente, incluso hoy, usa la reconstrucción
+compartida con KPIs. Solo la entrada sin `corte` conserva el resumen actual.
+
 ## Uso y alcance
 
 En `/operativa/eva-1/`, elegir **Fecha de corte** y **Consultar corte**.
@@ -12,8 +19,8 @@ fecha exige consultar para evitar peticiones por cada dígito del calendario.
 Las tarjetas y ambos pivotes aplican el mismo DM/servicio que el detalle.
 Los menús por columna siguen siendo filtros locales de la tabla y del CSV.
 
-El día actual conserva el cargador existente y sus datos de Azure. Los días
-pasados usan el nuevo servicio `apps/portal/services/eva_cut.py`:
+La entrada sin corte conserva el cargador existente y sus datos de Azure.
+Las fechas consultadas usan `apps/portal/services/eva_cut.py`:
 
 - Inventario por ID exacto desde los eventos A:I de `Historico_Proyectos`,
   incluso cuando el ID dejó de existir en `Proyectos`. Servicio, nombre y
