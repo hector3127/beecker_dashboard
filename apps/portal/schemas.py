@@ -298,6 +298,9 @@ class Eva2Project:
     risks: int
     client: str = ""
     risk_titles: tuple[str, ...] = ()
+    budget_pending: bool = False
+    hours_pending: bool = False
+    azure_pending: bool = False
 
 
 @dataclass(frozen=True, slots=True)

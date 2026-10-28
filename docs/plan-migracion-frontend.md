@@ -9,6 +9,27 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**EVA 1: corte histórico, por solicitud del usuario (27/10):** el control
+de rango fue sustituido por Fecha de corte/Consultar corte. Para días
+pasados se reconstruyen IDs abiertos desde el histórico (incluye suspendidos
+y vencidos, excluye terminales hasta el cierre del día); DM por evento fechado
+del ID exacto. El selector incluye todos los DM de ese conjunto, sin límite
+de tres. DM/servicio aplican a tarjetas, pivotes y detalle; CSV conserva la
+selección. Fecha actual conserva el cargador existente. Clockify acota el
+rango hasta el corte; Azure antiguo se muestra Pendiente, no con estados
+actuales. ETC no cambia. Alcance y conciliación local 20 vs 22 IDs del correo
+en [eva1-fecha-corte.md](eva1-fecha-corte.md).
+
+Evidencia: 1759 servidor (portal/core/access), 474 Node y 44 Chrome EVA 1–3
+aprobadas; el nuevo caso usa config.urls, sin referencias y con CSP.
+Comparación de geometría/CSS/textos a 1450/900/390: tres referencias de
+histórico actualizadas exclusivamente por traslación Y de -27/-46/-83 px
+al desplazar hasta el histórico, causada por la nueva nota de alcance.
+Se comprobaron textos, CSS, X, anchos y alturas idénticos; sin regenerar
+otras expectativas. PNG de escritorio/móvil inspeccionados. Ruff, formato,
+mypy de servicio/vistas y manage.py check aprobados. No es cierre de fase
+11 ni conciliación completa de cifras con Gera. Sin push.
+
 **Filtro EVA 1 (27/10):** rango aplicado también con evento input, sin
 esperar a salir del campo. Fechas, servicio y DM se guardan en la URL y se
 aplican al arrancar, incluido después de Actualizar. Se conservan otros

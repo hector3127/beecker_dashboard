@@ -3,7 +3,7 @@ import { mountAccountColumn } from "./account_column.js";
 import { mountIxbHistory } from "./history_table.js";
 import { mountTableColumns, cellText } from "../eva/table_columns.js";
 import { mountHistory } from "../eva/history.js";
-import { matches, csv, headers } from "./model.js";
+import { csv, headers } from "./model.js";
 import { watchLoadingMessages } from "#app/ui/portal-loading.js";
 
 watchLoadingMessages();
@@ -13,13 +13,13 @@ if (table) {
   const rows = [...table.querySelectorAll("tbody tr[data-manager]")];
   mountAccountColumn(table, rows);
   const controls = Object.fromEntries(
-    ["manager", "service", "from", "to"].map((key) => [
+    ["manager", "service"].map((key) => [
       key,
       document.getElementById("eva-" + key),
     ]),
   );
   const query = new URLSearchParams(location.search);
-  const filterKeys = { manager: "manager", service: "service", from: "desde", to: "hasta" };
+  const filterKeys = { manager: "manager", service: "service" };
   for (const [key, control] of Object.entries(controls)) {
     control.value = query.get(filterKeys[key]) || "";
   }
@@ -28,21 +28,15 @@ if (table) {
     columns?.sort(rows).forEach((row) => table.tBodies[0].append(row));
     let count = 0;
     for (const row of rows) {
-      row.hidden =
-        !(columns?.matches(row) ?? true) ||
-        !matches(
-          row.dataset,
-          Object.fromEntries(
-            Object.entries(controls).map(([key, control]) => [
-              key,
-              control.value,
-            ]),
-          ),
-        );
+      row.hidden = !(columns?.matches(row) ?? true);
       if (!row.hidden) count++;
     }
     document.getElementById("eva-count").textContent =
-      "Mostrando " + count + " de " + rows.length + " proyectos";
+      "Mostrando " +
+      count +
+      " de " +
+      document.getElementById("eva-count").dataset.total +
+      " proyectos";
     const url = new URL(location.href);
     for (const [key, control] of Object.entries(controls)) {
       if (control.value) url.searchParams.set(filterKeys[key], control.value);
@@ -62,10 +56,7 @@ if (table) {
     onChange: filter,
   });
   Object.values(controls).forEach((control) =>
-    control.addEventListener("change", filter),
-  );
-  [controls.from, controls.to].forEach((control) =>
-    control.addEventListener("input", filter),
+    control.addEventListener("change", () => consult(false)),
   );
   filter();
   document.getElementById("eva-export").addEventListener("click", () => {
@@ -90,9 +81,28 @@ if (table) {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
 }
+/** @param {boolean} applyDate Only the explicit button applies an edited cut. */
+function consult(applyDate) {
+  const cut = document.getElementById("eva-cut");
+  if (!cut.reportValidity()) return;
+  const url = new URL(location.href);
+  if (applyDate || url.searchParams.has("corte"))
+    url.searchParams.set(
+      "corte",
+      applyDate ? cut.value : url.searchParams.get("corte"),
+    );
+  for (const name of ["manager", "service"]) {
+    const value = document.getElementById("eva-" + name).value;
+    if (value) url.searchParams.set(name, value);
+    else url.searchParams.delete(name);
+  }
+  url.searchParams.delete("desde");
+  url.searchParams.delete("hasta");
+  location.assign(url.href);
+}
 document
   .querySelector("[data-eva-refresh]")
-  .addEventListener("click", () => location.reload());
+  .addEventListener("click", () => consult(true));
 mountHistory({
   box: document.getElementById("eva-closed-box"),
   body: document.getElementById("eva-closed-body"),

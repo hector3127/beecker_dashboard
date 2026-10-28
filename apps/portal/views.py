@@ -977,13 +977,40 @@ def eva1(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
+    from apps.portal.services.eva_cut import load_cut, read_cut, select_view
+
+    cut = timezone.localdate()
+    raw_cut = request.GET.get("corte", "")
+    if raw_cut:
+        try:
+            cut = read_cut(raw_cut)
+        except ValueError:
+            return HttpResponse(
+                "Fecha de corte inválida: usa un día no futuro (AAAA-MM-DD).",
+                status=400,
+            )
+    historical_cut = cut < timezone.localdate()
+    data = load_cut(cut) if historical_cut else eva2_data()
+    available = data["eva"]
+    data["eva"] = select_view(
+        available,
+        request.GET.get("manager", ""),
+        request.GET.get("service", ""),
+    )
+
     return render_page(
         request,
         "pages/eva1.html",
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),
-            **eva2_data(),
+            **data,
+            "eva_managers": available.service_rows,
+            "eva_services": available.services,
+            "eva_available_total": available.total_projects,
+            "eva_cut": cut.isoformat(),
+            "eva_today": timezone.localdate().isoformat(),
+            "eva_reconstructed": historical_cut,
         },
     )
 

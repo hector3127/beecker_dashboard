@@ -8,6 +8,7 @@ from playwright.sync_api import expect
 
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
+from tests.e2e.frozen.aer_executive_support import production_site  # noqa: F401
 from tests.ejecutivo.test_aer_tym import build_mpb_row, build_values
 from tests.portal.test_eva1 import sample_rows
 from tests.portal.test_eva2 import make_row
@@ -198,11 +199,6 @@ def test_eva1_filters_export_and_lazy_history(portal, evas, saved_link):
     expect(portal.locator("#eva-count")).to_have_text(
         "Mostrando 1 de 2 proyectos"
     )
-    portal.locator("#eva-from").fill("2027-01-01")
-    portal.locator("#eva-from").press("Tab")
-    expect(portal.locator("#eva-count")).to_have_text(
-        "Mostrando 0 de 2 proyectos"
-    )
     portal.locator("#eva-closed-box summary").click()
     expect(portal.locator("#eva-closed-table")).to_contain_text("CLOSED.1")
     assert evas["ixb"] == 1
@@ -214,36 +210,80 @@ def test_eva1_filters_export_and_lazy_history(portal, evas, saved_link):
     )
 
 
-def test_eva1_dates_apply_without_blur_and_survive_refresh(
-    portal, evas, enforced_csp
+@pytest.mark.usefixtures("production_site")
+def test_eva1_cut_reloads_projects_managers_summaries_and_export(
+    portal, evas, monkeypatch, enforced_csp
 ):
+    from dataclasses import replace
+
+    from apps.portal.services.eva_cut import cut_rows
+    from tests.portal.test_eva_cut import event
+
+    history = [
+        event(f"P{i}", "Discovery", "2026-01-01", manager=f"DM{i}")
+        for i in range(7)
+    ]
+    history += [
+        event("LATE", "Discovery", "2026-02-01", manager="DM posterior"),
+        event(
+            "PAUSED",
+            "Discovery",
+            "2025-01-01",
+            "2025-09-30",
+            manager="DM suspendido",
+        ),
+        event("PAUSED", "Suspendido", "2025-10-01", manager="DM suspendido"),
+    ]
+
+    def load(day):
+        view = build_eva2_view(cut_rows([], history, day, lambda pid: []))
+        return {
+            "eva": replace(
+                view,
+                projects=tuple(
+                    replace(p, azure_pending=True) for p in view.projects
+                ),
+            ),
+            "error": "",
+        }
+
+    monkeypatch.setattr("apps.portal.services.eva_cut.load_cut", load)
     portal.goto(portal.base + "/operativa/eva-1/?volver=%2Foperativa%2F")
-    expect(portal.locator("#eva-count")).to_have_text(
-        "Mostrando 2 de 2 proyectos"
-    )
-    portal.locator("#eva-from").fill("2026-01-01")
-    portal.locator("#eva-to").fill("2026-01-29")
-    expect(portal.locator("#eva-count")).to_have_text(
-        "Mostrando 0 de 2 proyectos"
-    )
-    expect(portal.locator("#eva-table tbody tr:visible")).to_have_count(0)
+    portal.locator("#eva-cut").fill("2026-01-29")
     portal.locator("[data-eva-refresh]").click()
-    portal.wait_for_load_state()
-    expect(portal.locator("#eva-to")).to_have_value("2026-01-29")
     expect(portal.locator("#eva-count")).to_have_text(
-        "Mostrando 0 de 2 proyectos"
+        "Mostrando 8 de 8 proyectos"
     )
-    portal.locator("#eva-to").fill("2026-08-28")
+    expect(portal.locator("#eva-manager option")).to_have_count(9)
+    expect(portal.locator("#eva-manager")).not_to_contain_text("DM posterior")
+    expect(portal.locator("#eva-table")).to_contain_text("PAUSED")
+    expect(portal.locator("#eva-table")).to_contain_text("Pendiente")
+    expect(portal.locator(".kc .kv").first).to_have_text("8")
+    portal.locator("#eva-manager").select_option("DM4")
     expect(portal.locator("#eva-count")).to_have_text(
-        "Mostrando 2 de 2 proyectos"
+        "Mostrando 1 de 8 proyectos"
     )
-    portal.locator("#eva-manager").select_option("Mario")
+    expect(portal.locator(".kc .kv").first).to_have_text("1")
+    expect(portal.locator("#eva-manager option")).to_have_count(9)
+    with portal.expect_download() as result:
+        portal.locator("#eva-export").click()
+    content = Path(result.value.path()).read_text(encoding="utf-8-sig")
+    assert '"P4"' in content and '"P3"' not in content
+    assert "Pendiente" in content
     portal.reload()
-    expect(portal.locator("#eva-manager")).to_have_value("Mario")
-    expect(portal.locator("#eva-count")).to_have_text(
-        "Mostrando 1 de 2 proyectos"
-    )
+    expect(portal.locator("#eva-cut")).to_have_value("2026-01-29")
+    expect(portal.locator("#eva-manager")).to_have_value("DM4")
     assert "volver=%2Foperativa%2F" in portal.url
+    portal.locator("#eva-manager").select_option("")
+    expect(portal.locator("#eva-count")).to_have_text(
+        "Mostrando 8 de 8 proyectos"
+    )
+    portal.locator("#eva-cut").fill("2026-02-01")
+    portal.locator("[data-eva-refresh]").click()
+    expect(portal.locator("#eva-count")).to_have_text(
+        "Mostrando 9 de 9 proyectos"
+    )
+    expect(portal.locator("#eva-manager")).to_contain_text("DM posterior")
 
 
 @pytest.mark.parametrize(
