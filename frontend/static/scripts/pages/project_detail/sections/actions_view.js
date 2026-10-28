@@ -1,4 +1,5 @@
 import { el } from "#app/lib/dom.js";
+import { icon } from "./ixs_icons.js";
 import {
   STATES,
   PRIORITIES,
@@ -72,13 +73,16 @@ const table = (headers, rows, props = {}) =>
 const heading = (label) => h("th", "", label);
 const cell = (...body) => h("td", "", ...body);
 
-function kpi(symbol, value, label, sub, color, cls = "") {
-  const icon = h("span", "icon", symbol);
-  if (color) styled(icon, color);
+function kpi(name, value, label, sub, tone = "purple", cls = "") {
   return div(
-    "aer-action-kpi2" + (cls ? " " + cls : ""),
-    div("top", icon, div("", div("label", label), div("sub", sub))),
+    `aer-action-kpi2 ${tone}` + (cls ? " " + cls : ""),
+    div(
+      "aer-action-metric-head",
+      h("span", "icon", icon(name)),
+      div("label", label),
+    ),
     div("value", text(value)),
+    div("sub", sub),
   );
 }
 
@@ -233,7 +237,7 @@ export function renderActions(target, m, parts, actions) {
     weeks,
   } = m;
   const hero = div(
-    "aer-vivid-card",
+    "aer-vivid-card aer-action-overview",
     div(
       "aer-action-hero",
       div(
@@ -246,39 +250,35 @@ export function renderActions(target, m, parts, actions) {
       ),
       div(
         "aer-actions",
-        button("🧹 Limpiar duplicados", actions.clean),
+        el(
+          "button",
+          { class: "aer-btn", onclick: actions.clean },
+          icon("layers"),
+          "Limpiar duplicados",
+        ),
         button("+ Agregar acción", () => actions.open(), "aer-btn primary"),
       ),
     ),
-    styled(
-      div(
-        "aer-action-kpi-grid",
-        kpi("▣", filas.length, "Total", "Acciones registradas"),
-        kpi("▷", abiertas, "Abiertas", "Requieren seguimiento", {
-          background: "#edf2ff",
-          color: "#2656d8",
-        }),
-        kpi(
-          "!",
-          vencidas,
-          "Vencidas",
-          "Requieren atención inmediata",
-          null,
-          "red",
-        ),
-        kpi("‖", detenidas, "Detenidas", "Temporalmente en pausa", {
-          background: "#eef1f7",
-          color: "#667395",
-        }),
-        kpi(
-          "☷",
-          proximas ? dateText(actionDate(proximas)) : "—",
-          "Próxima revisión",
-          "Siguiente fecha de seguimiento",
-          { background: "#efe8ff", color: "#6631df" },
-        ),
+    div(
+      "aer-action-kpi-grid",
+      kpi("list", filas.length, "Total", "Acciones registradas"),
+      kpi("flag", abiertas, "Abiertas", "Requieren seguimiento", "blue"),
+      kpi(
+        "warning",
+        vencidas,
+        "Vencidas",
+        "Requieren atención inmediata",
+        "red",
       ),
-      { marginTop: "14px" },
+      kpi("clock", detenidas, "Detenidas", "Temporalmente en pausa", "slate"),
+      kpi(
+        "calendar",
+        proximas ? dateText(actionDate(proximas)) : "—",
+        "Próxima revisión",
+        "Siguiente fecha de seguimiento",
+        "purple",
+        "aer-action-date",
+      ),
     ),
   );
   const meta = (label, value) =>

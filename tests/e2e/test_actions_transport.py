@@ -183,9 +183,7 @@ def test_delete_confirmation_reload_and_cleanup(
     portal.wait_for_load_state("networkidle")
     assert [op for op, _ in calls][-2:] == ["eliminar", "leer"]
     portal.once("dialog", lambda dialog: dialog.accept())
-    portal.get_by_role(
-        "button", name="🧹 Limpiar duplicados", exact=True
-    ).click()
+    portal.get_by_role("button", name="Limpiar duplicados", exact=True).click()
     portal.wait_for_load_state("networkidle")
     assert calls[-1][0] == "limpiar-duplicados"
 

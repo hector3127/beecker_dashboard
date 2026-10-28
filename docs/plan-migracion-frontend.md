@@ -9,6 +9,17 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Resumen de Acciones, base 4d520ce:** mejora solicitada sobre la captura
+del encabezado/cinco indicadores. Se elimina el recuadro interior duplicado
+y la clase genérica `.top` en los indicadores, que heredaba presentación
+ajena. Iconos SVG uniformes, etiquetas/valores alineados, ayudas debajo y
+tarjetas de altura compacta; próxima revisión ocupa una fila en móvil.
+Conserva los valores y las operaciones. 24 Chrome aprobadas con CSP/rutas
+de producción: vacío/con datos, AER/IXS y cuatro anchos, más operaciones de
+Acciones. 476 Node aprobadas. Las seis comparaciones antiguas de aspecto
+no aplican al rediseño y no se borran. Evidencia en diseno-proyectos.md.
+Sin cambios de backend, permisos o fuentes; sin push.
+
 **Revisión detallada de Proyectos, base ce68f0e:** el usuario solicita
 revisar pestaña por pestaña y acercar el diseño a Business Overview.
 `delivery-v2` adopta su paleta azul/lavanda, superficies y jerarquía;

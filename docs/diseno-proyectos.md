@@ -5,6 +5,27 @@ Esta autorización sustituye la conservación estricta del aspecto anterior
 **solo en esta vista**. Se conservan datos, cálculos, controles, permisos,
 exportaciones, navegación y operaciones de edición.
 
+## Ajuste posterior del resumen de Acciones
+
+Petición sobre la captura del usuario, base `4d520ce`: encabezado sin el
+doble recuadro, cinco métricas con el mismo orden icono/etiqueta, valor y
+ayuda. La clase `.top` heredaba reglas de otra presentación; se sustituye
+por `.aer-action-metric-head`. Se usan SVG del catálogo existente, colores
+por categoría y una composición de cinco/tres/dos/una columnas. La fecha
+ocupa una fila completa en móvil. Se mantienen clases de compatibilidad,
+valores y operaciones; se retira solo el emoji del texto del botón Limpiar
+duplicados, reemplazado por un SVG decorativo.
+
+24 Chrome aprobadas: 16 casos vacío/con datos en AER/IXS y
+1450/900/390/320, y ocho operaciones/guardas del transporte. Se comprobó
+alineación de valores, iconos, ausencia de desbordamiento y apertura del
+editor. Las pruebas funcionales incluyen guardar/reintentar, editar,
+eliminar/confirmar y limpiar duplicados. 476 Node, Ruff y sintaxis JS
+aprobados. Capturas inspeccionadas en `tmp/actions-overview/`; logs
+`tmp/actions-overview-final.log` y `tmp/actions-overview-node-final.log`.
+No se ejecutan seis comparaciones del diseño old, que sigue sin ser el
+criterio visual del rediseño autorizado. Sin llamadas a proveedores reales.
+
 ## Segunda revisión: Business Overview como referencia (delivery-v2)
 
 Base de comparación: `ce68f0e`. El usuario pide recorrer cada pestaña a

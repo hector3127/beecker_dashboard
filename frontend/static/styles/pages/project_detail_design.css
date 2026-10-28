@@ -461,6 +461,61 @@ body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-clockify-dialog
   .project-detail-page #view-container :is(.ixs-kpis,.aer-exec-top,.aer-grid-kpi,.ixs-plan-kpis,.aer-plan-top-kpis,.ixs-azure-kpis,.ixs-raid-kpis,.aeri-kpis) { grid-template-columns: minmax(0,1fr); }
   .project-detail-page #view-container :is(.ixs-effort-kpis6,.ixai-grid6,.bee-com-kpis,.aer-action-kpis,.aer-risk-kpis,.aer-eval-kpis) { grid-template-columns: minmax(0,1fr); }
 }
+/* Actions overview: one heading and five aligned metrics, without nested .top. */
+.project-detail-page #view-container .aer-action-overview > .aer-action-hero {
+  background: none; border: 0; border-bottom: 1px solid var(--pd-line);
+  border-radius: 0; padding: 0 0 18px; margin: 0 0 18px;
+  align-items: center;
+}
+.project-detail-page #view-container .aer-action-overview .aer-actions {
+  display: flex; gap: 10px; flex-wrap: wrap; margin: 0;
+}
+.project-detail-page #view-container .aer-action-overview .aer-actions button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.project-detail-page #view-container .aer-action-kpi-grid {
+  grid-template-columns: repeat(5,minmax(0,1fr)); gap: 14px; margin: 0;
+}
+.project-detail-page #view-container .aer-action-kpi2 {
+  display: grid; grid-template-rows: 36px 42px minmax(38px,auto);
+  align-content: start; gap: 10px; min-height: 0; padding: 18px;
+  background: #fcfaff; border-radius: 12px; box-shadow: none;
+}
+.project-detail-page #view-container .aer-action-kpi2.blue { background: #f7faff; border-color: #e0e8fc; }
+.project-detail-page #view-container .aer-action-kpi2.red { background: #fff7f9; border-color: #f6dce5; }
+.project-detail-page #view-container .aer-action-kpi2.slate { background: #fafbfe; border-color: #e6e8f0; }
+.project-detail-page #view-container .aer-action-metric-head {
+  display: flex; align-items: center; gap: 10px; min-width: 0;
+}
+.project-detail-page #view-container .aer-action-metric-head .icon {
+  display: grid; place-items: center; flex: none; width: 34px; height: 34px;
+  border-radius: 10px; background: #eee7ff; color: #6931d7;
+}
+.project-detail-page #view-container .aer-action-metric-head .icon svg { width: 18px; height: 18px; }
+.project-detail-page #view-container .aer-action-kpi2.blue .icon { background: #e8efff; color: #3666cc; }
+.project-detail-page #view-container .aer-action-kpi2.red .icon { background: #ffe8ef; color: #ce345b; }
+.project-detail-page #view-container .aer-action-kpi2.slate .icon { background: #eceff5; color: #66718b; }
+.project-detail-page #view-container .aer-action-kpi2 .label { font-size: 13px; font-weight: 700; line-height: 1.4; }
+.project-detail-page #view-container .aer-action-kpi2 .value {
+  font-size: 30px; line-height: 42px; margin: 0; font-variant-numeric: tabular-nums;
+}
+.project-detail-page #view-container .aer-action-kpi2 .sub { font-size: 12px; line-height: 1.6; margin: 0; color: var(--pd-muted); }
+.project-detail-page #view-container .aer-action-kpi2.red .value { color: #ba2850; }
+.project-detail-page #view-container .aer-action-date .value { font-size: 21px; white-space: nowrap; }
+@media (max-width: 1100px) {
+  .project-detail-page #view-container .aer-action-kpi-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+@media (max-width: 650px) {
+  .project-detail-page #view-container .aer-action-kpi-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .project-detail-page #view-container .aer-action-date { grid-column: 1/-1; }
+  .project-detail-page #view-container .aer-action-overview > .aer-action-hero { align-items: flex-start; gap: 16px; }
+  .project-detail-page #view-container .aer-action-overview .aer-actions { width: 100%; }
+  .project-detail-page #view-container .aer-action-overview .aer-actions button { flex: 1 1 160px; }
+  .project-detail-page #view-container .aer-action-kpi2 { padding: 14px; }
+}
+@media (max-width: 359px) {
+  .project-detail-page #view-container .aer-action-kpi-grid { grid-template-columns: minmax(0,1fr); }
+}
 @media (prefers-reduced-motion: reduce) {
   .project-detail-page #view-container *, .project-detail-page [role=dialog] * { scroll-behavior: auto; transition: none; animation: none; }
 }
