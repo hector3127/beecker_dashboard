@@ -9,6 +9,16 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Claves de caché portables, base 1e2cd08 (28/10):** avisos reportados por
+IDs como `AIN.002 CR` y `GPO.006_Bolsa Horas`. `make_key` conserva claves
+válidas y aplica SHA-256 a la identidad completa cuando contiene espacios,
+controles, Unicode o supera 250 caracteres. Incluye prefijo, versión,
+generación y modo, sin modificar IDs, fórmulas ni quitar espacios para unir
+proyectos. No se silencian warnings. Validación del bloque en
+fuentes-persistentes.md. `GPO.001_ CR` sigue sin rango en el histórico local:
+existe el ID base, no una coincidencia para ese CR; no se sustituyen fechas.
+Sin push.
+
 **Persistencia de fuentes y coherencia de caché, base f3b0411:** encargo
 posterior del usuario sobre rendimiento/backend; no altera el diseño ni
 las fórmulas migradas. Migración aditiva 0007, catálogo/tareas Clockify por

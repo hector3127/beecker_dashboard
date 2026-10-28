@@ -168,3 +168,24 @@ instalan tareas. El YAML solo cambia argumentos de comandos: no se desplegó
 ni se ejecutó su pipeline (PyYAML no está instalado en este entorno).
 Las advertencias de servidor sobre `staticfiles/` ausente pertenecen a la
 preparación local de pruebas; no hubo fallos de esos casos.
+
+## Corrección de CacheKeyWarning (28/10, base 1e2cd08)
+
+Los IDs de proyecto con espacios generaban claves no portables a memcached;
+Django advertía también al usar el backend de archivos. `make_key` ahora
+conserva las claves válidas y convierte a `sha256:<digest>` las que contienen
+espacios/controles/Unicode o superan el límite de longitud. El hash incluye
+la identidad completa (prefijo, versión, generación, modo y clave original),
+sin truncar ni normalizar nombres de proyecto. Set/get/delete son simétricos;
+no se silencian las advertencias ni se borra la base/caché globalmente.
+
+El mensaje financiero de `GPO.001_ CR` es otro problema: el histórico local
+conservado contiene filas para `GPO.001`, pero el resolver no encuentra un
+rango para el CR solicitado. No se asignan las fechas del proyecto base al
+CR ni se modifica su selección de horas para ocultarlo. Revisar el ID y sus
+fechas en origen después de resolver el #REF! pendiente.
+
+Validación: 170 pruebas dirigidas (Clockify, caché, lecturas persistentes y
+refresco/cachés de Portal), Ruff/formato y mypy de pages aprobados. Las pruebas
+convierten CacheKeyWarning en error y comprueban claves largas, controles,
+acentos, separación de prefijos/versiones/generaciones y roundtrip de caché.

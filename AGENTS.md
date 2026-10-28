@@ -37,7 +37,10 @@ de su antigüedad hasta corregir Sheets. No ocultar ese fallo ni actualizar
 artificialmente su timestamp. Validados 2,235 servidor y 476 Node, más 41
 dirigidas tras el último ajuste; ver alcance en fuentes-persistentes.
 RAID se invalida persistentemente por proyecto tras escritura, sin depender
-de un contador volátil de caché. No se hizo push.
+de un contador volátil de caché. Corrección posterior de CacheKeyWarning:
+claves no portables usan SHA-256 de su identidad completa, sin modificar IDs;
+170 dirigidas aprobadas. GPO.001_ CR no tiene rango en el histórico local:
+no asignarle automáticamente el del proyecto base. No se hizo push.
 
 **Excepción autorizada posteriormente por el usuario: rediseño de Proyectos.**
 El usuario pidió renovar todas las pestañas del detalle de proyecto, con

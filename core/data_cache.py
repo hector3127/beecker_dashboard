@@ -7,9 +7,13 @@ configuration and refresh-job status retain their original keys.
 from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from contextvars import ContextVar
+from hashlib import sha256
 
 from django.conf import settings
-from django.core.cache.backends.base import default_key_func
+from django.core.cache.backends.base import (
+    MEMCACHE_MAX_KEY_LENGTH,
+    default_key_func,
+)
 from django.db.models import F
 from django.http import HttpRequest, HttpResponse
 
@@ -92,7 +96,16 @@ def make_key(key: str, key_prefix: str, version: int) -> str:
             generation = read_revision()
         mode = "live" if force_sources.get() else "stored"
         key = f"sources:{generation}:{mode}:{key}"
-    return default_key_func(key, key_prefix, version)
+    wire_key = default_key_func(key, key_prefix, version)
+    if (
+        not wire_key.isascii()
+        or len(wire_key) > MEMCACHE_MAX_KEY_LENGTH
+        or any(ord(char) <= 32 or ord(char) == 127 for char in wire_key)
+    ):
+        # Hash the complete identity, including generation, scope and version.
+        # Removing spaces or truncating could merge different projects.
+        return "sha256:" + sha256(wire_key.encode("utf-8")).hexdigest()
+    return wire_key
 
 
 class SourceCacheMiddleware:
