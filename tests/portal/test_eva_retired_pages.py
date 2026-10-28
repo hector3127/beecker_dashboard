@@ -38,7 +38,7 @@ def test_pages_keep_current_template(client, monkeypatch, screen, previous, db):
         assert "csrftoken" in response.cookies
 
 
-@pytest.mark.parametrize("screen", [1, 3])
+@pytest.mark.parametrize("screen", [3])
 @pytest.mark.parametrize("previous", [False, True])
 def test_history_keeps_current_fragment(client, monkeypatch, screen, previous):
     monkeypatch.setattr(
@@ -55,7 +55,7 @@ def test_history_keeps_current_fragment(client, monkeypatch, screen, previous):
     assert "<table" in response.content.decode()
 
 
-@pytest.mark.parametrize("screen,status", [(1, 401), (3, 302)])
+@pytest.mark.parametrize("screen,status", [(3, 302)])
 @pytest.mark.parametrize("previous", [False, True])
 def test_history_keeps_original_login_response(
     client, settings, monkeypatch, screen, status, previous

@@ -4,6 +4,14 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 
 ## Objetivo
 
+**EVA, actualización 28/10:** retirado el extractor previo al inventario Summary,
+sus rutas/panel y datos exclusivos (0010/0011 con respaldo). EVA y KPIs usan
+el inventario nuevo. Suspendido solo con evidencia explícita Azure: RSP activo;
+RCP requiere ProjectSituation Suspended. Nunca inferirlo de huecos del calendario.
+T/C son porcentajes sobre todos los proyectos visibles. Ver
+`docs/retirada-eva-anterior.md`; diez Chrome y 21 servidor finales aprobados.
+Sin push. Este bloque sustituye las instrucciones anteriores del extractor EVA.
+
 Pasar cada pantalla del portal a `frontend/` con HTML, CSS y JS separados. Django sigue como servidor.
 
 Reglas que no se negocian:

@@ -18,3 +18,4 @@ class Command(BaseCommand):
                 self.stdout.write("Ya hay una descarga histórica en curso.")
                 return
             self.stdout.write(str(download_history(self.stdout.write)))
+            self.stdout.write(str(download_history(self.stdout.write, reports=True)))

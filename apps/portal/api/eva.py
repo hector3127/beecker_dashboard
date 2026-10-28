@@ -43,14 +43,6 @@ def _display(context: dict[str, Any]) -> dict[str, Any]:
     return {"projects": projects, "error": context["error"]}
 
 
-class EvaClosedView(OperationsScreen):
-    """IXB/RaaS cerrados; no se leen hasta que se abre el histórico."""
-
-    def get(self, request: Request) -> Response:
-        """Entrega los mismos proyectos, con números formateados por Django."""
-        return self.body(_display(views.eva1_closed_data()))
-
-
 class Eva3ClosedView(OperationsScreen):
     """AER/T&M finalizados o cancelados en MPB en 2026."""
 

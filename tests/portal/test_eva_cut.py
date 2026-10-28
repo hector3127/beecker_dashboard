@@ -158,7 +158,7 @@ def test_cut_page_keeps_all_manager_options_and_masks_azure(
 def test_invalid_cut_page_does_not_load_sources(client, monkeypatch, settings):
     settings.PORTAL_LOGIN_REQUIRED = False
     monkeypatch.setattr(
-        "apps.portal.services.eva_native_store.load_native_cut",
+        "apps.portal.services.eva_inventory_view.load_inventory_eva",
         lambda day, **kwargs: pytest.fail("must not read sources"),
     )
     assert client.get("/operativa/eva-1/?corte=invalid").status_code == 400

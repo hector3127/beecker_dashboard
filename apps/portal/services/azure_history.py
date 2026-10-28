@@ -34,11 +34,22 @@ def feed_identity() -> str:
     ).hexdigest()
 
 
-def download_history(progress: Callable[[str], Any] = print) -> dict[str, Any]:
+def download_history(
+    progress: Callable[[str], Any] = print, *, reports: bool = False
+) -> dict[str, Any]:
     """Checkpoint each validated batch; publish coverage only at the end."""
     started = time.perf_counter()
     watermark = timezone.now()
-    feed, _ = AzureHistoryFeed.objects.get_or_create(identity=feed_identity())
+    base_feed, _ = AzureHistoryFeed.objects.get_or_create(
+        identity=feed_identity()
+    )
+    feed = base_feed
+    if reports:
+        feed, _ = AzureHistoryFeed.objects.get_or_create(
+            identity=hashlib.sha256(
+                (feed_identity() + ":reports").encode()
+            ).hexdigest()
+        )
     client = AzureDevOpsGateway().create_client()
     token, seen = feed.cursor, set()
     pages = revisions = 0
@@ -49,7 +60,11 @@ def download_history(progress: Callable[[str], Any] = print) -> dict[str, Any]:
             seen.add(token)
             for attempt in range(5):
                 try:
-                    page = client.revision_page("", token)
+                    page = (
+                        client.revision_page("", token, reports=True)
+                        if reports
+                        else client.revision_page("", token)
+                    )
                     break
                 except AzureDevOpsRequestError as error:
                     if attempt == 4 or error.provider_status not in (
@@ -85,7 +100,7 @@ def download_history(progress: Callable[[str], Any] = print) -> dict[str, Any]:
                     raise ValueError("Invalid revision identity")
                 records.append(
                     AzureWorkItemRevision(
-                        feed=feed,
+                        feed=base_feed,
                         work_item_id=int(row["id"]),
                         revision=int(row["rev"]),
                         project_name=fields.get("System.TeamProject", ""),
@@ -99,15 +114,26 @@ def download_history(progress: Callable[[str], Any] = print) -> dict[str, Any]:
             if not page["isLastBatch"] and not next_token:
                 raise ValueError("Missing revision cursor")
             with transaction.atomic():
-                AzureWorkItemRevision.objects.bulk_create(
-                    records, ignore_conflicts=True, batch_size=500
-                )
+                if reports:
+                    AzureWorkItemRevision.objects.bulk_create(
+                        records,
+                        update_conflicts=True,
+                        update_fields=["fields"],
+                        unique_fields=["feed", "work_item_id", "revision"],
+                        batch_size=500,
+                    )
+                else:
+                    AzureWorkItemRevision.objects.bulk_create(
+                        records, ignore_conflicts=True, batch_size=500
+                    )
                 feed.cursor = next_token or token
                 feed.updated_at = timezone.now()
                 feed.error = ""
                 if page["isLastBatch"]:
                     feed.complete_through = watermark
                 feed.save()
+                if reports and records:
+                    AzureHistoricalCut.objects.filter(feed=base_feed).delete()
             pages += 1
             revisions += len(records)
             progress(
@@ -143,12 +169,16 @@ def attach_history(
 ) -> None:
     """Fill past counts from persisted revisions; never contact Azure."""
     end = end_of_cut(cut)
+    if feed and feed.complete_through and cut == timezone.localdate():
+        end = min(end, feed.complete_through)
     if not feed or not feed.complete_through or end > feed.complete_through:
         return
     cached = AzureHistoricalCut.objects.filter(
         feed=feed, source=source, cut=cut, feed_through=feed.complete_through
     ).first()
-    if cached:
+    if cached and all(
+        value.get("rules_version") == 3 for value in cached.metrics.values()
+    ):
         metrics = cached.metrics
     else:
         latest = (
@@ -175,7 +205,20 @@ def attach_history(
             cut,
         )
         metrics = {
-            r["scope"]: {k: r[k] for k in ("wi", "riesgos", "azure_pending")}
+            r["scope"]: {
+                "rules_version": 3,
+                **{
+                    k: r[k]
+                    for k in (
+                        "wi",
+                        "riesgos",
+                        "azure_pending",
+                        "status",
+                        "closed",
+                        "suspension_work_items",
+                    )
+                },
+            }
             for r in projected
         }
         AzureHistoricalCut.objects.update_or_create(
@@ -199,3 +242,4 @@ def attach_history(
                 else ""
             )
             row["azure_history_asof"] = cut.isoformat()
+            row["business_status"] = metrics[row["scope"]].get("status", "")

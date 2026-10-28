@@ -28,9 +28,7 @@ from apps.portal.api.eva import (
     Eva3ClosedBurnView,
     Eva3ClosedView,
     Eva3ConsumptionView,
-    EvaClosedView,
 )
-from apps.portal.api.eva_native import EvaExtractionView
 from apps.portal.api.operations import (
     CapacityScreenView,
     Eva3ScreenView,
@@ -376,7 +374,6 @@ urlpatterns = [
         ProjectAerView.as_view(),
         name="project_aer",
     ),
-    path("screens/eva-1/cerrados/", EvaClosedView.as_view()),
     path("screens/eva-3/cerrados/", Eva3ClosedView.as_view()),
     path("screens/eva-3/consumos/", Eva3ConsumptionView.as_view()),
     path("screens/eva-3/cerrados/consumo/", Eva3ClosedBurnView.as_view()),
@@ -430,7 +427,6 @@ urlpatterns = [
         name="executive_actualizar",
     ),
     path("screens/kpis-dm/", KpiManagersView.as_view(), name="kpis_dm"),
-    path("screens/eva-1/", EvaScreenView.as_view(), name="eva1"),
     path("screens/eva-2/", EvaScreenView.as_view(), name="eva2"),
     path("screens/eva-3/", Eva3ScreenView.as_view(), name="eva3"),
     path(
@@ -453,11 +449,6 @@ urlpatterns = [
         name="facturabilidad_recurso",
     ),
     path("screens/eva4/", Eva4ScreenView.as_view(), name="eva4"),
-    path(
-        "screens/eva1/extraccion/",
-        EvaExtractionView.as_view(),
-        name="eva_extraction",
-    ),
     path("screens/margenes/", MarginsScreenView.as_view(), name="margenes"),
     path(
         "screens/margenes/actualizar/",

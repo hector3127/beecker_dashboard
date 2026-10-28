@@ -45,13 +45,12 @@ class DataRevision(models.Model):
 
 
 class EvaExtraction(models.Model):
-    """Immutable observed EVA cut; only complete transports are published."""
+    """Published Summary inventory extraction and its source evidence."""
 
     cut = models.DateField(db_index=True)
     started_at = models.DateTimeField()
     finished_at = models.DateTimeField(null=True)
     published = models.BooleanField(default=False)
-    full_inventory = models.BooleanField(default=True)
     metrics = models.JSONField(default=dict)
     issues = models.JSONField(default=list)
 
@@ -82,7 +81,6 @@ class EvaScopeSnapshot(models.Model):
     source = models.ForeignKey(EvaAzureSource, on_delete=models.CASCADE)
     project_id = models.CharField(max_length=100)
     scope = models.CharField(max_length=40)
-    closed = models.BooleanField(default=False)
     row = models.JSONField()
 
     class Meta:

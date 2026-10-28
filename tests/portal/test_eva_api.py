@@ -12,7 +12,6 @@ from tests.portal.test_eva2 import make_row
 pytestmark = pytest.mark.django_db
 BASE = "/api/v1/screens/"
 READS = [
-    ("eva-1/cerrados/", "eva1_closed_data"),
     ("eva-3/cerrados/", "eva3_closed_data"),
 ]
 
@@ -97,7 +96,6 @@ def test_closed_burn_keeps_service_and_error(client, monkeypatch):
 @pytest.mark.parametrize(
     "path,method",
     [
-        ("eva-1/cerrados/", "get"),
         ("eva-3/cerrados/", "get"),
         ("eva-3/consumos/", "post"),
         ("eva-3/cerrados/consumo/", "post"),
@@ -108,7 +106,6 @@ def test_access_is_checked_before_sources(
 ):
     sources = []
     for name in [
-        "apps.portal.views.eva1_closed_data",
         "apps.portal.views.eva3_closed_data",
         "apps.portal.api.eva.get_aer_tym_consumption",
         "apps.portal.api.eva.fill_closed_burn",

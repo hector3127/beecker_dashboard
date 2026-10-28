@@ -186,7 +186,10 @@ class Command(BaseCommand):
         """Publish a provider-native EVA cut, independent of Sheets failures."""
         try:
             call_command(
-                "sync_eva_native", stdout=self.stdout, stderr=self.stderr
+                "sync_azure_history", stdout=self.stdout, stderr=self.stderr
+            )
+            call_command(
+                "sync_summary_inventory", stdout=self.stdout, stderr=self.stderr
             )
         except (CommandError, DashboardError) as error:
             return [f"EVA: {error}"]

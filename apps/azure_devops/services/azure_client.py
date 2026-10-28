@@ -135,7 +135,9 @@ class AzureDevOpsClient:
             result.extend(items)
         return result
 
-    def revision_page(self, project_id: str, token: str = "") -> JsonObject:
+    def revision_page(
+        self, project_id: str, token: str = "", *, reports: bool = False
+    ) -> JsonObject:
         """Read a full historical revision batch, including deletion flags."""
         params: JsonObject = {
             "api-version": API_VERSION,
@@ -149,6 +151,11 @@ class AzureDevOpsClient:
         }
         if token:
             params["continuationToken"] = token
+        if reports:
+            params["types"] = "RSP,RCP"
+            params["fields"] += (
+                ",Custom.ProjectSituation,Custom.ReportDate,Microsoft.VSTS.Common.ActivatedDate,Microsoft.VSTS.Common.ClosedDate"
+            )
         project_url = self._organization_url + (
             f"/{encode_url_part(project_id)}" if project_id else ""
         )

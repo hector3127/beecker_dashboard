@@ -34,46 +34,6 @@ def item_fields(item: Json) -> Json:
     return item.get("fields") or {}
 
 
-def resolve_scope(
-    candidate: Json, iterations: list[Json], siblings: list[Json]
-) -> str:
-    """Resolve exact roots; aliases require unique matching date evidence."""
-    roots = {
-        p.split("\\")[1]
-        for i in iterations
-        if len((p := str(i.get("path", ""))).split("\\")) > 1
-    }
-    available = {token for root in roots for token in scope_tokens(root)}
-    code = str(candidate["scope"])
-    if code in available:
-        return code
-    if code.endswith("_S1") and code[:-3] in available:
-        return code[:-3]
-    if code == "BASE" and available == {"S1"} and len(siblings) == 1:
-        return "S1"
-    # Some sources call the first CR "CR1", while their tree says "CR".
-    # Require both dates to match; do not infer it from numbering alone.
-    if code in {"CR1", "CR1_S1"} and "CR" in available:
-        starts, ends = [], []
-        for iteration in iterations:
-            if "CR" not in scope_tokens(str(iteration.get("path", ""))):
-                continue
-            start = to_datetime(iteration.get("fechaInicio"))
-            end = to_datetime(iteration.get("fechaFin"))
-            if start:
-                starts.append(start.date().isoformat())
-            if end:
-                ends.append(end.date().isoformat())
-        if (
-            starts
-            and ends
-            and candidate["start"] == min(starts)
-            and candidate["finish"] == max(ends)
-        ):
-            return "CR"
-    return ""
-
-
 def scoped_items(items: list[Json], scope: str) -> list[Json]:
     """An exact iteration scope; S1 never absorbs CR2_S1 or S10."""
     return [
@@ -98,8 +58,10 @@ def build_row(
         item_fields(i)
         for i in own
         if str(item_fields(i).get("System.WorkItemType", "")).upper() == "EPIC"
-        and str(item_fields(i).get("System.Title", "")).strip().upper()
-        == "GENERAL"
+        and re.fullmatch(
+            r"GENERAL(?:[_\s-]+(?:S\d+|CR\d*(?:_S\d+)?))?",
+            str(item_fields(i).get("System.Title", "")).strip().upper(),
+        )
     ]
     states = {str(root.get("System.State", "")).upper() for root in roots}
     status = fields.get("status", "")
@@ -128,6 +90,20 @@ def build_row(
                     break
     if closed:
         status = "Completed"
+    reports = []
+    for item in own:
+        wi = item_fields(item)
+        kind = str(wi.get("System.WorkItemType", "")).upper()
+        state = str(wi.get("System.State", "")).upper()
+        situation = str(wi.get("Custom.ProjectSituation", "")).upper()
+        if (
+            kind in {"RSP", "RCP"}
+            and state == "ACTIVE"
+            and (situation in SUSPENDED or kind == "RSP" and not situation)
+        ):
+            reports.append(item.get("id") or wi.get("System.Id"))
+    if reports and not closed:
+        status = "Suspendido"
     counts = empty_work_item_counts()
     for item in own:
         wi = item_fields(item)
@@ -173,6 +149,7 @@ def build_row(
         if candidate["budget"] is not None
         else None,
         "status": status,
+        "suspension_work_items": reports,
         "closed": closed,
         "desviacionDias": (cut - end).days if end else None,
         "wi": counts,

@@ -4,7 +4,7 @@ from dataclasses import replace
 
 from django.utils import timezone
 
-from apps.portal.services.eva_native_store import snapshot
+from apps.portal.services.eva_inventory_view import load_inventory_eva
 from apps.portal.services.kpi_eva import build_eva_history, monthly_cuts
 from apps.portal.services.kpi_history_loader import KpiHistoryLoad
 
@@ -18,13 +18,15 @@ def load_kpi_history(year: int | None = None) -> KpiHistoryLoad:
         return KpiHistoryLoad(
             None, "Aún no hay un corte de lunes a jueves en el periodo."
         )
-    observed = {cut: snapshot(cut) for _, cut, _ in cuts}
+    observed = {cut: load_inventory_eva(cut) for _, cut, _ in cuts}
     missing = [
         cut.isoformat()
         for cut, data in observed.items()
         if data["extraction"] is None
     ]
-    history = build_eva_history(chosen, now, lambda cut: observed[cut]["rows"])
+    history = build_eva_history(
+        chosen, now, lambda cut: observed[cut]["projected_rows"]
+    )
     history = replace(
         history,
         months=tuple(

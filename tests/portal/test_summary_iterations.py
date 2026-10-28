@@ -94,3 +94,32 @@ def test_empty_deployment_uses_last_registered_finish():
     assert result["iteration_start"] == "2026-05-14"
     assert result["iteration_finish"] == "2026-06-22"
     assert result["calendar_stage"] == "Development"
+
+
+def test_explicit_suspension_period_has_priority_over_calendar():
+    blocks = iteration_blocks(
+        {
+            "name": "General_S1",
+            "children": [
+                stage("Discovery_S1", "2026-01-01", "2026-01-31"),
+                stage("Deployment_S1", "2026-02-01", "2026-03-01"),
+                stage("Suspendido_S1", "2026-01-20", "2026-02-10"),
+            ],
+        }
+    )
+    assert (
+        calendar_fields(blocks["S1"], date(2026, 1, 19))["calendar_stage"]
+        == "Discovery"
+    )
+    assert (
+        calendar_fields(blocks["S1"], date(2026, 1, 20))["calendar_stage"]
+        == "Suspendido"
+    )
+    assert (
+        calendar_fields(blocks["S1"], date(2026, 2, 10))["calendar_stage"]
+        == "Suspendido"
+    )
+    assert (
+        calendar_fields(blocks["S1"], date(2026, 2, 11))["calendar_stage"]
+        == "Deployment"
+    )

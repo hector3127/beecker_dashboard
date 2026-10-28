@@ -76,7 +76,7 @@ def inventory(db):
 def test_all_projects_scopes_and_closed_are_preserved(inventory):
     run, rows = inventory_rows()
     assert run == inventory
-    assert run.full_inventory is False
+    assert run.metrics["kind"] == "summary_inventory"
     assert run.metrics["projects"] == 2
     assert {r["display_id"] for r in rows} == {
         "AMK.012_S1",
@@ -88,9 +88,7 @@ def test_all_projects_scopes_and_closed_are_preserved(inventory):
     assert len(inventory_rows("s2")[1]) == 1
     assert inventory_rows("s2")[1][0]["iteration_finish"] == "2026-06-22"
     assert EvaScopeSnapshot.objects.count() == 4
-    assert not EvaExtraction.objects.filter(
-        published=True, full_inventory=True
-    ).exists()
+    assert EvaExtraction.objects.filter(published=True).count() == 1
 
 
 def test_inventory_page_is_local_searchable_and_escaped(

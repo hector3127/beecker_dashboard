@@ -48,6 +48,7 @@ def load_inventory_eva(cut: date) -> dict[str, Any]:
         projected.append(metric)
     return {
         "eva": build_eva2_view(projected),
+        "projected_rows": projected,
         "inventory_rows": rows,
         "extraction": run,
         "error": (

@@ -267,7 +267,7 @@ def warm_secondary_pages() -> object:
     failures = []
     for name, path, page in (
         ("kpis", "/operativa/kpis-delivery-managers/", warm_kpis),
-        ("eva1_cerrados", "/operativa/eva-1/cerrados/", views.eva1_cerrados),
+        ("eva1", "/operativa/eva-1/", views.eva1),
     ):
         started = time.perf_counter()
         request = factory.get(path)

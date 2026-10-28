@@ -5,12 +5,12 @@ from datetime import date
 from typing import Any
 
 from apps.azure_devops.services.azure_client import flatten_iterations
-from apps.portal.services.eva_native_rows import (
+from apps.portal.services.inventory_clockify import extract_hours
+from apps.portal.services.inventory_metrics_core import (
     assign_hours,
     build_row,
     scope_tokens,
 )
-from apps.portal.services.eva_native_sync import _clockify
 
 
 def metric_rows(
@@ -29,6 +29,7 @@ def metric_rows(
     for row in rows:
         candidate = {
             **row,
+            "fields": {k: v for k, v in row["fields"].items() if k != "status"},
             "start": row.get("iteration_start"),
             "finish": row.get("iteration_finish"),
         }
@@ -104,13 +105,16 @@ def enrich(
     data = {"rows": projected}
     if context is not None:
         projects, workspace, months = context
-        data = _clockify(
-            data, projects, workspace, months, cut, include_all_scopes=True
+        data = extract_hours(
+            data, projects, workspace, months, cut
         )
     for row, metric in zip(rows, projected, strict=True):
         if not azure_ok:
             metric["azure_pending"] = True
         row["eva_metrics"] = metric
+        row["business_status"] = (
+            metric["status"] if not metric["azure_pending"] else ""
+        )
         row["metrics_observed_date"] = cut.isoformat()
     return {
         "work_items": items,
@@ -159,6 +163,7 @@ def at_cut(
         assign_hours(selected + siblings, evidence["clockify"][provider], cut)
     for row, metric in zip(rows, projected, strict=True):
         if row.get("metrics_observed_date") != cut.isoformat():
+            row["business_status"] = ""
             metric["azure_pending"] = True
             row["azure_unavailable_label"] = (
                 "Sin histórico"

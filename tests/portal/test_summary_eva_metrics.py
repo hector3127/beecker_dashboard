@@ -62,12 +62,12 @@ def test_counts_risks_and_hours_share_persistable_evidence():
     records = [entry("a", 2, 1), entry("b", 3, 2)]
 
     def clock(data, *args, **kwargs):
-        assert kwargs["include_all_scopes"]
         data["rows"][0]["clockify_project_id"] = "provider"
         return {**data, "clockify_evidence": {"provider": records}}
 
     with patch(
-        "apps.portal.services.summary_eva_metrics._clockify", side_effect=clock
+        "apps.portal.services.summary_eva_metrics.extract_hours",
+        side_effect=clock,
     ):
         evidence = enrich(rows, {}, items, True, ([], "ws", frozenset()), CUT)
     evidence["observed_date"] = CUT.isoformat()
@@ -116,6 +116,29 @@ def test_duplicate_scopes_remain_pending():
     rows = [candidate(), candidate()]
     enrich(rows, {}, [], True, None, CUT)
     assert all(r["eva_metrics"]["azure_pending"] for r in rows)
+
+
+def test_rsp_is_suspension_but_rcp_cancellation_is_not():
+    rows = [candidate()]
+    report = item("RSP", "Active", "RSP 1")
+    report["fields"]["Custom.ProjectSituation"] = "Suspended"
+    enrich(rows, {}, [report], True, None, CUT)
+    assert rows[0]["business_status"] == "Suspendido"
+    report["fields"]["System.State"] = "Closed"
+    enrich(rows, {}, [report], True, None, CUT)
+    assert rows[0]["business_status"] != "Suspendido"
+    report["fields"].update(
+        {
+            "System.WorkItemType": "RCP",
+            "System.State": "Active",
+            "Custom.ProjectSituation": "Cancelled",
+        }
+    )
+    enrich(rows, {}, [report], True, None, CUT)
+    assert rows[0]["business_status"] != "Suspendido"
+    report["fields"]["Custom.ProjectSituation"] = "Suspended"
+    enrich(rows, {}, [report], True, None, CUT)
+    assert rows[0]["business_status"] == "Suspendido"
 
 
 def test_cr_alias_hours_and_zero_budget():
@@ -188,7 +211,7 @@ def test_extraction_persists_eva_fields_and_read_has_no_provider_calls():
     client.list_eva_work_items.return_value = [item("Task", "Closed", "Done")]
 
     def clock(data, *args, **kwargs):
-        from apps.portal.services.eva_native_rows import assign_hours
+        from apps.portal.services.inventory_metrics_core import assign_hours
 
         data["rows"][0]["clockify_project_id"] = "provider"
         records = [entry("a", 2, 3)]
@@ -212,7 +235,7 @@ def test_extraction_persists_eva_fields_and_read_has_no_provider_calls():
             return_value=CUT,
         ),
         patch(
-            "apps.portal.services.summary_eva_metrics._clockify",
+            "apps.portal.services.summary_eva_metrics.extract_hours",
             side_effect=clock,
         ),
     ):

@@ -450,13 +450,6 @@ def eva3(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
-def eva1_cerrados(request: HttpRequest) -> HttpResponse:
-    """Fragmento vigente con la respuesta de acceso original."""
-    request.portal_template = "partials/eva_closed.html"  # type: ignore[attr-defined]
-    return views.eva1_cerrados(request)
-
-
-@require_GET
 def eva3_cerrados(request: HttpRequest) -> HttpResponse:
     """Fragmento vigente con la respuesta de acceso original."""
     request.portal_template = "partials/eva3_closed.html"  # type: ignore[attr-defined]

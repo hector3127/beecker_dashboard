@@ -84,7 +84,7 @@ from apps.portal.services.kpi_history import (
     build_matrix,
     chart_series,
 )
-from apps.portal.services.kpi_native_history import load_kpi_history
+from apps.portal.services.kpi_inventory_history import load_kpi_history
 from apps.portal.services.kpi_quarterly import build_quarter_averages
 from apps.portal.services.kpis_dm import build_kpi_view
 from apps.portal.services.manager_detail import (
@@ -898,34 +898,8 @@ def proyecto(request: HttpRequest, project_id: str) -> HttpResponse:
     return render_page(request, "pages/project.html", context)
 
 
-@require_GET
-@require_capability("view_operations", whole_portfolio=True)
-def eva1_cerrados(request: HttpRequest) -> HttpResponse:
-    """
-    Entrega la tabla de proyectos IXB/RaaS cerrados para la tarjeta de EVA 1.
-
-    Args:
-        request: Peticion HTTP.
-
-    Returns:
-        Un fragmento HTML con la tabla del historico de proyectos cerrados.
-    """
-    if _needs_login(request):
-        return HttpResponse(status=401)
-
-    return render_page(request, "partials/eva_closed.html", eva1_closed_data())
-
-
-def eva1_closed_data() -> dict[str, Any]:
-    """El mismo histórico IXB/RaaS para la API y la tabla anterior."""
-    from apps.portal.services.eva_native_store import load_native_cut
-
-    data = load_native_cut(timezone.localdate(), closed=True, latest=True)
-    return {"projects": data["eva"].projects, "error": data["error"]}
-
-
 def eva2_data() -> dict[str, Any]:
-    """EVA 1 y EVA 2: proyectos IXB y RaaS con su avance."""
+    """EVA 2: preserve the existing shared IXB/RaaS service."""
     load = load_eva2()
     return {"error": load.error, "eva": load.view}
 
@@ -1000,6 +974,26 @@ def eva1(request: HttpRequest) -> HttpResponse:
         request.GET.get("manager", ""),
         request.GET.get("service", ""),
     )
+    from apps.portal.services.kpi_eva import compliance_view
+
+    data["eva_compliance"] = compliance_view(
+        [
+            r
+            for r in data.pop("projected_rows", [])
+            if (
+                not request.GET.get("manager")
+                or r["deliveryManager"] == request.GET["manager"]
+            )
+            and (
+                not request.GET.get("service")
+                or r["servicio"].casefold() == request.GET["service"].casefold()
+            )
+        ]
+    ).totals
+    data["eva_cost_pending"] = sum(
+        p.hours_pending or p.budget_pending or p.budget <= 0
+        for p in data["eva"].projects
+    )
     from apps.portal.services.summary_dm_totals import dm_totals
 
     selected_ids = {p.project_id for p in data["eva"].projects}
@@ -1021,7 +1015,6 @@ def eva1(request: HttpRequest) -> HttpResponse:
         else None
     )
     from apps.datastore.models import EvaExtraction
-    from apps.portal.services.eva_native_store import extraction_status
 
     source_notice = data.get("error", "") if source_run else ""
     if source_run:
@@ -1052,7 +1045,6 @@ def eva1(request: HttpRequest) -> HttpResponse:
             "eva_cut": cut.isoformat(),
             "eva_today": timezone.localdate().isoformat(),
             "eva_reconstructed": reconstructed_cut,
-            "eva_extraction_status": extraction_status(),
             "eva_source_notice": source_notice,
             "eva_saved_cuts": saved_cuts,
         },

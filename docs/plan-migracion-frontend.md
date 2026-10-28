@@ -9,6 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Retirada del EVA anterior, 28/10:** extractor/rutas/panel anteriores retirados;
+Summary, iteraciones, Clockify e histórico Azure son el flujo único de EVA y
+KPIs mensuales. Migraciones 0010/0011 aplicadas con respaldo. Suspensión solo
+explícita (RSP; RCP requiere situación Suspended), sin inferir huecos. T/C son
+porcentajes sobre todos los proyectos visibles. Evidencia y límites en
+`docs/retirada-eva-anterior.md`. Sustituye el botón de actualización descrito
+en el bloque previo. Sin push; fase 11 abierta.
+
 **EVA con inventario aprobado, 28/10:** ruta EVA 1 usa las mismas filas/rangos
 y métricas locales históricas que el inventario, con filtros GET de corte/DM/
 servicio. Conserva apariencia EVA, logos, etiquetas y CSV; dos pivotes por DM

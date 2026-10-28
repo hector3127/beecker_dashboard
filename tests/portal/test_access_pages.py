@@ -16,7 +16,6 @@ pytestmark = pytest.mark.django_db
 PAGES = {
     "view_operations": [
         "eva1",
-        "eva1_cerrados",
         "eva2",
         "eva3",
         "eva3_cerrados",
@@ -128,7 +127,6 @@ def test_the_cost_list_of_an_account_follows_scope(client, enforced):
     "name",
     [
         "eva1",
-        "eva1_cerrados",
         "eva2",
         "eva3",
         "eva3_cerrados",

@@ -37,6 +37,9 @@ def test_active_eva_filters_and_source_are_local(client, settings, inventory):
     assert response.context["inventory_totals"]["total"] == 1
     assert response.context["eva"].projects[0].project_id == "AMK.012_S2"
     assert b'class="service-pill' in response.content
+    assert b'id="eva-extract"' not in response.content
+    assert b"Ver inventario de Summary" not in response.content
+    assert response.context["eva_compliance"].time_cost.time_days == 100
     assert (
         client.get(
             "/operativa/eva-1/", {"corte": "2026-06-01", "manager": "Other"}
@@ -47,25 +50,34 @@ def test_active_eva_filters_and_source_are_local(client, settings, inventory):
     )
 
 
-def test_refresh_updates_same_inventory_and_history():
-    from contextlib import contextmanager
+def test_cards_use_visible_total_of_22(client, settings, db):
+    from apps.portal.services.eva2 import build_eva2_view
+    from tests.portal.test_eva2 import make_row
 
-    from apps.portal.services.eva_native_refresh import _refresh
-
-    @contextmanager
-    def acquired(*args):
-        yield True
-
-    with (
-        patch("apps.portal.services.eva_native_refresh.close_old_connections"),
-        patch("apps.portal.services.eva_native_refresh.sync_lock", acquired),
-        patch(
-            "apps.portal.services.eva_native_refresh.download_history"
-        ) as history,
-        patch(
-            "apps.portal.services.eva_native_refresh.extract_summaries"
-        ) as extract,
+    rows = [
+        make_row(
+            idProyecto=f"P{i}",
+            desviacionDias=-1 if i < 18 else 1,
+            avance=90 if i < 15 else 110,
+            budget=100,
+            budget_pending=False,
+            hours_pending=False,
+        )
+        for i in range(22)
+    ]
+    settings.PORTAL_LOGIN_REQUIRED = False
+    with patch(
+        "apps.portal.services.eva_inventory_view.load_inventory_eva",
+        return_value={
+            "eva": build_eva2_view(rows),
+            "projected_rows": rows,
+            "inventory_rows": [],
+            "extraction": None,
+            "error": "",
+        },
     ):
-        _refresh()
-    history.assert_called_once()
-    extract.assert_called_once()
+        response = client.get("/operativa/eva-1/")
+    total = response.context["eva_compliance"]
+    assert total.total == 22
+    assert total.time_cost.time_days == 100 * 18 / 22
+    assert total.time_cost.cost_percent == 100 * 15 / 22

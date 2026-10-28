@@ -65,11 +65,6 @@ urlpatterns = [
         pages.summary_inventory,
         name="summary_inventory",
     ),
-    path(
-        "operativa/eva-1/cerrados/",
-        pages.eva1_cerrados,
-        name="eva1_cerrados",
-    ),
     path("operativa/inversion/", pages.investment, name="inversion"),
     path(
         "operativa/facturabilidad/",

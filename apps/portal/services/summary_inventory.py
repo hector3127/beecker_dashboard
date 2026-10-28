@@ -48,7 +48,6 @@ def extract_summaries(
     run = EvaExtraction.objects.create(
         cut=timezone.localdate(),
         started_at=timezone.now(),
-        full_inventory=False,
         metrics={"kind": "summary_inventory"},
     )
     try:
@@ -329,6 +328,12 @@ def inventory_rows(
             source_rows.setdefault(block.source_id, []).append(dict(block.row))
         for source_id, grouped in source_rows.items():
             source = sources[source_id]
+            updated_blocks = iteration_blocks(
+                source.payload["summary"].get("iteration_tree", {})
+            )
+            for row in grouped:
+                if updated_blocks.get(row["scope"]):
+                    row["stages"] = updated_blocks[row["scope"]]
             at_cut(
                 grouped,
                 source.payload["summary"].get("eva_evidence", {}),
@@ -354,6 +359,8 @@ def inventory_rows(
                     row.get("stages", []), cut or timezone.localdate()
                 )
             )
+            if row.get("business_status") == "Suspendido":
+                row["calendar_stage"] = "Suspendido"
             start, finish = row["iteration_start"], row["iteration_finish"]
             if cut is not None and not (
                 start and finish and start <= cut.isoformat() <= finish

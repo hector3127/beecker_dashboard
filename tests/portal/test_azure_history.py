@@ -205,3 +205,51 @@ def test_invalid_batch_is_not_published_or_partially_saved():
         download_history(lambda _: None)
     assert AzureWorkItemRevision.objects.count() == 0
     assert AzureHistoryFeed.objects.get().complete_through is None
+
+
+def test_suspended_state_uses_historical_general_epic():
+    records = [
+        record(20, kind="Epic", state="Suspended"),
+        record(20, 2, "2026-10-01T12:00:00Z", kind="Epic", state="Active"),
+    ]
+    for r in records:
+        r["fields"].update(
+            {
+                "System.Title": "General_S1",
+                "System.IterationPath": "AMK.001\\General_S1",
+            }
+        )
+    feed = download(records)
+    source, rows = make_source()
+    attach_history(source, rows, date(2026, 9, 30), feed)
+    assert rows[0]["business_status"] == "Suspendido"
+    attach_history(source, rows, date(2026, 10, 2), feed)
+    assert rows[0]["business_status"] != "Suspendido"
+
+
+def test_report_fields_enrich_existing_revisions_without_duplication():
+    feed = download([record(1, kind="RSP")])
+    stamp = feed.complete_through
+    report = record(1, kind="RSP")
+    report["fields"]["Custom.ProjectSituation"] = "Suspended"
+    gateway = Mock()
+    gateway.create_client.return_value.revision_page.return_value = {
+        "values": [report],
+        "continuationToken": "reports-end",
+        "isLastBatch": True,
+    }
+    with patch(
+        "apps.portal.services.azure_history.AzureDevOpsGateway",
+        return_value=gateway,
+    ):
+        download_history(lambda _: None, reports=True)
+    assert AzureWorkItemRevision.objects.count() == 1
+    assert (
+        AzureWorkItemRevision.objects.get().fields["Custom.ProjectSituation"]
+        == "Suspended"
+    )
+    feed.refresh_from_db()
+    assert feed.complete_through == stamp
+    gateway.create_client.return_value.revision_page.assert_called_once_with(
+        "", "", reports=True
+    )

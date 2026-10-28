@@ -19,7 +19,6 @@ pytestmark = pytest.mark.django_db
 BASE = "/api/v1/screens/"
 OPS = frozenset({"view_operations"})
 SCREENS = [
-    "eva-1/",
     "eva-2/",
     "eva-3/",
     "inversion/",
@@ -49,12 +48,12 @@ def test_eva1_and_eva2_share_the_ixb_raas_cut(client, monkeypatch):
     load = Eva1Load(view=build_eva1_view([eva_row()]), error="")
     monkeypatch.setattr(views, "load_eva2", lambda *a, **k: load)
 
-    first = data(client, "eva-1/")["data"]
+    assert client.get(BASE + "eva-1/").status_code == 404
     second = data(client, "eva-2/")["data"]
 
-    assert first == second
-    assert first["error"] == ""
-    assert first["eva"]["total_projects"] == 1
+
+    assert second["error"] == ""
+    assert second["eva"]["total_projects"] == 1
 
 
 def test_facturability_general_keeps_the_partial_months(client, monkeypatch):

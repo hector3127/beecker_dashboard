@@ -8,9 +8,11 @@ STAGES = {
     "discovery": "Discovery",
     "development": "Development",
     "deployment": "Deployment",
+    "suspendido": "Suspendido",
+    "suspended": "Suspendido",
 }
 HEADER = re.compile(
-    r"^(general|discovery|development|deployment)(?:[_\s-]+(CR\d*(?:_S\d+)?|S\d+))?$",
+    r"^(general|discovery|development|deployment|suspendido|suspended)(?:[_\s-]+(CR\d*(?:_S\d+)?|S\d+))?$",
     re.I,
 )
 
@@ -52,6 +54,8 @@ def calendar_fields(
     finishes = []
     discovery_starts = []
     for stage in stages:
+        if stage["stage"] == "Suspendido":
+            continue
         dates = {}
         for key in ("start", "finish"):
             try:
@@ -87,6 +91,18 @@ def calendar_fields(
     )
     if not valid:
         label = "Pendiente"
+    for suspension in (s for s in stages if s["stage"] == "Suspendido"):
+        try:
+            start_s = date.fromisoformat(suspension["start"])
+            end_s = (
+                date.fromisoformat(suspension["finish"])
+                if suspension.get("finish")
+                else date.max
+            )
+        except ValueError:
+            continue
+        if start_s <= observed <= end_s:
+            label = "Suspendido"
     return {
         "iteration_start": start,
         "iteration_finish": finish,
