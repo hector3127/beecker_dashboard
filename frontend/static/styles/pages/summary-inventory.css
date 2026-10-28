@@ -1,0 +1,14 @@
+.summary-inventory { margin-top: 24px; padding: 24px; min-width: 0; }
+.inventory-search { display: flex; align-items: end; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+.inventory-search label { display: grid; gap: 8px; flex: 1 1 320px; font-weight: 600; }
+.inventory-search input { width: 100%; min-height: 44px; padding: 10px 14px; border: 1px solid #dcd4ff; border-radius: 10px; font: inherit; }
+.inventory-search button { min-height: 44px; padding: 10px 24px; background: #6230df; color: white; border: 0; border-radius: 10px; font: inherit; cursor: pointer; }
+.inventory-scroll { overflow-x: auto; max-width: 100%; border: 1px solid #e8e2fa; border-radius: 12px; }
+.inventory-scroll table { width: 100%; min-width: 1450px; border-collapse: collapse; font-size: 14px; }
+.inventory-scroll caption { text-align: left; padding: 16px; font-weight: 600; }
+.inventory-scroll th { background: #f4f0ff; text-align: left; padding: 16px 12px; white-space: nowrap; }
+.inventory-scroll td { padding: 16px 12px; border-top: 1px solid #ede8fa; vertical-align: top; }
+.inventory-scroll tbody tr:nth-child(even) { background: #fbfaff; }
+.inventory-scroll summary { cursor: pointer; white-space: nowrap; }
+.inventory-scroll details div { padding-top: 8px; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .summary-inventory { padding: 16px; } .inventory-search label { flex-basis: 100%; } }

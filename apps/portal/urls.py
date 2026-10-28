@@ -61,6 +61,11 @@ urlpatterns = [
     path("comercial/", pages.commercial, name="comercial"),
     path("operativa/eva-1/", pages.eva1, name="eva1"),
     path(
+        "operativa/eva-1/summary/",
+        pages.summary_inventory,
+        name="summary_inventory",
+    ),
+    path(
         "operativa/eva-1/cerrados/",
         pages.eva1_cerrados,
         name="eva1_cerrados",

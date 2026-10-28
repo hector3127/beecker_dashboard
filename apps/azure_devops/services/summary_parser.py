@@ -286,14 +286,18 @@ def parse_summary(description: str) -> list[SummaryBlock]:
         header = HEADER.fullmatch(normalized.replace("number ", ""))
         composite = COMPOSITE.fullmatch(normalized)
         if header or composite:
-            code = (
-                f"CR{int(composite[1]) if composite[1] else ''}"
-                f"_S{int(composite[2])}"
-                if composite
-                else f"S{int(header[1])}"
-                if header[1]
-                else (f"CR{int(header[2])}" if header[2] else "CR")
-            )
+            if composite:
+                code = (
+                    f"CR{int(composite[1]) if composite[1] else ''}"
+                    f"_S{int(composite[2])}"
+                )
+            else:
+                assert header is not None
+                code = (
+                    f"S{int(header[1])}"
+                    if header[1]
+                    else (f"CR{int(header[2])}" if header[2] else "CR")
+                )
             current = blocks.setdefault(code, SummaryBlock(code))
             if code in seen_headers:
                 current.issues.append("duplicate_block")

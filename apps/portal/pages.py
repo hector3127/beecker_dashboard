@@ -40,6 +40,31 @@ def _login_needed(request: HttpRequest) -> bool:
 
 
 @require_GET
+@require_capability("view_operations", whole_portfolio=True)
+def summary_inventory(request: HttpRequest) -> HttpResponse:
+    """Search the persisted, unfiltered Azure Summary inventory."""
+    from apps.portal.services.summary_inventory import inventory_rows
+
+    if _login_needed(request):
+        return redirect_to_login(request.get_full_path())
+    query = request.GET.get("q", "").strip()[:200]
+    run, rows = inventory_rows(query)
+    response = render(
+        request,
+        "pages/summary_inventory.html",
+        {
+            "active": "operativa",
+            "inventory_run": run,
+            "rows": rows,
+            "query": query,
+            "count": len(rows),
+        },
+    )
+    response["Cache-Control"] = "no-store"
+    return response
+
+
+@require_GET
 @ensure_csrf_cookie  # el JS lee la cookie para firmar sus POST
 def guia(request: HttpRequest) -> HttpResponse:
     """Muestra los componentes y estados del frontend nuevo."""

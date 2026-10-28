@@ -91,6 +91,7 @@ class AzureDevOpsClient:
                     "api-version": API_VERSION,
                     "$top": PROJECTS_PAGE_SIZE,
                     "$skip": offset,
+                    "stateFilter": "all",
                 },
             )
             page = payload.get("value")

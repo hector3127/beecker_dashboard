@@ -75,7 +75,7 @@ def summary_hours(value: str) -> Decimal | None:
 
 def candidate_rows(project_name: str, description: str) -> list[dict[str, Any]]:
     """Separate exact identities and report missing or ambiguous data."""
-    result = []
+    result: list[dict[str, Any]] = []
     base = project_name.strip().upper()
     for block in parse_summary(description):
         values = block.fields

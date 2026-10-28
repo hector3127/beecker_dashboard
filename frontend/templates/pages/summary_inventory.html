@@ -1,0 +1,16 @@
+{% extends "layouts/app.html" %}
+{% load static %}
+{% block title %}Inventario de Summary · Azure{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/summary-inventory.css' %}">{% endblock %}
+{% block content %}
+<a href="{% url 'portal:eva1' %}">← Regresar a EVA 1</a>
+<header class="pgh"><div><p class="hs">Azure DevOps · Base local</p><h1>Inventario de Summary</h1><p>Todos los proyectos accesibles por el PAT, sin excluir cerrados ni servicios. Cada sprint y change request tiene su propia fila.</p></div></header>
+<section class="card summary-inventory">
+<form method="get" class="inventory-search"><label for="summary-query">Buscar proyecto, ID, sprint, CR o Delivery Manager<input id="summary-query" name="q" value="{{ query }}" type="search" placeholder="Ej. AMK.012, S2 o nombre del DM"></label><button type="submit">Buscar</button><a href="{% url 'portal:summary_inventory' %}">Limpiar</a></form>
+{% if inventory_run %}<p role="status">{{ count }} bloques encontrados · {{ inventory_run.metrics.projects }} proyectos guardados · {{ inventory_run.finished_at|date:'d/m/Y H:i' }} · Extracción: {{ inventory_run.metrics.total_seconds }} s</p>{% else %}<p role="status">Todavía no hay una extracción de Summary guardada.</p>{% endif %}
+<p class="hs">Estado Summary y estado del proyecto Azure se muestran por separado. Burn, ETC, avance y riesgos requieren sus fuentes posteriores; no se deducen del Summary.</p>
+<div class="inventory-scroll" tabindex="0" role="region" aria-label="Tabla de proyectos y bloques de Summary"><table><caption>Campos extraídos de Summary por bloque</caption><thead><tr><th>ID + bloque</th><th>Proyecto Azure</th><th>Bloque</th><th>Delivery Manager</th><th>Servicio</th><th>Nombre</th><th>Inicio</th><th>Fin</th><th>Budget (h)</th><th>Estado Summary</th><th>Estado Azure</th><th>Validación</th></tr></thead><tbody>
+{% for row in rows %}<tr><td><strong>{{ row.display_id|default:'Pendiente' }}</strong></td><td>{{ row.azure_name }}</td><td>{{ row.scope }}</td><td>{{ row.fields.delivery_manager|default:'Pendiente' }}</td><td>{{ row.fields.service|default:'Pendiente' }}</td><td>{{ row.fields.project_name|default:'Pendiente' }}</td><td>{% firstof row.start row.fields.start "Pendiente" %}</td><td>{% firstof row.finish row.fields.finish "Pendiente" %}</td><td>{% firstof row.budget row.fields.budget "Pendiente" %}</td><td>{{ row.fields.status|default:'Pendiente' }}</td><td>{{ row.azure_state|default:'Pendiente' }}</td><td>{% if row.ready %}Campos completos{% else %}<details><summary>Revisar campos</summary>{% for issue in row.issues %}<div>{{ issue }}</div>{% endfor %}{% for label in row.unknown_labels %}<div>Etiqueta: {{ label }}</div>{% endfor %}</details>{% endif %}</td></tr>{% empty %}<tr><td colspan="12">No se encontraron bloques.</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}
+

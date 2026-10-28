@@ -9,6 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Inventario Summary, 28/10:** primer bloque solicitado: todos los proyectos
+visibles al PAT, sin filtro de servicio/cierre, Summary original y bloques
+persistidos. Tabla `/operativa/eva-1/summary/` con buscador local, enlace EVA,
+permisos y CSP. Extracción real: 450 proyectos / 558 bloques / 4.625 s.
+84 servidor y tres Chrome responsivos aprobados; ver inventario-summary.md.
+No sustituye cortes EVA/KPI ni incorpora aún horas/riesgos en esta tabla.
+Sin push; fase 11 abierta.
+
 **Consulta de corte EVA, base 91f48ed:** estado/incidencias iniciales desde
 servidor; formulario GET de fecha/DM/servicio arriba y operativo sin JS o con
 estado 503/extracción en curso. Enlaces a cortes publicados; datos parciales
