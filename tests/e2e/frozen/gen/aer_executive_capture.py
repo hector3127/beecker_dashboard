@@ -51,8 +51,8 @@ def test_capture_current_design(
     )
     document = {
         "schema": 1,
-        "source": "approved_current_design",
-        "base_commit": "0dbb3f7",
+        "source": "project_redesign_delivery_v1",
+        "base_commit": "007d76c",
         "variant": variant,
         "viewport": {"width": width, "height": 1000},
         "fixed_day": FIXED_DAY,
@@ -66,6 +66,8 @@ def test_capture_current_design(
             for name in [
                 "frontend/static/scripts/pages/project_detail/sections/aer_executive.js",
                 "frontend/static/styles/pages/project_detail_aer.css",
+                "frontend/static/styles/pages/project_detail_design.css",
+                "frontend/static/scripts/pages/project_detail/presentation.js",
                 "frontend/templates/pages/project_detail.html",
                 "tests/aer/aer_expected.json",
                 "tests/ejecutivo/project_integrated_expected.json",

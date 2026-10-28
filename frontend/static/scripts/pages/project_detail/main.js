@@ -78,6 +78,9 @@ import {
 } from "./sections/ixs_executive.js";
 import { el } from "#app/lib/dom.js";
 import { watchLoadingMessages } from "#app/ui/portal-loading.js";
+import { mountProjectPresentation } from "./presentation.js";
+
+mountProjectPresentation();
 
 const root = document.getElementById("view-container");
 const entry = document.querySelector("[data-project-detail-entry]");

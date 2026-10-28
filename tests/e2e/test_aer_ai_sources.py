@@ -69,7 +69,7 @@ def enter(page, previous=False):
         "button", name="✦ IA", exact=True
     ).click()
     page.wait_for_function(
-        "!aerIAState.cargandoAnalisis && !aerIAState.cargandoResumen && "
+        "() => !aerIAState.cargandoAnalisis && !aerIAState.cargandoResumen && "
         "!aerIAState.cargandoConfig && !aerIAState.cargandoMinutas && "
         "!aerIAState.buscando"
     )

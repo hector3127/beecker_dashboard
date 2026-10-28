@@ -69,7 +69,7 @@ def approved(name, width, data):
             encoding="utf-8"
         )
     )
-    assert reference["source"] == "approved_current_design"
+    assert reference["source"] == "project_redesign_delivery_v1"
     assert reference["viewport"] == {"width": width, "height": 1000}
     assert reference["input_sha256"] == input_digest(data)
     return reference["state"]

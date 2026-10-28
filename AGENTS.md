@@ -23,6 +23,16 @@ Reglas que no se negocian:
 
 ## Estado vigente (27/10/2026)
 
+**Excepción autorizada posteriormente por el usuario: rediseño de Proyectos.**
+El usuario pidió renovar todas las pestañas del detalle de proyecto, con
+gráficas/tablas responsivas y mejor organización. Esa vista usa ahora el
+sistema `delivery-v1` documentado en `docs/diseno-proyectos.md`; no debe
+forzarse su apariencia contra el old ni contra referencias previas al
+rediseño. Se conservan cálculos, permisos, fuentes, acciones y navegación.
+La restricción de conservar el diseño sigue vigente para las otras páginas.
+Las referencias nuevas identifican explícitamente el rediseño solicitado;
+no implican una aprobación visual posterior que el usuario aún no ha dado.
+
 **Criterio vigente por instrucción del usuario:** conservar el diseño actual
 aprobado, sin cambios en HTML/CSS/JS de la aplicación para igualarlo al old.
 Las referencias visuales se capturan del diseño actual; la base de cada

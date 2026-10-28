@@ -34,8 +34,8 @@ def save(page, data, name, width, result):
     ROOT.mkdir(parents=True, exist_ok=True)
     value = {
         "schema": 1,
-        "source": "approved_current_design",
-        "base_commit": "1478793",
+        "source": "project_redesign_delivery_v1",
+        "base_commit": "007d76c",
         "viewport": {"width": width, "height": 1000},
         "input_sha256": input_digest(data),
         "browser": page.context.browser.version,

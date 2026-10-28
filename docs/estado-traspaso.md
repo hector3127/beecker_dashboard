@@ -4,6 +4,14 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
+**Nuevo encargo: rediseño de toda la vista Proyectos**, autorizado después
+de congelar referencias. Ver `docs/diseno-proyectos.md` y el bloque vigente
+del plan. La apariencia `delivery-v1` sustituye la previa en esta ruta;
+no se cambian datos, cálculos, permisos ni acciones. El resto del portal
+mantiene su diseño. Las antiguas comparaciones visuales contra el old ya
+no son un criterio válido de aspecto para este encargo; conservar sus
+casos funcionales y clasificar las referencias pendientes, sin borrar tests.
+
 **Último bloque, base 1478793:** Recursos AER conserva el diseño actual
 mediante 15 referencias: nueve estados de la pestaña y seis formularios a
 1450/900/390. Las 18 pruebas del archivo pasan con CSP, config.urls y sin

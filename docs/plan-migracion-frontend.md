@@ -9,6 +9,17 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Rediseño de Proyectos solicitado por el usuario, base 007d76c:** se autoriza
+una nueva presentación para todas las pestañas de IXB/SaaS/RaaS y las ocho
+existentes de AER/T&M. Hoja externa exclusiva del detalle, jerarquía legible,
+tarjetas/controles coherentes, navegación horizontal en móvil y tablas con
+desplazamiento contenido y primera columna fija. Un módulo de presentación
+conserva los nodos y sus manejadores; no cambia modelos ni servicios.
+La prioridad del bloque compacto AER se retira para permitir la nueva escala.
+Detalles, evidencia y límites en [diseno-proyectos.md](diseno-proyectos.md).
+Esto sustituye la referencia visual anterior únicamente en Proyectos;
+las expectativas de cálculos siguen vigentes y fase 11 no se da por cerrada.
+
 **Tendencia de KPIs, base 3ea8dca (27/10):** el usuario confirmó curvas
 suaves como Operations Monthly, no regresión estadística. El SVG usa
 interpolación cúbica con pendientes limitadas entre observaciones, mantiene

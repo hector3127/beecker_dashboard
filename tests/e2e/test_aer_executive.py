@@ -48,7 +48,7 @@ def test_all_executive_elements_match(
     )
     assert (
         reference["schema"] == 1
-        and reference["source"] == "approved_current_design"
+        and reference["source"] == "project_redesign_delivery_v1"
     )
     assert reference["variant"] == variant
     assert reference["viewport"] == {"width": width, "height": 1000}

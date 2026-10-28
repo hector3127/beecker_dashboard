@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "source": "approved_current_design",
-  "base_commit": "0dbb3f7",
+  "source": "project_redesign_delivery_v1",
+  "base_commit": "007d76c",
   "variant": "full",
   "viewport": {
     "width": 1450,
@@ -9,12 +9,14 @@
   },
   "fixed_day": "2026-10-23T18:00:00Z",
   "input_sha256": "53a7a4b0d94af222446713184b86a67e185de856f46a93d46baf2d3f62403925",
-  "browser": "156.0.8078.48",
+  "browser": "156.0.8078.49",
   "platform": "Windows",
   "source_sha256": {
     "frontend/static/scripts/pages/project_detail/sections/aer_executive.js": "692c7e5192d5a561c97614a0eefba8e52d2fe240ecccd13d4fa0d530e4c9a717",
-    "frontend/static/styles/pages/project_detail_aer.css": "2e725abde44e463a3515530bca0d0228d57c3e1407943f9f78991bd01061b154",
-    "frontend/templates/pages/project_detail.html": "4556a71336c14a1f6280dd25ebf942031022dd1ae2cd2dd7bb4d18ae4ab2da1c",
+    "frontend/static/styles/pages/project_detail_aer.css": "34c5b12a0de79420dc6fdca1f8d009f679f264e32b8ffb9528515a826d769960",
+    "frontend/static/styles/pages/project_detail_design.css": "31170734f697fcc18eecbdf1ce060b600ca346b41e54dd2962355d31b3197b03",
+    "frontend/static/scripts/pages/project_detail/presentation.js": "c2f3838961cbebf7d4f38539a8266cf5974802c38ad1312d12b98134aca789d4",
+    "frontend/templates/pages/project_detail.html": "1369755c609ce5d3ad302ba94e88c517c5b22e6731730c606fae723dff5daacf",
     "tests/aer/aer_expected.json": "a08a0a706ea678b7249ea5034a500d84e76e08993b86fc4e3c752bc794262092",
     "tests/ejecutivo/project_integrated_expected.json": "05360de0eea49a15cbed5372c7049a0f4c13f157aae23f0a3e7992a0532ae6be"
   },
@@ -22,16 +24,16 @@
     {
       "tag": "DIV",
       "box": [
-        24,
-        290.5,
-        1402,
-        701.3
+        52,
+        390.2,
+        1346,
+        920.4
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -39,51 +41,51 @@
         "0px",
         "0px",
         "grid",
-        "12px"
+        "20px"
       ],
       "text": "♡HealthScore70/100Enseguimiento▥Avanceglobal29%2de7compromisoscerrados◔Tiempovsplan70%sinperiodobase◉Presupuestoconsumido14.8%14.75hregistradas$Costoreal$84segúncostingrate⚠Riesgoscríticos22riesgo(s)activos⚑Próximohito15/11/20261eventospróximosResumenejecutivo!Lasaludgeneralsemantieneenunnivelestable,aunqueyaexistenpuntosquerequierenseguimientoejecutivo.!Existe1compromisovencidoquerequiereseguimientoinmediato.✓ElpróximocompromisorelevanteesGoLive,confecha15/11/2026.•Seidentifican2riesgoscríticosqueconvienemonitorearencomité.◉ProyectoestableconfocosdeseguimientoTiempo70%Esfuerzo70%Costo100%Riesgo40%Cumplimientodecompromisos2de750%cerradosatiempo1vencido(s)AtenciónejecutivaVertodaslasacciones→EntregaUATVencido👤Beto📅25/09/2026PlaneaciónDesarrolloVencido👤Ana📅15/10/2026Planeaciónrevisaraccesosnota👤ana📅30/09/2026AccionesAccesostardíosRiesgocrítico👤Ana📅10/10/2026RiesgosPróximoshitos/decisiones(30días)Vertodos→GoLiveBeto15/11/2026Finanzasyesfuerzo14.75consumoConsumo14.75hFacturables5.75hNofacturables9hFueradehorario3.25hCostoreal$84RiesgosydependenciasVertodos→2riesgocrítico2dependenciasclave2bloqueoscríticosAccesosDesarrolloVencidaClienteDocumentarDetenida"
     },
     {
       "tag": "DIV",
       "box": [
-        24,
-        290.5,
-        1402,
-        105.1
+        52,
+        390.2,
+        1346,
+        186.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "22px",
         "grid",
-        "9px"
+        "14px"
       ],
       "text": "♡HealthScore70/100Enseguimiento▥Avanceglobal29%2de7compromisoscerrados◔Tiempovsplan70%sinperiodobase◉Presupuestoconsumido14.8%14.75hregistradas$Costoreal$84segúncostingrate⚠Riesgoscríticos22riesgo(s)activos⚑Próximohito15/11/20261eventospróximos"
     },
     {
       "tag": "DIV",
       "box": [
-        24,
-        290.5,
-        192.6,
-        105.1
+        52,
+        390.2,
+        180.3,
+        186.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "10px",
-        "9px",
+        "20px",
+        "20px",
         "0px",
         "0px",
         "block",
@@ -94,22 +96,22 @@
     {
       "tag": "DIV",
       "box": [
-        35,
-        301.5,
-        170.6,
-        27
+        73,
+        411.2,
+        138.3,
+        34
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "10px",
         "flex",
         "7px"
       ],
@@ -118,15 +120,15 @@
     {
       "tag": "SPAN",
       "box": [
-        35,
-        301.5,
-        27,
-        27
+        73,
+        411.2,
+        34,
+        34
       ],
       "css": [
         "13px",
         "900",
-        "normal",
+        "19.5px",
         "rgb(26, 162, 95)",
         "rgb(232, 247, 239)",
         "none",
@@ -142,16 +144,16 @@
     {
       "tag": "SPAN",
       "box": [
-        69,
-        310,
-        69,
-        9.8
+        114,
+        419.8,
+        71.8,
+        16.8
       ],
       "css": [
-        "8.8px",
-        "900",
-        "9.856px",
-        "rgb(43, 47, 168)",
+        "12px",
+        "650",
+        "16.8px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -166,15 +168,15 @@
     {
       "tag": "DIV",
       "box": [
-        35,
-        335.5,
-        170.6,
-        21.4
+        73,
+        455.2,
+        138.3,
+        39.9
       ],
       "css": [
-        "21px",
-        "800",
-        "21.42px",
+        "31.9px",
+        "780",
+        "39.875px",
         "rgb(20, 18, 94)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -190,21 +192,21 @@
     {
       "tag": "DIV",
       "box": [
-        35,
-        360.9,
-        170.6,
-        10.7
+        73,
+        501.1,
+        138.3,
+        18
       ],
       "css": [
-        "8.8px",
+        "12px",
         "400",
-        "10.736px",
-        "rgb(74, 77, 134)",
+        "18px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
-        "4px",
+        "6px",
         "0px",
         "block",
         "normal"
@@ -214,21 +216,21 @@
     {
       "tag": "DIV",
       "box": [
-        35,
-        378.6,
-        170.6,
-        7
+        73,
+        533.1,
+        138.3,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(237, 233, 246)",
         "none",
         "0px",
         "0px",
-        "7px",
+        "14px",
         "0px",
         "block",
         "normal"
@@ -238,16 +240,16 @@
     {
       "tag": "I",
       "box": [
-        35,
-        378.6,
-        119.4,
-        7
+        73,
+        533.1,
+        96.8,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "linear-gradient(90deg, rgb(45, 184, 116), rgb(97, 211, 154))",
         "0px",
@@ -262,20 +264,20 @@
     {
       "tag": "DIV",
       "box": [
-        225.6,
-        290.5,
-        192.6,
-        105.1
+        246.3,
+        390.2,
+        180.3,
+        186.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "10px",
-        "9px",
+        "20px",
+        "20px",
         "0px",
         "0px",
         "block",
@@ -286,22 +288,22 @@
     {
       "tag": "DIV",
       "box": [
-        236.6,
-        301.5,
-        170.6,
-        27
+        267.3,
+        411.2,
+        138.3,
+        34
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "10px",
         "flex",
         "7px"
       ],
@@ -310,15 +312,15 @@
     {
       "tag": "SPAN",
       "box": [
-        236.6,
-        301.5,
-        27,
-        27
+        267.3,
+        411.2,
+        34,
+        34
       ],
       "css": [
         "13px",
         "900",
-        "normal",
+        "19.5px",
         "rgb(60, 99, 255)",
         "rgb(238, 241, 255)",
         "none",
@@ -334,16 +336,16 @@
     {
       "tag": "SPAN",
       "box": [
-        270.6,
-        310,
-        77.3,
-        9.8
+        308.3,
+        419.8,
+        79.2,
+        16.8
       ],
       "css": [
-        "8.8px",
-        "900",
-        "9.856px",
-        "rgb(43, 47, 168)",
+        "12px",
+        "650",
+        "16.8px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -358,15 +360,15 @@
     {
       "tag": "DIV",
       "box": [
-        236.6,
-        335.5,
-        170.6,
-        21.4
+        267.3,
+        455.2,
+        138.3,
+        39.9
       ],
       "css": [
-        "21px",
-        "800",
-        "21.42px",
+        "31.9px",
+        "780",
+        "39.875px",
         "rgb(20, 18, 94)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -382,21 +384,21 @@
     {
       "tag": "DIV",
       "box": [
-        236.6,
-        360.9,
-        170.6,
-        10.7
+        267.3,
+        501.1,
+        138.3,
+        36
       ],
       "css": [
-        "8.8px",
+        "12px",
         "400",
-        "10.736px",
-        "rgb(74, 77, 134)",
+        "18px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
-        "4px",
+        "6px",
         "0px",
         "block",
         "normal"
@@ -406,21 +408,21 @@
     {
       "tag": "DIV",
       "box": [
-        236.6,
-        378.6,
-        170.6,
-        7
+        267.3,
+        551.1,
+        138.3,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(237, 233, 246)",
         "none",
         "0px",
         "0px",
-        "7px",
+        "14px",
         "0px",
         "block",
         "normal"
@@ -430,16 +432,16 @@
     {
       "tag": "I",
       "box": [
-        236.6,
-        378.6,
-        48.8,
-        7
+        267.3,
+        551.1,
+        39.5,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "linear-gradient(90deg, rgb(77, 114, 255), rgb(93, 180, 255))",
         "0px",
@@ -454,20 +456,20 @@
     {
       "tag": "DIV",
       "box": [
-        427.1,
-        290.5,
-        192.6,
-        105.1
+        440.6,
+        390.2,
+        180.3,
+        186.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "10px",
-        "9px",
+        "20px",
+        "20px",
         "0px",
         "0px",
         "block",
@@ -478,22 +480,22 @@
     {
       "tag": "DIV",
       "box": [
-        438.1,
-        301.5,
-        170.6,
-        27
+        461.6,
+        411.2,
+        138.3,
+        34
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "10px",
         "flex",
         "7px"
       ],
@@ -502,15 +504,15 @@
     {
       "tag": "SPAN",
       "box": [
-        438.1,
-        301.5,
-        27,
-        27
+        461.6,
+        411.2,
+        34,
+        34
       ],
       "css": [
         "13px",
         "900",
-        "normal",
+        "19.5px",
         "rgb(227, 154, 7)",
         "rgb(255, 243, 223)",
         "none",
@@ -526,16 +528,16 @@
     {
       "tag": "SPAN",
       "box": [
-        472.1,
-        310,
-        77.9,
-        9.8
+        502.6,
+        419.8,
+        85.7,
+        16.8
       ],
       "css": [
-        "8.8px",
-        "900",
-        "9.856px",
-        "rgb(43, 47, 168)",
+        "12px",
+        "650",
+        "16.8px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -550,15 +552,15 @@
     {
       "tag": "DIV",
       "box": [
-        438.1,
-        335.5,
-        170.6,
-        21.4
+        461.6,
+        455.2,
+        138.3,
+        39.9
       ],
       "css": [
-        "21px",
-        "800",
-        "21.42px",
+        "31.9px",
+        "780",
+        "39.875px",
         "rgb(20, 18, 94)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -574,21 +576,21 @@
     {
       "tag": "DIV",
       "box": [
-        438.1,
-        360.9,
-        170.6,
-        10.7
+        461.6,
+        501.1,
+        138.3,
+        18
       ],
       "css": [
-        "8.8px",
+        "12px",
         "400",
-        "10.736px",
-        "rgb(74, 77, 134)",
+        "18px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
-        "4px",
+        "6px",
         "0px",
         "block",
         "normal"
@@ -598,21 +600,21 @@
     {
       "tag": "DIV",
       "box": [
-        438.1,
-        378.6,
-        170.6,
-        7
+        461.6,
+        533.1,
+        138.3,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(237, 233, 246)",
         "none",
         "0px",
         "0px",
-        "7px",
+        "14px",
         "0px",
         "block",
         "normal"
@@ -622,16 +624,16 @@
     {
       "tag": "I",
       "box": [
-        438.1,
-        378.6,
-        119.4,
-        7
+        461.6,
+        533.1,
+        96.8,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "linear-gradient(90deg, rgb(243, 168, 0), rgb(255, 200, 74))",
         "0px",
@@ -646,20 +648,20 @@
     {
       "tag": "DIV",
       "box": [
-        628.7,
-        290.5,
-        192.6,
-        105.1
+        634.8,
+        390.2,
+        180.3,
+        186.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "10px",
-        "9px",
+        "20px",
+        "20px",
         "0px",
         "0px",
         "block",
@@ -670,22 +672,22 @@
     {
       "tag": "DIV",
       "box": [
-        639.7,
-        301.5,
-        170.6,
-        27
+        655.8,
+        411.2,
+        138.3,
+        34
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "10px",
         "flex",
         "7px"
       ],
@@ -694,15 +696,15 @@
     {
       "tag": "SPAN",
       "box": [
-        639.7,
-        301.5,
-        27,
-        27
+        655.8,
+        411.2,
+        34,
+        34
       ],
       "css": [
         "13px",
         "900",
-        "normal",
+        "19.5px",
         "rgb(107, 50, 223)",
         "rgb(239, 232, 255)",
         "none",
@@ -718,16 +720,16 @@
     {
       "tag": "SPAN",
       "box": [
-        673.7,
-        310,
-        125.5,
-        9.8
+        696.8,
+        411.4,
+        97.3,
+        33.6
       ],
       "css": [
-        "8.8px",
-        "900",
-        "9.856px",
-        "rgb(43, 47, 168)",
+        "12px",
+        "650",
+        "16.8px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -742,15 +744,15 @@
     {
       "tag": "DIV",
       "box": [
-        639.7,
-        335.5,
-        170.6,
-        21.4
+        655.8,
+        455.2,
+        138.3,
+        39.9
       ],
       "css": [
-        "21px",
-        "800",
-        "21.42px",
+        "31.9px",
+        "780",
+        "39.875px",
         "rgb(20, 18, 94)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -766,21 +768,21 @@
     {
       "tag": "DIV",
       "box": [
-        639.7,
-        360.9,
-        170.6,
-        10.7
+        655.8,
+        501.1,
+        138.3,
+        18
       ],
       "css": [
-        "8.8px",
+        "12px",
         "400",
-        "10.736px",
-        "rgb(74, 77, 134)",
+        "18px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
-        "4px",
+        "6px",
         "0px",
         "block",
         "normal"
@@ -790,21 +792,21 @@
     {
       "tag": "DIV",
       "box": [
-        639.7,
-        378.6,
-        170.6,
-        7
+        655.8,
+        533.1,
+        138.3,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(237, 233, 246)",
         "none",
         "0px",
         "0px",
-        "7px",
+        "14px",
         "0px",
         "block",
         "normal"
@@ -814,16 +816,16 @@
     {
       "tag": "I",
       "box": [
-        639.7,
-        378.6,
-        25.2,
-        7
+        655.8,
+        533.1,
+        20.5,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "linear-gradient(90deg, rgb(107, 50, 223), rgb(142, 86, 236))",
         "0px",
@@ -838,20 +840,20 @@
     {
       "tag": "DIV",
       "box": [
-        830.3,
-        290.5,
-        192.6,
-        105.1
+        829.1,
+        390.2,
+        180.3,
+        186.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "10px",
-        "9px",
+        "20px",
+        "20px",
         "0px",
         "0px",
         "block",
@@ -862,22 +864,22 @@
     {
       "tag": "DIV",
       "box": [
-        841.3,
-        301.5,
-        170.6,
-        27
+        850.1,
+        411.2,
+        138.3,
+        34
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "10px",
         "flex",
         "7px"
       ],
@@ -886,15 +888,15 @@
     {
       "tag": "SPAN",
       "box": [
-        841.3,
-        301.5,
-        27,
-        27
+        850.1,
+        411.2,
+        34,
+        34
       ],
       "css": [
         "13px",
         "900",
-        "normal",
+        "19.5px",
         "rgb(107, 50, 223)",
         "rgb(238, 232, 255)",
         "none",
@@ -910,16 +912,16 @@
     {
       "tag": "SPAN",
       "box": [
-        875.3,
-        310,
-        56.3,
-        9.8
+        891.1,
+        419.8,
+        56.5,
+        16.8
       ],
       "css": [
-        "8.8px",
-        "900",
-        "9.856px",
-        "rgb(43, 47, 168)",
+        "12px",
+        "650",
+        "16.8px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -934,15 +936,15 @@
     {
       "tag": "DIV",
       "box": [
-        841.3,
-        335.5,
-        170.6,
-        21.4
+        850.1,
+        455.2,
+        138.3,
+        31.3
       ],
       "css": [
-        "21px",
-        "800",
-        "21.42px",
+        "25px",
+        "780",
+        "31.25px",
         "rgb(20, 18, 94)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -958,21 +960,21 @@
     {
       "tag": "DIV",
       "box": [
-        841.3,
-        360.9,
-        170.6,
-        10.7
+        850.1,
+        492.4,
+        138.3,
+        18
       ],
       "css": [
-        "8.8px",
+        "12px",
         "400",
-        "10.736px",
-        "rgb(74, 77, 134)",
+        "18px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
-        "4px",
+        "6px",
         "0px",
         "block",
         "normal"
@@ -982,20 +984,20 @@
     {
       "tag": "DIV",
       "box": [
-        1031.8,
-        290.5,
-        192.6,
-        105.1
+        1023.4,
+        390.2,
+        180.3,
+        186.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "10px",
-        "9px",
+        "20px",
+        "20px",
         "0px",
         "0px",
         "block",
@@ -1006,22 +1008,22 @@
     {
       "tag": "DIV",
       "box": [
-        1042.8,
-        301.5,
-        170.6,
-        27
+        1044.4,
+        411.2,
+        138.3,
+        34
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "10px",
         "flex",
         "7px"
       ],
@@ -1030,15 +1032,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1042.8,
-        301.5,
-        27,
-        27
+        1044.4,
+        411.2,
+        34,
+        34
       ],
       "css": [
         "13px",
         "900",
-        "normal",
+        "19.5px",
         "rgb(227, 58, 82)",
         "rgb(255, 236, 239)",
         "none",
@@ -1054,16 +1056,16 @@
     {
       "tag": "SPAN",
       "box": [
-        1076.8,
-        310,
-        83.4,
-        9.8
+        1085.4,
+        419.8,
+        86.8,
+        16.8
       ],
       "css": [
-        "8.8px",
-        "900",
-        "9.856px",
-        "rgb(43, 47, 168)",
+        "12px",
+        "650",
+        "16.8px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -1078,15 +1080,15 @@
     {
       "tag": "DIV",
       "box": [
-        1042.8,
-        335.5,
-        170.6,
-        21.4
+        1044.4,
+        455.2,
+        138.3,
+        39.9
       ],
       "css": [
-        "21px",
-        "800",
-        "21.42px",
+        "31.9px",
+        "780",
+        "39.875px",
         "rgb(20, 18, 94)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1102,21 +1104,21 @@
     {
       "tag": "DIV",
       "box": [
-        1042.8,
-        360.9,
-        170.6,
-        10.7
+        1044.4,
+        501.1,
+        138.3,
+        18
       ],
       "css": [
-        "8.8px",
+        "12px",
         "400",
-        "10.736px",
-        "rgb(74, 77, 134)",
+        "18px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
-        "4px",
+        "6px",
         "0px",
         "block",
         "normal"
@@ -1126,21 +1128,21 @@
     {
       "tag": "DIV",
       "box": [
-        1042.8,
-        378.6,
-        170.6,
-        7
+        1044.4,
+        533.1,
+        138.3,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(237, 233, 246)",
         "none",
         "0px",
         "0px",
-        "7px",
+        "14px",
         "0px",
         "block",
         "normal"
@@ -1150,16 +1152,16 @@
     {
       "tag": "I",
       "box": [
-        1042.8,
-        378.6,
-        170.6,
-        7
+        1044.4,
+        533.1,
+        138.3,
+        5
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "linear-gradient(90deg, rgb(239, 56, 81), rgb(255, 122, 142))",
         "0px",
@@ -1174,20 +1176,20 @@
     {
       "tag": "DIV",
       "box": [
-        1233.4,
-        290.5,
-        192.6,
-        105.1
+        1217.7,
+        390.2,
+        180.3,
+        186.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "10px",
-        "9px",
+        "20px",
+        "20px",
         "0px",
         "0px",
         "block",
@@ -1198,22 +1200,22 @@
     {
       "tag": "DIV",
       "box": [
-        1244.4,
-        301.5,
-        170.6,
-        27
+        1238.7,
+        411.2,
+        138.3,
+        34
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "10px",
         "flex",
         "7px"
       ],
@@ -1222,15 +1224,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1244.4,
-        301.5,
-        27,
-        27
+        1238.7,
+        411.2,
+        34,
+        34
       ],
       "css": [
         "13px",
         "900",
-        "normal",
+        "19.5px",
         "rgb(107, 50, 223)",
         "rgb(239, 234, 255)",
         "none",
@@ -1246,16 +1248,16 @@
     {
       "tag": "SPAN",
       "box": [
-        1278.4,
-        310,
-        70.3,
-        9.8
+        1279.7,
+        419.8,
+        73.5,
+        16.8
       ],
       "css": [
-        "8.8px",
-        "900",
-        "9.856px",
-        "rgb(43, 47, 168)",
+        "12px",
+        "650",
+        "16.8px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -1270,15 +1272,15 @@
     {
       "tag": "DIV",
       "box": [
-        1244.4,
-        335.5,
-        170.6,
-        21.4
+        1238.7,
+        455.2,
+        138.3,
+        25
       ],
       "css": [
-        "21px",
-        "800",
-        "21.42px",
+        "20px",
+        "780",
+        "25px",
         "rgb(20, 18, 94)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1294,21 +1296,21 @@
     {
       "tag": "DIV",
       "box": [
-        1244.4,
-        360.9,
-        170.6,
-        10.7
+        1238.7,
+        486.2,
+        138.3,
+        18
       ],
       "css": [
-        "8.8px",
+        "12px",
         "400",
-        "10.736px",
-        "rgb(74, 77, 134)",
+        "18px",
+        "rgb(103, 107, 130)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
-        "4px",
+        "6px",
         "0px",
         "block",
         "normal"
@@ -1318,44 +1320,44 @@
     {
       "tag": "DIV",
       "box": [
-        24,
-        407.6,
-        1402,
-        349.2
+        52,
+        619.1,
+        1346,
+        404.2
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "20px",
         "grid",
-        "12px"
+        "20px"
       ],
       "text": "Resumenejecutivo!Lasaludgeneralsemantieneenunnivelestable,aunqueyaexistenpuntosquerequierenseguimientoejecutivo.!Existe1compromisovencidoquerequiereseguimientoinmediato.✓ElpróximocompromisorelevanteesGoLive,confecha15/11/2026.•Seidentifican2riesgoscríticosqueconvienemonitorearencomité.◉ProyectoestableconfocosdeseguimientoTiempo70%Esfuerzo70%Costo100%Riesgo40%Cumplimientodecompromisos2de750%cerradosatiempo1vencido(s)AtenciónejecutivaVertodaslasacciones→EntregaUATVencido👤Beto📅25/09/2026PlaneaciónDesarrolloVencido👤Ana📅15/10/2026Planeaciónrevisaraccesosnota👤ana📅30/09/2026AccionesAccesostardíosRiesgocrítico👤Ana📅10/10/2026Riesgos"
     },
     {
       "tag": "DIV",
       "box": [
-        24,
-        407.6,
-        873,
-        349.2
+        52,
+        619.1,
+        736.7,
+        337.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "20px",
-        "20px",
+        "22px",
+        "22px",
         "0px",
         "0px",
         "block",
@@ -1366,22 +1368,22 @@
     {
       "tag": "H3",
       "box": [
-        49,
-        428.6,
-        823,
-        17.7
+        75,
+        642.1,
+        690.7,
+        22.9
       ],
       "css": [
-        "15px",
-        "800",
-        "17.7px",
-        "rgb(27, 26, 158)",
+        "17px",
+        "750",
+        "22.95px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "14px",
+        "0px",
         "block",
         "normal"
       ],
@@ -1390,16 +1392,16 @@
     {
       "tag": "DIV",
       "box": [
-        49,
-        460.3,
-        823,
-        264.8
+        75,
+        665,
+        690.7,
+        268.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -1407,23 +1409,23 @@
         "0px",
         "0px",
         "grid",
-        "12px"
+        "24px"
       ],
       "text": "!Lasaludgeneralsemantieneenunnivelestable,aunqueyaexistenpuntosquerequierenseguimientoejecutivo.!Existe1compromisovencidoquerequiereseguimientoinmediato.✓ElpróximocompromisorelevanteesGoLive,confecha15/11/2026.•Seidentifican2riesgoscríticosqueconvienemonitorearencomité.◉ProyectoestableconfocosdeseguimientoTiempo70%Esfuerzo70%Costo100%Riesgo40%Cumplimientodecompromisos2de750%cerradosatiempo1vencido(s)"
     },
     {
       "tag": "DIV",
       "box": [
-        49,
-        460.3,
-        385.2,
-        121.3
+        75,
+        665,
+        316.7,
+        268.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -1438,22 +1440,22 @@
     {
       "tag": "DIV",
       "box": [
-        49,
-        460.3,
-        372.2,
-        28.3
+        75,
+        665,
+        303.7,
+        64.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "23.1px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "13px",
         "grid",
         "10px"
       ],
@@ -1462,15 +1464,15 @@
     {
       "tag": "SPAN",
       "box": [
-        49,
-        461.3,
+        75,
+        666,
         22,
         22
       ],
       "css": [
         "10px",
         "900",
-        "normal",
+        "16.5px",
         "rgb(215, 141, 0)",
         "rgb(255, 243, 222)",
         "none",
@@ -1486,15 +1488,15 @@
     {
       "tag": "DIV",
       "box": [
-        83,
-        460.3,
-        338.2,
-        28.3
+        109,
+        665,
+        269.7,
+        64.3
       ],
       "css": [
-        "10.5px",
+        "13px",
         "400",
-        "14.175px",
+        "21.45px",
         "rgb(46, 40, 82)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1510,15 +1512,15 @@
     {
       "tag": "B",
       "box": [
-        273.6,
-        460.3,
-        35.2,
-        14
+        109,
+        688.4,
+        43.6,
+        17
       ],
       "css": [
-        "10.5px",
+        "13px",
         "700",
-        "14.175px",
+        "21.45px",
         "rgb(46, 40, 82)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1534,22 +1536,22 @@
     {
       "tag": "DIV",
       "box": [
-        49,
-        496.6,
-        372.2,
-        23
+        75,
+        750.3,
+        303.7,
+        42.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "23.1px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "13px",
         "grid",
         "10px"
       ],
@@ -1558,15 +1560,15 @@
     {
       "tag": "SPAN",
       "box": [
-        49,
-        497.6,
+        75,
+        751.3,
         22,
         22
       ],
       "css": [
         "10px",
         "900",
-        "normal",
+        "16.5px",
         "rgb(215, 141, 0)",
         "rgb(255, 243, 222)",
         "none",
@@ -1582,15 +1584,15 @@
     {
       "tag": "DIV",
       "box": [
-        83,
-        496.6,
-        338.2,
-        14.2
+        109,
+        750.3,
+        269.7,
+        42.9
       ],
       "css": [
-        "10.5px",
+        "13px",
         "400",
-        "14.175px",
+        "21.45px",
         "rgb(46, 40, 82)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1606,15 +1608,15 @@
     {
       "tag": "B",
       "box": [
-        112.1,
-        496.6,
-        112.2,
-        14
+        145,
+        752.3,
+        138.9,
+        17
       ],
       "css": [
-        "10.5px",
+        "13px",
         "700",
-        "14.175px",
+        "21.45px",
         "rgb(46, 40, 82)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1630,22 +1632,22 @@
     {
       "tag": "DIV",
       "box": [
-        49,
-        527.6,
-        372.2,
-        23
+        75,
+        814.2,
+        303.7,
+        42.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "23.1px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "13px",
         "grid",
         "10px"
       ],
@@ -1654,15 +1656,15 @@
     {
       "tag": "SPAN",
       "box": [
-        49,
-        528.6,
+        75,
+        815.2,
         22,
         22
       ],
       "css": [
         "10px",
         "900",
-        "normal",
+        "16.5px",
         "rgb(28, 152, 92)",
         "rgb(233, 248, 240)",
         "none",
@@ -1678,15 +1680,15 @@
     {
       "tag": "DIV",
       "box": [
-        83,
-        527.6,
-        338.2,
-        14.2
+        109,
+        814.2,
+        269.7,
+        42.9
       ],
       "css": [
-        "10.5px",
+        "13px",
         "400",
-        "14.175px",
+        "21.45px",
         "rgb(46, 40, 82)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1702,15 +1704,15 @@
     {
       "tag": "B",
       "box": [
-        254.5,
-        527.6,
-        36.4,
-        14
+        321.3,
+        816.2,
+        45.1,
+        17
       ],
       "css": [
-        "10.5px",
+        "13px",
         "700",
-        "14.175px",
+        "21.45px",
         "rgb(46, 40, 82)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1726,15 +1728,15 @@
     {
       "tag": "B",
       "box": [
-        343.7,
-        527.6,
-        57.6,
-        14
+        168,
+        837.6,
+        71.4,
+        17
       ],
       "css": [
-        "10.5px",
+        "13px",
         "700",
-        "14.175px",
+        "21.45px",
         "rgb(46, 40, 82)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1750,22 +1752,22 @@
     {
       "tag": "DIV",
       "box": [
-        49,
-        558.6,
-        372.2,
-        23
+        75,
+        878.1,
+        303.7,
+        42.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "23.1px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
         "0px",
         "0px",
-        "0px",
+        "13px",
         "grid",
         "10px"
       ],
@@ -1774,15 +1776,15 @@
     {
       "tag": "SPAN",
       "box": [
-        49,
-        559.6,
+        75,
+        879.1,
         22,
         22
       ],
       "css": [
         "10px",
         "900",
-        "normal",
+        "16.5px",
         "rgb(221, 48, 72)",
         "rgb(255, 237, 240)",
         "none",
@@ -1798,15 +1800,15 @@
     {
       "tag": "DIV",
       "box": [
-        83,
-        558.6,
-        338.2,
-        14.2
+        109,
+        878.1,
+        269.7,
+        42.9
       ],
       "css": [
-        "10.5px",
+        "13px",
         "400",
-        "14.175px",
+        "21.45px",
         "rgb(46, 40, 82)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1822,15 +1824,15 @@
     {
       "tag": "B",
       "box": [
-        148,
-        558.6,
-        82.2,
-        14
+        189.5,
+        880.1,
+        101.8,
+        17
       ],
       "css": [
-        "10.5px",
+        "13px",
         "700",
-        "14.175px",
+        "21.45px",
         "rgb(46, 40, 82)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -1846,16 +1848,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        460.3,
-        425.8,
-        264.8
+        415.7,
+        665,
+        350,
+        267
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -1870,15 +1872,15 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        460.3,
-        425.8,
+        415.7,
+        665,
+        350,
         28
       ],
       "css": [
-        "9.5px",
+        "9.2px",
         "800",
-        "10.925px",
+        "10.58px",
         "rgb(88, 40, 207)",
         "rgb(240, 235, 255)",
         "none",
@@ -1894,16 +1896,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        500.3,
-        425.8,
+        415.7,
+        705,
+        350,
         21.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -1918,16 +1920,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        500.3,
-        425.8,
+        415.7,
+        705,
+        350,
         10.9
       ],
       "css": [
         "9.5px",
         "400",
         "10.925px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -1942,16 +1944,16 @@
     {
       "tag": "B",
       "box": [
-        446.2,
-        500.3,
-        400.7,
+        415.7,
+        705,
+        324.9,
         10.9
       ],
       "css": [
         "9.5px",
         "700",
         "10.925px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -1966,8 +1968,8 @@
     {
       "tag": "SPAN",
       "box": [
-        855,
-        500.6,
+        748.6,
+        705.3,
         17.1,
         10.3
       ],
@@ -1975,7 +1977,7 @@
         "9px",
         "400",
         "10.35px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -1990,16 +1992,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        515.2,
-        425.8,
+        415.7,
+        719.9,
+        350,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(236, 234, 244)",
         "none",
         "0px",
@@ -2014,16 +2016,16 @@
     {
       "tag": "I",
       "box": [
-        446.2,
-        515.2,
-        298,
+        415.7,
+        719.9,
+        245,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(240, 178, 42)",
         "none",
         "0px",
@@ -2038,16 +2040,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        536.2,
-        425.8,
+        415.7,
+        740.9,
+        350,
         21.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2062,16 +2064,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        536.2,
-        425.8,
+        415.7,
+        740.9,
+        350,
         10.9
       ],
       "css": [
         "9.5px",
         "400",
         "10.925px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2086,16 +2088,16 @@
     {
       "tag": "B",
       "box": [
-        446.2,
-        536.2,
-        400.7,
+        415.7,
+        740.9,
+        324.9,
         10.9
       ],
       "css": [
         "9.5px",
         "700",
         "10.925px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2110,8 +2112,8 @@
     {
       "tag": "SPAN",
       "box": [
-        855,
-        536.5,
+        748.6,
+        741.2,
         17.1,
         10.3
       ],
@@ -2119,7 +2121,7 @@
         "9px",
         "400",
         "10.35px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2134,16 +2136,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        551.1,
-        425.8,
+        415.7,
+        755.8,
+        350,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(236, 234, 244)",
         "none",
         "0px",
@@ -2158,16 +2160,16 @@
     {
       "tag": "I",
       "box": [
-        446.2,
-        551.1,
-        298,
+        415.7,
+        755.8,
+        245,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(243, 168, 0)",
         "none",
         "0px",
@@ -2182,16 +2184,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        572.1,
-        425.8,
+        415.7,
+        776.8,
+        350,
         21.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2206,16 +2208,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        572.1,
-        425.8,
+        415.7,
+        776.8,
+        350,
         10.9
       ],
       "css": [
         "9.5px",
         "400",
         "10.925px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2230,16 +2232,16 @@
     {
       "tag": "B",
       "box": [
-        446.2,
-        572.1,
-        395.9,
+        415.7,
+        776.8,
+        320.1,
         10.9
       ],
       "css": [
         "9.5px",
         "700",
         "10.925px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2254,8 +2256,8 @@
     {
       "tag": "SPAN",
       "box": [
-        850.1,
-        572.4,
+        743.7,
+        777.1,
         21.9,
         10.3
       ],
@@ -2263,7 +2265,7 @@
         "9px",
         "400",
         "10.35px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2278,16 +2280,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        587,
-        425.8,
+        415.7,
+        791.8,
+        350,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(236, 234, 244)",
         "none",
         "0px",
@@ -2302,16 +2304,16 @@
     {
       "tag": "I",
       "box": [
-        446.2,
-        587,
-        425.8,
+        415.7,
+        791.8,
+        350,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(32, 173, 104)",
         "none",
         "0px",
@@ -2326,16 +2328,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        608,
-        425.8,
+        415.7,
+        812.8,
+        350,
         21.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2350,16 +2352,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        608,
-        425.8,
+        415.7,
+        812.8,
+        350,
         10.9
       ],
       "css": [
         "9.5px",
         "400",
         "10.925px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2374,16 +2376,16 @@
     {
       "tag": "B",
       "box": [
-        446.2,
-        608,
-        400.7,
+        415.7,
+        812.8,
+        324.9,
         10.9
       ],
       "css": [
         "9.5px",
         "700",
         "10.925px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2398,8 +2400,8 @@
     {
       "tag": "SPAN",
       "box": [
-        855,
-        608.3,
+        748.6,
+        813,
         17.1,
         10.3
       ],
@@ -2407,7 +2409,7 @@
         "9px",
         "400",
         "10.35px",
-        "rgb(27, 26, 107)",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2422,16 +2424,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        623,
-        425.8,
+        415.7,
+        827.7,
+        350,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(236, 234, 244)",
         "none",
         "0px",
@@ -2446,16 +2448,16 @@
     {
       "tag": "I",
       "box": [
-        446.2,
-        623,
-        170.3,
+        415.7,
+        827.7,
+        140,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(231, 53, 79)",
         "none",
         "0px",
@@ -2470,16 +2472,16 @@
     {
       "tag": "DIV",
       "box": [
-        446.2,
-        643,
-        425.8,
-        82.1
+        415.7,
+        847.7,
+        350,
+        84.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(247, 245, 252)",
         "none",
         "8px",
@@ -2494,16 +2496,16 @@
     {
       "tag": "DIV",
       "box": [
-        456.2,
-        652,
-        405.8,
-        36
+        425.7,
+        856.7,
+        330,
+        38.2
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
         "12px",
@@ -2518,8 +2520,8 @@
     {
       "tag": "B",
       "box": [
-        492.2,
-        664,
+        461.7,
+        869.8,
         139.8,
         10.9
       ],
@@ -2542,15 +2544,15 @@
     {
       "tag": "SPAN",
       "box": [
-        800,
-        664,
+        693.6,
+        868.7,
         26,
-        11
+        13.2
       ],
       "css": [
         "8.8px",
         "800",
-        "normal",
+        "13.2px",
         "rgb(123, 115, 150)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -2566,16 +2568,16 @@
     {
       "tag": "DIV",
       "box": [
-        456.2,
-        694,
-        405.8,
+        425.7,
+        900.9,
+        330,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(236, 234, 244)",
         "none",
         "0px",
@@ -2590,16 +2592,16 @@
     {
       "tag": "I",
       "box": [
-        456.2,
-        694,
-        202.9,
+        425.7,
+        900.9,
+        165,
         7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "linear-gradient(90deg, rgb(90, 43, 215), rgb(142, 87, 236))",
         "0px",
@@ -2614,9 +2616,9 @@
     {
       "tag": "DIV",
       "box": [
-        456.2,
-        706,
-        405.8,
+        425.7,
+        912.9,
+        330,
         10.1
       ],
       "css": [
@@ -2638,8 +2640,8 @@
     {
       "tag": "SPAN",
       "box": [
-        456.2,
-        706,
+        425.7,
+        912.9,
         89.4,
         10.1
       ],
@@ -2662,8 +2664,8 @@
     {
       "tag": "B",
       "box": [
-        811.8,
-        706,
+        705.5,
+        912.9,
         50.2,
         10.1
       ],
@@ -2686,20 +2688,20 @@
     {
       "tag": "DIV",
       "box": [
-        909,
-        407.6,
-        516.9,
-        349.2
+        808.7,
+        619.1,
+        589.3,
+        404.2
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "20px",
-        "20px",
+        "22px",
+        "22px",
         "0px",
         "0px",
         "block",
@@ -2710,16 +2712,16 @@
     {
       "tag": "DIV",
       "box": [
-        934,
-        428.6,
-        466.9,
-        17.7
+        831.7,
+        642.1,
+        543.3,
+        22.9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2734,16 +2736,16 @@
     {
       "tag": "H3",
       "box": [
-        934,
-        428.6,
-        136.8,
-        17.7
+        831.7,
+        642.1,
+        141.1,
+        22.9
       ],
       "css": [
-        "15px",
-        "800",
-        "17.7px",
-        "rgb(27, 26, 158)",
+        "17px",
+        "750",
+        "22.95px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2758,8 +2760,8 @@
     {
       "tag": "A",
       "box": [
-        1287.7,
-        431.7,
+        1261.7,
+        647.8,
         113.3,
         11.4
       ],
@@ -2782,16 +2784,16 @@
     {
       "tag": "DIV",
       "box": [
-        934,
-        452.3,
-        466.9,
-        283.5
+        831.7,
+        671,
+        543.3,
+        329.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2806,16 +2808,16 @@
     {
       "tag": "DIV",
       "box": [
-        934,
-        452.3,
-        466.9,
-        63.4
+        831.7,
+        671,
+        543.3,
+        74.8
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
         "9px",
@@ -2830,16 +2832,16 @@
     {
       "tag": "SPAN",
       "box": [
-        945,
-        466.3,
+        842.7,
+        685,
         10,
         10
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(239, 56, 81)",
         "none",
         "0px",
@@ -2854,16 +2856,16 @@
     {
       "tag": "DIV",
       "box": [
-        963,
-        462.3,
-        354.9,
-        43.4
+        860.7,
+        681,
+        431.3,
+        54.8
       ],
       "css": [
         "13px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21.45px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -2878,9 +2880,9 @@
     {
       "tag": "B",
       "box": [
-        963,
-        462.3,
-        354.9,
+        860.7,
+        681,
+        431.3,
         13.1
       ],
       "css": [
@@ -2902,15 +2904,15 @@
     {
       "tag": "SMALL",
       "box": [
-        963,
-        478.4,
-        354.9,
-        11.3
+        860.7,
+        697.1,
+        431.3,
+        19.2
       ],
       "css": [
-        "9px",
+        "12px",
         "400",
-        "11.25px",
+        "19.2px",
         "rgb(132, 125, 153)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -2926,15 +2928,15 @@
     {
       "tag": "DIV",
       "box": [
-        963,
-        494.7,
-        354.9,
-        11
+        860.7,
+        721.3,
+        431.3,
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -2950,15 +2952,15 @@
     {
       "tag": "SPAN",
       "box": [
-        963,
-        494.7,
+        860.7,
+        721.3,
         32.3,
-        11
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -2974,15 +2976,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1005.3,
-        494.7,
+        902.9,
+        721.3,
         59.3,
-        11
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -2998,15 +3000,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1326,
-        462.3,
+        1300,
+        681,
         64,
-        22
+        23.5
       ],
       "css": [
         "9px",
         "800",
-        "normal",
+        "13.5px",
         "rgb(210, 46, 71)",
         "rgb(255, 240, 242)",
         "none",
@@ -3022,16 +3024,16 @@
     {
       "tag": "DIV",
       "box": [
-        934,
-        525.7,
-        466.9,
-        63.4
+        831.7,
+        755.8,
+        543.3,
+        74.8
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
         "9px",
@@ -3046,16 +3048,16 @@
     {
       "tag": "SPAN",
       "box": [
-        945,
-        539.7,
+        842.7,
+        769.8,
         10,
         10
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(239, 56, 81)",
         "none",
         "0px",
@@ -3070,16 +3072,16 @@
     {
       "tag": "DIV",
       "box": [
-        963,
-        535.7,
-        354.9,
-        43.4
+        860.7,
+        765.8,
+        431.3,
+        54.8
       ],
       "css": [
         "13px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21.45px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -3094,9 +3096,9 @@
     {
       "tag": "B",
       "box": [
-        963,
-        535.7,
-        354.9,
+        860.7,
+        765.8,
+        431.3,
         13.1
       ],
       "css": [
@@ -3118,15 +3120,15 @@
     {
       "tag": "SMALL",
       "box": [
-        963,
-        551.8,
-        354.9,
-        11.3
+        860.7,
+        781.9,
+        431.3,
+        19.2
       ],
       "css": [
-        "9px",
+        "12px",
         "400",
-        "11.25px",
+        "19.2px",
         "rgb(132, 125, 153)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3142,15 +3144,15 @@
     {
       "tag": "DIV",
       "box": [
-        963,
-        568,
-        354.9,
-        11
+        860.7,
+        806.1,
+        431.3,
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3166,15 +3168,15 @@
     {
       "tag": "SPAN",
       "box": [
-        963,
-        568,
+        860.7,
+        806.1,
         29.6,
-        11
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3190,15 +3192,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1002.7,
-        568,
+        900.3,
+        806.1,
         59.3,
-        11
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3214,15 +3216,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1326,
-        535.7,
+        1300,
+        765.8,
         64,
-        22
+        23.5
       ],
       "css": [
         "9px",
         "800",
-        "normal",
+        "13.5px",
         "rgb(210, 46, 71)",
         "rgb(255, 240, 242)",
         "none",
@@ -3238,16 +3240,16 @@
     {
       "tag": "DIV",
       "box": [
-        934,
-        599,
-        466.9,
-        63.4
+        831.7,
+        840.6,
+        543.3,
+        74.8
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
         "9px",
@@ -3262,16 +3264,16 @@
     {
       "tag": "SPAN",
       "box": [
-        945,
-        613,
+        842.7,
+        854.6,
         10,
         10
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(239, 56, 81)",
         "none",
         "0px",
@@ -3286,16 +3288,16 @@
     {
       "tag": "DIV",
       "box": [
-        963,
-        609,
-        363.8,
-        43.4
+        860.7,
+        850.6,
+        440.2,
+        54.8
       ],
       "css": [
         "13px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21.45px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -3310,9 +3312,9 @@
     {
       "tag": "B",
       "box": [
-        963,
-        609,
-        363.8,
+        860.7,
+        850.6,
+        440.2,
         13.1
       ],
       "css": [
@@ -3334,15 +3336,15 @@
     {
       "tag": "SMALL",
       "box": [
-        963,
-        625.2,
-        363.8,
-        11.3
+        860.7,
+        866.8,
+        440.2,
+        19.2
       ],
       "css": [
-        "9px",
+        "12px",
         "400",
-        "11.25px",
+        "19.2px",
         "rgb(132, 125, 153)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3358,15 +3360,15 @@
     {
       "tag": "DIV",
       "box": [
-        963,
-        641.4,
-        363.8,
-        11
+        860.7,
+        890.9,
+        440.2,
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3382,15 +3384,15 @@
     {
       "tag": "SPAN",
       "box": [
-        963,
-        641.4,
+        860.7,
+        890.9,
         28.4,
-        11
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3406,15 +3408,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1001.5,
-        641.4,
+        899.1,
+        890.9,
         59.3,
-        11
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3430,15 +3432,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1334.8,
-        609,
+        1308.8,
+        850.6,
         55.2,
-        22
+        23.5
       ],
       "css": [
         "9px",
         "800",
-        "normal",
+        "13.5px",
         "rgb(210, 46, 71)",
         "rgb(255, 240, 242)",
         "none",
@@ -3454,16 +3456,16 @@
     {
       "tag": "DIV",
       "box": [
-        934,
-        672.4,
-        466.9,
-        63.4
+        831.7,
+        925.4,
+        543.3,
+        74.8
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
         "9px",
@@ -3478,16 +3480,16 @@
     {
       "tag": "SPAN",
       "box": [
-        945,
-        686.4,
+        842.7,
+        939.4,
         10,
         10
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(239, 56, 81)",
         "none",
         "0px",
@@ -3502,16 +3504,16 @@
     {
       "tag": "DIV",
       "box": [
-        963,
-        682.4,
-        368.8,
-        43.4
+        860.7,
+        935.4,
+        445.2,
+        54.8
       ],
       "css": [
         "13px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21.45px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -3526,9 +3528,9 @@
     {
       "tag": "B",
       "box": [
-        963,
-        682.4,
-        368.8,
+        860.7,
+        935.4,
+        445.2,
         13.1
       ],
       "css": [
@@ -3550,15 +3552,15 @@
     {
       "tag": "SMALL",
       "box": [
-        963,
-        698.5,
-        368.8,
-        11.3
+        860.7,
+        951.6,
+        445.2,
+        19.2
       ],
       "css": [
-        "9px",
+        "12px",
         "400",
-        "11.25px",
+        "19.2px",
         "rgb(132, 125, 153)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3574,15 +3576,15 @@
     {
       "tag": "DIV",
       "box": [
-        963,
-        714.8,
-        368.8,
-        11
+        860.7,
+        975.8,
+        445.2,
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3598,15 +3600,15 @@
     {
       "tag": "SPAN",
       "box": [
-        963,
-        714.8,
+        860.7,
+        975.8,
         29.6,
-        11
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3622,15 +3624,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1002.7,
-        714.8,
+        900.3,
+        975.8,
         59.3,
-        11
+        14.5
       ],
       "css": [
         "8.8px",
         "400",
-        "normal",
+        "14.52px",
         "rgb(95, 87, 124)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3646,15 +3648,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1339.8,
-        682.4,
+        1313.8,
+        935.4,
         50.1,
-        22
+        23.5
       ],
       "css": [
         "9px",
         "800",
-        "normal",
+        "13.5px",
         "rgb(210, 46, 71)",
         "rgb(255, 240, 242)",
         "none",
@@ -3670,16 +3672,16 @@
     {
       "tag": "DIV",
       "box": [
-        24,
-        768.8,
-        1402,
-        223
+        52,
+        1063.3,
+        1346,
+        247.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -3694,20 +3696,20 @@
     {
       "tag": "DIV",
       "box": [
-        24,
-        768.8,
-        459.3,
-        223
+        52,
+        1063.3,
+        440.7,
+        247.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "20px",
-        "20px",
+        "22px",
+        "22px",
         "0px",
         "0px",
         "block",
@@ -3718,16 +3720,16 @@
     {
       "tag": "DIV",
       "box": [
-        49,
-        789.8,
-        409.3,
-        17.7
+        75,
+        1086.3,
+        394.7,
+        21.6
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -3742,16 +3744,16 @@
     {
       "tag": "DIV",
       "box": [
-        49,
-        789.8,
-        272.5,
-        17.7
+        75,
+        1086.3,
+        262.8,
+        21.6
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -3766,16 +3768,16 @@
     {
       "tag": "H3",
       "box": [
-        49,
-        789.8,
-        272.5,
-        17.7
+        75,
+        1086.3,
+        262.8,
+        21.6
       ],
       "css": [
-        "15px",
-        "800",
-        "17.7px",
-        "rgb(27, 26, 158)",
+        "16px",
+        "750",
+        "21.6px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -3790,8 +3792,8 @@
     {
       "tag": "A",
       "box": [
-        402,
-        789.8,
+        413.3,
+        1086.3,
         56.3,
         11.4
       ],
@@ -3814,16 +3816,16 @@
     {
       "tag": "DIV",
       "box": [
-        49,
-        814.5,
-        409.3,
-        44
+        75,
+        1114.8,
+        394.7,
+        52
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -3838,16 +3840,16 @@
     {
       "tag": "DIV",
       "box": [
-        49,
-        814.5,
-        409.3,
-        44
+        75,
+        1114.8,
+        394.7,
+        52
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "9px",
@@ -3862,16 +3864,16 @@
     {
       "tag": "SPAN",
       "box": [
-        49,
-        827.5,
+        75,
+        1127.8,
         9,
         9
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(107, 50, 223)",
         "none",
         "0px",
@@ -3886,10 +3888,10 @@
     {
       "tag": "DIV",
       "box": [
-        69,
-        823.5,
-        327.9,
-        26
+        95,
+        1123.8,
+        313.3,
+        34
       ],
       "css": [
         "11px",
@@ -3910,9 +3912,9 @@
     {
       "tag": "B",
       "box": [
-        69,
-        823.5,
-        327.9,
+        95,
+        1123.8,
+        313.3,
         12.8
       ],
       "css": [
@@ -3934,15 +3936,15 @@
     {
       "tag": "SMALL",
       "box": [
-        69,
-        838.3,
-        327.9,
-        11.3
+        95,
+        1138.6,
+        313.3,
+        19.2
       ],
       "css": [
-        "9px",
+        "12px",
         "400",
-        "11.25px",
+        "19.2px",
         "rgb(140, 132, 158)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3958,15 +3960,15 @@
     {
       "tag": "SPAN",
       "box": [
-        406.9,
-        823.5,
+        418.3,
+        1123.8,
         51.4,
-        12
+        14.3
       ],
       "css": [
         "9.5px",
         "900",
-        "normal",
+        "14.25px",
         "rgb(34, 26, 77)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -3982,20 +3984,20 @@
     {
       "tag": "DIV",
       "box": [
-        495.3,
-        768.8,
-        459.3,
-        223
+        504.7,
+        1063.3,
+        440.7,
+        247.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "20px",
-        "20px",
+        "22px",
+        "22px",
         "0px",
         "0px",
         "block",
@@ -4006,16 +4008,16 @@
     {
       "tag": "DIV",
       "box": [
-        520.3,
-        789.8,
-        409.3,
-        17.7
+        527.7,
+        1086.3,
+        394.7,
+        21.6
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4030,16 +4032,16 @@
     {
       "tag": "DIV",
       "box": [
-        520.3,
-        789.8,
-        143.8,
-        17.7
+        527.7,
+        1086.3,
+        139.8,
+        21.6
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4054,16 +4056,16 @@
     {
       "tag": "H3",
       "box": [
-        520.3,
-        789.8,
-        143.8,
-        17.7
+        527.7,
+        1086.3,
+        139.8,
+        21.6
       ],
       "css": [
-        "15px",
-        "800",
-        "17.7px",
-        "rgb(27, 26, 158)",
+        "16px",
+        "750",
+        "21.6px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4078,16 +4080,16 @@
     {
       "tag": "DIV",
       "box": [
-        520.3,
-        814.5,
-        409.3,
-        134
+        527.7,
+        1114.8,
+        394.7,
+        142.8
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "10px",
@@ -4102,16 +4104,16 @@
     {
       "tag": "DIV",
       "box": [
-        520.3,
-        824.5,
+        527.7,
+        1129.2,
         118,
         118
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "conic-gradient(rgb(90, 43, 215) 0deg, rgb(90, 43, 215) 14.8%, rgb(232, 229, 242) 14.8%, rgb(232, 229, 242) 100%)",
         "0px",
@@ -4126,16 +4128,16 @@
     {
       "tag": "DIV",
       "box": [
-        556.2,
-        863,
-        46.3,
-        41
+        562.3,
+        1164.1,
+        48.6,
+        48.2
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4150,15 +4152,15 @@
     {
       "tag": "B",
       "box": [
-        556.2,
-        863,
-        46.3,
-        24
+        562.3,
+        1164.1,
+        48.6,
+        27
       ],
       "css": [
         "18px",
         "700",
-        "normal",
+        "27px",
         "rgb(24, 19, 76)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4174,16 +4176,16 @@
     {
       "tag": "SMALL",
       "box": [
-        557.4,
-        889,
-        43.9,
-        15
+        562.3,
+        1194.1,
+        48.6,
+        16
       ],
       "css": [
-        "10.8333px",
+        "12px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "19.2px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4198,16 +4200,16 @@
     {
       "tag": "DIV",
       "box": [
-        654.3,
-        824.5,
-        275.3,
-        118
+        661.7,
+        1124.8,
+        260.7,
+        126.8
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4222,16 +4224,16 @@
     {
       "tag": "DIV",
       "box": [
-        654.3,
-        824.5,
-        275.3,
-        18
+        661.7,
+        1124.8,
+        260.7,
+        19.8
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "14.25px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "2px",
@@ -4246,15 +4248,15 @@
     {
       "tag": "SPAN",
       "box": [
-        654.3,
-        827.5,
+        661.7,
+        1127.6,
         57,
-        12
+        14.3
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4270,15 +4272,15 @@
     {
       "tag": "I",
       "box": [
-        654.3,
-        828.5,
+        661.7,
+        1129.7,
         10,
         10
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgb(90, 43, 215)",
         "none",
@@ -4294,15 +4296,15 @@
     {
       "tag": "SPAN",
       "box": [
-        892.7,
-        826.5,
+        885.4,
+        1126.8,
         36.9,
-        14
+        15.8
       ],
       "css": [
         "10.5px",
         "900",
-        "normal",
+        "15.75px",
         "rgb(28, 22, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4318,16 +4320,16 @@
     {
       "tag": "DIV",
       "box": [
-        654.3,
-        849.5,
-        275.3,
-        18
+        661.7,
+        1151.6,
+        260.7,
+        19.8
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "14.25px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "2px",
@@ -4342,15 +4344,15 @@
     {
       "tag": "SPAN",
       "box": [
-        654.3,
-        852.5,
+        661.7,
+        1154.3,
         64.2,
-        12
+        14.3
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4366,15 +4368,15 @@
     {
       "tag": "I",
       "box": [
-        654.3,
-        853.5,
+        661.7,
+        1156.5,
         10,
         10
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgb(141, 101, 237)",
         "none",
@@ -4390,15 +4392,15 @@
     {
       "tag": "SPAN",
       "box": [
-        898,
-        851.5,
+        890.7,
+        1153.6,
         31.6,
-        14
+        15.8
       ],
       "css": [
         "10.5px",
         "900",
-        "normal",
+        "15.75px",
         "rgb(28, 22, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4414,16 +4416,16 @@
     {
       "tag": "DIV",
       "box": [
-        654.3,
-        874.5,
-        275.3,
-        18
+        661.7,
+        1178.3,
+        260.7,
+        19.8
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "14.25px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "2px",
@@ -4438,15 +4440,15 @@
     {
       "tag": "SPAN",
       "box": [
-        654.3,
-        877.5,
+        661.7,
+        1181.1,
         78.1,
-        12
+        14.3
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4462,15 +4464,15 @@
     {
       "tag": "I",
       "box": [
-        654.3,
-        878.5,
+        661.7,
+        1183.2,
         10,
         10
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgb(198, 185, 248)",
         "none",
@@ -4486,15 +4488,15 @@
     {
       "tag": "SPAN",
       "box": [
-        914,
-        876.5,
+        906.6,
+        1180.3,
         15.7,
-        14
+        15.8
       ],
       "css": [
         "10.5px",
         "900",
-        "normal",
+        "15.75px",
         "rgb(28, 22, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4510,16 +4512,16 @@
     {
       "tag": "DIV",
       "box": [
-        654.3,
-        899.5,
-        275.3,
-        18
+        661.7,
+        1205.1,
+        260.7,
+        19.8
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "14.25px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "2px",
@@ -4534,15 +4536,15 @@
     {
       "tag": "SPAN",
       "box": [
-        654.3,
-        902.5,
+        661.7,
+        1207.8,
         86.1,
-        12
+        14.3
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4558,15 +4560,15 @@
     {
       "tag": "I",
       "box": [
-        654.3,
-        903.5,
+        661.7,
+        1210,
         10,
         10
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgb(223, 216, 245)",
         "none",
@@ -4582,15 +4584,15 @@
     {
       "tag": "SPAN",
       "box": [
-        898,
-        901.5,
+        890.7,
+        1207.1,
         31.6,
-        14
+        15.8
       ],
       "css": [
         "10.5px",
         "900",
-        "normal",
+        "15.75px",
         "rgb(28, 22, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4606,16 +4608,16 @@
     {
       "tag": "DIV",
       "box": [
-        654.3,
-        924.5,
-        275.3,
-        18
+        661.7,
+        1231.8,
+        260.7,
+        19.8
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "14.25px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "2px",
@@ -4630,15 +4632,15 @@
     {
       "tag": "SPAN",
       "box": [
-        654.3,
-        927.5,
+        661.7,
+        1234.6,
         59.3,
-        12
+        14.3
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4654,15 +4656,15 @@
     {
       "tag": "I",
       "box": [
-        654.3,
-        928.5,
+        661.7,
+        1236.7,
         10,
         10
       ],
       "css": [
         "9.5px",
         "400",
-        "normal",
+        "14.25px",
         "rgb(52, 45, 88)",
         "rgb(122, 67, 232)",
         "none",
@@ -4678,15 +4680,15 @@
     {
       "tag": "SPAN",
       "box": [
-        910.5,
-        926.5,
+        903.2,
+        1233.8,
         19.1,
-        14
+        15.8
       ],
       "css": [
         "10.5px",
         "900",
-        "normal",
+        "15.75px",
         "rgb(28, 22, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -4702,20 +4704,20 @@
     {
       "tag": "DIV",
       "box": [
-        966.7,
-        768.8,
-        459.3,
-        223
+        957.3,
+        1063.3,
+        440.7,
+        247.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 255, 255)",
         "none",
-        "20px",
-        "20px",
+        "22px",
+        "22px",
         "0px",
         "0px",
         "block",
@@ -4726,16 +4728,16 @@
     {
       "tag": "DIV",
       "box": [
-        991.7,
-        789.8,
-        409.3,
-        17.7
+        980.3,
+        1086.3,
+        394.7,
+        21.6
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4750,16 +4752,16 @@
     {
       "tag": "DIV",
       "box": [
-        991.7,
-        789.8,
-        174.4,
-        17.7
+        980.3,
+        1086.3,
+        170.8,
+        21.6
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4774,16 +4776,16 @@
     {
       "tag": "H3",
       "box": [
-        991.7,
-        789.8,
-        174.4,
-        17.7
+        980.3,
+        1086.3,
+        170.8,
+        21.6
       ],
       "css": [
-        "15px",
-        "800",
-        "17.7px",
-        "rgb(27, 26, 158)",
+        "16px",
+        "750",
+        "21.6px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4798,8 +4800,8 @@
     {
       "tag": "A",
       "box": [
-        1344.7,
-        789.8,
+        1318.7,
+        1086.3,
         56.3,
         11.4
       ],
@@ -4822,16 +4824,16 @@
     {
       "tag": "DIV",
       "box": [
-        991.7,
-        814.5,
-        409.3,
+        980.3,
+        1114.8,
+        394.7,
         58.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -4846,16 +4848,16 @@
     {
       "tag": "DIV",
       "box": [
-        991.7,
-        814.5,
-        131.1,
+        980.3,
+        1114.8,
+        126.2,
         58.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(255, 240, 242)",
         "none",
         "10px",
@@ -4870,9 +4872,9 @@
     {
       "tag": "B",
       "box": [
-        1000.7,
-        824.5,
-        113.1,
+        989.3,
+        1124.8,
+        108.2,
         23
       ],
       "css": [
@@ -4894,9 +4896,9 @@
     {
       "tag": "SPAN",
       "box": [
-        1000.7,
-        852.5,
-        113.1,
+        989.3,
+        1152.8,
+        108.2,
         10.3
       ],
       "css": [
@@ -4918,16 +4920,16 @@
     {
       "tag": "DIV",
       "box": [
-        1130.8,
-        814.5,
-        131.1,
+        1114.5,
+        1114.8,
+        126.2,
         58.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(238, 243, 255)",
         "none",
         "10px",
@@ -4942,9 +4944,9 @@
     {
       "tag": "B",
       "box": [
-        1139.8,
-        824.5,
-        113.1,
+        1123.5,
+        1124.8,
+        108.2,
         23
       ],
       "css": [
@@ -4966,9 +4968,9 @@
     {
       "tag": "SPAN",
       "box": [
-        1139.8,
-        852.5,
-        113.1,
+        1123.5,
+        1152.8,
+        108.2,
         10.3
       ],
       "css": [
@@ -4990,16 +4992,16 @@
     {
       "tag": "DIV",
       "box": [
-        1269.9,
-        814.5,
-        131.1,
+        1248.8,
+        1114.8,
+        126.2,
         58.3
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgb(237, 249, 242)",
         "none",
         "10px",
@@ -5014,9 +5016,9 @@
     {
       "tag": "B",
       "box": [
-        1278.9,
-        824.5,
-        113.1,
+        1257.8,
+        1124.8,
+        108.2,
         23
       ],
       "css": [
@@ -5038,9 +5040,9 @@
     {
       "tag": "SPAN",
       "box": [
-        1278.9,
-        852.5,
-        113.1,
+        1257.8,
+        1152.8,
+        108.2,
         10.3
       ],
       "css": [
@@ -5062,16 +5064,16 @@
     {
       "tag": "DIV",
       "box": [
-        991.7,
-        882.8,
-        409.3,
-        88
+        980.3,
+        1183.2,
+        394.7,
+        104.4
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "0px",
@@ -5086,16 +5088,16 @@
     {
       "tag": "DIV",
       "box": [
-        991.7,
-        882.8,
-        409.3,
-        40.5
+        980.3,
+        1183.2,
+        394.7,
+        48.7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "7px",
@@ -5110,10 +5112,10 @@
     {
       "tag": "DIV",
       "box": [
-        991.7,
-        889.8,
-        39.7,
-        25.5
+        980.3,
+        1190.2,
+        54.1,
+        33.7
       ],
       "css": [
         "10.2px",
@@ -5134,9 +5136,9 @@
     {
       "tag": "B",
       "box": [
-        991.7,
-        889.8,
-        39.7,
+        980.3,
+        1190.2,
+        54.1,
         12.5
       ],
       "css": [
@@ -5158,15 +5160,15 @@
     {
       "tag": "SMALL",
       "box": [
-        991.7,
-        904.3,
-        39.7,
-        11
+        980.3,
+        1204.7,
+        54.1,
+        19.2
       ],
       "css": [
-        "8.8px",
+        "12px",
         "400",
-        "11px",
+        "19.2px",
         "rgb(139, 132, 160)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -5182,15 +5184,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1352,
-        889.8,
+        1326,
+        1190.2,
         49,
-        18
+        19.5
       ],
       "css": [
         "9px",
         "750",
-        "normal",
+        "13.5px",
         "rgb(195, 39, 62)",
         "rgb(255, 232, 236)",
         "none",
@@ -5206,16 +5208,16 @@
     {
       "tag": "DIV",
       "box": [
-        991.7,
-        931.3,
-        409.3,
-        39.5
+        980.3,
+        1239.9,
+        394.7,
+        47.7
       ],
       "css": [
-        "13px",
+        "14px",
         "400",
-        "normal",
-        "rgb(27, 26, 107)",
+        "21px",
+        "rgb(33, 27, 75)",
         "rgba(0, 0, 0, 0)",
         "none",
         "7px",
@@ -5230,10 +5232,10 @@
     {
       "tag": "DIV",
       "box": [
-        991.7,
-        938.3,
-        48.1,
-        25.5
+        980.3,
+        1246.9,
+        65.5,
+        33.7
       ],
       "css": [
         "10.2px",
@@ -5254,9 +5256,9 @@
     {
       "tag": "B",
       "box": [
-        991.7,
-        938.3,
-        48.1,
+        980.3,
+        1246.9,
+        65.5,
         12.5
       ],
       "css": [
@@ -5278,15 +5280,15 @@
     {
       "tag": "SMALL",
       "box": [
-        991.7,
-        952.8,
-        48.1,
-        11
+        980.3,
+        1261.4,
+        65.5,
+        19.2
       ],
       "css": [
-        "8.8px",
+        "12px",
         "400",
-        "11px",
+        "19.2px",
         "rgb(139, 132, 160)",
         "rgba(0, 0, 0, 0)",
         "none",
@@ -5302,15 +5304,15 @@
     {
       "tag": "SPAN",
       "box": [
-        1346.7,
-        938.3,
+        1320.7,
+        1246.9,
         54.3,
-        18
+        19.5
       ],
       "css": [
         "9px",
         "750",
-        "normal",
+        "13.5px",
         "rgb(148, 101, 0)",
         "rgb(255, 245, 216)",
         "none",
