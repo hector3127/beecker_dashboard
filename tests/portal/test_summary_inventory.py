@@ -33,6 +33,35 @@ def inventory(db):
         },
     ]
     gateway = Mock()
+    gateway.create_client.return_value.get_iteration_tree.side_effect = (
+        lambda project_id: (
+            {
+                "name": "General_S2",
+                "children": [
+                    {
+                        "name": "Discovery_S2",
+                        "identifier": "dis-s2",
+                        "path": "AMK.012/General_S2/Discovery_S2",
+                        "attributes": {
+                            "startDate": "2026-05-14T00:00:00Z",
+                            "finishDate": "2026-05-26T00:00:00Z",
+                        },
+                    },
+                    {
+                        "name": "Development_S2",
+                        "identifier": "dev-s2",
+                        "attributes": {
+                            "startDate": "2026-05-27T00:00:00Z",
+                            "finishDate": "2026-06-22T00:00:00Z",
+                        },
+                    },
+                    {"name": "Deployment_S2", "attributes": {}},
+                ],
+            }
+            if project_id == "one"
+            else {}
+        )
+    )
     gateway.create_client.return_value.list_summary_projects.return_value = (
         catalog
     )
@@ -56,6 +85,7 @@ def test_all_projects_scopes_and_closed_are_preserved(inventory):
     }
     assert inventory_rows("Closed")[1][0]["fields"]["status"] == "Closed"
     assert len(inventory_rows("s2")[1]) == 1
+    assert inventory_rows("s2")[1][0]["iteration_finish"] == "2026-06-22"
     assert EvaScopeSnapshot.objects.count() == 4
     assert not EvaExtraction.objects.filter(
         published=True, full_inventory=True

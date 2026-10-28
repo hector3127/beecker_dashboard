@@ -1,5 +1,32 @@
 # Inventario de Summary — primer bloque
 
+## Iteraciones y fechas — segundo bloque, 28/10
+
+Se incorpora classificationnodes/iterations con profundidad 15 para todos los
+proyectos. Se guarda el árbol completo con identifiers, rutas y fechas junto
+al Summary; los bloques que solo aparecen en iteraciones también tienen fila,
+con Summary pendiente. Relación por código exacto: CR no absorbe CR2 ni S1
+absorbe S10/CR2_S1. Las discrepancias de código requieren revisión, no se unen.
+
+Inicio: fecha de Discovery inequívoca. Fin, por aclaración expresa del usuario:
+última fecha final válida registrada entre las etapas del bloque, aunque
+Deployment esté vacío. Ejemplo probado: Discovery 14/05–26/05, Development
+27/05–22/06, Deployment vacío → fin 22/06/2026. Se conservan los campos de
+Summary y los avisos de fechas faltantes/diferencias. Etapa calculada a la fecha
+de extracción; un rango vencido no significa cerrado. Solapamientos quedan
+explícitos. Estado real y cortes EVA/KPI no cambian.
+
+Extracción local real: 450 proyectos, 697 bloques, cero fallos de iteraciones,
+36.482 s. AMK.012: S1 26/06/2025–24/10/2025, CR 29/10/2025–28/11/2025,
+CR2 22/12/2025–24/04/2026. Summary llama a dos bloques CR1_S1/CR2_S1;
+se mantienen pendientes de relacionar en vez de asumir equivalencia.
+
+87 servidor (inventario/iteraciones/EVA nativo/Azure) y tres Chrome con CSP,
+buscador y fechas Development a 390/900/1450 px aprobados. Capturas en
+tmp/summary-inventory. Ruff y mypy de pages.py aprobados. Sin push.
+
+## Primera extracción
+
 28/10/2026. Por solicitud del usuario se prepara primero un inventario de
 todos los proyectos visibles al PAT configurado, cerrados o no. Se revisaron
 `msp_qa/services/project_catalog.py` y `block_splitter.py` como referencia.

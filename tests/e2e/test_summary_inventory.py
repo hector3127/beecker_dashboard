@@ -30,6 +30,7 @@ def test_summary_search_responsive(
     page.get_by_role("button", name="Buscar", exact=True).click()
     expect(page.locator("tbody tr")).to_have_count(1)
     expect(page.locator("tbody")).to_contain_text("AMK.012_S2")
+    expect(page.locator("tbody")).to_contain_text("2026-06-22")
     output = Path("tmp/summary-inventory")
     output.mkdir(parents=True, exist_ok=True)
     page.screenshot(path=str(output / f"summary-{width}.png"), full_page=True)

@@ -13,6 +13,11 @@ from apps.datastore.models import (
     EvaScopeSnapshot,
 )
 from apps.portal.services.eva_azure_source import BUSINESS_ID, candidate_rows
+from apps.portal.services.summary_iterations import (
+    calendar_fields,
+    iteration_blocks,
+)
+from core.exceptions import DashboardError
 from core.utils.parallel import map_in_parallel
 
 
@@ -41,6 +46,48 @@ def extract_summaries() -> EvaExtraction:
             match = BUSINESS_ID.match(name.upper())
             base = match[0].split("_", 1)[0] if match else name
             rows = candidate_rows(base, str(summary.get("description") or ""))
+            try:
+                tree = gateway.create_client().get_iteration_tree(project["id"])
+                iteration_error = ""
+            except DashboardError:
+                tree, iteration_error = {}, "iteration_extraction_failed"
+            summary = {
+                **summary,
+                "iteration_tree": tree,
+                "iteration_error": iteration_error,
+            }
+            blocks = iteration_blocks(tree)
+            known = {r["scope"] for r in rows}
+            for code in blocks.keys() - known:
+                candidate = candidate_rows(base, "")[0]
+                candidate.update(
+                    scope=code,
+                    project_id=f"{base}_{code}" if code != "BASE" else base,
+                )
+                candidate["issues"].append("iteration_only_block")
+                rows.append(candidate)
+            for row in rows:
+                row.update(
+                    calendar_fields(blocks.get(row["scope"], []), run.cut)
+                )
+                if iteration_error:
+                    row["iteration_issues"].append(iteration_error)
+                if (
+                    row.get("start")
+                    and row.get("iteration_start")
+                    and row["start"] != row["iteration_start"]
+                ):
+                    row["iteration_issues"].append(
+                        "summary_iteration_start_difference"
+                    )
+                if (
+                    row.get("finish")
+                    and row.get("iteration_finish")
+                    and row["finish"] != row["iteration_finish"]
+                ):
+                    row["iteration_issues"].append(
+                        "summary_iteration_finish_difference"
+                    )
             if not rows:
                 rows = [
                     {
@@ -83,6 +130,9 @@ def extract_summaries() -> EvaExtraction:
                 "kind": "summary_inventory",
                 "projects": len(results),
                 "blocks": sum(len(r[2]) for r in results),
+                "iteration_failures": sum(
+                    bool(r[1]["iteration_error"]) for r in results
+                ),
                 "total_seconds": round(time.perf_counter() - started, 3),
             }
             run.save()

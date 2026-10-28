@@ -265,6 +265,15 @@ class AzureDevOpsClient:
 
         return fields
 
+    def get_iteration_tree(self, project_name: str) -> JsonObject:
+        """Read iteration dates and stable provider identities as a tree."""
+        return self._send(
+            "GET",
+            f"{self._organization_url}/{encode_url_part(project_name)}"
+            "/_apis/wit/classificationnodes/iterations",
+            params={"$depth": ITERATIONS_DEPTH, "api-version": API_VERSION},
+        )
+
     def list_iterations(self, project_name: str) -> list[JsonObject]:
         """
         Lee el arbol de iteraciones del proyecto como lista plana.

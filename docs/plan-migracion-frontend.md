@@ -9,6 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Fechas por iteración del inventario, 28/10:** árbol Azure persistido por
+proyecto, bloques exclusivos de iteraciones incluidos, fechas por etapa y
+comparación con Summary. Fin = última fecha final válida registrada, por
+aclaración del usuario; Deployment vacío no bloquea fin Development.
+Etapa por calendario separada del estado real. 450 proyectos, 697 bloques,
+36.482 s, cero fallos de iteraciones. 87 servidor y tres Chrome/CSP aprobados;
+ver inventario-summary.md. Sin cambiar cortes EVA/KPI ni push.
+
 **Inventario Summary, 28/10:** primer bloque solicitado: todos los proyectos
 visibles al PAT, sin filtro de servicio/cierre, Summary original y bloques
 persistidos. Tabla `/operativa/eva-1/summary/` con buscador local, enlace EVA,
