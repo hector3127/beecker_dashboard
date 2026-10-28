@@ -12,7 +12,7 @@
 <button type="submit">Consultar corte</button><a href="?corte={{ cut }}">Limpiar búsqueda</a></form><p id="inventory-cut-progress" class="inventory-cut-progress" role="status" hidden><span class="inventory-spinner" aria-hidden="true"></span>Consultando corte guardado…</p>
 {% if cut_error %}<p role="alert">{{ cut_error }}</p>{% endif %}
 {% if inventory_run %}<p role="status">{{ count }} bloques encontrados · Corte: {{ cut }} · Fuente guardada: {{ inventory_observed_at|date:'d/m/Y H:i' }}</p>{% else %}<p role="status">Todavía no hay una extracción guardada.</p>{% endif %}
-<p class="hs">Start y Finish provienen de iteraciones. Estatus indica la etapa cuyo rango incluye el corte (hoy por defecto). El filtro usa inicio ≤ corte ≤ fin; las cifras se leen de la base local. Horas al corte según registros guardados de Clockify; tareas y riesgos requieren una observación de ese día.</p>
+<p class="hs">Start y Finish provienen de iteraciones. Estatus indica la etapa cuyo rango incluye el corte (hoy por defecto). El filtro usa inicio ≤ corte ≤ fin; las cifras se leen de la base local. Horas al corte según registros guardados de Clockify; tareas y riesgos según las revisiones históricas descargadas de Azure.</p>
 {% if history_unavailable_count %}<p class="note" role="status">{{ history_unavailable_count }} bloques sin observación histórica de Azure para este corte. Sus tareas y riesgos muestran «Sin histórico»; no hay una carga en curso para esos campos. Las horas sí se calculan con los registros guardados.</p>{% endif %}
 <section aria-labelledby="dm-summary-title" class="inventory-dm-section">
 <h2 id="dm-summary-title">Proyectos por Delivery Manager</h2>

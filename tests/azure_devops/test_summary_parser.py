@@ -42,6 +42,23 @@ def test_headers(header, code):
     assert blocks[0].fields["budget"] == "90"
 
 
+def test_history_feed_requests_all_revisions_and_deleted_items():
+    client = AzureDevOpsClient("org", "test-token")
+    with patch.object(
+        client, "_send", return_value={"values": [], "isLastBatch": True}
+    ) as send:
+        client.revision_page("", "resume-token")
+    assert (
+        send.call_args.args[1]
+        == "https://dev.azure.com/org/_apis/wit/reporting/workitemrevisions"
+    )
+    params = send.call_args.kwargs["params"]
+    assert params["includeDeleted"] == "true"
+    assert params["includeLatestOnly"] == "false"
+    assert params["continuationToken"] == "resume-token"
+    assert "System.IsDeleted" in params["fields"]
+
+
 def test_shared_metadata_never_spreads_budget_dates_or_status():
     blocks = parse_summary(
         "DM: Ana\nServicio: IXB\nBudget: 999\nStart: 2026-01-01\n"

@@ -12,11 +12,13 @@ from django.utils import timezone
 from apps.azure_devops.gateway import AzureDevOpsGateway
 from apps.clockify.services.clockify_client import ClockifyClient
 from apps.datastore.models import (
+    AzureHistoryFeed,
     EvaAzureSource,
     EvaExtraction,
     EvaScopeSnapshot,
 )
 from apps.datastore.services.clockify_store import store_state
+from apps.portal.services.azure_history import attach_history, feed_identity
 from apps.portal.services.eva_azure_source import BUSINESS_ID, candidate_rows
 from apps.portal.services.summary_eva_metrics import at_cut, enrich
 from apps.portal.services.summary_iterations import (
@@ -307,6 +309,9 @@ def inventory_rows(
     )
     rows = []
     if run:
+        history_feed = AzureHistoryFeed.objects.filter(
+            identity=feed_identity()
+        ).first()
         # Group sibling scopes so one billable entry cannot fill two rows.
         source_rows: dict[int, list[dict[str, Any]]] = {}
         scope_query = EvaScopeSnapshot.objects.filter(source__extraction=run)
@@ -329,6 +334,8 @@ def inventory_rows(
                 source.payload["summary"].get("eva_evidence", {}),
                 cut or timezone.localdate(),
             )
+            if cut is not None:
+                attach_history(source, grouped, cut, history_feed)
         for block in blocks:
             source = sources[block.source_id]
             row = source_rows[block.source_id].pop(0)

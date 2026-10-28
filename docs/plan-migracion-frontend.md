@@ -9,6 +9,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Histórico Azure, 28/10:** revisiones organizacionales persistidas con cursor
+incremental, migración 0009 aplicada con respaldo SQLite. 781,628 revisiones
+de 131,921 WIs; reanudación tras 503 en 571.222 s, actualización vacía 0.204 s.
+Inventario reconstruye tareas/riesgos al corte y guarda proyecciones por fecha;
+septiembre muestra once bloques completos. Auditoría AMK.004: 303 WIs ASOF
+directos sin diferencias. 226 servidor y seis Chrome/CSP aprobados; Ruff,
+mypy/check y migraciones consistentes. Ver historico-azure.md.
+No reconstruye Summary/DM/fechas ni cambia cortes EVA/KPI nativos. Sin push.
+
 **Feedback de cortes del inventario, 28/10:** iconos WI 🤖/✅/⌛; indicador
 durante GET y controles recuperables a los 15 s/pageshow. Corte anterior sin
 observación indica Sin histórico y su causa, sin spinner perpetuo. 21 servidor,

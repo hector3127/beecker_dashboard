@@ -1,6 +1,6 @@
 """Real route and CSP verification for local Summary searches."""
 
-from datetime import date
+from datetime import UTC, date
 from pathlib import Path
 
 import pytest
@@ -98,6 +98,47 @@ def test_cut_navigation_shows_loading_then_resets(
     page.goto(live_server.url + "/operativa/eva-1/summary/?corte=2026-06-01")
     expect(page.get_by_role("button", name="Consultar corte")).to_be_enabled()
     expect(page.locator("#inventory-cut-progress")).to_be_hidden()
+
+
+def test_downloaded_revisions_fill_past_cut(
+    page, live_server, settings, inventory
+):
+    from datetime import datetime
+
+    from apps.datastore.models import (
+        AzureHistoricalCut,
+        AzureHistoryFeed,
+        AzureWorkItemRevision,
+    )
+    from apps.portal.services.azure_history import feed_identity
+
+    settings.ROOT_URLCONF = "config.urls"
+    settings.PORTAL_LOGIN_REQUIRED = False
+    feed = AzureHistoryFeed.objects.create(
+        identity=feed_identity(),
+        complete_through=datetime(2026, 7, 1, tzinfo=UTC),
+    )
+    AzureWorkItemRevision.objects.create(
+        feed=feed,
+        work_item_id=1,
+        revision=1,
+        project_name="AMK.012",
+        changed_at=datetime(2026, 5, 31, tzinfo=UTC),
+        fields={
+            "System.WorkItemType": "Risk",
+            "System.State": "Active",
+            "System.Title": "Riesgo histórico",
+            "System.IterationPath": "AMK.012\\General_S2\\Development_S2",
+        },
+    )
+    page.goto(live_server.url + "/operativa/eva-1/summary/?corte=2026-06-01")
+    cells = page.locator("#summary-projects-table tbody tr").first.locator("td")
+    expect(cells.nth(16)).to_have_text("1")
+    expect(cells.nth(25)).to_have_text("Riesgo histórico")
+    expect(page.locator("#summary-projects-table tbody")).not_to_contain_text(
+        "Sin histórico"
+    )
+    assert AzureHistoricalCut.objects.count() == 1
 
 
 @pytest.mark.parametrize("width", [390, 900, 1450])

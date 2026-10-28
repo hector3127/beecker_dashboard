@@ -96,6 +96,64 @@ class EvaScopeSnapshot(models.Model):
         ]
 
 
+class AzureHistoryFeed(models.Model):
+    """Revision stream isolated by organization and configured PAT scope."""
+
+    identity = models.CharField(max_length=64, unique=True)
+    cursor = models.TextField(blank=True)
+    complete_through = models.DateTimeField(null=True)
+    updated_at = models.DateTimeField(null=True)
+    error = models.CharField(max_length=100, blank=True)
+
+
+class AzureWorkItemRevision(models.Model):
+    """Immutable revision, including the project and deletion at that time."""
+
+    feed = models.ForeignKey(AzureHistoryFeed, on_delete=models.CASCADE)
+    work_item_id = models.PositiveBigIntegerField()
+    revision = models.PositiveIntegerField()
+    project_name = models.CharField(max_length=255)
+    changed_at = models.DateTimeField()
+    deleted = models.BooleanField(default=False)
+    fields = models.JSONField()
+
+    class Meta:
+        """One revision per item; indexed selection of the latest as of cut."""
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["feed", "work_item_id", "revision"],
+                name="azure_history_revision",
+            )
+        ]
+        indexes = [
+            models.Index(
+                fields=["feed", "project_name", "changed_at"],
+                name="azure_history_project_date",
+            )
+        ]
+
+
+class AzureHistoricalCut(models.Model):
+    """Materialized historical counts for an inventory source and local day."""
+
+    feed = models.ForeignKey(AzureHistoryFeed, on_delete=models.CASCADE)
+    source = models.ForeignKey(EvaAzureSource, on_delete=models.CASCADE)
+    cut = models.DateField()
+    feed_through = models.DateTimeField()
+    metrics = models.JSONField()
+
+    class Meta:
+        """A derived cut is refreshed when its source stream advances."""
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["feed", "source", "cut"],
+                name="azure_source_historical_cut",
+            )
+        ]
+
+
 class ClockifyCatalog(models.Model):
     """Completeness marker for one workspace's project catalog."""
 

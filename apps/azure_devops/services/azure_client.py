@@ -135,6 +135,29 @@ class AzureDevOpsClient:
             result.extend(items)
         return result
 
+    def revision_page(self, project_id: str, token: str = "") -> JsonObject:
+        """Read a full historical revision batch, including deletion flags."""
+        params: JsonObject = {
+            "api-version": API_VERSION,
+            "$maxPageSize": 2000,
+            "includeDeleted": "true",
+            "includeLatestOnly": "false",
+            "fields": "System.Id,System.Rev,System.ChangedDate,"
+            "System.RevisedDate,"
+            "System.WorkItemType,System.Title,System.State,System.IterationPath,"
+            "System.TeamProject,System.IsDeleted",
+        }
+        if token:
+            params["continuationToken"] = token
+        project_url = self._organization_url + (
+            f"/{encode_url_part(project_id)}" if project_id else ""
+        )
+        return self._send(
+            "GET",
+            f"{project_url}/_apis/wit/reporting/workitemrevisions",
+            params=params,
+        )
+
     def list_work_items(self, project_name: str) -> list[JsonObject]:
         """
         Lee hasta 1000 work items del proyecto, los mas recientes primero.
@@ -345,10 +368,12 @@ class AzureDevOpsClient:
             ) from error
 
         if response.status_code >= SUCCESS_STATUS_LIMIT:
-            raise AzureDevOpsRequestError(
+            provider_error = AzureDevOpsRequestError(
                 f"Azure DevOps respondio {response.status_code}. Revisa la "
                 "organizacion y que el PAT tenga permiso de lectura.",
             )
+            provider_error.provider_status = response.status_code
+            raise provider_error
 
         try:
             payload = response.json()

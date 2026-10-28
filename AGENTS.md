@@ -23,6 +23,14 @@ Reglas que no se negocian:
 
 ## Estado vigente (27/10/2026)
 
+**Histórico inventario Summary, 28/10:** descarga autorizada de revisiones
+Azure, cursor incremental y migración 0009 aditiva con respaldo SQLite.
+781,628 revisiones/131,921 WIs. Corte local materializado por fuente/fecha;
+septiembre completo, auditoría 303 WIs ASOF sin diferencias. Ver
+docs/historico-azure.md. Sustituye Sin histórico solo con cobertura comprobada;
+no inventa Summary/DM/fechas antiguos ni modifica EVA/KPI nativos. Comando
+sync_azure_history incremental, sin tareas instaladas ni push.
+
 **Corrección del filtro EVA, base 91f48ed:** formulario GET de fecha/DM/
 servicio operativo sin JS o con estado 503; estado inicial renderizado en
 Django, módulos versionados y avisos parciales separados de conexión.

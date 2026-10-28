@@ -23,3 +23,4 @@ class AzureDevOpsRequestError(DashboardError):
     public_message = "Azure DevOps no respondio correctamente."
     http_status = 502
     expose_detail = True
+    provider_status: int | None = None

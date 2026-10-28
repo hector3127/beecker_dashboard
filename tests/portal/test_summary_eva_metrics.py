@@ -122,7 +122,10 @@ def test_cr_alias_hours_and_zero_budget():
     row = candidate("CR2", "0")
     row["summary_scope"] = "CR2_S1"
     rows = [row]
-    enrich(rows, {}, [], True, None, CUT)
+    enrich(
+        rows, {}, [item("Task", "Active", "Alias", "CR2_S1")], True, None, CUT
+    )
+    assert row["eva_metrics"]["wi"]["general"]["total"] == 1
     row["eva_metrics"]["clockify_project_id"] = "provider"
     evidence = {
         "observed_date": CUT.isoformat(),

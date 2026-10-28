@@ -1,5 +1,6 @@
 """Persist provider evidence and project EVA fields without page-time IO."""
 
+import re
 from datetime import date
 from typing import Any
 
@@ -34,6 +35,27 @@ def metric_rows(
         scope = row["scope"] if counts[row["scope"]] == 1 else ""
         own_items = items
         engine_scope = scope
+        alias = row.get("summary_scope", scope)
+        if scope and scope != "BASE" and alias != scope:
+            own_items = []
+            for item in items:
+                fields = item.get("fields") or {}
+                path = str(fields.get("System.IterationPath", ""))
+                if scope_tokens(path) == {alias}:
+                    path = re.sub(
+                        rf"(?<![A-Z0-9]){re.escape(alias)}(?![A-Z0-9])",
+                        scope,
+                        path,
+                        flags=re.I,
+                    )
+                    own_items.append(
+                        {
+                            **item,
+                            "fields": {**fields, "System.IterationPath": path},
+                        }
+                    )
+                else:
+                    own_items.append(item)
         if scope == "BASE":
             # Isolate unscoped work items from explicitly named siblings.
             engine_scope = "S0"
