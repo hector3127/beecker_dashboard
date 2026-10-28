@@ -1,5 +1,12 @@
 # Inventario de Summary — primer bloque
 
+**Actualización de campos EVA, 28/10:** Burn/ETC/desviación/avance, conteos
+por etapa y riesgos se extraen y guardan en el inventario. Ya no son columnas
+vacías por diseño: se muestran valores verificables y pendientes según
+disponibilidad/fecha. Reglas, evidencias y mediciones actuales en
+[inventario-eva-metricas.md](inventario-eva-metricas.md), que sustituye las
+notas históricas de esta página sobre esos campos aún no extraídos.
+
 ## Encabezado inverso SPRINT #1 CR — 28/10
 
 AIN.002 usaba SPRINT #1 CR, que quedaba como línea no reconocida en BASE,

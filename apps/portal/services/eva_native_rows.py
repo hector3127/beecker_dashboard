@@ -44,7 +44,7 @@ def resolve_scope(
         if len((p := str(i.get("path", ""))).split("\\")) > 1
     }
     available = {token for root in roots for token in scope_tokens(root)}
-    code = candidate["scope"]
+    code = str(candidate["scope"])
     if code in available:
         return code
     if code.endswith("_S1") and code[:-3] in available:
@@ -236,7 +236,14 @@ def assign_hours(rows: list[Json], entries: list[Json], cut: date) -> None:
                 str(tag.get("name", "") if isinstance(tag, dict) else tag)
             )
         selected = (
-            [r for r in eligible if tokens == {r["scope"]}]
+            [
+                r
+                for r in eligible
+                if any(
+                    tokens == {alias}
+                    for alias in r.get("scope_aliases", [r["scope"]])
+                )
+            ]
             if tokens
             else eligible
         )
@@ -245,7 +252,10 @@ def assign_hours(rows: list[Json], entries: list[Json], cut: date) -> None:
             if (
                 not tokens
                 or not selected
-                and any(r["scope"] in tokens for r in eligible)
+                and any(
+                    tokens & set(r.get("scope_aliases", [r["scope"]]))
+                    for r in eligible
+                )
             ):
                 pending.update(id(r) for r in eligible)
             continue

@@ -9,6 +9,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Campos EVA persistidos en el inventario, 28/10:** extracción Summary ahora
+guarda work items, riesgos y horas Clockify más proyecciones financieras por
+bloque. Tabla lee evidencia local; horas al corte, tareas/riesgos únicamente
+con observación de ese día. Todos los servicios/cerrados; sin cambiar cortes
+EVA/KPI existentes. Real: 450 proyectos/685 bloques, 436.354 s, 1245 reportes
+Clockify, cero fallos WI Azure. Hoy nueve filas con horas/conteos disponibles;
+lectura local 0.275 s. 110 servidor y cuatro Chrome/CSP aprobados, más página
+local real sin errores. Ver inventario-eva-metricas.md. Sin push.
+
 **Summary con encabezado inverso, 28/10:** SPRINT #1 CR se reconoce como
 CR_S1; inventario aplica la regla del usuario y muestra CR. AIN.002_CR
 recupera Lea Dayana, RaaS, Order Entry y Budget 88. S2 y numeración CR

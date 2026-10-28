@@ -5,16 +5,20 @@ import time
 from datetime import date
 from typing import Any
 
+from django.conf import settings
 from django.db import transaction
 from django.utils import timezone
 
 from apps.azure_devops.gateway import AzureDevOpsGateway
+from apps.clockify.services.clockify_client import ClockifyClient
 from apps.datastore.models import (
     EvaAzureSource,
     EvaExtraction,
     EvaScopeSnapshot,
 )
+from apps.datastore.services.clockify_store import store_state
 from apps.portal.services.eva_azure_source import BUSINESS_ID, candidate_rows
+from apps.portal.services.summary_eva_metrics import at_cut, enrich
 from apps.portal.services.summary_iterations import (
     calendar_fields,
     iteration_blocks,
@@ -23,10 +27,20 @@ from core.exceptions import DashboardError
 from core.utils.parallel import map_in_parallel
 
 
-def extract_summaries(*, from_local: bool = False) -> EvaExtraction:
+def extract_summaries(
+    *, from_local: bool = False, with_eva: bool = True
+) -> EvaExtraction:
     """Store every PAT-visible project, without service or closure filters."""
     started = time.perf_counter()
-    previous = inventory_rows()[0] if from_local else None
+    previous = (
+        EvaExtraction.objects.filter(
+            published=True, metrics__kind="summary_inventory"
+        )
+        .order_by("-pk")
+        .first()
+        if from_local
+        else None
+    )
     if from_local and previous is None:
         raise ValueError("No hay un inventario local para reprocesar.")
     run = EvaExtraction.objects.create(
@@ -45,6 +59,19 @@ def extract_summaries(*, from_local: bool = False) -> EvaExtraction:
         else:
             assert gateway is not None
             catalog = gateway.create_client().list_summary_projects()
+        clock_context = None
+        if with_eva and not from_local:
+            try:
+                workspace = settings.CLOCKIFY_WORKSPACE_ID
+                client = ClockifyClient(settings.CLOCKIFY_API_KEY)
+                _, months = store_state()
+                clock_context = (
+                    client.list_projects(workspace),
+                    workspace,
+                    frozenset(m for m in months if m < run.cut.replace(day=1)),
+                )
+            except DashboardError:
+                pass
 
         def read(
             project: dict[str, Any],
@@ -150,6 +177,48 @@ def extract_summaries(*, from_local: bool = False) -> EvaExtraction:
                         "ready": False,
                     }
                 ]
+            if with_eva:
+                old_evidence = summary.get("eva_evidence") or {}
+                if from_local:
+                    items = old_evidence.get("work_items", [])
+                    azure_ok = old_evidence.get("azure_ok", False)
+                else:
+                    assert gateway is not None
+                    try:
+                        items = gateway.create_client().list_eva_work_items(
+                            name
+                        )
+                        azure_ok = True
+                    except DashboardError:
+                        items, azure_ok = [], False
+                evidence = enrich(
+                    rows, summary, items, azure_ok, clock_context, run.cut
+                )
+                if from_local:
+                    for row in rows:
+                        metric = row["eva_metrics"]
+                        provider = old_evidence.get("clockify_mapping", {}).get(
+                            row["scope"]
+                        )
+                        if provider:
+                            metric["clockify_project_id"] = provider
+                            metric["clockify_dedicated_scope"] = (
+                                old_evidence.get("clockify_dedicated", {}).get(
+                                    row["scope"], False
+                                )
+                            )
+                        row["metrics_observed_date"] = old_evidence.get(
+                            "observed_date", ""
+                        )
+                    at_cut(rows, old_evidence, run.cut)
+                    evidence = old_evidence
+                else:
+                    evidence["observed_date"] = run.cut.isoformat()
+                    evidence["clockify_mapping"] = {
+                        r["scope"]: r["eva_metrics"].get("clockify_project_id")
+                        for r in rows
+                    }
+                summary["eva_evidence"] = evidence
             return project, summary, rows
 
         results = map_in_parallel(read, catalog, 4)
@@ -193,6 +262,27 @@ def extract_summaries(*, from_local: bool = False) -> EvaExtraction:
                     bool(r[1]["iteration_error"]) for r in results
                 ),
                 "total_seconds": round(time.perf_counter() - started, 3),
+                "eva_enriched": with_eva,
+                "clockify_requests": sum(
+                    r[1].get("eva_evidence", {}).get("clockify_requests", 0)
+                    for r in results
+                ),
+                "azure_metric_failures": sum(
+                    not r[1].get("eva_evidence", {}).get("azure_ok", False)
+                    for r in results
+                )
+                if with_eva
+                else 0,
+                "hours_pending_blocks": sum(
+                    r.get("eva_metrics", {}).get("hours_pending", True)
+                    for _, _, project_rows in results
+                    for r in project_rows
+                ),
+                "azure_pending_blocks": sum(
+                    r.get("eva_metrics", {}).get("azure_pending", True)
+                    for _, _, project_rows in results
+                    for r in project_rows
+                ),
             }
             run.save()
         return run
@@ -217,12 +307,41 @@ def inventory_rows(
     )
     rows = []
     if run:
-        for block in (
-            EvaScopeSnapshot.objects.filter(source__extraction=run)
-            .select_related("source")
-            .order_by("source__name", "pk")
-        ):
-            row = dict(block.row)
+        # Group sibling scopes so one billable entry cannot fill two rows.
+        source_rows: dict[int, list[dict[str, Any]]] = {}
+        scope_query = EvaScopeSnapshot.objects.filter(source__extraction=run)
+        source_query = EvaAzureSource.objects.filter(extraction=run)
+        if cut is not None:
+            eligible_sources = scope_query.filter(
+                row__iteration_start__lte=cut.isoformat(),
+                row__iteration_finish__gte=cut.isoformat(),
+            ).values("source_id")
+            source_query = source_query.filter(pk__in=eligible_sources)
+            scope_query = scope_query.filter(source_id__in=eligible_sources)
+        sources = {s.pk: s for s in source_query}
+        blocks = list(scope_query.order_by("source__name", "pk"))
+        for block in blocks:
+            source_rows.setdefault(block.source_id, []).append(dict(block.row))
+        for source_id, grouped in source_rows.items():
+            source = sources[source_id]
+            at_cut(
+                grouped,
+                source.payload["summary"].get("eva_evidence", {}),
+                cut or timezone.localdate(),
+            )
+        for block in blocks:
+            source = sources[block.source_id]
+            row = source_rows[block.source_id].pop(0)
+            wi = row.get("eva_metrics", {}).get("wi", {})
+            row["metric_stages"] = [
+                wi.get(stage, {})
+                for stage in (
+                    "discovery",
+                    "development",
+                    "deployment",
+                    "general",
+                )
+            ]
             row.update(
                 calendar_fields(
                     row.get("stages", []), cut or timezone.localdate()
@@ -240,10 +359,8 @@ def inventory_rows(
                 if finish
                 else None
             )
-            row["azure_name"] = block.source.name
-            row["azure_state"] = block.source.payload["summary"].get(
-                "state", ""
-            )
+            row["azure_name"] = source.name
+            row["azure_state"] = source.payload["summary"].get("state", "")
             row["display_id"] = block.project_id
             if row.get("scope") != "BASE" and not block.project_id.endswith(
                 "_" + row["scope"]

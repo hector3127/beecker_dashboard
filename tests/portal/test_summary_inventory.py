@@ -70,7 +70,7 @@ def inventory(db):
         "apps.portal.services.summary_inventory.AzureDevOpsGateway",
         return_value=gateway,
     ):
-        return extract_summaries()
+        return extract_summaries(with_eva=False)
 
 
 def test_all_projects_scopes_and_closed_are_preserved(inventory):
@@ -149,7 +149,7 @@ def test_failed_transport_keeps_last_inventory(inventory):
         ),
         pytest.raises(RuntimeError),
     ):
-        extract_summaries()
+        extract_summaries(with_eva=False)
     assert inventory_rows()[0] == inventory
 
 
@@ -201,7 +201,7 @@ def test_local_replay_links_cr_summary_without_provider_calls(
         "apps.portal.services.summary_inventory.AzureDevOpsGateway",
         side_effect=AssertionError("external read"),
     ):
-        replay = extract_summaries(from_local=True)
+        replay = extract_summaries(from_local=True, with_eva=False)
     run, rows = inventory_rows("AMK.012", date(2026, 1, 29))
     assert run == replay
     assert len(rows) == 1

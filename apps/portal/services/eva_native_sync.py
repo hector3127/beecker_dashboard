@@ -116,13 +116,14 @@ def _clockify(
     workspace: str,
     synced: frozenset[date],
     cut: date,
+    *,
+    include_all_scopes: bool = False,
 ) -> Json:
     started = time.perf_counter()
     rows = [
         r
         for r in data["rows"]
-        if not r["closed"]
-        and r["servicio"] in SERVICES
+        if (include_all_scopes or not r["closed"] and r["servicio"] in SERVICES)
         and (not r["fechaInicio"] or r["fechaInicio"] <= cut.isoformat())
     ]
     groups: dict[str, list[Json]] = {}
@@ -158,6 +159,12 @@ def _clockify(
             row["source_issues"].append("clockify_mapping_or_range_pending")
             continue
         row["clockify_project_id"] = exact[0].project_id
+        if include_all_scopes:
+            provider_match = CLOCK_ID.match(exact[0].name.strip())
+            row["clockify_dedicated_scope"] = bool(
+                provider_match
+                and provider_match[1].upper() != row["business_base"]
+            )
         groups.setdefault(exact[0].project_id, []).append(row)
     requests, local_months = 0, 0
     evidence: dict[str, list[Json]] = {}
@@ -210,7 +217,14 @@ def _clockify(
             context = selected + [
                 dict(r)
                 for r in data["rows"]
-                if r not in selected and r["scope"]
+                if r not in selected
+                and r["scope"]
+                and (
+                    not include_all_scopes
+                    or not all(
+                        s.get("clockify_dedicated_scope") for s in selected
+                    )
+                )
             ]
             assign_hours(context, entries, cut)
             evidence[provider] = entries
