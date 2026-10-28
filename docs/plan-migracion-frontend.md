@@ -9,6 +9,12 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**ID con país de varias letras, 28/10:** Summary y asociación Clockify admiten
+el segmento intermedio de varias letras, como NSC.COL.007. Antes se rechazaba
+el ID y el front mostraba solamente _S1. Se conserva NSC.COL.007_S1. Reproceso
+local de 450 fuentes/685 bloques en 18.857 s; sin nueva extracción ni inventar
+horas faltantes. 40 pruebas dirigidas aprobadas y Ruff aprobado. Sin push.
+
 **Nota de atribución, 28/10:** el bloque receptor muestra bajo su nombre las
 horas y cantidad de registros sin tarea/tag atribuidos por iniciar primero.
 EVA e inventario usan metadatos persistidos y recalculados por corte, sin notas

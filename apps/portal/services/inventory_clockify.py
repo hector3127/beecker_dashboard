@@ -16,7 +16,7 @@ from core.exceptions import DashboardError
 
 Json = dict[str, Any]
 CLOCK_ID = re.compile(
-    r"^([A-Z]{2,8}(?:\.[A-Z])?\.\d+(?:_(?:S\d+|CR\d*(?:_S\d+)?))?)"
+    r"^([A-Z]{2,8}(?:\.[A-Z]{1,8})?\.\d+(?:_(?:S\d+|CR\d*(?:_S\d+)?))?)"
     r"(?=$|[^A-Z0-9._])",
     re.I,
 )
@@ -71,8 +71,7 @@ def extract_hours(
         row["clockify_project_id"] = exact[0].project_id
         provider_match = CLOCK_ID.match(exact[0].name.strip())
         row["clockify_dedicated_scope"] = bool(
-            provider_match
-            and provider_match[1].upper() != row["business_base"]
+            provider_match and provider_match[1].upper() != row["business_base"]
         )
         groups.setdefault(exact[0].project_id, []).append(row)
     requests, local_months = 0, 0
@@ -129,9 +128,7 @@ def extract_hours(
                 if r not in selected
                 and r["scope"]
                 and (
-                    not all(
-                        s.get("clockify_dedicated_scope") for s in selected
-                    )
+                    not all(s.get("clockify_dedicated_scope") for s in selected)
                 )
             ]
             assign_hours(context, entries, cut)

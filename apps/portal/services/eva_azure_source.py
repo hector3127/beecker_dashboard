@@ -16,7 +16,7 @@ REQUIRED = (
     "budget",
 )
 BUSINESS_ID = re.compile(
-    r"[A-Z]{2,8}(?:\.[A-Z])?\.\d+(?:_(?:S\d+|CR\d*(?:_S\d+)?))?",
+    r"[A-Z]{2,8}(?:\.[A-Z]{1,8})?\.\d+(?:_(?:S\d+|CR\d*(?:_S\d+)?))?",
     re.IGNORECASE,
 )
 

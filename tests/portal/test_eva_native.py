@@ -73,6 +73,16 @@ def test_exact_scope_tokens(text, expected):
     assert scope_tokens(text) == expected
 
 
+@pytest.mark.parametrize("base", ["NSC.COL.007", "NSC.N.001", "AMK.012"])
+def test_multiletter_country_segment_preserves_project_identity(base):
+    from apps.portal.services.inventory_clockify import CLOCK_ID
+
+    candidate = candidate_rows(base, SUMMARY)[0]
+    assert candidate["project_id"] == f"{base}_S1"
+    assert "invalid_project_id" not in candidate["issues"]
+    assert CLOCK_ID.match(base + " SICETAC Automation")[1] == base
+
+
 def test_financials_billable_dedup_dates_and_hours_deviation():
     target = row()
     assign_hours(
