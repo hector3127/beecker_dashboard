@@ -121,6 +121,8 @@ def build_eva2_project(row: JsonObject) -> Eva2Project:
         azure_pending=bool(row.get("azure_pending")),
         hours_deviation=row.get("hoursDeviation"),
         progress_pending=bool(row.get("progress_pending")),
+        automatic_entries=int(row.get("automatic_entries") or 0),
+        automatic_hours=float(row.get("automatic_hours") or 0),
     )
 
 

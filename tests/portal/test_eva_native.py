@@ -119,6 +119,9 @@ def test_untagged_hours_go_to_earliest_eligible_scope_once():
     ]
     assign_hours([later, earlier], records, CUT)
     assert earlier["burn"] == 1
+    assert earlier["automatic_entries"] == 1
+    assert earlier["automatic_hours"] == 1
+    assert later["automatic_entries"] == 0
     assert later["burn"] == 1
     assert not earlier["hours_pending"] and not later["hours_pending"]
 

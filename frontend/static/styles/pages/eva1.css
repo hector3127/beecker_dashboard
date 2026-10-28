@@ -486,3 +486,4 @@ table.d th.c {
 .eva1-page #eva-table .eva1-account-logo img,.eva1-page #eva-closed-table .eva1-account-logo img{display:block;width:26px;max-width:26px;height:26px;max-height:26px;object-fit:contain}
 .eva1-page #eva-table .eva1-account>span:last-child,.eva1-page #eva-closed-table .eva1-account>span:last-child{min-width:0;line-height:1.35;white-space:normal}
 .eva1-page #eva-table tbody td,.eva1-page #eva-closed-table tbody td{padding:8px 6px;vertical-align:middle}
+.eva1-page .eva-allocation-note{display:block;margin-top:5px;padding:5px 6px;border-left:2px solid #9870e8;background:#f4efff;color:#62428f;font-size:10px;line-height:1.4;white-space:normal;width:180px;max-width:210px}

@@ -303,6 +303,8 @@ class Eva2Project:
     azure_pending: bool = False
     hours_deviation: float | None = None
     progress_pending: bool = False
+    automatic_entries: int = 0
+    automatic_hours: float = 0
 
 
 @dataclass(frozen=True, slots=True)

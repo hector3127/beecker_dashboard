@@ -9,6 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Nota de atribución, 28/10:** el bloque receptor muestra bajo su nombre las
+horas y cantidad de registros sin tarea/tag atribuidos por iniciar primero.
+EVA e inventario usan metadatos persistidos y recalculados por corte, sin notas
+residuales al cambiar de fecha. 450 fuentes/685 bloques reprocesados localmente
+en 21.081 s; CR2 de MCC.015 conserva nueve registros/5.6667 h atribuidos.
+32 servidor y seis Chrome aprobados (nota en escritorio/móvil, filtros,
+exportación y consulta sin JS). Ruff aprobado. Sin push.
+
 **Horas sin tarea/tag, regla autorizada 28/10:** asignación única al bloque
 elegible con Start más antiguo; identificador explícito mantiene prioridad y
 empates siguen pendientes. Sustituye la política previa de dejar todo

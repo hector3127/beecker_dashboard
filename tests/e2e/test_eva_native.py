@@ -100,6 +100,44 @@ def _controls(page, errors, width):
     page.screenshot(path=str(path / f"eva-{width}.png"), full_page=True)
 
 
+@pytest.mark.parametrize("width", [1450, 390])
+def test_automatic_hours_note_on_receiving_project(
+    page, live_server, native_site, width
+):
+    from copy import deepcopy
+
+    first = EvaScopeSnapshot.objects.get(source__extraction=native_site)
+    first.row["eva_metrics"]["clockify_project_id"] = "provider"
+    first.save()
+    second = deepcopy(first.row)
+    second.update(
+        project_id="AMK.012_S2", scope="S2", iteration_start="2026-10-02"
+    )
+    second["eva_metrics"].update(
+        scope="S2", idProyecto="AMK.012_S2", fechaInicio="2026-10-02"
+    )
+    EvaScopeSnapshot.objects.create(
+        source=first.source, project_id="AMK.012_S2", scope="S2", row=second
+    )
+    source = first.source
+    source.payload["summary"]["eva_evidence"] = {
+        "observed_date": native_site.cut.isoformat(),
+        "clockify": {"provider": [native_fixtures.entry(task="")]},
+    }
+    source.save()
+    page.set_viewport_size({"width": width, "height": 950})
+    page.goto(live_server.url + "/operativa/eva-1/")
+    note = page.locator(".eva-allocation-note")
+    expect(note).to_have_count(1)
+    expect(note).to_contain_text("1 h sin tarea/tag atribuidas")
+    expect(note).to_contain_text("primero en iniciar")
+    assert "AMK.012_S1" in note.locator("xpath=ancestor::tr").inner_text()
+    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    page.screenshot(
+        path=f"tmp/eva-native/allocation-note-{width}.png", full_page=True
+    )
+
+
 def test_cut_form_works_without_javascript_while_extraction_runs(
     browser, live_server, native_site
 ):

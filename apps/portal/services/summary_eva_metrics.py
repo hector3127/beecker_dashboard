@@ -143,6 +143,8 @@ def at_cut(
                 avance=None,
                 hoursDeviation=None,
                 hours_pending=True,
+                automatic_entries=0,
+                automatic_hours=0,
             )
     providers = {r.get("clockify_project_id") for r in projected if r}
     for provider in providers - {None}:

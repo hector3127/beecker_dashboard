@@ -177,6 +177,7 @@ def assign_hours(rows: list[Json], entries: list[Json], cut: date) -> None:
     start dates stays pending. Explicit task/tag scopes retain priority.
     """
     totals = {id(row): Decimal(0) for row in rows}
+    automatic = {id(row): (0, Decimal(0)) for row in rows}
     pending: set[int] = set()
     seen: set[str] = set()
     for entry in entries:
@@ -224,7 +225,8 @@ def assign_hours(rows: list[Json], entries: list[Json], cut: date) -> None:
             if tokens
             else eligible
         )
-        if not tokens and len(selected) > 1:
+        automatically_assigned = not tokens and len(selected) > 1
+        if automatically_assigned:
             earliest = min(r["fechaInicio"] for r in selected)
             selected = [r for r in selected if r["fechaInicio"] == earliest]
         if len(selected) != 1:
@@ -249,6 +251,12 @@ def assign_hours(rows: list[Json], entries: list[Json], cut: date) -> None:
             pending.add(id(selected[0]))
             continue
         totals[id(selected[0])] += seconds / Decimal(3600)
+        if automatically_assigned:
+            count, hours = automatic[id(selected[0])]
+            automatic[id(selected[0])] = (
+                count + 1,
+                hours + seconds / Decimal(3600),
+            )
     for row in rows:
         known = (
             id(row) not in pending
@@ -276,5 +284,7 @@ def assign_hours(rows: list[Json], entries: list[Json], cut: date) -> None:
                 else None,
                 "hours_pending": not known,
                 "progress_pending": result["advance"] is None,
+                "automatic_entries": automatic[id(row)][0],
+                "automatic_hours": float(automatic[id(row)][1]),
             }
         )

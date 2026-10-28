@@ -97,6 +97,8 @@ def test_cards_count_11_projects_with_five_over_budget_and_one_pending(
             budget=100,
             hours_pending=i == 10,
             progress_pending=i == 10,
+            automatic_entries=2 if i == 0 else 0,
+            automatic_hours=0.5 if i == 0 else 0,
         )
         for i in range(11)
     ]
@@ -123,3 +125,5 @@ def test_cards_count_11_projects_with_five_over_budget_and_one_pending(
     assert response.context["eva_cost_pending"] == 1
     assert b"45.5%" in response.content
     assert b"5/11" in response.content
+    assert response.content.count(b'class="eva-allocation-note"') == 1
+    assert b"0.50 h sin tarea/tag" in response.content

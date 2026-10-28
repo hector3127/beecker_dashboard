@@ -8,6 +8,8 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 cubre el día de una hora facturable sin tarea/tag de alcance, asignar una sola
 vez al que tenga el Start más antiguo. Tarea/tag explícito conserva prioridad;
 empate en Start permanece pendiente. No asignar fuera del rango ni del corte.
+El receptor muestra una nota con horas y registros atribuidos por esta regla;
+los metadatos se guardan y recalculan al corte, sin conservar avisos de otra fecha.
 
 **Tarjetas EVA, criterio posterior confirmado 28/10:** T=desviación <= 0 / TP;
 C=avance > 100% / TP, sobre todos los proyectos de la tabla filtrada. C expresa
