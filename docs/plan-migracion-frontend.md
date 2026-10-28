@@ -9,6 +9,12 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Etapas simultáneas EVA, 28/10:** el estatus muestra los nombres de las
+etapas cuyos rangos incluyen el corte, separados por punto medio, en lugar
+de «Solapamiento de etapas». Se eliminan nombres repetidos y se conserva la
+prioridad de suspensión explícita. Fechas y filtros no cambian. Pruebas
+dirigidas de iteraciones aprobadas dentro de la corrida de 67 servidor.
+
 **Nota de horas desplegable, 28/10:** en EVA la nota de atribución permanece
 oculta tras un icono SVG de información ámbar, con control nativo details/
 summary de 44 px, nombre accesible y foco visible. Se abre/cierra por clic o

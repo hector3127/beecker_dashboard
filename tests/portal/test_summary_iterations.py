@@ -70,7 +70,7 @@ def test_overlap_missing_invalid_and_duplicate_dates():
         }
     )
     result = calendar_fields(blocks["S1"], date(2026, 2, 1))
-    assert result["calendar_stage"] == "Solapamiento de etapas"
+    assert result["calendar_stage"] == "Discovery · Development"
     assert result["iteration_finish"] == "2026-03-01"
     blocks["S1"][0]["start"] = "invalid"
     result = calendar_fields(blocks["S1"], date(2026, 2, 1))

@@ -83,9 +83,7 @@ def calendar_fields(
         if s["start"] <= observed.isoformat() <= s["finish"]
     ]
     label = (
-        active[0]
-        if len(active) == 1
-        else "Solapamiento de etapas"
+        " · ".join(dict.fromkeys(active))
         if active
         else "Fuera de rango programado"
     )
