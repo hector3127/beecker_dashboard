@@ -487,3 +487,10 @@ table.d th.c {
 .eva1-page #eva-table .eva1-account>span:last-child,.eva1-page #eva-closed-table .eva1-account>span:last-child{min-width:0;line-height:1.35;white-space:normal}
 .eva1-page #eva-table tbody td,.eva1-page #eva-closed-table tbody td{padding:8px 6px;vertical-align:middle}
 .eva1-page .eva-allocation-note{display:block;margin-top:5px;padding:5px 6px;border-left:2px solid #9870e8;background:#f4efff;color:#62428f;font-size:10px;line-height:1.4;white-space:normal;width:180px;max-width:210px}
+.eva1-page .eva-allocation{margin-top:5px}
+.eva1-page .eva-allocation-toggle{display:grid;place-items:center;box-sizing:border-box;width:44px;height:44px;border:1px solid #d99b1b;border-radius:10px;background:#fff0c2;color:#805000;cursor:pointer;list-style:none;box-shadow:0 2px 5px #80500018}
+.eva1-page .eva-allocation-toggle::-webkit-details-marker{display:none}
+.eva1-page .eva-allocation-toggle svg{width:23px;height:23px}
+.eva1-page .eva-allocation-toggle:hover{background:#ffe39a}
+.eva1-page .eva-allocation-toggle:focus-visible{outline:3px solid #7135d8;outline-offset:3px}
+.eva1-page .eva-allocation[open] .eva-allocation-toggle{background:#f0e7ff;border-color:#7135d8;color:#5921b0}

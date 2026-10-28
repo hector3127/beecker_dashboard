@@ -129,6 +129,10 @@ def test_automatic_hours_note_on_receiving_project(
     page.goto(live_server.url + "/operativa/eva-1/")
     note = page.locator(".eva-allocation-note")
     expect(note).to_have_count(1)
+    expect(note).not_to_be_visible()
+    toggle = page.get_by_label("Ver nota de atribución automática de horas")
+    toggle.click()
+    expect(note).to_be_visible()
     expect(note).to_contain_text("1 h sin tarea/tag atribuidas")
     expect(note).to_contain_text("primero en iniciar")
     assert "AMK.012_S1" in note.locator("xpath=ancestor::tr").inner_text()
@@ -136,6 +140,9 @@ def test_automatic_hours_note_on_receiving_project(
     page.screenshot(
         path=f"tmp/eva-native/allocation-note-{width}.png", full_page=True
     )
+    toggle.focus()
+    page.keyboard.press("Enter")
+    expect(note).not_to_be_visible()
 
 
 def test_cut_form_works_without_javascript_while_extraction_runs(

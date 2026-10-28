@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/eva1.css' %}?v=20261028-allocation-note"><link rel="stylesheet" href="{% static 'app/styles/pages/eva_column_menus.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/eva1.css' %}?v=20261028-allocation-icon"><link rel="stylesheet" href="{% static 'app/styles/pages/eva_column_menus.css' %}">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if error %}Corte no disponible{% elif loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
 {% block content %}
 <div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">EVA 1</span></div>

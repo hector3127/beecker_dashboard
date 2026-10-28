@@ -9,6 +9,13 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Nota de horas desplegable, 28/10:** en EVA la nota de atribución permanece
+oculta tras un icono SVG de información ámbar, con control nativo details/
+summary de 44 px, nombre accesible y foco visible. Se abre/cierra por clic o
+teclado; abierto usa el acento morado. No cambia atribución ni cifras.
+Cuatro servidor y dos Chrome escritorio/móvil aprobados; Ruff aprobado.
+Skill aplicada: ui-ux-pro-max (interacción y accesibilidad). Sin push.
+
 **ID con país de varias letras, 28/10:** Summary y asociación Clockify admiten
 el segmento intermedio de varias letras, como NSC.COL.007. Antes se rechazaba
 el ID y el front mostraba solamente _S1. Se conserva NSC.COL.007_S1. Reproceso
