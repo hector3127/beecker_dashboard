@@ -9,6 +9,16 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Horas sin tarea/tag, regla autorizada 28/10:** asignación única al bloque
+elegible con Start más antiguo; identificador explícito mantiene prioridad y
+empates siguen pendientes. Sustituye la política previa de dejar todo
+solapamiento sin clasificar pendiente. MCC.015: las nueve entradas (5h40m)
+corresponden a CR2 (30/01), anterior a S3 (12/05). Reprocesadas 450 fuentes y
+685 bloques desde evidencia local en 22.329 s, sin descarga nueva; respaldo
+`tmp/backups/before-earliest-scope-hours-20261028.sqlite3`. Ambos bloques ya
+tienen Burn/ETC/avance. 37 servidor dirigidas aprobadas, Ruff aprobado.
+No cambia diseño ni Clockify de origen. Sin push.
+
 **Tarjetas EVA, criterio confirmado 28/10:** T cuenta desviaciones <= 0 y C
 cuenta avances > 100%, ambos divididos entre todos los proyectos de la tabla
 tras corte/DM/servicio. Pendientes siguen en el denominador y no cuentan como

@@ -4,6 +4,11 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 
 ## Objetivo
 
+**Horas EVA sin clasificación, autorización 28/10:** entre bloques cuyo rango
+cubre el día de una hora facturable sin tarea/tag de alcance, asignar una sola
+vez al que tenga el Start más antiguo. Tarea/tag explícito conserva prioridad;
+empate en Start permanece pendiente. No asignar fuera del rango ni del corte.
+
 **Tarjetas EVA, criterio posterior confirmado 28/10:** T=desviación <= 0 / TP;
 C=avance > 100% / TP, sobre todos los proyectos de la tabla filtrada. C expresa
 sobrecosto, no cumplimiento. Pendientes permanecen en el denominador. Este

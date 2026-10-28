@@ -173,8 +173,8 @@ def build_row(
 def assign_hours(rows: list[Json], entries: list[Json], cut: date) -> None:
     """Assign each billable entry once using exact task/tag plus date range.
 
-    Ambiguous or unclassified entries leave the affected rows pending. An
-    untagged entry is usable only if exactly one scope covers its day.
+    Untagged entries go to the earliest-starting eligible scope. A tie in
+    start dates stays pending. Explicit task/tag scopes retain priority.
     """
     totals = {id(row): Decimal(0) for row in rows}
     pending: set[int] = set()
@@ -224,6 +224,9 @@ def assign_hours(rows: list[Json], entries: list[Json], cut: date) -> None:
             if tokens
             else eligible
         )
+        if not tokens and len(selected) > 1:
+            earliest = min(r["fechaInicio"] for r in selected)
+            selected = [r for r in selected if r["fechaInicio"] == earliest]
         if len(selected) != 1:
             # A valid tag for a different scope belongs outside these rows.
             if (

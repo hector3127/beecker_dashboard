@@ -101,12 +101,34 @@ def test_remaining_is_positive_but_deviation_zero():
     )
 
 
-def test_untagged_overlapping_scopes_are_pending():
+def test_untagged_overlapping_scopes_with_equal_starts_are_pending():
     first, second = row(), row()
     second["scope"] = "S2"
     assign_hours([first, second], [entry(task="")], CUT)
     assert first["hours_pending"] and second["hours_pending"]
     assert first["burn"] is None
+
+
+def test_untagged_hours_go_to_earliest_eligible_scope_once():
+    later, earlier = row(), row()
+    earlier.update(scope="CR2", fechaInicio="2026-09-01")
+    records = [
+        entry(task=""),
+        entry(task=""),
+        entry("tagged", task="General_S1"),
+    ]
+    assign_hours([later, earlier], records, CUT)
+    assert earlier["burn"] == 1
+    assert later["burn"] == 1
+    assert not earlier["hours_pending"] and not later["hours_pending"]
+
+
+def test_earliest_scope_must_cover_entry_date():
+    current, expired = row(), row()
+    expired.update(scope="CR2", fechaInicio="2026-09-01", fechaFin="2026-09-30")
+    assign_hours([expired, current], [entry(task="")], CUT)
+    assert current["burn"] == 1
+    assert expired["burn"] == 0
 
 
 def test_no_sprint_cross_allocation_and_no_double_count():
