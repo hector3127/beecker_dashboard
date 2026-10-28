@@ -9,6 +9,12 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Vista EVA del inventario, 28/10:** solo columnas EVA, fecha de corte GET
+(hoy por defecto), rango inclusivo inicio/fin de iteraciones y etapa calculada
+al consultar. AMK.004_CR al 28/10 muestra Deployment (07/05–06/11).
+Sin extracción adicional ni cambio en cortes EVA/KPI. 33 servidor dirigidas,
+mypy y Ruff aprobados; validación responsiva documentada en inventario-summary.
+
 **Fechas por iteración del inventario, 28/10:** árbol Azure persistido por
 proyecto, bloques exclusivos de iteraciones incluidos, fechas por etapa y
 comparación con Summary. Fin = última fecha final válida registrada, por

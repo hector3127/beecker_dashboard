@@ -48,7 +48,19 @@ def summary_inventory(request: HttpRequest) -> HttpResponse:
     if _login_needed(request):
         return redirect_to_login(request.get_full_path())
     query = request.GET.get("q", "").strip()[:200]
-    run, rows = inventory_rows(query)
+    from datetime import date
+
+    cut_error = ""
+    try:
+        cut = date.fromisoformat(
+            request.GET.get("corte") or timezone.localdate().isoformat()
+        )
+    except ValueError:
+        cut = timezone.localdate()
+        cut_error = "Selecciona una fecha de corte válida."
+    run, rows = inventory_rows(query, cut)
+    if cut_error:
+        rows = []
     response = render(
         request,
         "pages/summary_inventory.html",
@@ -58,6 +70,14 @@ def summary_inventory(request: HttpRequest) -> HttpResponse:
             "rows": rows,
             "query": query,
             "count": len(rows),
+            "cut": cut.isoformat(),
+            "cut_error": cut_error,
+            "stage_columns": (
+                "Discovery",
+                "Development",
+                "Deployment",
+                "General",
+            ),
         },
     )
     response["Cache-Control"] = "no-store"

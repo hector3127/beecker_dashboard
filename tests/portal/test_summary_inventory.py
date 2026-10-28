@@ -1,5 +1,6 @@
 """Unfiltered Summary inventory persists independent sprint and CR rows."""
 
+from datetime import date
 from unittest.mock import Mock, patch
 
 import pytest
@@ -100,12 +101,44 @@ def test_inventory_page_is_local_searchable_and_escaped(
         "apps.portal.services.summary_inventory.AzureDevOpsGateway",
         side_effect=AssertionError("external read"),
     ):
-        response = client.get(reverse("portal:summary_inventory"), {"q": "S2"})
+        response = client.get(
+            reverse("portal:summary_inventory"),
+            {"q": "S2", "corte": "2026-06-01"},
+        )
     assert response.status_code == 200
     assert b"AMK.012_S2" in response.content
     assert b"AMK.012_S1" not in response.content
     assert b'name="q"' in response.content
     assert response["Cache-Control"] == "no-store"
+
+
+@pytest.mark.parametrize(
+    "cut,expected",
+    [
+        ("2026-05-13", 0),
+        ("2026-05-14", 1),
+        ("2026-06-22", 1),
+        ("2026-06-23", 0),
+    ],
+)
+def test_cut_range_includes_boundaries(inventory, cut, expected):
+    assert len(inventory_rows(cut=date.fromisoformat(cut))[1]) == expected
+
+
+def test_stage_recomputed_for_cut_and_today(inventory):
+    assert (
+        inventory_rows(cut=date(2026, 5, 15))[1][0]["calendar_stage"]
+        == "Discovery"
+    )
+    assert (
+        inventory_rows(cut=date(2026, 6, 1))[1][0]["calendar_stage"]
+        == "Development"
+    )
+    with patch(
+        "apps.portal.services.summary_inventory.timezone.localdate",
+        return_value=date(2026, 6, 1),
+    ):
+        assert inventory_rows("S2")[1][0]["calendar_stage"] == "Development"
 
 
 def test_failed_transport_keeps_last_inventory(inventory):

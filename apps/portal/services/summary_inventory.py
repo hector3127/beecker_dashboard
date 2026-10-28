@@ -1,6 +1,7 @@
 """Local Summary inventory, independent of EVA eligibility and cuts."""
 
 import time
+from datetime import date
 from typing import Any
 
 from django.db import transaction
@@ -146,6 +147,7 @@ def extract_summaries() -> EvaExtraction:
 
 def inventory_rows(
     query: str = "",
+    cut: date | None = None,
 ) -> tuple[EvaExtraction | None, list[dict[str, Any]]]:
     """Read only persisted data; searching never calls Azure."""
     run = (
@@ -163,6 +165,23 @@ def inventory_rows(
             .order_by("source__name", "pk")
         ):
             row = dict(block.row)
+            row.update(
+                calendar_fields(
+                    row.get("stages", []), cut or timezone.localdate()
+                )
+            )
+            start, finish = row["iteration_start"], row["iteration_finish"]
+            if cut is not None and not (
+                start and finish and start <= cut.isoformat() <= finish
+            ):
+                continue
+            row["deviation_days"] = (
+                (
+                    (cut or timezone.localdate()) - date.fromisoformat(finish)
+                ).days
+                if finish
+                else None
+            )
             row["azure_name"] = block.source.name
             row["azure_state"] = block.source.payload["summary"].get(
                 "state", ""

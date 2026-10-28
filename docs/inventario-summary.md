@@ -1,5 +1,27 @@
 # Inventario de Summary — primer bloque
 
+## Columnas EVA y corte por rango — 28/10
+
+Por instrucción del usuario se retiran de la tabla las columnas técnicas,
+fechas de Summary, validaciones y desplegables de etapas. Se muestran solo
+los campos EVA, incluidos conteos por etapa, horas y riesgos aún pendientes
+de extracción. Los datos de auditoría siguen guardados en la base.
+
+Formulario GET con corte por defecto timezone.localdate y buscador conjunto.
+Solo incluye bloques con inicio y fin de iteraciones válidos que cumplan
+inicio ≤ corte ≤ fin. No usa fechas Summary como sustituto. Estatus se
+recalcula en cada lectura con esa fecha, no la fecha de extracción.
+La consulta es local y filtra calendario actual guardado; no reconstruye
+los estados reales históricos ni modifica EVA/KPI activos.
+
+Verificación local real: AMK.004_CR al 28/10/2026 muestra Deployment,
+inicio 07/05/2026 y fin 06/11/2026. 33 servidor dirigidas aprobadas, incluidas
+ambas fronteras, exclusión fuera de rango y recálculo de etapas. Ruff y mypy
+aprobados. Tres Chrome con rutas reales/CSP a 390/900/1450 px aprobados:
+consulta de corte, conservación del buscador y exclusión al día siguiente
+del fin; capturas actualizadas en tmp/summary-inventory. Sin nuevas
+extracciones, sin push.
+
 ## Iteraciones y fechas — segundo bloque, 28/10
 
 Se incorpora classificationnodes/iterations con profundidad 15 para todos los
