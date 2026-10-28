@@ -1,5 +1,21 @@
 # Inventario de Summary — primer bloque
 
+## Primer change request CR1 / CR — 28/10
+
+MCC.016 tenía datos de Summary bajo CR1 y etapas bajo CR. Ahora se relaciona
+el único candidato CR1 con CR solo si ambos extremos de fechas coinciden,
+no hay candidato Summary CR y no existe iteración CR1. Nunca se une CR2 con
+CR. El campo summary_scope conserva CR1 y scope_link_evidence documenta la
+correspondencia. Fechas inválidas/no coincidentes siguen sin relacionarse.
+Esto amplía la relación estricta anterior sin modificar el parser compartido.
+
+Reproceso local: 450 proyectos, 685 bloques, 1.161 s, fuente original
+conservada. Verificado MCC.016_CR al 29/01/2026: Jose Patricio Ochoa Garza,
+IxB, Altas Empleados CR, Budget 125, Deployment. 18 servidor de inventario,
+iteraciones/resumen aprobadas; incluye alias CR1/CR con fechas coincidentes
+y rechazo con fin diferente. Ruff/mypy aprobados; sin cambios de interfaz
+ni nueva corrida de navegador. Sin extracción externa ni push.
+
 ## Corrección de encabezados CR — 28/10
 
 Instrucción posterior explícita del usuario: CHANGE REQUEST 1 / SPRNT 1

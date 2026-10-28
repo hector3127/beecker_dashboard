@@ -154,10 +154,17 @@ def test_failed_transport_keeps_last_inventory(inventory):
 
 
 @pytest.mark.parametrize(
-    "number,spelling", [(1, "SPRNT"), (2, "SPRNT"), (2, "SPRINT")]
+    "number,spelling,tree_code,tree_finish",
+    [
+        (1, "SPRNT", "CR1", "2026-04-24"),
+        (2, "SPRNT", "CR2", "2026-04-24"),
+        (2, "SPRINT", "CR2", "2026-04-24"),
+        (1, "SPRNT", "CR", "2026-04-24"),
+        (1, "SPRNT", "CR", "2026-04-25"),
+    ],
 )
 def test_local_replay_links_cr_summary_without_provider_calls(
-    inventory, number, spelling
+    inventory, number, spelling, tree_code, tree_finish
 ):
     source = inventory.evaazuresource_set.get(azure_id="one")
     summary = source.payload["summary"]
@@ -167,20 +174,20 @@ def test_local_replay_links_cr_summary_without_provider_calls(
         "Start: 22/12/2025\nFinish: 24/04/2026"
     )
     summary["iteration_tree"] = {
-        "name": f"General_CR{number}",
+        "name": f"General_{tree_code}",
         "children": [
             {
-                "name": f"Discovery_CR{number}",
+                "name": f"Discovery_{tree_code}",
                 "attributes": {
                     "startDate": "2025-12-22",
                     "finishDate": "2026-01-02",
                 },
             },
             {
-                "name": f"Deployment_CR{number}",
+                "name": f"Deployment_{tree_code}",
                 "attributes": {
                     "startDate": "2026-01-28",
-                    "finishDate": "2026-04-24",
+                    "finishDate": tree_finish,
                 },
             },
         ],
@@ -194,7 +201,10 @@ def test_local_replay_links_cr_summary_without_provider_calls(
     run, rows = inventory_rows("AMK.012", date(2026, 1, 29))
     assert run == replay
     assert len(rows) == 1
-    assert rows[0]["display_id"] == f"AMK.012_CR{number}"
+    assert rows[0]["display_id"] == f"AMK.012_{tree_code}"
+    if tree_finish != "2026-04-24":
+        assert not rows[0]["fields"]
+        return
     assert rows[0]["summary_scope"] == f"CR{number}_S1"
     assert rows[0]["fields"]["delivery_manager"] == "Alberto"
     assert rows[0]["budget"] == "90"

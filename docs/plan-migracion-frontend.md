@@ -9,6 +9,13 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Relación CR1/CR del inventario, 28/10:** MCC.016 tenía Summary CR1 y
+iteración CR. Se relacionan solo con ambas fechas válidas iguales y sin
+competidor CR/CR1; se preserva summary_scope. Reproceso local conserva fecha
+original, sin cambiar cortes EVA/KPI. MCC.016_CR recupera Jose Patricio,
+IxB, Altas Empleados CR y 125 horas. 18 servidor aprobadas; ver inventario-summary.
+Sin push.
+
 **Encabezados CR, 28/10:** por aclaración del usuario se ignora el sufijo
 / SPRNT 1 o / SPRINT 1 de los change requests en el inventario:
 CR1_S1 → CR1 y CR2_S1 → CR2. Original preservado en summary_scope y Summary.

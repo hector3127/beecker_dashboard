@@ -86,6 +86,29 @@ def extract_summaries(*, from_local: bool = False) -> EvaExtraction:
                 "iteration_error": iteration_error,
             }
             blocks = iteration_blocks(tree)
+            # Some trees call the first change request CR, while Summary
+            # calls it CR1. Require matching dates and no competing identity.
+            first_cr = [r for r in rows if r["scope"] == "CR1"]
+            if (
+                len(first_cr) == 1
+                and "CR" in blocks
+                and "CR1" not in blocks
+                and not any(r["scope"] == "CR" for r in rows)
+            ):
+                dates = calendar_fields(blocks["CR"], run.cut)
+                row = first_cr[0]
+                if (
+                    row.get("start")
+                    and row.get("finish")
+                    and row["start"] == dates["iteration_start"]
+                    and row["finish"] == dates["iteration_finish"]
+                ):
+                    row.setdefault("summary_scope", row["scope"])
+                    row.update(
+                        scope="CR",
+                        project_id=f"{base}_CR",
+                        scope_link_evidence="unique_first_cr_matching_dates",
+                    )
             known = {r["scope"] for r in rows}
             for code in blocks.keys() - known:
                 candidate = candidate_rows(base, "")[0]
