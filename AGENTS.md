@@ -23,6 +23,22 @@ Reglas que no se negocian:
 
 ## Estado vigente (27/10/2026)
 
+**Nuevo bloque de persistencia, base f3b0411.** El usuario pidió reducir
+peticiones externas y evitar resultados de caché anteriores a la base.
+Ver `docs/fuentes-persistentes.md`: migración aditiva 0007, catálogos Clockify,
+panel Azure/relaciones persistidos y generación de caché dentro de la misma
+transacción que los datos. No cambiar cálculos ni diseño para esta tarea.
+La sincronización incluye el paso `lecturas`; las definiciones de tareas
+se actualizan, pero no se han instalado. Conservar el fallback explícitamente
+documentado: no afirmar que todos los formularios/Daily funcionan offline.
+Incidencia de origen: Histórico devuelve #REF! por T141. Se conservó su copia
+válida del respaldo con fecha original; el monitoreo debe seguir avisando
+de su antigüedad hasta corregir Sheets. No ocultar ese fallo ni actualizar
+artificialmente su timestamp. Validados 2,235 servidor y 476 Node, más 41
+dirigidas tras el último ajuste; ver alcance en fuentes-persistentes.
+RAID se invalida persistentemente por proyecto tras escritura, sin depender
+de un contador volátil de caché. No se hizo push.
+
 **Excepción autorizada posteriormente por el usuario: rediseño de Proyectos.**
 El usuario pidió renovar todas las pestañas del detalle de proyecto, con
 gráficas/tablas responsivas y mejor organización. Esa vista usa ahora el

@@ -38,6 +38,58 @@ class SyncRun(models.Model):
         ordering = ["-started_at", "-pk"]
 
 
+class DataRevision(models.Model):
+    """Persistent generation of committed source data, independent of cache."""
+
+    version = models.PositiveBigIntegerField(default=0)
+
+
+class ClockifyCatalog(models.Model):
+    """Completeness marker for one workspace's project catalog."""
+
+    workspace_id = models.CharField(max_length=80, unique=True)
+    synced_at = models.DateTimeField()
+
+
+class ClockifyProjectRecord(models.Model):
+    """Provider identity, separate from the internal business project ID."""
+
+    catalog = models.ForeignKey(ClockifyCatalog, on_delete=models.CASCADE)
+    external_id = models.CharField(max_length=80)
+    name = models.CharField(max_length=500)
+    client_id = models.CharField(max_length=80, blank=True)
+    position = models.PositiveIntegerField()
+    tasks_synced_at = models.DateTimeField(null=True)
+
+    class Meta:
+        """A project ID belongs to one workspace catalog."""
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["catalog", "external_id"],
+                name="clockify_catalog_project",
+            )
+        ]
+
+
+class ClockifyTaskRecord(models.Model):
+    """A task belongs to its provider project; payload preserves API fields."""
+
+    project = models.ForeignKey(ClockifyProjectRecord, on_delete=models.CASCADE)
+    external_id = models.CharField(max_length=80)
+    position = models.PositiveIntegerField()
+    payload = models.JSONField()
+
+    class Meta:
+        """Task identity is scoped to its project."""
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["project", "external_id"], name="clockify_catalog_task"
+            )
+        ]
+
+
 class SheetSnapshot(models.Model):
     """Una hoja de Google Sheets tal como estaba en la ultima sincronizacion.
 
@@ -137,8 +189,8 @@ class AzureProject(models.Model):
     risk_fields = models.JSONField(default=list)
     # Los campos de Risk se leyeron bien; si no, el RAID no se da por bueno.
     risk_fields_ok = models.BooleanField(default=True)
-    # Version del RAID de la cache al sincronizar: si la app crea un
-    # registro (sube la version), este RAID deja de valer.
+    # Version observada en la cache al sincronizar (diagnostico). La
+    # frescura persistente se invalida mediante risk_fields_ok, no por TTL.
     raid_version = models.IntegerField(default=0)
     synced_at = models.DateTimeField()
 
@@ -151,12 +203,14 @@ class AzureWorkItem(models.Model):
 
     LATEST = "latest"
     RAID = "raid"
+    PANEL = "panel"
 
     project = models.ForeignKey(
         AzureProject, on_delete=models.CASCADE, related_name="work_items"
     )
     # latest: los 1,000 mas recientes con los campos del dashboard.
     # raid: riesgos y oportunidades Active/Proposed con todos los campos.
+    # panel: los 750 del panel IXS, con todos sus campos y relaciones.
     kind = models.CharField(max_length=10)
     position = models.IntegerField()
     work_item_id = models.IntegerField()
@@ -196,6 +250,14 @@ class AzureIteration(models.Model):
         """Lectura por proyecto en el orden del arbol."""
 
         indexes = [models.Index(fields=["project", "position"])]
+
+
+class AzurePanelSnapshot(models.Model):
+    """Complete Daily/IXS source coverage, separate from limited fields."""
+
+    project = models.OneToOneField(AzureProject, on_delete=models.CASCADE)
+    total_items = models.PositiveIntegerField()
+    synced_at = models.DateTimeField()
 
 
 class SyncLock(models.Model):

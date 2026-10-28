@@ -4,6 +4,21 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
+**Persistencia y caché, bloque sobre f3b0411.** Ver
+`docs/fuentes-persistentes.md` antes de tocar fuentes: catálogo Clockify y
+paneles Azure completos en base; generación persistente por publicación,
+fuera de los estados/configuración de caché. Migración 0007 aplicada localmente
+con respaldo verificado. 943 proyectos Clockify y 111 paneles cargados;
+Azure y octubre de horas actualizados. Sin cambios de diseño/fórmulas.
+Importante: Histórico de Sheets devuelve #REF! en encabezado por T141.
+Se recuperó solo esa hoja del respaldo con fecha original del 21/10.
+El monitoreo mantiene la alerta de hojas vencidas. Corregir origen y
+sincronizar, no alterar datos ni timestamps para quitar la alerta.
+2,235 servidor y 476 Node aprobadas, 41 dirigidas tras el ajuste final de
+orden de lotes. Altas RAID invalidan solo el proyecto afectado; perder la
+versión volátil de caché ya no descarta una copia válida de la base.
+Sin nueva revisión visual ni corrida completa de e2e. Sin push.
+
 **Revisión de diseño vigente: delivery-v2, base ce68f0e.** Proyectos usa
 Business Overview como referencia por nueva petición del usuario. Revisadas
 las 18 pestañas existentes de ambas familias y los editores; ver evidencia

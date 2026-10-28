@@ -5,6 +5,7 @@ from datetime import date, datetime
 from typing import Any
 
 from django.conf import settings
+from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError, CommandParser
 from django.utils import timezone
 
@@ -36,7 +37,7 @@ Otros: sync_datastore --desde AAAA-MM [--hasta AAAA-MM]  (carga inicial)
        sync_datastore --sin-verificar                     (sin comparar totales)
 """
 
-STEPS = ("hojas", "azure", "clockify", "catalogos")
+STEPS = ("hojas", "azure", "clockify", "lecturas", "catalogos")
 # Despues de este tiempo un candado se considera abandonado (el proceso
 # murio). Clockify admite la carga inicial, que tarda cerca de una hora.
 LOCK_SECONDS = {
@@ -44,6 +45,7 @@ LOCK_SECONDS = {
     "azure": 30 * 60,
     "clockify": 3 * 60 * 60,
     "catalogos": 15 * 60,
+    "lecturas": 3 * 60 * 60,
 }
 
 
@@ -159,6 +161,7 @@ class Command(BaseCommand):
             "azure": lambda: self.sync_azure_projects(),
             "clockify": lambda: self.sync_clockify(options),
             "catalogos": lambda: self.sync_catalogs(),
+            "lecturas": lambda: self.sync_read_sources(options),
         }
         failures: list[str] = []
         for step in self.selected_steps(options):
@@ -174,6 +177,19 @@ class Command(BaseCommand):
                 failures.extend(runners[step]())
         if failures:
             raise CommandError("\n".join(failures))
+
+    def sync_read_sources(self, options: dict[str, Any]) -> list[str]:
+        """Guarda fuentes completas sin ignorar --sin-azure."""
+        try:
+            call_command(
+                "sync_read_sources",
+                fuente="clockify" if options["sin_azure"] else "todas",
+                stdout=self.stdout,
+                stderr=self.stderr,
+            )
+        except (CommandError, DashboardError) as error:
+            return [f"Lecturas: {error}"]
+        return []
 
     def sync_azure_projects(self) -> list[str]:
         """

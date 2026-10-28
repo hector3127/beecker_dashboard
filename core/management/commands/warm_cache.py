@@ -8,8 +8,10 @@ from typing import Any
 
 from django.core.cache import cache
 from django.core.management.base import BaseCommand, CommandParser
+from django.db import transaction
 
 from apps.access.checks import trust
+from core.data_cache import bump_revision, enabled, revision_scope
 from core.exceptions import DashboardError
 from core.rpc.registry import get_rpc_function
 from core.sheets import sheet_names
@@ -80,15 +82,28 @@ class Command(BaseCommand):
         parser.add_argument(
             "--refresh",
             action="store_true",
-            help="Borra la cache antes de consultar (datos 100%% frescos).",
+            help="Invalida resultados antes de precalentar; "
+            "no sincroniza fuentes.",
         )
 
     def handle(self, *args: Any, **options: Any) -> None:
         """Ejecuta las consultas y muestra el tiempo de cada una."""
         if options["refresh"]:
-            cache.clear()
-            self.stdout.write("Cache borrada.")
+            if enabled():
+                with transaction.atomic():
+                    bump_revision()
+                self.stdout.write(
+                    "Resultados invalidados; fuentes conservadas."
+                )
+            else:
+                cache.clear()
+                self.stdout.write("Cache borrada.")
 
+        with revision_scope():
+            self.warm(options)
+
+    def warm(self, options: dict[str, Any]) -> None:
+        """Precalienta todos los pasos bajo una misma versión de datos."""
         if options["base_only"]:
             self.run_step(
                 "Operativa: proyectos y estados",

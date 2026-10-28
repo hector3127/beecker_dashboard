@@ -63,7 +63,7 @@ def stored_raid(project_name: str) -> raid_cache.RaidData | None:
         return None
     from apps.datastore.services import azure_store
 
-    return azure_store.read_raid(project_name, raid_cache.read_version(cache))
+    return azure_store.read_raid(project_name)
 
 
 def stored_iterations(project_name: str) -> list[JsonObject] | None:
@@ -84,14 +84,21 @@ def is_stored(project_name: str) -> bool:
     return azure_store.has_project(project_name)
 
 
-def clear_raid_cache() -> None:
+def clear_raid_cache(project_name: str | None = None) -> None:
     """
     Invalida el RAID guardado de todos los Team Projects.
 
     Se llama despues de crear un registro RAID para que el dashboard
     ejecutivo lo muestre en la siguiente consulta.
+
+    Args:
+        project_name: Team Project afectado; None invalida todos.
     """
     raid_cache.clear_raid_cache(cache)
+    if store_enabled():
+        from apps.datastore.services.azure_panel_store import invalidate
+
+        invalidate(project_name)
 
 
 class AzureDevOpsGateway:

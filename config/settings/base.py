@@ -120,6 +120,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "core.data_cache.SourceCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -174,6 +175,7 @@ CACHES = {
     "default": {
         "BACKEND": "core.throttled_cache.ThrottledCullFileCache",
         "LOCATION": BASE_DIR / ".cache",
+        "KEY_FUNCTION": "core.data_cache.make_key",
         "OPTIONS": {"MAX_ENTRIES": 10000, "CULL_FREQUENCY": 3},
     },
 }

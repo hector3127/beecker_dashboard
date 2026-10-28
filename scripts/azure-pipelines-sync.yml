@@ -60,7 +60,7 @@ steps:
       if [ "$(Build.CronSchedule.DisplayName)" = "Diario - Clockify y catalogos" ]; then
         STEPS="clockify,catalogos"
       else
-        STEPS="hojas,azure,catalogos"
+        STEPS="hojas,azure,lecturas,catalogos"
       fi
       echo "Pasos: $STEPS"
       uv run python manage.py sync_datastore --pasos "$STEPS"
@@ -77,7 +77,7 @@ steps:
       AZURE_DEVOPS_PAT: $(AZURE_DEVOPS_PAT)
 
   # Falla el pipeline (y avisa) si alguna fuente quedo atrasada.
-  - script: uv run python manage.py check_datastore
+  - script: uv run python manage.py check_datastore --lecturas
     displayName: Revisar frescura
     env:
       DJANGO_SETTINGS_MODULE: config.settings.production

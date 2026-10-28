@@ -179,6 +179,7 @@ class RaidContext:
     organization: str
     azure_project: str
     client: DailyAzureClient
+    use_store: bool = False
 
     @property
     def url(self) -> str:
@@ -245,6 +246,7 @@ def build_context(azure: IxsAzure, project_value: object) -> RaidContext:
         azure.organization,
         azure_project,
         azure.build_client(),
+        azure.use_store,
     )
 
 
@@ -373,6 +375,7 @@ def list_raid(
         details = load_relation_details(
             context,
             [item["id"] for item in basic if item.get("id")],
+            use_store=not bool(force_refresh),
         )
         result = {
             "ok": True,
@@ -409,6 +412,8 @@ def list_raid(
 def load_relation_details(
     context: RaidContext,
     ids: Sequence[Any],
+    *,
+    use_store: bool = True,
 ) -> dict[str, JsonObject]:
     """
     Work items con todos sus campos y relaciones, en lotes de 130.
@@ -416,10 +421,25 @@ def load_relation_details(
     Args:
         context: Contexto del proyecto.
         ids: IDs RAID.
+        use_store: Permite la copia local en lecturas no forzadas.
 
     Returns:
         ID -> work item.
     """
+    if use_store and context.use_store:
+        from apps.datastore.services.azure_panel_store import read
+
+        stored = read(context.azure_project)
+        if stored is not None:
+            _, items = stored
+            wanted = set(map(str, ids))
+            details = {
+                str(item["id"]): item
+                for item in items
+                if str(item["id"]) in wanted
+            }
+            if set(details) == wanted:
+                return details
     details: dict[str, JsonObject] = {}
 
     for start in range(0, len(ids), RELATION_BATCH_SIZE):

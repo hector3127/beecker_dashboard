@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
 from apps.datastore.models import AzureIteration, AzureProject, AzureWorkItem
+from core.data_cache import bump_revision
 from core.utils.parallel import is_pool_worker
 
 """BKD.130.011 - Azure DevOps en la base
@@ -112,7 +113,9 @@ def save_project(
                 "synced_at": timezone.now(),
             },
         )
-        project.work_items.all().delete()
+        project.work_items.filter(
+            kind__in=[AzureWorkItem.LATEST, AzureWorkItem.RAID]
+        ).delete()
         project.iterations.all().delete()
         AzureWorkItem.objects.bulk_create(
             [
@@ -140,8 +143,10 @@ def save_project(
             ],
             batch_size=500,
         )
+        bump_revision()
 
 
+@transaction.atomic
 def drop_projects_except(names: Sequence[str]) -> int:
     """
     Borra los proyectos que ya no existen en la organizacion.
@@ -156,6 +161,8 @@ def drop_projects_except(names: Sequence[str]) -> int:
     # delete() cuenta tambien las filas hijas; aqui solo interesan proyectos.
     count = gone.count()
     gone.delete()
+    if count:
+        bump_revision()
     return count
 
 
@@ -205,13 +212,13 @@ def read_work_items(name: str) -> list[JsonObject] | None:
         _release_thread_connection()
 
 
-def read_raid(name: str, version: int) -> RaidData | None:
+def read_raid(name: str, version: int | None = None) -> RaidData | None:
     """
     RAID y campos de Risk del proyecto.
 
     Args:
         name: Team Project.
-        version: Version vigente del RAID en la cache.
+        version: Compatibilidad con lectores anteriores; no decide frescura.
 
     Returns:
         Los dos, o None si el proyecto no esta, sus campos no se leyeron o
@@ -219,11 +226,9 @@ def read_raid(name: str, version: int) -> RaidData | None:
     """
     try:
         project = AzureProject.objects.filter(name=name).first()
-        if (
-            project is None
-            or not project.risk_fields_ok
-            or project.raid_version != version
-        ):
+        # La pérdida/rotación de la caché no invalida datos persistentes.
+        # Las escrituras reales marcan el proyecto dentro de una transacción.
+        if project is None or not project.risk_fields_ok:
             return None
         items = list(
             AzureWorkItem.objects.filter(

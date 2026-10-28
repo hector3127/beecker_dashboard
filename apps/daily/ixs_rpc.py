@@ -86,6 +86,7 @@ def build_ixs_azure() -> IxsAzure:
         ),
         cache=cache,
         load_progress=lambda: daily_sheets.load_progress_map(build_sheets()),
+        use_store=bool(settings.AZURE_STORE_ENABLED),
     )
 
 
@@ -139,8 +140,9 @@ def create_raid_record(
     data: object = None,
 ) -> JsonObject:
     """Crea el Risk, Issue u Opportunity en Azure DevOps."""
+    azure = build_ixs_azure()
     result = ixs_raid.create_raid_record(
-        build_ixs_azure(),
+        azure,
         project_id,
         raid_type,
         data,
@@ -152,7 +154,7 @@ def create_raid_record(
         with contextlib.suppress(DashboardError):
             risk_form.clear_work_item_cache(build_daily_azure())
 
-        clear_raid_cache()
+        clear_raid_cache(azure.resolve_project(str(project_id).strip()) or None)
 
     return result
 

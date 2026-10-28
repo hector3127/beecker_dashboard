@@ -390,16 +390,26 @@ class ClockifyTimeEntryLoader:
         Returns:
             Tasks con id, name y status.
         """
+        if settings.CLOCKIFY_STORE_ENABLED and not force_sources.get():
+            from apps.datastore.services.clockify_catalog import read_tasks
+
+            stored = read_tasks(self._workspace_id, clockify_project_id)
+            if stored is not None:
+                return stored
         cache_key = f"{self._cache_prefix}:tasks:{clockify_project_id}"
         cached_tasks = self._cache_store.get(cache_key)
 
-        if isinstance(cached_tasks, list):
+        if isinstance(cached_tasks, list) and not force_sources.get():
             return cached_tasks
 
         tasks = self._client_factory().list_project_tasks(
             self._workspace_id,
             clockify_project_id,
         )
+        if settings.CLOCKIFY_STORE_ENABLED:
+            from apps.datastore.services.clockify_catalog import save_tasks
+
+            save_tasks(self._workspace_id, clockify_project_id, tasks)
         self._cache_store.set(cache_key, tasks, TASKS_CACHE_SECONDS)
 
         return tasks
@@ -599,8 +609,21 @@ class ClockifyTimeEntryLoader:
         este cargador la conserva para las consultas siguientes de la misma
         peticion. Una lectura forzada la renueva.
         """
+        force_refresh = bool(force_refresh or force_sources.get())
         if self._projects is not None and not force_refresh:
             return self._projects
+
+        if (
+            settings.CLOCKIFY_STORE_ENABLED
+            and not force_refresh
+            and not force_sources.get()
+        ):
+            from apps.datastore.services.clockify_catalog import read_projects
+
+            stored = read_projects(self._workspace_id)
+            if stored is not None:
+                self._projects = stored
+                return stored
 
         cache_key = f"{self._cache_prefix}:projects"
         cached_projects = self._cache_store.get(cache_key)

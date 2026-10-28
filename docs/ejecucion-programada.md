@@ -8,13 +8,16 @@ reales.
 
 | Tarea | Comando | Frecuencia | Duración medida |
 | --- | --- | --- | --- |
-| Hojas, Azure y catálogos | `python manage.py sync_datastore --pasos hojas,azure,catalogos` | cada hora | 57 s (hojas 3 s, Azure 46 s) |
+| Hojas, Azure, lecturas y catálogos | `python manage.py sync_datastore --pasos hojas,azure,lecturas,catalogos` | cada hora | añade paneles completos; las mediciones anteriores de 57 s no incluyen este paso |
 | Clockify y catálogos | `python manage.py sync_datastore --pasos clockify,catalogos` | cada día, 06:00 | 161 s (ventana abierta + verificación de 26 meses) |
 | Precalentar pantallas | `python manage.py warm_cache` | cada 10 min | ~60 s con la caché vacía |
-| Revisar frescura | `python manage.py check_datastore` | cada hora | segundos |
+| Revisar frescura | `python manage.py check_datastore --lecturas` | cada hora | segundos |
 
-- Los pasos son `hojas`, `azure`, `clockify` y `catalogos`; sin `--pasos` corren
+- Los pasos son `hojas`, `azure`, `clockify`, `lecturas` y `catalogos`; sin `--pasos` corren
   todos. `--sin-verificar` omite la comparación de totales de Clockify.
+- `lecturas` guarda el catálogo Clockify y los campos/relaciones completos del
+  panel Azure. Ver [fuentes-persistentes.md](fuentes-persistentes.md): incluye
+  migración, tareas opcionales, validación de encabezados y límites del fallback.
 - El horario diario no tiene que ser el único: `--pasos clockify` puede correr
   más seguido (por ejemplo a mediodía) para ver las horas del día; solo
   descarga el mes abierto (7 solicitudes, ~15 s).
@@ -110,4 +113,6 @@ del repositorio de Genesis y no está aquí.
 - Una escritura de la app en Sheets (por ejemplo un riesgo manual) borra la
   copia de esa hoja y la siguiente lectura va a Google; no espera a la
   siguiente sincronización.
-- El panel Daily / IXS sigue leyendo Azure en vivo.
+- El panel IXS y su listado RAID usan la copia completa de la base cuando está
+  disponible. Otras consultas Daily y metadatos de formularios siguen pudiendo
+  leer Azure en vivo; no es un modo offline global.

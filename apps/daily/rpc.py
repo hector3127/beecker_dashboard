@@ -457,7 +457,13 @@ def search_work_items(query: object = "") -> JsonObject:
 @register_rpc("crearWorkItemRiesgoAzure")
 def create_risk(form: object = None) -> JsonObject:
     """Crea un work item Risk en Azure DevOps."""
-    return risk_form.create_risk_work_item(build_daily_azure(), form)
+    azure = build_daily_azure()
+    result = risk_form.create_risk_work_item(azure, form)
+    if result.get("ok") and settings.AZURE_STORE_ENABLED:
+        from apps.datastore.services.azure_panel_store import invalidate
+
+        invalidate(azure.connection.project)
+    return result
 
 
 @register_rpc("agregarComentarioWorkItem")

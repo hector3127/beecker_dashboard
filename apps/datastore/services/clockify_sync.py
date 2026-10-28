@@ -31,6 +31,7 @@ from apps.clockify.services.report_mapper import (
 )
 from apps.datastore.models import ClockifyMonthSync, ClockifyTimeEntry, SyncRun
 from apps.datastore.services.retry import with_retries
+from core.data_cache import bump_revision
 from core.utils.text import to_text
 
 """BKD.130.003 - Sincronizacion de Clockify
@@ -268,6 +269,7 @@ def save_month(
                 "run": run,
             },
         )
+        bump_revision()
     return len(entries)
 
 

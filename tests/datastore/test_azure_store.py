@@ -89,8 +89,11 @@ def test_unknown_projects_are_not_in_the_store():
 
 
 def test_raid_is_ignored_when_the_app_created_a_record_after_the_sync():
+    from apps.datastore.services.azure_panel_store import invalidate
+
     save(version=4)
     assert azure_store.read_raid("P", 4) is not None
+    invalidate("P")
     assert azure_store.read_raid("P", 5) is None
 
 
@@ -256,7 +259,9 @@ def test_force_refresh_of_iterations_goes_to_azure(gateway, live):
 def test_creating_a_risk_makes_the_stored_raid_read_live_again(gateway, live):
     save("P", version=raid_cache.read_version(cache))
     assert gateway.list_raid("P")[0][0]["id"] == 9 and live.calls == []
-    raid_cache.clear_raid_cache(cache)
+    from apps.azure_devops.gateway import clear_raid_cache
+
+    clear_raid_cache("P")
     assert gateway.list_raid("P")[0][0]["id"] == 51
     assert "raid" in live.calls
 

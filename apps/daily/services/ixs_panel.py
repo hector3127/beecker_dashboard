@@ -80,6 +80,7 @@ class IxsAzure:
     build_client: Callable[[], DailyAzureClient]
     cache: DailyCache
     load_progress: Callable[[], dict[str, JsonObject]]
+    use_store: bool = False
 
 
 def normalize_upper(value: object) -> str:
@@ -289,6 +290,22 @@ def load_raw_items(
         PanelError: Cuando Azure falla sin copia disponible.
     """
     project_id, azure_project = projects
+    if azure.use_store and not force_refresh:
+        from apps.datastore.services.azure_panel_store import read
+
+        stored = read(azure_project)
+        if stored is not None:
+            snapshot, items = stored
+            selected = filter_project_items(items, project_id, azure_project)
+            return {
+                "totalTeamProject": snapshot.total_items,
+                "limitReached": snapshot.total_items > len(items),
+                "workItems": [
+                    build_raw_item(item, azure.organization, azure_project)
+                    for item in selected
+                ],
+                "obtenidoEn": int(snapshot.synced_at.timestamp() * 1000),
+            }, ""
     key = "ixs_panel_azure_v96_" + cache_text(
         f"{azure.organization}_{azure_project}_{project_id}",
     )
@@ -301,7 +318,27 @@ def load_raw_items(
             return cached, ""
 
     try:
-        raw = fetch_raw_items(azure, project_id, azure_project)
+        if azure.use_store and force_refresh:
+            from apps.datastore.services import azure_panel_store, azure_store
+
+            total, items = azure_panel_store.download(
+                azure.build_client(), azure_project
+            )
+            if azure_store.has_project(azure_project):
+                azure_panel_store.save(azure_project, total, items)
+            selected = filter_project_items(items, project_id, azure_project)
+            raw = {
+                "totalTeamProject": total,
+                "limitReached": total > len(items),
+                "workItems": [
+                    build_raw_item(item, azure.organization, azure_project)
+                    for item in selected
+                ],
+            }
+        else:
+            raw = fetch_raw_items(azure, project_id, azure_project)
+    except ValueError as error:
+        raise PanelError(str(error)) from error
     except DashboardError as error:
         if not is_transient(error):
             raise

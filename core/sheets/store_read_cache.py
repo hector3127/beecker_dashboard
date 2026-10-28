@@ -4,10 +4,12 @@ from collections.abc import Iterable
 from typing import Any, Final
 
 from django.apps import apps
-from django.db import DatabaseError
+from django.db import DatabaseError, transaction
 from django.db.models import Manager
 from django.utils import timezone
 
+from core.data_cache import bump_revision
+from core.exceptions import DashboardError
 from core.sheets.read_cache import SheetReadCache, SheetValues
 
 """BKD.004.009 - Hojas guardadas en la base
@@ -34,6 +36,8 @@ STORED_SHEETS: Final[tuple[str, ...]] = (
     "Banda salarial",
     "Backlog_Proyectos",
     "CatalagoProyectos",
+    "Clockify_Vinculos",
+    "WorkItems_Avance",
 )
 SHEET_IDS_NAME: Final[str] = "__sheet_ids__"
 MODEL_LABEL: Final[tuple[str, str]] = ("datastore", "SheetSnapshot")
@@ -42,12 +46,41 @@ MODEL_LABEL: Final[tuple[str, str]] = ("datastore", "SheetSnapshot")
 _memory: dict[str, tuple[object, object]] = {}
 
 
+class SnapshotValidationError(DashboardError):
+    """La fuente no puede sustituir un encabezado por un error de fórmula."""
+
+    code = "ERR_SHEET_SNAPSHOT"
+    expose_detail = True
+
+
+def validate_snapshot(name: str, rows: object) -> None:
+    """Rechaza encabezados corruptos sin interpretar ni cambiar sus datos."""
+    errors = (
+        "#REF!",
+        "#VALUE!",
+        "#DIV/0!",
+        "#NAME?",
+        "#NUM!",
+        "#ERROR!",
+        "#N/A",
+    )
+    if isinstance(rows, list) and rows and isinstance(rows[0], list):
+        for index, value in enumerate(rows[0], start=1):
+            if isinstance(value, str) and value.strip().startswith(errors):
+                raise SnapshotValidationError(
+                    f"{name}: encabezado {index} contiene un error de fórmula. "
+                    "Se conserva el último corte válido; "
+                    "revisa la hoja de origen."
+                )
+
+
 def _snapshots() -> Manager[Any]:
     """El modelo, buscado al usarlo para no importar apps desde core."""
     manager: Manager[Any] = apps.get_model(*MODEL_LABEL).objects
     return manager
 
 
+@transaction.atomic
 def save_snapshot(name: str, rows: object) -> None:
     """
     Guarda o reemplaza una hoja en la base.
@@ -56,6 +89,7 @@ def save_snapshot(name: str, rows: object) -> None:
         name: Nombre de la hoja (o SHEET_IDS_NAME).
         rows: Matriz de valores, o el diccionario de IDs de hojas.
     """
+    validate_snapshot(name, rows)
     now = timezone.now()
     _snapshots().update_or_create(
         name=name,
@@ -66,11 +100,15 @@ def save_snapshot(name: str, rows: object) -> None:
         },
     )
     _memory.pop(name, None)
+    bump_revision()
 
 
+@transaction.atomic
 def delete_snapshot(name: str) -> None:
     """Borra una hoja guardada."""
-    _snapshots().filter(name=name).delete()
+    count, _ = _snapshots().filter(name=name).delete()
+    if count:
+        bump_revision()
     _memory.pop(name, None)
 
 

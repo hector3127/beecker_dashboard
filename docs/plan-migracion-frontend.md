@@ -9,6 +9,26 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Persistencia de fuentes y coherencia de caché, base f3b0411:** encargo
+posterior del usuario sobre rendimiento/backend; no altera el diseño ni
+las fórmulas migradas. Migración aditiva 0007, catálogo/tareas Clockify por
+workspace/proyecto, paneles Azure completos y relaciones; se conserva el
+límite de 750 y su aviso. Generación de resultados ligada transaccionalmente
+a cada publicación; cálculos tardíos no pisan la siguiente generación.
+Sesiones/configuración/estado del refresco conservan sus claves.
+Definiciones horarias incluyen `lecturas`, sin instalar tareas.
+Evidencia de lecturas reales sin HTTP, respaldo, comandos y límites en
+[fuentes-persistentes.md](fuentes-persistentes.md).
+Incidencia real de origen: #REF! de Histórico por T141; se conservó la copia
+válida del 21/10 y su alerta de antigüedad. No declarar frescura completa.
+La validación de encabezados impide publicar ese error en próximas corridas.
+Validación: 2,235 servidor, 476 Node; 41 dirigidas de almacenes repetidas tras
+el último ajuste de orden de lotes. API real con CSP/HTTP externo bloqueado,
+Ruff/formato, mypy y checks de Django aprobados. No es una corrida completa
+de e2e ni comparación visual; no cambia frontend. Bash/PowerShell y DryRun
+de tareas aprobados; no se instalan tareas ni se despliega el pipeline.
+Sin push.
+
 **Resumen de Acciones, base 4d520ce:** mejora solicitada sobre la captura
 del encabezado/cinco indicadores. Se elimina el recuadro interior duplicado
 y la clase genérica `.top` en los indicadores, que heredaba presentación

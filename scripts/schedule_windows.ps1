@@ -44,7 +44,7 @@ $LogDir = Join-Path $ProjectDir 'logs'
 $Jobs = @(
     @{
         Name = "$Prefix-Sync-Horario"
-        Args = 'manage.py sync_datastore --pasos hojas,azure,catalogos'
+        Args = 'manage.py sync_datastore --pasos hojas,azure,lecturas,catalogos'
         EveryMinutes = 60; StartAt = '00:05'; Limit = (New-TimeSpan -Hours 1)
         Log = 'sync-horario.log'
         Text = 'Guarda las hojas de Sheets, Azure DevOps y los catalogos en la base.'
@@ -65,7 +65,7 @@ $Jobs = @(
     },
     @{
         Name = "$Prefix-Revisar"
-        Args = 'manage.py check_datastore'
+        Args = 'manage.py check_datastore --lecturas'
         EveryMinutes = 60; StartAt = '00:40'; Limit = (New-TimeSpan -Minutes 10)
         Log = 'revisar.log'
         Text = 'Termina con error si hojas, Azure o Clockify se quedaron atrasados (ver "Ultimo resultado" en Status).'
