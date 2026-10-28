@@ -39,7 +39,7 @@ def test_active_eva_filters_and_source_are_local(client, settings, inventory):
     assert b'class="service-pill' in response.content
     assert b'id="eva-extract"' not in response.content
     assert b"Ver inventario de Summary" not in response.content
-    assert response.context["eva_compliance"].time_cost.time_days == 100
+    assert response.context["eva_card_metrics"]["time_percent"] == 100
     assert (
         client.get(
             "/operativa/eva-1/", {"corte": "2026-06-01", "manager": "Other"}
@@ -77,7 +77,49 @@ def test_cards_use_visible_total_of_22(client, settings, db):
         },
     ):
         response = client.get("/operativa/eva-1/")
-    total = response.context["eva_compliance"]
-    assert total.total == 22
-    assert total.time_cost.time_days == 100 * 18 / 22
-    assert total.time_cost.cost_percent == 100 * 15 / 22
+    total = response.context["eva_card_metrics"]
+    assert total["total"] == 22
+    assert total["time_percent"] == 100 * 18 / 22
+    assert total["cost_percent"] == 100 * 7 / 22
+
+
+def test_cards_count_11_projects_with_five_over_budget_and_one_pending(
+    client, settings, db
+):
+    from apps.portal.services.eva2 import build_eva2_view
+    from tests.portal.test_eva2 import make_row
+
+    rows = [
+        make_row(
+            idProyecto=f"P{i}",
+            desviacionDias=-1 if i < 10 else 0,
+            avance=110 if i < 5 else 100,
+            budget=100,
+            hours_pending=i == 10,
+            progress_pending=i == 10,
+        )
+        for i in range(11)
+    ]
+    settings.PORTAL_LOGIN_REQUIRED = False
+    with patch(
+        "apps.portal.services.eva_inventory_view.load_inventory_eva",
+        return_value={
+            "eva": build_eva2_view(rows),
+            "projected_rows": rows,
+            "inventory_rows": [],
+            "extraction": None,
+            "error": "",
+        },
+    ):
+        response = client.get("/operativa/eva-1/")
+    metrics = response.context["eva_card_metrics"]
+    assert metrics == {
+        "total": 11,
+        "in_time": 11,
+        "over_budget": 5,
+        "time_percent": 100,
+        "cost_percent": 100 * 5 / 11,
+    }
+    assert response.context["eva_cost_pending"] == 1
+    assert b"45.5%" in response.content
+    assert b"5/11" in response.content

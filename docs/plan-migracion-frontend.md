@@ -9,6 +9,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Tarjetas EVA, criterio confirmado 28/10:** T cuenta desviaciones <= 0 y C
+cuenta avances > 100%, ambos divididos entre todos los proyectos de la tabla
+tras corte/DM/servicio. Pendientes siguen en el denominador y no cuentan como
+sobrecosto. Caso solicitado: 11 proyectos, T=11/11=100%, C=5/11=45.45%
+(45.5% en la tarjeta, precisión visual existente). C se rotula Sobrecosto;
+no se modifican los KPIs mensuales de cumplimiento de DM. 29 pruebas servidor
+dirigidas y cuatro Chrome aprobadas (tres tamaños, filtros/exportación y
+consulta sin JS); Ruff aprobado. Sin push.
+
 **Retirada del EVA anterior, 28/10:** extractor/rutas/panel anteriores retirados;
 Summary, iteraciones, Clockify e histórico Azure son el flujo único de EVA y
 KPIs mensuales. Migraciones 0010/0011 aplicadas con respaldo. Suspensión solo

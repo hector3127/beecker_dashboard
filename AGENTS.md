@@ -4,6 +4,11 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 
 ## Objetivo
 
+**Tarjetas EVA, criterio posterior confirmado 28/10:** T=desviación <= 0 / TP;
+C=avance > 100% / TP, sobre todos los proyectos de la tabla filtrada. C expresa
+sobrecosto, no cumplimiento. Pendientes permanecen en el denominador. Este
+cambio es solo de tarjetas EVA; KPIs mensuales DM conservan su definición.
+
 **EVA, actualización 28/10:** retirado el extractor previo al inventario Summary,
 sus rutas/panel y datos exclusivos (0010/0011 con respaldo). EVA y KPIs usan
 el inventario nuevo. Suspendido solo con evidencia explícita Azure: RSP activo;

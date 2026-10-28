@@ -974,25 +974,31 @@ def eva1(request: HttpRequest) -> HttpResponse:
         request.GET.get("manager", ""),
         request.GET.get("service", ""),
     )
-    from apps.portal.services.kpi_eva import compliance_view
-
-    data["eva_compliance"] = compliance_view(
-        [
-            r
-            for r in data.pop("projected_rows", [])
-            if (
-                not request.GET.get("manager")
-                or r["deliveryManager"] == request.GET["manager"]
-            )
-            and (
-                not request.GET.get("service")
-                or r["servicio"].casefold() == request.GET["service"].casefold()
-            )
-        ]
-    ).totals
+    projects = data["eva"].projects
+    total = len(projects)
+    in_time = sum(
+        p.deviation_days is not None and p.deviation_days <= 0 for p in projects
+    )
+    over_budget = sum(
+        not (p.progress_pending or p.hours_pending or p.budget_pending)
+        and p.budget > 0
+        and p.progress > 100
+        for p in projects
+    )
+    data["eva_card_metrics"] = {
+        "total": total,
+        "time_percent": 100 * in_time / total if total else None,
+        "cost_percent": 100 * over_budget / total if total else None,
+        "in_time": in_time,
+        "over_budget": over_budget,
+    }
+    data.pop("projected_rows", None)
     data["eva_cost_pending"] = sum(
-        p.hours_pending or p.budget_pending or p.budget <= 0
-        for p in data["eva"].projects
+        p.progress_pending
+        or p.hours_pending
+        or p.budget_pending
+        or p.budget <= 0
+        for p in projects
     )
     from apps.portal.services.summary_dm_totals import dm_totals
 
