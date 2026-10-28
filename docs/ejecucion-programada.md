@@ -8,13 +8,16 @@ reales.
 
 | Tarea | Comando | Frecuencia | Duración medida |
 | --- | --- | --- | --- |
-| Hojas, Azure, lecturas y catálogos | `python manage.py sync_datastore --pasos hojas,azure,lecturas,catalogos` | cada hora | añade paneles completos; las mediciones anteriores de 57 s no incluyen este paso |
-| Clockify y catálogos | `python manage.py sync_datastore --pasos clockify,catalogos` | cada día, 06:00 | 161 s (ventana abierta + verificación de 26 meses) |
+| Hojas, Azure, lecturas, catálogos y EVA | `python manage.py sync_datastore --pasos hojas,azure,lecturas,catalogos,eva` | cada hora | EVA añade 68.1 s medidos el 28/10; ver eva-azure-clockify.md |
+| Clockify, catálogos y EVA | `python manage.py sync_datastore --pasos clockify,catalogos,eva` | cada día, 06:00 | 161 s previos de Clockify; EVA se mide por separado |
 | Precalentar pantallas | `python manage.py warm_cache` | cada 10 min | ~60 s con la caché vacía |
 | Revisar frescura | `python manage.py check_datastore --lecturas` | cada hora | segundos |
 
-- Los pasos son `hojas`, `azure`, `clockify`, `lecturas` y `catalogos`; sin `--pasos` corren
+- Los pasos son `hojas`, `azure`, `clockify`, `lecturas`, `catalogos` y `eva`; sin `--pasos` corren
   todos. `--sin-verificar` omite la comparación de totales de Clockify.
+- `eva` publica el corte Azure/Clockify de hoy sin leer Sheets, con tiempos
+  por fase y candado propio. `--sin-azure` lo omite. Definiciones actualizadas;
+  no se instalaron tareas en este bloque. Ver [eva-azure-clockify.md](eva-azure-clockify.md).
 - `lecturas` guarda el catálogo Clockify y los campos/relaciones completos del
   panel Azure. Ver [fuentes-persistentes.md](fuentes-persistentes.md): incluye
   migración, tareas opcionales, validación de encabezados y límites del fallback.

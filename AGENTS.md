@@ -23,6 +23,22 @@ Reglas que no se negocian:
 
 ## Estado vigente (27/10/2026)
 
+**EVA 1 nativo activo, 28/10, base 394562c:** por autorización del usuario,
+la ruta EVA 1, cerrados y KPIs mensuales leen cortes locales de Azure/Clockify,
+sin Proyectos/Historico_Proyectos. Migración aditiva 0008 aplicada con respaldo
+SQLite; no PostgreSQL. Summary y bloques conservados; cierre por estado
+explícito/General, no por Finish. Horas facturables por rango y tarea/tags,
+sin duplicación entre sprints/CR. Cortes anteriores sin observación quedan
+pendientes; no reconstruirlos con el Azure actual. TP parcial cuando faltan
+servicio/estado confirmados. Botón de extracción, CSRF/alcance total,
+background/candado, tiempos e incidencias. Última medición: 68.052 s total,
+36.547 Azure, 29.745 Clockify, 1.410 persistencia; lectura local 0.0196 s y
+render 0.1433 s (medianas de cinco). Ver docs/eva-azure-clockify.md.
+2183 servidor, 71 dirigidas posteriores con solapamiento, 478 Node y cinco
+Chrome reales/CSP aprobadas. Definiciones de programación incluyen eva;
+no se instalaron tareas. Otros EVA/BO/costos conservan fuentes y contratos.
+No se oculta #REF! de origen. Sin push; fase 11 abierta.
+
 **Inicio EVA Azure/Clockify (28/10), base bda55fe:** el usuario autoriza
 retirar la dependencia de Sheets para EVA y define ETC=Budget-Burn,
 Hours Deviation=min(ETC,0), Advance=Burn/Budget*100 y riesgos activos al

@@ -1,5 +1,18 @@
 /* Reglas de la pantalla anterior, sin las de la barra superior. */
 
+/* Keep provider diagnostics and table cards inside the available viewport. */
+.eva1-page .card { min-width: 0; }
+.eva1-page .eva-source-issues { max-height: 280px; overflow: auto; overflow-wrap: anywhere; }
+.eva1-page #eva-extract { min-height: 44px; white-space: normal; }
+@media (max-width: 650px) {
+  .eva1-page .two2 > .card { min-width: 0; }
+  .eva1-page .section-head { flex-wrap: wrap; }
+  .eva1-page .section-head > div { min-width: 0; }
+  .eva1-page .section-head > div,
+  .eva1-page #eva-closed-box > summary > div { flex-basis: calc(100% - 52px); }
+  .eva1-page .section-head > .eva-btn { margin-left: auto; }
+}
+
 /* --- estilo en linea --- */
 th,
 td {

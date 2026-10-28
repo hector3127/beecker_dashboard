@@ -79,6 +79,61 @@ class AzureDevOpsClient:
             params={"api-version": API_VERSION},
         )
 
+    def list_summary_projects(self) -> list[JsonObject]:
+        """Read all accessible projects, including descriptions, with paging."""
+        projects: list[JsonObject] = []
+        seen: set[str] = set()
+        for offset in range(0, 50000, PROJECTS_PAGE_SIZE):
+            payload = self._send(
+                "GET",
+                f"{self._organization_url}/_apis/projects",
+                params={
+                    "api-version": API_VERSION,
+                    "$top": PROJECTS_PAGE_SIZE,
+                    "$skip": offset,
+                },
+            )
+            page = payload.get("value")
+            if not isinstance(page, list):
+                raise AzureDevOpsRequestError("Catálogo Azure inválido.")
+            for project in page:
+                identity = str(project.get("id") or project.get("name") or "")
+                if not identity or identity in seen:
+                    raise AzureDevOpsRequestError(
+                        "Página Azure repetida o inválida."
+                    )
+                seen.add(identity)
+                projects.append(project)
+            if len(page) < PROJECTS_PAGE_SIZE:
+                return projects
+        raise AzureDevOpsRequestError("Catálogo Azure excede el límite seguro.")
+
+    def list_eva_work_items(self, project_name: str) -> list[JsonObject]:
+        """Read every returned WIQL ID for EVA, without the dashboard cap."""
+        project_url = (
+            f"{self._organization_url}/{encode_url_part(project_name)}"
+        )
+        escaped = project_name.replace("'", "''")
+        payload = self._send(
+            "POST",
+            f"{project_url}/_apis/wit/wiql",
+            params={"api-version": API_VERSION},
+            json={
+                "query": "SELECT [System.Id] FROM WorkItems WHERE "
+                f"[System.TeamProject] = '{escaped}' "
+                "ORDER BY [System.Id]"
+            },
+        )
+        ids = [item["id"] for item in payload.get("workItems", [])]
+        result: list[JsonObject] = []
+        for offset in range(0, len(ids), WORK_ITEMS_BATCH_SIZE):
+            batch = ids[offset : offset + WORK_ITEMS_BATCH_SIZE]
+            items = self._read_work_item_batch(project_url, batch)
+            if len(items) != len(batch):
+                raise AzureDevOpsRequestError("Lote de work items incompleto.")
+            result.extend(items)
+        return result
+
     def list_work_items(self, project_name: str) -> list[JsonObject]:
         """
         Lee hasta 1000 work items del proyecto, los mas recientes primero.

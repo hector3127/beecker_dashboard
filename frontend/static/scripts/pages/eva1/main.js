@@ -5,8 +5,10 @@ import { mountTableColumns, cellText } from "../eva/table_columns.js";
 import { mountHistory } from "../eva/history.js";
 import { csv, headers } from "./model.js";
 import { watchLoadingMessages } from "#app/ui/portal-loading.js";
+import { mountExtraction } from './extraction.js';
 
 watchLoadingMessages();
+mountExtraction();
 
 const table = document.getElementById("eva-table");
 if (table) {

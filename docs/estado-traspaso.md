@@ -2,6 +2,15 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+28/10: **EVA 1 nativo ya está conectado**, sustituyendo el primer bloque
+de auditoría. Ver eva-azure-clockify.md: migración 0008 con respaldo, cortes
+observados locales, extracción/tiempos, botón con background/CSRF, cerrados
+y KPI mensual. No hay reconstrucción anterior al primer corte ni fallback
+a Sheets. Datos incompletos se diagnostican con TP parcial. Última extracción
+68.052 s; lectura 0.0196 s y HTML 0.1433 s de mediana. Pruebas: 2183 servidor,
+71 finales con solapamiento, 478 Node, cinco Chrome. Scripts preparados,
+no tareas instaladas ni push. Otros EVA/BO/costos siguen fuera del alcance.
+
 28/10: iniciado lector de Summary Azure para EVA; diccionario y bloques
 S#/CR#/CR#_S#, auditoría de tres proyectos y reglas financieras aisladas.
 Ver eva-azure-clockify.md antes de activar ninguna sustitución: fuente

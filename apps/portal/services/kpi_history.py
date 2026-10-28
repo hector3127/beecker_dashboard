@@ -142,7 +142,7 @@ def build_matrix(cuts: Sequence[KpiCut], managers: Roster) -> KpiMatrix:
         ),
         partial=tuple(cut.partial for cut in cuts),
         rows=tuple(rows),
-        totals=tuple(cut.view.totals for cut in cuts),
+        totals=tuple(cut.view.totals if cut.observed else None for cut in cuts),
     )
 
 

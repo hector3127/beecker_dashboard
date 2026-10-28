@@ -301,6 +301,8 @@ class Eva2Project:
     budget_pending: bool = False
     hours_pending: bool = False
     azure_pending: bool = False
+    hours_deviation: float | None = None
+    progress_pending: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -637,6 +639,7 @@ class KpiCut:
     cut_label: str
     view: KpiView
     partial: bool
+    observed: bool = True
 
 
 @dataclass(frozen=True, slots=True)
@@ -664,7 +667,7 @@ class KpiMatrix:
     headers: tuple[str, ...]
     partial: tuple[bool, ...]
     rows: tuple[KpiMatrixRow, ...]
-    totals: tuple[KpiManagerRow, ...]
+    totals: tuple[KpiManagerRow | None, ...]
 
 
 @dataclass(frozen=True, slots=True)

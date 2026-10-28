@@ -371,6 +371,7 @@ def billability_area(request: HttpRequest) -> HttpResponse:
 
 
 @require_GET
+@ensure_csrf_cookie
 def eva1(request: HttpRequest) -> HttpResponse:
     """Pantalla EVA modular con el contexto y acceso originales."""
     return _current(request, views.eva1, "pages/eva1.html")

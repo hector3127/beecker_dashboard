@@ -96,7 +96,7 @@ def test_independent_blocks_survive_stale_base_snapshot_writes():
     assert saved["investment"]["complete"] is True
 
 
-def test_default_warmer_does_not_run_legacy_steps(monkeypatch):
+def test_default_warmer_does_not_run_legacy_steps(monkeypatch, db):
     portal = Mock(return_value={"ok": True})
     legacy = Mock(side_effect=AssertionError("Unused legacy cache"))
     monkeypatch.setattr(warm_cache, "warm_portal", portal)

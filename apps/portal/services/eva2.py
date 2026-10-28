@@ -116,6 +116,11 @@ def build_eva2_project(row: JsonObject) -> Eva2Project:
         risks=len(row.get("riesgos") or []),
         risk_titles=tuple(str(title) for title in row.get("riesgos") or []),
         client=str(row.get("cliente") or row.get("account") or ""),
+        budget_pending=bool(row.get("budget_pending")),
+        hours_pending=bool(row.get("hours_pending")),
+        azure_pending=bool(row.get("azure_pending")),
+        hours_deviation=row.get("hoursDeviation"),
+        progress_pending=bool(row.get("progress_pending")),
     )
 
 

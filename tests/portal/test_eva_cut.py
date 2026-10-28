@@ -142,8 +142,8 @@ def test_cut_page_keeps_all_manager_options_and_masks_azure(
         projects=tuple(replace(p, azure_pending=True) for p in view.projects),
     )
     monkeypatch.setattr(
-        "apps.portal.services.eva_cut.load_cut",
-        lambda day: {"eva": view, "error": ""},
+        "apps.portal.services.eva_native_store.load_native_cut",
+        lambda day, **kwargs: {"eva": view, "error": ""},
     )
     response = client.get(
         "/operativa/eva-1/", {"corte": "2026-01-29", "manager": "DM4"}
@@ -158,8 +158,8 @@ def test_cut_page_keeps_all_manager_options_and_masks_azure(
 def test_invalid_cut_page_does_not_load_sources(client, monkeypatch, settings):
     settings.PORTAL_LOGIN_REQUIRED = False
     monkeypatch.setattr(
-        "apps.portal.services.eva_cut.load_cut",
-        lambda day: pytest.fail("must not read sources"),
+        "apps.portal.services.eva_native_store.load_native_cut",
+        lambda day, **kwargs: pytest.fail("must not read sources"),
     )
     assert client.get("/operativa/eva-1/?corte=invalid").status_code == 400
 

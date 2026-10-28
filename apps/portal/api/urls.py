@@ -30,6 +30,7 @@ from apps.portal.api.eva import (
     Eva3ConsumptionView,
     EvaClosedView,
 )
+from apps.portal.api.eva_native import EvaExtractionView
 from apps.portal.api.operations import (
     CapacityScreenView,
     Eva3ScreenView,
@@ -452,6 +453,11 @@ urlpatterns = [
         name="facturabilidad_recurso",
     ),
     path("screens/eva4/", Eva4ScreenView.as_view(), name="eva4"),
+    path(
+        "screens/eva1/extraccion/",
+        EvaExtractionView.as_view(),
+        name="eva_extraction",
+    ),
     path("screens/margenes/", MarginsScreenView.as_view(), name="margenes"),
     path(
         "screens/margenes/actualizar/",

@@ -175,6 +175,11 @@ def test_current_eva_sign_changes_without_altering_shared_loader(
         "apps.portal.views.load_eva2",
         lambda: SimpleNamespace(view=shared, error=""),
     )
+    native = build_eva2_view([make_row(desviacionDias=1)])
+    monkeypatch.setattr(
+        "apps.portal.services.eva_native_store.load_native_cut",
+        lambda cut, **kwargs: {"eva": native, "error": ""},
+    )
     response = client.get("/operativa/eva-1/")
     assert response.context["eva"].projects[0].deviation_days == 1
     assert shared.projects[0].deviation_days == -1
@@ -197,8 +202,8 @@ def test_explicit_eva_cut_today_uses_same_reconstruction_as_kpis(
         lambda pid: [],
     )
     monkeypatch.setattr(
-        "apps.portal.services.eva_cut.load_cut",
-        lambda cut: {"eva": build_eva2_view(rows), "error": ""},
+        "apps.portal.services.eva_native_store.load_native_cut",
+        lambda cut, **kwargs: {"eva": build_eva2_view(rows), "error": ""},
     )
     monkeypatch.setattr(
         "apps.portal.views.load_eva2",

@@ -15,6 +15,14 @@ def test_pages_keep_current_template(client, monkeypatch, screen, previous):
         f"apps.portal.views.eva{2 if screen == 1 else 3}_data",
         lambda: {"eva": view, "error": "Fuente no disponible"},
     )
+    if screen == 1:
+        monkeypatch.setattr(
+            "apps.portal.services.eva_native_store.load_native_cut",
+            lambda cut, **kwargs: {
+                "eva": view,
+                "error": "Fuente no disponible",
+            },
+        )
     response = client.get(
         reverse(f"portal:eva{screen}"),
         {"vista": "anterior"} if previous else {},

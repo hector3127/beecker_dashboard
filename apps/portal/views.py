@@ -37,7 +37,6 @@ from apps.portal.services.eva_loader import (
     build_eva1_card,
     load_eva1,
     load_eva2,
-    load_eva2_closed,
 )
 from apps.portal.services.executive_period import (
     current as executive_period,
@@ -85,7 +84,7 @@ from apps.portal.services.kpi_history import (
     build_matrix,
     chart_series,
 )
-from apps.portal.services.kpi_history_loader import load_kpi_history
+from apps.portal.services.kpi_native_history import load_kpi_history
 from apps.portal.services.kpi_quarterly import build_quarter_averages
 from apps.portal.services.kpis_dm import build_kpi_view
 from apps.portal.services.manager_detail import (
@@ -919,8 +918,10 @@ def eva1_cerrados(request: HttpRequest) -> HttpResponse:
 
 def eva1_closed_data() -> dict[str, Any]:
     """El mismo histórico IXB/RaaS para la API y la tabla anterior."""
-    load = load_eva2_closed()
-    return {"projects": load.view.projects, "error": load.error}
+    from apps.portal.services.eva_native_store import load_native_cut
+
+    data = load_native_cut(timezone.localdate(), closed=True, latest=True)
+    return {"projects": data["eva"].projects, "error": data["error"]}
 
 
 def eva2_data() -> dict[str, Any]:
@@ -977,7 +978,8 @@ def eva1(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    from apps.portal.services.eva_cut import load_cut, read_cut, select_view
+    from apps.portal.services.eva_cut import read_cut, select_view
+    from apps.portal.services.eva_native_store import load_native_cut
 
     cut = timezone.localdate()
     raw_cut = request.GET.get("corte", "")
@@ -989,44 +991,30 @@ def eva1(request: HttpRequest) -> HttpResponse:
                 "Fecha de corte inválida: usa un día no futuro (AAAA-MM-DD).",
                 status=400,
             )
-    # An explicit cut (including today) must use the same inventory and
-    # budget as monthly KPIs. Entry without a cut retains the live summary.
+    # Both current and historical dates read persisted provider cuts.
     reconstructed_cut = bool(raw_cut)
-    data = load_cut(cut) if reconstructed_cut else eva2_data()
+    data = load_native_cut(cut, latest=not reconstructed_cut)
     available = data["eva"]
-    if not reconstructed_cut:
-        from dataclasses import replace
-
-        # Only EVA 1 changes sign; other users of the shared loader retain
-        # their existing days-until semantics.
-        available = replace(
-            available,
-            projects=tuple(
-                replace(
-                    p,
-                    deviation_days=-p.deviation_days
-                    if p.deviation_days is not None
-                    else None,
-                )
-                for p in available.projects
-            ),
-        )
     data["eva"] = select_view(
         available,
         request.GET.get("manager", ""),
         request.GET.get("service", ""),
     )
+    source_run = data.get("extraction")
 
     return render_page(
         request,
         "pages/eva1.html",
         {
             "active": "operativa",
-            "loaded_at": timezone.localtime(),
+            "loaded_at": timezone.localtime(source_run.finished_at)
+            if source_run
+            else timezone.localtime(),
             **data,
             "eva_managers": available.service_rows,
             "eva_services": available.services,
             "eva_available_total": available.total_projects,
+            "eva_source_stamp": source_run.finished_at if source_run else None,
             "eva_cut": cut.isoformat(),
             "eva_today": timezone.localdate().isoformat(),
             "eva_reconstructed": reconstructed_cut,
@@ -1216,6 +1204,8 @@ def kpi_context(request: HttpRequest) -> dict[str, Any]:
                 "Aún no hay un corte de lunes a jueves en el mes elegido."
             )
             return context
+
+        context["cut_available"] = end_cut.observed
 
         context.update(
             {

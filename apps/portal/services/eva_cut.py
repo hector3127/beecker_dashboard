@@ -275,7 +275,9 @@ def select_view(view: Eva2View, manager: str, service: str) -> Eva2View:
             (
                 p.progress
                 for p in projects
-                if not p.budget_pending and not p.hours_pending
+                if not p.budget_pending
+                and not p.hours_pending
+                and not p.progress_pending
             ),
         ),
     )

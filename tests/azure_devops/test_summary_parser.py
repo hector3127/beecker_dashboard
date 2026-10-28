@@ -158,3 +158,39 @@ def test_offline_command_never_opens_azure(tmp_path):
     report = json.loads(output.read_text(encoding="utf-8"))
     assert report["historical"] is False
     assert report["rows"][0]["project_id"] == "AMK.012_S1"
+
+
+def test_full_project_catalog_paginates_and_keeps_summary(monkeypatch):
+    monkeypatch.setattr(
+        "apps.azure_devops.services.azure_client.PROJECTS_PAGE_SIZE", 2
+    )
+    client = AzureDevOpsClient("org", "fake")
+    client._send = Mock(
+        side_effect=[
+            {"value": [{"id": "a", "description": "A"}, {"id": "b"}]},
+            {"value": [{"id": "c", "description": "C"}]},
+        ]
+    )
+    assert [p["id"] for p in client.list_summary_projects()] == ["a", "b", "c"]
+    assert client._send.call_args.kwargs["params"]["$skip"] == 2
+
+
+def test_eva_work_items_do_not_use_the_1000_item_dashboard_cap():
+    client = AzureDevOpsClient("org", "fake")
+    client._send = Mock(
+        return_value={"workItems": [{"id": i} for i in range(1001)]}
+    )
+    client._read_work_item_batch = Mock(
+        side_effect=lambda url, ids: [{"id": i} for i in ids]
+    )
+    assert len(client.list_eva_work_items("AMK.012")) == 1001
+
+
+def test_incomplete_eva_batch_is_an_error():
+    from apps.azure_devops.exceptions import AzureDevOpsRequestError
+
+    client = AzureDevOpsClient("org", "fake")
+    client._send = Mock(return_value={"workItems": [{"id": 1}]})
+    client._read_work_item_batch = Mock(return_value=[])
+    with pytest.raises(AzureDevOpsRequestError):
+        client.list_eva_work_items("AMK.012")

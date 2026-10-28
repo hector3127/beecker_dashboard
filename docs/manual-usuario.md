@@ -40,6 +40,14 @@ tableros EVA presentan información de seguimiento. Antes de comparar con un
 correo histórico, revisa fecha de corte, inclusión de suspendidos y el ID
 completo del proyecto: un sufijo de sprint o CR puede distinguirlo del base.
 
+EVA 1 utiliza cortes guardados de Azure y Clockify. Pulsa **Actualizar fuentes
+Azure / Clockify** para extraer el corte de hoy: puedes seguir consultando
+el anterior mientras termina. La pantalla muestra duración, fecha de fuente
+e incidencias; al finalizar recarga los datos. Si falla, conserva el corte
+anterior y permite reintentar. Las fechas anteriores requieren un corte ya
+observado; no se reconstruyen con el estado actual. Revisa los avisos de TP
+parcial cuando faltan servicio o estado en el Summary/iteraciones.
+
 En KPIs de Delivery Managers, TP es la cantidad de proyectos del corte.
 T y C se presentan como porcentajes según las reglas documentadas en el
 glosario de la pantalla. Las curvas muestran la evolución mensual; no

@@ -44,14 +44,14 @@ $LogDir = Join-Path $ProjectDir 'logs'
 $Jobs = @(
     @{
         Name = "$Prefix-Sync-Horario"
-        Args = 'manage.py sync_datastore --pasos hojas,azure,lecturas,catalogos'
+        Args = 'manage.py sync_datastore --pasos hojas,azure,lecturas,catalogos,eva'
         EveryMinutes = 60; StartAt = '00:05'; Limit = (New-TimeSpan -Hours 1)
         Log = 'sync-horario.log'
         Text = 'Guarda las hojas de Sheets, Azure DevOps y los catalogos en la base.'
     },
     @{
         Name = "$Prefix-Sync-Diario"
-        Args = 'manage.py sync_datastore --pasos clockify,catalogos'
+        Args = 'manage.py sync_datastore --pasos clockify,catalogos,eva'
         DailyAt = $DailyAt; Limit = (New-TimeSpan -Hours 3)
         Log = 'sync-diario.log'
         Text = 'Descarga las horas de Clockify (ventana abierta y meses que cambiaron).'

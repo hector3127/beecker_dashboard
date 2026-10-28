@@ -37,10 +37,11 @@ Otros: sync_datastore --desde AAAA-MM [--hasta AAAA-MM]  (carga inicial)
        sync_datastore --sin-verificar                     (sin comparar totales)
 """
 
-STEPS = ("hojas", "azure", "clockify", "lecturas", "catalogos")
+STEPS = ("hojas", "azure", "clockify", "lecturas", "catalogos", "eva")
 # Despues de este tiempo un candado se considera abandonado (el proceso
 # murio). Clockify admite la carga inicial, que tarda cerca de una hora.
 LOCK_SECONDS = {
+    "eva": 2 * 60 * 60,
     "hojas": 15 * 60,
     "azure": 30 * 60,
     "clockify": 3 * 60 * 60,
@@ -152,6 +153,8 @@ class Command(BaseCommand):
         ):
             if options[flag]:
                 chosen.discard(step)
+        if options["sin_azure"]:
+            chosen.discard("eva")
         return [step for step in STEPS if step in chosen]
 
     def handle(self, *args: Any, **options: Any) -> None:
@@ -162,6 +165,7 @@ class Command(BaseCommand):
             "clockify": lambda: self.sync_clockify(options),
             "catalogos": lambda: self.sync_catalogs(),
             "lecturas": lambda: self.sync_read_sources(options),
+            "eva": lambda: self.sync_eva(),
         }
         failures: list[str] = []
         for step in self.selected_steps(options):
@@ -177,6 +181,16 @@ class Command(BaseCommand):
                 failures.extend(runners[step]())
         if failures:
             raise CommandError("\n".join(failures))
+
+    def sync_eva(self) -> list[str]:
+        """Publish a provider-native EVA cut, independent of Sheets failures."""
+        try:
+            call_command(
+                "sync_eva_native", stdout=self.stdout, stderr=self.stderr
+            )
+        except (CommandError, DashboardError) as error:
+            return [f"EVA: {error}"]
+        return []
 
     def sync_read_sources(self, options: dict[str, Any]) -> list[str]:
         """Guarda fuentes completas sin ignorar --sin-azure."""

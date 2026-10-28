@@ -82,9 +82,17 @@ function card(label, value, note, valueClass = "kv") {
   );
 }
 
+/** @param {any} summary Missing observations must never look like zero projects. */
+function summaryTotals(summary) {
+  return summary.available === false
+    ? { ...summary.totals, total: DASH, time_late: DASH, cost_over: DASH, at_risk: DASH, critical: DASH }
+    : summary.totals;
+}
+
 /** @param {any} summary */
 export function renderCards(summary) {
-  const { totals, best, worst } = summary;
+  const { best, worst } = summary;
+  const totals = summaryTotals(summary);
   /** @param {any} row */
   const share = (row) =>
     row
@@ -120,7 +128,8 @@ export function renderCards(summary) {
 
 /** @param {any} summary @param {string} managerUrl */
 export function renderTable(summary, managerUrl) {
-  const { rows, totals } = summary;
+  const { rows } = summary;
+  const totals = summaryTotals(summary);
   const num = (/** @type {string} */ text, /** @type {string} */ extra = "") =>
     el("td", { class: `num${extra}`, text });
   const body = rows.length

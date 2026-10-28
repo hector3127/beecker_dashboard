@@ -13,7 +13,7 @@ from core.exceptions import DashboardError
 from core.management.commands import warm_cache
 
 
-def test_portal_only_does_not_clear_cache_or_load_legacy(monkeypatch):
+def test_portal_only_does_not_clear_cache_or_load_legacy(monkeypatch, db):
     cache.set("keep-this-cut", "saved")
     monkeypatch.setattr(warm_cache, "warm_portal", lambda: {"ok": True})
     monkeypatch.setattr(

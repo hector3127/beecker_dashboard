@@ -9,6 +9,17 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**EVA 1 Azure/Clockify activo, base 394562c (28/10):** ruta, cerrados y KPI
+mensual usan cortes observados locales, sin las dos hojas del inventario.
+Migración 0008 aplicada con respaldo; extracción medida, publicación
+transaccional y refresco en segundo plano con permisos/CSRF. Lectura local
+0.0196 s y HTML 0.1433 s (medianas); extracción optimizada 68.052 s sobre
+356 proyectos/453 bloques. TP parcial y datos pendientes explícitos ante
+fuentes incompletas; no se inventan históricos pasados. Evidencia real,
+límites y operación en `eva-azure-clockify.md`: 2183 servidor, 71 dirigidas
+posteriores con solapamiento, 478 Node y cinco Chrome con CSP aprobadas.
+Programación preparada, no instalada. Sin push; fase 11 continúa abierta.
+
 **Inicio EVA Azure/Clockify, base bda55fe (28/10):** lector de Summary con
 diccionario extendido y separación S#/CR#/CR#_S#, comando de auditoría y
 reglas financieras aisladas autorizadas por el usuario. Tres proyectos

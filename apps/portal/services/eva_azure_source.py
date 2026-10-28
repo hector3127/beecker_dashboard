@@ -5,7 +5,7 @@ from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
-from apps.azure_devops.services.summary_parser import parse_summary
+from apps.azure_devops.services.summary_parser import normalize, parse_summary
 
 REQUIRED = (
     "delivery_manager",
@@ -28,6 +28,29 @@ def summary_date(value: str) -> date | None:
             return datetime.strptime(value.strip(), fmt).date()
         except ValueError:
             continue
+    months = (
+        "enero",
+        "febrero",
+        "marzo",
+        "abril",
+        "mayo",
+        "junio",
+        "julio",
+        "agosto",
+        "septiembre",
+        "octubre",
+        "noviembre",
+        "diciembre",
+    )
+    text = normalize(value)
+    match = re.fullmatch(r"(\d{1,2}) (?:de )?([a-z]+) (?:de )?(\d{4})", text)
+    if match and match[2] in months:
+        try:
+            return date(
+                int(match[3]), months.index(match[2]) + 1, int(match[1])
+            )
+        except ValueError:
+            pass
     return None
 
 
@@ -65,6 +88,8 @@ def candidate_rows(project_name: str, description: str) -> list[dict[str, Any]]:
             issues.append("invalid_project_id")
         if block.code and pid and not pid.endswith(f"_{block.code}"):
             issues.append("scope_id_mismatch")
+        if values.get("project_id") and pid.split("_", 1)[0] != base:
+            issues.append("identity_mismatch")
         for key in REQUIRED:
             if not values.get(key):
                 issues.append(f"missing:{key}")

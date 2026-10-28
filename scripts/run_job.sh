@@ -17,8 +17,8 @@ cd "$(dirname "$0")/.."
 PYTHON="${PYTHON:-python}"
 
 case "${1:-}" in
-  horario)     exec "$PYTHON" manage.py sync_datastore --pasos hojas,azure,lecturas,catalogos ;;
-  diario)      exec "$PYTHON" manage.py sync_datastore --pasos clockify,catalogos ;;
+  horario)     exec "$PYTHON" manage.py sync_datastore --pasos hojas,azure,lecturas,catalogos,eva ;;
+  diario)      exec "$PYTHON" manage.py sync_datastore --pasos clockify,catalogos,eva ;;
   precalentar) exec "$PYTHON" manage.py warm_cache ;;
   revisar)     exec "$PYTHON" manage.py check_datastore --lecturas ;;
   *)

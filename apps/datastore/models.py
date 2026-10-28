@@ -44,6 +44,58 @@ class DataRevision(models.Model):
     version = models.PositiveBigIntegerField(default=0)
 
 
+class EvaExtraction(models.Model):
+    """Immutable observed EVA cut; only complete transports are published."""
+
+    cut = models.DateField(db_index=True)
+    started_at = models.DateTimeField()
+    finished_at = models.DateTimeField(null=True)
+    published = models.BooleanField(default=False)
+    full_inventory = models.BooleanField(default=True)
+    metrics = models.JSONField(default=dict)
+    issues = models.JSONField(default=list)
+
+
+class EvaAzureSource(models.Model):
+    """One observed Summary plus its Azure evidence in one extraction."""
+
+    extraction = models.ForeignKey(EvaExtraction, on_delete=models.CASCADE)
+    azure_id = models.CharField(max_length=80)
+    name = models.CharField(max_length=255)
+    payload = models.JSONField()
+    metrics = models.JSONField(default=dict)
+
+    class Meta:
+        """Provider identity is unique within an observed extraction."""
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["extraction", "azure_id"],
+                name="eva_run_azure_source",
+            )
+        ]
+
+
+class EvaScopeSnapshot(models.Model):
+    """One separate sprint/CR scope, including closed and pending scopes."""
+
+    source = models.ForeignKey(EvaAzureSource, on_delete=models.CASCADE)
+    project_id = models.CharField(max_length=100)
+    scope = models.CharField(max_length=40)
+    closed = models.BooleanField(default=False)
+    row = models.JSONField()
+
+    class Meta:
+        """One scope per provider source, without merging CR variants."""
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["source", "scope"],
+                name="eva_source_scope",
+            )
+        ]
+
+
 class ClockifyCatalog(models.Model):
     """Completeness marker for one workspace's project catalog."""
 

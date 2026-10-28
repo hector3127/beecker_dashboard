@@ -668,6 +668,7 @@ def kpi_screen(context: dict[str, Any]) -> dict[str, Any]:
             },
             "summary": {
                 "rows": [_kpi_row(row) for row in kpis.rows],
+                "available": context.get("cut_available", True),
                 "totals": _kpi_row(kpis.totals),
                 "best": _kpi_row(kpis.best) if kpis.best else None,
                 "worst": _kpi_row(kpis.worst) if kpis.worst else None,

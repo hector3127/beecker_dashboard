@@ -75,7 +75,7 @@ def options(**overrides):
 @pytest.mark.parametrize(
     ("given", "expected"),
     [
-        ({}, ["hojas", "azure", "clockify", "lecturas", "catalogos"]),
+        ({}, ["hojas", "azure", "clockify", "lecturas", "catalogos", "eva"]),
         ({"pasos": "hojas,azure,catalogos"}, ["hojas", "azure", "catalogos"]),
         ({"pasos": "clockify, catalogos"}, ["clockify", "catalogos"]),
         # El orden es siempre el de ejecucion, no el que se escribio.
@@ -85,7 +85,7 @@ def options(**overrides):
         ({"sin_azure": True}, ["hojas", "clockify", "lecturas", "catalogos"]),
         (
             {"sin_hojas": True, "sin_catalogos": True},
-            ["azure", "clockify", "lecturas"],
+            ["azure", "clockify", "lecturas", "eva"],
         ),
         ({"pasos": "hojas,azure", "sin_azure": True}, ["hojas"]),
     ],

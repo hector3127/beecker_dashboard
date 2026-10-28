@@ -58,9 +58,9 @@ steps:
   # ejecucion manual la variable queda sin valor y corren los pasos del horario.
   - script: |
       if [ "$(Build.CronSchedule.DisplayName)" = "Diario - Clockify y catalogos" ]; then
-        STEPS="clockify,catalogos"
+        STEPS="clockify,catalogos,eva"
       else
-        STEPS="hojas,azure,lecturas,catalogos"
+        STEPS="hojas,azure,lecturas,catalogos,eva"
       fi
       echo "Pasos: $STEPS"
       uv run python manage.py sync_datastore --pasos "$STEPS"

@@ -64,7 +64,8 @@ def build_quarter_averages(
             f"T{key}"
             + (
                 "*"
-                if len(groups[key]) < 3 or any(c.partial for c in groups[key])
+                if len(groups[key]) < 3
+                or any(c.partial or not c.observed for c in groups[key])
                 else ""
             )
             for key in sorted(groups)
@@ -78,6 +79,7 @@ def build_quarter_averages(
                         [
                             row
                             for cut in group
+                            if cut.observed
                             for row in cut.view.rows
                             if row.name == name
                         ]
@@ -88,6 +90,7 @@ def build_quarter_averages(
             for name, slug in managers
         ),
         totals=tuple(
-            _cell([cut.view.totals for cut in group]) for group in quarters
+            _cell([cut.view.totals for cut in group if cut.observed])
+            for group in quarters
         ),
     )
