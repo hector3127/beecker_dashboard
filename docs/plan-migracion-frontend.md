@@ -9,6 +9,13 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Summary con encabezado inverso, 28/10:** SPRINT #1 CR se reconoce como
+CR_S1; inventario aplica la regla del usuario y muestra CR. AIN.002_CR
+recupera Lea Dayana, RaaS, Order Entry y Budget 88. S2 y numeración CR
+se conservan en el parser. Reproceso local con fecha original, sin extracción
+externa ni cambio en cortes publicados. 103 servidor aprobadas; Ruff/mypy
+aprobados. Ver inventario-summary.md; sin push.
+
 **Relación CR1/CR del inventario, 28/10:** MCC.016 tenía Summary CR1 y
 iteración CR. Se relacionan solo con ambas fechas válidas iguales y sin
 competidor CR/CR1; se preserva summary_scope. Reproceso local conserva fecha

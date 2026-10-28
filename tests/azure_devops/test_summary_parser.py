@@ -30,6 +30,9 @@ from apps.portal.services.eva_azure_source import (
         ("Solicitud de cambio #2", "CR2"),
         ("CHANGE REQUEST 2 / SPRNT 1", "CR2_S1"),
         ("CR1 / Sprint #2", "CR1_S2"),
+        ("SPRINT #1 CR", "CR_S1"),
+        ("SPRNT 1 CR2", "CR2_S1"),
+        ("SPRINT 2 / CR1", "CR1_S2"),
     ],
 )
 def test_headers(header, code):

@@ -161,6 +161,7 @@ def test_failed_transport_keeps_last_inventory(inventory):
         (2, "SPRINT", "CR2", "2026-04-24"),
         (1, "SPRNT", "CR", "2026-04-24"),
         (1, "SPRNT", "CR", "2026-04-25"),
+        (0, "SPRINT", "CR", "2026-04-24"),
     ],
 )
 def test_local_replay_links_cr_summary_without_provider_calls(
@@ -168,8 +169,11 @@ def test_local_replay_links_cr_summary_without_provider_calls(
 ):
     source = inventory.evaazuresource_set.get(azure_id="one")
     summary = source.payload["summary"]
+    header = (
+        f"CHANGE REQUEST {number} / {spelling} 1" if number else "SPRINT #1 CR"
+    )
     summary["description"] = (
-        f"CHANGE REQUEST {number} / {spelling} 1\nDM: Alberto\nService: RaaS\n"
+        f"{header}\nDM: Alberto\nService: RaaS\n"
         "Project Name: Asistencia\nBudget: 90\n"
         "Start: 22/12/2025\nFinish: 24/04/2026"
     )
@@ -205,7 +209,7 @@ def test_local_replay_links_cr_summary_without_provider_calls(
     if tree_finish != "2026-04-24":
         assert not rows[0]["fields"]
         return
-    assert rows[0]["summary_scope"] == f"CR{number}_S1"
+    assert rows[0]["summary_scope"] == (f"CR{number}_S1" if number else "CR_S1")
     assert rows[0]["fields"]["delivery_manager"] == "Alberto"
     assert rows[0]["budget"] == "90"
     assert (

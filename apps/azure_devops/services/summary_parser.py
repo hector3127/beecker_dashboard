@@ -198,6 +198,11 @@ COMPOSITE = re.compile(
     r"\s+(?:sprint|sprnt|s)\s*(\d+)$",
     re.IGNORECASE,
 )
+REVERSE_COMPOSITE = re.compile(
+    r"^(?:sprint|sprnt|s)\s*(\d+)\s+"
+    r"(?:change requests?|solicitud de cambio|cr)\s*(\d*)$",
+    re.IGNORECASE,
+)
 
 
 class _Text(HTMLParser):
@@ -285,8 +290,14 @@ def parse_summary(description: str) -> list[SummaryBlock]:
         normalized = normalize(line)
         header = HEADER.fullmatch(normalized.replace("number ", ""))
         composite = COMPOSITE.fullmatch(normalized)
-        if header or composite:
-            if composite:
+        reverse = REVERSE_COMPOSITE.fullmatch(normalized)
+        if header or composite or reverse:
+            if reverse:
+                code = (
+                    f"CR{int(reverse[2]) if reverse[2] else ''}"
+                    f"_S{int(reverse[1])}"
+                )
+            elif composite:
                 code = (
                     f"CR{int(composite[1]) if composite[1] else ''}"
                     f"_S{int(composite[2])}"

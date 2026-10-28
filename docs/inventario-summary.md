@@ -1,5 +1,20 @@
 # Inventario de Summary — primer bloque
 
+## Encabezado inverso SPRINT #1 CR — 28/10
+
+AIN.002 usaba SPRINT #1 CR, que quedaba como línea no reconocida en BASE,
+separando la metadata de Lea Dayana Julian Figueroa de las iteraciones CR.
+El parser reconoce también sprint/sprnt antes de CR, con número opcional.
+Conserva identidad compuesta CR_S1/CR2_S1 y no colapsa S2. El inventario
+aplica después la regla autorizada de ignorar S1 en el encabezado CR.
+
+Verificación real AIN.002_CR al 26/02/2026: Lea Dayana Julian Figueroa,
+RaaS, Order Entry, Budget 88 y Deployment. Reprocesados 450 proyectos/685
+bloques en 1.048 s, sin red y conservando fecha original de fuente.
+103 servidor (Azure, inventario/iteraciones/resumen y EVA nativo) aprobadas;
+Ruff/mypy aprobados. Sin cambios de interfaz ni nueva corrida de navegador,
+sin modificar cortes publicados ni hacer push.
+
 ## Primer change request CR1 / CR — 28/10
 
 MCC.016 tenía datos de Summary bajo CR1 y etapas bajo CR. Ahora se relaciona
