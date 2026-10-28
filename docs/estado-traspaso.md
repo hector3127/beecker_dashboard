@@ -2,6 +2,12 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+28/10: iniciado lector de Summary Azure para EVA; diccionario y bloques
+S#/CR#/CR#_S#, auditoría de tres proyectos y reglas financieras aisladas.
+Ver eva-azure-clockify.md antes de activar ninguna sustitución: fuente
+activa todavía anterior, asignaciones Clockify e históricos pendientes.
+No interpretar CR y CR1 como iguales ni corregir fechas por suposición.
+
 28/10, acuerdos de demo sobre a187954: implementados filtro de plantilla,
 desglose diario por recurso y enlaces del plan, con manual y carga local.
 Ver `cambios-demo-2026-10-27.md` para pruebas y dependencias. PostgreSQL

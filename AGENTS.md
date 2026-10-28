@@ -23,6 +23,14 @@ Reglas que no se negocian:
 
 ## Estado vigente (27/10/2026)
 
+**Inicio EVA Azure/Clockify (28/10), base bda55fe:** el usuario autoriza
+retirar la dependencia de Sheets para EVA y define ETC=Budget-Burn,
+Hours Deviation=min(ETC,0), Advance=Burn/Budget*100 y riesgos activos al
+corte. Primer bloque solo lector/auditoría, no cambia fuente activa.
+Ver docs/eva-azure-clockify.md: 8 bloques reales, 7 completos, fecha
+29/10/025 pendiente. No unir AMK.012_CR con CR1/S1 o CR2/S1 sin evidencia.
+75 pruebas Azure/almacén pasan. PostgreSQL sigue esperando Genesis.
+
 **Acuerdos de demo, 28/10, base a187954:** filtro de plantilla por corte en
 facturabilidad, desglose diario por persona en Capacidad y enlaces del plan
 en Planeación. Manual y evidencia en docs/cambios-demo-2026-10-27.md.

@@ -71,6 +71,14 @@ class AzureDevOpsClient:
             if project.get("name")
         ]
 
+    def get_project_summary(self, project_name: str) -> JsonObject:
+        """Read the project's Overview/Summary description without Sheets."""
+        return self._send(
+            "GET",
+            f"{self._organization_url}/_apis/projects/{encode_url_part(project_name)}",
+            params={"api-version": API_VERSION},
+        )
+
     def list_work_items(self, project_name: str) -> list[JsonObject]:
         """
         Lee hasta 1000 work items del proyecto, los mas recientes primero.

@@ -9,6 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Inicio EVA Azure/Clockify, base bda55fe (28/10):** lector de Summary con
+diccionario extendido y separación S#/CR#/CR#_S#, comando de auditoría y
+reglas financieras aisladas autorizadas por el usuario. Tres proyectos
+reales: ocho bloques, siete completos y una fecha inválida reportada.
+75 pruebas de Azure/almacén aprobadas. Ver `eva-azure-clockify.md` para
+alcance y continuación. No se ha sustituido la fuente activa ni creado
+históricos a partir del estado actual. Sin cambios visuales ni push.
+
 **Acuerdos de demo, base a187954 (28/10):** filtro de plantilla en
 facturabilidad por recurso, desglose diario por persona en Capacidad,
 vínculos de plan en Planeación, manual y herramienta de carga local.
