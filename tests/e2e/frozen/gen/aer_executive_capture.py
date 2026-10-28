@@ -1,4 +1,4 @@
-"""Explicit capture of the user-approved current design.
+"""Explicit capture of the requested project redesign for visual review.
 
 Run from repository root with pytest and --browser-channel chrome.
 Never collected by the normal test_*.py discovery.
@@ -51,8 +51,8 @@ def test_capture_current_design(
     )
     document = {
         "schema": 1,
-        "source": "project_redesign_delivery_v1",
-        "base_commit": "007d76c",
+        "source": "project_redesign_delivery_v2",
+        "base_commit": "ce68f0e",
         "variant": variant,
         "viewport": {"width": width, "height": 1000},
         "fixed_day": FIXED_DAY,

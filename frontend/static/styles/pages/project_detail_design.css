@@ -1,14 +1,16 @@
-/* Project workspace, delivery-v1. Scoped to this route; business values stay
+/* Project workspace, delivery-v2. Business Overview visual language.
+   Scoped to this route; business values stay
    in the existing modules. Loaded after family/section styles intentionally. */
 body.project-detail-page {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --pd-ink: #211b4b;
-  --pd-muted: #676b82;
-  --pd-line: #e4e6ef;
+  --pd-ink: #1b1a6b;
+  --pd-title: #1b1a9e;
+  --pd-muted: #5b5e85;
+  --pd-line: #e5dcff;
   --pd-surface: #fff;
-  --pd-canvas: #f5f6fb;
+  --pd-canvas: #f3f4fd;
   --pd-brand: #6429d8;
-  --pd-soft: #f3effc;
+  --pd-soft: #f6f2ff;
   --pd-good: #147d5c;
   --pd-warn: #9b650d;
   --pd-bad: #c62d50;
@@ -17,11 +19,18 @@ body.project-detail-page {
 }
 body.project-detail-page main.page {
   width: 100%;
-  max-width: 1680px;
+  max-width: 1520px;
   margin: 0 auto !important;
   padding: 24px 28px 48px;
 }
 body.project-detail-page #view-container { min-width: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+.project-detail-page #view-container :where(.aer-shell) {
+  --aer-ui-title: 20px; --aer-ui-section: 18px;
+  --aer-ui-body: 14px; --aer-ui-small: 12px;
+  --aer-ui-kpi-label: 13px; --aer-ui-kpi-value: 30px;
+  --aer-ui-kpi-sub: 12px; --aer-ui-icon: 36px;
+  --aer-ui-icon-font: 18px;
+}
 .project-detail-page #view-container :where(div,section,article,form) { min-width: 0; }
 .project-detail-page #view-container :where(h1,h2,h3,h4,p,li,table,td,th,a,label,input,select,textarea,button,small,strong,b,span,div) { font-family: inherit; }
 body.project-detail-page .project-return { margin: 0 0 18px; }
@@ -42,20 +51,20 @@ body.project-detail-page .project-return a {
   font-size: 12px; line-height: 1.6;
 }
 .project-detail-page #view-container :where(h2,h3,h4) {
-  color: var(--pd-ink); line-height: 1.35; letter-spacing: -.02em;
+  color: var(--pd-title); line-height: 1.35; letter-spacing: -.02em;
   margin-top: 0;
 }
 .project-detail-page #view-container h2 { font-size: 20px; }
-.project-detail-page #view-container h3 { font-size: 17px; }
+.project-detail-page #view-container h3 { font-size: 20px; }
 .project-detail-page #view-container h4 { font-size: 15px; }
 .project-detail-page #view-container :where(.ixs-head,.aer-head) {
-  background: linear-gradient(112deg,#5128d6 0%,#8c2dd5 58%,#e438a5 100%);
+  background: linear-gradient(110deg,#5b35ff 0%,#922bf2 50%,#fa32a8 100%);
   color: #fff; border: 0; border-radius: 18px;
   padding: 26px 28px; margin: 0 0 18px;
   box-shadow: 0 6px 18px #5022b912;
 }
 .project-detail-page #view-container :where(.ixs-title,.aer-title) {
-  font-size: clamp(24px,2vw,32px); font-weight: 800;
+  font-size: clamp(26px,2.4vw,34px); font-weight: 800;
   letter-spacing: -.035em; line-height: 1.2; color: #fff;
 }
 .project-detail-page #view-container :where(.ixs-sub,.aer-sub) {
@@ -79,7 +88,7 @@ body.project-detail-page .project-return a {
 .project-detail-page #view-container :is(.ixs-nav,.aer-tabs) button {
   flex: 0 0 auto; min-height: 44px; padding: 10px 16px;
   background: transparent; border: 0; border-radius: 9px;
-  color: #56536e; font-size: 13px; font-weight: 650;
+  color: var(--pd-muted); font-size: 14px; font-weight: 650;
   white-space: nowrap;
 }
 .project-detail-page #view-container :is(.ixs-nav,.aer-tabs) button:hover {
@@ -91,14 +100,14 @@ body.project-detail-page .project-return a {
 }
 .project-detail-page #view-container :where(.ixs-card,.aer-card,.ixai-card,.aeri-card,.aer-vivid-card,.aer-exec-kpi,.aer-plan-kpi,.aer-kpi) {
   min-width: 0; background: var(--pd-surface);
-  border: 1px solid var(--pd-line); border-radius: 16px;
-  box-shadow: 0 2px 6px #24133b04; padding: 22px;
+  border: 1px solid var(--pd-line); border-radius: 14px;
+  box-shadow: 0 3px 14px #5b36b00a; padding: 22px;
 }
 .project-detail-page #view-container :where(.ixs-section-head,.ixai-card-head,.aer-card-head,.aer-title-row) {
   gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 18px;
 }
 .project-detail-page #view-container :where(.ixs-section-head h3,.aer-card h3,.ixai-card h3,.aeri-card h3) {
-  font-size: 17px; font-weight: 750; margin: 0;
+  font-size: 20px; font-weight: 750; margin: 0;
 }
 .project-detail-page #view-container :where(.ixs-kpis,.aer-exec-top,.aer-grid-kpi,.ixs-plan-kpis,.aer-plan-top-kpis,.ixs-azure-kpis,.ixs-raid-kpis,.aeri-kpis) {
   display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
@@ -112,7 +121,7 @@ body.project-detail-page .project-return a {
   margin-bottom: 10px; justify-content: flex-start;
 }
 .project-detail-page #view-container :where(.ixs-kpi label,.aer-exec-kpi .label,.aer-plan-kpi .label,.aer-kpi-l,.ixs-plan-kpi strong) {
-  font-size: 12px; font-weight: 650; text-transform: none;
+  font-size: 13px; font-weight: 650; text-transform: none;
   letter-spacing: 0; color: var(--pd-muted); line-height: 1.4;
 }
 .project-detail-page #view-container :where(.ixs-kpi .value,.aer-exec-kpi .value,.aer-plan-kpi .value,.aer-kpi-v,.ixs-plan-kpi>b) {
@@ -127,7 +136,7 @@ body.project-detail-page .project-return a {
   font-size: 12px; line-height: 1.5; color: var(--pd-muted); margin-top: 6px;
 }
 .project-detail-page #view-container :where(.ixs-icon,.aer-exec-kpi .icon,.aer-plan-kpi .icon) {
-  width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+  width: 36px; height: 36px; border-radius: 12px; flex-shrink: 0;
 }
 .project-detail-page #view-container :where(.ixs-kpi .track,.aer-exec-kpi .bar,.aer-plan-kpi .meter) {
   height: 5px; margin-top: 14px;
@@ -159,7 +168,7 @@ body.project-detail-page .project-return a {
 .project-detail-page #view-container :where(.ixs-time-label) {
   font-size: 13px; line-height: 1.5; padding-right: 12px;
 }
-.project-detail-page #view-container :where(.ixs-time-label small) { font-size: 11px; }
+.project-detail-page #view-container :where(.ixs-time-label small) { font-size: 12px; }
 .project-detail-page #view-container :where(.ixs-area-layout,.ixs-effort-mix) { gap: 22px; }
 .project-detail-page #view-container :where(.ixs-donut,.aer-donut) { max-width: 100%; flex-shrink: 0; }
 .project-detail-page #view-container svg[viewBox] { max-width: 100%; }
@@ -174,31 +183,38 @@ body.project-detail-page .project-return a {
   border: 1px solid var(--pd-line); border-radius: 12px;
 }
 .project-detail-page .pd-table-scroll table {
-  width: 100%; border-collapse: separate; border-spacing: 0;
+  width: 100%; border-collapse: separate; border-spacing: 0; table-layout: auto;
   margin: 0; font-size: 13px;
 }
 .project-detail-page .pd-table-scroll table.pd-wide-table { min-width: 760px; }
+.project-detail-page .pd-table-scroll table.pd-dense-table { min-width: 1040px; }
 .project-detail-page .pd-table-scroll :is(th,td) {
   padding: 13px 15px; line-height: 1.5; vertical-align: middle;
   border: 0; border-bottom: 1px solid var(--pd-line);
-  font-size: 13px; font-variant-numeric: tabular-nums;
+  font-size: 14px; font-variant-numeric: tabular-nums;
 }
 .project-detail-page .pd-table-scroll th {
-  background: #f5f4fa; color: #5a526f; font-size: 12px;
+  background: #f4efff; color: #4b3fa0; font-size: 13px;
   font-weight: 700; text-transform: none; letter-spacing: 0;
   white-space: nowrap;
 }
 .project-detail-page .pd-table-scroll tbody tr:nth-child(even) { background: #fafafe; }
 .project-detail-page .pd-table-scroll tbody tr:hover { background: #f5f0fe; }
 .project-detail-page .pd-table-scroll tbody tr:last-child>td { border-bottom: 0; }
-.project-detail-page .pd-table-scroll .pd-wide-table :is(th,td):first-child {
+.project-detail-page .pd-table-scroll .pd-wide-table :is(th,td):first-child:not([colspan]) {
   position: sticky; left: 0; z-index: 1; background: var(--pd-surface);
   box-shadow: 1px 0 0 var(--pd-line); max-width: 240px;
   min-width: 150px; width: 180px; overflow-wrap: break-word; word-break: normal;
 }
-.project-detail-page .pd-table-scroll .pd-selection-first :is(th,td):first-child { min-width: 46px; width: 46px; }
-.project-detail-page .pd-table-scroll .pd-wide-table thead th:first-child { background: #f5f4fa; z-index: 2; }
+.project-detail-page .pd-table-scroll .pd-wide-table.pd-selection-first :is(th,td):first-child { min-width: 46px; width: 46px; }
+.project-detail-page .pd-table-scroll .pd-wide-table thead th:first-child { background: #f4efff; z-index: 2; }
 .project-detail-page .pd-table-scroll td { overflow-wrap: anywhere; }
+.project-detail-page .pd-table-scroll .pd-wide-table :is(th,td):not(:first-child) {
+  min-width: 112px; word-break: normal; overflow-wrap: break-word;
+}
+.project-detail-page .pd-table-scroll .pd-wide-table.pd-id-first :is(th,td):first-child {
+  min-width: 76px; width: 76px;
+}
 
 /* Planeación, Esfuerzo, Recursos: filters and actions precede the work area. */
 .project-detail-page #view-container :where(.ixs-plan-summary,.ixs-effort-bottom,.ixs-azure-top,.ixs-azure-bottom,.ixs-az84-groups,.aer-plan-main) { gap: 20px; }
@@ -233,11 +249,11 @@ body.project-detail-page .project-return a {
 /* All project forms, including dialogs attached to body. */
 body.project-detail-page :is(button,input,select,textarea) { font-family: inherit; }
 .project-detail-page #view-container :where(button,.ixs-btn,.aer-btn,.ixai-btn,.aeri-btn) {
-  min-height: 40px; border-radius: 9px; padding: 9px 13px;
-  font-size: 13px; cursor: pointer;
+  min-height: 44px; border-radius: 9px; padding: 10px 14px;
+  font-size: 14px; cursor: pointer;
 }
 .project-detail-page #view-container :where(input:not([type=checkbox]):not([type=radio]),select,textarea) {
-  min-height: 40px; max-width: 100%; border-radius: 9px;
+  min-height: 44px; max-width: 100%; border-radius: 9px;
   border: 1px solid #d9d7e5; background: var(--pd-surface);
   color: var(--pd-ink); padding: 9px 12px; font-size: 14px;
 }
@@ -255,32 +271,195 @@ body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-clockify-dialog
   min-height: 40px; font-size: 14px; max-width: 100%;
 }
 
+/* Business Overview: quiet tinted surfaces, blue headings and clear values. */
+.project-detail-page #view-container .pd-panel {
+  background: linear-gradient(115deg,#fdfbff,#fff 65%) top / 100% 66px no-repeat, #fff;
+  border-color: var(--pd-line); border-radius: 14px;
+}
+.project-detail-page #view-container .pd-panel-title {
+  font-size: 20px; line-height: 1.4; color: var(--pd-title);
+  letter-spacing: -.025em; font-weight: 750; overflow-wrap: break-word;
+}
+.project-detail-page #view-container :where(.ixs-section-head,.aer-card-title-row,.ixai-card-head,.aeri-cardtitle) {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+}
+.project-detail-page #view-container :where(.ixs-kpi,.aer-exec-kpi,.aer-plan-kpi,.aer-action-kpi2) {
+  background: linear-gradient(120deg,#faf7ff,#fff 75%);
+  border: 1px solid var(--pd-line); border-radius: 14px;
+}
+.project-detail-page #view-container :where(.ixs-kpi:nth-child(3n+2),.aer-plan-kpi:nth-child(3n+2)) {
+  background: linear-gradient(120deg,#f3fcf8,#fff 75%);
+}
+.project-detail-page #view-container :where(.ixs-kpi .value,.aer-exec-kpi .value,.aer-plan-kpi .value) {
+  font-size: 30px; line-height: 1.25; overflow-wrap: normal;
+}
+.project-detail-page #view-container .ixs-kpi .value { font-size: clamp(24px,2.2vw,30px); }
+.project-detail-page #view-container :where(.ixs-kpi .top,.aer-exec-kpi .row,.aer-plan-kpi .top) { gap: 10px; }
+.project-detail-page #view-container :where(.ixs-kpi label,.aer-exec-kpi .label,.aer-plan-kpi .label) { font-size: 13px; color: var(--pd-ink); }
+.project-detail-page #view-container :where(.aer-plan-kpi .top,.aer-plan-kpi .top span:last-child,.aer-vivid-label,.aer-action-kpi2 .label) { text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 650; color: var(--pd-ink); }
+.project-detail-page #view-container :where(.ixs-muted,.ixs-note,.ixs-chip,.ixs-pill,.aer-pill,.aeri-chip,.ixai-pill,.ixs-attn-sub,.aer-exec-chip) { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container :where(.ixs-btn,.aer-btn,.ixai-btn,.aeri-btn,.bee-com-btn) { white-space: normal; line-height: 1.4; }
+.project-detail-page #view-container :where(.ixs-btn.primary,.aer-btn.primary,.ixai-btn.primary,.aeri-btn.primary,.bee-com-btn.primary) {
+  background: linear-gradient(110deg,#4b25c9,#7134ed); color: #fff; border-color: transparent;
+}
+
+/* Ejecutivo: readable summaries, chart legends and executive follow-up. */
+.project-detail-page #view-container :where(.ixs-summary,.aer-exec-summary) { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+.project-detail-page #view-container :where(.ixs-metric,.aer-exec-metric-head,.aer-exec-metric-head b,.aer-exec-metric-head span,.ixs-metric b) { font-size: 12px; line-height: 1.5; }
+.project-detail-page #view-container .ixs-metric { grid-template-columns: 72px minmax(0,1fr) 52px; }
+.project-detail-page #view-container :where(.ixs-area-row,.ixs-area-row b,.aer-exec-fin-legend .mini,.aer-exec-commit .top b,.aer-exec-commit .top span,.aer-exec-commit .meta) { font-size: 13px; line-height: 1.6; }
+.project-detail-page #view-container .ixs-area-row { padding: 12px 0; gap: 10px; flex-wrap: wrap; }
+.project-detail-page #view-container :where(.ixs-area-stat,.aer-exec-stats .box) { padding: 12px; }
+.project-detail-page #view-container :where(.ixs-area-stat small,.aer-exec-stats .box span,.aer-exec-list .date,.aer-exec-alert .meta,.aer-exec-alert .txt small,.aer-exec-list .row .txt small,.aer-exec-dep-item .txt small) { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container :where(.aer-exec-alert .txt b,.aer-exec-list .row .txt b,.aer-exec-dep-item .txt b) { font-size: 14px; line-height: 1.5; }
+.project-detail-page #view-container :where(.ixs-alert-title,.ixs-attn-title,.aer-exec-attn-link) { font-size: 13px; }
+.project-detail-page #view-container :where(.aer-exec-summary,.ixs-summary) { align-items: start; }
+
+/* Planeación: the roadmap stays usable; actions and filters have their own row. */
+.project-detail-page #view-container :where(.ixs-plan-kpis,.aer-plan-top-kpis) { gap: 16px; }
+.project-detail-page #view-container :where(.ixs-plan-kpi strong,.ixs-plan-kpi small,.ixs-plan-kpi .fraction,.ixs-time-month,.ixs-time-group,.ixs-time-legend,.aer-plan-filter-tools label,.aer-plan-side-note) { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container .ixs-plan-kpi { padding: 20px; border-radius: 14px; }
+.project-detail-page #view-container .ixs-plan-kpi .top { padding: 0; border: 0; min-height: 36px; margin: 0; flex-wrap: nowrap; }
+.project-detail-page #view-container .ixs-plan-kpi .icon { width: 36px; height: 36px; border-radius: 12px; font-size: 18px; flex: none; }
+.project-detail-page #view-container .ixs-plan-kpi .meter { margin-top: 16px; }
+.project-detail-page #view-container .ixs-plan-kpi .tag { font-size: 11px; white-space: normal; text-align: center; }
+.project-detail-page #view-container .aer-plan-select-label { font-size: 14px; font-weight: 700; cursor: pointer; }
+.project-detail-page #view-container .aer-plan-kpi .top span:last-child { overflow-wrap: normal; line-height: 1.5; }
+.project-detail-page #view-container .ixs-plan-kpi>b { font-size: 30px; }
+.project-detail-page #view-container :where(.aer-roadmap-toolbar,.aer-plan-filter-tools,.aer-plan-bulkbar) { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.project-detail-page #view-container .ixs-timeline-core { min-width: 720px; }
+.project-detail-page #view-container :where(.ixs-time-row) { min-height: 62px; }
+.project-detail-page #view-container :where(.aer-plan-next,.aer-plan-occupancy,.aer-roadmap-item) { line-height: 1.6; }
+
+/* Esfuerzo: five metrics, a balanced chart/legend and a usable record table. */
+.project-detail-page #view-container .ixs-effort-kpis6 { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 16px; margin-bottom: 22px; }
+.project-detail-page #view-container :where(.ixs-effort-mix-content,.ixs-effort-summary) { gap: 22px; }
+.project-detail-page #view-container :where(.ixs-effort-quick,.ixs-effort-summary-footer) { padding: 16px; font-size: 13px; line-height: 1.6; }
+.project-detail-page #view-container :where(.ixs-effort-title-note,.ixs-effort-kpi-extra,.ixs-effort-kpi-extra b,.ixs-effort-activity small,.ixs-effort-month small) { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container :where(.ixs-effort-activity summary,.ixs-effort-member,.aer-hours-task,.aer-vivid-legend) { font-size: 14px; line-height: 1.6; }
+.project-detail-page #view-container :where(.ixs-clock-filters,.aer-hours-filters) { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.project-detail-page #view-container :where(.ixs-clock-filters label,.aer-hours-filters label) { flex: 1 1 160px; }
+
+/* Recursos: space for names/roles, evaluation context and readable history. */
+.project-detail-page #view-container :where(.aer-vivid-label,.aer-eval-score span,.aer-eval-name small,.aer-eval-dim span,.aer-eval-dim b,.aer-eval-comment,.aer-eval-history,.aer-eval-last5 .item) { font-size: 13px; line-height: 1.6; }
+.project-detail-page #view-container :where(.aer-vivid-value,.aer-eval-score b) { font-size: 30px; line-height: 1.25; }
+.project-detail-page #view-container :where(.aer-vivid-value,.aer-action-kpi2 .value) { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: break-word; }
+.project-detail-page #view-container .aer-vivid-sub { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container .aer-eval-name b { font-size: 16px; }
+.project-detail-page #view-container :where(.aer-eval-layout,.aer-eval-bottom) { gap: 20px; }
+.project-detail-page #view-container .aer-eval-chart { min-height: 200px; }
+.project-detail-page #view-container .aer-eval-chart svg { height: 100%; width: 100%; }
+.project-detail-page #view-container :where(.aer-eval-chart-labels,.aer-eval-summary-row .box b,.aer-eval-summary-row .box span) { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container .aer-eval-chart-labels { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 8px; }
+.project-detail-page #view-container .aer-eval-chart-labels span { min-width: 0; overflow-wrap: anywhere; text-align: center; }
+
+/* RAID and Acciones: risks/actions remain scannable without tiny labels. */
+.project-detail-page #view-container :where(.ixs-raid-kpis,.aer-risk-kpis,.aer-action-kpis) { gap: 16px; margin-bottom: 22px; }
+.project-detail-page #view-container :where(.ixs-raid-kpi strong,.ixs-raid-kpi small,.ixs-raid-tag,.ixs-raid-meta,.aer-risk-meta .lbl,.aer-action-kpi2 .label,.aer-action-kpi2 .sub,.aer-action-alert .desc,.aer-action-meta-block .lbl) { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container :where(.ixs-raid-kpi b,.aer-action-kpi2 .value) { font-size: 30px; line-height: 1.3; }
+.project-detail-page #view-container :where(.aer-risk-item-title b,.aer-action-alert-item .main b,.aer-action-meta-block .val,.aer-risk-meta .val,.aer-risk-plan .txt b) { font-size: 14px; line-height: 1.6; }
+.project-detail-page #view-container :where(.aer-risk-item-title small,.aer-action-alert-item .main small,.aer-risk-plan .txt small) { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container :where(.aer-action-hero,.aer-client-hero) { padding: 22px; border-radius: 14px; background: linear-gradient(110deg,#fcfaff,#fff); border: 1px solid var(--pd-line); }
+.project-detail-page #view-container :where(.aer-action-hero h3,.aer-client-hero h3) { font-size: 22px; }
+.project-detail-page #view-container :where(.aer-action-kpi2,.ixs-raid-kpi) { padding: 20px; min-height: 140px; }
+
+/* Cliente: stakeholder cards, participation matrix and contact directory. */
+.project-detail-page #view-container :where(.aer-client-main,.aer-client-bottom,.aer-client-kpis) { gap: 18px; }
+.project-detail-page #view-container :where(.aer-client-name-line,.aer-client-stake-name,.aer-client-card h3) { font-size: 18px; }
+.project-detail-page #view-container :where(.aer-client-stat-label,.aer-client-meta,.aer-client-tags,.aer-client-contactline,.aer-client-jobline,.aer-client-card .hint) { font-size: 13px; line-height: 1.6; }
+.project-detail-page #view-container :where(.aer-client-stake,.aer-client-card) { padding: 18px; border-radius: 14px; border-color: var(--pd-line); }
+.project-detail-page #view-container :where(.aer-client-directory-tools,.aer-client-filters) { gap: 12px; flex-wrap: wrap; }
+
+/* Comunicación: distinguish the message list from its contextual sidebar. */
+.project-detail-page #view-container .bee-com { padding: 0; background: transparent; min-height: 0; }
+.project-detail-page #view-container :where(.bee-com-head,.bee-com-head-actions) { gap: 14px; flex-wrap: wrap; }
+.project-detail-page #view-container .bee-com-kpis { gap: 14px; margin: 20px 0; }
+.project-detail-page #view-container .bee-com-kpi { padding: 18px; align-items: flex-start; }
+.project-detail-page #view-container .bee-com-kpi b { font-size: 28px; }
+.project-detail-page #view-container :where(.bee-com-kpi strong,.bee-com-kpi small,.bee-com-category,.bee-com-tag) { font-size: 12px; line-height: 1.5; }
+.project-detail-page #view-container .bee-com-grid { gap: 20px; }
+.project-detail-page #view-container :where(.bee-com-list,.bee-com-side .bee-com-card) { padding: 20px; border-color: var(--pd-line); }
+.project-detail-page #view-container .bee-com-filters { display: grid; grid-template-columns: minmax(180px,1.4fr) minmax(130px,1fr) minmax(130px,1fr); }
+.project-detail-page #view-container .bee-com-row .copy b { font-size: 16px; line-height: 1.5; }
+.project-detail-page #view-container .bee-com-row .copy p { font-size: 14px; line-height: 1.6; }
+
+/* Azure: readable health legend and filters; every work-item column remains. */
+.project-detail-page #view-container :where(.ixs-azure-top,.ixs-azure-bottom,.ixs-az84-groups) { gap: 20px; }
+.project-detail-page #view-container :where(.ixs-az85-legend,.ixs-azure-health-v85 .ixs-az85-legend,.ixs-az84-item,.ixs-az84-meta,.ixs-wi-meta) { font-size: 13px; line-height: 1.6; }
+.project-detail-page #view-container :where(.ixs-az85-columns,.ixs-az85-person-name,.ixs-az85-person-name small,.ixs-az85-total,.ixs-az84-notice,.ixs-az85-person summary .ixs-az84-count) { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container .ixs-az85-people-scroll { overscroll-behavior-x: contain; }
+.project-detail-page #view-container .ixs-az85-people { min-width: 700px; }
+.project-detail-page #view-container :where(.ixs-azure-filters,.ixs-wi-filters) { display: flex; gap: 12px; flex-wrap: wrap; }
+.project-detail-page #view-container :where(.ixs-azure-filters input,.ixs-azure-filters select) { flex: 1 1 160px; min-width: 0; }
+
+/* IA: reports and evidence read like content, not miniature dashboard tiles. */
+.project-detail-page #view-container :where(.ixai,.aeri) { font-size: 14px; line-height: 1.6; }
+.project-detail-page #view-container :where(.ixai-grid6,.aeri-kpis) { gap: 14px; }
+.project-detail-page #view-container :where(.ixai-stat strong,.aeri-stat label,.aeri-memory strong,.aeri-rec b) { font-size: 13px; line-height: 1.5; }
+.project-detail-page #view-container :where(.ixai-stat small,.aeri-stat small,.aeri-memory small,.aeri-muted,.aeri-rec small,.ixai-evidence,.ixai-source) { font-size: 12px; line-height: 1.6; }
+.project-detail-page #view-container :where(.ixai-stat b,.aeri-stat strong) { font-size: 28px; line-height: 1.2; }
+.project-detail-page #view-container .ixai-stat { padding: 0; min-height: 100px; gap: 12px; }
+.project-detail-page #view-container :where(.ixai-main,.aeri-row,.aeri-grid3,.ixai-two,.ixai-three) { gap: 20px; }
+.project-detail-page #view-container :where(.ixai-answer,.aeri-answer,.aeri-point,.ixai-finding,.aeri-rec) { padding: 14px; line-height: 1.7; font-size: 14px; }
+.project-detail-page #view-container :where(.ixai-chips,.ixai-tags,.aeri-chips) { display: flex; flex-wrap: wrap; gap: 8px; }
+.project-detail-page #view-container :where(.aeri-chat,.ixai-ask) { gap: 10px; }
+.project-detail-page #view-container :where(.ixai-head-actions,.aeri-head-actions) { flex-wrap: wrap; }
+
+/* Body-level editors share the same form scale as their source tab. */
+body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-clockify-dialog,.ixs-raid-modal,.ixe-dialog,.bee-com-dialog,.ixai-dialog) {
+  color: var(--pd-ink); background-color: #fff; font-family: 'Plus Jakarta Sans',system-ui,sans-serif;
+  border: 1px solid var(--pd-line); max-width: calc(100vw - 24px); max-height: calc(100dvh - 24px); overflow: auto;
+}
+body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-clockify-dialog,.ixs-raid-modal,.ixe-dialog,.bee-com-dialog,.ixai-dialog) :is(label,input,select,textarea,button,p) { font-size: 14px; line-height: 1.5; }
+body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-raid-modal,.bee-com-dialog,.ixai-dialog) :is(h2,h3) { font-size: 20px; line-height: 1.4; color: var(--pd-title); }
+body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-clockify-dialog,.ixs-raid-modal,.ixe-dialog,.bee-com-dialog,.ixai-dialog) :is(input:not([type=checkbox]):not([type=radio]),select,textarea,button) { min-height: 44px; max-width: 100%; }
+
 @media (max-width: 1200px) {
   body.project-detail-page main.page { padding: 20px; }
-  .project-detail-page #view-container :where(.ixs-kpis,.aer-exec-top,.ixs-plan-kpis,.aer-plan-top-kpis,.ixs-azure-kpis) { grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .project-detail-page #view-container :where(.ixs-cols,.aer-exec-main,.ixs-bottom,.ixs-effort-bottom,.ixs-azure-bottom,.aer-exec-bottom) { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container :is(.ixs-kpis,.aer-exec-top,.ixs-plan-kpis,.aer-plan-top-kpis,.ixs-azure-kpis) { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .project-detail-page #view-container :is(.ixs-cols,.aer-exec-main,.ixs-bottom,.ixs-effort-bottom,.ixs-azure-bottom,.aer-exec-bottom) { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container :is(.ixs-effort-kpis6,.ixai-grid6,.aeri-kpis,.bee-com-kpis) { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .project-detail-page #view-container :is(.aer-eval-layout,.aer-plan-secondary,.ixai-main,.ixs-azure-top) { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container[data-project-section="Azure DevOps"] .ixs-main { grid-template-columns: minmax(0,1fr); align-items: start; }
+  .project-detail-page #view-container .ixs-azure-health-v85 { grid-template-columns: minmax(140px,.6fr) minmax(0,1fr); }
 }
 @media (max-width: 760px) {
   body.project-detail-page main.page { padding: 16px 14px 32px; }
-  .project-detail-page #view-container :where(.ixs-head,.aer-head) { padding: 22px 20px; }
-  .project-detail-page #view-container :where(.ixs-kpis,.aer-exec-top,.aer-grid-kpi,.ixs-plan-kpis,.aer-plan-top-kpis,.ixs-azure-kpis,.ixs-raid-kpis,.aeri-kpis) { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
-  .project-detail-page #view-container :where(.ixs-summary,.aer-exec-summary,.ixs-plan-summary,.aer-two,.ixs-area-layout,.ixs-effort-mix,.ixs-azure-top,.ixai-grid,.ixai-grid3,.aeri-grid3) { grid-template-columns: minmax(0,1fr); }
-  .project-detail-page #view-container :where(.ixs-card,.aer-card,.ixai-card,.aeri-card,.aer-vivid-card) { padding: 18px; }
-  .project-detail-page #view-container :where(.ixs-nav,.aer-tabs) { margin-bottom: 16px; }
+  .project-detail-page #view-container .ixs-shell .ixs-head,
+  .project-detail-page #view-container .aer-shell .aer-head { padding-right: 20px; }
+  .project-detail-page #view-container :is(.aer-head,.ixs-head) { padding-right: 20px; }
+  .project-detail-page #view-container :is(.ixs-effort-kpis6,.ixai-grid6,.aeri-kpis,.bee-com-kpis,.aer-action-kpis,.aer-risk-kpis,.aer-eval-kpis) { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .project-detail-page #view-container :is(.ixs-effort-mix-content,.ixs-effort-summary,.aer-client-main,.aer-client-bottom,.bee-com-grid,.aer-exec-grid3,.aer-plan-secondary,.ixai-two,.ixai-three,.aeri-row,.aeri-grid3) { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container :is(.ixai-stat,.aeri-stat) { flex-wrap: wrap; }
+  .project-detail-page #view-container :is(.aer-risk-kpis,.aer-eval-kpis) .aer-vivid-kpi-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .project-detail-page #view-container :is(p,li,input:not([type=checkbox]):not([type=radio]),select,textarea) { font-size: 16px; }
+  body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-raid-modal,.bee-com-dialog,.ixai-dialog) :is(input:not([type=checkbox]):not([type=radio]),select,textarea) { font-size: 16px; }
+  .project-detail-page #view-container :is(.aer-client-directory-tools,.ixs-clock-filters) { align-items: stretch; }
+  .project-detail-page #view-container :is(.aer-client-directory-tools input,.aer-client-directory-tools button) { width: 100%; }
+  .project-detail-page #view-container .bee-com-filters { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container .ixs-azure-health-v85 { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container :is(.ixs-head,.aer-head) { padding: 22px 20px; }
+  .project-detail-page #view-container :is(.ixs-kpis,.aer-exec-top,.aer-grid-kpi,.ixs-plan-kpis,.aer-plan-top-kpis,.ixs-azure-kpis,.ixs-raid-kpis,.aeri-kpis) { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .project-detail-page #view-container :is(.ixs-summary,.aer-exec-summary,.ixs-plan-summary,.aer-two,.ixs-area-layout,.ixs-effort-mix,.ixs-azure-top,.ixai-grid,.ixai-grid3,.aeri-grid3) { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container :is(.ixs-card,.aer-card,.ixai-card,.aeri-card,.aer-vivid-card) { padding: 18px; }
+  .project-detail-page #view-container :is(.ixs-nav,.aer-tabs) { margin-bottom: 16px; }
   .project-detail-page #view-container :is(.ixs-nav,.aer-tabs) button { padding: 10px 14px; }
-  .project-detail-page #view-container :where(.ixs-kpi,.aer-exec-kpi,.aer-plan-kpi) { min-height: 140px; padding: 16px; }
-  .project-detail-page #view-container :where(.ixs-metrics,.aer-exec-metrics) { border-left: 0; padding: 0; }
-  .project-detail-page #view-container :where(.ixai-head-actions,.aer-client-filters,.bee-com-filters) { width: 100%; }
+  .project-detail-page #view-container :is(.ixs-kpi,.aer-exec-kpi,.aer-plan-kpi) { min-height: 140px; padding: 16px; }
+  .project-detail-page #view-container :is(.ixs-metrics,.aer-exec-metrics) { border-left: 0; padding: 0; }
+  .project-detail-page #view-container :is(.ixai-head-actions,.aer-client-filters,.bee-com-filters) { width: 100%; }
 }
 @media (max-width: 480px) {
-  .project-detail-page #view-container :where(.ixs-kpi,.aer-exec-kpi,.aer-plan-kpi) { min-height: 126px; }
-  .project-detail-page #view-container :where(.ixs-resource-form,.aer-formgrid,.ixs-raid-form-grid,.aeri-drivegrid,.aer-client-row) { grid-template-columns: minmax(0,1fr); }
-  .project-detail-page #view-container :where(.ixs-head-right,.aer-actions) { margin-top: 14px; }
-  .project-detail-page #view-container :where(.ixs-area-layout,.aer-plan-main,.ixs-az84-groups) { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container :is(.ixs-kpi,.aer-exec-kpi,.aer-plan-kpi) { min-height: 126px; }
+  .project-detail-page #view-container :is(.ixs-resource-form,.aer-formgrid,.ixs-raid-form-grid,.aeri-drivegrid,.aer-client-row) { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container :is(.ixs-head-right,.aer-actions) { margin-top: 14px; }
+  .project-detail-page #view-container :is(.ixs-area-layout,.aer-plan-main,.ixs-az84-groups) { grid-template-columns: minmax(0,1fr); }
   body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-raid-modal) { padding: 18px; }
+  body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-raid-modal,.ixai-dialog) :is(.aer-formgrid,.ixs-resource-form,.ixs-raid-form-grid) { grid-template-columns: minmax(0,1fr); }
 }
 @media (max-width: 359px) {
-  .project-detail-page #view-container :where(.ixs-kpis,.aer-exec-top,.aer-grid-kpi,.ixs-plan-kpis,.aer-plan-top-kpis,.ixs-azure-kpis,.ixs-raid-kpis,.aeri-kpis) { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container :is(.ixs-kpis,.aer-exec-top,.aer-grid-kpi,.ixs-plan-kpis,.aer-plan-top-kpis,.ixs-azure-kpis,.ixs-raid-kpis,.aeri-kpis) { grid-template-columns: minmax(0,1fr); }
+  .project-detail-page #view-container :is(.ixs-effort-kpis6,.ixai-grid6,.bee-com-kpis,.aer-action-kpis,.aer-risk-kpis,.aer-eval-kpis) { grid-template-columns: minmax(0,1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
   .project-detail-page #view-container *, .project-detail-page [role=dialog] * { scroll-behavior: auto; transition: none; animation: none; }

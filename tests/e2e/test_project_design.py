@@ -77,7 +77,7 @@ def test_all_project_tabs_are_readable_and_contained(
     nav = portal.locator(".aer-tabs" if family == "aer" else ".ixs-nav")
     expect(nav).to_be_visible()
     expect(portal.locator("body")).to_have_attribute(
-        "data-project-design", "delivery-v1"
+        "data-project-design", "delivery-v2"
     )
     labels = nav.locator("button").all_text_contents()
     assert len(labels) == (8 if family == "aer" else 10)

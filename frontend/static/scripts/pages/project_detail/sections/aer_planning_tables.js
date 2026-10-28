@@ -226,7 +226,7 @@ export function activitiesTable(m, filters, actions) {
             "label",
             {
               for: "aer-plan-select-all",
-              style: { fontSize: "10px", fontWeight: "700", cursor: "pointer" },
+              class: "aer-plan-select-label",
             },
             "Seleccionar todas",
           ),

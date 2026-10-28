@@ -474,7 +474,7 @@
     grid-template-columns: 1fr 1fr !important;
   }
   .ixai-grid6 {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(3, 1fr);
   }
   .ixai-recs {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -503,7 +503,7 @@
     grid-template-columns: 1fr !important;
   }
   .ixai-grid6 {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr 1fr;
   }
   .ixai-recs {
     grid-template-columns: 1fr !important;

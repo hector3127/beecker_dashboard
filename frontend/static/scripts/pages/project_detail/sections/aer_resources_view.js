@@ -72,7 +72,13 @@ export function renderResources(target, m, dashboard, actions) {
     chart.append(
       svg(
         "svg",
-        { viewBox: "0 0 100 100", preserveAspectRatio: "none" },
+        {
+          viewBox: "0 0 100 100",
+          preserveAspectRatio: "xMidYMid meet",
+          "data-evaluation-points": poly,
+          role: "img",
+          "aria-label": `Histórico de evaluaciones: ${pts.map((x) => x.score).join(", ")}`,
+        },
         svg("polyline", {
           points: poly,
           fill: "none",

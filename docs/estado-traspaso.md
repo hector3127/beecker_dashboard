@@ -4,6 +4,17 @@ Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
+**Revisión de diseño vigente: delivery-v2, base ce68f0e.** Proyectos usa
+Business Overview como referencia por nueva petición del usuario. Revisadas
+las 18 pestañas existentes de ambas familias y los editores; ver evidencia
+en `docs/diseno-proyectos.md`. No restaurar las escalas compactas antiguas.
+La gráfica de evaluaciones adapta sus coordenadas de presentación al tamaño
+del contenedor, conservando los mismos puntos/porcentajes del modelo.
+476 Node y la revisión detallada de 18 pestañas/11 editores aprobadas;
+31 AER conservan comparaciones exactas con 24 referencias delivery-v2.
+Los alcances y el diagnóstico de una captura móvil desactualizada están
+documentados en el diseño; no afirmar una suite completa de e2e. Sin push.
+
 **Nuevo encargo: rediseño de toda la vista Proyectos**, autorizado después
 de congelar referencias. Ver `docs/diseno-proyectos.md` y el bloque vigente
 del plan. La apariencia `delivery-v1` sustituye la previa en esta ruta;

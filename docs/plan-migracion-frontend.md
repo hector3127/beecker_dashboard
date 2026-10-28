@@ -9,6 +9,23 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Revisión detallada de Proyectos, base ce68f0e:** el usuario solicita
+revisar pestaña por pestaña y acercar el diseño a Business Overview.
+`delivery-v2` adopta su paleta azul/lavanda, superficies y jerarquía;
+incluye ajustes propios de cada pestaña y de sus editores. Se detectaron
+y corrigieron métricas de Esfuerzo demasiado estrechas en móvil, roles
+partidos en tablas, leyenda de Azure comprimida en tablet y deformación
+de marcadores/textos en la gráfica de evaluaciones AER. Esta última conserva
+posiciones normalizadas/valores del modelo y adapta el SVG al contenedor.
+Sin cambios en modelos, fuentes, permisos, CSP o Business Overview.
+Evidencia y alcance: [diseno-proyectos.md](diseno-proyectos.md).
+Validación: 476 Node, 32 pruebas específicas de diseño (90 vistas y 44
+editores), ocho recorridos generales y 31 AER aprobadas en sus alcances;
+las corridas se solapan. Las 24 referencias AER identifican delivery-v2.
+La comparación detectó una captura móvil anterior al último ajuste de
+métricas; tres mediciones confirmaron la causa y se corrigió solo esa
+referencia. Sin tolerancias nuevas ni cambios de valores. Sin push.
+
 **Rediseño de Proyectos solicitado por el usuario, base 007d76c:** se autoriza
 una nueva presentación para todas las pestañas de IXB/SaaS/RaaS y las ocho
 existentes de AER/T&M. Hoja externa exclusiva del detalle, jerarquía legible,

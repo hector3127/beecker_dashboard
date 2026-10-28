@@ -26,12 +26,15 @@ Reglas que no se negocian:
 **Excepción autorizada posteriormente por el usuario: rediseño de Proyectos.**
 El usuario pidió renovar todas las pestañas del detalle de proyecto, con
 gráficas/tablas responsivas y mejor organización. Esa vista usa ahora el
-sistema `delivery-v1` documentado en `docs/diseno-proyectos.md`; no debe
+sistema `delivery-v2` documentado en `docs/diseno-proyectos.md`; no debe
 forzarse su apariencia contra el old ni contra referencias previas al
 rediseño. Se conservan cálculos, permisos, fuentes, acciones y navegación.
 La restricción de conservar el diseño sigue vigente para las otras páginas.
 Las referencias nuevas identifican explícitamente el rediseño solicitado;
 no implican una aprobación visual posterior que el usuario aún no ha dado.
+La segunda revisión pide usar Business Overview como referencia visual y
+revisar cada pestaña en distintos tamaños. Mantener los ajustes de escala,
+tablas y el gráfico responsivo de evaluaciones; no cambiar sus valores.
 
 **Criterio vigente por instrucción del usuario:** conservar el diseño actual
 aprobado, sin cambios en HTML/CSS/JS de la aplicación para igualarlo al old.

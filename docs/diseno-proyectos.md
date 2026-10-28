@@ -5,6 +5,76 @@ Esta autorización sustituye la conservación estricta del aspecto anterior
 **solo en esta vista**. Se conservan datos, cálculos, controles, permisos,
 exportaciones, navegación y operaciones de edición.
 
+## Segunda revisión: Business Overview como referencia (delivery-v2)
+
+Base de comparación: `ce68f0e`. El usuario pide recorrer cada pestaña a
+detalle y acercarla a Business Overview. Se revisan las dos familias con
+fuentes simuladas pobladas, sin escrituras externas. No se cambia Business
+Overview: se toman de su CSS/captura el ancho 1520, fondo lavanda, títulos
+azules, bordes suaves, superficies claras y acciones moradas.
+
+| Apartado | Revisión y ajuste |
+| --- | --- |
+| Ejecutivo | Escala común de métricas, lectura de alertas/resumen y leyendas con tamaños legibles. |
+| Planeación | Métricas adaptables, cronología con desplazamiento propio, filtros/acciones separados y selección con etiqueta legible. |
+| Esfuerzo | Cinco métricas que pasan a tres/dos/una según el ancho; leyenda y resumen se apilan; fechas y registros mantienen espacio. |
+| Recursos | Roles y nombres no se parten letra por letra; historial/evaluaciones conservan contexto y controles. |
+| Gestión RAID / Riesgos | Conteos y etiquetas coherentes, detalle y formulario con límites de pantalla. |
+| Acciones | Encabezado, estados y formularios al mismo tamaño; columnas y operaciones conservadas. |
+| Cliente | Tarjetas de contactos, matriz, ficha y directorio con espaciado común; editor móvil en una columna. |
+| Comunicación | Métricas/controles legibles, barra de filtros adaptable, lista y contexto separados; detalle/editor responsivos. |
+| Azure DevOps | Distribución y leyenda dejan de comprimirse en tablet; grupos y tabla conservan columnas y controles. |
+| IA | Indicadores adaptables, informes/evidencias legibles, acciones que se distribuyen y editores dentro del dispositivo. |
+
+Hallazgos concretos de la revisión: las métricas de Esfuerzo podían caber
+sin desbordar y aun así resultar ilegibles; se añade una comprobación de
+ancho mínimo de tarjeta. Los roles también podían cortarse carácter por
+carácter: las columnas de detalle tienen ahora un ancho de lectura mínimo.
+El SVG de evaluaciones AER usaba `preserveAspectRatio=none`, deformando
+marcadores y texto: se adapta su viewBox al contenedor con ResizeObserver,
+conservando las posiciones normalizadas del modelo y sus cinco valores.
+Las leyendas de Azure usan una composición propia para tablet.
+
+Evidencia visual local: `tmp/design-review-baseline/` conserva las capturas
+anteriores; `tmp/design-review/` contiene la revisión por familia/pestaña/
+ancho y `editors/` sus formularios. Se comprueban 1450/900/600/390/320 para
+las pestañas y 1450/900/390/320 para los once editores. El navegador integrado
+estaba deshabilitado; la revisión se realizó en Chrome mediante las pruebas.
+
+Las referencias de AER se actualizan expresamente a
+`project_redesign_delivery_v2`; no se intenta igualar el old ni se declara
+aprobación posterior del usuario. El transporte y todas las operaciones
+siguen en sus módulos existentes.
+
+### Validación de delivery-v2
+
+- 476 Node completas aprobadas (`tmp/design-review-node-release.log`).
+- Las 32 pruebas específicas de diseño aprobaron dentro de la corrida de
+  cierre: 18 pestañas en cinco anchos (90 vistas), 11 editores en cuatro
+  anchos (44 formularios), referencia visual de Business Overview,
+  redimensionado del SVG y desplazamiento de la tabla conservando nombres.
+  Comprueban contención, ayudas/textos nativos de al menos 12 px, tarjetas
+  de al menos 128 px, cifras sin truncar y campos de tamaño utilizable.
+- La corrida de cierre registró 70 aprobadas y una referencia desactualizada
+  en Recursos/full/390. Tres mediciones reprodujeron la disposición final
+  con todos los textos iguales: aquella captura precedía al último ajuste
+  de métricas móviles. Se actualizó solo ese caso, sin tolerancias nuevas.
+  Después pasaron las 31 de Ejecutivo/Recursos AER, incluidas sus 24
+  comparaciones exactas, teclado, CRUD, reintento y respuestas tardías.
+  Logs: `tmp/design-review-release.log`, `tmp/design-review-aer-release.log`.
+- La regresión amplia anterior de controles registró 114 aprobadas y dos
+  fallos de diseño a 320 px (Azure/IA). Se corrigieron y seis dirigidas
+  aprobaron antes de la corrida de cierre. No se cuenta como una suite
+  completa de e2e ni se suman corridas solapadas.
+- Ruff de los seis Python propios, sintaxis JS, `git diff --check` y
+  `manage.py check` aprobados. Se conserva el aviso del entorno de pruebas
+  sobre `staticfiles/` ausente; los estáticos fuente sí se sirvieron.
+
+No se repitió toda la suite de servidor: no hay cambios en `apps/`, `core/`
+ni `config/`. No se hicieron envíos ni escrituras a proveedores reales.
+Las antiguas comparaciones de aspecto contra el old siguen pendientes de
+clasificación en fase 11; este bloque no las borra ni declara cerrada esa fase.
+
 ## Dirección: centro de seguimiento de entregas
 
 Mantener Beecker reconocible y dar prioridad a la lectura de decisiones.
@@ -12,13 +82,14 @@ El único gesto de marca dominante es la cabecera morado/fucsia; el área de
 trabajo usa superficies blancas, texto oscuro y color semántico en estados.
 La navegación presenta todas las pestañas existentes de cada familia.
 
-- Tinta: #211b4b; secundario: #676b82; superficie: #ffffff.
-- Fondo: #f5f6fb; borde: #e4e6ef; marca: #6429d8.
+- Tinta: #1b1a6b; títulos: #1b1a9e; secundario: #5b5e85; superficie: #ffffff.
+- Fondo: #f3f4fd; borde: #e5dcff; marca: #6429d8.
 - Estados: verde #147d5c, ámbar #9b650d y rojo #c62d50.
-- Tipografía: familia del portal con respaldo del sistema. Título 26–32 px,
-  sección 17–20 px, texto/datos 13–14 px, ayudas 12 px. Números tabulares.
+- Tipografía: familia del portal con respaldo del sistema. Título 26–34 px,
+  sección 20 px, texto/datos 14 px, ayudas 12–13 px; texto/campos móviles
+  16 px. Números tabulares.
 - Espaciado de 4/8 px; paneles 20–24 px; separaciones 16–24 px.
-- Contenido centrado hasta 1680 px; rejillas adaptadas al contenido y a
+- Contenido centrado hasta 1520 px, como Business Overview; rejillas adaptadas al contenido y a
   escritorio/tablet/móvil. Navegación horizontal desplazable en móvil.
 - Tablas completas con desplazamiento propio y columna de contexto fija;
   no esconder columnas ni encoger texto para forzarlas dentro del móvil.
