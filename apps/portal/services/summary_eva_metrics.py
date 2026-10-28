@@ -138,5 +138,20 @@ def at_cut(
     for row, metric in zip(rows, projected, strict=True):
         if row.get("metrics_observed_date") != cut.isoformat():
             metric["azure_pending"] = True
+            row["azure_unavailable_label"] = (
+                "Sin histórico"
+                if row.get("metrics_observed_date", "") > cut.isoformat()
+                else "Sin observación"
+            )
+            row["azure_unavailable_reason"] = (
+                "No hay una observación de tareas y riesgos "
+                "guardada para esta fecha."
+            )
+        elif metric.get("azure_pending", True):
+            row["azure_unavailable_label"] = "Sin datos"
+            row["azure_unavailable_reason"] = (
+                "La extracción o la relación del bloque con Azure "
+                "no está completa."
+            )
         row["eva_metrics"] = metric
     return rows

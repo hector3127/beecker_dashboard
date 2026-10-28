@@ -17,4 +17,13 @@
 .inventory-dm-scroll tbody th { background: transparent; white-space: normal; min-width: 220px; border-top: 1px solid #ede8fa; }
 .inventory-dm-scroll .inventory-dm-total { background: #eee6ff; color: #482098; font-weight: 700; }
 .inventory-dm-scroll tfoot { background: #f4f0ff; font-weight: 700; }
+.inventory-cut-progress { display: flex; align-items: center; gap: 10px; color: #6230df; }
+.inventory-cut-progress[hidden] { display: none; }
+.inventory-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid #e9ddff; border-top-color: #7944ee; border-radius: 50%; animation: inventory-spin .9s linear infinite; }
+.inventory-loading-label { display: block; margin-top: 6px; font-size: 12px; }
+.inventory-unavailable { color: #756789; font-size: 12px; white-space: nowrap; }
+.inventory-scroll .wi-icon { text-align: center; font-size: 18px; }
+.inventory-search button:disabled { opacity: .65; cursor: wait; }
+@keyframes inventory-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .inventory-spinner { animation: none; } }
 @media (max-width: 600px) { .summary-inventory { padding: 16px; } .inventory-search label { flex-basis: 100%; } }

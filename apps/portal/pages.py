@@ -80,6 +80,10 @@ def summary_inventory(request: HttpRequest) -> HttpResponse:
             "rows": rows,
             "query": query,
             "count": len(rows),
+            "history_unavailable_count": sum(
+                row.get("azure_unavailable_label") == "Sin histórico"
+                for row in rows
+            ),
             "dm_totals": dm_totals(rows),
             "cut": cut.isoformat(),
             "cut_error": cut_error,

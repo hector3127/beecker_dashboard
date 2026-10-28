@@ -9,6 +9,12 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Feedback de cortes del inventario, 28/10:** iconos WI 🤖/✅/⌛; indicador
+durante GET y controles recuperables a los 15 s/pageshow. Corte anterior sin
+observación indica Sin histórico y su causa, sin spinner perpetuo. 21 servidor,
+cinco Chrome/CSP y Ruff/mypy aprobados; ver inventario-eva-metricas.md.
+No cambian datos/cálculos ni se extraen fuentes. Sin push.
+
 **Campos EVA persistidos en el inventario, 28/10:** extracción Summary ahora
 guarda work items, riesgos y horas Clockify más proyecciones financieras por
 bloque. Tabla lee evidencia local; horas al corte, tareas/riesgos únicamente

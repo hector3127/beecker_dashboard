@@ -55,6 +55,49 @@ def test_persisted_metrics_render_without_provider_calls(
     expect(cells.nth(12)).to_have_text("5%")
     expect(cells.nth(13)).to_have_text("0")
     expect(cells.nth(25)).to_have_text("Sin riesgos activos")
+    page.goto(live_server.url + "/operativa/eva-1/summary/?corte=2026-05-20")
+    expect(page.locator("#summary-projects-table tbody")).to_contain_text(
+        "Sin histórico"
+    )
+    expect(page.locator("#inventory-cut-progress")).to_be_hidden()
+
+
+def test_cut_navigation_shows_loading_then_resets(
+    page, live_server, settings, inventory
+):
+    settings.ROOT_URLCONF = "config.urls"
+    settings.PORTAL_LOGIN_REQUIRED = False
+    page.goto(live_server.url + "/operativa/eva-1/summary/?corte=2026-06-01")
+    expect(
+        page.get_by_role("columnheader", name="Total de Work Items", exact=True)
+    ).to_have_count(4)
+    expect(
+        page.get_by_role(
+            "columnheader", name="Total de Work Items", exact=True
+        ).first
+    ).to_have_text("🤖")
+    page.clock.install()
+    page.evaluate(
+        "document.querySelector('.inventory-search').addEventListener("
+        "'submit', event => event.preventDefault(), {once: true})"
+    )
+    page.evaluate("document.querySelector('.inventory-search').requestSubmit()")
+    expect(page.locator("#inventory-cut-progress")).to_be_visible()
+    expect(page.get_by_role("button", name="Consultar corte")).to_be_disabled()
+    expect(
+        page.locator("[data-azure-metric] .inventory-spinner")
+    ).to_have_count(13)
+    page.clock.fast_forward(15001)
+    expect(page.get_by_role("button", name="Consultar corte")).to_be_enabled()
+    expect(page.locator("#inventory-cut-progress")).to_contain_text(
+        "está tardando"
+    )
+    expect(
+        page.locator("[data-azure-metric] .inventory-spinner")
+    ).to_have_count(0)
+    page.goto(live_server.url + "/operativa/eva-1/summary/?corte=2026-06-01")
+    expect(page.get_by_role("button", name="Consultar corte")).to_be_enabled()
+    expect(page.locator("#inventory-cut-progress")).to_be_hidden()
 
 
 @pytest.mark.parametrize("width", [390, 900, 1450])

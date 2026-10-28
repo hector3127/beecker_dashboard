@@ -88,6 +88,7 @@ def test_counts_risks_and_hours_share_persistable_evidence():
     at_cut(rows, evidence, date(2026, 10, 2))
     assert rows[0]["eva_metrics"]["burn"] == 1
     assert rows[0]["eva_metrics"]["azure_pending"] is True
+    assert rows[0]["azure_unavailable_label"] == "Sin histórico"
     at_cut(rows, evidence, date(2026, 10, 29))
     assert rows[0]["eva_metrics"]["burn"] is None
 

@@ -1,5 +1,23 @@
 # Métricas EVA persistidas en el inventario
 
+## Iconos y disponibilidad al consultar cortes
+
+Los encabezados WI usan 🤖/✅/⌛ con títulos y nombres accesibles. Consultar
+un corte conserva GET y funcionamiento sin JS; un módulo de página muestra
+indicador/celdas de carga durante la navegación, bloquea doble envío y restaura
+estado en pageshow. A los 15 s restaura controles y ofrece reintento, sin
+simular una extracción ni añadir consultas a proveedores. Respeta reduced-motion.
+
+Los cortes anteriores a la observación muestran Sin histórico y una explicación,
+en lugar del ambiguo Pendiente. Otros faltantes muestran Sin observación/Sin
+datos. No se deja un spinner sin trabajo en curso ni se presentan los estados
+actuales como históricos. Datos, fórmulas, permisos y fuentes conservados.
+
+21 servidor de inventario/métricas y cinco Chrome con rutas reales/CSP
+aprobados, incluidos iconos, disponibilidad histórica, inicio de carga, salida
+por timeout con reloj simulado, recarga y tres tamaños. Ruff/mypy aprobados.
+Sin extracciones adicionales ni push.
+
 28/10/2026. Por solicitud del usuario, `sync_summary_inventory` incorpora
 horas facturables de Clockify y work items de Azure al mismo inventario de
 Summary/iteraciones. No modifica el inventario ni los cortes publicados del
