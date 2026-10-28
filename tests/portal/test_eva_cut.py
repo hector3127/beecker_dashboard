@@ -121,7 +121,7 @@ def test_reject_invalid_or_future_cut(raw):
 
 
 def test_cut_page_keeps_all_manager_options_and_masks_azure(
-    client, monkeypatch, settings
+    client, monkeypatch, settings, db
 ):
     from dataclasses import replace
 

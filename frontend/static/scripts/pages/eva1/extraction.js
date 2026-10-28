@@ -25,7 +25,7 @@ export function mountExtraction() {
   };
   async function poll() {
     try {
-      const { data } = await apiGet('screens/eva1/extraccion/', undefined, { cache: 'no-store' });
+      const { data } = await apiGet('screens/eva1/extraccion/', undefined, { cache: 'no-store', timeout: 10000 });
       render(data);
       if (data.state === 'failed' && requestedAt && data.id !== baseline) {
         busy = false;

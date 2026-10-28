@@ -17,10 +17,16 @@ def snapshot(
     runs = runs.filter(cut__lte=cut) if latest else runs.filter(cut=cut)
     run = runs.order_by("-cut", "-started_at", "-pk").first()
     if run is None:
+        message = (
+            f"No hay un corte guardado para el {cut:%d/%m/%Y}. "
+            "Elige una de las fechas disponibles."
+            if cut < timezone.localdate()
+            else "No hay un corte guardado para hoy. "
+            "Actualiza las fuentes para crearlo."
+        )
         return {
             "rows": [],
-            "error": "No hay un corte Azure/Clockify para esta fecha. "
-            "Actualiza las fuentes para crear el corte de hoy.",
+            "error": message,
             "extraction": None,
         }
     rows = list(

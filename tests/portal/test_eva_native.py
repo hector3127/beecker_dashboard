@@ -224,6 +224,11 @@ def test_eva_route_no_sheets_or_provider_http(observed, client, monkeypatch):
         assert "AMK.012_S1" in html
         assert "Actualizar fuentes Azure / Clockify" in html
         assert "Summary, iteraciones" in html
+        assert 'name="corte"' in html
+        assert 'method="get"' in html
+        assert "Última extracción:" in html
+        assert "Consultando estado de extracción" not in html
+        assert "Las cifras reales aparecerán" not in html
 
 
 def test_kpis_read_same_cut_without_sheets(observed):
@@ -257,6 +262,20 @@ def test_refresh_csrf_and_local_status(observed):
             == 403
         )
     refresh.assert_not_called()
+
+
+def test_partial_cut_notice_is_not_a_connection_error(
+    observed, client, monkeypatch
+):
+    observed.issues = ["Summary incompleto"]
+    observed.save(update_fields=["issues"])
+    monkeypatch.setattr("apps.portal.views.timezone.localdate", lambda: CUT)
+    response = client.get("/operativa/eva-1/")
+    assert response.context["error"] == ""
+    assert "incidencias de origen" in response.context["eva_source_notice"]
+    html = response.content.decode()
+    assert "Las cifras reales aparecerán" not in html
+    assert "Fuente no disponible" not in html
 
 
 def test_extractor_publishes_atomically_and_retains_cut_on_provider_failure(

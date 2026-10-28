@@ -2,6 +2,12 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+Corrección posterior a 91f48ed: EVA entrega estado inicial desde Django y
+fecha/DM/servicio por GET nativo, sin depender de JS o de la extracción.
+Avisos parciales separados de indisponibilidad; enlaces a fechas guardadas.
+59 dirigidas servidor, 478 Node y siete Chrome con CSP; ver evidencia en
+eva-azure-clockify.md. Sin cambios de cálculos/datos ni nueva extracción.
+
 28/10: **EVA 1 nativo ya está conectado**, sustituyendo el primer bloque
 de auditoría. Ver eva-azure-clockify.md: migración 0008 con respaldo, cortes
 observados locales, extracción/tiempos, botón con background/CSRF, cerrados

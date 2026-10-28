@@ -23,6 +23,14 @@ Reglas que no se negocian:
 
 ## Estado vigente (27/10/2026)
 
+**Corrección del filtro EVA, base 91f48ed:** formulario GET de fecha/DM/
+servicio operativo sin JS o con estado 503; estado inicial renderizado en
+Django, módulos versionados y avisos parciales separados de conexión.
+Cortes disponibles visibles; no esperar extracción para consultar. 59
+servidor dirigidas, 478 Node y siete Chrome/CSP aprobadas, página real
+local sin errores. Ver docs/eva-azure-clockify.md. Sin nuevas extracciones,
+cambios de datos, cálculos o permisos; fase 11 abierta.
+
 **EVA 1 nativo activo, 28/10, base 394562c:** por autorización del usuario,
 la ruta EVA 1, cerrados y KPIs mensuales leen cortes locales de Azure/Clockify,
 sin Proyectos/Historico_Proyectos. Migración aditiva 0008 aplicada con respaldo

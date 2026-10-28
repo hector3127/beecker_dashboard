@@ -5,7 +5,7 @@ import { mountTableColumns, cellText } from "../eva/table_columns.js";
 import { mountHistory } from "../eva/history.js";
 import { csv, headers } from "./model.js";
 import { watchLoadingMessages } from "#app/ui/portal-loading.js";
-import { mountExtraction } from './extraction.js';
+import { mountExtraction } from './extraction.js?v=20261028-cut-form';
 
 watchLoadingMessages();
 mountExtraction();
@@ -102,9 +102,7 @@ function consult(applyDate) {
   url.searchParams.delete("hasta");
   location.assign(url.href);
 }
-document
-  .querySelector("[data-eva-refresh]")
-  .addEventListener("click", () => consult(true));
+// The cut form submits a normal GET, including when this module is unavailable.
 mountHistory({
   box: document.getElementById("eva-closed-box"),
   body: document.getElementById("eva-closed-body"),

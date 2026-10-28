@@ -1001,6 +1001,21 @@ def eva1(request: HttpRequest) -> HttpResponse:
         request.GET.get("service", ""),
     )
     source_run = data.get("extraction")
+    from apps.datastore.models import EvaExtraction
+    from apps.portal.services.eva_native_store import extraction_status
+
+    source_notice = data.get("error", "") if source_run else ""
+    if source_run:
+        data["error"] = ""
+    saved_cuts = list(
+        EvaExtraction.objects.filter(
+            published=True,
+            full_inventory=True,
+        )
+        .order_by("-cut")
+        .values_list("cut", flat=True)
+        .distinct()[:60]
+    )
 
     return render_page(
         request,
@@ -1018,6 +1033,9 @@ def eva1(request: HttpRequest) -> HttpResponse:
             "eva_cut": cut.isoformat(),
             "eva_today": timezone.localdate().isoformat(),
             "eva_reconstructed": reconstructed_cut,
+            "eva_extraction_status": extraction_status(),
+            "eva_source_notice": source_notice,
+            "eva_saved_cuts": saved_cuts,
         },
     )
 

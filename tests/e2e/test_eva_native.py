@@ -162,3 +162,81 @@ def _controls(page, errors, width):
     path.mkdir(parents=True, exist_ok=True)
     page.evaluate("window.scrollTo(0,0)")
     page.screenshot(path=str(path / f"eva-{width}.png"), full_page=True)
+
+
+def test_cut_form_works_without_javascript_while_extraction_runs(
+    browser, live_server, native_site
+):
+    from datetime import timedelta
+
+    old_day = native_site.cut - timedelta(days=1)
+    run = EvaExtraction.objects.create(
+        cut=old_day,
+        started_at=timezone.now(),
+        finished_at=timezone.now(),
+        published=True,
+    )
+    source = EvaAzureSource.objects.create(
+        extraction=run, azure_id="old", name="AMK.012", payload={}
+    )
+    original = EvaScopeSnapshot.objects.get(source__extraction=native_site)
+    target = {**original.row, "nombre": "Proyecto del corte anterior"}
+    EvaScopeSnapshot.objects.create(
+        source=source, project_id=original.project_id, scope="S1", row=target
+    )
+    EvaExtraction.objects.create(cut=native_site.cut, started_at=timezone.now())
+    context = browser.new_context(java_script_enabled=False)
+    try:
+        page = context.new_page()
+        posts = []
+        page.on(
+            "request",
+            lambda request: (
+                posts.append(request.url) if request.method == "POST" else None
+            ),
+        )
+        page.goto(live_server.url + "/operativa/eva-1/")
+        expect(page.locator("#eva-extraction-status")).to_contain_text(
+            "Extracción en curso"
+        )
+        page.locator("#eva-cut").fill(old_day.isoformat())
+        page.locator("#eva-manager").select_option(label="Ana")
+        page.locator("#eva-service").select_option(label="IXB")
+        page.locator("[data-eva-refresh]").click()
+        expect(page).to_have_url(
+            __import__("re").compile("corte=" + old_day.isoformat())
+        )
+        expect(page.locator("#eva-table")).to_contain_text(
+            "Proyecto del corte anterior"
+        )
+        expect(page.locator("#eva-manager")).to_have_value("Ana")
+        expect(page.locator("#eva-service")).to_have_value("IXB")
+        assert not posts
+    finally:
+        context.close()
+
+
+def test_status_failure_does_not_block_saved_cut(
+    page, live_server, native_site
+):
+    page.route(
+        "**/api/v1/screens/eva1/extraccion/",
+        lambda route: route.fulfill(
+            status=503,
+            json={
+                "error": {
+                    "code": "unavailable",
+                    "message": "Estado no disponible",
+                }
+            },
+        ),
+    )
+    page.goto(live_server.url + "/operativa/eva-1/")
+    expect(page.locator("#eva-extraction-status")).to_have_text(
+        "Estado no disponible"
+    )
+    page.locator("[data-eva-refresh]").click()
+    expect(page).to_have_url(
+        __import__("re").compile("corte=" + native_site.cut.isoformat())
+    )
+    expect(page.locator("#eva-table")).to_contain_text("AMK.012_S1")

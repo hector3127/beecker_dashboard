@@ -1,5 +1,34 @@
 # Migración de EVA 1 a Azure y Clockify
 
+## Corrección de consulta de cortes (base 91f48ed)
+
+El usuario reporta que permanece «Consultando estado de extracción…» y no
+queda claro cómo consultar una fecha. En el servidor real local se comprobó
+API ready, estáticos 200 y Chrome limpio sin errores; no se atribuye un fallo
+concreto al navegador del usuario sin evidencia. La página ahora entrega el
+estado inicial y las incidencias desde Django, sin esperar JavaScript, y
+versiona los módulos de entrada/estado para renovar archivos almacenados.
+
+El formulario GET de fecha/DM/servicio está arriba: funciona sin JavaScript,
+durante una extracción y aunque falle la API de estado. Su contrato es
+`/operativa/eva-1/?corte=AAAA-MM-DD&manager=...&service=...`. Lee únicamente
+un corte publicado de esa fecha; no inicia una extracción ni interpreta la
+fecha como Finish de los proyectos. Los enlaces muestran los últimos 60
+cortes guardados y conservan filtros. Una fecha pasada no disponible tiene
+un aviso específico; Actualizar fuentes crea el corte de hoy.
+
+Las incidencias de una extracción publicada se presentan como aviso de datos
+parciales, separado del error de disponibilidad. Se retiró la frase incorrecta
+«Las cifras reales aparecerán cuando la conexión responda». La consulta del
+estado tiene un límite de diez segundos; el formulario permanece disponible.
+
+Validación: 59 servidor dirigidas (native/cut/retired/kpi_eva), 478 Node y
+siete Chrome con rutas reales/CSP. Incluyen JavaScript desactivado, corte
+anterior con filtros mientras hay extracción en curso y API de estado 503.
+La página real del puerto 8000 reporta la extracción lista, input de fecha
+presente, sin errores JS ni descargas fallidas. No se cambiaron cálculos,
+reglas de selección, permisos ni datos. No se hizo una nueva extracción.
+
 ## Estado vigente: fuente nativa activa (28/10/2026)
 
 Sobre 394562c, el usuario autoriza completar la conexión y medir extracción.

@@ -9,7 +9,7 @@ from apps.portal.services.eva2 import build_eva2_view
 
 @pytest.mark.parametrize("screen", [1, 3])
 @pytest.mark.parametrize("previous", [False, True])
-def test_pages_keep_current_template(client, monkeypatch, screen, previous):
+def test_pages_keep_current_template(client, monkeypatch, screen, previous, db):
     view = build_eva2_view([]) if screen == 1 else build_eva1_view([])
     monkeypatch.setattr(
         f"apps.portal.views.eva{2 if screen == 1 else 3}_data",
