@@ -29,6 +29,43 @@ def native_site(settings, monkeypatch, observed):
     monkeypatch.setattr(
         "apps.portal.views.timezone.localdate", lambda: observed.cut
     )
+    observed.full_inventory = False
+    observed.metrics["kind"] = "summary_inventory"
+    observed.save()
+    block = EvaScopeSnapshot.objects.get(source__extraction=observed)
+    native = block.row
+    block.source.payload = {"summary": {"eva_evidence": {}}}
+    block.source.save()
+    block.row = {
+        "azure_project": "AMK.012",
+        "project_id": native["idProyecto"],
+        "scope": "S1",
+        "fields": {
+            "delivery_manager": "Ana",
+            "service": "IXB",
+            "project_name": "Demo",
+        },
+        "budget": "10",
+        "issues": [],
+        "unknown_labels": [],
+        "stages": [
+            {
+                "stage": "Discovery",
+                "start": "2026-10-01",
+                "finish": "2026-10-15",
+            },
+            {
+                "stage": "Deployment",
+                "start": "2026-10-16",
+                "finish": "2026-10-31",
+            },
+        ],
+        "iteration_start": "2026-10-01",
+        "iteration_finish": "2026-10-31",
+        "eva_metrics": native,
+        "metrics_observed_date": observed.cut.isoformat(),
+    }
+    block.save()
     return observed
 
 
@@ -63,7 +100,10 @@ def test_completed_extraction_reloads_new_local_cut(
 
     def queue():
         run = EvaExtraction.objects.create(
-            cut=native_site.cut, started_at=timezone.now()
+            cut=native_site.cut,
+            started_at=timezone.now(),
+            full_inventory=False,
+            metrics={"kind": "summary_inventory"},
         )
         created.append(run)
         return True
@@ -81,7 +121,10 @@ def test_completed_extraction_reloads_new_local_cut(
     run = created[0]
     old = EvaScopeSnapshot.objects.get(source__extraction=native_site)
     source = EvaAzureSource.objects.create(
-        extraction=run, azure_id="new", name="AMK.012", payload={}
+        extraction=run,
+        azure_id="new",
+        name="AMK.012",
+        payload=old.source.payload,
     )
     updated = {
         **old.row,
@@ -90,11 +133,24 @@ def test_completed_extraction_reloads_new_local_cut(
         "hoursDeviation": 0,
         "avance": 20,
     }
+    updated["eva_metrics"] = {
+        **old.row["eva_metrics"],
+        "clockify_project_id": "clock",
+    }
+    source.payload = {
+        "summary": {
+            "eva_evidence": {
+                "observed_date": native_site.cut.isoformat(),
+                "clockify": {"clock": [native_fixtures.entry(seconds=7200)]},
+            }
+        }
+    }
+    source.save()
     EvaScopeSnapshot.objects.create(
         source=source, project_id=old.project_id, scope="S1", row=updated
     )
     run.published, run.finished_at = True, timezone.now()
-    run.metrics = {"total_seconds": 4}
+    run.metrics = {"total_seconds": 4, "kind": "summary_inventory"}
     run.save()
     expect(page.locator("#eva-extraction-status")).to_contain_text("4 s")
     assert page.locator("#eva-table tbody tr[data-manager]").count() == 1
@@ -115,6 +171,8 @@ def test_failed_extraction_keeps_table_and_allows_retry(
             started_at=timezone.now(),
             finished_at=timezone.now(),
             issues=["Azure no disponible"],
+            full_inventory=False,
+            metrics={"kind": "summary_inventory"},
         )
         return True
 
@@ -153,10 +211,6 @@ def _controls(page, errors, width):
             page.locator("#eva-extract").click()
         assert response.value.status == 202
         refresh.assert_called_once()
-    page.locator("#eva-closed-box summary").click()
-    expect(page.locator("#eva-closed-body")).not_to_contain_text(
-        "Cargando proyectos"
-    )
     assert not errors
     path = Path("tmp/eva-native")
     path.mkdir(parents=True, exist_ok=True)
@@ -180,11 +234,27 @@ def test_cut_form_works_without_javascript_while_extraction_runs(
         extraction=run, azure_id="old", name="AMK.012", payload={}
     )
     original = EvaScopeSnapshot.objects.get(source__extraction=native_site)
-    target = {**original.row, "nombre": "Proyecto del corte anterior"}
+    target = {
+        **original.row,
+        "fields": {
+            **original.row["fields"],
+            "project_name": "Proyecto del corte anterior",
+        },
+    }
     EvaScopeSnapshot.objects.create(
         source=source, project_id=original.project_id, scope="S1", row=target
     )
-    EvaExtraction.objects.create(cut=native_site.cut, started_at=timezone.now())
+    run.metrics = {"kind": "summary_inventory"}
+    run.full_inventory = False
+    run.save()
+    source.payload = original.source.payload
+    source.save()
+    EvaExtraction.objects.create(
+        cut=native_site.cut,
+        started_at=timezone.now(),
+        full_inventory=False,
+        metrics={"kind": "summary_inventory"},
+    )
     context = browser.new_context(java_script_enabled=False)
     try:
         page = context.new_page()

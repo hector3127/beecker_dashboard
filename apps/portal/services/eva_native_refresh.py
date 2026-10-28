@@ -7,7 +7,8 @@ from concurrent.futures import ThreadPoolExecutor
 from django.db import close_old_connections
 
 from apps.datastore.services.locks import sync_lock
-from apps.portal.services.eva_native_sync import extract_eva
+from apps.portal.services.azure_history import download_history
+from apps.portal.services.summary_inventory import extract_summaries
 
 logger = logging.getLogger(__name__)
 _executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="eva-refresh")
@@ -30,9 +31,12 @@ def _refresh() -> None:
     global _running
     close_old_connections()
     try:
-        with sync_lock("eva_native", 7200) as acquired:
+        with sync_lock("azure_history", 7200) as acquired:
             if acquired:
-                extract_eva()
+                download_history(lambda message: logger.info(message))
+        with sync_lock("summary_inventory", 7200) as acquired:
+            if acquired:
+                extract_summaries()
     except Exception:
         logger.exception(
             "Falló la extracción EVA; se conserva el corte anterior."

@@ -1,8 +1,6 @@
 // @ts-check
 import { mountAccountColumn } from "./account_column.js";
-import { mountIxbHistory } from "./history_table.js";
 import { mountTableColumns, cellText } from "../eva/table_columns.js";
-import { mountHistory } from "../eva/history.js";
 import { csv, headers } from "./model.js";
 import { watchLoadingMessages } from "#app/ui/portal-loading.js";
 import { mountExtraction } from './extraction.js?v=20261028-cut-form';
@@ -103,9 +101,3 @@ function consult(applyDate) {
   location.assign(url.href);
 }
 // The cut form submits a normal GET, including when this module is unavailable.
-mountHistory({
-  box: document.getElementById("eva-closed-box"),
-  body: document.getElementById("eva-closed-body"),
-  path: "screens/eva-1/cerrados/",
-  afterLoad: mountIxbHistory,
-});

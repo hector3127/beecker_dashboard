@@ -142,8 +142,8 @@ def test_cut_page_keeps_all_manager_options_and_masks_azure(
         projects=tuple(replace(p, azure_pending=True) for p in view.projects),
     )
     monkeypatch.setattr(
-        "apps.portal.services.eva_native_store.load_native_cut",
-        lambda day, **kwargs: {"eva": view, "error": ""},
+        "apps.portal.services.eva_inventory_view.load_inventory_eva",
+        lambda day, **kwargs: {"eva": view, "inventory_rows": [], "error": ""},
     )
     response = client.get(
         "/operativa/eva-1/", {"corte": "2026-01-29", "manager": "DM4"}

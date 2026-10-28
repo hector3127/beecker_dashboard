@@ -106,7 +106,7 @@ def load_native_cut(
 def extraction_status() -> dict[str, Any]:
     """Return timings/status without disclosing raw source payloads."""
     run = (
-        EvaExtraction.objects.filter(full_inventory=True)
+        EvaExtraction.objects.filter(metrics__kind="summary_inventory")
         .order_by("-pk")
         .first()
     )

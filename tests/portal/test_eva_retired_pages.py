@@ -17,9 +17,10 @@ def test_pages_keep_current_template(client, monkeypatch, screen, previous, db):
     )
     if screen == 1:
         monkeypatch.setattr(
-            "apps.portal.services.eva_native_store.load_native_cut",
+            "apps.portal.services.eva_inventory_view.load_inventory_eva",
             lambda cut, **kwargs: {
                 "eva": view,
+                "inventory_rows": [],
                 "error": "Fuente no disponible",
             },
         )

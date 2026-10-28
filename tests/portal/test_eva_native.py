@@ -25,6 +25,9 @@ from apps.portal.services.eva_native_store import load_native_cut, snapshot
 from apps.portal.services.eva_native_sync import extract_eva
 from apps.portal.services.kpi_native_history import load_kpi_history
 from core.exceptions import DashboardError
+from tests.portal import test_summary_inventory as inventory_fixtures
+
+inventory = inventory_fixtures.inventory
 
 CUT = date(2026, 10, 28)
 SUMMARY = (
@@ -206,8 +209,10 @@ def test_past_date_never_uses_current_azure_snapshot(observed):
     assert snapshot(date(2026, 9, 30))["extraction"] is None
 
 
-def test_eva_route_no_sheets_or_provider_http(observed, client, monkeypatch):
-    monkeypatch.setattr("apps.portal.views.timezone.localdate", lambda: CUT)
+def test_eva_route_no_sheets_or_provider_http(inventory, client, monkeypatch):
+    monkeypatch.setattr(
+        "apps.portal.views.timezone.localdate", lambda: date(2026, 6, 1)
+    )
     with (
         patch(
             "requests.sessions.Session.request",
@@ -221,7 +226,7 @@ def test_eva_route_no_sheets_or_provider_http(observed, client, monkeypatch):
         response = client.get("/operativa/eva-1/")
         assert response.status_code == 200
         html = response.content.decode()
-        assert "AMK.012_S1" in html
+        assert "AMK.012_S2" in html
         assert "Actualizar fuentes Azure / Clockify" in html
         assert "Summary, iteraciones" in html
         assert 'name="corte"' in html
@@ -265,11 +270,13 @@ def test_refresh_csrf_and_local_status(observed):
 
 
 def test_partial_cut_notice_is_not_a_connection_error(
-    observed, client, monkeypatch
+    inventory, client, monkeypatch
 ):
-    observed.issues = ["Summary incompleto"]
-    observed.save(update_fields=["issues"])
-    monkeypatch.setattr("apps.portal.views.timezone.localdate", lambda: CUT)
+    inventory.issues = ["Summary incompleto"]
+    inventory.save(update_fields=["issues"])
+    monkeypatch.setattr(
+        "apps.portal.views.timezone.localdate", lambda: date(2026, 6, 1)
+    )
     response = client.get("/operativa/eva-1/")
     assert response.context["error"] == ""
     assert "incidencias de origen" in response.context["eva_source_notice"]

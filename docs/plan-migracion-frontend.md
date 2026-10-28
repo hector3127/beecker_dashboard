@@ -9,6 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**EVA con inventario aprobado, 28/10:** ruta EVA 1 usa las mismas filas/rangos
+y métricas locales históricas que el inventario, con filtros GET de corte/DM/
+servicio. Conserva apariencia EVA, logos, etiquetas y CSV; dos pivotes por DM
+cuadran con detalle. Botón refresca esta fuente e histórico incremental.
+1691 portal, siete Chrome/CSP y 478 Node aprobados; real septiembre once
+bloques/tres DM. Ruff/mypy/check aprobados.
+Ver eva-inventario-activo.md. No cambia KPI mensual ni conexión. Sin push.
+
 **Histórico Azure, 28/10:** revisiones organizacionales persistidas con cursor
 incremental, migración 0009 aplicada con respaldo SQLite. 781,628 revisiones
 de 131,921 WIs; reanudación tras 503 en 571.222 s, actualización vacía 0.204 s.

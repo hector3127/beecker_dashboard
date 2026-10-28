@@ -23,6 +23,13 @@ Reglas que no se negocian:
 
 ## Estado vigente (27/10/2026)
 
+**EVA 1 integrado con inventario, 28/10:** por instrucción del usuario,
+views.eva1 usa eva_inventory_view/inventory_rows y pivotes dm_totals con el
+rango inclusivo de iteraciones, horas locales e histórico Azure. Apariencia
+EVA conservada; ver docs/eva-inventario-activo.md. Actualizar fuentes refresca
+Summary/Clockify e histórico incremental. KPI mensual/otros EVA no cambian.
+No restaurar para esta ruta el filtrado del antiguo snapshot nativo.
+
 **Histórico inventario Summary, 28/10:** descarga autorizada de revisiones
 Azure, cursor incremental y migración 0009 aditiva con respaldo SQLite.
 781,628 revisiones/131,921 WIs. Corte local materializado por fuente/fecha;

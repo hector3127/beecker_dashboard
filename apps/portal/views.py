@@ -979,7 +979,7 @@ def eva1(request: HttpRequest) -> HttpResponse:
         return redirect_to_login(request.get_full_path())
 
     from apps.portal.services.eva_cut import read_cut, select_view
-    from apps.portal.services.eva_native_store import load_native_cut
+    from apps.portal.services.eva_inventory_view import load_inventory_eva
 
     cut = timezone.localdate()
     raw_cut = request.GET.get("corte", "")
@@ -993,14 +993,33 @@ def eva1(request: HttpRequest) -> HttpResponse:
             )
     # Both current and historical dates read persisted provider cuts.
     reconstructed_cut = bool(raw_cut)
-    data = load_native_cut(cut, latest=not reconstructed_cut)
+    data = load_inventory_eva(cut)
     available = data["eva"]
     data["eva"] = select_view(
         available,
         request.GET.get("manager", ""),
         request.GET.get("service", ""),
     )
+    from apps.portal.services.summary_dm_totals import dm_totals
+
+    selected_ids = {p.project_id for p in data["eva"].projects}
+    data["inventory_totals"] = dm_totals(
+        [
+            r
+            for r in data.pop("inventory_rows")
+            if r["display_id"] in selected_ids
+        ]
+    )
     source_run = data.get("extraction")
+    from django.utils.dateparse import parse_datetime
+
+    source_stamp = (
+        parse_datetime(source_run.metrics["source_observed_at"])
+        if source_run and source_run.metrics.get("source_observed_at")
+        else source_run.finished_at
+        if source_run
+        else None
+    )
     from apps.datastore.models import EvaExtraction
     from apps.portal.services.eva_native_store import extraction_status
 
@@ -1010,7 +1029,7 @@ def eva1(request: HttpRequest) -> HttpResponse:
     saved_cuts = list(
         EvaExtraction.objects.filter(
             published=True,
-            full_inventory=True,
+            metrics__kind="summary_inventory",
         )
         .order_by("-cut")
         .values_list("cut", flat=True)
@@ -1022,14 +1041,14 @@ def eva1(request: HttpRequest) -> HttpResponse:
         "pages/eva1.html",
         {
             "active": "operativa",
-            "loaded_at": timezone.localtime(source_run.finished_at)
-            if source_run
+            "loaded_at": timezone.localtime(source_stamp)
+            if source_stamp
             else timezone.localtime(),
             **data,
             "eva_managers": available.service_rows,
             "eva_services": available.services,
             "eva_available_total": available.total_projects,
-            "eva_source_stamp": source_run.finished_at if source_run else None,
+            "eva_source_stamp": source_stamp,
             "eva_cut": cut.isoformat(),
             "eva_today": timezone.localdate().isoformat(),
             "eva_reconstructed": reconstructed_cut,
