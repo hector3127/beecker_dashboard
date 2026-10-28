@@ -9,6 +9,18 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Tendencia de KPIs, base 3ea8dca (27/10):** el usuario confirmó curvas
+suaves como Operations Monthly, no regresión estadística. El SVG usa
+interpolación cúbica con pendientes limitadas entre observaciones, mantiene
+puntos/porcentajes y separa meses sin datos. No modifica KPIs, fuentes ni
+CSS. Título y etiqueta accesible actualizados a tendencia/cumplimiento.
+476 Node aprobadas, incluidos casos de ceros, picos, mes ausente y curvas
+sin sobrepasar los extremos de cada tramo. Once Chrome funcionales y tres
+visuales adicionales a 1450/900/390 aprobadas con CSP; estos últimos usan
+config.urls sin referencias y verifican los diez valores de los marcadores.
+PNG inspeccionados en escritorio/móvil. No se regeneraron referencias ni
+se repitió servidor por este cambio exclusivamente de frontend. Sin push.
+
 **Reglas de KPIs DM confirmadas por el usuario (27/10):** la pantalla usa
 EVA 1, no la mezcla anterior con MPB: corte al último lunes–jueves, TP abierto
 incluidos suspendidos; T = proyectos con desviación <=0/TP; C = proyectos con

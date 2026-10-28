@@ -87,6 +87,7 @@ def test_chart_legend_selects_a_series_and_the_scale_toggles(
     expect(scale).to_contain_text("Escala ampliada")
     paths = portal.locator("#kpi-chart path[stroke-width='2.5']")
     expect(paths).to_have_count(2)
+    assert all("C" in path.get_attribute("d") for path in paths.all())
 
     portal.get_by_role("button", name="Ana").click()
     expect(paths).to_have_count(1)
@@ -166,3 +167,46 @@ def test_monthly_compliance_uses_percentages_and_explicit_definitions(
     )
     expect(portal.locator(".two table")).to_contain_text("Fuera de tiempo")
     assert not portal.locator("#kpi-month-history").inner_text().endswith(" d")
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+@pytest.mark.usefixtures("production_site")
+def test_smooth_trend_keeps_monthly_values_and_responsive_layout(
+    portal, monkeypatch, width, enforced_csp
+):
+    from datetime import datetime
+    from pathlib import Path
+
+    from apps.portal.services.kpi_eva import build_eva_history
+    from apps.portal.services.kpi_history_loader import KpiHistoryLoad
+    from tests.portal.test_kpi_eva import row
+
+    values = [100, 100, 50, 0, 50, 100, 100, 50, 100, 0]
+
+    def resolve(cut):
+        good = values[cut.month - 1] // 50
+        return [
+            row(str(i), "Ana", -1, 50 if i < good else 150) for i in range(2)
+        ]
+
+    history = build_eva_history(2026, datetime(2026, 10, 22), resolve)
+    monkeypatch.setattr(
+        "apps.portal.views.load_kpi_history",
+        lambda *args: KpiHistoryLoad(history),
+    )
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    path = portal.locator("#kpi-chart path[stroke-width='2.5']")
+    expect(path).to_have_count(1)
+    assert path.get_attribute("d").count("C") == 9
+    markers = portal.locator("#kpi-chart circle")
+    expect(markers).to_have_count(10)
+    titles = markers.locator("title").all_text_contents()
+    assert [
+        int(text.rsplit(": ", 1)[1].rstrip("%")) for text in titles
+    ] == values
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    portal.evaluate("document.fonts.ready")
+    target = Path("tmp/design/kpi-trend")
+    target.mkdir(parents=True, exist_ok=True)
+    portal.screenshot(path=str(target / f"kpis-{width}.png"), full_page=True)

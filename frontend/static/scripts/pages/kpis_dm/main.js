@@ -43,7 +43,7 @@ function chartCard(data) {
   const card = el(
     "div",
     { class: "card" },
-    el("h2", { text: "Cumplimiento por mes (C)" }),
+    el("h2", { text: "Tendencia de cumplimiento (C)" }),
   );
   card.append(
     el("div", {
