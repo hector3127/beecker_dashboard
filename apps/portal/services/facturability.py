@@ -304,6 +304,12 @@ def build_resources(
         if months
         else set()
     )
+    roster = months[-1][1].get("plantilla") if months else None
+    active = {
+        normalize_capacity_text(person.get("nombre"))
+        for person in (roster if isinstance(roster, list) else [])
+        if isinstance(person, dict) and person.get("nombre")
+    }
 
     rows = [
         ResourceRow(
@@ -317,6 +323,13 @@ def build_resources(
             ),
             average=average(percents),
             inactive=key in bajas,
+            roster_status=(
+                "baja"
+                if key in bajas
+                else "activo"
+                if key in active
+                else "sin_confirmar"
+            ),
         )
         for key, (name, role) in names.items()
     ]

@@ -17,9 +17,21 @@
 
 <div class="tabs"><a href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a class="on" href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a><a href="{% url 'portal:facturabilidad_area' %}{{ picker.query }}">Facturabilidad por área</a></div>
 
-<form method="get" class="mf bii-e3dd54">{% include 'partials/period_picker.html' %}<span class="bii-d77876">Horas de Clockify con la lógica de GSE · Horas por área (solo lectura).</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="{{ picker.reset_href }}">Solo operativas</a></div></details>{% endif %}</form>
+<form method="get" class="mf bii-e3dd54"><input type="hidden" name="personal" value="{{ personnel|default:'todos' }}">{% include 'partials/period_picker.html' %}<span class="bii-d77876">Horas de Clockify con la lógica de GSE · Horas por área (solo lectura).</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="{{ picker.reset_href }}">Solo operativas</a></div></details>{% endif %}</form>
 <section class="card">
 <h2>Facturabilidad mensual por recurso, {{ month|slice:":4" }}</h2>
+<form method="get" class="resource-population">
+  {% for key, values in request.GET.lists %}{% if key != "personal" %}{% for value in values %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endfor %}{% endif %}{% endfor %}
+  <label for="resource-population">Plantilla en el mes de corte</label>
+  <select id="resource-population" name="personal">
+    <option value="todos"{% if personnel == "todos" %} selected{% endif %}>Todos · histórico</option>
+    <option value="activo"{% if personnel == "activo" %} selected{% endif %}>Activos confirmados</option>
+    <option value="baja"{% if personnel == "baja" %} selected{% endif %}>Bajas confirmadas</option>
+    <option value="sin_confirmar"{% if personnel == "sin_confirmar" %} selected{% endif %}>Sin estado confirmado</option>
+  </select>
+  <button type="submit">Aplicar plantilla</button>
+  <p>{{ population.activos }} activos · {{ population.bajas }} bajas · {{ population.sin_confirmar }} sin confirmar. Estado según Bandas/rol del mes de corte; ausencia de datos no equivale a baja. El promedio del equipo corresponde a la población elegida.</p>
+</form>
 <div class="hs">Cada celda es horas facturables de la persona en Clockify (categoría «Facturable» de GSE) entre los días laborables del mes × 8 h.</div>
 <div class="lg"><span><i class="bii-b8b474"></i>80% o más</span><span><i class="bii-6a9287"></i>50% a 79%</span><span><i class="bii-137c63"></i>Menos de 50%</span></div>
 <div class="sc"><table id="resource-history" class="h hm"><thead><tr class="dl"><td class="bii-fb278f" colspan="2">Días laborables</td>{% for d in workdays %}<td>{{ d }}</td>{% endfor %}<td></td></tr><tr><th class="bii-200a92">Recurso</th><th>Rol</th>{% for l in labels %}<th>{{ l }}</th>{% endfor %}<th>Promedio</th></tr></thead><tbody>

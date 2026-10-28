@@ -546,6 +546,7 @@ class ResourceRow:
     percents: tuple[float | None, ...]
     average: float | None
     inactive: bool = False
+    roster_status: str = "sin_confirmar"
 
 
 @dataclass(frozen=True, slots=True)

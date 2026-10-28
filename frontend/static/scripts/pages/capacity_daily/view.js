@@ -2,6 +2,7 @@
 // La misma estructura visual, construida con nodos y texto seguro.
 import { el, svg } from '#app/lib/dom.js';
 import { computed, date, fmt, norm, selected } from './model.js';
+import { renderResourceDetail } from './resource_detail.js';
 
 const paths = {
   bars: [['path', { d: 'M4 20V11m5 9V6m5 14V9m5 11V3', 'stroke-linecap': 'round' }]],
@@ -28,7 +29,7 @@ function matrix(rows, data, st, paint) {
   const header = el('tr', {}, ...headings.map((text) => el('th', { text })), ...data.days.map((/** @type {string} */ d) => el('th', { class: 'ci-day-head' }, el('span', { text: date(d) }))));
   const body = el('tbody');
   for (const f of rows.slice((st.page - 1) * st.size, st.page * st.size)) {
-    const person = el('td', {}, el('b', { text: f.recurso }));
+    const person = el('td', {}, personButton(f.recurso, st, paint));
     if (f.status) person.append(el('small', { class: 'ci-muted', text: f.status }));
     const row = el('tr', {}, person,
       el('td', {}, pill(f.banda)), el('td', {}, pill(f.concepto)),
@@ -53,7 +54,7 @@ function matrix(rows, data, st, paint) {
 }
 
 /** @param {any} data @param {any} st */
-function resources(data, st) {
+function resources(data, st, paint) {
   const grid = el('div', { class: 'ci-resource-grid' });
   for (const p of data.people.filter((/** @type {any} */ p) => (!st.tecnologia || p.tecnologia === st.tecnologia) && (!st.q || norm(p.nombre + ' ' + p.tecnologia).includes(norm(st.q))))) {
     const base = data.days.length * st.jornada, used = p.total;
@@ -61,7 +62,7 @@ function resources(data, st) {
     const over = p.values.some((/** @type {number} */ v) => v > st.jornada + 0.001);
     const fill = el('i', { class: over ? 'over' : '' });
     fill.style.width = Math.min(100, base ? used / base * 100 : 0) + '%';
-    grid.append(el('div', { class: 'ci-resource' }, el('b', { text: p.nombre }),
+    grid.append(el('div', { class: 'ci-resource' }, personButton(p.nombre, st, paint),
       el('div', { class: 'ci-muted', text: (p.tecnologia || 'NA') + ' · ' + (p.banda || '') }),
       el('div', { class: 'ci-pills ci-resource-gap' }, pill(p.unknown ? 'Pendiente de datos' : over ? 'Sobre jornada' : 'Dentro de capacidad', over ? 'red' : 'green')),
       el('div', { class: 'ci-muted ci-resource-gap' }, `Registradas: ${fmt(used)} h · Base: ${fmt(base)} h`, el('br'), `Disponibles: ${p.unknown ? '—' : fmt(free) + ' h'}`),
@@ -84,6 +85,25 @@ export function render(box, st, paint) {
   if (pending) box.append(el('div', { class: 'ci-alert', text: `${pending} asignación(es) requieren completar fechas, horas o concepto. Las celdas pendientes se muestran con «—». Los totales de horas son parciales hasta resolverlas.` }));
   box.append(el('div', { class: 'ci-card' }, el('div', { class: 'ci-section-head' }, el('h3', { text: 'Asignación del mes · ' + st.mes }),
     el('div', { class: 'ci-pills' }, ...[['matrix', 'Matriz de asignaciones'], ['people', 'Capacidad por recurso']].map(([v, title]) => button(title, () => { st.view = v; st.page = 1; paint(); }, st.view === v)))),
-    ...(st.view === 'matrix' ? matrix(rows, data, st, paint) : [resources(data, st)])));
+    ...(st.view === 'matrix' ? matrix(rows, data, st, paint) : [resources(data, st, paint)])));
+  if (st.detailResource) {
+    const section = renderResourceDetail(data, st.detailResource, () => {
+      const name = st.detailResource;
+      st.detailResource = '';
+      paint();
+      [...box.querySelectorAll('[data-resource-name]')].find(node => node.getAttribute('data-resource-name') === name)?.focus();
+    });
+    box.lastElementChild?.replaceWith(section);
+  }
   box.append(el('div', { class: 'ci-info' }, el('b', { text: 'Cálculo:' }), ' horas reales registradas en Clockify por persona, proyecto y día del mes seleccionado. No se reparten horas estimadas. La capacidad disponible suma por persona y día: máximo de 0 y (jornada − horas que afectan capacidad). Los excedentes se resaltan en rojo. Las fechas se incluyen completas y los nombres de banda/tecnología se cruzan por nombre normalizado. Fines de semana excluidos; no se descuentan festivos sin calendario. ', el('b', { text: 'Los indicadores superiores corresponden al mes completo; los filtros actúan sobre la tabla.' })));
+}
+
+/** @param {string} name @param {any} st @param {() => void} paint */
+function personButton(name, st, paint) {
+  return el('button', { type: 'button', class: 'ci-person-link', 'data-resource-name': name,
+    text: name, 'aria-label': 'Ver horas diarias de ' + name, onclick: () => {
+      st.detailResource = name;
+      paint();
+      document.getElementById('ci-person-heading')?.focus();
+    } });
 }

@@ -23,3 +23,6 @@ body.capacity-daily-page main.page { max-width: none; padding: 0; }
 .ci-resource .ci-resource-gap { margin-top: 9px; }
 .ci-resource .ci-bar i { background: #6734df; }
 .ci-resource .ci-bar i.over { background: #f13564; }
+.ci-person-link{border:0;background:transparent;color:#5421cc;font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;text-align:left;cursor:pointer;min-height:44px;padding:4px}
+.ci-person-link:focus-visible,.ci-person-detail :focus-visible{outline:2px solid #6734df;outline-offset:3px}
+.ci-person-detail{min-width:0}.ci-person-detail .ci-section-head{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}.ci-person-detail caption{text-align:left;padding:12px;font-weight:600}.ci-person-detail .ci-table th[scope=row]{position:static;background:#faf9ff;white-space:normal;min-width:160px}

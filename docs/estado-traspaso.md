@@ -2,6 +2,12 @@
 
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
+28/10, acuerdos de demo sobre a187954: implementados filtro de plantilla,
+desglose diario por recurso y enlaces del plan, con manual y carga local.
+Ver `cambios-demo-2026-10-27.md` para pruebas y dependencias. PostgreSQL
+queda diferido hasta Genesis; importación de evaluaciones hasta plantilla
+oficial. No cambiar conexión ni construir un formato provisional. No push.
+
 ## Estado vigente y siguiente trabajo (27/10/2026)
 
 **Persistencia y caché, bloque sobre f3b0411.** Ver

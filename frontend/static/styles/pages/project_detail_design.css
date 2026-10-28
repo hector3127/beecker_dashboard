@@ -519,3 +519,7 @@ body.project-detail-page :is(.aer-modal,.ixs-recurso-dialog,.ixs-clockify-dialog
 @media (prefers-reduced-motion: reduce) {
   .project-detail-page #view-container *, .project-detail-page [role=dialog] * { scroll-behavior: auto; transition: none; animation: none; }
 }
+/* Vínculo del plan de trabajo: solo el nuevo componente de Planeación. */
+.project-detail-page [data-work-plan]{display:flex;gap:8px;align-items:center;flex-wrap:wrap;min-width:0;max-width:100%;margin-top:12px}
+.project-detail-page [data-work-plan]>a{display:inline-flex;align-items:center;min-height:44px;box-sizing:border-box;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.project-detail-page [data-work-plan]>small{line-height:1.5;min-width:0;overflow-wrap:anywhere}

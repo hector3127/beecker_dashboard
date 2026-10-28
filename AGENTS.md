@@ -23,6 +23,16 @@ Reglas que no se negocian:
 
 ## Estado vigente (27/10/2026)
 
+**Acuerdos de demo, 28/10, base a187954:** filtro de plantilla por corte en
+facturabilidad, desglose diario por persona en Capacidad y enlaces del plan
+en Planeación. Manual y evidencia en docs/cambios-demo-2026-10-27.md.
+El usuario difiere expresamente PostgreSQL hasta Genesis y la importación
+de evaluaciones hasta recibir la plantilla oficial. No implementar esos
+dos pendientes ni cambiar conexión. 2101 servidor, 38 dirigidas con
+solapamiento, 478 Node y 15 Chrome con rutas reales/CSP aprobadas.
+Prueba local sintética 64/64 con ocho conexiones; no valida producción.
+Sin push; fase 11 abierta. No se oculta el error de origen del Histórico.
+
 **Nuevo bloque de persistencia, base f3b0411.** El usuario pidió reducir
 peticiones externas y evitar resultados de caché anteriores a la base.
 Ver `docs/fuentes-persistentes.md`: migración aditiva 0007, catálogos Clockify,

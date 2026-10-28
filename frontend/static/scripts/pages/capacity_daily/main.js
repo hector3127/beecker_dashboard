@@ -8,7 +8,7 @@ import { icon, render } from './view.js';
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
 /** @type {any} */
-const state = { mes: '', base: null, meta: new Map(), request: 0, q: '', tecnologia: '', concepto: '', jornada: 8, view: 'matrix', page: 1, size: 30 };
+const state = { mes: '', base: null, meta: new Map(), request: 0, q: '', tecnologia: '', concepto: '', jornada: 8, view: 'matrix', page: 1, size: 30, detailResource: '' };
 /** @type {AbortController | null} */
 let current = null;
 const monthInput = /** @type {HTMLInputElement} */ (byId('ci-month'));
@@ -89,7 +89,10 @@ document.querySelectorAll('[data-icon]').forEach((placeholder) => {
 });
 monthInput.addEventListener('change', () => {
   if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(monthInput.value)) return;
-  if (state.mes !== monthInput.value) state.meta.clear();
+  if (state.mes !== monthInput.value) {
+    state.meta.clear();
+    state.detailResource = '';
+  }
   state.mes = monthInput.value;
   state.page = 1;
   void load(false);

@@ -10,6 +10,13 @@ export const fmt = (value) => Number(value || 0).toLocaleString('es-MX', { maxim
 /** @param {string} value */
 export const date = (value) => value ? `${value.slice(8, 10)}/${value.slice(5, 7)}/${value.slice(0, 4)}` : '—';
 
+/** Desglose del mismo corte sin consultas ni cambios de cálculo.
+ * @param {any} data @param {string} name */
+export function resourceDetail(data, name) {
+  const rows = data.all.filter((/** @type {any} */ row) => norm(row.recurso) === norm(name));
+  return { name, rows, days: data.days, pending: rows.some((/** @type {any} */ row) => Boolean(row.status)) };
+}
+
 /** @param {string} month */
 export function days(month) {
   const [year, number] = month.split('-').map(Number), out = [];

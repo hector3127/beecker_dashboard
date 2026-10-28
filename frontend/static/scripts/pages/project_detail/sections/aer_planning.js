@@ -1,5 +1,6 @@
 // Planning view, controls, forms and writes share the entry's project lifecycle.
 import { createPlanningControls } from "./aer_planning_controls.js";
+import { workPlanLinks } from "./work_plan_links.js";
 import {
   capacity,
   parsePlanText,
@@ -36,6 +37,7 @@ export function createAerPlanning(api) {
         actions,
       );
       controls.applyFilters();
+      target.querySelector('.aer-roadmap-toolbar')?.append(workPlanLinks(env.dashboard, 'aer'));
     },
     bind(env) {
       const live = () => env.current();

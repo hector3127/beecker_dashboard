@@ -9,6 +9,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Acuerdos de demo, base a187954 (28/10):** filtro de plantilla en
+facturabilidad por recurso, desglose diario por persona en Capacidad,
+vínculos de plan en Planeación, manual y herramienta de carga local.
+PostgreSQL espera Genesis y las evaluaciones esperan la plantilla oficial,
+por decisión expresa del usuario. Evidencia y dependencias en
+`cambios-demo-2026-10-27.md`: 2101 servidor, 38 dirigidas con solapamiento,
+478 Node y 15 Chrome con CSP/rutas reales aprobadas. Sin push ni cambios de
+conexión. La fase 11 continúa abierta.
+
 **Claves de caché portables, base 1e2cd08 (28/10):** avisos reportados por
 IDs como `AIN.002 CR` y `GPO.006_Bolsa Horas`. `make_key` conserva claves
 válidas y aplica SHA-256 a la identidad completa cuando contiene espacios,

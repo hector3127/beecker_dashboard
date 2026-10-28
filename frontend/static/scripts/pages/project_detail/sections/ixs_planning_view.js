@@ -3,6 +3,7 @@ import { h, div, empty, timeline } from "./ixs_executive_view.js";
 import { dateText, dateMs, limit, pct } from "./ixs_executive_model.js";
 import { icon } from "./ixs_icons.js";
 import { planningModel } from "./ixs_planning_model.js";
+import { workPlanLinks } from "./work_plan_links.js";
 
 const button = (text, click, cls = "ixs-btn") =>
   el("button", { class: cls, onclick: click }, ...[text].flat());
@@ -138,6 +139,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
         ),
       ),
     ),
+    workPlanLinks(data, 'ixs'),
     gantt,
   );
   const donut = div(

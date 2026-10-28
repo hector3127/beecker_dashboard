@@ -4,6 +4,7 @@
 // caché de la pantalla), así que se actualiza en el lugar tras cada guardado.
 import { EMPTY_FILTERS, clientData, clientModel, contactsCsv, governanceRows, linkTarget } from "./client_model.js";
 import { contactModal, documentModal, governanceModal, infoModal, renderClient, toast } from "./client_view.js";
+import { updateWorkPlanDocuments } from "./work_plan_links.js";
 
 const closeModal = () => document.getElementById("aer-modal-back")?.remove();
 const value = (/** @type {string} */ id) => /** @type {HTMLInputElement | null} */ (document.getElementById(id))?.value ?? "";
@@ -65,6 +66,7 @@ export function createClientController(api) {
         return;
       }
       apply(r);
+      if (operation === 'documento-guardar') updateWorkPlanDocuments(dashboard.proyecto.id, cliente().documentos || []);
       saver.ok(done);
       closeModal();
       if (live()) paint();
@@ -183,6 +185,7 @@ export function createClientController(api) {
       const r = await send("documento-eliminar", { uid });
       if (!r || !r.ok) return toast((r && r.error) || "No se pudo eliminar.", "error");
       cliente().documentos = r.documentos || [];
+      updateWorkPlanDocuments(dashboard.proyecto.id, cliente().documentos);
       toast("Link eliminado", "success");
       closeModal();
       if (live()) paint();

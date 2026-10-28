@@ -1348,6 +1348,19 @@ def recurso_data(request: HttpRequest, period: Period) -> dict[str, Any]:
     sources = load_year_sources(period.end_month)
     scope, role_options = _role_scope(request, sources)
     rows = build_resources([(item.month, item.gse) for item in sources], scope)
+    personnel = request.GET.get("personal", "todos")
+    if personnel not in {"todos", "activo", "baja", "sin_confirmar"}:
+        personnel = "todos"
+    population = {
+        "total": len(rows),
+        "activos": sum(row.roster_status == "activo" for row in rows),
+        "bajas": sum(row.roster_status == "baja" for row in rows),
+        "sin_confirmar": sum(
+            row.roster_status == "sin_confirmar" for row in rows
+        ),
+    }
+    if personnel != "todos":
+        rows = tuple(row for row in rows if row.roster_status == personnel)
     by_month, overall = team_averages(rows, len(sources))
     labels = [
         build_month_facturability(item.month, {}).short_label
@@ -1359,6 +1372,8 @@ def recurso_data(request: HttpRequest, period: Period) -> dict[str, Any]:
         "rows": rows,
         "team_by_month": by_month,
         "team_average": overall,
+        "personnel": personnel,
+        "population": population,
         "no_roster": ", ".join(
             label
             for label, item in zip(labels, sources, strict=True)

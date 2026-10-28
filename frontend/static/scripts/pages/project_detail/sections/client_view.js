@@ -284,6 +284,7 @@ export function governanceModal(rows, h) {
 export function documentModal(x, uid, h) {
   const kind = String(x.tipo || "");
   const types = [["Carpeta", (/** @type {string} */ k) => k === "Carpeta" || k === "Procedimiento" || k === ""], ["Plantilla", (/** @type {string} */ k) => k === "Plantilla"], ["Repositorio", (/** @type {string} */ k) => k === "Repositorio"], ["Referencia", (/** @type {string} */ k) => k === "Referencia"], ["Documento", (/** @type {string} */ k) => k === "Documento"]];
+  types.push(["Plan de trabajo", (/** @type {string} */ k) => k === "Plan de trabajo"], ["Roadmap", (/** @type {string} */ k) => k === "Roadmap"]);
   const select = el("select", { id: "acd-tipo" }, ...types.map((t) => el("option", { text: String(t[0]), selected: /** @type {Function} */ (t[1])(kind) ? true : null })));
   const grid = styled(el("div", { class: "aer-formgrid" }, field("Nombre", input("acd-nom", x.nombre || "")), field("Tipo", select), field("URL / vínculo", input("acd-url", x.url || "", { placeholder: "https://..." }), "aer-span2"), field("Texto del botón", input("acd-accion", x.accion || "Abrir")), field("Notas", input("acd-notas", x.notas || ""))), { marginTop: "12px" });
   const actions = styled(el("div", { class: "aer-actions" }, ...(uid ? [el("button", { type: "button", class: "aer-btn", text: "Eliminar", onclick: () => h.remove(uid) })] : []), el("button", { type: "button", class: "aer-btn primary", text: "Guardar link", onclick: h.save })), { marginTop: "12px" });
