@@ -11,4 +11,10 @@
 .inventory-scroll tbody tr:nth-child(even) { background: #fbfaff; }
 .inventory-scroll summary { cursor: pointer; white-space: nowrap; }
 .inventory-scroll details div { padding-top: 8px; overflow-wrap: anywhere; }
+.inventory-dm-section { margin: 28px 0; }
+.inventory-dm-scroll table { min-width: 850px; }
+.inventory-dm-scroll td { text-align: center; }
+.inventory-dm-scroll tbody th { background: transparent; white-space: normal; min-width: 220px; border-top: 1px solid #ede8fa; }
+.inventory-dm-scroll .inventory-dm-total { background: #eee6ff; color: #482098; font-weight: 700; }
+.inventory-dm-scroll tfoot { background: #f4f0ff; font-weight: 700; }
 @media (max-width: 600px) { .summary-inventory { padding: 16px; } .inventory-search label { flex-basis: 100%; } }

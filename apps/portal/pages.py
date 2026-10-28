@@ -43,6 +43,7 @@ def _login_needed(request: HttpRequest) -> bool:
 @require_capability("view_operations", whole_portfolio=True)
 def summary_inventory(request: HttpRequest) -> HttpResponse:
     """Search the persisted, unfiltered Azure Summary inventory."""
+    from apps.portal.services.summary_dm_totals import dm_totals
     from apps.portal.services.summary_inventory import inventory_rows
 
     if _login_needed(request):
@@ -70,6 +71,7 @@ def summary_inventory(request: HttpRequest) -> HttpResponse:
             "rows": rows,
             "query": query,
             "count": len(rows),
+            "dm_totals": dm_totals(rows),
             "cut": cut.isoformat(),
             "cut_error": cut_error,
             "stage_columns": (

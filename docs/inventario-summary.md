@@ -1,5 +1,20 @@
 # Inventario de Summary — primer bloque
 
+## Resumen por Delivery Manager — 28/10
+
+Tabla adicional antes del detalle con Service (IXB, PoC, RaaS, RaaS+, SaaS)
+y Status (Sus, Dis, Dev, Dep), totales por DM y total general. Cuenta una vez
+cada fila visible (proyecto/sprint/CR), sobre el mismo corte/búsqueda.
+Servicios adicionales y Pendiente se muestran cuando existen, sin descartar
+filas. Los DM ausentes quedan como Sin DM confirmado. Status usa la misma
+etapa por calendario que el detalle; no se deducen suspensiones de fechas.
+
+Consulta local real al 30/04/2026: 17 bloques, seis DM, suma de servicios y
+etapas 17. Pruebas: 13 servidor de inventario/iteraciones/resumen y tres
+Chrome con rutas reales/CSP a 390/900/1450; cambio de fecha actualiza ambos
+totales a uno/cero en el fixture. Ruff/mypy aprobados. Capturas en
+tmp/summary-inventory. Sin extracción adicional, sin push.
+
 ## Columnas EVA y corte por rango — 28/10
 
 Por instrucción del usuario se retiran de la tabla las columnas técnicas,

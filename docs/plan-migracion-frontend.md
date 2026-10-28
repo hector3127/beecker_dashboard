@@ -9,6 +9,13 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Resumen DM del inventario, 28/10:** tabla adicional por DM/servicio/etapa
+con totales, misma selección de corte y búsqueda del detalle. Categorías
+pendientes adicionales conservan conciliación; sin cambiar EVA/KPI ni datos.
+13 servidor y tres Chrome/CSP responsivos aprobados. Corte real 30/04:
+17 bloques, seis DM, totales por servicio y etapa iguales a 17.
+Ver inventario-summary.md; sin push.
+
 **Vista EVA del inventario, 28/10:** solo columnas EVA, fecha de corte GET
 (hoy por defecto), rango inclusivo inicio/fin de iteraciones y etapa calculada
 al consultar. AMK.004_CR al 28/10 muestra Deployment (07/05–06/11).
