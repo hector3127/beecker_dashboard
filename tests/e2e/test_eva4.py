@@ -36,6 +36,28 @@ def month_input(portal):
     return portal.locator("#eva4-month")
 
 
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_process_word_search_combines_columns_and_clears(portal, loads, width):
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
+    search = portal.get_by_role("searchbox", name="Buscar en procesos")
+    search.fill("ANA NESTLE")
+    expect(portal.locator("#eva4-processes tbody tr:visible")).to_have_count(2)
+    expect(portal.locator("#eva4-count")).to_contain_text("2 de 3")
+    search.fill("noexiste")
+    expect(portal.locator("#eva4-processes")).to_contain_text("Sin resultados")
+    portal.get_by_role("button", name="Limpiar búsqueda").click()
+    expect(search).to_have_value("")
+    expect(portal.locator("#eva4-count")).to_contain_text("3 de 3")
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    from pathlib import Path
+
+    Path("tmp/design/eva4-search").mkdir(parents=True, exist_ok=True)
+    portal.screenshot(
+        path=f"tmp/design/eva4-search/{width}.png", full_page=True
+    )
+
+
 @pytest.mark.parametrize("query", ["", "?vista=anterior"])
 def test_structure_is_accessible_and_keeps_the_previous_order(
     portal, loads, query

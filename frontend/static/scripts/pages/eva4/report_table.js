@@ -103,7 +103,7 @@ export function mountReportTable({
     columns.sort(
       rows.filter(
         (row) =>
-          columns.matches(row) && normalize(cellText(row)).includes(wanted),
+          columns.matches(row) && wanted.split(/\s+/).every(word => normalize(cellText(row)).includes(word)),
       ),
     );
   const unit =

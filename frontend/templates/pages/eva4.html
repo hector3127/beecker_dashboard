@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}EVA-04 Report{% endblock %}
 {% block body_class %}eva4-page{% endblock %}
-{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/eva4.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/eva_column_menus.css' %}">{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/eva4.css' %}?v=20261029-search"><link rel="stylesheet" href="{% static 'app/styles/pages/eva_column_menus.css' %}">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>Datos al {{ loaded_at|date:"d/m/Y, H:i" }}</span>{% endblock %}
 {% block content %}
 <div class="toolbar"><a class="back" href="{% url 'portal:operativa' %}">← Regresar a Operativa</a><span class="page-context">EVA-04</span></div>
@@ -14,4 +14,4 @@
 <noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
 {{ picker|json_script:"eva4-picker" }}
 {% endblock %}
-{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/eva4/main.js' %}"></script>{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/eva4/main.js' %}?v=20261029-search"></script>{% endblock %}

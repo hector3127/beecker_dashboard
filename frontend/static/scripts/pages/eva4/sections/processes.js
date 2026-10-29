@@ -1,4 +1,4 @@
-import { mountReportTable, countryCell, clientCell } from "../report_table.js";
+import { mountReportTable, countryCell, clientCell } from "../report_table.js?v=20261029-search";
 // @ts-check
 // Tabla principal de EVA-04: procesos activos con su consumo de horas.
 import { el } from '#app/lib/dom.js';
@@ -80,5 +80,20 @@ export function renderProcesses(container, data, toolbar) {
   );
   const rows = data.processes.length ? [.../** @type {NodeListOf<HTMLElement>} */ (table.querySelectorAll('tbody tr'))] : [];
   rows.forEach(row=>{countryCell(row.cells[1]);clientCell(row.cells[2]);});
-  return mountReportTable({table,rows,kind:'processes',types:Object.fromEntries(COLUMNS.map((column,index)=>[index,[7,8].includes(index)?'date':column.numeric?'number':'text'])),onCount:({shown,total})=>{toolbar[0].textContent=`${shown} de ${total} procesos activos`;}});
+  const controller = mountReportTable({table,rows,kind:'processes',types:Object.fromEntries(COLUMNS.map((column,index)=>[index,[7,8].includes(index)?'date':column.numeric?'number':'text'])),onCount:({shown,total})=>{toolbar[0].textContent=`${shown} de ${total} procesos activos`;}});
+  const input = el('input', {
+    id: 'eva4-process-search', type: 'search',
+    placeholder: 'Ej. Brandon Nestlé, AIN.002 o nombre del proceso',
+    'aria-controls': 'eva4-processes',
+    oninput: () => controller.filter(input.value),
+  });
+  const search = el('div', { class: 'eva4-process-search' },
+    el('label', { for: 'eva4-process-search', text: 'Buscar en procesos' }),
+    el('div', { class: 'eva4-process-search-controls' }, input,
+      el('button', { type: 'button', text: 'Limpiar búsqueda', onclick: () => {
+        input.value = ''; controller.filter(''); input.focus();
+      } })),
+    el('span', { class: 'eva4-note', text: 'Busca palabras en todas las columnas, sin distinguir mayúsculas ni acentos.' }));
+  table.closest('.eva4-scroll').before(search);
+  return controller;
 }

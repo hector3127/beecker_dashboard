@@ -129,3 +129,8 @@ body.eva4-page main.page{max-width:1700px;margin:auto;padding:18px 26px 30px}
 .eva4-month-display:after{content:'⌄';position:absolute;right:0;font-size:16px;color:#7942d8}
 .eva4-month-field:focus-within{outline:2px solid #ab83ee;outline-offset:4px;border-radius:4px}
 .eva4-page .eva4-country-flag{display:inline-block;vertical-align:middle;flex:none;margin-right:4px;border-radius:1px;box-shadow:0 0 0 1px #ebe4f4}
+.eva4-process-search{display:grid;gap:7px;margin:16px 0;color:#593293;font-size:12px}
+.eva4-process-search label{font-weight:600}
+.eva4-process-search-controls{display:flex;gap:10px;flex-wrap:wrap}
+.eva4-process-search-controls input{flex:1 1 260px;min-width:0;min-height:44px;padding:10px 12px;border:1px solid #ded1f7;border-radius:9px;background:#fff;color:#321668;font:inherit}
+.eva4-process-search-controls button{min-height:44px;padding:10px 14px;border:1px solid #ded1f7;border-radius:9px;background:#f6f1ff;color:#6935b0;font:inherit;cursor:pointer}

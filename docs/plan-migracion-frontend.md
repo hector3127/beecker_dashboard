@@ -9,6 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Buscador EVA4, 29/10:** campo visible en Procesos y consumo por servicio,
+búsqueda inmediata de palabras en todas las columnas, sin mayúsculas/acentos.
+Palabras combinadas con AND, botón limpiar y vuelta a página uno; conserva
+filtros de columna, paginación y exportación de resultados. Estilo responsivo
+con etiqueta accesible y controles de 44 px. Sin cambios de datos ni horas.
+478 Node, 27 Chrome y Ruff aprobados. Capturas 1450/900/390 px en
+tmp/design/eva4-search; revisión móvil sin desbordamiento. Sin push.
+
 **EVA4 columnas y nombres, 29/10:** comparación contra correo del usuario:
 las 15 columnas y orden ya coinciden. ROC local contiene 147 procesos activos;
 el CSV proporcionado tenía solo los 68 de Brandon, no prueba de pérdida de
