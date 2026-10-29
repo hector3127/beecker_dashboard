@@ -31,7 +31,7 @@ if (table) {
       if (!row.hidden) count++;
     }
     document.getElementById("eva-count").textContent =
-      "Mostrando " +
+      document.getElementById("eva-count").dataset.monthlyState === "pending" ? "Sin cierre mensual validado" : "Mostrando " +
       count +
       " de " +
       document.getElementById("eva-count").dataset.total +

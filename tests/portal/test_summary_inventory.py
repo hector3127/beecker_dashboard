@@ -200,7 +200,8 @@ def test_local_replay_links_cr_summary_without_provider_calls(
         side_effect=AssertionError("external read"),
     ):
         replay = extract_summaries(from_local=True, with_eva=False)
-    run, rows = inventory_rows("AMK.012", date(2026, 1, 29))
+    # Parser audit reads raw evidence, not a validated monthly report.
+    run, rows = inventory_rows("AMK.012", date(2026, 1, 29), use_closes=False)
     assert run == replay
     assert len(rows) == 1
     assert rows[0]["display_id"] == f"AMK.012_{tree_code}"

@@ -4,12 +4,14 @@ from datetime import date
 from typing import Any
 
 from apps.portal.services.eva2 import build_eva2_view
+from apps.portal.services.eva_monthly_closes import is_closed_period
 from apps.portal.services.summary_inventory import inventory_rows
 
 
 def load_inventory_eva(cut: date) -> dict[str, Any]:
     """Use exactly the inventory range and historical provider data in EVA."""
     run, rows = inventory_rows(cut=cut)
+    state = ("fixed" if run else "pending") if is_closed_period(cut) else "live"
     projected = []
     for row in rows:
         fields = row.get("fields") or {}
@@ -51,9 +53,20 @@ def load_inventory_eva(cut: date) -> dict[str, Any]:
         "projected_rows": projected,
         "inventory_rows": rows,
         "extraction": run,
+        "monthly_close_state": state,
+        "eva_empty_text": (
+            "Cierre mensual pendiente de validar/cargar."
+            if state == "pending"
+            else "No hay proyectos en el rango del corte seleccionado."
+        ),
         "error": (
             f"{len(run.issues)} incidencias de origen." if run.issues else ""
         )
         if run
-        else "Todavía no hay un inventario guardado.",
+        else (
+            f"Cierre mensual del {cut:%d/%m/%Y} pendiente de validar/cargar. "
+            "No se reconstruye con el Azure actual."
+            if state == "pending"
+            else "Todavía no hay un inventario guardado."
+        ),
     }

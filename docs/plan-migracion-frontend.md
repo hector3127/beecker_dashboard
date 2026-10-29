@@ -9,6 +9,21 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Cierres mensuales EVA fijos, 29/10:** migración aditiva 0012 aplicada con
+respaldo. Fotografía completa al último lunes–jueves, sellada después de terminar
+ese día; índice único, origen protegido y escritura automática sin reemplazo.
+EVA/KPIs usan la copia fija al corte mensual. Otras fechas siguen consultas
+provisionales. Anteriores sin cierre validado quedan pendientes de los datos
+oficiales del usuario; no se rellenan desde Azure actual ni se borran fuentes.
+Política inicia octubre 2026. Dos tareas Windows instaladas: captura 23:40 solo
+el día de cierre y sellado desde 00:20 con reintento horario. Sellado local
+verificado con resultado 0; la captura nocturna real aún no ha ocurrido.
+Datos, operación y límites: docs/cierres-mensuales-eva.md. 1,863 servidor,
+12 dirigidas finales solapadas, 32 Chrome/CSP y 478 Node aprobados; Ruff,
+mypy, check y makemigrations --check aprobados. No se alinean datos pasados
+ni se modifica T/C o la regla de rango; conciliación espera la información
+que proporcionará el usuario. Sin push; fase 11 continúa abierta.
+
 **Filtro global DM compacto, 29/10:** panel anclado que no altera la altura
 de la barra ni desplaza el corte. Búsqueda de nombres sin distinguir acentos,
 Todos/Ninguno, contador y lista con scroll; Aplicar conserva parámetros y

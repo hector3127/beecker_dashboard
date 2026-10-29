@@ -206,7 +206,7 @@ def select_managers(view: KpiView, names: Sequence[str]) -> KpiView:
     chosen = tuple(row for row in view.rows if row.name in names)
     total = sum(row.total for row in chosen)
     in_time = sum(row.health.on_time for row in chosen)
-    over = sum(row.cost_over for row in chosen)
+    over = sum(row.cost_over or 0 for row in chosen)
     totals = replace(
         view.totals,
         total=total,
@@ -220,7 +220,7 @@ def select_managers(view: KpiView, names: Sequence[str]) -> KpiView:
             time_days=100 * in_time / total if total else None,
             cost_percent=100 * over / total if total else None,
         ),
-        time_late=sum(row.time_late for row in chosen),
+        time_late=sum(row.time_late or 0 for row in chosen),
         cost_over=over,
     )
     ranked = sorted(

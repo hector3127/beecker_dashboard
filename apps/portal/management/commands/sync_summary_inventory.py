@@ -3,6 +3,7 @@
 from django.core.management.base import BaseCommand
 
 from apps.datastore.services.locks import sync_lock
+from apps.portal.services.eva_monthly_closes import close_due_months
 from apps.portal.services.summary_inventory import extract_summaries
 
 
@@ -21,5 +22,6 @@ class Command(BaseCommand):
             if not acquired:
                 self.stdout.write("Ya hay una extracción de Summary en curso.")
                 return
+            self.stdout.write(f"Cierres mensuales: {close_due_months()}")
             run = extract_summaries(from_local=options["from_local"])
             self.stdout.write(str(run.metrics))

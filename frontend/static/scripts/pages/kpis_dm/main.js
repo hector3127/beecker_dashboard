@@ -10,7 +10,7 @@ import {
   renderFilter,
   renderTable,
   renderTabs,
-} from "./sections/summary.js?v=20261029-dm-filter";
+} from "./sections/summary.js?v=20261029-monthly-closes";
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
@@ -90,7 +90,7 @@ function render(data) {
     renderHistory({
       id: "kpi-month-history",
       title: "Histórico por mes",
-      hint: "Cada mes: TP al último lunes–jueves; T = % con desviación ≤ 0; C = % con avance > 100%. Los doce meses del año permanecen visibles; meses futuros sin datos. El mes actual (*) es provisional hasta el último lunes–jueves disponible.",
+      hint: "Cada mes: TP al último lunes–jueves; T = % con desviación ≤ 0; C = % con avance > 100%. Los doce meses del año permanecen visibles; meses futuros sin datos. El mes abierto (*) es provisional. Los meses cerrados usan su fotografía fija; cierres faltantes quedan pendientes.",
       matrix: history.months,
       managerUrl,
       byMonth: true,
@@ -111,7 +111,7 @@ function render(data) {
   content.append(
     el("p", {
       class: "note",
-      text: "Fuentes: inventario local de Summary e iteraciones Azure, con horas facturables de Clockify hasta cada corte. Se incluyen suspendidos; se excluyen completados y cancelados al corte. No se usan estados actuales de Azure para reconstruir los meses. Los históricos se recalculan con la información disponible y pueden diferir de correos archivados.",
+      text: "Fuentes: inventario local de Summary e iteraciones Azure, con horas facturables de Clockify hasta cada corte. Se incluyen suspendidos; se excluyen completados y cancelados al corte. No se usan estados actuales de Azure para reconstruir los meses. Los cierres mensuales guardados son fijos; no cambian al reprogramar Azure. Los cierres anteriores sin evidencia esperan la información oficial.",
     }),
   );
 }

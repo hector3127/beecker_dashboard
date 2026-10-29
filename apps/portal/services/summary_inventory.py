@@ -297,9 +297,23 @@ def extract_summaries(
 def inventory_rows(
     query: str = "",
     cut: date | None = None,
+    *,
+    source_run: EvaExtraction | None = None,
+    use_closes: bool = True,
 ) -> tuple[EvaExtraction | None, list[dict[str, Any]]]:
     """Read only persisted data; searching never calls Azure."""
-    run = (
+    if cut is not None and use_closes:
+        from apps.portal.services.eva_monthly_closes import read_monthly_close
+
+        closed = read_monthly_close(cut)
+        if closed is not None:
+            run, rows = closed
+            return run, [
+                r
+                for r in rows
+                if not query or query.casefold() in str(r).casefold()
+            ]
+    run = source_run or (
         EvaExtraction.objects.filter(
             published=True, metrics__kind="summary_inventory"
         )

@@ -21,8 +21,10 @@ case "${1:-}" in
   diario)      exec "$PYTHON" manage.py sync_datastore --pasos clockify,catalogos,eva ;;
   precalentar) exec "$PYTHON" manage.py warm_cache ;;
   revisar)     exec "$PYTHON" manage.py check_datastore --lecturas ;;
+  eva-captura) exec "$PYTHON" manage.py close_eva_month --capture ;;
+  eva-cierre)  exec "$PYTHON" manage.py close_eva_month ;;
   *)
-    echo "Uso: $0 {horario|diario|precalentar|revisar}" >&2
+    echo "Uso: $0 {horario|diario|precalentar|revisar|eva-captura|eva-cierre}" >&2
     exit 2
     ;;
 esac

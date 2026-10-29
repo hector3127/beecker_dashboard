@@ -1203,6 +1203,7 @@ def kpi_context(request: HttpRequest) -> dict[str, Any]:
     from apps.portal.services.eva_cut import read_cut
     from apps.portal.services.eva_inventory_view import load_inventory_eva
     from apps.portal.services.kpi_eva import eva_manager_view, select_managers
+    from apps.portal.services.kpi_history_loader import KpiHistoryLoad
 
     today = timezone.localdate()
     try:
@@ -1240,7 +1241,7 @@ def kpi_context(request: HttpRequest) -> dict[str, Any]:
     )
     chosen_managers = request.GET.getlist("dm")
 
-    def filter_history(load):
+    def filter_history(load: KpiHistoryLoad) -> KpiHistoryLoad:
         if load.history is None or not chosen_managers:
             return load
         return replace(

@@ -55,7 +55,7 @@ export function renderFilter(data) {
     { class: "kpi-definition-note" },
     el("summary", { text: "Cómo interpretar TP, T y C en esta pantalla" }),
     el("p", {
-      text: "Base: proyectos abiertos de EVA 1, incluidos suspendidos. Corte al último lunes a jueves de cada mes; viernes, sábado y domingo retroceden al jueves. TP: proyectos del DM. T: proyectos con desviación ≤ 0 / TP × 100. C: proyectos con avance > 100% / TP × 100 (sobrecosto). Cero días cuenta en T; exactamente 100% no cuenta como sobrecosto. Los datos pendientes permanecen en TP y no cuentan en el numerador. El mes actual es provisional hasta el último lunes–jueves disponible.",
+      text: "Base: proyectos abiertos de EVA 1, incluidos suspendidos. Corte al último lunes a jueves de cada mes; viernes, sábado y domingo retroceden al jueves. TP: proyectos del DM. T: proyectos con desviación ≤ 0 / TP × 100. C: proyectos con avance > 100% / TP × 100 (sobrecosto). Cero días cuenta en T; exactamente 100% no cuenta como sobrecosto. Los datos pendientes permanecen en TP y no cuentan en el numerador. El mes abierto es provisional; los cierres mensuales guardados permanecen fijos.",
     }),
   );
   return [form, note];

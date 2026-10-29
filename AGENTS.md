@@ -4,6 +4,14 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 
 ## Objetivo
 
+**Cierres EVA, autorización 29/10:** al terminar el último lunes–jueves del mes
+se sella una fotografía fija, sin recalcularla desde fuentes posteriores.
+EVA/KPIs leen la copia al corte mensual; anteriores sin validar quedan pendientes
+de los datos oficiales del usuario. No reconstruirlos del Azure actual ni cambiar
+fórmulas/rangos para hacerlos coincidir. Migración 0012 con respaldo; política
+local desde octubre 2026. Tareas Windows nuevas: captura 23:40 el día de cierre,
+sellado desde 00:20 con reintentos horarios. Ver docs/cierres-mensuales-eva.md.
+
 **KPIs DM, criterio posterior 28/10:** el corte exacto controla tarjetas y tabla
 por DM. Selector global multiselección de DMs para todas las tablas y gráfica,
 con totales recalculados. Tendencia e históricos tienen años independientes;

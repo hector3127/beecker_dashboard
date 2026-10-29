@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from apps.portal.schemas import KpiCut
 from apps.portal.services.eva_inventory_view import load_inventory_eva
+from apps.portal.services.eva_monthly_closes import is_closed_period
 from apps.portal.services.kpi_eva import (
     build_eva_history,
     eva_manager_view,
@@ -36,7 +37,11 @@ def load_kpi_history(year: int | None = None) -> KpiHistoryLoad:
     history = replace(
         history,
         months=tuple(
-            replace(m, observed=observed[cut]["extraction"] is not None)
+            replace(
+                m,
+                observed=observed[cut]["extraction"] is not None,
+                partial=False if is_closed_period(cut) else m.partial,
+            )
             for m, (_, cut, _) in zip(history.months, cuts, strict=True)
         ),
     )
@@ -51,9 +56,9 @@ def load_kpi_history(year: int | None = None) -> KpiHistoryLoad:
     notice = ""
     if missing:
         notice = (
-            "Sin cortes Azure/Clockify observados en: "
+            "Cierres mensuales pendientes de validar/cargar: "
             + ", ".join(missing)
-            + ". No se reconstruyen con el estado actual ni con Sheets."
+            + ". No se recalculan con el Azure actual."
         )
     if any(
         data["error"]

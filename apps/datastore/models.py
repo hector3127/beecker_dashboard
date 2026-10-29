@@ -1,5 +1,7 @@
 """Tablas de la base diaria del panel."""
 
+from typing import Any
+
 from django.db import models
 
 """BKD.130.002 - Modelos de la base diaria
@@ -53,6 +55,35 @@ class EvaExtraction(models.Model):
     published = models.BooleanField(default=False)
     metrics = models.JSONField(default=dict)
     issues = models.JSONField(default=list)
+
+
+class EvaMonthlyClosePolicy(models.Model):
+    """First month eligible for automatic closing from observed evidence."""
+
+    id = models.PositiveSmallIntegerField(
+        primary_key=True, default=1, editable=False
+    )
+    first_month = models.DateField()
+
+
+class EvaMonthlyClose(models.Model):
+    """Write-once monthly report, independent of later source updates."""
+
+    month = models.DateField(unique=True)
+    cut = models.DateField(unique=True)
+    extraction = models.ForeignKey(EvaExtraction, on_delete=models.PROTECT)
+    source_observed_at = models.DateTimeField()
+    closed_at = models.DateTimeField(auto_now_add=True)
+    rows = models.JSONField(default=list)
+    source_issues = models.JSONField(default=list)
+
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        """Reject overwriting an already recorded close."""
+        if not self._state.adding:
+            raise ValueError(
+                "Un cierre mensual no se sobrescribe automáticamente."
+            )
+        return super().save(*args, **kwargs)
 
 
 class EvaAzureSource(models.Model):
