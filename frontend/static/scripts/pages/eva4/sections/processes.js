@@ -39,7 +39,7 @@ const COLUMNS = [
     cell: (r) => hours(r.hours_balance, 'Sin balance: falta el límite o las horas.'),
     cellClass: (r) => (r.hours_balance !== null && r.hours_balance < 0 ? 'critical' : ''),
   },
-  { header: 'Hours Package Limit', numeric: true, cell: (r) => raw(r.package_limit) },
+  { header: 'Hours Package Limit', numeric: true, cell: (r) => r.package_limit === null && String(r.service).trim().toLowerCase() !== 'raas' ? 'No aplica' : raw(r.package_limit) },
   { header: 'Available Hours Package', numeric: true, cell: (r) => raw(r.package_available) },
   { header: 'Risk', cell: (r) => r.risk ?? '—' },
 ];
