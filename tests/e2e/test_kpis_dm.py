@@ -263,7 +263,7 @@ def test_smooth_trend_keeps_monthly_values_and_responsive_layout(
     titles = markers.locator("title").all_text_contents()
     assert [
         int(text.rsplit(": ", 1)[1].rstrip("%")) for text in titles
-    ] == values
+    ] == [100 - value for value in values]
     assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
     portal.evaluate("document.fonts.ready")
     target = Path("tmp/design/kpi-trend")

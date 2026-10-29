@@ -63,6 +63,13 @@ def test_saved_kpis_keep_layout_and_only_actual_month_has_values(
     first = page.locator("#kpi-month-history tbody tr").first
     expect(first.locator("td").first).to_have_text("—")
     expect(page.locator("#kpi-chart circle")).to_have_count(2)
+    expect(page.locator("#kpi-chart")).to_have_attribute(
+        "aria-label",
+        "Tendencia mensual de cumplimiento en costo por Delivery Manager",
+    )
+    expect(page.locator("#kpi-chart circle title").nth(1)).to_contain_text(
+        "100%"
+    )
     for path in page.locator("#kpi-chart path[stroke-width='2.5']").all():
         assert "C" not in path.get_attribute("d")
         assert "L" not in path.get_attribute("d")

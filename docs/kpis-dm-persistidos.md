@@ -1,5 +1,10 @@
 # KPIs DM con almacenamiento propio — 29/10/2026
 
+Por petición posterior, solo la gráfica transforma cada porcentaje C guardado
+en cumplimiento: 100 − sobrecosto. Nulos siguen nulos; no combina T. Tablas y
+tarjetas mantienen sobrecosto. Es el complemento del indicador vigente con
+su denominador completo, no una nueva auditoría de proyectos pendientes.
+
 El filtro principal permite seleccionar mes y año, con `mes=YYYY-MM`.
 Consulta la última captura del periodo, dejando visible la fecha real de esa
 captura. No sustituye meses sin datos. El filtro global de DMs y los años de

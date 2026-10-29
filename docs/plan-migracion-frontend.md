@@ -9,6 +9,13 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Tendencia en cumplimiento de costo, 29/10:** petición posterior cambia solo
+la gráfica a 100 menos C de sobrecosto. Puntos nulos permanecen nulos; curvas,
+filtros globales y año independiente conservados. Tarjetas, tablas, API y base
+siguen mostrando/guardando sobrecosto. Título, descripción y nombre accesible
+explican que más alto es mejor. 21 Chrome/CSP y 478 Node aprobadas,
+incluidos valores complementarios, huecos y tres tamaños. Sin push.
+
 **Selector mensual KPI, 29/10:** filtro principal mes/año (`mes=YYYY-MM`),
 resuelve el puntero de la última captura guardada del periodo. Conserva fecha
 real como referencia, ausencia de datos explícita, selector global y años

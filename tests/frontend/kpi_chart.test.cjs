@@ -54,7 +54,7 @@ test('the trend uses smooth curves through the same measured monthly points', as
   assert.equal(children.filter(x => x.tag === 'circle').length, 3);
   assert.deepEqual(children.filter(x => x.tag === 'circle').map(x => Number(x.attrs.cx)), [45, 290, 535]);
   assert.deepEqual(values, [100, 0, 100]);
-  assert.match(n['kpi-chart'].attrs['aria-label'], /Tendencia mensual de sobrecosto/);
+  assert.match(n['kpi-chart'].attrs['aria-label'], /Tendencia mensual de cumplimiento en costo/);
 });
 
 test('smooth trend never overshoots zero, peaks, flat runs or their segment endpoints', async () => {

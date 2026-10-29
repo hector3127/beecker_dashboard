@@ -3,7 +3,7 @@
 import { apiGet } from "#app/data/api-client.js";
 import { el } from "#app/lib/dom.js";
 import { clearState, showError, showLoading } from "#app/ui/states.js";
-import { renderChart } from "./sections/chart.js?v=20261028-cut";
+import { renderChart } from "./sections/chart.js?v=20261029-compliance";
 import { renderHistory } from "./sections/history.js";
 import {
   renderCards,
@@ -42,15 +42,22 @@ function filters() {
 /** @param {any} data */
 function chartCard(data) {
   const { history, filters } = data;
-  const card = el("div", { class: "card" }, el("h2", { text: "Tendencia de sobrecosto (C)" }),
-    el("div", { class: "hs", text: "Porcentaje de proyectos con avance mayor a 100%, por DM y mes. El año es independiente del corte. Se aplica la selección global de DMs." }));
+  const card = el("div", { class: "card" }, el("h2", { text: "Tendencia de cumplimiento en costo" }),
+    el("div", { class: "hs", text: "Cumplimiento en costo = 100% menos sobrecosto, por DM y mes. Más alto es mejor. El año es independiente del mes consultado; se aplica la selección global de DMs." }));
   const year = el("select", { id: "kpi-chart-year", "aria-label": "Año de tendencia", onchange: (event) => {
     const url = new URL(location.href); url.searchParams.set("chart_year", event.target.value); location.assign(url.href);
   } }, ...filters.years.map(y => el("option", { value: y, selected: y === filters.chart_year, text: y })));
   const tools = el("div", { class: "kpi-local-filters" }, el("label", { for: "kpi-chart-year", text: "Año de tendencia" }), year);
   card.append(tools);
   if (!history.chart) { card.append(el("p", { class: "note", text: `No se pudo reconstruir el histórico. ${history.error || "Sin histórico disponible."}` })); return card; }
-  const plot = el("div", {}, ...renderChart(history.chart));
+  const compliance = {
+    ...history.chart,
+    series: history.chart.series.map(serie => ({
+      ...serie,
+      values: serie.values.map(value => typeof value === "number" && Number.isFinite(value) ? 100 - value : null),
+    })),
+  };
+  const plot = el("div", {}, ...renderChart(compliance));
   card.append(plot);
   return card;
 }
