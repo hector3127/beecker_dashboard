@@ -1,5 +1,6 @@
 """Close due months, or capture the source on the agreed closing day."""
 
+from django.conf import settings
 from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
@@ -22,6 +23,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """Use the same lock as inventory extraction."""
+        if not settings.EVA_MONTHLY_CLOSES_ENABLED:
+            self.stdout.write("Cierres mensuales desactivados hasta Genesis.")
+            return
         if options["capture"]:
             today = timezone.localdate()
             if today != closing_day(today):

@@ -153,6 +153,7 @@ def test_api_exposes_compliance_percentages_and_workday_cut(
         "t_unit": "percent",
         "c_unit": "percent",
         "cut_weekdays": [0, 1, 2, 3],
+        "monthly_closes_enabled": False,
     }
     assert data["cut"]["label"] == "29/01/2026"
     assert data["summary"]["totals"]["total"] == 2

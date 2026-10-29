@@ -3,6 +3,8 @@
 from datetime import date
 from typing import Any
 
+from django.conf import settings
+
 from apps.portal.services.eva2 import build_eva2_view
 from apps.portal.services.eva_monthly_closes import is_closed_period
 from apps.portal.services.summary_inventory import inventory_rows
@@ -12,6 +14,8 @@ def load_inventory_eva(cut: date) -> dict[str, Any]:
     """Use exactly the inventory range and historical provider data in EVA."""
     run, rows = inventory_rows(cut=cut)
     state = ("fixed" if run else "pending") if is_closed_period(cut) else "live"
+    if not settings.EVA_MONTHLY_CLOSES_ENABLED:
+        state = "disabled"
     projected = []
     for row in rows:
         fields = row.get("fields") or {}

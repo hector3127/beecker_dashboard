@@ -4,6 +4,13 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 
 ## Objetivo
 
+**Cierres mensuales pospuestos a Genesis, 29/10:** instrucción posterior del
+usuario. `EVA_MONTHLY_CLOSES_ENABLED` queda desactivado por defecto. Tareas
+Windows de captura/sellado deshabilitadas. EVA/KPIs mantienen consultas
+actualizables; no marcar meses pendientes por cierres desactivados. Conservar
+tablas y respaldo, sin congelar ni importar históricos ahora. No activar la
+función ni las tareas hasta acordarlo en Genesis.
+
 **Cierres EVA, autorización 29/10:** al terminar el último lunes–jueves del mes
 se sella una fotografía fija, sin recalcularla desde fuentes posteriores.
 EVA/KPIs leen la copia al corte mensual; anteriores sin validar quedan pendientes

@@ -96,7 +96,8 @@ def observed(day=CUT, name="Ana", finish="2026-10-31", stamp=None):
 
 
 @pytest.fixture(autouse=True)
-def policy():
+def policy(settings):
+    settings.EVA_MONTHLY_CLOSES_ENABLED = True
     EvaMonthlyClosePolicy.objects.update_or_create(
         pk=1, defaults={"first_month": date(2026, 10, 1)}
     )
@@ -247,3 +248,30 @@ def test_monthly_kpis_use_close_and_stop_marking_it_provisional(monkeypatch):
     assert not history.months[8].observed
     assert history.months[8].view.totals.total == 0
     assert len(history.months) == 12
+
+
+def test_deferred_feature_reads_normal_inventory_and_keeps_saved_closes(
+    monkeypatch, settings
+):
+    observed()
+    today(monkeypatch, date(2026, 10, 30))
+    close_due_months()
+    latest = observed(date(2026, 10, 30), "DM actualizado")
+    settings.EVA_MONTHLY_CLOSES_ENABLED = False
+    result = load_inventory_eva(CUT)
+    assert result["extraction"] == latest
+    assert result["eva"].projects[0].manager == "DM actualizado"
+    assert result["monthly_close_state"] == "disabled"
+    assert close_due_months() == {"closed": [], "pending": []}
+    assert EvaMonthlyClose.objects.count() == 1
+
+
+def test_disabled_capture_is_a_noop_even_on_closing_day(monkeypatch, settings):
+    today(monkeypatch, CUT)
+    settings.EVA_MONTHLY_CLOSES_ENABLED = False
+    with patch(
+        "apps.portal.management.commands.close_eva_month.call_command"
+    ) as command:
+        call_command("close_eva_month", capture=True, stdout=StringIO())
+    command.assert_not_called()
+    assert not EvaMonthlyClose.objects.exists()

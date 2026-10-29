@@ -9,6 +9,18 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Cierres pospuestos a Genesis, 29/10:** el usuario decide no activarlos todavía.
+Función preparada bajo `EVA_MONTHLY_CLOSES_ENABLED=0` por defecto; comandos y
+hook no congelan ni capturan, y las lecturas ignoran cierres mientras esté
+apagada. Las dos tareas Windows fueron deshabilitadas. EVA/históricos recuperan
+las consultas actualizables, sin fabricar ni borrar datos. La migración aditiva
+0012 y el respaldo se conservan; cero cierres reales creados. Para Genesis se
+debe revisar primer mes y programación antes de habilitar. Sustituye el estado
+activo del bloque siguiente.
+Verificado: bandera False, tareas Disabled, cero cierres reales y consulta de
+septiembre restaurada con 11 proyectos. 51 servidor dirigidas y 21 Chrome/CSP
+aprobadas; Ruff y mypy aprobados. Sin push.
+
 **Cierres mensuales EVA fijos, 29/10:** migración aditiva 0012 aplicada con
 respaldo. Fotografía completa al último lunes–jueves, sellada después de terminar
 ese día; índice único, origen protegido y escritura automática sin reemplazo.

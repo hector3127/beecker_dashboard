@@ -639,6 +639,7 @@ def kpi_screen(context: dict[str, Any]) -> dict[str, Any]:
                 "t_unit": "percent",
                 "c_unit": "percent",
                 "cut_weekdays": [0, 1, 2, 3],
+                "monthly_closes_enabled": settings.EVA_MONTHLY_CLOSES_ENABLED,
             },
             "filters": context.get("kpi_filters", {}),
             "period": {

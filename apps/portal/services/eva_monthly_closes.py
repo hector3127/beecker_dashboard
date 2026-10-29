@@ -5,6 +5,7 @@ from copy import deepcopy
 from datetime import date, timedelta
 from typing import Any
 
+from django.conf import settings
 from django.db import transaction
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
@@ -26,7 +27,11 @@ def closing_day(month: date) -> date:
 
 def is_closed_period(cut: date) -> bool:
     """Only a closing day whose local calendar day has finished is fixed."""
-    return cut == closing_day(cut) and cut < timezone.localdate()
+    return (
+        settings.EVA_MONTHLY_CLOSES_ENABLED
+        and cut == closing_day(cut)
+        and cut < timezone.localdate()
+    )
 
 
 def read_monthly_close(
@@ -47,8 +52,10 @@ def close_due_months() -> dict[str, list[str]]:
     """Under inventory lock, seal the last successful source observation."""
     from apps.portal.services.summary_inventory import inventory_rows
 
-    policy = EvaMonthlyClosePolicy.objects.filter(pk=1).first()
     result: dict[str, list[str]] = {"closed": [], "pending": []}
+    if not settings.EVA_MONTHLY_CLOSES_ENABLED:
+        return result
+    policy = EvaMonthlyClosePolicy.objects.filter(pk=1).first()
     if policy is None:
         return result
     today = timezone.localdate()

@@ -15,6 +15,7 @@ pytestmark = pytest.mark.usefixtures("transactional_db", "enforced_csp")
 
 @pytest.fixture
 def closed_site(settings, monkeypatch):
+    settings.EVA_MONTHLY_CLOSES_ENABLED = True
     Path("tmp/eva-native").mkdir(parents=True, exist_ok=True)
     settings.ROOT_URLCONF = "config.urls"
     settings.PORTAL_LOGIN_REQUIRED = False
@@ -72,3 +73,16 @@ def test_unvalidated_past_close_is_pending_instead_of_zero_projects(
     expect(page.locator("#kpi-month-history")).to_contain_text("Ana")
     headers = page.locator("#kpi-month-history thead tr").first.inner_text()
     assert "OCT" in headers.upper() and "OCT*" not in headers.upper()
+
+
+def test_deferred_feature_restores_normal_eva_reads(
+    page, live_server, closed_site, settings
+):
+    settings.EVA_MONTHLY_CLOSES_ENABLED = False
+    page.goto(live_server.url + "/operativa/eva-1/?corte=2026-10-29")
+    expect(page.locator('.note[role="status"]')).to_contain_text(
+        "desactivada hasta Genesis"
+    )
+    expect(page.locator("#eva-table tbody tr[data-manager]")).to_contain_text(
+        "Otro DM"
+    )

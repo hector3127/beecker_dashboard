@@ -1,5 +1,17 @@
 # Cierres mensuales fijos de EVA — 29/10/2026
 
+**Estado vigente: desactivado hasta Genesis por instrucción posterior del
+usuario.** `EVA_MONTHLY_CLOSES_ENABLED=0` por defecto. Las dos tareas Windows
+están deshabilitadas. Los comandos salen sin capturar/sellar y EVA/KPIs usan
+consultas actualizables, incluso si existen copias en la base. No se borraron
+tablas ni respaldos. La descripción siguiente documenta la función preparada,
+no una activación vigente.
+
+Antes de activarla en Genesis: validar el primer mes de `EvaMonthlyClosePolicy`
+según la fecha acordada, aplicar migraciones y configurar el programador de
+ese entorno; luego habilitar explícitamente `EVA_MONTHLY_CLOSES_ENABLED=1`.
+Los datos oficiales anteriores se conciliarán cuando el usuario los entregue.
+
 El último día de lunes a jueves de cada mes es el corte. El día permanece
 abierto hasta terminar en la zona America/Mexico_City. Después se conserva
 una fotografía completa de las filas de EVA: identidad, DM, servicio, fechas

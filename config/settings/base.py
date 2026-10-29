@@ -219,6 +219,9 @@ FRONTEND_API_BASE = "/api/v1/"
 # proveedor. Solo el valor 1 lo enciende; antes de encenderlo corre
 # `manage.py access_setup --incluir-usuarios`.
 ACCESS_ENFORCED = os.getenv("ACCESS_ENFORCED", "").strip() == "1"
+
+# Deferred by the user until Genesis; keep normal EVA reads by default.
+EVA_MONTHLY_CLOSES_ENABLED = os.getenv("EVA_MONTHLY_CLOSES_ENABLED", "0") == "1"
 # Fuente de capacidades y alcance; Genesis entrara aqui como otro proveedor.
 ACCESS_PROVIDER = "apps.access.providers.DjangoAccessProvider"
 

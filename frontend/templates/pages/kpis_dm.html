@@ -5,7 +5,7 @@
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/period-picker.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/kpis_dm.css' %}?v=20261029-monthly-closes">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/kpis_dm.css' %}?v=20261029-deferred-genesis">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>Datos al {{ loaded_at|date:"d/m/Y, H:i" }}</span>{% endblock %}
 {% block content %}
 <div id="kpis-notice"></div>
@@ -17,4 +17,4 @@
  data-manager-url="{% url 'portal:delivery_manager' slug='slug-placeholder' %}"></div>
 <noscript><div class="err">Esta pantalla necesita JavaScript para mostrar los datos.</div></noscript>
 {% endblock %}
-{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/kpis_dm/main.js' %}?v=20261029-monthly-closes"></script>{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/kpis_dm/main.js' %}?v=20261029-deferred-genesis"></script>{% endblock %}
