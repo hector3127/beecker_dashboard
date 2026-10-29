@@ -106,7 +106,7 @@ def snapshot_key(month: str | None = None) -> str:
     """Identifica el corte diario, compartido por detalle y Operativa."""
     day = timezone.localdate()
     return (
-        "portal:eva4:snapshot:v9:"
+        "portal:eva4:snapshot:v10:"
         + day.isoformat()
         + ":"
         + resolve_month(month, day).strftime("%Y-%m")
@@ -170,6 +170,8 @@ def build_eva4(values: list[list[Any]], today: date) -> dict[str, Any]:
             "active" if status in {"activo", "active"} else "suspended"
         )
         service = norm(item["service"]).upper()
+        if service == "AER":
+            continue
         item["service"] = LABELS.get(service, service)
         for field in ("start", "finish"):
             moment = to_datetime(item[field])

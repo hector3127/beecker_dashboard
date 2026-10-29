@@ -79,6 +79,19 @@ def test_source_names_normalize_spacing_without_merging_or_inventing():
     assert two["process"] == "1058 - Extract OTR"
 
 
+@pytest.mark.parametrize("status", ["Activo", "Suspendido"])
+def test_aer_is_excluded_before_all_eva4_counts_and_renewals(status):
+    aer = row("AWN.001", status)
+    aer[0], aer[2], aer[4] = "Aiwyn", "AER.AWN.001", " aer "
+    report = eva4.build_eva4([HEADER, row(), aer], TODAY)
+    assert len(report["processes"]) == 1
+    assert report["total"] == report["active"] == 1
+    assert report["suspended"] == 0
+    assert [c["name"] for c in report["clients"]] == ["Nestlé"]
+    assert "AER" not in report["services"]
+    assert all(p["project_id"] != "AER.AWN.001" for p in report["renewals"])
+
+
 def reader_fixture():
     return InMemorySheetRepository(
         {

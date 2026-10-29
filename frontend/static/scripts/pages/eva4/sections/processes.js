@@ -68,7 +68,7 @@ export function renderProcesses(container, data, toolbar) {
       { class: 'eva4-card', 'aria-labelledby': 'eva4-processes-title' },
       el('h2', { id: 'eva4-processes-title', text: 'Procesos y consumo por servicio' }),
       note(
-        'Consumo mensual de la base Clockify del Sheet. Hours Balance = Average Limit − Invested Hours; los excesos se muestran en negativo. Average Limit por servicio: ROC 30, AER 160, RaaS 40, SaaS 80, T&M 160.',
+        'Consumo mensual de Clockify. Se excluyen los procesos AER. Hours Balance = Average Limit − Invested Hours; los excesos se muestran en negativo. Average Limit por servicio: ROC 30, RaaS 40, SaaS 80, T&M 160.',
       ),
       notes.missing_columns.length ? note(`Columnas pendientes de fuente: ${notes.missing_columns.join(', ')}.`) : '',
       notes.unmatched_tasks

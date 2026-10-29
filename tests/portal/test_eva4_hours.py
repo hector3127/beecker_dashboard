@@ -72,7 +72,6 @@ def test_decimal_precision_zero_limit_and_missing_limit():
     ("service", "limit"),
     [
         ("ROC", 30),
-        ("AER", 160),
         ("RaaS", 40),
         ("RAAS", 40),
         ("SaaS", 80),

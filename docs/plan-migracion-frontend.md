@@ -9,6 +9,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**EVA4 excluye AER, 29/10:** instrucción expresa del usuario; se excluye
+servicio AER normalizado al construir el reporte, antes de horas/conteos,
+clientes, procesos activos y renovaciones. Exportaciones heredan las filas
+visibles. Snapshot v10 evita reutilizar el reporte anterior. No se eliminan
+datos fuente ni se cambia EVA1 u otros módulos.
+Verificado con ROC local: 128 activos, cero suspendidos, 24 clientes y cinco
+servicios; coincide con correo. 84 pruebas servidor EVA4 y Ruff aprobados.
+Sin push.
+
 **Etiqueta paquete EVA4, 29/10:** Hours Package Limit sin valor muestra
 «N/A» (etiqueta final solicitada) para servicios distintos de RaaS. Conserva valores explícitos,
 RaaS y Available Hours Package; cambio de presentación sin cálculos/base.
