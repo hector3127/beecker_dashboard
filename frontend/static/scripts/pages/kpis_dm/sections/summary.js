@@ -2,7 +2,6 @@
 // Pestañas, filtro de periodo, indicadores y tabla por Delivery Manager.
 import { el } from "#app/lib/dom.js";
 import { formatNumber } from "#app/lib/format.js";
-import { createPeriodPicker } from "#app/ui/period-picker.js";
 
 export const DASH = "—";
 /** Dias con un decimal: 4.5 d. @param {number | null} value */
@@ -36,36 +35,32 @@ export function renderTabs(urls, query) {
 
 /** @param {any} data */
 export function renderFilter(data) {
-  const { picker, cut } = data;
-  const hint = cut.current
-    ? `Corte actual (${cut.label}).`
-    : `Corte al ${cut.label}, reconstruido con las horas de Clockify hasta esa fecha.`;
-  const form = el(
-    "form",
-    {
-      method: "get",
-      style: {
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        gap: "10px 14px",
-        margin: "0 0 14px",
-        fontSize: "14px",
-        color: "#3A3870",
-      },
-    },
-    createPeriodPicker(picker),
-    el("span", {
-      class: "hint",
-      text: `${hint} Los meses se reconstruyen por fecha; los trimestres promedian los cortes mensuales.`,
-    }),
+  const { filters, cut } = data;
+  const form = el("form", { method: "get", class: "kpi-cut-filter" },
+    el("label", { for: "kpi-cut", text: "Fecha de corte" }),
+    el("input", { id: "kpi-cut", type: "date", name: "corte", value: filters.cut, max: filters.max_cut, required: true }),
+    el("button", { type: "submit", text: "Consultar corte" }),
+    el("span", { class: "hint", text: `Corte: ${cut.label}. Tarjetas y tabla por DM; la selección de DMs se aplica a todas las tablas y a la tendencia.` }),
   );
+  for (const key of ["history_year", "chart_year"]) form.append(el("input", { type: "hidden", name: key, value: filters[key] }));
+  const chosen = new Set(filters.selected_managers);
+  const all = !chosen.size;
+  const chooser = el("details", { class: "kpi-dm-chooser", id: "kpi-global-dms" },
+    el("summary", { text: "Delivery Managers · filtro global" }));
+  for (const name of filters.managers) chooser.append(el("label", {},
+    el("input", { type: "checkbox", name: "dm", value: name, checked: all || chosen.has(name) }), name));
+  chooser.append(el("button", { type: "submit", text: "Aplicar DMs" }));
+  form.append(chooser);
+  form.addEventListener("submit", () => {
+    if (!form.querySelector('input[name="dm"]:checked')) form.append(el("input", { type: "hidden", name: "dm", value: "__none__" }));
+  });
+
   const note = el(
     "details",
     { class: "kpi-definition-note" },
     el("summary", { text: "Cómo interpretar TP, T y C en esta pantalla" }),
     el("p", {
-      text: "Base: proyectos abiertos de EVA 1, incluidos suspendidos. Corte al último lunes a jueves de cada mes; viernes, sábado y domingo retroceden al jueves. TP: proyectos del DM. T: proyectos con desviación ≤ 0 / TP × 100. C: proyectos con avance ≤ 100% / TP × 100. Cero días y exactamente 100% cumplen. Si falta un dato, su porcentaje queda pendiente y TP se conserva. El mes actual es provisional hasta el último lunes–jueves disponible.",
+      text: "Base: proyectos abiertos de EVA 1, incluidos suspendidos. Corte al último lunes a jueves de cada mes; viernes, sábado y domingo retroceden al jueves. TP: proyectos del DM. T: proyectos con desviación ≤ 0 / TP × 100. C: proyectos con avance > 100% / TP × 100 (sobrecosto). Cero días cuenta en T; exactamente 100% no cuenta como sobrecosto. Los datos pendientes permanecen en TP y no cuentan en el numerador. El mes actual es provisional hasta el último lunes–jueves disponible.",
     }),
   );
   return [form, note];
@@ -102,9 +97,9 @@ export function renderCards(summary) {
     "section",
     { class: "kp" },
     card(
-      "Cumplimiento en costo (C)",
+      "Sobrecosto (C)",
       percent(totals.c),
-      `Proyectos dentro del presupuesto · T: ${percent(totals.t)}`,
+      `Proyectos con avance mayor a 100% · T: ${percent(totals.t)}`,
     ),
     card(
       "Carga total (TP)",
@@ -177,7 +172,7 @@ export function renderTable(summary, managerUrl) {
     el("h2", { text: "Por Delivery Manager" }),
     el("div", {
       class: "hs",
-      text: "TP: proyectos abiertos al corte de EVA 1. T: % con desviación ≤ 0. C: % con avance ≤ 100%. Fuera de tiempo y fuera de costo son conteos independientes; un proyecto puede aparecer en ambos.",
+      text: "TP: proyectos abiertos al corte de EVA 1. T: % con desviación ≤ 0. C: % con avance > 100% (sobrecosto). Fuera de tiempo y fuera de costo son conteos independientes; un proyecto puede aparecer en ambos.",
     }),
     el(
       "div",

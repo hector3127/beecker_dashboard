@@ -959,7 +959,9 @@ def test_kpis_page_shows_managers_and_totals(client, monkeypatch):
         "apps.portal.views.load_portfolio",
         lambda: pytest.fail("Proyectos no se consulta para KPIs"),
     )
-    stub_history(monkeypatch)
+    from tests.portal.kpi_cut_support import stub_inventory
+
+    stub_inventory(monkeypatch)
 
     response = client.get("/operativa/kpis-delivery-managers/?vista=anterior")
     html = response.content.decode()
@@ -968,7 +970,7 @@ def test_kpis_page_shows_managers_and_totals(client, monkeypatch):
     )
 
     assert response.status_code == 200
-    assert context["kpis"].totals.total == 2
+    assert context["kpis"].totals.total == 3
     assert "KPIs de Delivery Managers" in html
     assert "/static/app/scripts/pages/kpis_dm/main.js" in html
     assert context["kpis"].rows[0].slug == "ana"
@@ -976,7 +978,9 @@ def test_kpis_page_shows_managers_and_totals(client, monkeypatch):
 
 def test_kpis_page_shows_monthly_and_quarterly_history(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
-    stub_history(monkeypatch)
+    from tests.portal.kpi_cut_support import stub_inventory
+
+    stub_inventory(monkeypatch)
 
     context = views.kpi_context(
         RequestFactory().get("/api/v1/screens/kpis-dm/?periodo=anio&anio=2026")
@@ -996,31 +1000,19 @@ def test_kpis_chart_shows_the_year_with_the_period_highlighted(
     client, monkeypatch
 ):
     stub_portfolio(monkeypatch, portfolio())
-    stub_history(monkeypatch)
+    from tests.portal.kpi_cut_support import stub_inventory
+
+    stub_inventory(monkeypatch)
 
     context = views.kpi_context(
         RequestFactory().get("/api/v1/screens/kpis-dm/?periodo=mes&mes=2026-08")
     )
     chart = context["chart"]
 
-    assert chart["labels"] == [
-        "Ene",
-        "Feb",
-        "Mar",
-        "Abr",
-        "May",
-        "Jun",
-        "Jul",
-        "Ago",
-    ]
-    assert chart["highlight"] == ["Ago"]
-
-    context = views.kpi_context(
-        RequestFactory().get("/api/v1/screens/kpis-dm/?periodo=mes&mes=2026-10")
-    )
-    current = context["chart"]
-    assert current["labels"][-1] == "Oct*"
-    assert current["highlight"] == ["Oct*"]
+    assert len(chart["labels"]) == 12
+    assert chart["labels"][-1] == "Dic"
+    context = views.kpi_context(RequestFactory().get("/?corte=2026-02-15"))
+    assert context["chart"] == chart
 
 
 def test_kpis_page_explains_when_history_fails(client, monkeypatch):
@@ -1036,23 +1028,23 @@ def test_kpis_page_explains_when_history_fails(client, monkeypatch):
 
 def test_kpis_page_filters_a_closed_month_and_a_quarter(client, monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
-    stub_history(monkeypatch)
+    from tests.portal.kpi_cut_support import stub_inventory
+
+    stub_inventory(monkeypatch)
 
     month = views.kpi_context(
-        RequestFactory().get("/api/v1/screens/kpis-dm/?periodo=mes&mes=2026-02")
+        RequestFactory().get("/api/v1/screens/kpis-dm/?corte=2026-02-15")
     )
     quarter = views.kpi_context(
-        RequestFactory().get(
-            "/api/v1/screens/kpis-dm/?periodo=trimestre&anio=2026&trim=1"
-        )
+        RequestFactory().get("/api/v1/screens/kpis-dm/?corte=2026-03-31")
     )
 
     assert month["cut_is_current"] is False
-    assert month["cut_label"] == "28/02/2026"
+    assert month["cut_label"] == "15/02/2026"
     assert month["kpis"].totals.total == 2
-    assert month["month_matrix"].headers == ("Feb",)
-    assert quarter["month_matrix"].headers == ("Ene", "Feb", "Mar")
-    assert quarter["quarter_matrix"].headers == ("T1",)
+    assert len(month["month_matrix"].headers) == 12
+    assert month["month_matrix"] == quarter["month_matrix"]
+    assert len(quarter["quarter_matrix"].headers) == 4
     assert quarter["cut_label"] == "31/03/2026"
 
 

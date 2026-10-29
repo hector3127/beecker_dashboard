@@ -8,7 +8,6 @@ from django.test import override_settings
 from apps.portal.services.kpi_history import build_kpi_history
 from apps.portal.services.kpi_quarterly import build_quarter_averages
 from tests.portal.test_kpi_history import NOW, sources
-from tests.portal.test_views import stub_history
 
 
 def test_quarter_is_monthly_mean_and_keeps_fractional_project_counts():
@@ -46,7 +45,9 @@ def test_missing_months_are_not_zero_and_current_quarter_is_marked():
 def test_kpis_defaults_to_annual_without_changing_explicit_months(
     client, monkeypatch, query
 ):
-    stub_history(monkeypatch)
+    from tests.portal.kpi_cut_support import stub_inventory
+
+    stub_inventory(monkeypatch)
     response = client.get("/api/v1/screens/kpis-dm/" + query)
     assert response.status_code == 200
     body = response.json()["data"]

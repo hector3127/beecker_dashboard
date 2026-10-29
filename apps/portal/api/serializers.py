@@ -627,7 +627,7 @@ def _link(link: Any) -> dict[str, Any]:
 def kpi_screen(context: dict[str, Any]) -> dict[str, Any]:
     """KPIs de Delivery Managers: corte, historico mensual y trimestral.
 
-    T y C son porcentajes de proyectos que cumplen, sin redondear;
+    T mide proyectos en tiempo; C proyectos con sobrecosto, sin redondear;
     el redondeo es de presentacion.
     """
     kpis, picker, period = context["kpis"], context["picker"], context["period"]
@@ -635,11 +635,12 @@ def kpi_screen(context: dict[str, Any]) -> dict[str, Any]:
     return {
         "data": {
             "metrics": {
-                "basis": "eva1_compliance",
+                "basis": "eva1_cut_over_budget",
                 "t_unit": "percent",
                 "c_unit": "percent",
                 "cut_weekdays": [0, 1, 2, 3],
             },
+            "filters": context.get("kpi_filters", {}),
             "period": {
                 "kind": period.kind,
                 "label": period.label,

@@ -16,7 +16,9 @@ OPS = frozenset({"view_operations"})
 @pytest.fixture(autouse=True)
 def history(monkeypatch):
     stub_portfolio(monkeypatch, portfolio())
-    stub_history(monkeypatch)
+    from tests.portal.kpi_cut_support import stub_inventory
+
+    stub_inventory(monkeypatch)
     monkeypatch.setattr(
         "apps.portal.views.load_portfolio",
         lambda: pytest.fail("Proyectos no se consulta para KPIs"),
@@ -32,7 +34,7 @@ def data(client, **params):
 def test_managers_and_totals_come_from_the_cut(client):
     body = data(client)
 
-    assert body["summary"]["totals"]["total"] == 2
+    assert body["summary"]["totals"]["total"] == 3
     assert [r["name"] for r in body["summary"]["rows"]] == ["Ana", "Beto"]
     assert body["summary"]["rows"][0]["slug"] == "ana"
 
@@ -42,11 +44,15 @@ def test_it_opens_on_the_whole_year_with_monthly_and_quarterly_history(client):
     months = body["history"]["months"]
 
     assert body["period"]["kind"] == "anio"
-    assert months["headers"][0] == "Ene" and "Oct*" in months["headers"]
+    assert (
+        months["headers"][0] == "Ene"
+        and months["headers"][-1] == "Dic"
+        and len(months["headers"]) == 12
+    )
     assert [r["name"] for r in months["rows"]] == ["Ana", "Beto"]
     assert body["history"]["quarters"]["headers"][0] == "T1"
     # Beto no tenia proyectos en los primeros meses: sin dato, no cero.
-    assert months["rows"][1]["cells"][0] is None
+    assert months["rows"][1]["cells"][0]["total"] == 1
 
 
 def test_the_picker_keeps_the_period_links(client):
@@ -57,53 +63,70 @@ def test_the_picker_keeps_the_period_links(client):
     assert any(link["active"] for link in picker["years"])
 
 
-def test_the_chart_shades_the_chosen_period(client):
-    chart = data(client, periodo="mes", mes="2026-08")["history"]["chart"]
-    assert chart["labels"][-1] == "Ago" and chart["highlight"] == ["Ago"]
-
-    current = data(client, periodo="mes", mes="2026-10")["history"]["chart"]
-    assert current["labels"][-1] == "Oct*" and current["highlight"] == ["Oct*"]
-
-
-def test_a_closed_month_and_a_quarter_use_their_own_cut(client):
-    month = data(client, periodo="mes", mes="2026-02")
-    quarter = data(client, periodo="trimestre", anio="2026", trim="1")
-
-    assert month["cut"] == {"label": "28/02/2026", "current": False}
-    assert month["history"]["months"]["headers"] == ["Feb"]
-    assert quarter["history"]["months"]["headers"] == ["Ene", "Feb", "Mar"]
-    assert quarter["history"]["quarters"]["headers"] == ["T1"]
-    assert quarter["cut"]["label"] == "31/03/2026"
+def test_chart_and_history_years_are_independent_from_cut(client):
+    body = data(
+        client, corte="2026-02-15", chart_year="2025", history_year="2026"
+    )
+    assert body["cut"]["label"] == "15/02/2026"
+    assert body["filters"]["chart_year"] == 2025
+    assert body["filters"]["history_year"] == 2026
+    assert len(body["history"]["chart"]["labels"]) == 12
+    assert len(body["history"]["months"]["headers"]) == 12
+    assert body["summary"]["totals"]["total"] == 2
+    assert body["history"]["months"]["totals"][-1] is None
+    assert body["history"]["quarters"]["headers"] == ["T1", "T2", "T3", "T4*"]
 
 
 @pytest.mark.parametrize(
-    "query,end_month",
-    [
-        ({"periodo": "mes", "mes": "2026-02"}, "2026-02"),
-        ({"periodo": "trimestre", "anio": "2026", "trim": "1"}, "2026-03"),
-        ({"periodo": "anio", "anio": "2026"}, "2026-10"),
-    ],
+    "cut,total", [("2026-02-15", 2), ("2026-03-15", 3), ("2026-10-28", 3)]
 )
-def test_the_table_uses_the_exact_cut_selected_by_the_picker(
-    client, query, end_month
-):
-    body = data(client, **query)
-    cut = next(
-        c
-        for c in views.load_kpi_history(2026).history.months
-        if c.key == end_month
-    )
+def test_table_uses_exact_cut_not_month_end(client, cut, total):
+    body = data(client, corte=cut)
+    assert body["filters"]["cut"] == cut
+    assert body["summary"]["totals"]["total"] == total
+    ana = body["summary"]["rows"][0]
+    assert ana["t"] == ana["c"] == (100 if total == 2 else 50)
 
-    assert body["period"]["end_month"] == end_month
-    assert body["cut"]["label"] == cut.cut_label
-    assert body["summary"]["totals"]["total"] == cut.view.totals.total
+
+@pytest.mark.parametrize(
+    "query",
+    [{"corte": "2027-01-01"}, {"history_year": "bad"}, {"chart_year": "2027"}],
+)
+def test_invalid_cut_or_year_returns_400(client, query):
+    assert client.get(URL, query).status_code == 400
+
+
+def test_global_manager_filter_changes_all_panels_and_weighted_totals(client):
+    body = data(client, corte="2026-09-30", dm=["Ana"])
+    assert [r["name"] for r in body["summary"]["rows"]] == ["Ana"]
+    assert body["summary"]["totals"]["total"] == 2
+    assert body["summary"]["totals"]["t"] == 50
+    assert body["summary"]["totals"]["c"] == 50
+    assert [r["name"] for r in body["history"]["months"]["rows"]] == ["Ana"]
+    assert [r["name"] for r in body["history"]["quarters"]["rows"]] == ["Ana"]
+    assert [r["name"] for r in body["history"]["chart"]["series"]] == ["Ana"]
+    assert body["history"]["months"]["totals"][0]["total"] == 1
+    assert body["history"]["months"]["totals"][0]["c"] == 100
+    assert body["filters"]["managers"] == ["Ana", "Beto"]
+
+
+def test_multiple_and_empty_global_manager_selection(client):
+    selected = data(client, dm=["Ana", "Beto"])
+    assert selected["summary"]["totals"]["total"] == 3
+    assert selected["summary"]["totals"]["c"] == pytest.approx(100 / 3)
+    empty = data(client, dm="__none__")
+    assert empty["summary"]["totals"]["total"] == 0
+    assert empty["summary"]["totals"]["c"] is None
+    assert empty["history"]["months"]["rows"] == []
+    assert empty["history"]["quarters"]["rows"] == []
+    assert empty["history"]["chart"]["series"] == []
 
 
 def test_quarterly_numbers_are_not_rounded_for_the_screen(client):
     cells = data(client)["history"]["quarters"]["rows"][0]["cells"]
     firsts = [c["c"] for c in cells if c]
 
-    assert any(c != round(c) for c in firsts if c is not None)
+    assert firsts[0] == pytest.approx((100 + 100 + 50) / 3)
 
 
 def test_a_history_failure_says_why_and_leaves_the_tables_empty(

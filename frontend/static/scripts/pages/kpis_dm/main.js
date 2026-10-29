@@ -3,14 +3,14 @@
 import { apiGet } from "#app/data/api-client.js";
 import { el } from "#app/lib/dom.js";
 import { clearState, showError, showLoading } from "#app/ui/states.js";
-import { renderChart } from "./sections/chart.js";
+import { renderChart } from "./sections/chart.js?v=20261028-cut";
 import { renderHistory } from "./sections/history.js";
 import {
   renderCards,
   renderFilter,
   renderTable,
   renderTabs,
-} from "./sections/summary.js";
+} from "./sections/summary.js?v=20261028-cut";
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
@@ -27,43 +27,41 @@ const managerUrl = content.dataset.managerUrl || "";
 
 /** Los filtros de periodo de la URL. */
 function filters() {
-  /** @type {Record<string, string>} */
+  /** @type {Record<string, any>} */
   const out = {};
   const params = new URLSearchParams(location.search);
-  for (const key of ["periodo", "anio", "trim", "mes"]) {
+  for (const key of ["corte", "history_year", "chart_year", "anio"]) {
     const value = params.get(key);
     if (value) out[key] = value;
   }
+  const managers = params.getAll("dm");
+  if (managers.length) out.dm = managers;
   return out;
 }
 
 /** @param {any} data */
 function chartCard(data) {
-  const { period, history } = data;
-  const card = el(
-    "div",
-    { class: "card" },
-    el("h2", { text: "Tendencia de cumplimiento (C)" }),
-  );
-  card.append(
-    el("div", {
-      class: "hs",
-      text: `C (% de proyectos dentro del presupuesto) por Delivery Manager · de enero a ${period.end_month}; el periodo elegido (${period.label}) va sombreado`,
-    }),
-  );
-  if (history.months) card.append(...renderChart(history.chart));
-  else {
-    const failed = el("div", {
-      text: `No se pudo reconstruir el histórico. ${history.error}`,
-    });
-    Object.assign(failed.style, {
-      padding: "30px",
-      textAlign: "center",
-      color: "#4A4D86",
-    });
-    card.append(failed);
-  }
+  const { history, filters } = data;
+  const card = el("div", { class: "card" }, el("h2", { text: "Tendencia de sobrecosto (C)" }),
+    el("div", { class: "hs", text: "Porcentaje de proyectos con avance mayor a 100%, por DM y mes. El año es independiente del corte. Se aplica la selección global de DMs." }));
+  const year = el("select", { id: "kpi-chart-year", "aria-label": "Año de tendencia", onchange: (event) => {
+    const url = new URL(location.href); url.searchParams.set("chart_year", event.target.value); location.assign(url.href);
+  } }, ...filters.years.map(y => el("option", { value: y, selected: y === filters.chart_year, text: y })));
+  const tools = el("div", { class: "kpi-local-filters" }, el("label", { for: "kpi-chart-year", text: "Año de tendencia" }), year);
+  card.append(tools);
+  if (!history.chart) { card.append(el("p", { class: "note", text: `No se pudo reconstruir el histórico. ${history.error || "Sin histórico disponible."}` })); return card; }
+  const plot = el("div", {}, ...renderChart(history.chart));
+  card.append(plot);
   return card;
+}
+
+function annualFilter(data) {
+  const form = el("form", { method: "get", class: "kpi-local-filters" }, el("label", { for: "kpi-history-year", text: "Año de históricos" }),
+    el("select", { id: "kpi-history-year", name: "history_year" }, ...data.filters.years.map(y => el("option", { value: y, selected: y === data.filters.history_year, text: y }))),
+    el("button", { type: "submit", text: "Ver año" }));
+  for (const key of ["corte", "chart_year"]) form.append(el("input", { type: "hidden", name: key, value: key === "corte" ? data.filters.cut : data.filters[key] }));
+  for (const name of new URLSearchParams(location.search).getAll("dm")) form.append(el("input", { type: "hidden", name: "dm", value: name }));
+  return form;
 }
 
 /** @param {any} data */
@@ -86,12 +84,13 @@ function render(data) {
       chartCard(data),
     ),
   );
+  content.append(annualFilter(data));
   if (!history.months) return;
   content.append(
     renderHistory({
       id: "kpi-month-history",
       title: "Histórico por mes",
-      hint: "Cada mes: TP al último lunes–jueves; T = % con desviación ≤ 0; C = % con avance ≤ 100%. El mes actual (*) es provisional hasta el último lunes–jueves disponible.",
+      hint: "Cada mes: TP al último lunes–jueves; T = % con desviación ≤ 0; C = % con avance > 100%. Los doce meses del año permanecen visibles; meses futuros sin datos. El mes actual (*) es provisional hasta el último lunes–jueves disponible.",
       matrix: history.months,
       managerUrl,
       byMonth: true,
@@ -102,7 +101,7 @@ function render(data) {
       renderHistory({
         id: "kpi-quarter-history",
         title: "Histórico por trimestre",
-        hint: "Promedio de los meses de cada trimestre, como AVERAGE en Excel; no es el corte del último mes. TP es la carga promedio mensual (se presenta redondeada); T y C son promedios de los porcentajes mensuales de cumplimiento. * Trimestre parcial.",
+        hint: "Promedio de los meses de cada trimestre, como AVERAGE en Excel; no es el corte del último mes. TP es la carga promedio mensual (se presenta redondeada); T y C son promedios de los porcentajes mensuales T y C. * Trimestre parcial.",
         matrix: history.quarters,
         managerUrl,
         byMonth: false,
@@ -112,7 +111,7 @@ function render(data) {
   content.append(
     el("p", {
       class: "note",
-      text: "Fuentes: inventario abierto de EVA 1 desde Proyectos e Historico_Proyectos A:J, con horas facturables de Clockify hasta cada corte. Se incluyen suspendidos; se excluyen completados y cancelados al corte. No se usan estados actuales de Azure para reconstruir los meses. Los históricos se recalculan con la información disponible y pueden diferir de correos archivados.",
+      text: "Fuentes: inventario local de Summary e iteraciones Azure, con horas facturables de Clockify hasta cada corte. Se incluyen suspendidos; se excluyen completados y cancelados al corte. No se usan estados actuales de Azure para reconstruir los meses. Los históricos se recalculan con la información disponible y pueden diferir de correos archivados.",
     }),
   );
 }
@@ -125,7 +124,7 @@ async function load() {
     content.append(
       el("p", {
         class: "note",
-        text: "Fórmulas: T = proyectos con desviación ≤ 0 / TP × 100; C = proyectos con avance ≤ 100% / TP × 100. Los faltantes se muestran pendientes y no reducen TP.",
+        text: "Fórmulas: T = proyectos con desviación ≤ 0 / TP × 100; C = proyectos con avance > 100% / TP del DM × 100. Los faltantes permanecen en TP y no se suman al numerador.",
       }),
     );
   } catch (error) {

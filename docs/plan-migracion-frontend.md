@@ -9,6 +9,27 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**KPIs DM: corte/años y selección global, 28/10:** fecha exacta para tarjetas
+y tabla por DM; selección global de uno o varios DMs para tarjetas, tabla,
+tendencia e históricos, con totales ponderados por TP. La selección se conserva
+al cambiar corte/años. La tendencia tiene su año y los históricos otro año,
+independientes del corte. Doce meses y cuatro trimestres visibles; meses futuros
+sin datos. Se conserva corte mensual lunes–jueves y promedio trimestral.
+T=desviación <= 0 / TP del DM; C=avance > 100% / TP del DM. Los pendientes
+permanecen en denominador y no suman al numerador. C se rotula sobrecosto.
+Datos Azure/Clockify locales, sin Sheets ni llamadas externas al consultar.
+Regresión previa al filtro global: 1,849 servidor y 478 Node aprobados;
+validación final del filtro: 38 servidor dirigidas y 14 Chrome/CSP, incluidas
+independencia de años/corte, selección global, errores, permisos y tres tamaños.
+Ruff, mypy de pages, check y makemigrations --check aprobados. Comprobación
+real de septiembre: TP11/T100%/C45.5%, sin errores JS ni desbordamiento móvil.
+Capturas locales en tmp/design/kpis-cut-real-*.png. Push autorizado al terminar.
+
+La extracción completa iniciada por NSC.COL.007 terminó en 632.549 s
+(1,290 peticiones Clockify). Al 31/07: Burn172.25, ETC27.75, avance86.125%,
+sin pendiente. Tres fallos de iteraciones de origen permanecen como incidencia;
+no se ocultan ni se inventan datos para esos proyectos.
+
 **Etapas simultáneas EVA, 28/10:** el estatus muestra los nombres de las
 etapas cuyos rangos incluyen el corte, separados por punto medio, en lugar
 de «Solapamiento de etapas». Se eliminan nombres repetidos y se conserva la

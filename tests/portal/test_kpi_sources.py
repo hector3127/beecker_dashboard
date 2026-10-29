@@ -307,7 +307,7 @@ def test_overdue_finish_does_not_truncate_clockify_hours(monkeypatch):
     row = next(
         r for r in result.history.months[0].view.rows if r.name == "Stage DM"
     )
-    assert row.time_cost.cost_percent == 100
+    assert row.time_cost.cost_percent == 0
     assert row.time_cost.time_days == 0
     assert loader.load_project.call_count == 1
     assert kpi_history_loader.load_kpi_history(2026).notice == result.notice

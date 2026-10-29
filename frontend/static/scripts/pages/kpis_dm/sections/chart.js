@@ -29,7 +29,7 @@ export function renderChart(data) {
     viewBox: "0 0 560 270",
     role: "img",
     "aria-label":
-      "Tendencia mensual de cumplimiento en costo (C) por Delivery Manager",
+      "Tendencia mensual de sobrecosto (C) por Delivery Manager",
   });
   const legend = el("div", { id: "kpi-legend", class: "kpi-legend" });
   const toggle = /** @type {HTMLButtonElement} */ (

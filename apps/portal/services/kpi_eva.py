@@ -116,7 +116,7 @@ def build_eva_history(
             key,
             MONTH_ABBREVIATIONS[int(key[5:7]) - 1].capitalize(),
             cut.strftime("%d/%m/%Y"),
-            compliance_view(resolve(cut)),
+            eva_manager_view(resolve(cut)),
             partial,
         )
         for key, cut, partial in monthly_cuts(year, now.date())
@@ -131,3 +131,110 @@ def build_eva_history(
         if int(cut.key[5:7]) % 3 == 0 or cut is months[-1]
     )
     return KpiHistory(months, quarters, _managers(months))
+
+
+def eva_manager_view(rows: Sequence[dict[str, Any]]) -> KpiView:
+    """EVA rules by DM: T <= 0 days, C > 100% advance, full TP denominator."""
+    original = compliance_view(rows)
+
+    def metrics(
+        item: KpiManagerRow, projects: Sequence[dict[str, Any]]
+    ) -> KpiManagerRow:
+        total = len(projects)
+        in_time = sum(
+            r.get("desviacionDias") is not None and r["desviacionDias"] <= 0
+            for r in projects
+        )
+        over = sum(
+            not (
+                r.get("budget_pending")
+                or r.get("hours_pending")
+                or r.get("progress_pending")
+            )
+            and float(r.get("budget") or 0) > 0
+            and r.get("avance") is not None
+            and r["avance"] > 100
+            for r in projects
+        )
+        return replace(
+            item,
+            on_time_percent=round(100 * in_time / total) if total else 0,
+            time_cost=TimeCost(
+                time_days=100 * in_time / total if total else None,
+                cost_percent=100 * over / total if total else None,
+            ),
+            time_late=sum(
+                r.get("desviacionDias") is not None and r["desviacionDias"] > 0
+                for r in projects
+            ),
+            cost_over=over,
+        )
+
+    grouped = tuple(
+        metrics(
+            item,
+            [
+                r
+                for r in rows
+                if str(r.get("deliveryManager") or NO_DELIVERY_MANAGER)
+                == item.name
+            ],
+        )
+        for item in original.rows
+    )
+    ranked = sorted(
+        (
+            r
+            for r in grouped
+            if r.name not in {NO_DELIVERY_MANAGER, "Sin asignar"}
+        ),
+        key=lambda r: (-(r.time_cost.time_days or 0), -r.total, r.name),
+    )
+    return replace(
+        original,
+        rows=grouped,
+        totals=metrics(original.totals, rows),
+        best=ranked[0] if ranked else None,
+        worst=ranked[-1] if len(ranked) > 1 else None,
+    )
+
+
+def select_managers(view: KpiView, names: Sequence[str]) -> KpiView:
+    """Filter every KPI panel and recompute weighted totals for selected DMs."""
+    if not names:
+        return view
+    chosen = tuple(row for row in view.rows if row.name in names)
+    total = sum(row.total for row in chosen)
+    in_time = sum(row.health.on_time for row in chosen)
+    over = sum(row.cost_over for row in chosen)
+    totals = replace(
+        view.totals,
+        total=total,
+        health=HealthCount(
+            in_time,
+            sum(row.health.at_risk for row in chosen),
+            sum(row.health.critical for row in chosen),
+        ),
+        on_time_percent=round(100 * in_time / total) if total else 0,
+        time_cost=TimeCost(
+            time_days=100 * in_time / total if total else None,
+            cost_percent=100 * over / total if total else None,
+        ),
+        time_late=sum(row.time_late for row in chosen),
+        cost_over=over,
+    )
+    ranked = sorted(
+        (
+            r
+            for r in chosen
+            if r.name not in {NO_DELIVERY_MANAGER, "Sin asignar"}
+        ),
+        key=lambda r: (-(r.time_cost.time_days or 0), -r.total, r.name),
+    )
+    return replace(
+        view,
+        rows=chosen,
+        totals=totals,
+        best=ranked[0] if ranked else None,
+        worst=ranked[-1] if len(ranked) > 1 else None,
+    )

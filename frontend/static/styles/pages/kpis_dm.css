@@ -3,6 +3,13 @@
 th,td{text-align:center}
 .two>.card{min-width:0}.two .table-scroll table{min-width:600px}.kpi-definition-note,.hs,.note{overflow-wrap:anywhere}
 .two{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;margin-bottom:14px;align-items:start}
+.kpi-cut-filter,.kpi-local-filters{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:14px 0;font-size:13px}
+.kpi-cut-filter input,.kpi-cut-filter button,.kpi-local-filters select,.kpi-local-filters button,.kpi-dm-chooser summary{min-height:44px;padding:9px 12px;border:1px solid #ded5fa;border-radius:9px;background:#fff;color:#4b25c9;font:inherit;box-sizing:border-box}
+.kpi-cut-filter button,.kpi-local-filters button{background:#6026df;color:#fff;cursor:pointer}
+.kpi-dm-chooser summary{cursor:pointer;font-weight:600}
+.kpi-dm-chooser label{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 10px;font-size:12px}
+.kpi-dm-chooser{min-width:0;max-width:100%}.kpi-dm-chooser label{overflow-wrap:anywhere;max-width:320px}
+.kpi-cut-filter :focus-visible,.kpi-local-filters :focus-visible{outline:3px solid #b9a0ef;outline-offset:2px}
 @media(max-width:900px){.two{grid-template-columns:1fr}}
 td:first-child,th:first-child{text-align:left}
 .num{font-variant-numeric:tabular-nums}

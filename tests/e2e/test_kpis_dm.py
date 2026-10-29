@@ -21,6 +21,9 @@ def sources(monkeypatch):
 
     stub_portfolio(monkeypatch, portfolio())
     stub_compliance_history(monkeypatch, timezone.localdate())
+    from tests.portal.kpi_cut_support import stub_inventory
+
+    stub_inventory(monkeypatch)
 
 
 @pytest.mark.parametrize("query", ["", "?vista=anterior"])
@@ -59,20 +62,34 @@ def test_tabs_and_manager_links_lead_to_their_screens(portal):
     portal.wait_for_url(re.compile(r"/operativa/delivery-manager/ana/"))
 
 
-def test_period_picker_switches_lists_and_navigates(portal):
+def test_cut_and_chart_filters_are_independent(portal):
     portal.goto(portal.base + PAGE)
-    picker = portal.locator("#period-filter")
-    picker.locator("summary").click()
-    expect(picker.locator(".pfm")).to_be_visible()
-
-    picker.get_by_role("button", name="Trimestre").click()
-    expect(picker.locator('.pfk[data-k="trimestre"]')).to_be_visible()
-    expect(picker.locator('.pfk[data-k="mes"]')).to_be_hidden()
-
-    picker.get_by_role("button", name="Mes", exact=True).click()
-    picker.locator('.pfk[data-k="mes"] .pfr:visible a:not(.on)').first.click()
-    portal.wait_for_url(re.compile(r"periodo=mes"))
-    expect(portal.locator("#period-filter summary small")).to_have_text("Mes")
+    portal.locator("#kpi-cut").fill("2026-02-15")
+    portal.get_by_role("button", name="Consultar corte").click()
+    portal.wait_for_url(re.compile(r"corte=2026-02-15"))
+    expect(portal.locator(".two table tfoot")).to_contain_text("2")
+    portal.locator("#kpi-chart-year").select_option("2025")
+    portal.wait_for_url(re.compile(r"chart_year=2025"))
+    expect(portal.locator("#kpi-cut")).to_have_value("2026-02-15")
+    expect(portal.locator("#kpi-history-year")).to_have_value("2026")
+    expect(
+        portal.locator("#kpi-month-history thead tr").first.locator(
+            "[colspan='3']"
+        )
+    ).to_have_count(12)
+    portal.locator("#kpi-global-dms summary").click()
+    portal.get_by_role("checkbox", name="Beto", exact=True).uncheck()
+    portal.get_by_role("button", name="Aplicar DMs").click()
+    portal.wait_for_url(re.compile(r"dm=Ana"))
+    expect(portal.locator("#kpi-legend button")).to_have_count(1)
+    expect(portal.locator(".two table tbody tr")).to_have_count(1)
+    expect(portal.locator("#kpi-month-history tbody tr")).to_have_count(1)
+    expect(portal.locator("#kpi-quarter-history tbody tr")).to_have_count(1)
+    expect(portal.locator("#kpi-cut")).to_have_value("2026-02-15")
+    expect(portal.locator("#kpi-chart-year")).to_have_value("2025")
+    portal.get_by_role("button", name="Ver año").click()
+    portal.wait_for_url(re.compile(r"dm=Ana"))
+    expect(portal.locator(".two table tbody tr")).to_have_count(1)
 
 
 def test_chart_legend_selects_a_series_and_the_scale_toggles(
@@ -159,9 +176,7 @@ def test_monthly_compliance_uses_percentages_and_explicit_definitions(
     expect(
         portal.locator("#kpi-month-history tbody tr").nth(1)
     ).to_contain_text("100%")
-    expect(portal.locator(".kp .kc").first).to_contain_text(
-        "Cumplimiento en costo"
-    )
+    expect(portal.locator(".kp .kc").first).to_contain_text("Sobrecosto")
     expect(portal.locator(".kpi-definition-note")).to_contain_text(
         "último lunes a jueves"
     )
@@ -186,7 +201,7 @@ def test_smooth_trend_keeps_monthly_values_and_responsive_layout(
     def resolve(cut):
         good = values[cut.month - 1] // 50
         return [
-            row(str(i), "Ana", -1, 50 if i < good else 150) for i in range(2)
+            row(str(i), "Ana", -1, 150 if i < good else 50) for i in range(2)
         ]
 
     history = build_eva_history(2026, datetime(2026, 10, 22), resolve)

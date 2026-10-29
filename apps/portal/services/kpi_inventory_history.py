@@ -1,11 +1,17 @@
 """Monthly DM compliance from the same committed provider cuts as EVA 1."""
 
 from dataclasses import replace
+from datetime import date
 
 from django.utils import timezone
 
+from apps.portal.schemas import KpiCut
 from apps.portal.services.eva_inventory_view import load_inventory_eva
-from apps.portal.services.kpi_eva import build_eva_history, monthly_cuts
+from apps.portal.services.kpi_eva import (
+    build_eva_history,
+    eva_manager_view,
+    monthly_cuts,
+)
 from apps.portal.services.kpi_history_loader import KpiHistoryLoad
 
 
@@ -58,4 +64,35 @@ def load_kpi_history(year: int | None = None) -> KpiHistoryLoad:
             " Hay incidencias de origen. TP cuenta servicios confirmados; "
             "los indicadores no verificables quedan pendientes."
         )
+    existing = {m.key for m in history.months}
+    full_year = monthly_cuts(chosen, date(chosen, 12, 31))
+    history = replace(
+        history,
+        months=history.months
+        + tuple(
+            KpiCut(
+                key,
+                (
+                    "Ene",
+                    "Feb",
+                    "Mar",
+                    "Abr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Ago",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dic",
+                )[int(key[5:7]) - 1],
+                cut.strftime("%d/%m/%Y"),
+                eva_manager_view([]),
+                False,
+                False,
+            )
+            for key, cut, _ in full_year
+            if key not in existing
+        ),
+    )
     return KpiHistoryLoad(history, notice=notice)

@@ -1,27 +1,19 @@
-import pytest
 from django.test import RequestFactory
 
 from apps.portal import views
-from tests.portal.test_views import stub_history
+from tests.portal.kpi_cut_support import stub_inventory
 
 
-@pytest.mark.parametrize(
-    "query,end_month",
-    [
-        ("periodo=mes&mes=2026-02", "2026-02"),
-        ("periodo=trimestre&anio=2026&trim=1", "2026-03"),
-        ("periodo=anio&anio=2026", "2026-10"),
-    ],
-)
-def test_manager_table_uses_the_exact_cut_selected_by_picker(
-    monkeypatch, query, end_month
-):
-    stub_history(monkeypatch)
-    context = views.kpi_context(
-        RequestFactory().get("/api/v1/screens/kpis-dm/?" + query)
+def test_cut_does_not_change_annual_history(monkeypatch):
+    stub_inventory(monkeypatch)
+    first = views.kpi_context(
+        RequestFactory().get("/?corte=2026-02-15&history_year=2026")
     )
-    history = views.load_kpi_history(2026).history
-    cut = next(item for item in history.months if item.key == end_month)
-    assert context["kpis"] == cut.view
-    assert context["cut_label"] == cut.cut_label
-    assert context["period"].end_month == end_month
+    second = views.kpi_context(
+        RequestFactory().get("/?corte=2026-09-30&history_year=2026")
+    )
+    assert first["month_matrix"] == second["month_matrix"]
+    assert first["quarter_matrix"] == second["quarter_matrix"]
+    assert first["chart"] == second["chart"]
+    assert first["kpis"].totals.total == 2
+    assert second["kpis"].totals.total == 3

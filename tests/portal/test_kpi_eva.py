@@ -128,7 +128,7 @@ def test_monthly_inventory_is_same_as_eva1_cut_with_suspended_and_closed():
     january = history.months[0]
     assert january.cut_label == "29/01/2026"
     assert january.view.totals.total == 2
-    assert january.view.totals.time_cost.cost_percent == 100
+    assert january.view.totals.time_cost.cost_percent == 0
     selected = cut_rows([], events, date(2026, 1, 29), lambda pid: [])
     assert {r["idProyecto"] for r in selected} == {"A", "B"}
     assert (
@@ -142,21 +142,23 @@ def test_api_exposes_compliance_percentages_and_workday_cut(
     client, monkeypatch, settings
 ):
     settings.PORTAL_LOGIN_REQUIRED = False
-    stub_compliance_history(monkeypatch, date(2026, 10, 22))
-    response = client.get("/api/v1/screens/kpis-dm/?periodo=mes&mes=2026-01")
+    from tests.portal.kpi_cut_support import stub_inventory
+
+    stub_inventory(monkeypatch)
+    response = client.get("/api/v1/screens/kpis-dm/?corte=2026-01-29")
     assert response.status_code == 200
     data = response.json()["data"]
     assert data["metrics"] == {
-        "basis": "eva1_compliance",
+        "basis": "eva1_cut_over_budget",
         "t_unit": "percent",
         "c_unit": "percent",
         "cut_weekdays": [0, 1, 2, 3],
     }
     assert data["cut"]["label"] == "29/01/2026"
-    assert data["summary"]["totals"]["total"] == 3
-    assert data["summary"]["totals"]["t"] == pytest.approx(200 / 3)
-    assert data["summary"]["totals"]["c"] == pytest.approx(200 / 3)
-    assert data["summary"]["rows"][0]["time_late"] == 1
+    assert data["summary"]["totals"]["total"] == 2
+    assert data["summary"]["totals"]["t"] == 100
+    assert data["summary"]["totals"]["c"] == 50
+    assert data["summary"]["rows"][0]["time_late"] == 0
     assert data["summary"]["rows"][0]["cost_over"] == 1
 
 

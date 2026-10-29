@@ -4,6 +4,15 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 
 ## Objetivo
 
+**KPIs DM, criterio posterior 28/10:** el corte exacto controla tarjetas y tabla
+por DM. Selector global multiselección de DMs para todas las tablas y gráfica,
+con totales recalculados. Tendencia e históricos tienen años independientes;
+meses enero–diciembre/T1–T4 fijos para el año, futuros sin datos. T=conteo
+desviación <= 0 / TP del DM; C=conteo avance > 100% / TP del DM (sobrecosto),
+como EVA. Pendientes permanecen en TP. Sustituye la definición previa de C
+mensual como cumplimiento. Cortes mensuales lunes–jueves y promedios de
+trimestre conservados. Ver plan para validación.
+
 **Horas EVA sin clasificación, autorización 28/10:** entre bloques cuyo rango
 cubre el día de una hora facturable sin tarea/tag de alcance, asignar una sola
 vez al que tenga el Start más antiguo. Tarea/tag explícito conserva prioridad;
