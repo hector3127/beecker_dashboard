@@ -9,6 +9,19 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Filtro global DM compacto, 29/10:** panel anclado que no altera la altura
+de la barra ni desplaza el corte. Búsqueda de nombres sin distinguir acentos,
+Todos/Ninguno, contador y lista con scroll; Aplicar conserva parámetros y
+alcance global. Cierre por Escape (devuelve foco) y clic exterior. El panel
+elige arriba/abajo y limita altura para quedar dentro de la pantalla.
+Se conserva diseño del resto, años, cifras y reglas. Verificado con ocho DMs
+reales en 1450/900/390 px: cero cambio de altura y panel dentro del viewport.
+Capturas: tmp/design/kpis-reference/dm-panel-real-*.png. 478 Node aprobadas;
+se actualizó una expectativa de etiqueta accesible antigua a «sobrecosto»,
+conforme a la regla vigente, sin alterar valores de la gráfica.
+17 Chrome/CSP aprobadas, incluidas búsqueda, contador, Todos/Ninguno,
+Escape, clic exterior, ausencia de desplazamiento y límites del viewport.
+
 **KPIs DM: corte/años y selección global, 28/10:** fecha exacta para tarjetas
 y tabla por DM; selección global de uno o varios DMs para tarjetas, tabla,
 tendencia e históricos, con totales ponderados por TP. La selección se conserva

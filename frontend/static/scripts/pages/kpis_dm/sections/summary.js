@@ -2,6 +2,7 @@
 // Pestañas, filtro de periodo, indicadores y tabla por Delivery Manager.
 import { el } from "#app/lib/dom.js";
 import { formatNumber } from "#app/lib/format.js";
+import { managerFilter } from "./manager_filter.js?v=20261029";
 
 export const DASH = "—";
 /** Dias con un decimal: 4.5 d. @param {number | null} value */
@@ -43,13 +44,7 @@ export function renderFilter(data) {
     el("span", { class: "hint", text: `Corte: ${cut.label}. Tarjetas y tabla por DM; la selección de DMs se aplica a todas las tablas y a la tendencia.` }),
   );
   for (const key of ["history_year", "chart_year"]) form.append(el("input", { type: "hidden", name: key, value: filters[key] }));
-  const chosen = new Set(filters.selected_managers);
-  const all = !chosen.size;
-  const chooser = el("details", { class: "kpi-dm-chooser", id: "kpi-global-dms" },
-    el("summary", { text: "Delivery Managers · filtro global" }));
-  for (const name of filters.managers) chooser.append(el("label", {},
-    el("input", { type: "checkbox", name: "dm", value: name, checked: all || chosen.has(name) }), name));
-  chooser.append(el("button", { type: "submit", text: "Aplicar DMs" }));
+  const chooser = managerFilter(filters);
   form.append(chooser);
   form.addEventListener("submit", () => {
     if (!form.querySelector('input[name="dm"]:checked')) form.append(el("input", { type: "hidden", name: "dm", value: "__none__" }));

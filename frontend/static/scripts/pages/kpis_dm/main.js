@@ -10,7 +10,7 @@ import {
   renderFilter,
   renderTable,
   renderTabs,
-} from "./sections/summary.js?v=20261028-cut";
+} from "./sections/summary.js?v=20261029-dm-filter";
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));

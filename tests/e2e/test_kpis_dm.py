@@ -92,6 +92,50 @@ def test_cut_and_chart_filters_are_independent(portal):
     expect(portal.locator(".two table tbody tr")).to_have_count(1)
 
 
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_global_dm_panel_is_compact_searchable_and_keyboard_operable(
+    portal, width
+):
+    portal.set_viewport_size({"width": width, "height": 950})
+    portal.goto(portal.base + PAGE)
+    trigger = portal.locator("#kpi-global-dms summary")
+    expect(trigger).to_be_visible()
+    before = portal.locator(".kpi-cut-filter").bounding_box()
+    trigger.click()
+    panel = portal.get_by_role(
+        "group", name="Selección global de Delivery Managers"
+    )
+    expect(panel).to_be_visible()
+    after = portal.locator(".kpi-cut-filter").bounding_box()
+    assert abs(before["height"] - after["height"]) < 1
+    box = panel.bounding_box()
+    assert box["x"] >= 0 and box["x"] + box["width"] <= width
+    assert box["y"] >= 0 and box["y"] + box["height"] <= 950
+    search = portal.get_by_role("searchbox", name="Buscar Delivery Manager")
+    search.fill("BÉTO")
+    expect(panel.locator(".kpi-dm-row:visible")).to_have_count(1)
+    expect(panel.locator(".kpi-dm-row:visible")).to_contain_text("Beto")
+    search.press("Enter")
+    expect(panel).to_be_visible()
+    search.fill("sin coincidencias")
+    expect(panel.get_by_text("No hay DMs con ese nombre.")).to_be_visible()
+    panel.get_by_role("button", name="Ninguno", exact=True).click()
+    expect(panel.get_by_role("status")).to_have_text("0 de 2 seleccionados")
+    panel.get_by_role("button", name="Todos", exact=True).click()
+    expect(panel.get_by_role("status")).to_have_text("2 de 2 seleccionados")
+    search.fill("")
+    portal.screenshot(
+        path=f"tmp/design/kpis-reference/dm-panel-{width}.png", full_page=True
+    )
+    search.press("Escape")
+    expect(panel).not_to_be_visible()
+    expect(trigger).to_be_focused()
+    trigger.click()
+    portal.mouse.click(2, 10)
+    expect(panel).not_to_be_visible()
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+
+
 def test_chart_legend_selects_a_series_and_the_scale_toggles(
     portal, enforced_csp
 ):
