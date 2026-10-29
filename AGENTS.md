@@ -4,6 +4,15 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 
 ## Objetivo
 
+**KPIs con tablas propias, 29/10:** instrucción posterior: la página KPI DM
+lee DmKpiPeriod/Observation/Metric, no reconstruye desde EVA al consultar.
+Solo octubre iniciado, corte real 29/10; anteriores pendientes. T/C y selector
+global conservados. Comando manual sync_kpi_dm; automatización preparada bajo
+KPI_DM_AUTO_UPDATE_ENABLED=0 hasta Genesis, sin tareas nuevas. Último
+lunes–jueves fija el periodo; cierre faltante permanece pendiente. EVA no cambia.
+Ver docs/kpis-dm-persistidos.md. Sustituye las afirmaciones previas de KPIs
+leyendo cortes EVA o usando sus cierres.
+
 **Cierres mensuales pospuestos a Genesis, 29/10:** instrucción posterior del
 usuario. `EVA_MONTHLY_CLOSES_ENABLED` queda desactivado por defecto. Tareas
 Windows de captura/sellado deshabilitadas. EVA/KPIs mantienen consultas

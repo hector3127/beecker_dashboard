@@ -55,7 +55,7 @@ export function renderFilter(data) {
     { class: "kpi-definition-note" },
     el("summary", { text: "Cómo interpretar TP, T y C en esta pantalla" }),
     el("p", {
-      text: "Base: proyectos abiertos de EVA 1, incluidos suspendidos. Corte al último lunes a jueves de cada mes; viernes, sábado y domingo retroceden al jueves. TP: proyectos del DM. T: proyectos con desviación ≤ 0 / TP × 100. C: proyectos con avance > 100% / TP × 100 (sobrecosto). Cero días cuenta en T; exactamente 100% no cuenta como sobrecosto. Los datos pendientes permanecen en TP y no cuentan en el numerador. La congelación mensual se activará posteriormente en Genesis.",
+      text: "Base guardada: proyectos de la captura KPI, incluidos suspendidos. Corte al último lunes a jueves de cada mes; viernes, sábado y domingo retroceden al jueves. TP: proyectos del DM. T: proyectos con desviación ≤ 0 / TP × 100. C: proyectos con avance > 100% / TP × 100 (sobrecosto). Cero días cuenta en T; exactamente 100% no cuenta como sobrecosto. Los datos pendientes permanecen en TP y no cuentan en el numerador. Las cifras se leen de tablas propias de KPIs. La programación diaria y el cierre mensual se activarán en Genesis.",
     }),
   );
   return [form, note];
@@ -167,7 +167,7 @@ export function renderTable(summary, managerUrl) {
     el("h2", { text: "Por Delivery Manager" }),
     el("div", {
       class: "hs",
-      text: "TP: proyectos abiertos al corte de EVA 1. T: % con desviación ≤ 0. C: % con avance > 100% (sobrecosto). Fuera de tiempo y fuera de costo son conteos independientes; un proyecto puede aparecer en ambos.",
+      text: "TP: proyectos guardados del DM al corte seleccionado. T: % con desviación ≤ 0. C: % con avance > 100% (sobrecosto). Fuera de tiempo y fuera de costo son conteos independientes; un proyecto puede aparecer en ambos.",
     }),
     el(
       "div",

@@ -9,6 +9,19 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**KPIs DM persistidos, 29/10:** tres tablas propias con migración aditiva 0013
+aplicada tras respaldo. Toda la página lee capturas guardadas, sin reconstruir
+EVA ni consultar proveedores. Solo octubre iniciado al 29/10: 2 DMs, TP 9;
+anteriores pendientes. Conserva fórmulas, diseño, filtros globales y años
+independientes. Comando sync_kpi_dm; actualización automática preparada y
+desactivada hasta Genesis, sin programación instalada. Periodos separados,
+último lunes–jueves y cierre faltante pendiente; EVA conserva su comportamiento.
+1,875 servidor y 478 Node aprobadas; validación final 12 servidor dirigidas
+y 25 Chrome/CSP aprobadas, con solapamiento. Ruff, check y ausencia de
+migraciones pendientes comprobados. Revisadas capturas 1450/900/390 px.
+Ver docs/kpis-dm-persistidos.md.
+Sin push; fase 11 abierta.
+
 **Cierres pospuestos a Genesis, 29/10:** el usuario decide no activarlos todavía.
 Función preparada bajo `EVA_MONTHLY_CLOSES_ENABLED=0` por defecto; comandos y
 hook no congelan ni capturan, y las lecturas ignoran cierres mientras esté

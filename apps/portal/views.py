@@ -78,10 +78,10 @@ from apps.portal.services.filters import (
 )
 from apps.portal.services.holidays import count_business_days
 from apps.portal.services.investment import build_investment_view
+from apps.portal.services.kpi_dm_store import load_kpi_history
 from apps.portal.services.kpi_history import (
     build_matrix,
 )
-from apps.portal.services.kpi_inventory_history import load_kpi_history
 from apps.portal.services.kpi_quarterly import build_quarter_averages
 from apps.portal.services.manager_detail import (
     build_manager_detail,
@@ -1201,13 +1201,16 @@ def kpi_context(request: HttpRequest) -> dict[str, Any]:
     from rest_framework.exceptions import ValidationError
 
     from apps.portal.services.eva_cut import read_cut
-    from apps.portal.services.eva_inventory_view import load_inventory_eva
-    from apps.portal.services.kpi_eva import eva_manager_view, select_managers
+    from apps.portal.services.kpi_dm_store import latest_kpi_cut, load_kpi_cut
+    from apps.portal.services.kpi_eva import select_managers
     from apps.portal.services.kpi_history_loader import KpiHistoryLoad
 
     today = timezone.localdate()
     try:
-        cut = read_cut(request.GET.get("corte") or today.isoformat())
+        latest_cut = latest_kpi_cut()
+        cut = read_cut(
+            request.GET.get("corte") or (latest_cut or today).isoformat()
+        )
         history_year = int(
             request.GET.get("history_year")
             or request.GET.get("anio")
@@ -1228,8 +1231,8 @@ def kpi_context(request: HttpRequest) -> dict[str, Any]:
     chart_history = (
         annual if chart_year == history_year else load_kpi_history(chart_year)
     )
-    selected = load_inventory_eva(cut)
-    summary = eva_manager_view(selected["projected_rows"])
+    selected = load_kpi_cut(cut)
+    summary = selected.view
     manager_names = sorted(
         {row.name for row in summary.rows}
         | {
@@ -1271,9 +1274,20 @@ def kpi_context(request: HttpRequest) -> dict[str, Any]:
             "kpis": select_managers(summary, chosen_managers),
             "cut_label": cut.strftime("%d/%m/%Y"),
             "cut_is_current": cut == today,
-            "cut_available": selected["extraction"] is not None,
+            "cut_available": selected.observation is not None,
             "history_error": annual.error,
-            "history_notice": annual.notice,
+            "history_notice": annual.notice
+            + (
+                f" No hay una captura KPI guardada para {cut:%d/%m/%Y}."
+                if selected.observation is None
+                else ""
+            ),
+            "kpi_storage": {
+                "latest_cut": latest_cut.isoformat() if latest_cut else None,
+                "selected_status": selected.observation.period.status
+                if selected.observation
+                else "missing",
+            },
             "kpi_filters": {
                 "cut": cut.isoformat(),
                 "max_cut": today.isoformat(),

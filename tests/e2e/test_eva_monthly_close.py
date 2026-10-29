@@ -70,7 +70,7 @@ def test_unvalidated_past_close_is_pending_instead_of_zero_projects(
     page.goto(
         live_server.url + "/operativa/kpis-delivery-managers/?corte=2026-10-29"
     )
-    expect(page.locator("#kpi-month-history")).to_contain_text("Ana")
+    expect(page.locator("#kpi-month-history tbody tr")).to_have_count(0)
     headers = page.locator("#kpi-month-history thead tr").first.inner_text()
     assert "OCT" in headers.upper() and "OCT*" not in headers.upper()
 

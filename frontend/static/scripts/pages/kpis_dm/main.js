@@ -10,7 +10,7 @@ import {
   renderFilter,
   renderTable,
   renderTabs,
-} from "./sections/summary.js?v=20261029-deferred-genesis";
+} from "./sections/summary.js?v=20261029-kpi-store";
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
@@ -90,7 +90,7 @@ function render(data) {
     renderHistory({
       id: "kpi-month-history",
       title: "Histórico por mes",
-      hint: "Cada mes: TP al último lunes–jueves; T = % con desviación ≤ 0; C = % con avance > 100%. Los doce meses del año permanecen visibles; meses futuros sin datos. El mes abierto (*) es provisional. Cierres fijos disponibles solo cuando se active la función en Genesis.",
+      hint: "Cada mes usa su última captura KPI guardada; T = % con desviación ≤ 0; C = % con avance > 100%. Los doce meses del año permanecen visibles; meses futuros sin datos. El mes abierto (*) es provisional. Los meses sin captura permanecen pendientes; la automatización diaria se activará en Genesis.",
       matrix: history.months,
       managerUrl,
       byMonth: true,
@@ -111,7 +111,7 @@ function render(data) {
   content.append(
     el("p", {
       class: "note",
-      text: "Fuentes: inventario local de Summary e iteraciones Azure, con horas facturables de Clockify hasta cada corte. Se incluyen suspendidos; se excluyen completados y cancelados al corte. No se usan estados actuales de Azure para reconstruir los meses. " + (data.metrics.monthly_closes_enabled ? "Los cierres mensuales guardados permanecen fijos." : "La congelación mensual está desactivada hasta Genesis; los datos siguen actualizándose."),
+      text: `Fuente: tablas propias de KPIs de DMs. Última captura guardada: ${data.storage.latest_cut || "sin captura"}. La página no recalcula datos desde EVA, Azure ni Clockify. ${data.metrics.monthly_closes_enabled ? "Actualización diaria KPI habilitada." : "Actualización manual; programación diaria desactivada hasta Genesis."}`,
     }),
   );
 }

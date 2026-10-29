@@ -635,13 +635,14 @@ def kpi_screen(context: dict[str, Any]) -> dict[str, Any]:
     return {
         "data": {
             "metrics": {
-                "basis": "eva1_cut_over_budget",
+                "basis": "dm_kpi_saved_reports",
                 "t_unit": "percent",
                 "c_unit": "percent",
                 "cut_weekdays": [0, 1, 2, 3],
-                "monthly_closes_enabled": settings.EVA_MONTHLY_CLOSES_ENABLED,
+                "monthly_closes_enabled": settings.KPI_DM_AUTO_UPDATE_ENABLED,
             },
             "filters": context.get("kpi_filters", {}),
+            "storage": context.get("kpi_storage", {}),
             "period": {
                 "kind": period.kind,
                 "label": period.label,

@@ -149,7 +149,7 @@ def test_api_exposes_compliance_percentages_and_workday_cut(
     assert response.status_code == 200
     data = response.json()["data"]
     assert data["metrics"] == {
-        "basis": "eva1_cut_over_budget",
+        "basis": "dm_kpi_saved_reports",
         "t_unit": "percent",
         "c_unit": "percent",
         "cut_weekdays": [0, 1, 2, 3],

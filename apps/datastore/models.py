@@ -57,6 +57,89 @@ class EvaExtraction(models.Model):
     issues = models.JSONField(default=list)
 
 
+class DmKpiPeriod(models.Model):
+    """One independent monthly KPI report, updated only while open."""
+
+    month = models.DateField(unique=True)
+    closing_day = models.DateField()
+    status = models.CharField(
+        max_length=12,
+        choices=[
+            ("open", "Abierto"),
+            ("closed", "Cerrado"),
+            ("pending", "Cierre pendiente"),
+        ],
+        default="open",
+    )
+    latest_observation = models.ForeignKey(
+        "DmKpiObservation",
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="current_for_periods",
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+    closed_at = models.DateTimeField(null=True, blank=True)
+
+
+class DmKpiObservation(models.Model):
+    """Saved daily cut; a period points to the current or final observation."""
+
+    period = models.ForeignKey(
+        DmKpiPeriod, on_delete=models.CASCADE, related_name="observations"
+    )
+    cut = models.DateField(unique=True)
+    source = models.ForeignKey(
+        EvaExtraction, null=True, blank=True, on_delete=models.PROTECT
+    )
+    source_observed_at = models.DateTimeField()
+    captured_at = models.DateTimeField(auto_now=True)
+    origin = models.CharField(max_length=24, default="local_inventory")
+    issues = models.JSONField(default=list)
+
+
+class DmKpiMetric(models.Model):
+    """Counts by DM and observation; percentages have one derived authority."""
+
+    observation = models.ForeignKey(
+        DmKpiObservation, on_delete=models.CASCADE, related_name="metrics"
+    )
+    manager = models.CharField(max_length=512)
+    slug = models.CharField(max_length=512)
+    total = models.PositiveIntegerField()
+    on_time = models.PositiveIntegerField()
+    late = models.PositiveIntegerField()
+    over_budget = models.PositiveIntegerField()
+    time_unknown = models.PositiveIntegerField(default=0)
+    cost_unknown = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        """One DM per saved cut, with coherent non-overlapping counts."""
+
+        ordering = ["manager"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["observation", "manager"],
+                name="dm_kpi_observation_manager",
+            ),
+            models.CheckConstraint(
+                condition=models.Q(
+                    total=models.F("on_time")
+                    + models.F("late")
+                    + models.F("time_unknown")
+                ),
+                name="dm_kpi_time_counts_total",
+            ),
+            models.CheckConstraint(
+                condition=models.Q(
+                    total__gte=models.F("over_budget")
+                    + models.F("cost_unknown")
+                ),
+                name="dm_kpi_cost_counts_total",
+            ),
+        ]
+
+
 class EvaMonthlyClosePolicy(models.Model):
     """First month eligible for automatic closing from observed evidence."""
 

@@ -222,6 +222,7 @@ ACCESS_ENFORCED = os.getenv("ACCESS_ENFORCED", "").strip() == "1"
 
 # Deferred by the user until Genesis; keep normal EVA reads by default.
 EVA_MONTHLY_CLOSES_ENABLED = os.getenv("EVA_MONTHLY_CLOSES_ENABLED", "0") == "1"
+KPI_DM_AUTO_UPDATE_ENABLED = os.getenv("KPI_DM_AUTO_UPDATE_ENABLED", "0") == "1"
 # Fuente de capacidades y alcance; Genesis entrara aqui como otro proveedor.
 ACCESS_PROVIDER = "apps.access.providers.DjangoAccessProvider"
 

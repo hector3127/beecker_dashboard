@@ -233,21 +233,16 @@ def test_unfinished_or_invalid_observation_cannot_be_frozen(
     assert not EvaMonthlyClose.objects.exists()
 
 
-def test_monthly_kpis_use_close_and_stop_marking_it_provisional(monkeypatch):
-    from apps.portal.services.kpi_inventory_history import load_kpi_history
+def test_eva_closes_do_not_populate_the_independent_kpi_store(monkeypatch):
+    from apps.portal.services.kpi_dm_store import load_kpi_history
 
     observed()
     today(monkeypatch, date(2026, 10, 30))
     close_due_months()
-    observed(date(2026, 10, 30), "Otro")
     history = load_kpi_history(2026).history
-    month = history.months[9]
-    assert not month.partial
-    assert month.observed
-    assert month.view.rows[0].name == "Ana"
-    assert not history.months[8].observed
-    assert history.months[8].view.totals.total == 0
     assert len(history.months) == 12
+    assert all(not month.observed for month in history.months)
+    assert not history.managers
 
 
 def test_deferred_feature_reads_normal_inventory_and_keeps_saved_closes(
