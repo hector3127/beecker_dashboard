@@ -10,7 +10,7 @@ respuestas; la migración del frontend sí avanza.
 ## Estado vigente de fase 11 (27/10/2026)
 
 **Etiqueta paquete EVA4, 29/10:** Hours Package Limit sin valor muestra
-«No aplica» para servicios distintos de RaaS. Conserva valores explícitos,
+«N/A» (etiqueta final solicitada) para servicios distintos de RaaS. Conserva valores explícitos,
 RaaS y Available Hours Package; cambio de presentación sin cálculos/base.
 Módulos versionados para renovar caché del navegador. Sin push.
 
