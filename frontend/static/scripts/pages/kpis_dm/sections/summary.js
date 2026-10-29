@@ -38,9 +38,9 @@ export function renderTabs(urls, query) {
 export function renderFilter(data) {
   const { filters, cut } = data;
   const form = el("form", { method: "get", class: "kpi-cut-filter" },
-    el("label", { for: "kpi-cut", text: "Fecha de corte" }),
-    el("input", { id: "kpi-cut", type: "date", name: "corte", value: filters.cut, max: filters.max_cut, required: true }),
-    el("button", { type: "submit", text: "Consultar corte" }),
+    el("label", { for: "kpi-cut", text: "Mes de consulta" }),
+    el("input", { id: "kpi-cut", type: "month", name: "mes", value: filters.month, min: "2021-01", max: filters.max_month, required: true }),
+    el("button", { type: "submit", text: "Consultar mes" }),
     el("span", { class: "hint", text: `Corte: ${cut.label}. Tarjetas y tabla por DM; la selección de DMs se aplica a todas las tablas y a la tendencia.` }),
   );
   for (const key of ["history_year", "chart_year"]) form.append(el("input", { type: "hidden", name: key, value: filters[key] }));

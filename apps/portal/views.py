@@ -1197,20 +1197,33 @@ def capacidad_instalada_csv(request: HttpRequest) -> HttpResponse:
 def kpi_context(request: HttpRequest) -> dict[str, Any]:
     """Independent cut summary, annual history and chart controls."""
     from dataclasses import replace
+    from datetime import date
 
     from rest_framework.exceptions import ValidationError
 
     from apps.portal.services.eva_cut import read_cut
-    from apps.portal.services.kpi_dm_store import latest_kpi_cut, load_kpi_cut
+    from apps.portal.services.kpi_dm_store import (
+        latest_kpi_cut,
+        load_kpi_cut,
+        monthly_kpi_cut,
+    )
     from apps.portal.services.kpi_eva import select_managers
     from apps.portal.services.kpi_history_loader import KpiHistoryLoad
 
     today = timezone.localdate()
     try:
         latest_cut = latest_kpi_cut()
-        cut = read_cut(
-            request.GET.get("corte") or (latest_cut or today).isoformat()
-        )
+        month_value = request.GET.get("mes")
+        if month_value:
+            month = date.fromisoformat(month_value + "-01")
+            if month > today.replace(day=1) or month.year < 2021:
+                raise ValueError("Mes inválido")
+            cut = monthly_kpi_cut(month)
+        else:
+            cut = read_cut(
+                request.GET.get("corte") or (latest_cut or today).isoformat()
+            )
+            month = cut.replace(day=1)
         history_year = int(
             request.GET.get("history_year")
             or request.GET.get("anio")
@@ -1289,6 +1302,8 @@ def kpi_context(request: HttpRequest) -> dict[str, Any]:
                 else "missing",
             },
             "kpi_filters": {
+                "month": month.strftime("%Y-%m"),
+                "max_month": today.strftime("%Y-%m"),
                 "cut": cut.isoformat(),
                 "max_cut": today.isoformat(),
                 "history_year": history_year,

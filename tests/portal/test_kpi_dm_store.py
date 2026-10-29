@@ -99,6 +99,38 @@ def test_empty_read_is_pending_and_does_not_contact_sources_or_write():
     )
 
 
+def test_month_filter_uses_latest_saved_pointer_and_preserves_other_years(
+    current,
+):
+    from django.test import RequestFactory
+
+    from apps.portal.views import kpi_context
+
+    observation = capture_current_month()
+    context = kpi_context(
+        RequestFactory().get(
+            "/", {"mes": "2026-10", "history_year": "2025", "dm": "Ana"}
+        )
+    )
+    assert context["kpi_filters"]["month"] == "2026-10"
+    assert context["kpi_filters"]["cut"] == observation.cut.isoformat()
+    assert context["kpi_filters"]["history_year"] == 2025
+    assert context["kpis"].totals.total == 2
+    missing = kpi_context(RequestFactory().get("/", {"mes": "2026-09"}))
+    assert missing["cut_available"] is False
+
+
+@pytest.mark.parametrize("month", ["2026-11", "2026-13", "2026-1", "bad"])
+def test_month_filter_rejects_invalid_or_future_month(current, month):
+    from django.test import RequestFactory
+    from rest_framework.exceptions import ValidationError
+
+    from apps.portal.views import kpi_context
+
+    with pytest.raises(ValidationError):
+        kpi_context(RequestFactory().get("/", {"mes": month}))
+
+
 def test_counts_persist_and_percentages_use_dm_total_with_pending(current):
     observation = capture_current_month()
     assert observation.cut == date(2026, 10, 28)

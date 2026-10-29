@@ -10,7 +10,7 @@ import {
   renderFilter,
   renderTable,
   renderTabs,
-} from "./sections/summary.js?v=20261029-kpi-store";
+} from "./sections/summary.js?v=20261029-month";
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
@@ -30,7 +30,7 @@ function filters() {
   /** @type {Record<string, any>} */
   const out = {};
   const params = new URLSearchParams(location.search);
-  for (const key of ["corte", "history_year", "chart_year", "anio"]) {
+  for (const key of ["mes", "corte", "history_year", "chart_year", "anio"]) {
     const value = params.get(key);
     if (value) out[key] = value;
   }
@@ -59,7 +59,7 @@ function annualFilter(data) {
   const form = el("form", { method: "get", class: "kpi-local-filters" }, el("label", { for: "kpi-history-year", text: "Año de históricos" }),
     el("select", { id: "kpi-history-year", name: "history_year" }, ...data.filters.years.map(y => el("option", { value: y, selected: y === data.filters.history_year, text: y }))),
     el("button", { type: "submit", text: "Ver año" }));
-  for (const key of ["corte", "chart_year"]) form.append(el("input", { type: "hidden", name: key, value: key === "corte" ? data.filters.cut : data.filters[key] }));
+  for (const key of ["mes", "chart_year"]) form.append(el("input", { type: "hidden", name: key, value: key === "mes" ? data.filters.month : data.filters[key] }));
   for (const name of new URLSearchParams(location.search).getAll("dm")) form.append(el("input", { type: "hidden", name: "dm", value: name }));
   return form;
 }

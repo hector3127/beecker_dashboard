@@ -107,4 +107,8 @@ def stub_inventory(monkeypatch):
         "apps.portal.services.kpi_dm_store.load_kpi_cut", load_cut
     )
     monkeypatch.setattr("apps.portal.views.load_kpi_history", load_history)
+    monkeypatch.setattr(
+        "apps.portal.services.kpi_dm_store.monthly_kpi_cut",
+        lambda month: month.replace(day=15),
+    )
     return load

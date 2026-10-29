@@ -52,7 +52,7 @@ def test_saved_kpis_keep_layout_and_only_actual_month_has_values(
     errors = []
     page.on("pageerror", lambda error: errors.append(str(error)))
     page.goto(live_server.url + PAGE)
-    expect(page.locator("#kpi-cut")).to_have_value("2026-10-29")
+    expect(page.locator("#kpi-cut")).to_have_value("2026-10")
     expect(page.locator(".two table tbody tr")).to_have_count(2)
     expect(page.locator(".two table tbody tr").first).to_contain_text("50%")
     expect(
@@ -85,8 +85,8 @@ def test_global_filter_and_missing_date_do_not_reconstruct_from_eva(
     expect(page.locator("#kpi-month-history tbody tr")).to_have_count(1)
     expect(page.locator("#kpi-quarter-history tbody tr")).to_have_count(1)
     expect(page.locator("#kpi-legend button")).to_have_count(1)
-    page.locator("#kpi-cut").fill("2026-10-28")
-    page.get_by_role("button", name="Consultar corte").click()
+    page.locator("#kpi-cut").fill("2026-09")
+    page.get_by_role("button", name="Consultar mes").click()
     expect(page.locator("#kpis-notice")).to_contain_text(
         "No hay una captura KPI guardada"
     )

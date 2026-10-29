@@ -9,6 +9,13 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Selector mensual KPI, 29/10:** filtro principal mes/año (`mes=YYYY-MM`),
+resuelve el puntero de la última captura guardada del periodo. Conserva fecha
+real como referencia, ausencia de datos explícita, selector global y años
+independientes. Enlaces diarios anteriores siguen admitidos. Sin cambios de
+base, fórmulas ni EVA. 20 servidor dirigidas, 21 Chrome/CSP y 478 Node
+aprobadas (corridas solapadas), Ruff y mypy aprobados. Sin push.
+
 **Carga histórica KPI autorizada, 29/10:** enero–septiembre 2026 de la imagen
 del usuario, C de cumplimiento convertido a sobrecosto. Nueve periodos cerrados,
 41 filas DM, evidencia original y validación de conteos únicos por redondeo.

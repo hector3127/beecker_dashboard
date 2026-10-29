@@ -1,5 +1,11 @@
 # KPIs DM con almacenamiento propio — 29/10/2026
 
+El filtro principal permite seleccionar mes y año, con `mes=YYYY-MM`.
+Consulta la última captura del periodo, dejando visible la fecha real de esa
+captura. No sustituye meses sin datos. El filtro global de DMs y los años de
+tendencia e históricos se conservan. Los enlaces anteriores con `corte` siguen
+admitidos, aunque el formulario ahora envía solo el mes.
+
 ## Histórico aprobado importado después del inicio
 
 El usuario autorizó cargar enero–septiembre 2026 desde la imagen

@@ -79,6 +79,14 @@ def latest_kpi_cut() -> date | None:
     )
 
 
+def monthly_kpi_cut(month: date) -> date:
+    """Resolve the month's saved pointer, leaving missing months explicit."""
+    cut = DmKpiPeriod.objects.filter(month=month).values_list(
+        "latest_observation__cut", flat=True
+    ).first()
+    return cut or closing_day(month)
+
+
 def load_kpi_cut(cut: date) -> StoredKpiCut:
     """Read an exact daily observation; do not substitute another date."""
     observation = (

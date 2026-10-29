@@ -6,7 +6,7 @@ th,td{text-align:center}
 .kpi-local-filters{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:14px 0;font-size:13px}
 .kpi-cut-filter{display:grid;grid-template-columns:max-content 180px max-content minmax(240px,1fr);align-items:center;gap:12px;margin:14px 0;padding:16px;border:1px solid #e5def8;border-radius:14px;background:#fff;font-size:13px}
 .kpi-cut-filter>.hint{grid-column:1/-1;order:5;color:#756c98;font-size:12px;line-height:1.5}
-.kpi-cut-filter input[type="date"],.kpi-cut-filter button,.kpi-local-filters select,.kpi-local-filters button{min-height:44px;padding:9px 12px;border:1px solid #ded5fa;border-radius:9px;background:#fff;color:#4b25c9;font:inherit;box-sizing:border-box}
+.kpi-cut-filter input[type="month"],.kpi-cut-filter button,.kpi-local-filters select,.kpi-local-filters button{min-height:44px;padding:9px 12px;border:1px solid #ded5fa;border-radius:9px;background:#fff;color:#4b25c9;font:inherit;box-sizing:border-box}
 .kpi-cut-filter button,.kpi-local-filters button{background:#6026df;color:#fff;cursor:pointer}
 .kpi-dm-chooser{position:relative;justify-self:end;min-width:0;width:280px;max-width:100%;order:4}
 .kpi-dm-chooser>summary{display:flex;align-items:center;gap:9px;min-height:44px;padding:9px 12px;border:1px solid #ded5fa;border-radius:9px;background:#faf8ff;color:#4b25c9;cursor:pointer;font-weight:600;list-style:none;box-sizing:border-box}
