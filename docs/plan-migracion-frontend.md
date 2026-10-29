@@ -9,6 +9,14 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**EVA4 sin selector mensual, 29/10:** se retira el formulario del encabezado.
+La página consulta el mes actual determinado por Django; parámetros mes de
+enlaces anteriores no cambian su consulta. Se conserva el mes visible en la
+nota de consumo, búsqueda, filtros de columna, exportaciones y regreso.
+La API conserva su contrato mensual para otros consumidores. Sin cambios
+de horas, datos fuente o cálculos. 26 Chrome y 478 Node aprobadas;
+Ruff/mypy aprobados, capturas 1450/900/390 revisadas. Sin push.
+
 **EVA4 excluye AER, 29/10:** instrucción expresa del usuario; se excluye
 servicio AER normalizado al construir el reporte, antes de horas/conteos,
 clientes, procesos activos y renovaciones. Exportaciones heredan las filas

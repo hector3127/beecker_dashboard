@@ -32,10 +32,6 @@ def loads(monkeypatch):
     return calls
 
 
-def month_input(portal):
-    return portal.locator("#eva4-month")
-
-
 @pytest.mark.parametrize("width", [1450, 900, 390])
 def test_process_word_search_combines_columns_and_clears(portal, loads, width):
     portal.set_viewport_size({"width": width, "height": 1000})
@@ -135,35 +131,19 @@ def test_column_filter_replaces_search_and_updates_the_count(portal, loads):
     expect(count).to_have_text("3 de 3 procesos activos")
 
 
-def test_changing_the_month_keeps_the_page_and_the_return_context(
-    portal, loads
+@pytest.mark.parametrize("month", ["2026-09", "zzz"])
+def test_current_month_without_picker_ignores_old_url_filter(
+    portal, loads, month
 ):
-    portal.goto(f"{portal.base}{PAGE}?volver=%2Foperativa%2F&mes=2026-10")
+    portal.goto(f"{portal.base}{PAGE}?volver=%2Foperativa%2F&mes={month}")
     expect(portal.locator("#eva4-source")).to_contain_text("Consumo 2026-10")
-    portal.evaluate("window.marker = 'misma pagina'")
-
-    month_input(portal).fill("2026-09")
-
-    expect(portal.locator("#eva4-source")).to_contain_text("Consumo 2026-09")
-    assert "mes=2026-09" in portal.url
+    expect(portal.locator("#eva4-month")).to_have_count(0)
+    expect(portal.locator("#eva4-filters")).to_have_count(0)
     assert "volver=%2Foperativa%2F" in portal.url
-    assert portal.evaluate("window.marker") == "misma pagina"  # sin recargar
-    assert loads == ["2026-10", "2026-09"]
-
-    portal.go_back()
-    expect(portal.locator("#eva4-source")).to_contain_text("Consumo 2026-10")
-    expect(month_input(portal)).to_have_value("2026-10")
-    assert loads == ["2026-10", "2026-09", "2026-10"]
+    assert loads == ["2026-10"]
 
 
-def test_month_field_stops_at_the_limits(portal, loads):
-    portal.goto(f"{portal.base}{PAGE}?mes=2026-10")
-    field = month_input(portal)
-    expect(field).to_have_attribute("max", "2026-10")
-    expect(field).to_have_attribute("min", "2024-08")
-
-
-def test_loading_state_blocks_the_picker_until_the_answer(portal, loads):
+def test_loading_state_shows_progress_until_the_answer(portal, loads):
     def slow(route):
         portal.wait_for_timeout(800)
         route.continue_()
@@ -174,9 +154,7 @@ def test_loading_state_blocks_the_picker_until_the_answer(portal, loads):
     expect(portal.locator("#eva4-content")).to_contain_text(
         "Consultando el mes"
     )
-    expect(month_input(portal)).to_be_disabled()
     expect(portal.locator("#eva4-processes")).to_be_visible()
-    expect(month_input(portal)).to_be_enabled()
 
 
 def test_server_failure_offers_a_retry_that_recovers(portal, loads):
@@ -224,24 +202,6 @@ def test_stale_cut_is_shown_with_a_warning(portal, monkeypatch):
     expect(portal.locator("#eva4-processes")).to_be_visible()
 
 
-def test_invalid_month_in_the_url_shows_the_error_and_the_current_month(
-    portal, monkeypatch
-):
-    monkeypatch.setattr(eva4.timezone, "localdate", lambda: TODAY)
-    monkeypatch.setattr(
-        eva4,
-        "load_eva4",
-        lambda *a: {
-            "available": False,
-            "error": "El mes debe tener el formato AAAA-MM.",
-        },
-    )
-    portal.goto(f"{portal.base}{PAGE}?mes=zzz")
-
-    expect(portal.locator("#eva4-error")).to_contain_text("formato AAAA-MM")
-    expect(month_input(portal)).to_have_value("2026-10")
-
-
 def test_text_from_the_sheet_is_shown_as_text_never_as_html(
     portal, monkeypatch
 ):
@@ -270,8 +230,7 @@ def test_page_has_no_errors_or_csp_violations(portal, loads, enforced_csp):
     response = portal.goto(portal.base + PAGE)
     assert "script-src" in response.header_value("content-security-policy")
     expect(portal.locator("#eva4-processes")).to_be_visible()
-    month_input(portal).fill("2026-09")
-    expect(portal.locator("#eva4-source")).to_contain_text("2026-09")
+    expect(portal.locator("#eva4-source")).to_contain_text("2026-10")
 
     assert problems == []
 
@@ -400,8 +359,8 @@ def test_process_column_menus_combine_with_client_and_month(
         "xpath=ancestor::section"
     ).locator(".eva-column-clear").click()
     expect(table.locator("tbody tr:visible")).to_have_count(3)
-    month_input(portal).fill("2026-09")
-    expect(portal.locator("#eva4-source")).to_contain_text("Consumo 2026-09")
+    portal.reload()
+    expect(portal.locator("#eva4-source")).to_contain_text("Consumo 2026-10")
     expect(table.locator("thead button.eva-column-trigger")).to_have_count(15)
 
 

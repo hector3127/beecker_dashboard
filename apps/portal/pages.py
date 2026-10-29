@@ -120,9 +120,7 @@ def eva4(request: HttpRequest) -> HttpResponse:
         {
             "active": "operativa",
             "loaded_at": timezone.localtime(),
-            "picker": month_picker(
-                request.GET.get("mes"), timezone.localdate()
-            ),
+            "picker": month_picker(None, timezone.localdate()),
         },
     )
 
