@@ -9,6 +9,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**EVA4 columnas y nombres, 29/10:** comparación contra correo del usuario:
+las 15 columnas y orden ya coinciden. ROC local contiene 147 procesos activos;
+el CSV proporcionado tenía solo los 68 de Brandon, no prueba de pérdida de
+79 procesos. Se normalizan únicamente espacios en DM/cliente/país/proceso/AM
+al leer ROC, conservando identidad, acentos y DM vacío. BOT repetido no se
+fusiona: procesos distintos se conservan. Caché snapshot v9 para reflejar la
+corrección. Sin cambios visuales, horas, topes, paquetes, riesgos o base.
+83 pruebas servidor EVA4 aprobadas y Ruff aprobado. Sin push.
+
 **Tendencia en cumplimiento de costo, 29/10:** petición posterior cambia solo
 la gráfica a 100 menos C de sobrecosto. Puntos nulos permanecen nulos; curvas,
 filtros globales y año independiente conservados. Tarjetas, tablas, API y base

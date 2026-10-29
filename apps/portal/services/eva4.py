@@ -106,7 +106,7 @@ def snapshot_key(month: str | None = None) -> str:
     """Identifica el corte diario, compartido por detalle y Operativa."""
     day = timezone.localdate()
     return (
-        "portal:eva4:snapshot:v8:"
+        "portal:eva4:snapshot:v9:"
         + day.isoformat()
         + ":"
         + resolve_month(month, day).strftime("%Y-%m")
@@ -149,6 +149,16 @@ def build_eva4(values: list[list[Any]], today: date) -> dict[str, Any]:
             field: row[col] if 0 <= col < len(row) else ""
             for field, col in columns.items()
         }
+        # Preserve source names, removing only accidental spacing. Do not
+        # guess a manager for blank rows or merge processes sharing a BOT ID.
+        for field in (
+            "manager",
+            "country",
+            "client",
+            "process",
+            "account_manager",
+        ):
+            item[field] = " ".join(str(item[field] or "").split())
         status = norm(item["status"])
         if status not in {"activo", "active", "suspendido", "suspended"}:
             continue

@@ -60,6 +60,25 @@ def row(bot="1", status="Activo", finish="2026-10-20", country="MEX"):
     ]
 
 
+def test_source_names_normalize_spacing_without_merging_or_inventing():
+    first = row()
+    first[0], first[6], first[7] = (
+        "  Nestlé  Colombia ",
+        "  1058 -  Extract KE30 ",
+        " Brandon  Sotelo ",
+    )
+    second = row()
+    second[6], second[7] = "1058 - Extract OTR", ""
+    report = eva4.build_eva4([HEADER, first, second], TODAY)
+    assert len(report["processes"]) == 2
+    one, two = report["processes"]
+    assert one["manager"] == "Brandon Sotelo"
+    assert one["client"] == "Nestlé Colombia"
+    assert one["process"] == "1058 - Extract KE30"
+    assert two["manager"] == ""
+    assert two["process"] == "1058 - Extract OTR"
+
+
 def reader_fixture():
     return InMemorySheetRepository(
         {
