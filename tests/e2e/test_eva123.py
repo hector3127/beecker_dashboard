@@ -106,7 +106,9 @@ def evas(monkeypatch, datos):
             error="",
         )
 
-    monkeypatch.setattr("apps.portal.views.load_eva2_closed", closed_ixb)
+    monkeypatch.setattr(
+        "apps.portal.views.load_eva2_closed", closed_ixb, raising=False
+    )
 
     class Reader:
         def read_values(self, _):
