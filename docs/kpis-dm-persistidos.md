@@ -1,5 +1,34 @@
 # KPIs DM con almacenamiento propio — 29/10/2026
 
+## Histórico aprobado importado después del inicio
+
+El usuario autorizó cargar enero–septiembre 2026 desde la imagen
+`codex-clipboard-140f2b84-a386-46e4-80d1-be774a3d64b2.png` y confirmó que
+C de origen significa proyectos dentro del presupuesto. El comando
+`import_kpi_dm_2026` guarda nueve periodos cerrados, 41 filas DM y el origen
+`user_report_20261029`. Es transaccional, repetible y rechaza sobrescribir
+periodos de otro origen. Octubre se conserva.
+
+Cada TP y porcentaje original queda en los metadatos. Todos los porcentajes
+mensuales tienen un único conteo entero compatible con el redondeo a unidades;
+se valida antes de guardar. C pasa a conteo de sobrecosto como TP menos los
+proyectos dentro del presupuesto. Por ello 63% de 8 se guarda como 5 en costo,
+3 con sobrecosto (37.5%); no como un conteo fraccionario derivado de 37%.
+Vacíos no generan filas ni ceros. Fechas de corte asignadas al último
+lunes–jueves del mes; no se afirma conocer la fecha original de observación:
+source_observed_at registra la recepción/importación, sin fuente Azure.
+
+Discrepancias del origen: enero y febrero suman 20 proyectos en filas DM,
+aunque la imagen muestra Total 19. Se conservan las filas y se recalculan
+totales ponderados, sin forzar el total impreso. La columna «12» es el
+acumulado según aclaración del usuario, no diciembre; se excluye del eje
+mensual. Los trimestres se calculan desde meses con la regla vigente y no se
+copian los totales ni promedios impresos que no coinciden con esas filas.
+
+Respaldo previo: `tmp/backups/before-kpi-history-import-20261029.sqlite3`.
+15 pruebas dirigidas aprobadas (incluidas tres nuevas de importación), Ruff
+aprobado. No cambia diseño, fórmulas, EVA, conexión o automatización.
+
 Por instrucción del usuario, la página KPI DM deja de reconstruir sus cifras
 al consultar EVA. Solo se inicia el mes actual; los anteriores quedan pendientes
 de conciliación. No se modifica el comportamiento de EVA ni su extracción.

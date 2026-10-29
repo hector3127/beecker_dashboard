@@ -9,6 +9,15 @@ respuestas; la migración del frontend sí avanza.
 
 ## Estado vigente de fase 11 (27/10/2026)
 
+**Carga histórica KPI autorizada, 29/10:** enero–septiembre 2026 de la imagen
+del usuario, C de cumplimiento convertido a sobrecosto. Nueve periodos cerrados,
+41 filas DM, evidencia original y validación de conteos únicos por redondeo.
+Octubre conservado; vacíos sin inventar ceros. Totales enero/febrero suman 20
+en filas aunque origen imprime 19; se documenta discrepancia y se conservan
+filas. «12» es acumulado, no mes. Importación transaccional repetible con
+respaldo previo; 15 pruebas dirigidas y Ruff aprobados. Ver
+docs/kpis-dm-persistidos.md. Sin push.
+
 **KPIs DM persistidos, 29/10:** tres tablas propias con migración aditiva 0013
 aplicada tras respaldo. Toda la página lee capturas guardadas, sin reconstruir
 EVA ni consultar proveedores. Solo octubre iniciado al 29/10: 2 DMs, TP 9;

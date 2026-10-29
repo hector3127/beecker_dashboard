@@ -4,6 +4,14 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 
 ## Objetivo
 
+**Histórico KPI aprobado, 29/10:** importados enero–septiembre 2026 desde
+imagen del usuario: C original es cumplimiento, convertido a sobrecosto con
+conteos únicos compatibles con redondeo. Nueve periodos cerrados, 41 filas;
+octubre intacto. Enero/febrero suman 20 en filas aunque total impreso es 19;
+conservar filas, no forzar totales. Columna «12» es acumulado, no diciembre.
+Comando import_kpi_dm_2026 no sobrescribe otros orígenes. Ver
+docs/kpis-dm-persistidos.md. Sustituye anteriores pendientes para esos meses.
+
 **KPIs con tablas propias, 29/10:** instrucción posterior: la página KPI DM
 lee DmKpiPeriod/Observation/Metric, no reconstruye desde EVA al consultar.
 Solo octubre iniciado, corte real 29/10; anteriores pendientes. T/C y selector
