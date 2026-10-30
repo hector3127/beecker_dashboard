@@ -2,6 +2,7 @@
 // Pestañas, filtro de periodo, indicadores y tabla por Delivery Manager.
 import { el } from "#app/lib/dom.js";
 import { formatNumber } from "#app/lib/format.js";
+import { renderGlossary } from "./glossary.js";
 import { managerFilter } from "./manager_filter.js?v=20261029";
 
 export const DASH = "—";
@@ -37,28 +38,21 @@ export function renderTabs(urls, query) {
 /** @param {any} data */
 export function renderFilter(data) {
   const { filters, cut } = data;
+  const year = /** @type {HTMLSelectElement} */ (el("select", { id: "kpi-year", name: "history_year" },
+    ...filters.years.map((/** @type {number} */ y) => el("option", { value: y, selected: y === filters.history_year, text: y }))));
   const form = el("form", { method: "get", class: "kpi-cut-filter" },
-    el("label", { for: "kpi-cut", text: "Mes de consulta" }),
-    el("input", { id: "kpi-cut", type: "month", name: "mes", value: filters.month, min: "2021-01", max: filters.max_month, required: true }),
-    el("button", { type: "submit", text: "Consultar mes" }),
-    el("span", { class: "hint", text: `Corte: ${cut.label}. Tarjetas y tabla por DM; la selección de DMs se aplica a todas las tablas y a la tendencia.` }),
+    el("div", { class: "kpi-field" }, el("label", { for: "kpi-cut", text: "Mes de consulta" }),
+      el("input", { id: "kpi-cut", type: "month", name: "mes", value: filters.month, min: "2021-01", max: filters.max_month, required: true })),
+    el("div", { class: "kpi-field" }, el("label", { for: "kpi-year", text: "Año de tendencia e históricos" }), year),
+    managerFilter(filters),
+    el("button", { type: "submit", class: "kpi-apply", text: "Consultar" }),
+    el("span", { class: "hint", text: `Corte: ${cut.label}. El mes controla las tarjetas y la tabla por DM; el año controla la tendencia y los dos históricos; los DMs seleccionados se aplican a todo.` }),
   );
-  for (const key of ["history_year", "chart_year"]) form.append(el("input", { type: "hidden", name: key, value: filters[key] }));
-  const chooser = managerFilter(filters);
-  form.append(chooser);
+  year.addEventListener("change", () => form.requestSubmit());
   form.addEventListener("submit", () => {
     if (!form.querySelector('input[name="dm"]:checked')) form.append(el("input", { type: "hidden", name: "dm", value: "__none__" }));
   });
-
-  const note = el(
-    "details",
-    { class: "kpi-definition-note" },
-    el("summary", { text: "Cómo interpretar TP, T y C en esta pantalla" }),
-    el("p", {
-      text: "Base guardada: proyectos de la captura KPI, incluidos suspendidos. Corte al último lunes a jueves de cada mes; viernes, sábado y domingo retroceden al jueves. TP: proyectos del DM. T: proyectos con desviación ≤ 0 / TP × 100. C: proyectos con avance ≤ 100% / TP × 100 (cumplimiento en costo). Cero días cuenta en T; exactamente 100% cuenta como cumplimiento. Los datos pendientes permanecen en TP y no cuentan en el numerador. Las cifras se leen de tablas propias de KPIs. La programación diaria y el cierre mensual se activarán en Genesis.",
-    }),
-  );
-  return [form, note];
+  return [form, renderGlossary()];
 }
 
 /** @param {string} label @param {Node | string} value @param {string} note @param {string} [valueClass] */

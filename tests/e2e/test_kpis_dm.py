@@ -48,9 +48,10 @@ def test_page_uses_the_modular_frontend_with_the_previous_layout(portal, query):
     assert portal.locator("#kpi-month-history").count() == 1
     assert portal.locator("#kpi-quarter-history").count() == 1
     assert portal.locator("#kpi-month-history thead [colspan='3']").count() > 1
-    expect(portal.locator(".kpi-definition-note")).to_contain_text(
+    expect(portal.locator(".kpi-glossary")).to_contain_text(
         "T: proyectos con desviación ≤ 0 / TP × 100"
     )
+    assert portal.locator("select[name='history_year']").count() == 1
 
 
 def test_tabs_and_manager_links_lead_to_their_screens(portal):
@@ -62,16 +63,24 @@ def test_tabs_and_manager_links_lead_to_their_screens(portal):
     portal.wait_for_url(re.compile(r"/operativa/delivery-manager/ana/"))
 
 
-def test_cut_and_chart_filters_are_independent(portal):
+def test_one_year_filter_drives_trend_and_both_histories(portal):
     portal.goto(portal.base + PAGE)
     portal.locator("#kpi-cut").fill("2026-02")
-    portal.get_by_role("button", name="Consultar mes").click()
+    portal.get_by_role("button", name="Consultar", exact=True).click()
     portal.wait_for_url(re.compile(r"mes=2026-02"))
     expect(portal.locator(".two table tfoot")).to_contain_text("2")
-    portal.locator("#kpi-chart-year").select_option("2025")
-    portal.wait_for_url(re.compile(r"chart_year=2025"))
+    assert portal.get_by_label("Año", exact=False).count() == 1
+    portal.locator("#kpi-year").select_option("2025")
+    portal.wait_for_url(re.compile(r"history_year=2025"))
+    assert "chart_year" not in portal.url
     expect(portal.locator("#kpi-cut")).to_have_value("2026-02")
-    expect(portal.locator("#kpi-history-year")).to_have_value("2026")
+    expect(portal.locator("#kpi-year")).to_have_value("2025")
+    for title in (
+        "Tendencia de cumplimiento en costo · 2025",
+        "Histórico por mes · 2025",
+        "Histórico por trimestre · 2025",
+    ):
+        expect(portal.get_by_role("heading", name=title)).to_be_visible()
     expect(
         portal.locator("#kpi-month-history thead tr").first.locator(
             "[colspan='3']"
@@ -86,8 +95,8 @@ def test_cut_and_chart_filters_are_independent(portal):
     expect(portal.locator("#kpi-month-history tbody tr")).to_have_count(1)
     expect(portal.locator("#kpi-quarter-history tbody tr")).to_have_count(1)
     expect(portal.locator("#kpi-cut")).to_have_value("2026-02")
-    expect(portal.locator("#kpi-chart-year")).to_have_value("2025")
-    portal.get_by_role("button", name="Ver año").click()
+    expect(portal.locator("#kpi-year")).to_have_value("2025")
+    portal.get_by_role("button", name="Consultar", exact=True).click()
     portal.wait_for_url(re.compile(r"dm=Ana"))
     expect(portal.locator(".two table tbody tr")).to_have_count(1)
 
@@ -220,8 +229,10 @@ def test_monthly_compliance_uses_percentages_and_explicit_definitions(
     expect(
         portal.locator("#kpi-month-history tbody tr").nth(1)
     ).to_contain_text("100%")
-    expect(portal.locator(".kp .kc").first).to_contain_text("Cumplimiento en costo")
-    expect(portal.locator(".kpi-definition-note")).to_contain_text(
+    expect(portal.locator(".kp .kc").first).to_contain_text(
+        "Cumplimiento en costo"
+    )
+    expect(portal.locator(".kpi-glossary")).to_contain_text(
         "último lunes a jueves"
     )
     expect(portal.locator(".two table")).to_contain_text("Fuera de tiempo")

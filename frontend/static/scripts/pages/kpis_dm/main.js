@@ -10,7 +10,7 @@ import {
   renderFilter,
   renderTable,
   renderTabs,
-} from "./sections/summary.js?v=20261029-month";
+} from "./sections/summary.js?v=20261030-year";
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
@@ -30,7 +30,7 @@ function filters() {
   /** @type {Record<string, any>} */
   const out = {};
   const params = new URLSearchParams(location.search);
-  for (const key of ["mes", "corte", "history_year", "chart_year", "anio"]) {
+  for (const key of ["mes", "corte", "history_year", "anio"]) {
     const value = params.get(key);
     if (value) out[key] = value;
   }
@@ -42,26 +42,12 @@ function filters() {
 /** @param {any} data */
 function chartCard(data) {
   const { history, filters } = data;
-  const card = el("div", { class: "card" }, el("h2", { text: "Tendencia de cumplimiento en costo" }),
-    el("div", { class: "hs", text: "Cumplimiento en costo (C) por DM y mes: proyectos con avance ≤ 100% sobre TP. Más alto es mejor. El año es independiente del mes consultado; se aplica la selección global de DMs." }));
-  const year = el("select", { id: "kpi-chart-year", "aria-label": "Año de tendencia", onchange: (event) => {
-    const url = new URL(location.href); url.searchParams.set("chart_year", event.target.value); location.assign(url.href);
-  } }, ...filters.years.map(y => el("option", { value: y, selected: y === filters.chart_year, text: y })));
-  const tools = el("div", { class: "kpi-local-filters" }, el("label", { for: "kpi-chart-year", text: "Año de tendencia" }), year);
-  card.append(tools);
+  const card = el("div", { class: "card" }, el("h2", { text: `Tendencia de cumplimiento en costo · ${filters.chart_year}` }),
+    el("div", { class: "hs", text: "Cumplimiento en costo (C) por DM y mes: proyectos con avance ≤ 100% sobre TP. Más alto es mejor. Usa el año del filtro superior y la selección global de DMs." }));
   if (!history.chart) { card.append(el("p", { class: "note", text: `No se pudo reconstruir el histórico. ${history.error || "Sin histórico disponible."}` })); return card; }
   const plot = el("div", {}, ...renderChart(history.chart));
   card.append(plot);
   return card;
-}
-
-function annualFilter(data) {
-  const form = el("form", { method: "get", class: "kpi-local-filters" }, el("label", { for: "kpi-history-year", text: "Año de históricos" }),
-    el("select", { id: "kpi-history-year", name: "history_year" }, ...data.filters.years.map(y => el("option", { value: y, selected: y === data.filters.history_year, text: y }))),
-    el("button", { type: "submit", text: "Ver año" }));
-  for (const key of ["mes", "chart_year"]) form.append(el("input", { type: "hidden", name: key, value: key === "mes" ? data.filters.month : data.filters[key] }));
-  for (const name of new URLSearchParams(location.search).getAll("dm")) form.append(el("input", { type: "hidden", name: "dm", value: name }));
-  return form;
 }
 
 /** @param {any} data */
@@ -84,12 +70,11 @@ function render(data) {
       chartCard(data),
     ),
   );
-  content.append(annualFilter(data));
   if (!history.months) return;
   content.append(
     renderHistory({
       id: "kpi-month-history",
-      title: "Histórico por mes",
+      title: `Histórico por mes · ${data.filters.history_year}`,
       hint: "Cada mes usa su última captura KPI guardada; T = % con desviación ≤ 0; C = % con avance ≤ 100%. Los doce meses del año permanecen visibles; meses futuros sin datos. El mes abierto (*) es provisional. Los meses sin captura permanecen pendientes; la automatización diaria se activará en Genesis.",
       matrix: history.months,
       managerUrl,
@@ -100,7 +85,7 @@ function render(data) {
     content.append(
       renderHistory({
         id: "kpi-quarter-history",
-        title: "Histórico por trimestre",
+        title: `Histórico por trimestre · ${data.filters.history_year}`,
         hint: "Promedio de los meses de cada trimestre, como AVERAGE en Excel; no es el corte del último mes. TP es la carga promedio mensual (se presenta redondeada); T y C son promedios de los porcentajes mensuales T y C. * Trimestre parcial.",
         matrix: history.quarters,
         managerUrl,
@@ -121,12 +106,6 @@ async function load() {
   try {
     const { data } = await apiGet("screens/kpis-dm/", filters());
     render(data);
-    content.append(
-      el("p", {
-        class: "note",
-        text: "Fórmulas: T = proyectos con desviación ≤ 0 / TP × 100; C = proyectos con avance ≤ 100% / TP del DM × 100. Los faltantes permanecen en TP y no se suman al numerador.",
-      }),
-    );
   } catch (error) {
     showError(content, error, { onRetry: load });
   }
