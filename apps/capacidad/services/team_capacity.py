@@ -58,6 +58,8 @@ CONCEPTS: dict[str, tuple[bool, bool, bool]] = {
     "Dia Feriado": (True, False, True),
     "Inversión": (True, False, True),
 }
+# Los IDs con la nomenclatura NYB (TYM.NYB.009) son proyectos internos.
+INTERNAL_ID = re.compile(r"(?:^|[._\s-])NYB(?:[._\s-]|$)", re.IGNORECASE)
 CONCEPT_BY_NAME = {normalize_capacity_text(name): name for name in CONCEPTS}
 BAND_HEADERS = [["nombre", "recurso"], ["rol"]]
 CLOCKIFY_ID_HEADERS = ["ID Clockify", "Clockify ID", "ID_Clockify"]
@@ -270,7 +272,9 @@ def build_team_capacity(
         known, start, finish = info.dates(project_name)
         # Proyectos: los IDs de Azure/MPB; lo demas, por su nombre en Clockify.
         concept = (
-            "Proyecto"
+            "Interno"
+            if INTERNAL_ID.search(project_name)
+            else "Proyecto"
             if known
             else CONCEPT_BY_NAME.get(normalize_capacity_text(project_name), "")
         )

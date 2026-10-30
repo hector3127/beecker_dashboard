@@ -119,6 +119,7 @@ def test_concept_and_rules_follow_azure_ids_then_clockify_names(team):
     entry(2, "u-ana", "Ana", "Pre-Ventas", 3600, date(2026, 10, 6), pid="v")
     entry(3, "u-ana", "Ana", "Vacaciones", 3600, date(2026, 10, 7), pid="w")
     entry(4, "u-ana", "Ana", "RAAS.XYZ.001", 3600, date(2026, 10, 8), pid="x")
+    entry(5, "u-ana", "Ana", "TYM.NYB.009", 3600, date(2026, 10, 9), pid="y")
 
     rows = {
         r["idProyecto"]: r
@@ -132,6 +133,8 @@ def test_concept_and_rules_follow_azure_ids_then_clockify_names(team):
     assert rows["Vacaciones"]["cargabilidad"] == "No Cargable"
     assert rows["Vacaciones"]["capacidad"] == "No Afecta Capacidad"
     assert rows["RAAS.XYZ.001"]["concepto"] == ""  # ni Azure/MPB ni concepto
+    assert rows["TYM.NYB.009"]["concepto"] == "Interno"  # nomenclatura NYB
+    assert rows["TYM.NYB.009"]["facturable"] == "No Facturable"
 
 
 def test_project_dates_fall_back_to_the_rows_first_and_last_record(team):
