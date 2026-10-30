@@ -372,8 +372,9 @@ def test_saved_previous_link_keeps_month_roles_and_current_module(
         portal.locator(f'script[src*="pages/{name}/main.js"]')
     ).to_have_count(1)
     expect(portal.locator(".pf summary")).to_contain_text("Febrero 2026")
-    expect(portal.locator('input[name="rol"][value="QA"]')).to_be_checked()
-    expect(portal.locator('input[name="rol"][value="DEV"]')).not_to_be_checked()
+    boxes = 'input[name="rol"][type="checkbox"]'  # hay otro rol oculto
+    expect(portal.locator(boxes + '[value="QA"]')).to_be_checked()
+    expect(portal.locator(boxes + '[value="DEV"]')).not_to_be_checked()
     expect(
         portal.get_by_role("link", name="← Regresar a Operativa")
     ).to_have_attribute("href", "/operativa/")
