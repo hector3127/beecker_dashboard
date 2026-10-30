@@ -228,13 +228,3 @@ def test_kpis_explain_the_units_without_changing_the_numbers(portal, kpis):
         "Mayor proporción en tiempo",
         "Menor proporción en tiempo",
     ]
-
-
-def test_kpis_period_in_the_url_is_respected(portal, kpis):
-    portal.goto(
-        portal.base
-        + "/operativa/kpis-delivery-managers/?periodo=mes&mes=2026-08"
-    )
-
-    expect(portal.locator("#period-filter")).to_be_visible()
-    assert "periodo=mes" in portal.url

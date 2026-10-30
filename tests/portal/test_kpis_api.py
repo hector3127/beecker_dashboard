@@ -85,7 +85,8 @@ def test_table_uses_exact_cut_not_month_end(client, cut, total):
     assert body["filters"]["cut"] == cut
     assert body["summary"]["totals"]["total"] == total
     ana = body["summary"]["rows"][0]
-    assert ana["t"] == ana["c"] == (100 if total == 2 else 50)
+    assert ana["t"] == (100 if total == 2 else 50)
+    assert ana["c"] == 0  # C es cumplimiento: sobrecosto y pendientes no suman
 
 
 @pytest.mark.parametrize(
@@ -101,12 +102,12 @@ def test_global_manager_filter_changes_all_panels_and_weighted_totals(client):
     assert [r["name"] for r in body["summary"]["rows"]] == ["Ana"]
     assert body["summary"]["totals"]["total"] == 2
     assert body["summary"]["totals"]["t"] == 50
-    assert body["summary"]["totals"]["c"] == 50
+    assert body["summary"]["totals"]["c"] == 0
     assert [r["name"] for r in body["history"]["months"]["rows"]] == ["Ana"]
     assert [r["name"] for r in body["history"]["quarters"]["rows"]] == ["Ana"]
     assert [r["name"] for r in body["history"]["chart"]["series"]] == ["Ana"]
     assert body["history"]["months"]["totals"][0]["total"] == 1
-    assert body["history"]["months"]["totals"][0]["c"] == 100
+    assert body["history"]["months"]["totals"][0]["c"] == 0
     assert body["filters"]["managers"] == ["Ana", "Beto"]
 
 
@@ -126,7 +127,7 @@ def test_quarterly_numbers_are_not_rounded_for_the_screen(client):
     cells = data(client)["history"]["quarters"]["rows"][0]["cells"]
     firsts = [c["c"] for c in cells if c]
 
-    assert firsts[0] == pytest.approx((100 + 100 + 50) / 3)
+    assert firsts[0] == pytest.approx(0)
 
 
 def test_a_history_failure_says_why_and_leaves_the_tables_empty(

@@ -479,6 +479,7 @@ class KpiManagerRow:
     time_cost: TimeCost
     time_late: int | None = None
     cost_over: int | None = None
+    cost_ok: int | None = None  # proyectos con avance <= 100%
 
 
 @dataclass(frozen=True, slots=True)

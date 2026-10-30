@@ -145,11 +145,9 @@ def test_counts_persist_and_percentages_use_dm_total_with_pending(current):
         ana.cost_unknown,
     ) == (2, 1, 1, 1, 1)
     saved = load_kpi_cut(observation.cut).view
-    assert (
-        saved.rows[0].time_cost.time_days
-        == saved.rows[0].time_cost.cost_percent
-        == 50
-    )
+    # T cuenta 1 de 2; C (cumplimiento) no cuenta el sobrecosto ni el pendiente.
+    assert saved.rows[0].time_cost.time_days == 50
+    assert saved.rows[0].time_cost.cost_percent == 0
     assert saved.totals.total == 3
     assert saved.totals.time_cost.cost_percent == pytest.approx(100 / 3)
     assert load_kpi_cut(date(2026, 10, 29)).observation is None
@@ -315,8 +313,51 @@ def test_kpi_api_reads_only_saved_tables(current, client, settings):
     payload = response.json()["data"]
     assert payload["metrics"]["basis"] == "dm_kpi_saved_reports"
     assert payload["summary"]["totals"]["total"] == 2
-    assert payload["summary"]["totals"]["c"] == 50
+    assert payload["summary"]["totals"]["c"] == 0
     assert len(payload["history"]["months"]["headers"]) == 12
     assert payload["history"]["months"]["totals"][0] is None
     observation.refresh_from_db()
     assert observation.captured_at == before
+
+
+def _metric(name, total, on_time, over, unknown):
+    from types import SimpleNamespace
+
+    return SimpleNamespace(
+        manager=name,
+        slug=name.lower(),
+        total=total,
+        on_time=on_time,
+        late=total - on_time,
+        over_budget=over,
+        cost_unknown=unknown,
+    )
+
+
+def test_c_is_cost_compliance_over_tp_and_weights_the_total():
+    from types import SimpleNamespace
+
+    from apps.portal.services.kpi_dm_store import observation_view
+
+    observation = SimpleNamespace(
+        metrics=SimpleNamespace(
+            all=lambda: [
+                _metric("Ana", 10, 8, 2, 1),
+                _metric("Beto", 5, 5, 0, 0),
+            ]
+        )
+    )
+
+    view = observation_view(observation)
+
+    ana, beto = view.rows
+    assert (
+        ana.time_cost.cost_percent == 70
+    )  # (10 - 2 sobrecosto - 1 sin dato) / 10
+    assert beto.time_cost.cost_percent == 100
+    assert (ana.cost_over, ana.cost_ok) == (
+        2,
+        7,
+    )  # el conteo de sobrecosto se conserva
+    # Total ponderado por proyectos, no el promedio de porcentajes.
+    assert view.totals.time_cost.cost_percent == 100 * (7 + 5) / 15

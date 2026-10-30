@@ -220,7 +220,7 @@ def test_monthly_compliance_uses_percentages_and_explicit_definitions(
     expect(
         portal.locator("#kpi-month-history tbody tr").nth(1)
     ).to_contain_text("100%")
-    expect(portal.locator(".kp .kc").first).to_contain_text("Sobrecosto")
+    expect(portal.locator(".kp .kc").first).to_contain_text("Cumplimiento en costo")
     expect(portal.locator(".kpi-definition-note")).to_contain_text(
         "último lunes a jueves"
     )

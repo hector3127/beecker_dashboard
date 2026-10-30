@@ -43,15 +43,12 @@ Cerrar la fase 11 es **dejar de mirar atrás**, no congelar el pasado:
    **Conservar** el registro interno de `core/rpc/registry.py`
    (`register_rpc`, `get_rpc_function`): lo usan `warm_cache` y varios módulos.
    Pendiente.
-5. **EVA**: retirar las 17 pruebas de `test_eva123` que describen el listado de
-   cerrados retirado (`docs/eva-inventario-activo.md`). Antes confirmar con
-   Christian si sus menús de columna y logos del histórico deben existir en la
-   página nueva. Pendiente.
-6. **KPIs de DM**: tres pruebas esperan C como cumplimiento y el código mezcla
-   dos lecturas (la gráfica dice «cumplimiento en costo = 100% menos sobrecosto»;
-   las tarjetas y la tabla definen C como % con avance > 100%). El usuario
-   indicó «cumplimiento de costo», pero falta confirmar qué muestran tarjetas y
-   tabla. No cambiar cálculo ni pruebas hasta tenerlo. Pendiente.
+5. **EVA**: hecho el 30/10. Retiradas las 8 pruebas (17 casos) del listado de
+   cerrados de `test_eva123` por decisión del usuario; la cobertura vigente está
+   en `test_eva_native` y el resto de ese archivo. Queda por confirmar con
+   Christian si sus menús de columna y logos del histórico siguen en la página.
+6. **KPIs de DM**: hecho el 30/10. C es cumplimiento en costo (avance <= 100%) en
+   tarjetas, tabla, históricos y gráfica (ver `docs/kpis-dm-reglas.md`).
 7. **Dos pruebas de referencia caducadas**: `test_approved_billability_layout`
    y `test_layout_keeps_approved_reference` de Capacidad diaria. Sus cajas
    cambiaron por las modificaciones aprobadas del 28/10 (plantilla por corte y

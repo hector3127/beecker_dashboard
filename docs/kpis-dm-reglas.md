@@ -67,3 +67,16 @@ por regla/año/día para no reutilizar los antiguos promedios.
 Las diferencias de datos del correo siguen pendientes: nuevas reglas no
 equivalen a recuperar versiones históricas borradas o modificadas de las
 hojas. Ver [EVA 1 por fecha de corte](eva1-fecha-corte.md).
+
+## C es cumplimiento en costo (30/10/2026, instrucción del usuario)
+
+En tarjetas, tabla, históricos, trimestres y gráfica, **C = proyectos con avance
+<= 100% / TP × 100**. Sustituye la lectura de sobrecosto del 28/10 en esta
+pantalla. En los cortes guardados (`DmKpiMetric`):
+cumplidos = total − over_budget − cost_unknown. El sobrecosto y los proyectos
+sin dato no cuentan como cumplidos y permanecen en TP; el total del equipo es
+ponderado por proyectos. La columna «Fuera de costo» sigue siendo el conteo de
+sobrecosto. El histórico enero–septiembre importado ya estaba guardado como
+sobrecosto y se muestra como cumplimiento sin reescribir los datos. La gráfica
+ya no invierte el valor (antes calculaba 100 − sobrecosto en el navegador).
+

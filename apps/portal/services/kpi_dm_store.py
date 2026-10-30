@@ -6,7 +6,7 @@ from datetime import date, timedelta
 
 from django.utils import timezone
 
-from apps.datastore.models import DmKpiObservation, DmKpiPeriod
+from apps.datastore.models import DmKpiMetric, DmKpiObservation, DmKpiPeriod
 from apps.portal.schemas import (
     HealthCount,
     KpiCut,
@@ -29,8 +29,17 @@ def closing_day(month: date) -> date:
     return end
 
 
+def _compliant(item: DmKpiMetric) -> int:
+    """Proyectos con avance <= 100%: ni sobrecosto ni sin dato."""
+    return item.total - item.over_budget - item.cost_unknown
+
+
 def observation_view(observation: DmKpiObservation | None) -> KpiView:
-    """Derive T/C from saved counts, never from providers or EVA projections."""
+    """Derive T/C from saved counts, never from providers or EVA projections.
+
+    C es cumplimiento en costo: proyectos con avance <= 100% sobre TP; los
+    sobrecosto y los que no tienen dato no cuentan como cumplidos.
+    """
     empty = eva_manager_view([])
     if observation is None:
         return empty
@@ -45,12 +54,13 @@ def observation_view(observation: DmKpiObservation | None) -> KpiView:
                 time_days=100 * item.on_time / item.total
                 if item.total
                 else None,
-                cost_percent=100 * item.over_budget / item.total
+                cost_percent=100 * _compliant(item) / item.total
                 if item.total
                 else None,
             ),
             time_late=item.late,
             cost_over=item.over_budget,
+            cost_ok=_compliant(item),
         )
         for item in observation.metrics.all()
     )

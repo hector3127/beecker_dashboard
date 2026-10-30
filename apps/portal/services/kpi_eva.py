@@ -156,13 +156,25 @@ def eva_manager_view(rows: Sequence[dict[str, Any]]) -> KpiView:
             and r["avance"] > 100
             for r in projects
         )
+        known = sum(
+            not (
+                r.get("budget_pending")
+                or r.get("hours_pending")
+                or r.get("progress_pending")
+            )
+            and float(r.get("budget") or 0) > 0
+            and r.get("avance") is not None
+            and r["avance"] <= 100
+            for r in projects
+        )
         return replace(
             item,
             on_time_percent=round(100 * in_time / total) if total else 0,
             time_cost=TimeCost(
                 time_days=100 * in_time / total if total else None,
-                cost_percent=100 * over / total if total else None,
+                cost_percent=100 * known / total if total else None,
             ),
+            cost_ok=known,
             time_late=sum(
                 r.get("desviacionDias") is not None and r["desviacionDias"] > 0
                 for r in projects
@@ -207,6 +219,11 @@ def select_managers(view: KpiView, names: Sequence[str]) -> KpiView:
     total = sum(row.total for row in chosen)
     in_time = sum(row.health.on_time for row in chosen)
     over = sum(row.cost_over or 0 for row in chosen)
+    ok = (
+        sum(row.cost_ok or 0 for row in chosen)
+        if all(row.cost_ok is not None for row in chosen)
+        else total - over
+    )
     totals = replace(
         view.totals,
         total=total,
@@ -218,10 +235,11 @@ def select_managers(view: KpiView, names: Sequence[str]) -> KpiView:
         on_time_percent=round(100 * in_time / total) if total else 0,
         time_cost=TimeCost(
             time_days=100 * in_time / total if total else None,
-            cost_percent=100 * over / total if total else None,
+            cost_percent=100 * ok / total if total else None,
         ),
         time_late=sum(row.time_late or 0 for row in chosen),
         cost_over=over,
+        cost_ok=ok,
     )
     ranked = sorted(
         (

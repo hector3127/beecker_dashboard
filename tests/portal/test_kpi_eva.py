@@ -128,7 +128,7 @@ def test_monthly_inventory_is_same_as_eva1_cut_with_suspended_and_closed():
     january = history.months[0]
     assert january.cut_label == "29/01/2026"
     assert january.view.totals.total == 2
-    assert january.view.totals.time_cost.cost_percent == 0
+    assert january.view.totals.time_cost.cost_percent == 100
     selected = cut_rows([], events, date(2026, 1, 29), lambda pid: [])
     assert {r["idProyecto"] for r in selected} == {"A", "B"}
     assert (

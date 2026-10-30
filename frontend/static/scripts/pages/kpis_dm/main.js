@@ -43,21 +43,14 @@ function filters() {
 function chartCard(data) {
   const { history, filters } = data;
   const card = el("div", { class: "card" }, el("h2", { text: "Tendencia de cumplimiento en costo" }),
-    el("div", { class: "hs", text: "Cumplimiento en costo = 100% menos sobrecosto, por DM y mes. Más alto es mejor. El año es independiente del mes consultado; se aplica la selección global de DMs." }));
+    el("div", { class: "hs", text: "Cumplimiento en costo (C) por DM y mes: proyectos con avance ≤ 100% sobre TP. Más alto es mejor. El año es independiente del mes consultado; se aplica la selección global de DMs." }));
   const year = el("select", { id: "kpi-chart-year", "aria-label": "Año de tendencia", onchange: (event) => {
     const url = new URL(location.href); url.searchParams.set("chart_year", event.target.value); location.assign(url.href);
   } }, ...filters.years.map(y => el("option", { value: y, selected: y === filters.chart_year, text: y })));
   const tools = el("div", { class: "kpi-local-filters" }, el("label", { for: "kpi-chart-year", text: "Año de tendencia" }), year);
   card.append(tools);
   if (!history.chart) { card.append(el("p", { class: "note", text: `No se pudo reconstruir el histórico. ${history.error || "Sin histórico disponible."}` })); return card; }
-  const compliance = {
-    ...history.chart,
-    series: history.chart.series.map(serie => ({
-      ...serie,
-      values: serie.values.map(value => typeof value === "number" && Number.isFinite(value) ? 100 - value : null),
-    })),
-  };
-  const plot = el("div", {}, ...renderChart(compliance));
+  const plot = el("div", {}, ...renderChart(history.chart));
   card.append(plot);
   return card;
 }
@@ -97,7 +90,7 @@ function render(data) {
     renderHistory({
       id: "kpi-month-history",
       title: "Histórico por mes",
-      hint: "Cada mes usa su última captura KPI guardada; T = % con desviación ≤ 0; C = % con avance > 100%. Los doce meses del año permanecen visibles; meses futuros sin datos. El mes abierto (*) es provisional. Los meses sin captura permanecen pendientes; la automatización diaria se activará en Genesis.",
+      hint: "Cada mes usa su última captura KPI guardada; T = % con desviación ≤ 0; C = % con avance ≤ 100%. Los doce meses del año permanecen visibles; meses futuros sin datos. El mes abierto (*) es provisional. Los meses sin captura permanecen pendientes; la automatización diaria se activará en Genesis.",
       matrix: history.months,
       managerUrl,
       byMonth: true,
@@ -131,7 +124,7 @@ async function load() {
     content.append(
       el("p", {
         class: "note",
-        text: "Fórmulas: T = proyectos con desviación ≤ 0 / TP × 100; C = proyectos con avance > 100% / TP del DM × 100. Los faltantes permanecen en TP y no se suman al numerador.",
+        text: "Fórmulas: T = proyectos con desviación ≤ 0 / TP × 100; C = proyectos con avance ≤ 100% / TP del DM × 100. Los faltantes permanecen en TP y no se suman al numerador.",
       }),
     );
   } catch (error) {
