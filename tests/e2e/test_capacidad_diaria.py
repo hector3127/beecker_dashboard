@@ -21,6 +21,12 @@ def row(name, role, band, project, daily, dm="Dora DM", clockify="u"):
         "dm": dm,
         "idProyecto": project,
         "proyecto": "Proyecto " + project if project else "",
+        "inicio": "2026-09-15",
+        "fin": "2026-12-31",
+        "concepto": "Proyecto",
+        "facturable": "Facturable",
+        "cargabilidad": "Cargable",
+        "capacidad": "Afecta Capacidad",
         "facturables": facturables,
         "noFacturables": 0.0,
         "total": facturables,
@@ -133,8 +139,10 @@ def test_filters_and_csv_use_the_visible_rows(portal, daily, tmp_path):
     assert (
         download.value.suggested_filename == "Capacidad_instalada_2026-10.csv"
     )
-    assert lines[0].startswith('"Recurso","ID Clockify","Rol","Banda"')
+    assert lines[0].startswith('"Recurso","Rol","Banda","Delivery Manager"')
+    assert "ID Clockify" not in lines[0]
     assert len(lines) == 2 and lines[1].startswith('"Luis"')
+    assert '"15/09/2026"' not in lines[1] and '"2026-09-15"' in lines[1]
 
 
 def test_missing_delivery_manager_is_stated_and_idle_people_listed(
@@ -150,9 +158,15 @@ def test_missing_delivery_manager_is_stated_and_idle_people_listed(
     portal.goto(portal.base + "/capacidad-instalada/?mes=2026-10")
     ready(portal)
 
-    expect(portal.locator(".ci-table tbody tr").first).to_contain_text(
-        "Sin Delivery Manager confirmado"
-    )
+    first = portal.locator(".ci-table tbody tr").first.locator("td")
+    expect(first.nth(3)).to_have_text("-")  # sin DM confirmado
+    expect(first.nth(6)).to_have_text("15/09/2026")
+    expect(first.nth(7)).to_have_text("31/12/2026")
+    expect(first.nth(8)).to_have_text("Proyecto")
+    expect(first.nth(9)).to_have_text("Facturable")
+    expect(first.nth(10)).to_have_text("Cargable")
+    expect(first.nth(11)).to_have_text("Afecta Capacidad")
+    assert "ID Clockify" not in portal.locator(".ci-table thead").inner_text()
     expect(portal.locator(".ci-table tbody tr").nth(1)).to_contain_text(
         "Sin registros en el mes"
     )

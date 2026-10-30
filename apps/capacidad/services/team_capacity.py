@@ -41,6 +41,24 @@ ROLES = frozenset({"dev", "qa", "roc", "arq", "ba", "sm"})
 EXCLUDED_BANDS = frozenset({"", "baja", "na"})
 LUNCH_PROJECT_ID = "61d5aa2596aafe5141cd7413"
 DEFAULT_WORKDAY = 8.0
+# Conceptos: (cargable, facturable, afecta capacidad), como la tabla de la hoja.
+CONCEPTS: dict[str, tuple[bool, bool, bool]] = {
+    "Interno": (True, False, True),
+    "Pre-Ventas": (True, True, True),
+    "Proyecto": (True, True, True),
+    "Voluntary Training": (False, False, True),
+    "Onboarding Training": (False, False, False),
+    "Mandatory Training": (False, False, False),
+    "Sin Asignación": (False, False, True),
+    "Incapacidad": (False, False, False),
+    "Laboratorio Beecker": (True, False, True),
+    "Investigación y Desarrollo": (True, True, True),
+    "Vacaciones": (False, False, False),
+    "Administrativas": (True, False, True),
+    "Dia Feriado": (True, False, True),
+    "Inversión": (True, False, True),
+}
+CONCEPT_BY_NAME = {normalize_capacity_text(name): name for name in CONCEPTS}
 BAND_HEADERS = [["nombre", "recurso"], ["rol"]]
 CLOCKIFY_ID_HEADERS = ["ID Clockify", "Clockify ID", "ID_Clockify"]
 CHANGE_SUFFIX = re.compile(r"(?:[_\s|]+(?:CR|S)\d+)+$", re.IGNORECASE)
@@ -86,8 +104,8 @@ def read_team(reader: SheetReader, month: str) -> list[JsonObject]:
     return team
 
 
-def read_inventory_projects() -> dict[str, tuple[str, str]]:
-    """ID base -> (Delivery Manager, nombre) del ultimo inventario Summary."""
+def read_inventory_projects() -> dict[str, tuple[str, str, str, str]]:
+    """ID base -> (DM, nombre, inicio, fin) del ultimo inventario Summary."""
     run = (
         EvaExtraction.objects.filter(
             published=True, metrics__kind="summary_inventory"
@@ -95,7 +113,7 @@ def read_inventory_projects() -> dict[str, tuple[str, str]]:
         .order_by("-pk")
         .first()
     )
-    found: dict[str, tuple[str, str]] = {}
+    found: dict[str, tuple[str, str, str, str]] = {}
     if run is None:
         return found
 
@@ -103,13 +121,17 @@ def read_inventory_projects() -> dict[str, tuple[str, str]]:
         source__extraction=run
     ).values_list("project_id", "scope", "row")
     for project_id, scope, row in scopes:
-        fields = (row or {}).get("fields") or {}
+        row = row or {}
+        fields = row.get("fields") or {}
         manager = str(fields.get("delivery_manager") or "").strip()
         name = str(fields.get("project_name") or "").strip()
+        # Fechas del Summary; sin ellas, las de las iteraciones de Azure.
+        start = str(row.get("start") or row.get("iteration_start") or "")
+        finish = str(row.get("finish") or row.get("iteration_finish") or "")
         key = normalize_capacity_text(base_project_id(project_id))
         # El bloque BASE manda; los demas solo completan lo que falte.
         if key and (scope == "BASE" or key not in found):
-            found[key] = (manager, name)
+            found[key] = (manager, name, start[:10], finish[:10])
 
     return found
 
@@ -132,7 +154,7 @@ class ProjectInfo:
         manager = name = ""
         for candidate in (project_id, base_project_id(project_id)):
             key = normalize_capacity_text(candidate)
-            inv_manager, inv_name = self.inventory.get(key, ("", ""))
+            inv_manager, inv_name, _, _ = self.inventory.get(key, ("",) * 4)
             manager = manager or inv_manager or self.managers.get(key, "")
             name = name or inv_name or to_text(self.names.get(key) or "")
             mpb = find_mpb_project(self.mpb, candidate)
@@ -140,6 +162,39 @@ class ProjectInfo:
                 manager = manager or mpb.manager
                 name = name or mpb.name
         return manager, name or clockify_name
+
+    def dates(self, project_id: str) -> tuple[bool, str, str]:
+        """(existe en Azure o MPB, inicio, fin) del proyecto; ISO o vacio."""
+        known, start, finish = False, "", ""
+        for candidate in (project_id, base_project_id(project_id)):
+            key = normalize_capacity_text(candidate)
+            if key in self.inventory:
+                known = True
+                _, _, inv_start, inv_finish = self.inventory[key]
+                start, finish = start or inv_start, finish or inv_finish
+            mpb = find_mpb_project(self.mpb, candidate)
+            if mpb is not None:
+                known = True
+                start, finish = start or mpb.start, finish or mpb.finish
+        return known, start, finish
+
+
+def concept_fields(concept: str) -> JsonObject:
+    """Concepto con sus tres reglas escritas como en la tabla de la hoja."""
+    if concept not in CONCEPTS:
+        return {
+            "concepto": "",
+            "cargabilidad": "",
+            "facturable": "",
+            "capacidad": "",
+        }
+    loadable, billable, affects = CONCEPTS[concept]
+    return {
+        "concepto": concept,
+        "cargabilidad": "Cargable" if loadable else "No Cargable",
+        "facturable": "Facturable" if billable else "No Facturable",
+        "capacidad": "Afecta Capacidad" if affects else "No Afecta Capacidad",
+    }
 
 
 def month_days(month: str) -> list[str]:
@@ -212,15 +267,27 @@ def build_team_capacity(
         person = team_by_name[person_name]
         project_name = names[project_key]
         manager, name = info.lookup(project_name, project_name)
+        known, start, finish = info.dates(project_name)
+        # Proyectos: los IDs de Azure/MPB; lo demas, por su nombre en Clockify.
+        concept = (
+            "Proyecto"
+            if known
+            else CONCEPT_BY_NAME.get(normalize_capacity_text(project_name), "")
+        )
+        dated = sorted(cell["daily"])
         rows.append(
             {
                 **{
                     k: person[k]
                     for k in ("nombre", "clockifyId", "rol", "banda")
                 },
+                **concept_fields(concept),
                 "dm": manager,
                 "idProyecto": project_name,
                 "proyecto": name,
+                # Sin fecha de proyecto: primer y ultimo registro de la fila.
+                "inicio": start or dated[0],
+                "fin": finish or dated[-1],
                 "facturables": round(cell["facturables"], 4),
                 "noFacturables": round(cell["noFacturables"], 4),
                 "total": round(cell["facturables"] + cell["noFacturables"], 4),
@@ -249,9 +316,12 @@ def build_team_capacity(
                         k: person[k]
                         for k in ("nombre", "clockifyId", "rol", "banda")
                     },
+                    **concept_fields(""),
                     "dm": "",
                     "idProyecto": "",
                     "proyecto": "",
+                    "inicio": "",
+                    "fin": "",
                     "facturables": 0.0,
                     "noFacturables": 0.0,
                     "total": 0.0,

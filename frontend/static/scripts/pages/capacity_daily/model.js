@@ -18,6 +18,10 @@ export const fmt = (value) =>
 /** @param {string} value ISO AAAA-MM-DD @returns {string} DD/MM */
 export const date = (value) => (value ? `${value.slice(8, 10)}/${value.slice(5, 7)}` : '—');
 
+/** @param {string} value ISO AAAA-MM-DD @returns {string} DD/MM/AAAA */
+export const fullDate = (value) =>
+  /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? `${value.slice(8, 10)}/${value.slice(5, 7)}/${value.slice(0, 4)}` : '—';
+
 /** @param {string} iso */
 export const isWeekend = (iso) => {
   const day = new Date(iso + 'T00:00:00Z').getUTCDay();
@@ -76,13 +80,15 @@ const cell = (value) => '"' + String(value == null ? '' : value).replace(/"/g, '
 /** CSV de las filas visibles; protege contra formulas de hoja de calculo. @param {any} data @param {any[]} rows */
 export function csv(data, rows) {
   const head = [
-    'Recurso', 'ID Clockify', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto',
+    'Recurso', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Inicio', 'Fin',
+    'Concepto', 'Facturable', 'Cargabilidad', 'Capacidad disponible',
     'Horas facturables', 'Horas no facturables', 'Total mes',
     ...(data.dias || []),
   ];
   const safe = (/** @type {any} */ v) => (typeof v === 'string' && /^[=+\-@]/.test(v) ? "'" + v : v);
   const records = rows.map((r) => [
-    r.nombre, r.clockifyId, r.rol, r.banda, r.dm, r.idProyecto, r.proyecto,
+    r.nombre, r.rol, r.banda, r.dm || '-', r.idProyecto, r.proyecto, r.inicio, r.fin,
+    r.concepto, r.facturable, r.cargabilidad, r.capacidad,
     r.facturables, r.noFacturables, r.total,
     ...(data.dias || []).map((/** @type {string} */ d) => r.daily[d] || ''),
   ].map(safe));

@@ -58,6 +58,14 @@ def team(monkeypatch):
                 else ("", name)
             )
 
+        def dates(self, project_id):
+            # AER.001 existe en Azure/MPB pero solo tiene fecha de inicio
+            return (
+                (True, "2026-09-01", "")
+                if project_id == "AER.001"
+                else (False, "", "")
+            )
+
     monkeypatch.setattr(service, "ProjectInfo", Info)
 
 
@@ -104,6 +112,48 @@ def test_weekend_hours_count_and_rows_carry_project_and_manager(team):
     assert row["daily"] == {"2026-10-03": 1.0}
     assert (row["dm"], row["proyecto"]) == ("Dora DM", "Proyecto AER.001")
     assert len(data["dias"]) == 31
+
+
+def test_concept_and_rules_follow_azure_ids_then_clockify_names(team):
+    entry(1, "u-ana", "Ana", "AER.001", 3600, date(2026, 10, 5))
+    entry(2, "u-ana", "Ana", "Pre-Ventas", 3600, date(2026, 10, 6), pid="v")
+    entry(3, "u-ana", "Ana", "Vacaciones", 3600, date(2026, 10, 7), pid="w")
+    entry(4, "u-ana", "Ana", "RAAS.XYZ.001", 3600, date(2026, 10, 8), pid="x")
+
+    rows = {
+        r["idProyecto"]: r
+        for r in service.build_team_capacity(object(), MONTH)["filas"]
+        if r["nombre"] == "Ana Perez"
+    }
+
+    assert rows["AER.001"]["concepto"] == "Proyecto"
+    assert rows["Pre-Ventas"]["concepto"] == "Pre-Ventas"
+    assert rows["Pre-Ventas"]["facturable"] == "Facturable"
+    assert rows["Vacaciones"]["cargabilidad"] == "No Cargable"
+    assert rows["Vacaciones"]["capacidad"] == "No Afecta Capacidad"
+    assert rows["RAAS.XYZ.001"]["concepto"] == ""  # ni Azure/MPB ni concepto
+
+
+def test_project_dates_fall_back_to_the_rows_first_and_last_record(team):
+    entry(1, "u-ana", "Ana", "AER.001", 3600, date(2026, 10, 9))
+    entry(2, "u-ana", "Ana", "AER.001", 3600, date(2026, 10, 5))
+    entry(3, "u-ana", "Ana", "NYB.001", 3600, date(2026, 10, 12), pid="n")
+    entry(4, "u-ana", "Ana", "NYB.001", 3600, date(2026, 10, 20), pid="n")
+
+    rows = {
+        r["idProyecto"]: r
+        for r in service.build_team_capacity(object(), MONTH)["filas"]
+        if r["nombre"] == "Ana Perez"
+    }
+
+    assert (rows["AER.001"]["inicio"], rows["AER.001"]["fin"]) == (
+        "2026-09-01",  # fecha del proyecto
+        "2026-10-09",  # le falta: ultimo registro de la fila
+    )
+    assert (rows["NYB.001"]["inicio"], rows["NYB.001"]["fin"]) == (
+        "2026-10-12",
+        "2026-10-20",
+    )
 
 
 def test_people_without_records_appear_with_zero_hours(team):

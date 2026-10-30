@@ -1,7 +1,7 @@
 // @ts-check
 // Capacidad del equipo: indicadores, matriz persona x proyecto y vista por persona.
 import { el, svg } from '#app/lib/dom.js';
-import { date, fmt, indicators, isWeekend, selectedPeople, selectedRows } from './model.js';
+import { date, fmt, fullDate, indicators, isWeekend, selectedPeople, selectedRows } from './model.js';
 import { renderResourceDetail } from './resource_detail.js';
 
 const paths = {
@@ -41,7 +41,7 @@ function matrix(data, st, paint) {
   st.page = Math.min(st.page, pages);
   const limit = data.diasHabiles * st.jornada;
   const total = new Map(data.personas.map((/** @type {any} */ p) => [p.nombre, p.total]));
-  const headings = ['Recurso', 'ID Clockify', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Facturables', 'No facturables', 'Total mes'];
+  const headings = ['Recurso', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Inicio', 'Fin', 'Concepto', 'Facturable', 'Cargabilidad', 'Capacidad disponible', 'Horas facturables', 'Horas no facturables', 'Total mes'];
   const header = el('tr', {}, ...headings.map((text) => el('th', { text })),
     ...data.dias.map((/** @type {string} */ d) => el('th', { class: 'ci-day-head' + (isWeekend(d) ? ' weekend' : ''), text: date(d) })));
   const body = el('tbody');
@@ -49,11 +49,15 @@ function matrix(data, st, paint) {
     const over = total.get(r.nombre) > limit;
     body.append(el('tr', {},
       el('td', {}, personButton(r.nombre, st, paint)),
-      el('td', { text: r.clockifyId || '—' }),
       el('td', {}, pill(r.rol)), el('td', {}, pill(r.banda)),
-      el('td', { text: r.idProyecto ? r.dm || 'Sin Delivery Manager confirmado' : '—' }),
+      el('td', { text: r.dm || '-' }),
       el('td', { text: r.idProyecto || '—' }),
       el('td', { text: r.proyecto || (r.idProyecto ? '—' : 'Sin registros en el mes') }),
+      el('td', { text: fullDate(r.inicio) }), el('td', { text: fullDate(r.fin) }),
+      el('td', {}, r.concepto ? pill(r.concepto) : '—'),
+      el('td', {}, r.concepto ? pill(r.facturable, r.facturable === 'Facturable' ? 'green' : 'grey') : '—'),
+      el('td', {}, r.concepto ? pill(r.cargabilidad, r.cargabilidad === 'Cargable' ? 'blue' : 'grey') : '—'),
+      el('td', {}, r.concepto ? pill(r.capacidad, r.capacidad === 'Afecta Capacidad' ? '' : 'grey') : '—'),
       el('td', { text: fmt(r.facturables) }), el('td', { text: fmt(r.noFacturables) }),
       el('td', {}, el('b', { text: fmt(r.total) })),
       ...data.dias.map((/** @type {string} */ d) => {
