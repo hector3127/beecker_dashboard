@@ -96,9 +96,7 @@ def test_secondary_pages_are_warmed_and_one_failure_does_not_stop_the_other(
 
 def test_secondary_pages_report_a_non_200_response(monkeypatch):
     monkeypatch.setattr(views, "kpi_context", lambda request: {})
-    monkeypatch.setattr(
-        views, "eva1", lambda request: HttpResponse(status=401)
-    )
+    monkeypatch.setattr(views, "eva1", lambda request: HttpResponse(status=401))
 
     assert warm_cache.warm_secondary_pages() == {
         "ok": False,

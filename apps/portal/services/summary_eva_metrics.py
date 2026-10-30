@@ -105,9 +105,7 @@ def enrich(
     data = {"rows": projected}
     if context is not None:
         projects, workspace, months = context
-        data = extract_hours(
-            data, projects, workspace, months, cut
-        )
+        data = extract_hours(data, projects, workspace, months, cut)
     for row, metric in zip(rows, projected, strict=True):
         if not azure_ok:
             metric["azure_pending"] = True

@@ -51,7 +51,6 @@ def test_eva1_and_eva2_share_the_ixb_raas_cut(client, monkeypatch):
     assert client.get(BASE + "eva-1/").status_code == 404
     second = data(client, "eva-2/")["data"]
 
-
     assert second["error"] == ""
     assert second["eva"]["total_projects"] == 1
 
