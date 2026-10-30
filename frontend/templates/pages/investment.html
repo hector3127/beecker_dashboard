@@ -1,52 +1,55 @@
 {% extends "layouts/app.html" %}
 {% load static  %}
 {% block title %}Inversión operativa y comercial{% endblock %}
-{% block body_class %}ds{% endblock %}
+{% block body_class %}ds investment-page{% endblock %}
 {% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/investment.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'app/styles/pages/investment.css' %}?v=20261030-overview">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
 {% block content %}
 {% if error %}<div class="err">No se pudo leer todo: {{ error }}</div>{% endif %}
 <div class="portal-page-toolbar crumb"><a href="{% url 'portal:operativa' %}" data-portal-back>← Regresar a Operativa</a><span class="portal-page-context">Inversión operativa y comercial</span></div>
 {% include 'partials/hero.html' with title="Inversión operativa y comercial" subtitle="Horas del equipo que no se facturan a un proyecto, por especialidad y por tipo de trabajo" tone="operations" icon="wallet" %}
 
-<div class="tabs"><a href="{% url 'portal:eva1' %}">EVA 1</a><a href="{% url 'portal:eva2' %}">EVA 2</a><a href="{% url 'portal:kpis_dm' %}">KPIs de Delivery Managers</a><a class="on" href="{% url 'portal:inversion' %}">Inversión operativa y comercial</a></div>
-<form method="get" class="mf ini-e3dd54"><label class="ini-83e448" for="mes">Mes</label><input class="ini-7d3e97" id="mes" type="month" name="mes" value="{{ month }}"><span class="ini-d77876">Horas de la base de GSE en Sheets (solo lectura).</span></form>
+<form method="get" class="inv-filter">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+<label for="mes">Mes</label><input id="mes" type="month" name="mes" value="{{ month }}">
+<span>Horas de la base de GSE en Sheets (solo lectura).</span>
+</form>
 
-
-<section class="kp">
-<div class="kc"><div class="kl">Inversión comercial</div><div class="kv">{{ investment.totals.commercial|floatformat:"0g" }} <small>horas</small></div><div class="ke">Preventa e inversión comercial</div></div>
-<div class="kc"><div class="kl">Inversión operativa</div><div class="kv">{{ investment.totals.operational|floatformat:"0g" }} <small>horas</small></div><div class="ke">Inversión de operaciones y trabajo interno</div></div>
-<div class="kc"><div class="kl">Inversión total</div><div class="kv">{{ investment.totals.total|floatformat:"0g" }} <small>horas</small></div><div class="ke">Horas de {{ investment.label|lower }} que no se facturan a un proyecto</div></div>
+<section class="kp inv-kpis">
+<div class="kc inv-kpi inv-kpi-1"><span class="inv-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 9v6l-4 2v-8z"/></svg></span><div><div class="kl">Inversión comercial</div><div class="kv">{{ investment.totals.commercial|floatformat:"0g" }} <small>horas</small></div><div class="ke">Preventa e inversión comercial</div></div></div>
+<div class="kc inv-kpi inv-kpi-2"><span class="inv-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m9 3 1-1h4l1 3 3 1 3-1 2 4-2 2v3l2 2-2 4-3-1-3 1-1 2h-4l-1-2-3-1-3 1-2-4 2-2v-3L1 9l2-4 3 1 3-1Z"/><circle cx="12" cy="12" r="3"/></svg></span><div><div class="kl">Inversión operativa</div><div class="kv">{{ investment.totals.operational|floatformat:"0g" }} <small>horas</small></div><div class="ke">Inversión de operaciones y trabajo interno</div></div></div>
+<div class="kc inv-kpi inv-kpi-3"><span class="inv-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></svg></span><div><div class="kl">Inversión total</div><div class="kv">{{ investment.totals.total|floatformat:"0g" }} <small>horas</small></div><div class="ke">Horas de {{ investment.label|lower }} que no se facturan a un proyecto</div></div></div>
 </section>
 
-<section class="two">
-<div class="card">
-<h2>Por especialidad</h2>
-<div class="hs">Horas de {{ investment.label|lower }}. GSE no trae el Delivery Manager de cada registro.</div>
+<section class="two inv-panels">
+<div class="card inv-panel">
+<header class="inv-head"><span class="inv-chip inv-chip-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c.5-3.5 3-5.5 6-5.5s5.5 2 6 5.5M16 5.3a3.2 3.2 0 010 5.8M18 14.8c2 .6 3.4 2.5 3.8 5.2"/></svg></span><div><h2>Por especialidad</h2>
+<div class="hs">Horas de {{ investment.label|lower }}. GSE no trae el Delivery Manager de cada registro.</div></div></header>
 <table>
 <thead><tr><th>Especialidad</th><th class="r">Comercial</th><th class="r">Operativa</th><th class="r">Total</th></tr></thead>
 <tbody>
 {% for r in investment.by_area %}<tr><td>{{ r.name }}</td><td class="r num">{{ r.commercial|floatformat:"0g" }} h</td><td class="r num">{{ r.operational|floatformat:"0g" }} h</td><td class="r num">{{ r.total|floatformat:"0g" }} h</td></tr>
-{% empty %}<tr><td class="ini-53c5b0" colspan="4">Sin horas de inversión en ese mes.</td></tr>{% endfor %}
+{% empty %}<tr><td class="inv-empty" colspan="4">Sin horas de inversión en ese mes.</td></tr>{% endfor %}
 </tbody>
 <tfoot><tr><td>Total</td><td class="r num">{{ investment.totals.commercial|floatformat:"0g" }} h</td><td class="r num">{{ investment.totals.operational|floatformat:"0g" }} h</td><td class="r num">{{ investment.totals.total|floatformat:"0g" }} h</td></tr></tfoot>
 </table>
 </div>
-<div class="card">
-<h2>Inversión comercial por tipo</h2>
-<div class="hs">{{ investment.totals.commercial|floatformat:"0g" }} horas en total</div>
+<div class="card inv-panel">
+<header class="inv-head"><span class="inv-chip inv-chip-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 9v6l-4 2v-8z"/></svg></span><div><h2>Inversión comercial por tipo</h2>
+<div class="hs">{{ investment.totals.commercial|floatformat:"0g" }} horas en total</div></div></header>
 {% for x in investment.commercial_by_type %}<div class="br"><span>{{ x.label }}</span><div class="tr"><i class="fill-commercial" data-width="{{ x.width }}"></i></div><b>{{ x.hours|floatformat:"0g" }} h</b></div>
-{% empty %}<div class="ini-53f9e9">Sin horas.</div>{% endfor %}<h2 class="ini-b89a77">Inversión operativa por proyecto</h2>
-<div class="hs">{{ investment.totals.operational|floatformat:"0g" }} horas en total; los de menos horas se juntan en Otros</div>
+{% empty %}<div class="inv-empty">Sin horas.</div>{% endfor %}
+<header class="inv-head inv-head-second"><span class="inv-chip inv-chip-sm inv-chip-green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m9 3 1-1h4l1 3 3 1 3-1 2 4-2 2v3l2 2-2 4-3-1-3 1-1 2h-4l-1-2-3-1-3 1-2-4 2-2v-3L1 9l2-4 3 1 3-1Z"/><circle cx="12" cy="12" r="3"/></svg></span><div><h2>Inversión operativa por proyecto</h2>
+<div class="hs">{{ investment.totals.operational|floatformat:"0g" }} horas en total; los de menos horas se juntan en Otros</div></div></header>
 {% for x in investment.operational_by_project %}<div class="br"><span>{{ x.label }}</span><div class="tr"><i class="fill-operational" data-width="{{ x.width }}"></i></div><b>{{ x.hours|floatformat:"0g" }} h</b></div>
-{% empty %}<div class="ini-53f9e9">Sin horas.</div>{% endfor %}
+{% empty %}<div class="inv-empty">Sin horas.</div>{% endfor %}
 </div>
 </section>
-<p class="note">Datos reales de la base de GSE en Sheets (solo lectura), medidos en horas. Comercial = categorías «Inversión Comercial» y «Pre-Venta»; operativa = «Inversión Operaciones» e «Internos». Se guarda 10 minutos por mes.</p>
+<p class="note inv-note"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7v1"/></svg><span>Datos reales de la base de GSE en Sheets (solo lectura), medidos en horas. Comercial = categorías «Inversión Comercial» y «Pre-Venta»; operativa = «Inversión Operaciones» e «Internos». Se guarda 10 minutos por mes.</span></p>
 
 {% endblock %}
 {% block scripts %}<script type="module" src="{% static 'app/scripts/pages/investment/main.js' %}"></script>{% endblock %}

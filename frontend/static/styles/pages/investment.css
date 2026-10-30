@@ -1,24 +1,56 @@
-/* Reglas de la pantalla anterior, sin las de la barra superior. */
-
-/* --- estilo en linea --- */
+/* Inversión operativa y comercial: mismo lenguaje visual que Business Overview. */
 th,td{text-align:left}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 td.r,th.r{text-align:right}
 .num{font-variant-numeric:tabular-nums}
-.br{display:grid;grid-template-columns:170px 1fr 70px;gap:14px;align-items:center;padding:8px 0;font-size:14px}
-.br b{text-align:right;font-variant-numeric:tabular-nums}
-.tr{position:relative;height:12px;background:#EEEAFB;border-radius:6px}
-.tr i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
 
-/* Estilos que estaban en linea. */
-.ini-e3dd54.ini-e3dd54{display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:14px;color:#3A3870}
-.ini-83e448.ini-83e448{font-weight:700}
-.ini-7d3e97.ini-7d3e97{font:inherit;border:1px solid #E1DCF3;border-radius:10px;padding:8px 12px;background:#fff}
-.ini-d77876.ini-d77876{color:#55537F}
-.ini-53c5b0.ini-53c5b0{text-align:center;color:#4A4D86;padding:18px}
-.ini-53f9e9.ini-53f9e9{color:#4A4D86;font-size:14px;padding:6px 0}
-.ds .card h2.ini-b89a77{margin-top:22px}
-.br .tr i.fill-commercial{background:#5B2FD6}
-.br .tr i.fill-operational{background:#8A6FE8}
-/* Lo que los estilos compartidos agregan y la pantalla anterior no tenia. */
-.ds td { padding: 10px; }
+/* Filtro del mes */
+.inv-filter{display:flex;align-items:center;flex-wrap:wrap;gap:10px 12px;margin:0 0 16px;padding:12px 18px;border:1px solid #e5dcff;border-radius:14px;background:#fff;box-shadow:0 3px 14px #5b36b00a;font-size:13px;color:#55537f}
+.inv-filter svg{flex:none;color:#7631ee}
+.inv-filter label{font-weight:700;color:#191150}
+.inv-filter input{min-height:40px;padding:8px 12px;border:1px solid #ded5fa;border-radius:10px;background:#faf8ff;color:#4b25c9;font:inherit;box-sizing:border-box}
+.inv-filter input:focus-visible{outline:3px solid #b9a0ef;outline-offset:2px}
+
+/* Tarjetas de totales, como las de Financiera, Operaciones y Comercial */
+.ds .inv-kpis{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-bottom:18px}
+.ds .inv-kpis .kc.inv-kpi{display:flex;align-items:center;gap:16px;padding:20px 22px;border:1px solid #e5dcff;border-radius:14px;box-shadow:0 3px 14px #5b36b00a;background:linear-gradient(115deg,#fff,#f5f0ff)}
+.ds .inv-kpis .inv-kpi-2{background:linear-gradient(115deg,#fff,#effbf7)}
+.ds .inv-kpis .inv-kpi-3{background:linear-gradient(115deg,#fff,#fcf0ff)}
+.inv-chip{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:50%;background:#f1eaff;color:#7631ee}
+.inv-chip svg{width:24px;height:24px}
+.inv-kpi-2 .inv-chip,.inv-chip-green{background:#e2f8f0;color:#05ae7d}
+.inv-kpi-3 .inv-chip{background:#ffe3ef;color:#cd2962}
+.ds .inv-kpi .kl{font-size:14px;color:#1b1455}
+.ds .inv-kpi .kv{margin:4px 0 2px;font-size:36px;color:#191150}
+.ds .inv-kpi .kv small{font-size:15px;color:#8278a8}
+.ds .inv-kpi .ke{font-size:12px;color:#8277ab}
+
+/* Paneles */
+.ds .inv-panels{gap:18px;margin-bottom:18px;align-items:start}
+.ds .inv-panel{min-width:0;padding:0 0 12px;border:1px solid #e5dcff;border-radius:14px;box-shadow:0 3px 14px #5b36b00a;overflow:hidden}
+.inv-head{display:flex;align-items:center;gap:12px;padding:16px 20px;background:linear-gradient(115deg,#fff,#f5f0ff);border-bottom:1px solid #ebe5fb}
+.inv-head-second{margin-top:18px;border-top:1px solid #ebe5fb;background:linear-gradient(115deg,#fff,#effbf7)}
+.inv-chip-sm{width:38px;height:38px;border-radius:12px}
+.inv-chip-sm svg{width:21px;height:21px}
+.ds .inv-head h2{margin:0 0 2px;font-size:19px;line-height:1.35;letter-spacing:-.02em;color:#1b1a9e}
+.ds .inv-head .hs{margin:0;font-size:12px;color:#8278a8}
+.ds .inv-panel>table{width:calc(100% - 40px);margin:12px 20px 0;border-collapse:collapse}
+.ds .inv-panel th{padding:10px;background:#f5f0ff;color:#4b3f8f;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.ds .inv-panel td{padding:10px;border-bottom:1px solid #eee8fc;font-size:13.5px;color:#211650}
+.ds .inv-panel tfoot td{border-bottom:0;background:#f5f0ff;font-weight:800;color:#191150}
+.inv-empty{padding:18px 20px;text-align:center;color:#8277ab;font-size:14px}
+td.inv-empty{text-align:center}
+
+/* Barras */
+.br{display:grid;grid-template-columns:170px 1fr 70px;gap:14px;align-items:center;padding:9px 20px;font-size:13.5px;color:#211650}
+.br b{text-align:right;font-variant-numeric:tabular-nums;color:#191150}
+.tr{position:relative;height:12px;background:#eeeafb;border-radius:6px;overflow:hidden}
+.tr i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.br .tr i.fill-commercial{background:linear-gradient(90deg,#6a35f0,#9a6bff)}
+.br .tr i.fill-operational{background:linear-gradient(90deg,#05ae7d,#47d6a8)}
+
+/* Nota de fuente, como el pie del glosario */
+.ds .inv-note{display:flex;align-items:center;gap:12px;margin:0;padding:12px 16px;border:1px solid #ebe3fc;border-radius:12px;background:linear-gradient(110deg,#faf7ff,#f5f1ff);font-size:11px;line-height:1.6;color:#8273a8}
+.inv-note svg{flex:none;color:#9277e9}
+
+@media(max-width:1000px){.ds .inv-kpis{grid-template-columns:1fr}.ds .inv-panels{grid-template-columns:1fr}}
+@media(max-width:520px){.br{grid-template-columns:110px 1fr 56px;gap:10px;padding:8px 14px}.inv-head{padding:14px}.ds .inv-panel>table{width:calc(100% - 28px);margin:10px 14px 0}}

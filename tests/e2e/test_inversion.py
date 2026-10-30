@@ -45,48 +45,37 @@ def test_month_totals_bars_and_return(portal, investment):
     expect(portal.locator("#mes")).to_have_value("2026-09")
 
 
+def test_page_has_no_tabs_and_keeps_its_own_content(portal, investment):
+    portal.goto(portal.base + PAGE)
+
+    assert portal.locator(".tabs").count() == 0
+    for name in ("EVA 1", "EVA 2", "KPIs de Delivery Managers"):
+        assert portal.get_by_role("link", name=name, exact=True).count() == 0
+    expect(portal.locator(".inv-kpi")).to_have_count(3)
+    expect(portal.locator(".inv-panel")).to_have_count(2)
+
+
 @pytest.mark.parametrize("width", [1450, 900, 390])
-def test_layout_keeps_the_approved_reference(
-    portal, investment, width, snapshot, enforced_csp
+def test_layout_fits_the_screen_without_csp_violations(
+    portal, investment, width, enforced_csp
 ):
+    problems = []
+    portal.on(
+        "console",
+        lambda m: (
+            problems.append(m.text) if "Content Security" in m.text else None
+        ),
+    )
     portal.set_viewport_size({"width": width, "height": 1000})
-    selectors = [
-        ".top",
-        ".pgh",
-        ".kp",
-        ".two",
-        ".two .card",
-        ".two h2",
-        ".two .hs",
-        ".two th",
-        ".two td",
-        ".note",
-    ]
+    portal.goto(portal.base + PAGE)
 
-    def measure():
-        return portal.evaluate(
-            """selectors => selectors.map(selector =>
-              [...document.querySelectorAll(selector)].map(el => {
-                const box = el.getBoundingClientRect();
-                const css = getComputedStyle(el);
-                return {
-                  box: ['x', 'y', 'width', 'height'].map(k =>
-                    Math.round(box[k] * 10) / 10),
-                  styles: ['fontSize', 'lineHeight', 'paddingTop',
-                    'paddingBottom', 'marginTop', 'marginBottom']
-                    .map(k => css[k])
-                };
-              }))""",
-            selectors,
-        )
-
+    expect(portal.locator(".inv-kpi").first).to_be_visible()
+    assert portal.evaluate(
+        "document.documentElement.scrollWidth <= innerWidth + 1"
+    )
+    assert not problems, problems
     output = Path(f"tmp/migration/investment/{width}")
     output.mkdir(parents=True, exist_ok=True)
-    portal.goto(portal.base + PAGE)
-    current = measure()
-    snapshot(
-        f"investment_layout_{width}", dict(zip(selectors, current, strict=True))
-    )
     portal.screenshot(path=str(output / "current.png"), full_page=True)
 
 
