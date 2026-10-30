@@ -1,13 +1,11 @@
 """IA: vista, formularios y acciones modulares con proveedores simulados."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_ixs_ai_sources import (
-    capture_state,
     enter,
 )
 from tests.e2e.test_ixs_ai_sources import (
@@ -164,60 +162,6 @@ def open_modal(page, kind):
     page.get_by_role("button", name=label, exact=True).first.click()
     expect(page.locator("#ixai-modal")).to_be_visible()
     page.wait_for_load_state("networkidle")
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_rich_view_matches_previous(portal, actions, fixed_day, width):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = Path("tmp/migration/project_detail/ixs_ai_full") / str(width)
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.mouse.move(0, 0)
-        states.append(
-            capture_state(portal, "#ixs-tab-contenido, #ixs-tab-contenido *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    expect(
-        portal.locator(
-            ".ixai [onclick], .ixai [oninput], "
-            ".ixai [onsubmit], .ixai [onchange]"
-        )
-    ).to_have_count(0)
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize(
-    "kind",
-    [
-        "evidence",
-        "minute",
-        "create",
-        "report",
-        "communique",
-        "action",
-        "folder",
-        "transcripts",
-        "document",
-    ],
-)
-def test_modals_match_previous(portal, actions, fixed_day, width, kind):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        open_modal(portal, kind)
-        portal.mouse.move(0, 0)
-        states.append(capture_state(portal, "#ixai-modal, #ixai-modal *"))
-    assert states[0] == states[1]
-    expect(
-        portal.locator("#ixai-modal [onclick], #ixai-modal [onsubmit]")
-    ).to_have_count(0)
 
 
 def test_analyze_question_memory_and_draft(portal, actions, fixed_day):

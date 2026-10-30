@@ -198,23 +198,6 @@ def filtered(portal):
     expect(portal.locator("#ixs-raid-tabla tbody tr")).to_have_count(1)
 
 
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize(
-    ("name", "step"),
-    [
-        ("page", nothing),
-        ("risk", detail(11)),
-        ("issue", detail(13)),
-        ("opportunity", detail(14)),
-        ("other", detail(15)),
-        ("filtered", filtered),
-    ],
-)
-def test_tab_matches_previous(portal, raid, fixed_day, width, name, step):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    compare(portal, step, width, name)
-
-
 def test_reads_by_api_and_sync_forces_the_source(portal, raid, fixed_day):
     calls, _ = raid
     requests = []

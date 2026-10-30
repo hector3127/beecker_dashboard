@@ -100,46 +100,6 @@ def edit(portal, name):
     ).get_by_role("button", name="Editar", exact=True).click()
 
 
-@pytest.mark.parametrize(
-    "variant", ["full", "empty", "assignment_error", "clockify_error"]
-)
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_content_matches_previous(portal, resources, fixed_day, variant, width):
-    data, result, records, _, _ = resources
-    if variant == "empty":
-        data["filasRecursosCompleto"] = []
-        result["filas"] = []
-        records["registros"] = []
-    elif variant == "assignment_error":
-        result.update({"ok": False, "error": "Asignaciones no disponibles"})
-    elif variant == "clockify_error":
-        records.update({"ok": False, "error": "Sin registros de Clockify"})
-    portal.set_viewport_size({"width": width, "height": 1000})
-    compare(portal, f"{variant}/{width}", "#ixs-tab-contenido *")
-    expect(portal.locator("#ixs-tab-contenido")).to_have_attribute(
-        "data-renderer", "modular-resources"
-    )
-    assert portal.locator("#ixs-tab-contenido [onclick]").count() == 0
-
-
-@pytest.mark.parametrize("kind", ["add", "edit", "assign"])
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_editor_matches_previous(portal, resources, fixed_day, kind, width):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    compare(
-        portal,
-        f"{kind}/{width}",
-        "#ixs-recurso-modal, #ixs-recurso-modal *",
-        kind,
-    )
-    assert (
-        portal.locator(
-            "#ixs-recurso-modal [onclick], #ixs-recurso-modal [onsubmit]"
-        ).count()
-        == 0
-    )
-
-
 def compare(portal, name, selector, modal=None):
     out = Path("tmp/migration/project_detail/ixs_resources") / name
     out.mkdir(parents=True, exist_ok=True)
@@ -258,52 +218,6 @@ def test_read_error_retries_when_returning(portal, resources, fixed_day):
     expect(
         portal.locator("tbody tr").filter(has_text="Ana Pérez")
     ).to_contain_text("160 h")
-
-
-@pytest.mark.parametrize("width", [1450, 390])
-def test_loading_matches_previous(portal, resources, fixed_day, width):
-    _, _, records, _, _ = resources
-    portal.set_viewport_size({"width": width, "height": 1000})
-    snapshots = []
-    out = Path(f"tmp/migration/project_detail/ixs_resources/loading/{width}")
-    out.mkdir(parents=True, exist_ok=True)
-
-    def capture_into(routes):
-        return lambda route: routes.append(route)
-
-    for previous, label in ((True, "previous"), (False, "current")):
-        held = []
-        portal.goto(
-            portal.base + PAGE + ("?vista=anterior" if previous else "")
-        )
-        portal.wait_for_load_state("networkidle")
-        pattern = (
-            "**/api/rpc/getRegistrosClockifyProyecto/"
-            if previous
-            else "**/screens/proyectos/AMK.008/registros/"
-        )
-
-        hold = capture_into(held)
-
-        portal.route(pattern, hold)
-        with portal.expect_request(pattern):
-            portal.locator(".ixs-nav").get_by_role(
-                "button", name="Recursos", exact=True
-            ).click()
-        expect(portal.locator("#ixs-tab-contenido")).to_contain_text(
-            "Consultando asignaciones y Clockify…"
-        )
-        snapshots.append(capture_state(portal, "#ixs-tab-contenido *"))
-        portal.screenshot(path=str(out / (label + ".png")), full_page=True)
-        assert len(held) == 1
-        held[0].fulfill(
-            json={"ok": True, "result": records}
-            if previous
-            else {"data": records, "meta": {}}
-        )
-        portal.wait_for_load_state("networkidle")
-        portal.unroute(pattern, hold)
-    assert snapshots[0] == snapshots[1]
 
 
 @pytest.mark.parametrize("failure", ["network", "forbidden"])

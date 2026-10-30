@@ -55,48 +55,6 @@ def groups(planning):
     return azure
 
 
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["full", "empty", "notice"])
-def test_groups_match_previous(portal, groups, fixed_day, width, variant):
-    if variant == "empty":
-        groups["allItems"] = []
-    if variant == "notice":
-        groups["aviso"] = "Datos del último corte disponible"
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/ixs_azure_groups")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    states = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.wait_for_load_state("networkidle")
-        if variant != "empty":
-            portal.locator(".ixs-az85-person > summary").first.click()
-            portal.wait_for_function(
-                "getComputedStyle(document.querySelector("
-                "'.ixs-az85-person[open] .ixs-az85-chev')).transform "
-                "=== 'matrix(0, 1, -1, 0, 0, 0)'"
-            )
-        portal.mouse.move(0, 0)
-        states.append(capture_state(portal, GROUPS))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    (directory / "states.json").write_text(json.dumps(states), encoding="utf-8")
-    assert states[0] == states[1]
-    assert (
-        portal.locator(
-            "#ixs-az84-person [onclick], #ixs-az84-person [oninput], "
-            "#ixs-az84-stage [onclick]"
-        ).count()
-        == 0
-    )
-
-
 def open_drawer(portal, mode):
     if mode == "iteration":
         person = portal.locator(".ixs-az85-person").first

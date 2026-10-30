@@ -1,58 +1,13 @@
 """Inicialización, estado conservado y presentación de errores del proyecto."""
 
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 from tests.e2e.test_project_tabs import enter
 
 pytestmark = pytest.mark.django_db(transaction=True)
-
-
-@pytest.mark.parametrize("scenario", ["aer_error", "ixs_error", "aer_outdated"])
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_session_messages_match_previous(
-    portal, project_detail, fixed_day, scenario, width
-):
-    data = project_detail[0 if scenario == "ixs_error" else 1]
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/session") / scenario / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    states = []
-    for previous in [True, False]:
-        enter(portal, data, previous)
-        portal.evaluate(
-            """scenario => {
-          if(scenario==='aer_error')
-            renderDashboardAERTYMProyecto({ok:false,error:'Error de prueba'});
-          else if(scenario==='ixs_error')
-            renderDashboardIXBSaaSRaaS({errorServidor:'Error de prueba'});
-          else {
-            const data={...aerDashboardData,backendVersion:null,plan:null};
-            renderDashboardAERTYMProyecto(data);
-          }
-        }""",
-            scenario,
-        )
-        portal.mouse.move(0, 0)
-        selector = (
-            "#dashboard-proyecto-detalle .aer-callout.red"
-            if scenario == "aer_outdated"
-            else "#dashboard-proyecto-detalle"
-        )
-        expect(portal.locator(selector)).to_be_visible()
-        states.append(state(portal, selector + ", " + selector + " *"))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
 
 
 @pytest.mark.parametrize("family", ["aer", "ixs"])

@@ -1,13 +1,11 @@
 """Azure transitorio: API y cargas nuevas, misma presentación anterior."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import PAGE
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_planning_transport import planning as planning
@@ -32,47 +30,6 @@ def tab(portal, name):
 
 def capture_routes(routes):
     return lambda route: routes.append(route)
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["full", "empty", "source-error"])
-def test_layout_and_controls_match_previous(
-    portal, planning, fixed_day, width, variant
-):
-    _, azure, _, _ = planning
-    if variant == "empty":
-        azure.update(items=[], allItems=[])
-    elif variant == "source-error":
-        azure.update(ok=False, error="Sin conexión a Azure")
-    else:
-        azure["stale"] = [
-            {
-                **azure["items"][0],
-                "diasSinActualizar": 12,
-                "ultimoSeguimiento": "2026-10-01",
-            }
-        ]
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_azure_transport")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.wait_for_load_state("networkidle")
-        portal.locator("#ixs-azure-wi-collapse > summary").click()
-        portal.mouse.move(0, 0)
-        states.append(
-            capture_state(portal, "#ixs-tab-contenido, #ixs-tab-contenido *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
 
 
 def test_api_initial_refresh_filters_and_drawer(
@@ -112,34 +69,6 @@ def test_api_initial_refresh_filters_and_drawer(
     expect(portal.locator(".ixs-az84-drawer")).to_be_visible()
     portal.get_by_role("button", name="Cerrar", exact=True).click()
     expect(portal.locator(".ixs-az84-drawer")).to_have_count(0)
-
-
-def test_loading_matches_previous(portal, planning, fixed_day):
-    states = []
-    for previous in [True, False]:
-        held = []
-        path = "**/api/rpc/obtenerPanelAzureProyectoIXS/" if previous else API
-
-        hold = capture_routes(held)
-        portal.route(path, hold)
-        enter(portal, previous)
-        expect(portal.locator("#ixs-azure-stale")).to_have_text(
-            "Cargando Azure DevOps…"
-        )
-        portal.mouse.move(0, 0)
-        states.append(
-            capture_state(portal, "#ixs-tab-contenido, #ixs-tab-contenido *")
-        )
-        assert len(held) == 1
-        result = {"ok": True, "items": [], "allItems": []}
-        held[0].fulfill(
-            json={"ok": True, "result": result}
-            if previous
-            else {"data": result, "meta": {}}
-        )
-        portal.wait_for_load_state("networkidle")
-        portal.unroute(path, hold)
-    assert states[0] == states[1]
 
 
 @pytest.mark.parametrize("ok", [True, False])

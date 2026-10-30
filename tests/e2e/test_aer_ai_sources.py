@@ -1,13 +1,11 @@
 """IA AER parcial: cargas por API, modelo separado y CSS externo idéntico."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -74,58 +72,6 @@ def enter(page, previous=False):
         "!aerIAState.buscando"
     )
     expect(page.locator(".aeri")).to_be_visible()
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["empty", "saved", "drive"])
-def test_sources_and_styles_match_previous(
-    portal, ia, fixed_day, width, variant
-):
-    _, responses, calls = ia
-    if variant == "empty":
-        responses["minutas"]["filas"] = []
-    if variant == "saved":
-        responses["analisis"]["resultado"] = {
-            "analisis": {
-                "resumen": ["Proyecto bajo seguimiento"],
-                "recomendaciones": [],
-                "riesgos": [],
-                "preguntas": [],
-            },
-            "guardadoEn": "2026-10-22 14:30",
-            "zonaHoraria": "America/Mexico_City",
-        }
-    if variant == "drive":
-        responses["config"]["config"] = {
-            "folderUrl": "https://drive.google.com/drive/folders/demo",
-            "nombreFrecuente": "Reunión",
-            "nombreBusqueda": "ACME",
-        }
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/aer_ai_sources")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    snapshots = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.mouse.move(0, 0)
-        snapshots.append(state(portal, ".aeri, .aeri *"))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert snapshots[0] == snapshots[1]
-    assert {x[0] for x in calls} == {
-        "analisis",
-        "resumen",
-        "minutas",
-        "config",
-    } | ({"archivos"} if variant == "drive" else set())
-    assert portal.locator("link#aer-ia-styles-v55").count() == 1
-    assert portal.locator("style#aer-ia-styles-v55").count() == 0
 
 
 def test_sources_use_api_without_generation_and_reuse_cache(

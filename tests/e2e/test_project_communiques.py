@@ -1,13 +1,10 @@
 """Comunicados del proyecto: cuatro tipos en IXB, dos en AER, mismo diseño."""
 
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import PAGE as AER_PAGE
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_planning_transport import open_planning
 from tests.e2e.test_ixs_planning_transport import planning as planning
@@ -81,49 +78,6 @@ def open_modal(portal, previous=False):
     expect(portal.locator(".ixe-dialog")).to_be_visible()
     expect(portal.locator(".ixe-thread")).to_have_count(1)
     portal.locator(".ixe-thread input").check()
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_extension_matches_previous(portal, planning, gmail, fixed_day, width):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = Path("tmp/migration/project_detail/communique") / str(width)
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_modal(portal, previous)
-        # Los botones de tipo son nuevos y el logo anterior ya no está.
-        portal.evaluate(
-            "document.querySelectorAll('.ixe-kinds, .ixe-brand')"
-            ".forEach(n => n.remove())"
-        )
-        selector = ".ixe-dialog, .ixe-dialog *"
-        states.append(
-            [
-                {**s, "cls": c}
-                for s, c in zip(
-                    capture_state(portal, selector),
-                    portal.evaluate(
-                        "s=>[...document.querySelectorAll(s)].map(e=>String(e.getAttribute('class')||'').trim())",
-                        selector,
-                    ),
-                    strict=True,
-                )
-            ]
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png"))
-        )
-    diffs = [
-        (
-            i,
-            a["tag"],
-            a["cls"],
-            {k: (a[k], b[k]) for k in a if k != "cls" and a[k] != b[k]},
-        )
-        for i, (a, b) in enumerate(zip(*states, strict=False))
-        if a != b
-    ]
-    assert len(states[0]) == len(states[1]) and not diffs, diffs[:5]
 
 
 def test_ixb_has_four_buttons_and_each_changes_the_template(

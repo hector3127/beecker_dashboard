@@ -7,7 +7,6 @@ from playwright.sync_api import expect
 
 from tests.e2e.test_aer_ai_sources import enter
 from tests.e2e.test_aer_ai_sources import ia as ia
-from tests.e2e.test_aer_ai_view import compare
 from tests.e2e.test_aer_ai_view import rich as rich
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
@@ -347,58 +346,3 @@ def test_late_default_prompt_does_not_overwrite_new_config(
         "Nuevo borrador de prompt"
     )
     assert portal.evaluate("aerIAState.cargandoPromptDefecto") is False
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize(
-    "variant", ["analysis", "question", "chat", "mail", "draft", "config-error"]
-)
-def test_generated_results_match_previous(
-    portal, actions, fixed_day, width, variant
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-
-    def prepare(page):
-        if variant == "analysis":
-            click(page, "aeri-analyze")
-            expect(page.locator(".aeri-point").first).to_contain_text(
-                "Análisis nuevo"
-            )
-        elif variant in {"question", "chat"}:
-            page.locator("#aeri-question").fill(
-                "Resume el proyecto para comité"
-                if variant == "chat"
-                else "¿Cómo va el proyecto?"
-            )
-            click(page, "aeri-ask")
-            expect(page.locator("#aeri-response")).to_contain_text(
-                "Texto completo" if variant == "chat" else "Respuesta <segura>"
-            )
-        elif variant == "mail":
-            page.evaluate("aerIACorreo()")
-            page.locator("#aeri-mail-in").fill("Seguimiento del proyecto")
-            click(page, "aeri-mail-btn")
-            expect(page.locator("#aeri-mail-out")).to_contain_text(
-                "Borrador del correo"
-            )
-        elif variant == "draft":
-            page.evaluate("aerIAAbrirMinuta()")
-            page.locator("#aeri-minute-notes").fill(
-                "Apuntes reales para la reunión de seguimiento"
-            )
-            click(page, "aeri-minute-generate")
-            expect(page.locator("#aeri-minute-text")).to_be_visible()
-        else:
-            page.evaluate("aerIAAbrirConfigMinutas()")
-            page.locator("#aeri-folder-url").fill("")
-            click(page, "aeri-folder-save")
-            expect(page.locator("#aeri-config-status")).to_contain_text(
-                "Completa los tres campos"
-            )
-
-    selector = (
-        "#aer-modal-back, #aer-modal-back *"
-        if variant in {"mail", "draft", "config-error"}
-        else ".aeri, .aeri *"
-    )
-    compare(portal, f"actions/{variant}/{width}", selector, prepare)

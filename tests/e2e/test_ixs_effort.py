@@ -116,40 +116,6 @@ def state(portal, selector):
     )
 
 
-@pytest.mark.parametrize("variant", ["full", "empty", "attention"])
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_all_elements_match_previous(portal, effort, fixed_day, variant, width):
-    data, result, _ = effort
-    if variant == "empty":
-        data.clear()
-        data.update({"proyecto": {"id": "AMK.008"}})
-        result["registros"] = []
-    elif variant == "attention":
-        data["totalesRecursos"].update(
-            {"horasEstimadas": 10, "horasReales": 30, "horasNoFact": 50}
-        )
-        data["kpisExtra"]["horasFueraHorario"] = 2.25
-    portal.set_viewport_size({"width": width, "height": 1000})
-    compare(portal, f"{variant}/{width}", "#ixs-tab-contenido *")
-    expect(portal.locator("#ixs-tab-contenido")).to_have_attribute(
-        "data-renderer", "modular-effort"
-    )
-    assert portal.locator("#ixs-tab-contenido [onclick]").count() == 0
-
-
-@pytest.mark.parametrize("kind", ["activity", "records", "excess"])
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_modals_match_previous(portal, effort, fixed_day, kind, width):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    selector = {
-        "activity": "#ixs-actividad-modal",
-        "records": "#ixs-clockify-modal",
-        "excess": "#ixs-excess-modal",
-    }[kind]
-    compare(portal, f"{kind}/{width}", selector + ", " + selector + " *", kind)
-    assert portal.locator(selector + " [onclick]").count() == 0
-
-
 def compare(portal, name, selector, modal=None):
     out = Path("tmp/migration/project_detail/ixs_effort") / name
     out.mkdir(parents=True, exist_ok=True)

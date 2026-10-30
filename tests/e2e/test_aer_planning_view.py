@@ -1,7 +1,5 @@
 """Planeación AER: vista modular, calendario, tablas y controles existentes."""
 
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
@@ -11,97 +9,8 @@ from tests.e2e.test_aer_planning_transport import planning as planning
 from tests.e2e.test_aer_planning_transport import (
     project_detail as project_detail,
 )
-from tests.e2e.test_ixs_effort import state
 
 pytestmark = pytest.mark.django_db(transaction=True)
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["attention", "range", "filters"])
-def test_variants_match_previous(portal, planning, fixed_day, width, variant):
-    data, _, _ = planning
-    if variant == "attention":
-        data["plan"]["filas"].extend(
-            [
-                {
-                    "uid": "extra",
-                    "tipo": "Actividad",
-                    "actividad": "Entrega hoy",
-                    "responsable": "Ana",
-                    "esfuerzo": 6,
-                    "inicioPlan": "2026-10-01",
-                    "finPlan": "2026-10-23",
-                    "estado": "En progreso",
-                    "dependencia": " Accesos ",
-                    "estadoDependencia": "Detenida",
-                },
-                {
-                    "uid": "hito",
-                    "tipo": "Hito",
-                    "actividad": "Validar",
-                    "responsable": "Beto",
-                    "finPlan": "2026-10-24",
-                    "estado": "Por validar",
-                },
-                {
-                    "uid": "soon",
-                    "tipo": "Actividad",
-                    "actividad": "Próxima",
-                    "responsable": "Carlos",
-                    "finPlan": "2026-10-25",
-                    "estado": "En progreso",
-                },
-            ]
-        )
-        data["vacaciones"]["filas"] = [
-            {
-                "uid": "v1",
-                "recurso": "Ana",
-                "inicio": "2026-10-26",
-                "fin": "2026-10-30",
-                "dias": 5,
-                "estado": "Aprobada",
-                "comentarios": "Revisar",
-                "registradoPor": "Beto",
-            }
-        ]
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/aer_planning_view")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    snapshots = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        if variant == "range":
-            portal.evaluate(
-                "aerCambiarRangoPlan('desde','2026-11');aerCambiarRangoPlan('hasta','2026-08')"
-            )
-        if variant == "filters":
-            portal.evaluate(
-                "aerPlanTableFilters={...aerPlanTableFilters,estado:'Completado',actividad:'Diseño'};_aerRenderTab()"
-            )
-            expect(portal.locator("#aer-plan-filter-count")).to_have_text(
-                "1 de 7"
-            )
-        portal.mouse.move(0, 0)
-        snapshots.append(
-            state(portal, ".aer-plan-dashboard, .aer-plan-dashboard *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert snapshots[0] == snapshots[1]
-    assert (
-        portal.locator(
-            ".aer-plan-dashboard [onclick], .aer-plan-dashboard [onchange], "
-            ".aer-plan-dashboard [oninput]"
-        ).count()
-        == 0
-    )
 
 
 def test_view_does_not_call_old_renderers(portal, planning, fixed_day):

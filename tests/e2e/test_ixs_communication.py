@@ -1,7 +1,6 @@
 """Centro de Comunicación: API v1, mismo diseño y publicación."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
@@ -180,42 +179,6 @@ def edit_form(portal):
     detail(portal)
     portal.get_by_role("button", name="Editar comunicado").click()
     expect(portal.locator("#bee-com-modal form")).to_be_visible()
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize(
-    "step", [nothing, by_type, search, oldest, detail, new_form, edit_form]
-)
-def test_tab_matches_previous(portal, board, fixed_day, width, step):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_communication")
-        / step.__name__
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_tab(portal, previous)
-        step(portal)
-        portal.mouse.move(0, 0)
-        portal.wait_for_timeout(300)
-        states.append(snapshot(portal))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    diffs = [
-        (
-            i,
-            a["tag"],
-            a["cls"],
-            {k: (a[k], b[k]) for k in a if k != "cls" and a[k] != b[k]},
-        )
-        for i, (a, b) in enumerate(zip(*states, strict=False))
-        if a != b
-    ]
-    assert len(states[0]) == len(states[1]) and not diffs, diffs[:5]
 
 
 def test_reads_by_api_and_hides_other_projects(portal, board, fixed_day):

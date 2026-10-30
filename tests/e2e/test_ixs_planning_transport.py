@@ -1,13 +1,11 @@
 """Planeación parcial: API sin cambiar su presentación ni controladores."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
@@ -117,33 +115,6 @@ def open_planning(portal, previous=False):
     ).click()
     expect(portal.locator("#ixs-plan-vacaciones")).to_contain_text("Ana Pérez")
     portal.wait_for_load_state("networkidle")
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("editor", [False, True])
-def test_same_layout_and_editor(portal, planning, fixed_day, width, editor):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = Path(
-        "tmp/migration/project_detail/ixs_planning_transport"
-    ) / str(width)
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_planning(portal, previous)
-        if editor:
-            portal.get_by_role(
-                "button", name="+ Registrar vacaciones", exact=True
-            ).click()
-        selector = "#ixs-plan-modal" if editor else "#ixs-tab-contenido"
-        states.append(capture_state(portal, selector + ", " + selector + " *"))
-        filename = ("editor" if editor else "page") + (
-            "-old.png" if previous else "-new.png"
-        )
-        portal.screenshot(
-            path=str(directory / filename),
-            full_page=True,
-        )
-    assert states[0] == states[1]
 
 
 def test_reads_and_vacation_save_edit_delete_use_api(

@@ -1,13 +1,11 @@
 """Guardado y comentarios de Planeación: API, diseño previo y ciclo de vida."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_planning_transport import open_planning
 from tests.e2e.test_ixs_planning_transport import planning as planning
@@ -95,53 +93,6 @@ def send(portal):
     portal.locator("#wi-row-101 .ixs-azure-comment button").evaluate(
         "button=>button.click()"
     )
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("action", ["dev", "qa", "date", "comment"])
-def test_saved_result_matches_previous(
-    portal, writes, fixed_day, width, action
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_work_items")
-        / action
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_planning(portal, previous)
-        if action == "dev":
-            update(portal, 5, "62.5")
-        elif action == "qa":
-            update(portal, 6, True)
-        elif action == "date":
-            update(portal, 7, "2026-10-29")
-        else:
-            draft(portal, "  Validación cliente  ")
-            send(portal)
-        if action == "comment":
-            expect(portal.locator("#wi-comentario-status-101")).to_have_text(
-                "✓ Publicado en Azure DevOps"
-            )
-            selector = "#wi-row-101, #wi-row-101 *"
-        elif action == "date":
-            expect(portal.locator("#ixs-plan-attention")).to_contain_text(
-                "0 trabajos vencidos"
-            )
-            selector = "#ixs-tab-contenido, #ixs-tab-contenido *"
-        else:
-            expect(portal.locator("#wi-avance-101")).to_contain_text(
-                "50%" if action == "dev" else "20%"
-            )
-            selector = "#wi-row-101, #wi-row-101 *"
-        states.append(capture_state(portal, selector))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
 
 
 def test_all_fields_and_comment_use_api_with_csrf(portal, writes, fixed_day):

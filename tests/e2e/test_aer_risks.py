@@ -1,13 +1,11 @@
 """Riesgos AER: paridad visual, CRUD, acciones reutilizadas y texto seguro."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -46,85 +44,6 @@ def enter(page, previous=False):
         "button", name="Riesgos", exact=True
     ).click()
     expect(page.locator(".aer-risk-kpis")).to_be_visible()
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["full", "empty", "duplicates"])
-def test_view_matches_previous(portal, risks, fixed_day, width, variant):
-    data, _, _ = risks
-    if variant == "empty":
-        data["riesgos"] = {}
-        data["acciones"] = {}
-        data["kpis"] = {}
-        data["alertas"] = []
-    elif variant == "duplicates":
-        first = data["riesgos"]["activos"][0]
-        data["riesgos"]["activos"].extend(
-            [
-                {**first, "uid": "duplicate", "notas": "Información adicional"},
-                {
-                    **first,
-                    "uid": "different",
-                    "responsable": "Otra persona",
-                    "fechaLimite": "2026-11-01",
-                },
-                {
-                    "uid": "low",
-                    "riesgo": "Bajo",
-                    "impacto": "Bajo",
-                    "probabilidad": "Baja",
-                    "estado": "En mitigación",
-                },
-                {"uid": "closed", "riesgo": "Cerrado", "estado": "Cerrado"},
-            ]
-        )
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/aer_risks") / variant / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    states = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.mouse.move(0, 0)
-        states.append(state(portal, ".aer-vivid-grid, .aer-vivid-grid *"))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    assert portal.locator(".aer-vivid-grid [onclick]").count() == 0
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("uid", ["", "r1", "r4"])
-def test_editor_matches_previous(portal, risks, fixed_day, width, uid):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/aer_risks/editor")
-        / (uid or "new")
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    states = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.evaluate("uid=>aerAbrirRiesgo(uid)", uid)
-        portal.mouse.move(0, 0)
-        states.append(
-            (
-                state(portal, "#aer-modal-back, #aer-modal-back *"),
-                portal.locator("#aer-modal-back").evaluate(
-                    "root=>[...root.querySelectorAll('input,textarea,select')].map(e=>({id:e.id,value:e.value}))"
-                ),
-            )
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    assert portal.locator("#aer-modal-back [onclick]").count() == 0
 
 
 def test_save_retry_and_delete_reload_use_api(portal, risks, fixed_day):

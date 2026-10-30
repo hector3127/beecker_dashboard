@@ -1,7 +1,5 @@
 """Formularios modulares de Planeación: paridad, capacidad y datos seguros."""
 
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
@@ -11,81 +9,8 @@ from tests.e2e.test_aer_planning_transport import planning as planning
 from tests.e2e.test_aer_planning_transport import (
     project_detail as project_detail,
 )
-from tests.e2e.test_ixs_effort import state
 
 pytestmark = pytest.mark.django_db(transaction=True)
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize(
-    "variant", ["overloaded", "full", "inactive", "vacation-edit"]
-)
-def test_editor_variants_match_previous(
-    portal, planning, fixed_day, width, variant
-):
-    data, _, _ = planning
-    data["vacaciones"]["filas"] = [
-        {
-            "uid": "v1",
-            "recurso": "Ana",
-            "inicio": "2026-10-26",
-            "fin": "2026-10-30",
-            "estado": "Pendiente",
-            "registradoPor": "Beto",
-            "comentarios": "Revisar",
-        }
-    ]
-    if variant == "overloaded":
-        data["plan"]["filas"].append(
-            {
-                "uid": "other",
-                "responsable": "Ana",
-                "esfuerzo": 6,
-                "tipo": "Actividad",
-                "estado": "En progreso",
-                "inicioPlan": "2026-09-01",
-                "finPlan": "2026-10-30",
-            }
-        )
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/aer_planning_forms")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    states = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.evaluate(
-            "aerAbrirVacacion('v1')"
-            if variant == "vacation-edit"
-            else "aerAbrirPlan('p2')"
-        )
-        if variant == "full":
-            portal.locator("#ap-ord").select_option("6")
-        if variant == "inactive":
-            portal.locator("#ap-est").select_option("Completado")
-        portal.mouse.move(0, 0)
-        states.append(
-            (
-                state(portal, "#aer-modal-back, #aer-modal-back *"),
-                portal.locator("#aer-modal-back").evaluate(
-                    "root=>[...root.querySelectorAll('input,textarea,select')].map(e=>({id:e.id,value:e.value,disabled:e.disabled}))"
-                ),
-            )
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    assert (
-        portal.locator(
-            "#aer-modal-back [onclick], #aer-modal-back [onchange]"
-        ).count()
-        == 0
-    )
 
 
 def test_forms_and_model_do_not_call_old_helpers(portal, planning, fixed_day):

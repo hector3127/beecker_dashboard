@@ -1,7 +1,5 @@
 """Filtros, selección y rango de Planeación AER: paridad y estado."""
 
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
@@ -11,7 +9,6 @@ from tests.e2e.test_aer_planning_transport import planning as planning
 from tests.e2e.test_aer_planning_transport import (
     project_detail as project_detail,
 )
-from tests.e2e.test_ixs_effort import state
 
 pytestmark = pytest.mark.django_db(transaction=True)
 
@@ -29,37 +26,6 @@ def open_header(page, field):
         "button"
     ).click()
     expect(page.locator("#aer-plan-filter-pop")).to_be_visible()
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize(
-    "field",
-    ["tipo", "actividad", "responsable", "compromiso", "estado", "cierre"],
-)
-def test_filter_popup_matches_previous(
-    portal, planning, fixed_day, width, field
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/aer_planning_controls")
-        / field
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    snapshots = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        open_header(portal, field)
-        portal.mouse.move(0, 0)
-        snapshots.append(
-            state(portal, "#aer-plan-filter-pop, #aer-plan-filter-pop *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert snapshots[0] == snapshots[1]
-    assert portal.locator("#aer-plan-filter-pop [onclick]").count() == 0
 
 
 def test_controls_work_without_previous_helpers(portal, planning, fixed_day):

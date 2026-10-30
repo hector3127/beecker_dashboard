@@ -1,8 +1,5 @@
 """Recomendación IA → formulario RAID modular, sin publicar automáticamente."""
 
-import json
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
@@ -13,7 +10,6 @@ from tests.e2e.test_ixs_ai_actions import planning as planning
 from tests.e2e.test_ixs_ai_sources import enter
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_raid_create import alta as alta
-from tests.e2e.test_ixs_raid_create import snapshot
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -34,37 +30,6 @@ def open_recommendation(portal, tipo):
         "() => new Promise(resolve => requestAnimationFrame(() => "
         "requestAnimationFrame(resolve)))"
     )
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("tipo", LABELS)
-def test_recommendation_form_matches_previous(
-    portal, actions, alta, fixed_day, width, tipo
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_ai_raid") / tipo / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        enter(portal, previous)
-        open_recommendation(portal, tipo)
-        portal.mouse.move(0, 0)
-        states.append(snapshot(portal))
-        (directory / ("old.json" if previous else "new.json")).write_text(
-            json.dumps(states[-1], ensure_ascii=False), encoding="utf-8"
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png"))
-        )
-    diffs = [
-        (i, {key: (a[key], b[key]) for key in a if a[key] != b[key]})
-        for i, (a, b) in enumerate(zip(*states, strict=True))
-        if a != b
-    ]
-    assert not diffs, diffs[:5]
-    assert not any(c[0] in {"create", "suggest"} for c in alta[0])
 
 
 @pytest.mark.parametrize("tipo", LABELS)

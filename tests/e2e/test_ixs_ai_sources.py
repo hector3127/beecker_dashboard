@@ -1,13 +1,11 @@
 """IA parcial: cargas por API y estilos externos, con la vista anterior."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import PAGE
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_planning_transport import planning as planning
@@ -170,69 +168,6 @@ def enter(portal, previous=False, wait=True):
     ).to_be_visible()
     if wait:
         portal.wait_for_load_state("networkidle")
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize(
-    "variant", ["full", "empty", "partial", "comparable", "incomplete"]
-)
-def test_same_view_and_external_styles(portal, ia, fixed_day, width, variant):
-    responses, _ = ia
-    if variant == "empty":
-        responses["analysis"] = {"ok": True, "analisis": None}
-        responses["minutas"]["filas"] = []
-        responses["files"]["files"] = []
-        responses["folders"].update(carpetas=[], transcripciones=[])
-    elif variant == "partial":
-        responses["clockify"] = {"ok": False, "error": "Clockify no disponible"}
-        responses["analysis"] = {"ok": False, "error": "Análisis no disponible"}
-    elif variant in {"comparable", "incomplete"}:
-        responses["memoria"]["actual"] = {
-            "fecha": "2026-10-01",
-            "analisis": {},
-            "snapshot": {
-                "fuentes": ["azure", "clockify"]
-                if variant == "comparable"
-                else [],
-                "horas": 12,
-                "workItems": [],
-                "raidIds": [],
-                "acciones": [],
-            },
-        }
-        responses["resources"]["filas"].extend(
-            [
-                {"nombre": "Sin presupuesto", "horasEstimadas": 0},
-                {"nombre": "Excedido", "horasEstimadas": 2},
-                {"nombre": "Inactivo", "activo": False, "horasEstimadas": 5},
-            ]
-        )
-        responses["clockify"]["registros"].append(
-            {"recurso": "Excedido", "duracion": 5, "fecha": "2026-10-21"}
-        )
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/ixs_ai_sources")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    states = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.mouse.move(0, 0)
-        states.append(
-            capture_state(portal, "#ixs-tab-contenido, #ixs-tab-contenido *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    for id in ["ixs-ia-styles", "ixs-ia-extended-style"]:
-        expect(portal.locator("link#" + id)).to_have_count(1)
-        expect(portal.locator("style#" + id)).to_have_count(0)
-    expect(portal.locator("#ixai-ref-styles")).to_have_count(0)
 
 
 def test_modular_panels_safe_text_and_resource_navigation(

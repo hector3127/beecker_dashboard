@@ -1,13 +1,11 @@
 """Cliente/Acciones IXS: transporte nuevo y presentación conservada."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import PAGE
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
@@ -90,38 +88,6 @@ def enter(page, tab, previous=False):
         )
     ).to_be_visible()
     page.wait_for_load_state("networkidle")
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("tab", ["Cliente", "Acciones"])
-@pytest.mark.parametrize("empty", [False, True])
-def test_unchanged_shared_view(
-    portal, client_actions, fixed_day, width, tab, empty
-):
-    data, _ = client_actions
-    if empty:
-        data["cliente"]["contactos"] = []
-        data["acciones"].update(filas=[], abiertas=[])
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_client_actions")
-        / tab
-        / ("empty" if empty else "full")
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        enter(portal, tab, previous)
-        portal.mouse.move(0, 0)
-        states.append(
-            capture_state(portal, "#ixs-tab-contenido, #ixs-tab-contenido *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
 
 
 def test_api_cache_reused_between_tabs(portal, client_actions, fixed_day):

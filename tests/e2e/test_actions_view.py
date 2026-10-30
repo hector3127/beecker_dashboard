@@ -1,7 +1,5 @@
 """Acciones modular: paridad de vista, formularios y eventos seguros."""
 
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
@@ -26,84 +24,8 @@ from tests.e2e.test_actions_transport import (
 from tests.e2e.test_actions_transport import (
     project_detail as project_detail,
 )
-from tests.e2e.test_ixs_effort import state
 
 pytestmark = pytest.mark.django_db(transaction=True)
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["empty", "attention", "progress"])
-def test_actions_variants_match(
-    portal, board, family, fixed_day, width, variant
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    for previous in [True, False]:
-        enter(portal, family, previous)
-        portal.evaluate(
-            """variant => {
-              const a = aerDashboardData.acciones;
-              if(variant === 'empty') {
-                aerDashboardData.acciones = {};
-                aerIAState.accionesPartes = [];
-              } else if(variant === 'progress') {
-                a.filas = [
-                  {...a.filas[0], uid:'b', estado:'En progreso'},
-                  {...a.filas[0], uid:'c', estado:'Completado'}
-                ];
-              } else {
-                a.filas[0].estado = 'Detenido';
-                a.filas[0].dependencia = 'Otra área';
-                a.filas[0].responsable = '';
-                a.filas[0].fechaReal = '2026-10-02';
-                a.vencidas = [...a.filas]; a.detenidas = [...a.filas];
-                a.abiertas = [];
-              }
-              _aerRenderTab();
-            }""",
-            variant,
-        )
-        portal.mouse.move(0, 0)
-        states.append(state(portal, ".aer-action-shell, .aer-action-shell *"))
-    assert states[0] == states[1]
-    assert (
-        portal.locator(
-            ".aer-action-shell [onclick], .aer-action-shell [onchange], "
-            ".aer-action-shell [oninput]"
-        ).count()
-        == 0
-    )
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("kind", ["new", "edit", "part"])
-def test_forms_match(portal, board, family, fixed_day, width, kind):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/actions_forms")
-        / family
-        / kind
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        enter(portal, family, previous)
-        portal.evaluate(
-            "aerIAAbrirNuevaAccionParte()"
-            if kind == "part"
-            else "aerAbrirAccion('a1')"
-            if kind == "edit"
-            else "aerAbrirAccion()"
-        )
-        portal.mouse.move(0, 0)
-        states.append(state(portal, "#aer-modal-back, #aer-modal-back *"))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    assert portal.locator("#aer-modal-back [onclick]").count() == 0
 
 
 def test_search_and_forms_do_not_use_old_renderers(

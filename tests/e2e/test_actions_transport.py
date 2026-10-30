@@ -1,7 +1,6 @@
 """Acciones: operaciones por API y paridad con la vista anterior."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
@@ -11,7 +10,6 @@ from tests.e2e.test_aer_executive import fixed_day as fixed_day
 from tests.e2e.test_ixs_client_actions_transport import (
     client_actions as client_actions,
 )
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import PAGE as IXS_PAGE
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
@@ -116,29 +114,6 @@ def enter(page, family, previous=False):
     ).click()
     expect(page.locator(".aer-action-shell")).to_be_visible()
     page.wait_for_load_state("networkidle")
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_model_keeps_shared_view(portal, board, family, fixed_day, width):
-    states = []
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/actions_transport")
-        / family
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        enter(portal, family, previous)
-        portal.mouse.move(0, 0)
-        states.append(
-            capture_state(portal, ".aer-action-shell, .aer-action-shell *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
 
 
 def test_save_retry_and_inline_edit_use_api(portal, board, family, fixed_day):

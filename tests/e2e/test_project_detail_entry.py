@@ -110,66 +110,6 @@ def test_initial_read_and_refresh_use_api(portal, project_detail, kind):
     )
 
 
-@pytest.mark.parametrize("kind", ["ixb", "aer"])
-@pytest.mark.parametrize("width", [1450, 390])
-def test_entry_matches_previous(portal, project_detail, kind, width):
-    executive, aer = project_detail
-    data = aer if kind == "aer" else executive
-    id = data["proyecto"]["id"]
-    portal.set_viewport_size({"width": width, "height": 1000})
-    title = ".aer-title" if kind == "aer" else ".ixs-title"
-    selectors = [
-        ".top",
-        ".project-return",
-        "#view-container",
-        ".aer-shell",
-        ".aer-head",
-        ".aer-tabs",
-        ".aer-kpi",
-        ".ixs-shell",
-        ".ixs-head",
-        ".ixs-tabs",
-        ".ixs-kpi",
-        "table",
-        "th",
-        "td",
-    ]
-
-    def state():
-        expect(portal.locator(title)).to_contain_text(id)
-        portal.wait_for_load_state("networkidle")
-        return portal.evaluate(
-            """sels => sels.map(s =>
-          [...document.querySelectorAll(s)].map(el => {
-            const r=el.getBoundingClientRect(), c=getComputedStyle(el);
-            return {box:['x','y','width','height'].map(k=>
-                Math.round(r[k]*10)/10),
-              css:['color','backgroundColor','fontSize','paddingTop',
-                'paddingBottom','marginBottom','boxSizing'].map(k=>c[k]),
-              text:el.textContent.replace(/\\s+/g,'')};
-          }))""",
-            selectors,
-        )
-
-    out = Path(f"tmp/migration/project_detail/entry/{kind}/{width}")
-    out.mkdir(parents=True, exist_ok=True)
-    portal.goto(f"{portal.base}/proyectos/{id}/?vista=anterior")
-    before = state()
-    portal.screenshot(path=str(out / "previous.png"), full_page=True)
-    portal.goto(f"{portal.base}/proyectos/{id}/")
-    after = state()
-    portal.screenshot(path=str(out / "current.png"), full_page=True)
-    differences = {
-        s: (a, b)
-        for s, a, b in zip(selectors, before, after, strict=True)
-        if a != b
-    }
-    (out / "differences.json").write_text(
-        json.dumps(differences, indent=2), encoding="utf-8"
-    )
-    assert not differences, differences
-
-
 def test_network_error_can_retry(portal, project_detail):
     count = 0
 

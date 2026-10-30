@@ -4,6 +4,17 @@ Guía para continuar la migración con cualquier agente (Codex, Claude Code…).
 
 ## Objetivo
 
+**LEER PRIMERO — cierre de la fase 11, 30/10 (instrucción del usuario):** el
+diseño nuevo (dashboards de proyecto y la interfaz) es la línea base
+aprobada; «conservar el diseño del old» ya no aplica y lo que lo pida más
+abajo está desfasado. No se congela nada del diseño anterior: se borran las
+comparaciones con el original, se conservan las pruebas funcionales y los
+JSON de Node de cálculos, y se agrega una prueba de humo del diseño nuevo.
+Pasos, qué conservar y qué no tocar: **`docs/cierre-fase-11.md`**. Pendiente
+de confirmar con el usuario: qué muestran tarjetas/tabla de KPI en C
+(cumplimiento o sobrecosto); no cambiar ese cálculo ni sus pruebas sin ello.
+Aplicar `ruff format` solo a archivos propios, nunca al repositorio entero.
+
 **Histórico KPI aprobado, 29/10:** importados enero–septiembre 2026 desde
 imagen del usuario: C original es cumplimiento, convertido a sobrecosto con
 conteos únicos compatibles con redondeo. Nueve periodos cerrados, 41 filas;

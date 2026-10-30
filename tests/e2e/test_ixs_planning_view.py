@@ -1,13 +1,11 @@
 """Planeación modular: modelos, presentación, carga y navegación."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_planning_transport import open_planning
 from tests.e2e.test_ixs_planning_transport import planning as planning
@@ -22,159 +20,6 @@ def enter(portal, previous=False):
     portal.locator(".ixs-nav").get_by_role(
         "button", name="Planeación", exact=True
     ).click()
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize(
-    "variant",
-    [
-        "empty",
-        "plan_error",
-        "azure_error",
-        "attention",
-        "markers",
-        "missing_text",
-    ],
-)
-def test_all_planning_elements_match_previous(
-    portal, planning, ixs, fixed_day, width, variant
-):
-    plan, azure, _, _ = planning
-    data, _ = ixs
-    if variant == "empty":
-        data.clear()
-        data.update({"proyecto": {"id": "AMK.008"}})
-        plan["vacaciones"] = plan["compromisos"] = []
-        azure["items"] = azure["allItems"] = []
-        ixs[1]["stages_dashboard"].update(
-            hitos=[], historialCompleto=[], suspensiones=[]
-        )
-    elif variant == "plan_error":
-        plan.update(ok=False, error="No se pudo cargar la planeación.")
-    elif variant == "azure_error":
-        azure.update(ok=False, error="Azure no disponible.")
-    elif variant == "attention":
-        plan["vacaciones"].append(
-            {
-                "uid": "cancel",
-                "recurso": "ANA PEREZ",
-                "inicio": "2026-10-26",
-                "fin": "2026-10-30",
-                "estado": "Cancelada",
-            }
-        )
-        azure["items"].append(
-            {
-                "id": 103,
-                "titulo": "Entrega próxima",
-                "asignadoA": "Luis",
-                "estado": "Blocked",
-                "fechaLimiteDev": "2026-10-26",
-                "iterationPath": "AMK\\QA",
-            }
-        )
-    elif variant == "markers":
-        data["hitosAdicionales"].append(
-            {
-                **data["hitosAdicionales"][0],
-                "tipo": "QA",
-                "observacion": "Mismo día",
-            }
-        )
-    if variant == "missing_text":
-        azure["items"][0].update(id=None, titulo=None, asignadoA=None)
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_planning_view")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.wait_for_load_state("networkidle")
-        states.append(
-            capture_state(portal, "#ixs-tab-contenido, #ixs-tab-contenido *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    expect(portal.locator("#ixs-tab-contenido")).to_have_attribute(
-        "data-renderer", "modular-planning"
-    )
-    assert (
-        portal.locator(
-            "#ixs-tab-contenido [onclick], #ixs-tab-contenido [onchange], "
-            "#ixs-tab-contenido [oninput]"
-        ).count()
-        == 0
-    )
-
-
-@pytest.mark.parametrize("width", [1450, 390])
-def test_loading_matches_previous(portal, planning, fixed_day, width):
-    plan, azure, _, _ = planning
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = Path(
-        "tmp/migration/project_detail/ixs_planning_view/loading"
-    ) / str(width)
-    directory.mkdir(parents=True, exist_ok=True)
-
-    def capture_into(routes):
-        return lambda route: routes.append(route)
-
-    for previous in [True, False]:
-        held = []
-        hold = capture_into(held)
-
-        paths = (
-            [
-                "**/api/rpc/ixsPlanLeer/",
-                "**/api/rpc/obtenerPanelAzureProyectoIXS/",
-            ]
-            if previous
-            else [
-                "**/screens/proyectos/AMK.008/planeacion/",
-                "**/screens/proyectos/AMK.008/planeacion/azure/",
-            ]
-        )
-        for path in paths:
-            portal.route(path, hold)
-        enter(portal, previous)
-        expect(portal.locator("#ixs-tab-contenido")).to_contain_text(
-            "Cargando planeación…"
-        )
-        portal.wait_for_function(
-            "ixsProyectoActual._resourceStatesLoaded === true"
-        )
-        assert len(held) == 2
-        states.append(
-            capture_state(portal, "#ixs-tab-contenido, #ixs-tab-contenido *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-        for route in held:
-            result = (
-                azure
-                if "Azure" in route.request.url
-                or "/azure/" in route.request.url
-                else plan
-            )
-            route.fulfill(
-                json={"ok": True, "result": result}
-                if previous
-                else {"data": result, "meta": {}}
-            )
-        portal.wait_for_load_state("networkidle")
-        for path in paths:
-            portal.unroute(path, hold)
-    assert states[0] == states[1]
 
 
 def test_late_reads_do_not_replace_reentered_planning(

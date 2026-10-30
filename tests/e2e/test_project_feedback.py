@@ -1,12 +1,8 @@
 """Avisos y guardado: presentación anterior, tiempos y recuperación."""
 
-from pathlib import Path
-
 import pytest
-from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 from tests.e2e.test_project_tabs import enter
 
@@ -29,50 +25,6 @@ def modal(page):
       actions.append(button);dialog.append(title,actions);back.append(dialog);
       document.body.append(back);
     }""")
-
-
-@pytest.mark.parametrize("variant", ["success", "error", "saving", "restored"])
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_feedback_matches_previous(
-    portal, project_detail, fixed_day, variant, width
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/feedback") / variant / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    snapshots = []
-    for previous in [True, False]:
-        enter(portal, project_detail[1], previous)
-        if variant in {"saving", "restored"}:
-            modal(portal)
-            portal.evaluate(
-                """variant => {
-              const saver=_aerStartSaving(_aerPrimaryModalBtn());
-              if(variant==='restored')saver.error('No se pudo guardar');
-            }""",
-                variant,
-            )
-            selector = "#aer-modal-back, #aer-modal-back *"
-            if variant == "restored":
-                expect(portal.locator("#feedback-save")).to_be_enabled()
-            else:
-                expect(portal.locator("#feedback-save")).to_be_disabled()
-        else:
-            portal.evaluate(
-                "type=>_aerToast('Mensaje de prueba',type)", variant
-            )
-            expect(portal.locator(".aer-toast.show")).to_be_visible()
-            # Let the original transition settle before comparing boxes.
-            portal.wait_for_timeout(250)
-            selector = ".aer-toast, .aer-toast *"
-        portal.mouse.move(0, 0)
-        snapshots.append(state(portal, selector))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert snapshots[0] == snapshots[1]
 
 
 @pytest.mark.parametrize("previous", [True, False])

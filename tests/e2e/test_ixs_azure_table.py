@@ -1,13 +1,10 @@
 """Tabla Azure modular: paridad, filtros, guardado y ciclo de vida."""
 
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
 from tests.e2e.test_ixs_azure_transport import enter, tab
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_planning_transport import planning as planning
 from tests.e2e.test_ixs_work_items import update
@@ -22,81 +19,6 @@ def open_table(portal, previous=False):
     portal.locator("#ixs-azure-wi-collapse > summary").click()
     expect(portal.locator("#wi-row-101")).to_be_attached()
     portal.wait_for_load_state("networkidle")
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["full", "filtered", "no-match"])
-def test_table_matches_previous(portal, writes, fixed_day, width, variant):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_azure_table")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_table(portal, previous)
-        if variant == "filtered":
-            portal.locator("#ixs-azure-filter-estado").select_option("Closed")
-        elif variant == "no-match":
-            portal.locator("#ixs-azure-filter-search").fill("inexistente")
-        portal.mouse.move(0, 0)
-        states.append(
-            capture_state(portal, "#ixs-tab-contenido, #ixs-tab-contenido *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    expect(portal.locator("#ixs-tab-contenido")).to_have_attribute(
-        "data-renderer", "modular-azure"
-    )
-    assert (
-        portal.locator(
-            "#ixs-tab-contenido [onclick], #ixs-tab-contenido [onchange], "
-            "#ixs-tab-contenido [oninput]"
-        ).count()
-        == 0
-    )
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("kind", ["dev", "qa", "date", "demo", "comment"])
-def test_saved_row_matches_previous(portal, writes, fixed_day, width, kind):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_azure_table") / kind / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_table(portal, previous)
-        if kind == "comment":
-            portal.locator("#wi-comentario-101").fill(" Validación á ")
-            portal.locator("#wi-row-101 button").click()
-            expect(portal.locator("#wi-comentario-status-101")).to_have_text(
-                "✓ Publicado en Azure DevOps"
-            )
-        else:
-            column, value = {
-                "dev": (5, "62.5"),
-                "qa": (6, True),
-                "date": (7, "2026-11-01"),
-                "demo": (8, "Demo á ' final"),
-            }[kind]
-            update(portal, column, value)
-            expect(portal.locator("#wi-avance-101")).to_contain_text(
-                "50%" if kind == "dev" else "20%" if kind == "qa" else "0%"
-            )
-        portal.mouse.move(0, 0)
-        states.append(capture_state(portal, "#wi-row-101, #wi-row-101 *"))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
 
 
 def test_filters_refresh_and_date_keep_existing_behavior(

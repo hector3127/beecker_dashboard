@@ -1,7 +1,6 @@
 """Pestaña Cliente (AER e IXS): API v1, mismo diseño y guardado."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
@@ -220,39 +219,3 @@ STEPS = [
     new_document,
     edit_document,
 ]
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("step", STEPS)
-def test_matches_previous(portal, board, width, step):
-    family, _ = board
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/client_tab")
-        / family
-        / step.__name__
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        content = open_tab(portal, family, previous)
-        step(portal)
-        portal.mouse.move(0, 0)
-        portal.wait_for_timeout(250)
-        states.append(snapshot(portal, content))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    diffs = [
-        (
-            i,
-            a["tag"],
-            a["cls"],
-            {k: (a[k], b[k]) for k in a if k != "cls" and a[k] != b[k]},
-        )
-        for i, (a, b) in enumerate(zip(*states, strict=False))
-        if a != b
-    ]
-    assert len(states[0]) == len(states[1]) and not diffs, diffs[:5]

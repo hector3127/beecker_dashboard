@@ -1,7 +1,6 @@
 """Alta RAID: API v1, mismo diseño que el anterior y reglas de publicación."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
@@ -204,42 +203,6 @@ def snapshot(portal):
         {**s, "cls": c}
         for s, c in zip(capture_state(portal, selector), classes, strict=True)
     ]
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("tipo", ["Risk", "Issue", "Opportunity"])
-@pytest.mark.parametrize("step", [initial, manual, suggested])
-def test_modal_matches_previous(portal, alta, fixed_day, width, tipo, step):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_raid_create")
-        / tipo
-        / step.__name__
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_modal(portal, tipo, previous)
-        step(portal)
-        portal.mouse.move(0, 0)
-        portal.wait_for_load_state("networkidle")
-        portal.wait_for_timeout(400)
-        states.append(snapshot(portal))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png"))
-        )
-    diffs = [
-        (
-            i,
-            a["tag"],
-            a["cls"],
-            {k: (a[k], b[k]) for k in a if k != "cls" and a[k] != b[k]},
-        )
-        for i, (a, b) in enumerate(zip(*states, strict=False))
-        if a != b
-    ]
-    assert len(states[0]) == len(states[1]) and not diffs, diffs[:5]
 
 
 def form_value(portal, key):

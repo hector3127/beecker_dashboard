@@ -1,13 +1,11 @@
 """Editores de Planeación: presentación anterior, API y respuestas tardías."""
 
-from pathlib import Path
 from urllib.parse import quote
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_planning_transport import open_planning
 from tests.e2e.test_ixs_planning_transport import planning as planning
@@ -30,50 +28,6 @@ def fields(portal):
     ).evaluate("""form => [...form.elements]
       .filter(x=>x.name).map(x=>({name:x.name,value:x.value,type:x.type,
         required:x.required,options:x.options?[...x.options].map(o=>o.value):null}))""")
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize(
-    "kind,uid,initial",
-    [
-        ("vacacion", "", ""),
-        ("vacacion", "vac/'1", ""),
-        ("compromiso", "", "Hito"),
-        ("compromiso", "hito/'1", ""),
-    ],
-)
-def test_editor_matches_previous(
-    portal, planning, fixed_day, width, kind, uid, initial
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states, values = [], []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_planning_editor")
-        / kind
-        / ("edit" if uid else "new")
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_planning(portal, previous)
-        open_editor(portal, kind, uid, initial)
-        states.append(
-            capture_state(portal, "#ixs-plan-modal, #ixs-plan-modal *")
-        )
-        values.append(fields(portal))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    assert values[0] == values[1]
-    modal = portal.locator("#ixs-plan-modal")
-    expect(modal).to_have_attribute("data-renderer", "modular-planning-editor")
-    assert modal.locator("[onclick], [onsubmit]").count() == 0
-    # The shared control normalizer leaves an empty style attribute on inputs.
-    assert modal.locator("[style]").evaluate_all(
-        "nodes=>nodes.every(x=>x.style.length===0)"
-    )
 
 
 @pytest.mark.parametrize(

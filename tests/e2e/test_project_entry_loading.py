@@ -1,59 +1,13 @@
 """Carga inicial modular: mensajes, reintento y respuestas superadas."""
 
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 from tests.e2e.test_project_tabs import enter
 
 pytestmark = pytest.mark.django_db(transaction=True)
-
-
-@pytest.mark.parametrize("scenario", ["loading", "failure", "server_error"])
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_entry_messages_match_previous(
-    portal, project_detail, fixed_day, scenario, width
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/loading") / scenario / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    states = []
-    for previous in [True, False]:
-        enter(portal, project_detail[1], previous)
-        portal.evaluate(
-            """scenario => {
-          if(scenario==='server_error') {
-            showError({message:'Fuente no disponible'}); return;
-          }
-          if(window.beeProjectData) beeProjectData.dashboard=()=>
-            scenario==='failure'?Promise.reject(Error('Fuente no disponible'))
-              :new Promise(()=>{});
-          else readProjectDashboard=(id,aer,ok,fail)=>{
-            if(scenario==='failure')fail(Error('Fuente no disponible'));
-          };
-          loadDashboard();
-        }""",
-            scenario,
-        )
-        if scenario == "failure":
-            expect(
-                portal.get_by_role("button", name="Reintentar")
-            ).to_be_visible()
-        selector = "#view-container, #view-container *"
-        portal.mouse.move(0, 0)
-        states.append(state(portal, selector))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert states[0] == states[1]
-    assert portal.locator("#view-container [onclick]").count() == 0
 
 
 @pytest.mark.parametrize("outcome", ["success", "failure"])

@@ -1,13 +1,11 @@
 """Planeación AER: transporte API conservando vista, formularios y reglas."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
 pytestmark = pytest.mark.django_db(transaction=True)
@@ -53,59 +51,6 @@ def enter(page, previous=False):
         "button", name="Planeación", exact=True
     ).click()
     expect(page.locator(".aer-plan-dashboard")).to_be_visible()
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["full", "empty"])
-def test_view_matches_previous(portal, planning, fixed_day, width, variant):
-    if variant == "empty":
-        planning[0]["plan"] = {}
-        planning[0]["vacaciones"] = {}
-    portal.set_viewport_size({"width": width, "height": 1000})
-    snapshots = []
-    directory = (
-        Path("tmp/migration/project_detail/aer_planning_transport")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.mouse.move(0, 0)
-        snapshots.append(
-            state(portal, ".aer-plan-dashboard, .aer-plan-dashboard *")
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    assert snapshots[0] == snapshots[1]
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("form", ["plan", "plan-edit", "vacation", "import"])
-def test_forms_match_previous(portal, planning, fixed_day, width, form):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    snapshots = []
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.evaluate(
-            {
-                "plan": "aerAbrirPlan()",
-                "plan-edit": "aerAbrirPlan('p2')",
-                "vacation": "aerAbrirVacacion()",
-                "import": "aerAbrirImportPlan()",
-            }[form]
-        )
-        portal.mouse.move(0, 0)
-        snapshots.append(state(portal, "#aer-modal-back, #aer-modal-back *"))
-        snapshots.append(
-            portal.locator("#aer-modal-back").evaluate(
-                "root => [...root.querySelectorAll('input,select,textarea')]"
-                ".map(e=>({id:e.id,value:e.value,disabled:e.disabled}))"
-            )
-        )
-    assert snapshots[:2] == snapshots[2:]
 
 
 def test_plan_save_retry_preserves_fields_and_capacity_rule(
