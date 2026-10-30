@@ -101,7 +101,7 @@ def datos(monkeypatch: pytest.MonkeyPatch) -> None:
             "month": month,
             "available": 96.0,
             "registered_people": 4,
-            "estimated": 100.0,
+            "people": 5,
             "consumed": 64.0,
             "billable": 64.0,
             "base": 160.0,

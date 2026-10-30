@@ -180,6 +180,7 @@ def _investment(investment: Any) -> dict[str, Any]:
 
 _CAPACITY_FIELDS = (
     "month",
+    "people",
     "registered_people",
     "available",
     "estimated",

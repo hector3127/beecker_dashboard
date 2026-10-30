@@ -19,6 +19,7 @@ from apps.portal.services.operational_sources import (
     tagged_investment,
 )
 from apps.portal.services.portfolio_summary import summarize_portfolio
+from core.exceptions import SheetsError
 from core.time_entries.models import TimeEntry
 
 
@@ -186,30 +187,38 @@ def test_tagged_hours_are_deduplicated():
         }
 
 
-def test_daily_capacity_excess_does_not_reduce_another_days_capacity():
+def test_capacity_card_maps_the_team_summary():
     cache.clear()
-    with (
-        patch(
-            "apps.portal.services.operational_sources.get_capacity_base",
-            return_value={
-                "ok": True,
-                "filas": [
-                    {
-                        "recurso": "Test",
-                        "idProyecto": "X",
-                        "regla": {"afecta": True, "facturable": "Facturable"},
-                    }
-                ],
-            },
-        ),
-        patch(
-            "apps.portal.services.operational_sources.get_capacity_project_data",
-            return_value={"ok": True, "daily": {"test": {"2026-10-01": 10}}},
-        ),
+    team = {
+        "diasHabiles": 22,
+        "resumen": {
+            "personas": 68,
+            "conHoras": 52,
+            "sobreJornada": 14,
+            "base": 11968.0,
+            "registradas": 8925.06,
+            "facturables": 7800.0,
+            "saldo": 3042.94,
+        },
+    }
+    with patch(
+        "apps.portal.services.operational_sources.build_team_capacity",
+        return_value=team,
     ):
         value = legacy_capacity("2026-10")
-        assert value["billable"] == 10 and value["over"] == 1
-        assert value["available"] == value["base"] - 8
+
+    assert value == {
+        "month": "2026-10",
+        "people": 68,
+        "registered_people": 52,
+        "days": 22,
+        "base": 11968.0,
+        "consumed": 8925.06,
+        "billable": 7800.0,
+        "available": 3042.94,
+        "over": 14,
+        "pending": 0,
+    }
 
 
 def test_clockify_mpb_dates_use_full_eva_layout():
@@ -249,39 +258,15 @@ def test_clockify_mpb_dates_use_full_eva_layout():
     assert result.end_date == date(2026, 10, 6)
 
 
-def test_capacity_estimates_only_resources_with_records():
+def test_capacity_card_reports_unreadable_sources():
     cache.clear()
-    base = {
-        "ok": True,
-        "filas": [
-            {
-                "recurso": "Recorded",
-                "idProyecto": "X",
-                "horasEstimadas": 40,
-                "regla": {"afecta": True, "facturable": "Facturable"},
-            },
-            {
-                "recurso": "No records",
-                "idProyecto": "X",
-                "horasEstimadas": 100,
-                "regla": {"afecta": True, "facturable": "Facturable"},
-            },
-        ],
-    }
-    with (
-        patch(
-            "apps.portal.services.operational_sources.get_capacity_base",
-            return_value=base,
-        ),
-        patch(
-            "apps.portal.services.operational_sources.get_capacity_project_data",
-            return_value={"ok": True, "daily": {"recorded": {"2026-10-01": 6}}},
-        ),
+    with patch(
+        "apps.portal.services.operational_sources.build_team_capacity",
+        side_effect=SheetsError("sin conexion"),
     ):
-        result = legacy_capacity("2026-10")
-        assert result["estimated"] == 40
-        assert result["consumed"] == 6
-        assert result["registered_people"] == 1
+        value = legacy_capacity("2026-10")
+
+    assert value["error"] and "base" not in value
 
 
 def test_health_requires_short_time_and_low_remaining_hours():

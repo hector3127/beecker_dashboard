@@ -21,7 +21,6 @@ from apps.portal.api.billability_area import (
     AreaMonthView,
 )
 from apps.portal.api.capacity_daily import (
-    CapacityDailyProjectView,
     CapacityDailyView,
 )
 from apps.portal.api.eva import (
@@ -386,11 +385,6 @@ urlpatterns = [
         "screens/capacidad/diaria/",
         CapacityDailyView.as_view(),
         name="capacidad_diaria",
-    ),
-    path(
-        "screens/capacidad/diaria/proyecto/",
-        CapacityDailyProjectView.as_view(),
-        name="capacidad_diaria_proyecto",
     ),
     path(
         "screens/cuenta/horas/", AccountHoursView.as_view(), name="cuenta_horas"

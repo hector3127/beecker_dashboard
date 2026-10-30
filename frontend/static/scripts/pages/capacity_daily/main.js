@@ -1,14 +1,14 @@
 // @ts-check
-// Dos lecturas API y un maximo de dos consultas de proyectos simultaneas.
+// Una lectura de la API por mes; la jornada y los filtros se recalculan aqui.
 import { apiGet } from '#app/data/api-client.js';
 import { el } from '#app/lib/dom.js';
-import { computed, csv, key, selected } from './model.js';
+import { csv, options, selectedRows } from './model.js';
 import { icon, render } from './view.js';
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
 /** @type {any} */
-const state = { mes: '', base: null, meta: new Map(), request: 0, q: '', tecnologia: '', concepto: '', jornada: 8, view: 'matrix', page: 1, size: 30, detailResource: '' };
+const state = { mes: '', data: null, request: 0, q: '', rol: '', banda: '', jornada: 8, view: 'matrix', page: 1, size: 30, detailResource: '' };
 /** @type {AbortController | null} */
 let current = null;
 const monthInput = /** @type {HTMLInputElement} */ (byId('ci-month'));
@@ -21,61 +21,31 @@ function message(text, error = false) {
 }
 
 function fillFilters() {
-  const data = state.base;
-  byId('ci-monthchip').textContent = '▣ Mes ' + data.mes;
-  byId('ci-bandchip').textContent = '◇ Banda: ' + (data.bandaColumna || 'NA');
-  monthInput.value = data.mes;
-  for (const [property, id, title] of [['tecnologia', 'ci-role', 'Todas las tecnologías'], ['concepto', 'ci-concept', 'Todos los conceptos']]) {
+  monthInput.value = state.data.mes;
+  byId('ci-monthchip').textContent = '▣ Mes ' + state.data.mes;
+  for (const [field, id, title] of [['rol', 'ci-role', 'Todos los roles'], ['banda', 'ci-band', 'Todas las bandas']]) {
     const select = /** @type {HTMLSelectElement} */ (byId(id));
-    const values = [...new Set(data.filas.map((/** @type {any} */ row) => row[property]).filter(Boolean))].sort();
-    select.replaceChildren(el('option', { value: '', text: title }), ...values.map((v) => el('option', { value: v, text: v })));
-    select.value = state[property];
+    select.replaceChildren(el('option', { value: '', text: title }),
+      ...options(state.data, /** @type {'rol'|'banda'} */ (field)).map((v) => el('option', { value: v, text: v })));
+    select.value = state[field];
   }
 }
 
-/** @param {boolean} force */
-async function load(force) {
+async function load() {
   current?.abort();
   current = new AbortController();
-  const signal = current.signal, token = ++state.request, queryMonth = state.mes;
-  message('Leyendo Recursos y Bandas/rol…');
+  const signal = current.signal, token = ++state.request;
+  message('Leyendo Bandas/rol y Clockify…');
   try {
-    const { data } = await apiGet('screens/capacidad/diaria/', { mes: queryMonth }, { signal, timeout: 90000 });
+    const { data } = await apiGet('screens/capacidad/diaria/', { mes: state.mes }, { signal, timeout: 90000 });
     if (token !== state.request) return;
     if (!data || !data.ok) { message(data?.error || 'No se pudieron leer las hojas.', true); return; }
-    state.base = data;
+    state.data = data;
     state.mes = data.mes;
-    const resolvedMonth = data.mes;
+    state.detailResource = '';
     fillFilters();
     paint();
-    const queue = [...new Map(data.filas.filter((/** @type {any} */ f) => f.idProyecto).map((/** @type {any} */ f) => [key(f), f])).values()]
-      .filter((f) => force || !state.meta.has(key(f)) || state.meta.get(key(f)).mes !== state.mes || !state.meta.get(key(f)).ok);
-    let next = 0, completed = 0;
-    const progress = () => message(queue.length ? `MPB/Azure + Clockify: ${completed} / ${queue.length} proyectos consultados` : `Datos disponibles · ${data.filas.length} asignaciones`);
-    progress();
-    async function worker() {
-      while (token === state.request && next < queue.length) {
-        const assignment = queue[next++];
-        let result;
-        try {
-          result = (await apiGet('screens/capacidad/diaria/proyecto/', {
-            proyecto: assignment.idProyecto, iteration: assignment.iteration || '', mes: resolvedMonth, ...(force ? { actualizar: '1' } : {}),
-          }, { signal, timeout: 90000 })).data;
-        } catch (error) {
-          if (signal.aborted || token !== state.request) return;
-          result = { ok: false, error: error instanceof Error ? error.message : String(error) };
-        }
-        if (token !== state.request) return;
-        state.meta.set(key(assignment), Object.assign({ mes: resolvedMonth }, result || { ok: false, error: 'Clockify no devolvió datos' }));
-        completed += 1;
-        paint();
-        progress();
-      }
-    }
-    await Promise.all([worker(), worker()]);
-    if (token !== state.request) return;
-    paint();
-    message(`Mes ${state.mes} · ${data.fuentes.join(' + ')} + Clockify · Banda: ${data.bandaColumna || 'NA'}`);
+    message(`Mes ${data.mes} · Bandas/rol + Clockify · ${data.resumen.personas} personas vigentes`);
   } catch (error) {
     if (!signal.aborted && token === state.request) message(error instanceof Error ? error.message : String(error), true);
   }
@@ -88,33 +58,27 @@ document.querySelectorAll('[data-icon]').forEach((placeholder) => {
   else placeholder.replaceWith(node);
 });
 monthInput.addEventListener('change', () => {
-  if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(monthInput.value)) return;
-  if (state.mes !== monthInput.value) {
-    state.meta.clear();
-    state.detailResource = '';
-  }
+  if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(monthInput.value) || state.mes === monthInput.value) return;
   state.mes = monthInput.value;
   state.page = 1;
-  void load(false);
+  void load();
 });
 byId('ci-jornada').addEventListener('change', (event) => {
   const value = Number(/** @type {HTMLInputElement} */ (event.target).value);
   if (value >= 1 && value <= 24) { state.jornada = value; paint(); }
 });
-for (const [id, property, event] of [['ci-search', 'q', 'input'], ['ci-role', 'tecnologia', 'change'], ['ci-concept', 'concepto', 'change']]) {
+for (const [id, property, event] of [['ci-search', 'q', 'input'], ['ci-role', 'rol', 'change'], ['ci-band', 'banda', 'change']]) {
   byId(id).addEventListener(event, (event) => {
     state[property] = /** @type {HTMLInputElement} */ (event.target).value;
     state.page = 1;
     paint();
   });
 }
-byId('ci-refresh').addEventListener('click', () => { void load(true); });
+byId('ci-refresh').addEventListener('click', () => { void load(); });
 byId('ci-export').addEventListener('click', () => {
-  if (!state.base) return;
-  const data = computed(state);
-  const url = URL.createObjectURL(new Blob([csv(data, selected(data.all, state))], { type: 'text/csv;charset=utf-8' }));
-  const link = el('a', { href: url, download: 'Capacidad_instalada_' + state.mes + '.csv' });
-  link.click();
+  if (!state.data) return;
+  const url = URL.createObjectURL(new Blob([csv(state.data, selectedRows(state.data, state))], { type: 'text/csv;charset=utf-8' }));
+  el('a', { href: url, download: 'Capacidad_instalada_' + state.mes + '.csv' }).click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 window.addEventListener('pagehide', () => { state.request += 1; current?.abort(); });
@@ -122,4 +86,4 @@ const requested = new URLSearchParams(location.search).get('mes');
 const now = new Date();
 state.mes = /^\d{4}-(0[1-9]|1[0-2])$/.test(requested || '') ? requested : now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
 monthInput.value = state.mes;
-void load(false);
+void load();

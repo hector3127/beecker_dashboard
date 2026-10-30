@@ -11,11 +11,11 @@ from typing import Any
 from django.core.cache import cache
 from django.utils import timezone
 
-from apps.capacidad.rpc import get_capacity_base, get_capacity_project_data
+from apps.capacidad.services.team_capacity import build_team_capacity
 from apps.clockify.provider import build_clockify_loader
 from apps.portal.constants import CLOCKIFY_EXCLUDED_PROJECTS
 from apps.portal.schemas import ProjectView
-from core.exceptions import DashboardError
+from core.exceptions import DashboardError, describe_error
 from core.sheets.factory import build_sheet_repository
 
 
@@ -334,92 +334,29 @@ def tagged_investment(
 
 
 def legacy_capacity(month: Any) -> Any:
-    """Calcula capacidad diaria desde las fuentes del panel."""
-    key = "portal:legacy-capacity:v3:" + month
+    """Capacidad del equipo: Bandas/rol + Clockify (sin la hoja Recursos)."""
+    key = "portal:team-capacity:v1:" + month
     cached = cache.get(key)
     if cached is not None:
         return cached
-    base = get_capacity_base(month)
-    if not base.get("ok"):
-        return {"error": base.get("error", "Capacidad no disponible")}
-    year, mon = map(int, month.split("-"))
-    days = [
-        date(year, mon, d).isoformat()
-        for d in range(1, calendar.monthrange(year, mon)[1] + 1)
-        if date(year, mon, d).weekday() < 5
-    ]
-    people: dict[str, dict[str, float]] = {}
-    fact = 0.0
-    pending = 0
-    meta = {}
-    estimated = 0.0
-    consumed = 0.0
-    registered = set()
-    assignments = set()
-    for row in base.get("filas", []):
-        if norm(row.get("concepto")) == "sin asignacion":
-            continue
-        pid = row.get("idProyecto", "")
-        key2 = (pid, row.get("iteration", ""))
-        if pid and key2 not in meta:
-            meta[key2] = get_capacity_project_data(pid, key2[1], month)
-        data = meta.get(key2, {"ok": True, "daily": {}})
-        if data.get("fueraMes"):
-            continue
-        if (
-            data.get("inicio")
-            and data.get("fin")
-            and (data["fin"] < month + "-01" or data["inicio"] > days[-1])
-        ):
-            continue
-        person = norm(row.get("recurso"))
-        assignment = (person, pid, row.get("iteration", ""))
-        if assignment in assignments:
-            continue
-        assignments.add(assignment)
-        values = people.setdefault(person, {day: 0.0 for day in days})
-        rule = row.get("regla") or {}
-        if not data.get("ok") or not rule:
-            pending += 1
-            continue
-        recorded = data.get("daily", {}).get(person, {})
-        total = sum(float(recorded.get(day) or 0) for day in days)
-        if total > 0:
-            registered.add(person)
-            estimated += float(row.get("horasEstimadas") or 0)
-            consumed += total
-        if rule.get("facturable") == "Facturable":
-            fact += sum(float(recorded.get(day) or 0) for day in days)
-        if rule.get("afecta"):
-            for day in days:
-                values[day] += float(recorded.get(day) or 0)
+    try:
+        team = build_team_capacity(build_sheet_repository(), month)
+    except DashboardError as error:
+        return {"error": describe_error(error)}
+    summary = team["resumen"]
     result = {
         "month": month,
-        "people": len(people),
-        "days": len(days),
-        "base": len(people) * len(days) * 8,
-        "billable": round(fact, 2),
-        "available": None
-        if pending
-        else round(
-            sum(
-                max(0, 8 - v)
-                for values in people.values()
-                for v in values.values()
-            ),
-            2,
-        ),
-        "estimated": round(estimated, 2),
-        "consumed": round(consumed, 2),
-        "registered_people": len(registered),
-        "pending": pending,
-        "over": sum(
-            any(v > 8.001 for v in values.values())
-            for values in people.values()
-        ),
+        "people": summary["personas"],
+        "registered_people": summary["conHoras"],
+        "days": team["diasHabiles"],
+        "base": summary["base"],
+        "consumed": summary["registradas"],
+        "billable": summary["facturables"],
+        "available": summary["saldo"],
+        "over": summary["sobreJornada"],
+        "pending": 0,
     }
-    if not pending:
-        cache.set(key, result, 300)
+    cache.set(key, result, 300)
     return result
 
 

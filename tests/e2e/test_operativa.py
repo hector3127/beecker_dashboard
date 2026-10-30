@@ -272,7 +272,7 @@ def test_capacity_and_eva_cards_show_their_numbers(portal, datos):
     expect(capacity).to_contain_text("96")
     expect(capacity).to_contain_text("horas disponibles")
     expect(capacity).to_contain_text(
-        "Capacidad base del mes: 160 h (20 días × 8 h)"
+        "Capacidad base del mes: 160 h (5 personas × 20 días × 8 h)"
     )
     expect(capacity).to_contain_text("1 personas sobre jornada")
     meter = capacity.locator(".ops-meter i")
@@ -656,7 +656,7 @@ def test_capacity_reference_keeps_hours_and_meter(portal, datos, width):
         "96 h"
     )
     expect(panel.locator(".capacity-stat-estimated strong")).to_have_text(
-        "100 h"
+        "64 h"
     )
     expect(panel.locator(".capacity-detail-row")).to_have_count(3)
     expect(panel).not_to_contain_text("mes anterior")

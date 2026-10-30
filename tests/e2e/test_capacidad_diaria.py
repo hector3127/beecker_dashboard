@@ -1,230 +1,236 @@
-"""Capacidad diaria: API, matriz, recursos y misma apariencia anterior."""
+"""Capacidad instalada del equipo en un navegador (Bandas/rol + Clockify)."""
 
+import copy
 from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
-from tests.portal.test_capacity import make_row
-
 pytestmark = pytest.mark.django_db(transaction=True)
-PAGE = "/capacidad-instalada/?mes=2026-10"
+SERVICE = "apps.portal.api.capacity_daily.build_team_capacity"
+DAYS = ["2026-10-01", "2026-10-02", "2026-10-03"]
+
+
+def row(name, role, band, project, daily, dm="Dora DM", clockify="u"):
+    facturables = sum(daily.values())
+    return {
+        "nombre": name,
+        "clockifyId": clockify + name[:1].lower(),
+        "rol": role,
+        "banda": band,
+        "dm": dm,
+        "idProyecto": project,
+        "proyecto": "Proyecto " + project if project else "",
+        "facturables": facturables,
+        "noFacturables": 0.0,
+        "total": facturables,
+        "daily": daily,
+    }
+
+
+def payload(month, people=None, rows=None):
+    rows = rows or [
+        row("Ana Perez", "Dev", "B2", "P1", {"2026-10-01": 10}),
+        row("Luis", "QA", "B1", "P2", {"2026-10-01": 6, "2026-10-03": 2}),
+    ]
+    people = people or [
+        {
+            "nombre": name,
+            "rol": rol,
+            "banda": banda,
+            "clockifyId": "u" + name[:1].lower(),
+            "total": total,
+            "facturables": total,
+            "noFacturables": 0.0,
+        }
+        for name, rol, banda, total in (
+            ("Ana Perez", "Dev", "B2", 10.0),
+            ("Luis", "QA", "B1", 8.0),
+        )
+    ]
+    return {
+        "ok": True,
+        "mes": month,
+        "dias": DAYS,
+        "diasHabiles": 22,
+        "jornada": 8.0,
+        "personas": people,
+        "filas": rows,
+        "resumen": {},
+    }
 
 
 @pytest.fixture
 def daily(monkeypatch, datos):
-    calls = []
-    rows = [
-        make_row(idProyecto="P1", iteration=""),
-        make_row(
-            recurso="Luis", idProyecto="P2", tecnologia="QA", iteration=""
-        ),
-    ]
+    """Lecturas de la API; guarda los parametros de cada una."""
 
-    def base(_reader, month, _today):
-        return {
-            "ok": True,
-            "mes": month,
-            "filas": rows,
-            "bandaColumna": "Octubre",
-            "fuentes": ["Recursos", "MPB"],
-        }
+    class Calls(list):
+        state: dict = {}
 
-    def project(args, *unused):
-        pid, iteration, month, force = args
-        calls.append(args)
-        person = "ana perez" if pid == "P1" else "luis"
-        return {
-            "ok": True,
-            "inicio": month + "-01",
-            "fin": month + "-28",
-            "daily": {person: {month + "-01": 10 if pid == "P1" else 6}},
-        }
+    calls = Calls()
+    state = {"fail": False, "factory": payload}
 
-    monkeypatch.setattr("apps.capacidad.rpc.load_capacity_base", base)
-    monkeypatch.setattr("apps.capacidad.rpc.load_project_data", project)
+    def read(_reader, month, workday):
+        calls.append((month, workday))
+        if state["fail"]:
+            return {"ok": False, "error": "Sheets no disponible"}
+        return copy.deepcopy(state["factory"](month))
+
+    monkeypatch.setattr(SERVICE, read)
+    monkeypatch.setattr(
+        "apps.portal.api.capacity_daily.build_sheet_repository", lambda: None
+    )
+    calls.state = state
     return calls
 
 
 def ready(portal):
     expect(portal.locator("#ci-status")).to_contain_text(
-        "Mes 2026-10 · Recursos + MPB + Clockify"
+        "Mes 2026-10 · Bandas/rol + Clockify"
     )
 
 
-@pytest.mark.parametrize(
-    "saved_link", [False, True], ids=["current_url", "obsolete_url"]
-)
-def test_matrix_filters_resources_csv_and_refresh(portal, daily, saved_link):
-    errors = []
-    portal.on("pageerror", lambda error: errors.append(str(error)))
-    portal.goto(portal.base + PAGE + ("&vista=anterior" if saved_link else ""))
+def stats(portal):
+    return portal.locator(".ci-stat strong").all_text_contents()
+
+
+def test_indicators_follow_people_days_and_workday(portal, daily):
+    portal.goto(portal.base + "/capacidad-instalada/?mes=2026-10")
     ready(portal)
-    expect(portal.locator(".ci-stat strong")).to_have_text(
-        ["2", "352 h", "16 h", "338 h", "1"]
-    )
-    assert portal.locator("script[src*='gas_shim']").count() == 0
-    expect(portal.locator(".ci-table tbody tr")).to_have_count(2)
-    portal.locator("#ci-search").fill("Ana")
-    expect(portal.locator(".ci-table tbody tr")).to_have_count(1)
-    expect(portal.locator(".ci-table")).not_to_contain_text("Luis")
-    with portal.expect_download() as download:
-        portal.get_by_role("button", name="↓ Exportar CSV").click()
-    text = Path(download.value.path()).read_text(encoding="utf-8-sig")
-    assert "Ana Perez" in text and "Luis" not in text
-    assert "01/10/2026" in text
-    portal.locator("#ci-search").fill("")
-    portal.get_by_role("button", name="Capacidad por recurso").click()
-    expect(portal.locator(".ci-resource")).to_have_count(2)
-    expect(portal.locator(".ci-resource").first).to_contain_text(
-        "Sobre jornada"
-    )
-    portal.locator("#ci-jornada").fill("6")
+
+    assert stats(portal) == ["2", "352 h", "18 h", "334 h", "5.11%"]
+    portal.locator("#ci-jornada").fill("10")
     portal.locator("#ci-jornada").dispatch_event("change")
-    expect(portal.locator(".ci-stat strong").nth(1)).to_have_text("264 h")
-    with portal.expect_response(
-        lambda response: (
-            "/diaria/proyecto/" in response.url
-            and "actualizar=1" in response.url
-        )
-    ):
-        portal.get_by_role("button", name="↻ Actualizar datos").click()
+    assert stats(portal) == ["2", "440 h", "18 h", "422 h", "4.09%"]
+    assert len(daily) == 1  # la jornada se recalcula sin volver a leer
+
+
+def test_filters_and_csv_use_the_visible_rows(portal, daily, tmp_path):
+    portal.goto(portal.base + "/capacidad-instalada/?mes=2026-10")
     ready(portal)
-    assert any(args[3] for args in daily)
-    assert not errors
+    rows = portal.locator(".ci-table tbody tr")
+    expect(rows).to_have_count(2)
 
+    portal.locator("#ci-search").fill("dora")
+    expect(rows).to_have_count(2)
+    portal.locator("#ci-search").fill("proyecto p2")
+    expect(rows).to_have_count(1)
+    portal.locator("#ci-search").fill("")
+    portal.locator("#ci-role").select_option("Dev")
+    expect(rows).to_have_count(1)
+    expect(rows.first).to_contain_text("Ana Perez")
+    portal.locator("#ci-role").select_option("")
+    portal.locator("#ci-band").select_option("B1")
+    expect(rows).to_have_count(1)
+    expect(rows.first).to_contain_text("Luis")
+    assert stats(portal)[0] == "2"  # los indicadores son del mes completo
 
-def test_change_month_and_partial_failure(portal, daily, monkeypatch):
-    def failed(args, *unused):
-        return {"ok": False, "error": "Clockify no disponible"}
-
-    monkeypatch.setattr("apps.capacidad.rpc.load_project_data", failed)
-    portal.goto(portal.base + PAGE)
-    ready(portal)
-    expect(portal.locator(".ci-stat strong").nth(3)).to_have_text("Pendiente")
-    expect(portal.locator(".ci-alert")).to_contain_text(
-        "totales de horas son parciales"
+    with portal.expect_download() as download:
+        portal.locator("#ci-export").click()
+    path = tmp_path / "capacidad.csv"
+    download.value.save_as(path)
+    lines = path.read_bytes().decode("utf-8-sig").split("\r\n")
+    assert (
+        download.value.suggested_filename == "Capacidad_instalada_2026-10.csv"
     )
-    expect(portal.locator(".ci-day.pending").first).to_have_text("—")
+    assert lines[0].startswith('"Recurso","ID Clockify","Rol","Banda"')
+    assert len(lines) == 2 and lines[1].startswith('"Luis"')
+
+
+def test_missing_delivery_manager_is_stated_and_idle_people_listed(
+    portal, daily
+):
+    daily.state["factory"] = lambda month: payload(
+        month,
+        rows=[
+            row("Ana Perez", "Dev", "B2", "ADM.1", {"2026-10-01": 4}, dm=""),
+            row("Luis", "QA", "B1", "", {}),
+        ],
+    )
+    portal.goto(portal.base + "/capacidad-instalada/?mes=2026-10")
+    ready(portal)
+
+    expect(portal.locator(".ci-table tbody tr").first).to_contain_text(
+        "Sin Delivery Manager confirmado"
+    )
+    expect(portal.locator(".ci-table tbody tr").nth(1)).to_contain_text(
+        "Sin registros en el mes"
+    )
+
+
+def test_change_month_reads_that_month(portal, daily):
+    portal.goto(portal.base + "/capacidad-instalada/?mes=2026-10")
+    ready(portal)
     portal.locator("#ci-month").fill("2026-09")
+    portal.locator("#ci-month").dispatch_event("change")
+
     expect(portal.locator("#ci-status")).to_contain_text("Mes 2026-09")
-    expect(portal.locator(".ci-section-head h3")).to_contain_text("2026-09")
+    assert [month for month, _ in daily] == ["2026-10", "2026-09"]
 
 
-def test_failed_base_can_be_retried_without_rpc(portal, daily, monkeypatch):
-    from apps.capacidad import rpc
+def test_failed_read_can_be_retried(portal, daily):
+    daily.state["fail"] = True
+    portal.goto(portal.base + "/capacidad-instalada/?mes=2026-10")
+    expect(portal.locator("#ci-status")).to_contain_text("Sheets no disponible")
 
-    original = rpc.load_capacity_base
-    attempts = []
-
-    def base(*args):
-        attempts.append(1)
-        if len(attempts) == 1:
-            return {"ok": False, "error": "Hojas no disponibles"}
-        return original(*args)
-
-    monkeypatch.setattr(rpc, "load_capacity_base", base)
-    portal.goto(portal.base + PAGE)
-    expect(portal.locator("#ci-status")).to_contain_text("Hojas no disponibles")
-    portal.get_by_role("button", name="↻ Actualizar datos").click()
+    daily.state["fail"] = False
+    portal.locator("#ci-refresh").click()
     ready(portal)
     expect(portal.locator(".ci-table tbody tr")).to_have_count(2)
 
 
-def test_project_reads_use_the_month_resolved_by_the_source(
-    portal, daily, monkeypatch
-):
-    from apps.capacidad import rpc
-
-    original = rpc.load_capacity_base
-
-    def base(reader, month, today):
-        return original(reader, "2026-09", today)
-
-    monkeypatch.setattr(rpc, "load_capacity_base", base)
-    portal.goto(portal.base + PAGE)
-    expect(portal.locator("#ci-status")).to_contain_text("Mes 2026-09")
-    expect(portal.locator("#ci-month")).to_have_value("2026-09")
-    assert daily and all(args[2] == "2026-09" for args in daily)
-
-
-def test_pagination_and_resource_names_are_plain_text(
-    portal, daily, monkeypatch
-):
-    unsafe = '<img src=x onerror="window.injected=true">'
-
-    def base(_reader, month, _today):
-        rows = [
-            make_row(recurso=f"Persona {i}", idProyecto="", iteration="")
-            for i in range(30)
-        ]
-        rows.append(make_row(recurso=unsafe, idProyecto="", iteration=""))
-        return {
-            "ok": True,
-            "mes": month,
-            "filas": rows,
-            "bandaColumna": "Octubre",
-            "fuentes": ["Recursos", "MPB"],
+def test_names_are_plain_text_and_pages_are_numbered(portal, daily):
+    rows = [row(f"P{i:02}", "Dev", "B1", "X", {}) for i in range(34)]
+    rows[0] = row("<b>Ana</b>", "Dev", "B1", "X", {"2026-10-01": 1})
+    people = [
+        {
+            "nombre": r["nombre"],
+            "rol": "Dev",
+            "banda": "B1",
+            "clockifyId": "",
+            "total": r["total"],
+            "facturables": r["total"],
+            "noFacturables": 0.0,
         }
-
-    monkeypatch.setattr("apps.capacidad.rpc.load_capacity_base", base)
-    portal.goto(portal.base + PAGE)
+        for r in rows
+    ]
+    daily.state["factory"] = lambda month: payload(
+        month, people=people, rows=rows
+    )
+    portal.goto(portal.base + "/capacidad-instalada/?mes=2026-10")
     ready(portal)
+
     expect(portal.locator(".ci-table tbody tr")).to_have_count(30)
+    expect(portal.locator(".ci-foot")).to_contain_text("Página 1 de 2")
+    expect(portal.locator(".ci-table tbody b")).to_have_count(
+        30
+    )  # solo totales
+    expect(portal.locator(".ci-table tbody tr").first).to_contain_text(
+        "<b>Ana</b>"
+    )
     portal.get_by_role("button", name="Siguiente →").click()
-    expect(portal.locator(".ci-table tbody tr")).to_have_count(1)
-    expect(portal.locator(".ci-table tbody")).to_contain_text(unsafe)
-    assert portal.locator(".ci-table img").count() == 0
-    portal.locator("#ci-search").fill("Persona 0")
-    expect(portal.locator(".ci-foot")).to_contain_text("Página 1 de 1")
-    expect(portal.locator(".ci-table tbody")).to_contain_text("Persona 0")
+    expect(portal.locator(".ci-table tbody tr")).to_have_count(4)
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("view", ["matrix", "people"])
-def test_layout_keeps_approved_reference(
-    portal, daily, width, view, snapshot, enforced_csp
+def test_layout_fits_the_screen_without_csp_violations(
+    portal, daily, width, enforced_csp
 ):
-    from tests.e2e.conftest import watch
-
-    problems = watch(portal)
-    portal.set_viewport_size({"width": width, "height": 1000})
-    selectors = [
-        ".top",
-        ".capacity-detail-page",
-        ".ci-head",
-        ".ci-filter-card",
-        ".ci-field",
-        ".ci-kpis",
-        ".ci-card",
-        ".ci-section-head",
-        ".ci-table",
-        ".ci-resource",
-        ".ci-info",
-    ]
-
-    def capture():
-        return portal.evaluate(
-            """sels => sels.map(s => [...document.querySelectorAll(s)]
-              .map(e => {
-              const r = e.getBoundingClientRect(), c = getComputedStyle(e);
-              return {box: ['x','y','width','height'].map(k =>
-                Math.round(r[k] * 10) / 10),
-                css: ['fontSize','color','paddingTop','paddingBottom',
-                  'marginTop','marginBottom'].map(k => c[k])};
-            }))""",
-            selectors,
-        )
-
-    output = Path(f"tmp/migration/capacity_daily/{width}/{view}")
-    output.mkdir(parents=True, exist_ok=True)
-    portal.goto(portal.base + PAGE)
-    ready(portal)
-    if view == "people":
-        portal.get_by_role("button", name="Capacidad por recurso").click()
-    snapshot(
-        f"capacity_daily_layout_{view}_{width}",
-        dict(zip(selectors, capture(), strict=True)),
+    problems = []
+    portal.on(
+        "console",
+        lambda m: (
+            problems.append(m.text) if "Content Security" in m.text else None
+        ),
     )
-    portal.screenshot(path=str(output / "current.png"), full_page=True)
-    assert problems == []
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + "/capacidad-instalada/?mes=2026-10")
+    ready(portal)
+
+    assert portal.evaluate(
+        "document.documentElement.scrollWidth <= innerWidth + 1"
+    )
+    assert not problems, problems
+    path = Path(f"tmp/capacity-team/{width}.png")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    portal.screenshot(path=str(path), full_page=True)

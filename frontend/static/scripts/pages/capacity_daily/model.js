@@ -1,62 +1,90 @@
 // @ts-check
-// Reglas de la pantalla anterior, aisladas del DOM y de las llamadas RPC.
+// Capacidad instalada del equipo: calculos y filtros sin DOM.
+// Fuente: Bandas/rol + Clockify del mes (ver apps/capacidad/services/team_capacity.py).
 
 /** @param {any} value */
-export const norm = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-/** @param {any} row */
-export const key = (row) => `${row.idProyecto}|${row.iteration}`;
-/** @param {any} value */
-export const fmt = (value) => Number(value || 0).toLocaleString('es-MX', { maximumFractionDigits: 2 });
-/** @param {string} value */
-export const date = (value) => value ? `${value.slice(8, 10)}/${value.slice(5, 7)}/${value.slice(0, 4)}` : '—';
+export const norm = (value) =>
+  String(value || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
 
-/** Desglose del mismo corte sin consultas ni cambios de cálculo.
- * @param {any} data @param {string} name */
+/** @param {any} value */
+export const fmt = (value) =>
+  Number(value || 0).toLocaleString('es-MX', { maximumFractionDigits: 2 });
+
+/** @param {string} value ISO AAAA-MM-DD @returns {string} DD/MM */
+export const date = (value) => (value ? `${value.slice(8, 10)}/${value.slice(5, 7)}` : '—');
+
+/** @param {string} iso */
+export const isWeekend = (iso) => {
+  const day = new Date(iso + 'T00:00:00Z').getUTCDay();
+  return day === 0 || day === 6;
+};
+
+/**
+ * Indicadores del mes completo; la jornada se puede cambiar sin volver a leer.
+ * @param {any} data respuesta de la API @param {number} workday
+ */
+export function indicators(data, workday) {
+  const people = data.personas || [];
+  const perPerson = data.diasHabiles * workday;
+  const base = people.length * perPerson;
+  const registered = people.reduce((/** @type {number} */ n, /** @type {any} */ p) => n + p.total, 0);
+  return {
+    people: people.length,
+    withHours: people.filter((/** @type {any} */ p) => p.total > 0).length,
+    over: people.filter((/** @type {any} */ p) => p.total > perPerson).length,
+    base,
+    registered,
+    billable: people.reduce((/** @type {number} */ n, /** @type {any} */ p) => n + p.facturables, 0),
+    balance: base - registered,
+    utilization: base ? (registered / base) * 100 : null,
+  };
+}
+
+/** @param {any} item @param {any} st */
+const matches = (item, st) =>
+  (!st.rol || item.rol === st.rol) &&
+  (!st.banda || item.banda === st.banda) &&
+  (!st.q ||
+    norm([item.nombre, item.idProyecto, item.proyecto, item.dm, item.clockifyId].join(' ')).includes(
+      norm(st.q),
+    ));
+
+/** Filas de la matriz que pasan los filtros. @param {any} data @param {any} st */
+export const selectedRows = (data, st) => (data.filas || []).filter((/** @type {any} */ r) => matches(r, st));
+
+/** Personas que pasan los filtros. @param {any} data @param {any} st */
+export const selectedPeople = (data, st) => (data.personas || []).filter((/** @type {any} */ p) => matches(p, st));
+
+/** Valores distintos de un campo, para llenar los filtros. @param {any} data @param {'rol'|'banda'} field */
+export const options = (data, field) =>
+  [...new Set((data.personas || []).map((/** @type {any} */ p) => p[field]).filter(Boolean))].sort();
+
+/** Todas las filas de una persona, sin filtros. @param {any} data @param {string} name */
 export function resourceDetail(data, name) {
-  const rows = data.all.filter((/** @type {any} */ row) => norm(row.recurso) === norm(name));
-  return { name, rows, days: data.days, pending: rows.some((/** @type {any} */ row) => Boolean(row.status)) };
+  const rows = (data.filas || []).filter((/** @type {any} */ r) => r.nombre === name);
+  return { days: data.dias || [], rows, person: (data.personas || []).find((/** @type {any} */ p) => p.nombre === name) };
 }
 
-/** @param {string} month */
-export function days(month) {
-  const [year, number] = month.split('-').map(Number), out = [];
-  for (const day = new Date(Date.UTC(year, number - 1, 1)); day.getUTCMonth() === number - 1; day.setUTCDate(day.getUTCDate() + 1)) {
-    if (day.getUTCDay() !== 0 && day.getUTCDay() !== 6) out.push(day.toISOString().slice(0, 10));
-  }
-  return out;
-}
+/** @param {any} value */
+const cell = (value) => '"' + String(value == null ? '' : value).replace(/"/g, '""') + '"';
 
-/** @param {any} st */
-export function computed(st) {
-  const d = days(st.mes), all = [], people = new Map();
-  (st.base && st.base.filas || []).filter((/** @type {any} */ f) => norm(f.concepto) !== 'sin asignacion').forEach((/** @type {any} */ f) => {
-    const last = new Date(Date.UTC(Number(st.mes.slice(0, 4)), Number(st.mes.slice(5)), 0)).toISOString().slice(0, 10);
-    const meta = f.idProyecto ? st.meta.get(key(f)) : { ok: true, inicio: st.mes + '-01', fin: last };
-    if (f.idProyecto && meta && (meta.fueraMes || (meta.inicio && meta.fin && (meta.fin < st.mes + '-01' || meta.inicio > last)))) return;
-    const status = !meta ? 'Consultando Clockify' : !meta.ok ? meta.error : !f.regla ? 'Concepto sin regla' : null;
-    const values = d.map((day) => !f.idProyecto ? 0 : meta && meta.ok ? Number((meta.daily[norm(f.recurso)] || {})[day] || 0) : null);
-    const total = values.reduce((n, value) => n + (value || 0), 0);
-    all.push(Object.assign({}, f, { inicio: meta && meta.inicio, fin: meta && meta.fin, values, total, status, per: null }));
-    const k = norm(f.recurso).trim();
-    if (!people.has(k)) people.set(k, { nombre: f.recurso, tecnologia: f.tecnologia, banda: f.banda, values: d.map(() => 0), total: 0, fact: 0, carg: 0, unknown: false });
-    const p = people.get(k);
-    if (status) p.unknown = true;
-    if (f.regla && f.regla.afecta) { values.forEach((value, i) => p.values[i] += value || 0); p.total += total; }
-    if (f.regla && f.regla.facturable === 'Facturable') p.fact += total;
-    if (f.regla && f.regla.cargabilidad === 'Cargable') p.carg += total;
-  });
-  const available = Array.from(people.values()).reduce((n, p) => n + p.values.reduce((/** @type {number} */ s, /** @type {number} */ v) => s + Math.max(0, st.jornada - v), 0), 0);
-  return { days: d, all, people: Array.from(people.values()), available };
-}
-
-/** @param {any[]} rows @param {any} st */
-export function selected(rows, st) {
-  return rows.filter((x) => (!st.tecnologia || x.tecnologia === st.tecnologia) && (!st.concepto || x.concepto === st.concepto) && (!st.q || norm([x.recurso, x.idProyecto, x.proyecto, x.manager, x.rol, x.banda].join(' ')).includes(norm(st.q))));
-}
-
-/** @param {ReturnType<typeof computed>} data @param {any[]} rows */
+/** CSV de las filas visibles; protege contra formulas de hoja de calculo. @param {any} data @param {any[]} rows */
 export function csv(data, rows) {
-  const head = ['RECURSO', 'Banda', 'Conceptos', 'Facturable', 'Cargabilidad', 'Capacidad Disponible', 'Tecnología', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Inicio', 'Fin', 'Total mes', ...data.days.map(date)];
-  const records = rows.map((f) => [f.recurso, f.banda, f.concepto, f.regla && f.regla.facturable, f.regla && f.regla.cargabilidad, f.regla && f.regla.capacidad, f.tecnologia, f.manager, f.idProyecto, f.proyecto, f.inicio, f.fin, f.total, ...f.values]);
-  return '\ufeff' + [head, ...records].map((row) => row.map((v) => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(',')).join('\r\n');
+  const head = [
+    'Recurso', 'ID Clockify', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto',
+    'Horas facturables', 'Horas no facturables', 'Total mes',
+    ...(data.dias || []),
+  ];
+  const safe = (/** @type {any} */ v) => (typeof v === 'string' && /^[=+\-@]/.test(v) ? "'" + v : v);
+  const records = rows.map((r) => [
+    r.nombre, r.clockifyId, r.rol, r.banda, r.dm, r.idProyecto, r.proyecto,
+    r.facturables, r.noFacturables, r.total,
+    ...(data.dias || []).map((/** @type {string} */ d) => r.daily[d] || ''),
+  ].map(safe));
+  return '﻿' + [head, ...records].map((row) => row.map(cell).join(',')).join('\r\n');
 }

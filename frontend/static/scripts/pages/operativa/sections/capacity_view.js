@@ -88,7 +88,7 @@ export function renderCapacity(root, capacity) {
       el("span", {
         class: "capacity-info",
         title:
-          "Disponibilidad calculada por recurso y día en el corte operativo.",
+          "Capacidad base del mes menos las horas registradas en Clockify.",
         text: "ⓘ",
       }),
     ),
@@ -104,7 +104,7 @@ export function renderCapacity(root, capacity) {
       class: "capacity-main-period",
       text: capacity.loading
         ? ""
-        : `${capacity.month || "Periodo pendiente"} · ${capacity.registered_people ?? "—"} recursos con registros`,
+        : `${capacity.month || "Periodo pendiente"} · ${capacity.people ?? "—"} personas vigentes · ${capacity.registered_people ?? "—"} con horas`,
     }),
   );
   if (capacity.loading || capacity.error) {
@@ -120,9 +120,9 @@ export function renderCapacity(root, capacity) {
     return;
   }
   const usageKnown =
-    known(capacity.billable) && known(capacity.base) && capacity.base > 0;
+    known(capacity.consumed) && known(capacity.base) && capacity.base > 0;
   const percent = usageKnown
-    ? meterPercent(capacity.billable, capacity.base)
+    ? meterPercent(capacity.consumed, capacity.base)
     : 0;
   const meter = el(
     "div",
@@ -130,17 +130,14 @@ export function renderCapacity(root, capacity) {
       class: "ops-meter",
       role: "img",
       "aria-label": usageKnown
-        ? `Horas facturables respecto a capacidad base: ${percent}%`
+        ? `Horas registradas respecto a capacidad base: ${percent}%`
         : "Uso de capacidad pendiente",
     },
     el("i"),
   );
   meter.firstElementChild.style.width = `${percent}%`;
   const baseText =
-    `Capacidad base del mes: ${hours(capacity.base, 0)} (${capacity.days ?? "—"} días × 8 h). ${capacity.over ?? "—"} personas sobre jornada.` +
-    (capacity.pending
-      ? ` ${capacity.pending} asignaciones pendientes; horas parciales.`
-      : "");
+    `Capacidad base del mes: ${hours(capacity.base, 0)} (${capacity.people ?? "—"} personas × ${capacity.days ?? "—"} días × 8 h). ${capacity.over ?? "—"} personas sobre jornada.`;
   const center = el(
     "div",
     { class: "capacity-usage" },
@@ -151,7 +148,7 @@ export function renderCapacity(root, capacity) {
       el("span", {
         class: "capacity-info",
         title:
-          "Horas facturables divididas entre la capacidad base del mes. El medidor se limita a 0–100%.",
+          "Horas registradas en Clockify divididas entre la capacidad base del mes. El medidor se limita a 0–100%.",
         text: "ⓘ",
       }),
     ),
@@ -182,9 +179,9 @@ export function renderCapacity(root, capacity) {
         "capacity-stat-available",
       ),
       stat(
-        "Estimadas (Recursos)",
-        capacity.estimated,
-        "Estimadas en el mes",
+        "Horas registradas",
+        capacity.consumed,
+        "Facturables y no facturables",
         "capacity-stat-estimated",
       ),
     ),
@@ -196,7 +193,7 @@ export function renderCapacity(root, capacity) {
         "div",
         {},
         el("p", {
-          text: "Estimaciones de las asignaciones de recursos con registros en el mes seleccionado.",
+          text: "Horas reales de Clockify de las personas con banda vigente en el mes, facturables o no y sin Comida.",
         }),
         el("p", { text: baseText }),
       ),
@@ -210,15 +207,15 @@ export function renderCapacity(root, capacity) {
       "pause",
     ),
     detail(
-      "Estimadas (Recursos)",
-      capacity.estimated,
-      ratio(capacity.estimated, capacity.base),
+      "Horas facturables",
+      capacity.billable,
+      ratio(capacity.billable, capacity.base),
       "chart",
     ),
     detail(
       "Capacidad base del mes",
       capacity.base,
-      `${capacity.days ?? "—"} días × 8 h`,
+      `${capacity.people ?? "—"} personas × ${capacity.days ?? "—"} días × 8 h`,
       "target",
     ),
   );

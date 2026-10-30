@@ -15,17 +15,17 @@
   <div id="capacity-detail-root" aria-live="polite">
     <section id="ci-panel" class="ci-overlay" role="region" aria-label="Capacidad instalada">
       <div class="ci-wrap">
-        <div class="ci-head"><div class="ci-title"><span class="ci-icon" data-icon="bars"></span><div><h1>Capacidad instalada</h1><div class="ci-muted">Horas reales del equipo · Recursos + MPB/Azure + Clockify + Bandas/rol</div></div></div></div>
+        <div class="ci-head"><div class="ci-title"><span class="ci-icon" data-icon="bars"></span><div><h1>Capacidad instalada</h1><div class="ci-muted">Horas reales del equipo · Bandas/rol + Clockify + Summary</div></div></div></div>
         <div class="ci-filter-card">
           <div class="ci-toolbar">
             <label>Mes<span class="ci-field"><span data-icon="calendar"></span><input type="month" id="ci-month"></span></label>
             <label>Jornada diaria (h)<span class="ci-field"><span data-icon="clock"></span><input id="ci-jornada" type="number" min="1" max="24" step="0.5" value="8"></span></label>
             <label>Buscar recurso, proyecto o manager…<span class="ci-field"><span data-icon="search"></span><input id="ci-search" placeholder="Buscar recurso, proyecto o manager…"></span></label>
-            <label>Tecnologías<span class="ci-field"><span data-icon="layers"></span><select id="ci-role"><option value="">Todas las tecnologías</option></select></span></label>
-            <label>Conceptos<span class="ci-field"><span data-icon="layers"></span><select id="ci-concept"><option value="">Todos los conceptos</option></select></span></label>
+            <label>Rol<span class="ci-field"><span data-icon="layers"></span><select id="ci-role"><option value="">Todos los roles</option></select></span></label>
+            <label>Banda<span class="ci-field"><span data-icon="layers"></span><select id="ci-band"><option value="">Todas las bandas</option></select></span></label>
             <button type="button" class="ci-btn" id="ci-refresh">↻ Actualizar datos</button><button type="button" class="ci-btn primary" id="ci-export">↓ Exportar CSV</button>
           </div>
-          <div class="ci-sourcebar"><span class="ci-sourcechip" id="ci-monthchip"><span data-icon="calendar"></span>Mes</span><span class="ci-sourcechip"><span data-icon="layers"></span>Recursos + Bandas/rol</span><span>+</span><span class="ci-sourcechip"><span data-icon="layers"></span>MPB / Azure DevOps</span><span>+</span><span class="ci-sourcechip"><span data-icon="clock"></span>Clockify</span><span class="ci-sourcechip" id="ci-bandchip"><span data-icon="layers"></span>Banda</span><div id="ci-status">Leyendo asignaciones…</div></div>
+          <div class="ci-sourcebar"><span class="ci-sourcechip" id="ci-monthchip"><span data-icon="calendar"></span>Mes</span><span class="ci-sourcechip"><span data-icon="layers"></span>Bandas/rol</span><span>+</span><span class="ci-sourcechip"><span data-icon="clock"></span>Clockify</span><span>+</span><span class="ci-sourcechip"><span data-icon="layers"></span>Inventario Summary</span><div id="ci-status">Leyendo Bandas/rol y Clockify…</div></div>
         </div>
         <div id="ci-content"></div>
       </div>
