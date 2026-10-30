@@ -82,14 +82,14 @@ export function csv(data, rows) {
   const head = [
     'Recurso', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Inicio', 'Fin',
     'Concepto', 'Facturable', 'Cargabilidad', 'Capacidad disponible',
-    'Horas facturables', 'Horas no facturables', 'Total mes',
+    'Total mes',
     ...(data.dias || []),
   ];
   const safe = (/** @type {any} */ v) => (typeof v === 'string' && /^[=+\-@]/.test(v) ? "'" + v : v);
   const records = rows.map((r) => [
     r.nombre, r.rol, r.banda, r.dm || '-', r.idProyecto, r.proyecto, r.inicio, r.fin,
     r.concepto, r.facturable, r.cargabilidad, r.capacidad,
-    r.facturables, r.noFacturables, r.total,
+    r.total,
     ...(data.dias || []).map((/** @type {string} */ d) => r.daily[d] || ''),
   ].map(safe));
   return '﻿' + [head, ...records].map((row) => row.map(cell).join(',')).join('\r\n');

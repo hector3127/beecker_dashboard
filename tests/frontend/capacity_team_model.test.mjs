@@ -48,7 +48,8 @@ test("filters match name, project, manager and role/band", () => {
 test("the CSV lists every day, escapes quotes and neutralises formulas", () => {
   const rows = [{ ...data.filas[0], proyecto: '=cmd|"x"' }];
   const lines = csv(data, rows).split("\r\n");
-  assert.ok(lines[0].startsWith('﻿"Recurso","ID Clockify"'));
+  assert.ok(lines[0].startsWith('﻿"Recurso","Rol","Banda","Delivery Manager"'));
+  assert.ok(!lines[0].includes("ID Clockify") && !lines[0].includes("Horas "));
   assert.ok(lines[0].endsWith('"2026-10-02","2026-10-03"'));
   assert.ok(lines[1].includes("\"'=cmd|\"\"x\"\"\""));
   assert.ok(lines[1].endsWith('"","4"'));

@@ -41,7 +41,7 @@ function matrix(data, st, paint) {
   st.page = Math.min(st.page, pages);
   const limit = data.diasHabiles * st.jornada;
   const total = new Map(data.personas.map((/** @type {any} */ p) => [p.nombre, p.total]));
-  const headings = ['Recurso', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Inicio', 'Fin', 'Concepto', 'Facturable', 'Cargabilidad', 'Capacidad disponible', 'Horas facturables', 'Horas no facturables', 'Total mes'];
+  const headings = ['Recurso', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Inicio', 'Fin', 'Concepto', 'Facturable', 'Cargabilidad', 'Capacidad disponible', 'Total mes'];
   const header = el('tr', {}, ...headings.map((text) => el('th', { text })),
     ...data.dias.map((/** @type {string} */ d) => el('th', { class: 'ci-day-head' + (isWeekend(d) ? ' weekend' : ''), text: date(d) })));
   const body = el('tbody');
@@ -58,7 +58,6 @@ function matrix(data, st, paint) {
       el('td', {}, r.concepto ? pill(r.facturable, r.facturable === 'Facturable' ? 'green' : 'grey') : '—'),
       el('td', {}, r.concepto ? pill(r.cargabilidad, r.cargabilidad === 'Cargable' ? 'blue' : 'grey') : '—'),
       el('td', {}, r.concepto ? pill(r.capacidad, r.capacidad === 'Afecta Capacidad' ? '' : 'grey') : '—'),
-      el('td', { text: fmt(r.facturables) }), el('td', { text: fmt(r.noFacturables) }),
       el('td', {}, el('b', { text: fmt(r.total) })),
       ...data.dias.map((/** @type {string} */ d) => {
         const value = r.daily[d];
