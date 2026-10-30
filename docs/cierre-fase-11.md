@@ -28,9 +28,12 @@ Cerrar la fase 11 es **dejar de mirar atrás**, no congelar el pasado:
    (`*_match_previous`, `test_unchanged_shared_view`, `test_entry_matches_previous`,
    etc.) en 41 archivos de `tests/e2e`. Los archivos conservan sus pruebas
    funcionales y sus ayudantes.
-2. **Prueba de humo del diseño nuevo.** Cada pestaña del detalle de proyecto a
-   1450/900/390 px: carga sin errores de CSP ni de consola y sin desbordamiento
-   horizontal. Pendiente.
+2. **Prueba de humo del diseño nuevo.** Hecho el 30/10:
+   `tests/e2e/test_project_design_sections.py::test_populated_section_at_each_size`
+   (18 pestañas AER/IXB × 5 anchos, con la CSP aplicada) comprueba que no hay
+   desbordamiento horizontal, que las tablas quedan contenidas, que tarjetas y
+   textos son legibles y que no hay errores de página, avisos de CSP ni cargas
+   locales caídas. Verificado que detecta un estilo en línea inyectado.
 3. **Retirar lo que quede de comparación**: pruebas con `?vista=anterior` o
    `load_project_reference` que sigan usando la referencia, y variantes
    `previous=True` de pruebas funcionales. Pendiente.

@@ -1,4 +1,8 @@
-"""Detailed project presentation review with populated, isolated sources."""
+"""Prueba de humo del diseno de Proyectos: cada pestana a cinco anchos.
+
+Sin desbordamiento horizontal, tablas contenidas, tarjetas y textos legibles,
+sin errores de pagina, avisos de CSP ni cargas locales caidas.
+"""
 # ruff: noqa: F401
 
 import copy
@@ -8,6 +12,7 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect
 
+from tests.e2e.conftest import watch
 from tests.e2e.frozen.aer_executive_support import production_site
 from tests.e2e.test_actions_transport import board as actions_board
 from tests.e2e.test_aer_ai_sources import ia as aer_ia
@@ -118,8 +123,9 @@ def test_populated_section_at_each_size(
         data["cliente"] = copy.deepcopy(CLIENT)
     tab = case.split("/", 1)[1]
     project = "AMK.008" if family == "ixs" else "AER.001"
-    page_errors = []
-    portal.on("pageerror", lambda error: page_errors.append(str(error)))
+    problems = watch(
+        portal
+    )  # errores de pagina, avisos de CSP, cargas locales caidas
     root = Path("tmp/design-review") / family / tab.replace("✦ ", "")
     root.mkdir(parents=True, exist_ok=True)
     for width in (1450, 900, 600, 390, 320):
@@ -134,7 +140,7 @@ def test_populated_section_at_each_size(
         assert all(w >= 128 for w in result["metricWidths"]), result
         assert not result["tiny"], (case, width, result["tiny"])
         assert not result["truncated"], (case, width, result["truncated"])
-    assert not page_errors
+    assert not problems, problems
 
 
 def test_business_overview_visual_reference(portal, datos):
