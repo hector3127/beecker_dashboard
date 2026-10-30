@@ -80,8 +80,8 @@ def effort(portal, ixs, monkeypatch):
     return ixs[0], result, calls
 
 
-def open_effort(portal, previous=False):
-    portal.goto(portal.base + PAGE + ("?vista=anterior" if previous else ""))
+def open_effort(portal):
+    portal.goto(portal.base + PAGE)
     portal.locator(".ixs-nav").get_by_role(
         "button", name="Esfuerzo", exact=True
     ).click()
@@ -176,33 +176,29 @@ def test_dates_cache_and_navigation(portal, effort, fixed_day):
 
 
 def test_excess_filters_sort_pages_and_csv(portal, effort, fixed_day, tmp_path):
-    csvs = []
-    for previous in (True, False):
-        open_effort(portal, previous)
-        open_modal(portal, "excess")
-        first = portal.locator("#ixs-excess-records details").first
-        expect(first.locator("tbody tr")).to_have_count(8)
-        first.get_by_role("button", name="Página siguiente").click()
-        expect(first.locator("footer")).to_contain_text("Mostrando 9–14 de 14")
-        first.get_by_role("button", name="Inicio").click()
-        expect(first.locator("th").nth(1)).to_have_attribute(
-            "aria-sort", "ascending"
-        )
-        portal.locator("#ixs-excess-from").fill("2026-10-19")
-        portal.locator("#ixs-excess-to").fill("2026-10-22")
-        portal.get_by_role("button", name="Aplicar fechas").click()
-        expect(first.locator("tbody tr")).to_have_count(2)
-        with portal.expect_download() as download:
-            portal.get_by_role("button", name="↓ Exportar CSV").click()
-        path = tmp_path / ("old.csv" if previous else "new.csv")
-        download.value.save_as(path)
-        csvs.append(path.read_bytes())
-        assert (
-            download.value.suggested_filename
-            == "AMK.008_horas_excedidas_2026-10-19_2026-10-22.csv"
-        )
-    assert csvs[0] == csvs[1]
-    assert b"'=Descripci" in csvs[1]
+    open_effort(portal)
+    open_modal(portal, "excess")
+    first = portal.locator("#ixs-excess-records details").first
+    expect(first.locator("tbody tr")).to_have_count(8)
+    first.get_by_role("button", name="Página siguiente").click()
+    expect(first.locator("footer")).to_contain_text("Mostrando 9–14 de 14")
+    first.get_by_role("button", name="Inicio").click()
+    expect(first.locator("th").nth(1)).to_have_attribute(
+        "aria-sort", "ascending"
+    )
+    portal.locator("#ixs-excess-from").fill("2026-10-19")
+    portal.locator("#ixs-excess-to").fill("2026-10-22")
+    portal.get_by_role("button", name="Aplicar fechas").click()
+    expect(first.locator("tbody tr")).to_have_count(2)
+    with portal.expect_download() as download:
+        portal.get_by_role("button", name="↓ Exportar CSV").click()
+    path = tmp_path / "excess.csv"
+    download.value.save_as(path)
+    assert (
+        download.value.suggested_filename
+        == "AMK.008_horas_excedidas_2026-10-19_2026-10-22.csv"
+    )
+    assert b"'=Descripci" in path.read_bytes()
 
 
 @pytest.mark.parametrize("transport", [False, True])

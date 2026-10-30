@@ -9,12 +9,8 @@ from tests.e2e.test_project_detail_entry import project_detail as project_detail
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def enter(page, data, previous=False):
-    page.goto(
-        page.base
-        + f"/proyectos/{data['proyecto']['id']}/"
-        + ("?vista=anterior" if previous else "")
-    )
+def enter(page, data):
+    page.goto(page.base + f"/proyectos/{data['proyecto']['id']}/")
     expect(page.locator(".aer-head, .ixs-head")).to_be_visible()
     page.wait_for_load_state("networkidle")
 

@@ -69,18 +69,11 @@ def client_actions(portal, ixs, monkeypatch):
     monkeypatch.setattr(api.ixs_rpc, "build_store_sheets", lambda: None)
     monkeypatch.setattr(api.ixs_client, "read_client_actions", read)
 
-    def previous(route):
-        if route.request.url.rstrip("/").endswith("/ixsClienteAccionesLeer"):
-            route.fulfill(json={"ok": True, "result": data})
-        else:
-            route.fallback()
-
-    portal.route("**/api/rpc/**", previous)
     return data, calls
 
 
-def enter(page, tab, previous=False):
-    page.goto(page.base + PAGE + ("?vista=anterior" if previous else ""))
+def enter(page, tab):
+    page.goto(page.base + PAGE)
     page.locator(".ixs-nav").get_by_role("button", name=tab, exact=True).click()
     expect(
         page.locator(

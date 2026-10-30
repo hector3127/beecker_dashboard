@@ -5,13 +5,12 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
 import pytest
-from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.urls import resolve
 
 from apps.portal.services.opportunity_profitability import OPPORTUNITY_VERSION
 
-ROOT = Path(__file__).resolve().parents[2] / "tests/reference/templates/portal"
+ROOT = Path(__file__).resolve().parents[2] / "frontend/templates/pages"
 
 
 @pytest.fixture(autouse=True)
@@ -21,42 +20,6 @@ def no_background_refresh(monkeypatch):
         "apps.portal.services.executive_refresh.request_refresh",
         lambda *a, **k: {"state": "running"},
     )
-
-
-LINKS = []
-for source in ROOT.glob("*.html"):
-    for anchor in re.findall(
-        r"<a\b[^>]*>.*?</a>", source.read_text(encoding="utf-8"), re.S
-    ):
-        text = re.sub(r"<[^>]+>", "", anchor)
-        if any(
-            label in text
-            for label in ("Regresar", "Volver", "Operación de proyectos")
-        ):
-            LINKS.append((source.name, anchor))
-
-
-@pytest.mark.parametrize("name,anchor", LINKS, ids=[item[0] for item in LINKS])
-def test_return_links_resolve_to_correct_section(name, anchor):
-    html = Template(anchor).render(
-        Context({"cost_back": "/", "executive_query": "periodo=anio&anio=2026"})
-    )
-    href = re.search(r'href="([^"]+)"', html).group(1).replace("&amp;", "&")
-    assert not urlsplit(href).netloc
-    match = resolve(urlsplit(href).path)
-    expected = (
-        "portal:ejecutiva"
-        if name
-        in {
-            "comercial.html",
-            "costos_detalle.html",
-            "oportunidades_financieras.html",
-        }
-        else "portal:operativa"
-    )
-    assert match.view_name == expected
-    assert "target=" not in html
-    assert "history.back" not in html
 
 
 def test_commercial_return_preserves_selected_executive_dates():

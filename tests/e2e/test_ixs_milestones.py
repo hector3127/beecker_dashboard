@@ -1,13 +1,11 @@
 """Editor de hitos: API v1, diseño previo y mismos mensajes."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_planning_transport import open_planning
 from tests.e2e.test_ixs_planning_transport import planning as planning
@@ -63,8 +61,8 @@ def milestones(portal, planning, monkeypatch):
     return calls, answers
 
 
-def open_editor(portal, previous=False):
-    open_planning(portal, previous)
+def open_editor(portal):
+    open_planning(portal)
     portal.evaluate(
         "hitos => { hitosAdicionalesActuales = hitos;"
         " idProyectoActualGlobal = 'AMK.008'; abrirModalHito('AMK.008'); }",
@@ -72,36 +70,6 @@ def open_editor(portal, previous=False):
     )
     expect(portal.locator("#modal-hito-overlay")).to_have_count(1)
     expect(portal.locator(".mh-tipo-select")).to_have_value(TYPES[0])
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["empty", "existing", "new-type"])
-def test_editor_matches_previous(portal, milestones, fixed_day, width, variant):
-    portal.set_viewport_size({"width": width, "height": 900})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_milestones")
-        / variant
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_editor(portal, previous)
-        if variant != "empty":
-            portal.locator(".mh-tipo-select").select_option(
-                TYPES[1] if variant == "existing" else "__nuevo__"
-            )
-        selector = "#modal-hito-overlay, #modal-hito-overlay *"
-        states.append(capture_state(portal, selector))
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-        )
-    diffs = [
-        (i, a["tag"], {k: (a[k], b[k]) for k in a if a[k] != b[k]})
-        for i, (a, b) in enumerate(zip(*states, strict=True))
-        if a != b
-    ]
-    assert len(states[0]) == len(states[1]) and not diffs
 
 
 def fill_new(portal, name="Cierre", date="2026-12-01", note="Nota"):

@@ -40,8 +40,8 @@ def effort(portal, project_detail):
     return data, response, calls
 
 
-def enter(page, previous=False):
-    page.goto(page.base + PAGE + ("?vista=anterior" if previous else ""))
+def enter(page):
+    page.goto(page.base + PAGE)
     page.locator(".aer-tabs").get_by_role(
         "button", name="Esfuerzo", exact=True
     ).click()

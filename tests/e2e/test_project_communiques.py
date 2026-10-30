@@ -72,8 +72,8 @@ def gmail(portal):
     return sent
 
 
-def open_modal(portal, previous=False):
-    open_planning(portal, previous)
+def open_modal(portal):
+    open_planning(portal)
     portal.evaluate("ixsAbrirExtension()")
     expect(portal.locator(".ixe-dialog")).to_be_visible()
     expect(portal.locator(".ixe-thread")).to_have_count(1)

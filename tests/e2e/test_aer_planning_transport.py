@@ -43,8 +43,8 @@ def planning(portal, project_detail):
     return data, results, calls
 
 
-def enter(page, previous=False):
-    page.goto(page.base + PAGE + ("?vista=anterior" if previous else ""))
+def enter(page):
+    page.goto(page.base + PAGE)
     # El botón Comunicados ya existía en esta tarjeta antes de este bloque.
     page.evaluate("window.beeProjectCommunique ||= {}")
     page.locator(".aer-tabs").get_by_role(

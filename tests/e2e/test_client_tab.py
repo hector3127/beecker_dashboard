@@ -124,16 +124,15 @@ def board(request, family, portal, monkeypatch, fixed_day):
     return family, calls
 
 
-def open_tab(portal, family, previous=False):
-    suffix = "?vista=anterior" if previous else ""
+def open_tab(portal, family):
     if family == "ixs":
-        portal.goto(portal.base + IXS_PAGE + suffix)
+        portal.goto(portal.base + IXS_PAGE)
         portal.locator(".ixs-nav").get_by_role(
             "button", name="Cliente", exact=True
         ).click()
         content = "#ixs-tab-contenido"
     else:
-        portal.goto(portal.base + AER_PAGE + suffix)
+        portal.goto(portal.base + AER_PAGE)
         portal.locator(".aer-tabs").get_by_role(
             "button", name="Cliente", exact=True
         ).click()

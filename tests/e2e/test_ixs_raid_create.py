@@ -154,8 +154,8 @@ def alta(portal, ixs, monkeypatch):
     return calls, answers
 
 
-def open_modal(portal, tipo, previous=False):
-    portal.goto(portal.base + PAGE + ("?vista=anterior" if previous else ""))
+def open_modal(portal, tipo):
+    portal.goto(portal.base + PAGE)
     portal.locator(".ixs-nav").get_by_role(
         "button", name="Gestión RAID", exact=True
     ).click()

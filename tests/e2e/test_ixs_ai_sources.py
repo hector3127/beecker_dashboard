@@ -158,8 +158,8 @@ def ia(portal, planning, monkeypatch):
     return responses, calls
 
 
-def enter(portal, previous=False, wait=True):
-    portal.goto(portal.base + PAGE + ("?vista=anterior" if previous else ""))
+def enter(portal, wait=True):
+    portal.goto(portal.base + PAGE)
     portal.locator(".ixs-nav").get_by_role(
         "button", name="IA", exact=True
     ).click()
@@ -233,43 +233,6 @@ def test_initial_reads_use_api_without_model_or_rpc(portal, ia, fixed_day):
     ]:
         assert any(path in url for url in requests), path
     assert not any("/api/rpc/" in url for url in requests)
-
-
-def test_calculations_use_modular_model_with_original_results(
-    portal, ia, fixed_day
-):
-    enter(portal)
-    from tests.e2e.project_reference import load_project_reference
-
-    load_project_reference(portal)
-    result = portal.evaluate("""() => {
-      const model = window.beeIxsAiModel, adapters=window.beeIxsAdapters;
-      const calls=[];
-      window.beeIxsAdapters={...adapters};
-      for(const key of ['context','snapshot','changes','capacity'])
-        window.beeIxsAdapters[key]=(...args)=>{
-          calls.push(key);return adapters[key](...args);
-        };
-      const read = () => JSON.parse(JSON.stringify({
-        context: ixsIAContexto(), snapshot: ixsIASnapshot(),
-        changes: ixsIACambios(), capacity: ixsIACapacidad()
-      }));
-      try {
-        const modern = read();
-        window.beeIxsAiModel = null;
-        window.beeIxsAdapters = null;
-        return { modern, original: read(), calls };
-      } finally {
-        window.beeIxsAiModel = model;window.beeIxsAdapters=adapters;
-      }
-    }""")
-    assert result["modern"] == result["original"]
-    assert set(result["calls"]) == {
-        "context",
-        "snapshot",
-        "changes",
-        "capacity",
-    }
 
 
 def test_partial_source_can_retry_without_losing_other_sources(

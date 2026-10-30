@@ -130,7 +130,7 @@ def test_aer_records_missing_dates_still_use_service_validation(
     load.assert_called_once_with("AER.001", "", "")
 
 
-def test_active_entry_and_comparison(client, monkeypatch, reference_site):
+def test_active_entry_uses_the_modular_template(client, monkeypatch):
     current = client.get(
         "/proyectos/CCO.001%20%7C%20CR/?volver=%2Foperativa%2F"
     )
@@ -139,10 +139,6 @@ def test_active_entry_and_comparison(client, monkeypatch, reference_site):
     html = current.content.decode()
     assert "app/scripts/pages/project_detail/main.js" in html
     assert '"id": "CCO.001 | CR"' in html
-    previous = client.get("/proyectos/CCO.001/?vista=anterior")
-    assert "portal/proyecto_detalle.html" in [
-        t.name for t in previous.templates
-    ]
 
 
 @pytest.mark.parametrize(

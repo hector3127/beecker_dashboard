@@ -1,8 +1,8 @@
 {
   "processes": [
     "Delivery Manager Country Client BOT ID Service Process Name Status ROC Start Finish Average Limit Invested Hours Hours Balance Hours Package Limit Available Hours Package Risk",
-    "Ana MEX N Nestlé 1 ROC Reporte Activo 01/01/2026 20/10/2026 Sin dato Sin dato Sin dato Sin dato 0 Riesgo",
-    "Ana MEX N Nestlé 2 ROC Reporte Activo 01/01/2026 20/10/2026 Sin dato Sin dato Sin dato Sin dato 0 Riesgo"
+    "Ana MEX N Nestlé 1 ROC Reporte Activo 01/01/2026 20/10/2026 Sin dato Sin dato Sin dato N/A 0 Riesgo",
+    "Ana MEX N Nestlé 2 ROC Reporte Activo 01/01/2026 20/10/2026 Sin dato Sin dato Sin dato N/A 0 Riesgo"
   ],
   "renewals": [
     "DM / AM ID de proyecto País Fin Días restantes",

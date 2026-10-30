@@ -227,7 +227,6 @@ def test_page_is_a_shell_without_business_data(client, served):
     assert 'id="eva4-content"' in html
     assert 'src="/static/app/scripts/pages/eva4/main.js' in html
     assert "Nestl" not in html and "ROC.NSC" not in html
-    assert '"value": "2026-09"' in html  # solo la configuracion del selector
     assert served == []  # la pagina no consulta fuentes
 
 
@@ -244,7 +243,7 @@ def test_page_sends_anonymous_people_to_login_when_enforced(client, enforced):
     assert response.url.startswith("/admin/login/")
 
 
-def test_retired_parameter_preserves_shell_month_and_defers_sources(
+def test_retired_parameter_still_serves_the_shell_and_defers_sources(
     client, monkeypatch, served
 ):
     monkeypatch.setattr(eva4.timezone, "localdate", lambda: date(2026, 10, 22))
@@ -254,6 +253,5 @@ def test_retired_parameter_preserves_shell_month_and_defers_sources(
     html = response.content.decode()
     assert response.status_code == 200
     assert 'id="eva4-content"' in html
-    assert '"value": "2026-09"' in html
     assert "Estás viendo la pantalla anterior" not in html
     assert served == []

@@ -38,8 +38,7 @@ pytestmark = [
 
 
 @pytest.fixture
-def design_site(reference_site, settings):
-    # Explicit ordering: the normal reference fixture must run first.
+def design_site(settings):
     production_site.__wrapped__(settings)
 
 

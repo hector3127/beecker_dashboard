@@ -38,8 +38,8 @@ def risks(portal, project_detail):
     return data, responses, calls
 
 
-def enter(page, previous=False):
-    page.goto(page.base + PAGE + ("?vista=anterior" if previous else ""))
+def enter(page):
+    page.goto(page.base + PAGE)
     page.locator(".aer-tabs").get_by_role(
         "button", name="Riesgos", exact=True
     ).click()

@@ -23,7 +23,7 @@ def test_relative_imports_between_modules_get_the_hashed_name(
         ignore_patterns=["admin", "rest_framework", "portal", "core"],
     )
 
-    for name, section in (("eva4", "processes"), ("operativa", "metrics")):
+    for name, section in (("executive", "metrics"), ("operativa", "metrics")):
         page = tmp_path / "app/scripts/pages" / name
         main = next(page.glob("main.*.js")).read_text("utf-8")
         # Django reescribe el import: comillas dobles y huella en el nombre.

@@ -14,8 +14,8 @@ from tests.e2e.test_project_detail_entry import project_detail as project_detail
 pytestmark = pytest.mark.django_db(transaction=True)
 
 
-def open_table(portal, previous=False):
-    enter(portal, previous)
+def open_table(portal):
+    enter(portal)
     portal.locator("#ixs-azure-wi-collapse > summary").click()
     expect(portal.locator("#wi-row-101")).to_be_attached()
     portal.wait_for_load_state("networkidle")

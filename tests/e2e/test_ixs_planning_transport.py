@@ -108,8 +108,8 @@ def planning(portal, ixs, monkeypatch):
     return plan, azure, calls, errors
 
 
-def open_planning(portal, previous=False):
-    portal.goto(portal.base + PAGE + ("?vista=anterior" if previous else ""))
+def open_planning(portal):
+    portal.goto(portal.base + PAGE)
     portal.locator(".ixs-nav").get_by_role(
         "button", name="Planeación", exact=True
     ).click()

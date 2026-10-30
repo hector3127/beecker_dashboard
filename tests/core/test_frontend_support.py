@@ -14,7 +14,6 @@ from core.frontend import CAPTURE_STYLE_HASHES
 
 ROOT = Path(__file__).resolve().parents[2]
 FRONTEND = ROOT / "frontend"
-PORTAL_CSS = ROOT / "tests/reference/static/portal/css/portal.css"
 PAGE = "/guia-de-interfaz/"
 HEADER = "Content-Security-Policy-Report-Only"
 
@@ -151,22 +150,6 @@ def test_importmap_lists_every_shared_module():
     }
 
     assert mapped == modules
-
-
-def declarations(css: str) -> dict[str, str]:
-    return dict(re.findall(r"(--[\w-]+):\s*([^;]+);", css))
-
-
-def test_tokens_keep_the_values_of_the_current_design_system():
-    portal = PORTAL_CSS.read_text("utf-8")
-    block = portal.split("body.ds {", 1)[1].split("}", 1)[0]
-    tokens = (FRONTEND / "static/styles/tokens.css").read_text("utf-8")
-    current = declarations(block)
-    new = declarations(tokens)
-
-    assert current  # el bloque existe
-    for name, value in current.items():
-        assert new.get(name) == value, name
 
 
 def test_new_styles_do_not_define_loose_colors():

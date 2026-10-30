@@ -15,12 +15,8 @@ def family_data(project_detail, family):
     return project_detail[1 if family == "aer" else 0]
 
 
-def enter(page, data, previous=False):
-    page.goto(
-        page.base
-        + f"/proyectos/{data['proyecto']['id']}/"
-        + ("?vista=anterior" if previous else "")
-    )
+def enter(page, data):
+    page.goto(page.base + f"/proyectos/{data['proyecto']['id']}/")
     expect(page.locator(".aer-head, .ixs-head")).to_be_visible()
     page.wait_for_load_state("networkidle")
 

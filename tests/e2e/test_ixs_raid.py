@@ -1,13 +1,11 @@
 """Gestión RAID: API v1, mismo diseño y conservación de la última vista."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import PAGE
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
@@ -125,57 +123,13 @@ def raid(portal, ixs, monkeypatch):
     return calls, answer
 
 
-def open_raid(portal, previous=False):
-    portal.goto(portal.base + PAGE + ("?vista=anterior" if previous else ""))
+def open_raid(portal):
+    portal.goto(portal.base + PAGE)
     portal.locator(".ixs-nav").get_by_role(
         "button", name="Gestión RAID", exact=True
     ).click()
     expect(portal.locator("#ixs-raid-tabla tbody tr")).to_have_count(5)
     portal.wait_for_load_state("networkidle")
-
-
-def compare(portal, step, width, name):
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_raid") / name / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_raid(portal, previous)
-        step(portal)
-        portal.mouse.move(0, 0)  # sin hover sobre filas
-        selector = (
-            "#ixs-tab-contenido, #ixs-tab-contenido *, "
-            "#ixs-raid-detail-overlay, #ixs-raid-detail-overlay *"
-        )
-        classes = portal.evaluate(
-            "s=>[...document.querySelectorAll(s)]"
-            ".map(e=>String(e.getAttribute('class')||'').trim())",
-            selector,
-        )
-        states.append(
-            [
-                {**s, "cls": c}
-                for s, c in zip(
-                    capture_state(portal, selector), classes, strict=True
-                )
-            ]
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-    diffs = [
-        (
-            i,
-            a["tag"],
-            a["cls"],
-            {k: (a[k], b[k]) for k in a if k != "cls" and a[k] != b[k]},
-        )
-        for i, (a, b) in enumerate(zip(*states, strict=False))
-        if a != b
-    ]
-    assert len(states[0]) == len(states[1]) and not diffs, diffs[:5]
 
 
 def nothing(portal):

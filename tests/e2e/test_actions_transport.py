@@ -103,12 +103,8 @@ def board(request, portal, family):
     return results, calls
 
 
-def enter(page, family, previous=False):
-    page.goto(
-        page.base
-        + (AER_PAGE if family == "aer" else IXS_PAGE)
-        + ("?vista=anterior" if previous else "")
-    )
+def enter(page, family):
+    page.goto(page.base + (AER_PAGE if family == "aer" else IXS_PAGE))
     page.locator(".aer-tabs" if family == "aer" else ".ixs-nav").get_by_role(
         "button", name="Acciones", exact=True
     ).click()

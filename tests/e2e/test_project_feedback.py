@@ -27,11 +27,10 @@ def modal(page):
     }""")
 
 
-@pytest.mark.parametrize("previous", [True, False])
 def test_notice_timing_and_text_are_preserved(
-    portal, project_detail, fixed_day, previous
+    portal, project_detail, fixed_day
 ):
-    enter(portal, project_detail[1], previous)
+    enter(portal, project_detail[1])
     result = portal.evaluate("""() => {
       const timer=window.setTimeout,frame=window.requestAnimationFrame,queue=[];
       window.setTimeout=(callback,ms)=>queue.push({callback,ms});

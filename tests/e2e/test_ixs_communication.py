@@ -122,8 +122,8 @@ def board(portal, ixs, monkeypatch):
     return calls, store
 
 
-def open_tab(portal, previous=False):
-    portal.goto(portal.base + PAGE + ("?vista=anterior" if previous else ""))
+def open_tab(portal):
+    portal.goto(portal.base + PAGE)
     portal.locator(".ixs-nav").get_by_role(
         "button", name="Comunicación", exact=True
     ).click()
@@ -151,18 +151,8 @@ def nothing(portal):
     pass
 
 
-def by_type(portal):
-    portal.locator(".bee-com-tabs").get_by_role(
-        "button", name="Lineamiento", exact=False
-    ).click()
-
-
 def search(portal):
     portal.locator(".bee-com-filters input").fill("plantilla")
-
-
-def oldest(portal):
-    portal.locator(".bee-com-filters select").nth(1).select_option("antiguos")
 
 
 def detail(portal):

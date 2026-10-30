@@ -57,12 +57,8 @@ def ia(portal, project_detail, monkeypatch):
     return project_detail[1], responses, calls
 
 
-def enter(page, previous=False):
-    page.goto(
-        page.base
-        + "/proyectos/AER.001/"
-        + ("?vista=anterior" if previous else "")
-    )
+def enter(page):
+    page.goto(page.base + "/proyectos/AER.001/")
     page.locator(".aer-tabs").get_by_role(
         "button", name="✦ IA", exact=True
     ).click()

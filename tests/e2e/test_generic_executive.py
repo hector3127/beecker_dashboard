@@ -1,14 +1,12 @@
 """Ejecutivo genérico modular: ruta directa, error, reintento y DOM seguro."""
 
 import copy
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
 from tests.e2e.test_generic_sources import open_generic
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
@@ -80,52 +78,6 @@ def test_direct_generic_entry_and_refresh_without_old_renderer(
         assert any(f"/GEN.001/{suffix}/" in url for url in urls)
     assert not any("/api/rpc/" in url for url in urls)
     assert not errors, errors
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("error", [None, "Sin datos del servidor"])
-def test_generic_empty_error_matches_previous(
-    portal, ixs, fixed_day, width, error
-):
-    data, _ = ixs
-    states = []
-    portal.set_viewport_size({"width": width, "height": 1000})
-    directory = (
-        Path("tmp/migration/project_detail/generic_executive")
-        / ("error" if error else "empty")
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        open_generic(portal, data, previous)
-        portal.evaluate(
-            "value=>renderDashboardEjecutivoProyecto(value)",
-            {"errorServidor": error},
-        )
-        target = portal.locator("#dashboard-proyecto-detalle")
-        if previous:
-            reference_width = target.evaluate(
-                "n=>n.getBoundingClientRect().width"
-            )
-        target.evaluate(
-            """(node,width)=>{
-          const host=document.createElement('div');host.style.width=width+'px';
-          document.body.append(host);host.append(node);
-        }""",
-            reference_width,
-        )
-        state = capture_state(
-            portal, "#dashboard-proyecto-detalle, #dashboard-proyecto-detalle *"
-        )
-        x, y = state[0]["box"][:2]
-        for item in state:
-            box = item["box"]
-            item["box"] = [round(box[0] - x, 1), round(box[1] - y, 1), *box[2:]]
-        states.append(state)
-        target.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png"))
-        )
-    assert states[0] == states[1]
 
 
 def test_full_mount_and_error_without_html_or_legacy_helpers(portal, ixs):

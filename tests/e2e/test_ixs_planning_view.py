@@ -15,8 +15,8 @@ pytestmark = pytest.mark.django_db(transaction=True)
 PAGE = "/proyectos/AMK.008/"
 
 
-def enter(portal, previous=False):
-    portal.goto(portal.base + PAGE + ("?vista=anterior" if previous else ""))
+def enter(portal):
+    portal.goto(portal.base + PAGE)
     portal.locator(".ixs-nav").get_by_role(
         "button", name="Planeación", exact=True
     ).click()

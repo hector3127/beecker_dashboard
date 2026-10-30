@@ -14,12 +14,8 @@ TARGETS = {
 }
 
 
-def open_generic(portal, data, previous=False):
-    portal.goto(
-        portal.base
-        + "/proyectos/AMK.008/"
-        + ("?vista=anterior" if previous else "")
-    )
+def open_generic(portal, data):
+    portal.goto(portal.base + "/proyectos/AMK.008/")
     expect(portal.locator(".ixs-head")).to_be_visible()
     portal.wait_for_load_state("networkidle")
     portal.evaluate("data=>renderDashboardEjecutivoProyecto(data)", data)

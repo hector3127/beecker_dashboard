@@ -15,8 +15,8 @@ pytestmark = pytest.mark.django_db(transaction=True)
 API = "**/screens/proyectos/AMK.008/azure/*"
 
 
-def enter(portal, previous=False):
-    portal.goto(portal.base + PAGE + ("?vista=anterior" if previous else ""))
+def enter(portal):
+    portal.goto(portal.base + PAGE)
     portal.locator(".ixs-nav").get_by_role(
         "button", name="Azure DevOps", exact=True
     ).click()
@@ -26,10 +26,6 @@ def tab(portal, name):
     portal.locator(".ixs-nav").get_by_role(
         "button", name=name, exact=True
     ).click()
-
-
-def capture_routes(routes):
-    return lambda route: routes.append(route)
 
 
 def test_api_initial_refresh_filters_and_drawer(

@@ -201,11 +201,6 @@ def watch(portal):
 
 
 @pytest.fixture(autouse=True)
-def _previous_project_detail(reference_site: None) -> None:
-    """Las comparaciones usan la referencia anterior que viven en pruebas."""
-
-
-@pytest.fixture(autouse=True)
 def _csp_everywhere(request: pytest.FixtureRequest) -> Iterator[None]:
     """E2E_CSP=1: toda la suite con la politica aplicada y avisos en un archivo.
 

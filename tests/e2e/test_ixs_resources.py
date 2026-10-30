@@ -1,15 +1,12 @@
 """Recursos IXS: diseño anterior, asignaciones, guardado y errores."""
 
 import copy
-import json
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
 from tests.e2e.test_ixs_effort import effort as effort
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
 
@@ -83,8 +80,8 @@ def resources(portal, effort, monkeypatch):
     return data, result, records, saves, errors
 
 
-def open_resources(portal, previous=False):
-    portal.goto(portal.base + PAGE + ("?vista=anterior" if previous else ""))
+def open_resources(portal):
+    portal.goto(portal.base + PAGE)
     portal.locator(".ixs-nav").get_by_role(
         "button", name="Recursos", exact=True
     ).click()
@@ -98,39 +95,6 @@ def edit(portal, name):
     portal.locator("#ixs-tab-contenido tbody tr").filter(
         has_text=name
     ).get_by_role("button", name="Editar", exact=True).click()
-
-
-def compare(portal, name, selector, modal=None):
-    out = Path("tmp/migration/project_detail/ixs_resources") / name
-    out.mkdir(parents=True, exist_ok=True)
-    snapshots = []
-    for previous, label in ((True, "previous"), (False, "current")):
-        open_resources(portal, previous)
-        if modal == "add":
-            portal.get_by_role("button", name="+ Agregar recurso").click()
-        elif modal == "edit":
-            edit(portal, "Ana Pérez")
-        elif modal == "assign":
-            portal.get_by_role("button", name="Asignar", exact=True).click()
-        snapshots.append(capture_state(portal, selector))
-        portal.screenshot(path=str(out / (label + ".png")), full_page=True)
-    before, after = snapshots
-    (out / "differences.json").write_text(
-        json.dumps(
-            {
-                "previous_count": len(before),
-                "current_count": len(after),
-                "differences": [
-                    {"index": i, "previous": a, "current": b}
-                    for i, (a, b) in enumerate(zip(before, after, strict=False))
-                    if a != b
-                ],
-            },
-            indent=2,
-        ),
-        encoding="utf-8",
-    )
-    assert after == before
 
 
 def test_add_edit_and_assign_use_api_and_csrf(portal, resources, fixed_day):

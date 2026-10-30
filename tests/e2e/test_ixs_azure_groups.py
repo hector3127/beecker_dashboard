@@ -1,15 +1,12 @@
 """Agrupaciones Azure: misma presentación, acciones y texto seguro."""
 
 import copy
-import json
-from pathlib import Path
 
 import pytest
 from playwright.sync_api import expect
 
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
 from tests.e2e.test_ixs_azure_transport import enter
-from tests.e2e.test_ixs_effort import state as capture_state
 from tests.e2e.test_ixs_executive import ixs as ixs
 from tests.e2e.test_ixs_planning_transport import planning as planning
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
@@ -64,38 +61,6 @@ def open_drawer(portal, mode):
         portal.locator("#ixs-az84-stage tbody button").first.click()
     else:
         portal.locator(".ixs-az85-person summary button").first.click()
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("mode", ["person", "iteration", "stage"])
-def test_drawers_match_previous(portal, groups, fixed_day, width, mode):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    states = []
-    directory = (
-        Path("tmp/migration/project_detail/ixs_azure_groups")
-        / mode
-        / str(width)
-    )
-    directory.mkdir(parents=True, exist_ok=True)
-    for previous in [True, False]:
-        enter(portal, previous)
-        portal.wait_for_load_state("networkidle")
-        open_drawer(portal, mode)
-        expect(portal.locator(".ixs-az84-drawer")).to_be_visible()
-        portal.mouse.move(0, 0)
-        states.append(
-            capture_state(
-                portal, "#ixs-az84-drawer-wrap, #ixs-az84-drawer-wrap *"
-            )
-        )
-        portal.screenshot(
-            path=str(directory / ("old.png" if previous else "new.png")),
-            full_page=True,
-        )
-        portal.keyboard.press("Escape")
-        expect(portal.locator("#ixs-az84-drawer-wrap")).to_have_count(0)
-    (directory / "states.json").write_text(json.dumps(states), encoding="utf-8")
-    assert states[0] == states[1]
 
 
 def test_search_opens_matching_people_and_keeps_current_behavior(
