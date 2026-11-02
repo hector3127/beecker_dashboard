@@ -55,7 +55,7 @@ assert.equal(frozen.UTC.parsers.length, 8);
 assert.equal(frozen.UTC.models.length, 9);
 for (const [i, { name }] of frozen.UTC.capacity.entries()) {
   test(`Capacity and resources match original without mutation (${name})`, () =>
-    inZones((group) => {
+    atDate(() => inZones((group) => {
       const { dashboard, expected, consumes, capacities } = group.capacity[i];
       const before = plain(dashboard),
         rows = dashboard.plan.filas;
@@ -68,7 +68,7 @@ for (const [i, { name }] of frozen.UTC.capacity.entries()) {
       for (const { args, expected: value } of capacities)
         assert.deepEqual(plain(capacity(dashboard, ...args)), value);
       assert.deepEqual(dashboard, before);
-    }));
+    })));
 }
 for (const [i, { name }] of frozen.UTC.parsers.entries()) {
   test(`Import parser preserves original limitations (${name})`, () =>

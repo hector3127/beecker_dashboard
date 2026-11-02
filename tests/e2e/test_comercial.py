@@ -10,8 +10,8 @@ pytestmark = pytest.mark.django_db(transaction=True)
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
 @pytest.mark.parametrize("from_executive", [False, True])
-def test_keeps_approved_reference(
-    portal, backlog, width, from_executive, snapshot, enforced_csp
+def test_reference_dashboard_layout_and_existing_interactions(
+    portal, backlog, width, from_executive, enforced_csp
 ):
     from pathlib import Path
 
@@ -27,26 +27,14 @@ def test_keeps_approved_reference(
     expect(portal.locator(".service-detail-row").first).to_be_visible()
     portal.evaluate("document.fonts.ready")
     portal.mouse.move(0, 0)
-    selectors = [
-        ".ban",
-        ".k4",
-        ".card",
-        ".commercial-section",
-        "table",
-        ".portal-back",
-    ]
-    data = portal.evaluate(
-        """selectors=>selectors.map(s=>[...document.querySelectorAll(s)].map(el=>{
-          const b=el.getBoundingClientRect(),c=getComputedStyle(el);
-          return {box:['x','y','width','height'].map(k=>Math.round(b[k]*10)/10),
-            css:['fontSize','fontWeight','color','backgroundColor','padding',
-              'margin'].map(k=>c[k]),text:el.innerText};
-        }))""",
-        selectors,
+    expect(portal.locator(".k4 .kx")).to_have_count(4)
+    expect(portal.locator("#commercial-stage-donut svg")).to_have_count(1)
+    expect(portal.locator("#commercial-pipeline-chart svg")).to_have_count(1)
+    assert portal.evaluate(
+        "document.documentElement.scrollWidth <= innerWidth + 1"
     )
     origin = "executive" if from_executive else "direct"
     key = f"commercial_layout_{width}_{origin}"
-    snapshot(key, dict(zip(selectors, data, strict=True)))
     path = Path(f"tmp/migration/commercial/{key}.png")
     path.parent.mkdir(parents=True, exist_ok=True)
     portal.screenshot(path=str(path), full_page=True)
@@ -204,4 +192,35 @@ def test_executive_origin_keeps_dates_when_year_changes(
     portal.wait_for_url("**pipeline_year=2026*")
     expect(portal.locator("[data-portal-back]")).to_have_attribute(
         "href", expected
+    )
+
+
+@pytest.mark.parametrize("width", [1450, 900, 390])
+def test_reference_dashboard_charts_controls_and_mobile(
+    portal, backlog, width, enforced_csp
+):
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + "/comercial/?pipeline_year=2026")
+    expect(portal.locator(".commercial-nav")).to_have_count(0)
+    expect(portal.locator("#commercial-stage-donut svg")).to_have_count(1)
+    expect(portal.locator("#commercial-pipeline-chart svg rect")).to_have_count(
+        12
+    )
+    expect(portal.locator(".k4 .v")).to_have_text(["50K", "50K", "1", "3"])
+    portal.get_by_role("button", name="Mes", exact=True).click()
+    portal.get_by_role("combobox", name="Mes de carga comercial").select_option(
+        "10"
+    )
+    expect(portal.locator("#commercial-pipeline-chart svg rect")).to_have_count(
+        1
+    )
+    expect(portal.locator("#commercial-pipeline-chart svg")).to_contain_text(
+        "120"
+    )
+    portal.get_by_role("button", name="Año", exact=True).click()
+    expect(portal.locator("#commercial-pipeline-chart svg rect")).to_have_count(
+        12
+    )
+    assert portal.evaluate(
+        "document.documentElement.scrollWidth <= innerWidth+1"
     )

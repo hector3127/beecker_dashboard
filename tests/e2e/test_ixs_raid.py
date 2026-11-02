@@ -229,3 +229,60 @@ def test_failed_refresh_keeps_the_last_view_and_first_error_is_shown(
         "Se conservan los datos de la consulta anterior"
     )
     expect(portal.locator("#ixs-raid-tabla tbody tr")).to_have_count(5)
+
+
+def test_reference_raid_distribution_matrix_and_mobile(portal, raid, fixed_day):
+    open_raid(portal)
+    expect(portal.locator("#ixs-raid-kpis > .ixs-raid-stat")).to_have_count(6)
+    legend = portal.locator(".ixs-raid-health-legend")
+    expect(legend.get_by_text("Riesgo", exact=True)).to_be_visible()
+    expect(legend.locator("small")).to_have_text(["20%", "20%", "20%", "20%"])
+    expect(
+        portal.locator(
+            '[aria-label="Impacto Alto, probabilidad Medio: 2 registros"]'
+        )
+    ).to_have_text("2")
+    portal.get_by_role("button", name="Ver detalle de #11", exact=True).click()
+    expect(portal.locator("#ixs-raid-detail-overlay")).to_be_visible()
+    portal.locator("#ixs-raid-detail-overlay header button").click()
+    portal.get_by_role("searchbox", name="Buscar registros RAID").fill(
+        "Servidor caído"
+    )
+    expect(portal.locator("#ixs-raid-tabla tbody tr")).to_have_count(1)
+    expect(portal.locator("#ixs-raid-count")).to_have_text("1 de 5 registros")
+    portal.set_viewport_size({"width": 390, "height": 844})
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
+
+
+def test_reference_issue_detail_preserves_plan_and_keyboard(
+    portal, raid, fixed_day
+):
+    _, answer = raid
+    answer["result"]["registros"][2]["issueDetalle"]["plan"] = (
+        "Validar acceso\nCoordinar con el cliente"
+    )
+    open_raid(portal)
+    trigger = portal.get_by_role(
+        "button", name="Ver detalle de #13", exact=True
+    )
+    trigger.click()
+    drawer = portal.get_by_role("dialog", name="Detalle de Issue", exact=True)
+    expect(drawer.locator(".raid-detail-steps li")).to_have_count(2)
+    expect(drawer.locator(".raid-detail-steps")).to_contain_text(
+        "Coordinar con el cliente"
+    )
+    assert drawer.locator("input[type=checkbox]").count() == 0
+    expect(drawer.locator("header a")).to_have_attribute("href", BASE["url"])
+    expect(drawer.locator(".ixs-raid-related a")).to_have_attribute(
+        "href", "https://dev.azure.com/o/p/_workitems/edit/77"
+    )
+    expect(
+        drawer.get_by_role("button", name="Cerrar", exact=True)
+    ).to_be_focused()
+    drawer.press("Escape")
+    expect(portal.locator("#ixs-raid-detail-overlay")).to_have_count(0)
+    expect(trigger).to_be_focused()
+    trigger.click()
+    portal.set_viewport_size({"width": 390, "height": 844})
+    assert drawer.evaluate("node => node.scrollWidth <= node.clientWidth + 1")
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")

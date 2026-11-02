@@ -35,6 +35,8 @@ async function load() {
   current?.abort();
   current = new AbortController();
   const signal = current.signal, token = ++state.request;
+  state.data = null;
+  byId('ci-content').replaceChildren();
   message('Leyendo Bandas/rol y Clockify…');
   try {
     const { data } = await apiGet('screens/capacidad/diaria/', { mes: state.mes }, { signal, timeout: 90000 });
@@ -45,7 +47,7 @@ async function load() {
     state.detailResource = '';
     fillFilters();
     paint();
-    message(`Mes ${data.mes} · Bandas/rol + Clockify · ${data.resumen.personas} personas vigentes`);
+    message(`Mes ${data.mes} · Bandas/rol + Clockify · ${data.resumen.personas} personas vigentes` + (data.clockify_month ? ` · Sincronizado: ${new Date(data.clockify_month.synced_at).toLocaleString('es-MX')}` : ''));
   } catch (error) {
     if (!signal.aborted && token === state.request) message(error instanceof Error ? error.message : String(error), true);
   }
@@ -81,7 +83,12 @@ byId('ci-export').addEventListener('click', () => {
   el('a', { href: url, download: 'Capacidad_instalada_' + state.mes + '.csv' }).click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
-window.addEventListener('pagehide', () => { state.request += 1; current?.abort(); });
+byId('ci-export-records')?.addEventListener('click', () => {
+  if (!state.data) return;
+  const params = new URLSearchParams({ mes: state.mes, buscar: state.q, rol: state.rol, banda: state.banda });
+  location.assign('/operativa/capacidad-instalada/exportar/?' + params);
+});
+window.addEventListener('pagehide' , () => { state.request += 1; current?.abort(); });
 const requested = new URLSearchParams(location.search).get('mes');
 const now = new Date();
 state.mes = /^\d{4}-(0[1-9]|1[0-2])$/.test(requested || '') ? requested : now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');

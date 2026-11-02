@@ -1,3 +1,4 @@
+import { capacityState } from './capacity_state.js?v=20261101';
 // @ts-check
 // Operativa: pinta el ultimo corte y despues refresca por bloques, como la
 // pantalla anterior: primero proyectos y estados; luego, en paralelo, EVA-04,
@@ -12,7 +13,7 @@ import { renderCapacity } from './sections/capacity.js';
 import { renderEva } from './sections/eva.js';
 import { renderHealth } from './sections/health.js';
 import { renderManagers } from './sections/managers.js';
-import { renderMetrics } from './sections/metrics.js';
+import { renderMetrics } from './sections/metrics.js?v=20261031-investment-tags';
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
@@ -42,6 +43,31 @@ const regions = {
 
 /** Ultimo corte combinado de la API; null mientras llega el primero. @type {any} */
 let view = null;
+const capacityMonth = /** @type {HTMLInputElement} */ (byId('ops-capacity-select'));
+const monthlyCapacity = new Map();
+let capacityRequest = 0;
+let capacitySelection = readParams().get('mes_capacidad') || '';
+
+async function loadCapacityMonth() {
+  const month = capacityMonth.value;
+  if (!month || !view || view.restricted) return;
+  capacitySelection = month;
+  capacityMonth.value = month;
+  writeParams({ mes_capacidad: month }, { push: false });
+  const mine = ++capacityRequest;
+  renderCapacity(regions.capacity, monthlyCapacity.get(month) || {month, loading:true});
+  try {
+    const answer = await get('screens/operativa/datos/', {bloque:'capacidad',mes:month}, false);
+    monthlyCapacity.set(month, answer.data.capacity);
+    if (mine === capacityRequest) renderAll();
+  } catch (error) {
+    if (mine === capacityRequest) renderCapacity(regions.capacity, {
+      month, error: error instanceof Error ? error.message : 'No se pudo cargar la capacidad.'
+    });
+  }
+}
+capacityMonth.addEventListener('change', loadCapacityMonth);
+
 let billing = { restricted: false, data: null, failed: false };
 let run = 0; // cada carga nueva invalida las respuestas de la anterior
 let refreshing = false;
@@ -119,7 +145,19 @@ function renderAll() {
   renderHealth(regions.health, view);
   renderManagers(regions.managers, view, urls);
   renderEva(regions.eva, view, urls);
-  renderCapacity(regions.capacity, view.capacity);
+  capacityMonth.disabled = view.restricted;
+  if (!capacitySelection && view.capacity?.month) capacityMonth.value = view.capacity.month;
+  else if (capacitySelection) capacityMonth.value = capacitySelection;
+  const chosen = Boolean(capacitySelection);
+  renderCapacity(regions.capacity, view.restricted ? null : chosen
+    ? monthlyCapacity.get(capacitySelection) || {month:capacitySelection,loading:true}
+    : view.capacity);
+  const detailLink = document.querySelector('.capacity-detail-link');
+  if (detailLink && capacityMonth.value) {
+    const target = new URL(detailLink.href);
+    target.searchParams.set('mes',capacityMonth.value);
+    detailLink.href = target.toString();
+  }
   renderBilling(regions.billing, { ...billing, restricted: view.restricted });
 }
 
@@ -127,7 +165,8 @@ function renderAll() {
 
 /** La base trae todo, salvo lo que decide el primer corte. @param {any} next */
 function mergeBase(next) {
-  view = { ...next, pending_blocks: view.pending_blocks, async: view.async, billing_fresh: view.billing_fresh };
+  const capacity = capacityState(view?.capacity, next.capacity, next.restricted);
+  view = { ...next, capacity, pending_blocks: view.pending_blocks, async: view.async, billing_fresh: view.billing_fresh };
 }
 
 /**
@@ -138,7 +177,7 @@ function mergeBase(next) {
 function applyBlock(block, data) {
   const bySlug = new Map(data.managers.map((/** @type {any} */ m) => [m.slug, m]));
   if (block === 'eva4') view.eva.eva4 = data.eva.eva4;
-  if (block === 'capacidad') view.capacity = data.capacity;
+  if (block === 'capacidad') view.capacity = capacityState(view.capacity, data.capacity, view.restricted);
   if (block === 'inversion') {
     view.investment = data.investment;
     for (const manager of view.managers) manager.investment = bySlug.get(manager.slug)?.investment ?? manager.investment;
@@ -194,7 +233,16 @@ async function refreshPortfolio(failures, force, mine) {
           const answer = await get('screens/operativa/datos/', { ...extra, bloque: block });
           if (mine !== run) return;
           // Un bloque incompleto no reemplaza lo que ya se muestra.
-          if (answer.data.block_error) throw new Error('Datos parciales');
+          if (answer.data.block_error) {
+            if (block === 'capacidad') {
+              view.capacity = capacityState(view.capacity, {
+                ...answer.data.capacity, month: answer.data.capacity?.month || view.capacity?.month,
+                loading: false, error: answer.data.block_error,
+              }, view.restricted);
+              renderAll();
+            }
+            throw new Error('Datos parciales');
+          }
           applyBlock(block, answer.data);
           renderAll();
         } catch (error) {
@@ -268,10 +316,11 @@ async function start() {
   try {
     const answer = await get('screens/operativa/', {});
     if (mine !== run) return;
-    view = answer.data;
+    view = { ...answer.data, capacity: capacityState(view?.capacity, answer.data.capacity, answer.data.restricted) };
     // El ultimo corte de facturabilidad se pinta ya; abajo se decide si se renueva.
     if (view.billing) billing = { restricted: false, data: view.billing, failed: false };
     renderAll();
+    if (capacitySelection) loadCapacityMonth();
   } catch (error) {
     if (mine !== run) return;
     busy(false);

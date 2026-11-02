@@ -1,6 +1,7 @@
 // @ts-check
 // Pestaña Cliente: pinta la ficha, los contactos, el gobierno y los vínculos con
 // el DOM. Las acciones las decide el controlador.
+import { icon } from "./ixs_icons.js";
 import { el } from "#app/lib/dom.js";
 import { channelIcon, initials, levelClass } from "./client_model.js";
 
@@ -13,7 +14,7 @@ const text = (/** @type {any} */ v) => (v == null ? "" : String(v));
 const dash = (/** @type {any} */ v) => text(v || "—");
 
 /** @param {any} v */
-const check = (v) => el("span", { class: `aer-client-check ${v ? "yes" : "no"}`, text: v ? "✓" : "" });
+const check = (v) => el("span", { class: `aer-client-check ${v ? "yes" : "no"}`, text: v ? "✓" : "—" });
 /** @param {any} level */
 const pill = (level) => el("span", { class: `aer-pill ${levelClass(level)}`, text: dash(level) });
 
@@ -165,6 +166,40 @@ export function renderClient(target, m, view, h) {
       ),
     ),
   );
+  // Independent cards follow the approved two-column client overview.
+  const main = target.querySelector('.aer-client-main');
+  const stakeholders = main?.firstElementChild;
+  const matrix = stakeholders?.querySelector('.aer-client-inline-block');
+  const stack = main?.querySelector('.aer-client-stack');
+  if (main && stakeholders && matrix && stack) {
+    stakeholders.classList.add('client-stakeholders-card');
+    matrix.classList.add('aer-vivid-card', 'aer-client-card', 'client-matrix-card');
+    const matrixTable = matrix.querySelector('table');
+    if (matrixTable) {
+      const scroll = el('div', {class:'client-matrix-scroll',tabindex:0,'aria-label':'Matriz de participación'});
+      matrixTable.replaceWith(scroll);
+      scroll.append(matrixTable);
+    }
+    const profile = stack.children[0];
+    const governance = stack.children[1];
+    const documents = stack.children[2];
+    const lower = el('div', {class:'client-relationship-stack'}, governance, documents);
+    main.replaceChildren(stakeholders, profile, matrix, lower);
+  }
+  const directory = target.querySelector('.aer-client-directory');
+  const directoryCard = directory?.closest('.aer-client-card');
+  if (directoryCard) directoryCard.id = 'client-contact-directory';
+  const viewAll = el('button', {type:'button', class:'aer-btn client-view-all',
+    text:`Ver todos los contactos (${m.all.length}) →`,
+    onclick:()=>directoryCard?.scrollIntoView({behavior:'smooth',block:'start'})});
+  stakeholders?.append(viewAll);
+  const symbols = {'👥':'people','♛':'user','▦':'layers','✉':'megaphone','📄':'list','▣':'project','◔':'target'};
+  for (const node of target.querySelectorAll('.aer-client-section-heading .ico,.aer-client-title-icon,.aer-client-kpi .aer-vivid-icon')) {
+    node.replaceChildren(icon(symbols[node.textContent.trim()] || 'people'));
+  }
+  for (const button of target.querySelectorAll('.aer-client-directory button')) {
+    button.setAttribute('aria-label','Editar contacto');
+  }
   if (focused) {
     const node = /** @type {HTMLInputElement} */ (target.querySelector("#aer-client-search"));
     node.focus();

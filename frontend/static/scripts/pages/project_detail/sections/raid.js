@@ -16,12 +16,20 @@ export function createRaidController(api, creator = null) {
 
   const live = () => !!root && root.isConnected && guards.current(data) && guards.active();
   const value = (/** @type {string} */ id) => /** @type {HTMLInputElement | null} */ (root && root.querySelector("#" + id))?.value || "";
-  const closeDetail = () => document.getElementById("ixs-raid-detail-overlay")?.remove();
+  let returnFocus=null;
+  const closeDetail = () => {
+    document.getElementById("ixs-raid-detail-overlay")?.remove();
+    if(returnFocus?.isConnected)returnFocus.focus();
+    returnFocus=null;
+  };
   const openDetail = (/** @type {number} */ id) => {
     const row = state.rows.find((x) => Number(x.id) === Number(id));
     if (!row) return;
     closeDetail();
-    document.body.append(detailDrawer(row, closeDetail));
+    returnFocus=document.activeElement;
+    const drawer=detailDrawer(row, closeDetail);
+    document.body.append(drawer);
+    drawer.querySelector('header button')?.focus();
   };
   const handlers = { detail: openDetail };
 

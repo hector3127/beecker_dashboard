@@ -1,5 +1,5 @@
 import { el } from "#app/lib/dom.js";
-import { h, div, empty, timeline } from "./ixs_executive_view.js";
+import { h, div, empty, timelineSwitcher } from "./ixs_executive_view.js";
 import { dateText, dateMs, limit, pct } from "./ixs_executive_model.js";
 import { icon } from "./ixs_icons.js";
 import { planningModel } from "./ixs_planning_model.js";
@@ -33,8 +33,8 @@ function planKpi(
   return div(
     `ixs-card ixs-plan-kpi ${accent}`,
     div("top", h("span", "icon", symbol), h("span", "tag", tag || "—")),
-    b(count),
     h("strong", "", title),
+    b(count),
     small(detail),
     div("meter", bar),
     h("span", "fraction", total ? progress + "/" + total : "—"),
@@ -88,7 +88,7 @@ function attention(summary, plan, azure) {
       "ixs-section-head",
       div(
         "",
-        h("h3", "", "♧ Atención requerida"),
+        h("h3", "", icon("warning"), " Atención requerida"),
         small("Fechas límite Dev y ausencias del proyecto"),
       ),
       h(
@@ -110,6 +110,10 @@ function attention(summary, plan, azure) {
       : plan.error
         ? small(plan.error)
         : vacation,
+    !azure.cargando && !plan.cargando && !azure.error && !plan.error &&
+    !summary.late.length && !summary.soon.length && !summary.vacaciones.length
+      ? div("ixs-plan-clear-state", h("span", "ixs-plan-calendar-art", icon("calendar")), h("span", "ixs-plan-calendar-check", "✓"), small("Sin alertas pendientes"))
+      : null,
   );
 }
 
@@ -121,7 +125,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
   const gantt = el(
     "div",
     { id: "ixs-gantt-historico" },
-    timeline(m.timeline, actions.editMarker),
+    timelineSwitcher(m.timeline, actions.editMarker, false),
   );
   const timelineCard = h(
     "section",
@@ -131,6 +135,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
       "Plan estimado, ejecución real, suspensiones e hitos del proyecto",
       div(
         "ixs-plan-main-actions",
+        gantt.querySelector('.ixs-exec-timeline-tools'),
         button([icon("clock"), " Comunicados"], actions.extension),
         button(
           "+ Agregar hito",
@@ -188,7 +193,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
     "section",
     { id: "ixs-plan-vacaciones", class: "ixs-card ixs-plan-padded" },
     head(
-      "Registros de vacaciones",
+      [icon("people"), " Registros de vacaciones"],
       "Vacaciones registradas para este proyecto",
       button(
         "+ Registrar vacaciones",
@@ -237,7 +242,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
     div(
       "ixs-plan-kpis",
       planKpi(
-        "▣",
+        icon("calendar"),
         m.hitos.length,
         "Hitos totales",
         `${m.completed} completados · ${m.hitos.length - m.completed} pendientes`,
@@ -247,7 +252,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
         m.completed,
       ),
       planKpi(
-        "▷",
+        icon("play"),
         m.underway,
         "En progreso",
         "Fases en ejecución",
@@ -256,7 +261,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
         pct(m.hitos.length ? (100 * m.underway) / m.hitos.length : 0),
       ),
       planKpi(
-        "⚠",
+        icon("warning"),
         loading ? "…" : r.late.length,
         "Vencidos",
         "Fecha límite Dev",
@@ -265,7 +270,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
         loading ? "…" : r.late.length ? "Revisar" : "Sin alertas",
       ),
       planKpi(
-        "◷",
+        icon("clock"),
         loading ? "…" : r.soon.length,
         "Próximos 7 días",
         "Fecha límite Dev",
@@ -274,7 +279,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
         "7 días",
       ),
       planKpi(
-        "☷",
+        icon("layers"),
         loading ? "…" : r.abiertas.length,
         "Work Items abiertos",
         m.items.length + " To Be / CR en total",
@@ -283,7 +288,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
         "To Be / CR",
       ),
       planKpi(
-        "♙",
+        icon("people"),
         vacationLoading ? "…" : r.vacaciones.length,
         "Vacaciones próximas",
         "Próximos 30 días",
@@ -301,7 +306,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
       "ixs-plan-summary",
       card(
         head(
-          "▥ Work Items — resumen",
+          [icon("layers"), " Work Items — resumen"],
           "Solo To Be y Change Request de este proyecto",
           button("Ver en Azure DevOps ↗", actions.azure),
         ),
@@ -318,7 +323,7 @@ export function renderPlanning(target, data, plan, azure, actions) {
       ),
       card(
         head(
-          "♙ Calendario de vacaciones",
+          [icon("calendar"), " Calendario de vacaciones"],
           "Recursos ausentes por semana · próximas seis semanas",
           button("Ver todas", () =>
             vacations.scrollIntoView({ behavior: "smooth" }),

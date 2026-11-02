@@ -204,3 +204,24 @@ def test_late_response_cannot_replace_another_project(
     expect(portal.locator(".ixs-title")).to_contain_text("OTHER")
     expect(portal.locator("#ixs-plan-vacaciones")).to_contain_text("Ana Pérez")
     expect(portal.locator("#ixs-azure-table tbody tr")).to_have_count(2)
+
+
+def test_reference_planning_switches_view_and_hides_only_filters(
+    portal, planning, fixed_day
+):
+    open_planning(portal)
+    expect(portal.locator(".ixs-plan-kpis > .ixs-plan-kpi")).to_have_count(6)
+    portal.get_by_role("button", name="Ocultar filtros", exact=True).click()
+    expect(portal.locator(".ixs-azure-filters")).to_be_hidden()
+    expect(portal.locator("#ixs-azure-table tbody tr")).to_have_count(2)
+    expect(portal.locator("#ixs-azure-table")).to_be_visible()
+    portal.get_by_role("button", name="Mostrar filtros", exact=True).click()
+    expect(portal.locator(".ixs-azure-filters")).to_be_visible()
+    tools = portal.locator(".ixs-exec-timeline-tools")
+    tools.get_by_role("button", name="Lista", exact=True).click()
+    expect(portal.locator(".ixs-timeline-list")).to_be_visible()
+    expect(portal.locator(".ixs-timeline-gantt")).to_be_hidden()
+    tools.get_by_role("button", name="Gantt", exact=True).click()
+    expect(portal.locator(".ixs-timeline-gantt")).to_be_visible()
+    portal.set_viewport_size({"width": 390, "height": 844})
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")

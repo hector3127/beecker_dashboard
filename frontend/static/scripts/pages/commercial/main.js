@@ -1,3 +1,4 @@
+import './charts.js?v=20261101-commercial-final';
 // @ts-check
 // Comercial: las cifras y tablas llegan en la plantilla; aqui solo el
 // comportamiento (filas extra, desplegables, año de referencia y el detalle).

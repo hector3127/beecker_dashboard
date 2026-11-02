@@ -25,7 +25,7 @@
 </section>
 <section class="card">
 <div class="specialty-heading">{% include "partials/billability_specialty_icon.html" with kind="table" %}<div><h2>Por especialidad · {{ selected.label }}</h2>
-<div class="hs">HC T: personas vigentes en Bandas/rol con horas registradas; si falta la columna del mes, personas con horas de GSE. Capacidad: HC T × días hábiles × 8 h. Fijo: facturables AER ÷ capacidad. Variable: demás facturables ÷ capacidad que queda. Libre: personas equivalentes sin asignar (negativo = déficit).</div></div></div>
+<div class="hs">HC T: personas vigentes en Bandas/rol con horas registradas; si falta la columna del mes, personas con horas de GSE. Capacidad: días vigentes × 8 h. Fijo: facturables AER ÷ capacidad. Variable: demás facturables ÷ capacidad que queda. Libre: personas equivalentes sin asignar (negativo = déficit).</div></div></div>
 <div class="specialty-scroll" role="region" aria-label="Facturabilidad por especialidad" tabindex="0"><table id="specialty-summary">
 <thead><tr><th>Especialidad</th><th>HC T</th><th>Capacidad</th><th>Hrs fijo</th><th>Fijo</th><th>Hrs variable</th><th>Variable</th><th>Libre</th></tr></thead>
 <tbody>
@@ -36,7 +36,7 @@
 </table></div>
 </section>
 {% if selected.notice %}<p class="note">{{ selected.notice }}</p>{% endif %}
-<p class="note">Misma lógica que GSE · Horas por área: horas = registros de Clockify con categoría «Facturable»; fijo = las del servicio AER; variable = las demás (TYM, IXB, SaaS, RaaS y otras). Capacidad = personas vigentes en Bandas/rol con horas registradas × días hábiles (lunes a viernes sin festivos de México) × 8 h. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona en el mes; libre = lo que sobra. Por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM; cámbialo en «Áreas mostradas». La especialidad es el ROL de Bandas/rol. Las gráficas de evolución por trimestre se agregarán después.</p>
+<p class="note">Misma lógica que GSE · Horas por área: horas = registros de Clockify con categoría «Facturable»; fijo = las del servicio AER; variable = las demás (TYM, IXB, SaaS, RaaS y otras). Capacidad = suma de horas estimadas individuales: días hábiles × 8 h; bajas confirmadas en Bandas/rol se prorratean hasta el último registro de Clockify. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona en el mes; libre = lo que sobra. Por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM; cámbialo en «Áreas mostradas». La especialidad es el ROL de Bandas/rol. Las gráficas de evolución por trimestre se agregarán después.</p>
 
 {% endblock %}
 {% block scripts %}<script type="module" src="{% static 'app/scripts/pages/billability_specialty/main.js' %}"></script>{% endblock %}

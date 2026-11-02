@@ -33,6 +33,11 @@
 
 <link id="ixs-ia-extended-style" rel="stylesheet" href="{% static 'app/styles/pages/project_detail_ixs_ai_extended.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_design.css' %}">
+<link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_reference.css' %}?v=20261101-project-reference">
+<link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_planning_reference.css' %}?v=20261101-planning-reference">
+<link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_effort_reference.css' %}?v=20261101-effort-reference">
+<link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_raid_reference.css' %}?v=20261101-raid-reference">
+<link rel="stylesheet" href="{% static 'app/styles/pages/project_detail_actions_reference.css' %}?v=20261102-actions-reference">
 {% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>Sin fecha de actualización</span>{% endblock %}
 {% block content %}
@@ -50,5 +55,5 @@
 {{ project_context|json_script:'project-context' }}
 {% endblock %}
 {% block scripts %}
-<script type="module" src="{% static 'app/scripts/pages/project_detail/main.js' %}" data-project-detail-entry></script>
+<script type="module" src="{% static 'app/scripts/pages/project_detail/main.js' %}?v=20261102-actions-reference" data-project-detail-entry></script>
 {% endblock %}

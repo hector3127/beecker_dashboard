@@ -113,5 +113,18 @@ export function renderAiPanels(capacity, changed, openResources) {
           : "Aún no hay un análisis anterior para comparar. Guarda un corte en «Actualizar memoria».",
       ),
     );
+  if (!changed || changed.incompleto) {
+    changes.append(el('div',{class:'ixai-change-empty'},
+      el('div',{class:'ixai-empty-art'},icon('chart'),icon('clock')),
+      el('strong',{text:'No hay cambios por comparar'}),
+      note('Genera un corte de memoria para visualizar los cambios y tendencias.')));
+  }
+  for (const row of resources.querySelectorAll('tbody tr')) {
+    const status=row.lastElementChild;
+    if(status) {
+      status.className='ixai-resource-status';
+      status.dataset.tone=status.textContent==='Excedido'?'bad':status.textContent==='Sin estimación'?'muted':'ok';
+    }
+  }
   return el("div", { class: "ixai-two" }, resources, changes);
 }

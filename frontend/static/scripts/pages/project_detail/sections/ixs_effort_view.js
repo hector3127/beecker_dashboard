@@ -30,6 +30,7 @@ export function effortResources(rows = []) {
           "tr",
           "",
           [
+            "#",
             "Recurso",
             "Rol",
             "Reales",
@@ -45,10 +46,11 @@ export function effortResources(rows = []) {
         "tbody",
         "",
         rows.length
-          ? rows.map((x) =>
+          ? rows.map((x, index) =>
               h(
                 "tr",
                 "",
+                td(index + 1),
                 el(
                   "td",
                   x.activo === false
@@ -82,7 +84,7 @@ export function effortResources(rows = []) {
                 ),
               ),
             )
-          : h("tr", "", el("td", { colspan: 8 }, "Sin datos disponibles.")),
+          : h("tr", "", el("td", { colspan: 9 }, "Sin datos disponibles.")),
       ),
     ),
   );
@@ -109,7 +111,7 @@ export function renderEffort(target, data) {
     "ixs-donut",
     div("ixs-donut-center", b(num(eff.real, 2) + " h"), small("Total")),
   );
-  donut.style.background = `conic-gradient(#6033d9 0 ${limit(eff.pctFact)}%,#ed2791 ${limit(eff.pctFact)}% 100%)`;
+  donut.style.background = `conic-gradient(#6033d9 0 ${limit(eff.pctFact)}%,#b17aff ${limit(eff.pctFact)}% 100%)`;
   const areaRow = (label, value, percent, cls) =>
     div(
       "ixs-area-row",
@@ -180,7 +182,7 @@ export function renderEffort(target, data) {
       balance,
     ),
     div(
-      "ixs-grid2 ixs-effort-charts",
+      "ixs-grid2 ixs-effort-charts ixs-effort-overview",
       h(
         "section",
         "ixs-card",
@@ -218,7 +220,7 @@ export function renderEffort(target, data) {
               "No facturable",
               eff.pctNoFact,
               pct(eff.pctNoFact),
-              "#ee2794",
+              "#ae5cf2",
             ),
             metric(
               "Fuera de horario",
@@ -230,7 +232,7 @@ export function renderEffort(target, data) {
           h(
             "aside",
             "ixs-effort-quick",
-            h("h4", "", icon("warning"), " Lectura rápida"),
+            h("h3", "", icon("sparkles"), " Lectura rápida"),
             checks.map(([tone, text]) =>
               h(
                 "p",
@@ -310,5 +312,10 @@ export function renderEffort(target, data) {
       ),
     ),
   );
+  const quick = target.querySelector('.ixs-effort-quick');
+  if (quick) {
+    quick.classList.add('ixs-card');
+    target.querySelector('.ixs-effort-overview').append(quick);
+  }
   target.dataset.renderer = "modular-effort";
 }

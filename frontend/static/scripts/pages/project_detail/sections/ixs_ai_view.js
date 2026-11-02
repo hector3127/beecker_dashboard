@@ -630,6 +630,11 @@ export function renderAi(root, state, deps) {
       ].map((q) => button(q, () => a.setQuestion(q))),
     ),
     ...(s.respuesta ? [div("ixai-answer", text(s.respuesta))] : []),
+    ...((s.questionEvidence || []).length ? [el('details',{class:'ixai-question-evidence'},
+      n('summary','','Ver evidencias de la respuesta'),
+      ...(s.questionEvidence || []).filter(f => (s.respuesta || '').includes('['+f.id+']'))
+        .map(f => div('ixai-evidence-fact',n('strong','',`[${f.id}] ${f.fuente}`),n('p','',text(f.texto))))
+    )] : []),
   );
   const assistant = card(
     "sparkles",
@@ -803,6 +808,10 @@ export function renderAi(root, state, deps) {
       { display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "10px" },
     ),
   );
+  summaryCard.classList.add('ixai-summary-card');
+  attention.classList.add('ixai-attention-card');
+  if (!result.resumen?.length) summary.append(div('ixai-empty-art', icon('layers'), icon('sparkles')));
+  if (!alerts.length && !findings.length) attention.append(div('ixai-empty-art', icon('list'), icon('target')));
   root.replaceChildren(
     div(
       "ixai",
@@ -811,8 +820,7 @@ export function renderAi(root, state, deps) {
         ? [styled(div("ixai-card", text(s.error)), { color: "#c32a53" })]
         : []),
       div("ixai-main", summaryCard, attention),
-      recommendations,
-      sources,
+      el("section", {class:"ixai-recommendation-overview"}, recommendations, sources),
       deps.panels(deps.capacity, changed, () => a.tab("recursos")),
       div("ixai-bottom ixai-three", ask, assistant, latest),
       div("ixai-last", history, documents),

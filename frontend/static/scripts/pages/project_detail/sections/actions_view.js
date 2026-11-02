@@ -1,3 +1,4 @@
+import { actionDistributionView, actionResponsibleView, actionWeeklyView } from "./actions_visuals.js";
 import { el } from "#app/lib/dom.js";
 import { icon } from "./ixs_icons.js";
 import {
@@ -38,8 +39,7 @@ const button = (label, onclick, cls = "aer-btn", props = {}) =>
   el("button", { class: cls, onclick, ...props }, label);
 const bar = (width, background) =>
   div("aer-bar", styled(h("i", ""), { width: width + "%", background }));
-const purple = "linear-gradient(90deg,#8d65ed,#5b2ad8)",
-  red = "linear-gradient(90deg,#ff6773,#e4314e)",
+const red = "linear-gradient(90deg,#ff6773,#e4314e)",
   green = "linear-gradient(90deg,#25b36a,#67d78f)",
   actionPurple = "linear-gradient(90deg,#5b2ad8,#8d65ed)";
 
@@ -87,15 +87,18 @@ function kpi(name, value, label, sub, tone = "purple", cls = "") {
 }
 
 export function filterActions(target, query) {
-  const value = normalize(query);
-  target
-    .querySelectorAll("#aer-actions-table-body tr[data-action-filter]")
-    .forEach((row) => {
-      row.style.display =
-        !value || String(row.dataset.actionFilter || "").includes(value)
-          ? ""
-          : "none";
-    });
+  const value=normalize(query);
+  const selected=id=>target.querySelector('#'+id)?.value || '';
+  const state=selected('action-filter-state'),person=selected('action-filter-person'),priority=selected('action-filter-priority');
+  let visible=0;
+  const rows=target.querySelectorAll('#aer-actions-table-body tr[data-action-filter]');
+  rows.forEach(row=>{
+    const match=(!value || String(row.dataset.actionFilter || '').includes(value)) &&
+      (!state || row.dataset.actionState===state) && (!person || row.dataset.actionPerson===person) && (!priority || row.dataset.actionPriority===priority);
+    row.style.display=match?'':'none';if(match)visible++;
+  });
+  const count=target.querySelector('#aer-actions-filter-count');
+  if(count)count.textContent=`Mostrando ${visible} de ${rows.length} acciones`;
 }
 
 export function renderParts(parts, actions) {
@@ -155,7 +158,7 @@ export function renderParts(parts, actions) {
         el(
           "td",
           { colspan: 7 },
-          "Sin pendientes registrados. Pulsa «Agregar pendiente».",
+          div('action-empty-state',icon('list'),h('strong','','Sin pendientes registrados.'),h('small','','Agrega un pendiente para iniciar el seguimiento.')),
         ),
       ),
     );
@@ -170,12 +173,12 @@ export function renderParts(parts, actions) {
       "aer-action-table-head",
       div(
         "",
-        styled(h("h3", "", "▤ Listado de acciones Beecker / Cliente"), {
+        styled(h("h3", "", icon("people"), " Listado de acciones Beecker / Cliente"), {
           margin: "0",
         }),
         div(
           "aer-sub",
-          "Pendientes separados por organización para alimentar el resumen ejecutivo de IA.",
+          "Compromisos y pendientes con Beecker y el cliente.",
         ),
       ),
       div(
@@ -232,9 +235,6 @@ export function renderActions(target, m, parts, actions) {
     detenidas,
     proximas,
     urgente,
-    respCount,
-    respTop,
-    weeks,
   } = m;
   const hero = div(
     "aer-vivid-card aer-action-overview",
@@ -242,7 +242,7 @@ export function renderActions(target, m, parts, actions) {
       "aer-action-hero",
       div(
         "",
-        h("h3", "", "Acciones y seguimiento"),
+        h("h3", "", icon("target"), " Acciones y seguimiento"),
         div(
           "sub",
           "Control de acciones clave del proyecto y seguimiento de compromisos.",
@@ -284,19 +284,19 @@ export function renderActions(target, m, parts, actions) {
   const meta = (label, value) =>
     div("aer-action-meta-block", div("lbl", label), div("val", value));
   const alert = div(
-    "aer-action-alert",
+    "aer-action-alert" + (vencidas ? " is-overdue" : " is-clear"),
     div(
       "head",
       div(
         "",
         div(
           "title",
-          styled(h("span", "aer-vivid-icon red", "!"), {
+          styled(h("span", "aer-vivid-icon red", vencidas ? "!" : "✓"), {
             width: "46px",
             height: "46px",
             fontSize: "20px",
           }),
-          "Atención inmediata",
+          vencidas ? "Atención inmediata" : "Seguimiento al día",
         ),
         div(
           "desc",
@@ -305,11 +305,15 @@ export function renderActions(target, m, parts, actions) {
             : "No hay acciones vencidas en este momento.",
         ),
       ),
-      button("Ver todas las acciones →", actions.clean),
+      button("Ver todas las acciones →", () => {
+        target.querySelectorAll('.action-filter-panel select,.aer-action-search').forEach(node=>node.value='');
+        filterActions(target,'');
+        target.querySelector('.action-main-listing')?.scrollIntoView({behavior:'smooth',block:'start'});
+      }),
     ),
-    ...(urgente
+    ...(urgente && (vencidas || detenidas || abiertas)
       ? [
-          div(
+          h('details', 'action-priority-disclosure', h('summary','','Ver acción prioritaria'), div(
             "aer-action-alert-item",
             div(
               "main",
@@ -334,98 +338,14 @@ export function renderActions(target, m, parts, actions) {
               "Prioridad",
               h("span", "aer-pill red", text(urgente.prioridad || "Alta")),
             ),
-          ),
+          )),
         ]
       : []),
   );
-  const distribution = div(
-    "aer-action-strip",
-    h("h4", "", "Distribución por estado"),
-    div(
-      "aer-state-dist",
-      ...[
-        ["Abiertas", abiertas, purple],
-        ["Vencidas", vencidas, red],
-        ["Detenidas", detenidas, "#d8d4e5"],
-      ].map(([name, count, color]) =>
-        div(
-          "row",
-          h("span", "", name),
-          bar(filas.length ? (count / filas.length) * 100 : 0, color),
-          h("b", "", String(count)),
-        ),
-      ),
-    ),
-  );
-  const responsible = div(
-    "aer-action-strip",
-    h("h4", "", "Responsables activos"),
-    ...(respTop
-      ? [
-          styled(div("", String(Object.keys(respCount).length)), {
-            fontSize: "30px",
-            fontWeight: "900",
-            color: "#1d174d",
-            lineHeight: "1",
-          }),
-          styled(div("aer-sub", "personas con acciones"), {
-            margin: "4px 0 12px",
-          }),
-          div(
-            "aer-action-person",
-            h(
-              "span",
-              "avatar",
-              respTop[0]
-                .split(/\s+/)
-                .map((s) => s[0])
-                .slice(0, 2)
-                .join("")
-                .toUpperCase(),
-            ),
-            div(
-              "",
-              h("b", "", respTop[0]),
-              h(
-                "small",
-                "",
-                `${respTop[1]} acción${respTop[1] === 1 ? "" : "es"} asignada${respTop[1] === 1 ? "" : "s"}`,
-              ),
-            ),
-          ),
-        ]
-      : [div("aer-sub", "Sin responsables activos.")]),
-  );
-  const weekly = div(
-    "aer-action-strip",
-    div(
-      "aer-section-title",
-      div(
-        "",
-        styled(h("h4", "", "Seguimiento semanal"), { margin: "0" }),
-        div("hint", "Acciones en el tiempo"),
-      ),
-    ),
-    div(
-      "aer-action-line",
-      ...weeks.map((w, i) =>
-        div(
-          "pt" + (i === 0 ? " active" : ""),
-          h("i", ""),
-          h("b", "", String(w.cnt)),
-          h(
-            "small",
-            "",
-            new Date(w.iso + "T12:00:00").toLocaleDateString("es-MX", {
-              day: "2-digit",
-              month: "short",
-            }),
-          ),
-        ),
-      ),
-    ),
-  );
-  const rows = filas.map((x) => {
+  const distribution=actionDistributionView(m);
+  const responsible=actionResponsibleView(m);
+  const weekly=actionWeeklyView(m);
+  const rows = filas.map((x, index) => {
     const edit = (field, value) => actions.field(x.uid, field, value);
     const inputField = (field, type) => {
       const node = input(x[field] || "", {
@@ -446,6 +366,8 @@ export function renderActions(target, m, parts, actions) {
         },
         blank,
       );
+      if (field === 'estado') node.classList.add('action-status-edit',stateClass(value));
+      if (field === 'prioridad') node.classList.add('action-priority-edit',normalize(value));
       node.addEventListener("change", () => edit(field, node.value));
       return node;
     };
@@ -460,6 +382,7 @@ export function renderActions(target, m, parts, actions) {
       "tr",
       {
         dataset: {
+          actionState: text(x.estado), actionPerson:text(x.responsable), actionPriority:text(x.prioridad),
           actionFilter: (
             normalize(x.accion) +
             " " +
@@ -469,8 +392,9 @@ export function renderActions(target, m, parts, actions) {
           ).trim(),
         },
       },
+      cell(String(index + 1)),
       cell(action),
-      cell(inputField("responsable")),
+      cell(div('action-inline-person',h('span','action-avatar',String(x.responsable||'?').split(/\s+/).filter(Boolean).slice(0,2).map(n=>n[0]).join('').toUpperCase()),inputField("responsable"))),
       cell(selectField("prioridad", PRIORITIES, x.prioridad || "Media")),
       cell(inputField("fechaInicio", "date")),
       cell(inputField("fechaLimite", "date")),
@@ -508,7 +432,7 @@ export function renderActions(target, m, parts, actions) {
   });
   if (!rows.length)
     rows.push(
-      h("tr", "", el("td", { colspan: 10 }, "Sin acciones registradas.")),
+      h("tr", "", el("td", { colspan: 11 }, "Sin acciones registradas.")),
     );
   const search = input("", {
     class: "aer-action-search",
@@ -517,22 +441,38 @@ export function renderActions(target, m, parts, actions) {
     "aria-label": "Buscar acción o responsable",
   });
   search.addEventListener("input", () => filterActions(target, search.value));
+  const filterPanel=el('div',{class:'action-filter-panel',hidden:true,role:'group','aria-label':'Filtros de acciones'});
+  for(const [id,label,values] of [
+    ['action-filter-state','Estado',[...new Set(filas.map(x=>text(x.estado)).filter(Boolean))]],
+    ['action-filter-person','Responsable',[...new Set(filas.map(x=>text(x.responsable)).filter(Boolean))]],
+    ['action-filter-priority','Prioridad',[...new Set(filas.map(x=>text(x.prioridad)).filter(Boolean))]]
+  ]) {
+    const node=el('select',{id,'aria-label':label},el('option',{value:'',text:'Todos'}),...values.map(value=>el('option',{value,text:value})));
+    node.addEventListener('change',()=>filterActions(target,search.value));
+    filterPanel.append(el('label',{},label,node));
+  }
+  const toggleFilters=button('Filtros',()=>{
+    filterPanel.hidden=!filterPanel.hidden;
+    toggleFilters.setAttribute('aria-expanded',String(!filterPanel.hidden));
+  },'aer-btn',{'aria-expanded':'false'});
   const listing = div(
-    "aer-action-table-card",
+    "aer-action-table-card action-main-listing",
     div(
       "aer-action-table-head",
-      div("", styled(h("h3", "", "Listado de acciones"), { margin: "0" })),
+      div("", styled(h("h3", "", icon("list"), " Listado de acciones"), { margin: "0" })),
       div(
         "tools",
         search,
-        button("Filtros", () => actions.open()),
+        toggleFilters,
       ),
     ),
+    filterPanel,
     styled(
       div(
         "",
         table(
           [
+            heading("#"),
             styled(heading("Acción / Entregable"), { minWidth: "260px" }),
             ...[
               "Responsable",
@@ -552,15 +492,15 @@ export function renderActions(target, m, parts, actions) {
       { overflow: "auto" },
     ),
     styled(
-      div("aer-sub", `Mostrando ${filas.length} de ${filas.length} acciones`),
+      el("div", {class:"aer-sub",id:"aer-actions-filter-count",role:"status",text:`Mostrando ${filas.length} de ${filas.length} acciones`}),
       { marginTop: "10px" },
     ),
   );
+  hero.append(alert);
   target.replaceChildren(
     div(
       "aer-action-shell",
       hero,
-      alert,
       div("aer-action-mid", distribution, responsible, weekly),
       listing,
       renderParts(parts, actions),
@@ -568,139 +508,99 @@ export function renderActions(target, m, parts, actions) {
   );
 }
 
+let editorReturnFocus = null;
+function closeActionEditor() {
+  document.getElementById('aer-modal-back')?.remove();
+  if (editorReturnFocus?.isConnected) editorReturnFocus.focus();
+  editorReturnFocus = null;
+}
 function modal(...body) {
-  document.getElementById("aer-modal-back")?.remove();
-  const back = el(
-    "div",
-    { class: "aer-modal-back", id: "aer-modal-back" },
-    div("aer-modal", ...body),
-  );
-  back.addEventListener("click", (e) => {
-    if (e.target === back) back.remove();
+  document.getElementById('aer-modal-back')?.remove();
+  editorReturnFocus = document.activeElement;
+  const panel = el('div', {class:'aer-modal action-editor-modal',role:'dialog','aria-modal':'true','aria-labelledby':'action-editor-title'},...body);
+  const back=el('div',{class:'aer-modal-back action-editor-overlay',id:'aer-modal-back'},panel);
+  back.addEventListener('click',event=>{if(event.target===back)closeActionEditor();});
+  back.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){event.preventDefault();closeActionEditor();}
+    if(event.key==='Tab'){
+      const nodes=[...panel.querySelectorAll('button,input,textarea,select,a[href]')].filter(n=>!n.disabled);
+      const first=nodes[0],last=nodes.at(-1);
+      if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}
+      else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
+    }
   });
   document.body.append(back);
+  panel.querySelector('textarea,input,select')?.focus();
   return back;
 }
-const label = (text, field, cls = "") => h("label", cls, text, field);
-export function openAction(data, uid, actions) {
-  const x = (data.acciones?.filas || []).find((row) => row.uid === uid) || {};
-  return modal(
-    styled(
-      div(
-        "",
-        h("h3", "", (uid ? "Editar" : "Agregar") + " acción"),
-        button("✕", () => document.getElementById("aer-modal-back")?.remove()),
-      ),
-      { display: "flex", justifyContent: "space-between" },
-    ),
-    div(
-      "aer-formgrid",
-      label(
-        "Acción / Entregable",
-        input(x.accion || "", { id: "aa-a" }),
-        "aer-span2",
-      ),
-      label("Responsable", input(x.responsable || "", { id: "aa-r" })),
-      label("Estado", select(STATES, x.estado || "Pendiente", { id: "aa-e" })),
-      label(
-        "Fecha inicio",
-        input(x.fechaInicio || "", { type: "date", id: "aa-fi" }),
-      ),
-      label(
-        "Fecha compromiso",
-        input(x.fechaLimite || "", { type: "date", id: "aa-f" }),
-      ),
-      label(
-        "Fecha real",
-        input(x.fechaReal || "", { type: "date", id: "aa-fr" }),
-      ),
-      label(
-        "Dependencia",
-        select(
-          dependencies(x.dependencia),
-          x.dependencia || "",
-          { id: "aa-d" },
-          true,
-        ),
-      ),
-      label(
-        "Prioridad",
-        select(PRIORITIES, x.prioridad || "Media", { id: "aa-p" }),
-      ),
-      label(
-        "Comentarios",
-        area(x.comentarios || x.notas || "", { id: "aa-n" }),
-        "aer-span2",
-      ),
-    ),
-    styled(
-      div(
-        "aer-actions",
-        ...(uid
-          ? [
-              button(
-                "Eliminar",
-                () => actions.remove(uid, true),
-                "aer-btn danger",
-              ),
-            ]
-          : []),
-        button("Guardar", () => actions.save(uid), "aer-btn primary"),
-      ),
-      { marginTop: "12px" },
-    ),
-  );
+function editorHeader(title, subtitle, name) {
+  return div('action-editor-header',div('action-editor-heading',h('span','action-editor-icon',icon(name)),div('',el('h3',{id:'action-editor-title',text:title}),h('p','',subtitle))),
+    button('✕',closeActionEditor,'aer-btn action-editor-close',{'aria-label':'Cerrar',title:'Cerrar'}));
 }
-
+function editorField(title, field, name, wide=false, required=false) {
+  field.setAttribute('aria-label',title);
+  if(required)field.setAttribute('aria-required','true');
+  return h('label','action-editor-field'+(wide?' aer-span2':''),
+    h('span','action-editor-label',icon(name),title,required?h('span','action-required','*'):null),field);
+}
+function countedText(value, id, placeholder) {
+  const field=area(value,{id,placeholder,rows:3});
+  const counter=el('span',{class:'action-editor-counter',id:id+'-counter','aria-live':'polite'});
+  const update=()=>{counter.textContent=`${field.value.length} caracteres`;};
+  field.addEventListener('input',update);update();
+  field.setAttribute('aria-describedby',counter.id);
+  const box=div('action-editor-text',field,counter);
+  // The original field stays free of new length limits, preserving existing text.
+  return {field,box};
+}
+function textField(title,value,id,placeholder,name,required=false) {
+  const counted=countedText(value,id,placeholder);
+  counted.field.setAttribute('aria-label',title);
+  if(required)counted.field.setAttribute('aria-required','true');
+  return h('label','action-editor-field aer-span2',h('span','action-editor-label',icon(name),title,required?h('span','action-required','*'):null),counted.box);
+}
+function editorSelect(options,value,id,kind) {
+  const field=select(options,value,{id,class:'action-editor-select '+(kind||'')});
+  const paint=()=>{field.dataset.tone=normalize(field.value);};
+  field.addEventListener('change',paint);paint();return field;
+}
+function editorSave(text,onclick,props={}) {
+  return el('button',{type:'button',class:'aer-btn primary',onclick,...props},icon('check'),text);
+}
+export function openAction(data, uid, actions) {
+  const x=(data.acciones?.filas||[]).find(row=>row.uid===uid)||{};
+  const owners=[...new Set([
+    ...(data.filasRecursosCompleto||[]).map(row=>row.nombre),
+    ...(data.acciones?.filas||[]).map(row=>row.responsable),
+    data.proyecto?.pm,data.proyecto?.deliveryManager
+  ].filter(Boolean).map(String))];
+  const ownerInput=input(x.responsable||'',{id:'aa-r',list:'action-editor-owners',placeholder:'Escribe o selecciona un responsable'});
+  return modal(
+    editorHeader((uid?'Editar':'Agregar')+' acción','Registra una acción, su seguimiento y control.','sparkles'),
+    div('aer-formgrid action-editor-grid',
+      textField('Acción / Entregable',x.accion||'','aa-a','Describe la acción o entregable…','list',true),
+      editorField('Responsable',ownerInput,'user'),
+      editorField('Estado',editorSelect(STATES,x.estado||'Pendiente','aa-e','state'),'target'),
+      editorField('Fecha inicio',input(x.fechaInicio||'',{type:'date',id:'aa-fi'}),'calendar'),
+      editorField('Fecha compromiso',input(x.fechaLimite||'',{type:'date',id:'aa-f'}),'calendar'),
+      editorField('Fecha real',input(x.fechaReal||'',{type:'date',id:'aa-fr'}),'calendar'),
+      editorField('Dependencia',select(dependencies(x.dependencia),x.dependencia||'',{id:'aa-d'},true),'link'),
+      editorField('Prioridad',editorSelect(PRIORITIES,x.prioridad||'Media','aa-p','priority'),'flag'),
+      textField('Comentarios',x.comentarios||x.notas||'','aa-n','Agrega comentarios o contexto de la acción…','megaphone')),
+    el('datalist',{id:'action-editor-owners'},...owners.map(name=>el('option',{value:name}))),
+    div('aer-actions action-editor-footer',
+      ...(uid?[button('Eliminar',()=>actions.remove(uid,true),'aer-btn danger')]:[]),
+      button('Cancelar',closeActionEditor),editorSave('Guardar',()=>actions.save(uid))))
+}
 export function openPart(actions) {
   return modal(
-    styled(
-      div(
-        "",
-        styled(h("h3", "", "＋ Pendiente Beecker / Cliente"), { margin: "0" }),
-        button("✕", () => document.getElementById("aer-modal-back")?.remove()),
-      ),
-      { display: "flex", justifyContent: "space-between", gap: "10px" },
-    ),
-    styled(
-      div(
-        "aer-formgrid",
-        label(
-          "Acción / entregable",
-          styled(
-            area("", {
-              id: "aerp-new-accion",
-              placeholder: "Describe el compromiso pendiente…",
-            }),
-            { minHeight: "66px" },
-          ),
-          "aer-span2",
-        ),
-        label(
-          "Responsable",
-          select(["Beecker", "Cliente"], "Beecker", { id: "aerp-new-parte" }),
-        ),
-        label("Estado", select(STATES, "Pendiente", { id: "aerp-new-estado" })),
-        label(
-          "Fecha compromiso",
-          input("", { type: "date", id: "aerp-new-fecha" }),
-        ),
-        label(
-          "Próxima revisión",
-          input("", { type: "date", id: "aerp-new-revision" }),
-        ),
-        label("Notas", area("", { id: "aerp-new-notas" }), "aer-span2"),
-      ),
-      { marginTop: "12px" },
-    ),
-    styled(
-      div(
-        "aer-actions",
-        button("Guardar pendiente", actions.savePart, "aer-btn primary", {
-          id: "aerp-new-save",
-        }),
-      ),
-      { marginTop: "12px", justifyContent: "flex-end" },
-    ),
-  );
+    editorHeader('Agregar pendiente Beecker / Cliente','Registra un compromiso o pendiente con Beecker o el cliente.','list'),
+    div('aer-formgrid action-editor-grid',
+      textField('Acción / entregable','','aerp-new-accion','Describe el compromiso pendiente…','list',true),
+      editorField('Responsable',select(['Beecker','Cliente'],'Beecker',{id:'aerp-new-parte'}),'user'),
+      editorField('Estado',editorSelect(STATES,'Pendiente','aerp-new-estado','state'),'target'),
+      editorField('Fecha compromiso',input('',{type:'date',id:'aerp-new-fecha'}),'calendar'),
+      editorField('Próxima revisión',input('',{type:'date',id:'aerp-new-revision'}),'calendar'),
+      textField('Notas','','aerp-new-notas','Agrega información adicional…','layers')),
+    div('aer-actions action-editor-footer',button('Cancelar',closeActionEditor),editorSave('Guardar pendiente',actions.savePart,{id:'aerp-new-save'})));
 }

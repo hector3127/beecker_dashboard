@@ -26,3 +26,5 @@ body.capacity-daily-page main.page { max-width: none; padding: 0; }
 .ci-person-link{border:0;background:transparent;color:#5421cc;font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;text-align:left;cursor:pointer;min-height:44px;padding:4px}
 .ci-person-link:focus-visible,.ci-person-detail :focus-visible{outline:2px solid #6734df;outline-offset:3px}
 .ci-person-detail{min-width:0}.ci-person-detail .ci-section-head{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}.ci-person-detail caption{text-align:left;padding:12px;font-weight:600}.ci-person-detail .ci-table th[scope=row]{position:static;background:#faf9ff;white-space:normal;min-width:160px}
+
+.ci-table .ci-id{font-size:9px;overflow-wrap:anywhere;min-width:145px}.ci-table td small{display:block;margin-top:4px}.ci-table .ci-pill{white-space:nowrap}

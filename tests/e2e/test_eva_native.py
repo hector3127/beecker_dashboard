@@ -74,6 +74,14 @@ def test_native_eva_filter_export_and_refresh(
     page.goto(live_server.url + "/operativa/eva-1/")
     page.locator("#eva-table tbody tr[data-manager]").first.wait_for()
     assert page.locator("#eva-table tbody tr[data-manager]").count() == 1
+    page.locator("#eva-table thead tr:nth-child(2) button").first.wait_for()
+    width_closed = (
+        page.locator("#eva-table thead tr:nth-child(2) th")
+        .nth(1)
+        .bounding_box()["width"]
+    )
+    assert width_closed < 100
+
     assert page.locator("#eva-table").inner_text().find("AMK.012_S1") >= 0
     path = Path("tmp/eva-native")
     path.mkdir(parents=True, exist_ok=True)

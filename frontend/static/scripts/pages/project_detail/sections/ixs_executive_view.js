@@ -143,8 +143,14 @@ export function timeline(data, editMarker) {
       ),
     );
   });
-  const section = (label, rows) =>
-    rows.length ? [div("ixs-time-section", label), rows.map(row)] : null;
+  const section = (label, rows) => rows.length ? [
+    div("ixs-time-section" + (label === "Suspensiones" ? " ixs-hold-heading" : ""), label),
+    rows.map(item => {
+      const node = row(item);
+      if (item.type === "hold") node.classList.add("ixs-hold-row");
+      return node;
+    })
+  ] : null;
   return div(
     "ixs-timeline",
     div(
@@ -155,7 +161,7 @@ export function timeline(data, editMarker) {
         div("ixs-time-months ixs-exec-months", months),
       ),
       styled(h("i", "ixs-time-today-full"), {
-        left: `calc(171px + (100% - 171px) * ${limit(pos(new Date())) / 100})`,
+        left: `calc(var(--ixs-timeline-label-offset, 171px) + (100% - var(--ixs-timeline-label-offset, 171px)) * ${limit(pos(new Date())) / 100})`,
       }),
       section("Plan estimado (línea base)", plan),
       section("Ejecución real", real),
@@ -184,14 +190,62 @@ export function timeline(data, editMarker) {
   );
 }
 
+export function timelineSwitcher(data, editMarker, collapseHolds = true) {
+  const gantt = div("ixs-timeline-gantt", timeline(data, editMarker));
+  const holds = [...gantt.querySelectorAll('.ixs-hold-row')];
+  const holdsHeading = gantt.querySelector('.ixs-hold-heading');
+  if (collapseHolds && holdsHeading && holds.length) {
+    const disclosure = h('details', 'ixs-timeline-holds',
+      h('summary', '', `Ver suspensiones (${holds.length})`));
+    holdsHeading.replaceWith(disclosure);
+    disclosure.append(...holds);
+  }
+  const model = timelineModel(data);
+  const list = el("div", {class:"ixs-timeline-list", hidden:true});
+  const rows = model ? [...model.plan, ...model.real, ...model.holds] : [];
+  list.append(...(rows.length ? rows.map(row => div("ixs-phase-list-row",
+    div("", b(row.name), small(row.type === "plan" ? "Plan estimado" : row.type === "hold" ? "Suspensión" : "Ejecución real")),
+    span(`${dateText(row.from)} → ${dateText(row.to)}`)
+  )) : [empty("Sin fases disponibles.")]));
+  const tools = div("ixs-exec-timeline-tools");
+  for (const [label, chart] of [["Gantt",true],["Lista",false]]) {
+    const button = el("button", {type:"button", text:label, "aria-pressed":String(chart)});
+    button.addEventListener("click", () => {
+      gantt.hidden = !chart; list.hidden = chart;
+      tools.querySelectorAll('button').forEach(node => node.setAttribute('aria-pressed',String(node === button)));
+    });
+    tools.append(button);
+  }
+  return div("ixs-timeline-switcher", tools, gantt, list);
+}
+
+function workload(data) {
+  const table = resourceTable(data);
+  const count = el("span", {class:"ixs-workload-count",role:"status"});
+  const search = el("input", {type:"search",placeholder:"Buscar recurso…","aria-label":"Buscar recurso en carga de trabajo"});
+  const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  search.addEventListener('input', () => {
+    let matches = 0;
+    for (const row of search.closest('.ixs-exec-workload').querySelectorAll('[data-resource-workload] tbody tr')) {
+      const match = normalize(row.textContent || '').includes(normalize(search.value.trim()));
+      row.hidden = !match;
+      if (match) matches++;
+    }
+    count.textContent = search.value ? `${matches} resultados · Totales del proyecto completo` : '';
+  });
+  return h("section", "ixs-card ixs-exec-workload",
+    heading("people", "Carga de trabajo por recurso", div("ixs-workload-tools", small("Clockify · Recursos · Costo / Esfuerzo"), search)),
+    table, count);
+}
+
 function area(data) {
   const vals = (data.distribucionArea || []).filter((x) => Number(x.horas) > 0),
     total = vals.reduce((a, v) => a + Number(v.horas || 0), 0);
   const colors = [
     "#5123bf",
     "#e52a84",
-    "#8053ea",
-    "#ef6bb0",
+    "#365cff",
+    "#ffb400",
     "#8b8fda",
     "#32ab89",
     "#f6aa25",
@@ -434,12 +488,15 @@ function milestoneLists(m) {
       "Hitos del proyecto",
       small(m.mainHitos.length + " eventos"),
     ),
-    div("ixs-time-section", "Próximos / pendientes"),
-    pending.length ? pending : empty("Sin hitos próximos."),
-    div("ixs-time-section", "Fases completadas"),
-    main.length ? main : empty("Sin fases completadas registradas."),
-    div("ixs-time-section", "Demostraciones y pases realizados"),
-    extra.length ? extra : empty("Sin hitos adicionales anteriores a hoy."),
+    div("ixs-milestone-columns",
+      div("ixs-milestone-upcoming",
+        div("ixs-time-section", "Próximos / pendientes"),
+        pending.length ? pending : empty("Sin hitos próximos.")),
+      div("ixs-milestone-completed",
+        div("ixs-time-section", "Fases completadas"),
+        main.length ? main : empty("Sin fases completadas registradas."),
+        div("ixs-time-section", "Demostraciones y pases realizados"),
+        extra.length ? extra : empty("Sin hitos adicionales anteriores a hoy."))),
   );
 }
 
@@ -487,7 +544,7 @@ export function renderExecutive(target, data) {
         "chart",
         "% cumpl. financiero",
         pct(m.financial),
-        "Real vs estimado",
+        m.financial > 100 ? "Sobre el presupuesto" : "Real vs estimado",
         m.financial,
         "green",
       ),
@@ -542,7 +599,7 @@ export function renderExecutive(target, data) {
             div(
               "ixs-note",
               icon("target"),
-              " Indicadores del proyecto · datos del ejecutivo existente",
+              " Indicadores del proyecto vs objetivos",
             ),
             metric("Tiempo", av.pctTiempoTranscurrido),
             metric(
@@ -603,7 +660,7 @@ export function renderExecutive(target, data) {
         "section",
         "ixs-card",
         heading("calendar", "Línea de tiempo — Hitos principales"),
-        el("div", { id: "ixs-gantt-historico" }, timeline(data)),
+        el("div", { id: "ixs-gantt-historico" }, timelineSwitcher(data)),
       ),
       h(
         "section",
@@ -612,16 +669,7 @@ export function renderExecutive(target, data) {
         area(data),
       ),
     ),
-    h(
-      "section",
-      "ixs-card ixs-exec-workload",
-      heading(
-        "people",
-        "Carga de trabajo por recurso",
-        small("Clockify + Recursos · datos existentes"),
-      ),
-      resourceTable(data),
-    ),
+    workload(data),
     div(
       "ixs-grid3",
       h(

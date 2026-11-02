@@ -25,7 +25,7 @@
             <label>Banda<span class="ci-field"><span data-icon="layers"></span><select id="ci-band"><option value="">Todas las bandas</option></select></span></label>
             <button type="button" class="ci-btn" id="ci-refresh">↻ Actualizar datos</button><button type="button" class="ci-btn primary" id="ci-export">↓ Exportar CSV</button>
           </div>
-          <div class="ci-sourcebar"><span class="ci-sourcechip" id="ci-monthchip"><span data-icon="calendar"></span>Mes</span><span class="ci-sourcechip"><span data-icon="layers"></span>Bandas/rol</span><span>+</span><span class="ci-sourcechip"><span data-icon="clock"></span>Clockify</span><span>+</span><span class="ci-sourcechip"><span data-icon="layers"></span>Inventario Summary</span><div id="ci-status">Leyendo Bandas/rol y Clockify…</div></div>
+          <div class="ci-sourcebar"><button type="button" class="ci-btn" id="ci-export-records">↓ Registros CSV</button><span class="ci-sourcechip" id="ci-monthchip"><span data-icon="calendar"></span>Mes</span><span class="ci-sourcechip"><span data-icon="layers"></span>Bandas/rol</span><span>+</span><span class="ci-sourcechip"><span data-icon="clock"></span>Clockify</span><span>+</span><span class="ci-sourcechip"><span data-icon="layers"></span>Inventario Summary</span><div id="ci-status">Leyendo Bandas/rol y Clockify…</div></div>
         </div>
         <div id="ci-content"></div>
       </div>
@@ -34,4 +34,4 @@
   <noscript><p>Consulta las <a href="{% url 'portal:capacidad' %}">asignaciones del mes</a> sin JavaScript.</p></noscript>
 </div>
 {% endblock %}
-{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/capacity_daily/main.js' %}"></script>{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/capacity_daily/main.js' %}?v=20261031-v9"></script>{% endblock %}

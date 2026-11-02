@@ -89,6 +89,7 @@ export function renderShell(target, env, actions) {
             "ixs-head-top",
             div(
               "ixs-title ixs-head-title",
+              h("span", "project-folder-icon", icon("folder")),
               `${text(p.id)} · ${p.nombre || "Proyecto"} `,
               h("span", "ixs-badge", text(service)),
             ),

@@ -1,0 +1,131 @@
+/* RAID reference: real Azure registry, visual hierarchy only. */
+.project-detail-page #view-container .ixs-raid-dashboard{display:grid;gap:12px}
+.project-detail-page #view-container .ixs-raid-dashboard .ixs-card{padding:16px;border:1px solid #e2d6fb;border-radius:14px;background:linear-gradient(130deg,#fff,#fcfaff);box-shadow:0 2px 4px #45218b10;margin:0}
+.project-detail-page #view-container .ixs-raid-dashboard :is(h3,.pd-panel-title){font-size:18px;letter-spacing:-.035em;line-height:1.35}
+.project-detail-page #view-container .ixs-raid-dashboard .ixs-section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.project-detail-page #view-container .ixs-raid-dashboard .ixs-section-head h3{display:flex;align-items:center;gap:7px;margin:0}
+.project-detail-page #view-container .ixs-raid-hero-head{gap:14px}
+.project-detail-page #view-container .ixs-raid-heading h2{font-size:19px;letter-spacing:-.035em;margin:0;color:#242071}
+.project-detail-page #view-container .ixs-raid-heading p{font-size:12px;line-height:1.45;margin-top:5px;color:#75658f}
+.project-detail-page #view-container .ixs-raid-hero-icon{width:40px;height:40px;border-radius:12px}
+.project-detail-page #view-container .ixs-raid-hero-actions{gap:7px}
+.project-detail-page #view-container .ixs-raid-dashboard :is(.ixs-btn,.ixs-raid-new){min-height:34px;padding:7px 11px;font-size:12px;border-radius:9px}
+.project-detail-page #view-container .ixs-raid-dashboard .ixs-raid-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:0}
+.project-detail-page #view-container .ixs-raid-kpis .ixs-raid-stat{display:grid;grid-template-columns:36px minmax(0,1fr);gap:0 9px;align-items:center;min-height:145px;padding:14px 15px;border-radius:14px;border-bottom:2px solid #cebbef;box-shadow:0 2px 3px #55339d10}
+.project-detail-page #view-container .ixs-raid-stat .meta{display:contents}
+.project-detail-page #view-container .ixs-raid-stat .ixs-raid-stat-icon{grid-column:1;grid-row:1;height:35px;width:35px;border-radius:50%}
+.project-detail-page #view-container .ixs-raid-stat .ixs-raid-stat-icon svg{height:21px;width:21px}
+.project-detail-page #view-container .ixs-raid-stat label{grid-column:2;grid-row:1;font-size:12px;font-weight:750;line-height:1.35;color:#2d226b}
+.project-detail-page #view-container .ixs-raid-stat .meta>b{grid-column:1/-1;font-size:31px;line-height:1.1;margin:11px 0 8px}
+.project-detail-page #view-container .ixs-raid-stat small{grid-column:1/-1;font-size:12px;line-height:1.4}
+.project-detail-page #view-container .ixs-raid-top{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px;align-items:stretch}
+.project-detail-page #view-container .ixs-raid-top>.ixs-card{height:100%;box-sizing:border-box;min-height:0}
+.project-detail-page #view-container .ixs-raid-top .ixs-azure-empty:has(>div){padding:0;border:0;background:none;text-align:left}
+.project-detail-page #view-container .ixs-raid-att-list{display:grid;gap:7px}
+.project-detail-page #view-container .ixs-raid-att-row{grid-template-columns:65px minmax(0,1.5fr) 100px minmax(0,.95fr) 44px;gap:10px;background:#fcfaff;border:1px solid #ece3fc;border-radius:11px;padding:12px 10px;font-size:12px;min-height:54px}
+.project-detail-page #view-container .ixs-raid-att-title{font-size:12px;line-height:1.45;font-weight:750}
+.project-detail-page #view-container .ixs-raid-att-row>a{font-size:12px;background:#f0e7ff;border-radius:14px;padding:5px 7px;text-align:center}
+.project-detail-page #view-container .ixs-raid-pill{padding:5px 8px;font-size:12px;line-height:1.3;font-weight:750}
+.project-detail-page #view-container .ixs-raid-person{display:flex;align-items:center;gap:7px;min-width:0;font-size:12px;line-height:1.4}
+.project-detail-page #view-container .ixs-raid-avatar{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:#eee6ff;color:#6436ae;flex:none;font-size:12px;font-weight:750}
+.project-detail-page #view-container .ixs-raid-person>span:last-child{min-width:0;overflow-wrap:break-word}
+.project-detail-page #view-container .ixs-raid-days{font-size:12px;white-space:nowrap;padding:5px 7px}
+.project-detail-page #view-container .ixs-raid-health{grid-template-columns:190px minmax(0,1fr);gap:16px;margin-bottom:12px}
+.project-detail-page #view-container .ixs-raid-donut{width:180px}
+.project-detail-page #view-container .ixs-raid-donut b{font-size:29px}
+.project-detail-page #view-container .ixs-raid-donut small{font-size:12px}
+.project-detail-page #view-container .ixs-raid-health-legend{gap:5px}
+.project-detail-page #view-container .ixs-raid-health-legend>div{grid-template-columns:9px minmax(0,1fr) 24px 43px;gap:8px;padding:8px 0;font-size:12px}
+.project-detail-page #view-container .ixs-raid-health-legend small{font-size:12px;text-align:right}
+.project-detail-page #view-container .ixs-raid-tips{display:grid;gap:6px}
+.project-detail-page #view-container .ixs-raid-tips p{font-size:12px;line-height:1.5;margin:0;padding:7px 10px;background:#f4efff;border:1px solid #eae0ff;border-radius:8px;color:#4c3d75}
+.project-detail-page #view-container .ixs-raid-filters{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1.5fr;gap:10px;margin:0 0 14px}
+.project-detail-page #view-container .ixs-raid-filters :is(select,input){width:100%;min-width:0;min-height:38px;padding:8px 10px;font-size:12px;border-radius:9px}
+.project-detail-page #view-container #ixs-raid-tabla.ixs-azure-empty:has(table){padding:0;border:0;background:none;text-align:left}
+.project-detail-page #view-container .ixs-raid-table{min-width:1170px;width:100%;table-layout:auto}
+.project-detail-page #view-container .ixs-raid-table :is(th,td){min-width:0;max-width:none;padding:9px 7px;font-size:12px;line-height:1.4;word-break:normal;overflow-wrap:normal;vertical-align:middle}
+.project-detail-page #view-container .ixs-raid-table th{background:#f0e7ff;color:#52338c;font-weight:700}
+.project-detail-page #view-container .ixs-raid-table :is(th,td):first-child:not([colspan]){min-width:75px;width:75px;position:static;box-shadow:none;white-space:nowrap}
+.project-detail-page #view-container .ixs-raid-table :is(th,td):nth-child(2){min-width:95px;width:95px}
+.project-detail-page #view-container .ixs-raid-table td.title{min-width:220px;width:25%;max-width:330px;font-weight:650}
+.project-detail-page #view-container .ixs-raid-table :is(th,td):nth-child(4){min-width:165px}
+.project-detail-page #view-container .ixs-raid-table :is(th,td):nth-child(8){min-width:105px}
+.project-detail-page #view-container .ixs-raid-table :is(th,td):nth-child(9){min-width:95px;white-space:nowrap}
+.project-detail-page #view-container .ixs-raid-table :is(th,td):last-child{width:46px;min-width:46px;text-align:center}
+.project-detail-page #view-container .ixs-raid-dashboard .ixs-raid-view-detail{display:inline-grid;place-items:center;width:32px;height:32px;min-height:32px;padding:6px;color:#7134d9;background:#fdfbff;border:1px solid #e5d8ff;border-radius:9px}
+.project-detail-page #view-container .ixs-raid-view-detail svg{width:18px;height:18px}
+.project-detail-page #view-container .ixs-raid-bottom{display:grid;grid-template-columns:1fr 1.1fr 1.1fr;gap:12px;align-items:stretch}
+.project-detail-page #view-container .ixs-raid-bottom>.ixs-card{min-height:260px}
+.project-detail-page #view-container :is(#ixs-raid-matrix,#ixs-raid-etapas,#ixs-raid-personas).ixs-azure-empty:has(>div){padding:0;border:0;background:none;text-align:left}
+.project-detail-page #view-container .ixs-raid-matrix-frame{position:relative;padding-left:20px;margin:4px 0 14px}
+.project-detail-page #view-container .ixs-raid-probability-axis{font-size:12px;text-align:center;margin:0 0 3px 45px;font-weight:700}
+.project-detail-page #view-container .ixs-raid-impact-axis{position:absolute;left:0;top:50%;writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg);font-size:12px;font-weight:700}
+.project-detail-page #view-container :is(.ixs-raid-matrix-head,.ixs-raid-matrix-row){grid-template-columns:43px repeat(3,minmax(0,1fr));gap:2px}
+.project-detail-page #view-container .ixs-raid-matrix-cell{min-height:44px;font-size:18px}
+.project-detail-page #view-container .ixs-raid-matrix-cell.red{background:#ffdce5}
+.project-detail-page #view-container .ixs-raid-matrix-cell.yellow{background:#fff1ce}
+.project-detail-page #view-container .ixs-raid-matrix-cell.green{background:#ccf6df}
+.project-detail-page #view-container .ixs-raid-muted{display:block;font-size:12px;line-height:1.5;margin-top:8px;text-align:center;color:#8d7ba8}
+.project-detail-page #view-container .ixs-raid-mini-row{font-size:12px;padding:10px 8px;grid-template-columns:minmax(100px,1.5fr) repeat(4,minmax(0,.6fr));gap:5px}
+.project-detail-page #view-container .ixs-raid-mini-row.head{background:#f0e8ff;border-radius:8px 8px 0 0;font-size:12px}
+.project-detail-page #view-container .ixs-raid-person-list{padding:4px 0}
+.project-detail-page #view-container .ixs-raid-person-list>div{grid-template-columns:minmax(0,1.7fr) minmax(60px,.9fr) 22px;gap:12px;padding:12px 0;border-bottom:1px solid #eee7fa;font-size:12px}
+.project-detail-page #view-container .ixs-raid-person-list i{height:10px;border-radius:8px;background:#e5dcf4}
+.project-detail-page #view-container .ixs-raid-person-list em{background:linear-gradient(90deg,#6421dc,#a966ff);border-radius:8px}
+.project-detail-page #view-container .ixs-raid-footnote{font-size:12px;color:#9b8cae;margin:0}
+@media(max-width:1150px){.project-detail-page #view-container .ixs-raid-dashboard .ixs-raid-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.project-detail-page #view-container .ixs-raid-top{grid-template-columns:1fr}.project-detail-page #view-container .ixs-raid-bottom{grid-template-columns:1fr 1fr}.project-detail-page #view-container .ixs-raid-health{grid-template-columns:190px minmax(0,1fr)}}
+@media(max-width:650px){.project-detail-page #view-container .ixs-raid-dashboard .ixs-raid-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.project-detail-page #view-container .ixs-raid-top,.project-detail-page #view-container .ixs-raid-bottom{grid-template-columns:1fr}.project-detail-page #view-container .ixs-raid-filters{grid-template-columns:1fr 1fr}.project-detail-page #view-container .ixs-raid-filters input{grid-column:1/-1}.project-detail-page #view-container .ixs-raid-att-row{grid-template-columns:60px minmax(0,1fr) 42px;gap:7px;padding:11px 9px}.project-detail-page #view-container .ixs-raid-att-row>.ixs-raid-att-title{grid-column:2;grid-row:1}.project-detail-page #view-container .ixs-raid-att-row>.ixs-raid-pill{grid-column:2;grid-row:2;justify-self:start}.project-detail-page #view-container .ixs-raid-att-row>.ixs-raid-person{grid-column:2;grid-row:3}.project-detail-page #view-container .ixs-raid-att-row>.ixs-raid-days{grid-column:3;grid-row:1}.project-detail-page #view-container .ixs-raid-health{grid-template-columns:1fr}.project-detail-page #view-container .ixs-raid-hero-actions{display:grid;grid-template-columns:1fr 1fr;width:100%}.project-detail-page #view-container .ixs-raid-stat label{font-size:12px}.project-detail-page #view-container .ixs-raid-hero-icon{display:none}.project-detail-page #view-container .ixs-raid-bottom>.ixs-card{min-height:0}}
+
+.project-detail-page #view-container .ixs-raid-stat label{text-transform:none;letter-spacing:0}
+
+/* Detail dialog: legible cards and an explicit, source-only plan. */
+body.project-detail-page #ixs-raid-detail-overlay{justify-content:center;align-items:center;padding:16px;box-sizing:border-box;background:#21134866;backdrop-filter:blur(3px)}
+body.project-detail-page .ixs-raid-risk-drawer{width:min(1460px,100%);max-width:100%;max-height:calc(100dvh - 32px);padding:22px 24px 26px;border:1px solid #e5dafa;border-radius:20px;background:linear-gradient(125deg,#faf7ff,#f8f9ff);box-shadow:0 24px 80px #22124733;overflow-y:auto;overscroll-behavior:contain;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#251959}
+body.project-detail-page .ixs-raid-risk-drawer .ixs-svg{display:inline-block;width:23px;height:23px;flex:none;vertical-align:middle}
+body.project-detail-page .ixs-raid-risk-drawer>header{align-items:center;gap:14px;margin-bottom:18px}
+body.project-detail-page .raid-detail-eyebrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:#6c35b7}
+body.project-detail-page .raid-detail-eyebrow b{font-size:17px;color:#5923b9}
+body.project-detail-page .raid-detail-eyebrow .ixs-raid-pill{font-size:12px;padding:6px 11px;color:#6d25d4;background:#ede2ff}
+body.project-detail-page .raid-detail-tools{display:flex;gap:9px;align-items:center;flex:none}
+body.project-detail-page .raid-detail-tools :is(a,button){display:grid;place-items:center;min-height:40px;height:40px;width:42px;padding:7px;background:#fff;color:#702de1;border:1px solid #e0d1fa;border-radius:12px;box-shadow:0 2px 5px #6334a70e;text-decoration:none;font-size:19px;box-sizing:border-box;cursor:pointer}
+body.project-detail-page .ixs-raid-risk-drawer .raid-detail-title{display:flex;align-items:flex-start;gap:15px;font-size:24px;line-height:1.4;letter-spacing:-.035em;color:#20124b;margin:0 0 18px;font-weight:750}
+body.project-detail-page .raid-detail-title>span:first-child{display:grid;place-items:center;width:48px;height:48px;background:linear-gradient(135deg,#f0e5ff,#e9dcff);border-radius:14px;color:#7430de;flex:none}
+body.project-detail-page .raid-detail-title>span:first-child svg{width:28px;height:28px}
+body.project-detail-page .raid-detail-title>span:last-child{overflow-wrap:anywhere;padding-top:4px}
+body.project-detail-page .ixs-raid-risk-drawer .ixs-raid-risk-strip{display:grid;grid-template-columns:1fr 1fr 1.65fr 1.1fr;gap:16px;padding:16px 18px;margin:0 0 22px;background:#ffffffb8;border:1px solid #e0d4fa;border-radius:15px;box-shadow:0 3px 7px #522e9009}
+body.project-detail-page .ixs-raid-risk-strip>div{display:flex;align-items:center;gap:13px;padding-right:12px;border-right:1px solid #e6dcf8;min-width:0}
+body.project-detail-page .ixs-raid-risk-strip>div:last-child{border-right:0}
+body.project-detail-page .raid-strip-icon{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;background:#f1eaff;color:#7430dd}
+body.project-detail-page .ixs-raid-risk-strip>div>div{min-width:0}
+body.project-detail-page .ixs-raid-risk-strip small{font-size:12px;line-height:1.4;color:#7d6b9e;margin:0 0 7px}
+body.project-detail-page .ixs-raid-risk-strip strong{font-size:15px;line-height:1.45;color:#251653;overflow-wrap:anywhere;font-weight:750}
+body.project-detail-page .ixs-raid-risk-strip .ixs-azure-badge{font-size:13px;padding:6px 12px;border-radius:15px}
+body.project-detail-page .ixs-raid-risk-strip .ixs-azure-badge.active{background:#dcf3df;color:#236c38}
+body.project-detail-page .ixs-raid-risk-layout{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:20px;align-items:start}
+body.project-detail-page .ixs-raid-risk-column{gap:17px}
+body.project-detail-page .ixs-raid-risk-card{padding:0;border:1px solid #ded1f8;border-radius:16px;background:linear-gradient(130deg,#fff,#fcfaff);box-shadow:0 3px 6px #5733990b;overflow:hidden;min-width:0}
+body.project-detail-page .ixs-raid-risk-card h4{font-size:19px;line-height:1.35;letter-spacing:-.03em;margin:0;padding:13px 17px;border-bottom:1px solid #eee5fb;color:#28115f;gap:11px;font-weight:750}
+body.project-detail-page .ixs-raid-risk-card h4>span{height:34px;width:34px;flex:none;border-radius:11px;color:#7a30e3;background:#f0e6ff}
+body.project-detail-page .ixs-raid-risk-card h4 svg{height:22px;width:22px}
+body.project-detail-page .ixs-raid-risk-card p{padding:18px 22px 22px;font-size:15px;line-height:1.8;color:#30214f;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+body.project-detail-page .ixs-raid-risk-card .ixs-raid-risk-pair{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:12px 0;margin:0 19px;border-bottom:1px solid #eee5f9}
+body.project-detail-page .ixs-raid-risk-pair small{display:flex;align-items:center;gap:9px;font-size:13px;line-height:1.45;margin:0;color:#615078;min-width:0}
+body.project-detail-page .ixs-raid-risk-pair small svg{width:19px;height:19px;color:#8a4de5}
+body.project-detail-page .ixs-raid-risk-pair strong{font-size:13px;line-height:1.5;color:#2d1b50;text-align:right;font-weight:700;max-width:60%;overflow-wrap:anywhere}
+body.project-detail-page .ixs-raid-risk-card .ixs-raid-risk-pair:last-child{margin-bottom:7px;border-bottom:0}
+body.project-detail-page .raid-detail-analysis{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-bottom:16px}
+body.project-detail-page .raid-detail-analysis h4{grid-column:1/-1}
+body.project-detail-page .raid-detail-analysis .ixs-raid-risk-pair{display:flex;flex-direction:column;align-items:flex-start;gap:7px;background:#f5efff;border:0;padding:13px 14px;border-radius:13px;margin:0 0 0 16px;min-width:0}
+body.project-detail-page .raid-detail-analysis .ixs-raid-risk-pair:nth-child(odd){margin:0 16px 0 0}
+body.project-detail-page .raid-detail-analysis .ixs-raid-risk-pair:last-child{margin-bottom:0}
+body.project-detail-page .raid-detail-analysis .ixs-raid-risk-pair strong{font-size:24px;line-height:1.2;max-width:100%;text-align:left}
+body.project-detail-page .raid-detail-steps{list-style:none;padding:18px 22px 22px;margin:0;display:grid;gap:17px}
+body.project-detail-page .raid-detail-steps li{display:flex;gap:13px;align-items:flex-start;position:relative;font-size:15px;line-height:1.65;color:#30204e}
+body.project-detail-page .raid-detail-steps li:not(:last-child):before{content:'';position:absolute;left:13px;top:28px;bottom:-17px;width:1px;background:#e4d7f7}
+body.project-detail-page .raid-step-number{display:grid;place-items:center;height:27px;width:27px;flex:none;border:1px solid #ccb2ef;border-radius:50%;background:#f3eaff;color:#7940bc;font-size:12px;font-weight:750}
+body.project-detail-page .ixs-raid-risk-card .ixs-raid-related{padding:15px 19px 19px}
+body.project-detail-page .ixs-raid-related :is(a,span){display:inline-flex;align-items:center;gap:12px;padding:9px 12px;border-radius:12px;background:#f1e6ff;color:#6429bd;font-size:14px;font-weight:750;text-decoration:none}
+body.project-detail-page .ixs-raid-related a:hover{background:#e8d6ff}
+body.project-detail-page .ixs-raid-risk-drawer .ixs-raid-open-link{display:block;box-sizing:border-box;padding:13px 16px;min-height:46px;margin:4px 0 0;border:0;border-radius:13px;background:linear-gradient(110deg,#8332f1,#5319d2);color:#fff;font-size:15px;font-weight:750;text-decoration:none;box-shadow:0 7px 16px #6838b31c}
+@media(max-width:1000px){body.project-detail-page .ixs-raid-risk-layout{grid-template-columns:1fr}body.project-detail-page .ixs-raid-risk-strip{grid-template-columns:1fr 1fr}body.project-detail-page .ixs-raid-risk-strip>div:nth-child(2){border:0}body.project-detail-page .ixs-raid-risk-drawer .raid-detail-title{font-size:21px}}
+@media(max-width:600px){body.project-detail-page #ixs-raid-detail-overlay{padding:8px}body.project-detail-page .ixs-raid-risk-drawer{max-height:calc(100dvh - 16px);padding:16px 12px 20px;border-radius:15px}body.project-detail-page .raid-detail-eyebrow{font-size:12px;gap:7px}body.project-detail-page .raid-detail-eyebrow b{font-size:14px}body.project-detail-page .raid-detail-tools :is(a,button){width:35px;min-height:35px;height:35px;padding:5px;border-radius:10px}body.project-detail-page .ixs-raid-risk-drawer>header{align-items:flex-start;gap:8px}body.project-detail-page .ixs-raid-risk-drawer .raid-detail-title{font-size:18px;gap:9px}body.project-detail-page .raid-detail-title>span:first-child{width:35px;height:35px;border-radius:10px}body.project-detail-page .raid-detail-title>span:first-child svg{width:22px;height:22px}body.project-detail-page .ixs-raid-risk-drawer .ixs-raid-risk-strip{grid-template-columns:1fr 1fr;gap:13px;padding:13px}body.project-detail-page .ixs-raid-risk-strip>div{align-items:flex-start;gap:7px;padding-right:5px}body.project-detail-page .raid-strip-icon{width:29px;height:29px}body.project-detail-page .raid-strip-icon svg{width:18px;height:18px}body.project-detail-page .ixs-raid-risk-strip strong{font-size:12px}body.project-detail-page .ixs-raid-risk-strip small{font-size:12px}body.project-detail-page .ixs-raid-risk-layout{gap:16px}body.project-detail-page .ixs-raid-risk-card h4{font-size:17px;padding:11px 13px}body.project-detail-page .ixs-raid-risk-card p{padding:14px 16px;font-size:14px;line-height:1.75}body.project-detail-page .raid-detail-steps{padding:14px 16px;gap:14px}body.project-detail-page .raid-detail-steps li{font-size:14px;gap:10px}body.project-detail-page .ixs-raid-risk-card .ixs-raid-risk-pair{margin-left:14px;margin-right:14px;padding:11px 0;gap:12px}body.project-detail-page .ixs-raid-risk-pair small,body.project-detail-page .ixs-raid-risk-pair strong{font-size:12px}body.project-detail-page .raid-detail-analysis .ixs-raid-risk-pair{padding:12px;margin-left:12px;margin-right:0}body.project-detail-page .raid-detail-analysis .ixs-raid-risk-pair:nth-child(odd){margin-left:0;margin-right:12px}body.project-detail-page .raid-detail-analysis .ixs-raid-risk-pair strong{font-size:21px}}

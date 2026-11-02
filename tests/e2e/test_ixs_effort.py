@@ -307,3 +307,31 @@ def test_late_records_are_cached_without_overwriting_other_tab(
     ).click()
     expect(portal.locator(".ixs-effort-activity")).to_have_count(3)
     assert len(held) == 1
+
+
+def test_reference_effort_chart_uses_project_hours_and_mobile_contains_tables(
+    portal, effort, fixed_day
+):
+    open_effort(portal)
+    expect(portal.locator(".ixs-effort-overview > .ixs-card")).to_have_count(3)
+    expect(
+        portal.locator(".ixs-effort-overview > .ixs-effort-quick")
+    ).to_be_visible()
+    chart = portal.get_by_role(
+        "img", name="Horas registradas por mes", exact=True
+    )
+    expect(chart).to_be_visible()
+    expect(
+        chart.locator("title").filter(has_text="2026-10: 161 h")
+    ).to_have_count(1)
+    portal.locator("#ixs-clock-desde").fill("2026-10-21")
+    portal.locator("#ixs-clock-hasta").fill("2026-10-27")
+    portal.get_by_role("button", name="Aplicar", exact=True).click()
+    expect(
+        chart.locator("title").filter(has_text="2026-10: 161 h")
+    ).to_have_count(1)
+    expect(portal.locator(".ixs-effort-resource-table th").first).to_have_text(
+        "#"
+    )
+    portal.set_viewport_size({"width": 390, "height": 844})
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")

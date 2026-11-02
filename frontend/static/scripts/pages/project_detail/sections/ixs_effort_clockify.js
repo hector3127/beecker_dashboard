@@ -99,12 +99,46 @@ export function recordTable(records, mode = "preview") {
                   { colspan: headers.length },
                   full
                     ? "Sin registros en el periodo."
-                    : "Sin registros en el periodo seleccionado.",
+                    : div("ixs-effort-no-records", h("span", "", icon("list")), h("span", "", "Sin registros en el periodo seleccionado.")),
                 ),
               ),
       ),
     ),
   );
+}
+
+function trendChart(months) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const svgNode = (tag, attrs = {}, text) => {
+    const node = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([key,value]) => node.setAttribute(key,String(value)));
+    if (text != null) node.textContent = String(text);
+    return node;
+  };
+  const maximum = Math.max(1,...months.map(row => Number(row.horas) || 0));
+  const unit = 10 ** Math.floor(Math.log10(maximum / 5));
+  const step = [1,2,5,10].find(value => value * unit >= maximum / 5) * unit;
+  const top = step * 5, width = Math.max(620,months.length * 74 + 60), height = 248;
+  const plotHeight = 174, baseline = 208, slot = (width - 64) / months.length;
+  const svg = svgNode('svg',{viewBox:`0 0 ${width} ${height}`,role:'img','aria-label':'Horas registradas por mes',class:'ixs-effort-trend-svg'});
+  const defs = svgNode('defs');
+  const gradient = svgNode('linearGradient',{id:'ixs-effort-trend-gradient',x1:'0',y1:'0',x2:'0',y2:'1'});
+  gradient.append(svgNode('stop',{offset:'0%','stop-color':'#a85aff'}),svgNode('stop',{offset:'100%','stop-color':'#6324e6'}));
+  defs.append(gradient);svg.append(defs);
+  for (let tick=0;tick<=5;tick++) {
+    const y = baseline - tick * plotHeight / 5;
+    svg.append(svgNode('line',{x1:48,x2:width-10,y1:y,y2:y,stroke:'#e7dff6'}),
+      svgNode('text',{x:40,y:y+4,'text-anchor':'end',class:'axis'},num(tick*step,1)+' h'));
+  }
+  months.forEach((row,index) => {
+    const barHeight = Math.max(0,Number(row.horas)||0) / top * plotHeight;
+    const x=48+index*slot+slot*.16, barWidth=slot*.68;
+    const bar=svgNode('rect',{x,y:baseline-barHeight,width:barWidth,height:barHeight,rx:8,fill:'url(#ixs-effort-trend-gradient)'});
+    bar.append(svgNode('title',{},`${row.mes}: ${num(row.horas,2)} h`));
+    svg.append(bar,svgNode('text',{x:x+barWidth/2,y:baseline-barHeight-8,'text-anchor':'middle',class:'value'},num(row.horas,2)+' h'),
+      svgNode('text',{x:x+barWidth/2,y:232,'text-anchor':'middle',class:'axis'},row.mes));
+  });
+  return div('ixs-effort-trend-scroll',svg);
 }
 
 export function renderClockify(target, state, filtered, actions) {
@@ -151,7 +185,7 @@ export function renderClockify(target, state, filtered, actions) {
                       "ixs-effort-task-top",
                       el("span", { class: "chev", "aria-hidden": "true" }, "▸"),
                       h("span", "name", x.nombre),
-                      h("span", "hrs", num(x.horas, 2) + " h"),
+                      h("span", "hrs", num(x.horas, 2) + " h (" + num(total ? 100 * x.horas / total : 0, 1) + "%)"),
                     ),
                     h(
                       "span",
@@ -212,8 +246,7 @@ export function renderClockify(target, state, filtered, actions) {
     );
   }
   if (chart) {
-    const months = trendRows(regs),
-      max = Math.max(1, ...months.map((x) => x.horas));
+    const months = trendRows(regs);
     chart.replaceChildren(
       heading(
         "chart",
@@ -226,14 +259,7 @@ export function renderClockify(target, state, filtered, actions) {
       ),
       content(
         months.length
-          ? div(
-              "ixs-effort-trend",
-              months.map((x) => {
-                const bar = div("bar");
-                bar.style.height = Math.max(3, (x.horas / max) * 100) + "%";
-                return div("col", b(num(x.horas, 2)), bar, small(x.mes));
-              }),
-            )
+          ? trendChart(months)
           : empty("Sin meses registrados."),
       ),
     );

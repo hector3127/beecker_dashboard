@@ -465,7 +465,15 @@ def test_navigation_and_detail_links(portal, datos):
     } <= set(eva)
     assert "/operativa/eva-2/" not in eva
     buttons = hrefs(portal, "a.ops-button")
-    assert "/capacidad-instalada/" in buttons
+    from urllib.parse import urlsplit
+
+    capacity = [
+        urlsplit(h)
+        for h in buttons
+        if urlsplit(h).path == "/capacidad-instalada/"
+    ]
+    assert len(capacity) == 1
+    assert "mes=" in capacity[0].query
     assert "/operativa/facturabilidad/" in buttons
     assert "/operativa/facturabilidad/especialidad/" in buttons
     assert "/operativa/facturabilidad/recurso/" in buttons
@@ -508,6 +516,11 @@ def test_reference_design_and_header_filters(portal, datos, billing, width):
     ready(portal)
     expect(portal.locator(".ops-banner #ops-service")).to_be_visible()
     expect(portal.locator(".ops-banner #ops-client")).to_be_visible()
+    controls = portal.locator(".ops-filters label").evaluate_all(
+        "items => items.map(e => e.getBoundingClientRect().top)"
+    )
+    assert abs(controls[0] - controls[1]) < 2
+
     expect(
         portal.locator(".ops-summary-tools #ops-refresh-button")
     ).to_be_enabled()
@@ -664,3 +677,18 @@ def test_capacity_reference_keeps_hours_and_meter(portal, datos, width):
     target = Path("tmp/design/capacity-reference")
     target.mkdir(parents=True, exist_ok=True)
     panel.screenshot(path=str(target / f"capacity-{width}.png"))
+
+
+def test_investment_cards_identify_accumulated_active_project_scope(
+    portal, datos
+):
+    portal.goto(portal.base + PAGE)
+    ready(portal)
+    operational = portal.locator("#ops-investment-operational")
+    commercial = portal.locator("#ops-investment-commercial")
+    expect(operational).to_contain_text("Inversión operativa acumulada")
+    expect(commercial).to_contain_text("Inversión comercial acumulada")
+    expect(operational).to_contain_text("INV_OPERATIVA")
+    expect(commercial).to_contain_text("INV_COMERCIAL")
+    expect(operational).to_contain_text("Vigencia completa")
+    expect(commercial).to_contain_text("No mensual")

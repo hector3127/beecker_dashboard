@@ -212,7 +212,7 @@
 .ops .ops-banner p{font-size:13px;color:#fff;margin:5px 0 0}
 .ops .ops-banner-icon{width:50px;height:54px;border-radius:12px;background:#ffffff20}
 .ops .ops-banner-icon svg{width:35px;height:35px}
-.ops .ops-filters{width:300px;gap:6px;padding:0;background:none;border:0;margin-left:auto}
+.ops .ops-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:420px;gap:6px;padding:0;background:none;border:0;margin-left:auto}
 .ops .ops-filter{min-width:0;padding:5px 13px 5px 40px;border:1px solid #ede7fc;border-radius:9px;background:#fff;gap:1px;box-shadow:inset 0 0 0 3px #faf8ff}
 .ops .ops-filter:before{content:'♧';position:absolute;left:10px;top:9px;font-size:21px;color:#7542e9}
 .ops .ops-filter+label:before{content:'▤';font-size:20px}
@@ -487,3 +487,10 @@
 @media(max-width:1200px){.ops .ops-capacity-section>.ops-strip{grid-template-columns:210px minmax(0,1fr) 225px;gap:14px}.capacity-main{padding:15px}.capacity-main-value{font-size:38px}.capacity-detail-panel{padding-left:12px}.capacity-stat strong{font-size:15px}.capacity-stats{gap:8px}.capacity-detail-row{flex-wrap:wrap}.capacity-main-heading{gap:7px}.capacity-main-heading h3{font-size:12px}}
 @media(max-width:1000px){.ops .ops-capacity-section>.ops-strip{grid-template-columns:230px minmax(0,1fr)}.capacity-detail-panel{grid-column:1/-1;border:0;border-top:1px solid #eee6fa;padding:15px 0 0}.capacity-detail-panel #ops-capacity-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ops .ops-capacity-section .capacity-detail-link{align-self:flex-end;margin-top:8px;padding:11px 18px}.capacity-main-value{font-size:42px}}
 @media(max-width:650px){.ops .ops-capacity-section>.ops-head{display:grid;grid-template-columns:43px minmax(0,1fr);padding:14px;gap:10px}.ops .ops-capacity-section .capacity-section-icon{width:43px;height:43px}.ops .capacity-section-title h2{font-size:20px}.ops .capacity-section-title p{font-size:10px}.ops .ops-capacity-section .capacity-month-label{grid-column:2;margin-left:0;justify-self:start;font-size:11px;padding:8px 12px}.ops .ops-capacity-section>.ops-strip{grid-template-columns:1fr;padding:12px;gap:16px}.capacity-detail-panel{grid-column:auto}.capacity-detail-panel #ops-capacity-details{grid-template-columns:1fr;gap:0}.capacity-main{padding:17px}.capacity-main-value{font-size:45px;margin-top:17px}.capacity-main-period{padding-top:12px}.capacity-main-caption{margin-bottom:5px}.capacity-stats{gap:10px}.capacity-stat{padding-left:10px}.capacity-stat strong{font-size:16px}.capacity-stat-label{font-size:9px}.capacity-stat small{font-size:9px}.capacity-usage h3{font-size:14px;margin-bottom:12px}.capacity-meter-row{margin:8px 0 24px}.capacity-detail-row{font-size:11px}.capacity-detail-row strong{font-size:13px}.capacity-detail-row small{font-size:10px}.ops .ops-capacity-section .capacity-detail-link{align-self:stretch}.capacity-message{grid-column:auto}}
+
+/* Totales Clockify: permitir que las cifras y la trazabilidad ajusten línea. */
+.capacity-clockify .capacity-detail-row{display:grid;grid-template-columns:20px minmax(0,1fr);gap:4px 8px}
+.capacity-clockify .capacity-detail-row>div{grid-column:2;margin-left:0;min-width:0;text-align:left}
+.capacity-clockify .capacity-detail-row small{white-space:normal;overflow-wrap:anywhere}
+
+.capacity-month-label{display:flex;align-items:center;gap:8px}.capacity-month-label input{font:inherit;color:inherit;background:transparent;border:0;outline-offset:4px;max-width:165px}.ops-capacity-section .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}

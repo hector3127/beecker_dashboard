@@ -2,14 +2,14 @@ import {
   renderExecutive,
   renderRaid,
   renderTasks,
-  timeline,
+  timelineSwitcher,
   resourceTable,
 } from "./ixs_executive_view.js";
 
 export { resourceTable };
 
 export function updateTimeline(target, data) {
-  target.replaceChildren(timeline(data));
+  target.replaceChildren(timelineSwitcher(data));
 }
 
 /** Mount deferred reads only for the project and pane that requested them. */

@@ -153,6 +153,7 @@ export function createAiController(api) {
             if (!current()) return;
             s.question = document.getElementById("ixai-question")?.value || "";
             s.respuesta = r?.ok ? r.texto : r?.error || "No hubo respuesta.";
+            s.questionEvidence = r?.ok ? (r.evidencias || []) : [];
           } catch (error) {
             if (!current()) return;
             s.question = document.getElementById("ixai-question")?.value || "";

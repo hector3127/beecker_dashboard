@@ -477,7 +477,7 @@ table.d th.c {
 .eva1-page .eva-history-footer #eva-history-count{margin-right:0}
 .eva1-page .eva-history-pages button,.eva1-page select.eva-history-size{border:1px solid #e4daf8;border-radius:8px;min-width:32px;height:33px;padding:0 10px;background:#fff;color:#8258bb;appearance:auto}
 .eva-history-current{display:grid;place-items:center;height:33px;min-width:42px;padding:0 8px;border-radius:8px;background:linear-gradient(140deg,#9559ff,#6b2be7);color:white;font-size:11px}
-.eva1-page table.project-table th:nth-child(2){min-width:160px}
+.eva1-page table.project-table thead tr:first-child>th:nth-child(2){min-width:160px}
 @media(max-width:650px){.eva1-page .eva-history-footer #eva-history-count{width:100%;text-align:right}}
 
 /* Tamaño compacto independiente de las dimensiones originales del logo. */
@@ -494,3 +494,5 @@ table.d th.c {
 .eva1-page .eva-allocation-toggle:hover{background:#ffe39a}
 .eva1-page .eva-allocation-toggle:focus-visible{outline:3px solid #7135d8;outline-offset:3px}
 .eva1-page .eva-allocation[open] .eva-allocation-toggle{background:#f0e7ff;border-color:#7135d8;color:#5921b0}
+
+.eva1-page #eva-table tbody td.eva-wi-overdue{background:#ed4057;color:#fff;font-weight:800;box-shadow:inset 0 0 0 1px #dc3047}

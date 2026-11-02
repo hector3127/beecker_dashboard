@@ -93,7 +93,7 @@ def test_global_filter_and_missing_date_do_not_reconstruct_from_eva(
     expect(page.locator("#kpi-quarter-history tbody tr")).to_have_count(1)
     expect(page.locator("#kpi-legend button")).to_have_count(1)
     page.locator("#kpi-cut").fill("2026-09")
-    page.get_by_role("button", name="Consultar mes").click()
+    page.get_by_role("button", name="Consultar", exact=True).click()
     expect(page.locator("#kpis-notice")).to_contain_text(
         "No hay una captura KPI guardada"
     )

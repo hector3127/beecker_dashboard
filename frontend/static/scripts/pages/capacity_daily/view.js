@@ -41,7 +41,7 @@ function matrix(data, st, paint) {
   st.page = Math.min(st.page, pages);
   const limit = data.diasHabiles * st.jornada;
   const total = new Map(data.personas.map((/** @type {any} */ p) => [p.nombre, p.total]));
-  const headings = ['Recurso', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Inicio', 'Fin', 'Concepto', 'Facturable', 'Cargabilidad', 'Capacidad disponible', 'Total mes'];
+  const headings = ['Recurso', 'ID Clockify', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Inicio', 'Fin', 'Concepto', 'Facturable', 'Cargabilidad', 'Capacidad disponible', 'Total mes'];
   const header = el('tr', {}, ...headings.map((text) => el('th', { text })),
     ...data.dias.map((/** @type {string} */ d) => el('th', { class: 'ci-day-head' + (isWeekend(d) ? ' weekend' : ''), text: date(d) })));
   const body = el('tbody');
@@ -49,6 +49,7 @@ function matrix(data, st, paint) {
     const over = total.get(r.nombre) > limit;
     body.append(el('tr', {},
       el('td', {}, personButton(r.nombre, st, paint)),
+      el('td', { class: 'ci-id', text: r.clockifyId || 'Sin ID en Bandas/rol' }),
       el('td', {}, pill(r.rol)), el('td', {}, pill(r.banda)),
       el('td', { text: r.dm || '-' }),
       el('td', { text: r.idProyecto || '—' }),

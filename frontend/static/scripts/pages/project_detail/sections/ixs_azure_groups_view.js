@@ -127,6 +127,13 @@ export function groupViews(groups, state, handlers) {
       ),
     ),
   );
+  const maxStage=Math.max(1,...groups.stages.map(row=>row.items.length));
+  const stageChart=div('azure-stage-chart',...groups.stages.map((row,i)=>{
+    const fill=h('i','');fill.style.height=(row.items.length*100/maxStage)+'%';
+    return el('button',{type:'button',class:'azure-stage-bar',
+      'aria-label':`${row.etapa}: ${row.items.length} Work Items abiertos`,
+      onclick:()=>handlers.stage(i)},h('b','',row.items.length),div('azure-stage-track',fill),h('small','',row.etapa));
+  }));
   return {
     people: [
       div(
@@ -166,6 +173,7 @@ export function groupViews(groups, state, handlers) {
       ),
     ],
     stages: [
+      stageChart,
       div(
         "ixs-az84-tablewrap",
         h(

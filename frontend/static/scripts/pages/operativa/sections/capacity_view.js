@@ -76,6 +76,7 @@ export function renderCapacity(root, capacity) {
       : "Periodo pendiente";
     period.textContent = text[0].toUpperCase() + text.slice(1);
   }
+  section?.classList.toggle("capacity-clockify", capacity.source === "clockify");
   const available = !capacity.error && known(capacity.available);
   const left = el(
     "div",
@@ -84,7 +85,7 @@ export function renderCapacity(root, capacity) {
       "div",
       { class: "capacity-main-heading" },
       el("span", { class: "capacity-main-icon" }, icon("team", 25)),
-      el("h3", { text: "Capacidad instalada" }),
+      el("h3", { text: "Saldo de capacidad" }),
       el("span", {
         class: "capacity-info",
         title:
@@ -98,7 +99,7 @@ export function renderCapacity(root, capacity) {
     }),
     el("p", {
       class: "capacity-main-caption",
-      text: capacity.loading ? "Calculando…" : "horas disponibles",
+      text: capacity.loading ? "Calculando…" : capacity.error ? "Datos no disponibles" : "horas disponibles",
     }),
     el("p", {
       class: "capacity-main-period",
@@ -124,18 +125,19 @@ export function renderCapacity(root, capacity) {
   const percent = usageKnown
     ? meterPercent(capacity.consumed, capacity.base)
     : 0;
+  const actualPercent = usageKnown ? Math.round(capacity.consumed / capacity.base * 100) : 0;
   const meter = el(
     "div",
     {
       class: "ops-meter",
       role: "img",
       "aria-label": usageKnown
-        ? `Horas registradas respecto a capacidad base: ${percent}%`
+        ? `Horas registradas respecto a capacidad base: ${actualPercent}%`
         : "Uso de capacidad pendiente",
     },
     el("i"),
   );
-  meter.firstElementChild.style.width = `${percent}%`;
+  meter.firstElementChild.style.width = `${actualPercent}%`;
   const baseText =
     `Capacidad base del mes: ${hours(capacity.base, 0)} (${capacity.people ?? "—"} personas × ${capacity.days ?? "—"} días × 8 h). ${capacity.over ?? "—"} personas sobre jornada.`;
   const center = el(
@@ -159,7 +161,7 @@ export function renderCapacity(root, capacity) {
       el(
         "div",
         { class: "capacity-meter-value" },
-        el("strong", { text: usageKnown ? `${percent}%` : NO_VALUE }),
+        el("strong", { text: usageKnown ? `${actualPercent}%` : NO_VALUE }),
         el("span", { text: "utilizado" }),
       ),
     ),
@@ -193,7 +195,9 @@ export function renderCapacity(root, capacity) {
         "div",
         {},
         el("p", {
-          text: "Horas reales de Clockify de las personas con banda vigente en el mes, facturables o no y sin Comida.",
+          text: capacity.refresh_error
+            ? `Último resultado disponible. No se pudo actualizar: ${capacity.refresh_error}`
+            : "Horas reales de Clockify de las personas con banda vigente en el mes, facturables o no y sin Comida.",
         }),
         el("p", { text: baseText }),
       ),
@@ -203,7 +207,7 @@ export function renderCapacity(root, capacity) {
     detail(
       "Consumo actual (Clockify)",
       capacity.consumed,
-      ratio(capacity.consumed, capacity.base),
+      capacity.clockify_month ? `${formatNumber(capacity.clockify_month.entries)} registros · ${capacity.clockify_month.people} personas con horas` : ratio(capacity.consumed, capacity.base),
       "pause",
     ),
     detail(

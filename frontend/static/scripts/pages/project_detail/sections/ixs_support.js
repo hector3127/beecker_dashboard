@@ -47,8 +47,10 @@ export function createIxsSupport(api, views) {
             break;
           case "resumen": {
             const table = document.querySelector("[data-resource-workload]");
-            if (table)
+            if (table) {
               table.replaceWith(views.beeIxsExecutive.resourceTable(project));
+              document.querySelector('.ixs-workload-tools input')?.dispatchEvent(new Event('input'));
+            }
             break;
           }
         }

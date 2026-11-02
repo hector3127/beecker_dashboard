@@ -1,7 +1,7 @@
 {% extends "layouts/app.html" %}
 {% load static %}
 {% block title %}Operativa{% endblock %}
-{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/operativa.css' %}?v=20261026-integrated">{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/operativa.css' %}?v=20261101-capacity-month">{% endblock %}
 {% block freshness %}<span>Indicadores operativos</span>{% endblock %}
 {% block content %}
 <div class="ops" id="ops-dashboard"
@@ -56,7 +56,7 @@
 </section>
 
 <section class="card ops-section ops-capacity-section" aria-labelledby="ops-capacity-title">
-<div class="ops-head"><span class="capacity-section-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="7" r="3"/><path d="M3 21v-4c0-5 12-5 12 0v4m2-17a3 3 0 0 1 0 6m1 4c3 0 4 2 4 6"/></svg></span><div class="capacity-section-title"><h2 id="ops-capacity-title">Capacidad del equipo</h2><p>Asignación y horas disponibles</p></div><span id="ops-capacity-month" class="capacity-month-label">Consultando periodo…</span></div>
+<div class="ops-head"><span class="capacity-section-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="7" r="3"/><path d="M3 21v-4c0-5 12-5 12 0v4m2-17a3 3 0 0 1 0 6m1 4c3 0 4 2 4 6"/></svg></span><div class="capacity-section-title"><h2 id="ops-capacity-title">Capacidad del equipo</h2><p>Horas registradas y capacidad mensual</p></div><label class="capacity-month-label">Mes <input type="month" id="ops-capacity-select" aria-label="Mes de capacidad del equipo"></label><span id="ops-capacity-month" class="sr-only">Consultando periodo…</span></div>
 <div class="ops-strip">
 <div id="ops-capacity" class="ops-capacity"></div>
 <aside class="capacity-detail-panel"><h3>Detalle de horas</h3><div id="ops-capacity-details"></div><a class="ops-button capacity-detail-link" href="{% url 'portal:capacidad_detalle' %}">Ver capacidad instalada →</a></aside>
@@ -64,4 +64,4 @@
 </section>
 </div>
 {% endblock %}
-{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/operativa/main.js' %}"></script>{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/operativa/main.js' %}?v=20261101-capacity-month"></script>{% endblock %}

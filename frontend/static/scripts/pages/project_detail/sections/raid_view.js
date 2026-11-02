@@ -25,11 +25,19 @@ const statusBadge = (row) => el("span", { class: `ixs-azure-badge ${statusClass(
 /** @param {any} x */
 const azureLink = (x, text = `#${x.id}`) => el("a", { href: safeLink(x.url), target: "_blank", rel: "noopener noreferrer", text });
 
+
+/** Nombre completo con iniciales decorativas, sin alterar la identidad. */
+function assignee(value) {
+  const name = String(value || "Sin asignar");
+  const initials = name.trim().split(/\s+/).filter(Boolean).slice(0,2).map(part => part[0]).join('').toUpperCase();
+  return el('span',{class:'ixs-raid-person'},el('span',{class:'ixs-raid-avatar','aria-hidden':'true',text:initials}),el('span',{text:name}));
+}
+
 /** Estructura fija de la pestaña. @param {{create: (type: string) => void, sync: () => void, toggle: (b: HTMLElement) => void, filter: () => void}} h */
 export function buildShell(h) {
   const newButton = (/** @type {string} */ cls, /** @type {string} */ text, /** @type {string} */ type) => el("button", { type: "button", class: `ixs-raid-new ${cls}`, text, onclick: () => h.create(type) });
   const select = (/** @type {string} */ id, /** @type {string} */ first, /** @type {[string, string][]} */ options = []) =>
-    el("select", { id, onchange: h.filter }, el("option", { value: "", text: first }), ...options.map(([value, text]) => el("option", { value, text })));
+    el("select", { id, "aria-label":first, onchange: h.filter }, el("option", { value: "", text: first }), ...options.map(([value, text]) => el("option", { value, text })));
   const warning = el("div", { id: "ixs-raid-sync-warning", class: "ixs-raid-info", hidden: true });
   const loading = (/** @type {string} */ id, /** @type {string} */ text = "Consultando…") => el("div", { id, class: "ixs-azure-empty", text });
   const attentionButton = el("button", { type: "button", class: "ixs-btn", id: "ixs-raid-att-btn", hidden: true, onclick: (/** @type {Event} */ e) => h.toggle(/** @type {HTMLElement} */ (e.currentTarget)) });
@@ -45,7 +53,6 @@ export function buildShell(h) {
         el("div", { class: "ixs-raid-heading" }, el("span", { class: "ixs-raid-hero-icon" }, icon("target")), el("div", {}, el("h2", { text: "Gestión de riesgos y oportunidades" }), el("p", { text: "Radar del proyecto · Riesgos, Issues y oportunidades registrados en Azure DevOps." }))),
         el("div", { class: "ixs-raid-hero-actions" }, el("button", { type: "button", class: "ixs-btn", onclick: h.sync }, icon("refresh"), " Sincronizar"), newButton("risk", "+ Riesgo", "Risk"), newButton("issue", "+ Issue", "Issue"), newButton("opportunity", "+ Oportunidad", "Opportunity")),
       ),
-      el("div", { class: "ixs-raid-info", text: "ⓘ Cada tipo tiene su propio formulario y prompt de Claude. La IA solo sugiere: nada se publica en Azure hasta que pulses «Crear en Azure»." }),
     ),
     warning,
     el("div", { id: "ixs-raid-kpis", class: "ixs-raid-kpis" }, el("div", { class: "ixs-card ixs-azure-empty", text: "Consultando registros del proyecto…" })),
@@ -66,7 +73,7 @@ export function buildShell(h) {
         select("ixs-raid-filter-estado", "Todos los estados"),
         select("ixs-raid-filter-persona", "Todos los responsables"),
         select("ixs-raid-filter-iteracion", "Todas las iteraciones"),
-        el("input", { id: "ixs-raid-filter-search", type: "search", placeholder: "Buscar título, ID, persona…", oninput: h.filter }),
+        el("input", { id: "ixs-raid-filter-search", type: "search", "aria-label":"Buscar registros RAID", placeholder: "Buscar ID, título o palabra clave…", oninput: h.filter }),
       ),
       loading("ixs-raid-tabla", "Consultando registros…"),
     ),
@@ -108,8 +115,8 @@ export function paintSummary(root, rows, h) {
             { class: "ixs-raid-att-list" },
             ...attention.map((x, i) => {
               const title = el("span", { class: "ixs-raid-att-title", role: "button", tabindex: "0", text: x.titulo == null ? "" : String(x.titulo), onclick: () => h.detail(Number(x.id)) });
-              title.addEventListener("keydown", (e) => e.key === "Enter" && h.detail(Number(x.id)));
-              return el("div", { class: "ixs-raid-att-row", hidden: i >= 4 || null, "data-raid-extra": i >= 4 ? "" : null }, azureLink(x), title, typeBadge(x), el("small", { text: x.asignadoA == null ? "" : String(x.asignadoA) }), el("b", { class: "ixs-raid-days", text: `${Number(x.diasSinActualizar) || 0} d` }));
+              title.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); h.detail(Number(x.id)); } });
+              return el("div", { class: "ixs-raid-att-row", hidden: i >= 4 || null, "data-raid-extra": i >= 4 ? "" : null }, azureLink(x), title, typeBadge(x), assignee(x.asignadoA), el("b", { class: "ixs-raid-days", text: `${Number(x.diasSinActualizar) || 0} d` }));
             }),
           ),
         ]
@@ -146,7 +153,7 @@ export function paintHealth(root, rows) {
         ...h.counts.map((x) => {
           const dot = el("i");
           dot.style.background = String(x[2]);
-          return el("div", {}, dot, el("span", { text: String(x[0]) }), el("b", { text: String(x[1]) }));
+          return el("div", {}, dot, el("span", { text: x[0] === "Cerrados" ? "Cerrados" : typeOf({tipo:x[0]}).label }), el("b", { text: String(x[1]) }), el("small", { text: `${rows.length ? (100 * Number(x[1]) / rows.length).toLocaleString("es-MX",{maximumFractionDigits:1}) : "0"}%` }));
         }),
       ),
     ),
@@ -157,7 +164,7 @@ export function paintHealth(root, rows) {
 /** @param {HTMLElement} root @param {any[]} all @param {any[]} rows @param {{detail: (id: number) => void}} h */
 export function paintTable(root, all, rows, h) {
   $(root, "ixs-raid-count").textContent = `${rows.length} de ${all.length} registros`;
-  const head = ["#", "Tipo", "Título", "Asignado", "Estado", "Severidad", "Prob.", "Iteración / etapa", "Últ. actualización", ""];
+  const head = ["#", "Tipo", "Título", "Asignado", "Estado", "Severidad", "Prob.", "Iteración / etapa", "Últ. actualización", "Acciones"];
   $(root, "ixs-raid-tabla").replaceChildren(
     rows.length
       ? el(
@@ -177,13 +184,13 @@ export function paintTable(root, all, rows, h) {
                   el("td", {}, azureLink(x)),
                   el("td", {}, typeBadge(x)),
                   el("td", { class: "title", text: x.titulo == null ? "" : String(x.titulo) }),
-                  el("td", { text: x.asignadoA == null ? "" : String(x.asignadoA) }),
+                  el("td", {}, assignee(x.asignadoA)),
                   el("td", {}, statusBadge(x)),
                   el("td", { text: String(x.severidad || "—") }),
                   el("td", { text: String(x.probabilidad || "—") }),
                   el("td", { text: iteration(x.iterationPath) || "—" }),
                   el("td", { text: dateText(x.ultimaActualizacion) }),
-                  el("td", {}, el("button", { type: "button", class: "ixs-btn", text: "Ver detalle →", onclick: () => h.detail(Number(x.id)) })),
+                  el("td", {}, el("button", { type: "button", class: "ixs-btn ixs-raid-view-detail", "aria-label":`Ver detalle de #${x.id}`,title:"Ver detalle", onclick: () => h.detail(Number(x.id)) }, icon("eye"))),
                 ),
               ),
             ),
@@ -202,15 +209,18 @@ export function paintMatrix(root, rows) {
     return;
   }
   box.replaceChildren(
-    el("div", { class: "ixs-raid-matrix-head" }, el("span"), ...["Bajo", "Medio", "Alto"].map((text) => el("span", { text }))),
-    ...["Alto", "Medio", "Bajo"].map((pr) =>
-      el(
-        "div",
-        { class: "ixs-raid-matrix-row" },
-        el("b", { text: pr }),
-        ...["Bajo", "Medio", "Alto"].map((im) => el("div", { class: `ixs-raid-matrix-cell ${im === "Alto" && pr === "Alto" ? "red" : im === "Bajo" && pr === "Bajo" ? "green" : "yellow"}`, text: String(m.cell(im, pr) || "") })),
-      ),
-    ),
+    el('div',{class:'ixs-raid-probability-axis',text:'Probabilidad'}),
+    el('div',{class:'ixs-raid-matrix-frame'},
+      el('span',{class:'ixs-raid-impact-axis',text:'Impacto'}),
+      el("div", { class: "ixs-raid-matrix-head" }, el("span"), ...["Bajo", "Medio", "Alto"].map((text) => el("span", { text }))),
+      ...["Alto", "Medio", "Bajo"].map((impact) => el("div", { class: "ixs-raid-matrix-row" },
+        el("b", { text: impact }),
+        ...["Bajo", "Medio", "Alto"].map((prob) => el("div", {
+          class: `ixs-raid-matrix-cell ${impact === "Alto" && prob === "Alto" ? "red" : impact === "Bajo" && prob === "Bajo" ? "green" : "yellow"}`,
+          text: String(m.cell(impact, prob) || ""),
+          'aria-label': `Impacto ${impact}, probabilidad ${prob}: ${m.cell(impact,prob)} registros`
+        }))
+      ))),
     el("small", { class: "ixs-raid-muted", text: `${m.valid} de ${m.open} abiertos tienen ambos campos registrados.` }),
   );
 }
@@ -270,20 +280,41 @@ export function detailDrawer(x, close) {
   const closeButton = (/** @type {string} */ label) => el("button", { type: "button", class: "ixs-btn", "aria-label": label || null, text: "✕", onclick: close });
   const open = el("a", { class: "ixs-btn primary ixs-raid-open-link", href: safeLink(x.url), target: "_blank", rel: "noopener noreferrer", text: "Abrir en Azure DevOps ↗" });
   const related = x.relacionados && x.relacionados.length ? x.relacionados : null;
-  const relatedNodes = () => (related ? [el("div", { class: "ixs-raid-related" }, ...related.map((/** @type {any} */ r) => el("span", { text: `#${r.id || "Relacionado"}` })))] : []);
+  const relatedNodes = () => (related ? [el("div", { class: "ixs-raid-related" }, ...related.map((r) => {
+    const id=String(r.id || '');
+    const source=safeLink(x.url);
+    const href=r.url ? safeLink(r.url) : /^\d+$/.test(id) && /\/_workitems\/edit\/\d+/.test(source)
+      ? source.replace(/(\/_workitems\/edit\/)\d+(?:\?.*)?$/, '$1'+id) : '#';
+    return href === '#' ? el('span',{text:'#'+(id||'Relacionado')})
+      : el('a',{href,target:'_blank',rel:'noopener noreferrer','aria-label':'Abrir Work Item #'+id},'#'+id,icon('link'));
+  }))] : []);
   const d = detail(x);
   if (d) {
-    const card = (/** @type {any} */ c) => (c.text ? el("section", { class: "ixs-raid-risk-card" }, el("h4", {}, el("span", { text: c.icon }), c.title), el("p", { text: c.text })) : null);
-    const pairs = (/** @type {any[]} */ list) => list.filter((p) => p.text).map((p) => el("div", { class: "ixs-raid-risk-pair" }, el("small", { text: p.label }), el("strong", { text: p.text })));
-    const block = (/** @type {string} */ ico, /** @type {string} */ title, /** @type {any[]} */ items) => (items.length ? el("section", { class: "ixs-raid-risk-card" }, el("h4", {}, el("span", { text: ico }), title), ...items) : null);
-    const strip = (/** @type {string} */ label, /** @type {string} */ value) => el("div", {}, el("small", { text: label }), el("strong", { text: value }));
+    const labels={Reporter:'Reportado por',Escalate:'Escalar','Detection Date':'Fecha de detección','Closure Date':'Fecha de cierre',Planning:'Planificación'};
+    const labelIcon=label=>/prioridad|severidad/i.test(label)?'chart':/escala/i.test(label)?'flag':/persona|report/i.test(label)?'user':/software/i.test(label)?'layers':/fecha/i.test(label)?'calendar':'target';
+    const card = c => {
+      if (!c.text) return null;
+      const plan=/^plan/i.test(c.title), lines=c.text.split(/\n+/).map(line=>line.trim()).filter(Boolean);
+      return el('section',{class:'ixs-raid-risk-card'+(plan?' raid-detail-plan':'')},
+        el('h4',{},el('span',{},icon(plan?'flag':'layers')),c.title),
+        plan ? el('ol',{class:'raid-detail-steps'},...lines.map((line,index)=>el('li',{},el('span',{class:'raid-step-number','aria-hidden':'true',text:String(index+1)}),el('span',{text:line})))) : el('p',{text:c.text}));
+    };
+    const pairs = list => list.filter(p=>p.text).map(p=>{
+      const label=labels[p.label]||p.label;
+      return el('div',{class:'ixs-raid-risk-pair'},el('small',{},icon(labelIcon(label)),label),el('strong',{text:p.text}));
+    });
+    const block = (ico,title,items) => items.length ? el('section',{class:'ixs-raid-risk-card'+(title===d.secondaryTitle?' raid-detail-analysis':'')},
+      el('h4',{},el('span',{},icon(title===d.secondaryTitle?'chart':'target')),labels[title]||title),...items) : null;
+    const strip = (label,value,name) => el('div',{},el('span',{class:'raid-strip-icon'},icon(name)),el('div',{},el('small',{text:label}),
+      label==='Estado'?statusBadge(x):el('strong',{text:value})));
     overlay.append(
       el(
         "aside",
         { class: "ixs-raid-drawer ixs-raid-risk-drawer", role: "dialog", "aria-modal": "true", "aria-label": d.aria },
-        el("header", {}, el("b", { text: `${d.kind} #${x.id} · ${x.asignadoA || "Sin asignar"}` }), closeButton("Cerrar")),
-        el("h3", { text: x.titulo == null ? "" : String(x.titulo) }),
-        el("div", { class: "ixs-raid-risk-strip" }, strip("Estado", x.estado || "—"), strip("Área", x.areaPath || "—"), strip("Iteración", x.iterationPath || "—"), strip("Última actualización", dateText(x.ultimaActualizacion))),
+        el("header", {}, el('div',{class:'raid-detail-eyebrow'},typeBadge(x),el('b',{text:'#'+x.id}),el('span',{text:'· '+(x.asignadoA||'Sin asignar')})),
+          el('div',{class:'raid-detail-tools'},el('a',{class:'ixs-btn',href:safeLink(x.url),target:'_blank',rel:'noopener noreferrer','aria-label':'Abrir en Azure DevOps',title:'Abrir en Azure DevOps'},icon('link')),closeButton("Cerrar"))),
+        el("h3", {class:'raid-detail-title'},el('span',{},icon('layers')),el('span',{text:x.titulo == null ? "" : String(x.titulo)})),
+        el("div", { class: "ixs-raid-risk-strip" }, strip("Estado", x.estado || "—",'target'), strip("Área", x.areaPath || "—",'layers'), strip("Iteración", x.iterationPath || "—",'link'), strip("Última actualización", dateText(x.ultimaActualizacion),'calendar')),
         el(
           "div",
           { class: "ixs-raid-risk-layout" },
@@ -291,7 +322,7 @@ export function detailDrawer(x, close) {
           el(
             "div",
             { class: "ixs-raid-risk-column" },
-            ...[block("▦", d.planningTitle, pairs(d.planning)), block("▥", d.secondaryTitle, pairs(d.secondary)), related ? el("section", { class: "ixs-raid-risk-card" }, el("h4", {}, el("span", { text: "↗" }), "Work Items relacionados"), ...relatedNodes()) : null, open].filter(Boolean),
+            ...[block("▦", d.planningTitle, pairs(d.planning)), block("▥", d.secondaryTitle, pairs(d.secondary)), related ? el("section", { class: "ixs-raid-risk-card" }, el("h4", {}, el("span", {},icon("link")), `Work Items relacionados (${related.length})`), ...relatedNodes()) : null, open].filter(Boolean),
           ),
         ),
       ),
@@ -312,6 +343,15 @@ export function detailDrawer(x, close) {
       ),
     );
   }
+  overlay.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){event.preventDefault();close();}
+    if(event.key==='Tab'){
+      const focusable=[...overlay.querySelectorAll('button,a[href],input,select,textarea,[tabindex="0"]')].filter(node=>!node.disabled);
+      const first=focusable[0],last=focusable.at(-1);
+      if(event.shiftKey && document.activeElement===first){event.preventDefault();last?.focus();}
+      else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first?.focus();}
+    }
+  });
   return overlay;
 }
 

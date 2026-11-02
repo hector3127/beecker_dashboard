@@ -19,6 +19,7 @@ export function renderResourceDetail(data, name, close) {
   return el('section', { class: 'ci-card ci-person-detail', 'aria-labelledby': 'ci-person-heading' },
     el('div', { class: 'ci-section-head' }, heading,
       el('button', { type: 'button', class: 'ci-btn', text: '← Regresar al listado', onclick: close })),
+    el('p', { class: 'ci-muted', text: `ID Clockify: ${model.person?.clockifyId || 'Sin ID en Bandas/rol'} · Rol: ${model.person?.rol || '—'} · Banda: ${model.person?.banda || '—'}` }),
     el('p', { class: 'ci-muted', text: 'Todas las horas de Clockify de esta persona en el mes, incluidas las no facturables y las de fines de semana. Los filtros del listado no ocultan sus proyectos aquí.' }),
     el('div', { class: 'ci-matrix', role: 'region', tabindex: '0', 'aria-label': 'Horas diarias por proyecto' }, table));
 }

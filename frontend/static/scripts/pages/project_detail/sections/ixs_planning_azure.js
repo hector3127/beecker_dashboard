@@ -179,7 +179,7 @@ export function planningAzureSection(state, actions, mode = "planning") {
                     titleOnly(x.titulo),
                   ),
                 ),
-                td(x.asignadoA || "—", "assignee"),
+                td(div("ixs-planning-assignee", h("span", "ixs-planning-avatar", String(x.asignadoA || "?").split(/\s+/).filter(Boolean).slice(0,2).map(n => n[0]).join('').toUpperCase()), h("span", "", x.asignadoA || "—")), "assignee"),
                 td(
                   h(
                     "span",
@@ -311,6 +311,16 @@ export function planningAzureSection(state, actions, mode = "planning") {
       div("ixs-azure-wi-content", filters, box),
     ),
   );
+  if (!tab) {
+    const toggle = el('button', {type:'button',class:'ixs-btn ixs-plan-filter-toggle', 'aria-expanded':'true',text:'Ocultar filtros'});
+    toggle.addEventListener('click', () => {
+      filters.hidden = !filters.hidden;
+      toggle.textContent = filters.hidden ? 'Mostrar filtros' : 'Ocultar filtros';
+      toggle.setAttribute('aria-expanded', String(!filters.hidden));
+    });
+    section.replaceChildren(div('ixs-section-head', h('h3','',icon('layers'),' Work Items — Azure DevOps (To Be / Change Request)'), toggle),
+      div('ixs-azure-wi-content', filters, box));
+  }
   section.refreshAzure = () => {
     selects.forEach((node, i) => {
       const current = node.value,

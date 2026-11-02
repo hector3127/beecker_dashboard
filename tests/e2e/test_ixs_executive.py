@@ -251,3 +251,30 @@ def test_late_responses_do_not_replace_a_new_executive(portal, ixs):
         "Accesos pendientes"
     )
     expect(portal.locator("#ixs-tasks-content")).to_contain_text("Desarrollo")
+
+
+def test_reference_workload_search_and_timeline_views(portal, ixs):
+    portal.goto(portal.base + PAGE)
+    search = portal.get_by_role(
+        "searchbox", name="Buscar recurso en carga de trabajo"
+    )
+    search.fill("ana perez")
+    rows = portal.locator("[data-resource-workload] tbody tr:visible")
+    expect(rows).to_have_count(1)
+    expect(rows.first).to_contain_text("Ana Pérez")
+    search.fill("no existe este recurso")
+    expect(portal.locator(".ixs-workload-count")).to_have_text(
+        "0 resultados · Totales del proyecto completo"
+    )
+    expect(portal.locator("[data-resource-workload] tfoot")).to_be_visible()
+    search.fill("")
+    expect(rows).to_have_count(len(ixs[0]["filasRecursosCompleto"]))
+    tools = portal.locator(".ixs-exec-timeline-tools")
+    tools.get_by_role("button", name="Lista", exact=True).click()
+    expect(portal.locator(".ixs-timeline-list")).to_be_visible()
+    expect(portal.locator(".ixs-timeline-gantt")).to_be_hidden()
+    tools.get_by_role("button", name="Gantt", exact=True).click()
+    expect(portal.locator(".ixs-timeline-gantt")).to_be_visible()
+    expect(portal.locator(".ixs-timeline-list")).to_be_hidden()
+    portal.set_viewport_size({"width": 390, "height": 844})
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")

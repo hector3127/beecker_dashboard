@@ -269,21 +269,12 @@ export function renderAzureSummary(root, m) {
       expandable(dates, rows, 5, [div("ixs-az85-date-list", rows)]);
     }
   }
+  const summaryDonut = div('ixs-donut',div('ixs-donut-center',h('b','',m.total),h('small','','Work Items')));
+  summaryDonut.style.background=m.donut;
   get("ixs-azure-status-summary")?.replaceChildren(
-    ...(m.entries.length
-      ? m.entries.map(([name, value]) =>
-          div(
-            "row",
-            h(
-              "span",
-              "ixs-azure-status-label",
-              swatch(name, "sw ixs-azure-status-swatch"),
-              name,
-            ),
-            track((100 * value) / m.totalDist),
-            h("small", "", value),
-          ),
-        )
-      : [empty("Sin distribución disponible.")]),
+    ...(m.entries.length ? [div('azure-status-overview',summaryDonut,
+      div('azure-status-values',...m.entries.map(([name,value])=>div('azure-status-value',
+        swatch(name),h('span','',name),h('b','',value),h('small','',pct(value*100/m.totalDist)))))
+    )] : [empty('Sin distribución disponible.')]),
   );
 }

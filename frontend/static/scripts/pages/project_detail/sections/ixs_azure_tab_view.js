@@ -58,24 +58,13 @@ export function azureTabView(table, refresh) {
         "ixs-az84-person",
         "Consultando iteraciones y responsables…",
       ),
-      card(
-        "chart",
-        "WIs abiertos por etapa",
-        "Estados pendientes según Azure",
-        "ixs-az84-stage",
-        "Consultando iteraciones y estados…",
+      div('azure-stage-stack',
+        card('chart','WIs abiertos por etapa','Estados pendientes según Azure','ixs-az84-stage','Consultando iteraciones y estados…'),
+        card('people','Carga por asignado','','ixs-azure-by-assignee','Cargando…','ixs-azure-mini-card'),
       ),
     ),
     div(
       "ixs-azure-bottom",
-      card(
-        "people",
-        "Carga por asignado",
-        "",
-        "ixs-azure-by-assignee",
-        "Cargando…",
-        "ixs-azure-mini-card",
-      ),
       card(
         "calendar",
         "Próximas fechas",

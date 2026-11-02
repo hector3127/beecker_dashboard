@@ -35,12 +35,13 @@ export function renderMetrics(root, view) {
   const { summary, investment } = view;
   const hours = (/** @type {number | null} */ value) =>
     investment.complete && value !== null ? `${formatNumber(value, 0)} h` : NO_VALUE;
-  const note = `Horas de inversión registradas · ${view.filters.service || 'IXB/RaaS, AER y T&M'} activos`;
+  const population = `${view.filters.service || 'proyectos de EVA 1 y EVA 3'} activos`;
+  const note = (tag) => `Vigencia completa · ${population} · etiqueta ${tag}. No mensual.`;
   root.replaceChildren(
     card('ops-metric-progress', 'play', 'ok', 'Proyectos en ejecución', noPortfolio ? NO_VALUE : summary.in_progress, !noPortfolio && view.portfolio_total ? `${Math.round(summary.in_progress/view.portfolio_total*100)}% del total` : ''),
     card('ops-metric-paused', 'pause', 'bad', 'Suspendidos', noPortfolio ? NO_VALUE : summary.paused, !noPortfolio && view.portfolio_total ? `${Math.round(summary.paused/view.portfolio_total*100)}% del total` : ''),
     card('ops-metric-on-time', 'check', 'blue', 'En tiempo', noHealth ? NO_VALUE : summary.health.on_time, noHealth || !summary.in_progress ? '' : `${summary.on_time_percent}% en ejecución`),
-    card('ops-investment-operational', 'coins', 'violet', 'Inversión operativa', hours(investment.operational), note),
-    card('ops-investment-commercial', 'chart', 'amber', 'Inversión comercial', hours(investment.commercial), note),
+    card('ops-investment-operational', 'coins', 'violet', 'Inversión operativa acumulada', hours(investment.operational), note('INV_OPERATIVA')),
+    card('ops-investment-commercial', 'chart', 'amber', 'Inversión comercial acumulada', hours(investment.commercial), note('INV_COMERCIAL')),
   );
 }
