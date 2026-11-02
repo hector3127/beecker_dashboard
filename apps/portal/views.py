@@ -24,12 +24,9 @@ from apps.portal.schemas import (
 from apps.portal.services.account import find_account
 from apps.portal.services.account_options import account_names
 from apps.portal.services.capacity import (
-    build_capacity_csv,
-    build_capacity_view,
     normalize_month,
     parse_workday_hours,
 )
-from apps.portal.services.capacity_loader import load_capacity
 from apps.portal.services.closed_aer_burn import fill_closed_burn
 from apps.portal.services.eva_loader import (
     build_eva1_card,
@@ -191,7 +188,7 @@ def _operativa_key(request: Any) -> str:
         # Cada alcance tiene su propio corte: nunca se comparte con otro.
         filters += "|" + scope.signature()
     return (
-        "portal:operativa:snapshot:v11:"
+        "portal:operativa:snapshot:v15:"
         + timezone.localdate().isoformat()
         + ":"
         + hashlib.sha256(filters.encode()).hexdigest()
@@ -221,7 +218,7 @@ def _operativa_is_fresh(request: Any) -> bool:
 
 def _operations_summary_key() -> str:
     """Identifica el resumen por su ultimo mes cerrado."""
-    return "portal:ops:summary-data:v1:" + last_closed_month(
+    return "portal:ops:summary-data:v2:" + last_closed_month(
         timezone.localdate()
     )
 
@@ -235,14 +232,46 @@ def _scope_operativa_investment(request: Any, context: dict[str, Any]) -> None:
     investment = context.get("investment")
     if not investment or not investment.get("complete"):
         return
-    project_ids = {
-        pid
-        for manager in context.get("managers", ())
-        for pid in manager.project_ids
-    }
+    if "population" in investment:
+        from types import SimpleNamespace
+
+        selected = filter_projects(
+            _in_scope(
+                request,
+                [SimpleNamespace(**p) for p in investment["population"]],
+            ),
+            request.GET.get("servicio", "").strip(),
+            request.GET.get("cuenta", "").strip(),
+        )
+        project_ids = {p.project_id for p in selected}
+    else:
+        project_ids = {
+            pid
+            for manager in context.get("managers", ())
+            for pid in manager.project_ids
+        }
     by_project = investment.get("by_project", {})
     context["investment"] = {
         **investment,
+        **(
+            {
+                "population": [
+                    p
+                    for p in investment["population"]
+                    if p["project_id"] in project_ids
+                ]
+            }
+            if "population" in investment
+            else {}
+        ),
+        "by_project": {
+            pid: row for pid, row in by_project.items() if pid in project_ids
+        },
+        "records": [
+            row
+            for row in investment.get("records", [])
+            if row["project"] in project_ids
+        ],
         "totals": {
             category: sum(
                 by_project[pid].get(category, 0)
@@ -275,6 +304,34 @@ def _scoped_eva4(request: Any) -> dict[str, Any]:
     )
 
 
+def _cached_capacity(previous: Any = None) -> dict[str, Any]:
+    """Recupera el mes actual sin consultar fuentes ni recalcular."""
+    month = timezone.localdate().strftime("%Y-%m")
+    candidates = [
+        cache.get("portal:ops:capacity:v7"),
+        cache.get("portal:team-capacity:v3:" + month),
+        previous,
+    ]
+    for item in candidates:
+        if (
+            isinstance(item, dict)
+            and item.get("month") == month
+            and not item.get("loading")
+            and not item.get("error")
+            and item.get("available") is not None
+            and not item.get("pending")
+        ):
+            return dict(item)
+    for item in candidates:
+        if (
+            isinstance(item, dict)
+            and item.get("month") == month
+            and item.get("error")
+        ):
+            return {**item, "loading": False}
+    return {"month": month, "loading": True}
+
+
 def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
     """Compone bloques independientes sin perder respuestas paralelas."""
     key = _operativa_key(request)
@@ -286,8 +343,11 @@ def _operativa_snapshot(request: Any) -> dict[str, Any] | None:
     patches = cache.get_many(keys)
     for block_key in keys:
         context.update(patches.get(block_key, {}))
+    context["capacity_live"] = _cached_capacity(context.get("capacity_live"))
     context["eva4"] = _scoped_eva4(request)
-    context["clients"] = _account_options(request, context.get("clients", ()))
+    context["clients"] = scope_for(request).filter_accounts(
+        context.get("clients", ())
+    )
     _scope_operativa_investment(request, context)
     return context
 
@@ -311,12 +371,14 @@ def operativa_context(request: Any) -> dict[str, Any]:
             "eva2_card": EvaCard(available=False),
             "eva3_card": EvaCard(available=False),
             "investment": {"complete": False, "loading": True},
-            "capacity_live": {"loading": True},
+            "capacity_live": _cached_capacity(),
             "selected_service": request.GET.get("servicio", ""),
             "selected_client": request.GET.get("cuenta", ""),
         }
     context = dict(context)
-    context["clients"] = _account_options(request, context.get("clients", ()))
+    context["clients"] = scope_for(request).filter_accounts(
+        context.get("clients", ())
+    )
     context["eva4"] = _scoped_eva4(request)
     context["pending_blocks"] = ",".join(
         block
@@ -351,16 +413,25 @@ def _operativa_block_error(context: dict[str, Any], block: str) -> str:
 
 
 def _operativa_investment(ixb: Any, aer: Any) -> dict[str, Any]:
-    """Reuse the tagged-hours calculation for both EVA project populations."""
+    """Tags de EVA 1 vigente y EVA 3; ixb queda por compatibilidad interna."""
+    from apps.portal.services.eva_inventory_view import load_inventory_eva
     from apps.portal.services.operational_sources import tagged_investment
+    from core.exceptions import DashboardError
 
-    errors = [source.error for source in (ixb, aer) if source.error]
-    if errors:
-        return {"complete": False, "error": "; ".join(errors)}
-    investment: dict[str, Any] = tagged_investment(
-        [*ixb.view.projects, *aer.view.projects]
-    )
-    return investment
+    if aer.error:
+        return {"complete": False, "error": aer.error}
+    try:
+        inventory = load_inventory_eva(timezone.localdate())
+    except DashboardError as error:
+        return {"complete": False, "error": error.build_message()}
+    if not inventory.get("extraction"):
+        return {
+            "complete": False,
+            "error": inventory.get("error")
+            or "Inventario EVA 1 no disponible.",
+        }
+    # EVA 1 vigente usa Summary; EVA 3 conserva MPB AER/T&M.
+    return tagged_investment([*inventory["eva"].projects, *aer.view.projects])
 
 
 def operativa_block_context(request: Any) -> dict[str, Any]:
@@ -402,7 +473,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
         context = dict(saved)
         if block == "inversion":
             context["investment"] = _operativa_investment(
-                load_eva2(enrich=False), load_eva1(enrich=False)
+                None, load_eva1(enrich=False)
             )
         elif block == "capacidad":
             context["capacity_live"] = legacy_capacity(
@@ -410,7 +481,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
             )
         else:
             aer = load_eva1()
-            ixb = load_eva2()
+            ixb = load_eva2(current=True)
             if aer.error or ixb.error:
                 return {
                     **saved,
@@ -438,11 +509,15 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
             context["eva2_card"] = context["eva1_card"]
         block_error = _operativa_block_error(context, block)
         if block_error:
-            return {**saved, "refresh_block": block, "block_error": block_error}
+            return {
+                **(context if block == "capacidad" else saved),
+                "refresh_block": block,
+                "block_error": block_error,
+            }
         if block == "inversion":
-            cache.set("portal:ops:investment:v3", context["investment"], 86400)
+            cache.set("portal:ops:investment:v6", context["investment"], 86400)
         elif block == "capacidad":
-            cache.set("portal:ops:capacity:v2", context["capacity_live"], 86400)
+            cache.set("portal:ops:capacity:v7", context["capacity_live"], 86400)
         _scope_operativa_investment(request, context)
         changed = {
             "inversion": ("investment",),
@@ -478,7 +553,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
         legacy_capacity,
     )
 
-    ixb = load_eva2(enrich=block == "eva3")
+    ixb = load_eva2(enrich=block == "eva3", current=True)
     aer = load_eva1(enrich=False)
     eva_population = _in_scope(request, eva_projects(ixb, aer))
     projects = filter_projects(
@@ -515,10 +590,11 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
                 total_projects=ixb.view.total_projects,
                 time_cost=ixb.view.time_cost,
             ),
-            "investment": cache.get("portal:ops:investment:v3")
+            "investment": cache.get("portal:ops:investment:v6")
             or {"complete": False, "loading": True},
-            "capacity_live": cache.get("portal:ops:capacity:v2")
-            or {"loading": True},
+            "capacity_live": _cached_capacity(
+                saved.get("capacity_live") if saved else None
+            ),
             "source_errors": [e for e in (ixb.error, aer.error) if e],
             "portfolio_unavailable": bool(ixb.error and aer.error),
         },
@@ -527,12 +603,12 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
     block = request.GET.get("bloque", "")
     if block == "inversion":
         context["investment"] = _operativa_investment(ixb, aer)
-        cache.set("portal:ops:investment:v3", context["investment"], 86400)
+        cache.set("portal:ops:investment:v6", context["investment"], 86400)
     elif block == "capacidad":
         context["capacity_live"] = legacy_capacity(
             timezone.localdate().strftime("%Y-%m")
         )
-        cache.set("portal:ops:capacity:v2", context["capacity_live"], 86400)
+        cache.set("portal:ops:capacity:v7", context["capacity_live"], 86400)
     elif block == "eva3":
         aer = load_eva1()
         context["eva3_card"] = build_eva1_card(aer)
@@ -895,8 +971,8 @@ def proyecto(request: HttpRequest, project_id: str) -> HttpResponse:
 
 
 def eva2_data() -> dict[str, Any]:
-    """EVA 2: preserve the existing shared IXB/RaaS service."""
-    load = load_eva2()
+    """API IXB/RaaS: la misma población vigente que la pantalla EVA 1."""
+    load = load_eva2(current=True)
     return {"error": load.error, "eva": load.view}
 
 
@@ -911,26 +987,43 @@ def eva3_data() -> dict[str, Any]:
 
 
 def inversion_data(month: str) -> dict[str, Any]:
-    """Horas de inversion comercial y operativa de un mes."""
-    sources = load_month_sources(month)
+    """Acumulado de los proyectos activos EVA 1/3, igual que Operativa."""
+    from apps.gse.services.cells import cell_at, norm, trimmed
+    from apps.gse.services.roster import read_roster_sheet
+    from apps.portal.services.investment import accumulated_investment_context
+    from core.exceptions import DashboardError
+    from core.sheets.factory import build_sheet_repository
+
+    investment = _operativa_investment(None, load_eva1(enrich=False))
+    roles = {}
+    role_notice = ""
+    try:
+        roster = read_roster_sheet(
+            build_sheet_repository(), "Bandas/rol requiere Nombre y ROL."
+        )
+        for row in roster.data_rows:
+            roles[norm(cell_at(row, roster.headers.index("nombre")))] = trimmed(
+                cell_at(row, roster.role_column)
+            )
+    except DashboardError:
+        role_notice = (
+            "Especialidades no disponibles; las horas se conservan "
+            "como Sin especialidad."
+        )
     return {
-        "month": month,
-        "investment": build_investment_view(sources.gse, month),
-        "error": sources.error,
+        **accumulated_investment_context(
+            investment, timezone.localdate(), roles
+        ),
+        "investment_role_notice": role_notice,
     }
 
 
 def capacidad_data(request: HttpRequest) -> dict[str, Any]:
-    """Asignaciones y capacidad base de un mes."""
+    """Mismo corte completo de Clockify que la tarjeta y el detalle diario."""
+    from apps.portal.services.clockify_capacity import capacity_report
+
     filters = _read_capacity_filters(request)
-    load = load_capacity(
-        filters.month, refresh=bool(request.GET.get("actualizar"))
-    )
-    return {
-        "error": load.error,
-        "capacity": build_capacity_view(load.data, filters),
-        "filters": filters,
-    }
+    return capacity_report(filters.month, filters.workday_hours)
 
 
 @require_GET
@@ -1155,13 +1248,7 @@ def capacidad_instalada(request: HttpRequest) -> HttpResponse:
         return redirect_to_login(request.get_full_path())
 
     return render_page(
-        request,
-        "pages/capacity.html",
-        {
-            "active": "operativa",
-            "loaded_at": timezone.localtime(),
-            **capacidad_data(request),
-        },
+        request, "pages/capacity_daily.html", {"active": "operativa"}
     )
 
 
@@ -1180,17 +1267,159 @@ def capacidad_instalada_csv(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    filters = _read_capacity_filters(request)
-    load = load_capacity(filters.month)
-    view = build_capacity_view(load.data, filters)
-    response = HttpResponse(
-        "\ufeff" + build_capacity_csv(view.rows),
-        content_type="text/csv; charset=utf-8",
-    )
-    response["Content-Disposition"] = (
-        f'attachment; filename="capacidad-instalada-{filters.month}.csv"'
+    import csv
+    import io
+
+    from apps.portal.services.clockify_capacity import (
+        capacity_report,
+        month_entries,
     )
 
+    filters = _read_capacity_filters(request)
+    report = capacity_report(filters.month, filters.workday_hours)
+    if not report["ok"]:
+        return HttpResponse(
+            report["error"], status=503, content_type="text/plain"
+        )
+    rows = month_entries(filters.month)
+    matrix = report["matrix"]
+    allowed = [
+        p
+        for p in report["people"]
+        if (
+            not request.GET.get("rol")
+            or p["role"].lower() == request.GET["rol"].lower()
+        )
+        and (not request.GET.get("banda") or p["band"] == request.GET["banda"])
+    ]
+    if request.GET.get("rol") or request.GET.get("banda"):
+        from django.db.models import Q
+
+        eligible = Q(pk__in=[])
+        for person in allowed:
+            eligible |= (
+                Q(user_id__in=person.get("clockify_ids", []))
+                if person.get("clockify_ids")
+                else Q(user_name=person["name"])
+            )
+        rows = rows.filter(eligible)
+    from apps.gse.services.cells import norm
+
+    if filters.search:
+        from django.db.models import Q
+
+        matching = [
+            r
+            for r in matrix
+            if norm(filters.search)
+            in norm(
+                " ".join(
+                    str(r.get(k) or "")
+                    for k in (
+                        "name",
+                        "clockify_id",
+                        "role",
+                        "band",
+                        "project_name",
+                        "business_id",
+                        "manager",
+                        "project_title",
+                    )
+                )
+            )
+        ]
+        selected = Q(pk__in=[])
+        for item in matching:
+            person = (
+                Q(user_id=item["clockify_id"])
+                if item["clockify_id"]
+                else Q(user_name=item["name"])
+            )
+            selected |= person & Q(project_id=item["project_id"])
+        rows = rows.filter(selected)
+    if request.GET.get("persona"):
+        person = next(
+            (p for p in report["people"] if p["id"] == request.GET["persona"]),
+            None,
+        )
+        if person:
+            ids = person.get("clockify_ids", [])
+            rows = (
+                rows.filter(user_id__in=ids)
+                if ids
+                else rows.filter(user_name=person["name"])
+            )
+        else:
+            rows = rows.none()
+    if request.GET.get("proyecto"):
+        rows = rows.filter(project_id=request.GET["proyecto"])
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(
+        [
+            "ID registro",
+            "ID proyecto Clockify",
+            "Proyecto",
+            "ID persona",
+            "Persona",
+            "Rol",
+            "Banda",
+            "Delivery Manager",
+            "ID proyecto",
+            "Fecha",
+            "Inicio",
+            "Fin",
+            "Horas",
+            "Facturable",
+            "Tarea",
+            "Etiquetas",
+            "Descripción",
+        ]
+    )
+    by_id = {p["clockify_id"]: p for p in report["people"] if p["clockify_id"]}
+    by_name = {
+        norm(p["name"]): p for p in report["people"] if not p["clockify_id"]
+    }
+    projects = {r["project_id"]: r for r in matrix}
+    for entry in rows.order_by("entry_date", "entry_id").iterator():
+        person = (
+            by_id.get(entry.user_id) or by_name.get(norm(entry.user_name)) or {}
+        )
+        project = projects.get(entry.project_id) or {}
+        values = [
+            entry.entry_id,
+            entry.project_id,
+            entry.project_name,
+            entry.user_id,
+            person.get("name", entry.user_name),
+            person.get("role", ""),
+            person.get("band", ""),
+            project.get("manager", "Sin DM confirmado"),
+            project.get("business_id", ""),
+            entry.entry_date,
+            entry.start,
+            entry.end,
+            round(entry.duration_seconds / 3600, 6),
+            "Sí" if entry.billable else "No",
+            entry.task_name,
+            ", ".join(str(tag) for tag in entry.tags),
+            entry.description,
+        ]
+        writer.writerow(
+            [
+                "'" + value
+                if isinstance(value, str)
+                and value.startswith(("=", "+", "-", "@"))
+                else value
+                for value in values
+            ]
+        )
+    response = HttpResponse(
+        "\ufeff" + output.getvalue(), content_type="text/csv; charset=utf-8"
+    )
+    response["Content-Disposition"] = (
+        f'attachment; filename="capacidad-clockify-{filters.month}.csv"'
+    )
     return response
 
 
@@ -1561,10 +1790,10 @@ def _peek_investment() -> InvestmentView | None:
 @require_capability("view_operations", whole_portfolio=True)
 def inversion(request: HttpRequest) -> HttpResponse:
     """
-    Muestra las horas de inversion comercial y operativa del mes.
+    Muestra la inversión acumulada de los proyectos activos EVA 1 y EVA 3.
 
     Args:
-        request: Peticion HTTP; acepta ?mes=YYYY-MM.
+        request: Petición HTTP; un mes en la URL no limita el acumulado.
 
     Returns:
         La pagina de inversion.

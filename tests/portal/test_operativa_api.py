@@ -79,7 +79,7 @@ def test_block_contract_has_only_what_the_screen_uses(client):
 
 def test_investment_never_sends_the_detail_by_project(client):
     cache.set(
-        "portal:ops:investment:v3",
+        "portal:ops:investment:v6",
         {
             "complete": True,
             "totals": {"operational": 10, "commercial": 5},
@@ -101,7 +101,7 @@ def test_investment_never_sends_the_detail_by_project(client):
 
 def test_manager_investment_is_summed_per_manager(client):
     cache.set(
-        "portal:ops:investment:v3",
+        "portal:ops:investment:v6",
         {
             "complete": True,
             "totals": {"operational": 9, "commercial": 4},
@@ -246,7 +246,7 @@ def test_partial_billing_is_reported_and_never_cached(client, monkeypatch):
     assert data["partial"] is True and "Sin conexion" in data["errors"][0]
     assert (
         cache.get(
-            "portal:ops:summary-data:v1:"
+            "portal:ops:summary-data:v2:"
             + views.last_closed_month(views.timezone.localdate())
         )
         is None
@@ -326,7 +326,7 @@ def test_limited_scope_totals_investment_only_for_its_projects(
     client, enforced
 ):
     cache.set(
-        "portal:ops:investment:v3",
+        "portal:ops:investment:v6",
         {
             "complete": True,
             "totals": {"operational": 99, "commercial": 99},
@@ -379,3 +379,30 @@ def test_service_distribution_uses_filtered_active_projects(client):
     assert filtered["service_distribution"] == [
         {"service": "T&M", "count": 1, "percent": 100}
     ]
+
+
+def test_capacity_month_endpoint_is_independent_and_validated(
+    client, monkeypatch
+):
+    calls = []
+
+    def capacity(month):
+        calls.append(month)
+        return {"month": month, "available": 120, "base": 200, "consumed": 80}
+
+    monkeypatch.setattr(
+        "apps.portal.services.operational_sources.legacy_capacity", capacity
+    )
+    response = client.get(BLOCKS, {"bloque": "capacidad", "mes": "2026-09"})
+    assert response.status_code == 200, response.content
+    data = response.json()["data"]
+    assert data["capacity"]["month"] == "2026-09"
+    assert data["capacity"]["available"] == 120
+    assert calls == ["2026-09"]
+    assert (
+        client.get(
+            BLOCKS, {"bloque": "capacidad", "mes": "2026-13"}
+        ).status_code
+        == 400
+    )
+    assert calls == ["2026-09"]

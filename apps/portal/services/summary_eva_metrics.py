@@ -5,8 +5,9 @@ from datetime import date
 from typing import Any
 
 from apps.azure_devops.services.azure_client import flatten_iterations
-from apps.portal.services.inventory_clockify import extract_hours
+from apps.portal.services.inventory_clockify import extract_hours, local_hours
 from apps.portal.services.inventory_metrics_core import (
+    EPIC_TERMINAL,
     assign_hours,
     build_row,
     scope_tokens,
@@ -23,6 +24,17 @@ def metric_rows(
     iterations: list[dict[str, Any]] = []
     flatten_iterations(tree, "", iterations)
     result = []
+    all_epic_states = [
+        str((item.get("fields") or {}).get("System.State", "")).strip().upper()
+        for item in items
+        if str(
+            (item.get("fields") or {}).get("System.WorkItemType", "")
+        ).upper()
+        == "EPIC"
+    ]
+    whole_project_closed = bool(all_epic_states) and all(
+        s in EPIC_TERMINAL for s in all_epic_states
+    )
     counts = {
         r["scope"]: sum(x["scope"] == r["scope"] for x in rows) for r in rows
     }
@@ -77,6 +89,12 @@ def metric_rows(
         projected = build_row(
             candidate, engine_scope, own_items, iterations, cut
         )
+        projected["whole_project_closed"] = whole_project_closed
+        if whole_project_closed:
+            # Complete project closure also proves ambiguous siblings closed.
+            projected.update(
+                closed=True, closure_confirmed=True, status="Completed"
+            )
         projected["scope"] = scope
         projected["summary_scope"] = row.get("summary_scope", row["scope"])
         projected["scope_aliases"] = list(
@@ -109,6 +127,8 @@ def enrich(
     for row, metric in zip(rows, projected, strict=True):
         if not azure_ok:
             metric["azure_pending"] = True
+            metric["closure_confirmed"] = False
+            metric["whole_project_closed"] = False
         row["eva_metrics"] = metric
         row["business_status"] = (
             metric["status"] if not metric["azure_pending"] else ""
@@ -144,15 +164,29 @@ def at_cut(
                 automatic_entries=0,
                 automatic_hours=0,
             )
+    from django.conf import settings
+
+    synced: frozenset[date] = frozenset()
+    if settings.CLOCKIFY_STORE_ENABLED:
+        from apps.datastore.services.clockify_store import store_state
+
+        _, synced = store_state()
     providers = {r.get("clockify_project_id") for r in projected if r}
     for provider in providers - {None}:
-        if cut.isoformat() > evidence.get("observed_date", ""):
-            continue
-        if provider not in evidence.get("clockify", {}):
-            continue
         selected = [
             r for r in projected if r.get("clockify_project_id") == provider
         ]
+        entries = (
+            local_hours(str(provider), selected, synced, cut)
+            if synced
+            else None
+        )
+        if entries is None:
+            if cut.isoformat() > evidence.get("observed_date", ""):
+                continue
+            if provider not in evidence.get("clockify", {}):
+                continue
+            entries = evidence["clockify"][provider]
         siblings = [
             dict(r)
             for r in projected
@@ -160,11 +194,13 @@ def at_cut(
             and r not in selected
             and not all(s.get("clockify_dedicated_scope") for s in selected)
         ]
-        assign_hours(selected + siblings, evidence["clockify"][provider], cut)
+        assign_hours(selected + siblings, entries, cut)
     for row, metric in zip(rows, projected, strict=True):
         if row.get("metrics_observed_date") != cut.isoformat():
             row["business_status"] = ""
             metric["azure_pending"] = True
+            metric["closure_confirmed"] = False
+            metric["whole_project_closed"] = False
             row["azure_unavailable_label"] = (
                 "Sin histórico"
                 if row.get("metrics_observed_date", "") > cut.isoformat()

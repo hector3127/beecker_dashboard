@@ -144,6 +144,6 @@ OPERATION_RULES: Final[tuple[tuple[str, tuple[str, ...]], ...]] = (
 
 BATCH_VERSION: Final[str] = "GSE-BASE-BANDAS-2026-10-06"
 BATCH_ERROR_VERSION: Final[str] = "GSE-BASE-BLOQUES-2026-10-06"
-RESULT_CACHE_SCOPE: Final[str] = "gse-result-v2-servicio"
+RESULT_CACHE_SCOPE: Final[str] = "gse-result-v3-investment-tags"
 RESULT_CACHE_SECONDS: Final[int] = 21_600
 RESULT_MAX_CHARS: Final[int] = 5_000_000

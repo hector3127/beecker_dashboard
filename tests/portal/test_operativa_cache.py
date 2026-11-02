@@ -88,3 +88,32 @@ def test_summary_cut_is_embedded_and_its_freshness_is_independent():
     assert context["operations_summary"] == saved
     assert context["summary_fresh"] is False
     cache.clear()
+
+
+def test_capacity_restores_without_base_or_external_reads():
+    cache.clear()
+    month = timezone.localdate().strftime("%Y-%m")
+    capacity = {"month": month, "available": 2400, "loading": False}
+    cache.set("portal:ops:capacity:v7", capacity)
+    request = RequestFactory().get("/operativa/")
+    request.user = SimpleNamespace(is_authenticated=True)
+    with patch.object(
+        views, "_account_options", side_effect=AssertionError("source read")
+    ):
+        assert views.operativa_context(request)["capacity_live"] == capacity
+    cache.clear()
+
+
+def test_capacity_preserves_saved_month_and_reports_source_error():
+    cache.clear()
+    month = timezone.localdate().strftime("%Y-%m")
+    ready = {"month": month, "available": 2400}
+    assert views._cached_capacity(ready) == ready
+    assert views._cached_capacity({"month": "1999-01", "available": 1})[
+        "loading"
+    ]
+    error = {"month": month, "error": "Falta banda del mes"}
+    cache.set("portal:team-capacity:v3:" + month, error)
+    assert views._cached_capacity()["loading"] is False
+    assert views._cached_capacity()["error"] == error["error"]
+    cache.clear()

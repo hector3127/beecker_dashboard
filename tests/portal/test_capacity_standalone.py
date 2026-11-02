@@ -4,13 +4,14 @@ from types import SimpleNamespace
 
 from django.test import RequestFactory, override_settings
 
-from apps.portal import pages, views
+from apps.portal import pages
+from apps.portal.services import clockify_capacity
 
 
 def test_standalone_page_needs_no_source_read_and_sets_csrf_cookie(monkeypatch):
     monkeypatch.setattr(
-        views,
-        "load_capacity",
+        clockify_capacity,
+        "capacity_report",
         lambda *args, **kwargs: (_ for _ in ()).throw(
             AssertionError("Source read")
         ),

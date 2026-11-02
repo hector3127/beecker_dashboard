@@ -179,6 +179,12 @@ def _investment(investment: Any) -> dict[str, Any]:
 
 
 _CAPACITY_FIELDS = (
+    "roster_source",
+    "recorded_people",
+    "source",
+    "nonbillable",
+    "projects",
+    "workday_hours",
     "month",
     "people",
     "registered_people",
@@ -195,7 +201,22 @@ _CAPACITY_FIELDS = (
 
 def _capacity(capacity: Any) -> dict[str, Any]:
     data = capacity if isinstance(capacity, dict) else {}
+    monthly = data.get("clockify_month")
     return {
+        "clockify_month": {
+            key: monthly.get(key)
+            for key in (
+                "available",
+                "month",
+                "consumed",
+                "billable",
+                "entries",
+                "people",
+                "synced_at",
+            )
+        }
+        if isinstance(monthly, dict)
+        else None,
         "loading": bool(data.get("loading")),
         "error": data.get("error") or "",
         **{name: data.get(name) for name in _CAPACITY_FIELDS},

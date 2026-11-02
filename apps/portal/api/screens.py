@@ -89,6 +89,28 @@ class OperativaBlockView(APIView):
         """Calcula el bloque y devuelve el contexto actualizado."""
         if request.query_params.get("bloque", "") not in OPERATIVA_BLOCKS:
             raise ParseError("Bloque no válido.")
+        if request.query_params.get(
+            "bloque"
+        ) == "capacidad" and request.query_params.get("mes"):
+            import re
+
+            from apps.portal.api.serializers import _capacity
+            from apps.portal.services.operational_sources import legacy_capacity
+
+            if not scope_for(request).unrestricted:
+                raise PermissionDenied("No tienes acceso a esta información.")
+            month = request.query_params["mes"]
+            if (
+                not re.fullmatch(r"[0-9]{4}-(0[1-9]|1[0-2])", month)
+                or month[:4] == "0000"
+            ):
+                raise ParseError("Mes no válido. Usa AAAA-MM.")
+            return Response(
+                {
+                    "data": {"capacity": _capacity(legacy_capacity(month))},
+                    "meta": {"month": month},
+                }
+            )
         context = views.operativa_block_context(request)
         return Response(
             operativa_screen(

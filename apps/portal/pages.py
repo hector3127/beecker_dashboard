@@ -376,14 +376,16 @@ def costs(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 def investment(request: HttpRequest) -> HttpResponse:
-    """Inversion operativa y comercial del mes."""
+    """Inversión acumulada de proyectos activos EVA 1 y EVA 3."""
     return _current(request, views.inversion, "pages/investment.html")
 
 
 @require_GET
 def capacity(request: HttpRequest) -> HttpResponse:
     """Asignaciones mensuales con los mismos filtros, calculos y CSV."""
-    return _current(request, views.capacidad_instalada, "pages/capacity.html")
+    return _current(
+        request, views.capacidad_instalada, "pages/capacity_daily.html"
+    )
 
 
 @require_GET

@@ -125,9 +125,12 @@ class Eva2Load:
     error: str
 
 
-def load_eva2(enrich: bool = True) -> Eva2Load:
+def load_eva2(enrich: bool = True, *, current: bool = False) -> Eva2Load:
     """
-    Carga EVA 2 con el resumen IXB/RaaS (Sheets, Clockify y Azure, lectura).
+    Carga IXB/RaaS; current=True usa el EVA 1 vigente del inventario local.
+
+    Operativa usa current=True para compartir población con la tabla EVA 1.
+    El resumen anterior se conserva para sus otros consumidores existentes.
 
     La consulta es lenta porque revisa Azure DevOps y Clockify proyecto por
     proyecto, por eso el resumen se guarda 10 minutos en cache.
@@ -135,6 +138,33 @@ def load_eva2(enrich: bool = True) -> Eva2Load:
     Returns:
         La pantalla armada, o una vacia y el motivo si no se pudo leer.
     """
+    if current:
+        from apps.portal.services.eva_inventory_view import load_inventory_eva
+
+        data = load_inventory_eva(timezone.localdate())
+        view = data["eva"]
+        view = replace(
+            view,
+            time_cost=TimeCost(
+                time_days=average(p.deviation_days for p in view.projects),
+                cost_percent=average(
+                    p.progress
+                    for p in view.projects
+                    if not (
+                        p.hours_pending
+                        or p.progress_pending
+                        or p.budget_pending
+                    )
+                ),
+            ),
+        )
+        return Eva2Load(
+            view=view,
+            error=(data.get("error") or "Inventario no disponible.")
+            if not data.get("extraction")
+            else "",
+        )
+
     summary = cache.get(EVA2_CACHE_KEY)
 
     if not isinstance(summary, dict) and not enrich:

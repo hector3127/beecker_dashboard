@@ -49,10 +49,10 @@ class Eva3ScreenView(OperationsScreen):
 
 
 class InvestmentScreenView(OperationsScreen):
-    """Horas de inversion comercial y operativa de un mes."""
+    """Inversión acumulada por tags de proyectos activos EVA 1 y EVA 3."""
 
     def get(self, request: Request) -> Response:
-        """Mes pedido (?mes=AAAA-MM o ?periodo=...); sin el, el actual."""
+        """Acumulado completo; los parámetros mensuales no lo recortan."""
         month = views._facturability_month(request._request)
         return self.body(views.inversion_data(month))
 

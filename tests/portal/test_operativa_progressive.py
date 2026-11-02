@@ -12,8 +12,36 @@ from django.test import RequestFactory
 from apps.portal import views
 from apps.portal.services import eva_loader
 from apps.portal.services.eva1 import build_eva1_view
+from apps.portal.services.eva2 import build_eva2_view
 from core.management.commands import warm_cache
 from tests.fakes import InMemorySheetRepository
+
+
+def use_local_inventory(monkeypatch):
+    monkeypatch.setattr(
+        "apps.portal.services.eva_inventory_view.load_inventory_eva",
+        lambda cut: {
+            "extraction": object(),
+            "eva": build_eva2_view(
+                [
+                    {
+                        "idProyecto": "IXB.001",
+                        "nombre": "Robot",
+                        "servicio": "IXB",
+                        "cliente": "ACME",
+                        "deliveryManager": "Ana",
+                        "status": "Discovery",
+                        "fechaInicio": "2026-01-01",
+                        "fechaFin": "2026-12-31",
+                        "budget": 100,
+                        "hours_pending": True,
+                        "progress_pending": True,
+                    }
+                ]
+            ),
+            "error": "",
+        },
+    )
 
 
 @pytest.fixture(autouse=True)
@@ -45,7 +73,8 @@ def request(**params):
     return result
 
 
-def test_base_reads_only_sheets_and_saves_visible_counts(monkeypatch):
+def test_base_reads_local_inventory_and_saves_visible_counts(monkeypatch):
+    use_local_inventory(monkeypatch)
     heavy = Mock(side_effect=AssertionError("Heavy summary on first paint"))
     monkeypatch.setattr(eva_loader, "get_ixb_raas_summary", heavy)
     monkeypatch.setattr(eva_loader, "build_sheet_repository", base_repository)
@@ -68,6 +97,7 @@ def test_base_reads_only_sheets_and_saves_visible_counts(monkeypatch):
 def test_fresh_base_navigation_skips_sources_and_keeps_pending_blocks(
     monkeypatch,
 ):
+    use_local_inventory(monkeypatch)
     monkeypatch.setattr(eva_loader, "build_sheet_repository", base_repository)
     monkeypatch.setattr(
         views,
@@ -134,3 +164,50 @@ def test_missing_consumption_reports_failure_without_caching_empty_success(
     assert "AER.001" in result.error
     assert cache.get("portal:eva3:consumption:AER.001") is None
     assert result.view.projects[0].burn is None
+
+
+def test_base_and_refresh_cards_request_current_eva1_population(monkeypatch):
+    current = eva_loader.Eva2Load(
+        build_eva2_view(
+            [
+                {
+                    "idProyecto": "IXB.CURRENT",
+                    "deliveryManager": "Ana",
+                    "servicio": "IXB",
+                    "status": "Deployment",
+                    "fechaInicio": "2026-01-01",
+                    "fechaFin": "2026-10-30",
+                    "budget": 100,
+                    "burn": 120,
+                    "avance": 120,
+                }
+            ]
+        ),
+        "",
+    )
+    loader = Mock(return_value=current)
+    monkeypatch.setattr(views, "load_eva2", loader)
+    monkeypatch.setattr(
+        views,
+        "load_eva1",
+        lambda **kwargs: eva_loader.Eva1Load(build_eva1_view([]), ""),
+    )
+    monkeypatch.setattr(
+        views, "_account_options", lambda req, fallback: fallback
+    )
+    base = views.operativa_block_context(request())
+    assert base["eva1_card"].total_projects == 1
+    assert loader.call_args.kwargs["current"] is True
+    updated = views.operativa_block_context(
+        request(bloque="eva3", actualizar="1")
+    )
+    assert updated["eva1_card"].total_projects == 1
+    assert loader.call_args.kwargs["current"] is True
+    assert updated["summary"].in_progress == 1
+
+
+def test_eva1_api_requests_same_current_population(monkeypatch):
+    loader = Mock(return_value=eva_loader.Eva2Load(build_eva2_view([]), ""))
+    monkeypatch.setattr(views, "load_eva2", loader)
+    views.eva2_data()
+    loader.assert_called_once_with(current=True)

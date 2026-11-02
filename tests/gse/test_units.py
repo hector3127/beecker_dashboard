@@ -479,3 +479,20 @@ def test_refresh_sheet_reads_only_forgets_gse_sheets():
         "CatalagoProyectos ",
         "GSE_Base_Control",
     ]
+
+
+def test_investment_categories_require_tags_not_project_or_task_names():
+    from apps.gse.services.catalog import Catalog, build_categories
+
+    catalog = Catalog({})
+    assert "Inversión Operaciones" not in build_categories(
+        ("Inversión Operaciones", "INV_OPERATIVA", []), catalog
+    )
+    assert "Inversión Comercial" not in build_categories(
+        ("Inversión Comercial", "Pre-Venta", []), catalog
+    )
+    categories = build_categories(
+        ("P", "T", ["INV_OPERATIVA", "inv_comercial"]), catalog
+    )
+    assert "Inversión Operaciones" in categories
+    assert "Inversión Comercial" in categories

@@ -190,6 +190,34 @@ def find_band_column(bands: SheetTable, month: str) -> BandColumn:
             if header in accepted_headers:
                 return BandColumn(column_index, month_name)
 
+    # Si el mes aun no tiene columna, conservar la ultima anterior disponible.
+    # Nunca usar una banda futura para reconstruir un periodo historico.
+    previous = []
+    requested = (int(month[:4]), int(month[5:]))
+    for index, header in enumerate(headers):
+        parts = header.split()
+        if parts and parts[0] in MONTH_NAMES:
+            band_month = MONTH_NAMES.index(parts[0]) + 1
+            band_year = (
+                int(parts[1])
+                if len(parts) == 2 and parts[1].isdigit()
+                else requested[0]
+            )
+        elif (
+            len(parts) == 2
+            and parts[0].isdigit()
+            and len(parts[0]) == 4
+            and parts[1].isdigit()
+            and 1 <= int(parts[1]) <= 12
+        ):
+            band_year, band_month = map(int, parts)
+        else:
+            continue
+        if (band_year, band_month) <= requested:
+            previous.append(((band_year, band_month), index))
+    if previous:
+        (_, chosen) = max(previous)
+        return BandColumn(chosen, month_name)
     return BandColumn(-1, month_name)
 
 

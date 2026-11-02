@@ -14,6 +14,7 @@ from apps.ejecutivo.services.ixb_rules import calculate_exact_burn
 from apps.portal.services.executive_period import bounds, cache_suffix
 from apps.portal.services.executive_population import population
 from core.sheets.factory import build_sheet_repository
+from core.time_entries.investment import investment_categories
 from core.utils.source_refresh import force_sources
 
 _WARM_LOCK = threading.Lock()
@@ -85,8 +86,7 @@ def _project_burn(project: dict[str, Any]) -> dict[str, Any]:
         metric_entries[identity] = {
             "hours": e.duration_hours,
             "billable": e.is_billable,
-            "operational": "INV_OPERATIVA"
-            in {str(t).strip().upper() for t in e.tags},
+            "operational": "operational" in investment_categories(e.tags),
         }
     result = {
         "id": project["id"],

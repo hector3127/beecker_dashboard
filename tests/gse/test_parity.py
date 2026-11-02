@@ -80,6 +80,40 @@ def without_categories(value):
     return result
 
 
+def expected_with_exact_investment_tags(expected):
+    """Excepción autorizada: la fila de 2 h usa 'inversion operaciones'.
+
+    Ese texto no es el tag INV_OPERATIVA. Se conserva el JSON original.
+    Sus 2 h
+    siguen en QA/Investigación, pero ya no son inversión ni Administrativo
+    Operaciones. Las etiquetas exactas se prueban en test_units.
+    """
+    result = copy.deepcopy(expected)
+    reports = (
+        list(result.get("data", {}).values()) if "data" in result else [result]
+    )
+    for report in reports:
+        for row in report.get("detalle", []):
+            if (
+                row.get("recurso") == "Luis Gómez"
+                and row.get("proyecto") == "Investigación"
+                and row.get("categoria") == "Inversión Operaciones"
+            ):
+                assert row["horas"] == 2 and row["area"] == "QA"
+                row["categoria"] = "Sin clasificación"
+                area = next(a for a in report["areas"] if a["area"] == "QA")
+                assert area["categorias"].pop("Inversión Operaciones") == 2
+                area["categorias"]["Administrativo Operaciones"] -= 2
+    for row in result.get("records", []):
+        if row.get("id") in {"r14", "r17"}:
+            # r14 usa 'inv comercial'; r17 'inversion operaciones'.
+            # Ninguno trae una etiqueta exacta INV_COMERCIAL/INV_OPERATIVA.
+            assert row["horas"] == (2.5 if row["id"] == "r14" else 2)
+            row["categorias"] = []
+            row["categoria"] = "Sin clasificación"
+    return result
+
+
 @pytest.fixture(autouse=True)
 def small_batches(monkeypatch):
     monkeypatch.setattr(batch_read, "BATCH_SIZE", sample_data.BATCH_SIZE)
@@ -108,7 +142,9 @@ def test_month_matches_original(scenario, expected):
 
     result = get_month(build_context(dataset), (month, source, force, area))
 
-    assert without_categories(json.loads(json.dumps(result))) == expected
+    assert without_categories(
+        json.loads(json.dumps(result))
+    ) == expected_with_exact_investment_tags(expected)
 
 
 @pytest.mark.parametrize(
@@ -124,7 +160,9 @@ def test_batch_matches_original(scenario, expected):
     )
     result.pop("milliseconds", None)
 
-    assert json.loads(json.dumps(result)) == expected
+    assert json.loads(
+        json.dumps(result)
+    ) == expected_with_exact_investment_tags(expected)
 
 
 @pytest.mark.parametrize(
@@ -137,4 +175,6 @@ def test_year_matches_original(scenario, expected):
     result = get_year(build_context(dataset), (year, area), TODAY)
     result.pop("milliseconds", None)
 
-    assert without_categories(json.loads(json.dumps(result))) == expected
+    assert without_categories(
+        json.loads(json.dumps(result))
+    ) == expected_with_exact_investment_tags(expected)

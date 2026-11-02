@@ -145,3 +145,29 @@ def extract_hours(
         clockify_failures=failures,
     )
     return data
+
+
+def local_hours(
+    provider: str, rows: list[Json], synced: frozenset[date], cut: date
+) -> list[Json] | None:
+    """Lee meses locales completos, sin peticiones ni sumas parciales."""
+    if not rows or any(
+        not r.get("fechaInicio") or not r.get("fechaFin") for r in rows
+    ):
+        return None
+    start = min(date.fromisoformat(r["fechaInicio"]) for r in rows)
+    end = min(cut, max(date.fromisoformat(r["fechaFin"]) for r in rows))
+    month = start.replace(day=1)
+    months = []
+    while month <= end:
+        months.append(month)
+        month = date(month.year + (month.month == 12), month.month % 12 + 1, 1)
+    if any(m not in synced for m in months):
+        return None
+    entries = []
+    for month in months:
+        stored = read_month_rows(provider, month, synced)
+        if stored is None:
+            return None
+        entries.extend(stored)
+    return entries

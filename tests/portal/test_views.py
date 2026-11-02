@@ -11,7 +11,6 @@ from django.test import RequestFactory
 
 from apps.portal import views
 from apps.portal.constants import FACTURABILITY_CACHE_PREFIX
-from apps.portal.services.capacity_loader import CapacityLoad
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
 from apps.portal.services.eva_loader import Eva1Load, Eva2Load
@@ -448,98 +447,45 @@ def test_account_page_requires_login_when_configured(client, settings):
 
 
 def stub_capacity(monkeypatch, data=None, error=""):
-    load = CapacityLoad(data=data or {}, error=error)
     calls = []
 
-    def fake_load(month, refresh=False):
-        calls.append((month, refresh))
-        return load
+    def source(month, jornada=8):
+        calls.append((month, jornada))
+        return {
+            "ok": not bool(error),
+            "mes": month,
+            "error": error,
+            **(data or {}),
+        }
 
-    monkeypatch.setattr("apps.portal.views.load_capacity", fake_load)
-
+    monkeypatch.setattr(
+        "apps.portal.services.clockify_capacity.capacity_report", source
+    )
     return calls
 
 
 def capacity_data():
-    rule = {
-        "cargabilidad": "Cargable",
-        "facturable": "Facturable",
-        "capacidad": "Afecta Capacidad",
-        "afecta": True,
-    }
-
-    return {
-        "ok": True,
-        "bandaColumna": "Octubre",
-        "filas": [
-            {
-                "recurso": "Ana Perez",
-                "banda": "B2",
-                "concepto": "Proyecto",
-                "tecnologia": "DEV",
-                "manager": "Brandon Sotelo",
-                "idProyecto": "GPO.007",
-                "proyecto": "MultiProfile",
-                "horasDiarias": 4,
-                "horasEstimadas": 100,
-                "activo": True,
-                "regla": rule,
-            },
-        ],
-    }
+    return {"summary": {"source": "clockify"}, "projects": [], "people": []}
 
 
-def test_capacity_page_shows_resources_and_base_capacity(client, monkeypatch):
+def test_capacity_page_is_a_clockify_shell_without_source_reads(
+    client, monkeypatch
+):
     calls = stub_capacity(monkeypatch, capacity_data())
-
-    response = client.get(
-        "/operativa/capacidad-instalada/?mes=2026-10&jornada=6&buscar=ana",
-    )
-    html = response.content.decode()
-
+    response = client.get("/operativa/capacidad-instalada/?mes=2026-10")
     assert response.status_code == 200
-    assert calls == [("2026-10", False)]
-    assert response.context["capacity"].resources == 1
-    assert response.context["capacity"].base_hours == 22 * 6
-    assert "Ana Perez" in html
-    assert "GPO.007" in html
-    assert "Octubre 2026" in html
-    assert "Pendiente" in html
+    assert calls == []
+    assert "pages/capacity_daily/main.js" in response.content.decode()
+    assert "Bandas/rol + Clockify + Summary" in response.content.decode()
 
 
-def test_capacity_page_defaults_and_refresh(client, monkeypatch):
-    calls = stub_capacity(monkeypatch, capacity_data())
-
-    client.get("/operativa/capacidad-instalada/?mes=mala&actualizar=1")
-
-    month, refresh = calls[0]
-    assert len(month) == 7
-    assert month[4] == "-"
-    assert refresh is True
-
-
-def test_capacity_page_with_error_and_without_rows(client, monkeypatch):
-    stub_capacity(monkeypatch, error="Falta la hoja Recursos.")
-
-    html = client.get("/operativa/capacidad-instalada/").content.decode()
-
-    assert "Falta la hoja Recursos." in html
-    assert "No se pudo leer Capacidad instalada." in html
-
-
-def test_capacity_csv_download(client, monkeypatch):
-    stub_capacity(monkeypatch, capacity_data())
-
+def test_capacity_missing_month_csv_is_unavailable(client, monkeypatch):
+    stub_capacity(monkeypatch, error="Mes de Clockify pendiente.")
     response = client.get(
-        "/operativa/capacidad-instalada/exportar/?mes=2026-10",
+        "/operativa/capacidad-instalada/exportar/?mes=2026-10"
     )
-    text = response.content.decode("utf-8")
-
-    assert response.status_code == 200
-    assert response["Content-Type"].startswith("text/csv")
-    assert "capacidad-instalada-2026-10.csv" in response["Content-Disposition"]
-    assert text.startswith("\ufeffRecurso,Banda")
-    assert "Ana Perez" in text
+    assert response.status_code == 503
+    assert "Mes de Clockify pendiente." in response.content.decode()
 
 
 def test_capacity_pages_require_login_when_configured(client, settings):
@@ -778,37 +724,54 @@ def test_facturability_requires_login_when_configured(client, settings):
         assert client.get(path).status_code == 302
 
 
-def test_investment_page_reads_gse_categories(client, monkeypatch):
-    gse = {
-        "ok": True,
-        "detalle": [
-            {
-                "area": "DEV",
-                "proyecto": "Preventa",
-                "categorias": ["Pre-Venta"],
-                "horas": 12,
-            },
-            {
-                "area": "QA",
-                "proyecto": "Interno",
-                "categorias": ["Internos"],
-                "horas": 8,
-            },
-        ],
-    }
+def test_investment_page_reads_accumulated_tags_not_monthly_gse(
+    client, monkeypatch
+):
     monkeypatch.setattr(
         "apps.portal.views.load_month_sources",
-        lambda month: MonthSources(month=month, gse=gse),
+        lambda month: pytest.fail("El acumulado no consulta GSE mensual"),
     )
-
-    response = client.get("/operativa/inversion/?mes=2026-09")
+    monkeypatch.setattr(
+        "apps.portal.views._operativa_investment",
+        lambda *args: {
+            "complete": True,
+            "projects": 1,
+            "records": [
+                {
+                    "resource": "Ana",
+                    "project": "AER.1",
+                    "category": "commercial",
+                    "hours": 12,
+                    "day": "2025-01-01",
+                },
+                {
+                    "resource": "Ana",
+                    "project": "AER.1",
+                    "category": "operational",
+                    "hours": 8,
+                    "day": "2026-01-01",
+                },
+            ],
+        },
+    )
+    monkeypatch.setattr(
+        "core.sheets.factory.build_sheet_repository", lambda: None
+    )
+    monkeypatch.setattr(
+        "apps.gse.services.roster.read_roster_sheet",
+        lambda *args: SimpleNamespace(
+            headers=["nombre"], role_column=1, data_rows=[["Ana", "DEV"]]
+        ),
+    )
+    response = client.get("/operativa/inversion/?mes=1999-09")
     html = response.content.decode()
-
     assert response.status_code == 200
     assert response.context["investment"].totals.total == 20
-    assert response.context["month"] == "2026-09"
-    assert "Inversión operativa y comercial" in html
-    assert "Pre-Venta" in html
+    assert response.context["investment"].totals.operational == 8
+    assert response.context["investment"].totals.commercial == 12
+    assert response.context["month"] != "1999-09"
+    assert "INV_OPERATIVA" in html and "INV_COMERCIAL" in html
+    assert 'id="mes"' not in html
 
 
 def test_operational_investment_cards_use_cache_only(monkeypatch):
@@ -820,7 +783,7 @@ def test_operational_investment_cards_use_cache_only(monkeypatch):
     assert context["investment"]["loading"] is True
 
     cache.set(
-        "portal:ops:investment:v3",
+        "portal:ops:investment:v6",
         {
             "complete": True,
             "totals": {"operational": 7, "commercial": 0},

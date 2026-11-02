@@ -361,3 +361,13 @@ def test_c_is_cost_compliance_over_tp_and_weights_the_total():
     )  # el conteo de sobrecosto se conserva
     # Total ponderado por proyectos, no el promedio de porcentajes.
     assert view.totals.time_cost.cost_percent == 100 * (7 + 5) / 15
+
+
+def test_code_install_before_database_migrations_is_explicit(monkeypatch):
+    from apps.portal.services import kpi_dm_store as store
+
+    monkeypatch.setattr(store, "tables_ready", lambda: False)
+    assert store.latest_kpi_cut() is None
+    assert store.monthly_kpi_cut(date(2026, 10, 1)) == date(2026, 10, 29)
+    assert store.load_kpi_cut(date(2026, 10, 29)).observation is None
+    assert "migraciones 0012/0013" in store.load_kpi_history(2026).notice

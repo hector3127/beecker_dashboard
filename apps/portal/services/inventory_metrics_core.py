@@ -18,6 +18,7 @@ from core.utils.dates import to_datetime
 
 Json = dict[str, Any]
 TERMINAL = {"CLOSED", "COMPLETED", "CANCELLED", "CANCELED", "REMOVED"}
+EPIC_TERMINAL = TERMINAL | {"RESOLVED"}
 SUSPENDED = {"SUSPENDED", "SUSPENDIDO", "ON HOLD", "PAUSED"}
 TOKEN = re.compile(
     r"(?:^|[^A-Z0-9])(CR\d*(?:_S\d+)?|S\d+)(?=$|[^A-Z0-9])", re.I
@@ -65,7 +66,15 @@ def build_row(
     ]
     states = {str(root.get("System.State", "")).upper() for root in roots}
     status = fields.get("status", "")
-    closed = status.upper() in TERMINAL or bool(states) and states <= TERMINAL
+    epic_states = [
+        str(item_fields(i).get("System.State", "")).strip().upper()
+        for i in own
+        if str(item_fields(i).get("System.WorkItemType", "")).upper() == "EPIC"
+    ]
+    closed = bool(epic_states) and all(s in EPIC_TERMINAL for s in epic_states)
+    if status.upper() in EPIC_TERMINAL:
+        # Summary or General alone cannot close another still-open Epic.
+        status = ""
     if not status:
         status = "Suspendido" if states & SUSPENDED else "Pendiente"
         if status == "Pendiente":
@@ -83,7 +92,7 @@ def build_row(
                     == stage
                 ]
                 if any(
-                    str(e.get("System.State", "")).upper() not in TERMINAL
+                    str(e.get("System.State", "")).upper() not in EPIC_TERMINAL
                     for e in epics
                 ):
                     status = stage
@@ -151,6 +160,7 @@ def build_row(
         "status": status,
         "suspension_work_items": reports,
         "closed": closed,
+        "closure_confirmed": bool(epic_states),
         "desviacionDias": (cut - end).days if end else None,
         "wi": counts,
         "riesgos": risks,

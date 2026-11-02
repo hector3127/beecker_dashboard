@@ -120,7 +120,7 @@ SERVICE_LABELS: Final[dict[str, str]] = {
     "SAAS": "SaaS",
     "RAAS": "RaaS",
 }
-FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v7:"
+FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v9:"
 FACTURABILITY_CACHE_SECONDS: Final[int] = 600
 BILLABLE_HIGH_PERCENT: Final[int] = 80
 BILLABLE_LOW_PERCENT: Final[int] = 50
@@ -150,3 +150,9 @@ OPERATIONAL_ROLES: Final[dict[str, str]] = {
 # Proyectos que no existen en Clockify: se omiten del consumo de horas y de
 # la inversion para que no marquen error ni cuenten presupuesto sin horas.
 CLOCKIFY_EXCLUDED_PROJECTS: Final[frozenset[str]] = frozenset({"ROC.AIN.001"})
+
+
+# Exclusiones puntuales del usuario: prueba y CFC.001 de marzo–mayo 2025.
+EVA1_EXCLUDED_AZURE_PROJECTS: Final[frozenset[str]] = frozenset(
+    {"AZR.001.PRUEBA", "CFC.001"}
+)

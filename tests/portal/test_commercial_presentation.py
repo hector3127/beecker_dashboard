@@ -107,3 +107,42 @@ def test_annual_service_cells_reconcile():
     service = group_services(section["rows"])[0]
     assert service["cells"] == [12.5, 25]
     assert service["total"] == sum(service["cells"]) == section["total"]
+
+
+def test_dashboard_chart_totals_and_probability_use_existing_rows():
+    from types import SimpleNamespace
+
+    from apps.portal.services.commercial_view import present_commercial_context
+
+    rows = [
+        {
+            "estado": "abierta",
+            "fechaCierre": "2026-11-15",
+            "horas": hours,
+            "cuenta": "A",
+            "servicio": "RaaS",
+            "probabilidad": probability,
+            "usd": amount,
+        }
+        for hours, probability, amount in [
+            (10, 70, 100),
+            (30, 90, 200),
+            (20, 50, 300),
+        ]
+    ]
+    pipeline = build_pipeline(rows, 2026)
+    source = {
+        "pipeline": pipeline,
+        "stage_groups": [{"name": "Proposal Sent (Pipeline)", "count": 3}],
+        "count": 3,
+        "page": SimpleNamespace(paginator=SimpleNamespace(object_list=rows)),
+    }
+    result = present_commercial_context(source)
+    chart = result["commercial_charts"]
+    assert sum(chart["hours"]) == pipeline["sections"][0]["total"] == 40
+    assert chart["probabilities"][10] == 85
+    assert chart["probabilities"][0] is None
+    assert chart["sparklines"][1][10] == 600
+    assert chart["sparklines"][2][10] == 1
+    assert chart["sparklines"][3][10] == 3
+    assert source["pipeline"]["sections"][0]["total"] == 40

@@ -579,7 +579,7 @@ class HoursBar:
 
 @dataclass(frozen=True, slots=True)
 class InvestmentView:
-    """Pantalla de inversion operativa y comercial de un mes."""
+    """Totales y desglose de inversión operativa y comercial."""
 
     month: str
     label: str

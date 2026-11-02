@@ -11,8 +11,8 @@ from apps.portal.services.summary_inventory import inventory_rows
 
 
 def load_inventory_eva(cut: date) -> dict[str, Any]:
-    """Use exactly the inventory range and historical provider data in EVA."""
-    run, rows = inventory_rows(cut=cut)
+    """EVA activo por épicas; Finish vencido conserva el atraso, no cierra."""
+    run, rows = inventory_rows(cut=cut, eva_active=True)
     state = ("fixed" if run else "pending") if is_closed_period(cut) else "live"
     if not settings.EVA_MONTHLY_CLOSES_ENABLED:
         state = "disabled"
@@ -61,7 +61,7 @@ def load_inventory_eva(cut: date) -> dict[str, Any]:
         "eva_empty_text": (
             "Cierre mensual pendiente de validar/cargar."
             if state == "pending"
-            else "No hay proyectos en el rango del corte seleccionado."
+            else "No hay proyectos abiertos en Azure para este corte."
         ),
         "error": (
             f"{len(run.issues)} incidencias de origen." if run.issues else ""

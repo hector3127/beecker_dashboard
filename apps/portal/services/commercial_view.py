@@ -260,4 +260,50 @@ def present_commercial_context(context: Any) -> Any:
         {**g, "display_name": commercial_stage(g["name"])}
         for g in context.get("stage_groups", [])
     ]
+    confirmed = next((s for s in sections if s.get("key") == "confirmed"), {})
+    weighted: list[list[tuple[float, float]]] = [[] for _ in range(12)]
+    for group in confirmed.get("rows", []):
+        for row in group.get("details", []):
+            closing = row.get("fechaCierre") or ""
+            if (
+                closing[:4] != str(pipeline.get("year"))
+                or row.get("probabilidad") is None
+            ):
+                continue
+            index = int(closing[5:7]) - 1
+            hours = row.get("horas") or 0
+            if 0 <= index < 12 and hours > 0:
+                weighted[index].append((hours, row["probabilidad"]))
+    page = context.get("page")
+    monthly = [[0.0] * 12 for _ in range(4)]
+    accounts: list[set[str]] = [set() for _ in range(12)]
+    for row in page.paginator.object_list if page else []:
+        closing = row.get("fechaCierre") or ""
+        if closing[:4] != str(pipeline.get("year")):
+            continue
+        index = int(closing[5:7]) - 1
+        if not 0 <= index < 12:
+            continue
+        monthly[3][index] += 1
+        if row.get("estado") == "ganada":
+            monthly[0][index] += row.get("usd") or 0
+        if row.get("estado") == "abierta":
+            monthly[1][index] += row.get("usd") or 0
+            if row.get("cuenta"):
+                accounts[index].add(row["cuenta"])
+    monthly[2] = [len(a) for a in accounts]
+    result["commercial_charts"] = {
+        "year": pipeline.get("year"),
+        "months": pipeline.get("months", []),
+        "stages": result["stage_groups"],
+        "count": context.get("count", 0),
+        "hours": confirmed.get("totals", [0] * 12),
+        "probabilities": [
+            sum(h * p for h, p in bucket) / sum(h for h, _ in bucket)
+            if bucket
+            else None
+            for bucket in weighted
+        ],
+        "sparklines": monthly,
+    }
     return result

@@ -78,7 +78,7 @@ def test_refresh_keeps_global_cache_and_scopes_filtered_block(monkeypatch):
         views, "_operativa_investment", lambda *args: investment()
     )
     views.operativa_block_context(request)
-    assert cache.get("portal:ops:investment:v3")["totals"]["operational"] == 100
+    assert cache.get("portal:ops:investment:v6")["totals"]["operational"] == 100
     assert views._operativa_snapshot(request)["investment"]["totals"] == {
         "operational": 30,
         "commercial": 2,
@@ -91,3 +91,40 @@ def test_partial_investment_remains_pending():
     context = {"managers": population("AER"), "investment": partial}
     views._scope_operativa_investment(request, context)
     assert context["investment"] == partial
+
+
+def test_investment_filter_uses_current_population_not_previous_managers():
+    request = RequestFactory().get("/operativa/", {"servicio": "IXB"})
+    current = investment()
+    current["population"] = [
+        {"project_id": "AER.1", "client": "ACME", "service": "AER"},
+        {"project_id": "IXB.1", "client": "ACME", "service": "IXB"},
+    ]
+    context = {"managers": [], "investment": current}
+    views._scope_operativa_investment(request, context)
+    assert context["investment"]["totals"] == {
+        "operational": 70,
+        "commercial": 10,
+    }
+
+
+def test_investment_uses_current_eva1_and_eva3_only(monkeypatch):
+    current = make_project(project_id="IXB.NEW", service="IXB")
+    aer_project = make_project(project_id="AER.ACTIVE", service="AER")
+    monkeypatch.setattr(
+        "apps.portal.services.eva_inventory_view.load_inventory_eva",
+        lambda cut: {
+            "extraction": object(),
+            "eva": SimpleNamespace(projects=[current]),
+        },
+    )
+    captured = []
+    monkeypatch.setattr(
+        "apps.portal.services.operational_sources.tagged_investment",
+        lambda projects: captured.extend(projects) or {"complete": True},
+    )
+    views._operativa_investment(
+        SimpleNamespace(error="old source failed"),
+        SimpleNamespace(error="", view=SimpleNamespace(projects=[aer_project])),
+    )
+    assert [p.project_id for p in captured] == ["IXB.NEW", "AER.ACTIVE"]

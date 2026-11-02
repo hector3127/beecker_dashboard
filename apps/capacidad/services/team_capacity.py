@@ -14,6 +14,7 @@ from datetime import date
 from typing import Any
 
 from apps.capacidad.constants import SHEET_BANDS
+from apps.capacidad.exceptions import CapacityError
 from apps.capacidad.services.capacity_base import (
     find_band_column,
     read_optional_projects,
@@ -27,6 +28,7 @@ from apps.capacidad.services.mpb_projects import (
 from apps.capacidad.services.sheet_table import read_cell, read_sheet_table
 from apps.dashboard.services.delivery_managers import load_delivery_managers
 from apps.datastore.models import (
+    ClockifyMonthSync,
     ClockifyTimeEntry,
     EvaExtraction,
     EvaScopeSnapshot,
@@ -75,6 +77,10 @@ def read_team(reader: SheetReader, month: str) -> list[JsonObject]:
     """Personas operativas con banda vigente en el mes."""
     bands = read_sheet_table(reader, SHEET_BANDS, BAND_HEADERS)
     column = find_band_column(bands, month)
+    if column.index < 0:
+        raise CapacityError(
+            f"Bandas/rol no tiene columna de banda para {month}."
+        )
     team = []
 
     for row in bands.rows:
@@ -223,6 +229,11 @@ def build_team_capacity(
     reader: SheetReader, month: str, workday: float = DEFAULT_WORKDAY
 ) -> JsonObject:
     """Matriz persona x proyecto del mes, resumen por persona e indicadores."""
+    sync = ClockifyMonthSync.objects.filter(
+        month=date.fromisoformat(month + "-01")
+    ).first()
+    if sync is None:
+        raise CapacityError("El mes de Clockify no está sincronizado.")
     team = read_team(reader, month)
     by_id, by_name = match_person(team)
     info = ProjectInfo(reader)
@@ -231,6 +242,7 @@ def build_team_capacity(
         project_id=LUNCH_PROJECT_ID
     )
 
+    count = 0
     cells: dict[tuple[str, str], JsonObject] = {}
     totals: dict[str, list[float]] = defaultdict(lambda: [0.0, 0.0])
     names: dict[str, str] = {}
@@ -246,8 +258,9 @@ def build_team_capacity(
         person = by_id.get(entry["user_id"]) or by_name.get(
             normalize_capacity_text(entry["user_name"])
         )
-        if person is None or entry["entry_date"] is None:
+        if person is None:
             continue
+        count += 1
         hours = entry["duration_seconds"] / 3600
         key = (person["nombre"], entry["project_id"])
         names[entry["project_id"]] = entry["project_name"]
@@ -259,7 +272,8 @@ def build_team_capacity(
                 "noFacturables": 0.0,
             },
         )
-        cell["daily"][entry["entry_date"].isoformat()] += hours
+        if entry["entry_date"] is not None:
+            cell["daily"][entry["entry_date"].isoformat()] += hours
         cell["facturables" if entry["billable"] else "noFacturables"] += hours
         totals[person["nombre"]][0 if entry["billable"] else 1] += hours
 
@@ -290,8 +304,8 @@ def build_team_capacity(
                 "idProyecto": project_name,
                 "proyecto": name,
                 # Sin fecha de proyecto: primer y ultimo registro de la fila.
-                "inicio": start or dated[0],
-                "fin": finish or dated[-1],
+                "inicio": start or (dated[0] if dated else ""),
+                "fin": finish or (dated[-1] if dated else ""),
                 "facturables": round(cell["facturables"], 4),
                 "noFacturables": round(cell["noFacturables"], 4),
                 "total": round(cell["facturables"] + cell["noFacturables"], 4),
@@ -341,6 +355,15 @@ def build_team_capacity(
         "dias": month_days(month),
         "diasHabiles": days,
         "jornada": workday,
+        "clockify_month": {
+            "available": True,
+            "month": month,
+            "consumed": round(registered, 2),
+            "billable": round(sum(p["facturables"] for p in people), 2),
+            "entries": count,
+            "people": sum(1 for p in people if p["total"] > 0),
+            "synced_at": sync.synced_at.isoformat(),
+        },
         "personas": people,
         "filas": rows,
         "resumen": {

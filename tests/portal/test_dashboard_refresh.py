@@ -146,6 +146,11 @@ def test_failed_secondary_block_preserves_saved_cut(
         f"apps.portal.services.operational_sources.{function}",
         lambda *args: payload,
     )
+    if block == "inversion":
+        monkeypatch.setattr(
+            "apps.portal.services.eva_inventory_view.load_inventory_eva",
+            lambda *args: {"extraction": True, "eva": views.load_eva1().view},
+        )
 
     context = views.operativa_block_context(request(bloque=block))
 

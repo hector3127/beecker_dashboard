@@ -21,8 +21,8 @@ def inventory(db):
             "name": "AMK.012",
             "state": "wellFormed",
             "description": (
-                "Sprint 1\nDM: Ana\nService: Other\nBudget: 10\n"
-                "Status: Closed\nSprint 2\nBudget: 20\n"
+                "Sprint 1\nDM: Ana\nService: RaaS\nBudget: 10\n"
+                "Status: Closed\nSprint 2\nService: RaaS\nBudget: 20\n"
                 "Change Request 2\nBudget: 5"
             ),
         },

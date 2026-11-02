@@ -15,6 +15,7 @@ from apps.ejecutivo.services.ixb_rules import (
 )
 from apps.ejecutivo.services.project_hours import hierarchy_nomenclature
 from core.exceptions import DashboardError, describe_error
+from core.time_entries.investment import investment_categories
 from core.time_entries.models import TimeEntry
 from core.utils.cell_types import CellValue, SheetRow
 from core.utils.js_values import js_locale_key
@@ -322,12 +323,12 @@ def add_entry_hours(
         )
         by_task[task_id]["horas"] += hours
 
-    lower_tags = [tag.lower() for tag in tags]
+    categories = investment_categories(tags)
 
-    if TAG_OPERATIONAL in lower_tags:
+    if "operational" in categories:
         totals.operational += hours
 
-    if TAG_COMMERCIAL in lower_tags:
+    if "commercial" in categories:
         totals.commercial += hours
 
 

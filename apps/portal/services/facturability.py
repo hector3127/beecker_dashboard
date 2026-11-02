@@ -160,7 +160,9 @@ def build_month_facturability(
     roles, today = scope
     month_hours = person_month_hours(month, today)
     resources = sum(area["resources"] for area in _areas(gse, roles))
-    capacity = resources * month_hours
+    capacity = sum(
+        _area_capacity(area, gse, month_hours) for area in _areas(gse, roles)
+    )
     by_service = _billable_by_service(_detail_rows(gse, roles))
     fixed = by_service.pop(FIXED_SERVICE, 0.0)
     services = tuple(by_service.pop(name, 0.0) for name in VARIABLE_SERVICES)
@@ -216,10 +218,14 @@ def build_specialties(
     people: dict[str, int] = {}
     fixed: dict[str, float] = {}
     variable: dict[str, float] = {}
+    capacities: dict[str, float] = {}
 
     for area in _areas(gse, roles):
         key = _register(names, area["name"])
         people[key] = people.get(key, 0) + area["resources"]
+        capacities[key] = capacities.get(key, 0.0) + _area_capacity(
+            area, gse, month_hours
+        )
 
     for row in _detail_rows(gse, roles):
         if not row["billable"]:
@@ -232,7 +238,7 @@ def build_specialties(
     rows = []
 
     for key, name in names.items():
-        capacity = people.get(key, 0) * month_hours
+        capacity = capacities.get(key, 0.0)
         fixed_hours = fixed.get(key, 0.0)
         variable_hours = variable.get(key, 0.0)
         variable_capacity = max(capacity - fixed_hours, 0.0)
@@ -275,7 +281,7 @@ def build_resources(
     """
     roles, today = scope
     names: dict[str, tuple[str, str]] = {}
-    by_month: list[tuple[float, dict[str, float]]] = []
+    by_month: list[tuple[float, dict[str, float], dict[str, float]]] = []
 
     for month, gse in months:
         billed: dict[str, float] = {}
@@ -292,7 +298,13 @@ def build_resources(
                 names.setdefault(key, (row["name"], display_role(row["role"])))
                 billed[key] = billed.get(key, 0.0) + row["hours"]
 
-        by_month.append((person_month_hours(month, today), billed))
+        by_month.append(
+            (
+                person_month_hours(month, today),
+                billed,
+                gse.get("capacidadPorPersona", {}),
+            )
+        )
 
     # Solo una baja explícita del mes seleccionado marca el nombre.
     # Ausencia de horas o de banda no significa baja.
@@ -317,8 +329,10 @@ def build_resources(
             role=role,
             percents=(
                 percents := tuple(
-                    _percent(billed[key], hours) if key in billed else None
-                    for hours, billed in by_month
+                    _percent(billed[key], min(hours, estimates.get(key, hours)))
+                    if key in billed
+                    else None
+                    for hours, billed, estimates in by_month
                 )
             ),
             average=average(percents),
@@ -483,6 +497,22 @@ def _billable_by_service(rows: Iterable[dict[str, Any]]) -> dict[str, float]:
             )
 
     return totals
+
+
+def _area_capacity(
+    area: Mapping[str, Any], gse: Mapping[str, Any], hours: float
+) -> float:
+    """Suma estimados individuales; sin evidencia conserva el mes completo."""
+    estimates = gse.get("capacidadPorPersona") or {}
+    names = area["people"]
+    if not estimates or not names:
+        return float(area["resources"]) * hours
+    return float(
+        sum(
+            min(hours, estimates.get(normalize_capacity_text(name), hours))
+            for name in names
+        )
+    )
 
 
 def _areas(

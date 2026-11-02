@@ -21,6 +21,7 @@ from apps.gse.exceptions import GseError
 from apps.gse.services.cells import cell_at, norm, trimmed
 from core.exceptions import DashboardError, describe_error
 from core.sheets.protocols import SheetReader
+from core.time_entries.investment import investment_categories
 from core.utils.cell_types import CellValue
 from core.utils.text import to_text
 
@@ -244,7 +245,16 @@ def build_categories(
     if "000" in project_name:
         result.append(NON_BILLABLE)
 
+    investments = investment_categories(raw_tags)
     for label, aliases in TEXT_RULES:
+        investment_kind = {
+            "Inversión Operaciones": "operational",
+            "Inversión Comercial": "commercial",
+        }.get(label)
+        if investment_kind:
+            if investment_kind in investments:
+                result.append(label)
+            continue
         if any(
             project == alias or task == alias or f" {alias} " in f" {tags} "
             for alias in aliases

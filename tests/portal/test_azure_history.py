@@ -253,3 +253,14 @@ def test_report_fields_enrich_existing_revisions_without_duplication():
     gateway.create_client.return_value.revision_page.assert_called_once_with(
         "", "", reports=True
     )
+
+
+def test_whole_project_epic_closure_covers_ambiguous_duplicate_scope():
+    feed = download([record(1, kind="Epic", state="Closed")])
+    feed.complete_through = datetime(2026, 10, 28, tzinfo=UTC)
+    feed.save()
+    source, rows = make_source()
+    rows.append(dict(rows[0]))
+    attach_history(source, rows, date(2026, 9, 30), feed)
+    assert all(r["eva_metrics"]["closed"] for r in rows)
+    assert all(r["eva_metrics"]["closure_confirmed"] for r in rows)

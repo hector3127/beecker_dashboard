@@ -27,7 +27,9 @@ def test_relative_imports_between_modules_get_the_hashed_name(
         page = tmp_path / "app/scripts/pages" / name
         main = next(page.glob("main.*.js")).read_text("utf-8")
         # Django reescribe el import: comillas dobles y huella en el nombre.
-        pattern = rf'from "\./sections/{section}\.[0-9a-f]{{12}}\.js";'
+        pattern = (
+            rf'from "\./sections/{section}\.[0-9a-f]{{12}}\.js(?:\?[^"\s]+)?";'
+        )
         assert re.search(pattern, main), name
         # Los nombres estables del importmap no se tocan: el HTML los traduce.
         assert "from '#app/data/api-client.js'" in main

@@ -4,6 +4,7 @@ import calendar
 from dataclasses import dataclass, replace
 from datetime import date, timedelta
 
+from django.db import connection
 from django.utils import timezone
 
 from apps.datastore.models import DmKpiMetric, DmKpiObservation, DmKpiPeriod
@@ -19,6 +20,14 @@ from apps.portal.services.kpi_eva import eva_manager_view, select_managers
 from apps.portal.services.kpi_history import _managers
 from apps.portal.services.kpi_history_loader import KpiHistoryLoad
 from apps.portal.services.periods import MONTH_ABBREVIATIONS
+
+
+def tables_ready() -> bool:
+    """La instalación de código puede preceder a las migraciones autorizadas."""
+    return {
+        model._meta.db_table
+        for model in (DmKpiMetric, DmKpiObservation, DmKpiPeriod)
+    } <= set(connection.introspection.table_names())
 
 
 def closing_day(month: date) -> date:
@@ -81,6 +90,8 @@ class StoredKpiCut:
 
 def latest_kpi_cut() -> date | None:
     """Default to the latest available date without inventing today's data."""
+    if not tables_ready():
+        return None
     return (
         DmKpiObservation.objects.filter(cut__lte=timezone.localdate())
         .order_by("-cut")
@@ -91,6 +102,8 @@ def latest_kpi_cut() -> date | None:
 
 def monthly_kpi_cut(month: date) -> date:
     """Resolve the month's saved pointer, leaving missing months explicit."""
+    if not tables_ready():
+        return closing_day(month)
     cut = (
         DmKpiPeriod.objects.filter(month=month)
         .values_list("latest_observation__cut", flat=True)
@@ -101,6 +114,8 @@ def monthly_kpi_cut(month: date) -> date:
 
 def load_kpi_cut(cut: date) -> StoredKpiCut:
     """Read an exact daily observation; do not substitute another date."""
+    if not tables_ready():
+        return StoredKpiCut(observation_view(None), None)
     observation = (
         DmKpiObservation.objects.select_related("period")
         .prefetch_related("metrics")
@@ -112,6 +127,14 @@ def load_kpi_cut(cut: date) -> StoredKpiCut:
 
 def load_kpi_history(year: int | None = None) -> KpiHistoryLoad:
     """Twelve saved monthly pointers; missing history stays pending."""
+    if not tables_ready():
+        return KpiHistoryLoad(
+            KpiHistory((), (), ()),
+            notice=(
+                "Pendiente actualizar la base de datos: ejecutar las "
+                "migraciones 0012/0013 antes de cargar los KPIs guardados."
+            ),
+        )
     today = timezone.localdate()
     chosen = year or today.year
     periods = {

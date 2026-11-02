@@ -1,6 +1,7 @@
-"""Inversion operativa y comercial con las categorias de GSE."""
+"""Inversión acumulada por tags y adaptadores GSE de compatibilidad."""
 
 from collections.abc import Iterable, Mapping
+from datetime import date
 from typing import Any
 
 from apps.capacidad.services.capacity_text import normalize_capacity_text
@@ -158,6 +159,7 @@ def _detail(gse: Mapping[str, Any]) -> list[dict[str, Any]]:
         hours = item.get("horas")
         rows.append(
             {
+                "resource": str(item.get("recurso") or "").strip(),
                 "area": str(item.get("area") or "").strip(),
                 "project": str(item.get("proyecto") or "").strip(),
                 "categories": (
@@ -175,3 +177,164 @@ def _detail(gse: Mapping[str, Any]) -> list[dict[str, Any]]:
         )
 
     return rows
+
+
+def investment_breakdown(
+    gse: Mapping[str, Any], view: InvestmentView
+) -> dict[str, Any]:
+    """Distribución y recursos desde los mismos registros y clasificación."""
+    people: dict[tuple[str, str], list[float]] = {}
+    projects: dict[tuple[str, str], dict[str, list[float]]] = {}
+    for item in _detail(gse):
+        kind, _ = classify_investment(item["categories"])
+        if not kind:
+            continue
+        key = (item["resource"] or "Sin recurso", item["area"] or NO_AREA)
+        values = people.setdefault(key, [0.0, 0.0])
+        index = 0 if kind == "comercial" else 1
+        values[index] += item["hours"]
+        project = item["project"] or NO_PROJECT
+        project_values = projects.setdefault(key, {}).setdefault(
+            project, [0.0, 0.0]
+        )
+        project_values[index] += item["hours"]
+    total = view.totals.total
+
+    def share(value: float, denominator: float) -> float:
+        return round(value * 100 / denominator, 1) if denominator else 0
+
+    return {
+        "areas": [
+            {
+                "name": r.name,
+                "commercial": r.commercial,
+                "operational": r.operational,
+                "total": r.total,
+                "share": share(r.total, total),
+            }
+            for r in view.by_area
+        ],
+        "people": [
+            {
+                "name": name,
+                "area": area,
+                "commercial": values[0],
+                "operational": values[1],
+                "total": sum(values),
+                "projects": sorted(
+                    [
+                        {
+                            "name": project,
+                            "commercial": amounts[0],
+                            "operational": amounts[1],
+                            "total": sum(amounts),
+                        }
+                        for project, amounts in projects[(name, area)].items()
+                    ],
+                    key=lambda row: (-row["total"], row["name"]),
+                ),
+            }
+            for (name, area), values in sorted(people.items())
+        ],
+        "commercial": [
+            {
+                "label": r.label,
+                "hours": r.hours,
+                "share": share(r.hours, view.totals.commercial),
+                "width": r.width,
+            }
+            for r in view.commercial_by_type
+        ],
+        "operational": [
+            {
+                "label": r.label,
+                "hours": r.hours,
+                "share": share(r.hours, view.totals.operational),
+                "width": r.width,
+            }
+            for r in view.operational_by_project
+        ],
+        "operational_share": share(view.totals.operational, total),
+        "commercial_share": share(view.totals.commercial, total),
+    }
+
+
+def accumulated_investment_context(
+    investment: Mapping[str, Any],
+    today: date,
+    roles: Mapping[str, str] | None = None,
+) -> dict[str, Any]:
+    """Desglosa los registros acumulados de Operativa, sin filtro mensual."""
+    from dataclasses import replace
+
+    from apps.gse.services.cells import norm
+
+    roles = roles or {}
+    records = (
+        investment.get("records", []) if investment.get("complete") else []
+    )
+    detail = [
+        {
+            "recurso": row["resource"],
+            "area": roles.get(norm(row["resource"]), NO_AREA),
+            "proyecto": row["project"],
+            "horas": row["hours"],
+            "categorias": [
+                "Inversión Comercial"
+                if row["category"] == "commercial"
+                else "Inversión Operaciones"
+            ],
+        }
+        for row in records
+    ]
+    month = today.strftime("%Y-%m")
+    view = build_investment_view({"detalle": detail}, month)
+    view = replace(
+        view,
+        label="Proyectos activos de EVA 1 y EVA 3",
+        commercial_by_type=tuple(
+            replace(bar, label="INV_COMERCIAL")
+            for bar in view.commercial_by_type
+        ),
+    )
+    history = []
+    index = today.year * 12 + today.month - 1
+    for offset in range(5, -1, -1):
+        year, number = divmod(index - offset, 12)
+        key = f"{year}-{number + 1:02d}"
+        history.append(
+            {
+                "month": key,
+                "label": format_month(key).split()[0][:3],
+                **{
+                    category: sum(
+                        row["hours"]
+                        for row in records
+                        if row["category"] == category
+                        and row.get("day")
+                        and row["day"][:7] <= key
+                    )
+                    for category in ("commercial", "operational")
+                },
+                "error": "",
+            }
+        )
+    days = [row["day"] for row in records if row.get("day")]
+    return {
+        "month": month,
+        "investment": view,
+        "investment_detail": investment_breakdown({"detalle": detail}, view),
+        "investment_ready": bool(investment.get("complete")),
+        "investment_project_count": investment.get("projects", 0),
+        "investment_from": min(days) if days else "",
+        "investment_to": max(days) if days else "",
+        "investment_chart": {
+            "history": history,
+            "commercial": view.totals.commercial,
+            "operational": view.totals.operational,
+            "undated": sum(
+                row["hours"] for row in records if not row.get("day")
+            ),
+        },
+        "error": investment.get("error", ""),
+    }

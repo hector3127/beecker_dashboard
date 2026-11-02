@@ -177,7 +177,7 @@ def attach_history(
         feed=feed, source=source, cut=cut, feed_through=feed.complete_through
     ).first()
     if cached and all(
-        value.get("rules_version") == 3 for value in cached.metrics.values()
+        value.get("rules_version") == 6 for value in cached.metrics.values()
     ):
         metrics = cached.metrics
     else:
@@ -206,7 +206,7 @@ def attach_history(
         )
         metrics = {
             r["scope"]: {
-                "rules_version": 3,
+                "rules_version": 6,
                 **{
                     k: r[k]
                     for k in (
@@ -215,6 +215,8 @@ def attach_history(
                         "azure_pending",
                         "status",
                         "closed",
+                        "closure_confirmed",
+                        "whole_project_closed",
                         "suspension_work_items",
                     )
                 },
@@ -243,3 +245,8 @@ def attach_history(
             )
             row["azure_history_asof"] = cut.isoformat()
             row["business_status"] = metrics[row["scope"]].get("status", "")
+        if any(value.get("whole_project_closed") for value in metrics.values()):
+            row.setdefault("eva_metrics", {}).update(
+                closed=True, closure_confirmed=True, whole_project_closed=True
+            )
+            row["business_status"] = "Completed"

@@ -256,3 +256,99 @@ def test_extraction_persists_eva_fields_and_read_has_no_provider_calls():
         _, rows = inventory_rows(cut=CUT)
     assert rows[0]["eva_metrics"]["etc"] == -1
     assert rows[0]["eva_metrics"]["azure_pending"] is False
+
+
+@pytest.mark.parametrize(
+    "states,closed",
+    [
+        (["Closed", "Active"], False),
+        (["Closed", "Resolved"], True),
+        (["Resolved", "Resolved"], True),
+        (["Closed", "New"], False),
+        ([], False),
+    ],
+)
+def test_project_closes_only_when_all_its_epics_are_terminal(states, closed):
+    rows = [candidate()]
+    items = [
+        item("Epic", state, "General_S1" if i == 0 else "Deployment_S1")
+        for i, state in enumerate(states)
+    ]
+    enrich(rows, {}, items, True, None, CUT)
+    assert rows[0]["eva_metrics"]["closed"] is closed
+
+
+def test_closed_general_does_not_close_another_open_stage_epic():
+    rows = [candidate()]
+    items = [
+        item("Epic", "Closed", "General_S1"),
+        item("Epic", "Active", "Development_S1"),
+    ]
+    enrich(rows, {}, items, True, None, CUT)
+    assert rows[0]["eva_metrics"]["closed"] is False
+
+
+def test_another_sprints_open_epic_does_not_reopen_a_closed_scope():
+    rows = [candidate()]
+    enrich(
+        rows,
+        {},
+        [
+            item("Epic", "Resolved", "General_S1"),
+            item("Epic", "Active", "General_S2", "S2"),
+        ],
+        True,
+        None,
+        CUT,
+    )
+    assert rows[0]["eva_metrics"]["closed"] is True
+
+
+def test_all_project_epics_closed_proves_closure_even_with_ambiguous_scope():
+    rows = [candidate(), candidate()]
+    enrich(rows, {}, [item("Epic", "Closed", "General_S1")], True, None, CUT)
+    assert all(
+        r["eva_metrics"]["closed"] and r["eva_metrics"]["closure_confirmed"]
+        for r in rows
+    )
+    assert all(r["eva_metrics"]["azure_pending"] for r in rows)
+
+
+def test_failed_transport_cannot_confirm_closure():
+    rows = [candidate()]
+    enrich(rows, {}, [item("Epic", "Closed", "General_S1")], False, None, CUT)
+    assert not rows[0]["eva_metrics"]["closure_confirmed"]
+
+
+def test_current_cut_uses_complete_local_clockify_after_old_snapshot(
+    settings, monkeypatch
+):
+    settings.CLOCKIFY_STORE_ENABLED = True
+    monkeypatch.setattr(
+        "apps.datastore.services.clockify_store.store_state",
+        lambda: ("new", frozenset({date(2026, 10, 1)})),
+    )
+    monkeypatch.setattr(
+        "apps.portal.services.summary_eva_metrics.local_hours",
+        lambda *args: [entry("fresh", 29, 4)],
+    )
+    rows = [candidate()]
+    enrich(rows, {}, [], True, None, CUT)
+    rows[0]["eva_metrics"]["clockify_project_id"] = "provider"
+    at_cut(rows, {"observed_date": "2026-10-28"}, date(2026, 10, 29))
+    assert rows[0]["eva_metrics"]["burn"] == 4
+    assert not rows[0]["eva_metrics"]["hours_pending"]
+
+
+def test_local_clockify_with_missing_month_does_not_use_partial_hours():
+    from apps.portal.services.inventory_clockify import local_hours
+
+    assert (
+        local_hours(
+            "p",
+            [{"fechaInicio": "2026-09-01", "fechaFin": "2026-10-31"}],
+            frozenset({date(2026, 10, 1)}),
+            CUT,
+        )
+        is None
+    )

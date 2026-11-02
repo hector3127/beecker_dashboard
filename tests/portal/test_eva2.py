@@ -140,3 +140,20 @@ def test_empty_view_keeps_preferred_service_columns():
     assert view.services == ("IXB", "RaaS")
     assert view.service_rows == ()
     assert view.suspended_note == ""
+
+
+def test_overdue_pending_cells_have_visible_red_class():
+    from django.template.loader import render_to_string
+
+    project = build_eva2_project(make_row())
+    html = render_to_string("partials/eva_table.html", {"projects": [project]})
+    # Discovery overdue but complete; Development overdue and pending;
+    # Deployment has pending WIs but its stage has not expired.
+    assert html.count('class="n eva-wi-overdue"') == 1
+    assert (
+        'title="WIs pendientes: la fecha fin de esta etapa ya venció">6</td>'
+        in html
+    )
+    pending = build_eva2_project(make_row(azure_pending=True))
+    html = render_to_string("partials/eva_table.html", {"projects": [pending]})
+    assert 'class="n eva-wi-overdue"' not in html

@@ -3,10 +3,11 @@
 from datetime import date
 
 import pytest
+from django.utils import timezone
 
 from apps.capacidad.services import team_capacity as service
 from apps.capacidad.services.sheet_table import SheetTable
-from apps.datastore.models import ClockifyTimeEntry
+from apps.datastore.models import ClockifyMonthSync, ClockifyTimeEntry, SyncRun
 
 pytestmark = pytest.mark.django_db
 MONTH = "2026-10"
@@ -36,6 +37,14 @@ def entry(index, user_id, user, project, seconds, day, billable=True, pid="p"):
 @pytest.fixture
 def team(monkeypatch):
     """Bandas/rol sintetica: roles, bandas vigentes, sin ID y bajas."""
+    run = SyncRun.objects.create(kind="test")
+    ClockifyMonthSync.objects.create(
+        month=date(2026, 10, 1),
+        entries_count=0,
+        total_seconds=0,
+        synced_at=timezone.now(),
+        run=run,
+    )
     table = sheet(
         ["Ana Perez", "Dev", "u-ana", "B2", "B2"],
         ["Luis Soto", "QA", "", "B1", "B1"],
@@ -179,3 +188,26 @@ def test_indicators_use_people_days_and_workday(team):
     assert summary["saldo"] == summary["base"] - 200
     assert summary["utilizacion"] == round(200 / 528 * 100, 2)
     assert summary["sobreJornada"] == 1
+
+
+def test_missing_month_uses_last_band_and_preserves_leavers(team):
+    people = service.read_team(object(), "2026-11")
+    assert [p["nombre"] for p in people] == [
+        "Ana Perez",
+        "Luis Soto",
+        "Zoe Diaz",
+    ]
+    assert people[0]["banda"] == "B2"
+
+
+def test_band_fallback_is_chronological_and_never_future():
+    from apps.capacidad.services.capacity_base import find_band_column
+
+    table = SheetTable(
+        headers=["Nombre", "Diciembre 2026", "Septiembre 2026", "2026-10"],
+        rows=[],
+        header_index=0,
+    )
+    assert find_band_column(table, "2026-11").index == 3
+    assert find_band_column(table, "2026-08").index == -1
+    assert find_band_column(table, "2026-09").index == 2

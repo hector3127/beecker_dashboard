@@ -17,6 +17,7 @@ from apps.portal.constants import CLOCKIFY_EXCLUDED_PROJECTS
 from apps.portal.schemas import ProjectView
 from core.exceptions import DashboardError, describe_error
 from core.sheets.factory import build_sheet_repository
+from core.time_entries.investment import investment_categories
 
 
 def norm(value: Any) -> Any:
@@ -126,7 +127,7 @@ def tagged_investment(
     projects: Any,
     include_suspended: Any = False,
     date_range: tuple[date, date] | None = None,
-) -> Any:
+) -> dict[str, Any]:
     """Suma inversion por etiquetas sin duplicar registros."""
     selected = {
         p.project_id: p
@@ -150,13 +151,13 @@ def tagged_investment(
         + str(date_range).encode("ascii")
     ).hexdigest()
     key = (
-        "portal:tagged-investment:v10:"
+        "portal:tagged-investment:v13:"
         + timezone.localdate().isoformat()
         + ":"
         + signature
     )
     stored = cache.get(key)
-    if stored is not None:
+    if isinstance(stored, dict):
         return stored
     totals = {"operational": 0.0, "commercial": 0.0}
     by_project = {pid: {"operational": 0.0, "commercial": 0.0} for pid in ids}
@@ -187,6 +188,7 @@ def tagged_investment(
             "projects": {},
         }
     errors = []
+    records = []
     seen = set()
     try:
         loader = build_clockify_loader(build_sheet_repository())
@@ -240,16 +242,38 @@ def tagged_investment(
                     if token in seen:
                         continue
                     seen.add(token)
-                    tags = {t.strip().upper() for t in entry.tags}
-                    for tag, category in [
-                        ("INV_OPERATIVA", "operational"),
-                        ("INV_COMERCIAL", "commercial"),
-                    ]:
-                        if tag in tags:
-                            totals[category] += entry.duration_hours
-                            by_project[project_id][category] += (
-                                entry.duration_hours
-                            )
+                    categories = investment_categories(entry.tags)
+                    for category in categories:
+                        totals[category] += entry.duration_hours
+                        by_project[project_id][category] += entry.duration_hours
+                        recorded = entry.entry_date
+                        if (
+                            recorded is not None
+                            and hasattr(recorded, "tzinfo")
+                            and timezone.is_aware(recorded)
+                        ):
+                            recorded = timezone.localtime(recorded)
+                        recorded_day = (
+                            recorded.date()
+                            if recorded is not None
+                            and hasattr(recorded, "date")
+                            else recorded
+                        )
+                        records.append(
+                            {
+                                "entry_id": entry.entry_id,
+                                "project": project_id,
+                                "project_name": getattr(
+                                    project, "name", project_id
+                                ),
+                                "resource": entry.resource_name,
+                                "category": category,
+                                "hours": entry.duration_hours,
+                                "day": recorded_day.isoformat()
+                                if recorded_day
+                                else None,
+                            }
+                        )
                     recorded = entry.entry_date
                     if recorded is not None:
                         if hasattr(recorded, "tzinfo") and timezone.is_aware(
@@ -268,17 +292,11 @@ def tagged_investment(
                             and (not start or day >= start)
                             and (not end or day <= end)
                         ):
-                            # Categorias exclusivas evitan duplicar horas.
-                            chart_category = (
-                                "operational"
-                                if "INV_OPERATIVA" in tags
-                                else "commercial"
-                                if "INV_COMERCIAL" in tags
-                                else "billable"
-                                if entry.is_billable
-                                else None
+                            # Cada etiqueta cuenta en su propia categoría.
+                            chart_categories = categories or (
+                                ("billable",) if entry.is_billable else ()
                             )
-                            if chart_category:
+                            for chart_category in chart_categories:
                                 bucket[chart_category] += entry.duration_hours
                                 item = bucket["projects"].setdefault(
                                     project_id,
@@ -320,6 +338,16 @@ def tagged_investment(
                 row[category] / maximum * 100 if maximum else 0
             )
     result = {
+        "population": [
+            {
+                "project_id": pid,
+                "client": getattr(selected[pid], "client", ""),
+                "service": getattr(selected[pid], "service", ""),
+                "manager": getattr(selected[pid], "manager", ""),
+            }
+            for pid in ids
+        ],
+        "records": records,
         "by_project": by_project,
         "monthly": list(monthly.values()),
         "monthly_has_data": maximum > 0,
@@ -335,14 +363,16 @@ def tagged_investment(
 
 def legacy_capacity(month: Any) -> Any:
     """Capacidad del equipo: Bandas/rol + Clockify (sin la hoja Recursos)."""
-    key = "portal:team-capacity:v1:" + month
+    key = "portal:team-capacity:v3:" + month
     cached = cache.get(key)
     if cached is not None:
         return cached
     try:
         team = build_team_capacity(build_sheet_repository(), month)
     except DashboardError as error:
-        return {"error": describe_error(error)}
+        result = {"month": month, "error": describe_error(error)}
+        cache.set(key, result, 60)
+        return result
     summary = team["resumen"]
     result = {
         "month": month,
@@ -356,6 +386,24 @@ def legacy_capacity(month: Any) -> Any:
         "over": summary["sobreJornada"],
         "pending": 0,
     }
+    if team.get("clockify_month"):
+        result.update(
+            source="clockify",
+            roster_source="Bandas/rol · Operaciones",
+            recorded_people=summary["conHoras"],
+            nonbillable=round(
+                summary["registradas"] - summary["facturables"], 2
+            ),
+            projects=len(
+                {
+                    row["idProyecto"]
+                    for row in team["filas"]
+                    if row["idProyecto"]
+                }
+            ),
+            workday_hours=team["jornada"],
+            clockify_month=team["clockify_month"],
+        )
     cache.set(key, result, 300)
     return result
 

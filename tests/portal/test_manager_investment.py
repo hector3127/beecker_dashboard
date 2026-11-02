@@ -68,6 +68,13 @@ def test_dashboard_includes_aer_and_tym_without_loading_extra_consumption(
         "complete": True,
         "by_project": {"TYM.3": {"commercial": 4, "operational": 9}},
     }
+    monkeypatch.setattr(
+        "apps.portal.services.eva_inventory_view.load_inventory_eva",
+        lambda cut: {
+            "extraction": object(),
+            "eva": SimpleNamespace(projects=projects[:1]),
+        },
+    )
     tagged = Mock(return_value=expected)
     monkeypatch.setattr(
         "apps.portal.services.operational_sources.tagged_investment", tagged
@@ -97,3 +104,22 @@ def test_missing_mpb_population_does_not_claim_complete_investment(monkeypatch):
     assert not result["complete"]
     assert "MPB no disponible" in result["error"]
     tagged.assert_not_called()
+
+
+def test_manager_investment_uses_active_ids_with_full_coverage():
+    manager = SimpleNamespace(name="Ana", project_ids=("IXB.OLD",))
+    value = {
+        "complete": True,
+        "population": [
+            {"project_id": "IXB.NEW_S1", "manager": "Ana"},
+            {"project_id": "AER.OTHER", "manager": "Beto"},
+        ],
+        "by_project": {
+            "IXB.NEW_S1": {"operational": 7, "commercial": 3},
+            "AER.OTHER": {"operational": 100},
+        },
+    }
+    assert manager_investment(manager, value)["operational"] == 7
+    assert manager_investment(manager, value)["commercial"] == 3
+    value["population"].append({"project_id": "IXB.MISSING", "manager": "Ana"})
+    assert not manager_investment(manager, value)["ready"]

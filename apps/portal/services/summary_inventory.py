@@ -18,6 +18,7 @@ from apps.datastore.models import (
     EvaScopeSnapshot,
 )
 from apps.datastore.services.clockify_store import store_state
+from apps.portal.constants import EVA1_EXCLUDED_AZURE_PROJECTS
 from apps.portal.services.azure_history import attach_history, feed_identity
 from apps.portal.services.eva_azure_source import BUSINESS_ID, candidate_rows
 from apps.portal.services.summary_eva_metrics import at_cut, enrich
@@ -300,6 +301,7 @@ def inventory_rows(
     *,
     source_run: EvaExtraction | None = None,
     use_closes: bool = True,
+    eva_active: bool = False,
 ) -> tuple[EvaExtraction | None, list[dict[str, Any]]]:
     """Read only persisted data; searching never calls Azure."""
     if cut is not None and use_closes:
@@ -329,11 +331,23 @@ def inventory_rows(
         source_rows: dict[int, list[dict[str, Any]]] = {}
         scope_query = EvaScopeSnapshot.objects.filter(source__extraction=run)
         source_query = EvaAzureSource.objects.filter(extraction=run)
+        if eva_active:
+            for excluded in EVA1_EXCLUDED_AZURE_PROJECTS:
+                source_query = source_query.exclude(name__iexact=excluded)
+                scope_query = scope_query.exclude(source__name__iexact=excluded)
         if cut is not None:
-            eligible_sources = scope_query.filter(
-                row__iteration_start__lte=cut.isoformat(),
-                row__iteration_finish__gte=cut.isoformat(),
-            ).values("source_id")
+            eligible = scope_query.filter(
+                row__iteration_start__lte=cut.isoformat()
+            )
+            if eva_active:
+                eligible = eligible.filter(
+                    row__fields__service__iregex=r"^(IXB|RAAS|SAAS)$"
+                )
+            else:
+                eligible = eligible.filter(
+                    row__iteration_finish__gte=cut.isoformat()
+                )
+            eligible_sources = eligible.values("source_id")
             source_query = source_query.filter(pk__in=eligible_sources)
             scope_query = scope_query.filter(source_id__in=eligible_sources)
         sources = {s.pk: s for s in source_query}
@@ -376,10 +390,32 @@ def inventory_rows(
             if row.get("business_status") == "Suspendido":
                 row["calendar_stage"] = "Suspendido"
             start, finish = row["iteration_start"], row["iteration_finish"]
-            if cut is not None and not (
-                start and finish and start <= cut.isoformat() <= finish
-            ):
-                continue
+            if cut is not None:
+                if eva_active:
+                    service = (
+                        str((row.get("fields") or {}).get("service") or "")
+                        .strip()
+                        .upper()
+                    )
+                    if service not in {"IXB", "RAAS", "SAAS"}:
+                        continue
+                    if not start or start > cut.isoformat():
+                        continue
+                    metric = row.get("eva_metrics") or {}
+                    if metric.get("closed") and metric.get("closure_confirmed"):
+                        continue
+                    if row["calendar_stage"] != "Suspendido":
+                        row["calendar_stage"] = (
+                            metric.get("status")
+                            if not metric.get("azure_pending", True)
+                            and metric.get("status")
+                            in {"Discovery", "Development", "Deployment"}
+                            else row["calendar_stage"]
+                        )
+                elif not (
+                    start and finish and start <= cut.isoformat() <= finish
+                ):
+                    continue
             row["deviation_days"] = (
                 (
                     (cut or timezone.localdate()) - date.fromisoformat(finish)

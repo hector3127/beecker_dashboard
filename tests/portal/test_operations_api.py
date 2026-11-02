@@ -79,12 +79,16 @@ def test_facturability_by_specialty_and_by_resource(client, monkeypatch):
     assert resource["workdays"] == [21, 19]
 
 
-def test_investment_for_a_month(client, monkeypatch):
+def test_investment_uses_current_accumulation_not_requested_month(
+    client, monkeypatch
+):
     stub_facturability(monkeypatch)
 
     body = data(client, "inversion/", mes="2026-01")["data"]
 
-    assert body["month"] == "2026-01"
+    from django.utils import timezone
+
+    assert body["month"] == timezone.localdate().strftime("%Y-%m")
     assert "investment" in body
 
 
@@ -93,9 +97,9 @@ def test_capacity_keeps_its_filters(client, monkeypatch):
 
     body = data(client, "capacidad/", mes="2026-10")["data"]
 
-    assert body["filters"]["month"] == "2026-10"
+    assert body["mes"] == "2026-10"
     assert body["error"] == ""
-    assert "capacity" in body
+    assert body["summary"]["source"] == "clockify"
 
 
 @pytest.mark.parametrize("path", SCREENS)

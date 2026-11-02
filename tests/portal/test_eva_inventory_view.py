@@ -3,6 +3,8 @@
 from datetime import date
 from unittest.mock import patch
 
+import pytest
+
 from apps.portal.services.eva_inventory_view import load_inventory_eva
 from apps.portal.services.summary_inventory import inventory_rows
 from tests.portal import test_summary_inventory as fixtures
@@ -22,7 +24,8 @@ def test_inventory_adapter_matches_detail_and_pivots(inventory):
     assert project.end == "22/06/26"
     assert project.budget == 20
     assert project.hours_pending
-    assert load_inventory_eva(date(2026, 6, 23))["eva"].total_projects == 0
+    # Finish vencido no prueba cierre; sin evidencia de épicas sigue visible.
+    assert load_inventory_eva(date(2026, 6, 23))["eva"].total_projects == 1
 
 
 def test_active_eva_filters_and_source_are_local(client, settings, inventory):
@@ -127,3 +130,87 @@ def test_cards_count_11_projects_with_five_over_budget_and_one_pending(
     assert b"5/11" in response.content
     assert response.content.count(b'class="eva-allocation-note"') == 1
     assert b"0.50 h sin tarea/tag" in response.content
+
+
+@pytest.mark.parametrize(
+    "states,expected",
+    [
+        (["Closed", "Active"], 1),
+        (["Active", "Active"], 1),
+        (["Closed", "Resolved"], 0),
+        (["Resolved", "Resolved"], 0),
+        ([], 1),
+    ],
+)
+def test_overdue_project_depends_on_epics_not_finish(
+    inventory, states, expected
+):
+    from apps.portal.services.summary_eva_metrics import enrich
+
+    source = inventory.evaazuresource_set.get(azure_id="one")
+    block = source.evascopesnapshot_set.get(scope="S2")
+    rows = [block.row]
+    cut = date(2026, 6, 23)
+    items = [
+        {
+            "id": i,
+            "fields": {
+                "System.WorkItemType": "Epic",
+                "System.State": state,
+                "System.Title": "General_S2" if i == 0 else "Development_S2",
+                "System.IterationPath": "AMK.012\\General_S2\\Development_S2",
+            },
+        }
+        for i, state in enumerate(states)
+    ]
+    evidence = enrich(rows, source.payload["summary"], items, True, None, cut)
+    evidence["observed_date"] = cut.isoformat()
+    block.row = rows[0]
+    block.save()
+    source.payload["summary"]["eva_evidence"] = evidence
+    source.save()
+    view = load_inventory_eva(cut)["eva"]
+    assert view.total_projects == expected
+    if expected:
+        assert view.projects[0].project_id == "AMK.012_S2"
+        assert view.projects[0].end == "22/06/26"
+        assert view.projects[0].deviation_days == 1
+    assert inventory_rows(cut=cut)[1] == []
+
+
+def test_eva_excludes_other_services_without_changing_inventory(inventory):
+    source = inventory.evaazuresource_set.get(azure_id="one")
+    block = source.evascopesnapshot_set.get(scope="S2")
+    block.row["fields"]["service"] = "AER"
+    block.save()
+    assert load_inventory_eva(date(2026, 6, 1))["eva"].total_projects == 0
+    assert len(inventory_rows(cut=date(2026, 6, 1))[1]) == 1
+
+
+@pytest.mark.parametrize("excluded", ["AZR.001.PRUEBA", "CFC.001"])
+def test_explicitly_excluded_project_is_hidden(inventory, excluded):
+    source = inventory.evaazuresource_set.get(azure_id="one")
+    source.name = excluded
+    source.save()
+    assert load_inventory_eva(date(2026, 6, 1))["eva"].total_projects == 0
+    assert len(inventory_rows(cut=date(2026, 6, 1))[1]) == 1
+    source.name = "OTHER.PRUEBA"
+    source.save()
+    assert load_inventory_eva(date(2026, 6, 1))["eva"].total_projects == 1
+
+
+def test_operativa_card_loader_has_exact_current_eva1_ids(inventory):
+    from apps.portal.services.eva_loader import load_eva2
+
+    cut = date(2026, 6, 23)
+    with patch(
+        "apps.portal.services.eva_loader.timezone.localdate", return_value=cut
+    ):
+        expected = load_inventory_eva(cut)["eva"]
+        loaded = load_eva2(current=True)
+    assert not loaded.error
+    assert {p.project_id for p in loaded.view.projects} == {
+        p.project_id for p in expected.projects
+    }
+    assert loaded.view.total_projects == expected.total_projects
+    assert loaded.view.time_cost.cost_percent is None

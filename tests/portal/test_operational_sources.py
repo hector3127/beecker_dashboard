@@ -181,10 +181,20 @@ def test_tagged_hours_are_deduplicated():
         ) as loader,
     ):
         loader.return_value.load_project.return_value = [entry, entry]
-        assert tagged_investment(projects)["totals"] == {
+        result = tagged_investment(projects)
+        assert result["totals"] == {
             "operational": 3,
             "commercial": 3,
         }
+        assert len(result["records"]) == 2
+        assert {r["category"] for r in result["records"]} == {
+            "commercial",
+            "operational",
+        }
+        assert all(
+            r["resource"] == "Test" and r["project"] == "IXB.A"
+            for r in result["records"]
+        )
 
 
 def test_capacity_card_maps_the_team_summary():
@@ -353,3 +363,39 @@ def test_risks_use_azure_titles_and_dashboard_open_rows():
             {"ID_Proyecto": "B", "Riesgo": "Other risk", "Estado": "Abierto"},
         ]
         assert aer_open_risks(["A", "Z"]) == {"A": 1, "Z": 0}
+
+
+def test_both_investment_tags_are_preserved_in_monthly_graph(monkeypatch):
+    from datetime import datetime
+
+    cache.clear()
+    project = SimpleNamespace(
+        project_id="P", name="P", start="2026-01-01", end="2026-10-31"
+    )
+    entry = TimeEntry(
+        "dual",
+        "P",
+        "Ana",
+        datetime(2026, 10, 1),
+        3,
+        False,
+        0,
+        tags=(" inv_operativa ", "INV_COMERCIAL"),
+    )
+    monkeypatch.setattr(
+        "apps.portal.services.operational_sources.timezone.localdate",
+        lambda: date(2026, 10, 31),
+    )
+    with (
+        patch(
+            "apps.portal.services.operational_sources.build_sheet_repository"
+        ),
+        patch(
+            "apps.portal.services.operational_sources.build_clockify_loader"
+        ) as factory,
+    ):
+        factory.return_value.load_project.return_value = [entry, entry]
+        result = tagged_investment([project])
+    assert result["totals"] == {"operational": 3, "commercial": 3}
+    assert result["monthly"][-1]["operational"] == 3
+    assert result["monthly"][-1]["commercial"] == 3
