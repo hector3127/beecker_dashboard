@@ -55,8 +55,6 @@ def prepare_cost_context(
     )
     roster = read_roster_sheet(reader, "No se puede leer Bandas/rol")
     today = timezone.localdate()
-    if find_band_column(roster.headers, today.month, str(today.year)) < 0:
-        raise ValueError("Bandas/rol no tiene banda para el mes actual")
     rates = read_rate_by_band(reader.read_values("Master rates"))
     bands = {}
     for row in roster.data_rows:
@@ -149,14 +147,10 @@ def cached_project_cost(pid: Any) -> Any:
 
 
 def resolve_person_band(row: Any, headers: Any, rates: Any, today: Any) -> Any:
-    """Use current band; for Baja, recover the latest valid monthly band."""
+    """Use the latest priced band at or before the current month."""
     from apps.gse.services.cells import norm
 
     normalized_headers = [norm(header) for header in headers]
-    current = find_band_column(normalized_headers, today.month, str(today.year))
-    value = row[current] if 0 <= current < len(row) else ""
-    if str(value).strip().casefold() != "baja":
-        return value, headers[current] if 0 <= current < len(headers) else ""
     for month in range(today.month, 0, -1):
         column = find_band_column(normalized_headers, month, str(today.year))
         candidate = row[column] if 0 <= column < len(row) else ""

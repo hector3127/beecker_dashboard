@@ -5,6 +5,17 @@ funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus
 respuestas; la migración del frontend sí avanza.
 
+## Banda financiera anterior autorizada — 02/11/2026
+
+El usuario autoriza usar la banda más reciente anterior al mes actual cuando
+falta la columna o la banda de la persona. prepare_cost_context ya no exige
+la columna actual: resolve_person_band recorre meses desde el actual hacia
+enero, independientemente del orden de columnas, excluyendo Baja y bandas
+sin tarifa positiva. Se conserva el encabezado del mes usado. Sin banda
+válida permanece pendiente, no se inventa costo ni se toman meses futuros.
+Confirmado origen Bandas/rol con enero–octubre, sin noviembre; no se modifica
+Sheets. 23 pruebas dirigidas de costos/integración y Ruff aprobados. Sin push.
+
 ## Bloqueo de cortes derivados y estado de carga — 02/11/2026
 
 Corregido el guardado AzureHistoricalCut durante consultas EVA/Operativa:
