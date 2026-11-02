@@ -5,6 +5,25 @@ funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus
 respuestas; la migración del frontend sí avanza.
 
+## Integración autorizada de la copia del compañero — 02/11/2026
+
+Incorporados los servicios de capacidad Clockify/plantilla, acumulados de
+inversión por tags, gráficas comerciales, ajustes del inventario EVA 1 y
+mejoras del detalle de proyectos e IA. Conservados los cambios recientes
+de EVA4, cumplimiento C de KPIs y selector global. No se copian credenciales,
+bases ni dependencias; no se ejecutan sincronizaciones, migraciones o tareas.
+Cambios locales ajenos permanecen separados. Alcance, respaldo y límites:
+[detalle de integración](integracion-companero-2026-11-02.md).
+
+Validación: 471 Node; 73 archivos Python propios pasan Ruff y formato;
+mypy de pages.py y Django check/makemigrations --check aprobados. La primera
+corrida servidor tuvo 2,387 aprobadas de 2,392; cinco expectativas/fixtures
+antiguos adaptados a los contratos nuevos. Navegador inicial: 141 aprobadas,
+siete fallos diagnosticados de tamaño de texto, tarjetas móviles y enlace
+con mes; correcciones y repetición final documentadas en el detalle.
+Repetición final: 103 servidor dirigidas y 33 Chrome aprobadas (corridas con
+solapamiento). Commits 9f0c421 y 4a055d4. No se declara cerrada fase 11 ni se hace push.
+
 ## Fase 10 completada: arranque independiente (26/10/2026)
 
 ## Estado vigente de fase 11 (27/10/2026)
