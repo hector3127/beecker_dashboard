@@ -12,8 +12,10 @@ seguirá siendo la referencia funcional mientras se trasladan las pantallas.
 
 El usuario autorizó preparar y limpiar la versión estable del dashboard,
 documentar el plan y publicar sus cambios confirmados en `origin/main`.
-Todavía no se está implementando la integración en Genesis. El usuario
-levantó Genesis localmente con datos de demostración para conocerlo primero.
+El usuario levantó Genesis con datos de demostración y luego autorizó
+avanzar únicamente estructura visual y temas, mientras se definen destino
+de tablas y permisos. El bloque G04-V ya está en la rama local de Genesis,
+commit `e28ec5d`, sin backend ni conexión de datos.
 
 Este documento prevalece sobre notas históricas que describan Genesis como
 un repositorio todavía inaccesible o C de KPIs como sobrecosto. No sustituye
@@ -198,6 +200,7 @@ en curso, bloqueado, revisión, terminado. No confundir planificación con evide
 | G01 | Revisión de Genesis y arquitectura | Terminado, lectura | Revisión del 02/11 | — | Archivos y commit revisados descritos arriba |
 | G02 | Arranque local Genesis | Confirmado por usuario | Usuario | G01 | Pantalla local con seed_demo; no equivale a gate aprobado |
 | G03 | Definir permisos, destino DB y credenciales | Pendiente | Sin asignar | Equipo Genesis | Respuestas escritas, sin secretos en el documento |
+| G04-V | Estructura visual y temas en Genesis | Terminado | Preparación 02/11 | Autorización de estructura sin datos | e28ec5d; resumen y EVA1 visual, rutas privadas, filtros en URL, tres temas y cuatro anchos |
 | G04 | Piloto módulo y tabla EVA1 en React | Pendiente | Sin asignar | G00, G03 | Sesión, permisos, corte/filtros, cifras y error/reintento verificados |
 | G04-T | Diseño propio y adaptación al tema compartido | Pendiente | Sin asignar | G04 | Diseño claro conservado; oscuro/sistema legibles; tabla y gráfica piloto sin afectar filtros ni otros módulos |
 | G05 | PostgreSQL local e importación de muestra | Pendiente | Sin asignar | G03 | Integridad y conteos comparados; sin tablas ajenas sobrescritas |
@@ -219,15 +222,15 @@ Al finalizar cada turno, rellenar este bloque y actualizar la fila correspondien
 
 | Campo de traspaso | Valor actual |
 |---|---|
-| Bloque realizado | Referencia funcional G00 validada; limpieza y plan compartido listos para publicación autorizada |
-| Rama/repo | Dashboard main; Genesis sin implementación |
+| Bloque realizado | G04-V: estructura y tema visual, sin API/datos; G04 completo sigue pendiente |
+| Rama/repo | Genesis `Integracion_Dashboard_Management`, e28ec5d local sin push; Dashboard main como referencia |
 | Commit inicial de esta preparación | c68a256 |
 | Referencia de código / limpieza | 6b10ea0 / 412b6b3; documentación y publicación identificadas por el commit de este archivo |
-| Archivos/contratos modificados | Documentación, inventario y limpieza de archivos generados |
+| Archivos/contratos modificados | Rutas, menú y componentes React del módulo management; mapa de features y tracker `odd/tasks/dashboard-management.md` en Genesis |
 | Datos o migraciones aplicados | Ninguno en esta preparación |
-| Pruebas ejecutadas | Ver registro de validación al finalizar G00 |
+| Pruebas ejecutadas | Frontend Genesis gate: 562 pruebas y build; verify: tres rutas/documentación y build; Chrome: 16 estados visuales. G00 conserva su evidencia abajo |
 | Riesgos/bloqueos | Respuestas del equipo, CI legado G12 y cambios locales ajenos fuera de la publicación |
-| Siguiente paso | Asignar G03; no comenzar la integración sin acordar su alcance |
+| Siguiente paso | Confirmar G03 antes de implementar API/autorización de datos, modelos o importación. El tema ya funciona para la estructura; gráficas con datos quedan pendientes |
 
 ## Información que debe confirmar el equipo Genesis
 

@@ -5,7 +5,10 @@
 Decisión posterior del usuario: conservar el diseño propio de Dashboard
 Management y añadir modo oscuro mediante el tema compartido de Genesis.
 No sustituir nuestras pantallas por la apariencia de Lin u otros módulos.
-Alcance y aceptación en G04-T del plan compartido; todavía no implementado.
+Alcance y aceptación en G04-T del plan compartido. G04-V implementado en
+Genesis e28ec5d local: menú, resumen y EVA1 visual, temas claro/oscuro/sistema.
+Gate frontend (562 pruebas), verify y Chrome aprobados. Sin API, modelos,
+datos del dashboard ni push. G03 sigue pendiente antes de conectar datos.
 
 Plan compartido vigente: [plan-integracion-genesis.md](plan-integracion-genesis.md).
 Incluye arquitectura, datos, reglas, responsables por bloque, traspaso, accesos
