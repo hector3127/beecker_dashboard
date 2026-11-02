@@ -52,7 +52,6 @@ test("dictionary presentation retains every sentence and the original category",
 test("extracted models have no DOM, view or transport dependencies", () => {
   const names = [
     "eva1/account_column_model",
-    "eva1/history_table_model",
     "eva3/column_menu_model",
     "eva3/history_reference_model",
     "eva3/reference_model",
@@ -77,10 +76,9 @@ test("extracted models have no DOM, view or transport dependencies", () => {
   }
 });
 
-test("all 17 integration entries enable checking and keep reads on the API client", () => {
+test("all 16 integration entries enable checking and keep reads on the API client", () => {
   const names = [
     "eva1/account_column",
-    "eva1/history_table",
     "eva1/main",
     "eva1/model",
     "eva3/column_menu",

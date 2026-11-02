@@ -50,7 +50,7 @@ def test_history_keeps_current_fragment(client, monkeypatch, screen, previous):
         {"vista": "anterior"} if previous else {},
     )
     assert response.status_code == 200
-    template = "eva_closed" if screen == 1 else "eva3_closed"
+    template = "eva3_closed"
     assert f"partials/{template}.html" in {t.name for t in response.templates}
     assert "<table" in response.content.decode()
 
