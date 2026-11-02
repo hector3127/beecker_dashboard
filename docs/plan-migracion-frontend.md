@@ -1,5 +1,20 @@
 # Plan de migración del frontend
 
+## Preparación de versión estable e integración Genesis — 02/11/2026
+
+Plan compartido vigente: [plan-integracion-genesis.md](plan-integracion-genesis.md).
+Incluye arquitectura, datos, reglas, responsables por bloque, traspaso, accesos
+pendientes y criterios de aceptación. Inventario estático: 34 rutas de página
+y 100 rutas API en [inventario-integracion-genesis.md](inventario-integracion-genesis.md).
+Limpieza comprobada en [limpieza-pre-genesis-2026-11-02.md](limpieza-pre-genesis-2026-11-02.md).
+El usuario autoriza push del dashboard; no integración ni despliegue en Genesis
+durante esta preparación. La validación del SHA publicado se registra en G00.
+Validación aislada final: 2,947 servidor sin e2e, 482 Node y 176 Chrome
+seleccionadas; Ruff de aplicación, mypy pages.py, check y migraciones secas
+aprobados. Las pruebas no usan key.json. Deuda previa de lint/formato en tools
+y descubrimiento de módulos de mypy global documentada en G12; no se declara
+CI global ni fase 11 completos. Limpieza 412b6b3, correcciones 6b10ea0.
+
 Objetivo: HTML, CSS y JavaScript modular sobre Django, con el mismo
 funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus

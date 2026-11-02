@@ -1,5 +1,11 @@
 # KPIs de DM: reglas confirmadas el 27/10/2026
 
+Estado posterior vigente, 02/11/2026: las fórmulas de cumplimiento de abajo
+se conservan, pero el pipeline descrito al final es histórico. La página ya
+lee exclusivamente las tablas KPI mediante `kpi_dm_store`, con periodos y
+capturas propios. No llama a EVA/Azure/Clockify al consultar. Octubre está
+cerrado con captura 29/10. Ver kpis-dm-persistidos.md y el plan de Genesis.
+
 Solicitud del usuario: construir los KPIs a partir de EVA 1. Sustituye para
 esta pantalla las fórmulas anteriores de desviación media y consumo medio.
 No modifica los indicadores generales de Operativa ni de otros servicios.

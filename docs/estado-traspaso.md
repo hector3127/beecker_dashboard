@@ -1,5 +1,15 @@
 # Estado de traspaso de la migración (actualizado 27/10/2026)
 
+## Entrada actualizada 02/11/2026
+
+Para el trabajo compartido y la integración con Genesis, empezar por
+[plan-integracion-genesis.md](plan-integracion-genesis.md), el inventario y
+el registro de validación de G00. La información de abajo es histórica.
+Genesis ya tiene acceso, rama desde UAT y arranque local confirmado por el
+usuario; todavía no se implementa la integración. C de KPI es cumplimiento,
+octubre está cerrado y no se recalcula. No trasladar secretos, SQLite o datos
+demo a UAT. No tocar cambios locales ajenos. Publicar código no publica datos.
+
 Lee primero `AGENTS.md` y `docs/plan-migracion-frontend.md`.
 
 Corrección posterior a 91f48ed: EVA entrega estado inicial desde Django y

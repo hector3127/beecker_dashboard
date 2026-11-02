@@ -1,5 +1,12 @@
 # Beecker Dashboard (Django)
 
+Preparación para Genesis (02/11/2026):
+[plan compartido y traspaso](docs/plan-integracion-genesis.md),
+[inventario de páginas/API](docs/inventario-integracion-genesis.md) y
+[limpieza comprobada](docs/limpieza-pre-genesis-2026-11-02.md).
+La aplicación independiente sigue siendo la referencia; el módulo de Genesis
+todavía no está implementado. Código y datos se trasladan por procesos separados.
+
 Actualización del 15/10/2026: [funciones, compatibilidad y respaldo](docs/actualizacion-15-octubre-2026.md).
 
 Rendimiento: [reutilización de horas y actualización en segundo plano](docs/rendimiento-15-octubre-2026.md).

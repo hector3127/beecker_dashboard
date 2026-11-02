@@ -37,3 +37,9 @@ graphify-out/
 *.pkl
 *.jsonl
 *.xlsx
+
+# Salidas locales de inspeccion y auxiliares manuales; no son fuentes.
+/styles.json
+/logos.json
+/shots_tmp/
+/tests/e2e/test_zz_*.py

@@ -1,5 +1,23 @@
 # AGENTS.md — Migración del frontend de Beecker
 
+## Entrada vigente para preparar Genesis — 02/11/2026
+
+El usuario solicita una referencia estable del dashboard, limpieza comprobada,
+plan compartido y push de los cambios confirmados. Leer
+[`docs/plan-integracion-genesis.md`](docs/plan-integracion-genesis.md) y su
+inventario antes de continuar. Genesis ya fue clonado en
+`C:/Genesis/genesis`, rama `Integracion_Dashboard_Management` desde UAT;
+el usuario confirmó arranque local con datos demo. No se ha implementado allí
+el módulo del dashboard ni se ha autorizado desplegar UAT/producción.
+
+Estado funcional posterior: C de KPI DM es cumplimiento en todas sus vistas;
+octubre está cerrado con su captura local 29/10/2026 (TP9, T100%, C66.7%).
+El push no transporta esa base ni sus datos. Bandas financieras usa la última
+banda válida del mes actual o anteriores del mismo año. La limpieza excluye
+datos reales, secretos y cambios locales ajenos. Los bloques históricos de
+abajo no sustituyen estas decisiones. No declarar fase 11 cerrada por publicar
+la referencia; no borrar conectores o registro RPC con consumidores.
+
 Guía para continuar la migración con cualquier agente (Codex, Claude Code…). Lee esto y `docs/plan-migracion-frontend.md` antes de tocar nada.
 
 ## Objetivo

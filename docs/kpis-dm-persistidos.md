@@ -1,5 +1,17 @@
 # KPIs DM con almacenamiento propio — 29/10/2026
 
+## Estado vigente para Genesis — 02/11/2026
+
+Los párrafos de origen que hablan de sobrecosto o de transformar solo la
+gráfica son históricos. Desde el cambio aprobado del 30/10, tarjetas, tabla,
+históricos y tendencia muestran C de cumplimiento: conteo con avance <=100%
+dividido entre TP. La base conserva conteos de sobrecosto y desconocidos;
+`kpi_dm_store.observation_view` deriva el cumplimiento sin alterar capturas.
+La página lee DmKpiPeriod/Observation/Metric, no reconstruye EVA al consultar.
+Enero–octubre están cerrados; octubre conserva la captura del 29/10, TP9,
+T100%, C66.7%. La automatización sigue apagada. El cierre de octubre es un dato
+local: publicar código no lo transfiere. Ver plan-integracion-genesis.md.
+
 Por petición posterior, solo la gráfica transforma cada porcentaje C guardado
 en cumplimiento: 100 − sobrecosto. Nulos siguen nulos; no combina T. Tablas y
 tarjetas mantienen sobrecosto. Es el complemento del indicador vigente con
