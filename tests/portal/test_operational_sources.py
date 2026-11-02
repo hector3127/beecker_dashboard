@@ -197,7 +197,11 @@ def test_tagged_hours_are_deduplicated():
         )
 
 
-def test_capacity_card_maps_the_team_summary():
+def test_capacity_card_maps_the_team_summary(monkeypatch):
+    monkeypatch.setattr(
+        "apps.portal.services.operational_sources.build_sheet_repository",
+        lambda: object(),
+    )
     cache.clear()
     team = {
         "diasHabiles": 22,
@@ -268,7 +272,11 @@ def test_clockify_mpb_dates_use_full_eva_layout():
     assert result.end_date == date(2026, 10, 6)
 
 
-def test_capacity_card_reports_unreadable_sources():
+def test_capacity_card_reports_unreadable_sources(monkeypatch):
+    monkeypatch.setattr(
+        "apps.portal.services.operational_sources.build_sheet_repository",
+        lambda: object(),
+    )
     cache.clear()
     with patch(
         "apps.portal.services.operational_sources.build_team_capacity",

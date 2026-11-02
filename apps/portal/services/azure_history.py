@@ -245,8 +245,16 @@ def attach_history(
             row["business_status"] = "Completed"
 
 
-def _store_cut(feed, source, cut, metrics) -> None:
+def _store_cut(
+    feed: AzureHistoryFeed,
+    source: EvaAzureSource,
+    cut: date,
+    metrics: dict[str, Any],
+) -> None:
     """Store derived cache once; contention must not lose calculated results."""
+    through = feed.complete_through
+    if through is None:
+        raise ValueError("El corte requiere una cobertura histórica conocida.")
     try:
         # A savepoint keeps an enclosing transaction usable on cache failure.
         # An upsert avoids SQLite's deferred read-to-write lock upgrade.
@@ -257,7 +265,7 @@ def _store_cut(feed, source, cut, metrics) -> None:
                         feed=feed,
                         source=source,
                         cut=cut,
-                        feed_through=feed.complete_through,
+                        feed_through=through,
                         metrics=metrics,
                     )
                 ],
