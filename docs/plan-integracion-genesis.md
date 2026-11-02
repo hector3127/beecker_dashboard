@@ -48,7 +48,7 @@ incluyen por accidente. No usar `git add .` ni publicar una mezcla sin revisión
 | Datos | SQLite local y ORM con soporte PostgreSQL | PostgreSQL documentado en Azure; SQLite de desarrollo | Ensayar importación a PostgreSQL local antes de UAT |
 | Trabajos | Comandos de sync, candados DB y algunos hilos locales | Runner `Job` con lease y reintentos | Adaptar extracciones; no depender solo de memoria/hilos del proceso web |
 | IA | Adaptadores Claude propios | Proveedores centralizados en `ai_hub/llm/` | Usar esa frontera, preservar evidencia y medir tokens/tiempos |
-| Apariencia | Diseño actual aprobado, CSP | Layout, navegación y ThemeProvider claro/oscuro | Usar tokens de Genesis sin modificar las reglas del producto |
+| Apariencia | Diseño propio actual aprobado, CSP | Layout, navegación y ThemeProvider claro/oscuro/sistema | Conservar nuestro diseño y conectar sus variables visuales al tema compartido |
 
 Fuentes: `pyproject.toml`, `apps/portal/pages.py`, `apps/portal/api/`,
 `apps/access/providers.py` y `apps/portal/services/executive_refresh.py`;
@@ -60,6 +60,36 @@ El inventario estático completo de páginas y API está en
 [inventario-integracion-genesis.md](inventario-integracion-genesis.md).
 26 plantillas y 284 módulos JS fueron observados el 02/11; son una medida
 del alcance, no una equivalencia entre archivos y pantallas por reescribir.
+
+## Diseño propio y modo oscuro aprobado
+
+Instrucción del usuario posterior a la publicación inicial del plan:
+conservar el diseño de Dashboard Management y añadirle modo oscuro.
+Integrarse en Genesis no significa sustituir nuestras pantallas por el
+diseño del Dashboard, Lin u otros módulos de Genesis.
+
+- El diseño claro actual es la referencia: conservar organización, jerarquía,
+  tamaños, tipografía e identidad de tarjetas, tablas, filtros y gráficas.
+- Usar el selector y ThemeProvider de Genesis para claro, oscuro y sistema.
+  No crear otro selector ni una preferencia de tema independiente del usuario.
+- Definir variables visuales propias del módulo, enlazadas al tema compartido.
+  Adaptar fondos, superficies, texto, bordes, sombras y controles; conservar
+  los acentos de marca cuando sean legibles sobre cada fondo.
+- Mantener el significado de los colores de riesgo, cumplimiento, suspensión
+  y sobrecosto. Ajustar tonos/contraste cuando sea necesario, sin cambiar
+  categorías, umbrales o datos. Evitar una inversión global de colores.
+- Incluir gráficas, ejes, leyendas, tooltips, tablas, encabezados fijos,
+  formularios, diálogos y estados de carga, vacío, error, hover y foco.
+- Aislar estilos del módulo: no sobrescribir el tema ni componentes de Lin
+  o de otras pantallas. La navegación exterior sigue perteneciendo a Genesis.
+- Implementar el tema al adaptar cada pantalla a React. No se requiere añadir
+  primero modo oscuro a la aplicación independiente ni duplicar esa adaptación.
+
+Aceptación: el modo claro conserva el diseño aprobado; ambos modos resultan
+legibles y responsivos; el cambio de tema no reinicia filtros ni altera
+resultados, permisos o capturas. Verificar también el modo sistema y revisar
+exportaciones visuales para que mantengan su legibilidad. No cambiar contratos
+de CSV, cálculos o cierres por esta tarea.
 
 ## Fuentes e integraciones que siguen siendo necesarias
 
@@ -169,11 +199,12 @@ en curso, bloqueado, revisión, terminado. No confundir planificación con evide
 | G02 | Arranque local Genesis | Confirmado por usuario | Usuario | G01 | Pantalla local con seed_demo; no equivale a gate aprobado |
 | G03 | Definir permisos, destino DB y credenciales | Pendiente | Sin asignar | Equipo Genesis | Respuestas escritas, sin secretos en el documento |
 | G04 | Piloto módulo y tabla EVA1 en React | Pendiente | Sin asignar | G00, G03 | Sesión, permisos, corte/filtros, cifras y error/reintento verificados |
+| G04-T | Diseño propio y adaptación al tema compartido | Pendiente | Sin asignar | G04 | Diseño claro conservado; oscuro/sistema legibles; tabla y gráfica piloto sin afectar filtros ni otros módulos |
 | G05 | PostgreSQL local e importación de muestra | Pendiente | Sin asignar | G03 | Integridad y conteos comparados; sin tablas ajenas sobrescritas |
 | G06 | Extracciones y refrescos como trabajos | Pendiente | Sin asignar | G04, G05 | Reintento, idempotencia, lease, reinicio y tiempos |
-| G07 | EVA1/KPI DM y demás vistas operativas | Pendiente | Sin asignar | G04–G06 | Cortes/cierres, CSV, DMs globales, faltantes y carga móvil |
-| G08 | Business Overview/Comercial/Financiera | Pendiente | Sin asignar | G04–G06 | Cifras por periodo/cuenta, costos, permisos y estados parciales |
-| G09 | Detalle de proyecto y pestañas | Pendiente | Sin asignar | G04–G06 | Ejecutivo, Planeación, Esfuerzo, Recursos, RAID, Acciones, Cliente, Comunicación, Azure e IA por familia |
+| G07 | EVA1/KPI DM y demás vistas operativas | Pendiente | Sin asignar | G04–G06, G04-T | Cortes/cierres, CSV, DMs globales, faltantes y carga móvil en claro/oscuro |
+| G08 | Business Overview/Comercial/Financiera | Pendiente | Sin asignar | G04–G06, G04-T | Cifras por periodo/cuenta, costos, permisos y estados parciales con diseño propio y ambos temas |
+| G09 | Detalle de proyecto y pestañas | Pendiente | Sin asignar | G04–G06, G04-T | Ejecutivo, Planeación, Esfuerzo, Recursos, RAID, Acciones, Cliente, Comunicación, Azure e IA por familia, responsivas en ambos temas |
 | G10 | Importación completa y ensayo de UAT | Pendiente | Sin asignar | G05, G07–G09 | Cierres intactos, conciliación, capacidad, carga y reversión |
 | G11 | Gates Genesis y PR a UAT | Pendiente | Sin asignar | G10 | Gates sin bajar cobertura; revisores y evidencia |
 | G12 | Consolidar CI legado del dashboard | Pendiente | Sin asignar | Dueños de tools/scripts | Corregir alcance de módulos y herramientas sin relajar reglas |

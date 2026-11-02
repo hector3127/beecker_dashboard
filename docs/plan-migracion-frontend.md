@@ -2,6 +2,11 @@
 
 ## Preparación de versión estable e integración Genesis — 02/11/2026
 
+Decisión posterior del usuario: conservar el diseño propio de Dashboard
+Management y añadir modo oscuro mediante el tema compartido de Genesis.
+No sustituir nuestras pantallas por la apariencia de Lin u otros módulos.
+Alcance y aceptación en G04-T del plan compartido; todavía no implementado.
+
 Plan compartido vigente: [plan-integracion-genesis.md](plan-integracion-genesis.md).
 Incluye arquitectura, datos, reglas, responsables por bloque, traspaso, accesos
 pendientes y criterios de aceptación. Inventario estático: 34 rutas de página

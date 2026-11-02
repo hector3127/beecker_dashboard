@@ -185,6 +185,8 @@ Inventariadas 34 entradas path de página y 100 entradas path de API.
 - Usuario sin sesión, sin permiso, con alcance limitado y con permiso total.
 - Carga, resultado parcial, dato desconocido, error, reintento y respuestas tardías.
 - Escrituras con CSRF; sin efectos externos al probar contratos.
-- Responsivo y temas claro/oscuro usando el layout de Genesis.
+- Diseño propio aprobado conservado; responsivo en claro/oscuro y modo sistema,
+  usando el ThemeProvider y la navegación de Genesis. Sin selector duplicado
+  ni cambios en filtros/cifras al alternar el tema. Criterios en G04-T del plan.
 - Tiempos de lectura/actualización y trazabilidad de las fuentes.
 - Pruebas de negocio conservadas y gates de Genesis sin debilitar reglas.
