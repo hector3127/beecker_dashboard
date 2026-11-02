@@ -106,3 +106,20 @@ Ruff, Django check y makemigrations --check aprobados. Capturas reproducibles en
 `tmp/design/kpi-saved/saved-{1450,900,390}.png`; revisión móvil conserva
 tarjetas, panel global, tablas con desplazamiento y gráfica con puntos del
 único mes guardado. No se cambian fórmulas, permisos, CSP o conexión de base.
+
+
+## Cierre manual de octubre autorizado — 02/11/2026
+
+El usuario solicita conservar las cifras actuales al comenzar noviembre.
+Cerrado únicamente DmKpiPeriod 2026-10, manteniendo latest_observation al
+29/10/2026 (último lunes–jueves). No se recalcula ni se importa información
+Azure/Clockify: las dos filas métricas permanecen idénticas. Alberto TP7,
+en tiempo7, sobrecosto3; Brandon TP2, en tiempo2, sobrecosto0. Con el criterio
+actual C de cumplimiento: total TP9, T100%, C66.7%. Histórico verificado
+partial=False; octubre deja de llevar asterisco de provisional.
+
+Respaldo SQLite consistente previo:
+`tmp/backups/before-kpi-october-close-20261102T190117712312.sqlite3`.
+Solo status/closed_at/updated_at cambian en octubre. capture_current_month
+rechaza periodos no abiertos; noviembre permanece independiente. No se
+activan automatizaciones ni cierres EVA; enero–septiembre no se modifican.

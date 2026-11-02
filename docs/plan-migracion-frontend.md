@@ -5,6 +5,13 @@ funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus
 respuestas; la migración del frontend sí avanza.
 
+## Octubre KPI cerrado por autorización — 02/11/2026
+
+Cerrado solo el periodo KPI de octubre con su captura existente 29/10/2026.
+Respaldo consistente previo, dos filas verificadas sin alteraciones: TP9,
+T100%, C cumplimiento66.7%. Histórico devuelve partial=False. Sin recalcular
+fuentes, tocar EVA o activar automatización. Evidencia en kpis-dm-persistidos.
+
 ## Banda financiera anterior autorizada — 02/11/2026
 
 El usuario autoriza usar la banda más reciente anterior al mes actual cuando
