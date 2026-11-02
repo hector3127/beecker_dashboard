@@ -1,321 +1,242 @@
 # Plan de integración de Dashboard Management en Genesis
 
-Actualizado: 02/11/2026. Documento de entrada y traspaso entre desarrolladores.
-Describe el estado observado y el trabajo pendiente; no autoriza despliegues,
-cambios de reglas de negocio ni uso de datos de producción.
+Actualizado: 02/11/2026. **Documento de entrada y traspaso.** Quien continúe el
+trabajo empieza aquí: lee «Cómo usar este documento», revisa el registro de
+traspaso al final y toma la siguiente tarea libre de la tabla de fases.
 
-## Objetivo y alcance actual
+No autoriza despliegues, cambios de reglas de negocio, uso de datos de
+producción ni push sin petición expresa del usuario.
 
-Integrar Dashboard Management como módulo de Genesis conservando cifras,
-filtros, exportaciones, permisos y trazabilidad. La aplicación independiente
-seguirá siendo la referencia funcional mientras se trasladan las pantallas.
+## 1. Cómo usar este documento
 
-El usuario autorizó preparar y limpiar la versión estable del dashboard,
-documentar el plan y publicar sus cambios confirmados en `origin/main`.
-El usuario levantó Genesis con datos de demostración y luego autorizó
-avanzar únicamente estructura visual y temas, mientras se definen destino
-de tablas y permisos. El bloque G04-V ya está en la rama local de Genesis,
-commit `e28ec5d`, sin backend ni conexión de datos.
+1. Lee las secciones 2 a 5 una vez: estado, decisiones, normas de Genesis y brechas.
+2. Revisa la sección 6: qué preguntas siguen abiertas y qué bloquean.
+3. Toma una tarea de la sección 7 cuyo estado sea `pendiente` y cuyas
+   dependencias estén `terminado`. Anota tu nombre y ponla `en curso`.
+4. Al terminar, cambia el estado, deja la evidencia (comando y resultado) y
+   llena una fila del registro de traspaso (sección 12).
+5. Si algo de este documento contradice al código, manda el código: corrige
+   el documento en el mismo commit.
 
-Este documento prevalece sobre notas históricas que describan Genesis como
-un repositorio todavía inaccesible o C de KPIs como sobrecosto. No sustituye
-los AGENTS.md de cada repositorio ni cambia fórmulas aprobadas.
+Estados válidos: `pendiente`, `en curso`, `bloqueado`, `revisión`, `terminado`.
+No marcar `terminado` sin la evidencia que pide la tarea.
 
-## Repositorios y flujo de trabajo
+## 2. Estado al 02/11/2026
 
-| Repositorio | Ruta local observada | Rama | Regla |
-|---|---|---|---|
-| Dashboard Management | `C:/beecker_dashboard` | `main` | Commits pequeños; push solo autorizado por usuario |
-| Genesis | `C:/Genesis/genesis` | `Integracion_Dashboard_Management` | Rama creada desde UAT según Talin; PR hacia UAT |
+| Tema | Estado comprobado |
+|---|---|
+| Dashboard | `C:/beecker_dashboard`, rama `main`. Referencia funcional estable; limpieza de plantillas/JS sin uso en `4ef6d75` y `5b3d7f5` |
+| Pruebas del dashboard | Node 473, servidor 1937 (`tests/portal tests/core tests/access`), e2e 742 en la corrida completa previa al último borrado |
+| Genesis | `C:/Genesis/genesis`, rama local `Integracion_Dashboard_Management` en `70299ea`; **6 commits detrás de `origin/UAT`** (`76d82b8`) |
+| Trabajo previo en Genesis | El commit visual `e28ec5d` (estructura y temas sin datos) lo retiró el usuario con un reset. Solo existe en el reflog local; **no recuperarlo**. La estructura se rehace en G2/G3 |
+| Base local de Genesis | `Genesis/db.sqlite3` es solo de desarrollo y está atrasado (37 migraciones de `lin` pendientes). No es referencia de esquema (confirmado por Ulises) |
+| Fuente de verdad del esquema Genesis | Sus migraciones (`ai_hub/migrations/`, `lin/migrations/`) y la PostgreSQL de UAT en solo lectura |
+| Preguntas al equipo Genesis | Enviadas a Ulises el 02/11. Ver sección 6 |
 
-Genesis se revisó en el commit `70299ea`. Antes de implementar se deben leer
-sus `AGENTS.md`, `GOLDEN_PATH.md`, `docs/sdd.md` y `AZURE.md` y comprobar la
-rama nuevamente. Su guía general menciona `features`; la reunión autorizó
-la rama específica desde UAT. Confirmar con el equipo la política del PR.
-Revisores indicados en la reunión: Talin y Ulises/Martín. No hacer push
-directo a UAT/main de Genesis ni desplegar producción.
+## 3. Decisiones de arquitectura
 
-Los cambios locales de otro desarrollador no se revierten, reformatean ni
-incluyen por accidente. No usar `git add .` ni publicar una mezcla sin revisión.
+Las marcadas *propuesta* se registran como ADR en Genesis (G2) y pasan por revisión del equipo.
 
-## Arquitectura comprobada
-
-| Tema | Dashboard actual | Genesis | Trabajo necesario |
-|---|---|---|---|
-| Backend | Django 5.2.3, DRF 3.16.0, Python 3.12 | Mismas versiones de Django/DRF; Python 3.12 | Reutilizar servicios con adaptadores de configuración y errores |
-| Frontend | Plantillas Django y módulos JS, sin compilación | React/Vite, Tailwind, Recharts, React Router | Adaptar vistas y eventos; conservar modelos puros de cálculo cuando proceda |
-| HTTP | Cliente `apiGet` y `/api/v1/` | `frontend/src/services/apiClient.js`, sesión y CSRF | Servicio propio de módulo usando el cliente de Genesis |
-| Módulos | 14 apps; servicios de dominio en apps/core | `ai_hub` y `lin` como apps separadas | Acordar paquete propio y prefijos, sin pegar otro proyecto settings/urls completo |
-| Usuarios | Proveedor de capacidades y alcance intercambiable | Usuarios Django y roles específicos de Lin | Mapeo explícito; autenticación no equivale a autorización financiera |
-| Datos | SQLite local y ORM con soporte PostgreSQL | PostgreSQL documentado en Azure; SQLite de desarrollo | Ensayar importación a PostgreSQL local antes de UAT |
-| Trabajos | Comandos de sync, candados DB y algunos hilos locales | Runner `Job` con lease y reintentos | Adaptar extracciones; no depender solo de memoria/hilos del proceso web |
-| IA | Adaptadores Claude propios | Proveedores centralizados en `ai_hub/llm/` | Usar esa frontera, preservar evidencia y medir tokens/tiempos |
-| Apariencia | Diseño propio actual aprobado, CSP | Layout, navegación y ThemeProvider claro/oscuro/sistema | Conservar nuestro diseño y conectar sus variables visuales al tema compartido |
-
-Fuentes: `pyproject.toml`, `apps/portal/pages.py`, `apps/portal/api/`,
-`apps/access/providers.py` y `apps/portal/services/executive_refresh.py`;
-en Genesis, `Genesis/Genesis/urls.py`, `Genesis/Genesis/settings.py`,
-`frontend/src/routes/LayoutRoutes.jsx`, `frontend/src/services/apiClient.js`,
-`frontend/src/context/ThemeContext.jsx` y `Genesis/ai_hub/jobs/`.
-
-El inventario estático completo de páginas y API está en
-[inventario-integracion-genesis.md](inventario-integracion-genesis.md).
-26 plantillas y 284 módulos JS fueron observados el 02/11; son una medida
-del alcance, no una equivalencia entre archivos y pantallas por reescribir.
-
-## Diseño propio y modo oscuro aprobado
-
-Instrucción del usuario posterior a la publicación inicial del plan:
-conservar el diseño de Dashboard Management y añadirle modo oscuro.
-Integrarse en Genesis no significa sustituir nuestras pantallas por el
-diseño del Dashboard, Lin u otros módulos de Genesis.
-
-- El diseño claro actual es la referencia: conservar organización, jerarquía,
-  tamaños, tipografía e identidad de tarjetas, tablas, filtros y gráficas.
-- Usar el selector y ThemeProvider de Genesis para claro, oscuro y sistema.
-  No crear otro selector ni una preferencia de tema independiente del usuario.
-- Definir variables visuales propias del módulo, enlazadas al tema compartido.
-  Adaptar fondos, superficies, texto, bordes, sombras y controles; conservar
-  los acentos de marca cuando sean legibles sobre cada fondo.
-- Mantener el significado de los colores de riesgo, cumplimiento, suspensión
-  y sobrecosto. Ajustar tonos/contraste cuando sea necesario, sin cambiar
-  categorías, umbrales o datos. Evitar una inversión global de colores.
-- Incluir gráficas, ejes, leyendas, tooltips, tablas, encabezados fijos,
-  formularios, diálogos y estados de carga, vacío, error, hover y foco.
-- Aislar estilos del módulo: no sobrescribir el tema ni componentes de Lin
-  o de otras pantallas. La navegación exterior sigue perteneciendo a Genesis.
-- Implementar el tema al adaptar cada pantalla a React. No se requiere añadir
-  primero modo oscuro a la aplicación independiente ni duplicar esa adaptación.
-
-Aceptación: el modo claro conserva el diseño aprobado; ambos modos resultan
-legibles y responsivos; el cambio de tema no reinicia filtros ni altera
-resultados, permisos o capturas. Verificar también el modo sistema y revisar
-exportaciones visuales para que mantengan su legibilidad. No cambiar contratos
-de CSV, cálculos o cierres por esta tarea.
-
-## Fuentes e integraciones que siguen siendo necesarias
-
-| Integración | Uso vigente | Tratamiento para Genesis |
+| # | Decisión | Estado |
 |---|---|---|
-| Azure DevOps | Summary, S#/CR#, iteraciones, WI, riesgos, revisiones históricas | Conservar descarga/persistencia y contrato de IDs; configurar acceso de servicio |
-| Clockify | Horas facturables/no facturables, tareas/tags, catálogos y control mensual | Conservar sync incremental e IDs; lectura local donde exista cobertura |
-| Google Sheets | DataRevenue, bandas/tarifas, MPB, ROC y otros datos de módulos no sustituidos | Sigue siendo fuente; no borrar SDK ni hojas por haber migrado EVA1 |
-| Google Drive | Archivos/carpetas/minutas en pestañas IA | Adaptar credenciales y almacenamiento solo al integrar esas funciones |
-| Gmail | Funciones de correo vigentes | Conservar; pruebas sin envíos a destinatarios reales |
-| Proveedor IA | Análisis, preguntas y sugerencias | Adaptador al proveedor de Genesis; no cambiar prompts ni modelos sin validación |
-| Registro RPC interno | Funciones de dominio registradas y `warm_cache` | Conservar mientras haya consumidores; transporte HTTP de pruebas no se publica |
+| A1 | Dashboard Management es **un módulo dentro de Genesis**, no un sistema externo. No lee ni escribe tablas de `ai_hub` ni `lin`; usa usuarios y sesión de Genesis | Comunicada a Ulises |
+| A2 | Una sola app Django nueva `dashboard_management` en `Genesis/dashboard_management/`, como Lin (ADR 0026). Tablas `dashboard_management_*` en la misma base | *propuesta* |
+| A3 | Las 15 apps actuales (`apps/*`, `core/`) se consolidan en subpaquetes de esa app. Migraciones nuevas desde cero; no se copian las 18 actuales | *propuesta* |
+| A4 | API bajo `/api/management/`; SPA bajo `/management/...`. Evita chocar con «Dashboard» (`/`) y «Proyectos» (`/proyectos`) de Genesis | *propuesta* |
+| A5 | Pantallas reescritas en React dentro de `frontend/src/components/views/management/`. Los cálculos puros de nuestros `model.js` se portan casi tal cual; el render se rehace | *propuesta* |
+| A6 | Servicio de frontend `frontend/src/services/managementService.js` sobre `apiClient.js` (sesión, CSRF, `ApiError`) | *propuesta* |
+| A7 | Las sincronizaciones (Clockify, Azure DevOps, Sheets, extracción EVA, KPI DM) pasan a **tipos de job** del runner de Genesis (`ai_hub/jobs/`). Los periódicos se reencolan solos con su próxima fecha. Sin hilos en el proceso web | *propuesta* |
+| A8 | La caché en archivos (`.cache`) se sustituye por tablas precalculadas propias, creadas con migraciones (el disco del App Service es efímero y hay varios workers) | *propuesta* |
+| A9 | El histórico se carga con un comando de importación desde un export verificable, no con una migración ni copiando el SQLite | *propuesta* |
+| A10 | Piloto: **KPI DM**. Datos pequeños y ya persistidos (10 periodos, 43 métricas), sin llamadas externas al consultar | *propuesta* |
+| A11 | IA: cuando se porten las pestañas de IA, pasar por `ai_hub/llm/`. El proveedor es global (`LLM_PROVIDER`, Gemini); no cambiarlo para el módulo sin acuerdo | Diferido al final |
+| A12 | Bandas de costo y tarifas (Sheets) **no** se mezclan con las bandas de carrera de Lin (A1/B2 por puesto) | Firme |
 
-El módulo nuevo debe distinguir lecturas locales de refrescos externos.
-No prometer funcionamiento completamente offline: hay rutas y operaciones
-que todavía consultan o escriben en fuentes. Inventariar cada endpoint antes
-de cambiar su mecanismo de carga.
+## 4. Normas de Genesis que aplican al módulo
 
-## Datos actuales y destino
+Fuente: `AGENTS.md`, `GOLDEN_PATH.md`, `docs/sdd.md`, `docs/norma/` de Genesis. Checklist para cada PR:
 
-Medición de solo lectura, 02/11/2026. SQLite del dashboard:
-`C:/beecker_dashboard/db.sqlite3`, aproximadamente 4.22 GB. Hay 31 tablas
-propias datastore/portal, además de tablas administrativas Django.
+- [ ] **Cero comentarios** en Python y JS propios (lo exige `ai_hub/tests/test_layout.py` y la regla `no-comments` de ESLint). Docstrings y JSDoc solo para API pública.
+- [ ] **Cero supresiones**: ni `noqa`, `type: ignore`, `eslint-disable`, `pragma` ni `fmt: off`.
+- [ ] `mypy --strict` sobre la app completa (agregarla a `Genesis/Makefile` y a `pyproject.toml`).
+- [ ] Cobertura del backend ≥ 80 % combinado (`fail_under`); el piso del frontend no baja.
+- [ ] Ruff con las reglas de Genesis (`E F I UP B SIM C4 RUF RET PIE ASYNC T20 DJ`); sin `print`.
+- [ ] Logs con `logging.getLogger(__name__)`, evento como mensaje y datos en `extra`; errores al cliente con `error_id` (`exception_handler.py`).
+- [ ] Llamadas externas envueltas en `medir_operacion`.
+- [ ] Cada endpoint en `docs/reference/openapi.yaml` (regenerar con `scripts/generar-openapi.sh`; `make verify` lo compara).
+- [ ] Cada ruta del SPA en `frontend/docs/reference/mapa-de-features.md` (`pnpm verify` lo compara).
+- [ ] Migraciones compatibles con el código anterior (el pipeline migra antes de repuntar).
+- [ ] Permiso explícito en cada vista (el default de DRF en Genesis es `AllowAny`).
+- [ ] Tests herméticos con `--disable-socket`; lo que use locks o `skip_locked`, probado con el marcador `postgres`.
+- [ ] Conventional Commits, un concern por commit, tests y documentación en el mismo commit.
+- [ ] Dependencias nuevas solo con `uv add` / `pnpm add` y lockfile actualizado.
+- [ ] Gates mostrados: `make gate`, `make verify`, `pnpm gate`, `pnpm verify`. Nunca afirmar verde sin correrlos.
 
-| Grupo | Datos observados |
+Comandos:
+
+```bash
+cd /c/Genesis/genesis/Genesis && uv sync --locked && uv run python manage.py migrate
+make -C /c/Genesis/genesis/Genesis gate
+make -C /c/Genesis/genesis/Genesis verify
+cd /c/Genesis/genesis/frontend && pnpm gate && pnpm verify
+```
+
+## 5. Brechas del dashboard frente a Genesis
+
+| Tema | Dashboard hoy | Trabajo |
+|---|---|---|
+| Tamaño | 15 apps, ~77 mil líneas Python, 285 módulos JS | Consolidar en una app (A2/A3) |
+| Comentarios y supresiones | 366 líneas `#`, 49 `noqa`/`type: ignore`, 507 líneas `//` en JS | Quitar al portar; el porqué va a nombres, tests o docs |
+| Tipado | `mypy` estricto solo en `apps/portal/pages.py` | Tipar estricto lo que se porte (D4) |
+| Frontend | Plantillas Django + módulos JS sin compilación, CSP con nonce | React/JSX con Tailwind y Recharts (A5). La CSP la da el Static Web App, no Django |
+| Rutas | `/`, `/proyectos/`, `/operativa/`… | Prefijo `/management` (A4) |
+| API | 100 endpoints `/api/v1/` con `{data, meta}` | Documentarlos en OpenAPI; mantener contrato |
+| Caché | Archivos en `.cache` | Tablas precalculadas (A8) |
+| Trabajo largo | Extracción EVA ~68 s; hilos en `apps/portal/services/executive_refresh.py`, `core/utils/parallel.py`, `apps/gmail/services/thread_finder.py` | Jobs del runner (A7). `GUNICORN_TIMEOUT` es 60 s |
+| Usuarios y permisos | `apps/access` (capacidades y alcance) | Mapear a grupos de Django o roles de Lin (pregunta P1) |
+| Credenciales | `.env`, `key.json`, PAT personal, OAuth de Gmail | Cuentas de servicio en app settings (pregunta P3) |
+| Dependencias | `google-api-python-client`, `google-auth`, `Pillow` no están en Genesis | `uv add` con aprobación del equipo |
+| Datos | SQLite ~4.22 GB | Export + import verificado (A9, D3, G7) |
+
+## 6. Preguntas abiertas y bloqueos
+
+Enviadas a Ulises (infraestructura) el 02/11. La de permisos va a quien defina el negocio.
+
+| ID | Pregunta | Bloquea | Respuesta |
+|---|---|---|---|
+| P1 | Quién ve finanzas, todo el portafolio o solo sus proyectos; roles de Lin o grupos nuevos; cómo ligar usuario de Genesis con nombre de DM en Azure | G5 (permisos reales), G9 | Pendiente |
+| P2 | ¿~5 GB por entorno en `psql-flx-genesis` (B1ms compartido) o subir de tier? ¿Quién carga el histórico en UAT/PROD y en qué ventana? | G10 | Pendiente |
+| P3 | Quién crea cuentas de servicio de Azure DevOps, Clockify y Google, y quién las carga como app settings en UAT/PROD | G8 | Pendiente |
+| P4 | Lectura sobre `rg-genesis` y rol PostgreSQL de solo lectura en `genesis_uat_db` | Validar esquema real y app settings (no bloquea el trabajo local) | Pendiente |
+
+Ya respondido por el código o por Ulises (no volver a preguntar):
+
+- La base local de Genesis no es referencia; mandan las migraciones y UAT.
+- UAT tiene `RUN_JOBS_WORKER=true` y `JOBS_RUNNERS=2`; el runner admite reprogramar un job.
+- No hay VNet ni restricción de salida en el App Service.
+- Los secretos van como app settings (sin Key Vault).
+- Existe Blob (`media`, `media-uat`) para archivos como logos.
+- La base de Genesis es pequeña (respaldo PROD de 22.4 MB en septiembre).
+
+## 7. Fases y tareas
+
+Las tareas D se hacen en el dashboard y las G en Genesis (rama local, sin push hasta que el usuario lo pida).
+
+### Fase 1 — Preparar el dashboard (no bloqueada)
+
+| ID | Tarea | Depende | Estado | Responsable | Terminado cuando |
+|---|---|---|---|---|---|
+| D1 | **Congelar contratos de API**: por cada endpoint del piloto y de cada bloque, guardar respuesta JSON con datos fijos (`tests/contracts/<pantalla>/*.json`) y un test que la compare | — | pendiente | — | Test pasa; una alteración deliberada lo rompe |
+| D2 | **Separar servicios puros**: que los cálculos de cada pantalla se llamen sin request, caché ni vistas (entrada → salida tipada) | — | pendiente | — | Tests de servicio sin cliente HTTP; cifras iguales a D1 |
+| D3 | **Comando de exportación** `export_for_genesis`: tablas propias a JSONL por tabla, con conteos y SHA-256 en un manifiesto | — | pendiente | — | Export de la base local; manifiesto reproducible; sin secretos ni usuarios |
+| D4 | **Tipado estricto y sin supresiones** en los servicios que se portan (empezar por KPI DM) | D2 | pendiente | — | `mypy --strict` y `ruff` limpios en esos módulos |
+| D5 | **Sincronizaciones como funciones idempotentes** sin hilos: `sync(rango, cursor) -> resultado` reutilizable por un handler de job | D2 | pendiente | — | Tests de reintento e idempotencia; sin `threading` en la ruta |
+| D6 | **Inventario de colores** por pantalla (literales de `pages/*.css`) → lista de tokens del módulo para claro y oscuro | — | pendiente | — | Tabla en `docs/diseno-modo-oscuro.md` con token, uso y valor claro |
+
+### Fase 2 — Esqueleto en Genesis (no bloqueada, local)
+
+| ID | Tarea | Depende | Estado | Responsable | Terminado cuando |
+|---|---|---|---|---|---|
+| G1 | Sincronizar la rama local con `origin/UAT`; `uv sync --locked`, `migrate`, `pnpm install --frozen-lockfile` | — | pendiente | — | Rama al día; Genesis arranca con base local migrada |
+| G2 | App `dashboard_management`: `apps.py`, `urls.py` en `/api/management/`, `INSTALLED_APPS`, Makefile/pyproject (mypy, cobertura), ADR nuevo, fila en `structure-deviations.md`, endpoint `ping` con permiso de sesión | G1 | pendiente | — | `make gate` y `make verify` en verde |
+| G3 | Módulo SPA: ruta `/management` con `PrivateRoute`, ítem en `navigation.js`, layout propio, tokens del módulo claro/oscuro enlazados a `theme.css`, mapa de features | G1, D6 | pendiente | — | `pnpm gate` y `pnpm verify` en verde; los tres temas (claro, oscuro, sistema) visibles |
+| G4 | Servicio `managementService.js` sobre `apiClient.js` y manejo de carga, vacío, error con `error_id` y reintento | G3 | pendiente | — | Tests Vitest del servicio y de los estados |
+
+### Fase 3 — Piloto KPI DM
+
+| ID | Tarea | Depende | Estado | Responsable | Terminado cuando |
+|---|---|---|---|---|---|
+| G5 | Modelos `DmKpiPeriod/Observation/Metric` en la app, comando de importación desde D3 y endpoint de lectura con el mismo contrato que D1 | G2, D1, D3, D4 | pendiente | — | Conteos y cifras iguales al dashboard; cobertura ≥ 80 % del módulo |
+| G6 | Pantalla KPI DM en React: año único, mes, multiselección de DMs, tablas, tendencia y glosario; claro y oscuro | G4, G5 | pendiente | — | Mismas cifras que el dashboard; filtros en URL; cuatro anchos; tema no reinicia filtros |
+| G6b | Permisos reales del piloto | G6, P1 | bloqueado | — | Pruebas sin sesión, sin permiso y con permiso |
+
+### Fase 4 — Fuentes y trabajos
+
+| ID | Tarea | Depende | Estado | Responsable | Terminado cuando |
+|---|---|---|---|---|---|
+| G7 | Modelos de datos base (clientes, personas, proyectos, Clockify, Azure) e importación por lotes desde D3 | G5 | pendiente | — | Integridad referencial, conteos y horas por mes/proyecto iguales |
+| G8 | Tipos de job de sync (Clockify, Azure DevOps, Sheets) con D5, reencolado periódico y candados | G7, D5, P3 | bloqueado | — | Reintento, idempotencia, lease y reinicio probados con marcador `postgres` |
+
+### Fase 5 — Resto de pantallas
+
+Orden recomendado; cada bloque repite: contrato D1 → servicio portado → endpoint → pantalla React → ambos temas → evidencia.
+
+| ID | Bloque | Depende | Estado |
+|---|---|---|---|
+| G9 | EVA1 y Summary (inventario, cortes, iteraciones) | G7, G8 | pendiente |
+| G10a | Operativa, capacidad, facturabilidad, inversión | G7 | pendiente |
+| G10b | EVA2/EVA3/EVA4 | G7 | pendiente |
+| G10c | Business Overview, financiera, costos, márgenes, comercial | G7, G8, P1 | pendiente |
+| G10d | Cuenta y Horas por mes (CSV, regreso a cuenta) | G7 | pendiente |
+| G10e | Detalle de proyecto y pestañas (AER/IXS, RAID, Azure, recursos) | G7, G8 | pendiente |
+| G10f | Pestañas de IA vía `ai_hub/llm` | G10e, A11 | pendiente |
+
+### Fase 6 — UAT
+
+| ID | Tarea | Depende | Estado |
+|---|---|---|---|
+| G11 | Importación completa en UAT con respaldo y reversión; cierres KPI intactos | G9–G10, P2 | bloqueado |
+| G12 | PR de `Integracion_Dashboard_Management` a UAT con gates y evidencia; revisores Talin y Ulises | G11 | pendiente |
+
+## 8. Diseño y modo oscuro
+
+Cómo funciona en Genesis: `ThemeProvider` (`frontend/src/context/ThemeContext.jsx`) guarda `light`, `dark` o `system` en `genesis-theme`, pone la clase `.dark` y `data-theme` en `<html>`, y `frontend/src/styles/theme.css` define las variables (`--background`, `--surface`, `--foreground`, `--border`, `--primary`, `--chart-1..5`…) para `:root` y `.dark`, expuestas a Tailwind con `@custom-variant dark`.
+
+Reglas del módulo:
+
+- El diseño claro actual del dashboard es la referencia: organización, jerarquía, tamaños, tarjetas, tablas, filtros y gráficas.
+- Usar el `ThemeToggle` y el `ThemeProvider` de Genesis. No crear otro selector ni otra preferencia.
+- Tokens propios con prefijo `--mg-*`, definidos bajo la clase raíz del módulo y redefinidos bajo `.dark`. Donde el significado coincide, apuntan a los de Genesis (`--mg-surface: var(--surface)`).
+- Conservar el significado de los colores de riesgo, cumplimiento, suspensión y sobrecosto; ajustar solo el tono para contraste. No invertir colores en bloque.
+- Cubrir gráficas (ejes, leyendas, tooltips), tablas con encabezado fijo, formularios, diálogos y estados de carga, vacío, error, hover y foco.
+- Estilos aislados en el módulo: no tocar el tema ni los componentes de Lin u otras pantallas.
+- No hace falta agregar modo oscuro al dashboard independiente: se hace al portar cada pantalla.
+
+Aceptación por pantalla: claro igual al diseño aprobado; oscuro y sistema legibles (contraste AA en texto); cambiar de tema no reinicia filtros ni cambia cifras; cuatro anchos (1450, 1000, 768, 390) sin desborde horizontal.
+
+## 9. Reglas funcionales que se conservan
+
+- EVA1 activo usa inventario Summary Azure/Clockify local, con bloques S#/CR# independientes. Fechas desde iteraciones; Finish usa la última etapa fechada.
+- Etapas activas por rango inclusivo al corte. Suspendido solo con evidencia Azure explícita (RSP activo o RCP con situación Suspended); nunca inferirlo de huecos.
+- Burn: horas facturables atribuidas al bloque. ETC = Budget − Burn; Desv. Hrs = min(ETC, 0); avance = Burn / Budget × 100 con faltantes explícitos.
+- Horas sin tarea/tag de alcance: una sola vez al bloque que inició primero entre los elegibles; empate pendiente; nota visible.
+- T de EVA1/KPI: desviación ≤ 0 / TP. **C de KPI DM es cumplimiento** (avance ≤ 100 / TP). Las tarjetas EVA conservan su propia regla; verificar el contrato de cada C.
+- KPI DM lee sus tablas, no recalcula al consultar. Enero–septiembre 2026 importados del reporte aprobado; octubre cerrado con la captura del 29/10 (TP 9, T 100 %, C 66.7 %). No reconstruir esos meses con Azure actual.
+- Automatización KPI y cierres EVA siguen desactivados hasta acordarlo en Genesis.
+- EVA4 excluye AER; paquete no aplicable es N/A, nunca horas inventadas.
+- Bandas financieras: si falta la del mes, la última válida con tarifa positiva de meses anteriores del mismo año; sin banda válida queda pendiente.
+- Capacidad: base = personas × días hábiles × jornada; concepto por ID en Azure/MPB (Proyecto), nomenclatura NYB (Interno) o nombre de Clockify.
+- Conservar Horas por mes, exportaciones CSV, regreso a cuenta y alcance limitado.
+
+Detalle: [EVA vigente](eva-inventario-activo.md), [histórico Azure](historico-azure.md), [fuentes persistentes](fuentes-persistentes.md), [KPIs persistidos](kpis-dm-persistidos.md), [reglas KPI](kpis-dm-reglas.md), [inventario de páginas y API](inventario-integracion-genesis.md).
+
+## 10. Datos y fuentes
+
+Medición de solo lectura del 02/11/2026 en `C:/beecker_dashboard/db.sqlite3` (~4.22 GB; 31 tablas propias):
+
+| Grupo | Datos |
 |---|---|
 | Catálogos | 250 clientes, 293 personas, 1,614 proyectos |
-| Clockify | 536,344 entradas; 28 registros mensuales entre 2024-08 y 2026-11 |
-| Azure | 451 proyectos, 227,782 WI y 781,913 revisiones |
-| Sheets | 14 copias locales de hojas |
-| Extracciones | 17 corridas EVA |
-| KPI DM | 10 periodos, 10 observaciones, 43 métricas por DM |
+| Clockify | 536,344 entradas; meses 2024-08 a 2026-11 |
+| Azure | 451 proyectos, 227,782 WI, 781,913 revisiones |
+| Sheets | 14 copias locales |
+| KPI DM | 10 periodos, 10 observaciones, 43 métricas |
 
-Estos conteos pueden aumentar al sincronizar; no son constantes del código.
-El rango de meses no acredita por sí solo cobertura completa de cada mes.
-La estructura combina relaciones normales con JSON de origen/cortes: no es
-una base completamente normalizada ni se debe rediseñar toda al migrar.
+Fuentes externas que siguen vivas: Azure DevOps, Clockify, Google Sheets (DataRevenue, bandas/tarifas, MPB, ROC), Google Drive y Gmail para funciones IA/correo.
 
-Genesis separa usuarios/sesiones, procesos/chat/artefactos/trabajos en
-`ai_hub`, y equipos/perfiles/bandas/evaluaciones/formación en `lin`.
-Su documentación describe `genesis_uat_db` y `genesis_prod_db` en PostgreSQL
-Azure. No se consultó su base remota ni se verificó su capacidad real.
-Su SQLite local de demostración no contiene los datos productivos.
+Reglas de importación: respaldo consistente previo; base de prueba aislada; lotes preservando IDs, fechas y JSON; comparar conteos, duplicados, integridad y horas por mes/proyecto; conservar periodos KPI cerrados; reversión definida antes de UAT; nunca importar usuarios, sesiones ni secretos. Nunca copiar SQLite, `.env`, `key.json`, caché ni respaldos al repo de Genesis.
 
-Propuesta pendiente de aprobación del equipo: tablas propias del dashboard
-con prefijos y relaciones claras, usuarios compartidos de Genesis. No forzar
-nuestros proyectos a ProcessAnalysis ni mezclar bandas de costos con las de
-carrera de Lin sin acordar autoridad y vigencia.
+## 11. Cómo trabajar sin pisarse
 
-La importación debe:
+- Dashboard: commits pequeños directo en `main`; no push sin petición; no tocar `tools/migracion/*`, `shots_tmp/`, `logos.json` ni `tests/e2e/test_zz_*.py` (cambios locales ajenos).
+- Genesis: trabajar en `Integracion_Dashboard_Management`; nunca push a `UAT`/`main` ni `--force`; no tocar `ai_hub` ni `lin` salvo lo mínimo para registrar la app (settings, urls, navegación, test_layout).
+- Una persona por archivo de settings, rutas o migraciones a la vez. Antes de empezar: `git status`, `git log -5` y este registro.
+- No correr dos pytest con base al mismo tiempo. No activar sincronizaciones reales en pruebas.
 
-1. Partir de respaldo consistente y registrar fuente, fecha y versión.
-2. Crear esquema en una base de prueba aislada, sin sobrescribir tablas de Genesis.
-3. Importar por lotes preservando PK/FK, JSON, fechas, IDs y secuencias.
-4. Comparar conteos, duplicados, integridad referencial, horas por mes/proyecto
-   y facturabilidad; comprobar tipos, índices y planes de consultas grandes.
-5. Preservar todos los periodos KPI cerrados y el enlace a su captura original.
-6. Definir reversión con respaldo y versión de código antes de UAT.
-7. No importar usuarios, sesiones ni cuentas demo encima de los de Genesis.
+## 12. Registro de traspaso
 
-No copiar SQLite, .env, key.json, caché o respaldos dentro del repositorio
-Genesis. No arrancar migraciones apuntando por accidente a una URL remota.
+Agregar una fila por sesión de trabajo, la más reciente arriba.
 
-## Reglas funcionales que se conservan
-
-- EVA1 activo usa inventario Summary Azure/Clockify local, con bloques S#/CR#
-  independientes. Fechas desde iteraciones; Finish usa la última etapa fechada.
-- Etapas activas por rango inclusivo al corte. Solapamientos muestran sus nombres.
-  Suspendido requiere evidencia explícita Azure: RSP activo o RCP con situación
-  Suspended; no inferir suspensión de huecos del calendario.
-- Burn: horas facturables atribuidas al bloque según sus reglas. ETC=Budget−Burn;
-  Desv. Hrs=min(ETC,0); avance=Burn/Budget×100 con faltantes explícitos.
-- Horas sin tarea/tag de alcance: se atribuyen una sola vez al bloque que inició
-  primero entre los elegibles. Empate queda pendiente. Nota visible en el receptor.
-- T de EVA1/KPI: proyectos con desviación <=0 / TP. C de KPI DM es cumplimiento:
-  proyectos con avance <=100 / TP; no volver a tratarlo como sobrecosto. Las
-  tarjetas EVA conservan su regla propia vigente; verificar su contrato, no asumir
-  que todos los contenedores llamados C comparten semántica.
-- KPI DM lee sus tablas DmKpiPeriod/Observation/Metric, no recalcula al consultar.
-  DMs globales, meses fijos, trimestres por promedio mensual, futuros sin dato.
-- Enero–septiembre 2026 importados del reporte aprobado. Octubre cerrado con la
-  captura existente del 29/10: TP9, T100%, C cumplimiento66.7%; dos filas DM
-  intactas. No reconstruir esos meses con Azure actual.
-- Automatización KPI y cierres EVA permanecen desactivados hasta acuerdo Genesis.
-- EVA4 excluye AER y consulta el mes actual; conserva búsqueda, filtros y CSV.
-  Paquete no aplicable se muestra N/A, nunca se inventan horas.
-- Financiera sigue dependiendo de Sheets. Bandas: si falta la actual, usar por
-  persona la última válida con tarifa positiva entre los meses anteriores del
-  mismo año; no tomar futuros. Sin banda válida queda pendiente. Esta es la
-  implementación actual; no afirmar cruce de año que todavía no está implementado.
-- Conservar Horas por mes, exportaciones, regreso a cuenta, CSP y alcance limitado.
-
-Fuentes adicionales: [EVA vigente](eva-inventario-activo.md),
-[horas e histórico](historico-azure.md), [fuentes persistentes](fuentes-persistentes.md),
-[KPIs persistidos](kpis-dm-persistidos.md), [reglas KPI](kpis-dm-reglas.md),
-[cierre de fase 11](cierre-fase-11.md).
-
-## Trabajo compartido y orden de ejecución
-
-Asignar un responsable antes de empezar una fila. Estados válidos: pendiente,
-en curso, bloqueado, revisión, terminado. No confundir planificación con evidencia.
-
-| ID | Bloque | Estado inicial | Responsable | Depende de | Evidencia para terminar |
+| Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
-| G00 | Referencia funcional dashboard y limpieza | Terminado | Preparación 02/11 | — | Código 6b10ea0; pruebas abajo, CI global pendiente en G12 |
-| G01 | Revisión de Genesis y arquitectura | Terminado, lectura | Revisión del 02/11 | — | Archivos y commit revisados descritos arriba |
-| G02 | Arranque local Genesis | Confirmado por usuario | Usuario | G01 | Pantalla local con seed_demo; no equivale a gate aprobado |
-| G03 | Definir permisos, destino DB y credenciales | Pendiente | Sin asignar | Equipo Genesis | Respuestas escritas, sin secretos en el documento |
-| G04-V | Estructura visual y temas en Genesis | Terminado | Preparación 02/11 | Autorización de estructura sin datos | e28ec5d; resumen y EVA1 visual, rutas privadas, filtros en URL, tres temas y cuatro anchos |
-| G04 | Piloto módulo y tabla EVA1 en React | Pendiente | Sin asignar | G00, G03 | Sesión, permisos, corte/filtros, cifras y error/reintento verificados |
-| G04-T | Diseño propio y adaptación al tema compartido | Pendiente | Sin asignar | G04 | Diseño claro conservado; oscuro/sistema legibles; tabla y gráfica piloto sin afectar filtros ni otros módulos |
-| G05 | PostgreSQL local e importación de muestra | Pendiente | Sin asignar | G03 | Integridad y conteos comparados; sin tablas ajenas sobrescritas |
-| G06 | Extracciones y refrescos como trabajos | Pendiente | Sin asignar | G04, G05 | Reintento, idempotencia, lease, reinicio y tiempos |
-| G07 | EVA1/KPI DM y demás vistas operativas | Pendiente | Sin asignar | G04–G06, G04-T | Cortes/cierres, CSV, DMs globales, faltantes y carga móvil en claro/oscuro |
-| G08 | Business Overview/Comercial/Financiera | Pendiente | Sin asignar | G04–G06, G04-T | Cifras por periodo/cuenta, costos, permisos y estados parciales con diseño propio y ambos temas |
-| G09 | Detalle de proyecto y pestañas | Pendiente | Sin asignar | G04–G06, G04-T | Ejecutivo, Planeación, Esfuerzo, Recursos, RAID, Acciones, Cliente, Comunicación, Azure e IA por familia, responsivas en ambos temas |
-| G10 | Importación completa y ensayo de UAT | Pendiente | Sin asignar | G05, G07–G09 | Cierres intactos, conciliación, capacidad, carga y reversión |
-| G11 | Gates Genesis y PR a UAT | Pendiente | Sin asignar | G10 | Gates sin bajar cobertura; revisores y evidencia |
-| G12 | Consolidar CI legado del dashboard | Pendiente | Sin asignar | Dueños de tools/scripts | Corregir alcance de módulos y herramientas sin relajar reglas |
-
-No trabajar simultáneamente sobre los mismos settings, rutas, modelos o
-migraciones. Antes de empezar: revisar git status/log, el último PR y este
-registro. Si dos personas trabajan a la vez, usar ramas de trabajo coordinadas
-desde la integración y PRs pequeños según lo acuerde el equipo. No alternar
-dos instalaciones con copias manuales de carpetas ni subir archivos de entorno.
-
-Al finalizar cada turno, rellenar este bloque y actualizar la fila correspondiente:
-
-| Campo de traspaso | Valor actual |
-|---|---|
-| Bloque realizado | G04-V: estructura y tema visual, sin API/datos; G04 completo sigue pendiente |
-| Rama/repo | Genesis `Integracion_Dashboard_Management`, e28ec5d local sin push; Dashboard main como referencia |
-| Commit inicial de esta preparación | c68a256 |
-| Referencia de código / limpieza | 6b10ea0 / 412b6b3; documentación y publicación identificadas por el commit de este archivo |
-| Archivos/contratos modificados | Rutas, menú y componentes React del módulo management; mapa de features y tracker `odd/tasks/dashboard-management.md` en Genesis |
-| Datos o migraciones aplicados | Ninguno en esta preparación |
-| Pruebas ejecutadas | Frontend Genesis gate: 562 pruebas y build; verify: tres rutas/documentación y build; Chrome: 16 estados visuales. G00 conserva su evidencia abajo |
-| Riesgos/bloqueos | Respuestas del equipo, CI legado G12 y cambios locales ajenos fuera de la publicación |
-| Siguiente paso | Confirmar G03 antes de implementar API/autorización de datos, modelos o importación. El tema ya funciona para la estructura; gráficas con datos quedan pendientes |
-
-## Información que debe confirmar el equipo Genesis
-
-- Usuario de aplicación UAT y configuración de desarrollo, distintos del acceso a Repos.
-- Destino de tablas y autorización de migraciones/importación, backup y reversión.
-- Matriz de roles y alcance: financiera, tarifas, todo el portafolio o proyectos propios.
-- Identidades de servicio y mecanismo de secretos para Azure, Clockify, Google e IA.
-- Worker/programación de sync, salida de red, límites de API y capacidad de PostgreSQL.
-- Revisores, política para esta rama y ventana de pruebas en UAT.
-
-No se necesita acceso de escritura a producción para el piloto local.
-
-## Limpieza y publicación de la referencia
-
-Retirar únicamente exportaciones/logs generados comprobados sin consumidores.
-Los archivos de tmp ya estaban ignorados pero algunos habían sido versionados:
-se retiran del índice, conservando copias locales. No se borra la base, datos de
-usuario, .cache, logs locales, graphify-out ni tmp/backups. Los fixtures de
-pruebas y JSON de cálculos son código de verificación, no residuos.
-
-El transporte RPC de pruebas y utilidades de migración con consumidores se
-conservan; no se publican como API productiva ni se copian automáticamente a
-Genesis. Cualquier retiro posterior exige rastrear consumidores y preservar
-las pruebas funcionales. Ver [limpieza](limpieza-pre-genesis-2026-11-02.md).
-
-Un push transmite código/documentación, no los datos SQLite ni el cierre de
-octubre realizado localmente. Al importar datos se debe llevar ese cierre.
-No confundir archivos ignorados presentes en el equipo con archivos publicados.
-
-## Verificación y límites
-
-Validar el SHA a publicar en copia aislada para no depender de cambios locales
-sin commit de otro desarrollador. No afirmar suite completa por sumar corridas
-parciales ni regenerar JSON/snapshots para hacer pasar diferencias.
-
-Dashboard: pytest por capas, Node, Django check/makemigrations --check, Ruff y
-mypy dirigidos, más navegador con rutas reales/CSP para flujos representativos.
-No lanzar dos pytest con base al mismo tiempo ni activar sincronizaciones reales
-durante pruebas. El entorno aislado usa configuración de prueba, sin secretos.
-
-Genesis al implementar: gestores uv/pnpm y lockfiles propios, `make gate` y
-`make verify` según su AGENTS.md; ningún gate de Genesis se ejecutó como parte
-de esta revisión. No copiar nuestro venv ni sustituir sus settings globales.
-
-Estimación orientativa, no compromiso: piloto 2–4 días hábiles; versión útil en
-UAT 2–3 semanas; alcance completo 5–8 semanas con una persona dedicada, sujeto
-a accesos, decisiones y resultados del piloto. Reestimar tras G04/G05.
-
-### Registro de validación de G00
-
-Validación realizada sobre una copia aislada del commit inicial, con las dos
-correcciones de 6b10ea0. Se comprobó con git diff que apps/core/config/frontend/tests
-coinciden con main; no se usan cambios pendientes ni credenciales del equipo.
-Limpieza de salidas en 412b6b3, con copias locales y staged ajeno preservados.
-
-| Comprobación | Resultado |
-|---|---|
-| `pytest tests --ignore=tests/e2e -q --no-cov` | 2,947 aprobadas en la repetición final de 60.44 s; primera corrida detectó un doble de prueba que construía el cliente real de Sheets; corregido sin cambiar el cálculo |
-| `node --test tests/frontend/*.test.*` | 482 aprobadas en el código confirmado; el árbol local con bajas ajenas tiene un recuento distinto |
-| `ruff check apps core config tests --exclude test_zz_*.py` | Aprobado |
-| `ruff format --check` de los dos Python modificados | Aprobado |
-| `mypy apps/portal/pages.py` | Aprobado; anotados los argumentos del guardado y su cobertura histórica no nula |
-| Django `check`, `makemigrations --check --dry-run` | Aprobado; sin cambios de esquema, entorno aislado sin secretos |
-| Chrome, 11 archivos e2e seleccionados | 176 aprobadas, un aviso staticfiles; no es toda la suite e2e. Incluye CSP y 18 pestañas × cinco tamaños |
-| Enlaces de los tres documentos nuevos | Destinos relativos comprobados |
-| collectstatic --dry-run --noinput | Aprobado en el entorno aislado, sin publicar archivos |
-
-Límites conocidos: la corrida servidor reporta avisos existentes (directorio
-staticfiles ausente y avisos de caché, entre otros); no se afirma cero avisos.
-No se ejecutó toda la suite e2e ni se validó despliegue real en Azure.
-No se mide cobertura nueva con --no-cov ni se afirma aprobado el piso de CI.
-
-Auditoría adicional de los comandos globales del pipeline histórico:
-`ruff check .` encuentra 52 errores en tools/migracion; `ruff format --check .`
-encuentra seis herramientas antiguas sin formato. `mypy .` se detiene por
-scripts/check_load.py descubierto como check_load y scripts.check_load. Los
-comandos dirigidos de la aplicación sí pasan. No se relajan reglas ni se
-modifican herramientas con cambios ajenos. Por tanto, esta publicación es una
-referencia funcional verificada, no una declaración de CI global o fase 11
-completos. La consolidación del pipeline legado queda explícitamente pendiente.
-
-La publicación autorizada de esta preparación se identifica por el commit
-que contiene este documento y se comprueba contra origin/main al finalizar.
-El código funcional corresponde a 6b10ea0 y la limpieza a 412b6b3. Las bases
-y sus cierres no viajan por Git. Logs locales de validación: tmp/stable-server-publish.txt,
-tmp/stable-node.txt, tmp/stable-browser.txt, tmp/stable-ruff.txt y tmp/stable-mypy.txt.
-El último contiene el primer diagnóstico de tipado; el reintento final de mypy
-pages.py aprobó tras 6b10ea0. No trasladar esos logs a Genesis como datos.
+| 02/11/2026 | Héctor (con Claude) | Revisión completa de Genesis, limpieza del dashboard, preguntas P1–P4, este plan | Dashboard `5b3d7f5` + commit de este plan | Node 473, servidor 1937, e2e capacidad 18 | Empezar D1/D3/D6 y G1–G3; esperar P1–P4 |

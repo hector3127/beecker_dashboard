@@ -7,9 +7,9 @@ plan compartido y push de los cambios confirmados. Leer
 [`docs/plan-integracion-genesis.md`](docs/plan-integracion-genesis.md) y su
 inventario antes de continuar. Genesis ya fue clonado en
 `C:/Genesis/genesis`, rama `Integracion_Dashboard_Management` desde UAT;
-el usuario confirmó arranque local con datos demo. Estructura visual del
-módulo y temas implementados en Genesis e28ec5d local, sin datos/API/backend;
-G03 pendiente. No se ha autorizado desplegar UAT/producción.
+el usuario confirmó arranque local con datos demo. El usuario retiró el
+commit visual e28ec5d; no recuperarlo: la estructura se rehace en G2/G3 del
+plan. Preguntas P1–P4 abiertas. No se ha autorizado desplegar UAT/producción.
 
 Estado funcional posterior: C de KPI DM es cumplimiento en todas sus vistas;
 octubre está cerrado con su captura local 29/10/2026 (TP9, T100%, C66.7%).
