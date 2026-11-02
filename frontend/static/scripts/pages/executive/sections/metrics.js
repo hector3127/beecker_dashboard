@@ -34,6 +34,7 @@ export function loadingIds(model) {
     ...(!costs ? ['executive-margin'] : []),
     ...(ops.projects === null || ops.projects === undefined ? ['executive-ops-etc', 'executive-ops-advance', 'executive-ops-facturability', 'executive-ops-investment'] : []),
     ...(!commercial ? ['commercial-won', 'commercial-delivery', 'commercial-open'] : []),
+    ...(!model.monthly ? ['monthly-profit-state'] : []),
   ]);
 }
 
@@ -41,6 +42,11 @@ export function loadingIds(model) {
 export function finishLoading(loading) {
   for (const id of loading) {
     const target = node(id);
+    if (id === 'monthly-profit-state' && target) {
+      target.textContent = 'No disponible';
+      const chart = node('monthly-profit-chart');
+      if (chart) chart.textContent = 'No se pudo preparar la rentabilidad mensual. Pulsa Actualizar datos para reintentar.';
+    }
     if (target?.classList.contains('metric-loading')) {
       target.classList.remove('metric-loading');
       target.removeAttribute('aria-busy');

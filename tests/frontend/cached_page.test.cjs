@@ -232,3 +232,29 @@ test("executive partial and failed refreshes do not claim a complete cut", async
   assert.match(network.status.textContent, /Se conserva el corte/);
   assert.equal(network.timers.size, 0);
 });
+
+
+test("idle and busy refreshes stop polling and offer retry", async () => {
+  for (const state of ["idle", "busy"]) {
+    const page = harness([{ state }], { model: { ...full, loadedAt: null } });
+    await settle();
+    assert.equal(page.timers.size, 0);
+    assert.equal(page.control.disabled, false);
+    assert.match(page.status.textContent, /Actualizar datos/);
+  }
+});
+
+
+test("failed monthly preparation removes the consulting state", () => {
+  const nodes = new Map([
+    ["monthly-profit-state", { textContent: "Consultando", classList: { contains: () => false } }],
+    ["monthly-profit-chart", { textContent: "Preparando" }],
+  ]);
+  const metrics = fs.readFileSync("frontend/static/scripts/pages/executive/sections/metrics.js", "utf8")
+    .replace(/^import .*;\r?$/gm, "").replace(/export /g, "");
+  const context = vm.createContext({ document: { getElementById: id => nodes.get(id) || null } });
+  vm.runInContext(metrics, context);
+  context.finishLoading(new Set(["monthly-profit-state"]));
+  assert.equal(nodes.get("monthly-profit-state").textContent, "No disponible");
+  assert.match(nodes.get("monthly-profit-chart").textContent, /Actualizar datos/);
+});

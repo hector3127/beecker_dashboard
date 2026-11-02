@@ -264,3 +264,44 @@ def test_whole_project_epic_closure_covers_ambiguous_duplicate_scope():
     attach_history(source, rows, date(2026, 9, 30), feed)
     assert all(r["eva_metrics"]["closed"] for r in rows)
     assert all(r["eva_metrics"]["closure_confirmed"] for r in rows)
+
+
+@pytest.mark.parametrize(
+    "message", ["database is locked", "database table is locked"]
+)
+def test_busy_derived_cache_keeps_calculated_history(message):
+    from django.db import OperationalError
+
+    feed = download([record(1)])
+    feed.complete_through = datetime(2026, 10, 28, tzinfo=UTC)
+    feed.save()
+    source, rows = make_source()
+    with patch(
+        "apps.portal.services.azure_history.AzureHistoricalCut.objects.bulk_create",
+        side_effect=OperationalError(message),
+    ):
+        attach_history(source, rows, date(2026, 9, 30), feed)
+    assert rows[0]["eva_metrics"]["wi"]["general"]["total"] == 1
+    assert AzureHistoricalCut.objects.count() == 0
+    attach_history(source, rows, date(2026, 9, 30), feed)
+    assert AzureHistoricalCut.objects.count() == 1
+
+
+def test_derived_cache_does_not_hide_other_database_errors():
+    from django.db import OperationalError
+
+    from apps.portal.services.azure_history import _store_cut
+
+    with (
+        patch(
+            "apps.portal.services.azure_history.AzureHistoricalCut.objects.bulk_create",
+            side_effect=OperationalError("no such table"),
+        ),
+        pytest.raises(OperationalError, match="no such table"),
+    ):
+        _store_cut(
+            AzureHistoryFeed(complete_through=timezone.now()),
+            EvaAzureSource(),
+            date(2026, 9, 30),
+            {},
+        )

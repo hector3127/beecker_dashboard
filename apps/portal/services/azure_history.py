@@ -1,6 +1,7 @@
 """Complete revision download and local reconstruction of any past day."""
 
 import hashlib
+import logging
 import time
 from collections.abc import Callable
 from datetime import date, datetime, timedelta
@@ -9,7 +10,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from django.conf import settings
-from django.db import transaction
+from django.db import OperationalError, connection, transaction
 from django.db.models import OuterRef, Subquery
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
@@ -223,15 +224,7 @@ def attach_history(
             }
             for r in projected
         }
-        AzureHistoricalCut.objects.update_or_create(
-            feed=feed,
-            source=source,
-            cut=cut,
-            defaults={
-                "feed_through": feed.complete_through,
-                "metrics": metrics,
-            },
-        )
+        _store_cut(feed, source, cut, metrics)
     for row in rows:
         if row["scope"] in metrics:
             row.setdefault("eva_metrics", {}).update(metrics[row["scope"]])
@@ -250,3 +243,33 @@ def attach_history(
                 closed=True, closure_confirmed=True, whole_project_closed=True
             )
             row["business_status"] = "Completed"
+
+
+def _store_cut(feed, source, cut, metrics) -> None:
+    """Store derived cache once; contention must not lose calculated results."""
+    try:
+        # A savepoint keeps an enclosing transaction usable on cache failure.
+        # An upsert avoids SQLite's deferred read-to-write lock upgrade.
+        with transaction.atomic():
+            AzureHistoricalCut.objects.bulk_create(
+                [
+                    AzureHistoricalCut(
+                        feed=feed,
+                        source=source,
+                        cut=cut,
+                        feed_through=feed.complete_through,
+                        metrics=metrics,
+                    )
+                ],
+                update_conflicts=True,
+                unique_fields=["feed", "source", "cut"],
+                update_fields=["feed_through", "metrics"],
+            )
+    except OperationalError as error:
+        if connection.vendor != "sqlite" or "locked" not in str(error).lower():
+            raise
+        logging.getLogger(__name__).warning(
+            "Corte Azure %s/%s calculado; guardado diferido por bloqueo SQLite",
+            source.pk,
+            cut,
+        )

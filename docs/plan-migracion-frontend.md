@@ -5,6 +5,21 @@ funcionamiento, listo para llevarse a Genesis y con permisos que Django valida
 (`docs/permisos.md`). La integración con Genesis sigue pendiente de sus
 respuestas; la migración del frontend sí avanza.
 
+## Bloqueo de cortes derivados y estado de carga — 02/11/2026
+
+Corregido el guardado AzureHistoricalCut durante consultas EVA/Operativa:
+upsert de una sola escritura en lugar de update_or_create (evita promover
+una transacción SQLite de lectura a escritura). Solo el bloqueo SQLite de
+esta caché derivada se registra y difiere; los resultados calculados se
+entregan y la siguiente consulta puede persistirlos. Otros errores de base
+siguen propagándose; no se modifica el histórico fuente ni sus fórmulas.
+Business Overview limpia el estado mensual Consultando al fallar y detiene
+sondeo idle/busy con reintento explícito. No se inventan cifras financieras:
+si fallan las fuentes, permanecen no disponibles. Sin migración ni cambios
+de conexión o datos reales. 17 pruebas servidor y seis Node dirigidas
+aprobadas, incluidas contención, reintento y errores distintos a bloqueo.
+Ruff y Django check aprobados. No push.
+
 ## Integración autorizada de la copia del compañero — 02/11/2026
 
 Incorporados los servicios de capacidad Clockify/plantilla, acumulados de

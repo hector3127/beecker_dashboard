@@ -68,7 +68,8 @@ export function mountCut({ model, loading, period }) {
         control.disabled = false;
         control.textContent = 'Ver corte preparado';
         status.textContent = data.partial ? 'Corte preparado con pendientes identificados. Pulsa para verlo.' : 'Nuevo corte preparado. Pulsa para verlo.';
-      } else if (data.state === 'failed') fail('No se pudo completar. Se conserva el corte mostrado.');
+      } else if (data.state === 'idle' || data.state === 'busy') fail('La actualización no está en ejecución. Pulsa Actualizar datos para reintentar.');
+      else if (data.state === 'failed') fail('No se pudo completar. Se conserva el corte mostrado.');
       else if (data.state === 'running' || data.state === 'queued') status.textContent = 'Preparando en segundo plano. Se conserva el corte mostrado.';
     } catch (_) {
       fail('Sin conexión para actualizar. Se conserva el corte mostrado.');
