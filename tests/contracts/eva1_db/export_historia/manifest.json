@@ -1,0 +1,223 @@
+{
+  "created_at": "2026-10-28T17:00:00+00:00",
+  "format": 1,
+  "source": {
+    "app": "dashboard-management",
+    "engine": "contrato"
+  },
+  "tables": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "cut",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "started_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "finished_at",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "published",
+          "null": false,
+          "type": "BooleanField"
+        },
+        {
+          "name": "metrics",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "issues",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_evaextraction",
+      "file": "datastore.EvaExtraction.jsonl",
+      "label": "datastore.EvaExtraction",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "2b37019c7df7a5d1e02bd90823b2f59b09d0a8c109b52f5e1aff7b0970f97b56"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "extraction_id",
+          "null": false,
+          "to": "datastore.EvaExtraction",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "azure_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "payload",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "metrics",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_evaazuresource",
+      "file": "datastore.EvaAzureSource.jsonl",
+      "label": "datastore.EvaAzureSource",
+      "pk": "id",
+      "rows": 6,
+      "sha256": "0b6d5c7bff2274a00c73d2150c85d44fd1cdae8ef46f3fe7ba6d1beea6bae713"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "source_id",
+          "null": false,
+          "to": "datastore.EvaAzureSource",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "project_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "scope",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "row",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_evascopesnapshot",
+      "file": "datastore.EvaScopeSnapshot.jsonl",
+      "label": "datastore.EvaScopeSnapshot",
+      "pk": "id",
+      "rows": 7,
+      "sha256": "f3b573b6098957889f59a6840069e2041d86565d4f59c45aeadf35ba90a1e582"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "identity",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "cursor",
+          "null": false,
+          "type": "TextField"
+        },
+        {
+          "name": "complete_through",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "updated_at",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "error",
+          "null": false,
+          "type": "CharField"
+        }
+      ],
+      "db_table": "datastore_azurehistoryfeed",
+      "file": "datastore.AzureHistoryFeed.jsonl",
+      "label": "datastore.AzureHistoryFeed",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "0fc0fbbf89d0665f8ebead101bf927c2e966f9eb92a241e2ceef199b67102c60"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "feed_id",
+          "null": false,
+          "to": "datastore.AzureHistoryFeed",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "work_item_id",
+          "null": false,
+          "type": "PositiveBigIntegerField"
+        },
+        {
+          "name": "revision",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "project_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "changed_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "deleted",
+          "null": false,
+          "type": "BooleanField"
+        },
+        {
+          "name": "fields",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_azureworkitemrevision",
+      "file": "datastore.AzureWorkItemRevision.jsonl",
+      "label": "datastore.AzureWorkItemRevision",
+      "pk": "id",
+      "rows": 15,
+      "sha256": "274c3eab849a8365fe8a431fb1f5f601e9d6fefaa1b86915e3c6ebc9ad8805da"
+    }
+  ]
+}
