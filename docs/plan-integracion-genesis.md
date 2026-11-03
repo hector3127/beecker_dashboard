@@ -164,13 +164,23 @@ Orden recomendado; cada bloque repite: contrato D1 → servicio portado → endp
 
 | ID | Bloque | Depende | Estado |
 |---|---|---|---|
-| G9 | EVA1 y Summary (inventario, cortes, iteraciones) | G7, G8 | pendiente |
+| G9 | EVA1 y Summary (inventario, cortes, iteraciones) | G7 | en curso (G9a hecho) |
 | G10a | Operativa, capacidad, facturabilidad, inversión | G7 | pendiente |
 | G10b | EVA2/EVA3/EVA4 | G7 | pendiente |
 | G10c | Business Overview, financiera, costos, márgenes, comercial | G7, G8, P1 | pendiente |
 | G10d | Cuenta y Horas por mes (CSV, regreso a cuenta) | G7 | pendiente |
 | G10e | Detalle de proyecto y pestañas (AER/IXS, RAID, Azure, recursos) | G7, G8 | pendiente |
 | G10f | Pestañas de IA vía `ai_hub/llm` | G10e, A11 | pendiente |
+
+Desglose de G9 (EVA1). G8 solo hace falta para actualizar datos; EVA1 lee cortes guardados, así que puede avanzar con G7.
+
+| ID | Paso | Estado |
+|---|---|---|
+| G9a | `apps/portal/services/eva1_screen.py` (`build_eva1_screen(cut, manager, service)`): el contexto de la página sin petición ni plantilla; `views.eva1` solo lee `corte`, `manager` y `service` y lo pinta. 387 pruebas de EVA, acceso y refresco en verde, ruff y mypy limpios | terminado |
+| G9b | Escenario sintético de EVA1 (extracción `summary_inventory`, fuentes con `iteration_tree` y `eva_evidence`, alcances con `eva_metrics`, entradas de Clockify y feed de Azure) y contrato JSON en `tests/contracts/eva1/` con su paquete de exportación. El paquete base de G7 tiene alcances vacíos (`{"scope": "S1"}`) y no sirve | pendiente |
+| G9c | Portar a `dashboard_management` los cálculos que alimentan el contexto: `summary_iterations`, `summary_eva_metrics` (`at_cut`, atribución de horas), `azure_history`, `eva_monthly_closes`, `summary_dm_totals`, `eva2.build_eva2_view` y `eva_cut.select_view`, con la misma tabla de pruebas. Sin cambiar reglas (sección 9) | pendiente |
+| G9d | `GET /api/management/eva1/` con `corte`, `manager` y `service`; paridad con el contrato de G9b | pendiente |
+| G9e | Pantalla React: tarjetas TP/Suspendidos/T/C, pivotes por DM (servicio y estatus), tabla de 27 columnas con filtros y orden, exportar CSV, selector de corte y cortes guardados; claro y oscuro | pendiente |
 
 ### Fase 6 — UAT
 
@@ -241,6 +251,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 03/11/2026 | Héctor (con Claude) | G9a: contexto de EVA1 sin petición ni plantilla | Dashboard: `eva1_screen.py` y `views.eva1` | 387 pruebas de EVA, acceso y refresco; ruff y mypy | G9b: escenario sintético y contrato JSON de EVA1 (hay que armar fuentes, alcances y horas de Clockify). Luego G9c (portar cálculos) |
 | 03/11/2026 | Héctor (con Claude) | G7 cerrado con Azure real; contraste AA de KPIs | Dashboard: exportador con microsegundos; Genesis: `management.css` (pestaña activa y degradado del encabezado) | Azure y EVA reales idénticos (conteos, JSON y campos); 536 textos por tema cumplen AA | Medir la carga en PostgreSQL (P2); G8 (espera P3) o G9 (EVA1); decidir si el encabezado conserva el degradado |
 | 02/11/2026 | Héctor (con Claude) | G7: datos base en Genesis | Genesis, commit de G7 (local, sin push); Dashboard `852bd80` | Paridad con datos reales de Clockify y catálogos; 110 pruebas del módulo | Importar el grupo de Azure con datos reales y medir en PostgreSQL; luego G8 (trabajos de sincronización, espera P3 para credenciales) o G9 (EVA1) |
 | 02/11/2026 | Héctor (con Claude) | G6: pantalla de KPIs de DM en React | Genesis, commit de G6 (local, sin push) | 633 pruebas de Vitest, cobertura y build; navegador con datos reales en claro, oscuro y 390 px | G6b (permisos, espera P1), medir contraste AA, y decidir el siguiente bloque (EVA1 o Capacidad). Antes de UAT: exportar e importar los demás grupos de tablas |

@@ -1037,8 +1037,8 @@ def eva1(request: HttpRequest) -> HttpResponse:
     if _needs_login(request):
         return redirect_to_login(request.get_full_path())
 
-    from apps.portal.services.eva_cut import read_cut, select_view
-    from apps.portal.services.eva_inventory_view import load_inventory_eva
+    from apps.portal.services.eva1_screen import build_eva1_screen
+    from apps.portal.services.eva_cut import read_cut
 
     cut = timezone.localdate()
     raw_cut = request.GET.get("corte", "")
@@ -1050,94 +1050,23 @@ def eva1(request: HttpRequest) -> HttpResponse:
                 "Fecha de corte inválida: usa un día no futuro (AAAA-MM-DD).",
                 status=400,
             )
-    # Both current and historical dates read persisted provider cuts.
-    reconstructed_cut = bool(raw_cut)
-    data = load_inventory_eva(cut)
-    available = data["eva"]
-    data["eva"] = select_view(
-        available,
-        request.GET.get("manager", ""),
-        request.GET.get("service", ""),
+    screen = build_eva1_screen(
+        cut, request.GET.get("manager", ""), request.GET.get("service", "")
     )
-    projects = data["eva"].projects
-    total = len(projects)
-    in_time = sum(
-        p.deviation_days is not None and p.deviation_days <= 0 for p in projects
-    )
-    over_budget = sum(
-        not (p.progress_pending or p.hours_pending or p.budget_pending)
-        and p.budget > 0
-        and p.progress > 100
-        for p in projects
-    )
-    data["eva_card_metrics"] = {
-        "total": total,
-        "time_percent": 100 * in_time / total if total else None,
-        "cost_percent": 100 * over_budget / total if total else None,
-        "in_time": in_time,
-        "over_budget": over_budget,
-    }
-    data.pop("projected_rows", None)
-    data["eva_cost_pending"] = sum(
-        p.progress_pending
-        or p.hours_pending
-        or p.budget_pending
-        or p.budget <= 0
-        for p in projects
-    )
-    from apps.portal.services.summary_dm_totals import dm_totals
-
-    selected_ids = {p.project_id for p in data["eva"].projects}
-    data["inventory_totals"] = dm_totals(
-        [
-            r
-            for r in data.pop("inventory_rows")
-            if r["display_id"] in selected_ids
-        ]
-    )
-    source_run = data.get("extraction")
-    from django.utils.dateparse import parse_datetime
-
-    source_stamp = (
-        parse_datetime(source_run.metrics["source_observed_at"])
-        if source_run and source_run.metrics.get("source_observed_at")
-        else source_run.finished_at
-        if source_run
-        else None
-    )
-    from apps.datastore.models import EvaExtraction
-
-    source_notice = data.get("error", "") if source_run else ""
-    if source_run:
-        data["error"] = ""
-    saved_cuts = list(
-        EvaExtraction.objects.filter(
-            published=True,
-            metrics__kind="summary_inventory",
-        )
-        .order_by("-cut")
-        .values_list("cut", flat=True)
-        .distinct()[:60]
-    )
+    stamp = screen["eva_source_stamp"]
 
     return render_page(
         request,
         "pages/eva1.html",
         {
             "active": "operativa",
-            "loaded_at": timezone.localtime(source_stamp)
-            if source_stamp
+            "loaded_at": timezone.localtime(stamp)
+            if stamp
             else timezone.localtime(),
-            **data,
-            "eva_managers": available.service_rows,
-            "eva_services": available.services,
-            "eva_available_total": available.total_projects,
-            "eva_source_stamp": source_stamp,
+            **screen,
             "eva_cut": cut.isoformat(),
             "eva_today": timezone.localdate().isoformat(),
-            "eva_reconstructed": reconstructed_cut,
-            "eva_source_notice": source_notice,
-            "eva_saved_cuts": saved_cuts,
+            "eva_reconstructed": bool(raw_cut),
         },
     )
 
