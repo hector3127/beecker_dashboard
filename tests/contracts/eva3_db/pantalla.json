@@ -1,0 +1,416 @@
+{
+  "closed_burn": {
+    "AER.FOX.001": 16.5,
+    "AER.HOT.001": {
+      "error": "No se encontro una coincidencia unica para AER.HOT.001 en Clockify. Vinculalo en la hoja Clockify_Vinculos."
+    },
+    "TYM.GOL.001": 118.5
+  },
+  "closed_error": "",
+  "closed_projects": [
+    {
+      "budget": 50.0,
+      "burn": null,
+      "client": "Foxtrot",
+      "end": "15/03/26",
+      "etc": null,
+      "etc_bad": false,
+      "fte": 1.0,
+      "manager": "Ana Ruiz",
+      "name": "Cerrado con horas",
+      "progress": null,
+      "progress_bad": false,
+      "project_id": "AER.FOX.001",
+      "renewal_bad": true,
+      "renewal_days": -213,
+      "role_fte": {
+        "ARQ": 0.0,
+        "BA": 0.0,
+        "CR": 0.0,
+        "DEV": 1.0,
+        "DM": 0.0,
+        "IA": 0.0,
+        "SM": 0.0,
+        "TT": 0.0
+      },
+      "service": "AER",
+      "start": "15/02/26"
+    },
+    {
+      "budget": 120.0,
+      "burn": 118.5,
+      "client": "Golf",
+      "end": "30/04/26",
+      "etc": 1.5,
+      "etc_bad": false,
+      "fte": 1.0,
+      "manager": "Beto Soto",
+      "name": "Cerrado con consumo guardado",
+      "progress": 98.8,
+      "progress_bad": false,
+      "project_id": "TYM.GOL.001",
+      "renewal_bad": true,
+      "renewal_days": -167,
+      "role_fte": {
+        "ARQ": 0.0,
+        "BA": 0.0,
+        "CR": 0.0,
+        "DEV": 0.0,
+        "DM": 0.0,
+        "IA": 0.0,
+        "SM": 0.0,
+        "TT": 1.0
+      },
+      "service": "T&M",
+      "start": "05/01/26"
+    },
+    {
+      "budget": 30.0,
+      "burn": null,
+      "client": "Hotel",
+      "end": "01/05/26",
+      "etc": null,
+      "etc_bad": false,
+      "fte": 1.0,
+      "manager": "Ana Ruiz",
+      "name": "Cancelado",
+      "progress": null,
+      "progress_bad": false,
+      "project_id": "AER.HOT.001",
+      "renewal_bad": true,
+      "renewal_days": -166,
+      "role_fte": {
+        "ARQ": 0.0,
+        "BA": 0.0,
+        "CR": 1.0,
+        "DEV": 0.0,
+        "DM": 0.0,
+        "IA": 0.0,
+        "SM": 0.0,
+        "TT": 0.0
+      },
+      "service": "AER",
+      "start": "01/02/26"
+    }
+  ],
+  "closed_rows": [
+    {
+      "avance": null,
+      "budget": 50.0,
+      "burn": null,
+      "cliente": "Foxtrot",
+      "clockifyPending": true,
+      "deliveryManager": "Ana Ruiz",
+      "estadoHistorico": "Finalizado",
+      "etc": null,
+      "fechaFin": "2026-03-15",
+      "fechaInicio": "2026-02-15",
+      "fte": 1.0,
+      "ftePorRol": {
+        "ARQ": 0.0,
+        "BA": 0.0,
+        "CR": 0.0,
+        "DEV": 1.0,
+        "DM": 0.0,
+        "IA": 0.0,
+        "SM": 0.0,
+        "TT": 0.0
+      },
+      "idProyecto": "AER.FOX.001",
+      "nombre": "Cerrado con horas",
+      "renewalDias": -213,
+      "servicio": "AER"
+    },
+    {
+      "avance": 98.8,
+      "budget": 120.0,
+      "burn": 118.5,
+      "cliente": "Golf",
+      "clockifyPending": true,
+      "deliveryManager": "Beto Soto",
+      "estadoHistorico": "Finalizado",
+      "etc": 1.5,
+      "fechaFin": "2026-04-30",
+      "fechaInicio": "2026-01-05",
+      "fte": 1.0,
+      "ftePorRol": {
+        "ARQ": 0.0,
+        "BA": 0.0,
+        "CR": 0.0,
+        "DEV": 0.0,
+        "DM": 0.0,
+        "IA": 0.0,
+        "SM": 0.0,
+        "TT": 1.0
+      },
+      "idProyecto": "TYM.GOL.001",
+      "nombre": "Cerrado con consumo guardado",
+      "renewalDias": -167,
+      "servicio": "T&M"
+    },
+    {
+      "avance": null,
+      "budget": 30.0,
+      "burn": null,
+      "cliente": "Hotel",
+      "clockifyPending": true,
+      "deliveryManager": "Ana Ruiz",
+      "estadoHistorico": "Cancelado",
+      "etc": null,
+      "fechaFin": "2026-05-01",
+      "fechaInicio": "2026-02-01",
+      "fte": 1.0,
+      "ftePorRol": {
+        "ARQ": 0.0,
+        "BA": 0.0,
+        "CR": 1.0,
+        "DEV": 0.0,
+        "DM": 0.0,
+        "IA": 0.0,
+        "SM": 0.0,
+        "TT": 0.0
+      },
+      "idProyecto": "AER.HOT.001",
+      "nombre": "Cancelado",
+      "renewalDias": -166,
+      "servicio": "AER"
+    }
+  ],
+  "error": "Consumo AER/T&M incompleto: AER.DEL.001, TYM.ECO.001",
+  "eva": {
+    "cost_percent": 15.1,
+    "managers": [
+      {
+        "name": "Ana Ruiz",
+        "roles": [
+          2.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "services": [
+          1,
+          1
+        ],
+        "total_fte": 3.0
+      },
+      {
+        "name": "Beto Soto",
+        "roles": [
+          0.0,
+          0.0,
+          0.5,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "services": [
+          0,
+          2
+        ],
+        "total_fte": 1.5
+      },
+      {
+        "name": "Sin asignar",
+        "roles": [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "services": [
+          1,
+          0
+        ],
+        "total_fte": 1.0
+      }
+    ],
+    "projects": [
+      {
+        "budget": 80.0,
+        "burn": 12.0,
+        "client": "Beta",
+        "end": "20/10/26",
+        "etc": 68.0,
+        "etc_bad": false,
+        "fte": 1.0,
+        "manager": "Ana Ruiz",
+        "name": "Soporte mensual",
+        "progress": 15.0,
+        "progress_bad": false,
+        "project_id": "TYM.BET.001",
+        "renewal_bad": true,
+        "renewal_days": 6,
+        "role_fte": {
+          "ARQ": 0.0,
+          "BA": 0.0,
+          "CR": 0.0,
+          "DEV": 1.0,
+          "DM": 0.0,
+          "IA": 0.0,
+          "SM": 0.0,
+          "TT": 0.0
+        },
+        "service": "T&M",
+        "start": "01/09/26"
+      },
+      {
+        "budget": 300.0,
+        "burn": 15.75,
+        "client": "Acme",
+        "end": "20/11/26",
+        "etc": 284.25,
+        "etc_bad": false,
+        "fte": 2.0,
+        "manager": "Ana Ruiz",
+        "name": "Portal de clientes",
+        "progress": 5.2,
+        "progress_bad": false,
+        "project_id": "AER.ACM.001",
+        "renewal_bad": false,
+        "renewal_days": 37,
+        "role_fte": {
+          "ARQ": 1.0,
+          "BA": 0.0,
+          "CR": 0.0,
+          "DEV": 1.0,
+          "DM": 0.0,
+          "IA": 0.0,
+          "SM": 0.0,
+          "TT": 0.0
+        },
+        "service": "AER",
+        "start": "03/08/26"
+      },
+      {
+        "budget": 60.0,
+        "burn": null,
+        "client": "Eco",
+        "end": "31/12/26",
+        "etc": null,
+        "etc_bad": false,
+        "fte": 1.0,
+        "manager": "Beto Soto",
+        "name": "Sin proyecto en Clockify",
+        "progress": null,
+        "progress_bad": false,
+        "project_id": "TYM.ECO.001",
+        "renewal_bad": false,
+        "renewal_days": 78,
+        "role_fte": {
+          "ARQ": 0.0,
+          "BA": 1.0,
+          "CR": 0.0,
+          "DEV": 0.0,
+          "DM": 0.0,
+          "IA": 0.0,
+          "SM": 0.0,
+          "TT": 0.0
+        },
+        "service": "T&M",
+        "start": "01/09/26"
+      },
+      {
+        "budget": 100.0,
+        "burn": 25.0,
+        "client": "Cielo",
+        "end": "01/02/27",
+        "etc": 75.0,
+        "etc_bad": false,
+        "fte": 0.5,
+        "manager": "Beto Soto",
+        "name": "Bolsa de horas",
+        "progress": 25.0,
+        "progress_bad": false,
+        "project_id": "TYM.CIE.001",
+        "renewal_bad": false,
+        "renewal_days": 110,
+        "role_fte": {
+          "ARQ": 0.0,
+          "BA": 0.0,
+          "CR": 0.0,
+          "DEV": 0.0,
+          "DM": 0.0,
+          "IA": 0.5,
+          "SM": 0.0,
+          "TT": 0.0
+        },
+        "service": "T&M",
+        "start": "01/10/26"
+      },
+      {
+        "budget": 40.0,
+        "burn": null,
+        "client": "Delta",
+        "end": "",
+        "etc": null,
+        "etc_bad": false,
+        "fte": 1.0,
+        "manager": "Sin asignar",
+        "name": "Sin fechas",
+        "progress": null,
+        "progress_bad": false,
+        "project_id": "AER.DEL.001",
+        "renewal_bad": false,
+        "renewal_days": null,
+        "role_fte": {
+          "ARQ": 0.0,
+          "BA": 0.0,
+          "CR": 0.0,
+          "DEV": 0.0,
+          "DM": 0.0,
+          "IA": 0.0,
+          "SM": 1.0,
+          "TT": 0.0
+        },
+        "service": "AER",
+        "start": ""
+      }
+    ],
+    "roles": [
+      "DEV",
+      "ARQ",
+      "IA",
+      "SM",
+      "BA",
+      "TT",
+      "CR",
+      "DM"
+    ],
+    "services": [
+      "AER",
+      "T&M"
+    ],
+    "total_fte": 5.5,
+    "total_projects": 5,
+    "totals": {
+      "name": "Total",
+      "roles": [
+        2.0,
+        1.0,
+        0.5,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "services": [
+        2,
+        3
+      ],
+      "total_fte": 5.5
+    }
+  },
+  "renewal_average": 57.8
+}
