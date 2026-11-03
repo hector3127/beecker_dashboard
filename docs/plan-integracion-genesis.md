@@ -40,7 +40,7 @@ Las marcadas *propuesta* se registran como ADR en Genesis (G2) y pasan por revis
 | # | Decisión | Estado |
 |---|---|---|
 | A1 | Dashboard Management es **un módulo dentro de Genesis**, no un sistema externo. No lee ni escribe tablas de `ai_hub` ni `lin`; usa usuarios y sesión de Genesis | Comunicada a Ulises |
-| A2 | Una sola app Django nueva `dashboard_management` en `Genesis/dashboard_management/`, como Lin (ADR 0026). Tablas `dashboard_management_*` en la misma base | *propuesta* |
+| A2 | Una sola app Django nueva `dashboard_management` en `Genesis/dashboard_management/`, como Lin (ADR 0026). Tablas `management_*` (`db_table` de cada modelo, migración `0003`) en la misma base | *propuesta* |
 | A3 | Las 15 apps actuales (`apps/*`, `core/`) se consolidan en subpaquetes de esa app. Migraciones nuevas desde cero; no se copian las 18 actuales | *propuesta* |
 | A4 | API bajo `/api/management/`; SPA bajo `/management/...`. Evita chocar con «Dashboard» (`/`) y «Proyectos» (`/proyectos`) de Genesis | *propuesta* |
 | A5 | Pantallas reescritas en React dentro de `frontend/src/components/views/management/`. Los cálculos puros de nuestros `model.js` se portan casi tal cual; el render se rehace | *propuesta* |
@@ -164,7 +164,7 @@ Orden recomendado; cada bloque repite: contrato D1 → servicio portado → endp
 
 | ID | Bloque | Depende | Estado |
 |---|---|---|---|
-| G9 | EVA1 y Summary (inventario, cortes, iteraciones) | G7 | terminado en lo local (G9a-G9e); falta medirlo con datos reales |
+| G9 | EVA1 y Summary (inventario, cortes, iteraciones) | G7 | terminado (G9a-G9e), con paridad con datos reales en SQLite |
 | G10a | Operativa, capacidad, facturabilidad, inversión | G7 | pendiente |
 | G10b | EVA2/EVA3/EVA4 | G7 | pendiente |
 | G10c | Business Overview, financiera, costos, márgenes, comercial | G7, G8, P1 | pendiente |
@@ -251,6 +251,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 03/11/2026 | Héctor (con Claude) | Tablas `management_` y datos reales en la base local de Genesis; paridad de EVA 1 con datos reales | Genesis, commit de la migración `0003` y los `db_table`; dashboard: plan | Importación real de 26 tablas en `Genesis/db.sqlite3` (7 min 33 s) y 9 de 9 consultas de EVA 1 idénticas al dashboard | Probar la pantalla en el navegador con esos datos y seguir con EVA 2-4 (G10b) u Operativa (G10a); la carga en PostgreSQL y los permisos (P1, P2) esperan acceso. El paquete `tmp/genesis-export-real` (3.9 GB, ignorado) sirve para cargarlo a Postgres |
 | 03/11/2026 | Héctor (con Claude) | G9e: pantalla React de EVA 1 en Genesis | Genesis, commit de G9e (`eva/`, `managementService.leerEva1`, `management.css`) | 659 pruebas de Vitest, lint, formato, cobertura y build; navegador en claro, oscuro y 390 px con AA | Comparar EVA 1 con datos reales (importar el paquete de Azure y EVA en una base desechable y cotejar cortes contra el dashboard); luego EVA2-4 (G10b) o Operativa (G10a); medir en PostgreSQL (P2) cuando haya acceso |
 | 03/11/2026 | Héctor (con Claude) | G9d: endpoint `/api/management/eva1/` en Genesis | Genesis, commit de G9d (`views.py`, `urls.py`, `settings.py`, OpenAPI y docs de referencia) | El endpoint devuelve los cuerpos del contrato del dashboard; 305 pruebas, 97.6 % de cobertura | G9e: pantalla React de EVA 1 en `components/views/management/eva/` (tarjetas TP, Suspendidos, T y C; pivotes por DM; tabla de 27 columnas con filtros, orden y CSV; selector de corte), claro y oscuro, con `managementService.leerEva1` |
 | 03/11/2026 | Héctor (con Claude) | G9c4: motor de métricas e historia de Azure en Genesis | Dashboard: `test_eva1_historia_contract.py` y `eva1_db/export_historia/`; Genesis, commit de G9c4 (`eva_motor`, `eva_historia`) | Tres cuerpos con historia idénticos a los del dashboard; 222 pruebas del módulo, 97 % de cobertura | G9d: endpoint `GET /api/management/eva1/` (corte, manager, service), variables de entorno (identidad del flujo y cierres), OpenAPI y permisos de sesión; luego G9e (pantalla React) |
