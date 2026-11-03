@@ -166,7 +166,7 @@ Orden recomendado; cada bloque repite: contrato D1 → servicio portado → endp
 |---|---|---|---|
 | G9 | EVA1 y Summary (inventario, cortes, iteraciones) | G7 | terminado (G9a-G9e), con paridad con datos reales en SQLite |
 | G10a | Operativa, capacidad, facturabilidad, inversión | G7 | pendiente |
-| G10b | EVA2/EVA3/EVA4 | G7 | EVA2 ya cubierta por EVA 1 (misma población al corte de hoy); EVA-04 terminada con paridad con datos reales; EVA3 pendiente |
+| G10b | EVA2/EVA3/EVA4 | G7 | terminado: EVA2 cubierta por EVA 1 (misma población al corte de hoy); EVA-04 y EVA 3 con paridad con datos reales |
 | G10c | Business Overview, financiera, costos, márgenes, comercial | G7, G8, P1 | pendiente |
 | G10d | Cuenta y Horas por mes (CSV, regreso a cuenta) | G7 | pendiente |
 | G10e | Detalle de proyecto y pestañas (AER/IXS, RAID, Azure, recursos) | G7, G8 | pendiente |
@@ -251,6 +251,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 03/11/2026 | Héctor (con Claude) | G10b-EVA3: EVA 3 en Genesis con paridad con datos reales | Dashboard: `tests/contracts/test_eva3_contract.py` y `eva3_db/`; Genesis, commit de EVA 3 (`mpb.py`, `eva3_consumo.py`, `eva3.py`, endpoint `eva3/`, sección EVA 3) | Cuerpo real idéntico (15 en progreso, 40 finalizados, 0 diferencias); 702 pruebas de Vitest; navegador con AA en claro, oscuro y 390 px | Seguir con Operativa (G10a: capacidad, facturabilidad, inversión) o con Cuenta y Horas por mes (G10d, regla 3 de AGENTS); G10c y G10e esperan P1 y G8. Aún sin push |
 | 03/11/2026 | Héctor (con Claude) | G10b-EVA4: EVA-04 en Genesis con paridad con datos reales | Dashboard: `tests/contracts/test_eva4_contract.py` y `eva4_db/`; Genesis, commit de EVA-04 (`eva4*.py`, `texto.py`, `fechas.py`, `hojas.py`, endpoint `eva4/`, sección EVA-04) | 5 de 5 meses reales idénticos al dashboard; 682 pruebas de Vitest; navegador con AA en claro, oscuro y 390 px | EVA 3 (AER y T&M, hoja MPB): contrato en el dashboard, `build_aer_tym_summary` y consumo de Clockify en Genesis; después Operativa (G10a) y Cuenta y Horas por mes (G10d). Aún sin push |
 | 03/11/2026 | Héctor (con Claude) | Tablas `management_` y datos reales en la base local de Genesis; paridad de EVA 1 con datos reales | Genesis, commit de la migración `0003` y los `db_table`; dashboard: plan | Importación real de 26 tablas en `Genesis/db.sqlite3` (7 min 33 s) y 9 de 9 consultas de EVA 1 idénticas al dashboard | Probar la pantalla en el navegador con esos datos y seguir con EVA 2-4 (G10b) u Operativa (G10a); la carga en PostgreSQL y los permisos (P1, P2) esperan acceso. El paquete `tmp/genesis-export-real` (3.9 GB, ignorado) sirve para cargarlo a Postgres |
 | 03/11/2026 | Héctor (con Claude) | G9e: pantalla React de EVA 1 en Genesis | Genesis, commit de G9e (`eva/`, `managementService.leerEva1`, `management.css`) | 659 pruebas de Vitest, lint, formato, cobertura y build; navegador en claro, oscuro y 390 px con AA | Comparar EVA 1 con datos reales (importar el paquete de Azure y EVA en una base desechable y cotejar cortes contra el dashboard); luego EVA2-4 (G10b) o Operativa (G10a); medir en PostgreSQL (P2) cuando haya acceso |
