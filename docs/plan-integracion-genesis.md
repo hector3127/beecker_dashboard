@@ -147,7 +147,7 @@ Las tareas D se hacen en el dashboard y las G en Genesis (rama local, sin push h
 
 | ID | Tarea | Depende | Estado | Responsable | Terminado cuando |
 |---|---|---|---|---|---|
-| G5 | Modelos `DmKpiPeriod/Observation/Metric` en la app, comando de importación desde D3 y endpoint de lectura con el mismo contrato que D1 | G2, D1, D3, D4 | pendiente | — | Conteos y cifras iguales al dashboard; cobertura ≥ 80 % del módulo |
+| G5 | Modelos `DmKpiPeriod/Observation/Metric` en la app, comando de importación desde D3 y endpoint de lectura con el mismo contrato que D1 | G2, D1, D3, D4 | terminado | Héctor (con Claude) | Genesis `e32c1f0` y el commit de G5: modelos y migración, lectura de capturas, cálculo, `GET /api/management/kpis-dm/` e `importar_kpis_dm` (verifica SHA-256 sin distinguir CRLF, carga atómica, llaves conservadas). Paridad: 6 respuestas del dashboard sobre el mismo escenario coinciden campo por campo (`tests/contracts/kpis_dm_db/` aquí y `dashboard_management/tests/datos/` allá). 95 pruebas del módulo y 99 % de cobertura. Permisos aún solo de sesión (P1) |
 | G6 | Pantalla KPI DM en React: año único, mes, multiselección de DMs, tablas, tendencia y glosario; claro y oscuro | G4, G5 | pendiente | — | Mismas cifras que el dashboard; filtros en URL; cuatro anchos; tema no reinicia filtros |
 | G6b | Permisos reales del piloto | G6, P1 | bloqueado | — | Pruebas sin sesión, sin permiso y con permiso |
 
@@ -241,6 +241,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 02/11/2026 | Héctor (con Claude) | G5: backend de KPI DM en Genesis | Genesis `e32c1f0` y commits siguientes (locales, sin push); Dashboard `bbd90e7`, `fc840ef` | Paridad con el dashboard en 6 consultas; 95 pruebas y 99 % de cobertura del módulo; suite de Genesis sin nuevas fallas (ver `odd/tasks/dashboard-management.md`) | G6: pantalla KPI DM en React; antes, importar `tmp/genesis-export-kpi` a una base local de Genesis para probar con datos reales |
 | 02/11/2026 | Héctor (con Claude) | D3: comando de exportación | Dashboard, commit del comando `export_for_genesis` | Export real del grupo `kpi` verificado; 139 pruebas de datastore | D5 y G5 (modelos e importación de KPI DM en Genesis desde `tmp/genesis-export-kpi`, que no se sube a Git) |
 | 02/11/2026 | Héctor (con Claude) | G4 en Genesis; D1, D2 y D4 de KPI DM en el dashboard | Genesis `070ab65` (local, sin push); Dashboard `d8242ee`, `f139547` | Servicio, hook y estados con 27 pruebas Vitest, build y cobertura en verde; contratos y refactor de KPI DM con 2955 pruebas de servidor, 473 de Node y 28 e2e de KPIs | D3 (comando de exportación), D5 (sincronizaciones sin hilos) y G5; el piloto necesita el export y P1 para sus permisos |
 | 02/11/2026 | Héctor (con Claude) | G1–G3: rama al día, app `dashboard_management` y módulo `/management` con modo oscuro | Genesis `c2170d0`, `a471580`, `9b1afe7` (locales, sin push) | Vista comprobada en 3 temas y 390 px; backend 5250 pruebas y frontend 11 relacionadas en verde; límites de Windows documentados en `odd/tasks/dashboard-management.md` | G4 (servicio y estados) y D1–D5; esperar P1–P4. Decisión pendiente: el gradiente del encabezado choca con la regla 3 del sistema de diseño de Genesis |
