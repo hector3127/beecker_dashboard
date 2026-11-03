@@ -108,6 +108,7 @@ Enviadas a Ulises (infraestructura) el 02/11. La de permisos va a quien defina e
 | P2 | ¿~5 GB por entorno en `psql-flx-genesis` (B1ms compartido) o subir de tier? ¿Quién carga el histórico en UAT/PROD y en qué ventana? | G10 | Pendiente |
 | P3 | Quién crea cuentas de servicio de Azure DevOps, Clockify y Google, y quién las carga como app settings en UAT/PROD | G8 | Pendiente |
 | P4 | Lectura sobre `rg-genesis` y rol PostgreSQL de solo lectura en `genesis_uat_db` | Validar esquema real y app settings (no bloquea el trabajo local) | Pendiente |
+| P5 | Dashboard Management son plantillas Django con JS sin compilar (unas 29 mil líneas de dibujo de pantallas). ¿Confirman que se porta como componentes React del SPA de Genesis, reutilizando cálculos y backend, o prefieren embeberlo de otra forma? | Decisión A5 y toda la Fase 5 | Pendiente |
 
 Ya respondido por el código o por Ulises (no volver a preguntar):
 
@@ -126,10 +127,10 @@ Las tareas D se hacen en el dashboard y las G en Genesis (rama local, sin push h
 
 | ID | Tarea | Depende | Estado | Responsable | Terminado cuando |
 |---|---|---|---|---|---|
-| D1 | **Congelar contratos de API**: por cada endpoint del piloto y de cada bloque, guardar respuesta JSON con datos fijos (`tests/contracts/<pantalla>/*.json`) y un test que la compare | — | pendiente | — | Test pasa; una alteración deliberada lo rompe |
-| D2 | **Separar servicios puros**: que los cálculos de cada pantalla se llamen sin request, caché ni vistas (entrada → salida tipada) | — | pendiente | — | Tests de servicio sin cliente HTTP; cifras iguales a D1 |
+| D1 | **Congelar contratos de API**: por cada endpoint del piloto y de cada bloque, guardar respuesta JSON con datos fijos (`tests/contracts/<pantalla>/*.json`) y un test que la compare | — | terminado | Héctor (con Claude) | Solo KPI DM por ahora: `tests/contracts/test_kpis_dm_contract.py` guarda 7 respuestas completas en `tests/contracts/kpis_dm/` (5 consultas y 2 errores); alterar una cifra del JSON hace fallar la prueba. Falta repetir el patrón en las demás pantallas al portarlas |
+| D2 | **Separar servicios puros**: que los cálculos de cada pantalla se llamen sin request, caché ni vistas (entrada → salida tipada) | — | terminado | Héctor (con Claude) | Solo KPI DM: `apps/portal/services/kpi_screen.py` (`build_kpi_context`) no usa request, reloj, base ni DRF; `views.kpi_context` es un adaptador. Los 7 contratos de D1 no cambiaron, 20 pruebas nuevas sin cliente HTTP, 2955 de servidor y 28 e2e de KPIs en verde |
 | D3 | **Comando de exportación** `export_for_genesis`: tablas propias a JSONL por tabla, con conteos y SHA-256 en un manifiesto | — | pendiente | — | Export de la base local; manifiesto reproducible; sin secretos ni usuarios |
-| D4 | **Tipado estricto y sin supresiones** en los servicios que se portan (empezar por KPI DM) | D2 | pendiente | — | `mypy --strict` y `ruff` limpios en esos módulos |
+| D4 | **Tipado estricto y sin supresiones** en los servicios que se portan (empezar por KPI DM) | D2 | terminado | Héctor (con Claude) | Solo KPI DM: `kpi_screen.py` pasa `mypy` estricto, sin `noqa` ni `type: ignore`. Los módulos de los que depende (`kpi_eva`, `kpi_history`, `kpi_quarterly`, `kpi_dm_store`) no se revisaron en estricto |
 | D5 | **Sincronizaciones como funciones idempotentes** sin hilos: `sync(rango, cursor) -> resultado` reutilizable por un handler de job | D2 | pendiente | — | Tests de reintento e idempotencia; sin `threading` en la ruta |
 | D6 | **Inventario de colores** por pantalla (literales de `pages/*.css`) → lista de tokens del módulo para claro y oscuro | — | terminado | Héctor (con Claude) | [diseno-modo-oscuro.md](diseno-modo-oscuro.md): 5,885 usos y 3,339 valores agrupados en 14 funciones; 30 tokens `--mg-*` con valor claro y oscuro y tabla de traducción |
 
@@ -140,7 +141,7 @@ Las tareas D se hacen en el dashboard y las G en Genesis (rama local, sin push h
 | G1 | Sincronizar la rama local con `origin/UAT`; `uv sync --locked`, `migrate`, `pnpm install --frozen-lockfile` | — | terminado | Héctor (con Claude) | Rama al día con `origin/UAT`; `uv sync --locked`, `migrate` y `pnpm install --frozen-lockfile` sin errores |
 | G2 | App `dashboard_management`: `apps.py`, `urls.py` en `/api/management/`, `INSTALLED_APPS`, Makefile/pyproject (mypy, cobertura), ADR nuevo, fila en `structure-deviations.md`, endpoint `ping` con permiso de sesión | G1 | terminado | Héctor (con Claude) | `c2170d0`: app, `ping/` autenticado, ADR 0030, desvío, OpenAPI; 3 + 2 pruebas nuevas, mypy estricto limpio, 91.6 % de cobertura |
 | G3 | Módulo SPA: ruta `/management` con `PrivateRoute`, ítem en `navigation.js`, layout propio, tokens del módulo claro/oscuro enlazados a `theme.css`, mapa de features | G1, D6 | terminado | Héctor (con Claude) | `a471580`: ruta, menú y vista; 6 pruebas Vitest; verificado en claro, oscuro, sistema y 390 px (ver `odd/tasks/dashboard-management.md` en Genesis) |
-| G4 | Servicio `managementService.js` sobre `apiClient.js` y manejo de carga, vacío, error con `error_id` y reintento | G3 | pendiente | — | Tests Vitest del servicio y de los estados |
+| G4 | Servicio `managementService.js` sobre `apiClient.js` y manejo de carga, vacío, error con `error_id` y reintento | G3 | terminado | Héctor (con Claude) | `070ab65`: `managementService` (ping y lectura con parámetros), hook `useConsulta` y `EstadoDeConsulta` (cargando, vacío, error con `error_id` y reintento; descarta respuestas tardías); 27 pruebas Vitest, cobertura y build en verde |
 
 ### Fase 3 — Piloto KPI DM
 
@@ -240,6 +241,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 02/11/2026 | Héctor (con Claude) | G4 en Genesis; D1, D2 y D4 de KPI DM en el dashboard | Genesis `070ab65` (local, sin push); Dashboard `d8242ee`, `f139547` | Servicio, hook y estados con 27 pruebas Vitest, build y cobertura en verde; contratos y refactor de KPI DM con 2955 pruebas de servidor, 473 de Node y 28 e2e de KPIs | D3 (comando de exportación), D5 (sincronizaciones sin hilos) y G5; el piloto necesita el export y P1 para sus permisos |
 | 02/11/2026 | Héctor (con Claude) | G1–G3: rama al día, app `dashboard_management` y módulo `/management` con modo oscuro | Genesis `c2170d0`, `a471580`, `9b1afe7` (locales, sin push) | Vista comprobada en 3 temas y 390 px; backend 5250 pruebas y frontend 11 relacionadas en verde; límites de Windows documentados en `odd/tasks/dashboard-management.md` | G4 (servicio y estados) y D1–D5; esperar P1–P4. Decisión pendiente: el gradiente del encabezado choca con la regla 3 del sistema de diseño de Genesis |
 | 02/11/2026 | Héctor (con Claude) | D6 terminado: tokens de modo oscuro | Dashboard, commit de `diseno-modo-oscuro.md` | Medición de colores por hoja (sección Diagnóstico) | Seguir con G1–G3 |
 | 02/11/2026 | Héctor (con Claude) | Limpieza previa: 62 documentos históricos, transporte RPC de pruebas, fotos JSON del diseño y herramienta de carga | Dashboard `1f2759e`, `915bbfd`, `7499608` | Servidor 2928; Node 473; e2e 691 + 3 corregidas tras la corrida (33 en sus archivos) | Empezar D1/D3/D6 y G1–G3 |
