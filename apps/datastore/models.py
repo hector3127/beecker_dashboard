@@ -6,7 +6,7 @@ from django.db import models
 
 """BKD.130.002 - Modelos de la base diaria
 Registros de horas de Clockify por mes y el control de cada corrida de
-sincronizacion. Ver docs/propuesta-base-datos-postgres.md.
+sincronizacion. Ver docs/llenado-de-la-base.md.
 """
 
 

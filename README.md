@@ -1,21 +1,13 @@
 # Beecker Dashboard (Django)
 
-Preparación para Genesis (02/11/2026):
-[plan compartido y traspaso](docs/plan-integracion-genesis.md),
-[inventario de páginas/API](docs/inventario-integracion-genesis.md) y
-[limpieza comprobada](docs/limpieza-pre-genesis-2026-11-02.md).
-La aplicación independiente sigue siendo la referencia; el módulo de Genesis
-todavía no está implementado. Código y datos se trasladan por procesos separados.
+Integración en Genesis: [plan, tareas y traspaso](docs/plan-integracion-genesis.md)
+e [inventario de páginas y API](docs/inventario-integracion-genesis.md).
+La aplicación independiente sigue siendo la referencia funcional; el módulo de
+Genesis todavía no está implementado.
 
-Actualización del 15/10/2026: [funciones, compatibilidad y respaldo](docs/actualizacion-15-octubre-2026.md).
-
-Rendimiento: [reutilización de horas y actualización en segundo plano](docs/rendimiento-15-octubre-2026.md).
-
-Propuesta en revisión: [base de datos PostgreSQL llenada cada día](docs/propuesta-base-datos-postgres.md).
-
-Cómo mantenerla al día: [ejecución programada en Windows y Azure](docs/ejecucion-programada.md).
-
-Integración de Ejecutiva del 14/10/2026: [funciones, fuentes y validación](docs/integracion-ejecutiva-final.md).
+Base diaria: [cómo se llena](docs/llenado-de-la-base.md) y
+[ejecución programada](docs/ejecucion-programada.md). Índice completo en
+[docs/README.md](docs/README.md).
 
 Migración a Python/Django del dashboard Beecker que hoy vive en Google
 Apps Script. Los datos **siguen en Google Sheets**; Django reemplaza la

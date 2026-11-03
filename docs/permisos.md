@@ -23,17 +23,15 @@ Códigos estables (contrato con Genesis). Se agregan en
 | `view_costs` | Ver costos, ingresos y márgenes |
 | `view_agreements` | Consultar acuerdos y pendientes |
 | `edit_agreements` | Crear y modificar acuerdos y pendientes |
-| `edit_operations` | Modificar pendientes, hitos, riesgos y datos de proyectos (funciones de escritura del RPC) |
+| `edit_operations` | Modificar pendientes, hitos, riesgos y datos de proyectos |
 | `manage_integrations` | Configurar Azure DevOps y Clockify, claves y vínculos |
 
-## RPC (`/api/rpc/`)
+## Funciones registradas
 
-Cada función registrada declara su capacidad en `apps/access/rpc_policy.py`:
-lectura `view_operations`, escritura `edit_operations`, configuración
-`manage_integrations`; las de una cuenta aceptan también `view_agreements` y
-validan el alcance (cuenta ajena: 404). Con alcance limitado solo se permiten las
-funciones de cuenta; el resto trabaja con proyectos o con el equipo completo. Una
-función sin política se rechaza y una prueba obliga a declarar las nuevas.
+`core/rpc/registry.py` conserva el registro interno de funciones por nombre
+(`register_rpc`, `get_rpc_function`) que usan `warm_cache` y varios servicios.
+Ya no hay transporte HTTP `/api/rpc/`: los permisos se aplican en cada vista
+de la API v1 con las capacidades de esta tabla.
 
 ## Alcance
 

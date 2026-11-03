@@ -1,37 +1,22 @@
 # Documentación del proyecto
 
-## Entrada vigente
+## Entrada
 
-- [AGENTS.md](../AGENTS.md): reglas y siguiente bloque de trabajo.
-- [Estado de traspaso](estado-traspaso.md): estado actual al principio;
-  los bloques siguientes son históricos.
-- [Plan de migración](plan-migracion-frontend.md): objetivos y evidencia;
-  su apartado vigente prevalece sobre los avances históricos.
-- [Auditoría del 27/10](auditoria-fase11-2026-10-27.md): comprobaciones
-  independientes de main, CSP, archivos retirados y límites de cobertura.
-- [CSP](estado-csp.md) y [permisos/Genesis](permisos.md).
-- [Congelación de referencias](congelacion-referencias.md): piloto integrado,
-  modelos ya independientes del original y siguiente bloque.
+- [AGENTS.md](../AGENTS.md): reglas para trabajar en este repositorio.
+- [Plan de integración en Genesis](plan-integracion-genesis.md): estado, decisiones, tareas y registro de traspaso.
+- [Inventario de páginas y API](inventario-integracion-genesis.md).
 
-## Operación y datos
+## Reglas de negocio
 
-Conservar los manuales de base de datos, sincronización y ejecución programada,
-el reporte de horas mensuales y la navegación al origen. Las conciliaciones
-de KPIs/horas y cambios solicitados por negocio no son temporales de migración.
+- EVA: [inventario activo](eva-inventario-activo.md), [Azure y Clockify](eva-azure-clockify.md), [fecha de corte](eva1-fecha-corte.md), [inventario Summary](inventario-summary.md), [métricas persistidas](inventario-eva-metricas.md), [cierres mensuales](cierres-mensuales-eva.md).
+- KPIs de DM: [reglas](kpis-dm-reglas.md) y [periodos persistidos](kpis-dm-persistidos.md).
+- [Capacidad del equipo](capacidad-equipo.md), [horas mensuales por cuenta](reporte-horas-mensuales.md), [diccionario de datos ejecutivo](diccionario-datos-ejecutivo.md).
+- [Permisos y alcance](permisos.md).
+- [Diseño de proyectos](diseno-proyectos.md).
 
-## Evidencia histórica
+## Datos y operación
 
-Los documentos `retiro-*.md`, `integracion-*.md`, `preparacion-fase-11.md` y
-`limpieza-por-lotes.md` conservan resultados y decisiones por commit. Sus
-recuentos describen el momento de cada bloque, no el estado actual.
-`archivo/` conserva notas y análisis anteriores que siguen teniendo contenido.
+- [Cómo se llena la base](llenado-de-la-base.md), [manual de la base](manual-base-de-datos.md), [fuentes persistentes](fuentes-persistentes.md), [histórico de Azure](historico-azure.md), [ejecución programada](ejecucion-programada.md).
+- [Manual de usuario](manual-usuario.md).
 
-## Limpieza de documentación
-
-El 27/10 se retiró `prompt-continuacion.md`: duplicaba AGENTS y el traspaso,
-con instrucciones obsoletas sobre CSP y presentaciones que ya no existen.
-Su función está cubierta por las entradas vigentes de esta página.
-
-Antes de borrar otro documento, revisar contenido único, consumidores y
-enlaces. No eliminar evidencias de prueba, reglas de negocio, conciliaciones
-o manuales solo porque correspondan a un bloque terminado.
+El historial de migración, auditorías e integraciones anteriores vive en Git.

@@ -50,6 +50,6 @@ La página `/guia-de-interfaz/` muestra los componentes y los estados.
 | Capacidad diaria | `templates/pages/capacity_daily.html`, `scripts/pages/capacity_daily/` | `GET /api/v1/screens/capacidad/diaria/?mes=AAAA-MM` y `.../proyecto/?mes=...&proyecto=...&iteration=...` |
 
 El inventario completo y actualizado de rutas se mantiene en
-`docs/plan-migracion-frontend.md`. En Capacidad diaria, `model.js` conserva las
+`docs/inventario-integracion-genesis.md`. En Capacidad diaria, `model.js` conserva las
 reglas previas, `view.js` construye nodos sin HTML con datos y `main.js` carga
 la API (máximo dos proyectos simultáneos) y coordina filtros y exportación.

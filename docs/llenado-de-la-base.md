@@ -5,9 +5,8 @@ Sheets, Clockify y Azure DevOps, y en qué tabla guarda cada cosa**. Se escribi�
 leyendo el código de `apps/datastore/` (no es una propuesta: describe lo que hay
 en la rama `main`) y los conteos salen de la base local del 2026-10-20.
 
-Para la propuesta original y las fases ver
-[propuesta-base-datos-postgres.md](propuesta-base-datos-postgres.md); para
-programar las ejecuciones ver [ejecucion-programada.md](ejecucion-programada.md).
+Para programar las ejecuciones ver [ejecucion-programada.md](ejecucion-programada.md);
+para su destino en Genesis, [plan-integracion-genesis.md](plan-integracion-genesis.md).
 
 ---
 
