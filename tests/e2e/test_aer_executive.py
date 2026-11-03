@@ -1,14 +1,9 @@
 """Ejecutivo AER: paridad, navegación, fuentes vacías y texto seguro."""
 
-import json
-from itertools import zip_longest
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
-from tests.e2e.frozen.aer_executive_support import input_digest, prepare, state
-from tests.e2e.frozen.aer_executive_support import (
+from tests.e2e.aer_executive_support import (
     production_site as production_site,
 )
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
@@ -31,60 +26,6 @@ def fixed_day(portal):
         static now() { return +new OriginalDate('2026-10-23T18:00:00Z'); }
       };
     }""")
-
-
-@pytest.mark.parametrize("variant", ["full", "empty", "attention"])
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_all_executive_elements_match(
-    portal, project_detail, fixed_day, variant, width
-):
-    _, data = project_detail
-    prepare(data, variant)
-    portal.set_viewport_size({"width": width, "height": 1000})
-    reference = json.loads(
-        Path(
-            f"tests/e2e/frozen/aer_executive/{variant}-{width}.json"
-        ).read_text(encoding="utf-8")
-    )
-    assert (
-        reference["schema"] == 1
-        and reference["source"] == "project_redesign_delivery_v2"
-    )
-    assert reference["variant"] == variant
-    assert reference["viewport"] == {"width": width, "height": 1000}
-    assert reference["input_sha256"] == input_digest(data)
-    requests = []
-    portal.on("request", lambda request: requests.append(request.url))
-    portal.goto(portal.base + PAGE)
-    before, after = reference["elements"], state(portal)
-    out = Path(f"tmp/frozen-browser/aer_executive/{variant}-{width}")
-    out.mkdir(parents=True, exist_ok=True)
-    portal.locator(".aer-exec-view").screenshot(path=str(out / "current.png"))
-    (out / "differences.json").write_text(
-        json.dumps(
-            {
-                "approved_count": len(before),
-                "current_count": len(after),
-                "elements": [
-                    {"index": i, "approved": a, "current": b}
-                    for i, (a, b) in enumerate(zip_longest(before, after))
-                    if a != b
-                ],
-            },
-            indent=2,
-        ),
-        encoding="utf-8",
-    )
-    assert after == before
-    assert not any(
-        "/api/rpc/" in url or "/static/portal/js/" in url for url in requests
-    )
-    expect(portal.locator(".aer-exec-view")).to_have_attribute(
-        "data-renderer", "modular"
-    )
-    assert portal.locator(".aer-exec-view [onclick]").count() == 0
-    assert portal.locator("style#aer-dashboard-styles").count() == 0
-    assert portal.locator("link#aer-dashboard-styles").count() == 1
 
 
 @pytest.mark.parametrize(

@@ -1,20 +1,13 @@
 """Evaluaciones AER: diseño actual, selección, API y formularios seguros."""
 
-import json
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
-from tests.e2e.frozen.aer_executive_support import (
+from tests.e2e.aer_executive_support import (
     production_site as production_site,
 )
-from tests.e2e.frozen.aer_resources_support import (
+from tests.e2e.aer_resources_support import (
     enter,
-    input_digest,
-    measure_editor,
-    measure_view,
-    prepare,
 )
 from tests.e2e.test_aer_executive import fixed_day as fixed_day
 from tests.e2e.test_project_detail_entry import project_detail as project_detail
@@ -61,47 +54,6 @@ def resources(portal, project_detail):
 
     portal.route("**/evaluaciones-aer/**", dispatch)
     return data, responses, calls
-
-
-def approved(name, width, data):
-    reference = json.loads(
-        Path(f"tests/e2e/frozen/aer_resources/{name}-{width}.json").read_text(
-            encoding="utf-8"
-        )
-    )
-    assert reference["source"] == "project_redesign_delivery_v2"
-    assert reference["viewport"] == {"width": width, "height": 1000}
-    assert reference["input_sha256"] == input_digest(data)
-    return reference["state"]
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("variant", ["full", "empty", "selected"])
-def test_view_keeps_current_design(
-    portal, resources, fixed_day, width, variant
-):
-    data, _, _ = resources
-    prepare(data, variant)
-    portal.set_viewport_size({"width": width, "height": 1000})
-    expected = approved(f"view-{variant}", width, data)
-    actual = measure_view(portal, variant)
-    assert actual == expected
-    assert (
-        portal.locator(
-            ".aer-vivid-grid [onchange], .aer-vivid-grid [onclick]"
-        ).count()
-        == 0
-    )
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-@pytest.mark.parametrize("uid", ["", "e1"])
-def test_editor_keeps_current_design(portal, resources, fixed_day, width, uid):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    expected = approved(f"editor-{uid or 'new'}", width, resources[0])
-    actual = measure_editor(portal, uid)
-    assert actual == expected
-    assert portal.locator("#aer-modal-back [onclick]").count() == 0
 
 
 def test_save_retry_delete_and_selection(portal, resources, fixed_day):

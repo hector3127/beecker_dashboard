@@ -2,7 +2,7 @@
 
 from playwright.sync_api import expect
 
-from tests.e2e.frozen.aer_executive_support import input_digest
+from tests.e2e.aer_executive_support import input_digest
 from tests.e2e.test_ixs_effort import state
 
 PAGE = "/proyectos/AER.001/"

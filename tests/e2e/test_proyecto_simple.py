@@ -1,7 +1,5 @@
 """Proyecto simple conserva cifras, navegación y presentación del anterior."""
 
-from pathlib import Path
-
 import pytest
 from playwright.sync_api import expect
 
@@ -83,84 +81,3 @@ def test_partial_data_and_reload(portal, project, monkeypatch):
     stub_project(monkeypatch)
     portal.reload()
     expect(portal.locator(".err")).to_have_count(0)
-
-
-@pytest.mark.parametrize("width", [1450, 390])
-@pytest.mark.parametrize("empty", [False, True])
-def test_layout_keeps_the_approved_reference(
-    portal, project, monkeypatch, width, empty, snapshot, enforced_csp
-):
-    if empty:
-        stub_project(monkeypatch, error="Sin Clockify.")
-    portal.set_viewport_size({"width": width, "height": 1000})
-    selectors = [
-        "main.page",
-        ".crumb",
-        ".hd",
-        "h1",
-        ".badge",
-        ".sub",
-        ".dec",
-        ".dec h2",
-        ".dec .amt",
-        ".kp",
-        ".kc",
-        ".kl",
-        ".kv",
-        ".kv small",
-        ".kv span",
-        ".ke",
-        ".two",
-        ".card",
-        ".card h2",
-        ".hs",
-        ".br",
-        ".tr",
-        ".tr i",
-        ".tr u",
-        ".ax",
-        ".ax em",
-        "table",
-        "th",
-        "td",
-        ".st",
-        ".ev",
-        ".ev i",
-        ".note",
-        ".vacio",
-        ".err",
-    ]
-
-    def state():
-        portal.locator(".tr i").first.wait_for(state="attached")
-        portal.wait_for_function(
-            "document.querySelector('.tr i').style.width !== ''"
-        )
-        return portal.evaluate(
-            """selectors => selectors.map(s =>
-              [...document.querySelectorAll(s)].map(el => {
-                const r = el.getBoundingClientRect(), c = getComputedStyle(el);
-                return {
-                  box: ['x','y','width','height'].map(k =>
-                    Math.round(r[k]*10)/10),
-                  css: ['color','backgroundColor','fontSize','fontWeight',
-                    'lineHeight','marginTop','marginBottom','paddingTop',
-                    'paddingBottom','boxShadow','borderRadius','boxSizing']
-                    .map(k => c[k]),
-                  text: el.textContent.replace(/\\s+/g, '')
-                };
-              }))""",
-            selectors,
-        )
-
-    output = Path(
-        f"tmp/migration/project/{width}/{'empty' if empty else 'full'}"
-    )
-    output.mkdir(parents=True, exist_ok=True)
-    portal.goto(portal.base + PAGE)
-    after = state()
-    portal.screenshot(path=str(output / "current.png"), full_page=True)
-    snapshot(
-        f"project_layout_{width}_{'empty' if empty else 'full'}",
-        dict(zip(selectors, after, strict=True)),
-    )

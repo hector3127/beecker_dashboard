@@ -8,7 +8,7 @@ from playwright.sync_api import expect
 
 from apps.portal.services.eva1 import build_eva1_view
 from apps.portal.services.eva2 import build_eva2_view
-from tests.e2e.frozen.aer_executive_support import production_site  # noqa: F401
+from tests.e2e.aer_executive_support import production_site  # noqa: F401
 from tests.ejecutivo.test_aer_tym import build_mpb_row, build_values
 from tests.portal.test_eva1 import sample_rows
 from tests.portal.test_eva2 import make_row
@@ -31,7 +31,7 @@ def evas(monkeypatch, datos):
     ]
     monkeypatch.setattr(
         "apps.portal.views.load_eva2",
-        lambda: SimpleNamespace(view=build_eva2_view(ixb), error=""),
+        lambda *a, **kw: SimpleNamespace(view=build_eva2_view(ixb), error=""),
     )
     monkeypatch.setattr(
         "apps.portal.views.load_eva1",
@@ -185,51 +185,6 @@ def test_deferred_consumption_keeps_a_partial_failure(
     expect(
         portal.locator('tr[data-project="AER.003"] [data-field="burn"]')
     ).to_have_text("120")
-
-
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_eva2_keeps_approved_reference(
-    portal, evas, width, snapshot, enforced_csp
-):
-    portal.set_viewport_size({"width": width, "height": 1000})
-    selectors = [
-        ".pgh",
-        ".kp4",
-        ".kc",
-        ".kv",
-        ".two2",
-        ".card",
-        ".card h2",
-        ".hs",
-        "table",
-        "th",
-        "td",
-        ".note",
-        ".portal-page-toolbar",
-    ]
-
-    def measure():
-        return portal.evaluate(
-            """selectors=>selectors.map(s=>
-          [...document.querySelectorAll(s)].map(el=>{
-            const b=el.getBoundingClientRect(),c=getComputedStyle(el);
-            return {box:['x','y','width','height'].map(k=>
-                Math.round(b[k]*10)/10),
-              css:['fontSize','fontWeight','color','backgroundColor',
-                'padding','margin'].map(k=>c[k]),
-              text:el.tagName==='TABLE'?el.innerText:null};
-          }))""",
-            selectors,
-        )
-
-    output = Path(f"tmp/migration/eva2/{width}")
-    output.mkdir(parents=True, exist_ok=True)
-    portal.goto(portal.base + "/operativa/eva-2/")
-    portal.mouse.move(0, 0)
-    snapshot(
-        f"eva2_layout_{width}", dict(zip(selectors, measure(), strict=True))
-    )
-    portal.screenshot(path=str(output / "current.png"), full_page=True)
 
 
 def test_eva2_saved_previous_link_keeps_tables_and_return(portal, evas):

@@ -12,8 +12,8 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect
 
+from tests.e2e.aer_executive_support import production_site
 from tests.e2e.conftest import watch
-from tests.e2e.frozen.aer_executive_support import production_site
 from tests.e2e.test_actions_transport import board as actions_board
 from tests.e2e.test_aer_ai_sources import ia as aer_ia
 from tests.e2e.test_aer_ai_view import rich as enrich_aer

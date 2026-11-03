@@ -5,7 +5,7 @@ import re
 import pytest
 from playwright.sync_api import expect
 
-from tests.e2e.frozen.aer_executive_support import production_site  # noqa: F401
+from tests.e2e.aer_executive_support import production_site  # noqa: F401
 from tests.portal.test_views import portfolio, stub_history, stub_portfolio
 
 pytestmark = pytest.mark.django_db(transaction=True)

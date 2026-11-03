@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import expect
 
-from tests.e2e.frozen.aer_executive_support import (
+from tests.e2e.aer_executive_support import (
     production_site as production_site,
 )
 from tests.e2e.test_aer_executive import fixed_day as fixed_day

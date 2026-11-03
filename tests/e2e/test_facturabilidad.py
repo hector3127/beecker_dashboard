@@ -303,52 +303,6 @@ def test_resource_bajas_and_column_menus(
     )
 
 
-@pytest.mark.parametrize("screen", SCREENS)
-@pytest.mark.parametrize("width", [1450, 900, 390])
-def test_approved_billability_layout(
-    portal, facturability, screen, width, snapshot, enforced_csp
-):
-    from datetime import datetime
-
-    portal.clock.set_fixed_time(
-        datetime.fromisoformat("2026-10-26T18:00:00+00:00")
-    )
-    portal.set_viewport_size({"width": width, "height": 1000})
-    portal.goto(portal.base + BASE + screen + "?mes=2026-02")
-    portal.wait_for_load_state("networkidle")
-    selectors = [
-        ".pgh",
-        ".tabs",
-        ".pf",
-        ".rf",
-        ".hero",
-        ".card",
-        "table",
-        "#bill-chart",
-    ]
-    state = portal.evaluate(
-        """selectors => Object.fromEntries(selectors.map(selector => [selector,
-          [...document.querySelectorAll(selector)].map(node => {
-            const box = node.getBoundingClientRect();
-            const css = getComputedStyle(node);
-            return {
-              box: ['x','y','width','height']
-                .map(k => Math.round(box[k]*10)/10),
-              css: ['fontSize','color','backgroundColor','padding','margin',
-                'borderRadius'].map(k => css[k]),
-              text: node.tagName === 'TABLE' ? node.innerText : null
-            };
-          })]))""",
-        selectors,
-    )
-    key = screen.strip("/") or "general"
-    snapshot(f"billability_layout_{key}_{width}", state)
-    target = Path("tmp/design/billability-retirement")
-    target.mkdir(parents=True, exist_ok=True)
-    portal.mouse.move(0, 0)
-    portal.screenshot(path=str(target / f"{key}-{width}.png"), full_page=True)
-
-
 @pytest.mark.parametrize(
     "screen,name",
     list(

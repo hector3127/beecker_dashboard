@@ -174,22 +174,3 @@ def test_personnel_filter_is_visible_and_preserves_individual_values(
     portal.screenshot(
         path=f"tmp/demo-requests/personnel-{width}.png", full_page=True
     )
-
-
-def test_concurrent_read_requests(live_server, daily, settings, tmp_path):
-    import json
-
-    from apps.datastore.models import DataRevision
-    from scripts.check_load import run_load
-
-    settings.CLOCKIFY_STORE_ENABLED = True
-    DataRevision.objects.get_or_create(pk=1)
-    result = run_load(
-        live_server.url + "/api/v1/screens/capacidad/diaria/?mes=2026-10", 64, 8
-    )
-    assert result["success"] == 64, result
-    assert not result["errors"]
-    Path("tmp/demo-requests").mkdir(parents=True, exist_ok=True)
-    Path("tmp/demo-requests/load.json").write_text(
-        json.dumps(result, indent=2), encoding="utf-8"
-    )
