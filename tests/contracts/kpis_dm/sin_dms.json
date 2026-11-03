@@ -1,0 +1,536 @@
+{
+  "data": {
+    "cut": {
+      "current": true,
+      "label": "28/10/2026"
+    },
+    "filters": {
+      "chart_year": 2026,
+      "cut": "2026-10-28",
+      "history_year": 2026,
+      "managers": [
+        "Ana",
+        "Beto"
+      ],
+      "max_cut": "2026-10-28",
+      "max_month": "2026-10",
+      "month": "2026-10",
+      "selected_managers": [
+        "__none__"
+      ],
+      "years": [
+        2026,
+        2025,
+        2024,
+        2023,
+        2022,
+        2021
+      ]
+    },
+    "history": {
+      "chart": {
+        "labels": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct*",
+          "Nov",
+          "Dic"
+        ],
+        "series": []
+      },
+      "error": "",
+      "months": {
+        "headers": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct*",
+          "Nov",
+          "Dic"
+        ],
+        "rows": [],
+        "totals": [
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          null,
+          null
+        ]
+      },
+      "notice": "",
+      "quarters": {
+        "headers": [
+          "T1",
+          "T2",
+          "T3",
+          "T4*"
+        ],
+        "rows": [],
+        "totals": [
+          {
+            "c": null,
+            "t": null,
+            "total": 0.0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0.0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0.0
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0.0
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "basis": "dm_kpi_saved_reports",
+      "c_unit": "percent",
+      "cut_weekdays": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "monthly_closes_enabled": false,
+      "t_unit": "percent"
+    },
+    "period": {
+      "end_month": "2026-10",
+      "kind": "anio",
+      "label": "2026",
+      "year": 2026
+    },
+    "picker": {
+      "by_year": [
+        {
+          "active": false,
+          "months": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-01",
+              "label": "Ene"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-02",
+              "label": "Feb"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-03",
+              "label": "Mar"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-04",
+              "label": "Abr"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-05",
+              "label": "May"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-06",
+              "label": "Jun"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-07",
+              "label": "Jul"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-08",
+              "label": "Ago"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-09",
+              "label": "Sep"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-10",
+              "label": "Oct"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-11",
+              "label": "Nov"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2024-12",
+              "label": "Dic"
+            }
+          ],
+          "quarters": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2024&trim=1",
+              "label": "T1"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2024&trim=2",
+              "label": "T2"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2024&trim=3",
+              "label": "T3"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2024&trim=4",
+              "label": "T4"
+            }
+          ],
+          "year": 2024
+        },
+        {
+          "active": false,
+          "months": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-01",
+              "label": "Ene"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-02",
+              "label": "Feb"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-03",
+              "label": "Mar"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-04",
+              "label": "Abr"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-05",
+              "label": "May"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-06",
+              "label": "Jun"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-07",
+              "label": "Jul"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-08",
+              "label": "Ago"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-09",
+              "label": "Sep"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-10",
+              "label": "Oct"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-11",
+              "label": "Nov"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2025-12",
+              "label": "Dic"
+            }
+          ],
+          "quarters": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2025&trim=1",
+              "label": "T1"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2025&trim=2",
+              "label": "T2"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2025&trim=3",
+              "label": "T3"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2025&trim=4",
+              "label": "T4"
+            }
+          ],
+          "year": 2025
+        },
+        {
+          "active": true,
+          "months": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-01",
+              "label": "Ene"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-02",
+              "label": "Feb"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-03",
+              "label": "Mar"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-04",
+              "label": "Abr"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-05",
+              "label": "May"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-06",
+              "label": "Jun"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-07",
+              "label": "Jul"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-08",
+              "label": "Ago"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-09",
+              "label": "Sep"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=mes&mes=2026-10",
+              "label": "Oct"
+            },
+            {
+              "active": false,
+              "disabled": true,
+              "href": "?dm=__none__&periodo=mes&mes=2026-11",
+              "label": "Nov"
+            },
+            {
+              "active": false,
+              "disabled": true,
+              "href": "?dm=__none__&periodo=mes&mes=2026-12",
+              "label": "Dic"
+            }
+          ],
+          "quarters": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2026&trim=1",
+              "label": "T1"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2026&trim=2",
+              "label": "T2"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2026&trim=3",
+              "label": "T3"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?dm=__none__&periodo=trimestre&anio=2026&trim=4",
+              "label": "T4"
+            }
+          ],
+          "year": 2026
+        }
+      ],
+      "kind": "anio",
+      "kind_label": "Año",
+      "label": "2026",
+      "query": "?periodo=anio&anio=2026",
+      "years": [
+        {
+          "active": false,
+          "disabled": false,
+          "href": "?dm=__none__&periodo=anio&anio=2024",
+          "label": "2024"
+        },
+        {
+          "active": false,
+          "disabled": false,
+          "href": "?dm=__none__&periodo=anio&anio=2025",
+          "label": "2025"
+        },
+        {
+          "active": true,
+          "disabled": false,
+          "href": "?dm=__none__&periodo=anio&anio=2026",
+          "label": "2026"
+        }
+      ]
+    },
+    "storage": {
+      "latest_cut": "2026-10-28",
+      "selected_status": "open"
+    },
+    "summary": {
+      "available": true,
+      "best": null,
+      "rows": [],
+      "totals": {
+        "at_risk": 0,
+        "c": null,
+        "cost_over": 0,
+        "critical": 0,
+        "name": "Total",
+        "on_time": 0,
+        "on_time_percent": 0,
+        "slug": "",
+        "t": null,
+        "time_late": 0,
+        "total": 0
+      },
+      "worst": null
+    }
+  },
+  "meta_claves": []
+}

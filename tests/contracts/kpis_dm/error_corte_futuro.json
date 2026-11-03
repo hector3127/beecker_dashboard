@@ -1,0 +1,6 @@
+{
+  "cuerpo": [
+    "Selecciona una fecha de corte no futura y un año válido."
+  ],
+  "status": 400
+}
