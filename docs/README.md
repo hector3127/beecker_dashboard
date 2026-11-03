@@ -12,7 +12,7 @@
 - KPIs de DM: [reglas](kpis-dm-reglas.md) y [periodos persistidos](kpis-dm-persistidos.md).
 - [Capacidad del equipo](capacidad-equipo.md), [horas mensuales por cuenta](reporte-horas-mensuales.md), [diccionario de datos ejecutivo](diccionario-datos-ejecutivo.md).
 - [Permisos y alcance](permisos.md).
-- [Diseño de proyectos](diseno-proyectos.md).
+- [Diseño de proyectos](diseno-proyectos.md) y [modo oscuro en Genesis](diseno-modo-oscuro.md).
 
 ## Datos y operación
 

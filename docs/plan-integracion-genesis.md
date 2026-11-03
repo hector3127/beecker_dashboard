@@ -131,7 +131,7 @@ Las tareas D se hacen en el dashboard y las G en Genesis (rama local, sin push h
 | D3 | **Comando de exportación** `export_for_genesis`: tablas propias a JSONL por tabla, con conteos y SHA-256 en un manifiesto | — | pendiente | — | Export de la base local; manifiesto reproducible; sin secretos ni usuarios |
 | D4 | **Tipado estricto y sin supresiones** en los servicios que se portan (empezar por KPI DM) | D2 | pendiente | — | `mypy --strict` y `ruff` limpios en esos módulos |
 | D5 | **Sincronizaciones como funciones idempotentes** sin hilos: `sync(rango, cursor) -> resultado` reutilizable por un handler de job | D2 | pendiente | — | Tests de reintento e idempotencia; sin `threading` en la ruta |
-| D6 | **Inventario de colores** por pantalla (literales de `pages/*.css`) → lista de tokens del módulo para claro y oscuro | — | pendiente | — | Tabla en `docs/diseno-modo-oscuro.md` con token, uso y valor claro |
+| D6 | **Inventario de colores** por pantalla (literales de `pages/*.css`) → lista de tokens del módulo para claro y oscuro | — | terminado | Héctor (con Claude) | [diseno-modo-oscuro.md](diseno-modo-oscuro.md): 5,885 usos y 3,339 valores agrupados en 14 funciones; 30 tokens `--mg-*` con valor claro y oscuro y tabla de traducción |
 
 ### Fase 2 — Esqueleto en Genesis (no bloqueada, local)
 
@@ -191,6 +191,7 @@ Reglas del módulo:
 - Cubrir gráficas (ejes, leyendas, tooltips), tablas con encabezado fijo, formularios, diálogos y estados de carga, vacío, error, hover y foco.
 - Estilos aislados en el módulo: no tocar el tema ni los componentes de Lin u otras pantallas.
 - No hace falta agregar modo oscuro al dashboard independiente: se hace al portar cada pantalla.
+- Tokens, valores claro/oscuro y tabla de traducción: [diseno-modo-oscuro.md](diseno-modo-oscuro.md).
 
 Aceptación por pantalla: claro igual al diseño aprobado; oscuro y sistema legibles (contraste AA en texto); cambiar de tema no reinicia filtros ni cambia cifras; cuatro anchos (1450, 1000, 768, 390) sin desborde horizontal.
 
@@ -239,5 +240,6 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 02/11/2026 | Héctor (con Claude) | D6 terminado: tokens de modo oscuro | Dashboard, commit de `diseno-modo-oscuro.md` | Medición de colores por hoja (sección Diagnóstico) | Seguir con G1–G3 |
 | 02/11/2026 | Héctor (con Claude) | Limpieza previa: 62 documentos históricos, transporte RPC de pruebas, fotos JSON del diseño y herramienta de carga | Dashboard `1f2759e`, `915bbfd`, `7499608` | Servidor 2928; Node 473; e2e 691 + 3 corregidas tras la corrida (33 en sus archivos) | Empezar D1/D3/D6 y G1–G3 |
 | 02/11/2026 | Héctor (con Claude) | Revisión completa de Genesis, limpieza del dashboard, preguntas P1–P4, este plan | Dashboard `5b3d7f5` + commit de este plan | Node 473, servidor 1937, e2e capacidad 18 | Empezar D1/D3/D6 y G1–G3; esperar P1–P4 |
