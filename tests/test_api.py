@@ -5,22 +5,21 @@ from datetime import UTC, datetime
 
 import pytest
 
+from apps.clockify.exceptions import ClockifyConfigurationError
 from apps.dashboard.cache import clear_cached_dashboard
 from apps.portal.services.portfolio_loader import PortfolioLoad
+from core.rpc.registry import get_rpc_function
 from tests.dashboard.sample_data import SHEETS
 from tests.fakes import InMemorySheetRepository
 
 pytestmark = pytest.mark.django_db
 
-RPC_URL = "/api/rpc/{name}/"
 
-
-def call_rpc(client, name, *args):
-    return client.post(
-        RPC_URL.format(name=name),
-        data={"args": list(args)},
-        content_type="application/json",
-    )
+def call_rpc(name, *args):
+    """Ejecuta una funcion registrada, como lo hacen warm_cache y la API."""
+    rpc_function = get_rpc_function(name)
+    assert rpc_function is not None, name
+    return rpc_function(*args)
 
 
 @pytest.fixture
@@ -86,72 +85,52 @@ def test_root_serves_the_new_executive_view(client, monkeypatch):
     assert b"gas_shim.js" not in response.content
 
 
-def test_function_not_migrated_returns_controlled_error(client):
-    response = call_rpc(client, "funcionQueNoExiste")
+def test_available_filters(repository):
+    result = call_rpc("getFiltrosDisponibles")
 
-    assert response.status_code == 404
-    assert response.json()["code"] == "ERR_RPC_NOT_MIGRATED"
-
-
-def test_wrong_number_of_arguments_is_rejected(client, repository):
-    response = call_rpc(client, "getFiltrosDisponibles", "sobra")
-
-    assert response.status_code == 400
-    assert response.json()["code"] == "ERR_INVALID_REQUEST"
-
-
-def test_available_filters(client, repository):
-    response = call_rpc(client, "getFiltrosDisponibles")
-
-    assert response.status_code == 200
-    result = response.json()["result"]
     assert result["clientes"][0] == "Todos los clientes"
     assert len(result["proyectos"]) == 5
 
 
-def test_dashboard_general_view_is_cached(client, repository):
-    first_response = call_rpc(client, "getDashboardData", None)
+def test_dashboard_general_view_is_cached(repository):
+    call_rpc("getDashboardData", None)
     repository.sheets["Proyectos"] = repository.sheets["Proyectos"][:1]
-    second_response = call_rpc(client, "getDashboardData", None)
+    second_response = call_rpc("getDashboardData", None)
 
-    assert first_response.status_code == 200
-    assert second_response.json()["result"]["kpis"]["totalProyectos"] == 5
+    assert second_response["kpis"]["totalProyectos"] == 5
 
 
-def test_clockify_source_requires_workspace(client, repository, settings):
+def test_clockify_source_requires_workspace(repository, settings):
     settings.TIME_ENTRY_SOURCE = "clockify"
     settings.CLOCKIFY_API_KEY = "clave-de-prueba"
     settings.CLOCKIFY_WORKSPACE_ID = ""
 
-    response = call_rpc(client, "getDashboardData", {"proyecto": "P-1"})
+    with pytest.raises(ClockifyConfigurationError) as error:
+        call_rpc("getDashboardData", {"proyecto": "P-1"})
 
-    assert response.status_code == 409
-    assert response.json()["code"] == "ERR_CLOCKIFY_CONFIG"
-    assert "clockify_workspaces" in response.json()["message"]
+    assert error.value.code == "ERR_CLOCKIFY_CONFIG"
+    assert "clockify_workspaces" in error.value.build_message()
 
 
-def test_clockify_config_hides_api_key(client, settings):
+def test_clockify_config_hides_api_key(settings):
     settings.CLOCKIFY_API_KEY = "abcdef123456"
 
-    response = call_rpc(client, "obtenerConfigClockify")
+    result = call_rpc("obtenerConfigClockify")
 
-    result = response.json()["result"]
     assert result["sufijo"] == "3456"
     assert "abcdef123456" not in str(result)
 
 
-def test_top_risks_without_azure_config_returns_error(client, settings):
+def test_top_risks_without_azure_config_returns_error(settings):
     settings.AZURE_DEVOPS_ORGANIZATION = ""
 
-    response = call_rpc(client, "obtenerTopRiesgosPortafolioAzure")
+    result = call_rpc("obtenerTopRiesgosPortafolioAzure")
 
-    result = response.json()["result"]
-    assert response.status_code == 200
     assert result["ok"] is False
     assert "AZURE_DEVOPS_ORGANIZATION" in result["error"]
 
 
-def test_capacity_rpcs_are_registered(client, monkeypatch, settings):
+def test_capacity_rpcs_are_registered(monkeypatch, settings):
     from tests.capacidad.sample_data import SHEETS as CAPACITY_SHEETS
 
     settings.AZURE_DEVOPS_ORGANIZATION = ""
@@ -160,19 +139,18 @@ def test_capacity_rpcs_are_registered(client, monkeypatch, settings):
         lambda: InMemorySheetRepository(copy.deepcopy(CAPACITY_SHEETS)),
     )
 
-    base = call_rpc(client, "capacidadInstaladaBase", "2026-10").json()
+    base = call_rpc("capacidadInstaladaBase", "2026-10")
     project = call_rpc(
-        client,
         "capacidadInstaladaDatosProyecto",
         "RAS.001_S2",
         "",
         "2026-10",
         False,
-    ).json()
+    )
 
-    assert base["result"]["ok"] is True
-    assert base["result"]["bandaColumna"] == "octubre 2026"
-    assert project["result"] == {
+    assert base["ok"] is True
+    assert base["bandaColumna"] == "octubre 2026"
+    assert project == {
         "ok": False,
         "inicio": "",
         "fin": "",
@@ -240,74 +218,74 @@ def test_warm_cache_keeps_going_when_azure_is_not_configured(
     assert "obtenerConsumosResumenAERTYMMPB: " in text
 
 
-def test_ixs_rpcs_are_registered(client, settings):
+def test_ixs_rpcs_are_registered(settings):
     settings.AZURE_DEVOPS_ORGANIZATION = ""
 
-    panel = call_rpc(client, "obtenerPanelAzureProyectoIXS", "").json()
-    raid = call_rpc(client, "ixsRaidListarProyecto", "GPO.007").json()
-    create = call_rpc(client, "ixsRaidCrearRegistro", "GPO.007", "Risk", {})
+    panel = call_rpc("obtenerPanelAzureProyectoIXS", "")
+    raid = call_rpc("ixsRaidListarProyecto", "GPO.007")
+    create = call_rpc("ixsRaidCrearRegistro", "GPO.007", "Risk", {})
 
-    assert panel["result"] == {"ok": False, "error": "Selecciona un proyecto."}
-    assert raid["result"] == {
+    assert panel == {"ok": False, "error": "Selecciona un proyecto."}
+    assert raid == {
         "ok": False,
         "error": "Conecta Azure DevOps desde Configuración.",
     }
-    assert create.json()["result"]["ok"] is False
+    assert create["ok"] is False
 
 
-def test_ixs_sheet_rpcs_are_registered(client, monkeypatch):
+def test_ixs_sheet_rpcs_are_registered(monkeypatch):
     repository = InMemorySheetRepository({})
     monkeypatch.setattr(
         "apps.daily.ixs_rpc.build_sheet_repository",
         lambda: repository,
     )
 
-    actions = call_rpc(client, "ixsClienteAccionesLeer", "GPO.007").json()
-    invalid = call_rpc(client, "ixsPlanGuardar", "otro").json()
-    swapped = call_rpc(client, "ixsEliminarContacto", "uid-1", "GPO.007")
+    actions = call_rpc("ixsClienteAccionesLeer", "GPO.007")
+    invalid = call_rpc("ixsPlanGuardar", "otro")
+    swapped = call_rpc("ixsEliminarContacto", "uid-1", "GPO.007")
 
-    assert actions["result"]["acciones"]["filas"] == []
-    assert invalid["result"] == {
+    assert actions["acciones"]["filas"] == []
+    assert invalid == {
         "ok": False,
         "error": "Tipo de registro inválido.",
     }
-    assert swapped.json()["result"] == {
+    assert swapped == {
         "ok": False,
         "error": "Registro no encontrado.",
     }
 
 
-def test_account_rpcs_are_registered(client, monkeypatch):
+def test_account_rpcs_are_registered(monkeypatch):
     # Sin repositorio real: la prueba no debe depender de credenciales locales.
     monkeypatch.setattr(
         "apps.ejecutivo.account_rpc.build_sheet_repository",
         lambda: InMemorySheetRepository({}),
     )
-    view = call_rpc(client, "obtenerVistaCuentaBeecker", "").json()
-    opportunity = call_rpc(client, "beeCuentaGuardarOportunidad", "", {}).json()
+    view = call_rpc("obtenerVistaCuentaBeecker", "")
+    opportunity = call_rpc("beeCuentaGuardarOportunidad", "", {})
 
-    assert view["result"] == {"ok": False, "error": "Selecciona un cliente."}
-    assert opportunity["result"] == {
+    assert view == {"ok": False, "error": "Selecciona un cliente."}
+    assert opportunity == {
         "ok": False,
         "error": "Selecciona una cuenta.",
     }
 
 
-def test_claude_rpcs_are_registered(client, settings):
+def test_claude_rpcs_are_registered(settings):
     settings.ANTHROPIC_API_KEY = "sk-ant-secreta-9876"
 
-    config = call_rpc(client, "obtenerConfigClaude").json()["result"]
-    saved = call_rpc(client, "guardarApiKeyClaude", "otra").json()["result"]
-    short = call_rpc(client, "ixsRaidSugerirClaude", "Issue", "corto").json()
+    config = call_rpc("obtenerConfigClaude")
+    saved = call_rpc("guardarApiKeyClaude", "otra")
+    short = call_rpc("ixsRaidSugerirClaude", "Issue", "corto")
 
     assert config["configurado"] is True
     assert config["sufijo"] == "9876"
     assert "secreta" not in str(config)
     assert saved["ok"] is False
-    assert short["result"]["ok"] is False
+    assert short["ok"] is False
 
 
-def test_aer_rpcs_are_registered(client, monkeypatch):
+def test_aer_rpcs_are_registered(monkeypatch):
     repository = InMemorySheetRepository(
         {"Proyectos": [["ID_Proyecto", "Servicio"], ["IXB.001", "IXB"]]},
     )
@@ -315,10 +293,10 @@ def test_aer_rpcs_are_registered(client, monkeypatch):
         "apps.aer.rpc.build_sheet_repository", lambda: repository
     )
 
-    empty = call_rpc(client, "getDashboardAERTYMProyecto", "").json()
-    other = call_rpc(client, "getDashboardAERTYMProyecto", "IXB.001").json()
+    empty = call_rpc("getDashboardAERTYMProyecto", "")
+    other = call_rpc("getDashboardAERTYMProyecto", "IXB.001")
 
-    assert empty["result"] == {"ok": False, "error": "Falta ID de proyecto."}
-    assert other["result"]["error"] == (
+    assert empty == {"ok": False, "error": "Falta ID de proyecto."}
+    assert other["error"] == (
         "El proyecto no es AER/T&M. Servicio detectado: IXB"
     )

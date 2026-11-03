@@ -42,9 +42,3 @@ def enforced(settings, django_user_model, client):
 
     yield sign_in
     DictProvider.GRANTS = {}
-
-
-@pytest.fixture(autouse=True)
-def rpc_site(settings: "SettingsWrapper") -> None:
-    """Monta /api/rpc/ solo en pruebas: produccion ya no lo publica."""
-    settings.ROOT_URLCONF = "tests.rpc_urls"

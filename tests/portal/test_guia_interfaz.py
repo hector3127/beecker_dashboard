@@ -57,12 +57,3 @@ def test_ping_answers_with_the_standard_envelope(client):
 
     assert body["data"] == {"status": "ok"}
     assert body["meta"]["generated_at"]
-
-
-def test_ping_is_not_the_rpc_catch_all(client):
-    """/api/rpc/<funcion>/ sigue funcionando junto a /api/v1/."""
-    response = client.post(
-        "/api/rpc/noExiste/", {}, content_type="application/json"
-    )
-
-    assert response.status_code == 404

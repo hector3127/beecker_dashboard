@@ -49,29 +49,6 @@ def test_sin_sesion_no_se_consultan_datos_ni_acciones(
     assert acuerdo.status == "open"
 
 
-def test_rpc_sin_sesion_se_rechaza(client, monkeypatch):
-    # DRF fija los permisos al importar la vista; se aplican los de base.py
-    # (produccion) porque test.py los abre para las demas pruebas.
-    from django.utils.module_loading import import_string
-
-    from config.settings.base import REST_FRAMEWORK
-    from core.rpc.views import RpcView
-
-    classes = REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"]
-    monkeypatch.setattr(
-        RpcView, "permission_classes", [import_string(c) for c in classes]
-    )
-    called = []
-    monkeypatch.setattr(
-        "core.rpc.views.get_rpc_function", lambda name: called.append(name)
-    )
-    response = client.post(
-        "/api/rpc/getResumenRecursos/", {}, content_type="application/json"
-    )
-    assert response.status_code == 403
-    assert called == []
-
-
 def test_hoy_cualquier_sesion_ve_y_modifica_todo(sesion, acuerdo, monkeypatch):
     """Comportamiento actual: el login es el unico control."""
     stub_portfolio(monkeypatch, portfolio())

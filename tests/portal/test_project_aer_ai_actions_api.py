@@ -5,7 +5,6 @@ from unittest.mock import Mock
 import pytest
 from django.test import Client
 
-from apps.access import rpc_policy
 from apps.access.scope import AccessScope
 from apps.portal.api import project_aer_ai as api
 from core.exceptions import SheetsError
@@ -74,7 +73,6 @@ def test_original_permission_before_context(
         if operation == "config-guardar"
         else "edit_operations"
     )
-    assert rpc_policy.POLICY[api.OPERATIONS[operation]] == (capability,)
     enforced(
         "Ana",
         caps=frozenset()
