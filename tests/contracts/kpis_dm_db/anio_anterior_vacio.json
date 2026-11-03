@@ -1,0 +1,543 @@
+{
+  "data": {
+    "cut": {
+      "current": true,
+      "label": "28/10/2026"
+    },
+    "filters": {
+      "chart_year": 2025,
+      "cut": "2026-10-28",
+      "history_year": 2025,
+      "managers": [
+        "Ana",
+        "Beto",
+        "Carla Díaz"
+      ],
+      "max_cut": "2026-10-28",
+      "max_month": "2026-10",
+      "month": "2026-10",
+      "selected_managers": [],
+      "years": [
+        2026,
+        2025,
+        2024,
+        2023,
+        2022,
+        2021
+      ]
+    },
+    "history": {
+      "chart": {
+        "labels": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic"
+        ],
+        "series": []
+      },
+      "error": "",
+      "months": {
+        "headers": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic"
+        ],
+        "rows": [],
+        "totals": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "notice": "Meses sin datos KPI guardados, pendientes de carga: 2025-01, 2025-02, 2025-03, 2025-04, 2025-05, 2025-06, 2025-07, 2025-08, 2025-09, 2025-10, 2025-11, 2025-12.",
+      "quarters": {
+        "headers": [
+          "T1*",
+          "T2*",
+          "T3*",
+          "T4*"
+        ],
+        "rows": [],
+        "totals": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "metrics": {
+      "basis": "dm_kpi_saved_reports",
+      "c_unit": "percent",
+      "cut_weekdays": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "monthly_closes_enabled": false,
+      "t_unit": "percent"
+    },
+    "period": {
+      "end_month": "2025-12",
+      "kind": "anio",
+      "label": "2025",
+      "year": 2025
+    },
+    "picker": {
+      "by_year": [
+        {
+          "active": false,
+          "months": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-01",
+              "label": "Ene"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-02",
+              "label": "Feb"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-03",
+              "label": "Mar"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-04",
+              "label": "Abr"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-05",
+              "label": "May"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-06",
+              "label": "Jun"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-07",
+              "label": "Jul"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-08",
+              "label": "Ago"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-09",
+              "label": "Sep"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-10",
+              "label": "Oct"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-11",
+              "label": "Nov"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2024-12",
+              "label": "Dic"
+            }
+          ],
+          "quarters": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2024&trim=1",
+              "label": "T1"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2024&trim=2",
+              "label": "T2"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2024&trim=3",
+              "label": "T3"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2024&trim=4",
+              "label": "T4"
+            }
+          ],
+          "year": 2024
+        },
+        {
+          "active": true,
+          "months": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-01",
+              "label": "Ene"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-02",
+              "label": "Feb"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-03",
+              "label": "Mar"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-04",
+              "label": "Abr"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-05",
+              "label": "May"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-06",
+              "label": "Jun"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-07",
+              "label": "Jul"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-08",
+              "label": "Ago"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-09",
+              "label": "Sep"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-10",
+              "label": "Oct"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-11",
+              "label": "Nov"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2025-12",
+              "label": "Dic"
+            }
+          ],
+          "quarters": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2025&trim=1",
+              "label": "T1"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2025&trim=2",
+              "label": "T2"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2025&trim=3",
+              "label": "T3"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2025&trim=4",
+              "label": "T4"
+            }
+          ],
+          "year": 2025
+        },
+        {
+          "active": false,
+          "months": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-01",
+              "label": "Ene"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-02",
+              "label": "Feb"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-03",
+              "label": "Mar"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-04",
+              "label": "Abr"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-05",
+              "label": "May"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-06",
+              "label": "Jun"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-07",
+              "label": "Jul"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-08",
+              "label": "Ago"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-09",
+              "label": "Sep"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-10",
+              "label": "Oct"
+            },
+            {
+              "active": false,
+              "disabled": true,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-11",
+              "label": "Nov"
+            },
+            {
+              "active": false,
+              "disabled": true,
+              "href": "?history_year=2025&chart_year=2025&periodo=mes&mes=2026-12",
+              "label": "Dic"
+            }
+          ],
+          "quarters": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2026&trim=1",
+              "label": "T1"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2026&trim=2",
+              "label": "T2"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2026&trim=3",
+              "label": "T3"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?history_year=2025&chart_year=2025&periodo=trimestre&anio=2026&trim=4",
+              "label": "T4"
+            }
+          ],
+          "year": 2026
+        }
+      ],
+      "kind": "anio",
+      "kind_label": "Año",
+      "label": "2025",
+      "query": "?periodo=anio&anio=2025",
+      "years": [
+        {
+          "active": false,
+          "disabled": false,
+          "href": "?history_year=2025&chart_year=2025&periodo=anio&anio=2024",
+          "label": "2024"
+        },
+        {
+          "active": true,
+          "disabled": false,
+          "href": "?history_year=2025&chart_year=2025&periodo=anio&anio=2025",
+          "label": "2025"
+        },
+        {
+          "active": false,
+          "disabled": false,
+          "href": "?history_year=2025&chart_year=2025&periodo=anio&anio=2026",
+          "label": "2026"
+        }
+      ]
+    },
+    "storage": {
+      "latest_cut": "2026-10-28",
+      "selected_status": "open"
+    },
+    "summary": {
+      "available": true,
+      "best": {
+        "at_risk": 0,
+        "c": 100.0,
+        "cost_over": 0,
+        "critical": 0,
+        "name": "Carla Díaz",
+        "on_time": 6,
+        "on_time_percent": 100,
+        "slug": "carla-diaz",
+        "t": 100.0,
+        "time_late": 0,
+        "total": 6
+      },
+      "rows": [
+        {
+          "at_risk": 1,
+          "c": 100.0,
+          "cost_over": 0,
+          "critical": 0,
+          "name": "Ana",
+          "on_time": 3,
+          "on_time_percent": 75,
+          "slug": "ana",
+          "t": 75.0,
+          "time_late": 1,
+          "total": 4
+        },
+        {
+          "at_risk": 2,
+          "c": 80.0,
+          "cost_over": 1,
+          "critical": 0,
+          "name": "Beto",
+          "on_time": 3,
+          "on_time_percent": 60,
+          "slug": "beto",
+          "t": 60.0,
+          "time_late": 2,
+          "total": 5
+        },
+        {
+          "at_risk": 0,
+          "c": 100.0,
+          "cost_over": 0,
+          "critical": 0,
+          "name": "Carla Díaz",
+          "on_time": 6,
+          "on_time_percent": 100,
+          "slug": "carla-diaz",
+          "t": 100.0,
+          "time_late": 0,
+          "total": 6
+        }
+      ],
+      "totals": {
+        "at_risk": 3,
+        "c": 93.33333333333333,
+        "cost_over": 1,
+        "critical": 0,
+        "name": "Total",
+        "on_time": 12,
+        "on_time_percent": 80,
+        "slug": "",
+        "t": 80.0,
+        "time_late": 3,
+        "total": 15
+      },
+      "worst": {
+        "at_risk": 2,
+        "c": 80.0,
+        "cost_over": 1,
+        "critical": 0,
+        "name": "Beto",
+        "on_time": 3,
+        "on_time_percent": 60,
+        "slug": "beto",
+        "t": 60.0,
+        "time_late": 2,
+        "total": 5
+      }
+    }
+  },
+  "meta": {}
+}

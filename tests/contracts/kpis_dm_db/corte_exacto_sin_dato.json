@@ -1,0 +1,797 @@
+{
+  "data": {
+    "cut": {
+      "current": false,
+      "label": "15/02/2026"
+    },
+    "filters": {
+      "chart_year": 2026,
+      "cut": "2026-02-15",
+      "history_year": 2026,
+      "managers": [
+        "Ana",
+        "Beto",
+        "Carla Díaz"
+      ],
+      "max_cut": "2026-10-28",
+      "max_month": "2026-10",
+      "month": "2026-02",
+      "selected_managers": [],
+      "years": [
+        2026,
+        2025,
+        2024,
+        2023,
+        2022,
+        2021
+      ]
+    },
+    "history": {
+      "chart": {
+        "labels": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct*",
+          "Nov",
+          "Dic"
+        ],
+        "series": [
+          {
+            "name": "Carla Díaz",
+            "values": [
+              83.33333333333333,
+              100.0,
+              null,
+              100.0,
+              null,
+              null,
+              83.33333333333333,
+              100.0,
+              80.0,
+              100.0,
+              null,
+              null
+            ]
+          },
+          {
+            "name": "Beto",
+            "values": [
+              100.0,
+              83.33333333333333,
+              null,
+              80.0,
+              null,
+              null,
+              100.0,
+              83.33333333333333,
+              100.0,
+              80.0,
+              null,
+              null
+            ]
+          },
+          {
+            "name": "Ana",
+            "values": [
+              75.0,
+              100.0,
+              null,
+              100.0,
+              null,
+              null,
+              75.0,
+              100.0,
+              33.333333333333336,
+              100.0,
+              null,
+              null
+            ]
+          }
+        ]
+      },
+      "error": "",
+      "months": {
+        "headers": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct*",
+          "Nov",
+          "Dic"
+        ],
+        "rows": [
+          {
+            "cells": [
+              {
+                "c": 83.33333333333333,
+                "t": 100.0,
+                "total": 6
+              },
+              {
+                "c": 100.0,
+                "t": 85.71428571428571,
+                "total": 7
+              },
+              null,
+              {
+                "c": 100.0,
+                "t": 100.0,
+                "total": 6
+              },
+              null,
+              null,
+              {
+                "c": 83.33333333333333,
+                "t": 83.33333333333333,
+                "total": 6
+              },
+              {
+                "c": 100.0,
+                "t": 85.71428571428571,
+                "total": 7
+              },
+              {
+                "c": 80.0,
+                "t": 60.0,
+                "total": 5
+              },
+              {
+                "c": 100.0,
+                "t": 100.0,
+                "total": 6
+              },
+              null,
+              null
+            ],
+            "name": "Carla Díaz",
+            "slug": "carla-diaz"
+          },
+          {
+            "cells": [
+              {
+                "c": 100.0,
+                "t": 60.0,
+                "total": 5
+              },
+              {
+                "c": 83.33333333333333,
+                "t": 100.0,
+                "total": 6
+              },
+              null,
+              {
+                "c": 80.0,
+                "t": 60.0,
+                "total": 5
+              },
+              null,
+              null,
+              {
+                "c": 100.0,
+                "t": 60.0,
+                "total": 5
+              },
+              {
+                "c": 83.33333333333333,
+                "t": 100.0,
+                "total": 6
+              },
+              {
+                "c": 100.0,
+                "t": 75.0,
+                "total": 4
+              },
+              {
+                "c": 80.0,
+                "t": 60.0,
+                "total": 5
+              },
+              null,
+              null
+            ],
+            "name": "Beto",
+            "slug": "beto"
+          },
+          {
+            "cells": [
+              {
+                "c": 75.0,
+                "t": 75.0,
+                "total": 4
+              },
+              {
+                "c": 100.0,
+                "t": 60.0,
+                "total": 5
+              },
+              null,
+              {
+                "c": 100.0,
+                "t": 75.0,
+                "total": 4
+              },
+              null,
+              null,
+              {
+                "c": 75.0,
+                "t": 75.0,
+                "total": 4
+              },
+              {
+                "c": 100.0,
+                "t": 60.0,
+                "total": 5
+              },
+              {
+                "c": 33.333333333333336,
+                "t": 100.0,
+                "total": 3
+              },
+              {
+                "c": 100.0,
+                "t": 75.0,
+                "total": 4
+              },
+              null,
+              null
+            ],
+            "name": "Ana",
+            "slug": "ana"
+          }
+        ],
+        "totals": [
+          {
+            "c": 86.66666666666667,
+            "t": 80.0,
+            "total": 15
+          },
+          {
+            "c": 94.44444444444444,
+            "t": 83.33333333333333,
+            "total": 18
+          },
+          null,
+          {
+            "c": 93.33333333333333,
+            "t": 80.0,
+            "total": 15
+          },
+          {
+            "c": null,
+            "t": null,
+            "total": 0
+          },
+          null,
+          {
+            "c": 86.66666666666667,
+            "t": 73.33333333333333,
+            "total": 15
+          },
+          {
+            "c": 94.44444444444444,
+            "t": 83.33333333333333,
+            "total": 18
+          },
+          {
+            "c": 75.0,
+            "t": 75.0,
+            "total": 12
+          },
+          {
+            "c": 93.33333333333333,
+            "t": 80.0,
+            "total": 15
+          },
+          null,
+          null
+        ]
+      },
+      "notice": "Meses sin datos KPI guardados, pendientes de carga: 2026-03, 2026-06. Falta captura del día de cierre en: 2026-06. No hay una captura KPI guardada para 15/02/2026.",
+      "quarters": {
+        "headers": [
+          "T1*",
+          "T2*",
+          "T3",
+          "T4*"
+        ],
+        "rows": [
+          {
+            "cells": [
+              {
+                "c": 91.66666666666666,
+                "t": 92.85714285714286,
+                "total": 6.5
+              },
+              {
+                "c": 100.0,
+                "t": 100.0,
+                "total": 6.0
+              },
+              {
+                "c": 87.77777777777777,
+                "t": 76.34920634920634,
+                "total": 6.0
+              },
+              {
+                "c": 100.0,
+                "t": 100.0,
+                "total": 6.0
+              }
+            ],
+            "name": "Carla Díaz",
+            "slug": "carla-diaz"
+          },
+          {
+            "cells": [
+              {
+                "c": 91.66666666666666,
+                "t": 80.0,
+                "total": 5.5
+              },
+              {
+                "c": 80.0,
+                "t": 60.0,
+                "total": 5.0
+              },
+              {
+                "c": 94.44444444444444,
+                "t": 78.33333333333333,
+                "total": 5.0
+              },
+              {
+                "c": 80.0,
+                "t": 60.0,
+                "total": 5.0
+              }
+            ],
+            "name": "Beto",
+            "slug": "beto"
+          },
+          {
+            "cells": [
+              {
+                "c": 87.5,
+                "t": 67.5,
+                "total": 4.5
+              },
+              {
+                "c": 100.0,
+                "t": 75.0,
+                "total": 4.0
+              },
+              {
+                "c": 69.44444444444444,
+                "t": 78.33333333333333,
+                "total": 4.0
+              },
+              {
+                "c": 100.0,
+                "t": 75.0,
+                "total": 4.0
+              }
+            ],
+            "name": "Ana",
+            "slug": "ana"
+          }
+        ],
+        "totals": [
+          {
+            "c": 90.55555555555556,
+            "t": 81.66666666666666,
+            "total": 16.5
+          },
+          {
+            "c": 93.33333333333333,
+            "t": 80.0,
+            "total": 7.5
+          },
+          {
+            "c": 85.37037037037037,
+            "t": 77.22222222222221,
+            "total": 15.0
+          },
+          {
+            "c": 93.33333333333333,
+            "t": 80.0,
+            "total": 15.0
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "basis": "dm_kpi_saved_reports",
+      "c_unit": "percent",
+      "cut_weekdays": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "monthly_closes_enabled": false,
+      "t_unit": "percent"
+    },
+    "period": {
+      "end_month": "2026-10",
+      "kind": "anio",
+      "label": "2026",
+      "year": 2026
+    },
+    "picker": {
+      "by_year": [
+        {
+          "active": false,
+          "months": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-01",
+              "label": "Ene"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-02",
+              "label": "Feb"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-03",
+              "label": "Mar"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-04",
+              "label": "Abr"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-05",
+              "label": "May"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-06",
+              "label": "Jun"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-07",
+              "label": "Jul"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-08",
+              "label": "Ago"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-09",
+              "label": "Sep"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-10",
+              "label": "Oct"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-11",
+              "label": "Nov"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2024-12",
+              "label": "Dic"
+            }
+          ],
+          "quarters": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2024&trim=1",
+              "label": "T1"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2024&trim=2",
+              "label": "T2"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2024&trim=3",
+              "label": "T3"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2024&trim=4",
+              "label": "T4"
+            }
+          ],
+          "year": 2024
+        },
+        {
+          "active": false,
+          "months": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-01",
+              "label": "Ene"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-02",
+              "label": "Feb"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-03",
+              "label": "Mar"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-04",
+              "label": "Abr"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-05",
+              "label": "May"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-06",
+              "label": "Jun"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-07",
+              "label": "Jul"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-08",
+              "label": "Ago"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-09",
+              "label": "Sep"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-10",
+              "label": "Oct"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-11",
+              "label": "Nov"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2025-12",
+              "label": "Dic"
+            }
+          ],
+          "quarters": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2025&trim=1",
+              "label": "T1"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2025&trim=2",
+              "label": "T2"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2025&trim=3",
+              "label": "T3"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2025&trim=4",
+              "label": "T4"
+            }
+          ],
+          "year": 2025
+        },
+        {
+          "active": true,
+          "months": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-01",
+              "label": "Ene"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-02",
+              "label": "Feb"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-03",
+              "label": "Mar"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-04",
+              "label": "Abr"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-05",
+              "label": "May"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-06",
+              "label": "Jun"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-07",
+              "label": "Jul"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-08",
+              "label": "Ago"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-09",
+              "label": "Sep"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-10",
+              "label": "Oct"
+            },
+            {
+              "active": false,
+              "disabled": true,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-11",
+              "label": "Nov"
+            },
+            {
+              "active": false,
+              "disabled": true,
+              "href": "?corte=2026-02-15&periodo=mes&mes=2026-12",
+              "label": "Dic"
+            }
+          ],
+          "quarters": [
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2026&trim=1",
+              "label": "T1"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2026&trim=2",
+              "label": "T2"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2026&trim=3",
+              "label": "T3"
+            },
+            {
+              "active": false,
+              "disabled": false,
+              "href": "?corte=2026-02-15&periodo=trimestre&anio=2026&trim=4",
+              "label": "T4"
+            }
+          ],
+          "year": 2026
+        }
+      ],
+      "kind": "anio",
+      "kind_label": "Año",
+      "label": "2026",
+      "query": "?periodo=anio&anio=2026",
+      "years": [
+        {
+          "active": false,
+          "disabled": false,
+          "href": "?corte=2026-02-15&periodo=anio&anio=2024",
+          "label": "2024"
+        },
+        {
+          "active": false,
+          "disabled": false,
+          "href": "?corte=2026-02-15&periodo=anio&anio=2025",
+          "label": "2025"
+        },
+        {
+          "active": true,
+          "disabled": false,
+          "href": "?corte=2026-02-15&periodo=anio&anio=2026",
+          "label": "2026"
+        }
+      ]
+    },
+    "storage": {
+      "latest_cut": "2026-10-28",
+      "selected_status": "missing"
+    },
+    "summary": {
+      "available": false,
+      "best": null,
+      "rows": [],
+      "totals": {
+        "at_risk": 0,
+        "c": null,
+        "cost_over": 0,
+        "critical": 0,
+        "name": "Total",
+        "on_time": 0,
+        "on_time_percent": 0,
+        "slug": "",
+        "t": null,
+        "time_late": 0,
+        "total": 0
+      },
+      "worst": null
+    }
+  },
+  "meta": {}
+}

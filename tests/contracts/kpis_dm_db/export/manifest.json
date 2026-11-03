@@ -1,0 +1,214 @@
+{
+  "created_at": "2026-10-28T18:00:00+00:00",
+  "format": 1,
+  "source": {
+    "app": "dashboard-management",
+    "engine": "contrato"
+  },
+  "tables": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "cut",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "started_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "finished_at",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "published",
+          "null": false,
+          "type": "BooleanField"
+        },
+        {
+          "name": "metrics",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "issues",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_evaextraction",
+      "file": "datastore.EvaExtraction.jsonl",
+      "label": "datastore.EvaExtraction",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "ad2f3c948fbbda11ca439a7a34db747f22f0b83e673da8ec8a623d007fc7a08d"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "month",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "closing_day",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "status",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "latest_observation_id",
+          "null": true,
+          "to": "datastore.DmKpiObservation",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "updated_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "closed_at",
+          "null": true,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_dmkpiperiod",
+      "file": "datastore.DmKpiPeriod.jsonl",
+      "label": "datastore.DmKpiPeriod",
+      "pk": "id",
+      "rows": 9,
+      "sha256": "51014e5c7383cc25fa1a8e142e1d945a8e2fd7f5ebd790a6ac855ec87040d6a0"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "period_id",
+          "null": false,
+          "to": "datastore.DmKpiPeriod",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "cut",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "source_id",
+          "null": true,
+          "to": "datastore.EvaExtraction",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "source_observed_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "captured_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "origin",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "issues",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_dmkpiobservation",
+      "file": "datastore.DmKpiObservation.jsonl",
+      "label": "datastore.DmKpiObservation",
+      "pk": "id",
+      "rows": 8,
+      "sha256": "fd04d422cc7ec206832435a0f972d862ddb4e18e9264fef62c46963626c51f36"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "observation_id",
+          "null": false,
+          "to": "datastore.DmKpiObservation",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "manager",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "slug",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "total",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "on_time",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "late",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "over_budget",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "time_unknown",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "cost_unknown",
+          "null": false,
+          "type": "PositiveIntegerField"
+        }
+      ],
+      "db_table": "datastore_dmkpimetric",
+      "file": "datastore.DmKpiMetric.jsonl",
+      "label": "datastore.DmKpiMetric",
+      "pk": "id",
+      "rows": 21,
+      "sha256": "969f97aa88daa00665f2b91bb2264943f40a44465f99972f3e93e450f2372eed"
+    }
+  ]
+}
