@@ -1,0 +1,255 @@
+{
+  "error": "",
+  "eva": {
+    "projects": [
+      {
+        "automatic_entries": 0,
+        "automatic_hours": 0.0,
+        "azure_pending": false,
+        "budget": 100.0,
+        "budget_pending": false,
+        "burn": 0.0,
+        "client": "Beta",
+        "deviation_days": -2,
+        "end": "30/10/26",
+        "etc": 0.0,
+        "hours_deviation": null,
+        "hours_pending": true,
+        "manager": "Beto Soto",
+        "name": "Tablero comercial",
+        "progress": 0.0,
+        "progress_bad": false,
+        "progress_pending": true,
+        "project_id": "BTA.002_S1",
+        "risk_titles": [],
+        "risks": 0,
+        "service": "SaaS",
+        "stages": [
+          {
+            "alert": false,
+            "closed": 3,
+            "pending": 0,
+            "total": 3
+          },
+          {
+            "alert": false,
+            "closed": 1,
+            "pending": 4,
+            "total": 5
+          },
+          {
+            "alert": false,
+            "closed": 0,
+            "pending": 2,
+            "total": 2
+          },
+          {
+            "alert": false,
+            "closed": 4,
+            "pending": 6,
+            "total": 10
+          }
+        ],
+        "start": "19/10/26",
+        "status": "Discovery",
+        "status_code": "dis"
+      },
+      {
+        "automatic_entries": 0,
+        "automatic_hours": 0.0,
+        "azure_pending": false,
+        "budget": 300.0,
+        "budget_pending": false,
+        "burn": 0.0,
+        "client": "Cielo",
+        "deviation_days": -33,
+        "end": "30/11/26",
+        "etc": 0.0,
+        "hours_deviation": null,
+        "hours_pending": true,
+        "manager": "Beto Soto",
+        "name": "Migración de datos",
+        "progress": 0.0,
+        "progress_bad": false,
+        "progress_pending": true,
+        "project_id": "CLX.003_S1",
+        "risk_titles": [],
+        "risks": 0,
+        "service": "IXB",
+        "stages": [
+          {
+            "alert": false,
+            "closed": 3,
+            "pending": 0,
+            "total": 3
+          },
+          {
+            "alert": false,
+            "closed": 1,
+            "pending": 4,
+            "total": 5
+          },
+          {
+            "alert": false,
+            "closed": 0,
+            "pending": 2,
+            "total": 2
+          },
+          {
+            "alert": false,
+            "closed": 4,
+            "pending": 6,
+            "total": 10
+          }
+        ],
+        "start": "01/09/26",
+        "status": "Suspendido",
+        "status_code": "sus"
+      }
+    ],
+    "service_rows": [
+      {
+        "counts": [
+          1,
+          0,
+          1
+        ],
+        "name": "Beto Soto",
+        "total": 2
+      }
+    ],
+    "service_totals": {
+      "counts": [
+        1,
+        0,
+        1
+      ],
+      "name": "Total",
+      "total": 2
+    },
+    "services": [
+      "IXB",
+      "RaaS",
+      "SaaS"
+    ],
+    "status_rows": [
+      {
+        "counts": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "name": "Beto Soto",
+        "total": 2
+      }
+    ],
+    "status_totals": {
+      "counts": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "name": "Total",
+      "total": 2
+    },
+    "suspended_count": 1,
+    "suspended_note": "CLX.003_S1 · Migración de datos",
+    "time_cost": {
+      "cost_percent": null,
+      "time_days": -17.5
+    },
+    "total_projects": 2
+  },
+  "eva_available_total": 4,
+  "eva_card_metrics": {
+    "cost_percent": 0.0,
+    "in_time": 2,
+    "over_budget": 0,
+    "time_percent": 100.0,
+    "total": 2
+  },
+  "eva_cost_pending": 2,
+  "eva_empty_text": "No hay proyectos abiertos en Azure para este corte.",
+  "eva_managers": [
+    {
+      "counts": [
+        1,
+        1,
+        0
+      ],
+      "name": "Ana Ruiz",
+      "total": 2
+    },
+    {
+      "counts": [
+        1,
+        0,
+        1
+      ],
+      "name": "Beto Soto",
+      "total": 2
+    }
+  ],
+  "eva_saved_cuts": [
+    "2026-10-28"
+  ],
+  "eva_services": [
+    "IXB",
+    "RaaS",
+    "SaaS"
+  ],
+  "eva_source_notice": "",
+  "eva_source_stamp": "2026-10-28T17:00:00+00:00",
+  "inventory_totals": {
+    "colspan": 12,
+    "rows": [
+      {
+        "manager": "Beto Soto",
+        "services": [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "statuses": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "total": 2
+      }
+    ],
+    "service_totals": [
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "services": [
+      "IXB",
+      "PoC",
+      "RaaS",
+      "RaaS+",
+      "SaaS"
+    ],
+    "status_totals": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "statuses": [
+      "Sus",
+      "Dis",
+      "Dev",
+      "Dep"
+    ],
+    "total": 2
+  },
+  "monthly_close_state": "disabled"
+}

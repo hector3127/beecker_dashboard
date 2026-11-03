@@ -1,0 +1,111 @@
+{
+  "error": "",
+  "eva": {
+    "projects": [],
+    "service_rows": [],
+    "service_totals": {
+      "counts": [
+        0,
+        0,
+        0
+      ],
+      "name": "Total",
+      "total": 0
+    },
+    "services": [
+      "IXB",
+      "RaaS",
+      "SaaS"
+    ],
+    "status_rows": [],
+    "status_totals": {
+      "counts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "name": "Total",
+      "total": 0
+    },
+    "suspended_count": 0,
+    "suspended_note": "",
+    "time_cost": {
+      "cost_percent": null,
+      "time_days": null
+    },
+    "total_projects": 0
+  },
+  "eva_available_total": 4,
+  "eva_card_metrics": {
+    "cost_percent": null,
+    "in_time": 0,
+    "over_budget": 0,
+    "time_percent": null,
+    "total": 0
+  },
+  "eva_cost_pending": 0,
+  "eva_empty_text": "No hay proyectos abiertos en Azure para este corte.",
+  "eva_managers": [
+    {
+      "counts": [
+        1,
+        1,
+        0
+      ],
+      "name": "Ana Ruiz",
+      "total": 2
+    },
+    {
+      "counts": [
+        1,
+        0,
+        1
+      ],
+      "name": "Beto Soto",
+      "total": 2
+    }
+  ],
+  "eva_saved_cuts": [
+    "2026-10-28"
+  ],
+  "eva_services": [
+    "IXB",
+    "RaaS",
+    "SaaS"
+  ],
+  "eva_source_notice": "",
+  "eva_source_stamp": "2026-10-28T17:00:00+00:00",
+  "inventory_totals": {
+    "colspan": 12,
+    "rows": [],
+    "service_totals": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "services": [
+      "IXB",
+      "PoC",
+      "RaaS",
+      "RaaS+",
+      "SaaS"
+    ],
+    "status_totals": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "statuses": [
+      "Sus",
+      "Dis",
+      "Dev",
+      "Dep"
+    ],
+    "total": 0
+  },
+  "monthly_close_state": "disabled"
+}
