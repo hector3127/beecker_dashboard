@@ -233,10 +233,10 @@ def load_cut(cut: date) -> dict[str, Any]:
         return {"eva": build_eva2_view([]), "error": error.build_message()}
 
 
-def read_cut(value: str) -> date:
+def read_cut(value: str, today: date | None = None) -> date:
     """Only ISO days up to today; invalid/future input is a validation error."""
     parsed = date.fromisoformat(value)
-    if parsed.isoformat() != value or parsed > timezone.localdate():
+    if parsed.isoformat() != value or parsed > (today or timezone.localdate()):
         raise ValueError("Fecha de corte inválida")
     return parsed
 

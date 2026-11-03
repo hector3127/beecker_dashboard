@@ -76,10 +76,6 @@ from apps.portal.services.filters import (
 from apps.portal.services.holidays import count_business_days
 from apps.portal.services.investment import build_investment_view
 from apps.portal.services.kpi_dm_store import load_kpi_history
-from apps.portal.services.kpi_history import (
-    build_matrix,
-)
-from apps.portal.services.kpi_quarterly import build_quarter_averages
 from apps.portal.services.manager_detail import (
     build_manager_detail,
     find_manager,
@@ -1425,151 +1421,36 @@ def capacidad_instalada_csv(request: HttpRequest) -> HttpResponse:
 
 def kpi_context(request: HttpRequest) -> dict[str, Any]:
     """Independent cut summary, annual history and chart controls."""
-    from dataclasses import replace
-    from datetime import date
-
     from rest_framework.exceptions import ValidationError
 
-    from apps.portal.services.eva_cut import read_cut
-    from apps.portal.services.kpi_dm_store import (
-        latest_kpi_cut,
-        load_kpi_cut,
-        monthly_kpi_cut,
+    from apps.portal.services import kpi_dm_store
+    from apps.portal.services.kpi_screen import (
+        KpiQuery,
+        KpiQueryError,
+        KpiSources,
+        build_kpi_context,
     )
-    from apps.portal.services.kpi_eva import select_managers
-    from apps.portal.services.kpi_history_loader import KpiHistoryLoad
 
-    today = timezone.localdate()
+    query = KpiQuery(
+        month=request.GET.get("mes", ""),
+        cut=request.GET.get("corte", ""),
+        history_year=request.GET.get("history_year", ""),
+        year=request.GET.get("anio", ""),
+        chart_year=request.GET.get("chart_year", ""),
+        managers=tuple(request.GET.getlist("dm")),
+        params={key: request.GET.getlist(key) for key in request.GET},
+    )
+    sources = KpiSources(
+        load_history=load_kpi_history,
+        latest_cut=kpi_dm_store.latest_kpi_cut,
+        load_cut=kpi_dm_store.load_kpi_cut,
+        monthly_cut=kpi_dm_store.monthly_kpi_cut,
+    )
     try:
-        latest_cut = latest_kpi_cut()
-        month_value = request.GET.get("mes")
-        if month_value:
-            month = date.fromisoformat(month_value + "-01")
-            if month > today.replace(day=1) or month.year < 2021:
-                raise ValueError("Mes inválido")
-            cut = monthly_kpi_cut(month)
-        else:
-            cut = read_cut(
-                request.GET.get("corte") or (latest_cut or today).isoformat()
-            )
-            month = cut.replace(day=1)
-        history_year = int(
-            request.GET.get("history_year")
-            or request.GET.get("anio")
-            or today.year
-        )
-        chart_year = int(request.GET.get("chart_year") or history_year)
-        if not all(
-            2021 <= year <= today.year for year in (history_year, chart_year)
-        ):
-            raise ValueError("Año inválido")
-    except ValueError as exc:
-        raise ValidationError(
-            "Selecciona una fecha de corte no futura y un año válido."
-        ) from exc
-    period = parse_period({"periodo": "anio", "anio": str(history_year)}, today)
-    context = _period_context(request, period)
-    annual = load_kpi_history(history_year)
-    chart_history = (
-        annual if chart_year == history_year else load_kpi_history(chart_year)
-    )
-    selected = load_kpi_cut(cut)
-    summary = selected.view
-    manager_names = sorted(
-        {row.name for row in summary.rows}
-        | {
-            name
-            for load in (annual, chart_history)
-            if load.history
-            for name, _ in load.history.managers
-        }
-    )
-    chosen_managers = request.GET.getlist("dm")
-
-    def filter_history(load: KpiHistoryLoad) -> KpiHistoryLoad:
-        if load.history is None or not chosen_managers:
-            return load
-        return replace(
-            load,
-            history=replace(
-                load.history,
-                months=tuple(
-                    replace(
-                        month, view=select_managers(month.view, chosen_managers)
-                    )
-                    for month in load.history.months
-                ),
-                managers=tuple(
-                    item
-                    for item in load.history.managers
-                    if item[0] in chosen_managers
-                ),
-            ),
-        )
-
-    annual, chart_history = (
-        filter_history(annual),
-        filter_history(chart_history),
-    )
-    context.update(
-        {
-            "kpis": select_managers(summary, chosen_managers),
-            "cut_label": cut.strftime("%d/%m/%Y"),
-            "cut_is_current": cut == today,
-            "cut_available": selected.observation is not None,
-            "history_error": annual.error,
-            "history_notice": annual.notice
-            + (
-                f" No hay una captura KPI guardada para {cut:%d/%m/%Y}."
-                if selected.observation is None
-                else ""
-            ),
-            "kpi_storage": {
-                "latest_cut": latest_cut.isoformat() if latest_cut else None,
-                "selected_status": selected.observation.period.status
-                if selected.observation
-                else "missing",
-            },
-            "kpi_filters": {
-                "month": month.strftime("%Y-%m"),
-                "max_month": today.strftime("%Y-%m"),
-                "cut": cut.isoformat(),
-                "max_cut": today.isoformat(),
-                "history_year": history_year,
-                "chart_year": chart_year,
-                "years": list(range(today.year, 2020, -1)),
-                "managers": manager_names,
-                "selected_managers": chosen_managers,
-            },
-        }
-    )
-    if annual.history is not None:
-        context["month_matrix"] = build_matrix(
-            annual.history.months, annual.history.managers
-        )
-        context["quarter_matrix"] = build_quarter_averages(
-            annual.history.months, annual.history.managers
-        )
-    if chart_history.history is not None:
-        chart_matrix = build_matrix(
-            chart_history.history.months, chart_history.history.managers
-        )
-        context["chart"] = {
-            "labels": list(chart_matrix.headers),
-            "series": [
-                {
-                    "name": row.name,
-                    "values": [
-                        cell.time_cost.cost_percent
-                        if cell and cell.total
-                        else None
-                        for cell in row.cells
-                    ],
-                }
-                for row in chart_matrix.rows
-            ],
-        }
-    return context
+        context = build_kpi_context(query, timezone.localdate(), sources)
+    except KpiQueryError as exc:
+        raise ValidationError(str(exc)) from exc
+    return dict(context)
 
 
 def _period(request: HttpRequest) -> Period:
