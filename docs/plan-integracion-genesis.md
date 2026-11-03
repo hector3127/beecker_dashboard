@@ -239,4 +239,5 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 02/11/2026 | Héctor (con Claude) | Limpieza previa: 62 documentos históricos, transporte RPC de pruebas, fotos JSON del diseño y herramienta de carga | Dashboard `1f2759e`, `915bbfd`, `7499608` | Servidor 2928; Node 473; e2e 691 + 3 corregidas tras la corrida (33 en sus archivos) | Empezar D1/D3/D6 y G1–G3 |
 | 02/11/2026 | Héctor (con Claude) | Revisión completa de Genesis, limpieza del dashboard, preguntas P1–P4, este plan | Dashboard `5b3d7f5` + commit de este plan | Node 473, servidor 1937, e2e capacidad 18 | Empezar D1/D3/D6 y G1–G3; esperar P1–P4 |
