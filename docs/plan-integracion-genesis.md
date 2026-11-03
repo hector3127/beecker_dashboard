@@ -27,7 +27,7 @@ No marcar `terminado` sin la evidencia que pide la tarea.
 |---|---|
 | Dashboard | `C:/beecker_dashboard`, rama `main`. Referencia funcional estable; limpieza de plantillas/JS sin uso en `4ef6d75` y `5b3d7f5` |
 | Pruebas del dashboard | Node 473, servidor 1937 (`tests/portal tests/core tests/access`), e2e 742 en la corrida completa previa al último borrado |
-| Genesis | `C:/Genesis/genesis`, rama local `Integracion_Dashboard_Management` en `70299ea`; **6 commits detrás de `origin/UAT`** (`76d82b8`) |
+| Genesis | `C:/Genesis/genesis`, rama local `Integracion_Dashboard_Management` en `9b1afe7` (al día con `origin/UAT` `76d82b8` más 3 commits propios, sin push) |
 | Trabajo previo en Genesis | El commit visual `e28ec5d` (estructura y temas sin datos) lo retiró el usuario con un reset. Solo existe en el reflog local; **no recuperarlo**. La estructura se rehace en G2/G3 |
 | Base local de Genesis | `Genesis/db.sqlite3` es solo de desarrollo y está atrasado (37 migraciones de `lin` pendientes). No es referencia de esquema (confirmado por Ulises) |
 | Fuente de verdad del esquema Genesis | Sus migraciones (`ai_hub/migrations/`, `lin/migrations/`) y la PostgreSQL de UAT en solo lectura |
@@ -137,9 +137,9 @@ Las tareas D se hacen en el dashboard y las G en Genesis (rama local, sin push h
 
 | ID | Tarea | Depende | Estado | Responsable | Terminado cuando |
 |---|---|---|---|---|---|
-| G1 | Sincronizar la rama local con `origin/UAT`; `uv sync --locked`, `migrate`, `pnpm install --frozen-lockfile` | — | pendiente | — | Rama al día; Genesis arranca con base local migrada |
-| G2 | App `dashboard_management`: `apps.py`, `urls.py` en `/api/management/`, `INSTALLED_APPS`, Makefile/pyproject (mypy, cobertura), ADR nuevo, fila en `structure-deviations.md`, endpoint `ping` con permiso de sesión | G1 | pendiente | — | `make gate` y `make verify` en verde |
-| G3 | Módulo SPA: ruta `/management` con `PrivateRoute`, ítem en `navigation.js`, layout propio, tokens del módulo claro/oscuro enlazados a `theme.css`, mapa de features | G1, D6 | pendiente | — | `pnpm gate` y `pnpm verify` en verde; los tres temas (claro, oscuro, sistema) visibles |
+| G1 | Sincronizar la rama local con `origin/UAT`; `uv sync --locked`, `migrate`, `pnpm install --frozen-lockfile` | — | terminado | Héctor (con Claude) | Rama al día con `origin/UAT`; `uv sync --locked`, `migrate` y `pnpm install --frozen-lockfile` sin errores |
+| G2 | App `dashboard_management`: `apps.py`, `urls.py` en `/api/management/`, `INSTALLED_APPS`, Makefile/pyproject (mypy, cobertura), ADR nuevo, fila en `structure-deviations.md`, endpoint `ping` con permiso de sesión | G1 | terminado | Héctor (con Claude) | `c2170d0`: app, `ping/` autenticado, ADR 0030, desvío, OpenAPI; 3 + 2 pruebas nuevas, mypy estricto limpio, 91.6 % de cobertura |
+| G3 | Módulo SPA: ruta `/management` con `PrivateRoute`, ítem en `navigation.js`, layout propio, tokens del módulo claro/oscuro enlazados a `theme.css`, mapa de features | G1, D6 | terminado | Héctor (con Claude) | `a471580`: ruta, menú y vista; 6 pruebas Vitest; verificado en claro, oscuro, sistema y 390 px (ver `odd/tasks/dashboard-management.md` en Genesis) |
 | G4 | Servicio `managementService.js` sobre `apiClient.js` y manejo de carga, vacío, error con `error_id` y reintento | G3 | pendiente | — | Tests Vitest del servicio y de los estados |
 
 ### Fase 3 — Piloto KPI DM
@@ -240,6 +240,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 02/11/2026 | Héctor (con Claude) | G1–G3: rama al día, app `dashboard_management` y módulo `/management` con modo oscuro | Genesis `c2170d0`, `a471580`, `9b1afe7` (locales, sin push) | Vista comprobada en 3 temas y 390 px; backend 5250 pruebas y frontend 11 relacionadas en verde; límites de Windows documentados en `odd/tasks/dashboard-management.md` | G4 (servicio y estados) y D1–D5; esperar P1–P4. Decisión pendiente: el gradiente del encabezado choca con la regla 3 del sistema de diseño de Genesis |
 | 02/11/2026 | Héctor (con Claude) | D6 terminado: tokens de modo oscuro | Dashboard, commit de `diseno-modo-oscuro.md` | Medición de colores por hoja (sección Diagnóstico) | Seguir con G1–G3 |
 | 02/11/2026 | Héctor (con Claude) | Limpieza previa: 62 documentos históricos, transporte RPC de pruebas, fotos JSON del diseño y herramienta de carga | Dashboard `1f2759e`, `915bbfd`, `7499608` | Servidor 2928; Node 473; e2e 691 + 3 corregidas tras la corrida (33 en sus archivos) | Empezar D1/D3/D6 y G1–G3 |
 | 02/11/2026 | Héctor (con Claude) | Revisión completa de Genesis, limpieza del dashboard, preguntas P1–P4, este plan | Dashboard `5b3d7f5` + commit de este plan | Node 473, servidor 1937, e2e capacidad 18 | Empezar D1/D3/D6 y G1–G3; esperar P1–P4 |
