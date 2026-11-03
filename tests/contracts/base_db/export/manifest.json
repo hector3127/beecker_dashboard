@@ -1,0 +1,991 @@
+{
+  "created_at": "2026-11-02T12:00:00+00:00",
+  "format": 1,
+  "source": {
+    "app": "dashboard-management",
+    "engine": "contrato"
+  },
+  "tables": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "key",
+          "null": false,
+          "type": "CharField"
+        }
+      ],
+      "db_table": "datastore_client",
+      "file": "datastore.Client.jsonl",
+      "label": "datastore.Client",
+      "pk": "id",
+      "rows": 2,
+      "sha256": "d03f7067d157b45d6b10d984da3aca9a372ab815af2b78b2737fa5b809c30ee0"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "key",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "client_id",
+          "null": false,
+          "to": "datastore.Client",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "spellings",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "manual",
+          "null": false,
+          "type": "BooleanField"
+        }
+      ],
+      "db_table": "datastore_clientalias",
+      "file": "datastore.ClientAlias.jsonl",
+      "label": "datastore.ClientAlias",
+      "pk": "id",
+      "rows": 3,
+      "sha256": "2e58f431289578e9ae44f3bdaab3717eab7b92de318e69b4b416557d007b7e4a"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "key",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "clockify_user_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "roles",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_person",
+      "file": "datastore.Person.jsonl",
+      "label": "datastore.Person",
+      "pk": "id",
+      "rows": 3,
+      "sha256": "16109900e30d96eb60b9db5bd9dd56209172ea35b82c77f539d4e7e5adda34e6"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "key",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "person_id",
+          "null": false,
+          "to": "datastore.Person",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "spellings",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "manual",
+          "null": false,
+          "type": "BooleanField"
+        }
+      ],
+      "db_table": "datastore_personalias",
+      "file": "datastore.PersonAlias.jsonl",
+      "label": "datastore.PersonAlias",
+      "pk": "id",
+      "rows": 3,
+      "sha256": "b6b35d36b322ee8f9b9f2fb0bfe265e30e4bf7cc0e4d15c9ae6a660cff2b4a7d"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "internal_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "base_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "service",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "client_id",
+          "null": true,
+          "to": "datastore.Client",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "delivery_manager_id",
+          "null": true,
+          "to": "datastore.Person",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "sources",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "spellings",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_project",
+      "file": "datastore.Project.jsonl",
+      "label": "datastore.Project",
+      "pk": "id",
+      "rows": 3,
+      "sha256": "0eb53b044b1ff75afa0db7bcef35b1dbfe9ec33d33b291a46bc439e31d06d847"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "workspace_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_clockifycatalog",
+      "file": "datastore.ClockifyCatalog.jsonl",
+      "label": "datastore.ClockifyCatalog",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "321a7593f290cd4cf576788510fc58077b6d003e74f788ffc6467c5e6771c521"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "catalog_id",
+          "null": false,
+          "to": "datastore.ClockifyCatalog",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "external_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "client_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "position",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "tasks_synced_at",
+          "null": true,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_clockifyprojectrecord",
+      "file": "datastore.ClockifyProjectRecord.jsonl",
+      "label": "datastore.ClockifyProjectRecord",
+      "pk": "id",
+      "rows": 3,
+      "sha256": "e59cdb698b85739aeb9d92593f199ebf3f21c3ad8f00804c967c0e1613bade3b"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "project_id",
+          "null": false,
+          "to": "datastore.ClockifyProjectRecord",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "external_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "position",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "payload",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_clockifytaskrecord",
+      "file": "datastore.ClockifyTaskRecord.jsonl",
+      "label": "datastore.ClockifyTaskRecord",
+      "pk": "id",
+      "rows": 2,
+      "sha256": "783bc1a4cebeda3a41b523f7f088538ee60e49631e6153dac45bc56934a7b67c"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "month",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "entries_count",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "total_seconds",
+          "null": false,
+          "type": "BigIntegerField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "run_id",
+          "null": false,
+          "to": "datastore.SyncRun",
+          "type": "ForeignKey"
+        }
+      ],
+      "db_table": "datastore_clockifymonthsync",
+      "file": "datastore.ClockifyMonthSync.jsonl",
+      "label": "datastore.ClockifyMonthSync",
+      "pk": "id",
+      "rows": 3,
+      "sha256": "5ab3b1c90716398a06b96effaff7974b1d6a88cf1675b075fe1c0e157984dafd"
+    },
+    {
+      "columns": [
+        {
+          "name": "entry_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "project_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "project_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "task_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "task_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "user_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "user_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "tags",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "description",
+          "null": false,
+          "type": "TextField"
+        },
+        {
+          "name": "billable",
+          "null": false,
+          "type": "BooleanField"
+        },
+        {
+          "name": "start",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "end",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "entry_date",
+          "null": true,
+          "type": "DateField"
+        },
+        {
+          "name": "month",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "duration_seconds",
+          "null": false,
+          "type": "IntegerField"
+        }
+      ],
+      "db_table": "datastore_clockifytimeentry",
+      "file": "datastore.ClockifyTimeEntry.jsonl",
+      "label": "datastore.ClockifyTimeEntry",
+      "pk": "entry_id",
+      "rows": 36,
+      "sha256": "caabb30ab5ce826dba3baef8156abc73b5064b7eaf26988a0cc107cf1eb507b0"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "position",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "risk_fields",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "risk_fields_ok",
+          "null": false,
+          "type": "BooleanField"
+        },
+        {
+          "name": "raid_version",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_azureproject",
+      "file": "datastore.AzureProject.jsonl",
+      "label": "datastore.AzureProject",
+      "pk": "id",
+      "rows": 2,
+      "sha256": "3d1f734073205613e3922b736be5a28c01b5342c3d6e61ca66cfd6799bf81ce8"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "project_id",
+          "null": false,
+          "to": "datastore.AzureProject",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "kind",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "position",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "work_item_id",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "item_type",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "state",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "title",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "iteration_path",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "assigned_to",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "changed_at",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "payload",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_azureworkitem",
+      "file": "datastore.AzureWorkItem.jsonl",
+      "label": "datastore.AzureWorkItem",
+      "pk": "id",
+      "rows": 6,
+      "sha256": "f45638b0d41491877e124a73e27cbf45a7f8a6ea504e2ece4573c2ccd6d3cca2"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "project_id",
+          "null": false,
+          "to": "datastore.AzureProject",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "position",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "path",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "start_date",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "finish_date",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "payload",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_azureiteration",
+      "file": "datastore.AzureIteration.jsonl",
+      "label": "datastore.AzureIteration",
+      "pk": "id",
+      "rows": 3,
+      "sha256": "697b58df1283bb3f15e6ea0bc50f71f4300002685f58b4f2c6056ae774cda960"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "project_id",
+          "null": false,
+          "to": "datastore.AzureProject",
+          "type": "OneToOneField"
+        },
+        {
+          "name": "total_items",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_azurepanelsnapshot",
+      "file": "datastore.AzurePanelSnapshot.jsonl",
+      "label": "datastore.AzurePanelSnapshot",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "9212400e09afddbf5e930f94ee737287c3feca0d1ce59d236e65a85167f7c8a0"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "identity",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "cursor",
+          "null": false,
+          "type": "TextField"
+        },
+        {
+          "name": "complete_through",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "updated_at",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "error",
+          "null": false,
+          "type": "CharField"
+        }
+      ],
+      "db_table": "datastore_azurehistoryfeed",
+      "file": "datastore.AzureHistoryFeed.jsonl",
+      "label": "datastore.AzureHistoryFeed",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "406c1c1b776f42dd1d02c8a19bd27a28596e707f7389855917e98c431df6743c"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "feed_id",
+          "null": false,
+          "to": "datastore.AzureHistoryFeed",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "work_item_id",
+          "null": false,
+          "type": "PositiveBigIntegerField"
+        },
+        {
+          "name": "revision",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "project_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "changed_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "deleted",
+          "null": false,
+          "type": "BooleanField"
+        },
+        {
+          "name": "fields",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_azureworkitemrevision",
+      "file": "datastore.AzureWorkItemRevision.jsonl",
+      "label": "datastore.AzureWorkItemRevision",
+      "pk": "id",
+      "rows": 8,
+      "sha256": "248beb30fe3cfbb27b1ca09a15fec7ac8e02119b6307a6fc03115903073a168c"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "feed_id",
+          "null": false,
+          "to": "datastore.AzureHistoryFeed",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "source_id",
+          "null": false,
+          "to": "datastore.EvaAzureSource",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "cut",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "feed_through",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "metrics",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_azurehistoricalcut",
+      "file": "datastore.AzureHistoricalCut.jsonl",
+      "label": "datastore.AzureHistoricalCut",
+      "pk": "id",
+      "rows": 2,
+      "sha256": "16a7a54a5ba56e85b5f1ef829510c848e04245f367e62e52d7be6b1bf43d87e7"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "cut",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "started_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "finished_at",
+          "null": true,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "published",
+          "null": false,
+          "type": "BooleanField"
+        },
+        {
+          "name": "metrics",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "issues",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_evaextraction",
+      "file": "datastore.EvaExtraction.jsonl",
+      "label": "datastore.EvaExtraction",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "db0c636f78bf21d355ada76ea5cdfc715907aebbb947a3c8da4815d8a377434a"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "PositiveSmallIntegerField"
+        },
+        {
+          "name": "first_month",
+          "null": false,
+          "type": "DateField"
+        }
+      ],
+      "db_table": "datastore_evamonthlyclosepolicy",
+      "file": "datastore.EvaMonthlyClosePolicy.jsonl",
+      "label": "datastore.EvaMonthlyClosePolicy",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "227a2364e4b5b5aa358ed71bb91b1c41bf7a79187a44712e1bdd21367cd8e1d3"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "month",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "cut",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "extraction_id",
+          "null": false,
+          "to": "datastore.EvaExtraction",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "source_observed_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "closed_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "rows",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "source_issues",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_evamonthlyclose",
+      "file": "datastore.EvaMonthlyClose.jsonl",
+      "label": "datastore.EvaMonthlyClose",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "954262e4fe9c71f56a7f01b2a84ca1767b0bc78f76f96b2ff5ca76d1dc05d8b1"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "extraction_id",
+          "null": false,
+          "to": "datastore.EvaExtraction",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "azure_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "payload",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "metrics",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_evaazuresource",
+      "file": "datastore.EvaAzureSource.jsonl",
+      "label": "datastore.EvaAzureSource",
+      "pk": "id",
+      "rows": 2,
+      "sha256": "39a841534ab1b1c3092734947b4534b3908809c6a35843b5e5fa0d3a997f0066"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "source_id",
+          "null": false,
+          "to": "datastore.EvaAzureSource",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "project_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "scope",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "row",
+          "null": false,
+          "type": "JSONField"
+        }
+      ],
+      "db_table": "datastore_evascopesnapshot",
+      "file": "datastore.EvaScopeSnapshot.jsonl",
+      "label": "datastore.EvaScopeSnapshot",
+      "pk": "id",
+      "rows": 4,
+      "sha256": "f8c5adcae8da17fb999322200818770f26bee8c5598708b3941614cbb2d3ab12"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "rows",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "row_count",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_sheetsnapshot",
+      "file": "datastore.SheetSnapshot.jsonl",
+      "label": "datastore.SheetSnapshot",
+      "pk": "id",
+      "rows": 2,
+      "sha256": "5ef8326793a92981489c7f02d21bfed840ac83041c06d4d5333277fa61b0c5f3"
+    }
+  ]
+}

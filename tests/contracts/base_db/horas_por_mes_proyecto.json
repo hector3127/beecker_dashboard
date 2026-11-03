@@ -1,0 +1,44 @@
+{
+  "2026-08": {
+    "p1": {
+      "facturable": 21600,
+      "facturable_registros": 4
+    },
+    "p2": {
+      "facturable": 36000,
+      "facturable_registros": 4
+    },
+    "p3": {
+      "no_facturable": 25200,
+      "no_facturable_registros": 4
+    }
+  },
+  "2026-09": {
+    "p1": {
+      "facturable": 32400,
+      "facturable_registros": 4
+    },
+    "p2": {
+      "facturable": 21600,
+      "facturable_registros": 4
+    },
+    "p3": {
+      "no_facturable": 36000,
+      "no_facturable_registros": 4
+    }
+  },
+  "2026-10": {
+    "p1": {
+      "facturable": 30600,
+      "facturable_registros": 4
+    },
+    "p2": {
+      "facturable": 32400,
+      "facturable_registros": 4
+    },
+    "p3": {
+      "no_facturable": 21600,
+      "no_facturable_registros": 4
+    }
+  }
+}
