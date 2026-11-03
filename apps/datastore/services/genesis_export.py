@@ -138,14 +138,26 @@ def _columns(model: type[models.Model]) -> list[dict[str, Any]]:
     return columns
 
 
+class _Encoder(DjangoJSONEncoder):
+    """Como el de Django, pero conserva los microsegundos de las fechas."""
+
+    def default(self, o: Any) -> Any:
+        if isinstance(o, datetime):
+            text = o.isoformat()
+            return (
+                text.removesuffix("+00:00") + "Z"
+                if text.endswith("+00:00")
+                else text
+            )
+        return super().default(o)
+
+
 def _line(model: type[models.Model], row: models.Model) -> bytes:
     values = {
         field.attname: field.value_from_object(row)
         for field in model._meta.concrete_fields
     }
-    text = json.dumps(
-        values, cls=DjangoJSONEncoder, sort_keys=True, ensure_ascii=False
-    )
+    text = json.dumps(values, cls=_Encoder, sort_keys=True, ensure_ascii=False)
     return text.encode("utf-8") + b"\n"
 
 

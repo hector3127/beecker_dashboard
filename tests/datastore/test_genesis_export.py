@@ -123,6 +123,16 @@ def test_rows_keep_keys_dates_json_and_unicode(tmp_path, kpi_rows):
     assert observation["period_id"] == period["id"]
 
 
+def test_dates_keep_their_microseconds(tmp_path, kpi_rows):
+    exact = datetime(2026, 11, 2, 17, 38, 1, 388253, tzinfo=UTC)
+    EvaExtraction.objects.filter(pk=kpi_rows.source_id).update(started_at=exact)
+
+    folder, _ = export(tmp_path)
+
+    started = rows(folder, "datastore.EvaExtraction")[0]["started_at"]
+    assert started == "2026-11-02T17:38:01.388253Z"
+
+
 def test_rows_are_ordered_by_primary_key(tmp_path, kpi_rows):
     folder, _ = export(tmp_path)
 
