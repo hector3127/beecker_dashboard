@@ -361,3 +361,11 @@ def test_the_command_needs_an_action_and_lists_groups():
 
     assert "kpi: datastore.EvaExtraction" in out.getvalue()
     assert "No se exporta portal.AccountLogo" in out.getvalue()
+
+
+def test_verification_ignores_windows_line_endings(tmp_path, kpi_rows):
+    folder, _ = export(tmp_path)
+    for path in folder.glob("*.jsonl"):
+        path.write_bytes(path.read_bytes().replace(b"\n", b"\r\n"))
+
+    assert verify_export(folder) == []

@@ -155,4 +155,6 @@ def test_el_paquete_de_exportacion_del_escenario_no_cambia(tmp_path, escenario):
     assert manifiesto == guardado
     for tabla in manifiesto["tables"]:
         esperado = (PAQUETE / tabla["file"]).read_bytes()
-        assert (destino / tabla["file"]).read_bytes() == esperado
+        assert (destino / tabla["file"]).read_bytes() == esperado.replace(
+            b"\r\n", b"\n"
+        )

@@ -3,7 +3,8 @@
 Cada tabla sale como JSONL (una fila por línea, llaves ordenadas, filas por
 llave primaria) y el manifiesto guarda filas, columnas y SHA-256 de cada
 archivo. La verificación recalcula todo desde los archivos, sin la base.
-No exporta usuarios, sesiones, secretos ni tablas operativas.
+No exporta usuarios, sesiones, secretos ni tablas operativas. La huella
+ignora CRLF/LF: un checkout de Windows no invalida el paquete.
 """
 
 import hashlib
@@ -223,7 +224,7 @@ def verify_export(folder: Path) -> list[str]:
         keys: set[object] = set()
         with path.open("rb") as handle:
             for line in handle:
-                digest.update(line)
+                digest.update(line.replace(b"\r\n", b"\n"))
                 rows += 1
                 keys.add(json.loads(line).get(table["pk"]))
         if rows != table["rows"]:
