@@ -1,0 +1,942 @@
+{
+  "agosto_sin_coincidencias": {
+    "error": "La base tiene horas, pero no coinciden con las personas del área en Bandas/rol. Revisa ID Clockify y nombres; no se mostraron ceros como resultado válido.",
+    "mes": "2026-08",
+    "ok": false
+  },
+  "api_octubre": {
+    "areas": [
+      {
+        "area": "Desarrollo",
+        "categorias": {
+          "Administrativo Operaciones": 3.0,
+          "Facturable": 12.0,
+          "Inversión Operaciones": 3.0,
+          "No Facturables": 5.0,
+          "Optimización": 3.0,
+          "Vacaciones": 8.0
+        },
+        "horas": 28.0,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 15.0,
+            "nombre": "Ana Ruiz"
+          },
+          {
+            "baja": true,
+            "horas": 13.0,
+            "nombre": "Beto Soto"
+          }
+        ],
+        "recursos": 2
+      },
+      {
+        "area": "QA",
+        "categorias": {
+          "Administrativas": 1.5,
+          "Administrativo Operaciones": 1.5,
+          "Facturable": 3.25,
+          "Inversión Comercial": 1.5,
+          "Laboratorio": 6.0,
+          "Pre-Venta": 2.0
+        },
+        "horas": 12.75,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 7.5,
+            "nombre": "Carla Díaz"
+          },
+          {
+            "baja": false,
+            "horas": 5.25,
+            "nombre": "Dani Paz"
+          }
+        ],
+        "recursos": 2
+      }
+    ],
+    "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual.",
+    "banda": "octubre 2026",
+    "catalogoAviso": "",
+    "detalle": [
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 8.0,
+        "proyecto": "AER.ACM.001_S1",
+        "recurso": "Ana Ruiz",
+        "servicio": "Sprint",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 4.0,
+        "proyecto": "AER.ACM.001",
+        "recurso": "Ana Ruiz",
+        "servicio": "AER",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Optimización",
+        "categorias": [
+          "Inversión Operaciones",
+          "Optimización"
+        ],
+        "horas": 3.0,
+        "proyecto": "INT.OPT.001",
+        "recurso": "Ana Ruiz",
+        "servicio": "NA",
+        "tipo": "No facturable"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "BAJA",
+        "categoria": "Sin clasificación",
+        "categorias": [
+          "No Facturables"
+        ],
+        "horas": 5.0,
+        "proyecto": "000.ADMIN",
+        "recurso": "Beto Soto",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "BAJA",
+        "categoria": "Vacaciones",
+        "categorias": [
+          "Vacaciones"
+        ],
+        "horas": 8.0,
+        "proyecto": "Vacaciones",
+        "recurso": "Beto Soto",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "QA",
+        "banda": "B2",
+        "categoria": "Laboratorio",
+        "categorias": [
+          "Laboratorio"
+        ],
+        "horas": 6.0,
+        "proyecto": "INT.LAB.001",
+        "recurso": "Carla Díaz",
+        "servicio": "Lab",
+        "tipo": "No facturable"
+      },
+      {
+        "area": "QA",
+        "banda": "B2",
+        "categoria": "Inversión Comercial / Administrativas",
+        "categorias": [
+          "Inversión Comercial",
+          "Administrativas"
+        ],
+        "horas": 1.5,
+        "proyecto": "Administrative Activities",
+        "recurso": "Carla Díaz",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "QA",
+        "banda": "B1",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 3.25,
+        "proyecto": "AER.ACM.001",
+        "recurso": "Dani Paz",
+        "servicio": "AER",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "QA",
+        "banda": "B1",
+        "categoria": "Pre-Venta",
+        "categorias": [
+          "Pre-Venta"
+        ],
+        "horas": 2.0,
+        "proyecto": "Cliente nuevo",
+        "recurso": "Dani Paz",
+        "servicio": "NA",
+        "tipo": "NA"
+      }
+    ],
+    "filtradoPorIDs": false,
+    "idsPendientes": [
+      "Dani Paz"
+    ],
+    "mes": "2026-10",
+    "ok": true,
+    "sinArea": [
+      "Zed Extraño"
+    ],
+    "sinCatalogo": [
+      "000.ADMIN",
+      "Vacaciones",
+      "Administrative Activities",
+      "Cliente nuevo"
+    ],
+    "source": "API Clockify (registros visibles para la clave)"
+  },
+  "area_desarrollo_por_ids": {
+    "areas": [
+      {
+        "area": "Desarrollo",
+        "categorias": {
+          "Administrativo Operaciones": 3.0,
+          "Facturable": 12.0,
+          "Inversión Operaciones": 3.0,
+          "No Facturables": 5.0,
+          "Optimización": 3.0,
+          "Vacaciones": 8.0
+        },
+        "horas": 28.0,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 15.0,
+            "nombre": "Ana Ruiz"
+          },
+          {
+            "baja": true,
+            "horas": 13.0,
+            "nombre": "Beto Soto"
+          }
+        ],
+        "recursos": 2
+      }
+    ],
+    "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual.",
+    "banda": "octubre 2026",
+    "catalogoAviso": "",
+    "detalle": [
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 8.0,
+        "proyecto": "AER.ACM.001_S1",
+        "recurso": "Ana Ruiz",
+        "servicio": "Sprint",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 4.0,
+        "proyecto": "AER.ACM.001",
+        "recurso": "Ana Ruiz",
+        "servicio": "AER",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Optimización",
+        "categorias": [
+          "Inversión Operaciones",
+          "Optimización"
+        ],
+        "horas": 3.0,
+        "proyecto": "INT.OPT.001",
+        "recurso": "Ana Ruiz",
+        "servicio": "NA",
+        "tipo": "No facturable"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "BAJA",
+        "categoria": "Sin clasificación",
+        "categorias": [
+          "No Facturables"
+        ],
+        "horas": 5.0,
+        "proyecto": "000.ADMIN",
+        "recurso": "Beto Soto",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "BAJA",
+        "categoria": "Vacaciones",
+        "categorias": [
+          "Vacaciones"
+        ],
+        "horas": 8.0,
+        "proyecto": "Vacaciones",
+        "recurso": "Beto Soto",
+        "servicio": "NA",
+        "tipo": "NA"
+      }
+    ],
+    "filtradoPorIDs": true,
+    "idsPendientes": [],
+    "mes": "2026-10",
+    "ok": true,
+    "sinArea": [],
+    "sinCatalogo": [
+      "000.ADMIN",
+      "Vacaciones"
+    ],
+    "source": "API Clockify (registros visibles para la clave)"
+  },
+  "area_inexistente": {
+    "error": "El área seleccionada no tiene personas en Bandas/rol.",
+    "mes": "2026-10",
+    "ok": false
+  },
+  "area_qa": {
+    "areas": [
+      {
+        "area": "QA",
+        "categorias": {
+          "Administrativas": 1.5,
+          "Administrativo Operaciones": 1.5,
+          "Facturable": 3.25,
+          "Inversión Comercial": 1.5,
+          "Laboratorio": 6.0,
+          "Pre-Venta": 2.0
+        },
+        "horas": 12.75,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 7.5,
+            "nombre": "Carla Díaz"
+          },
+          {
+            "baja": false,
+            "horas": 5.25,
+            "nombre": "Dani Paz"
+          }
+        ],
+        "recursos": 2
+      }
+    ],
+    "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual.",
+    "banda": "octubre 2026",
+    "catalogoAviso": "",
+    "detalle": [
+      {
+        "area": "QA",
+        "banda": "B2",
+        "categoria": "Laboratorio",
+        "categorias": [
+          "Laboratorio"
+        ],
+        "horas": 6.0,
+        "proyecto": "INT.LAB.001",
+        "recurso": "Carla Díaz",
+        "servicio": "Lab",
+        "tipo": "No facturable"
+      },
+      {
+        "area": "QA",
+        "banda": "B2",
+        "categoria": "Inversión Comercial / Administrativas",
+        "categorias": [
+          "Inversión Comercial",
+          "Administrativas"
+        ],
+        "horas": 1.5,
+        "proyecto": "Administrative Activities",
+        "recurso": "Carla Díaz",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "QA",
+        "banda": "B1",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 3.25,
+        "proyecto": "AER.ACM.001",
+        "recurso": "Dani Paz",
+        "servicio": "AER",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "QA",
+        "banda": "B1",
+        "categoria": "Pre-Venta",
+        "categorias": [
+          "Pre-Venta"
+        ],
+        "horas": 2.0,
+        "proyecto": "Cliente nuevo",
+        "recurso": "Dani Paz",
+        "servicio": "NA",
+        "tipo": "NA"
+      }
+    ],
+    "filtradoPorIDs": false,
+    "idsPendientes": [
+      "Dani Paz"
+    ],
+    "mes": "2026-10",
+    "ok": true,
+    "sinArea": [],
+    "sinCatalogo": [
+      "Administrative Activities",
+      "Cliente nuevo"
+    ],
+    "source": "API Clockify (registros visibles para la clave)"
+  },
+  "hoja_octubre": {
+    "areas": [
+      {
+        "area": "Desarrollo",
+        "categorias": {
+          "Administrativo Operaciones": 3.0,
+          "Facturable": 12.0,
+          "Inversión Operaciones": 3.0,
+          "No Facturables": 5.0,
+          "Optimización": 3.0,
+          "Vacaciones": 8.0
+        },
+        "horas": 28.0,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 15.0,
+            "nombre": "Ana Ruiz"
+          },
+          {
+            "baja": true,
+            "horas": 13.0,
+            "nombre": "Beto Soto"
+          }
+        ],
+        "recursos": 2
+      },
+      {
+        "area": "QA",
+        "categorias": {
+          "Administrativas": 1.5,
+          "Administrativo Operaciones": 1.5,
+          "Facturable": 3.25,
+          "Inversión Comercial": 1.5,
+          "Laboratorio": 6.0,
+          "Pre-Venta": 2.0
+        },
+        "horas": 12.75,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 7.5,
+            "nombre": "Carla Díaz"
+          },
+          {
+            "baja": false,
+            "horas": 5.25,
+            "nombre": "Dani Paz"
+          }
+        ],
+        "recursos": 2
+      }
+    ],
+    "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual.",
+    "banda": "octubre 2026",
+    "catalogoAviso": "",
+    "detalle": [
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 8.0,
+        "proyecto": "AER.ACM.001_S1",
+        "recurso": "Ana Ruiz",
+        "servicio": "Sprint",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 4.0,
+        "proyecto": "AER.ACM.001",
+        "recurso": "Ana Ruiz",
+        "servicio": "AER",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Optimización",
+        "categorias": [
+          "Inversión Operaciones",
+          "Optimización"
+        ],
+        "horas": 3.0,
+        "proyecto": "INT.OPT.001",
+        "recurso": "Ana Ruiz",
+        "servicio": "NA",
+        "tipo": "No facturable"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "BAJA",
+        "categoria": "Sin clasificación",
+        "categorias": [
+          "No Facturables"
+        ],
+        "horas": 5.0,
+        "proyecto": "000.ADMIN",
+        "recurso": "Beto Soto",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "BAJA",
+        "categoria": "Vacaciones",
+        "categorias": [
+          "Vacaciones"
+        ],
+        "horas": 8.0,
+        "proyecto": "Vacaciones",
+        "recurso": "Beto Soto",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "QA",
+        "banda": "B2",
+        "categoria": "Laboratorio",
+        "categorias": [
+          "Laboratorio"
+        ],
+        "horas": 6.0,
+        "proyecto": "INT.LAB.001",
+        "recurso": "Carla Díaz",
+        "servicio": "Lab",
+        "tipo": "No facturable"
+      },
+      {
+        "area": "QA",
+        "banda": "B2",
+        "categoria": "Inversión Comercial / Administrativas",
+        "categorias": [
+          "Inversión Comercial",
+          "Administrativas"
+        ],
+        "horas": 1.5,
+        "proyecto": "Administrative Activities",
+        "recurso": "Carla Díaz",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "QA",
+        "banda": "B1",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 3.25,
+        "proyecto": "AER.ACM.001",
+        "recurso": "Dani Paz",
+        "servicio": "AER",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "QA",
+        "banda": "B1",
+        "categoria": "Pre-Venta",
+        "categorias": [
+          "Pre-Venta"
+        ],
+        "horas": 2.0,
+        "proyecto": "Cliente nuevo",
+        "recurso": "Dani Paz",
+        "servicio": "NA",
+        "tipo": "NA"
+      }
+    ],
+    "filtradoPorIDs": false,
+    "idsPendientes": [
+      "Dani Paz"
+    ],
+    "mes": "2026-10",
+    "ok": true,
+    "sinArea": [
+      "Zed Extraño"
+    ],
+    "sinCatalogo": [
+      "000.ADMIN",
+      "Vacaciones",
+      "Administrative Activities",
+      "Cliente nuevo"
+    ],
+    "source": "Base Clockify en Sheets"
+  },
+  "julio_sin_base": {
+    "error": "No existe la base del año. Selecciona API Clockify para extraerla primero.",
+    "mes": "2026-07",
+    "ok": false
+  },
+  "mes_invalido": {
+    "error": "Mes inválido.",
+    "mes": "2026-13",
+    "ok": false
+  },
+  "mes_no_texto": {
+    "error": "Mes inválido.",
+    "mes": null,
+    "ok": false
+  },
+  "noviembre_sin_columna_de_banda": {
+    "areas": [
+      {
+        "area": "Desarrollo",
+        "categorias": {
+          "Administrativo Operaciones": 0,
+          "Agentes Autónomos": 2.5
+        },
+        "horas": 2.5,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 2.5,
+            "nombre": "Ana Ruiz"
+          }
+        ],
+        "recursos": 1
+      },
+      {
+        "area": "QA",
+        "categorias": {
+          "Administrativo Operaciones": 0
+        },
+        "horas": 0.0,
+        "personas": [],
+        "recursos": 0
+      }
+    ],
+    "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual.",
+    "banda": null,
+    "catalogoAviso": "",
+    "detalle": [
+      {
+        "area": "Desarrollo",
+        "banda": "NA",
+        "categoria": "Agentes Autónomos",
+        "categorias": [
+          "Agentes Autónomos"
+        ],
+        "horas": 2.5,
+        "proyecto": "INT.AGE.001",
+        "recurso": "Ana Ruiz",
+        "servicio": "NA",
+        "tipo": "Interno"
+      }
+    ],
+    "filtradoPorIDs": false,
+    "idsPendientes": [
+      "Dani Paz"
+    ],
+    "mes": "2026-11",
+    "ok": true,
+    "sinArea": [],
+    "sinCatalogo": [],
+    "source": "API Clockify (registros visibles para la clave)"
+  },
+  "septiembre": {
+    "areas": [
+      {
+        "area": "Desarrollo",
+        "categorias": {
+          "Administrativo Operaciones": 0,
+          "Facturable": 6.0
+        },
+        "horas": 6.0,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 6.0,
+            "nombre": "Ana Ruiz"
+          }
+        ],
+        "recursos": 1
+      },
+      {
+        "area": "QA",
+        "categorias": {
+          "Administrativo Operaciones": 0,
+          "Optimización": 4.0
+        },
+        "horas": 4.0,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 4.0,
+            "nombre": "Carla Díaz"
+          }
+        ],
+        "recursos": 1
+      }
+    ],
+    "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual.",
+    "banda": "septiembre 2026",
+    "catalogoAviso": "",
+    "detalle": [
+      {
+        "area": "Desarrollo",
+        "banda": "B2",
+        "categoria": "Desarrollo",
+        "categorias": [
+          "Facturable"
+        ],
+        "horas": 6.0,
+        "proyecto": "AER.ACM.001_S1",
+        "recurso": "Ana Ruiz",
+        "servicio": "Sprint",
+        "tipo": "Facturable"
+      },
+      {
+        "area": "QA",
+        "banda": "B2",
+        "categoria": "Optimización",
+        "categorias": [
+          "Optimización"
+        ],
+        "horas": 4.0,
+        "proyecto": "INT.OPT.001",
+        "recurso": "Carla Díaz",
+        "servicio": "NA",
+        "tipo": "No facturable"
+      }
+    ],
+    "filtradoPorIDs": false,
+    "idsPendientes": [
+      "Dani Paz"
+    ],
+    "mes": "2026-09",
+    "ok": true,
+    "sinArea": [],
+    "sinCatalogo": [],
+    "source": "API Clockify (registros visibles para la clave)"
+  },
+  "sin_catalogo": {
+    "areas": [
+      {
+        "area": "Desarrollo",
+        "categorias": {
+          "Administrativo Operaciones": 3.0,
+          "Agentes Autónomos": null,
+          "Continuos Improvement": null,
+          "Facturable": null,
+          "Inversión Operaciones": 3.0,
+          "Laboratorio": null,
+          "No Facturables": 5.0,
+          "Optimización": null,
+          "Vacaciones": 8.0
+        },
+        "horas": 28.0,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 15.0,
+            "nombre": "Ana Ruiz"
+          },
+          {
+            "baja": true,
+            "horas": 13.0,
+            "nombre": "Beto Soto"
+          }
+        ],
+        "recursos": 2
+      },
+      {
+        "area": "QA",
+        "categorias": {
+          "Administrativas": 1.5,
+          "Administrativo Operaciones": 1.5,
+          "Agentes Autónomos": null,
+          "Continuos Improvement": null,
+          "Facturable": null,
+          "Inversión Comercial": 1.5,
+          "Laboratorio": null,
+          "Optimización": null,
+          "Pre-Venta": 2.0
+        },
+        "horas": 12.75,
+        "personas": [
+          {
+            "baja": false,
+            "horas": 7.5,
+            "nombre": "Carla Díaz"
+          },
+          {
+            "baja": false,
+            "horas": 5.25,
+            "nombre": "Dani Paz"
+          }
+        ],
+        "recursos": 2
+      }
+    ],
+    "aviso": "Recursos cuenta personas únicas con horas positivas en el mes, incluyendo BAJA si registraron horas. Área corresponde al ROL actual.",
+    "banda": "octubre 2026",
+    "catalogoAviso": "No se encontró CatalagoProyectos.",
+    "detalle": [
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Sin clasificación",
+        "categorias": [],
+        "horas": 8.0,
+        "proyecto": "AER.ACM.001_S1",
+        "recurso": "Ana Ruiz",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Sin clasificación",
+        "categorias": [],
+        "horas": 4.0,
+        "proyecto": "AER.ACM.001",
+        "recurso": "Ana Ruiz",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "B3",
+        "categoria": "Inversión Operaciones",
+        "categorias": [
+          "Inversión Operaciones"
+        ],
+        "horas": 3.0,
+        "proyecto": "INT.OPT.001",
+        "recurso": "Ana Ruiz",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "BAJA",
+        "categoria": "Sin clasificación",
+        "categorias": [
+          "No Facturables"
+        ],
+        "horas": 5.0,
+        "proyecto": "000.ADMIN",
+        "recurso": "Beto Soto",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "Desarrollo",
+        "banda": "BAJA",
+        "categoria": "Vacaciones",
+        "categorias": [
+          "Vacaciones"
+        ],
+        "horas": 8.0,
+        "proyecto": "Vacaciones",
+        "recurso": "Beto Soto",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "QA",
+        "banda": "B2",
+        "categoria": "Sin clasificación",
+        "categorias": [],
+        "horas": 6.0,
+        "proyecto": "INT.LAB.001",
+        "recurso": "Carla Díaz",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "QA",
+        "banda": "B2",
+        "categoria": "Inversión Comercial / Administrativas",
+        "categorias": [
+          "Inversión Comercial",
+          "Administrativas"
+        ],
+        "horas": 1.5,
+        "proyecto": "Administrative Activities",
+        "recurso": "Carla Díaz",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "QA",
+        "banda": "B1",
+        "categoria": "Sin clasificación",
+        "categorias": [],
+        "horas": 3.25,
+        "proyecto": "AER.ACM.001_CR1",
+        "recurso": "Dani Paz",
+        "servicio": "NA",
+        "tipo": "NA"
+      },
+      {
+        "area": "QA",
+        "banda": "B1",
+        "categoria": "Pre-Venta",
+        "categorias": [
+          "Pre-Venta"
+        ],
+        "horas": 2.0,
+        "proyecto": "Cliente nuevo",
+        "recurso": "Dani Paz",
+        "servicio": "NA",
+        "tipo": "NA"
+      }
+    ],
+    "filtradoPorIDs": false,
+    "idsPendientes": [
+      "Dani Paz"
+    ],
+    "mes": "2026-10",
+    "ok": true,
+    "sinArea": [
+      "Zed Extraño"
+    ],
+    "sinCatalogo": [],
+    "source": "API Clockify (registros visibles para la clave)"
+  }
+}

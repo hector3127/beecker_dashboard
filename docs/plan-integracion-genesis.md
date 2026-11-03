@@ -165,7 +165,12 @@ Orden recomendado; cada bloque repite: contrato D1 → servicio portado → endp
 | ID | Bloque | Depende | Estado |
 |---|---|---|---|
 | G9 | EVA1 y Summary (inventario, cortes, iteraciones) | G7 | terminado (G9a-G9e), con paridad con datos reales en SQLite |
-| G10a | Operativa, capacidad, facturabilidad, inversión | G7 | pendiente |
+| G10a | Operativa, capacidad, facturabilidad, inversión | G7 | en curso, ver el desglose |
+| G10a0 | Motor GSE (horas del mes por área, persona y categoría desde Bandas/rol, CatalagoProyectos y las horas guardadas de Clockify) | G7 | en curso |
+| G10a1 | Facturabilidad (mes y año sobre el motor GSE) | G10a0 | pendiente |
+| G10a2 | Inversión (etiquetas de inversión y proyectos EVA sobre el motor GSE) | G10a0 | pendiente |
+| G10a3 | Capacidad (diaria y por proyecto) | G7 | pendiente |
+| G10a4 | Centro Operativa (los bloques de las cuatro anteriores) | G10a1-G10a3 | pendiente |
 | G10b | EVA2/EVA3/EVA4 | G7 | terminado: EVA2 cubierta por EVA 1 (misma población al corte de hoy); EVA-04 y EVA 3 con paridad con datos reales |
 | G10c | Business Overview, financiera, costos, márgenes, comercial | G7, G8, P1 | pendiente |
 | G10d | Cuenta y Horas por mes (CSV, regreso a cuenta) | G7 | pendiente |
