@@ -1,0 +1,275 @@
+{
+  "data": {
+    "available": true,
+    "clients": {
+      "rows": [
+        {
+          "active": 3,
+          "counts": [
+            0,
+            0,
+            2,
+            1,
+            0
+          ],
+          "name": "Delta",
+          "suspended": 0,
+          "total": 3
+        },
+        {
+          "active": 2,
+          "counts": [
+            1,
+            0,
+            2,
+            0,
+            0
+          ],
+          "name": "Nestlé",
+          "suspended": 1,
+          "total": 3
+        },
+        {
+          "active": 2,
+          "counts": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "name": "Cagsa",
+          "suspended": 0,
+          "total": 2
+        }
+      ],
+      "service_totals": [
+        2,
+        1,
+        4,
+        1,
+        0
+      ],
+      "services": [
+        "SaaS",
+        "RaaS",
+        "ROC",
+        "T&M",
+        "Garantía"
+      ]
+    },
+    "error": "",
+    "loaded_at": "2026-10-14T17:00:00+00:00",
+    "month": "2026-03",
+    "notes": {
+      "hours_origin": "database",
+      "hours_source": "08.Base Clockify 2026",
+      "missing_columns": [],
+      "missing_limits": 0,
+      "unmatched_tasks": 1
+    },
+    "processes": [
+      {
+        "average_limit": 30.0,
+        "bot": "1058",
+        "client": "Nestlé",
+        "country": "MEX",
+        "finish": "2026-10-20",
+        "hours_balance": 30.0,
+        "invested_hours": 0.0,
+        "manager": "Ana",
+        "package_available": 0,
+        "package_limit": null,
+        "process": "1058 - Reporte KE30",
+        "risk": "Riesgo",
+        "service": "ROC",
+        "start": "2026-01-01",
+        "status": "Activo",
+        "status_code": "active"
+      },
+      {
+        "average_limit": 30.0,
+        "bot": "1059",
+        "client": "Nestlé",
+        "country": "MEX",
+        "finish": "2026-12-15",
+        "hours_balance": 30.0,
+        "invested_hours": 0.0,
+        "manager": "Ana",
+        "package_available": 0,
+        "package_limit": null,
+        "process": "1059 - Conciliación",
+        "risk": "Riesgo",
+        "service": "ROC",
+        "start": "2026-01-01",
+        "status": "Activo",
+        "status_code": "active"
+      },
+      {
+        "average_limit": 80.0,
+        "bot": "77",
+        "client": "Cagsa",
+        "country": "MEX",
+        "finish": "2027-03-01",
+        "hours_balance": 80.0,
+        "invested_hours": 0.0,
+        "manager": "Carla Díaz",
+        "package_available": 0,
+        "package_limit": null,
+        "process": "77 - Pedidos",
+        "risk": "Riesgo",
+        "service": "SaaS",
+        "start": "2026-03-01",
+        "status": "Activo",
+        "status_code": "active"
+      },
+      {
+        "average_limit": 40.0,
+        "bot": "78",
+        "client": "Cagsa",
+        "country": "MEX",
+        "finish": "2026-12-31",
+        "hours_balance": 40.0,
+        "invested_hours": 0.0,
+        "manager": "Carla Díaz",
+        "package_available": 0,
+        "package_limit": 80,
+        "process": "78 - Soporte",
+        "risk": "Riesgo",
+        "service": "RaaS",
+        "start": "2026-03-01",
+        "status": "Activo",
+        "status_code": "active"
+      },
+      {
+        "average_limit": 160.0,
+        "bot": "5",
+        "client": "Delta",
+        "country": "MEX",
+        "finish": "2026-11-05",
+        "hours_balance": 160.0,
+        "invested_hours": 0.0,
+        "manager": "Ana",
+        "package_available": 0,
+        "package_limit": null,
+        "process": "5 - Soporte T&M",
+        "risk": "Riesgo",
+        "service": "T&M",
+        "start": "2026-05-01",
+        "status": "Activo",
+        "status_code": "active"
+      },
+      {
+        "average_limit": 30.0,
+        "bot": "6",
+        "client": "Delta",
+        "country": "MEX",
+        "finish": "2026-11-05",
+        "hours_balance": null,
+        "invested_hours": null,
+        "manager": "Ana",
+        "package_available": 0,
+        "package_limit": null,
+        "process": "6 - Sin ROC ID",
+        "risk": "Riesgo",
+        "service": "ROC",
+        "start": "2026-05-01",
+        "status": "Activo",
+        "status_code": "active"
+      },
+      {
+        "average_limit": 30.0,
+        "bot": "5",
+        "client": "Delta",
+        "country": "MEX",
+        "finish": "2026-11-25",
+        "hours_balance": 30.0,
+        "invested_hours": 0.0,
+        "manager": "Ana",
+        "package_available": 0,
+        "package_limit": null,
+        "process": "5 - Bot compartido",
+        "risk": "Riesgo",
+        "service": "ROC",
+        "start": "2026-05-01",
+        "status": "Activo",
+        "status_code": "active"
+      }
+    ],
+    "renewals": [
+      {
+        "account_manager": "Beto",
+        "country": "MEX",
+        "due": 6,
+        "finish": "2026-10-20",
+        "manager": "Ana",
+        "project_id": "ROC.NSC.001",
+        "urgency": "critical"
+      },
+      {
+        "account_manager": "Beto",
+        "country": "MEX",
+        "due": 22,
+        "finish": "2026-11-05",
+        "manager": "Ana",
+        "project_id": "ROC.DEL.001",
+        "urgency": "critical"
+      },
+      {
+        "account_manager": "Beto",
+        "country": "MEX",
+        "due": 42,
+        "finish": "2026-11-25",
+        "manager": "Ana",
+        "project_id": "ROC.DEL.001",
+        "urgency": "warning"
+      },
+      {
+        "account_manager": "Beto",
+        "country": "COL",
+        "due": 47,
+        "finish": "2026-11-30",
+        "manager": "Ana",
+        "project_id": "ROC.NSC.002",
+        "urgency": "warning"
+      },
+      {
+        "account_manager": "Beto",
+        "country": "MEX",
+        "due": 62,
+        "finish": "2026-12-15",
+        "manager": "Ana",
+        "project_id": "ROC.NSC.001",
+        "urgency": "ok"
+      },
+      {
+        "account_manager": "Ana",
+        "country": "MEX",
+        "due": 78,
+        "finish": "2026-12-31",
+        "manager": "Carla Díaz",
+        "project_id": "RAAS.CAG.002",
+        "urgency": "ok"
+      }
+    ],
+    "summary": {
+      "active": 7,
+      "renewal_count": 6,
+      "suspended": 1,
+      "total": 8
+    }
+  },
+  "meta": {
+    "sources": [
+      {
+        "name": "ROC",
+        "origin": "database"
+      },
+      {
+        "detail": "08.Base Clockify 2026",
+        "name": "Clockify",
+        "origin": "database"
+      }
+    ]
+  }
+}

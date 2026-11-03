@@ -1,0 +1,171 @@
+{
+  "created_at": "2026-10-14T17:00:00+00:00",
+  "format": 1,
+  "source": {
+    "app": "dashboard-management",
+    "engine": "contrato"
+  },
+  "tables": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "rows",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "row_count",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_sheetsnapshot",
+      "file": "datastore.SheetSnapshot.jsonl",
+      "label": "datastore.SheetSnapshot",
+      "pk": "id",
+      "rows": 4,
+      "sha256": "2dedd7da4318a3ce5a6008043355a5cd909e3295850e61c98bf46c249623d89c"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "month",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "entries_count",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "total_seconds",
+          "null": false,
+          "type": "BigIntegerField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "run_id",
+          "null": false,
+          "to": "datastore.SyncRun",
+          "type": "ForeignKey"
+        }
+      ],
+      "db_table": "datastore_clockifymonthsync",
+      "file": "datastore.ClockifyMonthSync.jsonl",
+      "label": "datastore.ClockifyMonthSync",
+      "pk": "id",
+      "rows": 2,
+      "sha256": "47195c5b8e01b99452803d8e8f58649eba4aa29cf4c3b24026ae8fedce7ac6a9"
+    },
+    {
+      "columns": [
+        {
+          "name": "entry_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "project_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "project_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "task_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "task_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "user_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "user_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "tags",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "description",
+          "null": false,
+          "type": "TextField"
+        },
+        {
+          "name": "billable",
+          "null": false,
+          "type": "BooleanField"
+        },
+        {
+          "name": "start",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "end",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "entry_date",
+          "null": true,
+          "type": "DateField"
+        },
+        {
+          "name": "month",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "duration_seconds",
+          "null": false,
+          "type": "IntegerField"
+        }
+      ],
+      "db_table": "datastore_clockifytimeentry",
+      "file": "datastore.ClockifyTimeEntry.jsonl",
+      "label": "datastore.ClockifyTimeEntry",
+      "pk": "entry_id",
+      "rows": 11,
+      "sha256": "125d6f25d9ed2d0d1fa9f2f1d28b8d7b27135ed617de400312651e44a54d4760"
+    }
+  ]
+}
