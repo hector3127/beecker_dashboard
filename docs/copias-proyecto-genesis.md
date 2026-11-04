@@ -119,3 +119,24 @@ fechas, PK locales, rollback y concurrencia. Suite completa del módulo:
 No se ejecutó una importación real. Los gates globales siguen pendientes:
 make no está instalado y la guardia ajena de registro de jobs espera
 redactar_entregables, ausente también al ejecutar esa prueba aislada.
+
+## Carga local ejecutada el 04/11/2026
+
+Se ejecutó el flujo de doce hojas: 18 registros descargados en 13.78 s.
+El paquete verificado tiene 26 snapshots. Tras confirmar el destino SQLite
+local y respaldar las copias anteriores, Genesis creó las doce hojas con
+el importador selectivo. Sus catorce copias anteriores siguen intactas.
+Una nueva inspección del mismo paquete propone conservar las doce.
+
+Cotejo sin red y en solo lectura: matrices, conteos y fechas coinciden;
+176 proyectos comparados en Acciones, Cliente y Comunicación sin diferencias.
+Cliente usa contexto DM/cliente vacío en ambos lados para aislar las hojas.
+La ficha de proyecto no se vuelve a cotejar aquí. Hay acciones en dos
+proyectos, contactos/documentos en dos y comunicados en uno; los demás
+no tienen capturas de esas listas en el origen. AER_ClienteGobierno está
+vacía con encabezados válidos y conserva las sugerencias originales.
+
+142 pruebas focalizadas pasan. Datos y respaldo solo bajo tmp ignorado.
+No se cargó UAT/producción, no se activaron sincronizaciones programadas
+ni se modificaron meses KPI cerrados. El cotejo completo de Ejecutivo IXS
+con Pendientes_Minutas disponible sigue siendo el siguiente paso.
