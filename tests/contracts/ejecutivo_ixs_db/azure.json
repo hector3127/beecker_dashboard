@@ -1,0 +1,1443 @@
+[
+  {
+    "name": "etapas",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 4,
+          "cerrados": 2,
+          "pendientes": 2
+        },
+        "discovery": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "alcance_S2",
+    "project": "AMK.001_S2",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 10,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S2\\Discovery_S2",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S2",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "alcance_S10",
+    "project": "AMK.001_S10",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 10,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S10\\Discovery_S10",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S10",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "alcance_CR",
+    "project": "AMK.001_CR",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 10,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_CR\\Discovery_CR",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "CR",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "alcance_CR1",
+    "project": "AMK.001_CR1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 10,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_CR1\\Discovery_CR1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "CR1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "alcance_CR2",
+    "project": "AMK.001_CR2",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 10,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_CR2\\Discovery_CR2",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "CR2",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "alcance_CR2_S1",
+    "project": "AMK.001_CR2_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 10,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_CR2_S1\\Discovery_CR2_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 5,
+          "cerrados": 3,
+          "pendientes": 2
+        },
+        "discovery": {
+          "total": 2,
+          "cerrados": 2,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "alcance_QA1",
+    "project": "AMK.001_QA1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 10,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_QA1\\Discovery_QA1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 4,
+          "cerrados": 2,
+          "pendientes": 2
+        },
+        "discovery": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "alcance_base",
+    "project": "AMK.001",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 10,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_\\Discovery_",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 4,
+          "cerrados": 2,
+          "pendientes": 2
+        },
+        "discovery": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Not Applicable",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Not Applicable",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Cancelled",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Cancelled",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_CANCELED",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "CANCELED",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Closed",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Rejected",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Rejected",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Completed",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Completed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Inactive",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Inactive",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Resolved",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Resolved",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Done",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Done",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Removed",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Removed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Active",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Active",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_ closed ",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": " closed ",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_Clósed",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "Clósed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "estado_vacio",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.State": "",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 1,
+          "cerrados": 0,
+          "pendientes": 1
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "vacio",
+    "project": "AMK.001_S1",
+    "items": [],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "sin_ruta",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {}
+      },
+      {
+        "id": 2
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "todos_los_tipos",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Epic"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Risk"
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "RCP"
+        }
+      },
+      {
+        "id": 5,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Discovery_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "RSP"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 5,
+          "cerrados": 5,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 5,
+          "cerrados": 5,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "duplicados",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      },
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 2,
+          "cerrados": 2,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "mayusculas_acentos",
+    "project": "amk.001_s1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "amk.001\\general_s1\\discovery_s1",
+          "System.State": "clósed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "sin_etapa",
+    "project": "AMK.001_S1",
+    "items": [
+      {
+        "id": 1,
+        "fields": {
+          "System.IterationPath": "AMK.001\\General_S1\\Otra",
+          "System.State": "Closed",
+          "System.WorkItemType": "Task"
+        }
+      }
+    ],
+    "expected": {
+      "sprint": "S1",
+      "counts": {
+        "general": {
+          "total": 1,
+          "cerrados": 1,
+          "pendientes": 0
+        },
+        "discovery": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "development": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        },
+        "deployment": {
+          "total": 0,
+          "cerrados": 0,
+          "pendientes": 0
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,1534 @@
+[
+  {
+    "name": "mpb_completo",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          46023,
+          46053,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 46023.0,
+        "Fecha_Fin_Estimada": 46053.0,
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "solo_historico",
+    "project": "AMK.001_S1",
+    "sheets": {},
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "AMK.001_S1",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "sin_inicio_mpb",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          "",
+          46053,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": 46053.0,
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "sin_fin_mpb",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          46023,
+          "",
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 46023.0,
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "sin_fechas_mpb",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          "",
+          "",
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "sin_fuentes",
+    "project": "AMK.001_S1",
+    "sheets": {},
+    "history": [],
+    "services": null,
+    "expected": {
+      "dates": [
+        "",
+        ""
+      ],
+      "row": null
+    }
+  },
+  {
+    "name": "otro_proyecto_mpb",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "OTRO.001_S1",
+          "Portal",
+          "IXB",
+          46023,
+          46053,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "AMK.001_S1",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "sin_fechas_ninguna_fuente",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          "",
+          "",
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [],
+    "services": null,
+    "expected": {
+      "dates": [
+        "",
+        ""
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": "",
+        "Fecha_Fin_Estimada": "",
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "union_mpb",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          46023,
+          46053,
+          "En progreso",
+          "DM",
+          100
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Nueva",
+          "RaaS",
+          46000,
+          46100,
+          "Finalizado",
+          "DM2",
+          50
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Más reciente",
+          "IXB",
+          46030,
+          46080,
+          "Suspendido",
+          "DM3",
+          25
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Más reciente",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM3",
+        "Estado": "Suspendido",
+        "Budget_Hrs": 175.0,
+        "Fecha_Inicio": 46000.0,
+        "Fecha_Fin_Estimada": 46100.0,
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "fechas_texto_mpb",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          "2026-01-01",
+          "2026-12-31",
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "booleanos_no_son_seriales",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          true,
+          false,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "servicio_permitido",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          46023,
+          46053,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": [
+      "IXB"
+    ],
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 46023.0,
+        "Fecha_Fin_Estimada": 46053.0,
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "servicio_excluido",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          46023,
+          46053,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": [
+      "RAAS"
+    ],
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "AMK.001_S1",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "normaliza_id",
+    "project": " amk.001_s1 ",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          46023,
+          46053,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": " amk.001_s1 ",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 46023.0,
+        "Fecha_Fin_Estimada": 46053.0,
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "historico_otra_nomenclatura",
+    "project": "AMK.001_S2",
+    "sheets": {},
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "",
+        ""
+      ],
+      "row": null
+    }
+  },
+  {
+    "name": "historico_fecha_imposible",
+    "project": "AMK.001_S1",
+    "sheets": {},
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "31/02/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-11",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "AMK.001_S1",
+        "Fecha_Inicio": "2026-10-11",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "historico_solo_inicio",
+    "project": "AMK.001_S1",
+    "sheets": {},
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        ""
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "AMK.001_S1",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "",
+        "_fuente": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "historico_solo_fin",
+    "project": "AMK.001_S1",
+    "sheets": {},
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "AMK.001_S1",
+        "Fecha_Inicio": "",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "historico_seriales",
+    "project": "AMK.001_S1",
+    "sheets": {},
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        46000,
+        46050,
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2025-12-09",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "AMK.001_S1",
+        "Fecha_Inicio": "2025-12-09",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "historico_duplicado_en_k",
+    "project": "AMK.001_S1",
+    "sheets": {},
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Project ID",
+        "Service"
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "OTRO.999",
+        "SaaS"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "OTRO.999",
+        "SaaS"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "AMK.001_S1",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "cr_alias",
+    "project": "AMK.001_CR1",
+    "sheets": {},
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_CR",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_CR",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "",
+        ""
+      ],
+      "row": null
+    }
+  },
+  {
+    "name": "historico_suspendido_no_da_estado",
+    "project": "AMK.001_S1",
+    "sheets": {},
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Suspendido",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "AMK.001_S1",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "mpb_fila_corta",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB"
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "",
+        "Estado": "",
+        "Budget_Hrs": 0.0,
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-10-31",
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "mpb_presupuesto_texto",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          46023,
+          46053,
+          "En progreso",
+          "DM",
+          "1,250.50"
+        ]
+      ]
+    },
+    "history": [
+      [
+        "Project ID",
+        "Status",
+        "Start",
+        "Finish",
+        "Service",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "Discovery",
+        "01/10/26",
+        "10/10/26",
+        "IXB"
+      ],
+      [
+        "AMK.001_S1",
+        "Development",
+        "11/10/26",
+        "31/10/26",
+        "IXB"
+      ]
+    ],
+    "services": null,
+    "expected": {
+      "dates": [
+        "2026-10-01",
+        "2026-10-31"
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 1250.5,
+        "Fecha_Inicio": 46023.0,
+        "Fecha_Fin_Estimada": 46053.0,
+        "_fuente": "MPB"
+      }
+    }
+  },
+  {
+    "name": "sin_historico",
+    "project": "AMK.001_S1",
+    "sheets": {
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Demo",
+          "AMK.001_S1",
+          "Portal",
+          "IXB",
+          46023,
+          46053,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "history": [],
+    "services": null,
+    "expected": {
+      "dates": [
+        "",
+        ""
+      ],
+      "row": {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Portal",
+        "Cliente": "Demo",
+        "Servicio": "IXB",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 46023.0,
+        "Fecha_Fin_Estimada": 46053.0,
+        "_fuente": "MPB"
+      }
+    }
+  }
+]
