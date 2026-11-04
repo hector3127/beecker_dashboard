@@ -1,0 +1,1993 @@
+[
+  {
+    "name": "vacias_validas",
+    "project": "AER.DEMO.001",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 20,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "sheets": {
+      "AER_Planeacion": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Tipo",
+          "Actividad",
+          "Responsable",
+          "Inicio_Plan",
+          "Fin_Plan",
+          "Inicio_Real",
+          "Fin_Real",
+          "Avance",
+          "Estado",
+          "Dependencia",
+          "Estado_Dependencia",
+          "Notas",
+          "Orden",
+          "Actualizado"
+        ]
+      ],
+      "AER_Riesgos": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Riesgo",
+          "Impacto",
+          "Probabilidad",
+          "Responsable",
+          "Fecha_Limite",
+          "Accion",
+          "Estado",
+          "Notas",
+          "Actualizado"
+        ]
+      ],
+      "AER_Acciones": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Accion",
+          "Responsable",
+          "Fecha_Inicio",
+          "Fecha_Limite",
+          "Fecha_Real",
+          "Estado",
+          "Dependencia",
+          "Prioridad",
+          "Riesgo_UID",
+          "Notas",
+          "Actualizado"
+        ]
+      ]
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 20,
+        "horasFacturables": 20,
+        "horasNoFacturables": 0,
+        "balanceHoras": 80,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 33.3,
+        "consumoPct": 20,
+        "desviacionPts": -13.3,
+        "diasRestantes": 6,
+        "costoReal": 500,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "plan": {
+        "filas": [],
+        "actividades": [],
+        "hitos": [],
+        "avancePlan": 0,
+        "avanceReal": 0,
+        "desviacion": 0,
+        "hitosCumplidos": 0,
+        "hitosTotal": 0,
+        "proximosHitos": [],
+        "compromisosTotal": 0,
+        "cerradosTotal": 0,
+        "cerradosATiempo": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "vencidosDetalle": [],
+        "vencenHoyDetalle": [],
+        "proximosCompromisos": [],
+        "pctCerrados": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 33.3
+      },
+      "riesgos": {
+        "filas": [],
+        "activos": [],
+        "criticos": [],
+        "score": 100,
+        "tieneDatos": false
+      },
+      "acciones": {
+        "filas": [],
+        "abiertas": [],
+        "vencidas": [],
+        "completadas": [],
+        "detenidas": [],
+        "tieneDatos": false
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ]
+    }
+  },
+  {
+    "name": "vencidos_y_riesgos",
+    "project": "AER.DEMO.001",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 80,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "b",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": false,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T18:00:00",
+        "ended_at": null
+      }
+    ],
+    "sheets": {
+      "AER_Planeacion": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Tipo",
+          "Actividad",
+          "Responsable",
+          "Inicio_Plan",
+          "Fin_Plan",
+          "Inicio_Real",
+          "Fin_Real",
+          "Avance",
+          "Estado",
+          "Dependencia",
+          "Estado_Dependencia",
+          "Notas",
+          "Orden",
+          "Actualizado"
+        ],
+        [
+          "p1",
+          "AER.DEMO.001",
+          "",
+          "Análisis",
+          "",
+          "2026-10-01",
+          "2026-10-20",
+          "",
+          "",
+          25,
+          "En progreso",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "p2",
+          "AER.DEMO.001",
+          "",
+          "Entrega",
+          "",
+          "2026-10-21",
+          "2026-11-04",
+          "",
+          "",
+          0,
+          "Pendiente",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "AER_Riesgos": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Riesgo",
+          "Impacto",
+          "Probabilidad",
+          "Responsable",
+          "Fecha_Limite",
+          "Accion",
+          "Estado",
+          "Notas",
+          "Actualizado"
+        ],
+        [
+          "r1",
+          "AER.DEMO.001",
+          "Falta acceso",
+          "Alto",
+          "Alta",
+          "Persona",
+          "2026-10-20",
+          "",
+          "Abierto",
+          "",
+          ""
+        ],
+        [
+          "r2",
+          "AER.DEMO.001",
+          "Resuelto",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Cerrado",
+          "",
+          ""
+        ]
+      ],
+      "AER_Acciones": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Accion",
+          "Responsable",
+          "Fecha_Inicio",
+          "Fecha_Limite",
+          "Fecha_Real",
+          "Estado",
+          "Dependencia",
+          "Prioridad",
+          "Riesgo_UID",
+          "Notas",
+          "Actualizado"
+        ],
+        [
+          "a1",
+          "AER.DEMO.001",
+          "Resolver acceso",
+          "Persona",
+          "2026-10-01",
+          "2026-10-20",
+          "",
+          "Detenido",
+          "",
+          "Alta",
+          "",
+          "",
+          ""
+        ],
+        [
+          "a2",
+          "AER.DEMO.001",
+          "Preparar entrega",
+          "",
+          "",
+          "2026-11-04",
+          "",
+          "En progreso",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "a3",
+          "AER.DEMO.001",
+          "Cerrada",
+          "",
+          "",
+          "",
+          "",
+          "Closed",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "a4",
+          "AER.DEMO.001",
+          "Cancelada",
+          "",
+          "",
+          "",
+          "",
+          "Cancelado",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 120,
+        "horasFacturables": 80,
+        "horasNoFacturables": 40,
+        "balanceHoras": -20,
+        "pctFacturables": 66.7,
+        "pctNoFacturables": 33.3,
+        "horasFueraHorario": 40,
+        "pctFueraHorario": 33.3,
+        "pctTiempo": 33.3,
+        "consumoPct": 120,
+        "desviacionPts": 86.7,
+        "diasRestantes": 6,
+        "costoReal": 3000,
+        "healthScore": 64,
+        "healthLabel": "En seguimiento",
+        "healthDimensiones": {
+          "tiempo": 81,
+          "esfuerzo": 44,
+          "costo": 80,
+          "riesgo": 64
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": true
+        }
+      },
+      "plan": {
+        "filas": [
+          {
+            "uid": "p1",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Análisis",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-20",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 25,
+            "estado": "En progreso",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 2
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Entrega",
+            "responsable": "",
+            "inicioPlan": "2026-10-21",
+            "finPlan": "2026-11-04",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 3
+          }
+        ],
+        "actividades": [
+          {
+            "uid": "p1",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Análisis",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-20",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 25,
+            "estado": "En progreso",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 2
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Entrega",
+            "responsable": "",
+            "inicioPlan": "2026-10-21",
+            "finPlan": "2026-11-04",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 3
+          }
+        ],
+        "hitos": [],
+        "avancePlan": 100,
+        "avanceReal": 12.5,
+        "desviacion": -87.5,
+        "hitosCumplidos": 0,
+        "hitosTotal": 0,
+        "proximosHitos": [],
+        "compromisosTotal": 2,
+        "cerradosTotal": 0,
+        "cerradosATiempo": 0,
+        "vencidosAbiertos": 1,
+        "vencenHoy": 1,
+        "vencidosDetalle": [
+          {
+            "uid": "p1",
+            "actividad": "Análisis",
+            "responsable": "",
+            "fecha": "2026-10-20",
+            "estado": "En progreso"
+          }
+        ],
+        "vencenHoyDetalle": [
+          {
+            "uid": "p2",
+            "actividad": "Entrega",
+            "responsable": "",
+            "fecha": "2026-11-04",
+            "estado": "Por iniciar"
+          }
+        ],
+        "proximosCompromisos": [
+          {
+            "uid": "p2",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Entrega",
+            "responsable": "",
+            "inicioPlan": "2026-10-21",
+            "finPlan": "2026-11-04",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 3
+          }
+        ],
+        "pctCerrados": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": true,
+        "avancePlanReferencia": 100
+      },
+      "riesgos": {
+        "filas": [
+          {
+            "uid": "r1",
+            "riesgo": "Falta acceso",
+            "impacto": "Alto",
+            "probabilidad": "Alta",
+            "responsable": "Persona",
+            "fechaLimite": "2026-10-20",
+            "accion": "",
+            "estado": "Abierto",
+            "notas": ""
+          },
+          {
+            "uid": "r2",
+            "riesgo": "Resuelto",
+            "impacto": "Medio",
+            "probabilidad": "Media",
+            "responsable": "",
+            "fechaLimite": "",
+            "accion": "",
+            "estado": "Cerrado",
+            "notas": ""
+          }
+        ],
+        "activos": [
+          {
+            "uid": "r1",
+            "riesgo": "Falta acceso",
+            "impacto": "Alto",
+            "probabilidad": "Alta",
+            "responsable": "Persona",
+            "fechaLimite": "2026-10-20",
+            "accion": "",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "criticos": [
+          {
+            "uid": "r1",
+            "riesgo": "Falta acceso",
+            "impacto": "Alto",
+            "probabilidad": "Alta",
+            "responsable": "Persona",
+            "fechaLimite": "2026-10-20",
+            "accion": "",
+            "estado": "Abierto",
+            "notas": ""
+          }
+        ],
+        "score": 64,
+        "tieneDatos": true
+      },
+      "acciones": {
+        "filas": [
+          {
+            "uid": "a1",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Resolver acceso",
+            "responsable": "Persona",
+            "fechaInicio": "2026-10-01",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Alta",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a2",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Preparar entrega",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "2026-11-04",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a4",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cancelada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Pendiente",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cerrada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "abiertas": [
+          {
+            "uid": "a1",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Resolver acceso",
+            "responsable": "Persona",
+            "fechaInicio": "2026-10-01",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Alta",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a2",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Preparar entrega",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "2026-11-04",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a4",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cancelada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Pendiente",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "vencidas": [
+          {
+            "uid": "a1",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Resolver acceso",
+            "responsable": "Persona",
+            "fechaInicio": "2026-10-01",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Alta",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "completadas": [
+          {
+            "uid": "a3",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cerrada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "detenidas": [
+          {
+            "uid": "a1",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Resolver acceso",
+            "responsable": "Persona",
+            "fechaInicio": "2026-10-01",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Alta",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "tieneDatos": true
+      },
+      "alertas": [
+        {
+          "nivel": "alto",
+          "titulo": "Compromisos vencidos",
+          "detalle": "1 compromiso(s) siguen abiertos después de su fecha.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Compromisos que vencen hoy",
+          "detalle": "1 compromiso(s) deben cerrarse hoy.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Presupuesto de horas excedido",
+          "detalle": "20% por encima del budget.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas no facturables elevadas",
+          "detalle": "33.3% del total.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas fuera de horario",
+          "detalle": "40 h (33.3%).",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Riesgos críticos abiertos",
+          "detalle": "1 riesgo(s) requieren atención.",
+          "fuente": "Riesgos"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Acciones vencidas",
+          "detalle": "1 acción(es) vencidas.",
+          "fuente": "Acciones"
+        }
+      ]
+    }
+  },
+  {
+    "name": "duplicados",
+    "project": "AER.DEMO.001",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46330,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "sheets": {
+      "AER_Planeacion": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Tipo",
+          "Actividad",
+          "Responsable",
+          "Inicio_Plan",
+          "Fin_Plan",
+          "Inicio_Real",
+          "Fin_Real",
+          "Avance",
+          "Estado",
+          "Dependencia",
+          "Estado_Dependencia",
+          "Notas",
+          "Orden",
+          "Actualizado"
+        ],
+        [
+          "p1",
+          "AER.DEMO.001",
+          "",
+          "Análisis",
+          "",
+          "2026-10-01",
+          "2026-10-20",
+          "",
+          "",
+          25,
+          "En progreso",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "p2",
+          "AER.DEMO.001",
+          "",
+          "Entrega",
+          "",
+          "2026-10-21",
+          "2026-11-04",
+          "",
+          "",
+          0,
+          "Pendiente",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "AER_Riesgos": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Riesgo",
+          "Impacto",
+          "Probabilidad",
+          "Responsable",
+          "Fecha_Limite",
+          "Accion",
+          "Estado",
+          "Notas",
+          "Actualizado"
+        ],
+        [
+          "r1",
+          "AER.DEMO.001",
+          "Falta acceso",
+          "Alto",
+          "Alta",
+          "Persona",
+          "2026-10-20",
+          "",
+          "Abierto",
+          "",
+          ""
+        ],
+        [
+          "r2",
+          "AER.DEMO.001",
+          "Resuelto",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Cerrado",
+          "",
+          ""
+        ],
+        [
+          "r3",
+          "AER.DEMO.001",
+          "Falta acceso",
+          "Alto",
+          "Alta",
+          "Persona",
+          "2026-10-20",
+          "",
+          "Abierto",
+          "Más información",
+          ""
+        ]
+      ],
+      "AER_Acciones": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Accion",
+          "Responsable",
+          "Fecha_Inicio",
+          "Fecha_Limite",
+          "Fecha_Real",
+          "Estado",
+          "Dependencia",
+          "Prioridad",
+          "Riesgo_UID",
+          "Notas",
+          "Actualizado"
+        ],
+        [
+          "a1",
+          "AER.DEMO.001",
+          "Resolver acceso",
+          "Persona",
+          "2026-10-01",
+          "2026-10-20",
+          "",
+          "Detenido",
+          "",
+          "Alta",
+          "",
+          "",
+          ""
+        ],
+        [
+          "a2",
+          "AER.DEMO.001",
+          "Preparar entrega",
+          "",
+          "",
+          "2026-11-04",
+          "",
+          "En progreso",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "a3",
+          "AER.DEMO.001",
+          "Cerrada",
+          "",
+          "",
+          "",
+          "",
+          "Closed",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "a4",
+          "AER.DEMO.001",
+          "Cancelada",
+          "",
+          "",
+          "",
+          "",
+          "Cancelado",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "a5",
+          "AER.DEMO.001",
+          "Resolver acceso",
+          "Persona",
+          "2026-10-01",
+          "2026-10-20",
+          "",
+          "Detenido",
+          "",
+          "Alta",
+          "",
+          "Completa",
+          ""
+        ]
+      ]
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 40,
+        "horasFacturables": 40,
+        "horasNoFacturables": 0,
+        "balanceHoras": 60,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 0,
+        "consumoPct": 40,
+        "desviacionPts": 40,
+        "diasRestantes": 6,
+        "costoReal": 1000,
+        "healthScore": 78,
+        "healthLabel": "En seguimiento",
+        "healthDimensiones": {
+          "tiempo": 81,
+          "esfuerzo": 70,
+          "costo": 100,
+          "riesgo": 64
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": true
+        }
+      },
+      "plan": {
+        "filas": [
+          {
+            "uid": "p1",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Análisis",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-20",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 25,
+            "estado": "En progreso",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 2
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Entrega",
+            "responsable": "",
+            "inicioPlan": "2026-10-21",
+            "finPlan": "2026-11-04",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 3
+          }
+        ],
+        "actividades": [
+          {
+            "uid": "p1",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Análisis",
+            "responsable": "",
+            "inicioPlan": "2026-10-01",
+            "finPlan": "2026-10-20",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 25,
+            "estado": "En progreso",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 2
+          },
+          {
+            "uid": "p2",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Entrega",
+            "responsable": "",
+            "inicioPlan": "2026-10-21",
+            "finPlan": "2026-11-04",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 3
+          }
+        ],
+        "hitos": [],
+        "avancePlan": 100,
+        "avanceReal": 12.5,
+        "desviacion": -87.5,
+        "hitosCumplidos": 0,
+        "hitosTotal": 0,
+        "proximosHitos": [],
+        "compromisosTotal": 2,
+        "cerradosTotal": 0,
+        "cerradosATiempo": 0,
+        "vencidosAbiertos": 1,
+        "vencenHoy": 1,
+        "vencidosDetalle": [
+          {
+            "uid": "p1",
+            "actividad": "Análisis",
+            "responsable": "",
+            "fecha": "2026-10-20",
+            "estado": "En progreso"
+          }
+        ],
+        "vencenHoyDetalle": [
+          {
+            "uid": "p2",
+            "actividad": "Entrega",
+            "responsable": "",
+            "fecha": "2026-11-04",
+            "estado": "Por iniciar"
+          }
+        ],
+        "proximosCompromisos": [
+          {
+            "uid": "p2",
+            "idProyecto": "AER.DEMO.001",
+            "tipo": "Actividad",
+            "actividad": "Entrega",
+            "responsable": "",
+            "inicioPlan": "2026-10-21",
+            "finPlan": "2026-11-04",
+            "inicioReal": "",
+            "finReal": "",
+            "avance": 0,
+            "estado": "Por iniciar",
+            "dependencia": "",
+            "estadoDependencia": "",
+            "notas": "",
+            "orden": 0,
+            "esfuerzo": 0,
+            "actualizado": "",
+            "_row": 3
+          }
+        ],
+        "pctCerrados": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": true,
+        "avancePlanReferencia": 100
+      },
+      "riesgos": {
+        "filas": [
+          {
+            "uid": "r3",
+            "riesgo": "Falta acceso",
+            "impacto": "Alto",
+            "probabilidad": "Alta",
+            "responsable": "Persona",
+            "fechaLimite": "2026-10-20",
+            "accion": "",
+            "estado": "Abierto",
+            "notas": "Más información"
+          },
+          {
+            "uid": "r2",
+            "riesgo": "Resuelto",
+            "impacto": "Medio",
+            "probabilidad": "Media",
+            "responsable": "",
+            "fechaLimite": "",
+            "accion": "",
+            "estado": "Cerrado",
+            "notas": ""
+          }
+        ],
+        "activos": [
+          {
+            "uid": "r3",
+            "riesgo": "Falta acceso",
+            "impacto": "Alto",
+            "probabilidad": "Alta",
+            "responsable": "Persona",
+            "fechaLimite": "2026-10-20",
+            "accion": "",
+            "estado": "Abierto",
+            "notas": "Más información"
+          }
+        ],
+        "criticos": [
+          {
+            "uid": "r3",
+            "riesgo": "Falta acceso",
+            "impacto": "Alto",
+            "probabilidad": "Alta",
+            "responsable": "Persona",
+            "fechaLimite": "2026-10-20",
+            "accion": "",
+            "estado": "Abierto",
+            "notas": "Más información"
+          }
+        ],
+        "score": 64,
+        "tieneDatos": true
+      },
+      "acciones": {
+        "filas": [
+          {
+            "uid": "a5",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Resolver acceso",
+            "responsable": "Persona",
+            "fechaInicio": "2026-10-01",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Alta",
+            "riesgoUid": "",
+            "comentarios": "Completa",
+            "notas": "Completa",
+            "actualizado": ""
+          },
+          {
+            "uid": "a2",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Preparar entrega",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "2026-11-04",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a4",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cancelada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Pendiente",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a3",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cerrada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "abiertas": [
+          {
+            "uid": "a5",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Resolver acceso",
+            "responsable": "Persona",
+            "fechaInicio": "2026-10-01",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Alta",
+            "riesgoUid": "",
+            "comentarios": "Completa",
+            "notas": "Completa",
+            "actualizado": ""
+          },
+          {
+            "uid": "a2",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Preparar entrega",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "2026-11-04",
+            "fechaReal": "",
+            "estado": "En progreso",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a4",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cancelada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Pendiente",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "vencidas": [
+          {
+            "uid": "a5",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Resolver acceso",
+            "responsable": "Persona",
+            "fechaInicio": "2026-10-01",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Alta",
+            "riesgoUid": "",
+            "comentarios": "Completa",
+            "notas": "Completa",
+            "actualizado": ""
+          }
+        ],
+        "completadas": [
+          {
+            "uid": "a3",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cerrada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "detenidas": [
+          {
+            "uid": "a5",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Resolver acceso",
+            "responsable": "Persona",
+            "fechaInicio": "2026-10-01",
+            "fechaLimite": "2026-10-20",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Alta",
+            "riesgoUid": "",
+            "comentarios": "Completa",
+            "notas": "Completa",
+            "actualizado": ""
+          }
+        ],
+        "tieneDatos": true
+      },
+      "alertas": [
+        {
+          "nivel": "alto",
+          "titulo": "Compromisos vencidos",
+          "detalle": "1 compromiso(s) siguen abiertos después de su fecha.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Compromisos que vencen hoy",
+          "detalle": "1 compromiso(s) deben cerrarse hoy.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Consumo superior al tiempo transcurrido",
+          "detalle": "+40 pts.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Riesgos críticos abiertos",
+          "detalle": "1 riesgo(s) requieren atención.",
+          "fuente": "Riesgos"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Acciones vencidas",
+          "detalle": "1 acción(es) vencidas.",
+          "fuente": "Acciones"
+        }
+      ]
+    }
+  },
+  {
+    "name": "solo_cerradas",
+    "project": "AER.DEMO.001",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 20,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "sheets": {
+      "AER_Planeacion": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Tipo",
+          "Actividad",
+          "Responsable",
+          "Inicio_Plan",
+          "Fin_Plan",
+          "Inicio_Real",
+          "Fin_Real",
+          "Avance",
+          "Estado",
+          "Dependencia",
+          "Estado_Dependencia",
+          "Notas",
+          "Orden",
+          "Actualizado"
+        ]
+      ],
+      "AER_Riesgos": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Riesgo",
+          "Impacto",
+          "Probabilidad",
+          "Responsable",
+          "Fecha_Limite",
+          "Accion",
+          "Estado",
+          "Notas",
+          "Actualizado"
+        ],
+        [
+          "r2",
+          "AER.DEMO.001",
+          "Resuelto",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "Cerrado",
+          "",
+          ""
+        ]
+      ],
+      "AER_Acciones": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Accion",
+          "Responsable",
+          "Fecha_Inicio",
+          "Fecha_Limite",
+          "Fecha_Real",
+          "Estado",
+          "Dependencia",
+          "Prioridad",
+          "Riesgo_UID",
+          "Notas",
+          "Actualizado"
+        ],
+        [
+          "a3",
+          "AER.DEMO.001",
+          "Cerrada",
+          "",
+          "",
+          "",
+          "",
+          "Closed",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 20,
+        "horasFacturables": 20,
+        "horasNoFacturables": 0,
+        "balanceHoras": 80,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 33.3,
+        "consumoPct": 20,
+        "desviacionPts": -13.3,
+        "diasRestantes": 6,
+        "costoReal": 500,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": true
+        }
+      },
+      "plan": {
+        "filas": [],
+        "actividades": [],
+        "hitos": [],
+        "avancePlan": 0,
+        "avanceReal": 0,
+        "desviacion": 0,
+        "hitosCumplidos": 0,
+        "hitosTotal": 0,
+        "proximosHitos": [],
+        "compromisosTotal": 0,
+        "cerradosTotal": 0,
+        "cerradosATiempo": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "vencidosDetalle": [],
+        "vencenHoyDetalle": [],
+        "proximosCompromisos": [],
+        "pctCerrados": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 33.3
+      },
+      "riesgos": {
+        "filas": [
+          {
+            "uid": "r2",
+            "riesgo": "Resuelto",
+            "impacto": "Medio",
+            "probabilidad": "Media",
+            "responsable": "",
+            "fechaLimite": "",
+            "accion": "",
+            "estado": "Cerrado",
+            "notas": ""
+          }
+        ],
+        "activos": [],
+        "criticos": [],
+        "score": 100,
+        "tieneDatos": true
+      },
+      "acciones": {
+        "filas": [
+          {
+            "uid": "a3",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cerrada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "abiertas": [],
+        "vencidas": [],
+        "completadas": [
+          {
+            "uid": "a3",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Cerrada",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Completado",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "detenidas": [],
+        "tieneDatos": true
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ]
+    }
+  },
+  {
+    "name": "sin_fecha",
+    "project": "AER.DEMO.001",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 20,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "sheets": {
+      "AER_Planeacion": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Tipo",
+          "Actividad",
+          "Responsable",
+          "Inicio_Plan",
+          "Fin_Plan",
+          "Inicio_Real",
+          "Fin_Real",
+          "Avance",
+          "Estado",
+          "Dependencia",
+          "Estado_Dependencia",
+          "Notas",
+          "Orden",
+          "Actualizado"
+        ]
+      ],
+      "AER_Riesgos": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Riesgo",
+          "Impacto",
+          "Probabilidad",
+          "Responsable",
+          "Fecha_Limite",
+          "Accion",
+          "Estado",
+          "Notas",
+          "Actualizado"
+        ]
+      ],
+      "AER_Acciones": [
+        [
+          "UID",
+          "ID_Proyecto",
+          "Accion",
+          "Responsable",
+          "Fecha_Inicio",
+          "Fecha_Limite",
+          "Fecha_Real",
+          "Estado",
+          "Dependencia",
+          "Prioridad",
+          "Riesgo_UID",
+          "Notas",
+          "Actualizado"
+        ],
+        [
+          "a1",
+          "AER.DEMO.001",
+          "Sin fecha",
+          "",
+          "",
+          "",
+          "",
+          "Pendiente",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "a2",
+          "AER.DEMO.001",
+          "Hoy",
+          "",
+          "",
+          "2026-11-04",
+          "",
+          "Detenido",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 20,
+        "horasFacturables": 20,
+        "horasNoFacturables": 0,
+        "balanceHoras": 80,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 33.3,
+        "consumoPct": 20,
+        "desviacionPts": -13.3,
+        "diasRestantes": 6,
+        "costoReal": 500,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "plan": {
+        "filas": [],
+        "actividades": [],
+        "hitos": [],
+        "avancePlan": 0,
+        "avanceReal": 0,
+        "desviacion": 0,
+        "hitosCumplidos": 0,
+        "hitosTotal": 0,
+        "proximosHitos": [],
+        "compromisosTotal": 0,
+        "cerradosTotal": 0,
+        "cerradosATiempo": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "vencidosDetalle": [],
+        "vencenHoyDetalle": [],
+        "proximosCompromisos": [],
+        "pctCerrados": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 33.3
+      },
+      "riesgos": {
+        "filas": [],
+        "activos": [],
+        "criticos": [],
+        "score": 100,
+        "tieneDatos": false
+      },
+      "acciones": {
+        "filas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Hoy",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "2026-11-04",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a1",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Sin fecha",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Pendiente",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "abiertas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Hoy",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "2026-11-04",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          },
+          {
+            "uid": "a1",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Sin fecha",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "",
+            "fechaReal": "",
+            "estado": "Pendiente",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "vencidas": [],
+        "completadas": [],
+        "detenidas": [
+          {
+            "uid": "a2",
+            "idProyecto": "AER.DEMO.001",
+            "accion": "Hoy",
+            "responsable": "",
+            "fechaInicio": "",
+            "fechaLimite": "2026-11-04",
+            "fechaReal": "",
+            "estado": "Detenido",
+            "dependencia": "",
+            "prioridad": "Media",
+            "riesgoUid": "",
+            "comentarios": "",
+            "notas": "",
+            "actualizado": ""
+          }
+        ],
+        "tieneDatos": true
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ]
+    }
+  }
+]
