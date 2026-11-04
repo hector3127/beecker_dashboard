@@ -1,0 +1,1564 @@
+[
+  {
+    "project": "AMK.001_S1",
+    "source": "AMK.001",
+    "payloads": [
+      {
+        "id": 1,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/1",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 1",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z",
+          "System.Description": "<p>Disponibilidad&nbsp; limitada</p>",
+          "System.AssignedTo": {
+            "displayName": "Ana",
+            "uniqueName": "ana@example.invalid"
+          },
+          "Custom.Severity": "1 — High",
+          "Custom.Probability": "2",
+          "Custom.MitigationPlan": "<p>Plan de mitigación</p>",
+          "Custom.FollowupDate": "2026-11-05"
+        },
+        "relations": [
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/100"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/101"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/102"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/103"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/104"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/105"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/106"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/107"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/108"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/109"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/2",
+        "fields": {
+          "System.WorkItemType": "Issue",
+          "System.Title": "Issue 2",
+          "System.State": "Closed",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z",
+          "Custom.Severity": "2 - Medium",
+          "Custom.CorrectiveActionPlan": "Corregir acceso",
+          "System.AssignedTo": "Nombre como texto"
+        }
+      },
+      {
+        "id": 3,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/3",
+        "fields": {
+          "System.WorkItemType": "Opportunity",
+          "System.Title": "Opportunity 3",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z",
+          "Custom.Improvementplan": "Automatizar proceso",
+          "Custom.Priority": 1
+        }
+      },
+      {
+        "id": 4,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/4",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 4",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S10\\Deployment_S10",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 5,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/5",
+        "fields": {
+          "System.WorkItemType": "Task",
+          "System.Title": "Task 5",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 6,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/6",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 6",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_CR\\Deployment_CR",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 7,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/7",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 7",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_CR1\\Deployment_CR1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 8,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/8",
+        "fields": {
+          "System.Title": "AMK.001.008 - Entrega 8",
+          "System.WorkItemType": "To Be",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 9,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/9",
+        "fields": {
+          "System.Title": "AMK.001.009 - Entrega 9",
+          "System.WorkItemType": "Change Request",
+          "System.State": "Proposed",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 10,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/10",
+        "fields": {
+          "System.Title": "AMK.001.0010 - Entrega 10",
+          "System.WorkItemType": "To Be",
+          "System.State": "Closed",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 11,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/11",
+        "fields": {
+          "System.Title": "AMK.001.0011 - Entrega 11",
+          "System.WorkItemType": "Task",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "invalid"
+        }
+      },
+      {
+        "id": 12,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/12",
+        "fields": {
+          "System.Title": "AMK.001.0012 - Entrega 12",
+          "System.WorkItemType": "To Be",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S10\\Development_S10",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 13,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/13",
+        "fields": {
+          "System.Title": "AMK.001.0013 - Entrega 13",
+          "System.WorkItemType": "Task",
+          "System.State": "Blocked",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-11-05T12:00:00Z"
+        }
+      }
+    ],
+    "progress": [
+      [
+        "ID_WorkItem",
+        "Proyecto",
+        "Dev_Pct",
+        "QA_Listo",
+        "TTProd_Listo",
+        "Fecha_Limite_Dev",
+        "Demo"
+      ],
+      [
+        8,
+        "AMK.001_S1",
+        50,
+        false,
+        false,
+        "2026-11-05",
+        "Primera"
+      ],
+      [
+        8,
+        "AMK.001_S1",
+        75,
+        "TRUE",
+        false,
+        "2026-11-06",
+        "https://example.invalid/demo"
+      ],
+      [
+        9,
+        "AMK.001_S1",
+        12.5,
+        "1",
+        true,
+        46331,
+        "Demo CR"
+      ],
+      [
+        10,
+        "AMK.001_S1",
+        120,
+        true,
+        true,
+        "bad",
+        ""
+      ],
+      [
+        "",
+        "AMK.001",
+        100,
+        true,
+        true,
+        "",
+        ""
+      ]
+    ],
+    "now": "2026-11-04T12:00:00+00:00",
+    "expected": {
+      "ok": true,
+      "proyectoAzure": "AMK.001",
+      "allItems": [
+        {
+          "id": 1,
+          "titulo": "Risk 1",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/1",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 2,
+          "titulo": "Issue 2",
+          "tipo": "Issue",
+          "estado": "Closed",
+          "asignadoA": "",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/2",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 3,
+          "titulo": "Opportunity 3",
+          "tipo": "Opportunity",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/3",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 5,
+          "titulo": "Task 5",
+          "tipo": "Task",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/5",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 8,
+          "titulo": "AMK.001.008 - Entrega 8",
+          "tipo": "To Be",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/8",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 75.0,
+          "qaListo": true,
+          "fechaLimiteDev": "2026-11-06T00:00:00.000Z",
+          "demo": "https://example.invalid/demo",
+          "avanceTotal": 80
+        },
+        {
+          "id": 9,
+          "titulo": "AMK.001.009 - Entrega 9",
+          "tipo": "Change Request",
+          "estado": "Proposed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/9",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 12.5,
+          "qaListo": false,
+          "fechaLimiteDev": "2026-11-05T06:00:00.000Z",
+          "demo": "Demo CR",
+          "avanceTotal": 10
+        },
+        {
+          "id": 10,
+          "titulo": "AMK.001.0010 - Entrega 10",
+          "tipo": "To Be",
+          "estado": "Closed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/10",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 120.0,
+          "qaListo": true,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 116
+        },
+        {
+          "id": 11,
+          "titulo": "AMK.001.0011 - Entrega 11",
+          "tipo": "Task",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "invalid",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/11",
+          "diasSinActualizar": null,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 13,
+          "titulo": "AMK.001.0013 - Entrega 13",
+          "tipo": "Task",
+          "estado": "Blocked",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-11-05T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/13",
+          "diasSinActualizar": 0,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        }
+      ],
+      "items": [
+        {
+          "id": 8,
+          "titulo": "AMK.001.008 - Entrega 8",
+          "tipo": "To Be",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/8",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 75.0,
+          "qaListo": true,
+          "fechaLimiteDev": "2026-11-06T00:00:00.000Z",
+          "demo": "https://example.invalid/demo",
+          "avanceTotal": 80
+        },
+        {
+          "id": 9,
+          "titulo": "AMK.001.009 - Entrega 9",
+          "tipo": "Change Request",
+          "estado": "Proposed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/9",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 12.5,
+          "qaListo": false,
+          "fechaLimiteDev": "2026-11-05T06:00:00.000Z",
+          "demo": "Demo CR",
+          "avanceTotal": 10
+        },
+        {
+          "id": 10,
+          "titulo": "AMK.001.0010 - Entrega 10",
+          "tipo": "To Be",
+          "estado": "Closed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/10",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 120.0,
+          "qaListo": true,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 116
+        }
+      ],
+      "stale": [
+        {
+          "id": 8,
+          "titulo": "AMK.001.008 - Entrega 8",
+          "tipo": "To Be",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/8",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 75.0,
+          "qaListo": true,
+          "fechaLimiteDev": "2026-11-06T00:00:00.000Z",
+          "demo": "https://example.invalid/demo",
+          "avanceTotal": 80
+        },
+        {
+          "id": 9,
+          "titulo": "AMK.001.009 - Entrega 9",
+          "tipo": "Change Request",
+          "estado": "Proposed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/9",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 12.5,
+          "qaListo": false,
+          "fechaLimiteDev": "2026-11-05T06:00:00.000Z",
+          "demo": "Demo CR",
+          "avanceTotal": 10
+        },
+        {
+          "id": 1,
+          "titulo": "Risk 1",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/1",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 3,
+          "titulo": "Opportunity 3",
+          "tipo": "Opportunity",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/3",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 5,
+          "titulo": "Task 5",
+          "tipo": "Task",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/5",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        }
+      ],
+      "aviso": ""
+    }
+  },
+  {
+    "project": "AMK.001",
+    "source": "AMK.001",
+    "payloads": [
+      {
+        "id": 1,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/1",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 1",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z",
+          "System.Description": "<p>Disponibilidad&nbsp; limitada</p>",
+          "System.AssignedTo": {
+            "displayName": "Ana",
+            "uniqueName": "ana@example.invalid"
+          },
+          "Custom.Severity": "1 — High",
+          "Custom.Probability": "2",
+          "Custom.MitigationPlan": "<p>Plan de mitigación</p>",
+          "Custom.FollowupDate": "2026-11-05"
+        },
+        "relations": [
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/100"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/101"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/102"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/103"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/104"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/105"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/106"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/107"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/108"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/109"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/2",
+        "fields": {
+          "System.WorkItemType": "Issue",
+          "System.Title": "Issue 2",
+          "System.State": "Closed",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z",
+          "Custom.Severity": "2 - Medium",
+          "Custom.CorrectiveActionPlan": "Corregir acceso",
+          "System.AssignedTo": "Nombre como texto"
+        }
+      },
+      {
+        "id": 3,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/3",
+        "fields": {
+          "System.WorkItemType": "Opportunity",
+          "System.Title": "Opportunity 3",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z",
+          "Custom.Improvementplan": "Automatizar proceso",
+          "Custom.Priority": 1
+        }
+      },
+      {
+        "id": 4,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/4",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 4",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S10\\Deployment_S10",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 5,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/5",
+        "fields": {
+          "System.WorkItemType": "Task",
+          "System.Title": "Task 5",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 6,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/6",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 6",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_CR\\Deployment_CR",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 7,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/7",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 7",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_CR1\\Deployment_CR1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 8,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/8",
+        "fields": {
+          "System.Title": "AMK.001.008 - Entrega 8",
+          "System.WorkItemType": "To Be",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 9,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/9",
+        "fields": {
+          "System.Title": "AMK.001.009 - Entrega 9",
+          "System.WorkItemType": "Change Request",
+          "System.State": "Proposed",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 10,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/10",
+        "fields": {
+          "System.Title": "AMK.001.0010 - Entrega 10",
+          "System.WorkItemType": "To Be",
+          "System.State": "Closed",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 11,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/11",
+        "fields": {
+          "System.Title": "AMK.001.0011 - Entrega 11",
+          "System.WorkItemType": "Task",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "invalid"
+        }
+      },
+      {
+        "id": 12,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/12",
+        "fields": {
+          "System.Title": "AMK.001.0012 - Entrega 12",
+          "System.WorkItemType": "To Be",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S10\\Development_S10",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 13,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/13",
+        "fields": {
+          "System.Title": "AMK.001.0013 - Entrega 13",
+          "System.WorkItemType": "Task",
+          "System.State": "Blocked",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-11-05T12:00:00Z"
+        }
+      }
+    ],
+    "progress": [
+      [
+        "ID_WorkItem",
+        "Proyecto",
+        "Dev_Pct",
+        "QA_Listo",
+        "TTProd_Listo",
+        "Fecha_Limite_Dev",
+        "Demo"
+      ],
+      [
+        8,
+        "AMK.001_S1",
+        50,
+        false,
+        false,
+        "2026-11-05",
+        "Primera"
+      ],
+      [
+        8,
+        "AMK.001_S1",
+        75,
+        "TRUE",
+        false,
+        "2026-11-06",
+        "https://example.invalid/demo"
+      ],
+      [
+        9,
+        "AMK.001_S1",
+        12.5,
+        "1",
+        true,
+        46331,
+        "Demo CR"
+      ],
+      [
+        10,
+        "AMK.001_S1",
+        120,
+        true,
+        true,
+        "bad",
+        ""
+      ],
+      [
+        "",
+        "AMK.001",
+        100,
+        true,
+        true,
+        "",
+        ""
+      ]
+    ],
+    "now": "2026-11-04T12:00:00+00:00",
+    "expected": {
+      "ok": true,
+      "proyectoAzure": "AMK.001",
+      "allItems": [
+        {
+          "id": 1,
+          "titulo": "Risk 1",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/1",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 2,
+          "titulo": "Issue 2",
+          "tipo": "Issue",
+          "estado": "Closed",
+          "asignadoA": "",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/2",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 3,
+          "titulo": "Opportunity 3",
+          "tipo": "Opportunity",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/3",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 4,
+          "titulo": "Risk 4",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S10\\Deployment_S10",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/4",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 5,
+          "titulo": "Task 5",
+          "tipo": "Task",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/5",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 6,
+          "titulo": "Risk 6",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_CR\\Deployment_CR",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/6",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 7,
+          "titulo": "Risk 7",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_CR1\\Deployment_CR1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/7",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 8,
+          "titulo": "AMK.001.008 - Entrega 8",
+          "tipo": "To Be",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/8",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 75.0,
+          "qaListo": true,
+          "fechaLimiteDev": "2026-11-06T00:00:00.000Z",
+          "demo": "https://example.invalid/demo",
+          "avanceTotal": 80
+        },
+        {
+          "id": 9,
+          "titulo": "AMK.001.009 - Entrega 9",
+          "tipo": "Change Request",
+          "estado": "Proposed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/9",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 12.5,
+          "qaListo": false,
+          "fechaLimiteDev": "2026-11-05T06:00:00.000Z",
+          "demo": "Demo CR",
+          "avanceTotal": 10
+        },
+        {
+          "id": 10,
+          "titulo": "AMK.001.0010 - Entrega 10",
+          "tipo": "To Be",
+          "estado": "Closed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/10",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 120.0,
+          "qaListo": true,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 116
+        },
+        {
+          "id": 11,
+          "titulo": "AMK.001.0011 - Entrega 11",
+          "tipo": "Task",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "invalid",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/11",
+          "diasSinActualizar": null,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 12,
+          "titulo": "AMK.001.0012 - Entrega 12",
+          "tipo": "To Be",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S10\\Development_S10",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/12",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 13,
+          "titulo": "AMK.001.0013 - Entrega 13",
+          "tipo": "Task",
+          "estado": "Blocked",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-11-05T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/13",
+          "diasSinActualizar": 0,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        }
+      ],
+      "items": [
+        {
+          "id": 8,
+          "titulo": "AMK.001.008 - Entrega 8",
+          "tipo": "To Be",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/8",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 75.0,
+          "qaListo": true,
+          "fechaLimiteDev": "2026-11-06T00:00:00.000Z",
+          "demo": "https://example.invalid/demo",
+          "avanceTotal": 80
+        },
+        {
+          "id": 9,
+          "titulo": "AMK.001.009 - Entrega 9",
+          "tipo": "Change Request",
+          "estado": "Proposed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/9",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 12.5,
+          "qaListo": false,
+          "fechaLimiteDev": "2026-11-05T06:00:00.000Z",
+          "demo": "Demo CR",
+          "avanceTotal": 10
+        },
+        {
+          "id": 10,
+          "titulo": "AMK.001.0010 - Entrega 10",
+          "tipo": "To Be",
+          "estado": "Closed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/10",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 120.0,
+          "qaListo": true,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 116
+        },
+        {
+          "id": 12,
+          "titulo": "AMK.001.0012 - Entrega 12",
+          "tipo": "To Be",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S10\\Development_S10",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/12",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        }
+      ],
+      "stale": [
+        {
+          "id": 8,
+          "titulo": "AMK.001.008 - Entrega 8",
+          "tipo": "To Be",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/8",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 75.0,
+          "qaListo": true,
+          "fechaLimiteDev": "2026-11-06T00:00:00.000Z",
+          "demo": "https://example.invalid/demo",
+          "avanceTotal": 80
+        },
+        {
+          "id": 9,
+          "titulo": "AMK.001.009 - Entrega 9",
+          "tipo": "Change Request",
+          "estado": "Proposed",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Development_S1",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/9",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 12.5,
+          "qaListo": false,
+          "fechaLimiteDev": "2026-11-05T06:00:00.000Z",
+          "demo": "Demo CR",
+          "avanceTotal": 10
+        },
+        {
+          "id": 12,
+          "titulo": "AMK.001.0012 - Entrega 12",
+          "tipo": "To Be",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S10\\Development_S10",
+          "ultimoSeguimiento": "2026-10-20T12:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/12",
+          "diasSinActualizar": 15,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 1,
+          "titulo": "Risk 1",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Ana",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/1",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 3,
+          "titulo": "Opportunity 3",
+          "tipo": "Opportunity",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/3",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 4,
+          "titulo": "Risk 4",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S10\\Deployment_S10",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/4",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 5,
+          "titulo": "Task 5",
+          "tipo": "Task",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/5",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 6,
+          "titulo": "Risk 6",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_CR\\Deployment_CR",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/6",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        },
+        {
+          "id": 7,
+          "titulo": "Risk 7",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_CR1\\Deployment_CR1",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/7",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        }
+      ],
+      "aviso": ""
+    }
+  },
+  {
+    "project": "AMK.001_CR",
+    "source": "AMK.001",
+    "payloads": [
+      {
+        "id": 1,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/1",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 1",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z",
+          "System.Description": "<p>Disponibilidad&nbsp; limitada</p>",
+          "System.AssignedTo": {
+            "displayName": "Ana",
+            "uniqueName": "ana@example.invalid"
+          },
+          "Custom.Severity": "1 — High",
+          "Custom.Probability": "2",
+          "Custom.MitigationPlan": "<p>Plan de mitigación</p>",
+          "Custom.FollowupDate": "2026-11-05"
+        },
+        "relations": [
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/100"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/101"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/102"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/103"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/104"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/105"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/106"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/107"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/108"
+          },
+          {
+            "rel": "System.LinkTypes.Related",
+            "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/109"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/2",
+        "fields": {
+          "System.WorkItemType": "Issue",
+          "System.Title": "Issue 2",
+          "System.State": "Closed",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z",
+          "Custom.Severity": "2 - Medium",
+          "Custom.CorrectiveActionPlan": "Corregir acceso",
+          "System.AssignedTo": "Nombre como texto"
+        }
+      },
+      {
+        "id": 3,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/3",
+        "fields": {
+          "System.WorkItemType": "Opportunity",
+          "System.Title": "Opportunity 3",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z",
+          "Custom.Improvementplan": "Automatizar proceso",
+          "Custom.Priority": 1
+        }
+      },
+      {
+        "id": 4,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/4",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 4",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S10\\Deployment_S10",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 5,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/5",
+        "fields": {
+          "System.WorkItemType": "Task",
+          "System.Title": "Task 5",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Deployment_S1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 6,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/6",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 6",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_CR\\Deployment_CR",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 7,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/7",
+        "fields": {
+          "System.WorkItemType": "Risk",
+          "System.Title": "Risk 7",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_CR1\\Deployment_CR1",
+          "System.ChangedDate": "2026-10-23T15:00:00Z"
+        }
+      },
+      {
+        "id": 8,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/8",
+        "fields": {
+          "System.Title": "AMK.001.008 - Entrega 8",
+          "System.WorkItemType": "To Be",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 9,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/9",
+        "fields": {
+          "System.Title": "AMK.001.009 - Entrega 9",
+          "System.WorkItemType": "Change Request",
+          "System.State": "Proposed",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 10,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/10",
+        "fields": {
+          "System.Title": "AMK.001.0010 - Entrega 10",
+          "System.WorkItemType": "To Be",
+          "System.State": "Closed",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 11,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/11",
+        "fields": {
+          "System.Title": "AMK.001.0011 - Entrega 11",
+          "System.WorkItemType": "Task",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "invalid"
+        }
+      },
+      {
+        "id": 12,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/12",
+        "fields": {
+          "System.Title": "AMK.001.0012 - Entrega 12",
+          "System.WorkItemType": "To Be",
+          "System.State": "Active",
+          "System.IterationPath": "AMK.001\\General_S10\\Development_S10",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-10-20T12:00:00Z"
+        }
+      },
+      {
+        "id": 13,
+        "url": "https://dev.azure.com/org-contrato/_apis/wit/workItems/13",
+        "fields": {
+          "System.Title": "AMK.001.0013 - Entrega 13",
+          "System.WorkItemType": "Task",
+          "System.State": "Blocked",
+          "System.IterationPath": "AMK.001\\General_S1\\Development_S1",
+          "System.AssignedTo": {
+            "displayName": "Ana"
+          },
+          "System.ChangedDate": "2026-11-05T12:00:00Z"
+        }
+      }
+    ],
+    "progress": null,
+    "now": "2026-11-04T12:00:00+00:00",
+    "expected": {
+      "ok": true,
+      "proyectoAzure": "AMK.001",
+      "allItems": [
+        {
+          "id": 6,
+          "titulo": "Risk 6",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_CR\\Deployment_CR",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/6",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        }
+      ],
+      "items": [],
+      "stale": [
+        {
+          "id": 6,
+          "titulo": "Risk 6",
+          "tipo": "Risk",
+          "estado": "Active",
+          "asignadoA": "Sin asignar",
+          "iterationPath": "AMK.001\\General_CR\\Deployment_CR",
+          "ultimoSeguimiento": "2026-10-23T15:00:00Z",
+          "url": "https://dev.azure.com/org-contrato/AMK.001/_workitems/edit/6",
+          "diasSinActualizar": 11,
+          "devConstruidoPct": 0.0,
+          "qaListo": false,
+          "fechaLimiteDev": "",
+          "demo": "",
+          "avanceTotal": 0
+        }
+      ],
+      "aviso": ""
+    }
+  },
+  {
+    "project": "AMK.001_S1",
+    "source": "AMK.001",
+    "payloads": [],
+    "progress": [
+      [
+        "ID_WorkItem",
+        "Proyecto",
+        "Dev_Pct",
+        "QA_Listo",
+        "TTProd_Listo",
+        "Fecha_Limite_Dev",
+        "Demo"
+      ]
+    ],
+    "now": "2026-11-04T12:00:00+00:00",
+    "expected": {
+      "ok": true,
+      "proyectoAzure": "AMK.001",
+      "allItems": [],
+      "items": [],
+      "stale": [],
+      "aviso": ""
+    }
+  }
+]
