@@ -80,10 +80,29 @@ importar:
 uv run python manage.py importar_datos_dm C:/beecker_dashboard/tmp/export-hojas-proyecto --solo-verificar
 ```
 
-La actualización acotada de hojas existentes en Genesis es el siguiente
-paso. El importador actual con `--reemplazar` sustituye las tablas del
-paquete completas: no usarlo para agregar unas hojas sin revisar ese
-alcance. Este trabajo no autoriza cargar UAT/producción ni activa G8.
+La fusión acotada ya está preparada en Genesis. Primero inspeccionar, desde
+`C:/Genesis/genesis/Genesis`:
+
+```powershell
+uv run python manage.py importar_hojas_proyecto_dm C:/beecker_dashboard/tmp/export-hojas-proyecto --hoja Comunicados --hoja Pendientes_Minutas
+```
+
+La escritura requiere repetir el comando con `--aplicar`. Sin `--hoja`
+selecciona las doce fuentes manuales y exige que todas estén en el paquete.
+Este comando solo admite el grupo `hojas`, con manifiesto y SHA válidos.
+Conserva las matrices y sus fechas originales, actualiza por nombre y
+preserva los IDs locales. No importa IDs del origen, no elimina hojas ni
+sustituye `__sheet_ids__`; ignora las fuentes no seleccionadas del paquete.
+
+Una copia distinta con fecha igual o anterior a la local rechaza todo el
+conjunto. Si la matriz y el conteo son idénticos, una copia igual o más
+antigua se conserva sin escritura. Una observación más reciente actualiza
+la hoja. Los cambios son atómicos y una actualización concurrente impide
+sobrescribir la copia que cambió. El plan se vuelve a calcular al aplicar.
+
+El importador general con `--reemplazar` sustituye tablas completas; no
+usarlo como fusión parcial. Ninguno de estos preparativos autoriza cargar
+UAT/producción ni activa G8. No se descargaron ni importaron copias reales.
 
 ## Evidencia
 
@@ -93,3 +112,10 @@ descarga/validación y reversión, además de la exportación verificable.
 La inspección real se ejecutó con SQLite abierto en modo `ro` y la red
 bloqueada; confirmó las doce hojas declaradas y sin copia. No se ejecutó
 `--aplicar`, ni una exportación o importación de datos reales.
+
+La fusión de Genesis agrega 48 pruebas propias de validación, selección,
+fechas, PK locales, rollback y concurrencia. Suite completa del módulo:
+1,156 pruebas pasan, cobertura 92.29 %. Ruff, formato propio y mypy pasan.
+No se ejecutó una importación real. Los gates globales siguen pendientes:
+make no está instalado y la guardia ajena de registro de jobs espera
+redactar_entregables, ausente también al ejecutar esa prueba aislada.
