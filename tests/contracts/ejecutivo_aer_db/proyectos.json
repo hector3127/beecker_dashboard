@@ -1,0 +1,1434 @@
+[
+  {
+    "name": "prioridad_proyectos",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Service",
+          "Budget_Hrs",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada"
+        ],
+        [
+          "AER.DEMO.001",
+          "AER",
+          55,
+          45900,
+          46000
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Service": "AER",
+        "Budget_Hrs": 55,
+        "Fecha_Inicio": 45900,
+        "Fecha_Fin_Estimada": 46000
+      },
+      "notes": [],
+      "closed": false,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2025-12-09",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "union_mpb",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Último",
+          "AER",
+          46001,
+          46100,
+          "Finalizado",
+          "DM",
+          200
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Último",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "Finalizado",
+        "Budget_Hrs": 300.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46100.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2026-03-19",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "orden_invertido",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Último",
+          "AER",
+          46001,
+          46100,
+          "En progreso",
+          "DM",
+          200
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Último",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 300.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46100.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2026-03-19",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "servicio_invalido_respaldo",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ],
+        [
+          "AER.DEMO.001",
+          "IXB"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46000.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2025-12-09",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "sin_respaldo",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ],
+        [
+          "AER.DEMO.001",
+          "IXB"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "error": "El proyecto no es AER/T&M. Servicio detectado: IXB",
+      "range": {
+        "start_date": null,
+        "end_date": null,
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "fecha_texto_no_serial_ficha",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          "01/09/2026",
+          "30/09/2026",
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": "",
+        "Fecha_Fin_Estimada": "",
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB.",
+        "Falta la fecha de inicio (Fecha_Inicio en Proyectos, INICIO en MPB o Start en Historico_Proyectos): no se calcula el tiempo transcurrido.",
+        "Falta la fecha de fin (Fecha_Fin_Estimada en Proyectos, FIN en MPB o Finish en Historico_Proyectos): no se calcula el tiempo transcurrido ni los días restantes."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-30",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "fin_vacio",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          45900,
+          "",
+          "En progreso",
+          "DM",
+          "1,200 h"
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 1200.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": "",
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB.",
+        "Falta la fecha de fin (Fecha_Fin_Estimada en Proyectos, FIN en MPB o Finish en Historico_Proyectos): no se calcula el tiempo transcurrido ni los días restantes."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2026-11-04",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "sin_inicio",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          "",
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": "",
+        "Fecha_Fin_Estimada": 46000.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB.",
+        "Falta la fecha de inicio (Fecha_Inicio en Proyectos, INICIO en MPB o Start en Historico_Proyectos): no se calcula el tiempo transcurrido."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": null,
+        "end_date": "2025-12-09",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "empate_metadatos",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Primero",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Segundo",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Primero",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 200.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46000.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2025-12-09",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "no_mezcla_servicio",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "IXB",
+          45000,
+          47000,
+          "En progreso",
+          "DM",
+          900
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46000.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2025-12-09",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "alias_unico",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "TYM.DEMO.001",
+          "Inicial",
+          "T&M",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "error": "No se encontró \"AER.DEMO.001\" en Proyectos.",
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2025-12-09",
+        "source": "MPB (ID equivalente AER/TYM)"
+      }
+    }
+  },
+  {
+    "name": "alias_ambiguo",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "TYM.DEMO.001",
+          "Inicial",
+          "T&M",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ],
+        [
+          "Cliente",
+          "TYM.DEMO.001",
+          "Inicial",
+          "T&M",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "error": "No se encontró \"AER.DEMO.001\" en Proyectos.",
+      "range": {
+        "start_date": null,
+        "end_date": null,
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "encabezado_ausente",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "no es encabezado"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "error": "No se encontró \"AER.DEMO.001\" en Proyectos.",
+      "range": {
+        "start_date": null,
+        "end_date": null,
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "fila_recortada",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Nombre",
+          "AER"
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Nombre",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "",
+        "Estado": "",
+        "Budget_Hrs": 0.0,
+        "Fecha_Inicio": "",
+        "Fecha_Fin_Estimada": "",
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB.",
+        "Falta la fecha de inicio (Fecha_Inicio en Proyectos, INICIO en MPB o Start en Historico_Proyectos): no se calcula el tiempo transcurrido.",
+        "Falta la fecha de fin (Fecha_Fin_Estimada en Proyectos, FIN en MPB o Finish en Historico_Proyectos): no se calcula el tiempo transcurrido ni los días restantes.",
+        "Falta el presupuesto de horas (Budget_Hrs / HORAS)."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": null,
+        "end_date": "2026-11-04",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "limite_encabezados",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "error": "No se encontró \"AER.DEMO.001\" en Proyectos.",
+      "range": {
+        "start_date": null,
+        "end_date": null,
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "fin_columna_i",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN ORIGINAL",
+          "ESTATUS",
+          "Delivery Manager",
+          "fecha alternativa",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Demo",
+          "AER",
+          45900,
+          45999,
+          "Finalizado",
+          "DM",
+          46040,
+          250
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Demo",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "Finalizado",
+        "Budget_Hrs": 250.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46040.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": true,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2026-01-18",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "rango_invertido",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001",
+          "Inicial",
+          "AER",
+          46000,
+          45900,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 46000.0,
+        "Fecha_Fin_Estimada": 45900.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2025-12-09",
+        "end_date": "2025-08-31",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "cr_etapas",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001_CR1",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ],
+      "Historico_Proyectos": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AER.DEMO.001_CR1",
+          "Discovery EST",
+          "01/01/26",
+          "03/01/26"
+        ],
+        [
+          "AER.DEMO.001_CR1",
+          "Discovery OP",
+          "05/01/26",
+          "07/01/26"
+        ],
+        [
+          "AER.DEMO.001_CR1",
+          "Deployment",
+          "09/01/26",
+          "20/01/26"
+        ],
+        [
+          "AER.DEMO.001_CR1",
+          "Deployment",
+          "21/01/26",
+          "30/01/26"
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001_CR1",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001_CR1",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46000.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2026-01-05",
+        "end_date": "2026-01-30",
+        "source": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "cr_cerrado",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001_CR1",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ],
+      "Historico_Proyectos": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AER.DEMO.001_CR1",
+          "Discovery",
+          "01/01/26",
+          "10/01/26"
+        ],
+        [
+          "AER.DEMO.001_CR1",
+          "Discovery OP",
+          "02/01/26",
+          "10/01/26"
+        ],
+        [
+          "AER.DEMO.001_CR1",
+          "Completed",
+          "",
+          "25/01/26"
+        ],
+        [
+          "AER.DEMO.001_CR1",
+          "Deployment",
+          "02/01/26",
+          "30/01/26"
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001_CR1",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001_CR1",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46000.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-25",
+        "source": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "cr_hasta_hoy",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001_CR1",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ],
+      "Historico_Proyectos": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AER.DEMO.001 CR1",
+          "Discovery",
+          "01/01/26",
+          "10/01/26"
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001_CR1",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001_CR1",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46000.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2026-01-01",
+        "end_date": "2026-11-04",
+        "source": "Historico_Proyectos"
+      }
+    }
+  },
+  {
+    "name": "cr_fallback_mpb",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001_CR1",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ],
+      "Historico_Proyectos": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001_CR1",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001_CR1",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46000.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2025-12-09",
+        "source": "MPB"
+      }
+    }
+  },
+  {
+    "name": "cr_sin_datos",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Servicio"
+        ]
+      ],
+      "MPB": [
+        [
+          "CLIENTE",
+          "ID",
+          "NOMBRE",
+          "SERVICE",
+          "INICIO",
+          "FIN",
+          "ESTATUS",
+          "Delivery Manager",
+          "HORAS"
+        ],
+        [
+          "Cliente",
+          "AER.DEMO.001_CR1",
+          "Inicial",
+          "AER",
+          45900,
+          46000,
+          "En progreso",
+          "DM",
+          100
+        ]
+      ],
+      "Historico_Proyectos": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "otro",
+          "Discovery",
+          "01/01/26",
+          "10/01/26"
+        ]
+      ]
+    },
+    "project": "AER.DEMO.001_CR1",
+    "day": "2026-11-04",
+    "expected": {
+      "row": {
+        "ID_Proyecto": "AER.DEMO.001_CR1",
+        "Nombre": "Inicial",
+        "Cliente": "Cliente",
+        "Servicio": "AER",
+        "Delivery Manager": "DM",
+        "Estado": "En progreso",
+        "Budget_Hrs": 100.0,
+        "Fecha_Inicio": 45900.0,
+        "Fecha_Fin_Estimada": 46000.0,
+        "_fuente": "MPB"
+      },
+      "notes": [
+        "El proyecto no está en la hoja Proyectos; se muestra con datos de MPB."
+      ],
+      "closed": false,
+      "range": {
+        "start_date": "2025-08-31",
+        "end_date": "2025-12-09",
+        "source": "MPB"
+      }
+    }
+  }
+]
