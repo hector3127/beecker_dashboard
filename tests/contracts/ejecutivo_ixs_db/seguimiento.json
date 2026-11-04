@@ -1,0 +1,378 @@
+[
+  {
+    "name": "estado_Abierto",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto",
+        "Descripcion": "Riesgo",
+        "Impacto": "Alto",
+        "Probabilidad": "Alta"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto"
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 1,
+        "asuntosPendientes": 1
+      },
+      "risks": [
+        {
+          "descripcion": "Riesgo",
+          "impacto": "Alto",
+          "probabilidad": "Alta"
+        }
+      ]
+    }
+  },
+  {
+    "name": "estado_abierto",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "abierto",
+        "Descripcion": "Riesgo",
+        "Impacto": "Alto",
+        "Probabilidad": "Alta"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "abierto"
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 0,
+        "asuntosPendientes": 0
+      },
+      "risks": []
+    }
+  },
+  {
+    "name": "estado_ABIERTO",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "ABIERTO",
+        "Descripcion": "Riesgo",
+        "Impacto": "Alto",
+        "Probabilidad": "Alta"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "ABIERTO"
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 0,
+        "asuntosPendientes": 0
+      },
+      "risks": []
+    }
+  },
+  {
+    "name": "estado_Abierto ",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto ",
+        "Descripcion": "Riesgo",
+        "Impacto": "Alto",
+        "Probabilidad": "Alta"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto "
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 0,
+        "asuntosPendientes": 0
+      },
+      "risks": []
+    }
+  },
+  {
+    "name": "estado_Active",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Active",
+        "Descripcion": "Riesgo",
+        "Impacto": "Alto",
+        "Probabilidad": "Alta"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Active"
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 0,
+        "asuntosPendientes": 0
+      },
+      "risks": []
+    }
+  },
+  {
+    "name": "estado_Cerrado",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Cerrado",
+        "Descripcion": "Riesgo",
+        "Impacto": "Alto",
+        "Probabilidad": "Alta"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Cerrado"
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 0,
+        "asuntosPendientes": 0
+      },
+      "risks": []
+    }
+  },
+  {
+    "name": "estado_",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "",
+        "Descripcion": "Riesgo",
+        "Impacto": "Alto",
+        "Probabilidad": "Alta"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": ""
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 0,
+        "asuntosPendientes": 0
+      },
+      "risks": []
+    }
+  },
+  {
+    "name": "estado_None",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": null,
+        "Descripcion": "Riesgo",
+        "Impacto": "Alto",
+        "Probabilidad": "Alta"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": null
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 0,
+        "asuntosPendientes": 0
+      },
+      "risks": []
+    }
+  },
+  {
+    "name": "vacios",
+    "project": "AMK.001_S1",
+    "risk_rows": [],
+    "pending_rows": [],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 0,
+        "asuntosPendientes": 0
+      },
+      "risks": []
+    }
+  },
+  {
+    "name": "otro_proyecto",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1_S2",
+        "Estado": "Abierto"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "amk.001_s1",
+        "Estado": "Abierto"
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 0,
+        "asuntosPendientes": 0
+      },
+      "risks": []
+    }
+  },
+  {
+    "name": "top_cinco_estable",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto",
+        "Descripcion": "0",
+        "Impacto": "Bajo",
+        "Probabilidad": "Media"
+      },
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto",
+        "Descripcion": "1",
+        "Impacto": "Alto",
+        "Probabilidad": "Media"
+      },
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto",
+        "Descripcion": "2",
+        "Impacto": "Medio",
+        "Probabilidad": "Media"
+      },
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto",
+        "Descripcion": "3",
+        "Impacto": "Alto",
+        "Probabilidad": "Media"
+      },
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto",
+        "Descripcion": "4",
+        "Impacto": "Medio",
+        "Probabilidad": "Media"
+      },
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto",
+        "Descripcion": "5",
+        "Impacto": "Bajo",
+        "Probabilidad": "Media"
+      },
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto",
+        "Descripcion": "6",
+        "Impacto": "Alto",
+        "Probabilidad": "Media"
+      }
+    ],
+    "pending_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto"
+      },
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto"
+      },
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto"
+      }
+    ],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 7,
+        "asuntosPendientes": 3
+      },
+      "risks": [
+        {
+          "descripcion": "1",
+          "impacto": "Alto",
+          "probabilidad": "Media"
+        },
+        {
+          "descripcion": "3",
+          "impacto": "Alto",
+          "probabilidad": "Media"
+        },
+        {
+          "descripcion": "6",
+          "impacto": "Alto",
+          "probabilidad": "Media"
+        },
+        {
+          "descripcion": "2",
+          "impacto": "Medio",
+          "probabilidad": "Media"
+        },
+        {
+          "descripcion": "4",
+          "impacto": "Medio",
+          "probabilidad": "Media"
+        }
+      ]
+    }
+  },
+  {
+    "name": "campos_opcionales",
+    "project": "AMK.001_S1",
+    "risk_rows": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Estado": "Abierto"
+      }
+    ],
+    "pending_rows": [],
+    "expected": {
+      "raid": {
+        "riesgosCriticos": 1,
+        "asuntosPendientes": 0
+      },
+      "risks": [
+        {
+          "descripcion": "",
+          "impacto": "",
+          "probabilidad": ""
+        }
+      ]
+    }
+  }
+]
