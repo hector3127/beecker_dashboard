@@ -1,0 +1,1374 @@
+[
+  {
+    "name": "estable",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 20,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 20,
+        "horasFacturables": 20,
+        "horasNoFacturables": 0,
+        "balanceHoras": 80,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 33.3,
+        "consumoPct": 20,
+        "desviacionPts": -13.3,
+        "diasRestantes": 6,
+        "costoReal": 500,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 33.3
+      }
+    }
+  },
+  {
+    "name": "sobrepresupuesto",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 80,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "b",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": false,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T18:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [
+        {
+          "uid": "p"
+        }
+      ],
+      "avancePlan": 50,
+      "vencidosAbiertos": 2,
+      "vencenHoy": 1,
+      "cerradosTotal": 2,
+      "pctCerradosATiempo": 50
+    },
+    "risks": {
+      "filas": [
+        {
+          "uid": "r"
+        }
+      ],
+      "criticos": [
+        {
+          "uid": "r"
+        }
+      ],
+      "score": 76
+    },
+    "actions": {
+      "filas": [
+        {
+          "uid": "a"
+        }
+      ],
+      "vencidas": [
+        {
+          "uid": "a"
+        }
+      ]
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 120,
+        "horasFacturables": 80,
+        "horasNoFacturables": 40,
+        "balanceHoras": -20,
+        "pctFacturables": 66.7,
+        "pctNoFacturables": 33.3,
+        "horasFueraHorario": 40,
+        "pctFueraHorario": 33.3,
+        "pctTiempo": 33.3,
+        "consumoPct": 120,
+        "desviacionPts": 86.7,
+        "diasRestantes": 6,
+        "costoReal": 3000,
+        "healthScore": 59,
+        "healthLabel": "En riesgo",
+        "healthDimensiones": {
+          "tiempo": 51,
+          "esfuerzo": 44,
+          "costo": 80,
+          "riesgo": 76
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": true
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "alto",
+          "titulo": "Compromisos vencidos",
+          "detalle": "2 compromiso(s) siguen abiertos después de su fecha.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Compromisos que vencen hoy",
+          "detalle": "1 compromiso(s) deben cerrarse hoy.",
+          "fuente": "Planeación"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Presupuesto de horas excedido",
+          "detalle": "20% por encima del budget.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas no facturables elevadas",
+          "detalle": "33.3% del total.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas fuera de horario",
+          "detalle": "40 h (33.3%).",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Riesgos críticos abiertos",
+          "detalle": "1 riesgo(s) requieren atención.",
+          "fuente": "Riesgos"
+        },
+        {
+          "nivel": "alto",
+          "titulo": "Acciones vencidas",
+          "detalle": "1 acción(es) vencidas.",
+          "fuente": "Acciones"
+        }
+      ],
+      "plan": {
+        "filas": [
+          {
+            "uid": "p"
+          }
+        ],
+        "avancePlan": 50,
+        "vencidosAbiertos": 2,
+        "vencenHoy": 1,
+        "cerradosTotal": 2,
+        "pctCerradosATiempo": 50,
+        "tieneDatos": true,
+        "avancePlanReferencia": 50
+      }
+    }
+  },
+  {
+    "name": "consumo_adelantado",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46330,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 40,
+        "horasFacturables": 40,
+        "horasNoFacturables": 0,
+        "balanceHoras": 60,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 0,
+        "consumoPct": 40,
+        "desviacionPts": 40,
+        "diasRestantes": 6,
+        "costoReal": 1000,
+        "healthScore": 90,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 70,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "alto",
+          "titulo": "Consumo superior al tiempo transcurrido",
+          "detalle": "+40 pts.",
+          "fuente": "Clockify"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 0
+      }
+    }
+  },
+  {
+    "name": "consumo_moderado",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46330,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 10,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 10,
+        "horasFacturables": 10,
+        "horasNoFacturables": 0,
+        "balanceHoras": 90,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 0,
+        "consumoPct": 10,
+        "desviacionPts": 10,
+        "diasRestantes": 6,
+        "costoReal": 250,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "medio",
+          "titulo": "Consumo adelantado al plan",
+          "detalle": "+10 pts.",
+          "fuente": "Clockify"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 0
+      }
+    }
+  },
+  {
+    "name": "fecha_vencida",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46329
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 1,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 1,
+        "horasFacturables": 1,
+        "horasNoFacturables": 0,
+        "balanceHoras": 99,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 100,
+        "consumoPct": 1,
+        "desviacionPts": -99,
+        "diasRestantes": -1,
+        "costoReal": 25,
+        "healthScore": 90,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 60,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 100
+      }
+    }
+  },
+  {
+    "name": "plan_en_tiempo",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 30,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [
+        {
+          "uid": "p"
+        }
+      ],
+      "avancePlan": 50,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 2,
+      "pctCerradosATiempo": 100
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 30,
+        "horasFacturables": 30,
+        "horasNoFacturables": 0,
+        "balanceHoras": 70,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 33.3,
+        "consumoPct": 30,
+        "desviacionPts": -3.3,
+        "diasRestantes": 6,
+        "costoReal": 750,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ],
+      "plan": {
+        "filas": [
+          {
+            "uid": "p"
+          }
+        ],
+        "avancePlan": 50,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 2,
+        "pctCerradosATiempo": 100,
+        "tieneDatos": true,
+        "avancePlanReferencia": 50
+      }
+    }
+  },
+  {
+    "name": "sin_fechas",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": "",
+      "Fecha_Fin_Estimada": null
+    },
+    "entries": [],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 0,
+        "horasFacturables": 0,
+        "horasNoFacturables": 0,
+        "balanceHoras": 100,
+        "pctFacturables": 0,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 0,
+        "consumoPct": 0,
+        "desviacionPts": 0,
+        "diasRestantes": null,
+        "costoReal": 0,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 0
+      }
+    }
+  },
+  {
+    "name": "duplicados",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 90,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 2,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 7,
+        "horasFacturables": 7,
+        "horasNoFacturables": 0,
+        "balanceHoras": 93,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 33.3,
+        "consumoPct": 7,
+        "desviacionPts": -26.3,
+        "diasRestantes": 6,
+        "costoReal": 175,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 33.3
+      }
+    }
+  },
+  {
+    "name": "sin_hora_real",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 4,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": null,
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 4,
+        "horasFacturables": 4,
+        "horasNoFacturables": 0,
+        "balanceHoras": 96,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 33.3,
+        "consumoPct": 4,
+        "desviacionPts": -29.3,
+        "diasRestantes": 6,
+        "costoReal": 100,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 33.3
+      }
+    }
+  },
+  {
+    "name": "sin_budget",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 0,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 8,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 0,
+        "horasTotales": 8,
+        "horasFacturables": 8,
+        "horasNoFacturables": 0,
+        "balanceHoras": -8,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 33.3,
+        "consumoPct": 0,
+        "desviacionPts": -33.3,
+        "diasRestantes": 6,
+        "costoReal": 200,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 33.3
+      }
+    }
+  },
+  {
+    "name": "redondeo",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46336
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 2.345,
+        "is_billable": true,
+        "costing_rate": 23.16,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "b",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 1.234,
+        "is_billable": false,
+        "costing_rate": 5.5,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 3.58,
+        "horasFacturables": 2.35,
+        "horasNoFacturables": 1.23,
+        "balanceHoras": 96.42,
+        "pctFacturables": 65.6,
+        "pctNoFacturables": 34.4,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 33.3,
+        "consumoPct": 3.6,
+        "desviacionPts": -29.7,
+        "diasRestantes": 6,
+        "costoReal": 61.1,
+        "healthScore": 96,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 88,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "medio",
+          "titulo": "Horas no facturables elevadas",
+          "detalle": "34.4% del total.",
+          "fuente": "Clockify"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 33.3
+      }
+    }
+  },
+  {
+    "name": "umbrales_exactos",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": 46327,
+      "Fecha_Fin_Estimada": 46330
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 75,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "b",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 20,
+        "is_billable": false,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "c",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T18:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 100,
+        "horasFacturables": 80,
+        "horasNoFacturables": 20,
+        "balanceHoras": 0,
+        "pctFacturables": 80,
+        "pctNoFacturables": 20,
+        "horasFueraHorario": 5,
+        "pctFueraHorario": 5,
+        "pctTiempo": 100,
+        "consumoPct": 100,
+        "desviacionPts": 0,
+        "diasRestantes": 0,
+        "costoReal": 2500,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "medio",
+          "titulo": "Horas no facturables elevadas",
+          "detalle": "20% del total.",
+          "fuente": "Clockify"
+        },
+        {
+          "nivel": "medio",
+          "titulo": "Horas fuera de horario",
+          "detalle": "5 h (5%).",
+          "fuente": "Clockify"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 100
+      }
+    }
+  },
+  {
+    "name": "fechas_iso",
+    "today": "2026-11-04",
+    "row": {
+      "Budget_Hrs": 100,
+      "Fecha_Inicio": "2026-11-01",
+      "Fecha_Fin_Estimada": "2026-11-10"
+    },
+    "entries": [
+      {
+        "entry_id": "a",
+        "project_id": "AER.ACM.001",
+        "resource_name": "Ana",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 10,
+        "is_billable": true,
+        "costing_rate": 25,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "plan": {
+      "filas": [],
+      "avancePlan": 0,
+      "vencidosAbiertos": 0,
+      "vencenHoy": 0,
+      "cerradosTotal": 0,
+      "pctCerradosATiempo": 0
+    },
+    "risks": {
+      "filas": [],
+      "criticos": [],
+      "score": 100
+    },
+    "actions": {
+      "filas": [],
+      "vencidas": []
+    },
+    "expected": {
+      "kpis": {
+        "budgetHoras": 100,
+        "horasTotales": 10,
+        "horasFacturables": 10,
+        "horasNoFacturables": 0,
+        "balanceHoras": 90,
+        "pctFacturables": 100,
+        "pctNoFacturables": 0,
+        "horasFueraHorario": 0,
+        "pctFueraHorario": 0,
+        "pctTiempo": 44.4,
+        "consumoPct": 10,
+        "desviacionPts": -34.4,
+        "diasRestantes": 5,
+        "costoReal": 250,
+        "healthScore": 100,
+        "healthLabel": "Saludable",
+        "healthDimensiones": {
+          "tiempo": 100,
+          "esfuerzo": 100,
+          "costo": 100,
+          "riesgo": 100
+        },
+        "healthFuentes": {
+          "tiempo": true,
+          "esfuerzo": true,
+          "costo": true,
+          "riesgo": false
+        }
+      },
+      "alertas": [
+        {
+          "nivel": "ok",
+          "titulo": "Operación estable",
+          "detalle": "Sin desviaciones relevantes con las reglas actuales.",
+          "fuente": "Auto"
+        }
+      ],
+      "plan": {
+        "filas": [],
+        "avancePlan": 0,
+        "vencidosAbiertos": 0,
+        "vencenHoy": 0,
+        "cerradosTotal": 0,
+        "pctCerradosATiempo": 0,
+        "tieneDatos": false,
+        "avancePlanReferencia": 44.4
+      }
+    }
+  }
+]
