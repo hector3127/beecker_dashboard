@@ -1,0 +1,120 @@
+{
+  "octubre": [
+    {
+      "budget": 400.0,
+      "end": "2026-10-14",
+      "id": "AER.ACM.001",
+      "service": "AER",
+      "source": "MPB",
+      "start": "2026-10-01"
+    },
+    {
+      "budget": 80.0,
+      "end": "2026-10-14",
+      "id": "TYM.BET.001",
+      "service": "T&M",
+      "source": "MPB",
+      "start": "2026-10-01"
+    },
+    {
+      "budget": 120.0,
+      "end": "2026-10-14",
+      "id": "RAAS.GAM.001",
+      "service": "RAAS",
+      "source": "Historico_Proyectos A:J",
+      "start": "2026-10-01"
+    },
+    {
+      "budget": 90.0,
+      "end": "2026-10-14",
+      "id": "IXB.SUS.001",
+      "service": "IXB",
+      "source": "Historico_Proyectos A:J",
+      "start": "2026-10-01"
+    }
+  ],
+  "predeterminado": [
+    {
+      "budget": 400.0,
+      "end": "2026-10-14",
+      "id": "AER.ACM.001",
+      "service": "AER",
+      "source": "MPB",
+      "start": "2026-06-01"
+    },
+    {
+      "budget": 80.0,
+      "end": "2026-10-14",
+      "id": "TYM.BET.001",
+      "service": "T&M",
+      "source": "MPB",
+      "start": "2026-09-01"
+    },
+    {
+      "budget": 500.0,
+      "end": "2026-07-31",
+      "id": "IXB.FOX.001",
+      "service": "IXB",
+      "source": "Historico_Proyectos A:J",
+      "start": "2026-03-02"
+    },
+    {
+      "budget": 120.0,
+      "end": "2026-10-14",
+      "id": "RAAS.GAM.001",
+      "service": "RAAS",
+      "source": "Historico_Proyectos A:J",
+      "start": "2026-08-03"
+    },
+    {
+      "budget": 60.0,
+      "end": "2026-02-01",
+      "id": "IXB.CAN.001",
+      "service": "IXB",
+      "source": "Historico_Proyectos A:J",
+      "start": "2026-01-05"
+    },
+    {
+      "budget": 90.0,
+      "end": "2026-10-14",
+      "id": "IXB.SUS.001",
+      "service": "IXB",
+      "source": "Historico_Proyectos A:J",
+      "start": "2026-02-02"
+    }
+  ],
+  "primer_trimestre": [
+    {
+      "budget": 300.0,
+      "end": "2026-03-31",
+      "id": "AER.ACM.001",
+      "service": "AER",
+      "source": "MPB",
+      "start": "2026-02-01"
+    },
+    {
+      "budget": 500.0,
+      "end": "2026-03-31",
+      "id": "IXB.FOX.001",
+      "service": "IXB",
+      "source": "Historico_Proyectos A:J",
+      "start": "2026-03-02"
+    },
+    {
+      "budget": 60.0,
+      "end": "2026-02-01",
+      "id": "IXB.CAN.001",
+      "service": "IXB",
+      "source": "Historico_Proyectos A:J",
+      "start": "2026-01-05"
+    },
+    {
+      "budget": 90.0,
+      "end": "2026-03-31",
+      "id": "IXB.SUS.001",
+      "service": "IXB",
+      "source": "Historico_Proyectos A:J",
+      "start": "2026-02-02"
+    }
+  ]
+}

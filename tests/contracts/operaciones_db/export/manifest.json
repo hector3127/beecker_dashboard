@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-10-14T17:00:00+00:00",
+  "format": 1,
+  "source": {
+    "app": "dashboard-management",
+    "engine": "contrato"
+  },
+  "tables": [
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "rows",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "row_count",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_sheetsnapshot",
+      "file": "datastore.SheetSnapshot.jsonl",
+      "label": "datastore.SheetSnapshot",
+      "pk": "id",
+      "rows": 3,
+      "sha256": "0e870c66cdeafc5a9a5bc5fe17e3eb31e2afac3edc8f1f28af197aeb47606536"
+    }
+  ]
+}
