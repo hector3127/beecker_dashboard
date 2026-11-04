@@ -1,0 +1,1368 @@
+[
+  {
+    "name": "sin_registros",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": []
+    }
+  },
+  {
+    "name": "id_exacto_general_y_otro_sprint",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ],
+      [
+        "b",
+        "2026-11-02",
+        "General"
+      ],
+      [
+        "c",
+        "2026-11-03",
+        "Otro",
+        "",
+        "",
+        "",
+        "",
+        "AMK.001_S10"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "b",
+          "date": "2026-11-02",
+          "title": "General",
+          "summary": "",
+          "content": "",
+          "category": "Aviso",
+          "important": false,
+          "author": "",
+          "key_points": "",
+          "general": true
+        },
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_0",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-03",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-03",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_1",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "03/11/2026",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "03/11/2026",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_2",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-03T15:30:00Z",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-03T15:30:00Z",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_3",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        46329,
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-03",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_4",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "fecha por confirmar",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "fecha por confirmar",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_5",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        " 2026-11-02 ",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": " 2026-11-02 ",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_6",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        null,
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_7",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        false,
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_8",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        0,
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "1899-12-30",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "alcance_0",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "amk.001_s1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": []
+    }
+  },
+  {
+    "name": "alcance_1",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        " AMK.001_S1 ",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": []
+    }
+  },
+  {
+    "name": "alcance_2",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_CR1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": []
+    }
+  },
+  {
+    "name": "alcance_3",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": true
+        }
+      ]
+    }
+  },
+  {
+    "name": "alcance_4",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "importante_0",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        true,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": true,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "importante_1",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "importante_2",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        "true",
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": true,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "importante_3",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        "TRUE",
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": true,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "importante_4",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        " true ",
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "importante_5",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        "Sí",
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "importante_6",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        1,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "importante_7",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        null,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "conserva_espacios_y_saltos",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        " a \n",
+        "2026-11-01",
+        " Aviso \n",
+        " Resumen \n",
+        " Contenido \n",
+        " Aviso \n",
+        false,
+        "AMK.001_S1",
+        " Equipo \n",
+        " Puntos \n"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": " a \n",
+          "date": "2026-11-01",
+          "title": " Aviso \n",
+          "summary": " Resumen \n",
+          "content": " Contenido \n",
+          "category": " Aviso \n",
+          "important": false,
+          "author": " Equipo \n",
+          "key_points": " Puntos \n",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "filas_cortas",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-02",
+        "Título"
+      ],
+      [
+        "b"
+      ],
+      []
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-02",
+          "title": "Título",
+          "summary": "",
+          "content": "",
+          "category": "Aviso",
+          "important": false,
+          "author": "",
+          "key_points": "",
+          "general": true
+        }
+      ]
+    }
+  },
+  {
+    "name": "orden_lexico_y_empate",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ],
+      [
+        "b",
+        "31/10/2026",
+        "Texto"
+      ],
+      [
+        "c",
+        "2026-11-01",
+        "Empate"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "b",
+          "date": "31/10/2026",
+          "title": "Texto",
+          "summary": "",
+          "content": "",
+          "category": "Aviso",
+          "important": false,
+          "author": "",
+          "key_points": "",
+          "general": true
+        },
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        },
+        {
+          "id": "c",
+          "date": "2026-11-01",
+          "title": "Empate",
+          "summary": "",
+          "content": "",
+          "category": "Aviso",
+          "important": false,
+          "author": "",
+          "key_points": "",
+          "general": true
+        }
+      ]
+    }
+  },
+  {
+    "name": "uid_repetido",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ],
+      [
+        "a",
+        "2026-11-01",
+        "Aviso",
+        "Resumen",
+        "Contenido",
+        "Aviso",
+        false,
+        "AMK.001_S1",
+        "Equipo",
+        "Puntos"
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": [
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        },
+        {
+          "id": "a",
+          "date": "2026-11-01",
+          "title": "Aviso",
+          "summary": "Resumen",
+          "content": "Contenido",
+          "category": "Aviso",
+          "important": false,
+          "author": "Equipo",
+          "key_points": "Puntos",
+          "general": false
+        }
+      ]
+    }
+  },
+  {
+    "name": "sin_uid_o_titulo",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "UID",
+        "Fecha",
+        "Título",
+        "Resumen",
+        "Contenido",
+        "Categoría",
+        "Importante",
+        "Proyecto",
+        "Publicado por",
+        "Puntos clave"
+      ],
+      [
+        "",
+        "2026-11-02",
+        "Título"
+      ],
+      [
+        "b",
+        "2026-11-03",
+        ""
+      ]
+    ],
+    "expected": {
+      "available": true,
+      "items": []
+    }
+  }
+]
