@@ -1,0 +1,523 @@
+{
+  "bandas": {
+    "ana ruiz": [
+      "B2",
+      "octubre 2026"
+    ],
+    "beto soto": [
+      "B3",
+      "septiembre 2026"
+    ],
+    "carla diaz": [
+      "",
+      "Sin banda vigente historica"
+    ],
+    "dani paz": [
+      "",
+      "Sin banda vigente historica"
+    ]
+  },
+  "futuro": {
+    "AER.ACM.001": false,
+    "AER.ACM.001_S1": false,
+    "AER.ACM.002": false,
+    "AER.ACM.002.03": false,
+    "AER.BET.003.12": true,
+    "IXB.FOX.001": false,
+    "TYM.BET.001": false
+  },
+  "ids": [
+    "AER.ACM.001",
+    "AER.ACM.001_S1",
+    "AER.ACM.002",
+    "AER.ACM.002.03",
+    "AER.BET.003.12",
+    "IXB.FOX.001",
+    "TYM.BET.001"
+  ],
+  "ids_de_acme": [
+    "AER.ACM.001",
+    "AER.ACM.001_S1",
+    "AER.ACM.002",
+    "AER.ACM.002.03"
+  ],
+  "proyectos": {
+    "AER.ACM.001": {
+      "clockify_id": "AER.ACM.001",
+      "complete": false,
+      "cost": 112.75,
+      "financial_grouping_version": 3,
+      "hours": 8.5,
+      "id": "AER.ACM.001",
+      "included_ids": [
+        "AER.ACM.001"
+      ],
+      "missing_hours": 3.0,
+      "people": [
+        {
+          "band": "B2",
+          "band_month": "octubre 2026",
+          "cost": 112.75,
+          "hours": 5.5,
+          "missing": false,
+          "name": "Ana Ruiz",
+          "rate": 20.5
+        },
+        {
+          "band": "",
+          "band_month": "Sin banda vigente historica",
+          "cost": 0,
+          "hours": 1.0,
+          "missing": true,
+          "name": "Carla Díaz",
+          "rate": null
+        },
+        {
+          "band": "",
+          "band_month": "",
+          "cost": 0,
+          "hours": 2.0,
+          "missing": true,
+          "name": "Zed Extraño",
+          "rate": null
+        }
+      ],
+      "scope_end": "2026-10-14",
+      "scope_month": null,
+      "scope_start": "2026-01-01",
+      "sprints": [
+        {
+          "complete": false,
+          "cost": 112.75,
+          "hours": 8.5,
+          "label": "General / sin task",
+          "missing_hours": 3.0,
+          "people": [
+            {
+              "band": "B2",
+              "band_month": "octubre 2026",
+              "cost": 112.75,
+              "hours": 5.5,
+              "missing": false,
+              "name": "Ana Ruiz",
+              "rate": 20.5
+            },
+            {
+              "band": "",
+              "band_month": "Sin banda vigente historica",
+              "cost": 0,
+              "hours": 1.0,
+              "missing": true,
+              "name": "Carla Díaz",
+              "rate": null
+            },
+            {
+              "band": "",
+              "band_month": "",
+              "cost": 0,
+              "hours": 2.0,
+              "missing": true,
+              "name": "Zed Extraño",
+              "rate": null
+            }
+          ],
+          "project_id": "AER.ACM.001",
+          "tasks": [
+            "General"
+          ]
+        }
+      ],
+      "task_details_complete": true
+    },
+    "AER.ACM.001_S1": {
+      "clockify_id": "AER.ACM.001",
+      "complete": true,
+      "cost": 141.25,
+      "financial_grouping_version": 3,
+      "hours": 5.5,
+      "id": "AER.ACM.001_S1",
+      "included_ids": [
+        "AER.ACM.001_S1"
+      ],
+      "missing_hours": 0.0,
+      "people": [
+        {
+          "band": "B2",
+          "band_month": "octubre 2026",
+          "cost": 51.25,
+          "hours": 2.5,
+          "missing": false,
+          "name": "Ana Ruiz",
+          "rate": 20.5
+        },
+        {
+          "band": "B3",
+          "band_month": "septiembre 2026",
+          "cost": 90.0,
+          "hours": 3.0,
+          "missing": false,
+          "name": "Beto Soto",
+          "rate": 30.0
+        }
+      ],
+      "scope_end": "2026-10-14",
+      "scope_month": null,
+      "scope_start": "2026-01-01",
+      "sprints": [
+        {
+          "complete": true,
+          "cost": 141.25,
+          "hours": 5.5,
+          "label": "S1",
+          "missing_hours": 0,
+          "people": [
+            {
+              "band": "B2",
+              "band_month": "octubre 2026",
+              "cost": 51.25,
+              "hours": 2.5,
+              "missing": false,
+              "name": "Ana Ruiz",
+              "rate": 20.5
+            },
+            {
+              "band": "B3",
+              "band_month": "septiembre 2026",
+              "cost": 90.0,
+              "hours": 3.0,
+              "missing": false,
+              "name": "Beto Soto",
+              "rate": 30.0
+            }
+          ],
+          "project_id": "AER.ACM.001_S1",
+          "tasks": [
+            "Sprint 1 _S1"
+          ]
+        }
+      ],
+      "task_details_complete": true
+    },
+    "AER.ACM.002": {
+      "clockify_id": "AER.ACM.002",
+      "complete": true,
+      "cost": 102.5,
+      "financial_grouping_version": 3,
+      "hours": 5.0,
+      "id": "AER.ACM.002",
+      "included_ids": [
+        "AER.ACM.002"
+      ],
+      "missing_hours": 0.0,
+      "people": [
+        {
+          "band": "B2",
+          "band_month": "octubre 2026",
+          "cost": 102.5,
+          "hours": 5.0,
+          "missing": false,
+          "name": "Ana Ruiz",
+          "rate": 20.5
+        }
+      ],
+      "scope_end": "2026-10-14",
+      "scope_month": null,
+      "scope_start": "2026-01-01",
+      "sprints": [
+        {
+          "complete": true,
+          "cost": 102.5,
+          "hours": 5.0,
+          "label": "General / sin task",
+          "missing_hours": 0,
+          "people": [
+            {
+              "band": "B2",
+              "band_month": "octubre 2026",
+              "cost": 102.5,
+              "hours": 5.0,
+              "missing": false,
+              "name": "Ana Ruiz",
+              "rate": 20.5
+            }
+          ],
+          "project_id": "AER.ACM.002",
+          "tasks": [
+            "General"
+          ]
+        }
+      ],
+      "task_details_complete": true
+    },
+    "AER.ACM.002.03": {
+      "clockify_id": "AER.ACM.002",
+      "complete": true,
+      "cost": 221.0,
+      "financial_grouping_version": 3,
+      "hours": 8.0,
+      "id": "AER.ACM.002.03",
+      "included_ids": [
+        "AER.ACM.002.03"
+      ],
+      "missing_hours": 0.0,
+      "people": [
+        {
+          "band": "B3",
+          "band_month": "septiembre 2026",
+          "cost": 180.0,
+          "hours": 6.0,
+          "missing": false,
+          "name": "Beto Soto",
+          "rate": 30.0
+        },
+        {
+          "band": "B2",
+          "band_month": "octubre 2026",
+          "cost": 41.0,
+          "hours": 2.0,
+          "missing": false,
+          "name": "Ana Ruiz",
+          "rate": 20.5
+        }
+      ],
+      "scope_end": "2026-03-31",
+      "scope_month": 3,
+      "scope_start": "2026-03-01",
+      "sprints": [
+        {
+          "complete": true,
+          "cost": 221.0,
+          "hours": 8.0,
+          "label": "General / sin task",
+          "missing_hours": 0,
+          "people": [
+            {
+              "band": "B3",
+              "band_month": "septiembre 2026",
+              "cost": 180.0,
+              "hours": 6.0,
+              "missing": false,
+              "name": "Beto Soto",
+              "rate": 30.0
+            },
+            {
+              "band": "B2",
+              "band_month": "octubre 2026",
+              "cost": 41.0,
+              "hours": 2.0,
+              "missing": false,
+              "name": "Ana Ruiz",
+              "rate": 20.5
+            }
+          ],
+          "project_id": "AER.ACM.002.03",
+          "tasks": [
+            "General"
+          ]
+        }
+      ],
+      "task_details_complete": true
+    },
+    "AER.BET.003.12": {
+      "error": "No se encontro una coincidencia unica para AER.BET.003 en Clockify. Vinculalo en la hoja Clockify_Vinculos."
+    },
+    "IXB.FOX.001": {
+      "clockify_id": "IXB.FOX.001",
+      "complete": true,
+      "cost": 112.75,
+      "financial_grouping_version": 3,
+      "hours": 5.5,
+      "id": "IXB.FOX.001",
+      "included_ids": [
+        "IXB.FOX.001"
+      ],
+      "missing_hours": 0.0,
+      "people": [
+        {
+          "band": "B2",
+          "band_month": "octubre 2026",
+          "cost": 112.75,
+          "hours": 5.5,
+          "missing": false,
+          "name": "Ana Ruiz",
+          "rate": 20.5
+        }
+      ],
+      "scope_end": "2026-10-14",
+      "scope_month": null,
+      "scope_start": "2026-01-01",
+      "sprints": [
+        {
+          "complete": true,
+          "cost": 112.75,
+          "hours": 5.5,
+          "label": "General / sin task",
+          "missing_hours": 0,
+          "people": [
+            {
+              "band": "B2",
+              "band_month": "octubre 2026",
+              "cost": 112.75,
+              "hours": 5.5,
+              "missing": false,
+              "name": "Ana Ruiz",
+              "rate": 20.5
+            }
+          ],
+          "project_id": "IXB.FOX.001",
+          "tasks": [
+            "General"
+          ]
+        }
+      ],
+      "task_details_complete": true
+    },
+    "TYM.BET.001": {
+      "clockify_id": "TYM.BET.001",
+      "complete": false,
+      "cost": 164.0,
+      "financial_grouping_version": 3,
+      "hours": 11.0,
+      "id": "TYM.BET.001",
+      "included_ids": [
+        "TYM.BET.001"
+      ],
+      "missing_hours": 3.0,
+      "people": [
+        {
+          "band": "B2",
+          "band_month": "octubre 2026",
+          "cost": 164.0,
+          "hours": 8.0,
+          "missing": false,
+          "name": "Ana Ruiz",
+          "rate": 20.5
+        },
+        {
+          "band": "",
+          "band_month": "Sin banda vigente historica",
+          "cost": 0,
+          "hours": 3.0,
+          "missing": true,
+          "name": "Dani Paz",
+          "rate": null
+        }
+      ],
+      "scope_end": "2026-10-14",
+      "scope_month": null,
+      "scope_start": "2026-01-01",
+      "sprints": [
+        {
+          "complete": false,
+          "cost": 164.0,
+          "hours": 11.0,
+          "label": "General / sin task",
+          "missing_hours": 3.0,
+          "people": [
+            {
+              "band": "B2",
+              "band_month": "octubre 2026",
+              "cost": 164.0,
+              "hours": 8.0,
+              "missing": false,
+              "name": "Ana Ruiz",
+              "rate": 20.5
+            },
+            {
+              "band": "",
+              "band_month": "Sin banda vigente historica",
+              "cost": 0,
+              "hours": 3.0,
+              "missing": true,
+              "name": "Dani Paz",
+              "rate": null
+            }
+          ],
+          "project_id": "TYM.BET.001",
+          "tasks": [
+            "General"
+          ]
+        }
+      ],
+      "task_details_complete": true
+    }
+  },
+  "resumen": {
+    "band_month": "2026-10",
+    "complete": false,
+    "consulted": 6,
+    "cost": 854.25,
+    "deduplicated_entries": 9,
+    "future": 1,
+    "pending": 0,
+    "projects": [
+      {
+        "complete": false,
+        "cost": 112.75,
+        "hours": 8.5,
+        "id": "AER.ACM.001",
+        "missing_hours": 3.0,
+        "missing_people": [
+          "Carla Díaz",
+          "Zed Extraño"
+        ]
+      },
+      {
+        "complete": true,
+        "cost": 141.25,
+        "hours": 5.5,
+        "id": "AER.ACM.001_S1",
+        "missing_hours": 0.0,
+        "missing_people": []
+      },
+      {
+        "complete": true,
+        "cost": 102.5,
+        "hours": 5.0,
+        "id": "AER.ACM.002",
+        "missing_hours": 0.0,
+        "missing_people": []
+      },
+      {
+        "complete": true,
+        "cost": 221.0,
+        "hours": 8.0,
+        "id": "AER.ACM.002.03",
+        "missing_hours": 0.0,
+        "missing_people": []
+      },
+      {
+        "complete": false,
+        "cost": null,
+        "future": true,
+        "hours": null,
+        "id": "AER.BET.003.12",
+        "status": "future"
+      },
+      {
+        "complete": true,
+        "cost": 112.75,
+        "hours": 5.5,
+        "id": "IXB.FOX.001",
+        "missing_hours": 0.0,
+        "missing_people": []
+      },
+      {
+        "complete": false,
+        "cost": 164.0,
+        "hours": 11.0,
+        "id": "TYM.BET.001",
+        "missing_hours": 3.0,
+        "missing_people": [
+          "Dani Paz"
+        ]
+      }
+    ]
+  },
+  "tarifas": {
+    "B1": 10.0,
+    "B2": 20.5,
+    "B3": 30.0,
+    "B9": 0.0
+  }
+}
