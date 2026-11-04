@@ -140,3 +140,35 @@ vacía con encabezados válidos y conserva las sugerencias originales.
 No se cargó UAT/producción, no se activaron sincronizaciones programadas
 ni se modificaron meses KPI cerrados. El cotejo completo de Ejecutivo IXS
 con Pendientes_Minutas disponible sigue siendo el siguiente paso.
+
+## Fuentes opcionales de Planeación y RAID
+
+Las doce hojas predeterminadas se conservan. Para cargar estas cuatro fuentes
+adicionales, seleccionarlas explícitamente en el dashboard:
+
+```powershell
+.venv/Scripts/python manage.py sync_project_sheets --hoja AER_Planeacion --hoja AER_Riesgos --hoja AER_Vacaciones --hoja IXS_Planeacion --aplicar
+```
+
+Después de exportar/verificar el grupo `hojas`, inspeccionar en Genesis:
+
+```powershell
+uv run python manage.py importar_hojas_proyecto_dm C:/beecker_dashboard/tmp/hojas-g10e5f-20261104 --hoja AER_Planeacion --hoja AER_Riesgos --hoja AER_Vacaciones --hoja IXS_Planeacion
+```
+
+Solo `--aplicar` escribe. Estas fuentes no se añaden a `STORED_SHEETS` ni a
+la selección por defecto. Se exige UID/ID_Proyecto y, según la hoja,
+Actividad, Riesgo, Recurso/Inicio/Fin o Tipo/DatosJSON. Se conservan las
+mismas garantías de integridad, fechas, transacción e identidad local.
+
+Carga local ejecutada el 04/11: 109 registros en 13.29 s, exportación de
+30 snapshots verificada e importación de solo las cuatro hojas. Las 26
+copias anteriores de Genesis permanecen intactas. Cotejo con el original:
+176 Planeación y 15 RAID AER sin diferencias. Doce de 15 ejecutivos AER
+ya están completos; los otros tres requieren ficha/reporte Clockify.
+El cotejo integral de Ejecutivo AER sigue pendiente.
+
+Diez pruebas nuevas por repositorio. Dashboard: 224 datastore/repositorio y
+contratos en una corrida; Genesis: 1,166 del módulo completo, cobertura
+92.31 %. Ruff, formato propio y mypy pasan. No se actualiza la evidencia
+anterior de la suite completa del dashboard ni del frontend.

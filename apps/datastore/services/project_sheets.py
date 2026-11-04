@@ -30,6 +30,17 @@ PROJECT_SHEETS: dict[str, frozenset[str]] = {
 }
 
 
+OPTIONAL_PROJECT_SHEETS: dict[str, frozenset[str]] = {
+    "AER_Planeacion": frozenset({"UID", "ID_Proyecto", "Actividad"}),
+    "AER_Riesgos": frozenset({"UID", "ID_Proyecto", "Riesgo"}),
+    "AER_Vacaciones": frozenset(
+        {"UID", "ID_Proyecto", "Recurso", "Inicio", "Fin"}
+    ),
+    "IXS_Planeacion": frozenset({"UID", "ID_Proyecto", "Tipo", "DatosJSON"}),
+}
+ALLOWED_PROJECT_SHEETS = PROJECT_SHEETS | OPTIONAL_PROJECT_SHEETS
+
+
 class ProjectSheetReader(Protocol):
     """Operaciones de lectura utilizadas por la carga acotada."""
 
@@ -60,7 +71,7 @@ class ProjectSheetError(DashboardError):
 def selected_sheets(names: Iterable[str]) -> list[str]:
     """Valida el alcance explícito sin aceptar tablas ni hojas ajenas."""
     wanted = list(dict.fromkeys(names))
-    if not wanted or any(name not in PROJECT_SHEETS for name in wanted):
+    if not wanted or any(name not in ALLOWED_PROJECT_SHEETS for name in wanted):
         raise ProjectSheetError(
             "Selecciona al menos una hoja de proyectos admitida."
         )
@@ -83,7 +94,7 @@ def validate_project_sheet(name: str, rows: list[list[CellValue]]) -> None:
             for index, label in required.items()
         )
     else:
-        valid = PROJECT_SHEETS[name] <= {
+        valid = ALLOWED_PROJECT_SHEETS[name] <= {
             cell for cell in header if isinstance(cell, str)
         }
     if not valid:

@@ -9,6 +9,7 @@ from django.core.management.base import BaseCommand, CommandError, CommandParser
 from apps.datastore.models import SheetSnapshot
 from apps.datastore.services.locks import sync_lock
 from apps.datastore.services.project_sheets import (
+    ALLOWED_PROJECT_SHEETS,
     PROJECT_SHEETS,
     selected_sheets,
     sync_project_sheets,
@@ -31,7 +32,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser: CommandParser) -> None:
         """Selecciona hojas y exige una opción explícita para aplicar."""
         parser.add_argument(
-            "--hoja", action="append", choices=list(PROJECT_SHEETS)
+            "--hoja", action="append", choices=list(ALLOWED_PROJECT_SHEETS)
         )
         parser.add_argument(
             "--aplicar",
