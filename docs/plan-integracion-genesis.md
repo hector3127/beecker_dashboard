@@ -167,15 +167,21 @@ Orden recomendado; cada bloque repite: contrato D1 → servicio portado → endp
 | G9 | EVA1 y Summary (inventario, cortes, iteraciones) | G7 | terminado (G9a-G9e), con paridad con datos reales en SQLite |
 | G10a | Operativa, capacidad, facturabilidad, inversión | G7 | en curso, ver el desglose |
 | G10a0 | Motor GSE (horas del mes por área, persona y categoría desde Bandas/rol, CatalagoProyectos y las horas guardadas de Clockify) | G7 | terminado: paridad con el contrato; sin endpoint |
-| G10a1 | Facturabilidad (mes y año sobre el motor GSE) | G10a0 | pendiente |
-| G10a2 | Inversión (etiquetas de inversión y proyectos EVA sobre el motor GSE) | G10a0 | pendiente |
-| G10a3 | Capacidad (diaria y por proyecto) | G7 | pendiente |
-| G10a4 | Centro Operativa (los bloques de las cuatro anteriores) | G10a1-G10a3 | pendiente |
+| G10a1 | Facturabilidad general, por especialidad y por recurso (mes y año sobre GSE) | G10a0 | implementado localmente; general coincide en 12 periodos y Especialidad/Recurso en 9 consultas sobre el mismo GSE real. Roles y estado de plantilla conservados; revisión visual clara/oscura a 1440, 390 y 320 px; gates completos pendientes |
+| G10a2 | Inversión (etiquetas de inversión y proyectos EVA sobre las horas guardadas) | G10a0 | piloto local con desglose por recurso/proyecto, búsqueda, orden, páginas, CSV y regreso desde el proyecto. Resumen y desglose coinciden en tres escenarios sobre los mismos registros; probado en ambos temas a 1440, 390 y 320 px. 25 de 186 proyectos sin cobertura histórica completa; paridad de extracción y gates completos pendientes |
+| G10a3 | Capacidad (diaria y por proyecto) | G7 | implementado localmente; paridad completa en septiembre, octubre y noviembre 2026; gates completos pendientes |
+| G10a4 | Centro Operativa (EVA, facturabilidad, capacidad e inversión) | G10a1-G10a3 | implementado localmente; 134 pruebas de Management pasan; revisión visual y gates completos pendientes |
 | G10b | EVA2/EVA3/EVA4 | G7 | terminado: EVA2 cubierta por EVA 1 (misma población al corte de hoy); EVA-04 y EVA 3 con paridad con datos reales |
-| G10c | Business Overview, financiera, costos, márgenes, comercial | G7, G8, P1 | pendiente |
-| G10d | Cuenta y Horas por mes (CSV, regreso a cuenta) | G7 | pendiente |
-| G10e | Detalle de proyecto y pestañas (AER/IXS, RAID, Azure, recursos) | G7, G8 | pendiente |
-| G10f | Pestañas de IA vía `ai_hub/llm` | G10e, A11 | pendiente |
+| G10c | Business Overview, financiera, costos, márgenes, comercial | G7 (P1 solo decide quién ve cada pantalla; mientras tanto, superusuario como en los pilotos) | desglose abajo, sin empezar |
+| G10c0 | Motor de costos por proyecto (`revenue_costs`: IDs de DataRevenue y MPB, banda vigente por persona con Master rates, horas de Clockify por tarifa, AER/ROC por mes) | G10a0 | pendiente |
+| G10c1 | Costos por cuenta y proyecto (`costos_revenue`, ingreso por proyecto) | G10c0 | pendiente |
+| G10c2 | Márgenes por oportunidad (`margins_screen`, `opportunity_profitability`) | G10c1 | pendiente |
+| G10c3 | Financiera (`financial_cache`, bandas del mes o la última válida del año) | G10c0 | pendiente |
+| G10c4 | Comercial (`commercial*`, `executive_commercial`) | G10c3 | pendiente |
+| G10c5 | Business Overview (`ejecutiva`) | G10c1-G10c4 | pendiente |
+| G10d | Cuenta y Horas por mes (CSV, regreso a cuenta) | G7 | piloto local para superusuarios; Horas por mes coincide en 53 IDs y sus celdas en 3 cuentas (sep–oct 2026); navegación Cuenta → Proyecto → pestañas → Cuenta verificada en claro y oscuro a 1440, 390 y 320 px; permisos P1 y gates completos pendientes |
+| G10e | Detalle de proyecto y pestañas (AER/IXS, RAID, Azure, recursos) | G7, G8 | piloto local de solo lectura para superusuarios: Ejecutivo, Planeación, Esfuerzo y Recursos de EVA 1 y EVA 3 vigente/finalizado, Gestión RAID, Cliente, Azure DevOps, Acciones y Comunicación. Selector de periodo MPB, Burn histórico conservado y catálogo paginado. Acciones con conteos y tres contratos sintéticos; Cliente con directorio, filtros, información, gobierno, documentos y matriz de participación, coincidente en cuatro contratos AER/IXS. Faltan copias locales de Cliente/seguimiento, escrituras y paridad integral |
+| G10f | Pestañas de IA vía `ai_hub/llm` | G10e, A11 | piloto local de análisis ejecutivo agregado bajo demanda; proveedor real, historial y flujos de IA originales pendientes |
 
 Desglose de G9 (EVA1). G8 solo hace falta para actualizar datos; EVA1 lee cortes guardados, así que puede avanzar con G7.
 
