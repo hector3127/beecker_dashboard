@@ -1,0 +1,7289 @@
+[
+  {
+    "name": "completo",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 550.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 1080.0,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 69.7
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 25 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 69.7% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "no_incluir_sin_asignacion",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 550.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 1080.0,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 69.7
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 25 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 69.7% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "sin_asignaciones",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto"
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "ANA PEREZ",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 0,
+          "costoReal": 550.0,
+          "balance": -55.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 440.0,
+          "balance": -22.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 0.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 0.0,
+        "costoReal": 1080.0,
+        "balance": -80.0,
+        "pctCumplimientoHoras": 0,
+        "pctCumplimientoFinanciero": 0
+      },
+      "porRol": [
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 80.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Otros",
+          "horas": 80.0,
+          "pct": 100.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 86 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 0% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "sin_horas",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 0.0,
+          "balance": 100.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 0.0,
+          "balance": 20.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 0.0,
+        "horasNoFact": 0.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 0.0,
+        "balance": 130.0,
+        "pctCumplimientoHoras": 0.0,
+        "pctCumplimientoFinanciero": 0.0
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 0.0,
+          "pct": 0
+        },
+        {
+          "nombre": "Testing",
+          "horas": 0.0,
+          "pct": 0
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 86 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ána Pérez, Beto, Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 0% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "solo_no_facturables",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 8,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 0.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 0.0,
+          "balance": 100.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 0.0,
+          "balance": 20.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 0.0,
+          "horasNoFact": 8.0,
+          "costoEstimado": 0,
+          "costoReal": 0.0,
+          "balance": -0.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 0.0,
+        "horasNoFact": 13.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 0.0,
+        "balance": 130.0,
+        "pctCumplimientoHoras": 0.0,
+        "pctCumplimientoFinanciero": 0.0
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 0.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 0.0,
+          "pct": 0
+        },
+        {
+          "nombre": "Testing",
+          "horas": 0.0,
+          "pct": 0
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0
+        },
+        {
+          "nombre": "Otros",
+          "horas": 0.0,
+          "pct": 0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 86 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ána Pérez, Beto, Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 0% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "asignaciones_otro_proyecto",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "OTRO",
+          "Ana Perez",
+          "Developer",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "ANA PEREZ",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 0,
+          "costoReal": 550.0,
+          "balance": -55.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 440.0,
+          "balance": -22.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 0.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 0.0,
+        "costoReal": 1080.0,
+        "balance": -80.0,
+        "pctCumplimientoHoras": 0,
+        "pctCumplimientoFinanciero": 0
+      },
+      "porRol": [
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 80.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Otros",
+          "horas": 80.0,
+          "pct": 100.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 86 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 0% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "nombre_con_alias_columnas",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Recurso",
+          "Rol",
+          "HorasEstimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ana Perez",
+          "Arquitecto",
+          20
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Arquitecto",
+          "nombre": "Ana Perez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 200.0,
+          "costoReal": 550.0,
+          "balance": -35.0,
+          "pctCumplimiento": 275.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 440.0,
+          "balance": -22.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 20.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 200.0,
+        "costoReal": 1080.0,
+        "balance": -60.0,
+        "pctCumplimientoHoras": 400.0,
+        "pctCumplimientoFinanciero": 540.0
+      },
+      "porRol": [
+        {
+          "rol": "Arquitecto",
+          "horasEstimadas": 20.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 25.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Otros",
+          "horas": 25.0,
+          "pct": 31.3
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "ok",
+          "titulo": "Buen avance",
+          "texto": "El consumo de horas va acorde al tiempo transcurrido del proyecto."
+        },
+        {
+          "tipo": "error",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 540% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "dos_asignaciones_mismo_nombre",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ana Perez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Ana Perez",
+          "QA",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ana Perez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 550.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "QA",
+          "nombre": "Ana Perez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 100.0,
+          "costoReal": 550.0,
+          "balance": -45.0,
+          "pctCumplimiento": 550.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 440.0,
+          "balance": -22.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 110.0,
+        "horasReales": 135.0,
+        "horasNoFact": 10.0,
+        "costoEstimado": 1100.0,
+        "costoReal": 1630.0,
+        "balance": -25.0,
+        "pctCumplimientoHoras": 122.7,
+        "pctCumplimientoFinanciero": 148.2
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "QA",
+          "horasEstimadas": 10.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 25.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 40.7
+        },
+        {
+          "nombre": "Testing",
+          "horas": 55.0,
+          "pct": 40.7
+        },
+        {
+          "nombre": "Otros",
+          "horas": 25.0,
+          "pct": 18.5
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "ok",
+          "titulo": "Buen avance",
+          "texto": "El consumo de horas va acorde al tiempo transcurrido del proyecto."
+        },
+        {
+          "tipo": "error",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 148.2% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "sin_estimacion",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ana Perez",
+          "Developer",
+          0
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ana Perez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 0.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 0.0,
+          "costoReal": 550.0,
+          "balance": -55.0,
+          "pctCumplimiento": 0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 440.0,
+          "balance": -22.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 0.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 0.0,
+        "costoReal": 1080.0,
+        "balance": -80.0,
+        "pctCumplimientoHoras": 0,
+        "pctCumplimientoFinanciero": 0
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 0.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 25.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Otros",
+          "horas": 25.0,
+          "pct": 31.3
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 86 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 0% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "sin_banda",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "",
+          "costingRate": 0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 0.0,
+          "costoReal": 0.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "",
+          "costingRate": 0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0.0,
+          "costoReal": 0.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "",
+          "costingRate": 0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 0.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "",
+          "costingRate": 0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 0.0,
+        "costoReal": 0.0,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 0
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 25 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 0% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "sin_tarifas",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": []
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 0.0,
+          "costoReal": 0.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0.0,
+          "costoReal": 0.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 0.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 0.0,
+        "costoReal": 0.0,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 0
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 25 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 0% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "banda_repetida",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ],
+        [
+          "ANA PEREZ",
+          "B1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 2000.0,
+          "costoReal": 1100.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 2550.0,
+        "costoReal": 1630.0,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 63.9
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 25 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 63.9% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "tarifa_repetida",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ],
+        [
+          "a1",
+          "",
+          "",
+          "12.5"
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 12.5,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1250.0,
+          "costoReal": 687.5,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 1800.0,
+        "costoReal": 1217.5,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 67.6
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 25 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 67.6% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "estimacion_invalida",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ana Perez",
+          "Developer",
+          "1,200"
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ana Perez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 0.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 0.0,
+          "costoReal": 550.0,
+          "balance": -55.0,
+          "pctCumplimiento": 0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 440.0,
+          "balance": -22.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 0.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 0.0,
+        "costoReal": 1080.0,
+        "balance": -80.0,
+        "pctCumplimientoHoras": 0,
+        "pctCumplimientoFinanciero": 0
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 0.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 25.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Otros",
+          "horas": 25.0,
+          "pct": 31.3
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 86 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 0% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "redondeos",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ana Perez",
+          "Developer",
+          3
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "B",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          1.335
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 1.005,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 0.006,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ana Perez",
+          "banda": "A1",
+          "costingRate": 1.335,
+          "horasEstimadas": 3.0,
+          "horasReales": 1.0,
+          "horasNoFact": 0.01,
+          "costoEstimado": 4.01,
+          "costoReal": 1.34,
+          "balance": 2.0,
+          "pctCumplimiento": 33.3,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 3.0,
+        "horasReales": 1.0,
+        "horasNoFact": 0.01,
+        "costoEstimado": 4.01,
+        "costoReal": 1.34,
+        "balance": 2.0,
+        "pctCumplimientoHoras": 33.3,
+        "pctCumplimientoFinanciero": 33.4
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 3.0,
+          "horasReales": 1.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 1.0,
+          "pct": 100.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 53 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 33.4% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "areas_y_orden",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ana Perez",
+          "ML engineer",
+          2
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Code review",
+          5
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Analista",
+          4
+        ],
+        [
+          "AMK.001_S1",
+          "Dora",
+          "Scrum master",
+          3
+        ],
+        [
+          "AMK.001_S1",
+          "Eli",
+          "DEV",
+          1
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "0",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 1,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 2,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ceci",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 4,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Eli",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "DEV",
+          "nombre": "Eli",
+          "banda": "",
+          "costingRate": 0,
+          "horasEstimadas": 1.0,
+          "horasReales": 5.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0.0,
+          "costoReal": 0.0,
+          "balance": -4.0,
+          "pctCumplimiento": 500.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Scrum master",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 3.0,
+          "horasReales": 4.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 90.0,
+          "costoReal": 120.0,
+          "balance": -1.0,
+          "pctCumplimiento": 133.3,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Analista",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 4.0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 60.0,
+          "costoReal": 45.0,
+          "balance": 1.0,
+          "pctCumplimiento": 75.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Code review",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 5.0,
+          "horasReales": 2.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 100.0,
+          "costoReal": 40.0,
+          "balance": 3.0,
+          "pctCumplimiento": 40.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "ML engineer",
+          "nombre": "Ana Perez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 2.0,
+          "horasReales": 1.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 20.0,
+          "costoReal": 10.0,
+          "balance": 1.0,
+          "pctCumplimiento": 50.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 15.0,
+        "horasReales": 15.0,
+        "horasNoFact": 0.0,
+        "costoEstimado": 270.0,
+        "costoReal": 215.0,
+        "balance": 0.0,
+        "pctCumplimientoHoras": 100.0,
+        "pctCumplimientoFinanciero": 79.6
+      },
+      "porRol": [
+        {
+          "rol": "Code review",
+          "horasEstimadas": 5.0,
+          "horasReales": 2.0
+        },
+        {
+          "rol": "Analista",
+          "horasEstimadas": 4.0,
+          "horasReales": 3.0
+        },
+        {
+          "rol": "Scrum master",
+          "horasEstimadas": 3.0,
+          "horasReales": 4.0
+        },
+        {
+          "rol": "ML engineer",
+          "horasEstimadas": 2.0,
+          "horasReales": 1.0
+        },
+        {
+          "rol": "DEV",
+          "horasEstimadas": 1.0,
+          "horasReales": 5.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Otros",
+          "horas": 5.0,
+          "pct": 33.3
+        },
+        {
+          "nombre": "Soporte",
+          "horas": 4.0,
+          "pct": 26.7
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 3.0,
+          "pct": 20.0
+        },
+        {
+          "nombre": "Testing",
+          "horas": 2.0,
+          "pct": 13.3
+        },
+        {
+          "nombre": "Desarrollo",
+          "horas": 1.0,
+          "pct": 6.7
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "ok",
+          "titulo": "Buen avance",
+          "texto": "El consumo de horas va acorde al tiempo transcurrido del proyecto."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 79.6% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "sin_rol",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ana Perez",
+          "",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "",
+          "nombre": "Ana Perez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 100.0,
+          "costoReal": 550.0,
+          "balance": -45.0,
+          "pctCumplimiento": 550.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 440.0,
+          "balance": -22.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 10.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 100.0,
+        "costoReal": 1080.0,
+        "balance": -70.0,
+        "pctCumplimientoHoras": 800.0,
+        "pctCumplimientoFinanciero": 1080.0
+      },
+      "porRol": [
+        {
+          "rol": "Sin rol",
+          "horasEstimadas": 10.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 25.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Otros",
+          "horas": 80.0,
+          "pct": 100.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "ok",
+          "titulo": "Buen avance",
+          "texto": "El consumo de horas va acorde al tiempo transcurrido del proyecto."
+        },
+        {
+          "tipo": "error",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 1080% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_invertida",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-12-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-12-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": null
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 550.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 1080.0,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 69.7
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 69.7% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_corte_antes",
+    "id": "AMK.001_S1",
+    "now": "2026-09-01T00:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 0.0
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 550.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 1080.0,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 69.7
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "ok",
+          "titulo": "Buen avance",
+          "texto": "El consumo de horas va acorde al tiempo transcurrido del proyecto."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 69.7% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "fecha_corte_despues",
+    "id": "AMK.001_S1",
+    "now": "2026-12-01T00:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 100.0
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 550.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 1080.0,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 69.7
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 38 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 69.7% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "nombre_sin_horas",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 0,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 0.0,
+          "balance": 100.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 0.0,
+          "balance": 20.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 0.0,
+        "horasNoFact": 0.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 0.0,
+        "balance": 130.0,
+        "pctCumplimientoHoras": 0.0,
+        "pctCumplimientoFinanciero": 0.0
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 0.0,
+          "pct": 0
+        },
+        {
+          "nombre": "Testing",
+          "horas": 0.0,
+          "pct": 0
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 86 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ána Pérez, Beto, Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 0% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "estimacion_negativa",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ana Perez",
+          "Developer",
+          -10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ana Perez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": -10.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": -100.0,
+          "costoReal": 550.0,
+          "balance": -65.0,
+          "pctCumplimiento": -550.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 440.0,
+          "balance": -22.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": -10.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": -100.0,
+        "costoReal": 1080.0,
+        "balance": -90.0,
+        "pctCumplimientoHoras": -800.0,
+        "pctCumplimientoFinanciero": -1080.0
+      },
+      "porRol": [
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 25.0
+        },
+        {
+          "rol": "Developer",
+          "horasEstimadas": -10.0,
+          "horasReales": 55.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Otros",
+          "horas": 25.0,
+          "pct": 31.3
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 886 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva -1080% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "excluir_otro_sprint",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "S1",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "S2",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "S2",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "S1",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "S2",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 40.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 400.0,
+          "balance": 60.0,
+          "pctCumplimiento": 40.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 62.0,
+        "horasNoFact": 0.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 840.0,
+        "balance": 68.0,
+        "pctCumplimientoHoras": 47.7,
+        "pctCumplimientoFinanciero": 54.2
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 40.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 40.0,
+          "pct": 64.5
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 35.5
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 39 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 54.2% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "tags_contradictorias",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto",
+          "Nombre",
+          "Cliente",
+          "Estado",
+          "Fecha_Inicio",
+          "Fecha_Fin_Estimada",
+          "Servicio"
+        ],
+        [
+          "AMK.001_S1",
+          "Portal",
+          "Demo",
+          "Development",
+          "2026-10-01",
+          "2026-11-10",
+          "IXB"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [
+          "S2"
+        ],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": null,
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 15.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 150.0,
+          "balance": 85.0,
+          "pctCumplimiento": 15.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 40.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 680.0,
+        "balance": 90.0,
+        "pctCumplimientoHoras": 30.8,
+        "pctCumplimientoFinanciero": 43.9
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 15.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 55.0
+        },
+        {
+          "nombre": "Desarrollo",
+          "horas": 15.0,
+          "pct": 37.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 7.5
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 55 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 43.9% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  },
+  {
+    "name": "ficha_extra",
+    "id": "AMK.001_S1",
+    "now": "2026-11-04T12:00:00",
+    "sheets": {
+      "Proyectos": [
+        [
+          "ID_Proyecto"
+        ]
+      ],
+      "Recursos": [
+        [
+          "Proyecto",
+          "Nombre del recurso",
+          "Posición",
+          "Horas Estimadas"
+        ],
+        [
+          "AMK.001_S1",
+          "Ána Pérez",
+          "Developer",
+          100
+        ],
+        [
+          "AMK.001_S1",
+          "Beto",
+          "Tester",
+          20
+        ],
+        [
+          "AMK.001_S1",
+          "Ceci",
+          "Business analyst",
+          10
+        ]
+      ],
+      "Banda salarial": [
+        [
+          "Nombre",
+          "Banda"
+        ],
+        [
+          "Ána Pérez",
+          "A1"
+        ],
+        [
+          "Beto",
+          "B1"
+        ],
+        [
+          "Ceci",
+          "C1"
+        ],
+        [
+          "Dora",
+          "D1"
+        ]
+      ],
+      "Master rates": [
+        [
+          "Banda",
+          "",
+          "",
+          "Costo"
+        ],
+        [
+          "A1",
+          "",
+          "",
+          10
+        ],
+        [
+          "B1",
+          "",
+          "",
+          20
+        ],
+        [
+          "C1",
+          "",
+          "",
+          15
+        ],
+        [
+          "D1",
+          "",
+          "",
+          30
+        ]
+      ]
+    },
+    "entries": [
+      {
+        "entry_id": "e1",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ana Perez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 40,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e2",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Ána Pérez",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 15,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e3",
+        "project_id": "AMK.001_S1",
+        "resource_name": "ANA PEREZ",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 5,
+        "is_billable": false,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e4",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Beto",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 22,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      },
+      {
+        "entry_id": "e5",
+        "project_id": "AMK.001_S1",
+        "resource_name": "Dora",
+        "entry_date": "2026-11-03T00:00:00",
+        "duration_hours": 3,
+        "is_billable": true,
+        "costing_rate": 999,
+        "description": "",
+        "tags": [],
+        "task_name": "",
+        "task_id": "",
+        "started_at": "2026-11-03T09:00:00",
+        "ended_at": null
+      }
+    ],
+    "extra_project_row": {
+      "ID_Proyecto": "AMK.001_S1",
+      "Nombre": "Portal",
+      "Cliente": "Demo",
+      "Estado": "Development",
+      "Fecha_Inicio": "2026-10-01",
+      "Fecha_Fin_Estimada": "2026-11-10",
+      "Servicio": "IXB"
+    },
+    "expected": {
+      "proyecto": {
+        "id": "AMK.001_S1",
+        "nombre": "Portal",
+        "cliente": "Demo",
+        "estado": "Development",
+        "fechaInicio": "2026-10-01T00:00:00.000Z",
+        "fechaFin": "2026-11-10T00:00:00.000Z",
+        "pctTiempoTranscurrido": 86.3
+      },
+      "filas": [
+        {
+          "posicion": "Developer",
+          "nombre": "Ána Pérez",
+          "banda": "A1",
+          "costingRate": 10.0,
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0,
+          "horasNoFact": 5.0,
+          "costoEstimado": 1000.0,
+          "costoReal": 550.0,
+          "balance": 45.0,
+          "pctCumplimiento": 55.0,
+          "estado": "En tiempo"
+        },
+        {
+          "posicion": "Tester",
+          "nombre": "Beto",
+          "banda": "B1",
+          "costingRate": 20.0,
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 400.0,
+          "costoReal": 440.0,
+          "balance": -2.0,
+          "pctCumplimiento": 110.0,
+          "estado": "Excedido"
+        },
+        {
+          "posicion": "Sin asignacion en Recursos",
+          "nombre": "Dora",
+          "banda": "D1",
+          "costingRate": 30.0,
+          "horasEstimadas": 0,
+          "horasReales": 3.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 0,
+          "costoReal": 90.0,
+          "balance": -3.0,
+          "pctCumplimiento": 0,
+          "estado": "Sin estimacion en Recursos"
+        },
+        {
+          "posicion": "Business analyst",
+          "nombre": "Ceci",
+          "banda": "C1",
+          "costingRate": 15.0,
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0,
+          "horasNoFact": 0.0,
+          "costoEstimado": 150.0,
+          "costoReal": 0.0,
+          "balance": 10.0,
+          "pctCumplimiento": 0.0,
+          "estado": "En tiempo"
+        }
+      ],
+      "totales": {
+        "horasEstimadas": 130.0,
+        "horasReales": 80.0,
+        "horasNoFact": 5.0,
+        "costoEstimado": 1550.0,
+        "costoReal": 1080.0,
+        "balance": 50.0,
+        "pctCumplimientoHoras": 61.5,
+        "pctCumplimientoFinanciero": 69.7
+      },
+      "porRol": [
+        {
+          "rol": "Developer",
+          "horasEstimadas": 100.0,
+          "horasReales": 55.0
+        },
+        {
+          "rol": "Tester",
+          "horasEstimadas": 20.0,
+          "horasReales": 22.0
+        },
+        {
+          "rol": "Business analyst",
+          "horasEstimadas": 10.0,
+          "horasReales": 0.0
+        },
+        {
+          "rol": "Sin asignacion en Recursos",
+          "horasEstimadas": 0.0,
+          "horasReales": 3.0
+        }
+      ],
+      "distribucionCategoria": [
+        {
+          "nombre": "Desarrollo",
+          "horas": 55.0,
+          "pct": 68.8
+        },
+        {
+          "nombre": "Testing",
+          "horas": 22.0,
+          "pct": 27.5
+        },
+        {
+          "nombre": "Otros",
+          "horas": 3.0,
+          "pct": 3.8
+        },
+        {
+          "nombre": "Análisis",
+          "horas": 0.0,
+          "pct": 0.0
+        }
+      ],
+      "insights": [
+        {
+          "tipo": "warning",
+          "titulo": "Atención requerida",
+          "texto": "El consumo de horas va 25 pts por debajo del tiempo transcurrido."
+        },
+        {
+          "tipo": "info",
+          "titulo": "Oportunidad",
+          "texto": "Ceci no registra horas aún. Revisar asignación o bloqueo."
+        },
+        {
+          "tipo": "ok",
+          "titulo": "Financiero",
+          "texto": "El proyecto lleva 69.7% del presupuesto estimado consumido."
+        }
+      ]
+    }
+  }
+]
