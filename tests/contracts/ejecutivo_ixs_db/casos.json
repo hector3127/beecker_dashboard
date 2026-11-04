@@ -1,0 +1,6657 @@
+{
+  "projects": [
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "etapas_en_curso",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "sin_historia",
+      "expected": {
+        "stages": null,
+        "milestones": {
+          "servicio": "IXB",
+          "deliveryManager": "DM"
+        },
+        "estimate": {
+          "pct": null,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": null,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": null,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": null,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Sin hitos planificados"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "sin datos"
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "encabezado_invalido",
+      "expected": {
+        "stages": null,
+        "milestones": {
+          "servicio": "IXB",
+          "deliveryManager": "DM"
+        },
+        "estimate": {
+          "pct": null,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": null,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": null,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": null,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Sin hitos planificados"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "sin_discovery",
+      "expected": {
+        "stages": null,
+        "milestones": {
+          "servicio": "IXB",
+          "deliveryManager": "DM"
+        },
+        "estimate": {
+          "pct": null,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": null,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": null,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": null,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Sin hitos planificados"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "solo_real",
+      "expected": {
+        "stages": {
+          "milestones": [],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [],
+          "proximos": [],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": null,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": null,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": null,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": null,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Sin hitos planificados"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "solo_plan",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 0.0,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": 0.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 0.0,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.0,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "otro",
+          "Discovery",
+          "01/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "solo_otro_proyecto",
+      "expected": {
+        "stages": null,
+        "milestones": {
+          "servicio": "IXB",
+          "deliveryManager": "DM"
+        },
+        "estimate": {
+          "pct": null,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": null,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": null,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": null,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Sin hitos planificados"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {
+        "general": [
+          4,
+          10
+        ]
+      },
+      "name": "wi_limita",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 40.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 40.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.46,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {
+        "general": [
+          0,
+          10
+        ]
+      },
+      "name": "wi_sin_cerrados",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 0.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 0.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.0,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {
+        "general": [
+          0,
+          0
+        ]
+      },
+      "name": "wi_total_cero",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {
+        "general": [
+          10,
+          10
+        ]
+      },
+      "name": "wi_todos_cerrados",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {
+        "deployment": [
+          0,
+          10
+        ]
+      },
+      "name": "wi_etapa_sin_general",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          "04/11/26"
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "fin_hoy",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "2026-11-04",
+              "enCurso": false
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "2026-11-04",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "2026-11-04",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "2026-11-04",
+              "enCurso": false
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 96.6,
+          "current_stage_pct": 96.6
+        },
+        "progress": {
+          "pct": 96.6,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 96.6,
+            "current_stage_pct": 96.6
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 1.12,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          "03/11/26"
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "todos_cerrados",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "2026-11-03",
+              "enCurso": false
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "2026-11-03",
+              "estado": "Completado"
+            }
+          ],
+          "proximos": [],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "2026-11-03",
+              "enCurso": false
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 100,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": 100,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 100,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 1.16,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ],
+        [
+          "AMK.001_S1",
+          "Suspendido",
+          "01/11/26",
+          "03/11/26"
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "suspension_explicita",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": [
+            {
+              "fechaInicio": "2026-11-01",
+              "fechaFin": "2026-11-03"
+            }
+          ]
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [
+            {
+              "fechaInicio": "2026-11-01",
+              "fechaFin": "2026-11-03"
+            }
+          ],
+          "periodosSuspension": [
+            "2026-11-01"
+          ]
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Suspendido",
+        "general": [
+          "SUSPENDIDO",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ],
+        [
+          "AMK.001_S1",
+          "Suspendido",
+          "01/11/26",
+          "02/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "03/11/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Suspendido",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "reanudado",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-11-03",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": [
+            {
+              "fechaInicio": "2026-11-01",
+              "fechaFin": "2026-11-02"
+            }
+          ]
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-11-03",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-11-03",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-11-03",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [
+            {
+              "fechaInicio": "2026-11-01",
+              "fechaFin": "2026-11-02"
+            }
+          ],
+          "periodosSuspension": [
+            "2026-11-01"
+          ]
+        },
+        "estimate": {
+          "pct": 66.6,
+          "current_stage_pct": 18.7
+        },
+        "progress": {
+          "pct": 66.6,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 66.6,
+            "current_stage_pct": 18.7
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.77,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ],
+        [
+          "AMK.001_S1",
+          "Suspendido",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "mismo_dia_reanudacion",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": [
+            {
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "2026-10-21"
+            }
+          ]
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [
+            {
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "2026-10-21"
+            }
+          ],
+          "periodosSuspension": [
+            "2026-10-21"
+          ]
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ],
+        [
+          "AMK.001_S1",
+          "Suspendido",
+          "10/11/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "suspension_futura",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": [
+            {
+              "fechaInicio": "2026-11-10",
+              "fechaFin": "2026-11-10"
+            }
+          ]
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [
+            {
+              "fechaInicio": "2026-11-10",
+              "fechaFin": "2026-11-10"
+            }
+          ],
+          "periodosSuspension": [
+            "2026-11-10"
+          ]
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Completed",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        100,
+        180
+      ],
+      "work_items": {},
+      "name": "proyecto_cerrado",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 2.085747392815759
+        },
+        "status": "Completed",
+        "general": [
+          "CERRADO",
+          "gris"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        100,
+        101
+      ],
+      "work_items": {},
+      "name": "consumo_excedido",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 1.1703360370799536
+        },
+        "status": "Deployment",
+        "general": [
+          "EN RIESGO",
+          "rojo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "RaaS",
+        "Estado": "Discovery"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "sin_fechas",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": null,
+          "pace_index": null,
+          "consumption_index": null
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Bajo",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-12-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "fecha_invertida",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": null,
+          "pace_index": null,
+          "consumption_index": null
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-09-01T00:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "etapa_futura",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "En curso"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "En curso"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "En curso"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 0.0,
+          "current_stage_pct": 0.0
+        },
+        "progress": {
+          "pct": 0.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 0.0,
+            "current_stage_pct": 0.0
+          },
+          "elapsed_pct": 0.0,
+          "pace_index": null,
+          "consumption_index": null
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Bajo",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-12-01T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "etapa_vencida_abierta",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 100,
+          "current_stage_pct": 100
+        },
+        "progress": {
+          "pct": 100,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 100,
+            "current_stage_pct": 100
+          },
+          "elapsed_pct": 100.0,
+          "pace_index": 1.0,
+          "consumption_index": 0.8
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Alto",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "SaaS"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "sin_hitos_saas",
+      "expected": {
+        "stages": {
+          "milestones": [],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [],
+          "proximos": [],
+          "deliveryManager": "",
+          "servicio": "SaaS",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": null,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": null,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": null,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": null,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Sin hitos planificados"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "AER"
+      },
+      "project": {
+        "Servicio": "AER",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        60,
+        80
+      ],
+      "work_items": {},
+      "name": "aer_consumo",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "",
+          "servicio": "AER",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 60,
+          "uses_milestones": false,
+          "stage_progress": null,
+          "elapsed_pct": 86.3,
+          "pace_index": 0.93,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Consumo presupuestal"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "SaaS"
+      },
+      "project": {
+        "Servicio": "AER",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "servicio_historico_prioritario",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "",
+          "servicio": "SaaS",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "05/11/26",
+          "15/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "01/11/26",
+          "02/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "04/11/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "repeticion_plan_y_reales",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-11-05",
+              "fechaFinPlan": "2026-11-15"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-11-01",
+              "fechaFin": "2026-11-02",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-11-04",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            },
+            {
+              "orden": 4,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-11-05",
+              "fechaFinPlan": "2026-11-15",
+              "fechaInicioReal": "2026-11-04",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            },
+            {
+              "orden": 4,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-11-05",
+              "fechaFinPlan": "2026-11-15",
+              "fechaInicioReal": "2026-11-04",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-11-01",
+              "fechaFin": "2026-11-02",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-11-04",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 68.3,
+          "current_stage_pct": 4.1
+        },
+        "progress": {
+          "pct": 68.3,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 68.3,
+            "current_stage_pct": 4.1
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.79,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish",
+          "otra",
+          "Project ID",
+          "Status"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26",
+          "",
+          "OTRO",
+          "Closed"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26",
+          "",
+          "OTRO",
+          "Closed"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26",
+          "",
+          "OTRO",
+          "Closed"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26",
+          "",
+          "OTRO",
+          "Closed"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26",
+          "",
+          "OTRO",
+          "Closed"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          "",
+          "",
+          "OTRO",
+          "Closed"
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "fechas_fuera_bloque",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "filas_desordenadas",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 1,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.8,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "relleno"
+        ],
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "encabezado_tardio",
+      "expected": {
+        "stages": null,
+        "milestones": {
+          "servicio": "IXB",
+          "deliveryManager": "DM"
+        },
+        "estimate": {
+          "pct": null,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": null,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": null,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": null,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Sin hitos planificados"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Desconocido",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-10"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "estado_desconocido",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "",
+              "fechaFinReal": "",
+              "estado": "Pendiente"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 0.0,
+          "current_stage_pct": null
+        },
+        "progress": {
+          "pct": 0.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 0.0,
+            "current_stage_pct": null
+          },
+          "elapsed_pct": 86.3,
+          "pace_index": 0.0,
+          "consumption_index": 0.9269988412514485
+        },
+        "status": "Desconocido",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-06T00:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "AER"
+      },
+      "project": {
+        "Servicio": "AER",
+        "Estado": "Active",
+        "Fecha_Inicio": "2026-11-01",
+        "Fecha_Fin_Estimada": "2026-11-11"
+      },
+      "consumption": [
+        55,
+        55
+      ],
+      "work_items": {},
+      "name": "umbral_atencion",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "",
+          "servicio": "AER",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 76.1,
+          "current_stage_pct": 76.1
+        },
+        "progress": {
+          "pct": 55,
+          "uses_milestones": false,
+          "stage_progress": null,
+          "elapsed_pct": 50.0,
+          "pace_index": 1.1,
+          "consumption_index": 1.1
+        },
+        "status": "Deployment",
+        "general": [
+          "EN CONTROL",
+          "verde"
+        ],
+        "date_risk": "Medio",
+        "source": "Consumo presupuestal"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-06T00:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "AER"
+      },
+      "project": {
+        "Servicio": "AER",
+        "Estado": "Active",
+        "Fecha_Inicio": "2026-11-01",
+        "Fecha_Fin_Estimada": "2026-11-11"
+      },
+      "consumption": [
+        65,
+        65
+      ],
+      "work_items": {},
+      "name": "umbral_riesgo",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "",
+          "servicio": "AER",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 76.1,
+          "current_stage_pct": 76.1
+        },
+        "progress": {
+          "pct": 65,
+          "uses_milestones": false,
+          "stage_progress": null,
+          "elapsed_pct": 50.0,
+          "pace_index": 1.3,
+          "consumption_index": 1.3
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Consumo presupuestal"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-06T00:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "AER"
+      },
+      "project": {
+        "Servicio": "AER",
+        "Estado": "Active",
+        "Fecha_Inicio": "2026-11-01",
+        "Fecha_Fin_Estimada": "2026-11-11"
+      },
+      "consumption": [
+        65.1,
+        65.1
+      ],
+      "work_items": {},
+      "name": "sobre_umbral_riesgo",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "",
+          "servicio": "AER",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 76.1,
+          "current_stage_pct": 76.1
+        },
+        "progress": {
+          "pct": 65.1,
+          "uses_milestones": false,
+          "stage_progress": null,
+          "elapsed_pct": 50.0,
+          "pace_index": 1.3,
+          "consumption_index": 1.3019999999999998
+        },
+        "status": "Deployment",
+        "general": [
+          "EN RIESGO",
+          "rojo"
+        ],
+        "date_risk": "Medio",
+        "source": "Consumo presupuestal"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-19T12:00:00"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "salida_15_dias",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 69.7,
+          "pace_index": 0.99,
+          "consumption_index": 1.1477761836441893
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Medio",
+        "source": "Hitos y fechas de etapa"
+      }
+    },
+    {
+      "project_id": "AMK.001_S1",
+      "now": "2026-11-04T12:00:00",
+      "history": [
+        [
+          "Project ID",
+          "Status",
+          "Start",
+          "Finish"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery EST",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development EST",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment EST",
+          "21/10/26",
+          "10/11/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Discovery",
+          "01/10/26",
+          "03/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Development",
+          "04/10/26",
+          "20/10/26"
+        ],
+        [
+          "AMK.001_S1",
+          "Deployment",
+          "21/10/26",
+          ""
+        ]
+      ],
+      "previous": {
+        "servicio": "IXB",
+        "deliveryManager": "DM"
+      },
+      "project": {
+        "Servicio": "IXB",
+        "Estado": "Deployment",
+        "Fecha_Inicio": "2026-10-01",
+        "Fecha_Fin_Estimada": "2026-11-20T12:00:00"
+      },
+      "consumption": [
+        80,
+        80
+      ],
+      "work_items": {},
+      "name": "salida_16_dias",
+      "expected": {
+        "stages": {
+          "milestones": [
+            {
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03"
+            },
+            {
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20"
+            },
+            {
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10"
+            }
+          ],
+          "real_history": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensions": []
+        },
+        "milestones": {
+          "lista": [
+            {
+              "orden": 1,
+              "nombre": "Discovery",
+              "fechaInicioPlan": "2026-10-01",
+              "fechaFinPlan": "2026-10-03",
+              "fechaInicioReal": "2026-10-01",
+              "fechaFinReal": "2026-10-03",
+              "estado": "Completado"
+            },
+            {
+              "orden": 2,
+              "nombre": "Development",
+              "fechaInicioPlan": "2026-10-04",
+              "fechaFinPlan": "2026-10-20",
+              "fechaInicioReal": "2026-10-04",
+              "fechaFinReal": "2026-10-20",
+              "estado": "Completado"
+            },
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "proximos": [
+            {
+              "orden": 3,
+              "nombre": "Deployment",
+              "fechaInicioPlan": "2026-10-21",
+              "fechaFinPlan": "2026-11-10",
+              "fechaInicioReal": "2026-10-21",
+              "fechaFinReal": "",
+              "estado": "En curso"
+            }
+          ],
+          "deliveryManager": "DM",
+          "servicio": "IXB",
+          "historialCompleto": [
+            {
+              "fase": "Discovery",
+              "fechaInicio": "2026-10-01",
+              "fechaFin": "2026-10-03",
+              "enCurso": false
+            },
+            {
+              "fase": "Development",
+              "fechaInicio": "2026-10-04",
+              "fechaFin": "2026-10-20",
+              "enCurso": false
+            },
+            {
+              "fase": "Deployment",
+              "fechaInicio": "2026-10-21",
+              "fechaFin": "",
+              "enCurso": true
+            }
+          ],
+          "suspensiones": [],
+          "periodosSuspension": []
+        },
+        "estimate": {
+          "pct": 69.0,
+          "current_stage_pct": 69.0
+        },
+        "progress": {
+          "pct": 69.0,
+          "uses_milestones": true,
+          "stage_progress": {
+            "pct": 69.0,
+            "current_stage_pct": 69.0
+          },
+          "elapsed_pct": 68.3,
+          "pace_index": 1.01,
+          "consumption_index": 1.171303074670571
+        },
+        "status": "Deployment",
+        "general": [
+          "ATENCIÓN",
+          "amarillo"
+        ],
+        "date_risk": "Bajo",
+        "source": "Hitos y fechas de etapa"
+      }
+    }
+  ],
+  "days": [
+    {
+      "value": null,
+      "expected": null
+    },
+    {
+      "value": "",
+      "expected": null
+    },
+    {
+      "value": "invalida",
+      "expected": null
+    },
+    {
+      "value": "2026-02-31",
+      "expected": "2026-03-03T00:00:00"
+    },
+    {
+      "value": "2026-13-01",
+      "expected": "2027-01-01T00:00:00"
+    },
+    {
+      "value": "01/11/2026",
+      "expected": "2026-11-01T00:00:00"
+    },
+    {
+      "value": "2026-11-04T22:00:00Z",
+      "expected": "2026-11-04T00:00:00"
+    },
+    {
+      "value": false,
+      "expected": null
+    },
+    {
+      "value": 123,
+      "expected": null
+    },
+    {
+      "value": "0000-11-01",
+      "expected": null
+    }
+  ],
+  "items": [
+    {
+      "input": [
+        0,
+        0,
+        0
+      ],
+      "expected": null
+    },
+    {
+      "input": [
+        0,
+        10,
+        0
+      ],
+      "expected": 0.0
+    },
+    {
+      "input": [
+        3,
+        10,
+        0
+      ],
+      "expected": 30.0
+    },
+    {
+      "input": [
+        3,
+        10,
+        120
+      ],
+      "expected": 42.0
+    },
+    {
+      "input": [
+        10,
+        10,
+        0
+      ],
+      "expected": 100
+    },
+    {
+      "input": [
+        11,
+        10,
+        100
+      ],
+      "expected": 100
+    },
+    {
+      "input": [
+        1,
+        3,
+        0
+      ],
+      "expected": 33.3
+    },
+    {
+      "input": [
+        0,
+        -1,
+        0
+      ],
+      "expected": null
+    }
+  ]
+}
