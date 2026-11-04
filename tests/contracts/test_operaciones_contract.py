@@ -29,6 +29,7 @@ from apps.portal.services import (
     executive_operations,
     executive_period,
     executive_population,
+    facturability_loader,
 )
 from core.exceptions import DashboardError, SheetNotFoundError
 from core.sheets import store_read_cache
@@ -252,7 +253,25 @@ HISTORICO = [
     evento("IXB.SUS.001", "IXB", "Suspendido", "2026-03-01"),
     evento("AER.ACM.001", "AER", "Discovery", "2026-02-01", "2026-02-15"),
 ]
-HOJAS = {"MPB": 1, "Historico_Proyectos": 2}
+BANDAS = [
+    ["Nombre", "ROL", "ID Clockify", "Banda"],
+    ["Ana", "Desarrollo", "u-Ana", "B2"],
+    ["Beto", "Desarrollo", "u-Beto", "B1"],
+    ["Carla", "QA", "u-Carla", "B2"],
+]
+CATALOGO = [
+    ["", "Operación", "Tipo", "ID_Proyecto", "", "", "", "", "Servicio"],
+    ["", "Desarrollo", "Facturable", "AER.ACM.001", "", "", "", "", "AER"],
+    ["", "Desarrollo", "Facturable", "TYM.BET.001", "", "", "", "", "TYM"],
+    ["", "Desarrollo", "Facturable", "IXB.FOX.001", "", "", "", "", "IXB"],
+    ["", "Desarrollo", "Facturable", "RAAS.GAM.001", "", "", "", "", "RAAS"],
+]
+HOJAS = {
+    "MPB": 1,
+    "Historico_Proyectos": 2,
+    "Bandas/rol": 3,
+    "CatalagoProyectos": 4,
+}
 PERIODOS = {
     "predeterminado": None,
     "octubre": {"periodo": "mes", "anio": "2026", "mes": "10"},
@@ -302,11 +321,14 @@ def escenario(monkeypatch, settings):
     monkeypatch.setattr("django.utils.timezone.localdate", lambda *a: HOY)
     monkeypatch.setattr(executive_population, "build_sheet_repository", Lector)
     monkeypatch.setattr(executive_operations, "build_sheet_repository", Lector)
+    monkeypatch.setattr(facturability_loader, "build_sheet_repository", Lector)
     settings.CLOCKIFY_STORE_ENABLED = True
     settings.CLOCKIFY_API_KEY = "contrato"
     settings.CLOCKIFY_WORKSPACE_ID = ESPACIO
     guardar_hoja("MPB", MPB)
     guardar_hoja("Historico_Proyectos", HISTORICO)
+    guardar_hoja("Bandas/rol", BANDAS)
+    guardar_hoja("CatalagoProyectos", CATALOGO)
     guardar_hoja(store_read_cache.SHEET_IDS_NAME, HOJAS)
     catalogo = ClockifyCatalog.objects.create(
         workspace_id=ESPACIO, synced_at=MOMENTO
@@ -367,6 +389,26 @@ def cuerpo() -> dict:
     return {nombre: poblacion(periodo) for nombre, periodo in PERIODOS.items()}
 
 
+def calcular_resumen() -> dict:
+    cache.clear()
+    for proyecto in executive_population.population(Lector()):
+        try:
+            executive_operations.calculate_burn(proyecto["id"])
+        except DashboardError:
+            continue
+    executive_operations.global_facturability(prepare=True)
+    return plain(executive_operations.operations_summary())
+
+
+def resumen() -> dict:
+    parcial = calcular_resumen()
+    catalogo = ClockifyCatalog.objects.get(workspace_id=ESPACIO)
+    ClockifyProjectRecord.objects.create(
+        catalog=catalogo, external_id="p-sus", name="IXB.SUS.001", position=9
+    )
+    return {"parcial": parcial, "completo": calcular_resumen()}
+
+
 def consumo() -> dict:
     cache.clear()
     resultado = {}
@@ -405,6 +447,28 @@ def test_el_consumo_por_proyecto_coincide_con_el_contrato(escenario):
     actual = normalizar(consumo())
 
     assert actual == guardar_o_leer(CARPETA / "consumo.json", actual)
+
+
+def test_el_resumen_de_operaciones_coincide_con_el_contrato(escenario):
+    actual = normalizar(resumen())
+
+    assert actual == guardar_o_leer(CARPETA / "resumen.json", actual)
+
+
+def test_el_resumen_cubre_presupuesto_consumo_y_facturabilidad_global(
+    escenario,
+):
+    datos = resumen()
+    parcial, completo = datos["parcial"], datos["completo"]
+
+    assert parcial["partial"] is True
+    assert parcial["pending_ids"] == ["IXB.SUS.001"]
+    assert parcial["investment_operational"] is None
+    assert completo["partial"] is False
+    assert completo["pending_ids"] == []
+    assert completo["facturability_capacity"] > 0
+    assert completo["investment_operational"] is not None
+    assert completo["fte"] is not None
 
 
 def test_el_escenario_cubre_las_ramas_del_consumo(escenario):
