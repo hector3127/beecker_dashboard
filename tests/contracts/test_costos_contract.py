@@ -26,8 +26,9 @@ from apps.datastore.models import (
     SyncRun,
 )
 from apps.datastore.services.genesis_export import export_tables, resolve_models
+from apps.ejecutivo.services.account_view import account_matches
 from apps.portal.api.plain import plain
-from apps.portal.services import revenue_costs
+from apps.portal.services import opportunity_profitability, revenue_costs
 from apps.portal.services.project_profitability import add_project_revenue
 from core.exceptions import DashboardError, SheetNotFoundError
 from core.sheets import store_read_cache
@@ -49,23 +50,115 @@ TABLAS = [
 ESPACIO = "ws-contrato"
 
 
-def datos_revenue(cuenta, identificador, fecha, estado="Confirmed", monto=""):
-    return [estado, cuenta, "", "", identificador, "", fecha, monto]
+def datos_revenue(
+    cuenta,
+    identificador,
+    fecha,
+    estado="Confirmed",
+    monto="",
+    oportunidad="",
+    servicio="AER",
+    margen="",
+):
+    return [
+        estado,
+        cuenta,
+        oportunidad,
+        servicio,
+        identificador,
+        "",
+        fecha,
+        monto,
+        margen,
+    ]
 
 
 DATA_REVENUE = [
-    ["Estado", "Cuenta", "", "", "ID", "", "Fecha", "Monto"],
-    datos_revenue("Acme", "AER.ACM.001", "2026-02-10", monto=5000),
+    [
+        "Estado",
+        "Cuenta",
+        "Oportunidad",
+        "Servicio",
+        "ID",
+        "",
+        "Fecha",
+        "Monto",
+        "Margen",
+    ],
     datos_revenue(
-        "Acme", "AER.ACM.001_S1", "2026-03-10", "Invoiced", "$1,250.50"
+        "Acme",
+        "AER.ACM.001",
+        "2026-02-10",
+        monto=5000,
+        oportunidad="Portal",
+        margen=0.6,
     ),
-    datos_revenue("Acme", "AER.ACM.002", "2026-02-10", "Collected", 800),
-    datos_revenue("Acme", "AER.ACM.002.03", "2026-03-10", "Pending", 100),
-    datos_revenue("Beta", "TYM.BET.001", "2026-04-10", monto=300),
-    datos_revenue("Beta", "TYM.BET.001", "2026-05-10", monto="abc"),
-    datos_revenue("Beta", "AER.BET.003.12", "2026-12-10", monto=900),
-    datos_revenue("Beta", "Total", "2026-04-10", monto=999),
-    datos_revenue("Cielo", "ROC.CIE.001", "2025-04-10", monto=50),
+    datos_revenue(
+        "Acme",
+        "AER.ACM.001_S1",
+        "2026-03-10",
+        "Invoiced",
+        "$1,250.50",
+        "Portal",
+        margen=0.6,
+    ),
+    datos_revenue(
+        "Acme",
+        "AER.ACM.002",
+        "2026-02-10",
+        "Collected",
+        800,
+        "Mantenimiento",
+        margen="50%",
+    ),
+    datos_revenue(
+        "Acme",
+        "AER.ACM.002",
+        "2026-03-11",
+        "Invoiced factoring",
+        200,
+        "Otra",
+        margen=0.3,
+    ),
+    datos_revenue(
+        "Acme", "AER.ACM.002.03", "2026-03-10", "Pending", 100, "Mantenimiento"
+    ),
+    datos_revenue(
+        "Beta",
+        "TYM.BET.001",
+        "2026-04-10",
+        monto=300,
+        oportunidad="Bolsa",
+        margen=0.4,
+    ),
+    datos_revenue(
+        "Beta", "TYM.BET.001", "2026-05-10", monto="abc", oportunidad="Bolsa"
+    ),
+    datos_revenue(
+        "Beta",
+        "TYM.BET.001",
+        "2026-06-10",
+        monto=100,
+        oportunidad="Lic",
+        servicio="Licencias",
+    ),
+    datos_revenue(
+        "Beta",
+        "AER.BET.003.12",
+        "2026-12-10",
+        monto=900,
+        oportunidad="Bolsa",
+        margen=0.4,
+    ),
+    datos_revenue(
+        "Beta", "Total", "2026-04-10", monto=999, oportunidad="Bolsa"
+    ),
+    datos_revenue(
+        "Cielo", "ROC.CIE.001", "2025-04-10", monto=50, oportunidad="Vieja"
+    ),
+    datos_revenue(
+        "Fox", "IXB.FOX.001", "2026-09-10", monto=700, servicio="IXB"
+    ),
 ]
 
 
@@ -272,6 +365,32 @@ def escenario(monkeypatch, settings):
         )
 
 
+def margenes(lector) -> dict:
+    datos = opportunity_profitability.build_opportunities(lector)
+    resultado = {}
+    for nombre, cuenta in (("todas", ""), ("acme", "Acme")):
+        filas = [
+            fila
+            for fila in datos["opportunities"]
+            if not cuenta or account_matches(fila["account"], cuenta)
+        ]
+        resultado[nombre] = plain(
+            {
+                "opportunities": filas,
+                "accounts": [
+                    a
+                    for a in datos["accounts"]
+                    if a["account"] in {f["account"] for f in filas}
+                ],
+                "summary": opportunity_profitability.opportunity_summary(filas),
+                "start": datos["start"],
+                "end": datos["end"],
+                "excluded": datos["excluded"],
+            }
+        )
+    return resultado
+
+
 def cuerpo() -> dict:
     lector = Lector()
     identificadores = revenue_costs.project_ids(lector)
@@ -288,6 +407,7 @@ def cuerpo() -> dict:
                 if isinstance(error, DashboardError)
                 else str(error)
             )
+            cache.set(revenue_costs.key(identificador) + ":error", mensaje, 300)
             proyectos[identificador] = {"error": mensaje}
     return {
         "ids": identificadores,
@@ -302,6 +422,7 @@ def cuerpo() -> dict:
             identificador: revenue_costs.future_project_month(identificador)
             for identificador in identificadores
         },
+        "margenes": margenes(lector),
         "pantalla": {
             "todas": plain(
                 add_project_revenue(
