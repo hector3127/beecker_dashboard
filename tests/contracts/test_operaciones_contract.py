@@ -15,11 +15,22 @@ from pathlib import Path
 import pytest
 from django.core.cache import cache
 
-from apps.datastore.models import SheetSnapshot
+from apps.datastore.models import (
+    ClockifyCatalog,
+    ClockifyMonthSync,
+    ClockifyProjectRecord,
+    ClockifyTimeEntry,
+    SheetSnapshot,
+    SyncRun,
+)
 from apps.datastore.services.genesis_export import export_tables, resolve_models
 from apps.portal.api.plain import plain
-from apps.portal.services import executive_period, executive_population
-from core.exceptions import SheetNotFoundError
+from apps.portal.services import (
+    executive_operations,
+    executive_period,
+    executive_population,
+)
+from core.exceptions import DashboardError, SheetNotFoundError
 from core.sheets import store_read_cache
 
 pytestmark = pytest.mark.django_db
@@ -29,7 +40,72 @@ PAQUETE = CARPETA / "export"
 HOY = date(2026, 10, 14)
 MOMENTO = datetime(2026, 10, 14, 17, 0, tzinfo=UTC)
 FUENTE = {"engine": "contrato", "app": "dashboard-management"}
-TABLAS = ["datastore.SheetSnapshot"]
+TABLAS = [
+    "datastore.SheetSnapshot",
+    "datastore.ClockifyCatalog",
+    "datastore.ClockifyProjectRecord",
+    "datastore.ClockifyMonthSync",
+    "datastore.ClockifyTimeEntry",
+]
+ESPACIO = "ws-contrato"
+PROYECTOS_CLOCKIFY = [
+    ("p-acm", "AER.ACM.001"),
+    ("p-bet", "TYM.BET.001"),
+    ("p-fox", "IXB.FOX.001"),
+    ("p-gam", "RAAS.GAM.001"),
+    ("p-can", "IXB.CAN.001"),
+]
+REGISTROS = [
+    ("p-acm", "Ana", "General", [], True, date(2026, 5, 20), 5.0),
+    ("p-acm", "Ana", "General", [], False, date(2026, 6, 10), 2.5),
+    (
+        "p-acm",
+        "Beto",
+        "Sprint _S1",
+        ["INV_OPERATIVA"],
+        True,
+        date(2026, 9, 2),
+        3.25,
+    ),
+    ("p-bet", "Ana", "General", [], True, date(2026, 9, 15), 4.0),
+    (
+        "p-bet",
+        "Carla",
+        "General",
+        ["INV_COMERCIAL"],
+        False,
+        date(2026, 10, 1),
+        1.5,
+    ),
+    ("p-fox", "Ana", "General", [], True, date(2026, 3, 10), 6.0),
+    ("p-fox", "Ana", "S2 trabajo", [], True, date(2026, 4, 10), 4.0),
+    ("p-fox", "Beto", "General", ["S1"], True, date(2026, 5, 4), 2.5),
+    ("p-fox", "Beto", "General", ["CR1"], True, date(2026, 5, 5), 1.0),
+    (
+        "p-fox",
+        "Carla",
+        "General",
+        ["INV_OPERATIVA"],
+        True,
+        date(2026, 6, 5),
+        3.0,
+    ),
+    ("p-fox", "Carla", "General", [], False, date(2026, 6, 6), 8.0),
+    ("p-fox", "Ana", "General", [], True, date(2026, 2, 1), 9.0),
+    ("p-fox", "Ana", "General", [], True, date(2026, 9, 1), 7.0),
+    ("p-gam", "Ana", "General", [], True, date(2026, 8, 20), 6.5),
+    (
+        "p-gam",
+        "Beto",
+        "General",
+        ["INV_OPERATIVA"],
+        True,
+        date(2026, 10, 5),
+        2.0,
+    ),
+    ("p-can", "Ana", "General", [], True, date(2026, 1, 20), 3.0),
+]
+MESES_SINCRONIZADOS = tuple(range(1, 11))
 POSICIONES = {
     "cliente": 1,
     "id": 2,
@@ -225,9 +301,58 @@ def escenario(monkeypatch, settings):
     store_read_cache._memory.clear()
     monkeypatch.setattr("django.utils.timezone.localdate", lambda *a: HOY)
     monkeypatch.setattr(executive_population, "build_sheet_repository", Lector)
+    monkeypatch.setattr(executive_operations, "build_sheet_repository", Lector)
+    settings.CLOCKIFY_STORE_ENABLED = True
+    settings.CLOCKIFY_API_KEY = "contrato"
+    settings.CLOCKIFY_WORKSPACE_ID = ESPACIO
     guardar_hoja("MPB", MPB)
     guardar_hoja("Historico_Proyectos", HISTORICO)
     guardar_hoja(store_read_cache.SHEET_IDS_NAME, HOJAS)
+    catalogo = ClockifyCatalog.objects.create(
+        workspace_id=ESPACIO, synced_at=MOMENTO
+    )
+    for posicion, (identificador, nombre) in enumerate(PROYECTOS_CLOCKIFY):
+        ClockifyProjectRecord.objects.create(
+            catalog=catalogo,
+            external_id=identificador,
+            name=nombre,
+            client_id="",
+            position=posicion,
+        )
+    for mes in MESES_SINCRONIZADOS:
+        corrida = SyncRun.objects.create(kind="daily", status="ok")
+        ClockifyMonthSync.objects.create(
+            month=date(2026, mes, 1),
+            entries_count=1,
+            total_seconds=1,
+            synced_at=MOMENTO,
+            run_id=corrida.pk,
+        )
+    nombres = dict(PROYECTOS_CLOCKIFY)
+    for indice, (
+        proyecto,
+        persona,
+        tarea,
+        etiquetas,
+        facturable,
+        dia,
+        horas,
+    ) in enumerate(REGISTROS, 1):
+        ClockifyTimeEntry.objects.create(
+            entry_id=f"e{indice:03d}",
+            project_id=proyecto,
+            project_name=nombres[proyecto],
+            task_name=tarea,
+            user_id=f"u-{persona}",
+            user_name=persona,
+            tags=etiquetas,
+            billable=facturable,
+            start=f"{dia.isoformat()}T15:00:00Z",
+            end=f"{dia.isoformat()}T16:00:00Z",
+            entry_date=dia,
+            month=dia.replace(day=1),
+            duration_seconds=int(horas * 3600),
+        )
 
 
 def poblacion(periodo):
@@ -240,6 +365,19 @@ def poblacion(periodo):
 
 def cuerpo() -> dict:
     return {nombre: poblacion(periodo) for nombre, periodo in PERIODOS.items()}
+
+
+def consumo() -> dict:
+    cache.clear()
+    resultado = {}
+    for proyecto in executive_population.population(Lector()):
+        try:
+            resultado[proyecto["id"]] = plain(
+                executive_operations.calculate_burn(proyecto["id"])
+            )
+        except DashboardError as error:
+            resultado[proyecto["id"]] = {"error": error.detail}
+    return resultado
 
 
 def normalizar(valor: object) -> object:
@@ -261,6 +399,26 @@ def test_la_poblacion_leida_de_las_hojas_coincide_con_el_contrato(escenario):
     actual = normalizar(cuerpo())
 
     assert actual == guardar_o_leer(CARPETA / "poblacion.json", actual)
+
+
+def test_el_consumo_por_proyecto_coincide_con_el_contrato(escenario):
+    actual = normalizar(consumo())
+
+    assert actual == guardar_o_leer(CARPETA / "consumo.json", actual)
+
+
+def test_el_escenario_cubre_las_ramas_del_consumo(escenario):
+    casos = consumo()
+
+    assert casos["IXB.FOX.001"]["burn"] == 11.5
+    assert casos["AER.ACM.001"]["burn"] == 5.75
+    assert "error" in casos["IXB.SUS.001"]
+    operativas = [
+        e
+        for e in casos["IXB.FOX.001"]["metric_entries"].values()
+        if e["operational"]
+    ]
+    assert len(operativas) == 1
 
 
 def test_el_escenario_cubre_las_ramas_de_la_poblacion(escenario):

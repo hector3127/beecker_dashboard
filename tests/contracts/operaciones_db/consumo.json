@@ -1,0 +1,100 @@
+{
+  "AER.ACM.001": {
+    "burn": 5.75,
+    "id": "AER.ACM.001",
+    "metric_entries": {
+      "e002": {
+        "billable": false,
+        "hours": 2.5,
+        "operational": false
+      },
+      "e003": {
+        "billable": true,
+        "hours": 3.25,
+        "operational": true
+      }
+    }
+  },
+  "IXB.CAN.001": {
+    "burn": 3.0,
+    "id": "IXB.CAN.001",
+    "metric_entries": {
+      "e016": {
+        "billable": true,
+        "hours": 3.0,
+        "operational": false
+      }
+    }
+  },
+  "IXB.FOX.001": {
+    "burn": 11.5,
+    "id": "IXB.FOX.001",
+    "metric_entries": {
+      "e006": {
+        "billable": true,
+        "hours": 6.0,
+        "operational": false
+      },
+      "e007": {
+        "billable": true,
+        "hours": 4.0,
+        "operational": false
+      },
+      "e008": {
+        "billable": true,
+        "hours": 2.5,
+        "operational": false
+      },
+      "e009": {
+        "billable": true,
+        "hours": 1.0,
+        "operational": false
+      },
+      "e010": {
+        "billable": true,
+        "hours": 3.0,
+        "operational": true
+      },
+      "e011": {
+        "billable": false,
+        "hours": 8.0,
+        "operational": false
+      }
+    }
+  },
+  "IXB.SUS.001": {
+    "error": "No se encontro una coincidencia unica para IXB.SUS.001 en Clockify. Vinculalo en la hoja Clockify_Vinculos."
+  },
+  "RAAS.GAM.001": {
+    "burn": 8.5,
+    "id": "RAAS.GAM.001",
+    "metric_entries": {
+      "e014": {
+        "billable": true,
+        "hours": 6.5,
+        "operational": false
+      },
+      "e015": {
+        "billable": true,
+        "hours": 2.0,
+        "operational": true
+      }
+    }
+  },
+  "TYM.BET.001": {
+    "burn": 5.5,
+    "id": "TYM.BET.001",
+    "metric_entries": {
+      "e004": {
+        "billable": true,
+        "hours": 4.0,
+        "operational": false
+      },
+      "e005": {
+        "billable": false,
+        "hours": 1.5,
+        "operational": false
+      }
+    }
+  }
+}

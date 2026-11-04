@@ -40,6 +40,203 @@
       "pk": "id",
       "rows": 3,
       "sha256": "0e870c66cdeafc5a9a5bc5fe17e3eb31e2afac3edc8f1f28af197aeb47606536"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "workspace_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_clockifycatalog",
+      "file": "datastore.ClockifyCatalog.jsonl",
+      "label": "datastore.ClockifyCatalog",
+      "pk": "id",
+      "rows": 1,
+      "sha256": "a968a8147d99152d820debbf4bb81e798bbb7bf22de3f2934e44eac109a8318e"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "catalog_id",
+          "null": false,
+          "to": "datastore.ClockifyCatalog",
+          "type": "ForeignKey"
+        },
+        {
+          "name": "external_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "client_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "position",
+          "null": false,
+          "type": "PositiveIntegerField"
+        },
+        {
+          "name": "tasks_synced_at",
+          "null": true,
+          "type": "DateTimeField"
+        }
+      ],
+      "db_table": "datastore_clockifyprojectrecord",
+      "file": "datastore.ClockifyProjectRecord.jsonl",
+      "label": "datastore.ClockifyProjectRecord",
+      "pk": "id",
+      "rows": 5,
+      "sha256": "c582fd414c8ab999e173e5b1c0e6e460951cdc8c9f6d4aa3460b7bea44132cbb"
+    },
+    {
+      "columns": [
+        {
+          "name": "id",
+          "null": false,
+          "type": "BigAutoField"
+        },
+        {
+          "name": "month",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "entries_count",
+          "null": false,
+          "type": "IntegerField"
+        },
+        {
+          "name": "total_seconds",
+          "null": false,
+          "type": "BigIntegerField"
+        },
+        {
+          "name": "synced_at",
+          "null": false,
+          "type": "DateTimeField"
+        },
+        {
+          "name": "run_id",
+          "null": false,
+          "to": "datastore.SyncRun",
+          "type": "ForeignKey"
+        }
+      ],
+      "db_table": "datastore_clockifymonthsync",
+      "file": "datastore.ClockifyMonthSync.jsonl",
+      "label": "datastore.ClockifyMonthSync",
+      "pk": "id",
+      "rows": 10,
+      "sha256": "f34228921a2e5c357e2107b854d5430d468547ed2185b17e9f73085a1b5aa1ec"
+    },
+    {
+      "columns": [
+        {
+          "name": "entry_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "project_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "project_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "task_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "task_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "user_id",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "user_name",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "tags",
+          "null": false,
+          "type": "JSONField"
+        },
+        {
+          "name": "description",
+          "null": false,
+          "type": "TextField"
+        },
+        {
+          "name": "billable",
+          "null": false,
+          "type": "BooleanField"
+        },
+        {
+          "name": "start",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "end",
+          "null": false,
+          "type": "CharField"
+        },
+        {
+          "name": "entry_date",
+          "null": true,
+          "type": "DateField"
+        },
+        {
+          "name": "month",
+          "null": false,
+          "type": "DateField"
+        },
+        {
+          "name": "duration_seconds",
+          "null": false,
+          "type": "IntegerField"
+        }
+      ],
+      "db_table": "datastore_clockifytimeentry",
+      "file": "datastore.ClockifyTimeEntry.jsonl",
+      "label": "datastore.ClockifyTimeEntry",
+      "pk": "entry_id",
+      "rows": 16,
+      "sha256": "627ca4192f866b6d4b5dae757f5b0a9fa0379ce5ba73d9e1a98673e0a54d734c"
     }
   ]
 }
