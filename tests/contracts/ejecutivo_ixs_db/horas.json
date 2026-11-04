@@ -1,0 +1,5024 @@
+{
+  "filters": [
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "s1",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "task_s1",
+          "tag_s1",
+          "sin",
+          "coinciden",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S2",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "s2",
+      "expected": {
+        "nomenclature": "S2",
+        "entries": [
+          "task_s2",
+          "tag_s2",
+          "sin",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_CR1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "cr1",
+      "expected": {
+        "nomenclature": "CR1",
+        "entries": [
+          "sin",
+          "cr1",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_CR",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "cr",
+      "expected": {
+        "nomenclature": "CR",
+        "entries": [
+          "sin",
+          "cr",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "sin_sufijo",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "task_s1",
+          "tag_s1",
+          "sin",
+          "coinciden",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_CR1_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "compuesto",
+      "expected": {
+        "nomenclature": "CR1_S1",
+        "entries": [
+          "sin",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "sin_ficha",
+      "expected": {
+        "nomenclature": "",
+        "entries": [
+          "task_s1",
+          "task_s2",
+          "tag_s1",
+          "tag_s2",
+          "sin",
+          "contradiccion",
+          "coinciden",
+          "cr1",
+          "cr2",
+          "cr",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "OTRO_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "otro_id_base",
+      "expected": {
+        "nomenclature": "",
+        "entries": [
+          "task_s1",
+          "task_s2",
+          "tag_s1",
+          "tag_s2",
+          "sin",
+          "contradiccion",
+          "coinciden",
+          "cr1",
+          "cr2",
+          "cr",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "amk.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "base_case_sensitive",
+      "expected": {
+        "nomenclature": "",
+        "entries": [
+          "task_s1",
+          "task_s2",
+          "tag_s1",
+          "tag_s2",
+          "sin",
+          "contradiccion",
+          "coinciden",
+          "cr1",
+          "cr2",
+          "cr",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": " AMK.001_S2 ",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "id_con_espacios",
+      "expected": {
+        "nomenclature": "S2",
+        "entries": [
+          "task_s2",
+          "tag_s2",
+          "sin",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001",
+          "Service": "RaaS"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "RaaS",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "task_s1",
+          "tag_s1",
+          "sin",
+          "coinciden",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001",
+          "Service": "RaaS+"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "RaaS+",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "task_s1",
+          "tag_s1",
+          "sin",
+          "coinciden",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001",
+          "Service": "SaaS"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "SaaS",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "task_s1",
+          "tag_s1",
+          "sin",
+          "coinciden",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001",
+          "Service": "PoC"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "PoC",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "task_s1",
+          "tag_s1",
+          "sin",
+          "coinciden",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001",
+          "Service": "IXB Y RAAS"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "IXB Y RAAS",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "task_s1",
+          "tag_s1",
+          "sin",
+          "coinciden",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001",
+          "Service": "AER"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "AER",
+      "expected": {
+        "nomenclature": "",
+        "entries": [
+          "task_s1",
+          "task_s2",
+          "tag_s1",
+          "tag_s2",
+          "sin",
+          "contradiccion",
+          "coinciden",
+          "cr1",
+          "cr2",
+          "cr",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001",
+          "Service": "T&M"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "T&M",
+      "expected": {
+        "nomenclature": "",
+        "entries": [
+          "task_s1",
+          "task_s2",
+          "tag_s1",
+          "tag_s2",
+          "sin",
+          "contradiccion",
+          "coinciden",
+          "cr1",
+          "cr2",
+          "cr",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001",
+          "Service": "Desconocido"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "Desconocido",
+      "expected": {
+        "nomenclature": "",
+        "entries": [
+          "task_s1",
+          "task_s2",
+          "tag_s1",
+          "tag_s2",
+          "sin",
+          "contradiccion",
+          "coinciden",
+          "cr1",
+          "cr2",
+          "cr",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001",
+          " servício ": "raas"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "columna_flexible",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "task_s1",
+          "tag_s1",
+          "sin",
+          "coinciden",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S9",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "coincidencia_en_otro_sprint",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "task_s1",
+          "tag_s1",
+          "sin",
+          "coinciden",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "task_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Análisis S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "task_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "Desarrollo S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "tag_s2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "contradiccion",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S2"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "coinciden",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "S1",
+            "General"
+          ],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr1",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr2",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [
+            "CR2"
+          ],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "cr",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "CR",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "no_facturable",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": false,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "varios_en_tarea",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1 / S2",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre_taskid",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "",
+          "task_id": "t1",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "vacio",
+      "expected": {
+        "nomenclature": "",
+        "entries": [
+          "task_s1",
+          "task_s2",
+          "tag_s1",
+          "tag_s2",
+          "sin",
+          "contradiccion",
+          "coinciden",
+          "cr1",
+          "cr2",
+          "cr",
+          "no_facturable",
+          "varios_en_tarea",
+          "sin_nombre_taskid"
+        ]
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [],
+      "name": "sin_entradas",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": []
+      }
+    },
+    {
+      "id": "AMK.001_S1",
+      "projects": [
+        {
+          "ID_Proyecto": "AMK.001_S1",
+          "Servicio": "IXB"
+        }
+      ],
+      "entries": [
+        {
+          "entry_id": "igual",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "igual",
+          "project_id": "AMK.001_S1",
+          "resource_name": "Ana",
+          "entry_date": "2026-11-03T00:00:00",
+          "duration_hours": 20,
+          "is_billable": true,
+          "costing_rate": 25,
+          "description": "S2 CR2 en descripción ignorada",
+          "tags": [],
+          "task_name": "S1",
+          "task_id": "",
+          "started_at": "2026-11-03T09:00:00",
+          "ended_at": null
+        }
+      ],
+      "name": "sin_deduplicar",
+      "expected": {
+        "nomenclature": "S1",
+        "entries": [
+          "igual",
+          "igual"
+        ]
+      }
+    }
+  ],
+  "text": [
+    {
+      "input": "S1",
+      "expected": "S1"
+    },
+    {
+      "input": " s2 ",
+      "expected": "S2"
+    },
+    {
+      "input": "Desarrollo / CR2",
+      "expected": "CR2"
+    },
+    {
+      "input": "CR",
+      "expected": "CR"
+    },
+    {
+      "input": "CR1 / S2",
+      "expected": "CR1"
+    },
+    {
+      "input": "S1 / S2",
+      "expected": "S1"
+    },
+    {
+      "input": "XS1",
+      "expected": ""
+    },
+    {
+      "input": "CR10",
+      "expected": "CR10"
+    },
+    {
+      "input": "Sprint 1",
+      "expected": ""
+    },
+    {
+      "input": "S001",
+      "expected": "S001"
+    },
+    {
+      "input": "CR0",
+      "expected": "CR0"
+    },
+    {
+      "input": "S1_Desarrollo",
+      "expected": "S1"
+    },
+    {
+      "input": "",
+      "expected": ""
+    },
+    {
+      "input": "S1S2",
+      "expected": ""
+    },
+    {
+      "input": "x-CR2-y",
+      "expected": "CR2"
+    },
+    {
+      "input": "S1,CR2",
+      "expected": "S1"
+    },
+    {
+      "input": "S1::S2",
+      "expected": "S1"
+    }
+  ],
+  "ids": [
+    {
+      "input": "AMK.001",
+      "expected": "S1"
+    },
+    {
+      "input": " AMK.001_S2 ",
+      "expected": "S2"
+    },
+    {
+      "input": "AMK.001_CR",
+      "expected": "CR"
+    },
+    {
+      "input": "AMK.001_CR1_S1",
+      "expected": "CR1_S1"
+    },
+    {
+      "input": "AMK.001_",
+      "expected": "S1"
+    },
+    {
+      "input": "AMK.001-CR2",
+      "expected": "S1"
+    },
+    {
+      "input": "AMK.001_s01",
+      "expected": "S01"
+    },
+    {
+      "input": "AMK.001__S1",
+      "expected": "_S1"
+    },
+    {
+      "input": "",
+      "expected": "S1"
+    }
+  ]
+}
