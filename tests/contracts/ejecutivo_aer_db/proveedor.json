@@ -1,0 +1,543 @@
+{
+  "matches": [
+    {
+      "name": "exacto",
+      "id": "AER.DEMO.001",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": false,
+      "expected": "p1"
+    },
+    {
+      "name": "manual_prioritario",
+      "id": "AER.DEMO.001",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001",
+          "client_id": ""
+        },
+        {
+          "project_id": "p2",
+          "name": "Otro",
+          "client_id": ""
+        }
+      ],
+      "links": {
+        "AER.DEMO.001": "p2"
+      },
+      "strict": false,
+      "expected": "p2"
+    },
+    {
+      "name": "manual_inexistente",
+      "id": "AER.DEMO.001",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001",
+          "client_id": ""
+        }
+      ],
+      "links": {
+        "AER.DEMO.001": "noexiste"
+      },
+      "strict": false,
+      "expected": null
+    },
+    {
+      "name": "vinculo_base",
+      "id": "AER.DEMO.001_CR1",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001",
+          "client_id": ""
+        },
+        {
+          "project_id": "p2",
+          "name": "Otro",
+          "client_id": ""
+        }
+      ],
+      "links": {
+        "AER.DEMO.001": "p2"
+      },
+      "strict": false,
+      "expected": "p2"
+    },
+    {
+      "name": "variantes",
+      "id": "AER.DEMO.001_CR1",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001 - CR1",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": false,
+      "expected": "p1"
+    },
+    {
+      "name": "variantes_ambiguas",
+      "id": "AER.DEMO.001_CR1",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001 - CR1",
+          "client_id": ""
+        },
+        {
+          "project_id": "p2",
+          "name": "AER.DEMO.001 | CR1",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": false,
+      "expected": null
+    },
+    {
+      "name": "base",
+      "id": "AER.DEMO.001_CR1",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": false,
+      "expected": "p1"
+    },
+    {
+      "name": "contiene_unico",
+      "id": "AER.DEMO.001",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "Soporte AER.DEMO.001 actualizado",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": false,
+      "expected": "p1"
+    },
+    {
+      "name": "contiene_ambiguo",
+      "id": "AER.DEMO.001",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "Soporte AER.DEMO.001",
+          "client_id": ""
+        },
+        {
+          "project_id": "p2",
+          "name": "Otro AER.DEMO.001",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": false,
+      "expected": null
+    },
+    {
+      "name": "limites_id",
+      "id": "AER.DEMO.001",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.0010",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": false,
+      "expected": null
+    },
+    {
+      "name": "sin_catalogo",
+      "id": "AER.DEMO.001",
+      "projects": [],
+      "links": {},
+      "strict": false,
+      "expected": null
+    },
+    {
+      "name": "estricto_ignora_manual",
+      "id": "AER.DEMO.001",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001",
+          "client_id": ""
+        },
+        {
+          "project_id": "p2",
+          "name": "Otro",
+          "client_id": ""
+        }
+      ],
+      "links": {
+        "AER.DEMO.001": "p2"
+      },
+      "strict": true,
+      "expected": "p1"
+    },
+    {
+      "name": "estricto_prefijo",
+      "id": "AER.DEMO.001",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001 - Soporte",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": true,
+      "expected": "p1"
+    },
+    {
+      "name": "estricto_ambiguo",
+      "id": "AER.DEMO.001",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001 - Uno",
+          "client_id": ""
+        },
+        {
+          "project_id": "p2",
+          "name": "AER.DEMO.001 - Dos",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": true,
+      "expected": null
+    },
+    {
+      "name": "estricto_cr_base",
+      "id": "AER.DEMO.001_CR1",
+      "projects": [
+        {
+          "project_id": "p1",
+          "name": "AER.DEMO.001",
+          "client_id": ""
+        }
+      ],
+      "links": {},
+      "strict": true,
+      "expected": "p1"
+    }
+  ],
+  "scopes": [
+    {
+      "name": "cr_compartido",
+      "scope": "CR1",
+      "rows": [
+        {
+          "id": "cr1",
+          "taskName": "Tarea CR1",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "cr2",
+          "taskName": "Tarea CR2",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "mixto",
+          "taskName": "CR1 / CR2",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "sin",
+          "taskName": "",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "sin_nombre",
+          "taskName": "",
+          "taskId": "t1",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "base",
+          "taskName": "General",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "sin_fecha",
+          "taskName": "CR1",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "invalida",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "fuera",
+          "taskName": "CR1",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-11-01T15:00:00Z",
+            "duration": 3600
+          }
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t1",
+          "name": "CR1 análisis"
+        }
+      ],
+      "expected": [
+        {
+          "entry_id": "cr1",
+          "project_id": "AER.DEMO.001_CR1",
+          "resource_name": "Persona",
+          "entry_date": "2026-10-03T00:00:00",
+          "duration_hours": 1.0,
+          "is_billable": false,
+          "costing_rate": 0.0,
+          "description": "",
+          "tags": [],
+          "task_name": "Tarea CR1",
+          "task_id": "",
+          "started_at": "2026-10-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin",
+          "project_id": "AER.DEMO.001_CR1",
+          "resource_name": "Persona",
+          "entry_date": "2026-10-03T00:00:00",
+          "duration_hours": 1.0,
+          "is_billable": false,
+          "costing_rate": 0.0,
+          "description": "",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-10-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "sin_nombre",
+          "project_id": "AER.DEMO.001_CR1",
+          "resource_name": "Persona",
+          "entry_date": "2026-10-03T00:00:00",
+          "duration_hours": 1.0,
+          "is_billable": false,
+          "costing_rate": 0.0,
+          "description": "",
+          "tags": [],
+          "task_name": "CR1 análisis",
+          "task_id": "t1",
+          "started_at": "2026-10-03T09:00:00",
+          "ended_at": null
+        }
+      ]
+    },
+    {
+      "name": "tarea_sin_resolver",
+      "scope": "CR1",
+      "rows": [
+        {
+          "id": "e1",
+          "taskName": "",
+          "taskId": "ausente",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        }
+      ],
+      "tasks": [],
+      "expected": []
+    },
+    {
+      "name": "dedicado_sin_filtro",
+      "scope": "",
+      "rows": [
+        {
+          "id": "e1",
+          "taskName": "CR2",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "e2",
+          "taskName": "",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        }
+      ],
+      "tasks": [],
+      "expected": [
+        {
+          "entry_id": "e1",
+          "project_id": "AER.DEMO.001_CR1",
+          "resource_name": "Persona",
+          "entry_date": "2026-10-03T00:00:00",
+          "duration_hours": 1.0,
+          "is_billable": false,
+          "costing_rate": 0.0,
+          "description": "",
+          "tags": [],
+          "task_name": "CR2",
+          "task_id": "",
+          "started_at": "2026-10-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "e2",
+          "project_id": "AER.DEMO.001_CR1",
+          "resource_name": "Persona",
+          "entry_date": "2026-10-03T00:00:00",
+          "duration_hours": 1.0,
+          "is_billable": false,
+          "costing_rate": 0.0,
+          "description": "",
+          "tags": [],
+          "task_name": "",
+          "task_id": "",
+          "started_at": "2026-10-03T09:00:00",
+          "ended_at": null
+        }
+      ]
+    },
+    {
+      "name": "cr_exactos",
+      "scope": "CR1",
+      "rows": [
+        {
+          "id": "e1",
+          "taskName": "CR10",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "e2",
+          "taskName": "XCR1",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "e3",
+          "taskName": "CR1 CR1",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        },
+        {
+          "id": "e4",
+          "taskName": "cr1",
+          "taskId": "",
+          "userName": "Persona",
+          "timeInterval": {
+            "start": "2026-10-03T15:00:00Z",
+            "duration": 3600
+          }
+        }
+      ],
+      "tasks": [],
+      "expected": [
+        {
+          "entry_id": "e3",
+          "project_id": "AER.DEMO.001_CR1",
+          "resource_name": "Persona",
+          "entry_date": "2026-10-03T00:00:00",
+          "duration_hours": 1.0,
+          "is_billable": false,
+          "costing_rate": 0.0,
+          "description": "",
+          "tags": [],
+          "task_name": "CR1 CR1",
+          "task_id": "",
+          "started_at": "2026-10-03T09:00:00",
+          "ended_at": null
+        },
+        {
+          "entry_id": "e4",
+          "project_id": "AER.DEMO.001_CR1",
+          "resource_name": "Persona",
+          "entry_date": "2026-10-03T00:00:00",
+          "duration_hours": 1.0,
+          "is_billable": false,
+          "costing_rate": 0.0,
+          "description": "",
+          "tags": [],
+          "task_name": "cr1",
+          "task_id": "",
+          "started_at": "2026-10-03T09:00:00",
+          "ended_at": null
+        }
+      ]
+    }
+  ]
+}
