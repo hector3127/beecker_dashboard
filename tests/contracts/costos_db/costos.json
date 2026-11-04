@@ -41,6 +41,610 @@
     "AER.ACM.002",
     "AER.ACM.002.03"
   ],
+  "pantalla": {
+    "acme": {
+      "band_month": "2026-10",
+      "complete": false,
+      "consulted": 4,
+      "cost": 577.5,
+      "deduplicated_entries": 7,
+      "future": 0,
+      "pending": 0,
+      "projects": [
+        {
+          "complete": false,
+          "cost": 112.75,
+          "gross_profit": 4887.25,
+          "hours": 8.5,
+          "id": "AER.ACM.001",
+          "margin": 97.75,
+          "margin_provisional": true,
+          "missing_hours": 3.0,
+          "missing_people": [
+            "Carla Díaz",
+            "Zed Extraño"
+          ],
+          "no_revenue": false,
+          "revenue": 5000.0
+        },
+        {
+          "complete": true,
+          "cost": 141.25,
+          "gross_profit": 1109.25,
+          "hours": 5.5,
+          "id": "AER.ACM.001_S1",
+          "margin": 88.7,
+          "margin_provisional": false,
+          "missing_hours": 0.0,
+          "missing_people": [],
+          "no_revenue": false,
+          "revenue": 1250.5
+        },
+        {
+          "complete": true,
+          "cost": 102.5,
+          "gross_profit": 697.5,
+          "hours": 5.0,
+          "id": "AER.ACM.002",
+          "margin": 87.19,
+          "margin_provisional": false,
+          "missing_hours": 0.0,
+          "missing_people": [],
+          "no_revenue": false,
+          "revenue": 800.0
+        },
+        {
+          "complete": true,
+          "cost": 221.0,
+          "gross_profit": -221.0,
+          "hours": 8.0,
+          "id": "AER.ACM.002.03",
+          "margin": null,
+          "margin_provisional": false,
+          "missing_hours": 0.0,
+          "missing_people": [],
+          "no_revenue": true,
+          "revenue": 0.0
+        }
+      ]
+    },
+    "detalle": {
+      "AER.ACM.001": {
+        "clockify_id": "AER.ACM.001",
+        "complete": false,
+        "cost": 112.75,
+        "financial_grouping_version": 3,
+        "gross_profit": 4887.25,
+        "hours": 8.5,
+        "id": "AER.ACM.001",
+        "included_ids": [
+          "AER.ACM.001"
+        ],
+        "margin": 97.75,
+        "margin_provisional": true,
+        "missing_hours": 3.0,
+        "no_revenue": false,
+        "people": [
+          {
+            "band": "B2",
+            "band_month": "octubre 2026",
+            "cost": 112.75,
+            "hours": 5.5,
+            "missing": false,
+            "name": "Ana Ruiz",
+            "rate": 20.5
+          },
+          {
+            "band": "",
+            "band_month": "Sin banda vigente historica",
+            "cost": 0,
+            "hours": 1.0,
+            "missing": true,
+            "name": "Carla Díaz",
+            "rate": null
+          },
+          {
+            "band": "",
+            "band_month": "",
+            "cost": 0,
+            "hours": 2.0,
+            "missing": true,
+            "name": "Zed Extraño",
+            "rate": null
+          }
+        ],
+        "revenue": 5000.0,
+        "scope_end": "2026-10-14",
+        "scope_month": null,
+        "scope_start": "2026-01-01",
+        "sprints": [
+          {
+            "complete": false,
+            "cost": 112.75,
+            "hours": 8.5,
+            "label": "General / sin task",
+            "missing_hours": 3.0,
+            "people": [
+              {
+                "band": "B2",
+                "band_month": "octubre 2026",
+                "cost": 112.75,
+                "hours": 5.5,
+                "missing": false,
+                "name": "Ana Ruiz",
+                "rate": 20.5
+              },
+              {
+                "band": "",
+                "band_month": "Sin banda vigente historica",
+                "cost": 0,
+                "hours": 1.0,
+                "missing": true,
+                "name": "Carla Díaz",
+                "rate": null
+              },
+              {
+                "band": "",
+                "band_month": "",
+                "cost": 0,
+                "hours": 2.0,
+                "missing": true,
+                "name": "Zed Extraño",
+                "rate": null
+              }
+            ],
+            "project_id": "AER.ACM.001",
+            "tasks": [
+              "General"
+            ]
+          }
+        ],
+        "task_details_complete": true
+      },
+      "AER.ACM.001_S1": {
+        "clockify_id": "AER.ACM.001",
+        "complete": true,
+        "cost": 141.25,
+        "financial_grouping_version": 3,
+        "gross_profit": 1109.25,
+        "hours": 5.5,
+        "id": "AER.ACM.001_S1",
+        "included_ids": [
+          "AER.ACM.001_S1"
+        ],
+        "margin": 88.7,
+        "margin_provisional": false,
+        "missing_hours": 0.0,
+        "no_revenue": false,
+        "people": [
+          {
+            "band": "B2",
+            "band_month": "octubre 2026",
+            "cost": 51.25,
+            "hours": 2.5,
+            "missing": false,
+            "name": "Ana Ruiz",
+            "rate": 20.5
+          },
+          {
+            "band": "B3",
+            "band_month": "septiembre 2026",
+            "cost": 90.0,
+            "hours": 3.0,
+            "missing": false,
+            "name": "Beto Soto",
+            "rate": 30.0
+          }
+        ],
+        "revenue": 1250.5,
+        "scope_end": "2026-10-14",
+        "scope_month": null,
+        "scope_start": "2026-01-01",
+        "sprints": [
+          {
+            "complete": true,
+            "cost": 141.25,
+            "hours": 5.5,
+            "label": "S1",
+            "missing_hours": 0,
+            "people": [
+              {
+                "band": "B2",
+                "band_month": "octubre 2026",
+                "cost": 51.25,
+                "hours": 2.5,
+                "missing": false,
+                "name": "Ana Ruiz",
+                "rate": 20.5
+              },
+              {
+                "band": "B3",
+                "band_month": "septiembre 2026",
+                "cost": 90.0,
+                "hours": 3.0,
+                "missing": false,
+                "name": "Beto Soto",
+                "rate": 30.0
+              }
+            ],
+            "project_id": "AER.ACM.001_S1",
+            "tasks": [
+              "Sprint 1 _S1"
+            ]
+          }
+        ],
+        "task_details_complete": true
+      },
+      "AER.ACM.002": {
+        "clockify_id": "AER.ACM.002",
+        "complete": true,
+        "cost": 102.5,
+        "financial_grouping_version": 3,
+        "gross_profit": 697.5,
+        "hours": 5.0,
+        "id": "AER.ACM.002",
+        "included_ids": [
+          "AER.ACM.002"
+        ],
+        "margin": 87.19,
+        "margin_provisional": false,
+        "missing_hours": 0.0,
+        "no_revenue": false,
+        "people": [
+          {
+            "band": "B2",
+            "band_month": "octubre 2026",
+            "cost": 102.5,
+            "hours": 5.0,
+            "missing": false,
+            "name": "Ana Ruiz",
+            "rate": 20.5
+          }
+        ],
+        "revenue": 800.0,
+        "scope_end": "2026-10-14",
+        "scope_month": null,
+        "scope_start": "2026-01-01",
+        "sprints": [
+          {
+            "complete": true,
+            "cost": 102.5,
+            "hours": 5.0,
+            "label": "General / sin task",
+            "missing_hours": 0,
+            "people": [
+              {
+                "band": "B2",
+                "band_month": "octubre 2026",
+                "cost": 102.5,
+                "hours": 5.0,
+                "missing": false,
+                "name": "Ana Ruiz",
+                "rate": 20.5
+              }
+            ],
+            "project_id": "AER.ACM.002",
+            "tasks": [
+              "General"
+            ]
+          }
+        ],
+        "task_details_complete": true
+      },
+      "AER.ACM.002.03": {
+        "clockify_id": "AER.ACM.002",
+        "complete": true,
+        "cost": 221.0,
+        "financial_grouping_version": 3,
+        "gross_profit": -221.0,
+        "hours": 8.0,
+        "id": "AER.ACM.002.03",
+        "included_ids": [
+          "AER.ACM.002.03"
+        ],
+        "margin": null,
+        "margin_provisional": false,
+        "missing_hours": 0.0,
+        "no_revenue": true,
+        "people": [
+          {
+            "band": "B3",
+            "band_month": "septiembre 2026",
+            "cost": 180.0,
+            "hours": 6.0,
+            "missing": false,
+            "name": "Beto Soto",
+            "rate": 30.0
+          },
+          {
+            "band": "B2",
+            "band_month": "octubre 2026",
+            "cost": 41.0,
+            "hours": 2.0,
+            "missing": false,
+            "name": "Ana Ruiz",
+            "rate": 20.5
+          }
+        ],
+        "revenue": 0.0,
+        "scope_end": "2026-03-31",
+        "scope_month": 3,
+        "scope_start": "2026-03-01",
+        "sprints": [
+          {
+            "complete": true,
+            "cost": 221.0,
+            "hours": 8.0,
+            "label": "General / sin task",
+            "missing_hours": 0,
+            "people": [
+              {
+                "band": "B3",
+                "band_month": "septiembre 2026",
+                "cost": 180.0,
+                "hours": 6.0,
+                "missing": false,
+                "name": "Beto Soto",
+                "rate": 30.0
+              },
+              {
+                "band": "B2",
+                "band_month": "octubre 2026",
+                "cost": 41.0,
+                "hours": 2.0,
+                "missing": false,
+                "name": "Ana Ruiz",
+                "rate": 20.5
+              }
+            ],
+            "project_id": "AER.ACM.002.03",
+            "tasks": [
+              "General"
+            ]
+          }
+        ],
+        "task_details_complete": true
+      },
+      "IXB.FOX.001": {
+        "clockify_id": "IXB.FOX.001",
+        "complete": true,
+        "cost": 112.75,
+        "financial_grouping_version": 3,
+        "gross_profit": -112.75,
+        "hours": 5.5,
+        "id": "IXB.FOX.001",
+        "included_ids": [
+          "IXB.FOX.001"
+        ],
+        "margin": null,
+        "margin_provisional": false,
+        "missing_hours": 0.0,
+        "no_revenue": true,
+        "people": [
+          {
+            "band": "B2",
+            "band_month": "octubre 2026",
+            "cost": 112.75,
+            "hours": 5.5,
+            "missing": false,
+            "name": "Ana Ruiz",
+            "rate": 20.5
+          }
+        ],
+        "revenue": 0.0,
+        "scope_end": "2026-10-14",
+        "scope_month": null,
+        "scope_start": "2026-01-01",
+        "sprints": [
+          {
+            "complete": true,
+            "cost": 112.75,
+            "hours": 5.5,
+            "label": "General / sin task",
+            "missing_hours": 0,
+            "people": [
+              {
+                "band": "B2",
+                "band_month": "octubre 2026",
+                "cost": 112.75,
+                "hours": 5.5,
+                "missing": false,
+                "name": "Ana Ruiz",
+                "rate": 20.5
+              }
+            ],
+            "project_id": "IXB.FOX.001",
+            "tasks": [
+              "General"
+            ]
+          }
+        ],
+        "task_details_complete": true
+      },
+      "TYM.BET.001": {
+        "clockify_id": "TYM.BET.001",
+        "complete": false,
+        "cost": 164.0,
+        "financial_grouping_version": 3,
+        "gross_profit": 136.0,
+        "hours": 11.0,
+        "id": "TYM.BET.001",
+        "included_ids": [
+          "TYM.BET.001"
+        ],
+        "margin": 45.33,
+        "margin_provisional": true,
+        "missing_hours": 3.0,
+        "no_revenue": false,
+        "people": [
+          {
+            "band": "B2",
+            "band_month": "octubre 2026",
+            "cost": 164.0,
+            "hours": 8.0,
+            "missing": false,
+            "name": "Ana Ruiz",
+            "rate": 20.5
+          },
+          {
+            "band": "",
+            "band_month": "Sin banda vigente historica",
+            "cost": 0,
+            "hours": 3.0,
+            "missing": true,
+            "name": "Dani Paz",
+            "rate": null
+          }
+        ],
+        "revenue": 300.0,
+        "scope_end": "2026-10-14",
+        "scope_month": null,
+        "scope_start": "2026-01-01",
+        "sprints": [
+          {
+            "complete": false,
+            "cost": 164.0,
+            "hours": 11.0,
+            "label": "General / sin task",
+            "missing_hours": 3.0,
+            "people": [
+              {
+                "band": "B2",
+                "band_month": "octubre 2026",
+                "cost": 164.0,
+                "hours": 8.0,
+                "missing": false,
+                "name": "Ana Ruiz",
+                "rate": 20.5
+              },
+              {
+                "band": "",
+                "band_month": "Sin banda vigente historica",
+                "cost": 0,
+                "hours": 3.0,
+                "missing": true,
+                "name": "Dani Paz",
+                "rate": null
+              }
+            ],
+            "project_id": "TYM.BET.001",
+            "tasks": [
+              "General"
+            ]
+          }
+        ],
+        "task_details_complete": true
+      }
+    },
+    "todas": {
+      "band_month": "2026-10",
+      "complete": false,
+      "consulted": 6,
+      "cost": 854.25,
+      "deduplicated_entries": 9,
+      "future": 1,
+      "pending": 0,
+      "projects": [
+        {
+          "complete": false,
+          "cost": 112.75,
+          "gross_profit": 4887.25,
+          "hours": 8.5,
+          "id": "AER.ACM.001",
+          "margin": 97.75,
+          "margin_provisional": true,
+          "missing_hours": 3.0,
+          "missing_people": [
+            "Carla Díaz",
+            "Zed Extraño"
+          ],
+          "no_revenue": false,
+          "revenue": 5000.0
+        },
+        {
+          "complete": true,
+          "cost": 141.25,
+          "gross_profit": 1109.25,
+          "hours": 5.5,
+          "id": "AER.ACM.001_S1",
+          "margin": 88.7,
+          "margin_provisional": false,
+          "missing_hours": 0.0,
+          "missing_people": [],
+          "no_revenue": false,
+          "revenue": 1250.5
+        },
+        {
+          "complete": true,
+          "cost": 102.5,
+          "gross_profit": 697.5,
+          "hours": 5.0,
+          "id": "AER.ACM.002",
+          "margin": 87.19,
+          "margin_provisional": false,
+          "missing_hours": 0.0,
+          "missing_people": [],
+          "no_revenue": false,
+          "revenue": 800.0
+        },
+        {
+          "complete": true,
+          "cost": 221.0,
+          "gross_profit": -221.0,
+          "hours": 8.0,
+          "id": "AER.ACM.002.03",
+          "margin": null,
+          "margin_provisional": false,
+          "missing_hours": 0.0,
+          "missing_people": [],
+          "no_revenue": true,
+          "revenue": 0.0
+        },
+        {
+          "complete": false,
+          "cost": null,
+          "error": null,
+          "future": true,
+          "gross_profit": null,
+          "hours": null,
+          "id": "AER.BET.003.12",
+          "margin": null,
+          "margin_provisional": false,
+          "no_revenue": false,
+          "revenue": 900.0,
+          "status": "future"
+        },
+        {
+          "complete": true,
+          "cost": 112.75,
+          "gross_profit": -112.75,
+          "hours": 5.5,
+          "id": "IXB.FOX.001",
+          "margin": null,
+          "margin_provisional": false,
+          "missing_hours": 0.0,
+          "missing_people": [],
+          "no_revenue": true,
+          "revenue": 0.0
+        },
+        {
+          "complete": false,
+          "cost": 164.0,
+          "gross_profit": 136.0,
+          "hours": 11.0,
+          "id": "TYM.BET.001",
+          "margin": 45.33,
+          "margin_provisional": true,
+          "missing_hours": 3.0,
+          "missing_people": [
+            "Dani Paz"
+          ],
+          "no_revenue": false,
+          "revenue": 300.0
+        }
+      ]
+    }
+  },
   "proyectos": {
     "AER.ACM.001": {
       "clockify_id": "AER.ACM.001",

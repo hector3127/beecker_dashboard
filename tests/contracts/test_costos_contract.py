@@ -28,6 +28,7 @@ from apps.datastore.models import (
 from apps.datastore.services.genesis_export import export_tables, resolve_models
 from apps.portal.api.plain import plain
 from apps.portal.services import revenue_costs
+from apps.portal.services.project_profitability import add_project_revenue
 from core.exceptions import DashboardError, SheetNotFoundError
 from core.sheets import store_read_cache
 
@@ -48,20 +49,23 @@ TABLAS = [
 ESPACIO = "ws-contrato"
 
 
-def datos_revenue(cuenta, identificador, fecha):
-    return ["", cuenta, "", "", identificador, "", fecha]
+def datos_revenue(cuenta, identificador, fecha, estado="Confirmed", monto=""):
+    return [estado, cuenta, "", "", identificador, "", fecha, monto]
 
 
 DATA_REVENUE = [
-    ["", "Cuenta", "", "", "ID", "", "Fecha"],
-    datos_revenue("Acme", "AER.ACM.001", "2026-02-10"),
-    datos_revenue("Acme", "AER.ACM.001_S1", "2026-03-10"),
-    datos_revenue("Acme", "AER.ACM.002", "2026-02-10"),
-    datos_revenue("Acme", "AER.ACM.002.03", "2026-03-10"),
-    datos_revenue("Beta", "TYM.BET.001", "2026-04-10"),
-    datos_revenue("Beta", "AER.BET.003.12", "2026-12-10"),
-    datos_revenue("Beta", "Total", "2026-04-10"),
-    datos_revenue("Cielo", "ROC.CIE.001", "2025-04-10"),
+    ["Estado", "Cuenta", "", "", "ID", "", "Fecha", "Monto"],
+    datos_revenue("Acme", "AER.ACM.001", "2026-02-10", monto=5000),
+    datos_revenue(
+        "Acme", "AER.ACM.001_S1", "2026-03-10", "Invoiced", "$1,250.50"
+    ),
+    datos_revenue("Acme", "AER.ACM.002", "2026-02-10", "Collected", 800),
+    datos_revenue("Acme", "AER.ACM.002.03", "2026-03-10", "Pending", 100),
+    datos_revenue("Beta", "TYM.BET.001", "2026-04-10", monto=300),
+    datos_revenue("Beta", "TYM.BET.001", "2026-05-10", monto="abc"),
+    datos_revenue("Beta", "AER.BET.003.12", "2026-12-10", monto=900),
+    datos_revenue("Beta", "Total", "2026-04-10", monto=999),
+    datos_revenue("Cielo", "ROC.CIE.001", "2025-04-10", monto=50),
 ]
 
 
@@ -297,6 +301,34 @@ def cuerpo() -> dict:
         "futuro": {
             identificador: revenue_costs.future_project_month(identificador)
             for identificador in identificadores
+        },
+        "pantalla": {
+            "todas": plain(
+                add_project_revenue(
+                    revenue_costs.cost_summary(identificadores), lector
+                )
+            ),
+            "acme": plain(
+                add_project_revenue(
+                    revenue_costs.cost_summary(
+                        revenue_costs.project_ids(lector, "Acme"), "Acme"
+                    ),
+                    lector,
+                    "Acme",
+                )
+            ),
+            "detalle": {
+                identificador: plain(
+                    add_project_revenue(
+                        revenue_costs.calculate_project_cost(
+                            identificador, contexto
+                        ),
+                        lector,
+                    )
+                )
+                for identificador in identificadores
+                if "error" not in proyectos[identificador]
+            },
         },
     }
 
