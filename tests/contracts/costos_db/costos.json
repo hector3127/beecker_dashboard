@@ -17,6 +17,220 @@
       "Sin banda vigente historica"
     ]
   },
+  "financiera": {
+    "accounts": {
+      "accounts": [
+        {
+          "classification": "healthy",
+          "collected": 800.0,
+          "collections_percent": 35.55,
+          "cost": 243.75,
+          "gross_profit": 2006.75,
+          "invoice_points": 30.0,
+          "invoiced": 2250.5,
+          "margin": 89.17,
+          "name": "Acme",
+          "partial": false,
+          "pending": 0,
+          "profit_points": 70.0,
+          "projects": 2,
+          "revenue": 2250.5,
+          "weighted_score": 100.0
+        },
+        {
+          "classification": "unhealthy",
+          "collected": 0.0,
+          "collections_percent": null,
+          "cost": 112.75,
+          "gross_profit": -112.75,
+          "invoice_points": 0.0,
+          "invoiced": 0.0,
+          "margin": null,
+          "name": "Fox",
+          "partial": false,
+          "pending": 0,
+          "profit_points": -3.933,
+          "projects": 1,
+          "revenue": 0.0,
+          "weighted_score": -3.93
+        }
+      ],
+      "healthy": [
+        {
+          "classification": "healthy",
+          "collected": 800.0,
+          "collections_percent": 35.55,
+          "cost": 243.75,
+          "gross_profit": 2006.75,
+          "invoice_points": 30.0,
+          "invoiced": 2250.5,
+          "margin": 89.17,
+          "name": "Acme",
+          "partial": false,
+          "pending": 0,
+          "profit_points": 70.0,
+          "projects": 2,
+          "revenue": 2250.5,
+          "weighted_score": 100.0
+        }
+      ],
+      "pending_accounts": 0,
+      "ranking_method": "70 × utilidad / mayor utilidad absoluta + 30 × facturación / mayor facturación",
+      "ranking_version": 4,
+      "unhealthy": [
+        {
+          "classification": "unhealthy",
+          "collected": 0.0,
+          "collections_percent": null,
+          "cost": 112.75,
+          "gross_profit": -112.75,
+          "invoice_points": 0.0,
+          "invoiced": 0.0,
+          "margin": null,
+          "name": "Fox",
+          "partial": false,
+          "pending": 0,
+          "profit_points": -3.933,
+          "projects": 1,
+          "revenue": 0.0,
+          "weighted_score": -3.93
+        }
+      ],
+      "validation": "Base mensual pendiente de validar con Florencia",
+      "weights": {
+        "gross_profit": 70,
+        "invoiced": 30
+      },
+      "year": 2026
+    },
+    "profitability": {
+      "band_month": "2026-10",
+      "calendar_version": 2,
+      "complete": false,
+      "months": [
+        {
+          "cost": null,
+          "future": false,
+          "gross_profit": null,
+          "margin": null,
+          "month": "2026-01",
+          "partial": true,
+          "revenue": 0.0
+        },
+        {
+          "cost": 184.5,
+          "future": false,
+          "gross_profit": 615.5,
+          "margin": 76.94,
+          "month": "2026-02",
+          "partial": true,
+          "revenue": 800.0
+        },
+        {
+          "cost": 272.25,
+          "future": false,
+          "gross_profit": 1178.25,
+          "margin": 81.23,
+          "month": "2026-03",
+          "partial": true,
+          "revenue": 1450.5
+        },
+        {
+          "cost": 90.0,
+          "future": false,
+          "gross_profit": -90.0,
+          "margin": null,
+          "month": "2026-04",
+          "partial": true,
+          "revenue": 0.0
+        },
+        {
+          "cost": 164.0,
+          "future": false,
+          "gross_profit": -164.0,
+          "margin": null,
+          "month": "2026-05",
+          "partial": true,
+          "revenue": 0.0
+        },
+        {
+          "cost": null,
+          "future": false,
+          "gross_profit": null,
+          "margin": null,
+          "month": "2026-06",
+          "partial": true,
+          "revenue": 0.0
+        },
+        {
+          "cost": null,
+          "future": false,
+          "gross_profit": null,
+          "margin": null,
+          "month": "2026-07",
+          "partial": true,
+          "revenue": 0.0
+        },
+        {
+          "cost": 112.75,
+          "future": false,
+          "gross_profit": -112.75,
+          "margin": null,
+          "month": "2026-08",
+          "partial": true,
+          "revenue": 0.0
+        },
+        {
+          "cost": null,
+          "future": false,
+          "gross_profit": null,
+          "margin": null,
+          "month": "2026-09",
+          "partial": true,
+          "revenue": 0.0
+        },
+        {
+          "cost": 30.75,
+          "future": false,
+          "gross_profit": -30.75,
+          "margin": null,
+          "month": "2026-10",
+          "partial": true,
+          "revenue": 0.0
+        },
+        {
+          "cost": null,
+          "future": true,
+          "gross_profit": null,
+          "margin": null,
+          "month": "2026-11",
+          "partial": true,
+          "revenue": null
+        },
+        {
+          "cost": null,
+          "future": true,
+          "gross_profit": null,
+          "margin": null,
+          "month": "2026-12",
+          "partial": true,
+          "revenue": null
+        }
+      ],
+      "pending_projects": 1
+    },
+    "revenue": {
+      "booking_revenue": "9250.50",
+      "collected": "800.00",
+      "collections_percent": 35.55,
+      "includes_factoring": true,
+      "invoice_validation": "Pendiente de validar fechas e importes mensuales con Florencia",
+      "invoiced": "2250.50",
+      "records": 8,
+      "source": "DataRevenue · 01/01/2026 - 31/12/2026 · H (USD Global Adj)",
+      "total": "9250.50"
+    }
+  },
   "futuro": {
     "AER.ACM.001": false,
     "AER.ACM.001_S1": false,

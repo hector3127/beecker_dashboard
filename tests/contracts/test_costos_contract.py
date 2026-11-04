@@ -28,8 +28,14 @@ from apps.datastore.models import (
 from apps.datastore.services.genesis_export import export_tables, resolve_models
 from apps.ejecutivo.services.account_view import account_matches
 from apps.portal.api.plain import plain
-from apps.portal.services import opportunity_profitability, revenue_costs
+from apps.portal.services import (
+    account_profitability,
+    monthly_profitability,
+    opportunity_profitability,
+    revenue_costs,
+)
 from apps.portal.services.project_profitability import add_project_revenue
+from apps.portal.services.revenue import load_revenue
 from core.exceptions import DashboardError, SheetNotFoundError
 from core.sheets import store_read_cache
 
@@ -365,6 +371,24 @@ def escenario(monkeypatch, settings):
         )
 
 
+def financiera(lector, identificadores) -> dict:
+    cuentas = account_profitability.account_profitability(lector)
+    for fila in cuentas["accounts"]:
+        fila.pop("url", None)
+    for grupo in ("healthy", "unhealthy"):
+        for fila in cuentas[grupo]:
+            fila.pop("url", None)
+    return {
+        "revenue": plain(load_revenue()),
+        "profitability": plain(
+            monthly_profitability.load_monthly_profitability(
+                lector, identificadores
+            )
+        ),
+        "accounts": plain(cuentas),
+    }
+
+
 def margenes(lector) -> dict:
     datos = opportunity_profitability.build_opportunities(lector)
     resultado = {}
@@ -423,6 +447,7 @@ def cuerpo() -> dict:
             for identificador in identificadores
         },
         "margenes": margenes(lector),
+        "financiera": financiera(lector, identificadores),
         "pantalla": {
             "todas": plain(
                 add_project_revenue(
