@@ -17,6 +17,7 @@ from pathlib import Path
 import pytest
 from django.core.cache import cache
 
+from apps.access.scope import AccessScope
 from apps.datastore.models import (
     ClockifyCatalog,
     ClockifyMonthSync,
@@ -30,14 +31,19 @@ from apps.ejecutivo.services.account_view import account_matches
 from apps.portal.api.plain import plain
 from apps.portal.services import (
     account_profitability,
+    commercial_view,
+    executive_commercial,
+    executive_screen,
     monthly_profitability,
     opportunity_profitability,
     revenue_costs,
 )
+from apps.portal.services.executive_commercial import commercial_summary
 from apps.portal.services.project_profitability import add_project_revenue
 from apps.portal.services.revenue import load_revenue
 from core.exceptions import DashboardError, SheetNotFoundError
 from core.sheets import store_read_cache
+from tests.contracts.test_comercial_contract import BACKLOG
 
 pytestmark = pytest.mark.django_db
 
@@ -253,6 +259,7 @@ HOJAS = {
     "Historico_Proyectos": 3,
     "Bandas/rol": 4,
     "Master rates": 5,
+    "Backlog_Proyectos": 6,
 }
 CONTENIDO = {
     "DataRevenue": DATA_REVENUE,
@@ -260,6 +267,7 @@ CONTENIDO = {
     "Historico_Proyectos": HISTORICO,
     "Bandas/rol": BANDAS,
     "Master rates": MASTER_RATES,
+    "Backlog_Proyectos": BACKLOG,
 }
 PROYECTOS_CLOCKIFY = [
     ("p-acm1", "AER.ACM.001"),
@@ -304,6 +312,10 @@ class Lector:
         return None
 
 
+def sin_cotizacion(hoy):
+    raise ValueError("Sin cotización")
+
+
 def guardar_hoja(nombre, filas):
     SheetSnapshot.objects.update_or_create(
         name=nombre,
@@ -325,8 +337,11 @@ def escenario(monkeypatch, settings):
     cache.clear()
     store_read_cache._memory.clear()
     monkeypatch.setattr("django.utils.timezone.localdate", lambda *a: HOY)
+    monkeypatch.setattr(commercial_view, "load_rates", sin_cotizacion)
     monkeypatch.setattr("core.sheets.factory.build_sheet_repository", Lector)
     monkeypatch.setattr(revenue_costs, "build_sheet_repository", Lector)
+    monkeypatch.setattr(commercial_view, "build_sheet_repository", Lector)
+    monkeypatch.setattr(executive_commercial, "build_sheet_repository", Lector)
     for nombre, filas in CONTENIDO.items():
         guardar_hoja(nombre, filas)
     guardar_hoja(store_read_cache.SHEET_IDS_NAME, HOJAS)
@@ -389,6 +404,25 @@ def financiera(lector, identificadores) -> dict:
     }
 
 
+def ejecutiva(lector, identificadores) -> dict:
+    financiero = {
+        "revenue": load_revenue(),
+        "costs": revenue_costs.cost_summary(identificadores),
+        "profitability": monthly_profitability.load_monthly_profitability(
+            lector, identificadores
+        ),
+        "accounts": account_profitability.account_profitability(lector),
+        "commercial": commercial_summary(),
+    }
+    alcance = AccessScope.everything()
+    return plain(
+        {
+            **executive_screen.company_figures(financiero, {}, alcance),
+            "accounts": executive_screen.visible_accounts(financiero, alcance),
+        }
+    )
+
+
 def margenes(lector) -> dict:
     datos = opportunity_profitability.build_opportunities(lector)
     resultado = {}
@@ -448,6 +482,7 @@ def cuerpo() -> dict:
         },
         "margenes": margenes(lector),
         "financiera": financiera(lector, identificadores),
+        "ejecutiva": ejecutiva(lector, identificadores),
         "pantalla": {
             "todas": plain(
                 add_project_revenue(

@@ -38,8 +38,8 @@
       "file": "datastore.SheetSnapshot.jsonl",
       "label": "datastore.SheetSnapshot",
       "pk": "id",
-      "rows": 6,
-      "sha256": "85032b259bc2cd7ee78867587faaec81793f56d4aa1eece46fa7316b4c65e317"
+      "rows": 7,
+      "sha256": "2e87498eeea257641b5db675561e794725d23326e65c40ca3bc13a48050f7324"
     },
     {
       "columns": [
