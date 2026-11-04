@@ -175,7 +175,7 @@ Orden recomendado; cada bloque repite: contrato D1 → servicio portado → endp
 | G10c | Business Overview, financiera, costos, márgenes, comercial | G7 (P1 solo decide quién ve cada pantalla; mientras tanto, superusuario como en los pilotos) | desglose abajo, sin empezar |
 | G10c0 | Motor de costos por proyecto (`revenue_costs`: IDs de DataRevenue y MPB, banda vigente por persona con Master rates, horas de Clockify por tarifa, AER/ROC por mes) | G10a0 | terminado: 152 de 152 IDs idénticos con datos reales, CR compartidos incluidos |
 | G10c1 | Costos por cuenta y proyecto (`costos_revenue`, ingreso por proyecto) | G10c0 | terminado: endpoint con paridad y pantalla, sin caché |
-| G10c2 | Márgenes por oportunidad (`margins_screen`, `opportunity_profitability`) | G10c1 | pendiente |
+| G10c2 | Márgenes por oportunidad (`margins_screen`, `opportunity_profitability`) | G10c1 | terminado: 173 oportunidades idénticas con datos reales, endpoint y pantalla |
 | G10c3 | Financiera (`financial_cache`, bandas del mes o la última válida del año) | G10c0 | pendiente |
 | G10c4 | Comercial (`commercial*`, `executive_commercial`) | G10c3 | pendiente |
 | G10c5 | Business Overview (`ejecutiva`) | G10c1-G10c4 | pendiente |
