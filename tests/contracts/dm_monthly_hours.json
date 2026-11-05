@@ -1,0 +1,670 @@
+[
+  {
+    "case": "mixto",
+    "today": "2026-11-05",
+    "projects": [
+      {
+        "project_id": "AMK.012_S2",
+        "name": "Bloque 2",
+        "client": "Acme",
+        "service": "RaaS",
+        "budget": 1830,
+        "start": "2026-01-01",
+        "end": "2026-11-30"
+      },
+      {
+        "project_id": "AMK.012_S1",
+        "name": "Bloque 1",
+        "client": "Acme",
+        "service": "RaaS",
+        "budget": 1830,
+        "start": "2026-01-01",
+        "end": "2026-11-30"
+      }
+    ],
+    "entries": [
+      {
+        "id": "0",
+        "day": "2026-05-31",
+        "hours": 5,
+        "tags": [],
+        "task": "S1",
+        "billable": true
+      },
+      {
+        "id": "1",
+        "day": "2026-06-01",
+        "hours": 1.25,
+        "tags": [],
+        "task": "S1",
+        "billable": true
+      },
+      {
+        "id": "2",
+        "day": "2026-07-02",
+        "hours": 2.5,
+        "tags": [
+          "INV_OPERATIVA"
+        ],
+        "task": "S2",
+        "billable": true
+      },
+      {
+        "id": "3",
+        "day": "2026-08-03",
+        "hours": 3.75,
+        "tags": [
+          "INV_OPERATIVA",
+          "INV_COMERCIAL"
+        ],
+        "task": "S1",
+        "billable": true
+      },
+      {
+        "id": "4",
+        "day": "2026-09-04",
+        "hours": 0.01,
+        "tags": [],
+        "task": "",
+        "billable": true
+      },
+      {
+        "id": "5",
+        "day": "2026-10-05",
+        "hours": 4,
+        "tags": [],
+        "task": "S1",
+        "billable": false
+      },
+      {
+        "id": "6",
+        "day": "2026-11-05",
+        "hours": 1,
+        "tags": [
+          "INV_COMERCIAL"
+        ],
+        "task": "S2",
+        "billable": false
+      },
+      {
+        "id": "7",
+        "day": "2026-11-06",
+        "hours": 9,
+        "tags": [],
+        "task": "S1",
+        "billable": true
+      }
+    ],
+    "expected": [
+      {
+        "label": "Jun 2026",
+        "billable": 1.25,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 1.25,
+            "operational": 0.0,
+            "commercial": 0.0,
+            "total": 1.25,
+            "project_budget": 1830,
+            "budget": 164.37
+          },
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 164.37
+          }
+        ],
+        "total": 1.25,
+        "billable_height": 16.666666666666664,
+        "operational_height": 0.0,
+        "commercial_height": 0.0,
+        "budget": 328.74,
+        "budget_missing": 0
+      },
+      {
+        "label": "Jul 2026",
+        "billable": 0.0,
+        "operational": 2.5,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0.0,
+            "operational": 2.5,
+            "commercial": 0.0,
+            "total": 2.5,
+            "project_budget": 1830,
+            "budget": 169.85
+          },
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          }
+        ],
+        "total": 2.5,
+        "billable_height": 0.0,
+        "operational_height": 33.33333333333333,
+        "commercial_height": 0.0,
+        "budget": 339.7,
+        "budget_missing": 0
+      },
+      {
+        "label": "Ago 2026",
+        "billable": 0.0,
+        "operational": 3.75,
+        "commercial": 3.75,
+        "projects": [
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0.0,
+            "operational": 3.75,
+            "commercial": 3.75,
+            "total": 7.5,
+            "project_budget": 1830,
+            "budget": 169.85
+          },
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          }
+        ],
+        "total": 7.5,
+        "billable_height": 0.0,
+        "operational_height": 50.0,
+        "commercial_height": 50.0,
+        "budget": 339.7,
+        "budget_missing": 0
+      },
+      {
+        "label": "Sep 2026",
+        "billable": 0.01,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0.01,
+            "operational": 0.0,
+            "commercial": 0.0,
+            "total": 0.01,
+            "project_budget": 1830,
+            "budget": 164.37
+          },
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 164.37
+          }
+        ],
+        "total": 0.01,
+        "billable_height": 0.13333333333333333,
+        "operational_height": 0.0,
+        "commercial_height": 0.0,
+        "budget": 328.74,
+        "budget_missing": 0
+      },
+      {
+        "label": "Oct 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          },
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          }
+        ],
+        "total": 0.0,
+        "billable_height": 0.0,
+        "operational_height": 0.0,
+        "commercial_height": 0.0,
+        "budget": 339.7,
+        "budget_missing": 0
+      },
+      {
+        "label": "Nov 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 1.0,
+        "projects": [
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0.0,
+            "operational": 0.0,
+            "commercial": 1.0,
+            "total": 1.0,
+            "project_budget": 1830,
+            "budget": 27.4
+          },
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 27.4
+          }
+        ],
+        "total": 1.0,
+        "billable_height": 0.0,
+        "operational_height": 0.0,
+        "commercial_height": 13.333333333333334,
+        "budget": 54.79,
+        "budget_missing": 0
+      }
+    ]
+  },
+  {
+    "case": "sin_horas",
+    "today": "2026-11-05",
+    "projects": [
+      {
+        "project_id": "AMK.012_S2",
+        "name": "Bloque 2",
+        "client": "Acme",
+        "service": "RaaS",
+        "budget": 1830,
+        "start": "2026-01-01",
+        "end": "2026-11-30"
+      },
+      {
+        "project_id": "AMK.012_S1",
+        "name": "Bloque 1",
+        "client": "Acme",
+        "service": "RaaS",
+        "budget": 1830,
+        "start": "2026-01-01",
+        "end": "2026-11-30"
+      }
+    ],
+    "entries": [],
+    "expected": [
+      {
+        "label": "Jun 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 164.37
+          },
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 164.37
+          }
+        ],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 328.74,
+        "budget_missing": 0
+      },
+      {
+        "label": "Jul 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          },
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          }
+        ],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 339.7,
+        "budget_missing": 0
+      },
+      {
+        "label": "Ago 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          },
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          }
+        ],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 339.7,
+        "budget_missing": 0
+      },
+      {
+        "label": "Sep 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 164.37
+          },
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 164.37
+          }
+        ],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 328.74,
+        "budget_missing": 0
+      },
+      {
+        "label": "Oct 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          },
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 169.85
+          }
+        ],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 339.7,
+        "budget_missing": 0
+      },
+      {
+        "label": "Nov 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [
+          {
+            "id": "AMK.012_S2",
+            "name": "Bloque 2",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 27.4
+          },
+          {
+            "id": "AMK.012_S1",
+            "name": "Bloque 1",
+            "client": "Acme",
+            "service": "RaaS",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 1830,
+            "budget": 27.4
+          }
+        ],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 54.79,
+        "budget_missing": 0
+      }
+    ]
+  },
+  {
+    "case": "vacio",
+    "today": "2026-11-05",
+    "projects": [],
+    "entries": [],
+    "expected": [
+      {
+        "label": "Jun 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "Jul 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "Ago 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "Sep 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "Oct 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "Nov 2026",
+        "billable": 0.0,
+        "operational": 0.0,
+        "commercial": 0.0,
+        "projects": [],
+        "total": 0.0,
+        "billable_height": 0,
+        "operational_height": 0,
+        "commercial_height": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      }
+    ]
+  }
+]
