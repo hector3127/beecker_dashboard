@@ -391,8 +391,23 @@ en 15 proyectos. Las 719 respuestas de API dieron HTTP 200 y coincidieron con SQ
 Las diez respuestas generales del cotejo también conservaron el contenido tras la carga.
 Para un destino nuevo se carga el paquete principal y después el complemento con
 `importar_hojas_proyecto_dm`; los comandos están en `docs/copias-proyecto-genesis.md`.
-Queda revisar los 985 cortes Azure adicionales. La muestra general mantiene la reconstrucción
-Azure desactivada. P2 sigue abierto para UAT.
+Los 985 cortes Azure adicionales ya se revisaron y reprodujeron en PostgreSQL local. Son
+resultados materializados, con reglas versión 6. Sus métricas y cobertura coinciden por flujo,
+fuente y corte. De ellos, 735 son históricos completos y 250 son capturas parciales del
+03/11/2026, reproducidas en el contexto de su observación original. La API conserva la protección
+de cobertura para no aplicarlas como histórico completo en una consulta posterior. El destino
+local quedó con 2,169 cortes y 1,573,515 filas del módulo.
+
+Los dos flujos Azure, las 781,913 revisiones y los 10,863 bloques Summary coinciden por SHA-256
+con el paquete principal en ambos motores. Se conservaron los 1,184 cortes anteriores y los
+conteos de las demás tablas. La historia de cortes cubiertos se reconstruye con las revisiones
+guardadas. G8/P3 sigue abierto para actualizar la cobertura del flujo.
+
+El cotejo histórico detectó 41 fuentes adicionales seleccionadas en PostgreSQL por fechas JSON
+nulas. La preselección ahora exige inicio presente y distinto de null y vacío, como el filtro
+final, conservando los bloques hermanos de una fuente con inicio válido. Las ocho respuestas
+históricas coinciden entre motores, incluidas dos comprobaciones de cobertura parcial. Las diez
+respuestas generales mantienen su contenido. P2 sigue abierto para UAT.
 
 ## 8. Diseño y modo oscuro
 
@@ -456,6 +471,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 05/11/2026 | Héctor (con Codex) | Historia Azure y paridad de fechas JSON | Genesis `ddc1315` local; datos ignorados | 985 resultados reproducidos y cotejados: 735 completos y 250 parciales del 03/11. SHA de dos flujos, 781,913 revisiones y 10,863 bloques idénticos al paquete. Preselección corregida para fechas null/vacías. Ocho respuestas históricas y diez generales por motor conservan el contenido. 1,352 pruebas SQLite y 11 PostgreSQL pasan, además de tipos, Ruff, formato y documentación. | Revisar cierre del alcance disponible de G13 y preparar validación del equipo. G8/P3 para cobertura del flujo, P2 para UAT y gate completo en entorno compatible siguen pendientes. |
 | 05/11/2026 | Héctor (con Codex) | Copias manuales en PostgreSQL local | Genesis `0b12587` local; datos ignorados | Complemento verificado de 30 snapshots; fusión de 16 copias/127 registros con preservación de las 14 anteriores. Reaplicación idempotente. 719 respuestas HTTP 200 para 176 proyectos y diez respuestas generales sin diferencias de contenido. 48 pruebas del importador selectivo pasan. | Revisar los 985 cortes Azure adicionales y el alcance medido de G13. P2/P3 y gate completo siguen pendientes. |
 | 05/11/2026 | Héctor (con Codex) | G13: elegibilidad diaria de atribución | Genesis `96c6dbc` local | Elegibilidad compartida por día dentro de la llamada, con recálculo al usar callback. EVA1 3.38 s, Cartera 2.79 s y detalle DM 2.96 s en PostgreSQL local. Diez respuestas por motor conservan el contenido. 1,349 pruebas, tipos, Ruff, formato y gate documental pasan. make sigue ausente. | Revisar alcance medido de G13 e incorporar las 16 copias manuales al paquete. Agregados persistidos sujetos a G8/P3. |
 | 05/11/2026 | Héctor (con Codex) | G13: consumo agrupado de EVA3 | Genesis `1e36c78` local | Cartera y detalle DM pasan de 120 a 3 consultas Clockify. Diez respuestas por motor conservan el contenido. 1,347 pruebas del módulo, tipos, Ruff, formato y gate documental pasan. make sigue ausente. | Perfilar atribución de horas y cerrar alcance de optimizaciones disponibles de G13. G8/P3 y las 16 copias manuales siguen pendientes. |
