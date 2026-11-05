@@ -1,0 +1,664 @@
+[
+  {
+    "case": "cruce_anual",
+    "today": "2026-01-15",
+    "projects": [
+      {
+        "project_id": "P1",
+        "name": "Cerrado",
+        "start": "2025-08-10",
+        "end": "2025-09-05",
+        "budget": 270
+      },
+      {
+        "project_id": "P2",
+        "name": "Vigente",
+        "start": "2025-12-01",
+        "end": "2026-02-28",
+        "budget": 900
+      }
+    ],
+    "expected": [
+      {
+        "label": "2025-08",
+        "projects": [
+          {
+            "id": "P1",
+            "name": "Cerrado",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 270,
+            "budget": 220.0
+          }
+        ],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 220.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2025-09",
+        "projects": [
+          {
+            "id": "P1",
+            "name": "Cerrado",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 270,
+            "budget": 50.0
+          }
+        ],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 50.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2025-10",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2025-11",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2025-12",
+        "projects": [
+          {
+            "id": "P2",
+            "name": "Vigente",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 900,
+            "budget": 310.0
+          }
+        ],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 310.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-01",
+        "projects": [
+          {
+            "id": "P2",
+            "name": "Vigente",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 900,
+            "budget": 150.0
+          }
+        ],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 150.0,
+        "budget_missing": 0
+      }
+    ]
+  },
+  {
+    "case": "bisiesto",
+    "today": "2024-02-29",
+    "projects": [
+      {
+        "project_id": "P1",
+        "name": "Febrero",
+        "start": "01/02/24",
+        "end": "29/02/24",
+        "budget": 290
+      }
+    ],
+    "expected": [
+      {
+        "label": "2023-09",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2023-10",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2023-11",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2023-12",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2024-01",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2024-02",
+        "projects": [
+          {
+            "id": "P1",
+            "name": "Febrero",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 290,
+            "budget": 290.0
+          }
+        ],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 290.0,
+        "budget_missing": 0
+      }
+    ]
+  },
+  {
+    "case": "sin_presupuesto",
+    "today": "2026-11-05",
+    "projects": [
+      {
+        "project_id": "P0",
+        "name": "Proyecto 0",
+        "start": "2026-10-01",
+        "end": "2026-11-30",
+        "budget": null
+      },
+      {
+        "project_id": "P1",
+        "name": "Proyecto 1",
+        "start": "2026-10-01",
+        "end": "2026-11-30",
+        "budget": 0
+      },
+      {
+        "project_id": "P2",
+        "name": "Proyecto 2",
+        "start": "2026-10-01",
+        "end": "2026-11-30",
+        "budget": -30
+      }
+    ],
+    "expected": [
+      {
+        "label": "2026-06",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-07",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-08",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-09",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-10",
+        "projects": [
+          {
+            "id": "P0",
+            "name": "Proyecto 0",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": null,
+            "budget": null
+          },
+          {
+            "id": "P1",
+            "name": "Proyecto 1",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 0,
+            "budget": null
+          },
+          {
+            "id": "P2",
+            "name": "Proyecto 2",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": -30,
+            "budget": null
+          }
+        ],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 3
+      },
+      {
+        "label": "2026-11",
+        "projects": [
+          {
+            "id": "P0",
+            "name": "Proyecto 0",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": null,
+            "budget": null
+          },
+          {
+            "id": "P1",
+            "name": "Proyecto 1",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 0,
+            "budget": null
+          },
+          {
+            "id": "P2",
+            "name": "Proyecto 2",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": -30,
+            "budget": null
+          }
+        ],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 3
+      }
+    ]
+  },
+  {
+    "case": "fechas_invalidas",
+    "today": "2026-11-05",
+    "projects": [
+      {
+        "project_id": "P1",
+        "name": "Invertido",
+        "start": "2026-11-30",
+        "end": "2026-10-01",
+        "budget": 60
+      },
+      {
+        "project_id": "P2",
+        "name": "Sin fecha",
+        "start": "",
+        "end": "",
+        "budget": 60
+      }
+    ],
+    "expected": [
+      {
+        "label": "2026-06",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-07",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-08",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-09",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-10",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-11",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      }
+    ]
+  },
+  {
+    "case": "un_dia",
+    "today": "2026-11-05",
+    "projects": [
+      {
+        "project_id": "P1",
+        "name": "Entrega",
+        "start": "05/11/2026",
+        "end": "05/11/2026",
+        "budget": 2.675
+      }
+    ],
+    "expected": [
+      {
+        "label": "2026-06",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-07",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-08",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-09",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-10",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-11",
+        "projects": [
+          {
+            "id": "P1",
+            "name": "Entrega",
+            "client": "",
+            "service": "",
+            "billable": 0,
+            "operational": 0,
+            "commercial": 0,
+            "total": 0,
+            "project_budget": 2.675,
+            "budget": 2.67
+          }
+        ],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 2.67,
+        "budget_missing": 0
+      }
+    ]
+  },
+  {
+    "case": "fuera_periodo",
+    "today": "2026-11-05",
+    "projects": [
+      {
+        "project_id": "P1",
+        "name": "Anterior",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "budget": 365
+      },
+      {
+        "project_id": "P2",
+        "name": "Futuro",
+        "start": "2026-12-01",
+        "end": "2026-12-31",
+        "budget": 31
+      }
+    ],
+    "expected": [
+      {
+        "label": "2026-06",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-07",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-08",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-09",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-10",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-11",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      }
+    ]
+  },
+  {
+    "case": "sin_proyectos",
+    "today": "2026-11-05",
+    "projects": [],
+    "expected": [
+      {
+        "label": "2026-06",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-07",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-08",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-09",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-10",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      },
+      {
+        "label": "2026-11",
+        "projects": [],
+        "billable": 0,
+        "operational": 0,
+        "commercial": 0,
+        "budget": 0.0,
+        "budget_missing": 0
+      }
+    ]
+  }
+]
