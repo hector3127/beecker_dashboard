@@ -109,7 +109,7 @@ Enviadas a Ulises (infraestructura) el 02/11. La de permisos va a quien defina e
 | P1 | Quién ve finanzas, todo el portafolio o solo sus proyectos; roles de Lin o grupos nuevos; cómo ligar usuario de Genesis con nombre de DM en Azure | G5 (permisos reales), G9 | Pendiente |
 | P2 | ¿~5 GB por entorno en `psql-flx-genesis` (B1ms compartido) o subir de tier? ¿Quién carga el histórico en UAT/PROD y en qué ventana? | G10 | Pendiente |
 | P3 | Quién crea cuentas de servicio de Azure DevOps, Clockify y Google, y quién las carga como app settings en UAT/PROD | G8 | Pendiente |
-| P4 | Lectura sobre `rg-genesis` y rol PostgreSQL de solo lectura en `genesis_uat_db` | Validar esquema real y app settings (no bloquea el trabajo local) | Pendiente |
+| P4 | Lectura sobre `rg-genesis` y rol PostgreSQL de solo lectura en `genesis_uat_db` | Validar esquema real y app settings (no bloquea el trabajo local) | Ya no hace falta para avanzar (05/11): se trabaja local y los pipelines publican; ver abajo |
 | P5 | Dashboard Management son plantillas Django con JS sin compilar (unas 29 mil líneas de dibujo de pantallas). ¿Confirman que se porta como componentes React del SPA de Genesis, reutilizando cálculos y backend, o prefieren embeberlo de otra forma? | Decisión A5 y toda la Fase 5 | Pendiente |
 
 Ya respondido por el código o por Ulises (no volver a preguntar):
@@ -120,6 +120,30 @@ Ya respondido por el código o por Ulises (no volver a preguntar):
 - Los secretos van como app settings (sin Key Vault).
 - Existe Blob (`media`, `media-uat`) para archivos como logos.
 - La base de Genesis es pequeña (respaldo PROD de 22.4 MB en septiembre).
+
+Sesión de alineación LIN del 05/11/2026 (Héctor con Enrique Badillo y Christian Samano):
+
+- **P4 deja de bloquear.** Enrique (quien conectó la base de LIN) no pidió acceso a la base para ver
+  tablas: copió la estructura de Genesis, trabajó local y subió su rama. Al abrir el pull request,
+  los pipelines del equipo de Martín publican las migraciones y dan de alta los accesos. Nosotros
+  solo escribimos migraciones y modelos en la rama; no hay que leer `psql-flx-genesis` para avanzar.
+- **PostgreSQL local, no SQLite.** Su recomendación: trabajar contra PostgreSQL local (licencia
+  gratuita) para no hacer después una transferencia de SQLite. Coincide con el paso 1 de G13 (medir
+  en PostgreSQL) y con `settings_test_postgres.py` que ya existe en Genesis.
+- **La base de LIN no tiene datos útiles para nosotros**: solo nombres de personas y recursos, casi
+  nada de proyectos. No hay nada que cruzar con ella por ahora.
+- **El código debe pasar los pipelines** (ya están hechos). Ajustar a lo que exigen, sin romperlos.
+- **Ramas:** cada quien trabaja en su rama; `features` es la que se publica en UAT. Nuestra rama
+  `Integracion_Dashboard_Management` ya parte de `features` y `features` no tiene nada que no esté
+  en ella (0 commits detrás, verificado el 05/11).
+- **Pendiente con Martín y Andrés Arenas** (los cuatro que meten código a Genesis): una sesión para
+  alinear pipelines y cómo se asignan los tipos de usuario.
+- **Usuarios y roles, lo que ya se ve en el código** (sin preguntar): Genesis usa el `User` y los
+  `Group` estándar de Django. Lin tiene aparte `Integrante.rol` (talento, am, dm, lider_operativo,
+  coo, admin; ADR 0023), independiente de los grupos y válido solo para Lin. Las capacidades del
+  dashboard (`apps/access/models.py`) ya se registran como permisos de Django asignables a grupos,
+  así que G6b puede hacerse con permisos de Django sin esperar a Lin. Falta decidir P1: quién ve
+  finanzas y cómo se liga el usuario con el nombre del DM en Azure.
 
 ## 7. Fases y tareas
 
