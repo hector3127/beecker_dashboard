@@ -295,8 +295,10 @@ Pasos, cada uno con su propio cotejo de 0 diferencias antes y después:
    respetan los meses sincronizados y reutilizan el catálogo de Clockify y la lista de CR históricos.
    En el cotejo local de Costos y Financiera, las consultas de entradas bajaron de 1,563 a 4 en ambas
    vistas. En PostgreSQL, Costos pasó de 10.85 a 3.52 s y Financiera de 11.55 a 4.49 s. Las diez
-   respuestas cotejadas conservaron su contenido en cada motor. Falta agrupar Operaciones y medir
-   los siguientes consumidores. Este paso no requiere migración.
+   respuestas cotejadas conservaron su contenido en cada motor. Operaciones también usa los lotes:
+   pasó de 555 a 23 lecturas de Clockify y de 977 a 118 consultas totales. En PostgreSQL local pasó
+   de 8.41 a 7.73 s. Las diez respuestas volvieron a coincidir en cada motor. Falta medir los
+   siguientes consumidores y el tiempo restante de plantilla y hojas. Este paso no requiere migración.
 3. **Agregados mensuales** (horas por proyecto, mes, persona y categoría) que se rellenan al
    sincronizar, para que Costos, Financiera, Operaciones y Capacidad no recorran entradas sueltas.
    Se invalidan con la sincronización (depende de G8/P3).
@@ -428,6 +430,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 05/11/2026 | Héctor (con Codex) | G13: lotes de Clockify para Operaciones | Genesis `af2e495` local | Operaciones pasa de 555 a 23 lecturas Clockify y tarda 7.73 s en PostgreSQL local. Diez respuestas cotejadas por motor conservan el contenido. 18 pruebas de Operaciones, Ruff, formato, tipos del módulo y gate documental pasan. El gate completo sigue pendiente por el entorno Windows. | Medir siguientes consumidores y el tiempo de plantilla y hojas. G8/P3 sigue pendiente para agregados persistidos. |
 | 05/11/2026 | Héctor (con Codex) | G13: lotes de Clockify para finanzas | Genesis `3da0b93` local | Costos y Financiera pasan de 1,563 lecturas a 4 cada una. Diez respuestas conservan el contenido en PostgreSQL y SQLite. 1,333 pruebas de Dashboard Management, Ruff, tipos del módulo y OpenAPI pasan. | G13: agrupar Operaciones, que conserva 555 lecturas de Clockify. |
 | 05/11/2026 | Héctor (con Codex) | Validación local PostgreSQL y lotes acotados | Genesis `aaf9aa2` local | 26 tablas y 1,572,514 filas en 551.95 s. Diez respuestas cotejadas sin diferencias de contenido. 36 pruebas de importación, ruff y mypy. Costos 1,563 lecturas de Clockify con índice confirmado | G13: agrupar lecturas y repetir el cotejo. Integrar 16 copias manuales ausentes del paquete y validar cobertura Azure. P2 y P3 siguen abiertos. |
 | 05/11/2026 | Héctor (con Codex) | G10f1 y preparación de PostgreSQL local | Genesis `39fc874` local | Piloto IA cotejado con 16 proyectos y proveedor simulado. Diez análisis y seis respuestas por falta de indicadores. Doce pruebas frontend, una API, lint y build directo pasan. Gate de formato conserva 165 avisos ajenos y verify pasa rutas antes del fallo POSIX en Windows. Paquete de 26 tablas verificado | Levantar PostgreSQL local para migrar y cargar. G10f parcial por proveedor real, historial y otros flujos. G13 empieza por medir localmente. |
