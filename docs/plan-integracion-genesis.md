@@ -270,6 +270,7 @@ Desglose de G9 (EVA1). G8 solo hace falta para actualizar datos; EVA1 lee cortes
 | ID | Tarea | Depende | Estado |
 |---|---|---|---|
 | G13 | Reestructura de datos del módulo (ver plan G13 abajo): medir, agregar y tipar solo lo que lo justifique | G10 y PostgreSQL local para la medición. Agregados sujetos a G8/P3 | en curso; lecturas y procesamiento local optimizados y cotejados |
+| G14 | Paridad visual de las pantallas con el dashboard (claro primero, luego oscuro), por pantalla y con capturas lado a lado | G10 | propuesto (05/11) |
 | G11 | Importación completa en UAT con respaldo y reversión; cierres KPI intactos | G9–G10, P2 | bloqueado |
 | G12 | PR de `Integracion_Dashboard_Management` a UAT con gates y evidencia; revisores Talin y Ulises | G11 | pendiente |
 
@@ -408,6 +409,30 @@ nulas. La preselección ahora exige inicio presente y distinto de null y vacío,
 final, conservando los bloques hermanos de una fuente con inicio válido. Las ocho respuestas
 históricas coinciden entre motores, incluidas dos comprobaciones de cobertura parcial. Las diez
 respuestas generales mantienen su contenido. P2 sigue abierto para UAT.
+
+### Plan G14 — paridad visual (05/11/2026)
+
+Hallazgo de Héctor con capturas del 05/11: lo que hay en Genesis no se parece al dashboard local.
+Es cierto. Hasta ahora se portaron **datos, cálculos y comportamiento** con cotejos de cero
+diferencias, pero las pantallas se dibujaron de forma básica (tarjetas y tablas con `mg-kpi` y
+`mg-table`). Contradice la regla de la sección 8 ("el diseño claro actual del dashboard es la
+referencia") y la nota de diseño idéntico. Ejemplo, Business Overview: el original tiene barra
+superior con «Datos al…» y «Descargar captura», banner degradado con selector de periodo,
+glosario, tres tarjetas con icono (Financiera, Operaciones, Comercial) con sus botones «Ver
+detalle», rentabilidad mensual y ranking de cuentas sanas y no sanas; Genesis muestra cifras y
+una tabla.
+
+Lo que no se puede igualar (es del shell de Genesis y no se toca): barra lateral, cabecera y
+modo oscuro de la plataforma. Lo que sí: todo lo que se dibuja dentro del módulo.
+
+Cómo: por pantalla, con estilos aislados bajo una clase raíz `mg-*` y tokens `--mg-*`; mismo
+marcado y mismas clases visuales que el original; capturar original y nueva con los mismos datos
+y comparar lado a lado antes de darla por hecha (claro, luego oscuro; 1450, 1000, 768 y 390 px).
+Sin tocar cálculos ni otros módulos.
+
+Orden propuesto: 1) Business Overview (la portada), 2) KPIs DM, 3) Operativa y EVA, 4) Costos,
+Márgenes, Financiera y Comercial, 5) Capacidad, Facturabilidad e Inversión, 6) Cuentas y
+Proyectos. Una pantalla por commit.
 
 ## 8. Diseño y modo oscuro
 
