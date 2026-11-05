@@ -1,0 +1,14 @@
+{
+  "projects": ["P1", "P2", "P3"],
+  "rows": [
+    ["ID_Proyecto", "Riesgo", "Estado", "Responsable", "Fecha_Limite", "Impacto", "Probabilidad"],
+    ["P1", "Acceso", "Abierto", "Ana", "2026-11-12", "Alto", "Alta"],
+    ["P1", "Acceso", "Abierto", "", "", "", ""],
+    ["P1", "Ya resuelto", "Closed", "Ana", "", "Alto", "Alta"],
+    ["P1", "", "Abierto", "", "", "", ""],
+    ["P10", "Otro proyecto", "Abierto", "", "", "", ""],
+    [" P2 ", "Revisión", "", "", "", "", ""],
+    ["P3", "Cancelado", "Cancelado", "", "", "", ""]
+  ],
+  "expected": {"P1": 1, "P2": 1, "P3": 0}
+}
