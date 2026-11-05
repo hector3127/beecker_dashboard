@@ -1,0 +1,229 @@
+[
+  {
+    "name": "orden duplicados y alcance exacto",
+    "project": "AMK.001_S1",
+    "rows": [
+      [
+        "Proyecto",
+        "Posición",
+        "Nombre del recurso",
+        "Horas Estimadas",
+        "Estado"
+      ],
+      [
+        "AMK.001_S1",
+        "Dev",
+        "Ana",
+        8,
+        ""
+      ],
+      [
+        "AMK.001_S1",
+        "QA",
+        "Ana",
+        3,
+        "Inactivo"
+      ],
+      [
+        "AMK.001_S2",
+        "Dev",
+        "Otro",
+        4,
+        "Activo"
+      ]
+    ],
+    "expected": [
+      {
+        "nombre": "Ana",
+        "rol": "Dev",
+        "horasEstimadas": 8,
+        "activo": true
+      },
+      {
+        "nombre": "Ana",
+        "rol": "QA",
+        "horasEstimadas": 3,
+        "activo": false
+      }
+    ]
+  },
+  {
+    "name": "acentos y alias",
+    "project": " ámk.001_s1 ",
+    "rows": [
+      [
+        "ID_Proyecto",
+        "Rol",
+        "Recurso",
+        "Horas_Estimadas",
+        "Activo"
+      ],
+      [
+        "AMK.001_S1",
+        "BA",
+        "Beta",
+        "0x10",
+        "NO"
+      ]
+    ],
+    "expected": [
+      {
+        "nombre": "Beta",
+        "rol": "BA",
+        "horasEstimadas": 16,
+        "activo": false
+      }
+    ]
+  },
+  {
+    "name": "falta estado implica activo",
+    "project": "AMK.001",
+    "rows": [
+      [
+        "Proyecto",
+        "Posición",
+        "Nombre del recurso",
+        "Horas Estimadas"
+      ],
+      [
+        "AMK.001",
+        "Dev",
+        "Ana",
+        "3.5"
+      ]
+    ],
+    "expected": [
+      {
+        "nombre": "Ana",
+        "rol": "Dev",
+        "horasEstimadas": 3.5,
+        "activo": true
+      }
+    ]
+  },
+  {
+    "name": "flags booleanos y nombres vacios",
+    "project": "AMK.001",
+    "rows": [
+      [
+        "Proyecto",
+        "Posición",
+        "Nombre del recurso",
+        "Horas Estimadas",
+        "Estado"
+      ],
+      [
+        "AMK.001",
+        {},
+        "Ana",
+        [],
+        false
+      ],
+      [
+        "AMK.001",
+        "Dev",
+        "",
+        4,
+        "Activo"
+      ],
+      [
+        "AMK.001",
+        "QA",
+        "Beta",
+        [
+          5
+        ],
+        "false"
+      ]
+    ],
+    "expected": [
+      {
+        "nombre": "Ana",
+        "rol": "[object Object]",
+        "horasEstimadas": 0,
+        "activo": true
+      },
+      {
+        "nombre": "Beta",
+        "rol": "QA",
+        "horasEstimadas": 0,
+        "activo": false
+      }
+    ]
+  },
+  {
+    "name": "horas invalidas y negativas",
+    "project": "AMK.001",
+    "rows": [
+      [
+        "Proyecto",
+        "Posición",
+        "Nombre del recurso",
+        "Horas Estimadas",
+        "Estado"
+      ],
+      [
+        "AMK.001",
+        "Dev",
+        "Ana",
+        "NaN",
+        ""
+      ],
+      [
+        "AMK.001",
+        "QA",
+        "Beta",
+        -3.75,
+        "no"
+      ],
+      [
+        "AMK.001",
+        "QA",
+        "Gamma",
+        "1,000",
+        ""
+      ]
+    ],
+    "expected": [
+      {
+        "nombre": "Ana",
+        "rol": "Dev",
+        "horasEstimadas": 0,
+        "activo": true
+      },
+      {
+        "nombre": "Beta",
+        "rol": "QA",
+        "horasEstimadas": -3.75,
+        "activo": false
+      },
+      {
+        "nombre": "Gamma",
+        "rol": "QA",
+        "horasEstimadas": 0,
+        "activo": true
+      }
+    ]
+  },
+  {
+    "name": "recorte y vacio valido",
+    "project": "AMK.001",
+    "rows": [
+      [
+        "Proyecto",
+        "Posición",
+        "Nombre del recurso",
+        "Horas Estimadas",
+        "Estado"
+      ],
+      [
+        "AMK.002",
+        "QA",
+        "Beta",
+        10,
+        ""
+      ]
+    ],
+    "expected": []
+  }
+]
