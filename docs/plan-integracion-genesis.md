@@ -434,6 +434,27 @@ Orden propuesto: 1) Business Overview (la portada), 2) KPIs DM, 3) Operativa y E
 Márgenes, Financiera y Comercial, 5) Capacidad, Facturabilidad e Inversión, 6) Cuentas y
 Proyectos. Una pantalla por commit.
 
+#### G14 — hallazgos de la revisión de Operativa y EVA (05/11/2026)
+
+- **Business Overview (G14a, G14b) y KPIs DM (G14c)**: hechos. KPIs ya coincidía en estructura.
+- **Operativa**: lejos del original. El original (`tmp/design/operativa-reference/operativa-1450.png`)
+  tiene banner con filtros de servicio y cuenta, «Resumen» con cinco tarjetas con icono (proyectos
+  en ejecución, suspendidos, en tiempo, inversión operativa y comercial), «Salud del portafolio» con
+  dona y tablas por estado y por servicio, tarjetas por Delivery Manager con barra de salud,
+  bloque EVA con tres tarjetas (EVA 1, EVA 3, EVA 4) y «Ver proyectos», Facturabilidad con tarjeta
+  global, barras por mes con meta y accesos laterales, y Capacidad del equipo con saldo, uso y
+  detalle. Genesis tiene «Centro Operativa» (cuatro tarjetas de texto) y la cartera con tablas.
+  Los datos ya existen (cartera: `summary`, `managers`, `service_distribution`; EVA, facturabilidad,
+  capacidad e inversión); falta dibujarlos.
+- **EVA 1**: la captura anterior de Genesis (`tmp/genesis-management-ui/eva1-Claro-1450.png`) ya tenía
+  banner propio, tarjetas con icono y filtros; falta compararla con datos reales y el estado actual.
+- **Portada por sección**: el original tiene un banner propio por pantalla (icono, rótulo, título,
+  subtítulo y filtros); Genesis muestra la misma portada del módulo en todas.
+
+Orden propuesto para Operativa, un commit por tramo, con el mismo cotejo visual: 1) banner con
+filtros y Resumen de cinco tarjetas; 2) Salud del portafolio y tarjetas por DM; 3) bloque EVA;
+4) Facturabilidad; 5) Capacidad del equipo.
+
 ## 8. Diseño y modo oscuro
 
 Cómo funciona en Genesis: `ThemeProvider` (`frontend/src/context/ThemeContext.jsx`) guarda `light`, `dark` o `system` en `genesis-theme`, pone la clase `.dark` y `data-theme` en `<html>`, y `frontend/src/styles/theme.css` define las variables (`--background`, `--surface`, `--foreground`, `--border`, `--primary`, `--chart-1..5`…) para `:root` y `.dark`, expuestas a Tailwind con `@custom-variant dark`.
