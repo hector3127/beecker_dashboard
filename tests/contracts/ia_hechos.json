@@ -1,0 +1,3083 @@
+{
+ "afirmaciones": [
+  {
+   "entrada": [
+    "Avance 42.5% [PR-1]"
+   ],
+   "limite": 4,
+   "salida": []
+  },
+  {
+   "entrada": [
+    "Avance 42.5% [PR-1]"
+   ],
+   "limite": 2,
+   "salida": []
+  },
+  {
+   "entrada": [
+    "Avance 42.5% [PR-1]"
+   ],
+   "limite": 0,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "PR-1"
+     ],
+     "texto": "Avance 50%"
+    }
+   ],
+   "limite": 4,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "PR-1"
+     ],
+     "texto": "Avance 50%"
+    }
+   ],
+   "limite": 2,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "PR-1"
+     ],
+     "texto": "Avance 50%"
+    }
+   ],
+   "limite": 0,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "detalle": "310.5 horas",
+     "evidencias": [
+      "REC-1",
+      "PR-1"
+     ],
+     "titulo": "Ana"
+    }
+   ],
+   "limite": 4,
+   "salida": [
+    {
+     "detalle": "310.5 horas",
+     "evidencias": [
+      "REC-1",
+      "PR-1"
+     ],
+     "fuente": "Recursos / Clockify / dashboard",
+     "titulo": "Ana"
+    }
+   ]
+  },
+  {
+   "entrada": [
+    {
+     "detalle": "310.5 horas",
+     "evidencias": [
+      "REC-1",
+      "PR-1"
+     ],
+     "titulo": "Ana"
+    }
+   ],
+   "limite": 2,
+   "salida": [
+    {
+     "detalle": "310.5 horas",
+     "evidencias": [
+      "REC-1",
+      "PR-1"
+     ],
+     "fuente": "Recursos / Clockify / dashboard",
+     "titulo": "Ana"
+    }
+   ]
+  },
+  {
+   "entrada": [
+    {
+     "detalle": "310.5 horas",
+     "evidencias": [
+      "REC-1",
+      "PR-1"
+     ],
+     "titulo": "Ana"
+    }
+   ],
+   "limite": 0,
+   "salida": [
+    {
+     "detalle": "310.5 horas",
+     "evidencias": [
+      "REC-1",
+      "PR-1"
+     ],
+     "fuente": "Recursos / Clockify / dashboard",
+     "titulo": "Ana"
+    }
+   ]
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "NO-1"
+     ],
+     "texto": "Sin evidencia"
+    }
+   ],
+   "limite": 4,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "NO-1"
+     ],
+     "texto": "Sin evidencia"
+    }
+   ],
+   "limite": 2,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "NO-1"
+     ],
+     "texto": "Sin evidencia"
+    }
+   ],
+   "limite": 0,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "PR-1"
+     ],
+     "texto": ""
+    }
+   ],
+   "limite": 4,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "PR-1"
+     ],
+     "texto": ""
+    }
+   ],
+   "limite": 2,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "PR-1"
+     ],
+     "texto": ""
+    }
+   ],
+   "limite": 0,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "PR-1"
+     ],
+     "texto": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+   ],
+   "limite": 4,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "PR-1"
+     ],
+     "texto": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+   ],
+   "limite": 2,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "PR-1"
+     ],
+     "texto": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+   ],
+   "limite": 0,
+   "salida": []
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "ET-1",
+      "ET-1"
+     ],
+     "texto": "Fase del 2026-09-01"
+    }
+   ],
+   "limite": 4,
+   "salida": [
+    {
+     "evidencias": [
+      "ET-1",
+      "ET-1"
+     ],
+     "fuente": "planeación",
+     "texto": "Fase del 2026-09-01"
+    }
+   ]
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "ET-1",
+      "ET-1"
+     ],
+     "texto": "Fase del 2026-09-01"
+    }
+   ],
+   "limite": 2,
+   "salida": [
+    {
+     "evidencias": [
+      "ET-1",
+      "ET-1"
+     ],
+     "fuente": "planeación",
+     "texto": "Fase del 2026-09-01"
+    }
+   ]
+  },
+  {
+   "entrada": [
+    {
+     "evidencias": [
+      "ET-1",
+      "ET-1"
+     ],
+     "texto": "Fase del 2026-09-01"
+    }
+   ],
+   "limite": 0,
+   "salida": [
+    {
+     "evidencias": [
+      "ET-1",
+      "ET-1"
+     ],
+     "fuente": "planeación",
+     "texto": "Fase del 2026-09-01"
+    }
+   ]
+  },
+  {
+   "entrada": [
+    "a",
+    "b",
+    "c"
+   ],
+   "limite": 4,
+   "salida": []
+  },
+  {
+   "entrada": [
+    "a",
+    "b",
+    "c"
+   ],
+   "limite": 2,
+   "salida": []
+  },
+  {
+   "entrada": [
+    "a",
+    "b",
+    "c"
+   ],
+   "limite": 0,
+   "salida": []
+  },
+  {
+   "entrada": "no es lista",
+   "limite": 4,
+   "salida": []
+  },
+  {
+   "entrada": "no es lista",
+   "limite": 2,
+   "salida": []
+  },
+  {
+   "entrada": "no es lista",
+   "limite": 0,
+   "salida": []
+  },
+  {
+   "entrada": [
+    null,
+    5,
+    {
+     "evidencias": "PR-1"
+    }
+   ],
+   "limite": 4,
+   "salida": []
+  },
+  {
+   "entrada": [
+    null,
+    5,
+    {
+     "evidencias": "PR-1"
+    }
+   ],
+   "limite": 2,
+   "salida": []
+  },
+  {
+   "entrada": [
+    null,
+    5,
+    {
+     "evidencias": "PR-1"
+    }
+   ],
+   "limite": 0,
+   "salida": []
+  }
+ ],
+ "contexto": {
+  "acciones": [
+   {
+    "accion": "Revisar",
+    "estado": "Abierta",
+    "fechaLimite": "2026-11-10",
+    "responsable": "Ana",
+    "uid": "A1"
+   }
+  ],
+  "avance": {
+   "pct": 42.5
+  },
+  "compromisos": [
+   {
+    "actividad": "Entrega UAT",
+    "estado": "Abierto",
+    "fecha": "2026-11-30",
+    "responsable": "Luis"
+   }
+  ],
+  "etapas": [
+   {
+    "estado": "Cerrada",
+    "fin": "2026-09-30",
+    "inicio": "2026-09-01",
+    "nombre": "Descubrimiento"
+   },
+   {
+    "estado": "En curso",
+    "fin": "2026-12-15",
+    "inicio": "2026-10-01",
+    "nombre": "Construcción"
+   }
+  ],
+  "fechaCorte": "2026-11-05",
+  "fuentesDisponibles": [
+   "azure",
+   "clockify"
+  ],
+  "horasClockifyTotal": 510.25,
+  "horasPorFecha": [
+   {
+    "fecha": "2026-10-01",
+    "horas": 0.5
+   },
+   {
+    "fecha": "2026-10-02",
+    "horas": 1.0
+   },
+   {
+    "fecha": "2026-10-03",
+    "horas": 1.5
+   },
+   {
+    "fecha": "2026-10-04",
+    "horas": 2.0
+   },
+   {
+    "fecha": "2026-10-05",
+    "horas": 2.5
+   },
+   {
+    "fecha": "2026-10-06",
+    "horas": 3.0
+   },
+   {
+    "fecha": "2026-10-07",
+    "horas": 3.5
+   },
+   {
+    "fecha": "2026-10-08",
+    "horas": 4.0
+   },
+   {
+    "fecha": "2026-10-09",
+    "horas": 4.5
+   },
+   {
+    "fecha": "2026-10-10",
+    "horas": 5.0
+   }
+  ],
+  "horasPorRecurso": [
+   {
+    "horas": 310.5,
+    "nombre": "ana pérez"
+   },
+   {
+    "horas": 99.75,
+    "nombre": "Luis Gómez"
+   },
+   {
+    "horas": 5,
+    "nombre": "Externo"
+   }
+  ],
+  "kpis": {
+   "pctCumplimientoFinanciero": 88
+  },
+  "memoriaAnterior": {
+   "analisis": {
+    "resumen": [
+     {
+      "texto": "Previo"
+     }
+    ]
+   },
+   "fecha": "2026-10-01"
+  },
+  "minutas": [
+   {
+    "contenido": "Se acordó el alcance",
+    "fecha": "2026-09-02",
+    "tema": "Kickoff"
+   }
+  ],
+  "nombreProyecto": "Soporte Acme",
+  "presupuesto": {
+   "budget": 1200,
+   "burn": 510.25
+  },
+  "proyecto": "IXS.ACM.001",
+  "raid": [
+   {
+    "estado": "Open",
+    "id": 7,
+    "tipo": "Risk",
+    "titulo": "Retraso proveedor"
+   }
+  ],
+  "recursos": [
+   {
+    "activo": true,
+    "horasEstimadas": 300,
+    "nombre": "Ana Pérez",
+    "rol": "Dev"
+   },
+   {
+    "activo": false,
+    "horasEstimadas": 100,
+    "nombre": "Luis Gómez",
+    "rol": "QA"
+   },
+   {
+    "horasEstimadas": 0,
+    "nombre": "Sin horas",
+    "rol": "PM"
+   }
+  ],
+  "registrosClockifyTotal": 77,
+  "vacaciones": [
+   {
+    "estado": "Aprobada",
+    "fin": "2026-12-31",
+    "inicio": "2026-12-20",
+    "recurso": "Ana Pérez"
+   }
+  ],
+  "workItems": [
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 101,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 1 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 102,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 2 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Closed",
+    "fechaLimite": "",
+    "id": 103,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 3 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "2026-11-04",
+    "id": 104,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 4 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 105,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 5 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Closed",
+    "fechaLimite": "",
+    "id": 106,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 6 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 107,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 7 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "2026-11-08",
+    "id": 108,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 8 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Closed",
+    "fechaLimite": "",
+    "id": 109,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 9 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 110,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 10 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 111,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 11 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Closed",
+    "fechaLimite": "2026-11-12",
+    "id": 112,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 12 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 113,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 13 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 114,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 14 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Closed",
+    "fechaLimite": "",
+    "id": 115,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 15 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "2026-11-16",
+    "id": 116,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 16 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 117,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 17 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Closed",
+    "fechaLimite": "",
+    "id": 118,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 18 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 119,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 19 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "2026-11-20",
+    "id": 120,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 20 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Closed",
+    "fechaLimite": "",
+    "id": 121,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 21 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 122,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 22 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 123,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 23 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Closed",
+    "fechaLimite": "2026-11-24",
+    "id": 124,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 24 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 125,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 25 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 126,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 26 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Closed",
+    "fechaLimite": "",
+    "id": 127,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 27 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Active",
+    "fechaLimite": "2026-11-28",
+    "id": 128,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 28 de integración"
+   },
+   {
+    "asignado": "Ana Pérez",
+    "estado": "Active",
+    "fechaLimite": "",
+    "id": 129,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 29 de integración"
+   },
+   {
+    "asignado": "Luis Gómez",
+    "estado": "Closed",
+    "fechaLimite": "",
+    "id": 130,
+    "iteracion": "Sprint 1",
+    "titulo": "Tarea 30 de integración"
+   }
+  ],
+  "workItemsPorAsignado": {
+   "10": 1,
+   "Ana Pérez": 15,
+   "Luis Gómez": 15
+  },
+  "workItemsPorEstado": {
+   "Active": 20,
+   "Closed": 10
+  },
+  "workItemsPorIteracion": {
+   "Sprint 1": 30
+  },
+  "workItemsSinSeguimiento": 4,
+  "workItemsTotal": 30
+ },
+ "hechos": {
+  "": [
+   {
+    "fuente": "dashboard",
+    "id": "PR-1",
+    "texto": "Proyecto IXS.ACM.001 Soporte Acme; fecha de corte 2026-11-05; avance 42.5%."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "FIN-1",
+    "texto": "Cumplimiento financiero 88%; presupuesto 1200 horas; gasto 510.25 horas."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-RES",
+    "texto": "Total Work Items 30; sin seguimiento 4; estados {\"Active\":20,\"Closed\":10}; iteraciones {\"Sprint 1\":30}."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-RES",
+    "texto": "Horas registradas en el ID 510.25 h; 77 registros."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-1",
+    "texto": "Descubrimiento: inicio 2026-09-01, fin 2026-09-30, estado Cerrada."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-2",
+    "texto": "Construcción: inicio 2026-10-01, fin 2026-12-15, estado En curso."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-1",
+    "texto": "Ana Pérez; rol Dev; activo; estimadas 300 h; registradas 310.5 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-2",
+    "texto": "Luis Gómez; rol QA; inactivo; estimadas 100 h; registradas 99.75 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-3",
+    "texto": "Sin horas; rol PM; activo; estimadas 0 h; registradas  h."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "VAC-1",
+    "texto": "Vacaciones Ana Pérez: 2026-12-20 a 2026-12-31; estado Aprobada."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "COM-1",
+    "texto": "Compromiso Entrega UAT: responsable Luis; fecha 2026-11-30; estado Abierto."
+   },
+   {
+    "fuente": "Acciones",
+    "id": "ACC-A1",
+    "texto": "Acción Revisar: Ana; fecha límite 2026-11-10; estado Abierta."
+   },
+   {
+    "fuente": "RAID",
+    "id": "RAID-7",
+    "texto": "Risk #7: Retraso proveedor; estado Open."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-1",
+    "texto": "10: 1 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-2",
+    "texto": "Ana Pérez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-3",
+    "texto": "Luis Gómez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-101",
+    "texto": "#101 Tarea 1 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-102",
+    "texto": "#102 Tarea 2 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-104",
+    "texto": "#104 Tarea 4 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-04."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-105",
+    "texto": "#105 Tarea 5 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-107",
+    "texto": "#107 Tarea 7 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-108",
+    "texto": "#108 Tarea 8 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-08."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-110",
+    "texto": "#110 Tarea 10 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-111",
+    "texto": "#111 Tarea 11 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-112",
+    "texto": "#112 Tarea 12 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-12."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-113",
+    "texto": "#113 Tarea 13 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-114",
+    "texto": "#114 Tarea 14 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-116",
+    "texto": "#116 Tarea 16 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-16."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-117",
+    "texto": "#117 Tarea 17 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-119",
+    "texto": "#119 Tarea 19 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-120",
+    "texto": "#120 Tarea 20 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-20."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-122",
+    "texto": "#122 Tarea 22 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-123",
+    "texto": "#123 Tarea 23 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-124",
+    "texto": "#124 Tarea 24 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-24."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-125",
+    "texto": "#125 Tarea 25 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-126",
+    "texto": "#126 Tarea 26 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-128",
+    "texto": "#128 Tarea 28 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-28."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-129",
+    "texto": "#129 Tarea 29 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-1",
+    "texto": "2026-10-01: 0.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-2",
+    "texto": "2026-10-02: 1 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-3",
+    "texto": "2026-10-03: 1.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-4",
+    "texto": "2026-10-04: 2 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-5",
+    "texto": "2026-10-05: 2.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-6",
+    "texto": "2026-10-06: 3 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-7",
+    "texto": "2026-10-07: 3.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-8",
+    "texto": "2026-10-08: 4 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-9",
+    "texto": "2026-10-09: 4.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-10",
+    "texto": "2026-10-10: 5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-1",
+    "texto": "Externo: 5 h registradas, sin asignación del recurso en la tabla."
+   },
+   {
+    "fuente": "Minutas",
+    "id": "MIN-1",
+    "texto": "Kickoff (2026-09-02): Se acordó el alcance"
+   },
+   {
+    "fuente": "Memoria",
+    "id": "MEM-1",
+    "texto": "Corte previo del 2026-10-01: {\"resumen\":[{\"texto\":\"Previo\"}]}"
+   }
+  ],
+  "Dime sobre la tarea 105 y Ana": [
+   {
+    "fuente": "dashboard",
+    "id": "PR-1",
+    "texto": "Proyecto IXS.ACM.001 Soporte Acme; fecha de corte 2026-11-05; avance 42.5%."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "FIN-1",
+    "texto": "Cumplimiento financiero 88%; presupuesto 1200 horas; gasto 510.25 horas."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-1",
+    "texto": "Descubrimiento: inicio 2026-09-01, fin 2026-09-30, estado Cerrada."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-2",
+    "texto": "Construcción: inicio 2026-10-01, fin 2026-12-15, estado En curso."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-RES",
+    "texto": "Total Work Items 30; sin seguimiento 4; estados {\"Active\":20,\"Closed\":10}; iteraciones {\"Sprint 1\":30}."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-RES",
+    "texto": "Horas registradas en el ID 510.25 h; 77 registros."
+   },
+   {
+    "fuente": "RAID",
+    "id": "RAID-7",
+    "texto": "Risk #7: Retraso proveedor; estado Open."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-1",
+    "texto": "Ana Pérez: estimadas 300.00 h; registradas 310.50 h; balance estimadas menos registradas -10.50 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-2",
+    "texto": "Luis Gómez: estimadas 100.00 h; registradas 99.75 h; balance estimadas menos registradas 0.25 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-105",
+    "texto": "#105 Tarea 5 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-1",
+    "texto": "Ana Pérez; rol Dev; activo; estimadas 300 h; registradas 310.5 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-2",
+    "texto": "Luis Gómez; rol QA; inactivo; estimadas 100 h; registradas 99.75 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-3",
+    "texto": "Sin horas; rol PM; activo; estimadas 0 h; registradas  h."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "VAC-1",
+    "texto": "Vacaciones Ana Pérez: 2026-12-20 a 2026-12-31; estado Aprobada."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "COM-1",
+    "texto": "Compromiso Entrega UAT: responsable Luis; fecha 2026-11-30; estado Abierto."
+   },
+   {
+    "fuente": "Acciones",
+    "id": "ACC-A1",
+    "texto": "Acción Revisar: Ana; fecha límite 2026-11-10; estado Abierta."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-1",
+    "texto": "10: 1 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-2",
+    "texto": "Ana Pérez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-3",
+    "texto": "Luis Gómez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-101",
+    "texto": "#101 Tarea 1 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-102",
+    "texto": "#102 Tarea 2 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-103",
+    "texto": "#103 Tarea 3 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-104",
+    "texto": "#104 Tarea 4 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-04."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-106",
+    "texto": "#106 Tarea 6 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-107",
+    "texto": "#107 Tarea 7 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-108",
+    "texto": "#108 Tarea 8 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-08."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-109",
+    "texto": "#109 Tarea 9 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-110",
+    "texto": "#110 Tarea 10 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-111",
+    "texto": "#111 Tarea 11 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-112",
+    "texto": "#112 Tarea 12 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-12."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-113",
+    "texto": "#113 Tarea 13 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-114",
+    "texto": "#114 Tarea 14 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-115",
+    "texto": "#115 Tarea 15 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-116",
+    "texto": "#116 Tarea 16 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-16."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-117",
+    "texto": "#117 Tarea 17 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-118",
+    "texto": "#118 Tarea 18 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-119",
+    "texto": "#119 Tarea 19 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-120",
+    "texto": "#120 Tarea 20 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-20."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-121",
+    "texto": "#121 Tarea 21 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-122",
+    "texto": "#122 Tarea 22 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-123",
+    "texto": "#123 Tarea 23 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-124",
+    "texto": "#124 Tarea 24 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-24."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-125",
+    "texto": "#125 Tarea 25 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-126",
+    "texto": "#126 Tarea 26 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-127",
+    "texto": "#127 Tarea 27 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-128",
+    "texto": "#128 Tarea 28 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-28."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-129",
+    "texto": "#129 Tarea 29 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-130",
+    "texto": "#130 Tarea 30 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-1",
+    "texto": "2026-10-01: 0.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-2",
+    "texto": "2026-10-02: 1 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-3",
+    "texto": "2026-10-03: 1.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-4",
+    "texto": "2026-10-04: 2 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-5",
+    "texto": "2026-10-05: 2.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-6",
+    "texto": "2026-10-06: 3 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-7",
+    "texto": "2026-10-07: 3.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-8",
+    "texto": "2026-10-08: 4 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-9",
+    "texto": "2026-10-09: 4.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-10",
+    "texto": "2026-10-10: 5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-1",
+    "texto": "Externo: 5 h registradas, sin asignación del recurso en la tabla."
+   },
+   {
+    "fuente": "Minutas",
+    "id": "MIN-1",
+    "texto": "Kickoff (2026-09-02): Se acordó el alcance"
+   },
+   {
+    "fuente": "Memoria",
+    "id": "MEM-1",
+    "texto": "Corte previo del 2026-10-01: {\"resumen\":[{\"texto\":\"Previo\"}]}"
+   }
+  ],
+  "¿Cuál es el estado general del proyecto?": [
+   {
+    "fuente": "dashboard",
+    "id": "PR-1",
+    "texto": "Proyecto IXS.ACM.001 Soporte Acme; fecha de corte 2026-11-05; avance 42.5%."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "FIN-1",
+    "texto": "Cumplimiento financiero 88%; presupuesto 1200 horas; gasto 510.25 horas."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-1",
+    "texto": "Descubrimiento: inicio 2026-09-01, fin 2026-09-30, estado Cerrada."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-2",
+    "texto": "Construcción: inicio 2026-10-01, fin 2026-12-15, estado En curso."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-RES",
+    "texto": "Total Work Items 30; sin seguimiento 4; estados {\"Active\":20,\"Closed\":10}; iteraciones {\"Sprint 1\":30}."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-RES",
+    "texto": "Horas registradas en el ID 510.25 h; 77 registros."
+   },
+   {
+    "fuente": "RAID",
+    "id": "RAID-7",
+    "texto": "Risk #7: Retraso proveedor; estado Open."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-1",
+    "texto": "Ana Pérez: estimadas 300.00 h; registradas 310.50 h; balance estimadas menos registradas -10.50 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-2",
+    "texto": "Luis Gómez: estimadas 100.00 h; registradas 99.75 h; balance estimadas menos registradas 0.25 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-1",
+    "texto": "Ana Pérez; rol Dev; activo; estimadas 300 h; registradas 310.5 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-2",
+    "texto": "Luis Gómez; rol QA; inactivo; estimadas 100 h; registradas 99.75 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-3",
+    "texto": "Sin horas; rol PM; activo; estimadas 0 h; registradas  h."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "VAC-1",
+    "texto": "Vacaciones Ana Pérez: 2026-12-20 a 2026-12-31; estado Aprobada."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "COM-1",
+    "texto": "Compromiso Entrega UAT: responsable Luis; fecha 2026-11-30; estado Abierto."
+   },
+   {
+    "fuente": "Acciones",
+    "id": "ACC-A1",
+    "texto": "Acción Revisar: Ana; fecha límite 2026-11-10; estado Abierta."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-1",
+    "texto": "10: 1 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-2",
+    "texto": "Ana Pérez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-3",
+    "texto": "Luis Gómez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-101",
+    "texto": "#101 Tarea 1 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-102",
+    "texto": "#102 Tarea 2 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-104",
+    "texto": "#104 Tarea 4 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-04."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-105",
+    "texto": "#105 Tarea 5 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-107",
+    "texto": "#107 Tarea 7 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-108",
+    "texto": "#108 Tarea 8 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-08."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-110",
+    "texto": "#110 Tarea 10 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-111",
+    "texto": "#111 Tarea 11 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-112",
+    "texto": "#112 Tarea 12 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-12."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-113",
+    "texto": "#113 Tarea 13 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-114",
+    "texto": "#114 Tarea 14 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-116",
+    "texto": "#116 Tarea 16 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-16."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-117",
+    "texto": "#117 Tarea 17 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-119",
+    "texto": "#119 Tarea 19 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-120",
+    "texto": "#120 Tarea 20 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-20."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-122",
+    "texto": "#122 Tarea 22 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-123",
+    "texto": "#123 Tarea 23 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-124",
+    "texto": "#124 Tarea 24 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-24."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-125",
+    "texto": "#125 Tarea 25 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-126",
+    "texto": "#126 Tarea 26 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-128",
+    "texto": "#128 Tarea 28 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-28."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-129",
+    "texto": "#129 Tarea 29 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-1",
+    "texto": "2026-10-01: 0.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-2",
+    "texto": "2026-10-02: 1 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-3",
+    "texto": "2026-10-03: 1.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-4",
+    "texto": "2026-10-04: 2 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-5",
+    "texto": "2026-10-05: 2.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-6",
+    "texto": "2026-10-06: 3 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-7",
+    "texto": "2026-10-07: 3.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-8",
+    "texto": "2026-10-08: 4 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-9",
+    "texto": "2026-10-09: 4.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-10",
+    "texto": "2026-10-10: 5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-1",
+    "texto": "Externo: 5 h registradas, sin asignación del recurso en la tabla."
+   },
+   {
+    "fuente": "Minutas",
+    "id": "MIN-1",
+    "texto": "Kickoff (2026-09-02): Se acordó el alcance"
+   },
+   {
+    "fuente": "Memoria",
+    "id": "MEM-1",
+    "texto": "Corte previo del 2026-10-01: {\"resumen\":[{\"texto\":\"Previo\"}]}"
+   }
+  ],
+  "¿Cómo va la tarea 12?": [
+   {
+    "fuente": "dashboard",
+    "id": "PR-1",
+    "texto": "Proyecto IXS.ACM.001 Soporte Acme; fecha de corte 2026-11-05; avance 42.5%."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "FIN-1",
+    "texto": "Cumplimiento financiero 88%; presupuesto 1200 horas; gasto 510.25 horas."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-1",
+    "texto": "Descubrimiento: inicio 2026-09-01, fin 2026-09-30, estado Cerrada."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-2",
+    "texto": "Construcción: inicio 2026-10-01, fin 2026-12-15, estado En curso."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-RES",
+    "texto": "Total Work Items 30; sin seguimiento 4; estados {\"Active\":20,\"Closed\":10}; iteraciones {\"Sprint 1\":30}."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-RES",
+    "texto": "Horas registradas en el ID 510.25 h; 77 registros."
+   },
+   {
+    "fuente": "RAID",
+    "id": "RAID-7",
+    "texto": "Risk #7: Retraso proveedor; estado Open."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-1",
+    "texto": "Ana Pérez: estimadas 300.00 h; registradas 310.50 h; balance estimadas menos registradas -10.50 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-2",
+    "texto": "Luis Gómez: estimadas 100.00 h; registradas 99.75 h; balance estimadas menos registradas 0.25 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-1",
+    "texto": "Ana Pérez; rol Dev; activo; estimadas 300 h; registradas 310.5 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-2",
+    "texto": "Luis Gómez; rol QA; inactivo; estimadas 100 h; registradas 99.75 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-3",
+    "texto": "Sin horas; rol PM; activo; estimadas 0 h; registradas  h."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "VAC-1",
+    "texto": "Vacaciones Ana Pérez: 2026-12-20 a 2026-12-31; estado Aprobada."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "COM-1",
+    "texto": "Compromiso Entrega UAT: responsable Luis; fecha 2026-11-30; estado Abierto."
+   },
+   {
+    "fuente": "Acciones",
+    "id": "ACC-A1",
+    "texto": "Acción Revisar: Ana; fecha límite 2026-11-10; estado Abierta."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-1",
+    "texto": "10: 1 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-2",
+    "texto": "Ana Pérez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-3",
+    "texto": "Luis Gómez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-101",
+    "texto": "#101 Tarea 1 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-102",
+    "texto": "#102 Tarea 2 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-103",
+    "texto": "#103 Tarea 3 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-104",
+    "texto": "#104 Tarea 4 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-04."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-105",
+    "texto": "#105 Tarea 5 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-106",
+    "texto": "#106 Tarea 6 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-107",
+    "texto": "#107 Tarea 7 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-108",
+    "texto": "#108 Tarea 8 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-08."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-109",
+    "texto": "#109 Tarea 9 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-110",
+    "texto": "#110 Tarea 10 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-111",
+    "texto": "#111 Tarea 11 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-112",
+    "texto": "#112 Tarea 12 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-12."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-113",
+    "texto": "#113 Tarea 13 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-114",
+    "texto": "#114 Tarea 14 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-115",
+    "texto": "#115 Tarea 15 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-116",
+    "texto": "#116 Tarea 16 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-16."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-117",
+    "texto": "#117 Tarea 17 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-118",
+    "texto": "#118 Tarea 18 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-119",
+    "texto": "#119 Tarea 19 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-120",
+    "texto": "#120 Tarea 20 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-20."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-121",
+    "texto": "#121 Tarea 21 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-122",
+    "texto": "#122 Tarea 22 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-123",
+    "texto": "#123 Tarea 23 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-124",
+    "texto": "#124 Tarea 24 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-24."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-125",
+    "texto": "#125 Tarea 25 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-126",
+    "texto": "#126 Tarea 26 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-127",
+    "texto": "#127 Tarea 27 de integración; estado Closed; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-128",
+    "texto": "#128 Tarea 28 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-28."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-129",
+    "texto": "#129 Tarea 29 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-130",
+    "texto": "#130 Tarea 30 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-1",
+    "texto": "2026-10-01: 0.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-2",
+    "texto": "2026-10-02: 1 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-3",
+    "texto": "2026-10-03: 1.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-4",
+    "texto": "2026-10-04: 2 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-5",
+    "texto": "2026-10-05: 2.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-6",
+    "texto": "2026-10-06: 3 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-7",
+    "texto": "2026-10-07: 3.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-8",
+    "texto": "2026-10-08: 4 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-9",
+    "texto": "2026-10-09: 4.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-10",
+    "texto": "2026-10-10: 5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-1",
+    "texto": "Externo: 5 h registradas, sin asignación del recurso en la tabla."
+   },
+   {
+    "fuente": "Minutas",
+    "id": "MIN-1",
+    "texto": "Kickoff (2026-09-02): Se acordó el alcance"
+   },
+   {
+    "fuente": "Memoria",
+    "id": "MEM-1",
+    "texto": "Corte previo del 2026-10-01: {\"resumen\":[{\"texto\":\"Previo\"}]}"
+   }
+  ],
+  "¿Qué bloqueos y retrasos hay?": [
+   {
+    "fuente": "planeación",
+    "id": "ET-1",
+    "texto": "Descubrimiento: inicio 2026-09-01, fin 2026-09-30, estado Cerrada."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-2",
+    "texto": "Construcción: inicio 2026-10-01, fin 2026-12-15, estado En curso."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-101",
+    "texto": "#101 Tarea 1 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-102",
+    "texto": "#102 Tarea 2 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-104",
+    "texto": "#104 Tarea 4 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-04."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-105",
+    "texto": "#105 Tarea 5 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-107",
+    "texto": "#107 Tarea 7 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-108",
+    "texto": "#108 Tarea 8 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-08."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-110",
+    "texto": "#110 Tarea 10 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-111",
+    "texto": "#111 Tarea 11 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-112",
+    "texto": "#112 Tarea 12 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-12."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-113",
+    "texto": "#113 Tarea 13 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-114",
+    "texto": "#114 Tarea 14 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-116",
+    "texto": "#116 Tarea 16 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-16."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-117",
+    "texto": "#117 Tarea 17 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-119",
+    "texto": "#119 Tarea 19 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-120",
+    "texto": "#120 Tarea 20 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-20."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-122",
+    "texto": "#122 Tarea 22 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-123",
+    "texto": "#123 Tarea 23 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-124",
+    "texto": "#124 Tarea 24 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-24."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-125",
+    "texto": "#125 Tarea 25 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-126",
+    "texto": "#126 Tarea 26 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-128",
+    "texto": "#128 Tarea 28 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-28."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-129",
+    "texto": "#129 Tarea 29 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Acciones",
+    "id": "ACC-A1",
+    "texto": "Acción Revisar: Ana; fecha límite 2026-11-10; estado Abierta."
+   },
+   {
+    "fuente": "RAID",
+    "id": "RAID-7",
+    "texto": "Risk #7: Retraso proveedor; estado Open."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "PR-1",
+    "texto": "Proyecto IXS.ACM.001 Soporte Acme; fecha de corte 2026-11-05; avance 42.5%."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "FIN-1",
+    "texto": "Cumplimiento financiero 88%; presupuesto 1200 horas; gasto 510.25 horas."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-RES",
+    "texto": "Total Work Items 30; sin seguimiento 4; estados {\"Active\":20,\"Closed\":10}; iteraciones {\"Sprint 1\":30}."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-RES",
+    "texto": "Horas registradas en el ID 510.25 h; 77 registros."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-1",
+    "texto": "Ana Pérez; rol Dev; activo; estimadas 300 h; registradas 310.5 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-2",
+    "texto": "Luis Gómez; rol QA; inactivo; estimadas 100 h; registradas 99.75 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-3",
+    "texto": "Sin horas; rol PM; activo; estimadas 0 h; registradas  h."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "VAC-1",
+    "texto": "Vacaciones Ana Pérez: 2026-12-20 a 2026-12-31; estado Aprobada."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "COM-1",
+    "texto": "Compromiso Entrega UAT: responsable Luis; fecha 2026-11-30; estado Abierto."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-1",
+    "texto": "10: 1 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-2",
+    "texto": "Ana Pérez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-3",
+    "texto": "Luis Gómez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-1",
+    "texto": "2026-10-01: 0.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-2",
+    "texto": "2026-10-02: 1 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-3",
+    "texto": "2026-10-03: 1.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-4",
+    "texto": "2026-10-04: 2 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-5",
+    "texto": "2026-10-05: 2.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-6",
+    "texto": "2026-10-06: 3 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-7",
+    "texto": "2026-10-07: 3.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-8",
+    "texto": "2026-10-08: 4 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-9",
+    "texto": "2026-10-09: 4.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-10",
+    "texto": "2026-10-10: 5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-1",
+    "texto": "Externo: 5 h registradas, sin asignación del recurso en la tabla."
+   },
+   {
+    "fuente": "Minutas",
+    "id": "MIN-1",
+    "texto": "Kickoff (2026-09-02): Se acordó el alcance"
+   },
+   {
+    "fuente": "Memoria",
+    "id": "MEM-1",
+    "texto": "Corte previo del 2026-10-01: {\"resumen\":[{\"texto\":\"Previo\"}]}"
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-1",
+    "texto": "Ana Pérez: estimadas 300.00 h; registradas 310.50 h; balance estimadas menos registradas -10.50 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-2",
+    "texto": "Luis Gómez: estimadas 100.00 h; registradas 99.75 h; balance estimadas menos registradas 0.25 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   }
+  ],
+  "¿Qué cambió desde el último corte?": [
+   {
+    "fuente": "Memoria",
+    "id": "MEM-1",
+    "texto": "Corte previo del 2026-10-01: {\"resumen\":[{\"texto\":\"Previo\"}]}"
+   },
+   {
+    "fuente": "dashboard",
+    "id": "PR-1",
+    "texto": "Proyecto IXS.ACM.001 Soporte Acme; fecha de corte 2026-11-05; avance 42.5%."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "FIN-1",
+    "texto": "Cumplimiento financiero 88%; presupuesto 1200 horas; gasto 510.25 horas."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-RES",
+    "texto": "Total Work Items 30; sin seguimiento 4; estados {\"Active\":20,\"Closed\":10}; iteraciones {\"Sprint 1\":30}."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-RES",
+    "texto": "Horas registradas en el ID 510.25 h; 77 registros."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-1",
+    "texto": "Descubrimiento: inicio 2026-09-01, fin 2026-09-30, estado Cerrada."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-2",
+    "texto": "Construcción: inicio 2026-10-01, fin 2026-12-15, estado En curso."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-1",
+    "texto": "Ana Pérez; rol Dev; activo; estimadas 300 h; registradas 310.5 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-2",
+    "texto": "Luis Gómez; rol QA; inactivo; estimadas 100 h; registradas 99.75 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-3",
+    "texto": "Sin horas; rol PM; activo; estimadas 0 h; registradas  h."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "VAC-1",
+    "texto": "Vacaciones Ana Pérez: 2026-12-20 a 2026-12-31; estado Aprobada."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "COM-1",
+    "texto": "Compromiso Entrega UAT: responsable Luis; fecha 2026-11-30; estado Abierto."
+   },
+   {
+    "fuente": "Acciones",
+    "id": "ACC-A1",
+    "texto": "Acción Revisar: Ana; fecha límite 2026-11-10; estado Abierta."
+   },
+   {
+    "fuente": "RAID",
+    "id": "RAID-7",
+    "texto": "Risk #7: Retraso proveedor; estado Open."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-1",
+    "texto": "10: 1 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-2",
+    "texto": "Ana Pérez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-3",
+    "texto": "Luis Gómez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-101",
+    "texto": "#101 Tarea 1 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-102",
+    "texto": "#102 Tarea 2 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-104",
+    "texto": "#104 Tarea 4 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-04."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-105",
+    "texto": "#105 Tarea 5 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-107",
+    "texto": "#107 Tarea 7 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-108",
+    "texto": "#108 Tarea 8 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-08."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-110",
+    "texto": "#110 Tarea 10 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-111",
+    "texto": "#111 Tarea 11 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-112",
+    "texto": "#112 Tarea 12 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-12."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-113",
+    "texto": "#113 Tarea 13 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-114",
+    "texto": "#114 Tarea 14 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-116",
+    "texto": "#116 Tarea 16 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-16."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-117",
+    "texto": "#117 Tarea 17 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-119",
+    "texto": "#119 Tarea 19 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-120",
+    "texto": "#120 Tarea 20 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-20."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-122",
+    "texto": "#122 Tarea 22 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-123",
+    "texto": "#123 Tarea 23 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-124",
+    "texto": "#124 Tarea 24 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-24."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-125",
+    "texto": "#125 Tarea 25 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-126",
+    "texto": "#126 Tarea 26 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-128",
+    "texto": "#128 Tarea 28 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-28."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-129",
+    "texto": "#129 Tarea 29 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-1",
+    "texto": "2026-10-01: 0.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-2",
+    "texto": "2026-10-02: 1 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-3",
+    "texto": "2026-10-03: 1.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-4",
+    "texto": "2026-10-04: 2 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-5",
+    "texto": "2026-10-05: 2.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-6",
+    "texto": "2026-10-06: 3 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-7",
+    "texto": "2026-10-07: 3.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-8",
+    "texto": "2026-10-08: 4 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-9",
+    "texto": "2026-10-09: 4.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-10",
+    "texto": "2026-10-10: 5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-1",
+    "texto": "Externo: 5 h registradas, sin asignación del recurso en la tabla."
+   },
+   {
+    "fuente": "Minutas",
+    "id": "MIN-1",
+    "texto": "Kickoff (2026-09-02): Se acordó el alcance"
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-1",
+    "texto": "Ana Pérez: estimadas 300.00 h; registradas 310.50 h; balance estimadas menos registradas -10.50 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-2",
+    "texto": "Luis Gómez: estimadas 100.00 h; registradas 99.75 h; balance estimadas menos registradas 0.25 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   }
+  ],
+  "¿Qué hay que atender esta semana?": [
+   {
+    "fuente": "planeación",
+    "id": "ET-1",
+    "texto": "Descubrimiento: inicio 2026-09-01, fin 2026-09-30, estado Cerrada."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-2",
+    "texto": "Construcción: inicio 2026-10-01, fin 2026-12-15, estado En curso."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-101",
+    "texto": "#101 Tarea 1 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-102",
+    "texto": "#102 Tarea 2 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-104",
+    "texto": "#104 Tarea 4 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-04."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-105",
+    "texto": "#105 Tarea 5 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-107",
+    "texto": "#107 Tarea 7 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-108",
+    "texto": "#108 Tarea 8 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-08."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-110",
+    "texto": "#110 Tarea 10 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-111",
+    "texto": "#111 Tarea 11 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-112",
+    "texto": "#112 Tarea 12 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-12."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-113",
+    "texto": "#113 Tarea 13 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-114",
+    "texto": "#114 Tarea 14 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-116",
+    "texto": "#116 Tarea 16 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-16."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-117",
+    "texto": "#117 Tarea 17 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-119",
+    "texto": "#119 Tarea 19 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-120",
+    "texto": "#120 Tarea 20 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-20."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-122",
+    "texto": "#122 Tarea 22 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-123",
+    "texto": "#123 Tarea 23 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-124",
+    "texto": "#124 Tarea 24 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-24."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-125",
+    "texto": "#125 Tarea 25 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-126",
+    "texto": "#126 Tarea 26 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-128",
+    "texto": "#128 Tarea 28 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-28."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-129",
+    "texto": "#129 Tarea 29 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "VAC-1",
+    "texto": "Vacaciones Ana Pérez: 2026-12-20 a 2026-12-31; estado Aprobada."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "COM-1",
+    "texto": "Compromiso Entrega UAT: responsable Luis; fecha 2026-11-30; estado Abierto."
+   },
+   {
+    "fuente": "Acciones",
+    "id": "ACC-A1",
+    "texto": "Acción Revisar: Ana; fecha límite 2026-11-10; estado Abierta."
+   },
+   {
+    "fuente": "RAID",
+    "id": "RAID-7",
+    "texto": "Risk #7: Retraso proveedor; estado Open."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "PR-1",
+    "texto": "Proyecto IXS.ACM.001 Soporte Acme; fecha de corte 2026-11-05; avance 42.5%."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "FIN-1",
+    "texto": "Cumplimiento financiero 88%; presupuesto 1200 horas; gasto 510.25 horas."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-RES",
+    "texto": "Total Work Items 30; sin seguimiento 4; estados {\"Active\":20,\"Closed\":10}; iteraciones {\"Sprint 1\":30}."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-RES",
+    "texto": "Horas registradas en el ID 510.25 h; 77 registros."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-1",
+    "texto": "Ana Pérez; rol Dev; activo; estimadas 300 h; registradas 310.5 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-2",
+    "texto": "Luis Gómez; rol QA; inactivo; estimadas 100 h; registradas 99.75 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-3",
+    "texto": "Sin horas; rol PM; activo; estimadas 0 h; registradas  h."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-1",
+    "texto": "10: 1 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-2",
+    "texto": "Ana Pérez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-3",
+    "texto": "Luis Gómez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-1",
+    "texto": "2026-10-01: 0.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-2",
+    "texto": "2026-10-02: 1 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-3",
+    "texto": "2026-10-03: 1.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-4",
+    "texto": "2026-10-04: 2 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-5",
+    "texto": "2026-10-05: 2.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-6",
+    "texto": "2026-10-06: 3 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-7",
+    "texto": "2026-10-07: 3.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-8",
+    "texto": "2026-10-08: 4 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-9",
+    "texto": "2026-10-09: 4.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-10",
+    "texto": "2026-10-10: 5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-1",
+    "texto": "Externo: 5 h registradas, sin asignación del recurso en la tabla."
+   },
+   {
+    "fuente": "Minutas",
+    "id": "MIN-1",
+    "texto": "Kickoff (2026-09-02): Se acordó el alcance"
+   },
+   {
+    "fuente": "Memoria",
+    "id": "MEM-1",
+    "texto": "Corte previo del 2026-10-01: {\"resumen\":[{\"texto\":\"Previo\"}]}"
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-1",
+    "texto": "Ana Pérez: estimadas 300.00 h; registradas 310.50 h; balance estimadas menos registradas -10.50 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-2",
+    "texto": "Luis Gómez: estimadas 100.00 h; registradas 99.75 h; balance estimadas menos registradas 0.25 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   }
+  ],
+  "¿Qué recursos están excedidos?": [
+   {
+    "fuente": "Clockify",
+    "id": "CL-RES",
+    "texto": "Horas registradas en el ID 510.25 h; 77 registros."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-1",
+    "texto": "2026-10-01: 0.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-2",
+    "texto": "2026-10-02: 1 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-3",
+    "texto": "2026-10-03: 1.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-4",
+    "texto": "2026-10-04: 2 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-5",
+    "texto": "2026-10-05: 2.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-6",
+    "texto": "2026-10-06: 3 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-7",
+    "texto": "2026-10-07: 3.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-8",
+    "texto": "2026-10-08: 4 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-9",
+    "texto": "2026-10-09: 4.5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-DAY-10",
+    "texto": "2026-10-10: 5 horas registradas en el proyecto."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-1",
+    "texto": "Ana Pérez; rol Dev; activo; estimadas 300 h; registradas 310.5 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-2",
+    "texto": "Luis Gómez; rol QA; inactivo; estimadas 100 h; registradas 99.75 h."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "REC-3",
+    "texto": "Sin horas; rol PM; activo; estimadas 0 h; registradas  h."
+   },
+   {
+    "fuente": "Clockify",
+    "id": "CL-1",
+    "texto": "Externo: 5 h registradas, sin asignación del recurso en la tabla."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-1",
+    "texto": "Ana Pérez: estimadas 300.00 h; registradas 310.50 h; balance estimadas menos registradas -10.50 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "Recursos / Clockify",
+    "id": "EFF-2",
+    "texto": "Luis Gómez: estimadas 100.00 h; registradas 99.75 h; balance estimadas menos registradas 0.25 h. Solo horas del ID consultado; no es capacidad entre proyectos."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "PR-1",
+    "texto": "Proyecto IXS.ACM.001 Soporte Acme; fecha de corte 2026-11-05; avance 42.5%."
+   },
+   {
+    "fuente": "dashboard",
+    "id": "FIN-1",
+    "texto": "Cumplimiento financiero 88%; presupuesto 1200 horas; gasto 510.25 horas."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-RES",
+    "texto": "Total Work Items 30; sin seguimiento 4; estados {\"Active\":20,\"Closed\":10}; iteraciones {\"Sprint 1\":30}."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-1",
+    "texto": "Descubrimiento: inicio 2026-09-01, fin 2026-09-30, estado Cerrada."
+   },
+   {
+    "fuente": "planeación",
+    "id": "ET-2",
+    "texto": "Construcción: inicio 2026-10-01, fin 2026-12-15, estado En curso."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "VAC-1",
+    "texto": "Vacaciones Ana Pérez: 2026-12-20 a 2026-12-31; estado Aprobada."
+   },
+   {
+    "fuente": "Planeación",
+    "id": "COM-1",
+    "texto": "Compromiso Entrega UAT: responsable Luis; fecha 2026-11-30; estado Abierto."
+   },
+   {
+    "fuente": "Acciones",
+    "id": "ACC-A1",
+    "texto": "Acción Revisar: Ana; fecha límite 2026-11-10; estado Abierta."
+   },
+   {
+    "fuente": "RAID",
+    "id": "RAID-7",
+    "texto": "Risk #7: Retraso proveedor; estado Open."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-1",
+    "texto": "10: 1 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-2",
+    "texto": "Ana Pérez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "AZ-AS-3",
+    "texto": "Luis Gómez: 15 Work Items asignados."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-101",
+    "texto": "#101 Tarea 1 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-102",
+    "texto": "#102 Tarea 2 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-104",
+    "texto": "#104 Tarea 4 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-04."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-105",
+    "texto": "#105 Tarea 5 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-107",
+    "texto": "#107 Tarea 7 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-108",
+    "texto": "#108 Tarea 8 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-08."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-110",
+    "texto": "#110 Tarea 10 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-111",
+    "texto": "#111 Tarea 11 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-112",
+    "texto": "#112 Tarea 12 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-12."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-113",
+    "texto": "#113 Tarea 13 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-114",
+    "texto": "#114 Tarea 14 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-116",
+    "texto": "#116 Tarea 16 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-16."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-117",
+    "texto": "#117 Tarea 17 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-119",
+    "texto": "#119 Tarea 19 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-120",
+    "texto": "#120 Tarea 20 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-20."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-122",
+    "texto": "#122 Tarea 22 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-123",
+    "texto": "#123 Tarea 23 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-124",
+    "texto": "#124 Tarea 24 de integración; estado Closed; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-24."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-125",
+    "texto": "#125 Tarea 25 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-126",
+    "texto": "#126 Tarea 26 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-128",
+    "texto": "#128 Tarea 28 de integración; estado Active; responsable Luis Gómez; etapa Sprint 1; fecha límite 2026-11-28."
+   },
+   {
+    "fuente": "Azure DevOps",
+    "id": "WI-129",
+    "texto": "#129 Tarea 29 de integración; estado Active; responsable Ana Pérez; etapa Sprint 1; fecha límite ."
+   },
+   {
+    "fuente": "Minutas",
+    "id": "MIN-1",
+    "texto": "Kickoff (2026-09-02): Se acordó el alcance"
+   },
+   {
+    "fuente": "Memoria",
+    "id": "MEM-1",
+    "texto": "Corte previo del 2026-10-01: {\"resumen\":[{\"texto\":\"Previo\"}]}"
+   }
+  ]
+ },
+ "hechos_base": [
+  {
+   "fuente": "dashboard",
+   "id": "PR-1",
+   "texto": "Proyecto X avance 42.5%."
+  },
+  {
+   "fuente": "Recursos / Clockify",
+   "id": "REC-1",
+   "texto": "Ana; estimadas 300 h; registradas 310,5 h."
+  },
+  {
+   "fuente": "planeación",
+   "id": "ET-1",
+   "texto": "Fase: inicio 2026-09-01."
+  }
+ ],
+ "prefijos": {
+  "": [
+   "PR-",
+   "FIN-",
+   "EFF-",
+   "CL-RES",
+   "AZ-RES",
+   "RAID-",
+   "ET-"
+  ],
+  "Dime sobre la tarea 105 y Ana": [
+   "PR-",
+   "FIN-",
+   "EFF-",
+   "CL-RES",
+   "AZ-RES",
+   "RAID-",
+   "ET-"
+  ],
+  "¿Cuál es el estado general del proyecto?": [
+   "PR-",
+   "FIN-",
+   "EFF-",
+   "CL-RES",
+   "AZ-RES",
+   "RAID-",
+   "ET-"
+  ],
+  "¿Cómo va la tarea 12?": [
+   "PR-",
+   "FIN-",
+   "EFF-",
+   "CL-RES",
+   "AZ-RES",
+   "RAID-",
+   "ET-"
+  ],
+  "¿Qué bloqueos y retrasos hay?": [
+   "ET-",
+   "RAID-",
+   "WI-",
+   "ACC-"
+  ],
+  "¿Qué cambió desde el último corte?": [
+   "MEM-"
+  ],
+  "¿Qué hay que atender esta semana?": [
+   "ACC-",
+   "COM-",
+   "RAID-",
+   "WI-",
+   "ET-",
+   "VAC-"
+  ],
+  "¿Qué recursos están excedidos?": [
+   "REC-",
+   "CL-",
+   "EFF-"
+  ]
+ }
+}
