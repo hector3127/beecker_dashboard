@@ -1,0 +1,231 @@
+[
+  {
+    "name": "completo",
+    "manager": {
+      "name": "Ana",
+      "project_ids": [
+        "P1",
+        "P2"
+      ]
+    },
+    "investment": {
+      "complete": true,
+      "by_project": {
+        "P1": {
+          "operational": 2.5,
+          "commercial": 1
+        },
+        "P2": {
+          "operational": 0,
+          "commercial": 3
+        }
+      }
+    },
+    "expected": {
+      "operational": 2.5,
+      "commercial": 4,
+      "ready": true
+    }
+  },
+  {
+    "name": "cero",
+    "manager": {
+      "name": "Ana",
+      "project_ids": [
+        "P1"
+      ]
+    },
+    "investment": {
+      "complete": true,
+      "by_project": {
+        "P1": {
+          "operational": 0,
+          "commercial": 0
+        }
+      }
+    },
+    "expected": {
+      "operational": 0,
+      "commercial": 0,
+      "ready": true
+    }
+  },
+  {
+    "name": "incompleto",
+    "manager": {
+      "name": "Ana",
+      "project_ids": [
+        "P1"
+      ]
+    },
+    "investment": {
+      "complete": false,
+      "by_project": {
+        "P1": {
+          "operational": 5
+        }
+      }
+    },
+    "expected": {
+      "operational": null,
+      "commercial": null,
+      "ready": false
+    }
+  },
+  {
+    "name": "cobertura_ausente",
+    "manager": {
+      "name": "Ana",
+      "project_ids": [
+        "P1",
+        "P2"
+      ]
+    },
+    "investment": {
+      "complete": true,
+      "by_project": {
+        "P1": {
+          "commercial": 5
+        }
+      }
+    },
+    "expected": {
+      "operational": null,
+      "commercial": null,
+      "ready": false
+    }
+  },
+  {
+    "name": "sin_proyectos",
+    "manager": {
+      "name": "Ana",
+      "project_ids": []
+    },
+    "investment": {
+      "complete": true,
+      "by_project": {}
+    },
+    "expected": {
+      "operational": null,
+      "commercial": null,
+      "ready": false
+    }
+  },
+  {
+    "name": "nulo",
+    "manager": {
+      "name": "Ana",
+      "project_ids": [
+        "P1"
+      ]
+    },
+    "investment": null,
+    "expected": {
+      "operational": null,
+      "commercial": null,
+      "ready": false
+    }
+  },
+  {
+    "name": "poblacion_normalizada",
+    "manager": {
+      "name": " Ána Pérez ",
+      "project_ids": [
+        "Incorrecto"
+      ]
+    },
+    "investment": {
+      "complete": true,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "ana perez"
+        },
+        {
+          "project_id": "P2",
+          "manager": "Ana Pérez"
+        },
+        {
+          "project_id": "P3",
+          "manager": "Beto"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 2
+        },
+        "P2": {
+          "commercial": 3
+        },
+        "P3": {
+          "commercial": 99
+        }
+      }
+    },
+    "expected": {
+      "operational": 2,
+      "commercial": 3,
+      "ready": true
+    }
+  },
+  {
+    "name": "poblacion_duplicada",
+    "manager": {
+      "name": "Ana",
+      "project_ids": [
+        "P1"
+      ]
+    },
+    "investment": {
+      "complete": true,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "Ana"
+        },
+        {
+          "project_id": "P1",
+          "manager": "Ana"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 5
+        }
+      }
+    },
+    "expected": {
+      "operational": null,
+      "commercial": null,
+      "ready": false
+    }
+  },
+  {
+    "name": "sin_nombre",
+    "manager": {
+      "name": "",
+      "project_ids": [
+        "P1"
+      ]
+    },
+    "investment": {
+      "complete": true,
+      "population": [
+        {
+          "project_id": "P2",
+          "manager": ""
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "commercial": 5
+        }
+      }
+    },
+    "expected": {
+      "operational": 0,
+      "commercial": 5,
+      "ready": true
+    }
+  }
+]
