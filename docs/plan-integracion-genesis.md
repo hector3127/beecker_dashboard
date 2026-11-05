@@ -21,18 +21,19 @@ producción ni push sin petición expresa del usuario.
 Estados válidos: `pendiente`, `en curso`, `bloqueado`, `revisión`, `terminado`.
 No marcar `terminado` sin la evidencia que pide la tarea.
 
-## 2. Estado al 04/11/2026
+## 2. Estado al 05/11/2026
 
 | Tema | Estado comprobado |
 |---|---|
 | Dashboard | `C:/beecker_dashboard`, rama `main`. Referencia funcional estable; limpieza de plantillas/JS sin uso en `4ef6d75` y `5b3d7f5` |
 | Pruebas del dashboard | Servidor: 3,450 pruebas de tests sin E2E en una corrida (04/11, sin cobertura); Node 473 y E2E 742 son corridas previas, no repetidas en G10e5b |
-| Genesis | `C:/Genesis/genesis`, rama `Integracion_Dashboard_Management` subida a `origin` en `34629ae` (el 04/11 se subieron 19 commits; nunca se ha subido a `UAT` ni a `main`). Dashboard: `main` subido a `origin/integracion-genesis` en `8cee24c` |
-| Avance | 26 de 30 bloques portados con pruebas (unos 80 % contando los pilotos a medias). Faltan G6b (permisos), G8 (sincronizaciones), G11 (carga en UAT) y G12 (PR); G10e tiene cotejos parciales documentados y faltan el cierre integral, G10a4 y G10f. Todo exige superusuario y calcula en cada consulta, sin caché |
+| Genesis | `C:/Genesis/genesis`, rama `Integracion_Dashboard_Management` subida a `origin` en `a71d186` (05/11; nunca se ha subido a `UAT` ni a `main`). Regla de Héctor: solo se sube a esa rama y nunca el dashboard (`main`, que lleva commits locales sin subir) |
+| Avance | 26 de 30 bloques portados con pruebas (unos 80 % contando los pilotos a medias). Faltan G8 (sincronizaciones), G11 (carga en UAT) y G12 (PR); G6b (permisos) quedó aplazado al final por decisión del equipo; G10e tiene cotejos parciales documentados y faltan el cierre integral, G10a4 y G10f. Todo exige superusuario y calcula en cada consulta, sin caché |
 | Pruebas de Genesis | Módulo `dashboard_management`: 1,330 pruebas y cobertura 93.38 %, ruff y mypy; guardias de estructura: falta registrar el job ajeno redactar_entregables, sin cambios nuestros allí; frontend: 929 pruebas de Vitest y build. Gates globales pendientes (ver traspaso 04/11 de Planeación) |
 | Trabajo previo en Genesis | El commit visual `e28ec5d` (estructura y temas sin datos) lo retiró el usuario con un reset. Solo existe en el reflog local; **no recuperarlo**. La estructura se rehace en G2/G3 |
 | Base local de Genesis | `Genesis/db.sqlite3` es solo de desarrollo y está atrasado (37 migraciones de `lin` pendientes). No es referencia de esquema (confirmado por Ulises) |
 | Fuente de verdad del esquema Genesis | Sus migraciones (`ai_hub/migrations/`, `lin/migrations/`) y la PostgreSQL de UAT en solo lectura |
+| Acceso y roles | Decisión del 05/11: por ahora todo con superusuario; filtros y roles los implementa el equipo después de que prueben la integración completa. Ver sección 6 |
 | Preguntas al equipo Genesis | Enviadas a Ulises el 02/11. Ver sección 6 |
 
 ## 3. Decisiones de arquitectura
@@ -302,6 +303,19 @@ Pasos, cada uno con su propio cotejo de 0 diferencias antes y después:
 Qué NO hacer: caché por tiempo (puede mostrar cifras viejas tras una sincronización) ni cambiar
 reglas de negocio. Mientras no esté P4, solo los pasos 2 y la lista de consultas son seguros.
 
+### Ruta hasta la entrega (05/11/2026)
+
+1. **Sin depender de nadie:** cotejar G10f (IA) y los pilotos G10a4 y G10e que falten; probar todo con
+   PostgreSQL local; dejar una guía corta y un comando de carga de datos para que el equipo pruebe.
+2. **Con cuentas de servicio (P3):** G8, sincronizaciones y jobs; después se decide cómo cerrar el mes
+   de KPI DM.
+3. **Medir y mejorar datos:** G13, solo después de medir en PostgreSQL.
+4. **Entrega:** G11 (carga en UAT) y G12 (PR a UAT con gates; revisores Talin y Ulises). El equipo prueba
+   que todo se vea y funcione con superusuario.
+5. **Después, por el equipo de Genesis:** filtros y roles (G6b y P1).
+
+Mientras tanto el acceso sigue siendo el de superusuario de los pilotos; no se agregan permisos nuevos.
+
 ## 8. Diseño y modo oscuro
 
 Cómo funciona en Genesis: `ThemeProvider` (`frontend/src/context/ThemeContext.jsx`) guarda `light`, `dark` o `system` en `genesis-theme`, pone la clase `.dark` y `data-theme` en `<html>`, y `frontend/src/styles/theme.css` define las variables (`--background`, `--surface`, `--foreground`, `--border`, `--primary`, `--chart-1..5`…) para `:root` y `.dark`, expuestas a Tailwind con `@custom-variant dark`.
@@ -364,6 +378,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 05/11/2026 | Héctor (con Claude) | Revisión del trabajo de Codex, pestañas AER (G10e7c), EVA-04 medido y plan G13 | Genesis `a71d186` subido; locales `423ad26` (EVA-04); dashboard locales `2b792d7`, `ceaec59`, `5ebf763` | Revisé los ~40 commits nuevos de Genesis: 490 pruebas de management en frontend, backend sin fallas, ruff y mypy limpios, sin cambios fuera del módulo. AER usa ahora sus 8 pestañas del dashboard; IXS ya coincidía. EVA-04 tarda ~4 s. Probé leer cada hoja una vez por petición: ganaba ~1 s de 10 y se descartó | **Qué sigue.** (1) Cotejar G10f (IA) y G10a4. (2) Probar con PostgreSQL local (recomendación de Enrique). (3) G8 cuando haya cuentas de servicio (P3). (4) Dejar guía y comando de carga para que el equipo pruebe. (5) G13 después de medir en PostgreSQL. **No hacer:** roles, permisos ni filtros por usuario (decisión del 05/11); no subir a otra rama que no sea `Integracion_Dashboard_Management`; no subir el dashboard. Las URLs: se interpreta "tal cual" como mismas vistas y comportamiento, bajo `/management` (A4), no direcciones idénticas; confirmar con quien lo pidió si era literal |
 | 05/11/2026 | Héctor (con Codex) | G10e7b: API/pestaña Recursos AER/T&M | Genesis `bff77f5`, local | Cinco pruebas backend/diez frontend nuevas, anteriores intactas. Suites 1,330/93.38 % y 929/93 archivos; ruff/mypy 231/lint/formato/build/OpenAPI pasan. Dieciséis escenarios sintéticos claro/oscuro 320–1440 px sin errores/desborde, parcial/vacío/fallo/reintento. Auditoría ro 608 IDs mantiene fuente ausente sin puntajes inventados | G10e7c revisión conjunta entre pestañas/fuentes. Falta copia real AER_Evaluaciones para cotejo de contenido; plantilla, escrituras, roles e IA real siguen pendientes. G10e parcial. Gates globales conservan límites ajenos. Sin otras apps, datos reales, push o despliegue |
 | 05/11/2026 | Héctor (con Codex) | G10e7a: lector de evaluaciones AER existentes | Genesis `0289fd7`, local; Dashboard `3b6ff63` contrato | Siete escenarios originales idénticos; doce pruebas nuevas, anteriores intactas. Suite de módulo 1,325/93.37 %, ruff/formato/mypy 230 archivos. Lectura ro de 608 IDs AER/TYM: AER_Evaluaciones no importada, se conserva no disponible. Sin cambios API/UI ni frontend repetido | G10e7b endpoint/pantalla Recursos AER con disponibilidad explícita. Falta fuente para cotejo real; importación por plantilla y escrituras siguen pendientes. G10e parcial. Sin otras apps, datos reales, push o despliegue |
 | 05/11/2026 | Héctor (con Codex) | G10a4f6: cotejo integral local de todos los DMs | Genesis `4d745e3`, local | Auditoría ro/red bloqueada: 24 DMs/187 proyectos, ocho selecciones; cero diferencias verificadas en cartera/detalle, 24 poblaciones históricas y 144 meses-DM/350 filas. Quince contratos originales pasan. Duración 352.624 s secuencial; no benchmark HTTP/PostgreSQL. Sin código modificado ni suites de producto repetidas | Retomar revisión integral G10e. G10a4 parcial: logos G7, identidad Azure no configurada (dos flujos; no elegir arbitrariamente), cobertura Clockify previa a agosto 2024/rangos, PostgreSQL/UAT/permisos. Sin otras apps, datos reales, push o despliegue |
