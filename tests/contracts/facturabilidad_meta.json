@@ -1,0 +1,65 @@
+{
+  "months": [
+    {
+      "month": "2026-01",
+      "global_percent": null
+    },
+    {
+      "month": "2026-02",
+      "global_percent": 0
+    },
+    {
+      "month": "2026-03",
+      "global_percent": 35.25
+    },
+    {
+      "month": "2026-04",
+      "global_percent": 70
+    },
+    {
+      "month": "2026-05",
+      "global_percent": 75.5
+    },
+    {
+      "month": "2026-06",
+      "global_percent": 156.78
+    },
+    {
+      "month": "2026-07",
+      "global_percent": 70.005
+    }
+  ],
+  "expected": {
+    "target": 70.0,
+    "months": {
+      "2026-01": {
+        "gap": null,
+        "gap_abs": null
+      },
+      "2026-02": {
+        "gap": -70.0,
+        "gap_abs": 70.0
+      },
+      "2026-03": {
+        "gap": -34.75,
+        "gap_abs": 34.75
+      },
+      "2026-04": {
+        "gap": 0.0,
+        "gap_abs": 0.0
+      },
+      "2026-05": {
+        "gap": 5.5,
+        "gap_abs": 5.5
+      },
+      "2026-06": {
+        "gap": 86.78,
+        "gap_abs": 86.78
+      },
+      "2026-07": {
+        "gap": 0.0,
+        "gap_abs": 0.0
+      }
+    }
+  }
+}
