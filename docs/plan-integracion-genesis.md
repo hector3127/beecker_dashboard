@@ -380,10 +380,19 @@ Azure de hasta 492.5 MiB y presión de memoria. El clúster temporal se detuvo a
 
 Diez respuestas de API coincidieron con la SQLite de trabajo al fijar la fecha y excluir
 las marcas de generación de EVA-04. El paquete probado contiene 14 copias de hojas y 1,184
-cortes Azure. La SQLite de trabajo contiene además 16 copias manuales de proyectos y 985
-cortes. La muestra se ejecutó con reconstrucción Azure desactivada. Incorporar las copias
-manuales al flujo de entrega y cotejar el contenido de esas pestañas antes de cerrar G10e.
-P2 sigue abierto para UAT.
+cortes Azure. La SQLite de trabajo contenía además 16 copias manuales de proyectos y 985
+cortes. Las 16 copias ya se exportaron al complemento `tmp/genesis-hojas-manuales-20261105`
+y se fusionaron selectivamente en PostgreSQL local. Las 14 anteriores quedaron íntegras y
+las fechas de origen e IDs locales se conservaron. El destino ahora tiene 30 snapshots y
+1,572,530 filas del módulo. Reaplicar el complemento conserva las copias y sus IDs.
+
+Se cotejaron 176 proyectos en Acciones, Cliente, Comunicación y Planeación, más RAID AER
+en 15 proyectos. Las 719 respuestas de API dieron HTTP 200 y coincidieron con SQLite.
+Las diez respuestas generales del cotejo también conservaron el contenido tras la carga.
+Para un destino nuevo se carga el paquete principal y después el complemento con
+`importar_hojas_proyecto_dm`; los comandos están en `docs/copias-proyecto-genesis.md`.
+Queda revisar los 985 cortes Azure adicionales. La muestra general mantiene la reconstrucción
+Azure desactivada. P2 sigue abierto para UAT.
 
 ## 8. Diseño y modo oscuro
 
@@ -447,6 +456,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 05/11/2026 | Héctor (con Codex) | Copias manuales en PostgreSQL local | Genesis `0b12587` local; datos ignorados | Complemento verificado de 30 snapshots; fusión de 16 copias/127 registros con preservación de las 14 anteriores. Reaplicación idempotente. 719 respuestas HTTP 200 para 176 proyectos y diez respuestas generales sin diferencias de contenido. 48 pruebas del importador selectivo pasan. | Revisar los 985 cortes Azure adicionales y el alcance medido de G13. P2/P3 y gate completo siguen pendientes. |
 | 05/11/2026 | Héctor (con Codex) | G13: elegibilidad diaria de atribución | Genesis `96c6dbc` local | Elegibilidad compartida por día dentro de la llamada, con recálculo al usar callback. EVA1 3.38 s, Cartera 2.79 s y detalle DM 2.96 s en PostgreSQL local. Diez respuestas por motor conservan el contenido. 1,349 pruebas, tipos, Ruff, formato y gate documental pasan. make sigue ausente. | Revisar alcance medido de G13 e incorporar las 16 copias manuales al paquete. Agregados persistidos sujetos a G8/P3. |
 | 05/11/2026 | Héctor (con Codex) | G13: consumo agrupado de EVA3 | Genesis `1e36c78` local | Cartera y detalle DM pasan de 120 a 3 consultas Clockify. Diez respuestas por motor conservan el contenido. 1,347 pruebas del módulo, tipos, Ruff, formato y gate documental pasan. make sigue ausente. | Perfilar atribución de horas y cerrar alcance de optimizaciones disponibles de G13. G8/P3 y las 16 copias manuales siguen pendientes. |
 | 05/11/2026 | Héctor (con Codex) | G13: evidencia selectiva del inventario | Genesis `4164391` local | EVA1 3.91 s, Cartera 3.59 s y detalle DM 3.01 s en PostgreSQL local. Diez respuestas por motor conservan el contenido. 1,344 pruebas del módulo, tipos, Ruff, formato y gate documental pasan. make sigue ausente. | Medir las 120 consultas restantes de Cartera/EVA3 y el procesamiento de atribución. G8/P3 e incorporación de las 16 copias manuales siguen pendientes. |

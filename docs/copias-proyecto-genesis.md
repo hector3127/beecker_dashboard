@@ -4,6 +4,54 @@ Fuente: `apps/datastore/services/project_sheets.py`,
 `apps/datastore/management/commands/sync_project_sheets.py` y
 `tests/datastore/test_project_sheets.py`.
 
+## Transferencia validada a PostgreSQL local el 05/11/2026
+
+El paquete complementario `tmp/genesis-hojas-manuales-20261105` contiene
+30 snapshots verificados. Se exportó desde la base local en modo de solo
+lectura, con la red bloqueada. Las 16 copias manuales suman 127 registros
+y sus matrices coinciden con la SQLite de trabajo de Genesis.
+
+La fusión selectiva se ejecutó en PostgreSQL 16.15 local. Se crearon las
+16 copias y se conservaron íntegros los 14 snapshots anteriores. Se
+verificaron matrices, conteos, fechas originales e IDs locales. Una
+segunda aplicación conservó las copias y sus IDs. Los conteos de las
+otras 25 tablas del módulo permanecieron iguales.
+
+El cotejo cubrió Acciones, Cliente, Comunicación y Planeación en 176
+proyectos, y RAID AER en 15. Las 719 respuestas de API devolvieron HTTP
+200 y coincidieron con SQLite. El cotejo fijó el 04/11/2026 para reproducir
+los resultados originales guardados; para Cliente se mantuvo el contexto de
+DM y cliente vacío del cotejo original.
+
+Para un destino nuevo, importar primero el paquete principal y después
+fusionar las copias manuales. Con la conexión local configurada, ejecutar
+desde `C:/Genesis/genesis/Genesis`:
+
+```powershell
+$dmPaquete = 'C:/beecker_dashboard/tmp/genesis-hojas-manuales-20261105'
+$dmHojas = @(
+    'AER_Acciones', 'AER_ClienteDocs', 'AER_ClienteGobierno', 'AER_ClienteInfo',
+    'AER_Contactos', 'AER_Planeacion', 'AER_Riesgos', 'AER_Vacaciones',
+    'Comunicados', 'IXS_Acciones', 'IXS_Cliente_Contactos',
+    'IXS_Cliente_Documentos', 'IXS_Cliente_Gobierno', 'IXS_Cliente_Info',
+    'IXS_Planeacion', 'Pendientes_Minutas'
+)
+$dmArgumentos = @()
+foreach ($dmHoja in $dmHojas) {
+    $dmArgumentos += '--hoja'
+    $dmArgumentos += $dmHoja
+}
+uv run python manage.py importar_hojas_proyecto_dm $dmPaquete @dmArgumentos --settings=Genesis.settings_test_postgres
+uv run python manage.py importar_hojas_proyecto_dm $dmPaquete @dmArgumentos --aplicar --settings=Genesis.settings_test_postgres
+```
+
+La primera llamada inspecciona y la segunda aplica el plan validado. El
+paquete complementario y el respaldo previo están bajo `tmp/` ignorado.
+La evidencia corresponde a PostgreSQL local. P2 y P3 continúan pendientes
+para UAT y cuentas de servicio.
+
+## Flujo de descarga y exportación
+
 Las hojas de Acciones, Cliente, Comunicados y pendientes están declaradas en
 el catálogo de Google, pero no forman parte de `STORED_SHEETS`. Por eso la
 sincronización habitual no guarda sus contenidos en la base. Este comando
