@@ -136,6 +136,12 @@ Sesión de alineación LIN del 05/11/2026 (Héctor con Enrique Badillo y Christi
 - **Ramas:** cada quien trabaja en su rama; `features` es la que se publica en UAT. Nuestra rama
   `Integracion_Dashboard_Management` ya parte de `features` y `features` no tiene nada que no esté
   en ella (0 commits detrás, verificado el 05/11).
+- **Decisión del equipo (Héctor, 05/11/2026): los roles y filtros por usuario van al final.** Por ahora
+  no se toca nada de roles: todo sigue con el alcance provisional de superusuario. Primero se
+  termina la integración completa, la prueban y confirman que todo se ve y funciona; después el
+  equipo implementa filtros y roles. G6b y P1 quedan aplazados hasta entonces, y no hay que
+  construir ni proponer permisos nuevos antes. La integración debe conservar las vistas, URLs
+  (prefijo `/management`, A4) y comportamiento del dashboard tal cual.
 - **Pendiente con Martín y Andrés Arenas** (los cuatro que meten código a Genesis): una sesión para
   alinear pipelines y cómo se asignan los tipos de usuario.
 - **Usuarios y roles, lo que ya se ve en el código** (sin preguntar): Genesis usa el `User` y los
@@ -175,7 +181,7 @@ Las tareas D se hacen en el dashboard y las G en Genesis (rama local, sin push h
 |---|---|---|---|---|---|
 | G5 | Modelos `DmKpiPeriod/Observation/Metric` en la app, comando de importación desde D3 y endpoint de lectura con el mismo contrato que D1 | G2, D1, D3, D4 | terminado | Héctor (con Claude) | Genesis `e32c1f0` y el commit de G5: modelos y migración, lectura de capturas, cálculo, `GET /api/management/kpis-dm/` e `importar_kpis_dm` (verifica SHA-256 sin distinguir CRLF, carga atómica, llaves conservadas). Paridad: 6 respuestas del dashboard sobre el mismo escenario coinciden campo por campo (`tests/contracts/kpis_dm_db/` aquí y `dashboard_management/tests/datos/` allá). 95 pruebas del módulo y 99 % de cobertura. Permisos aún solo de sesión (P1). Con datos reales: el paquete de `tmp/genesis-export-kpi` importado en una base desechable de Genesis devolvió lo mismo que el dashboard en 3 consultas, sin diferencias |
 | G6 | Pantalla KPI DM en React: año único, mes, multiselección de DMs, tablas, tendencia y glosario; claro y oscuro | G4, G5 | terminado | Héctor (con Claude) | Genesis, commit de G6: filtros (mes, año y selector global de DMs), tarjetas, tabla por DM, gráfica, históricos mensual y trimestral y glosario, con estado en la URL. 633 pruebas de Vitest, lint, cobertura y build en verde. Comprobada en el navegador con los datos reales importados (corte 29/10/2026: C 66.7 %, TP 9) en claro y oscuro y a 390 px. Pendiente: contraste AA sin medir, DMs sin enlace al detalle (esa pantalla no existe en Genesis) y permisos (G6b) |
-| G6b | Permisos reales del piloto | G6, P1 | bloqueado | — | Pruebas sin sesión, sin permiso y con permiso |
+| G6b | Permisos reales del piloto | G6, P1 | aplazado al final por decisión del equipo (05/11) | — | Pruebas sin sesión, sin permiso y con permiso |
 
 ### Fase 4 — Fuentes y trabajos
 
