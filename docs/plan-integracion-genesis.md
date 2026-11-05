@@ -269,11 +269,11 @@ Desglose de G9 (EVA1). G8 solo hace falta para actualizar datos; EVA1 lee cortes
 
 | ID | Tarea | Depende | Estado |
 |---|---|---|---|
-| G13 | Reestructura de datos del módulo (ver plan G13 abajo): medir, agregar y tipar solo lo que lo justifique | G10 y PostgreSQL local para la medición. Agregados sujetos a G8/P3 | propuesto |
+| G13 | Reestructura de datos del módulo (ver plan G13 abajo): medir, agregar y tipar solo lo que lo justifique | G10 y PostgreSQL local para la medición. Agregados sujetos a G8/P3 | en curso; lecturas y procesamiento local optimizados y cotejados |
 | G11 | Importación completa en UAT con respaldo y reversión; cierres KPI intactos | G9–G10, P2 | bloqueado |
 | G12 | PR de `Integracion_Dashboard_Management` a UAT con gates y evidencia; revisores Talin y Ulises | G11 | pendiente |
 
-### Plan G13 — datos del módulo (propuesta, 05/11/2026)
+### Plan G13 — datos del módulo (en curso, 05/11/2026)
 
 Objetivo: que las pantallas pesadas carguen rápido sin cambiar ningún cálculo. Se hace **después de
 terminar G10 y antes de G11**, porque un cambio de tablas obliga a reimportar y a repetir cotejos.
@@ -312,7 +312,10 @@ Pasos, cada uno con su propio cotejo de 0 diferencias antes y después:
    volvieron a coincidir por motor. El consumo de la población EVA3 también se agrupa: Cartera y
    detalle DM pasaron de 120 a 3 consultas Clockify y de 152/156 a 14/18 consultas totales. Las diez
    respuestas cotejadas por motor conservan el contenido. Los tiempos de PostgreSQL de esta muestra
-   fueron 3.26 s y 3.32 s; la mejora principal demostrada es reducir consultas. Este paso no requiere migración.
+   fueron 3.26 s y 3.32 s; la mejora principal demostrada es reducir consultas. La atribución de horas
+   reutiliza elegibilidad por día dentro de cada llamada y la recalcula si hay callback. En la última
+   muestra, EVA1 tardó 3.38 s, Cartera 2.79 s y detalle DM 2.96 s; las diez respuestas por motor
+   conservaron el contenido. Este paso no requiere migración.
 3. **Agregados mensuales** (horas por proyecto, mes, persona y categoría) que se rellenan al
    sincronizar, para que Costos, Financiera, Operaciones y Capacidad no recorran entradas sueltas.
    Se invalidan con la sincronización (depende de G8/P3).
@@ -444,6 +447,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 05/11/2026 | Héctor (con Codex) | G13: elegibilidad diaria de atribución | Genesis `96c6dbc` local | Elegibilidad compartida por día dentro de la llamada, con recálculo al usar callback. EVA1 3.38 s, Cartera 2.79 s y detalle DM 2.96 s en PostgreSQL local. Diez respuestas por motor conservan el contenido. 1,349 pruebas, tipos, Ruff, formato y gate documental pasan. make sigue ausente. | Revisar alcance medido de G13 e incorporar las 16 copias manuales al paquete. Agregados persistidos sujetos a G8/P3. |
 | 05/11/2026 | Héctor (con Codex) | G13: consumo agrupado de EVA3 | Genesis `1e36c78` local | Cartera y detalle DM pasan de 120 a 3 consultas Clockify. Diez respuestas por motor conservan el contenido. 1,347 pruebas del módulo, tipos, Ruff, formato y gate documental pasan. make sigue ausente. | Perfilar atribución de horas y cerrar alcance de optimizaciones disponibles de G13. G8/P3 y las 16 copias manuales siguen pendientes. |
 | 05/11/2026 | Héctor (con Codex) | G13: evidencia selectiva del inventario | Genesis `4164391` local | EVA1 3.91 s, Cartera 3.59 s y detalle DM 3.01 s en PostgreSQL local. Diez respuestas por motor conservan el contenido. 1,344 pruebas del módulo, tipos, Ruff, formato y gate documental pasan. make sigue ausente. | Medir las 120 consultas restantes de Cartera/EVA3 y el procesamiento de atribución. G8/P3 e incorporación de las 16 copias manuales siguen pendientes. |
 | 05/11/2026 | Héctor (con Codex) | G13: perfil y clasificación mensual | Genesis `8fef082` local | Clasificación de proyecto, tarea y etiquetas reutilizada dentro de cada cálculo mensual. Operaciones tarda 5.65 s en PostgreSQL local. Diez respuestas por motor conservan el contenido. 30 pruebas funcionales, Ruff, formato, tipos del módulo y gate documental pasan. make sigue ausente. | Medir lectura selectiva de la evidencia JSON del inventario, preservando grupos sin cobertura local y ganchos de historia. |
