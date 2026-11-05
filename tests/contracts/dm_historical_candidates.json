@@ -1,0 +1,398 @@
+[
+  {
+    "today": "2026-11-05",
+    "manager": "Ána",
+    "current": [
+      {
+        "project_id": "AMK.001_S2",
+        "name": "Actual",
+        "client": "Acme",
+        "service": "RaaS",
+        "budget": 100,
+        "start": "2026-10-01",
+        "end": "2026-12-01"
+      }
+    ],
+    "references": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Cerrado",
+        "Sponsor": "Ana",
+        "Budget_Hrs": 200,
+        "Delivery Manager": "Ana"
+      },
+      {
+        "ID_Proyecto": "P3",
+        "Nombre": "Ajeno",
+        "Delivery Manager": "Beto"
+      },
+      {
+        "ID_Proyecto": "P4",
+        "Nombre": "Anterior",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "ID_Proyecto": "ROC.AIN.001",
+        "Delivery Manager": "Ana"
+      }
+    ],
+    "events": [
+      {
+        "Project ID": "AMK.001_S2",
+        "Project Name": "Nombre histórico",
+        "Budget": 120,
+        "Account": "Otra cuenta",
+        "Service": "IXB",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "Project ID": "AMK.001_S1",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "Project ID": "P3",
+        "Delivery Manager": "Beto"
+      }
+    ],
+    "mpb": [],
+    "ranges": {
+      "AMK.001_S1": [
+        "2026-06-01",
+        "2026-08-31"
+      ],
+      "P3": [
+        "2026-07-01",
+        "2026-10-31"
+      ],
+      "P4": [
+        "2025-01-01",
+        "2025-12-31"
+      ],
+      "ROC.AIN.001": [
+        "2026-06-01",
+        "2026-11-30"
+      ]
+    },
+    "case": "historico_y_actual",
+    "expected": [
+      {
+        "project_id": "AMK.001_S2",
+        "name": "Nombre histórico",
+        "client": "Otra cuenta",
+        "service": "IXB",
+        "budget": 120.0,
+        "start": "2026-10-01",
+        "end": "2026-12-01"
+      },
+      {
+        "project_id": "AMK.001_S1",
+        "name": "Cerrado",
+        "client": "",
+        "service": "",
+        "budget": 200.0,
+        "start": "2026-06-01",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  {
+    "today": "2026-11-05",
+    "manager": "Ána",
+    "current": [
+      {
+        "project_id": "AMK.001_S2",
+        "name": "Actual",
+        "client": "Acme",
+        "service": "RaaS",
+        "budget": 100,
+        "start": "2026-10-01",
+        "end": "2026-12-01"
+      }
+    ],
+    "references": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Cerrado",
+        "Sponsor": "Ana",
+        "Budget_Hrs": 200,
+        "Delivery Manager": "Ana"
+      },
+      {
+        "ID_Proyecto": "P3",
+        "Nombre": "Ajeno",
+        "Delivery Manager": "Beto"
+      },
+      {
+        "ID_Proyecto": "P4",
+        "Nombre": "Anterior",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "ID_Proyecto": "ROC.AIN.001",
+        "Delivery Manager": "Ana"
+      }
+    ],
+    "events": [
+      {
+        "Project ID": "AMK.001_S2",
+        "Project Name": "Nombre histórico",
+        "Budget": 120,
+        "Account": "Otra cuenta",
+        "Service": "IXB",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "Project ID": "AMK.001_S1",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "Project ID": "P3",
+        "Delivery Manager": "Beto"
+      }
+    ],
+    "mpb": [
+      [
+        "CLIENTE",
+        "ID",
+        "NOMBRE",
+        "SERVICE",
+        "INICIO",
+        "FIN",
+        "ESTATUS",
+        "Delivery Manager",
+        "HORAS"
+      ],
+      [
+        "MPB",
+        "AMK.001_S2",
+        "Nombre MPB",
+        "AER",
+        "2026-09-01",
+        "2026-11-30",
+        "Finalizado",
+        "Ana",
+        333
+      ],
+      [
+        "MPB",
+        "AER.NEW",
+        "Nuevo MPB",
+        "AER",
+        "2026-07-01",
+        "2026-08-31",
+        "Finalizado",
+        "Ana",
+        222
+      ],
+      [
+        "MPB",
+        "AER.FUT",
+        "Futuro",
+        "AER",
+        "2026-12-01",
+        "2026-12-31",
+        "En progreso",
+        "Ana",
+        999
+      ]
+    ],
+    "ranges": {
+      "AMK.001_S1": [
+        "2026-06-01",
+        "2026-08-31"
+      ],
+      "P3": [
+        "2026-07-01",
+        "2026-10-31"
+      ],
+      "P4": [
+        "2025-01-01",
+        "2025-12-31"
+      ],
+      "ROC.AIN.001": [
+        "2026-06-01",
+        "2026-11-30"
+      ]
+    },
+    "case": "mpb_prioritario",
+    "expected": [
+      {
+        "project_id": "AMK.001_S2",
+        "name": "Nombre MPB",
+        "client": "MPB",
+        "service": "AER",
+        "budget": 333.0,
+        "start": "2026-09-01",
+        "end": "2026-11-30"
+      },
+      {
+        "project_id": "AMK.001_S1",
+        "name": "Cerrado",
+        "client": "",
+        "service": "",
+        "budget": 200.0,
+        "start": "2026-06-01",
+        "end": "2026-08-31"
+      },
+      {
+        "project_id": "AER.NEW",
+        "name": "Nuevo MPB",
+        "client": "MPB",
+        "service": "AER",
+        "budget": 222.0,
+        "start": "2026-07-01",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  {
+    "today": "2026-11-05",
+    "manager": "Ána",
+    "current": [
+      {
+        "project_id": "AMK.001_S2",
+        "name": "Actual",
+        "client": "Acme",
+        "service": "RaaS",
+        "budget": 100,
+        "start": "2026-10-01",
+        "end": "2026-12-01"
+      }
+    ],
+    "references": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Cerrado",
+        "Sponsor": "Ana",
+        "Budget_Hrs": 200,
+        "Delivery Manager": "Ana"
+      },
+      {
+        "ID_Proyecto": "P3",
+        "Nombre": "Ajeno",
+        "Delivery Manager": "Beto"
+      },
+      {
+        "ID_Proyecto": "P4",
+        "Nombre": "Anterior",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "ID_Proyecto": "ROC.AIN.001",
+        "Delivery Manager": "Ana"
+      }
+    ],
+    "events": [
+      {
+        "Project ID": "AMK.001_S2",
+        "Project Name": "Nombre histórico",
+        "Budget": 120,
+        "Account": "Otra cuenta",
+        "Service": "IXB",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "Project ID": "AMK.001_S1",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "Project ID": "P3",
+        "Delivery Manager": "Beto"
+      }
+    ],
+    "mpb": [],
+    "ranges": {
+      "P3": [
+        "2026-07-01",
+        "2026-10-31"
+      ],
+      "P4": [
+        "2025-01-01",
+        "2025-12-31"
+      ],
+      "ROC.AIN.001": [
+        "2026-06-01",
+        "2026-11-30"
+      ]
+    },
+    "case": "sin_rango",
+    "expected": [
+      {
+        "project_id": "AMK.001_S2",
+        "name": "Nombre histórico",
+        "client": "Otra cuenta",
+        "service": "IXB",
+        "budget": 120.0,
+        "start": "2026-10-01",
+        "end": "2026-12-01"
+      }
+    ]
+  },
+  {
+    "today": "2026-11-05",
+    "manager": "Sin persona",
+    "current": [],
+    "references": [
+      {
+        "ID_Proyecto": "AMK.001_S1",
+        "Nombre": "Cerrado",
+        "Sponsor": "Ana",
+        "Budget_Hrs": 200,
+        "Delivery Manager": "Ana"
+      },
+      {
+        "ID_Proyecto": "P3",
+        "Nombre": "Ajeno",
+        "Delivery Manager": "Beto"
+      },
+      {
+        "ID_Proyecto": "P4",
+        "Nombre": "Anterior",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "ID_Proyecto": "ROC.AIN.001",
+        "Delivery Manager": "Ana"
+      }
+    ],
+    "events": [
+      {
+        "Project ID": "AMK.001_S2",
+        "Project Name": "Nombre histórico",
+        "Budget": 120,
+        "Account": "Otra cuenta",
+        "Service": "IXB",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "Project ID": "AMK.001_S1",
+        "Delivery Manager": "Ana"
+      },
+      {
+        "Project ID": "P3",
+        "Delivery Manager": "Beto"
+      }
+    ],
+    "mpb": [],
+    "ranges": {
+      "AMK.001_S1": [
+        "2026-06-01",
+        "2026-08-31"
+      ],
+      "P3": [
+        "2026-07-01",
+        "2026-10-31"
+      ],
+      "P4": [
+        "2025-01-01",
+        "2025-12-31"
+      ],
+      "ROC.AIN.001": [
+        "2026-06-01",
+        "2026-11-30"
+      ]
+    },
+    "case": "dm_sin_coincidencias",
+    "expected": []
+  }
+]
