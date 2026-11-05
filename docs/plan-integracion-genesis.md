@@ -287,8 +287,10 @@ consultas y la conversión, no la falta de índice. Leer cada hoja una sola vez 
 apenas 1 s de 10 y se descartó.
 
 Pasos, cada uno con su propio cotejo de 0 diferencias antes y después:
-1. **Medir en PostgreSQL local**: repetir los tiempos y `EXPLAIN` de las consultas de horas.
-   SQLite local no representa a `psql-flx-genesis`; no optimizar a ciegas.
+1. **Medir en PostgreSQL local**: primera muestra ejecutada. Costos 10.85 s y Financiera 11.55 s,
+   cada una con 1,563 lecturas de entradas Clockify. Operaciones 8.41 s. Un `EXPLAIN` de la lectura
+   por proyecto y mes usa el índice. Estos tiempos son locales y corresponden a un pase por vista.
+   El siguiente experimento es agrupar lecturas y repetir las mismas respuestas.
 2. **Una consulta de horas por pantalla**, agrupada por proyecto y mes, en vez de una por proyecto y
    mes. No cambia tablas.
 3. **Agregados mensuales** (horas por proyecto, mes, persona y categoría) que se rellenan al
@@ -306,7 +308,7 @@ reglas de negocio. Primero se mide el conjunto en PostgreSQL local. La verificac
 ### Ruta hasta la entrega (05/11/2026)
 
 1. **Validación local:** el cotejo del piloto IA quedó registrado en G10f1. Completar los cotejos
-   disponibles de G10a4 y G10e y correr el piloto en PostgreSQL local con el paquete verificado.
+   disponibles de G10a4 y G10e. La carga PostgreSQL local y la primera muestra de paridad ya pasaron.
 2. **Con cuentas de servicio (P3):** G8, sincronizaciones y jobs; después se decide cómo cerrar el mes
    de KPI DM.
 3. **Medir y mejorar datos:** G13, solo después de medir en PostgreSQL.
@@ -332,6 +334,7 @@ Tras verificar el paquete y con la instancia levantada, configurar estas variabl
 PowerShell 7. Ejecutar los pasos en orden y detenerse si uno devuelve error.
 
 ```powershell
+$env:DEBUG = 'False'
 $env:POSTGRES_HOST = '127.0.0.1'
 $env:POSTGRES_PORT = '5432'
 $env:POSTGRES_DB = 'genesis_dm_local'
@@ -341,13 +344,23 @@ uv run python manage.py migrate --settings=Genesis.settings_test_postgres
 uv run python manage.py importar_datos_dm $dmPaquete --settings=Genesis.settings_test_postgres
 ```
 
+Desactivar DEBUG evita que Django retenga el SQL completo de cada lote en memoria.
 El importador verifica huellas y carga en una transacción. En una base de prueba vacía se
 usa el comando anterior sin `--reemplazar`. Verificar después los conteos importados y cotejar
 los mismos cortes de Operativa, proyectos y KPIs antes de medir G13. Para validar el runner
 con una base de pruebas aparte, Genesis ya documenta el marcador `postgres` en su pipeline.
 
-El 05/11 el paquete pasó la verificación de sus 26 tablas. El puerto local 5432 no respondió.
-La migración, la carga y las mediciones en PostgreSQL quedan pendientes.
+El 05/11 se probó PostgreSQL 16.15 en loopback, puerto 55436. Las migraciones y la carga
+confirmaron las 26 tablas y 1,572,514 filas. La importación tardó 551.95 s con verificación y
+la base ocupó 1.58 GB. Se limitó el tamaño de los lotes del importador tras detectar lotes
+Azure de hasta 492.5 MiB y presión de memoria. El clúster temporal se detuvo al concluir.
+
+Diez respuestas de API coincidieron con la SQLite de trabajo al fijar la fecha y excluir
+las marcas de generación de EVA-04. El paquete probado contiene 14 copias de hojas y 1,184
+cortes Azure. La SQLite de trabajo contiene además 16 copias manuales de proyectos y 985
+cortes. La muestra se ejecutó con reconstrucción Azure desactivada. Incorporar las copias
+manuales al flujo de entrega y cotejar el contenido de esas pestañas antes de cerrar G10e.
+P2 sigue abierto para UAT.
 
 ## 8. Diseño y modo oscuro
 
@@ -411,6 +424,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 05/11/2026 | Héctor (con Codex) | Validación local PostgreSQL y lotes acotados | Genesis `aaf9aa2` local | 26 tablas y 1,572,514 filas en 551.95 s. Diez respuestas cotejadas sin diferencias de contenido. 36 pruebas de importación, ruff y mypy. Costos 1,563 lecturas de Clockify con índice confirmado | G13: agrupar lecturas y repetir el cotejo. Integrar 16 copias manuales ausentes del paquete y validar cobertura Azure. P2 y P3 siguen abiertos. |
 | 05/11/2026 | Héctor (con Codex) | G10f1 y preparación de PostgreSQL local | Genesis `39fc874` local | Piloto IA cotejado con 16 proyectos y proveedor simulado. Diez análisis y seis respuestas por falta de indicadores. Doce pruebas frontend, una API, lint y build directo pasan. Gate de formato conserva 165 avisos ajenos y verify pasa rutas antes del fallo POSIX en Windows. Paquete de 26 tablas verificado | Levantar PostgreSQL local para migrar y cargar. G10f parcial por proveedor real, historial y otros flujos. G13 empieza por medir localmente. |
 | 05/11/2026 | Héctor (con Claude) | Revisión del trabajo de Codex, pestañas AER (G10e7c), EVA-04 medido y plan G13 | Genesis `a71d186` subido; locales `423ad26` (EVA-04); dashboard locales `2b792d7`, `ceaec59`, `5ebf763` | Revisé los ~40 commits nuevos de Genesis: 490 pruebas de management en frontend, backend sin fallas, ruff y mypy limpios, sin cambios fuera del módulo. AER usa ahora sus 8 pestañas del dashboard; IXS ya coincidía. EVA-04 tarda ~4 s. Probé leer cada hoja una vez por petición: ganaba ~1 s de 10 y se descartó | **Qué sigue.** (1) Cotejar G10f (IA) y G10a4. (2) Probar con PostgreSQL local (recomendación de Enrique). (3) G8 cuando haya cuentas de servicio (P3). (4) Dejar guía y comando de carga para que el equipo pruebe. (5) G13 después de medir en PostgreSQL. **No hacer:** roles, permisos ni filtros por usuario (decisión del 05/11); no subir a otra rama que no sea `Integracion_Dashboard_Management`; no subir el dashboard. Las URLs: se interpreta "tal cual" como mismas vistas y comportamiento, bajo `/management` (A4), no direcciones idénticas; confirmar con quien lo pidió si era literal |
 | 05/11/2026 | Héctor (con Codex) | G10e7b: API/pestaña Recursos AER/T&M | Genesis `bff77f5`, local | Cinco pruebas backend/diez frontend nuevas, anteriores intactas. Suites 1,330/93.38 % y 929/93 archivos; ruff/mypy 231/lint/formato/build/OpenAPI pasan. Dieciséis escenarios sintéticos claro/oscuro 320–1440 px sin errores/desborde, parcial/vacío/fallo/reintento. Auditoría ro 608 IDs mantiene fuente ausente sin puntajes inventados | G10e7c revisión conjunta entre pestañas/fuentes. Falta copia real AER_Evaluaciones para cotejo de contenido; plantilla, escrituras, roles e IA real siguen pendientes. G10e parcial. Gates globales conservan límites ajenos. Sin otras apps, datos reales, push o despliegue |
