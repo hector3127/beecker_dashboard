@@ -1,0 +1,806 @@
+[
+  {
+    "case": "mixto",
+    "name": "Ana Pérez",
+    "projects": [
+      {
+        "project_id": "En tiempo",
+        "name": "En tiempo",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "A tiempo",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      },
+      {
+        "project_id": "Crítico consumo",
+        "name": "Crítico consumo",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "Crítica",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 125.5,
+        "etc_hours": -25.5
+      },
+      {
+        "project_id": "En riesgo",
+        "name": "En riesgo",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "En Riesgo",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 12,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      },
+      {
+        "project_id": "Suspendido",
+        "name": "Suspendido",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "En Pausa",
+        "health": "Crítica",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      },
+      {
+        "project_id": "Cerrado",
+        "name": "Cerrado",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Cerrado",
+        "health": "A tiempo",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      }
+    ],
+    "expected": {
+      "name": "Ana Pérez",
+      "initials": "AP",
+      "total": 4,
+      "in_progress": 3,
+      "paused": 1,
+      "health": {
+        "on_time": 1,
+        "at_risk": 1,
+        "critical": 1
+      },
+      "high_risk": 0,
+      "high_risk_note": "Sin riesgos altos abiertos",
+      "rows": [
+        {
+          "project_id": "Crítico consumo",
+          "name": "Crítico consumo",
+          "client": "Ácme",
+          "status_label": "Crítico",
+          "status_code": "r",
+          "detail": "Presupuesto usado: 126%",
+          "progress_percent": 50,
+          "etc_hours": -25,
+          "risk_label": "—",
+          "row_class": "rs",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "En riesgo",
+          "name": "En riesgo",
+          "client": "Ácme",
+          "status_label": "En riesgo",
+          "status_code": "a",
+          "detail": "12 días atrasado",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "—",
+          "row_class": "ra",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "En tiempo",
+          "name": "En tiempo",
+          "client": "Ácme",
+          "status_label": "En tiempo",
+          "status_code": "g",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "—",
+          "row_class": "",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "Suspendido",
+          "name": "Suspendido",
+          "client": "Ácme",
+          "status_label": "Suspendido",
+          "status_code": "x",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "—",
+          "row_class": "",
+          "client_slug": "acme"
+        }
+      ],
+      "shares": [
+        {
+          "label": "En tiempo",
+          "status_code": "g",
+          "color": "#1B9A55",
+          "count": 1,
+          "percent": 33
+        },
+        {
+          "label": "En riesgo",
+          "status_code": "a",
+          "color": "#E88F0C",
+          "count": 1,
+          "percent": 33
+        },
+        {
+          "label": "Crítico",
+          "status_code": "r",
+          "color": "#D6304B",
+          "count": 1,
+          "percent": 33
+        }
+      ],
+      "time_cost": {
+        "time_days": 4.0,
+        "cost_percent": 50.0
+      }
+    }
+  },
+  {
+    "case": "vacio",
+    "name": "",
+    "projects": [],
+    "expected": {
+      "name": "",
+      "initials": "?",
+      "total": 0,
+      "in_progress": 0,
+      "paused": 0,
+      "health": {
+        "on_time": 0,
+        "at_risk": 0,
+        "critical": 0
+      },
+      "high_risk": 0,
+      "high_risk_note": "Sin riesgos altos abiertos",
+      "rows": [],
+      "shares": [
+        {
+          "label": "En tiempo",
+          "status_code": "g",
+          "color": "#1B9A55",
+          "count": 0,
+          "percent": 0
+        },
+        {
+          "label": "En riesgo",
+          "status_code": "a",
+          "color": "#E88F0C",
+          "count": 0,
+          "percent": 0
+        },
+        {
+          "label": "Crítico",
+          "status_code": "r",
+          "color": "#D6304B",
+          "count": 0,
+          "percent": 0
+        }
+      ],
+      "time_cost": {
+        "time_days": null,
+        "cost_percent": null
+      }
+    }
+  },
+  {
+    "case": "suspendidos",
+    "name": "Ana",
+    "projects": [
+      {
+        "project_id": "S",
+        "name": "S",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "En Pausa",
+        "health": "A tiempo",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      }
+    ],
+    "expected": {
+      "name": "Ana",
+      "initials": "AN",
+      "total": 1,
+      "in_progress": 0,
+      "paused": 1,
+      "health": {
+        "on_time": 0,
+        "at_risk": 0,
+        "critical": 0
+      },
+      "high_risk": 0,
+      "high_risk_note": "Sin riesgos altos abiertos",
+      "rows": [
+        {
+          "project_id": "S",
+          "name": "S",
+          "client": "Ácme",
+          "status_label": "Suspendido",
+          "status_code": "x",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "—",
+          "row_class": "",
+          "client_slug": "acme"
+        }
+      ],
+      "shares": [
+        {
+          "label": "En tiempo",
+          "status_code": "g",
+          "color": "#1B9A55",
+          "count": 0,
+          "percent": 0
+        },
+        {
+          "label": "En riesgo",
+          "status_code": "a",
+          "color": "#E88F0C",
+          "count": 0,
+          "percent": 0
+        },
+        {
+          "label": "Crítico",
+          "status_code": "r",
+          "color": "#D6304B",
+          "count": 0,
+          "percent": 0
+        }
+      ],
+      "time_cost": {
+        "time_days": null,
+        "cost_percent": null
+      }
+    }
+  },
+  {
+    "case": "orden",
+    "name": "Ana",
+    "projects": [
+      {
+        "project_id": "B",
+        "name": "B",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "Crítica",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 5,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      },
+      {
+        "project_id": "A",
+        "name": "A",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "Crítica",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 5,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      },
+      {
+        "project_id": "Z",
+        "name": "Z",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "Crítica",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 10,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      },
+      {
+        "project_id": "R",
+        "name": "R",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "En Riesgo",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": -2,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      }
+    ],
+    "expected": {
+      "name": "Ana",
+      "initials": "AN",
+      "total": 4,
+      "in_progress": 4,
+      "paused": 0,
+      "health": {
+        "on_time": 0,
+        "at_risk": 1,
+        "critical": 3
+      },
+      "high_risk": 0,
+      "high_risk_note": "Sin riesgos altos abiertos",
+      "rows": [
+        {
+          "project_id": "Z",
+          "name": "Z",
+          "client": "Ácme",
+          "status_label": "Crítico",
+          "status_code": "r",
+          "detail": "10 días atrasado",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "—",
+          "row_class": "rs",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "A",
+          "name": "A",
+          "client": "Ácme",
+          "status_label": "Crítico",
+          "status_code": "r",
+          "detail": "5 días atrasado",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "—",
+          "row_class": "rs",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "B",
+          "name": "B",
+          "client": "Ácme",
+          "status_label": "Crítico",
+          "status_code": "r",
+          "detail": "5 días atrasado",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "—",
+          "row_class": "rs",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "R",
+          "name": "R",
+          "client": "Ácme",
+          "status_label": "En riesgo",
+          "status_code": "a",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "—",
+          "row_class": "ra",
+          "client_slug": "acme"
+        }
+      ],
+      "shares": [
+        {
+          "label": "En tiempo",
+          "status_code": "g",
+          "color": "#1B9A55",
+          "count": 0,
+          "percent": 0
+        },
+        {
+          "label": "En riesgo",
+          "status_code": "a",
+          "color": "#E88F0C",
+          "count": 1,
+          "percent": 25
+        },
+        {
+          "label": "Crítico",
+          "status_code": "r",
+          "color": "#D6304B",
+          "count": 3,
+          "percent": 75
+        }
+      ],
+      "time_cost": {
+        "time_days": 4.5,
+        "cost_percent": 50.0
+      }
+    }
+  },
+  {
+    "case": "riesgos",
+    "name": "Ana",
+    "projects": [
+      {
+        "project_id": "Uno",
+        "name": "Uno",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "A tiempo",
+        "risk_level": "Alto",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      },
+      {
+        "project_id": "Dos",
+        "name": "Dos",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "A tiempo",
+        "risk_level": "Alto",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      },
+      {
+        "project_id": "Tres",
+        "name": "Tres",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "A tiempo",
+        "risk_level": "Alto",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      },
+      {
+        "project_id": "Suspendido",
+        "name": "Suspendido",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "En Pausa",
+        "health": "A tiempo",
+        "risk_level": "Alto",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 50
+      }
+    ],
+    "expected": {
+      "name": "Ana",
+      "initials": "AN",
+      "total": 4,
+      "in_progress": 3,
+      "paused": 1,
+      "health": {
+        "on_time": 3,
+        "at_risk": 0,
+        "critical": 0
+      },
+      "high_risk": 3,
+      "high_risk_note": "En Uno y Dos y 1 más",
+      "rows": [
+        {
+          "project_id": "Dos",
+          "name": "Dos",
+          "client": "Ácme",
+          "status_label": "En tiempo",
+          "status_code": "g",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "Alto",
+          "row_class": "",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "Tres",
+          "name": "Tres",
+          "client": "Ácme",
+          "status_label": "En tiempo",
+          "status_code": "g",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "Alto",
+          "row_class": "",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "Uno",
+          "name": "Uno",
+          "client": "Ácme",
+          "status_label": "En tiempo",
+          "status_code": "g",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "Alto",
+          "row_class": "",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "Suspendido",
+          "name": "Suspendido",
+          "client": "Ácme",
+          "status_label": "Suspendido",
+          "status_code": "x",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "Alto",
+          "row_class": "",
+          "client_slug": "acme"
+        }
+      ],
+      "shares": [
+        {
+          "label": "En tiempo",
+          "status_code": "g",
+          "color": "#1B9A55",
+          "count": 3,
+          "percent": 100
+        },
+        {
+          "label": "En riesgo",
+          "status_code": "a",
+          "color": "#E88F0C",
+          "count": 0,
+          "percent": 0
+        },
+        {
+          "label": "Crítico",
+          "status_code": "r",
+          "color": "#D6304B",
+          "count": 0,
+          "percent": 0
+        }
+      ],
+      "time_cost": {
+        "time_days": 0.0,
+        "cost_percent": 50.0
+      }
+    }
+  },
+  {
+    "case": "redondeo",
+    "name": "Uno",
+    "projects": [
+      {
+        "project_id": "A",
+        "name": "A",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "A tiempo",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 80,
+        "burn_hours": 80.4,
+        "etc_hours": -0.5
+      },
+      {
+        "project_id": "B",
+        "name": "B",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "A tiempo",
+        "risk_level": "",
+        "progress_percent": null,
+        "delay_days": 0,
+        "budget_hours": 100,
+        "burn_hours": 50,
+        "etc_hours": 0.5
+      }
+    ],
+    "expected": {
+      "name": "Uno",
+      "initials": "UN",
+      "total": 2,
+      "in_progress": 2,
+      "paused": 0,
+      "health": {
+        "on_time": 2,
+        "at_risk": 0,
+        "critical": 0
+      },
+      "high_risk": 0,
+      "high_risk_note": "Sin riesgos altos abiertos",
+      "rows": [
+        {
+          "project_id": "A",
+          "name": "A",
+          "client": "Ácme",
+          "status_label": "En tiempo",
+          "status_code": "g",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 0,
+          "risk_label": "—",
+          "row_class": "",
+          "client_slug": "acme"
+        },
+        {
+          "project_id": "B",
+          "name": "B",
+          "client": "Ácme",
+          "status_label": "En tiempo",
+          "status_code": "g",
+          "detail": "",
+          "progress_percent": null,
+          "etc_hours": 1,
+          "risk_label": "—",
+          "row_class": "",
+          "client_slug": "acme"
+        }
+      ],
+      "shares": [
+        {
+          "label": "En tiempo",
+          "status_code": "g",
+          "color": "#1B9A55",
+          "count": 2,
+          "percent": 100
+        },
+        {
+          "label": "En riesgo",
+          "status_code": "a",
+          "color": "#E88F0C",
+          "count": 0,
+          "percent": 0
+        },
+        {
+          "label": "Crítico",
+          "status_code": "r",
+          "color": "#D6304B",
+          "count": 0,
+          "percent": 0
+        }
+      ],
+      "time_cost": {
+        "time_days": 0.0,
+        "cost_percent": 50.0
+      }
+    }
+  },
+  {
+    "case": "sin_presupuesto",
+    "name": "Ana",
+    "projects": [
+      {
+        "project_id": "A",
+        "name": "A",
+        "client": "Ácme",
+        "delivery_manager": "Ana Pérez",
+        "service": "RaaS",
+        "status_category": "Activo",
+        "health": "En Riesgo",
+        "risk_level": "",
+        "progress_percent": 50,
+        "delay_days": 0,
+        "budget_hours": 0,
+        "burn_hours": 500,
+        "etc_hours": 50
+      }
+    ],
+    "expected": {
+      "name": "Ana",
+      "initials": "AN",
+      "total": 1,
+      "in_progress": 1,
+      "paused": 0,
+      "health": {
+        "on_time": 0,
+        "at_risk": 1,
+        "critical": 0
+      },
+      "high_risk": 0,
+      "high_risk_note": "Sin riesgos altos abiertos",
+      "rows": [
+        {
+          "project_id": "A",
+          "name": "A",
+          "client": "Ácme",
+          "status_label": "En riesgo",
+          "status_code": "a",
+          "detail": "",
+          "progress_percent": 50,
+          "etc_hours": 50,
+          "risk_label": "—",
+          "row_class": "ra",
+          "client_slug": "acme"
+        }
+      ],
+      "shares": [
+        {
+          "label": "En tiempo",
+          "status_code": "g",
+          "color": "#1B9A55",
+          "count": 0,
+          "percent": 0
+        },
+        {
+          "label": "En riesgo",
+          "status_code": "a",
+          "color": "#E88F0C",
+          "count": 1,
+          "percent": 100
+        },
+        {
+          "label": "Crítico",
+          "status_code": "r",
+          "color": "#D6304B",
+          "count": 0,
+          "percent": 0
+        }
+      ],
+      "time_cost": {
+        "time_days": 0.0,
+        "cost_percent": 50.0
+      }
+    }
+  }
+]
