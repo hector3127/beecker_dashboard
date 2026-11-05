@@ -1,0 +1,2202 @@
+{
+  "mixto": {
+    "input": {
+      "name": "mixto",
+      "projects": [
+        {
+          "project_id": "A_S1",
+          "name": "A_S1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "A_CR1",
+          "name": "A_CR1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 101,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "B",
+          "name": "B",
+          "manager": "Beatriz",
+          "client": "Beta",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "03/11/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "C",
+          "name": "C",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 90,
+          "etc": 50
+        },
+        {
+          "project_id": "D",
+          "name": "D",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "sus",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 150,
+          "etc": 50
+        },
+        {
+          "project_id": "E",
+          "name": "E",
+          "manager": "",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": null
+        },
+        {
+          "project_id": "F",
+          "name": "F",
+          "manager": "Álvaro Pérez",
+          "client": "",
+          "service": "",
+          "status_code": "dev",
+          "end": "2026-12-05",
+          "progress": 50,
+          "budget": 100,
+          "burn": 100,
+          "etc": 50
+        },
+        {
+          "project_id": "G",
+          "name": "G",
+          "manager": "Beto",
+          "client": "Acme",
+          "service": "IXB",
+          "status_code": "dev",
+          "end": "04/11/2026",
+          "progress": 50,
+          "budget": 0,
+          "burn": 300,
+          "etc": 50
+        },
+        {
+          "project_id": "H",
+          "name": "H",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": 31
+        },
+        {
+          "project_id": "I",
+          "name": "I",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 89.99,
+          "etc": 50
+        },
+        {
+          "project_id": "J",
+          "name": "J",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": null,
+          "budget": 100,
+          "burn": null,
+          "etc": null
+        },
+        {
+          "project_id": "K",
+          "name": "K",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-31",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "L",
+          "name": "L",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "SaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": 50,
+          "budget": -1,
+          "burn": 20,
+          "etc": 50
+        }
+      ],
+      "service": "",
+      "client": "",
+      "today": "2026-11-04"
+    },
+    "expected": {
+      "projects": [
+        {
+          "project_id": "A_S1",
+          "name": "A_S1",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "A_CR1",
+          "name": "A_CR1",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 101,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 101,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "B",
+          "name": "B",
+          "client": "Beta",
+          "delivery_manager": "Beatriz",
+          "service": "AER",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": -1,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "C",
+          "name": "C",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "AER",
+          "status_category": "Activo",
+          "health": "En Riesgo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 30,
+          "budget_hours": 100,
+          "burn_hours": 90,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "D",
+          "name": "D",
+          "client": "Acme",
+          "delivery_manager": "Sin Delivery Manager",
+          "service": "RaaS",
+          "status_category": "En Pausa",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 150,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "E",
+          "name": "E",
+          "client": "Acme",
+          "delivery_manager": "",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "En Riesgo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 0,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "F",
+          "name": "F",
+          "client": "",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 31,
+          "budget_hours": 100,
+          "burn_hours": 100,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "G",
+          "name": "G",
+          "client": "Acme",
+          "delivery_manager": "Beto",
+          "service": "IXB",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 0,
+          "budget_hours": 0,
+          "burn_hours": 300,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "H",
+          "name": "H",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 31,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "I",
+          "name": "I",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 30,
+          "budget_hours": 100,
+          "burn_hours": 89.99,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "J",
+          "name": "J",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 0,
+          "delay_days": 1,
+          "budget_hours": 100,
+          "burn_hours": 0,
+          "etc_hours": 0
+        },
+        {
+          "project_id": "K",
+          "name": "K",
+          "client": "Acme",
+          "delivery_manager": "Sin Delivery Manager",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "L",
+          "name": "L",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "SaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 1,
+          "budget_hours": -1,
+          "burn_hours": 20,
+          "etc_hours": 50
+        }
+      ],
+      "summary": {
+        "in_progress": 12,
+        "paused": 1,
+        "health": {
+          "on_time": 8,
+          "at_risk": 2,
+          "critical": 2
+        },
+        "on_time_percent": 67
+      },
+      "managers": [
+        {
+          "name": "Beatriz",
+          "slug": "beatriz",
+          "initials": "BE",
+          "in_progress": 6,
+          "paused": 0,
+          "health": {
+            "on_time": 4,
+            "at_risk": 1,
+            "critical": 1
+          },
+          "high_risk": 0,
+          "on_time_width": 66.7,
+          "at_risk_width": 16.7,
+          "critical_width": 16.7,
+          "time_cost": {
+            "time_days": 15.3,
+            "cost_percent": 41.7
+          },
+          "project_ids": [
+            "B",
+            "C",
+            "H",
+            "I",
+            "J",
+            "L"
+          ]
+        },
+        {
+          "name": "Álvaro Pérez",
+          "slug": "alvaro-perez",
+          "initials": "ÁP",
+          "in_progress": 3,
+          "paused": 0,
+          "health": {
+            "on_time": 2,
+            "at_risk": 0,
+            "critical": 1
+          },
+          "high_risk": 0,
+          "on_time_width": 66.7,
+          "at_risk_width": 0.0,
+          "critical_width": 33.3,
+          "time_cost": {
+            "time_days": 48.3,
+            "cost_percent": 67.0
+          },
+          "project_ids": [
+            "A_CR1",
+            "A_S1",
+            "F"
+          ]
+        },
+        {
+          "name": "",
+          "slug": "sin-nombre",
+          "initials": "?",
+          "in_progress": 1,
+          "paused": 0,
+          "health": {
+            "on_time": 0,
+            "at_risk": 1,
+            "critical": 0
+          },
+          "high_risk": 0,
+          "on_time_width": 0.0,
+          "at_risk_width": 100.0,
+          "critical_width": 0.0,
+          "time_cost": {
+            "time_days": 0.0,
+            "cost_percent": 50.0
+          },
+          "project_ids": [
+            "E"
+          ]
+        },
+        {
+          "name": "Beto",
+          "slug": "beto",
+          "initials": "BE",
+          "in_progress": 1,
+          "paused": 0,
+          "health": {
+            "on_time": 1,
+            "at_risk": 0,
+            "critical": 0
+          },
+          "high_risk": 0,
+          "on_time_width": 100.0,
+          "at_risk_width": 0.0,
+          "critical_width": 0.0,
+          "time_cost": {
+            "time_days": 0.0,
+            "cost_percent": 50.0
+          },
+          "project_ids": [
+            "G"
+          ]
+        },
+        {
+          "name": "Sin Delivery Manager",
+          "slug": "sin-delivery-manager",
+          "initials": "SD",
+          "in_progress": 1,
+          "paused": 1,
+          "health": {
+            "on_time": 1,
+            "at_risk": 0,
+            "critical": 0
+          },
+          "high_risk": 0,
+          "on_time_width": 100.0,
+          "at_risk_width": 0.0,
+          "critical_width": 0.0,
+          "time_cost": {
+            "time_days": 57.0,
+            "cost_percent": 50.0
+          },
+          "project_ids": [
+            "K"
+          ]
+        }
+      ],
+      "service_distribution": [
+        {
+          "service": "AER",
+          "count": 2,
+          "percent": 17
+        },
+        {
+          "service": "IXB",
+          "count": 1,
+          "percent": 8
+        },
+        {
+          "service": "RaaS",
+          "count": 7,
+          "percent": 58
+        },
+        {
+          "service": "SaaS",
+          "count": 1,
+          "percent": 8
+        },
+        {
+          "service": "Sin servicio",
+          "count": 1,
+          "percent": 8
+        }
+      ],
+      "services": [
+        "AER",
+        "IXB",
+        "RaaS",
+        "SaaS"
+      ],
+      "clients": [
+        "Acme",
+        "Beta"
+      ],
+      "portfolio_total": 13
+    }
+  },
+  "vacio": {
+    "input": {
+      "name": "vacio",
+      "projects": [],
+      "service": "",
+      "client": "",
+      "today": "2026-11-04"
+    },
+    "expected": {
+      "projects": [],
+      "summary": {
+        "in_progress": 0,
+        "paused": 0,
+        "health": {
+          "on_time": 0,
+          "at_risk": 0,
+          "critical": 0
+        },
+        "on_time_percent": 0
+      },
+      "managers": [],
+      "service_distribution": [],
+      "services": [],
+      "clients": [],
+      "portfolio_total": 0
+    }
+  },
+  "servicio": {
+    "input": {
+      "name": "servicio",
+      "projects": [
+        {
+          "project_id": "A_S1",
+          "name": "A_S1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "A_CR1",
+          "name": "A_CR1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 101,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "B",
+          "name": "B",
+          "manager": "Beatriz",
+          "client": "Beta",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "03/11/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "C",
+          "name": "C",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 90,
+          "etc": 50
+        },
+        {
+          "project_id": "D",
+          "name": "D",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "sus",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 150,
+          "etc": 50
+        },
+        {
+          "project_id": "E",
+          "name": "E",
+          "manager": "",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": null
+        },
+        {
+          "project_id": "F",
+          "name": "F",
+          "manager": "Álvaro Pérez",
+          "client": "",
+          "service": "",
+          "status_code": "dev",
+          "end": "2026-12-05",
+          "progress": 50,
+          "budget": 100,
+          "burn": 100,
+          "etc": 50
+        },
+        {
+          "project_id": "G",
+          "name": "G",
+          "manager": "Beto",
+          "client": "Acme",
+          "service": "IXB",
+          "status_code": "dev",
+          "end": "04/11/2026",
+          "progress": 50,
+          "budget": 0,
+          "burn": 300,
+          "etc": 50
+        },
+        {
+          "project_id": "H",
+          "name": "H",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": 31
+        },
+        {
+          "project_id": "I",
+          "name": "I",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 89.99,
+          "etc": 50
+        },
+        {
+          "project_id": "J",
+          "name": "J",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": null,
+          "budget": 100,
+          "burn": null,
+          "etc": null
+        },
+        {
+          "project_id": "K",
+          "name": "K",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-31",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "L",
+          "name": "L",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "SaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": 50,
+          "budget": -1,
+          "burn": 20,
+          "etc": 50
+        }
+      ],
+      "service": "AER",
+      "client": "",
+      "today": "2026-11-04"
+    },
+    "expected": {
+      "projects": [
+        {
+          "project_id": "B",
+          "name": "B",
+          "client": "Beta",
+          "delivery_manager": "Beatriz",
+          "service": "AER",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": -1,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "C",
+          "name": "C",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "AER",
+          "status_category": "Activo",
+          "health": "En Riesgo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 30,
+          "budget_hours": 100,
+          "burn_hours": 90,
+          "etc_hours": 50
+        }
+      ],
+      "summary": {
+        "in_progress": 2,
+        "paused": 0,
+        "health": {
+          "on_time": 0,
+          "at_risk": 1,
+          "critical": 1
+        },
+        "on_time_percent": 0
+      },
+      "managers": [
+        {
+          "name": "Beatriz",
+          "slug": "beatriz",
+          "initials": "BE",
+          "in_progress": 2,
+          "paused": 0,
+          "health": {
+            "on_time": 0,
+            "at_risk": 1,
+            "critical": 1
+          },
+          "high_risk": 0,
+          "on_time_width": 0.0,
+          "at_risk_width": 50.0,
+          "critical_width": 50.0,
+          "time_cost": {
+            "time_days": 14.5,
+            "cost_percent": 50.0
+          },
+          "project_ids": [
+            "B",
+            "C"
+          ]
+        }
+      ],
+      "service_distribution": [
+        {
+          "service": "AER",
+          "count": 2,
+          "percent": 100
+        }
+      ],
+      "services": [
+        "AER",
+        "IXB",
+        "RaaS",
+        "SaaS"
+      ],
+      "clients": [
+        "Acme",
+        "Beta"
+      ],
+      "portfolio_total": 2
+    }
+  },
+  "cuenta": {
+    "input": {
+      "name": "cuenta",
+      "projects": [
+        {
+          "project_id": "A_S1",
+          "name": "A_S1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "A_CR1",
+          "name": "A_CR1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 101,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "B",
+          "name": "B",
+          "manager": "Beatriz",
+          "client": "Beta",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "03/11/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "C",
+          "name": "C",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 90,
+          "etc": 50
+        },
+        {
+          "project_id": "D",
+          "name": "D",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "sus",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 150,
+          "etc": 50
+        },
+        {
+          "project_id": "E",
+          "name": "E",
+          "manager": "",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": null
+        },
+        {
+          "project_id": "F",
+          "name": "F",
+          "manager": "Álvaro Pérez",
+          "client": "",
+          "service": "",
+          "status_code": "dev",
+          "end": "2026-12-05",
+          "progress": 50,
+          "budget": 100,
+          "burn": 100,
+          "etc": 50
+        },
+        {
+          "project_id": "G",
+          "name": "G",
+          "manager": "Beto",
+          "client": "Acme",
+          "service": "IXB",
+          "status_code": "dev",
+          "end": "04/11/2026",
+          "progress": 50,
+          "budget": 0,
+          "burn": 300,
+          "etc": 50
+        },
+        {
+          "project_id": "H",
+          "name": "H",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": 31
+        },
+        {
+          "project_id": "I",
+          "name": "I",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 89.99,
+          "etc": 50
+        },
+        {
+          "project_id": "J",
+          "name": "J",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": null,
+          "budget": 100,
+          "burn": null,
+          "etc": null
+        },
+        {
+          "project_id": "K",
+          "name": "K",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-31",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "L",
+          "name": "L",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "SaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": 50,
+          "budget": -1,
+          "burn": 20,
+          "etc": 50
+        }
+      ],
+      "service": "",
+      "client": "Acme",
+      "today": "2026-11-04"
+    },
+    "expected": {
+      "projects": [
+        {
+          "project_id": "A_S1",
+          "name": "A_S1",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "A_CR1",
+          "name": "A_CR1",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 101,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 101,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "C",
+          "name": "C",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "AER",
+          "status_category": "Activo",
+          "health": "En Riesgo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 30,
+          "budget_hours": 100,
+          "burn_hours": 90,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "D",
+          "name": "D",
+          "client": "Acme",
+          "delivery_manager": "Sin Delivery Manager",
+          "service": "RaaS",
+          "status_category": "En Pausa",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 150,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "E",
+          "name": "E",
+          "client": "Acme",
+          "delivery_manager": "",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "En Riesgo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 0,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "G",
+          "name": "G",
+          "client": "Acme",
+          "delivery_manager": "Beto",
+          "service": "IXB",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 0,
+          "budget_hours": 0,
+          "burn_hours": 300,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "H",
+          "name": "H",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 31,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "I",
+          "name": "I",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 30,
+          "budget_hours": 100,
+          "burn_hours": 89.99,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "J",
+          "name": "J",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 0,
+          "delay_days": 1,
+          "budget_hours": 100,
+          "burn_hours": 0,
+          "etc_hours": 0
+        },
+        {
+          "project_id": "K",
+          "name": "K",
+          "client": "Acme",
+          "delivery_manager": "Sin Delivery Manager",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "L",
+          "name": "L",
+          "client": "Acme",
+          "delivery_manager": "Beatriz",
+          "service": "SaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 1,
+          "budget_hours": -1,
+          "burn_hours": 20,
+          "etc_hours": 50
+        }
+      ],
+      "summary": {
+        "in_progress": 10,
+        "paused": 1,
+        "health": {
+          "on_time": 7,
+          "at_risk": 2,
+          "critical": 1
+        },
+        "on_time_percent": 70
+      },
+      "managers": [
+        {
+          "name": "Beatriz",
+          "slug": "beatriz",
+          "initials": "BE",
+          "in_progress": 5,
+          "paused": 0,
+          "health": {
+            "on_time": 4,
+            "at_risk": 1,
+            "critical": 0
+          },
+          "high_risk": 0,
+          "on_time_width": 80.0,
+          "at_risk_width": 20.0,
+          "critical_width": 0.0,
+          "time_cost": {
+            "time_days": 18.6,
+            "cost_percent": 40.0
+          },
+          "project_ids": [
+            "C",
+            "H",
+            "I",
+            "J",
+            "L"
+          ]
+        },
+        {
+          "name": "Álvaro Pérez",
+          "slug": "alvaro-perez",
+          "initials": "ÁP",
+          "in_progress": 2,
+          "paused": 0,
+          "health": {
+            "on_time": 1,
+            "at_risk": 0,
+            "critical": 1
+          },
+          "high_risk": 0,
+          "on_time_width": 50.0,
+          "at_risk_width": 0.0,
+          "critical_width": 50.0,
+          "time_cost": {
+            "time_days": 57.0,
+            "cost_percent": 75.5
+          },
+          "project_ids": [
+            "A_CR1",
+            "A_S1"
+          ]
+        },
+        {
+          "name": "",
+          "slug": "sin-nombre",
+          "initials": "?",
+          "in_progress": 1,
+          "paused": 0,
+          "health": {
+            "on_time": 0,
+            "at_risk": 1,
+            "critical": 0
+          },
+          "high_risk": 0,
+          "on_time_width": 0.0,
+          "at_risk_width": 100.0,
+          "critical_width": 0.0,
+          "time_cost": {
+            "time_days": 0.0,
+            "cost_percent": 50.0
+          },
+          "project_ids": [
+            "E"
+          ]
+        },
+        {
+          "name": "Beto",
+          "slug": "beto",
+          "initials": "BE",
+          "in_progress": 1,
+          "paused": 0,
+          "health": {
+            "on_time": 1,
+            "at_risk": 0,
+            "critical": 0
+          },
+          "high_risk": 0,
+          "on_time_width": 100.0,
+          "at_risk_width": 0.0,
+          "critical_width": 0.0,
+          "time_cost": {
+            "time_days": 0.0,
+            "cost_percent": 50.0
+          },
+          "project_ids": [
+            "G"
+          ]
+        },
+        {
+          "name": "Sin Delivery Manager",
+          "slug": "sin-delivery-manager",
+          "initials": "SD",
+          "in_progress": 1,
+          "paused": 1,
+          "health": {
+            "on_time": 1,
+            "at_risk": 0,
+            "critical": 0
+          },
+          "high_risk": 0,
+          "on_time_width": 100.0,
+          "at_risk_width": 0.0,
+          "critical_width": 0.0,
+          "time_cost": {
+            "time_days": 57.0,
+            "cost_percent": 50.0
+          },
+          "project_ids": [
+            "K"
+          ]
+        }
+      ],
+      "service_distribution": [
+        {
+          "service": "AER",
+          "count": 1,
+          "percent": 10
+        },
+        {
+          "service": "IXB",
+          "count": 1,
+          "percent": 10
+        },
+        {
+          "service": "RaaS",
+          "count": 7,
+          "percent": 70
+        },
+        {
+          "service": "SaaS",
+          "count": 1,
+          "percent": 10
+        }
+      ],
+      "services": [
+        "AER",
+        "IXB",
+        "RaaS",
+        "SaaS"
+      ],
+      "clients": [
+        "Acme",
+        "Beta"
+      ],
+      "portfolio_total": 11
+    }
+  },
+  "interseccion": {
+    "input": {
+      "name": "interseccion",
+      "projects": [
+        {
+          "project_id": "A_S1",
+          "name": "A_S1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "A_CR1",
+          "name": "A_CR1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 101,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "B",
+          "name": "B",
+          "manager": "Beatriz",
+          "client": "Beta",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "03/11/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "C",
+          "name": "C",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 90,
+          "etc": 50
+        },
+        {
+          "project_id": "D",
+          "name": "D",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "sus",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 150,
+          "etc": 50
+        },
+        {
+          "project_id": "E",
+          "name": "E",
+          "manager": "",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": null
+        },
+        {
+          "project_id": "F",
+          "name": "F",
+          "manager": "Álvaro Pérez",
+          "client": "",
+          "service": "",
+          "status_code": "dev",
+          "end": "2026-12-05",
+          "progress": 50,
+          "budget": 100,
+          "burn": 100,
+          "etc": 50
+        },
+        {
+          "project_id": "G",
+          "name": "G",
+          "manager": "Beto",
+          "client": "Acme",
+          "service": "IXB",
+          "status_code": "dev",
+          "end": "04/11/2026",
+          "progress": 50,
+          "budget": 0,
+          "burn": 300,
+          "etc": 50
+        },
+        {
+          "project_id": "H",
+          "name": "H",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": 31
+        },
+        {
+          "project_id": "I",
+          "name": "I",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 89.99,
+          "etc": 50
+        },
+        {
+          "project_id": "J",
+          "name": "J",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": null,
+          "budget": 100,
+          "burn": null,
+          "etc": null
+        },
+        {
+          "project_id": "K",
+          "name": "K",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-31",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "L",
+          "name": "L",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "SaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": 50,
+          "budget": -1,
+          "burn": 20,
+          "etc": 50
+        }
+      ],
+      "service": "AER",
+      "client": "Beta",
+      "today": "2026-11-04"
+    },
+    "expected": {
+      "projects": [
+        {
+          "project_id": "B",
+          "name": "B",
+          "client": "Beta",
+          "delivery_manager": "Beatriz",
+          "service": "AER",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": -1,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        }
+      ],
+      "summary": {
+        "in_progress": 1,
+        "paused": 0,
+        "health": {
+          "on_time": 0,
+          "at_risk": 0,
+          "critical": 1
+        },
+        "on_time_percent": 0
+      },
+      "managers": [
+        {
+          "name": "Beatriz",
+          "slug": "beatriz",
+          "initials": "BE",
+          "in_progress": 1,
+          "paused": 0,
+          "health": {
+            "on_time": 0,
+            "at_risk": 0,
+            "critical": 1
+          },
+          "high_risk": 0,
+          "on_time_width": 0.0,
+          "at_risk_width": 0.0,
+          "critical_width": 100.0,
+          "time_cost": {
+            "time_days": -1.0,
+            "cost_percent": 50.0
+          },
+          "project_ids": [
+            "B"
+          ]
+        }
+      ],
+      "service_distribution": [
+        {
+          "service": "AER",
+          "count": 1,
+          "percent": 100
+        }
+      ],
+      "services": [
+        "AER",
+        "IXB",
+        "RaaS",
+        "SaaS"
+      ],
+      "clients": [
+        "Acme",
+        "Beta"
+      ],
+      "portfolio_total": 1
+    }
+  },
+  "sin_coincidencias": {
+    "input": {
+      "name": "sin_coincidencias",
+      "projects": [
+        {
+          "project_id": "A_S1",
+          "name": "A_S1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "A_CR1",
+          "name": "A_CR1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 101,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "B",
+          "name": "B",
+          "manager": "Beatriz",
+          "client": "Beta",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "03/11/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "C",
+          "name": "C",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "AER",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 90,
+          "etc": 50
+        },
+        {
+          "project_id": "D",
+          "name": "D",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "sus",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 150,
+          "etc": 50
+        },
+        {
+          "project_id": "E",
+          "name": "E",
+          "manager": "",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": null
+        },
+        {
+          "project_id": "F",
+          "name": "F",
+          "manager": "Álvaro Pérez",
+          "client": "",
+          "service": "",
+          "status_code": "dev",
+          "end": "2026-12-05",
+          "progress": 50,
+          "budget": 100,
+          "burn": 100,
+          "etc": 50
+        },
+        {
+          "project_id": "G",
+          "name": "G",
+          "manager": "Beto",
+          "client": "Acme",
+          "service": "IXB",
+          "status_code": "dev",
+          "end": "04/11/2026",
+          "progress": 50,
+          "budget": 0,
+          "burn": 300,
+          "etc": 50
+        },
+        {
+          "project_id": "H",
+          "name": "H",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "sin fecha",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50,
+          "renewal_days": 31
+        },
+        {
+          "project_id": "I",
+          "name": "I",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-04",
+          "progress": 50,
+          "budget": 100,
+          "burn": 89.99,
+          "etc": 50
+        },
+        {
+          "project_id": "J",
+          "name": "J",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": null,
+          "budget": 100,
+          "burn": null,
+          "etc": null
+        },
+        {
+          "project_id": "K",
+          "name": "K",
+          "manager": "Sin Delivery Manager",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "2026-12-31",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        },
+        {
+          "project_id": "L",
+          "name": "L",
+          "manager": "Beatriz",
+          "client": "Acme",
+          "service": "SaaS",
+          "status_code": "dev",
+          "end": "2026-11-05",
+          "progress": 50,
+          "budget": -1,
+          "burn": 20,
+          "etc": 50
+        }
+      ],
+      "service": "raas",
+      "client": "Acme",
+      "today": "2026-11-04"
+    },
+    "expected": {
+      "projects": [],
+      "summary": {
+        "in_progress": 0,
+        "paused": 0,
+        "health": {
+          "on_time": 0,
+          "at_risk": 0,
+          "critical": 0
+        },
+        "on_time_percent": 0
+      },
+      "managers": [],
+      "service_distribution": [],
+      "services": [
+        "AER",
+        "IXB",
+        "RaaS",
+        "SaaS"
+      ],
+      "clients": [
+        "Acme",
+        "Beta"
+      ],
+      "portfolio_total": 0
+    }
+  },
+  "solo_suspendidos": {
+    "input": {
+      "name": "solo_suspendidos",
+      "projects": [
+        {
+          "project_id": "S",
+          "name": "S",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "sus",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 50,
+          "etc": 50
+        }
+      ],
+      "service": "",
+      "client": "",
+      "today": "2026-11-04"
+    },
+    "expected": {
+      "projects": [
+        {
+          "project_id": "S",
+          "name": "S",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "En Pausa",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 50,
+          "etc_hours": 50
+        }
+      ],
+      "summary": {
+        "in_progress": 0,
+        "paused": 1,
+        "health": {
+          "on_time": 0,
+          "at_risk": 0,
+          "critical": 0
+        },
+        "on_time_percent": 0
+      },
+      "managers": [
+        {
+          "name": "Álvaro Pérez",
+          "slug": "alvaro-perez",
+          "initials": "ÁP",
+          "in_progress": 0,
+          "paused": 1,
+          "health": {
+            "on_time": 0,
+            "at_risk": 0,
+            "critical": 0
+          },
+          "high_risk": 0,
+          "on_time_width": 0.0,
+          "at_risk_width": 0.0,
+          "critical_width": 0.0,
+          "time_cost": {
+            "time_days": null,
+            "cost_percent": null
+          },
+          "project_ids": []
+        }
+      ],
+      "service_distribution": [],
+      "services": [
+        "RaaS"
+      ],
+      "clients": [
+        "Acme"
+      ],
+      "portfolio_total": 1
+    }
+  },
+  "redondeo_mitad": {
+    "input": {
+      "name": "redondeo_mitad",
+      "projects": [
+        {
+          "project_id": "0",
+          "name": "0",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 1,
+          "etc": 50
+        },
+        {
+          "project_id": "1",
+          "name": "1",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "2",
+          "name": "2",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "3",
+          "name": "3",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "4",
+          "name": "4",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "5",
+          "name": "5",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "6",
+          "name": "6",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        },
+        {
+          "project_id": "7",
+          "name": "7",
+          "manager": "Álvaro Pérez",
+          "client": "Acme",
+          "service": "RaaS",
+          "status_code": "dev",
+          "end": "31/12/26",
+          "progress": 50,
+          "budget": 100,
+          "burn": 101,
+          "etc": 50
+        }
+      ],
+      "service": "",
+      "client": "",
+      "today": "2026-11-04"
+    },
+    "expected": {
+      "projects": [
+        {
+          "project_id": "0",
+          "name": "0",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "A tiempo",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 1,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "1",
+          "name": "1",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 101,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "2",
+          "name": "2",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 101,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "3",
+          "name": "3",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 101,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "4",
+          "name": "4",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 101,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "5",
+          "name": "5",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 101,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "6",
+          "name": "6",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 101,
+          "etc_hours": 50
+        },
+        {
+          "project_id": "7",
+          "name": "7",
+          "client": "Acme",
+          "delivery_manager": "Álvaro Pérez",
+          "service": "RaaS",
+          "status_category": "Activo",
+          "health": "Crítica",
+          "risk_level": "",
+          "progress_percent": 50,
+          "delay_days": 57,
+          "budget_hours": 100,
+          "burn_hours": 101,
+          "etc_hours": 50
+        }
+      ],
+      "summary": {
+        "in_progress": 8,
+        "paused": 0,
+        "health": {
+          "on_time": 1,
+          "at_risk": 0,
+          "critical": 7
+        },
+        "on_time_percent": 13
+      },
+      "managers": [
+        {
+          "name": "Álvaro Pérez",
+          "slug": "alvaro-perez",
+          "initials": "ÁP",
+          "in_progress": 8,
+          "paused": 0,
+          "health": {
+            "on_time": 1,
+            "at_risk": 0,
+            "critical": 7
+          },
+          "high_risk": 0,
+          "on_time_width": 12.5,
+          "at_risk_width": 0.0,
+          "critical_width": 87.5,
+          "time_cost": {
+            "time_days": 57.0,
+            "cost_percent": 50.0
+          },
+          "project_ids": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        }
+      ],
+      "service_distribution": [
+        {
+          "service": "RaaS",
+          "count": 8,
+          "percent": 100
+        }
+      ],
+      "services": [
+        "RaaS"
+      ],
+      "clients": [
+        "Acme"
+      ],
+      "portfolio_total": 8
+    }
+  }
+}
