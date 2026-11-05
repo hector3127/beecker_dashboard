@@ -253,7 +253,7 @@ Orden recomendado; cada bloque repite: contrato D1 → servicio portado → endp
 | G10e6c | Esfuerzo por corte y periodo MPB | G10e6b | 260 consultas sobre cinco cortes, quince bloques IXS y veintiún IDs AER/T&M sin diferencias con EVA original; 187 disponibles y desgloses coherentes, pendientes explícitos. Diez pruebas nuevas; 1,193/92.94 %. Sin cambios de fórmulas. Siguiente Centro Operativa G10a4 |
 | G10e7a | Lectura local de evaluaciones AER existentes | G10e6c | implementado como dependencia: siete contratos originales y doce pruebas nuevas; lector conserva puntaje/categoría, orden, duplicados e ID exacto. 1,325 pruebas/93.37 %, ruff/mypy 230 archivos. Fuente ausente en copia local (608 IDs AER/TYM), sin contenido real cotejable. Sin conectar API/UI; siguiente G10e7b, plantilla y escrituras siguen diferidas |
 | G10e7b | API/pantalla Recursos AER/T&M de lectura | G10e7a | implementado localmente: evaluaciones y fuentes de personas, selección, dimensiones, histórico, distribución y tabla, junto a horas previas. Cuatro contratos JS originales; cinco pruebas backend/diez frontend nuevas, anteriores intactas. 1,330/93.38 % backend, 929 frontend, lint/tipos/build/OpenAPI pasan. Dieciséis escenarios claro/oscuro 320–1440 px sin errores/desborde. 608 IDs locales con fuente ausente explícita. Contenido real, edición/importación y permisos por rol siguen pendientes; siguiente revisión conjunta G10e7c |
-| G10f | Pestañas de IA vía `ai_hub/llm` | G10e, A11 | piloto local de análisis ejecutivo agregado bajo demanda; proveedor real, historial y flujos de IA originales pendientes · 04/11: sigue sin cotejo: depende del proveedor de IA y del historial |
+| G10f | Pestañas de IA vía `ai_hub/llm` | G10e, A11 | parcial. Piloto de análisis agregado validado por el endpoint con proveedor simulado en 16 proyectos locales (G10f1). Pendientes el proveedor real, el historial y los demás flujos originales |
 
 Desglose de G9 (EVA1). G8 solo hace falta para actualizar datos; EVA1 lee cortes guardados, así que puede avanzar con G7.
 
@@ -269,7 +269,7 @@ Desglose de G9 (EVA1). G8 solo hace falta para actualizar datos; EVA1 lee cortes
 
 | ID | Tarea | Depende | Estado |
 |---|---|---|---|
-| G13 | Reestructura de datos del módulo (ver plan G13 abajo): medir, agregar y tipar solo lo que lo justifique | G10; P4 para medir en PostgreSQL | propuesto |
+| G13 | Reestructura de datos del módulo (ver plan G13 abajo): medir, agregar y tipar solo lo que lo justifique | G10 y PostgreSQL local para la medición. Agregados sujetos a G8/P3 | propuesto |
 | G11 | Importación completa en UAT con respaldo y reversión; cierres KPI intactos | G9–G10, P2 | bloqueado |
 | G12 | PR de `Integracion_Dashboard_Management` a UAT con gates y evidencia; revisores Talin y Ulises | G11 | pendiente |
 
@@ -287,7 +287,7 @@ consultas y la conversión, no la falta de índice. Leer cada hoja una sola vez 
 apenas 1 s de 10 y se descartó.
 
 Pasos, cada uno con su propio cotejo de 0 diferencias antes y después:
-1. **Medir en PostgreSQL** (necesita P4): repetir los tiempos y `EXPLAIN` de las consultas de horas.
+1. **Medir en PostgreSQL local**: repetir los tiempos y `EXPLAIN` de las consultas de horas.
    SQLite local no representa a `psql-flx-genesis`; no optimizar a ciegas.
 2. **Una consulta de horas por pantalla**, agrupada por proyecto y mes, en vez de una por proyecto y
    mes. No cambia tablas.
@@ -301,12 +301,12 @@ Pasos, cada uno con su propio cotejo de 0 diferencias antes y después:
    paso 1 muestra que ayuda; el costo es una migración sobre 536 000 filas.
 
 Qué NO hacer: caché por tiempo (puede mostrar cifras viejas tras una sincronización) ni cambiar
-reglas de negocio. Mientras no esté P4, solo los pasos 2 y la lista de consultas son seguros.
+reglas de negocio. Primero se mide el conjunto en PostgreSQL local. La verificación de UAT sigue su propia etapa.
 
 ### Ruta hasta la entrega (05/11/2026)
 
-1. **Sin depender de nadie:** cotejar G10f (IA) y los pilotos G10a4 y G10e que falten; probar todo con
-   PostgreSQL local; dejar una guía corta y un comando de carga de datos para que el equipo pruebe.
+1. **Validación local:** el cotejo del piloto IA quedó registrado en G10f1. Completar los cotejos
+   disponibles de G10a4 y G10e y correr el piloto en PostgreSQL local con el paquete verificado.
 2. **Con cuentas de servicio (P3):** G8, sincronizaciones y jobs; después se decide cómo cerrar el mes
    de KPI DM.
 3. **Medir y mejorar datos:** G13, solo después de medir en PostgreSQL.
@@ -315,6 +315,39 @@ reglas de negocio. Mientras no esté P4, solo los pasos 2 y la lista de consulta
 5. **Después, por el equipo de Genesis:** filtros y roles (G6b y P1).
 
 Mientras tanto el acceso sigue siendo el de superusuario de los pilotos; no se agregan permisos nuevos.
+
+
+#### Preparar la prueba en PostgreSQL local
+
+Desde `C:/Genesis/genesis/Genesis`, con las dependencias fijadas por `uv`. Usar una instancia
+local y una base nueva de prueba llamada `genesis_dm_local`. El usuario local debe poder
+aplicar migraciones en esa base. El directorio del paquete puede cambiar según el equipo.
+
+```powershell
+$dmPaquete = 'C:/beecker_dashboard/tmp/genesis-export-real'
+uv run python manage.py importar_datos_dm $dmPaquete --solo-verificar --settings=Genesis.settings_test
+```
+
+Tras verificar el paquete y con la instancia levantada, configurar estas variables en
+PowerShell 7. Ejecutar los pasos en orden y detenerse si uno devuelve error.
+
+```powershell
+$env:POSTGRES_HOST = '127.0.0.1'
+$env:POSTGRES_PORT = '5432'
+$env:POSTGRES_DB = 'genesis_dm_local'
+$env:POSTGRES_USER = Read-Host 'Usuario PostgreSQL local'
+$env:POSTGRES_PASSWORD = Read-Host 'Contraseña PostgreSQL local' -MaskInput
+uv run python manage.py migrate --settings=Genesis.settings_test_postgres
+uv run python manage.py importar_datos_dm $dmPaquete --settings=Genesis.settings_test_postgres
+```
+
+El importador verifica huellas y carga en una transacción. En una base de prueba vacía se
+usa el comando anterior sin `--reemplazar`. Verificar después los conteos importados y cotejar
+los mismos cortes de Operativa, proyectos y KPIs antes de medir G13. Para validar el runner
+con una base de pruebas aparte, Genesis ya documenta el marcador `postgres` en su pipeline.
+
+El 05/11 el paquete pasó la verificación de sus 26 tablas. El puerto local 5432 no respondió.
+La migración, la carga y las mediciones en PostgreSQL quedan pendientes.
 
 ## 8. Diseño y modo oscuro
 
@@ -378,6 +411,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 05/11/2026 | Héctor (con Codex) | G10f1 y preparación de PostgreSQL local | Genesis `39fc874` local | Piloto IA cotejado con 16 proyectos y proveedor simulado. Diez análisis y seis respuestas por falta de indicadores. Doce pruebas frontend, una API, lint y build directo pasan. Gate de formato conserva 165 avisos ajenos y verify pasa rutas antes del fallo POSIX en Windows. Paquete de 26 tablas verificado | Levantar PostgreSQL local para migrar y cargar. G10f parcial por proveedor real, historial y otros flujos. G13 empieza por medir localmente. |
 | 05/11/2026 | Héctor (con Claude) | Revisión del trabajo de Codex, pestañas AER (G10e7c), EVA-04 medido y plan G13 | Genesis `a71d186` subido; locales `423ad26` (EVA-04); dashboard locales `2b792d7`, `ceaec59`, `5ebf763` | Revisé los ~40 commits nuevos de Genesis: 490 pruebas de management en frontend, backend sin fallas, ruff y mypy limpios, sin cambios fuera del módulo. AER usa ahora sus 8 pestañas del dashboard; IXS ya coincidía. EVA-04 tarda ~4 s. Probé leer cada hoja una vez por petición: ganaba ~1 s de 10 y se descartó | **Qué sigue.** (1) Cotejar G10f (IA) y G10a4. (2) Probar con PostgreSQL local (recomendación de Enrique). (3) G8 cuando haya cuentas de servicio (P3). (4) Dejar guía y comando de carga para que el equipo pruebe. (5) G13 después de medir en PostgreSQL. **No hacer:** roles, permisos ni filtros por usuario (decisión del 05/11); no subir a otra rama que no sea `Integracion_Dashboard_Management`; no subir el dashboard. Las URLs: se interpreta "tal cual" como mismas vistas y comportamiento, bajo `/management` (A4), no direcciones idénticas; confirmar con quien lo pidió si era literal |
 | 05/11/2026 | Héctor (con Codex) | G10e7b: API/pestaña Recursos AER/T&M | Genesis `bff77f5`, local | Cinco pruebas backend/diez frontend nuevas, anteriores intactas. Suites 1,330/93.38 % y 929/93 archivos; ruff/mypy 231/lint/formato/build/OpenAPI pasan. Dieciséis escenarios sintéticos claro/oscuro 320–1440 px sin errores/desborde, parcial/vacío/fallo/reintento. Auditoría ro 608 IDs mantiene fuente ausente sin puntajes inventados | G10e7c revisión conjunta entre pestañas/fuentes. Falta copia real AER_Evaluaciones para cotejo de contenido; plantilla, escrituras, roles e IA real siguen pendientes. G10e parcial. Gates globales conservan límites ajenos. Sin otras apps, datos reales, push o despliegue |
 | 05/11/2026 | Héctor (con Codex) | G10e7a: lector de evaluaciones AER existentes | Genesis `0289fd7`, local; Dashboard `3b6ff63` contrato | Siete escenarios originales idénticos; doce pruebas nuevas, anteriores intactas. Suite de módulo 1,325/93.37 %, ruff/formato/mypy 230 archivos. Lectura ro de 608 IDs AER/TYM: AER_Evaluaciones no importada, se conserva no disponible. Sin cambios API/UI ni frontend repetido | G10e7b endpoint/pantalla Recursos AER con disponibilidad explícita. Falta fuente para cotejo real; importación por plantilla y escrituras siguen pendientes. G10e parcial. Sin otras apps, datos reales, push o despliegue |
