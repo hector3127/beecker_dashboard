@@ -1,0 +1,479 @@
+[
+  {
+    "investment": {
+      "complete": true,
+      "projects": 2,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "Ana",
+          "client": "Acme",
+          "service": "RaaS"
+        },
+        {
+          "project_id": "P2",
+          "manager": "Beto",
+          "client": "Beta",
+          "service": "AER"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 2,
+          "commercial": 1
+        },
+        "P2": {
+          "operational": 3,
+          "commercial": 4
+        }
+      },
+      "records": [
+        {
+          "project": "P1",
+          "category": "operational",
+          "hours": 2
+        },
+        {
+          "project": "P1",
+          "category": "commercial",
+          "hours": 1
+        },
+        {
+          "project": "P2",
+          "category": "operational",
+          "hours": 3
+        },
+        {
+          "project": "P2",
+          "category": "commercial",
+          "hours": 4
+        }
+      ],
+      "totals": {
+        "operational": 5,
+        "commercial": 5
+      }
+    },
+    "service": "",
+    "client": "",
+    "expected": {
+      "complete": true,
+      "projects": 2,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "Ana",
+          "client": "Acme",
+          "service": "RaaS"
+        },
+        {
+          "project_id": "P2",
+          "manager": "Beto",
+          "client": "Beta",
+          "service": "AER"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 2,
+          "commercial": 1
+        },
+        "P2": {
+          "operational": 3,
+          "commercial": 4
+        }
+      },
+      "records": [
+        {
+          "project": "P1",
+          "category": "operational",
+          "hours": 2
+        },
+        {
+          "project": "P1",
+          "category": "commercial",
+          "hours": 1
+        },
+        {
+          "project": "P2",
+          "category": "operational",
+          "hours": 3
+        },
+        {
+          "project": "P2",
+          "category": "commercial",
+          "hours": 4
+        }
+      ],
+      "totals": {
+        "operational": 5,
+        "commercial": 5
+      }
+    }
+  },
+  {
+    "investment": {
+      "complete": true,
+      "projects": 2,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "Ana",
+          "client": "Acme",
+          "service": "RaaS"
+        },
+        {
+          "project_id": "P2",
+          "manager": "Beto",
+          "client": "Beta",
+          "service": "AER"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 2,
+          "commercial": 1
+        },
+        "P2": {
+          "operational": 3,
+          "commercial": 4
+        }
+      },
+      "records": [
+        {
+          "project": "P1",
+          "category": "operational",
+          "hours": 2
+        },
+        {
+          "project": "P1",
+          "category": "commercial",
+          "hours": 1
+        },
+        {
+          "project": "P2",
+          "category": "operational",
+          "hours": 3
+        },
+        {
+          "project": "P2",
+          "category": "commercial",
+          "hours": 4
+        }
+      ],
+      "totals": {
+        "operational": 5,
+        "commercial": 5
+      }
+    },
+    "service": "RaaS",
+    "client": "",
+    "expected": {
+      "complete": true,
+      "projects": 2,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "Ana",
+          "client": "Acme",
+          "service": "RaaS"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 2,
+          "commercial": 1
+        }
+      },
+      "records": [
+        {
+          "project": "P1",
+          "category": "operational",
+          "hours": 2
+        },
+        {
+          "project": "P1",
+          "category": "commercial",
+          "hours": 1
+        }
+      ],
+      "totals": {
+        "operational": 2,
+        "commercial": 1
+      }
+    }
+  },
+  {
+    "investment": {
+      "complete": true,
+      "projects": 2,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "Ana",
+          "client": "Acme",
+          "service": "RaaS"
+        },
+        {
+          "project_id": "P2",
+          "manager": "Beto",
+          "client": "Beta",
+          "service": "AER"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 2,
+          "commercial": 1
+        },
+        "P2": {
+          "operational": 3,
+          "commercial": 4
+        }
+      },
+      "records": [
+        {
+          "project": "P1",
+          "category": "operational",
+          "hours": 2
+        },
+        {
+          "project": "P1",
+          "category": "commercial",
+          "hours": 1
+        },
+        {
+          "project": "P2",
+          "category": "operational",
+          "hours": 3
+        },
+        {
+          "project": "P2",
+          "category": "commercial",
+          "hours": 4
+        }
+      ],
+      "totals": {
+        "operational": 5,
+        "commercial": 5
+      }
+    },
+    "service": "AER",
+    "client": "Beta",
+    "expected": {
+      "complete": true,
+      "projects": 2,
+      "population": [
+        {
+          "project_id": "P2",
+          "manager": "Beto",
+          "client": "Beta",
+          "service": "AER"
+        }
+      ],
+      "by_project": {
+        "P2": {
+          "operational": 3,
+          "commercial": 4
+        }
+      },
+      "records": [
+        {
+          "project": "P2",
+          "category": "operational",
+          "hours": 3
+        },
+        {
+          "project": "P2",
+          "category": "commercial",
+          "hours": 4
+        }
+      ],
+      "totals": {
+        "operational": 3,
+        "commercial": 4
+      }
+    }
+  },
+  {
+    "investment": {
+      "complete": true,
+      "projects": 2,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "Ana",
+          "client": "Acme",
+          "service": "RaaS"
+        },
+        {
+          "project_id": "P2",
+          "manager": "Beto",
+          "client": "Beta",
+          "service": "AER"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 2,
+          "commercial": 1
+        },
+        "P2": {
+          "operational": 3,
+          "commercial": 4
+        }
+      },
+      "records": [
+        {
+          "project": "P1",
+          "category": "operational",
+          "hours": 2
+        },
+        {
+          "project": "P1",
+          "category": "commercial",
+          "hours": 1
+        },
+        {
+          "project": "P2",
+          "category": "operational",
+          "hours": 3
+        },
+        {
+          "project": "P2",
+          "category": "commercial",
+          "hours": 4
+        }
+      ],
+      "totals": {
+        "operational": 5,
+        "commercial": 5
+      }
+    },
+    "service": "RaaS",
+    "client": "Beta",
+    "expected": {
+      "complete": true,
+      "projects": 2,
+      "population": [],
+      "by_project": {},
+      "records": [],
+      "totals": {
+        "operational": 0,
+        "commercial": 0
+      }
+    }
+  },
+  {
+    "investment": {
+      "complete": false,
+      "projects": 2,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "Ana",
+          "client": "Acme",
+          "service": "RaaS"
+        },
+        {
+          "project_id": "P2",
+          "manager": "Beto",
+          "client": "Beta",
+          "service": "AER"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 2,
+          "commercial": 1
+        },
+        "P2": {
+          "operational": 3,
+          "commercial": 4
+        }
+      },
+      "records": [
+        {
+          "project": "P1",
+          "category": "operational",
+          "hours": 2
+        },
+        {
+          "project": "P1",
+          "category": "commercial",
+          "hours": 1
+        },
+        {
+          "project": "P2",
+          "category": "operational",
+          "hours": 3
+        },
+        {
+          "project": "P2",
+          "category": "commercial",
+          "hours": 4
+        }
+      ],
+      "totals": {
+        "operational": 5,
+        "commercial": 5
+      }
+    },
+    "service": "RaaS",
+    "client": "",
+    "expected": {
+      "complete": false,
+      "projects": 2,
+      "population": [
+        {
+          "project_id": "P1",
+          "manager": "Ana",
+          "client": "Acme",
+          "service": "RaaS"
+        },
+        {
+          "project_id": "P2",
+          "manager": "Beto",
+          "client": "Beta",
+          "service": "AER"
+        }
+      ],
+      "by_project": {
+        "P1": {
+          "operational": 2,
+          "commercial": 1
+        },
+        "P2": {
+          "operational": 3,
+          "commercial": 4
+        }
+      },
+      "records": [
+        {
+          "project": "P1",
+          "category": "operational",
+          "hours": 2
+        },
+        {
+          "project": "P1",
+          "category": "commercial",
+          "hours": 1
+        },
+        {
+          "project": "P2",
+          "category": "operational",
+          "hours": 3
+        },
+        {
+          "project": "P2",
+          "category": "commercial",
+          "hours": 4
+        }
+      ],
+      "totals": {
+        "operational": 5,
+        "commercial": 5
+      }
+    }
+  }
+]
