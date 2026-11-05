@@ -238,8 +238,39 @@ Desglose de G9 (EVA1). G8 solo hace falta para actualizar datos; EVA1 lee cortes
 
 | ID | Tarea | Depende | Estado |
 |---|---|---|---|
+| G13 | Reestructura de datos del módulo (ver plan G13 abajo): medir, agregar y tipar solo lo que lo justifique | G10; P4 para medir en PostgreSQL | propuesto |
 | G11 | Importación completa en UAT con respaldo y reversión; cierres KPI intactos | G9–G10, P2 | bloqueado |
 | G12 | PR de `Integracion_Dashboard_Management` a UAT con gates y evidencia; revisores Talin y Ulises | G11 | pendiente |
+
+### Plan G13 — datos del módulo (propuesta, 05/11/2026)
+
+Objetivo: que las pantallas pesadas carguen rápido sin cambiar ningún cálculo. Se hace **después de
+terminar G10 y antes de G11**, porque un cambio de tablas obliga a reimportar y a repetir cotejos.
+
+Lo medido (SQLite local, una llamada): Financiera 10.6 s, Costos 9.8 s, Operaciones 9.3 s,
+Capacidad 6.8 s, Facturabilidad 5.3 s, EVA1 5.0 s, EVA-04 4.0 s. En Costos el perfil muestra que el
+tiempo está en leer horas de Clockify por proyecto y mes (unas 1 560 consultas y 150 000 filas
+convertidas una a una) y en releer hojas completas guardadas como JSON (305 lecturas). El índice
+`(project_id, month)` de `ClockifyTimeEntry` ya existe, así que el problema es el número de
+consultas y la conversión, no la falta de índice. Leer cada hoja una sola vez por petición ganó
+apenas 1 s de 10 y se descartó.
+
+Pasos, cada uno con su propio cotejo de 0 diferencias antes y después:
+1. **Medir en PostgreSQL** (necesita P4): repetir los tiempos y `EXPLAIN` de las consultas de horas.
+   SQLite local no representa a `psql-flx-genesis`; no optimizar a ciegas.
+2. **Una consulta de horas por pantalla**, agrupada por proyecto y mes, en vez de una por proyecto y
+   mes. No cambia tablas.
+3. **Agregados mensuales** (horas por proyecto, mes, persona y categoría) que se rellenan al
+   sincronizar, para que Costos, Financiera, Operaciones y Capacidad no recorran entradas sueltas.
+   Se invalidan con la sincronización (depende de G8/P3).
+4. **Hojas calientes a tablas tipadas** (DataRevenue, MPB, bandas, tarifas, Backlog_Proyectos,
+   Historico_Proyectos): hoy cada hoja es un JSON completo. Solo las que el perfil muestre como
+   costosas y siempre conservando la hoja original para cotejo.
+5. **Relaciones**: enlazar horas con proyecto y persona por clave (hoy son textos sin FK) solo si el
+   paso 1 muestra que ayuda; el costo es una migración sobre 536 000 filas.
+
+Qué NO hacer: caché por tiempo (puede mostrar cifras viejas tras una sincronización) ni cambiar
+reglas de negocio. Mientras no esté P4, solo los pasos 2 y la lista de consultas son seguros.
 
 ## 8. Diseño y modo oscuro
 
