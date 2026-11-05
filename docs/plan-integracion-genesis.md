@@ -290,9 +290,13 @@ Pasos, cada uno con su propio cotejo de 0 diferencias antes y después:
 1. **Medir en PostgreSQL local**: primera muestra ejecutada. Costos 10.85 s y Financiera 11.55 s,
    cada una con 1,563 lecturas de entradas Clockify. Operaciones 8.41 s. Un `EXPLAIN` de la lectura
    por proyecto y mes usa el índice. Estos tiempos son locales y corresponden a un pase por vista.
-   El siguiente experimento es agrupar lecturas y repetir las mismas respuestas.
-2. **Una consulta de horas por pantalla**, agrupada por proyecto y mes, en vez de una por proyecto y
-   mes. No cambia tablas.
+2. **Agrupar las horas por pantalla y acotar el tamaño de cada consulta.** En Costos, Márgenes y
+   Financiera la lectura se comparte durante la petición. Los lotes de hasta 400 pares proyecto-mes
+   respetan los meses sincronizados y reutilizan el catálogo de Clockify y la lista de CR históricos.
+   En el cotejo local de Costos y Financiera, las consultas de entradas bajaron de 1,563 a 4 en ambas
+   vistas. En PostgreSQL, Costos pasó de 10.85 a 3.52 s y Financiera de 11.55 a 4.49 s. Las diez
+   respuestas cotejadas conservaron su contenido en cada motor. Falta agrupar Operaciones y medir
+   los siguientes consumidores. Este paso no requiere migración.
 3. **Agregados mensuales** (horas por proyecto, mes, persona y categoría) que se rellenan al
    sincronizar, para que Costos, Financiera, Operaciones y Capacidad no recorran entradas sueltas.
    Se invalidan con la sincronización (depende de G8/P3).
@@ -424,6 +428,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 05/11/2026 | Héctor (con Codex) | G13: lotes de Clockify para finanzas | Genesis `3da0b93` local | Costos y Financiera pasan de 1,563 lecturas a 4 cada una. Diez respuestas conservan el contenido en PostgreSQL y SQLite. 1,333 pruebas de Dashboard Management, Ruff, tipos del módulo y OpenAPI pasan. | G13: agrupar Operaciones, que conserva 555 lecturas de Clockify. |
 | 05/11/2026 | Héctor (con Codex) | Validación local PostgreSQL y lotes acotados | Genesis `aaf9aa2` local | 26 tablas y 1,572,514 filas en 551.95 s. Diez respuestas cotejadas sin diferencias de contenido. 36 pruebas de importación, ruff y mypy. Costos 1,563 lecturas de Clockify con índice confirmado | G13: agrupar lecturas y repetir el cotejo. Integrar 16 copias manuales ausentes del paquete y validar cobertura Azure. P2 y P3 siguen abiertos. |
 | 05/11/2026 | Héctor (con Codex) | G10f1 y preparación de PostgreSQL local | Genesis `39fc874` local | Piloto IA cotejado con 16 proyectos y proveedor simulado. Diez análisis y seis respuestas por falta de indicadores. Doce pruebas frontend, una API, lint y build directo pasan. Gate de formato conserva 165 avisos ajenos y verify pasa rutas antes del fallo POSIX en Windows. Paquete de 26 tablas verificado | Levantar PostgreSQL local para migrar y cargar. G10f parcial por proveedor real, historial y otros flujos. G13 empieza por medir localmente. |
 | 05/11/2026 | Héctor (con Claude) | Revisión del trabajo de Codex, pestañas AER (G10e7c), EVA-04 medido y plan G13 | Genesis `a71d186` subido; locales `423ad26` (EVA-04); dashboard locales `2b792d7`, `ceaec59`, `5ebf763` | Revisé los ~40 commits nuevos de Genesis: 490 pruebas de management en frontend, backend sin fallas, ruff y mypy limpios, sin cambios fuera del módulo. AER usa ahora sus 8 pestañas del dashboard; IXS ya coincidía. EVA-04 tarda ~4 s. Probé leer cada hoja una vez por petición: ganaba ~1 s de 10 y se descartó | **Qué sigue.** (1) Cotejar G10f (IA) y G10a4. (2) Probar con PostgreSQL local (recomendación de Enrique). (3) G8 cuando haya cuentas de servicio (P3). (4) Dejar guía y comando de carga para que el equipo pruebe. (5) G13 después de medir en PostgreSQL. **No hacer:** roles, permisos ni filtros por usuario (decisión del 05/11); no subir a otra rama que no sea `Integracion_Dashboard_Management`; no subir el dashboard. Las URLs: se interpreta "tal cual" como mismas vistas y comportamiento, bajo `/management` (A4), no direcciones idénticas; confirmar con quien lo pidió si era literal |
