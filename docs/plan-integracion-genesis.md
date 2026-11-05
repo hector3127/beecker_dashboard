@@ -302,7 +302,10 @@ Pasos, cada uno con su propio cotejo de 0 diferencias antes y después:
    de su inventario: pasó de 778 a 2 consultas de entradas Clockify. Cartera y detalle DM pasaron de
    896 a 120 cada uno. Las diez respuestas cotejadas por motor conservaron su contenido. Los tiempos
    de PostgreSQL local fueron 4.65 s para EVA1, 4.22 s para Cartera y 4.50 s para detalle DM. Falta
-   perfilar el procesamiento de horas y las lecturas restantes. Este paso no requiere migración.
+   perfilar el procesamiento de horas y las lecturas restantes. El perfil encontró clasificación
+   repetida en el acumulador mensual GSE. Al reutilizarla dentro de cada cálculo mensual, Operaciones
+   tardó 5.65 s en PostgreSQL local. Las diez respuestas volvieron a coincidir por motor. Queda medir
+   la lectura selectiva de evidencia JSON del inventario. Este paso no requiere migración.
 3. **Agregados mensuales** (horas por proyecto, mes, persona y categoría) que se rellenan al
    sincronizar, para que Costos, Financiera, Operaciones y Capacidad no recorran entradas sueltas.
    Se invalidan con la sincronización (depende de G8/P3).
@@ -434,6 +437,7 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 
 | Fecha | Quién | Tareas | Repo / commit | Evidencia | Siguiente paso / bloqueos |
 |---|---|---|---|---|---|
+| 05/11/2026 | Héctor (con Codex) | G13: perfil y clasificación mensual | Genesis `8fef082` local | Clasificación de proyecto, tarea y etiquetas reutilizada dentro de cada cálculo mensual. Operaciones tarda 5.65 s en PostgreSQL local. Diez respuestas por motor conservan el contenido. 30 pruebas funcionales, Ruff, formato, tipos del módulo y gate documental pasan. make sigue ausente. | Medir lectura selectiva de la evidencia JSON del inventario, preservando grupos sin cobertura local y ganchos de historia. |
 | 05/11/2026 | Héctor (con Codex) | G13: lotes del inventario EVA1 y Cartera | Genesis `163934d` local | EVA1 pasa de 778 a 2 consultas Clockify. Cartera y detalle DM pasan de 896 a 120. Diez respuestas por motor conservan su contenido. 1,339 pruebas del módulo, tipos, Ruff, formato, OpenAPI y gate documental pasan. make sigue ausente en Windows. | Perfilar procesamiento de horas y lecturas restantes antes de ampliar G13. |
 | 05/11/2026 | Héctor (con Codex) | G13: lotes de Clockify para Operaciones | Genesis `af2e495` local | Operaciones pasa de 555 a 23 lecturas Clockify y tarda 7.73 s en PostgreSQL local. Diez respuestas cotejadas por motor conservan el contenido. 18 pruebas de Operaciones, Ruff, formato, tipos del módulo y gate documental pasan. El gate completo sigue pendiente por el entorno Windows. | Medir siguientes consumidores y el tiempo de plantilla y hojas. G8/P3 sigue pendiente para agregados persistidos. |
 | 05/11/2026 | Héctor (con Codex) | G13: lotes de Clockify para finanzas | Genesis `3da0b93` local | Costos y Financiera pasan de 1,563 lecturas a 4 cada una. Diez respuestas conservan el contenido en PostgreSQL y SQLite. 1,333 pruebas de Dashboard Management, Ruff, tipos del módulo y OpenAPI pasan. | G13: agrupar Operaciones, que conserva 555 lecturas de Clockify. |
