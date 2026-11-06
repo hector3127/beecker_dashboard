@@ -58,6 +58,14 @@ es explícita e idempotente y no sobrescribe ediciones nuevas de Genesis.
 La regla de fecha de cotización se conserva y su aviso permanece visible. Investigar y
 validar la misma cotización antes de cerrar la paridad; modificar esa regla requiere acuerdo.
 
+**Controles de Business Overview en Genesis.** Se recuperaron el calendario doble con
+atajos, el glosario por área, el panel lateral de fuentes y el diccionario de 23 conceptos.
+El calendario comparte el rango aplicado con las consultas de Finanzas y Operaciones.
+Se revisó el diccionario en claro y oscuro a 390, 768, 1000 y 1450 px. Se comprobó el
+calendario y el panel de fuentes en escritorio oscuro. Falta completar la revisión visual
+del glosario y del calendario y panel en los demás tamaños y temas.
+Pasaron 983 pruebas del frontend, las tres comprobaciones de rutas y el build local.
+
 ### Trabajo técnico pendiente después de la paridad
 
 G13 conserva las mejoras medidas y no vuelve a desplazar la revisión de pantallas. G8
