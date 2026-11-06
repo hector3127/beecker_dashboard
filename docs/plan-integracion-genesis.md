@@ -482,6 +482,27 @@ Colombia, Ecuador y Brasil, Femsa Salud Ecuador), con sus parciales.
 En tiempo, salud y las inversiones en «—» hasta completar la cobertura, con la distribución por
 servicio ya visible. Los filtros de servicio y cuenta están dentro del banner.
 
+**Operativa con datos reales (05/11/2026): causa de la diferencia más grande.** El dashboard muestra 23
+proyectos en ejecución (EVA 1: 8, EVA 3: 15), 15 en tiempo (65 %), 8 críticos, inversión de 852 h
+operativas y 8 h comerciales, EVA 4 con 128 activos y 12 por renovar, y facturabilidad de octubre de
+88.83 % (↑ 18.8 puntos sobre la meta). Genesis mostraba 187 proyectos, salud y inversión pendientes.
+Mismo extracto de datos en ambas bases (extracción 21, 7 201 fuentes), mismo código de inventario;
+la diferencia es que en Genesis las 172 filas de EVA 1 salen con `azure_pending=True` y 164 con
+«cerrado sin confirmar», porque el flujo de historia de Azure no se adjunta: **falta
+`EVA_AZURE_FEED_IDENTITY` en `Genesis/Genesis/.env`** (el valor completo es el hash de 64 caracteres
+que calcula `feed_identity()` del dashboard; en la base se ve recortado a 40). EVA 3 sí coincide
+(15 proyectos, 46.5 d, 73 %) porque no depende de esa historia.
+Riesgo detectado: sin esa variable Genesis no avisa; `history_attacher` sigue sin flujo y la cartera
+muestra 187 proyectos como si fueran los vigentes. Pendiente: que el módulo avise cuando falte la
+identidad (aviso visible en Operativa, EVA y KPIs) y que quien despliegue sepa que debe definirla en
+UAT/PROD. No se escribió el valor desde el agente por contener un secreto derivado.
+Mientras no se defina, no se pueden comparar Operativa, EVA 1 ni KPIs DM de Genesis con los del
+dashboard.
+
+**Otras diferencias de Operativa ya vistas en el dashboard**: filtros de servicio y cuenta dentro del
+banner, «Corte calculado al …» con «Actualizar datos» y «Descargar captura», carrusel de tarjetas de
+Delivery Manager con flechas, dona de salud con tabla de estados y barras por servicio.
+
 ## 8. Diseño y modo oscuro
 
 Cómo funciona en Genesis: `ThemeProvider` (`frontend/src/context/ThemeContext.jsx`) guarda `light`, `dark` o `system` en `genesis-theme`, pone la clase `.dark` y `data-theme` en `<html>`, y `frontend/src/styles/theme.css` define las variables (`--background`, `--surface`, `--foreground`, `--border`, `--primary`, `--chart-1..5`…) para `:root` y `.dark`, expuestas a Tailwind con `@custom-variant dark`.
