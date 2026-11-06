@@ -39,7 +39,7 @@ conservan como evidencia histórica, no como aprobación visual del producto.
 |---|---|---|---|
 | 1 | Business Overview | revisión; G14a/G14b reabierto | Quitar portada duplicada, navegación compacta, tarjetas y rankings fieles; recuperar periodos, fuentes, pendientes, captura y acuerdos; cotejar funcionamiento y cifras |
 | 2 | KPIs DM | revisión pendiente | Comparación completa de controles, históricos, filtros globales y curva C con capturas persistidas; no reconstruir meses cerrados |
-| 3 | Operativa | pendiente de paridad integral | Replicar portada, resumen, salud, DM, EVA, facturabilidad y capacidad con los mismos filtros y estados |
+| 3 | Operativa | controles migrados, en revisión | Cotejar el corte con el historial de Azure asociado y completar la revisión visual |
 | 4 | EVA 1, EVA 3 y EVA 4 | pendiente de paridad integral | Revisar cada informe por separado: filtros, tablas, conteos, exportaciones y parciales |
 | 5 | Costos, Márgenes, Financiera y Comercial | pendiente de paridad integral | Replicar flujos completos y verificar fechas, monedas, bandas y límites de cobertura |
 | 6 | Capacidad, Facturabilidad e Inversión | pendiente de paridad integral | Conservar agrupaciones, filtros, gráficos y navegación original |
@@ -572,6 +572,27 @@ dashboard.
 **Otras diferencias de Operativa ya vistas en el dashboard**: filtros de servicio y cuenta dentro del
 banner, «Corte calculado al …» con «Actualizar datos» y «Descargar captura», carrusel de tarjetas de
 Delivery Manager con flechas, dona de salud con tabla de estados y barras por servicio.
+
+**Operativa en Genesis, 06/11/2026.** La portada incluye los filtros y permite abrir la ficha de
+una cuenta resuelta por el catálogo. El resumen puede releer las fuentes locales y descargar PNG.
+Los Delivery Managers se recorren en un carrusel y se conserva la tabla. Facturabilidad permite
+mostrar 3, 6, 9 o todos los meses sin repetir la consulta. Capacidad conserva el mes explícito en
+la URL y lo pasa a capacidad instalada. Facturabilidad por área queda pendiente de portar.
+El original mostraba 23 proyectos y Genesis 187 antes de la revisión. La configuración de Genesis
+tenía una identidad de historial sin correspondencia con los flujos guardados. Operativa avisa
+cuando un inventario anterior queda provisional por esa configuración. El valor del entorno se
+debe alinear con el flujo del dashboard original antes de cerrar la paridad de cifras.
+Una consulta de verificación con el flujo correcto en memoria confirmó 23 proyectos, 15 en
+tiempo (65%), 8 críticos y 0 suspendidos en Genesis. Quedó pendiente la revisión de la interfaz
+final en navegador porque caducó la sesión local.
+
+Para esta copia local verificada, el flujo es el registro 1 de `AzureHistoryFeed`. Desde
+`C:/Genesis/genesis/Genesis`, el responsable de la configuración puede actualizar solo la
+variable local sin imprimir su valor. Después debe reiniciar el backend de Genesis.
+
+```powershell
+uv run python manage.py shell -c 'from django.db import connection; from dotenv import set_key; from dashboard_management.models import AzureHistoryFeed; assert connection.vendor == "sqlite"; feed = AzureHistoryFeed.objects.get(pk=1); assert feed.complete_through; set_key(".env", "EVA_AZURE_FEED_IDENTITY", feed.identity)'
+```
 
 ## 8. Diseño y modo oscuro
 
