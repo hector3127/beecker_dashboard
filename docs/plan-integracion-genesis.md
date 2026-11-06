@@ -7,19 +7,64 @@ traspaso al final y toma la siguiente tarea libre de la tabla de fases.
 No autoriza despliegues, cambios de reglas de negocio, uso de datos de
 producción ni push sin petición expresa del usuario.
 
-## 1. Cómo usar este documento
+## 1. Objetivo y orden de trabajo vigente
 
-1. Lee las secciones 2 a 5 una vez: estado, decisiones, normas de Genesis y brechas.
-2. Revisa la sección 6: qué preguntas siguen abiertas y qué bloquean.
-3. Toma una tarea de la sección 7 cuyo estado sea `pendiente` y cuyas
-   dependencias estén `terminado`. Anota tu nombre y ponla `en curso`.
-4. Al terminar, cambia el estado, deja la evidencia (comando y resultado) y
-   llena una fila del registro de traspaso (sección 12).
-5. Si algo de este documento contradice al código, manda el código: corrige
-   el documento en el mismo commit.
+**Prioridad acordada con Héctor el 05/11/2026:** integrar cada pantalla con las mismas
+funciones, los mismos cálculos y un diseño lo más parecido posible al Dashboard Management
+original. Portar los servicios o aprobar pruebas de API no significa terminar una pantalla.
+Esta sección reemplaza el orden de ejecución anterior. Los registros de fases y pruebas se
+conservan como evidencia histórica, no como aprobación visual del producto.
 
-Estados válidos: `pendiente`, `en curso`, `bloqueado`, `revisión`, `terminado`.
-No marcar `terminado` sin la evidencia que pide la tarea.
+### Qué significa terminar una pantalla
+
+1. **Funcionalidad:** inventario comparado de filtros, botones, enlaces, diálogos, exportaciones,
+   estados de carga/error/vacío y acciones de escritura. Deben funcionar de extremo a extremo.
+   No sustituir un control por texto ni mostrar acciones sin conexión real.
+2. **Cálculos:** mismos datos y periodo, misma población y fórmulas, mismas cifras, redondeos,
+   marcas de parcial y motivos pendientes. Comparar también un periodo distinto del inicial.
+   Toda diferencia se investiga; no se cambian fórmulas ni se fuerzan fixtures para ocultarla.
+3. **Diseño:** conservar jerarquía, distribución, tamaños, densidad de tablas, iconos, logos,
+   colores y gráficos del original. En Genesis se conserva el shell de la plataforma y se
+   adapta nuestro diseño a claro y oscuro con tokens propios; no se rediseñan ai_hub ni Lin.
+4. **Validación:** cotejo con datos reales, pruebas pertinentes y capturas de ambos productos
+   en 1450, 1000, 768 y 390 px; claro y oscuro en Genesis. Comprobar teclado, diálogo modal,
+   contraste, ausencia de desborde global y rutas. El scroll de una tabla ancha debe quedar
+   dentro de su contenedor. No declarar completa una matriz que no se ejecutó.
+5. **Cierre:** registrar qué coincide, qué falta y la evidencia. Pantalla en `revisión` hasta
+   que Héctor revise el resultado. Las limitaciones externas permanecen visibles.
+
+### Secuencia de integración por pantalla
+
+| Orden | Pantalla | Estado real | Próximo resultado exigido |
+|---|---|---|---|
+| 1 | Business Overview | revisión; G14a/G14b reabierto | Quitar portada duplicada, navegación compacta, tarjetas y rankings fieles; recuperar periodos, fuentes, pendientes, captura y acuerdos; cotejar funcionamiento y cifras |
+| 2 | KPIs DM | revisión pendiente | Comparación completa de controles, históricos, filtros globales y curva C con capturas persistidas; no reconstruir meses cerrados |
+| 3 | Operativa | pendiente de paridad integral | Replicar portada, resumen, salud, DM, EVA, facturabilidad y capacidad con los mismos filtros y estados |
+| 4 | EVA 1, EVA 3 y EVA 4 | pendiente de paridad integral | Revisar cada informe por separado: filtros, tablas, conteos, exportaciones y parciales |
+| 5 | Costos, Márgenes, Financiera y Comercial | pendiente de paridad integral | Replicar flujos completos y verificar fechas, monedas, bandas y límites de cobertura |
+| 6 | Capacidad, Facturabilidad e Inversión | pendiente de paridad integral | Conservar agrupaciones, filtros, gráficos y navegación original |
+| 7 | Cuentas y proyectos, pestaña por pestaña | pendiente de paridad integral | Detalle, horas por mes, CSV, regreso a cuenta y todas las pestañas y acciones |
+
+**Business Overview: aceptación concreta.** Una sola portada propia; accesos principales
+Business Overview/Operativa/Comercial; otras vistas accesibles sin saturar la cabecera;
+periodo editable de año/trimestre/mes/rango que afecte cifras, operaciones y ranking;
+tres tarjetas equilibradas, miniindicadores y barras; detalle de costos y presupuestos
+pendientes; fuentes; gráfico mensual; ranking compacto con logos; decisiones y seguimiento
+persistidos; descarga PNG y mensajes de error. La importación de logos/acuerdos del origen
+es explícita e idempotente y no sobrescribe ediciones nuevas de Genesis.
+
+**Diferencia comercial conocida:** 107.63M/8.16M en el corte preparado original frente a
+19.63M/5.76M en una consulta Genesis sin cotización válida. No se consideran cifras iguales.
+La regla de fecha de cotización se conserva y su aviso permanece visible. Investigar y
+validar la misma cotización antes de cerrar la paridad; modificar esa regla requiere acuerdo.
+
+### Trabajo técnico pendiente después de la paridad
+
+G13 conserva las mejoras medidas y no vuelve a desplazar la revisión de pantallas. G8
+(sincronizaciones y cuentas de servicio), roles G6b/P1, UAT G11/P2 y PR G12 siguen abiertos.
+No activar automatismos de cierre ni nuevas políticas de acceso durante el trabajo visual.
+No autoriza despliegues ni push. Una tarea implementada se entrega con pruebas y documentación;
+una tarea bloqueada debe señalar exactamente la dependencia externa.
 
 ## 2. Estado al 05/11/2026
 
@@ -28,8 +73,8 @@ No marcar `terminado` sin la evidencia que pide la tarea.
 | Dashboard | `C:/beecker_dashboard`, rama `main`. Referencia funcional estable; limpieza de plantillas/JS sin uso en `4ef6d75` y `5b3d7f5` |
 | Pruebas del dashboard | Servidor: 3,450 pruebas de tests sin E2E en una corrida (04/11, sin cobertura); Node 473 y E2E 742 son corridas previas, no repetidas en G10e5b |
 | Genesis | `C:/Genesis/genesis`, rama `Integracion_Dashboard_Management` subida a `origin` en `a71d186` (05/11; nunca se ha subido a `UAT` ni a `main`). Regla de Héctor: solo se sube a esa rama y nunca el dashboard (`main`, que lleva commits locales sin subir) |
-| Avance | 26 de 30 bloques portados con pruebas (unos 80 % contando los pilotos a medias). Faltan G8 (sincronizaciones), G11 (carga en UAT) y G12 (PR); G6b (permisos) quedó aplazado al final por decisión del equipo; G10e tiene cotejos parciales documentados y faltan el cierre integral, G10a4 y G10f. Todo exige superusuario y calcula en cada consulta, sin caché |
-| Pruebas de Genesis | Módulo `dashboard_management`: 1,330 pruebas y cobertura 93.38 %, ruff y mypy; guardias de estructura: falta registrar el job ajeno redactar_entregables, sin cambios nuestros allí; frontend: 929 pruebas de Vitest y build. Gates globales pendientes (ver traspaso 04/11 de Planeación) |
+| Avance | 26 de 30 bloques tienen código portado; este conteo no representa aceptación funcional ni visual. La secuencia vigente está en la sección 1. Faltan G8 (sincronizaciones), G11 (carga en UAT) y G12 (PR); G6b (permisos) quedó aplazado al final por decisión del equipo; G10e tiene cotejos parciales documentados y faltan el cierre integral, G10a4 y G10f. Todo exige superusuario y calcula en cada consulta, sin caché |
+| Pruebas de Genesis | Última suite del módulo: 1,423 pruebas backend en una corrida sin cobertura; frontend: 974 pruebas en una corrida. Ruff y mypy (252 archivos) válidos. Gates globales con límites de formato/Windows documentados en el traspaso; no se declaran en verde |
 | Trabajo previo en Genesis | El commit visual `e28ec5d` (estructura y temas sin datos) lo retiró el usuario con un reset. Solo existe en el reflog local; **no recuperarlo**. La estructura se rehace en G2/G3 |
 | Base local de Genesis | `Genesis/db.sqlite3` es solo de desarrollo y está atrasado (37 migraciones de `lin` pendientes). No es referencia de esquema (confirmado por Ulises) |
 | Fuente de verdad del esquema Genesis | Sus migraciones (`ai_hub/migrations/`, `lin/migrations/`) y la PostgreSQL de UAT en solo lectura |
@@ -410,7 +455,10 @@ final, conservando los bloques hermanos de una fuente con inicio válido. Las oc
 históricas coinciden entre motores, incluidas dos comprobaciones de cobertura parcial. Las diez
 respuestas generales mantienen su contenido. P2 sigue abierto para UAT.
 
-### Plan G14 — paridad visual (05/11/2026)
+### Plan G14 — evidencia previa y brechas de paridad (05/11/2026)
+
+La secuencia y los criterios obligatorios están en la sección 1. Este registro explica
+los hallazgos previos y no debe usarse para dar una pantalla por aprobada.
 
 Hallazgo de Héctor con capturas del 05/11: lo que hay en Genesis no se parece al dashboard local.
 Es cierto. Hasta ahora se portaron **datos, cálculos y comportamiento** con cotejos de cero
@@ -436,7 +484,7 @@ Proyectos. Una pantalla por commit.
 
 #### G14 — hallazgos de la revisión de Operativa y EVA (05/11/2026)
 
-- **Business Overview (G14a, G14b) y KPIs DM (G14c)**: hechos. KPIs ya coincidía en estructura.
+- **Reevaluación vigente:** Business Overview (G14a/G14b) reabierto y en curso; KPIs DM (G14c) pendiente de revisión integral. Las afirmaciones previas de cierre fueron insuficientes: estructura y pruebas de datos no prueban paridad de funciones ni de estilo.
 - **Operativa**: lejos del original. El original (`tmp/design/operativa-reference/operativa-1450.png`)
   tiene banner con filtros de servicio y cuenta, «Resumen» con cinco tarjetas con icono (proyectos
   en ejecución, suspendidos, en tiempo, inversión operativa y comercial), «Salud del portafolio» con
@@ -655,3 +703,37 @@ Agregar una fila por sesión de trabajo, la más reciente arriba.
 | 02/11/2026 | Héctor (con Claude) | D6 terminado: tokens de modo oscuro | Dashboard, commit de `diseno-modo-oscuro.md` | Medición de colores por hoja (sección Diagnóstico) | Seguir con G1–G3 |
 | 02/11/2026 | Héctor (con Claude) | Limpieza previa: 62 documentos históricos, transporte RPC de pruebas, fotos JSON del diseño y herramienta de carga | Dashboard `1f2759e`, `915bbfd`, `7499608` | Servidor 2928; Node 473; e2e 691 + 3 corregidas tras la corrida (33 en sus archivos) | Empezar D1/D3/D6 y G1–G3 |
 | 02/11/2026 | Héctor (con Claude) | Revisión completa de Genesis, limpieza del dashboard, preguntas P1–P4, este plan | Dashboard `5b3d7f5` + commit de este plan | Node 473, servidor 1937, e2e capacidad 18 | Empezar D1/D3/D6 y G1–G3; esperar P1–P4 |
+
+
+### Traspaso 05/11/2026 — prioridad de paridad y corrección de Business Overview
+
+Héctor pidió reescribir el enfoque: mismas funciones, mismos cálculos y estilo lo más
+parecido posible al original. La sección 1 es ahora el orden vigente y exige aceptación
+por pantalla; se retiró la afirmación de Business Overview/KPI DM visualmente terminados.
+
+En Genesis se eliminó la portada duplicada de Business Overview y se compactó su navegación.
+Se restauraron selector y API de periodo, fuentes, detalle de costos/presupuestos pendientes,
+minigráficas, barras, ranking compacto, logos y seguimiento con alta/edición/cambio de estado.
+El PNG usa la misma biblioteca local del dashboard. La migración solo crea tablas propias;
+el complemento copió 42 logos y cero acuerdos sin sobrescribir datos ni modificar el origen.
+
+Validación local: 1,423 pruebas backend en una corrida, Ruff, mypy (252 archivos) y checks de
+Django. Suite frontend final: 974 pruebas en una corrida. Los mocks anteriores se ampliaron con autorización de Héctor. Build local válido.
+Matriz de Genesis: claro/oscuro a 1450, 1000, 768 y 390 px, sin desborde horizontal global.
+Capturas locales en `tmp/design/business-overview-parity/` (no versionadas).
+
+Se probó la consulta real de mayo y su URL. En el original ese mes no tenía corte preparado;
+no se afirma una conciliación mensual completa. La diferencia comercial por cotización
+permanece visible y pendiente, con las reglas intactas. La última recarga caducó la sesión;
+la aprobación visual final y los últimos retoques quedan sujetos a revisión del usuario.
+No llamar esta pantalla terminada ni avanzar a otra como si ya estuviera aprobada.
+
+Gates globales con límites: `pnpm gate` se detiene en formato de 164 archivos ajenos;
+`pnpm verify` pasa tres pruebas de rutas y falla en la asignación POSIX de entorno en
+Windows. `make` no está disponible. No se modificaron archivos ajenos para ocultar esos
+resultados. Sin push ni despliegue. Siguiente paso: revisión de Business Overview por Héctor,
+resolver las diferencias verificadas y seguir la secuencia de la sección 1.
+
+El cierre de esta corrección también resolvió los enlaces del ranking mediante IDs y alias del
+catálogo local (sin enviar slugs a una API numérica), y mantuvo el periodo al pasar al detalle
+financiero y a su desglose. Se probaron ambos flujos sin cambiar fórmulas.
