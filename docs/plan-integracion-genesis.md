@@ -455,6 +455,33 @@ Orden propuesto para Operativa, un commit por tramo, con el mismo cotejo visual:
 filtros y Resumen de cinco tarjetas; 2) Salud del portafolio y tarjetas por DM; 3) bloque EVA;
 4) Facturabilidad; 5) Capacidad del equipo.
 
+#### G14 — comparación en vivo con datos reales (05/11/2026, Genesis en `localhost:5173`, dashboard en `localhost:8001`)
+
+**Business Overview, cifra por cifra.** Coinciden Facturación 2.08M, Margen 55 %* (parcial con 946K de
+costos), Cobranza 77 %, ETC 7,479 h*, FTE 1.73, Avance 90 %*, Facturabilidad 75 %*, Inversión
+operativa 4,110 h, Trabajo por entregar 329K, las doce barras de la gráfica con sus márgenes y los
+dos rankings de cuentas (Heineken, PepsiCo, Oxxo, Farmacias del Ahorro, Nemak; Nestlé Venezuela,
+Colombia, Ecuador y Brasil, Femsa Salud Ecuador), con sus parciales.
+
+**Diferencias encontradas y qué se hizo.**
+- Ventas cerradas (19.63M frente a 107.63M) y Previas al cierre (5.76M frente a 8.16M): Genesis no
+  convertía otras monedas porque no consultaba el tipo de cambio. Se porta `comercial_cambio.py` con
+  la misma fuente (`open.er-api.com`), validación y caché de una hora (commit `2428770`). Detalle a
+  conservar: la validación exige que la fecha de la cotización no sea posterior a «hoy», y la API
+  fecha en UTC, así que **después de las 18:00 de México** (medianoche UTC) la cotización se rechaza
+  y aparece el aviso de cotización no válida, igual que en el dashboard; el dashboard muestra su
+  corte ya preparado a las 17:22. Genesis calcula en cada consulta, así que lo mostraría con aviso.
+  Pendiente decidir con el equipo si se corrige esa ventana de validación en ambos lados.
+- Faltan en Genesis: el botón «N costos pendientes» y la marca «3 sin presupuesto» (diálogos de
+  pendientes), el texto «Última consulta … · 143 de 152 proyectos con costos consultados», «Decisiones
+  y seguimiento» (acuerdos de dirección, con alta de acuerdos) y «Descargar captura».
+- Modo de la sesión: el dashboard sigue autenticado sin pedir nada; en Genesis la sesión expira y
+  hay que volver a iniciar sesión (comportamiento de la plataforma, no del módulo).
+
+**Operativa (dashboard).** Con datos reales muestra 23 proyectos en ejecución, 0 suspendidos y deja
+En tiempo, salud y las inversiones en «—» hasta completar la cobertura, con la distribución por
+servicio ya visible. Los filtros de servicio y cuenta están dentro del banner.
+
 ## 8. Diseño y modo oscuro
 
 Cómo funciona en Genesis: `ThemeProvider` (`frontend/src/context/ThemeContext.jsx`) guarda `light`, `dark` o `system` en `genesis-theme`, pone la clase `.dark` y `data-theme` en `<html>`, y `frontend/src/styles/theme.css` define las variables (`--background`, `--surface`, `--foreground`, `--border`, `--primary`, `--chart-1..5`…) para `:root` y `.dark`, expuestas a Tailwind con `@custom-variant dark`.
