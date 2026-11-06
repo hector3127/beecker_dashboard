@@ -43,7 +43,7 @@ conservan como evidencia histórica, no como aprobación visual del producto.
 | 4 | EVA 1, EVA 3 y EVA 4 | pendiente de paridad integral | Revisar cada informe por separado: filtros, tablas, conteos, exportaciones y parciales |
 | 5 | Costos, Márgenes, Financiera y Comercial | pendiente de paridad integral | Replicar flujos completos y verificar fechas, monedas, bandas y límites de cobertura |
 | 6 | Capacidad, Facturabilidad e Inversión | pendiente de paridad integral | Conservar agrupaciones, filtros, gráficos y navegación original |
-| 7 | Cuentas y proyectos, pestaña por pestaña | pendiente de paridad integral | Detalle, horas por mes, CSV, regreso a cuenta y todas las pestañas y acciones |
+| 7 | Cuentas y proyectos, pestaña por pestaña | ficha de cuenta en revisión | Cotejar consumo y diseño de la ficha, márgenes y horas. Revisar las pestañas de proyecto por separado |
 
 **Business Overview: aceptación concreta.** Una sola portada propia; accesos principales
 Business Overview/Operativa/Comercial; otras vistas accesibles sin saturar la cabecera;
@@ -65,6 +65,20 @@ Se revisó el diccionario en claro y oscuro a 390, 768, 1000 y 1450 px. Se compr
 calendario y el panel de fuentes en escritorio oscuro. Falta completar la revisión visual
 del glosario y del calendario y panel en los demás tamaños y temas.
 Pasaron 983 pruebas del frontend, las tres comprobaciones de rutas y el build local.
+
+**Ficha de cuenta en Genesis.** El enlace del ranking abre la ficha de la cuenta con
+indicadores, gráficos, proyectos paginados, oportunidades y acuerdos de esa cuenta.
+La ficha conserva el periodo de origen para finanzas y márgenes. Las horas por mes
+mantienen sus propios filtros y exportación CSV. Se leen copias guardadas de las fuentes.
+Heineken Mexico coincide con la referencia en 19 proyectos, NPS 80 sobre 12 proyectos,
+24 procesos ROC activos, facturación de 488K USD, margen bruto de 53.31% parcial y
+cobranza de 45.2%. El consumo guardado suma 18,337.41 h frente a 4,165.1 h de la captura.
+Dos proyectos AER aportan 14,189.32 h en Genesis y aparecen en cero en la captura.
+La comparación de margen coincide en 39 oportunidades, 10 con costos completos y
+29 pendientes. El promedio vendido es 52.62%, el real 48.88% y la desviación −2.39 pp.
+Queda pendiente cotejar esa diferencia y la revisión visual en navegador.
+Pasaron 1424 pruebas del módulo backend y 984 pruebas del frontend. También pasaron
+la verificación de rutas, Ruff, mypy, ESLint y la compilación local.
 
 ### Trabajo técnico pendiente después de la paridad
 
