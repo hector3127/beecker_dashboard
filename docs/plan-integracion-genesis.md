@@ -575,9 +575,14 @@ Delivery Manager con flechas, dona de salud con tabla de estados y barras por se
 
 **Operativa en Genesis, 06/11/2026.** La portada incluye los filtros y permite abrir la ficha de
 una cuenta resuelta por el catálogo. El resumen puede releer las fuentes locales y descargar PNG.
-Los Delivery Managers se recorren en un carrusel y se conserva la tabla. Facturabilidad permite
-mostrar 3, 6, 9 o todos los meses sin repetir la consulta. Capacidad conserva el mes explícito en
+La salud y la distribución por servicio comparten un panel. Los Delivery Managers se recorren
+en un carrusel y la tabla queda plegada. Facturabilidad muestra la gráfica compacta con acceso
+al detalle y permite mostrar 3, 6, 9 o todos los meses sin repetir la consulta. Capacidad conserva el mes explícito en
 la URL y lo pasa a capacidad instalada. Facturabilidad por área queda pendiente de portar.
+Cartera e inversión inician primero. EVA, facturabilidad y capacidad esperan la respuesta de
+cartera. En SQLite local, con siete rutas concurrentes, cartera tardó 37.76 s y la última ruta
+44.67 s. Al medir solo cartera e inversión concurrentes, cartera tardó 5.76 s e inversión 8.86 s.
+La medición corresponde al backend local y no incluye el navegador.
 El original mostraba 23 proyectos y Genesis 187 antes de la revisión. La configuración de Genesis
 tenía una identidad de historial sin correspondencia con los flujos guardados. Operativa avisa
 cuando un inventario anterior queda provisional por esa configuración. El valor del entorno se
@@ -780,3 +785,282 @@ resolver las diferencias verificadas y seguir la secuencia de la sección 1.
 El cierre de esta corrección también resolvió los enlaces del ranking mediante IDs y alias del
 catálogo local (sin enviar slugs a una API numérica), y mantuvo el periodo al pasar al detalle
 financiero y a su desglose. Se probaron ambos flujos sin cambiar fórmulas.
+
+### Revisión de proyectos y retiro de portada duplicada (09/11/2026)
+
+Se retira el banner genérico «Dashboard Management / Portal de Delivery» y se reduce la
+navegación general a las vistas principales y la sección contextual. La ficha de proyecto
+se abre sin ese menú: cabecera propia con ID, nombre, servicio, etapa disponible, metadatos,
+actualización de la copia local y pestañas con iconos. La cabecera y el Ejecutivo comparten
+una sola lectura; la actualización recarga el contenido activo. Los enlaces desde otras
+vistas conservan la URL de origen para regresar con sus filtros.
+
+El Ejecutivo IXS recupera seis tarjetas, resumen y atención ejecutiva, cronograma Gantt/lista
+con plan/ejecución/suspensiones/eventos y distribución de horas por área. Se portan las
+funciones de presentación del original sin modificar sus fórmulas. Las fuentes faltantes
+siguen visibles; AER conserva su propio resumen y contrato. Los paneles existentes de las
+demás pestañas conservan sus consultas y acciones, con cabecera y estilos comunes.
+
+Validación: 83 pruebas en 14 archivos de proyectos/navegación, tres pruebas de rutas,
+ESLint y formato propios correctos; compilación local válida. Chrome aislado con datos
+de prueba en claro/oscuro a 1450, 1000, 768 y 390 px: sin desborde global ni errores JS,
+Gantt/lista y navegación de pestañas comprobados. Capturas en
+`C:/beecker_dashboard/tmp/design/proyectos-genesis/`, no versionadas.
+No equivale a cotejo de cifras reales ni aprobación visual de todas las pestañas.
+
+`pnpm gate` pasa instalación congelada y ESLint, pero se detiene en formato global
+(168 avisos en esa corrida, incluidos dos archivos propios formateados posteriormente;
+el formato final propio pasa). `pnpm verify` pasa las tres pruebas de rutas y se detiene
+en la asignación POSIX de variables de entorno en Windows. La compilación local con
+la variable de API definida en PowerShell pasa. No se cambiaron esas limitaciones ajenas.
+Sin cambios backend, ai_hub o Lin, sin push ni despliegue. Proyecto en revisión visual.
+
+### KPIs DM, rango y comparación mensual (11/11/2026)
+
+Por indicación de Héctor, esta entrega vive primero en Dashboard Management local.
+El histórico mensual muestra tres meses por defecto y permite elegir Desde mes / Hasta mes
+dentro del año del histórico. El rango recorta la tabla y determina las tarjetas de rachas.
+La gráfica y la tabla trimestral conservan el año completo. La comparación de C y TP consulta
+el mes inmediatamente anterior al mes de consulta, con los mismos DMs seleccionados y usando
+las capturas persistidas. C muestra diferencia en puntos porcentuales y TP variación porcentual.
+Sin captura anterior no se inventa una comparación. Enero consulta diciembre del año previo.
+
+Mejor racha cuenta los meses con C = 100%; peor racha cuenta los meses con C entre 0 y 50%.
+Se excluyen del conteo los meses sin dato y los meses sin proyectos. En empate se ordena por
+la proporción de meses que cumplen el criterio y después por nombre. Las frecuencias
+pueden corresponder a meses no consecutivos, como en la referencia de Gerardo.
+La copia de estos cambios adelantada en Genesis fue retirada a petición de Héctor.
+
+### Facturabilidad local con Billable y capacidad inicial (11/11/2026)
+
+Autorizado por Héctor. Se usa Billable ($) de cada registro de Clockify en el cargador
+de Facturabilidad. GseContext recibe una opción explícita; el resto de consumidores
+mantiene el criterio de catálogo. Se cuentan todas las personas con banda vigente del mes
+para capacidad inicial, incluso sin registros. Sin columna del mes no se inventa plantilla.
+R, P y NMK continúan como bandas existentes; no hay evidencia para reinterpretarlas.
+
+Horas mensuales aprobadas por persona, enero–octubre 2026:
+168, 152, 168, 164, 160, 176, 176, 168, 168, 176.
+Noviembre, diciembre y otros años conservan el calendario disponible.
+Las bajas confirmadas siguen usando el último registro local. Abril y julio muestran
+aviso provisional para bajas porque faltan las fechas de los descansos internos.
+No se infieren altas a partir del primer registro de Clockify.
+
+Comparación de octubre con las copias locales y áreas predeterminadas:
+antes 52 personas, 9,152 h capacidad, 4,528.07 h AER, 3,890.58 h variable, 91.99%;
+ahora 68 personas, 11,968 h capacidad, 4,521.82 h AER, 4,719.62 h variable, 77.22%.
+Medición de solo lectura: 0.64 s y 0.57 s respectivamente. No constituye conciliación
+con el reporte de Gerardo ni representa una descarga actual de Clockify.
+Validación: corrida focalizada de 39 casos de Facturabilidad/páginas y corrida de
+80 casos GSE/plantilla/bajas. Genesis queda pendiente de portar estas reglas.
+
+### Capacidad cero y facturables de servicios (11/11/2026)
+
+Nueva instrucción de Héctor a partir de la aclaración de Gerardo. Facturabilidad conserva
+las horas Billable de una persona fuera de la plantilla elegible, con capacidad cero,
+en lugar de descartarlas. Se mantienen los filtros de áreas seleccionadas.
+Los tipos explícitos Becario/Residente o departamento Producto, si vienen en Bandas/rol,
+asignan capacidad cero conservando las horas. Se corrigió N/A normalizado como "n a":
+ya no cuenta como banda vigente.
+
+Consulta de solo lectura a Bandas/rol actual: encabezados Nombre/ROL/ID Clockify/Enero–Octubre;
+sin campos de tipo, ingreso o traslado. Colores hallados: rojo, morado, amarillo y verde,
+sin azul. No se asignó semántica a esos colores ni a R/P/NMK sin confirmación.
+No se infiere una fecha de traslado a Producto ni un alta con registros de horas.
+
+Copias locales y áreas predeterminadas: septiembre 11,808 h de capacidad,
+4,583.17 h AER, 4,541.85 h variable, 77.28%; octubre 11,968 h de capacidad,
+4,521.82 h AER, 4,801.52 h variable, 77.90%. Septiembre conserva tres personas
+con horas facturables y capacidad cero; octubre una.
+Validación focalizada 23 pruebas, Ruff. Falta identificar la fuente marcada en azul
+para conciliar la población y las fechas de traslados con Gerardo.
+
+### Conciliación de Facturabilidad y Capacidad con GSE de Gerardo (11/11/2026)
+
+Héctor autorizó usar el Excel aportado como referencia. Se añadió el comando manual
+import_capacity_reference y la copia separada Capacidad_Mensual_Referencia en SheetSnapshot.
+La importación conserva origen y SHA256, es transaccional y repetible. Respaldo previo
+before-capacity-reference-20261111T164319.sqlite3 en tmp/backups.
+
+Solo agosto y septiembre 2026 se importaron: son los meses cuya capacidad del detalle
+coincide con el resumen (7,168 y 6,664 h). Los demás meses presentan discrepancias
+internas en el Excel y conservan el cálculo de plantilla/calendario.
+Comando ejecutado:
+.venv/Scripts/python.exe manage.py import_capacity_reference "C:/Users/hecto/Downloads/Copia de (Interno) GSE_OP_25-26 (1).xlsx" --year 2026 --from-month 8 --through 9
+
+Facturabilidad y Capacidad instalada comparten la capacidad por persona de esa copia.
+Personas ajenas a la referencia aportan cero capacidad en los meses importados;
+sus registros se conservan para consumo y para facturación si son elegibles.
+Para meses ordinarios, Capacidad instalada aplica el prorrateo de bajas confirmado
+que ya usa Facturabilidad. Se actualizó la prueba de exclusión que descartaba toda
+la baja: ahora valida 16 horas de capacidad y conserva sus registros.
+
+Para seguir el desglose del Excel, Facturabilidad usa Billable en AER/TYM/IXB/SaaS/RaaS.
+ROC, Soporte y servicios sin identificar quedan fuera de ese indicador. Capacidad
+instalada conserva el consumo completo. Se muestra el alcance en la cabecera local.
+No se copian los totales de horas del Excel a Clockify ni se fuerza el 99.48%.
+
+Verificación con datos locales y áreas predeterminadas:
+agosto capacidad 7,168 h, AER 4,009.50 h, variable 2,347.13 h, 88.68%;
+septiembre capacidad 6,664 h, AER 4,583.17 h, variable 1,801.89 h, 95.81%.
+Capacidad instalada devolvió las mismas capacidades de ambos meses.
+La referencia de septiembre informa AER 5,213 y variable 1,416, con diferencias
+también contra su propio detalle. Pendiente conciliar horas por persona/proyecto.
+55 pruebas focalizadas aprobadas y Ruff. Cambios solo en Dashboard Management local.
+
+
+### Facturabilidad histórica hasta septiembre 2026 (11/11/2026)
+
+Héctor confirmó que hasta septiembre de 2026 inclusive todas las horas de los IDs
+de proyecto cuentan como facturables, sin exigir Billable. Desde octubre se conserva
+Billable. La excepción es exclusiva del cargador de Facturabilidad; no modifica
+Clockify, EVA, capacidad, filtros de áreas ni los cinco servicios incluidos.
+Se invalidó la caché con prefijo v14 y se aclaró el criterio en las tres pantallas.
+Con las copias locales y áreas predeterminadas, septiembre arroja AER 4,584.17 h,
+variable 1,924.81 h y global 97.67% sobre 6,664 h. Frente a Gera 99.48%,
+faltan 1.81 puntos porcentuales. No se fuerzan las cifras del Excel.
+Validación focalizada: 46 pruebas aprobadas. No se modificó Genesis.
+
+
+### Alcance confirmado de Gera: sin SaaS ni ROC (11/11/2026)
+
+Héctor confirmó la exclusión de SaaS y ROC del indicador de Facturabilidad.
+AER es fijo; variables solo TYM, IXB y RaaS. ROC ya estaba excluido.
+Se conserva el histórico hasta septiembre sin exigir Billable y desde octubre
+se exige esa marca. No se borran registros ni se altera Capacidad instalada.
+Caché v15 y leyendas actualizadas. Septiembre local con áreas predeterminadas:
+4,584.17 h AER + 1,836.60 h variables / 6,664 h = 96.35%,
+3.13 puntos porcentuales debajo del 99.48% de Gera.
+
+
+### Conciliación anual de capacidad por persona (11/11/2026)
+
+Héctor pidió conciliar todo el año contra la GSE. Se generaron reportes de solo
+lectura en outputs/conciliacion-anual-2026: capacidad-por-persona.csv y
+capacidad-resumen.csv. Separan Bandas calculada de la referencia importada
+activa (agosto-septiembre); no se sustituyeron datos de enero-julio.
+Enero: Bandas incluye 103 personas con capacidad positiva (16,880 h), el
+detalle GSE 45 (7,560 h), y el resumen aprobado 11,749 h. Enero-julio
+presentan 262 combinaciones persona/mes solo en Bandas y 141 con capacidad
+distinta; no son conteos de personas únicas. Hay roles distintos entre fuentes.
+El archivo no permite conciliar automáticamente el detalle individual con
+los totales aprobados. Importarlo sin resolver esa diferencia inventaría una
+población oficial. Faltan la plantilla histórica que produce esos totales o
+el origen válido de los presupuestos externos, varios guardados con #REF!.
+
+
+### Aplicación del archivo GSE completo (11/11/2026)
+
+Héctor autorizó aplicar todo salvo los ajustes manuales de julio. Se importaron
+855 capacidades mensuales, enero-septiembre 2026, desde [Interno] GSE_OP_25-26.xlsx,
+con SHA256 y respaldo SQLite previo en tmp/backups/before-full-gse-reference-*.
+Totales por persona: 11,749; 9,880; 10,444; 10,024; 9,285; 7,862; 8,186; 7,168;
+6,664 h. Julio conserva detalle sin -144 h; no se añaden 96 h a AER.
+El aviso de referencia de julio señala ambos ajustes pendientes. Se admite año
+numérico exportado como 2026.0 en el importador. Según las fórmulas completas,
+SaaS se incluye hasta agosto 2026; se excluye desde septiembre. ROC excluido.
+Se conserva la regla de todas las horas hasta septiembre, Billable desde octubre.
+Caché v16 y leyendas ajustadas; datos Clockify sin sobrescritura.
+Validación: 55 pruebas focalizadas aprobadas. Genesis sin cambios.
+
+
+### Corrección de fuente operativa: Clockify y Bandas/rol (11/11/2026)
+
+Héctor aclaró que los datos de Gera son referencia de validación, no fuente
+operativa. Se retiró la prioridad de Capacidad_Mensual_Referencia tanto en
+Facturabilidad como en Capacidad instalada. La copia importada se conserva
+solo para auditoría, sin consumidores operativos ni borrado de datos.
+Capacidad vuelve a Bandas/rol + calendario + bajas reconocidas con Clockify;
+consumos vienen de registros Clockify. Caché Facturabilidad v17.
+Se conserva el criterio temporal de servicios/Billable ya acordado, sin
+aplicar ajustes manuales de julio. No afirmar conciliación con Gera: faltan
+resolver población histórica y horas distintas de las fuentes.
+Prueba de regresión demuestra que una referencia Excel de 80 h y 0 h no
+sustituye las dos bandas activas de 176 h ni altera las horas Clockify.
+55 pruebas focalizadas aprobadas y Ruff; Genesis sin cambios.
+
+
+### Exclusión de personal ROC (11/11/2026)
+
+Héctor confirmó que ninguna persona con rol ROC aporta al indicador: ni
+capacidad ni horas. Se retiró ROC de OPERATIONAL_ROLES (plantilla compartida
+con Capacidad instalada) y se excluye también del agregador de Facturabilidad
+aunque se soliciten todas las áreas. No confundir servicio de proyecto ROC
+(ya excluido) con rol de la persona. Los registros Clockify se conservan.
+Caché v18. Regresiones cubren persona ROC con banda y con horas en AER: no
+cuenta como capacidad ni facturable, sin afectar personas operativas.
+Mediciones posteriores en outputs/conciliacion-anual-2026/sin-personal-roc.
+
+
+### Bandas R y P con capacidad cero (11/11/2026)
+
+Héctor confirmó excluir R y P de capacidad. Se reconocen sin distinguir
+mayúsculas/minúsculas en excluded_capacity_rows. Se conserva la persona con
+capacidad cero para que sus horas Clockify no se borren ni se pierdan del
+consumo/facturabilidad de servicios si cumplen el alcance vigente. Aplica
+a Facturabilidad y Capacidad instalada mediante attach_month_roster.
+Caché v19. NMK no se modifica. Regresiones comprueban R/p, bandas ordinarias
+y consumo 20 h y facturables 10 h con capacidad cero. 39 pruebas focalizadas
+aprobadas. No hay importación de cifras del Excel ni cambios en Genesis.
+
+
+### Ajustes de septiembre confirmados por Héctor (11/11/2026)
+
+Se añaden ajustes mensuales explícitos en capacity_adjustments.py, sobre
+Bandas/rol, sin importar cifras del Excel: septiembre cero capacidad para
+Claudia Ximena Mazon Vera, Enrique Yael Badillo Gutierrez, Luis Enrique Garcia
+Rivera, Diego Ovadid Acevedo Cruz y Heidy Cabieles Martinez. Alvaro Andres
+Quintero Diaz 80 h; Lidio Gonzalez Gabriel y Miguel Angel Reyes Gonzalez
+96 h; Jhoan Ahumada Rivera y Johan Ortiz Hernandez DEV.
+Ajustes limitados a septiembre; las horas Clockify se conservan. Compartidos
+por Facturabilidad y Capacidad instalada. Caché v20.
+Verificación real: 95/95 personas coinciden con la tabla aportada, total
+6,664 h y sin personas adicionales con capacidad positiva.
+Agosto pendiente: tabla GSE 7,168 h, dashboard 7,552 h, 10 diferencias en
+personas de la tabla y 3 adicionales; reporte agosto-tabla-usuario.csv.
+24 pruebas focalizadas aprobadas. Genesis sin cambios.
+
+
+### Exclusiones permanentes y revisión de agosto (11/11/2026)
+
+Héctor confirmó que Claudia Ximena Mazon Vera, Enrique Yael Badillo Gutierrez
+y Luis Enrique Garcia Rivera no aportan capacidad en ningún mes. Se aplican
+como ajustes permanentes, conservando registros y horas. Al pedir revisar
+los cambios de septiembre sobre agosto, se corrigió también el alcance de
+Jhoan Ahumada Rivera y Johan Ortiz Hernandez como DEV para todos los meses.
+Importes y ausencias de septiembre no se trasladan a agosto. Caché v21.
+Verificación agosto: 7,384 h frente a 7,168 GSE (+216 h), sin adicionales
+y 8 diferencias individuales pendientes. Septiembre permanece en 6,664 h.
+25 pruebas focalizadas aprobadas y Ruff.
+
+
+### Ajustes de agosto y sincronización de Ángel (11/11/2026)
+
+Héctor confirmó Alfredo 168 h; Alvaro, Daniel y Nicolas 152 h; Sofia
+160 h en agosto únicamente. Se aplican sobre Bandas/rol sin cambiar horas
+Clockify. Se sincronizó solo Bandas/rol desde Google: Angel Maximiliano
+Arenas Muñiz ya tiene A1 en agosto y aporta 168 h por la regla ordinaria.
+Caché v22. Agosto: 93/95 personas coinciden, total dashboard 7,504 h frente
+a 7,168 GSE; quedan Diego Ovadid y Heidy con 168 h cada uno, contra 0 GSE.
+No se extendieron ausencias/exclusiones de septiembre a agosto sin confirmar.
+26 pruebas focalizadas aprobadas y Ruff. Genesis sin cambios.
+
+
+### Cierre de conciliación de capacidad de agosto (11/11/2026)
+
+Héctor confirmó Diego Ovadid Acevedo Cruz y Heidy Cabieles Martinez con
+capacidad cero también en agosto. Ajuste mensual, sin alterar julio ni
+horas Clockify. Caché v23. Agosto: 95/95 personas coinciden, sin adicionales,
+capacidad 7,168 h igual a la tabla GSE. Esto concilia capacidad, no afirma
+igualdad de horas facturables ni porcentajes globales. 27 pruebas focalizadas
+aprobadas y Ruff. Genesis sin cambios.
+
+
+### Histórico GSE de capacidad y exclusiones
+
+Se usa el detalle por persona de la referencia GSE para enero a septiembre
+de 2026. Desde octubre se aplica Bandas/rol y las reglas vigentes. La vista
+de Facturabilidad muestra las personas sin capacidad del periodo elegido.
+Las horas de proyectos se siguen leyendo de Clockify. Julio conserva las
+8,186 h del detalle. Las marcas azules del Excel señalan nombres y no fechas,
+por lo que falta confirmar el mes efectivo de salida de esos casos.

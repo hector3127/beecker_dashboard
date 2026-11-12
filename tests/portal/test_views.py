@@ -873,12 +873,18 @@ def test_facturability_role_filter(client, monkeypatch):
         {"roles": "1", "rol": ["DEV", "DM", "R&D"]},
     )
 
-    assert [row.name for row in default.context["specialties"]] == ["Dev"]
-    assert default.context["selected"].fixed_hours == 40
+    assert [row.name for row in default.context["specialties"]] == [
+        "Dev",
+        "Lab IA",
+    ]
+    assert default.context["selected"].fixed_hours == 120
     assert "Áreas mostradas" in default.content.decode()
-    assert len(chosen.context["specialties"]) == 1
-    assert chosen.context["selected"].fixed_hours == 40
-    assert [r.label for r in chosen.context["role_options"]] == ["DEV"]
+    assert [row.name for row in chosen.context["specialties"]] == [
+        "Dev",
+        "Lab IA",
+    ]
+    assert chosen.context["selected"].fixed_hours == 120
+    assert [r.label for r in chosen.context["role_options"]] == ["DEV", "R&D"]
 
 
 def test_facturability_period_year_quarter_and_month(client, monkeypatch):

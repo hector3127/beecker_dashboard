@@ -78,7 +78,7 @@ export function renderReference(ctx) {
     const group = svg("g", {
       role: "button",
       tabindex: 0,
-      "aria-label": `${month.label}: ${fmt(value)}${ctx.mode === "percent" ? "%" : " h"}`,
+      "aria-label": `${month.label}: ${fmt(value, ctx.mode === "percent" ? 0 : 1)}${ctx.mode === "percent" ? "%" : " h"}`,
       "aria-pressed": String(ctx.selected === index),
     });
     group.append(
@@ -109,7 +109,7 @@ export function renderReference(ctx) {
           "font-size": 10,
           "font-weight": 600,
         },
-        `${fmt(value)}${value === null ? "" : ctx.mode === "percent" ? "%" : " h"}`,
+        `${fmt(value, ctx.mode === "percent" ? 0 : 1)}${value === null ? "" : ctx.mode === "percent" ? "%" : " h"}`,
       ),
       svg(
         "text",
@@ -128,7 +128,7 @@ export function renderReference(ctx) {
       svg(
         "title",
         {},
-        `${month.label}: ${fmt(value, 2)}${ctx.mode === "percent" ? "%" : " h"}`,
+        `${month.label}: ${fmt(value, ctx.mode === "percent" ? 0 : 2)}${ctx.mode === "percent" ? "%" : " h"}`,
       ),
     );
     const choose = () => {
@@ -166,14 +166,14 @@ export function renderReference(ctx) {
   ctx.aside.replaceChildren(
     el("small", { text: current?.label || "Sin meses" }),
     el("strong", {
-      text: `${fmt(value, 2)}${value === null || value === undefined ? "" : ctx.mode === "percent" ? "%" : " h"}`,
+      text: `${fmt(value, ctx.mode === "percent" ? 0 : 2)}${value === null || value === undefined ? "" : ctx.mode === "percent" ? "%" : " h"}`,
     }),
     ...(delta === null
       ? []
       : [
           el("span", {
             class: delta < 0 ? "negative" : "positive",
-            text: `${delta < 0 ? "↓" : "↑"} ${fmt(Math.abs(delta), 2)} ${ctx.mode === "percent" ? "pp" : "h"}`,
+            text: `${delta < 0 ? "↓" : "↑"} ${fmt(Math.abs(delta), ctx.mode === "percent" ? 0 : 2)} ${ctx.mode === "percent" ? "pp" : "h"}`,
           }),
           el("small", {
             text: `vs. ${ctx.months[ctx.selected - 1].label.toLowerCase()}`,
@@ -188,7 +188,7 @@ export function renderReference(ctx) {
     }),
     el("span", {
       class: "bill-legend-average",
-      text: `Promedio mensual (${fmt(average)}${average === null ? "" : ctx.mode === "percent" ? "%" : " h"})`,
+      text: `Promedio mensual (${fmt(average, ctx.mode === "percent" ? 0 : 1)}${average === null ? "" : ctx.mode === "percent" ? "%" : " h"})`,
     }),
   );
 }

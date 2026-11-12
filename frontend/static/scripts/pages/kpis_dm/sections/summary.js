@@ -38,19 +38,96 @@ export function renderTabs(urls, query) {
 /** @param {any} data */
 export function renderFilter(data) {
   const { filters, cut } = data;
-  const year = /** @type {HTMLSelectElement} */ (el("select", { id: "kpi-year", name: "history_year" },
-    ...filters.years.map((/** @type {number} */ y) => el("option", { value: y, selected: y === filters.history_year, text: y }))));
-  const form = el("form", { method: "get", class: "kpi-cut-filter" },
-    el("div", { class: "kpi-field" }, el("label", { for: "kpi-cut", text: "Mes de consulta" }),
-      el("input", { id: "kpi-cut", type: "month", name: "mes", value: filters.month, min: "2021-01", max: filters.max_month, required: true })),
-    el("div", { class: "kpi-field" }, el("label", { for: "kpi-year", text: "Año de tendencia e históricos" }), year),
+  const year = /** @type {HTMLSelectElement} */ (
+    el(
+      "select",
+      { id: "kpi-year", name: "history_year" },
+      ...filters.years.map((/** @type {number} */ y) =>
+        el("option", {
+          value: y,
+          selected: y === filters.history_year,
+          text: y,
+        }),
+      ),
+    )
+  );
+  const rangeSelect = (name, label, value) =>
+    el(
+      "select",
+      {
+        name,
+        "aria-label": label,
+      },
+      ...Array.from({ length: 12 }, (_, index) =>
+        el("option", {
+          value: index + 1,
+          selected: index + 1 === value,
+          text: new Intl.DateTimeFormat("es-MX", {
+            month: "short",
+            timeZone: "UTC",
+          }).format(new Date(Date.UTC(2026, index, 1))),
+        }),
+      ),
+    );
+  const start = rangeSelect("rango_desde", "Desde mes", data.range.start);
+  const end = rangeSelect("rango_hasta", "Hasta mes", data.range.end);
+  const range = el(
+    "div",
+    { class: "kpi-field" },
+    el("span", { text: "Rango de meses" }),
+    el(
+      "div",
+      { class: "kpi-month-range" },
+      start,
+      el("span", { text: "a", "aria-hidden": "true" }),
+      end,
+    ),
+  );
+  const form = el(
+    "form",
+    { method: "get", class: "kpi-cut-filter" },
+    el(
+      "div",
+      { class: "kpi-field" },
+      el("label", { for: "kpi-cut", text: "Mes de consulta" }),
+      el("input", {
+        id: "kpi-cut",
+        type: "month",
+        name: "mes",
+        value: filters.month,
+        min: "2021-01",
+        max: filters.max_month,
+        required: true,
+      }),
+    ),
+    el(
+      "div",
+      { class: "kpi-field" },
+      el("label", { for: "kpi-year", text: "Año de tendencia e históricos" }),
+      year,
+    ),
     managerFilter(filters),
+    range,
     el("button", { type: "submit", class: "kpi-apply", text: "Consultar" }),
-    el("span", { class: "hint", text: `Corte: ${cut.label}. El mes controla las tarjetas y la tabla por DM; el año controla la tendencia y los dos históricos; los DMs seleccionados se aplican a todo.` }),
+    el("span", {
+      class: "hint",
+      text: `Corte: ${cut.label}. El mes controla las tarjetas y la tabla por DM; el año controla la tendencia y los dos históricos; los DMs seleccionados se aplican a todo. El rango limita la tabla mensual y las rachas.`,
+    }),
   );
   year.addEventListener("change", () => form.requestSubmit());
+  const validateRange = () =>
+    start.setCustomValidity(
+      Number(start.value) > Number(end.value)
+        ? "El inicio debe ser anterior o igual al fin."
+        : "",
+    );
+  start.addEventListener("change", validateRange);
+  end.addEventListener("change", validateRange);
   form.addEventListener("submit", () => {
-    if (!form.querySelector('input[name="dm"]:checked')) form.append(el("input", { type: "hidden", name: "dm", value: "__none__" }));
+    if (!form.querySelector('input[name="dm"]:checked'))
+      form.append(
+        el("input", { type: "hidden", name: "dm", value: "__none__" }),
+      );
   });
   return [form, renderGlossary()];
 }
@@ -69,7 +146,14 @@ function card(label, value, note, valueClass = "kv") {
 /** @param {any} summary Missing observations must never look like zero projects. */
 function summaryTotals(summary) {
   return summary.available === false
-    ? { ...summary.totals, total: DASH, time_late: DASH, cost_over: DASH, at_risk: DASH, critical: DASH }
+    ? {
+        ...summary.totals,
+        total: DASH,
+        time_late: DASH,
+        cost_over: DASH,
+        at_risk: DASH,
+        critical: DASH,
+      }
     : summary.totals;
 }
 
@@ -80,31 +164,41 @@ export function renderCards(summary) {
   /** @param {any} row */
   const share = (row) =>
     row
-      ? `${percent(row.t)} en tiempo, ${row.total} proyecto${plural(row.total, "", "s")}`
+      ? `${percent(row.c)} C, ${row.total} proyecto${plural(row.total, "", "s")}`
       : "";
   return el(
     "section",
     { class: "kp" },
     card(
       "Cumplimiento en costo (C)",
-      percent(totals.c),
-      `Proyectos con avance hasta 100% · T: ${percent(totals.t)}`,
+      (summary.previous ? percent(summary.previous.c) + " → " : "") +
+        percent(totals.c),
+      summary.previous &&
+        Number.isFinite(summary.previous.c) &&
+        Number.isFinite(totals.c)
+        ? `${formatNumber(totals.c - summary.previous.c, 1)} puntos porcentuales respecto al mes anterior`
+        : "Mes anterior sin captura comparable",
     ),
     card(
       "Carga total (TP)",
-      String(totals.total),
-      `${percent(totals.t)} en tiempo`,
+      (summary.previous ? String(summary.previous.total) + " → " : "") +
+        String(totals.total),
+      summary.previous &&
+        summary.previous.total > 0 &&
+        Number.isFinite(totals.total)
+        ? `${percent(((totals.total - summary.previous.total) / summary.previous.total) * 100)} respecto al mes anterior`
+        : "Mes anterior sin captura comparable",
     ),
     card(
-      "Mayor proporción en tiempo",
+      "Mejor racha",
       best ? best.name : DASH,
-      share(best),
+      best?.note || share(best),
       "kv txt",
     ),
     card(
-      "Menor proporción en tiempo",
+      "Peor racha",
       worst ? worst.name : DASH,
-      share(worst),
+      worst?.note || share(worst),
       "kv txt",
     ),
   );

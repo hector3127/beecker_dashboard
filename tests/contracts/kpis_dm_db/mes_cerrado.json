@@ -776,17 +776,17 @@
     "summary": {
       "available": true,
       "best": {
-        "at_risk": 0,
-        "c": 33.333333333333336,
-        "cost_over": 1,
+        "at_risk": 1,
+        "c": 100.0,
+        "cost_over": 0,
         "critical": 0,
-        "name": "Ana",
+        "name": "Beto",
         "on_time": 3,
-        "on_time_percent": 100,
-        "slug": "ana",
-        "t": 100.0,
-        "time_late": 0,
-        "total": 3
+        "on_time_percent": 75,
+        "slug": "beto",
+        "t": 75.0,
+        "time_late": 1,
+        "total": 4
       },
       "rows": [
         {
@@ -843,17 +843,17 @@
         "total": 12
       },
       "worst": {
-        "at_risk": 2,
-        "c": 80.0,
+        "at_risk": 0,
+        "c": 33.333333333333336,
         "cost_over": 1,
         "critical": 0,
-        "name": "Carla Díaz",
+        "name": "Ana",
         "on_time": 3,
-        "on_time_percent": 60,
-        "slug": "carla-diaz",
-        "t": 60.0,
-        "time_late": 2,
-        "total": 5
+        "on_time_percent": 100,
+        "slug": "ana",
+        "t": 100.0,
+        "time_late": 0,
+        "total": 3
       }
     }
   },

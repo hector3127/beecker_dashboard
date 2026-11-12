@@ -2,7 +2,7 @@
 
 Uso: migrate_css.py <plantilla> <salida.css> [hoja.css ...]
 Toma el bloque css en linea de la plantilla y las hojas indicadas (de
-apps/portal/static/portal/css) y quita las reglas de la barra superior.
+tests/reference/static/portal/css) y quita las reglas de la barra superior.
 """
 
 import pathlib
@@ -29,7 +29,11 @@ def clean(css):
         elif head.strip().startswith("@"):
             out.append(rule)
         else:
-            keep = [p.strip() for p in head.split(",") if not CHROME.match(p.strip())]
+            keep = [
+                p.strip()
+                for p in head.split(",")
+                if not CHROME.match(p.strip())
+            ]
             if keep:
                 out.append(",".join(keep) + "{" + body + "}")
     return "\n".join(out)
@@ -42,9 +46,13 @@ def main(template, output, sheets):
     if found:
         parts.append(("estilo en linea", found.group(1)))
     for sheet in sheets:
-        text = pathlib.Path("apps/portal/static/portal/css", sheet).read_text(encoding="utf-8")
+        text = pathlib.Path(
+            "tests/reference/static/portal/css", sheet
+        ).read_text(encoding="utf-8")
         parts.append((sheet, text))
-    result = "/* Reglas de la pantalla anterior, sin las de la barra superior. */\n"
+    result = (
+        "/* Reglas de la pantalla anterior, sin las de la barra superior. */\n"
+    )
     for name, text in parts:
         text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
         result += f"\n/* --- {name} --- */\n" + clean(text) + "\n"

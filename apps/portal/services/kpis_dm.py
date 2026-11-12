@@ -57,7 +57,7 @@ def build_kpi_view(projects: Sequence[ProjectView]) -> KpiView:
     )
     ranked = sorted(
         (row for row in rows if row.name != NO_DELIVERY_MANAGER),
-        key=lambda row: (-row.on_time_percent, -row.total, row.name),
+        key=lambda row: (-(row.time_cost.cost_percent or 0), -row.total, row.name),
     )
 
     return KpiView(

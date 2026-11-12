@@ -93,9 +93,9 @@ def compliance_view(rows: Sequence[dict[str, Any]]) -> KpiView:
             r
             for r in grouped
             if r.name not in {NO_DELIVERY_MANAGER, "Sin asignar"}
-            and r.time_cost.time_days is not None
+            and r.time_cost.cost_percent is not None
         ),
-        key=lambda r: (-(r.time_cost.time_days or 0), -r.total, r.name),
+        key=lambda r: (-(r.time_cost.cost_percent or 0), -r.total, r.name),
     )
     return KpiView(
         grouped,
@@ -200,7 +200,7 @@ def eva_manager_view(rows: Sequence[dict[str, Any]]) -> KpiView:
             for r in grouped
             if r.name not in {NO_DELIVERY_MANAGER, "Sin asignar"}
         ),
-        key=lambda r: (-(r.time_cost.time_days or 0), -r.total, r.name),
+        key=lambda r: (-(r.time_cost.cost_percent or 0), -r.total, r.name),
     )
     return replace(
         original,
@@ -247,7 +247,7 @@ def select_managers(view: KpiView, names: Sequence[str]) -> KpiView:
             for r in chosen
             if r.name not in {NO_DELIVERY_MANAGER, "Sin asignar"}
         ),
-        key=lambda r: (-(r.time_cost.time_days or 0), -r.total, r.name),
+        key=lambda r: (-(r.time_cost.cost_percent or 0), -r.total, r.name),
     )
     return replace(
         view,

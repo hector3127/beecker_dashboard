@@ -225,6 +225,6 @@ def test_kpis_explain_the_units_without_changing_the_numbers(portal, kpis):
     assert portal.locator(".kc .kl").all_inner_texts() == [
         "Cumplimiento en costo (C)",
         "Carga total (TP)",
-        "Mayor proporción en tiempo",
-        "Menor proporción en tiempo",
+        "Mejor racha",
+        "Peor racha",
     ]

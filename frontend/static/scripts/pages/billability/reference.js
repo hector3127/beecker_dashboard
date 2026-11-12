@@ -44,7 +44,7 @@ export function mountReference() {
   const table = document.querySelector("#bill-summary");
   [...table.tBodies[0].rows].forEach((row) => {
     const cell = row.cells[row.cells.length - 1],
-      raw = number(cell.textContent.trim().replace("%", ""));
+      raw = number(cell.dataset.percent);
     if (raw === null) return;
     cell.replaceChildren(
       el("span", {

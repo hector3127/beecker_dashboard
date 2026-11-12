@@ -73,8 +73,8 @@ def test_kpi_view_rows_totals_best_and_worst():
     assert view.totals.total == 3
     assert view.totals.health.critical == 1
     assert view.totals.time_cost.time_days == 2.7
-    assert view.best.name == "Ana"
-    assert view.worst.name == "Laura Vega"
+    assert view.best.name == "Laura Vega"
+    assert view.worst.name == "Ana"
 
 
 def test_kpi_view_with_one_or_no_manager():

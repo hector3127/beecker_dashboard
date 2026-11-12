@@ -120,7 +120,7 @@ SERVICE_LABELS: Final[dict[str, str]] = {
     "SAAS": "SaaS",
     "RAAS": "RaaS",
 }
-FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v25:"
+FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v26:"
 FACTURABILITY_CACHE_SECONDS: Final[int] = 600
 BILLABLE_HIGH_PERCENT: Final[int] = 80
 BILLABLE_LOW_PERCENT: Final[int] = 50

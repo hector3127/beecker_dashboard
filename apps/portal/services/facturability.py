@@ -39,6 +39,14 @@ Solo las areas operativas: Dev, QA, Arq, BA y SM en las vistas.
 NON_ALNUM = re.compile(r"[^A-Z0-9]")
 SERVICE_ALIASES = {"TM": "TYM", "TANDM": "TYM", "TIMEANDMATERIAL": "TYM"}
 BILLABLE_KEY = "facturable"
+HISTORICAL_VARIABLE_PEOPLE = frozenset(
+    {
+        "mariana gonzalez bejar",
+        "andres antonio arenas muniz",
+        "jose eduardo nunez ortega",
+        "jesus salvador malagon garcia",
+    }
+)
 NO_ROLE = "Sin rol"
 PERCENT_DECIMALS = 2
 BAR_SCALE = 110.0
@@ -602,7 +610,26 @@ def _detail_rows(
         if role_key(role) == "roc":
             continue
 
-        if roles is not None and role_key(role) not in roles:
+        service = normalize_service(item.get("servicio"))
+        name_key = normalize_capacity_text(item.get("recurso"))
+        month = _text(gse.get("mes"))
+        include_historical_variable = (
+            "2026-01" <= month <= "2026-09"
+            and service in VARIABLE_SERVICES
+            and name_key in HISTORICAL_VARIABLE_PEOPLE
+        )
+        # Excepción AER confirmada para septiembre de 2026.
+        include_arenas = (
+            month == "2026-09"
+            and service == FIXED_SERVICE
+            and name_key == "andres antonio arenas muniz"
+        )
+        if (
+            roles is not None
+            and role_key(role) not in roles
+            and not include_arenas
+            and not include_historical_variable
+        ):
             continue
 
         categories = item.get("categorias")
@@ -611,15 +638,15 @@ def _detail_rows(
             {
                 "name": _text(item.get("recurso")),
                 "role": role,
-                "service": normalize_service(item.get("servicio")),
+                "service": service,
                 "billable": any(
                     normalize_capacity_text(label) == BILLABLE_KEY
                     for label in labels
                 )
                 and (
                     not gse.get("serviciosFacturables")
-                    or normalize_service(item.get("servicio"))
-                    in gse["serviciosFacturables"]
+                    or service in gse["serviciosFacturables"]
+                    or include_historical_variable
                 ),
                 "hours": _number(item.get("horas")),
             },

@@ -2,10 +2,10 @@
 <td class="specialty-quarter-start">{{ metric.capacity|floatformat:"0g" }}</td>
 <td>{{ headcount }}</td>
 <td>{{ metric.fixed_hours|floatformat:"0g" }}</td>
-<td>{% if metric.fixed_percent is not None %}{{ metric.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td>
+<td>{% if metric.fixed_percent is not None %}{{ metric.fixed_percent|floatformat:"0" }}%{% else %}—{% endif %}</td>
 <td>{{ metric.fixed_hc }}</td>
 <td>{{ metric.variable_hours|floatformat:"0g" }}</td>
-<td>{% if metric.variable_percent is not None %}{{ metric.variable_percent|floatformat:"-2" }}%{% else %}—{% endif %}</td>
+<td>{% if metric.variable_percent is not None %}{{ metric.variable_percent|floatformat:"0" }}%{% else %}—{% endif %}</td>
 <td>{{ metric.variable_hc }}</td>
 <td>{% if metric.free_fte > 0 %}<span class="specialty-free positive">{{ metric.free_fte }}</span>{% elif metric.free_fte < 0 %}<span class="specialty-free negative">{{ metric.free_fte }}</span>{% else %}{{ metric.free_fte }}{% endif %}</td>
 {% else %}

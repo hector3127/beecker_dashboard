@@ -32,6 +32,9 @@ mantienen la selección de personas con horas.
 NO_ROLE = "Sin rol"
 ZERO_CAPACITY_BANDS = {"becario", "residente", "producto"}
 ZERO_CAPACITY_CODES = {"r", "p"}
+MONTHLY_HOUR_ROLES = {
+    "2026-04": {norm("Dora Karina Quintero Marmol Sanchez"): "SM"},
+}
 
 
 def excluded_capacity_rows(sheet: Any, band_column: int) -> set[str]:
@@ -333,12 +336,17 @@ def apply_roster(
     detail: list[dict[str, Any]] = []
     hours: dict[str, float] = {}
     raw = gse.get("detalle")
+    hour_roles = MONTHLY_HOUR_ROLES.get(_text(gse.get("mes")), {})
 
     for item in raw if isinstance(raw, list) else []:
         if not isinstance(item, dict):
             continue
 
         key = normalize_capacity_text(item.get("recurso"))
+
+        override_role = hour_roles.get(norm(item.get("recurso")))
+        if override_role:
+            item = {**item, "area": override_role}
 
         if key not in roster:
             categories = item.get("categorias") or []
@@ -352,7 +360,7 @@ def apply_roster(
             # Clockify detail already uses the role resolved from Bandas/rol.
             override = PERMANENT.get(norm(item.get("recurso")), {}).get("rol")
             area = override or _text(item.get("area")) or NO_ROLE
-        detail.append({**item, "area": area})
+        detail.append({**item, "area": override_role or area})
         amount = item.get("horas")
         hours[key] = hours.get(key, 0.0) + (
             float(amount) if isinstance(amount, int | float) else 0.0
