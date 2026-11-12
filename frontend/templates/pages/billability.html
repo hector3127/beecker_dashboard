@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
-<link rel="stylesheet" href="{% static 'app/styles/pages/billability.css' %}?v=20261025-yellow-columns">
+<link rel="stylesheet" href="{% static 'app/styles/pages/billability.css' %}?v=20261111-white-grid">
 <link rel="stylesheet" href="{% static 'app/styles/pages/period-picker.css' %}">{% endblock %}
 {% block freshness %}<span class="dot" aria-hidden="true"></span><span>{% if error %}Fuente no disponible{% elif loaded_at %}Datos al {{ loaded_at|date:"d/m/Y, H:i" }}{% else %}Sin fecha de actualización{% endif %}</span>{% endblock %}
 {% block content %}
@@ -16,8 +16,19 @@
 
 <div class="tabs"><a class="on" href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a><a href="{% url 'portal:facturabilidad_area' %}{{ picker.query }}">Facturabilidad por área</a></div>
 
-<form method="get" class="mf bii-e3dd54">{% include 'partials/period_picker.html' %}<span class="bii-d77876">Horas de Clockify con la lógica de GSE · Horas por área (solo lectura).</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="{{ picker.reset_href }}">Solo operativas</a></div></details>{% endif %}</form>
+<form method="get" class="mf bii-e3dd54">{% include 'partials/period_picker.html' %}<span class="bii-d77876">Hasta sep. 2026: todas las horas del proyecto; desde oct.: Billable de Clockify · Servicios AER, TYM, IXB y RaaS; SaaS incluido hasta ago. 2026.</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="{{ picker.reset_href }}">Solo operativas</a></div></details>{% endif %}</form>
 {% if errors %}<div class="err">Meses sin datos completos: {% for m in errors %}{{ m.label }} ({{ m.error }}){% if not forloop.last %}; {% endif %}{% endfor %}</div>{% endif %}
+
+<details class="rf">
+  <summary>Personas excluidas</summary>
+  <p>Personas sin capacidad en los meses seleccionados.</p>
+  {% for exclusion_month, names in capacity_exclusions %}
+    <p><strong>{{ exclusion_month }}</strong></p>
+    <ul>{% for name in names %}<li>{{ name }}</li>{% empty %}<li>Ninguna</li>{% endfor %}</ul>
+  {% empty %}
+    <p>No hay datos de exclusiones para el periodo.</p>
+  {% endfor %}
+</details>
 
 <section class="hero">
 <div class="kc"><div class="kl">AER (trabajo fijo)</div><div class="kv">{% if selected.fixed_percent is not None %}{{ selected.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %}</div><div class="ke">{{ selected.label }}.{% if first.month != selected.month %} Era {% if first.fixed_percent is not None %}{{ first.fixed_percent|floatformat:"-2" }}%{% else %}—{% endif %} en {{ first.label|lower }}.{% endif %}</div></div>
@@ -28,7 +39,7 @@
 <h2>Resumen {{ month|slice:":4" }}</h2>
 <div class="hs">Horas de capacidad, horas facturadas y headcount (HC) por mes</div>
 <div class="sc">
-<table>
+<table id="bill-summary">
 <thead>
 <tr><th rowspan="2">Mes</th><th class="g" colspan="4">Trabajo fijo</th><th class="g" colspan="9">Trabajo variable</th><th class="g" colspan="3">Disponible</th></tr>
 <tr><th>Capacidad</th><th>Hrs AER</th><th>% fijo</th><th>HC</th><th>Capacidad</th><th>Hrs</th><th>% variable</th><th>HC</th><th>TYM</th><th>IXB</th><th>SaaS</th><th>RaaS</th><th>Otros</th><th>Libre</th><th>FTE libre</th><th>Global</th></tr>
@@ -47,7 +58,7 @@
 {% endfor %}</div>
 </section>
 {% if no_roster %}<p class="note">Bandas/rol no trae banda para: {{ no_roster }}. En esos meses la capacidad usa a las personas con horas en GSE, porque no se conoce la plantilla vigente.</p>{% endif %}
-<p class="note">Misma lógica que GSE · Horas por área: horas = registros de Clockify con categoría «Facturable»; fijo = las del servicio AER; variable = las demás (TYM, IXB, SaaS, RaaS y otras). Capacidad = suma de horas estimadas individuales: días hábiles × 8 h; bajas confirmadas en Bandas/rol se prorratean hasta el último registro de Clockify. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona en el mes; libre = lo que sobra. Por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM; cámbialo en «Áreas mostradas».</p>
+<p class="note">Misma lógica que GSE · Horas por área: horas = registros con Billable ($) marcado en Clockify; fijo = las del servicio AER; variable = las demás (TYM, IXB, SaaS, RaaS y otras). Capacidad = horas mensuales por persona con banda vigente; enero a octubre de 2026 usan el calendario aprobado; bajas confirmadas en Bandas/rol se prorratean hasta el último registro de Clockify. % fijo = fijo ÷ capacidad; % variable = variable ÷ (capacidad − fijo); global = facturables ÷ capacidad; HC = horas ÷ horas de una persona en el mes; libre = lo que sobra. Por defecto solo las áreas operativas: DEV, QA, ROC, ARQ, BA y SM; cámbialo en «Áreas mostradas».</p>
 
 {% endblock %}
 {% block scripts %}<script type="module" src="{% static 'app/scripts/pages/billability/main.js' %}"></script>{% endblock %}

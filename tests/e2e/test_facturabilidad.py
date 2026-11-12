@@ -118,6 +118,12 @@ def test_billability_reference_chart_and_free_colors(
     portal.goto(portal.base + BASE + "?mes=2026-09")
     table = portal.locator("#bill-summary")
     expect(table.locator("tbody tr")).to_have_count(9)
+    expect(table.locator("tbody td").first).to_have_css(
+        "background-color", "rgb(255, 255, 255)"
+    )
+    expect(table.locator("tbody td").first).to_have_css(
+        "border-right-color", "rgb(190, 166, 235)"
+    )
     free = table.locator("tbody td.free")
     expect(free).to_have_count(18)
     for cell in free.all():
@@ -211,6 +217,26 @@ def test_specialty_reference_keeps_source_values(portal, facturability, width):
     portal.screenshot(
         path=str(output / f"specialty-{width}.png"), full_page=True
     )
+
+
+@pytest.mark.parametrize("width", [1450, 390])
+def test_specialty_annual_quarters_scroll_inside_the_table(
+    portal, facturability, width
+):
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + BASE + "especialidad/?periodo=anio&anio=2025")
+    table = portal.locator("#specialty-summary")
+    expect(table.locator("th[scope=colgroup]")).to_have_text(
+        ["Q1", "Q2", "Q3", "Q4"]
+    )
+    expect(table.locator("tbody tr").first.locator("td")).to_have_count(36)
+    expect(table.locator("tbody td").first).to_have_css(
+        "background-color", "rgb(255, 255, 255)"
+    )
+    expect(table.locator("tbody td").first).to_have_css(
+        "border-left-color", "rgb(144, 105, 205)"
+    )
+    assert portal.evaluate("document.documentElement.scrollWidth <= innerWidth")
 
 
 @pytest.mark.parametrize("width", [1450, 390])

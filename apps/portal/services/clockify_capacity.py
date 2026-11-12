@@ -11,12 +11,14 @@ from django.db.models import Q
 from django.db.models.query import QuerySet
 
 from apps.datastore.models import ClockifyMonthSync, ClockifyTimeEntry
+from apps.portal.services.capacity_reference import reference_people
 from apps.portal.services.capacity_roster import (
     operations_roster,
     project_identity,
     project_metadata,
     roster_match,
 )
+from apps.portal.services.facturability import person_month_hours
 from apps.portal.services.holidays import count_business_days
 from core.exceptions import DashboardError
 
@@ -154,7 +156,13 @@ def capacity_report(month: str, workday_hours: float = 8) -> dict[str, Any]:
             project["first"] = min(project["first"] or day, day)
             project["last"] = max(project["last"] or day, day)
     days = count_business_days(month)
-    base = len(people) * days * workday_hours
+    monthly_hours = person_month_hours(month) * workday_hours / 8
+    capacities = {
+        key: float(person.get("capacity_hours", monthly_hours))
+        * (workday_hours / 8 if "capacity_hours" in person else 1)
+        for key, person in people.items()
+    }
+    base = sum(capacities.values())
     consumed = seconds / 3600
     over = {
         person_id
@@ -173,8 +181,10 @@ def capacity_report(month: str, workday_hours: float = 8) -> dict[str, Any]:
     summary = {
         "month": month,
         "source": "clockify",
-        "roster_source": "Bandas/rol · Operaciones",
-        "people": len(people),
+        "roster_source": "GSE · Capacidad histórica"
+        if reference_people(month) is not None
+        else "Bandas/rol · Operaciones",
+        "people": sum(value > 0 for value in capacities.values()),
         "registered_people": len(people),
         "recorded_people": monthly["people"],
         "projects": len(projects),
@@ -232,8 +242,8 @@ def capacity_report(month: str, workday_hours: float = 8) -> dict[str, Any]:
             "band": p["band"],
             **hours(p),
             "projects": len(p["projects"]),
-            "base": round(days * workday_hours, 2),
-            "available": round(days * workday_hours - p["seconds"] / 3600, 2),
+            "base": round(capacities[p["id"]], 2),
+            "available": round(capacities[p["id"]] - p["seconds"] / 3600, 2),
         }
         for p in people.values()
     ]

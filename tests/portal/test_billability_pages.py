@@ -6,7 +6,8 @@ from unittest.mock import Mock
 import pytest
 
 from apps.access.scope import AccessScope
-from tests.portal.test_views import stub_facturability
+from apps.portal.services.facturability_loader import MonthSources
+from tests.portal.test_views import facturable_gse, stub_facturability
 
 pytestmark = pytest.mark.django_db
 SCREENS = [
@@ -15,6 +16,69 @@ SCREENS = [
     ("recurso/", "billability_resource"),
 ]
 BASE = "/operativa/facturabilidad/"
+
+
+def test_annual_specialty_groups_hours_and_includes_lab_ia(client, monkeypatch):
+    def month_sources(month):
+        number = int(month[-2:])
+        if number >= 9:
+            return MonthSources(month=month, error="Sin cobertura")
+        return MonthSources(
+            month=month,
+            gse=facturable_gse(
+                ("Ana", "R&D", "AER", 10 * number),
+                ("Ana", "R&D", "IXB", 5 * number),
+                ("Eva", "DEV", "IXB", 40),
+                ("Dan", "DM", "IXB", 50),
+            ),
+        )
+
+    load = Mock(side_effect=month_sources)
+    monkeypatch.setattr("apps.portal.views.load_month_sources", load)
+    path = BASE + "especialidad/"
+    query = {"periodo": "anio", "anio": "2025"}
+    response = client.get(path, query)
+    assert response.status_code == 200
+    assert load.call_count == 12
+    lab = next(
+        row
+        for row in response.context["quarterly_specialties"]
+        if row["name"] == "Lab IA"
+    )
+    assert [row.fixed_hours if row else None for row in lab["quarters"]] == [
+        60,
+        150,
+        150,
+        None,
+    ]
+    assert [row.variable_hours if row else None for row in lab["quarters"]] == [
+        30,
+        75,
+        75,
+        None,
+    ]
+    assert [q["partial"] for q in response.context["specialty_quarters"]] == [
+        False,
+        False,
+        True,
+        False,
+    ]
+    assert response.context["specialty_quarters"][3]["total"] is None
+    assert [
+        row["name"] for row in response.context["quarterly_specialties"]
+    ] == ["Dev", "Lab IA"]
+    assert b"Q3*" in response.content
+
+    filtered = client.get(path, {**query, "roles": "1", "rol": "R&D"})
+    assert [
+        row["name"] for row in filtered.context["quarterly_specialties"]
+    ] == ["Lab IA"]
+    monthly = client.get(path, {"mes": "2025-02"})
+    assert {row.name for row in monthly.context["specialties"]} == {
+        "Dev",
+        "Lab IA",
+    }
+    assert not monthly.context["specialty_quarters"]
 
 
 @pytest.mark.parametrize(("suffix", "name"), SCREENS)

@@ -15,6 +15,8 @@ from apps.gse.services.cells import cell_at, norm, trimmed
 from apps.gse.services.roster import find_band_column, read_roster_sheet
 from apps.portal.constants import OPERATIONAL_ROLES
 from apps.portal.services.eva_azure_source import BUSINESS_ID
+from apps.portal.services.facturability import person_month_hours
+from apps.portal.services.roster import attach_month_roster
 from core.exceptions import DashboardError
 from core.sheets import sheet_names
 from core.sheets.factory import build_sheet_repository
@@ -23,9 +25,8 @@ from core.utils.text import get_flexible_value
 
 def operations_roster(month: str) -> list[dict[str, Any]]:
     """Solo roles operativos vigentes en la banda del mes, con o sin horas."""
-    sheet = read_roster_sheet(
-        build_sheet_repository(), "Bandas/rol requiere Nombre y ROL."
-    )
+    reader = build_sheet_repository()
+    sheet = read_roster_sheet(reader, "Bandas/rol requiere Nombre y ROL.")
     band_col = find_band_column(sheet.headers, int(month[5:7]), month[:4])
     if band_col < 0:
         from apps.capacidad.services.capacity_base import (
@@ -45,19 +46,29 @@ def operations_roster(month: str) -> list[dict[str, Any]]:
         else -1
     )
     roles = {norm(key): label for key, label in OPERATIONAL_ROLES.items()}
+    attached = attach_month_roster({"capacidadInicial": True}, reader, month)
+    historical = attached.get("capacidadHistorica", False)
+    eligible = {norm(p["nombre"]): p for p in attached.get("plantilla", [])}
     people = []
-    seen = set()
+    seen = {}
     for row in sheet.data_rows:
         name = trimmed(cell_at(row, sheet.headers.index("nombre")))
         role = roles.get(norm(cell_at(row, sheet.role_column)))
         band = trimmed(cell_at(row, band_col))
-        if not name or not role or norm(band) in ("", "baja", "na"):
+        match = eligible.get(norm(name))
+        if historical and match and match["capacidad_horas"] > 0:
+            role = roles.get(norm(match["rol"]), match["rol"])
+        elif not role or norm(band) in ("", "baja", "na", "n a"):
+            continue
+        if not name:
             continue
         clockify_id = trimmed(cell_at(row, id_col))
         key = clockify_id or "name:" + norm(name)
+        if historical and seen.get(key) == norm(name):
+            continue
         if key in seen:
             raise GseError(f"Persona duplicada en Bandas/rol: {name}.")
-        seen.add(key)
+        seen[key] = norm(name)
         people.append(
             {
                 "id": key,
@@ -67,6 +78,30 @@ def operations_roster(month: str) -> list[dict[str, Any]]:
                 "band": band,
             }
         )
+    for person in people:
+        match = eligible.pop(norm(person["name"]), None)
+        person["capacity_hours"] = (
+            match.get("capacidad_horas", person_month_hours(month))
+            if match
+            else 0.0
+        )
+    for key, person in eligible.items():
+        role = roles.get(norm(person["rol"]))
+        if historical and person["capacidad_horas"] > 0:
+            role = role or person["rol"]
+        if role:
+            people.append(
+                {
+                    "id": "name:" + key,
+                    "clockify_id": "",
+                    "name": person["nombre"],
+                    "role": role,
+                    "band": "GSE" if historical else "BAJA",
+                    "capacity_hours": person.get(
+                        "capacidad_horas", person_month_hours(month)
+                    ),
+                }
+            )
     return people
 
 

@@ -9,20 +9,56 @@ from django.db.models import Max
 
 from apps.capacidad.services.capacity_text import normalize_capacity_text
 from apps.datastore.models import ClockifyMonthSync, ClockifyTimeEntry
+from apps.gse.constants import BILLABLE
 from apps.gse.services.cells import cell_at, norm, trimmed
 from apps.gse.services.roster import find_band_column, read_roster_sheet
+from apps.portal.services.capacity_adjustments import (
+    PERMANENT,
+    apply_capacity_adjustments,
+)
+from apps.portal.services.capacity_reference import (
+    reference_note,
+    reference_people,
+)
 from apps.portal.services.holidays import count_business_days
 from core.sheets.protocols import SheetReader
 
 """BKD.120.025 - Plantilla del mes para Facturabilidad
-La capacidad sale de las personas vigentes del mes en Bandas/rol (con su
-ROL), solo si registraron horas positivas en el mes. Las horas salen
-de Clockify (GSE), pero solo se cuentan las de esas personas y se agrupan
-por el ROL de Bandas/rol. Quien no esta vigente ese mes no suma ni capacidad
-ni horas.
+Capacidad inicial por banda vigente. Las horas facturables de servicios se
+conservan aunque una persona no aporte capacidad. Los consumidores anteriores
+mantienen la selección de personas con horas.
 """
 
 NO_ROLE = "Sin rol"
+ZERO_CAPACITY_BANDS = {"becario", "residente", "producto"}
+ZERO_CAPACITY_CODES = {"r", "p"}
+
+
+def excluded_capacity_rows(sheet: Any, band_column: int) -> set[str]:
+    """Personas con tipo explícito de becario, residente o Producto."""
+    type_columns = [
+        sheet.headers.index(key)
+        for key in (
+            "tipo recurso",
+            "tipo de recurso",
+            "tipo",
+            "area",
+            "departamento",
+        )
+        if key in sheet.headers
+    ]
+    name_column = sheet.headers.index("nombre")
+    return {
+        normalize_capacity_text(cell_at(row, name_column))
+        for row in sheet.data_rows
+        if norm(cell_at(row, band_column))
+        in ZERO_CAPACITY_BANDS | ZERO_CAPACITY_CODES
+        or any(
+            word in norm(cell_at(row, type_column)).split()
+            for type_column in type_columns
+            for word in ZERO_CAPACITY_BANDS
+        )
+    }
 
 
 def attach_month_roster(
@@ -33,6 +69,54 @@ def attach_month_roster(
     """Adjunta la plantilla de Bandas/rol sin depender de Recursos o MPB."""
     sheet = read_roster_sheet(reader, "Bandas/rol requiere Nombre y ROL.")
     column = find_band_column(sheet.headers, int(month[5:7]), month[:4])
+    name_column = sheet.headers.index("nombre")
+    reference = reference_people(month) if gse.get("capacidadInicial") else None
+    if reference is not None:
+        included = {
+            norm(person["nombre"])
+            for person in reference
+            if person["capacidad_horas"] > 0
+        }
+        excluded = {
+            person["nombre"]
+            for person in reference
+            if person["capacidad_horas"] == 0
+        }
+        excluded.update(
+            name
+            for row in sheet.data_rows
+            if (name := trimmed(cell_at(row, name_column)))
+            and norm(name) not in included
+        )
+        # Preserve Clockify hours for Bandas/rol people absent from GSE.
+        known = {norm(person["nombre"]) for person in reference}
+        reference.extend(
+            {
+                "nombre": name,
+                "rol": trimmed(cell_at(row, sheet.role_column)),
+                "capacidad_horas": 0,
+            }
+            for row in sheet.data_rows
+            if (name := trimmed(cell_at(row, name_column)))
+            and norm(name) not in known
+        )
+        return {
+            **gse,
+            "plantilla": reference,
+            "capacidadHistorica": True,
+            "capacidadExcluidos": sorted(excluded, key=str.casefold),
+            "plantillaAviso": reference_note(month),
+            "plantillaBajas": [],
+        }
+    if column < 0 and gse.get("capacidadInicial"):
+        return {
+            **gse,
+            "plantilla": [],
+            "plantillaAviso": (
+                f"Bandas/rol no tiene banda para {month}; "
+                "no se puede confirmar la capacidad."
+            ),
+        }
     if column < 0:
         return {
             **gse,
@@ -50,7 +134,7 @@ def attach_month_roster(
             "rol": trimmed(cell_at(row, role_column)),
         }
         for row in sheet.data_rows
-        if norm(cell_at(row, column)) not in ("", "baja", "na")
+        if norm(cell_at(row, column)) not in ("", "baja", "na", "n a")
         and trimmed(cell_at(row, name_column))
         and trimmed(cell_at(row, role_column))
     ]
@@ -89,14 +173,14 @@ def attach_month_roster(
         for row in sheet.data_rows
         if next_column >= 0
         and norm(cell_at(row, next_column)) == "baja"
-        and norm(cell_at(row, column)) not in ("", "baja", "na")
+        and norm(cell_at(row, column)) not in ("", "baja", "na", "n a")
     }
     current_departures = {
         normalize_capacity_text(cell_at(row, name_column))
         for row in sheet.data_rows
         if norm(cell_at(row, column)) == "baja"
         and previous_column >= 0
-        and norm(cell_at(row, previous_column)) not in ("", "baja", "na")
+        and norm(cell_at(row, previous_column)) not in ("", "baja", "na", "n a")
     }
     estimates = departure_estimates(
         sheet, month, departures | current_departures
@@ -127,7 +211,49 @@ def attach_month_roster(
         }
         for person in people
     ]
-    return {**gse, "plantilla": people, "plantillaBajas": bajas}
+    if gse.get("capacidadInicial"):
+        excluded = excluded_capacity_rows(sheet, column)
+        people = [
+            {**person, "capacidad_horas": 0}
+            if normalize_capacity_text(person["nombre"]) in excluded
+            else person
+            for person in people
+        ]
+    if gse.get("capacidadInicial"):
+        people = apply_capacity_adjustments(people, month)
+    result = {**gse, "plantilla": people, "plantillaBajas": bajas}
+    if gse.get("capacidadInicial"):
+        from apps.portal.services.facturability import (
+            OPERATIONAL_KEYS,
+            role_key,
+        )
+
+        included = {
+            norm(p["nombre"])
+            for p in people
+            if role_key(p["rol"]) in OPERATIONAL_KEYS
+            and p.get("capacidad_horas", 1) > 0
+        }
+        result["capacidadExcluidos"] = sorted(
+            {
+                name
+                for row in sheet.data_rows
+                if (name := trimmed(cell_at(row, name_column)))
+                and norm(name) not in included
+            },
+            key=str.casefold,
+        )
+    if (
+        gse.get("capacidadInicial")
+        and month in ("2026-04", "2026-07")
+        and estimates
+    ):
+        result["plantillaAviso"] = (
+            "El calendario mensual está confirmado, pero faltan las fechas "
+            "de los descansos internos. "
+            "La capacidad de bajas en este mes es provisional."
+        )
+    return result
 
 
 def departure_estimates(
@@ -203,6 +329,7 @@ def apply_roster(
                 _text(person.get("rol")) or NO_ROLE,
             )
 
+    zero_capacity: set[str] = set()
     detail: list[dict[str, Any]] = []
     hours: dict[str, float] = {}
     raw = gse.get("detalle")
@@ -214,9 +341,18 @@ def apply_roster(
         key = normalize_capacity_text(item.get("recurso"))
 
         if key not in roster:
+            categories = item.get("categorias") or []
+            if gse.get("capacidadInicial") and BILLABLE in categories:
+                detail.append(dict(item))
+                zero_capacity.add(key)
             continue
 
-        detail.append({**item, "area": roster[key][1]})
+        area = roster[key][1]
+        if gse.get("capacidadHistorica"):
+            # Clockify detail already uses the role resolved from Bandas/rol.
+            override = PERMANENT.get(norm(item.get("recurso")), {}).get("rol")
+            area = override or _text(item.get("area")) or NO_ROLE
+        detail.append({**item, "area": area})
         amount = item.get("horas")
         hours[key] = hours.get(key, 0.0) + (
             float(amount) if isinstance(amount, int | float) else 0.0
@@ -229,10 +365,13 @@ def apply_roster(
         for person in people
         if person.get("capacidad_horas") is not None
     }
+    estimates.update({key: 0.0 for key in zero_capacity})
     areas: dict[str, dict[str, Any]] = {}
 
     for key, (name, role) in roster.items():
-        if hours.get(key, 0.0) <= 0 or estimates.get(key) == 0:
+        if (
+            not gse.get("capacidadInicial") and hours.get(key, 0.0) <= 0
+        ) or estimates.get(key) == 0:
             continue
         area = areas.setdefault(
             role,

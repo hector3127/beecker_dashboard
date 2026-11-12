@@ -169,7 +169,7 @@ def test_only_operational_areas_by_default():
 
     keys = default_role_keys(roles)
 
-    assert keys == frozenset({"dev", "roc", "ba", "sm", "arq", "qa"})
+    assert keys == frozenset({"dev", "ba", "sm", "arq", "qa"})
     assert display_role("QA") == "QA"
     assert display_role("R&D") == "R&D"
     assert display_role("ARQ") == "Arq"
@@ -188,3 +188,32 @@ def test_resource_baja_is_explicit_and_selected_month_only():
     assert by_name["Eva"].inactive is False
     assert by_name["Ana"].percents[-1] is None
     assert not build_resources([("2026-08", old), ("2026-09", {})])[0].inactive
+
+
+def test_personal_roc_no_aporta_capacidad_ni_horas_incluso_sin_filtro():
+    data = {
+        "areas": [
+            {"area": "DEV", "recursos": 1, "personas": [{"nombre": "Ana"}]},
+            {"area": "ROC", "recursos": 1, "personas": [{"nombre": "Luis"}]},
+        ],
+        "detalle": [
+            {
+                "recurso": "Ana",
+                "area": "DEV",
+                "servicio": "AER",
+                "categorias": ["Facturable"],
+                "horas": 10,
+            },
+            {
+                "recurso": "Luis",
+                "area": "ROC",
+                "servicio": "AER",
+                "categorias": ["Facturable"],
+                "horas": 40,
+            },
+        ],
+    }
+    report = build_month_facturability("2026-09", data)
+    assert report.capacity == 168
+    assert report.fixed_hours == 10
+    assert "ROC" not in list_roles([data])

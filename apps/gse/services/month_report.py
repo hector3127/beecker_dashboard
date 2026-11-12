@@ -67,6 +67,8 @@ class GseContext:
     reader: SheetReader
     store: BaseStore
     load_api_hours: HourLoader
+    use_clockify_billable: bool = False
+    all_project_hours_billable: bool = False
 
 
 @dataclass(slots=True)
@@ -182,6 +184,8 @@ def build_month(
         (roster, by_id, catalog),
         areas,
         selected_area,
+        context.use_clockify_billable,
+        context.all_project_hours_billable,
     )
 
     return build_result(
@@ -288,6 +292,8 @@ def accumulate_hours(
     sources: tuple[dict[str, Person], dict[str, Person], Catalog],
     areas: dict[str, AreaTotal],
     selected_area: str,
+    use_clockify_billable: bool = False,
+    all_project_hours_billable: bool = False,
 ) -> MonthTotals:
     """
     Suma las horas del mes por area, persona, categoria y detalle.
@@ -298,6 +304,8 @@ def accumulate_hours(
         sources: Personas por nombre, por ID y catalogo.
         areas: Totales por area, que se actualizan.
         selected_area: Area elegida; vacio para todas.
+        use_clockify_billable: Usa Billable del registro para Facturabilidad.
+        all_project_hours_billable: Incluye horas históricas sin Billable.
 
     Returns:
         Detalle, personas sin area y proyectos sin catalogo.
@@ -318,7 +326,14 @@ def accumulate_hours(
 
             continue
 
-        add_record(record, person, (catalog, areas[person.area]), totals)
+        add_record(
+            record,
+            person,
+            (catalog, areas[person.area]),
+            totals,
+            use_clockify_billable,
+            all_project_hours_billable,
+        )
 
     return totals
 
@@ -357,6 +372,8 @@ def add_record(
     person: Person,
     target: tuple[Catalog, AreaTotal],
     totals: MonthTotals,
+    use_clockify_billable: bool = False,
+    all_project_hours_billable: bool = False,
 ) -> None:
     """Suma un registro al detalle, al area y a las categorias."""
     catalog, area = target
@@ -370,13 +387,30 @@ def add_record(
         (record.project, record.task, record.tags),
         catalog,
     )
+    if use_clockify_billable:
+        categories = [
+            label
+            for label in categories
+            if label not in (BILLABLE, NON_BILLABLE)
+        ]
+        categories.append(
+            BILLABLE
+            if record.billable or all_project_hours_billable
+            else NON_BILLABLE
+        )
     category, kind = classify(match, categories)
+    service = (match.entry.service if match else "") or NOT_AVAILABLE
+    if use_clockify_billable and record.project.strip().upper().startswith(
+        "AER."
+    ):
+        service = "AER"
     key = (
         norm(person.name),
         norm(project),
         category,
         kind,
         tuple(categories),
+        service,
     )
 
     if key not in totals.detail:
@@ -387,7 +421,7 @@ def add_record(
             "categoria": category,
             "tipo": kind,
             "proyecto": project,
-            "servicio": (match.entry.service if match else "") or NOT_AVAILABLE,
+            "servicio": service,
             "categorias": list(categories),
             "horas": 0.0,
         }

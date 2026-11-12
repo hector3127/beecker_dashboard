@@ -63,14 +63,12 @@ body.billability-page{background:radial-gradient(ellipse at 70% 0,#f9f7ff,#f2f3f
 .billability-page .card{border-color:#e6dffa;border-radius:15px;padding:18px;margin-bottom:17px;box-shadow:0 3px 15px #6a38bb04}
 .billability-page .card h2{font-size:18px;color:#3611b5;letter-spacing:-.3px;margin:0 0 4px}
 .billability-page .card>.hs{font-size:11px;color:#9882ba;margin-bottom:15px}
-.billability-page #bill-summary{min-width:1100px;font-size:11px;border-collapse:separate;border-spacing:0}
-.billability-page #bill-summary th{font-size:9px;padding:10px 7px;background:#f4efff;color:#8263b3;font-weight:600;letter-spacing:0;line-height:1.5}
-.billability-page #bill-summary th.g{background:#ede5ff;color:#6f4aa8;border-left:1px solid #fff}
-.billability-page #bill-summary td{font-size:11px;padding:9px 7px;border-top:0;border-bottom:1px solid #f0eaf9;color:#7d65a7;white-space:nowrap}
-.billability-page #bill-summary tbody tr:nth-child(even){background:#fbf9ff}
+.billability-page #bill-summary{min-width:1100px;font-size:11px;border-collapse:separate;border-spacing:0;border-top:1px solid #bea6eb;border-left:1px solid #bea6eb}
+.billability-page #bill-summary th,.billability-page #bill-summary td{background:#fff;border:0;border-right:1px solid #bea6eb;border-bottom:1px solid #bea6eb;color:#503482}
+.billability-page #bill-summary th{font-size:9px;padding:10px 7px;font-weight:700;letter-spacing:0;line-height:1.5}
+.billability-page #bill-summary td{font-size:11px;padding:9px 7px;white-space:nowrap}
 .billability-page #bill-summary tbody td.free{background:#fff7e0}
-.billability-page #bill-summary tbody tr.hl td{background:#f2ecff}
-.billability-page #bill-summary tbody tr.hl td.free{background:#fff7e0}
+.billability-page #bill-summary tbody tr.hl td:first-child{font-weight:700;box-shadow:inset 3px 0 #7844ed}
 .billability-page #bill-summary tbody td.gl{font-weight:600}
 .bill-global-pill{display:inline-block;border-radius:14px;min-width:61px;text-align:center;padding:4px 8px;font-size:10px}
 .bill-global-pill.good{background:#dff8eb;color:#1b9163}

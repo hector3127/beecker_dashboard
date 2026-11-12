@@ -33,7 +33,7 @@ Misma logica que la pestana GSE · Horas por area (gseObtenerMes):
 - % fijo = fijo / capacidad; % variable = variable / (capacidad - fijo);
   global = facturables / capacidad; HC = horas / horas de una persona.
 - Por recurso: facturables de la persona / (dias habiles x 8 h).
-Solo las areas operativas: Dev, QA, ROC, Arq, BA y SM en las vistas.
+Solo las areas operativas: Dev, QA, Arq, BA y SM en las vistas.
 """
 
 NON_ALNUM = re.compile(r"[^A-Z0-9]")
@@ -68,6 +68,15 @@ def normalize_service(value: object) -> str:
     return SERVICE_ALIASES.get(key, key)
 
 
+APPROVED_MONTH_HOURS = dict(
+    zip(
+        (f"2026-{month:02d}" for month in range(1, 11)),
+        (168.0, 152.0, 168.0, 164.0, 160.0, 176.0, 176.0, 168.0, 168.0, 176.0),
+        strict=True,
+    )
+)
+
+
 def person_month_hours(month: str, today: date | None = None) -> float:
     """
     Horas disponibles de una persona en el mes.
@@ -80,6 +89,12 @@ def person_month_hours(month: str, today: date | None = None) -> float:
     Returns:
         Dias habiles sin festivos por 8 h.
     """
+    full_month = today is None or (today.year, today.month) != (
+        int(month[:4]),
+        int(month[5:7]),
+    )
+    if full_month and month in APPROVED_MONTH_HOURS:
+        return APPROVED_MONTH_HOURS[month]
     return count_business_days(month, today) * DEFAULT_WORKDAY_HOURS
 
 
@@ -112,7 +127,7 @@ def list_roles(months: Iterable[Mapping[str, Any]]) -> tuple[str, ...]:
 
 def default_role_keys(roles: Iterable[str]) -> frozenset[str]:
     """
-    Areas operativas: Dev, QA, ROC, Arq, BA y SM.
+    Areas operativas: Dev, QA, Arq, BA y SM.
 
     Args:
         roles: Nombres de las areas disponibles.
@@ -251,6 +266,8 @@ def build_specialties(
                 fixed_percent=_percent(fixed_hours, capacity),
                 variable_hours=variable_hours,
                 variable_percent=_percent(variable_hours, variable_capacity),
+                fixed_hc=_headcount(fixed_hours, month_hours),
+                variable_hc=_headcount(variable_hours, month_hours),
                 free_fte=_headcount(
                     variable_capacity - variable_hours,
                     month_hours,
@@ -302,7 +319,12 @@ def build_resources(
             (
                 person_month_hours(month, today),
                 billed,
-                gse.get("capacidadPorPersona", {}),
+                {
+                    key: value
+                    if gse.get("capacidadHistorica")
+                    else min(value, person_month_hours(month, today))
+                    for key, value in gse.get("capacidadPorPersona", {}).items()
+                },
             )
         )
 
@@ -329,7 +351,7 @@ def build_resources(
             role=role,
             percents=(
                 percents := tuple(
-                    _percent(billed[key], min(hours, estimates.get(key, hours)))
+                    _percent(billed[key], estimates.get(key, hours))
                     if key in billed
                     else None
                     for hours, billed, estimates in by_month
@@ -450,6 +472,8 @@ def merge_specialties(
                 variable_hours=variable,
                 variable_percent=_percent(variable, variable_capacity),
                 free_fte=_mean_int(row.free_fte for row in group),
+                fixed_hc=_mean_int(row.fixed_hc for row in group),
+                variable_hc=_mean_int(row.variable_hc for row in group),
             ),
         )
 
@@ -509,7 +533,9 @@ def _area_capacity(
         return float(area["resources"]) * hours
     return float(
         sum(
-            min(hours, estimates.get(normalize_capacity_text(name), hours))
+            estimates.get(normalize_capacity_text(name), hours)
+            if gse.get("capacidadHistorica")
+            else min(hours, estimates.get(normalize_capacity_text(name), hours))
             for name in names
         )
     )
@@ -532,6 +558,9 @@ def _areas(
             continue
 
         name = _text(item.get("area"))
+
+        if role_key(name) == "roc" and not gse.get("capacidadHistorica"):
+            continue
 
         if roles is not None and role_key(name) not in roles:
             continue
@@ -570,6 +599,9 @@ def _detail_rows(
 
         role = _text(item.get("area"))
 
+        if role_key(role) == "roc":
+            continue
+
         if roles is not None and role_key(role) not in roles:
             continue
 
@@ -583,6 +615,11 @@ def _detail_rows(
                 "billable": any(
                     normalize_capacity_text(label) == BILLABLE_KEY
                     for label in labels
+                )
+                and (
+                    not gse.get("serviciosFacturables")
+                    or normalize_service(item.get("servicio"))
+                    in gse["serviciosFacturables"]
                 ),
                 "hours": _number(item.get("horas")),
             },

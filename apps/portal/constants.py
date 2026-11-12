@@ -120,7 +120,7 @@ SERVICE_LABELS: Final[dict[str, str]] = {
     "SAAS": "SaaS",
     "RAAS": "RaaS",
 }
-FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v9:"
+FACTURABILITY_CACHE_PREFIX: Final[str] = "portal:facturability:v25:"
 FACTURABILITY_CACHE_SECONDS: Final[int] = 600
 BILLABLE_HIGH_PERCENT: Final[int] = 80
 BILLABLE_LOW_PERCENT: Final[int] = 50
@@ -141,7 +141,6 @@ FACTURABILITY_TARGET_PERCENT: Final[float] = 70.0
 # Solo estas entran por defecto a Facturabilidad y a la tarjeta Operations.
 OPERATIONAL_ROLES: Final[dict[str, str]] = {
     "DEV": "Dev",
-    "ROC": "ROC",
     "BA": "BA",
     "SM": "SM",
     "ARQ": "Arq",

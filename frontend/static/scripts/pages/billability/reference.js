@@ -41,8 +41,7 @@ export function mountReference() {
         ),
       );
   });
-  const table = document.querySelector(".sc table");
-  table.id = "bill-summary";
+  const table = document.querySelector("#bill-summary");
   [...table.tBodies[0].rows].forEach((row) => {
     const cell = row.cells[row.cells.length - 1],
       raw = number(cell.textContent.trim().replace("%", ""));

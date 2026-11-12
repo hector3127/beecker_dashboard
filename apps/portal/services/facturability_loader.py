@@ -44,6 +44,14 @@ class MonthSources:
     error: str = ""
 
 
+def facturable_services(month: str) -> list[str]:
+    """Servicios del histórico GSE; SaaS deja de contar en septiembre 2026."""
+    services = ["AER", "TYM", "IXB", "RAAS"]
+    if month <= "2026-08":
+        services.append("SAAS")
+    return services
+
+
 def read_gse_month(month: str) -> dict[str, Any]:
     """
     Lee un mes de GSE desde Clockify sin escribir en Sheets.
@@ -70,15 +78,24 @@ def read_gse_month(month: str) -> dict[str, Any]:
             (store, connection, cache),
             persist=None,
         )
-        context = GseContext(reader, store, loader)
+        context = GseContext(
+            reader,
+            store,
+            loader,
+            use_clockify_billable=True,
+            all_project_hours_billable=month <= "2026-09",
+        )
     except DashboardError as error:
         return {"ok": False, "mes": month, "error": describe_error(error)}
 
     result = get_month(context, (month, GSE_SOURCE_API, False, ""))
     if result.get("ok") is not True:
         return result
+    result["serviciosFacturables"] = facturable_services(month)
     try:
-        return attach_month_roster(result, reader, month)
+        return attach_month_roster(
+            {**result, "capacidadInicial": True}, reader, month
+        )
     except DashboardError as error:
         return {"ok": False, "mes": month, "error": describe_error(error)}
 

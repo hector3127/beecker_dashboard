@@ -172,7 +172,9 @@ def test_capacity_api_and_csv_use_same_clockify_scope(
     )
 
 
-def test_operations_roster_excludes_other_roles_and_inactive(clockify_capacity):
+def test_operations_roster_excludes_other_roles_and_prorates_departure(
+    clockify_capacity,
+):
     reader = clockify_capacity
     reader.rows += [["Sin horas", "BA", "zero", "B1", "B3"]]
     for pid in ("Only Food", "Baja", "Outside"):
@@ -187,9 +189,12 @@ def test_operations_roster_excludes_other_roles_and_inactive(clockify_capacity):
             duration_seconds=360000,
         )
     result = capacity_report("2026-10")
-    assert result["summary"]["consumed"] == 20
-    assert result["summary"]["base"] == 528
-    assert len(result["people"]) == 3
+    assert result["summary"]["consumed"] == 120
+    assert result["summary"]["base"] == 544
+    assert len(result["people"]) == 4
+    departure = next(p for p in result["people"] if p["name"] == "Baja")
+    assert departure["base"] == 16
+    assert departure["hours"] == 100
     zero = next(p for p in result["matrix"] if p["name"] == "Sin horas")
     assert zero["hours"] == 0 and zero["band"] == "B3"
     ana = next(
@@ -260,3 +265,35 @@ def test_delivery_manager_and_project_title_are_confirmed(clockify_capacity):
         sum(r["hours"] for r in result["matrix"])
         == result["summary"]["consumed"]
     )
+
+
+def test_personal_roc_se_excluye_de_capacidad_aunque_tenga_banda(
+    clockify_capacity,
+):
+    from apps.portal.services.capacity_roster import operations_roster
+
+    clockify_capacity.rows = [
+        *clockify_capacity.rows,
+        ["Persona ROC", "ROC", "persona-roc", "A1", "A1"],
+    ]
+    assert "Persona ROC" not in {
+        p["name"] for p in operations_roster("2026-10")
+    }
+    assert capacity_report("2026-10")["summary"]["base"] == 352
+
+
+def test_bandas_r_p_conservan_horas_pero_no_capacidad(clockify_capacity):
+    from apps.portal.services.capacity_roster import operations_roster
+
+    clockify_capacity.rows = [row[:] for row in clockify_capacity.rows]
+    for row in clockify_capacity.rows[1:]:
+        if row[0] == "Ana":
+            row[-1] = "R"
+        elif row[0] == "Luis":
+            row[-1] = "p"
+    roster = operations_roster("2026-10")
+    assert all(p["capacity_hours"] == 0 for p in roster)
+    report = capacity_report("2026-10")
+    assert report["summary"]["base"] == 0
+    assert report["summary"]["consumed"] == 20
+    assert report["summary"]["billable"] == 10

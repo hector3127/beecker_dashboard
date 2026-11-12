@@ -1,6 +1,7 @@
 """Pantallas Ejecutiva, Operativa y Comercial."""
 
 import hashlib
+from dataclasses import replace
 from typing import Any
 
 from django.conf import settings
@@ -85,6 +86,9 @@ from apps.portal.services.operations_summary import (
     last_closed_month,
 )
 from apps.portal.services.period_filter import (
+    KIND_YEAR,
+    MONTHS_PER_QUARTER,
+    QUARTERS_PER_YEAR,
     build_picker,
     parse_period,
 )
@@ -1421,7 +1425,14 @@ def facturabilidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
     sources = load_year_sources(period.end_month)
     scope, role_options = _role_scope(request, sources)
     months = [
-        build_month_facturability(item.month, item.gse, item.error, scope)
+        build_month_facturability(
+            item.month,
+            item.gse,
+            item.error,
+            scope
+            if item.gse.get("capacidadHistorica")
+            else _role_scope(request, [item])[0],
+        )
         for item in sources
     ]
     selected = combine_months(
@@ -1434,6 +1445,11 @@ def facturabilidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
         "selected": selected,
         "first": months[0],
         "in_period": period.months,
+        "capacity_exclusions": [
+            (item.month, item.gse.get("capacidadExcluidos", []))
+            for item in sources
+            if item.month in period.months and not item.error
+        ],
         "errors": [item for item in months if item.error],
         "no_roster": ", ".join(
             item.short_label for item in months if item.notice
@@ -1445,21 +1461,61 @@ def facturabilidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
 def especialidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
     """Facturabilidad del periodo por especialidad."""
     loaded = [load_month_sources(item) for item in period.months]
-    scope, role_options = _role_scope(request, loaded)
-    specialties = merge_specialties(
-        [build_specialties(item.gse, item.month, scope) for item in loaded],
-    )
-    selected = combine_months(
-        [
-            build_month_facturability(item.month, item.gse, item.error, scope)
-            for item in loaded
-        ],
-        period.label,
-        period.label,
-    )
+    scope, role_options = _role_scope(request, loaded, include_lab=True)
+    per_month = [
+        tuple(
+            replace(row, name=LAB_LABEL)
+            if role_key(row.name) == role_key(LAB_ROLE)
+            else row
+            for row in build_specialties(item.gse, item.month, scope)
+        )
+        for item in loaded
+    ]
+    months = [
+        build_month_facturability(item.month, item.gse, item.error, scope)
+        for item in loaded
+    ]
+    specialties = merge_specialties(per_month)
+    selected = combine_months(months, period.label, period.label)
+    quarters = []
+    quarter_rows = []
+    if period.kind == KIND_YEAR:
+        for index in range(QUARTERS_PER_YEAR):
+            first = index * MONTHS_PER_QUARTER
+            last = first + MONTHS_PER_QUARTER
+            valid = [
+                i
+                for i in range(first, min(last, len(months)))
+                if not months[i].error
+            ]
+            label = f"Q{index + 1}"
+            rows = merge_specialties([per_month[i] for i in valid])
+            quarter_rows.append({row.name: row for row in rows})
+            quarters.append(
+                {
+                    "label": label,
+                    "partial": 0 < len(valid) < MONTHS_PER_QUARTER,
+                    "headcount": sum(row.headcount for row in rows),
+                    "total": combine_months(
+                        [months[i] for i in valid], label, label
+                    )
+                    if valid
+                    else None,
+                }
+            )
     return {
         "selected": selected,
         "specialties": specialties,
+        "specialty_quarters": quarters,
+        "quarterly_specialties": [
+            {
+                "name": row.name,
+                "quarters": [group.get(row.name) for group in quarter_rows],
+            }
+            for row in specialties
+        ]
+        if quarters
+        else [],
         "headcount": sum(row.headcount for row in specialties),
         "dev_free": next(
             (row.free_fte for row in specialties if "dev" in row.name.lower()),
@@ -1618,9 +1674,15 @@ def inversion(request: HttpRequest) -> HttpResponse:
     return render_page(request, "pages/investment.html", context)
 
 
+LAB_ROLE = "R&D"
+LAB_LABEL = "Lab IA"
+
+
 def _role_scope(
     request: HttpRequest,
     sources: list[MonthSources],
+    *,
+    include_lab: bool = False,
 ) -> tuple[tuple[frozenset[str], None], list[RoleOption]]:
     """
     Roles elegidos (?roles=1&rol=DEV&rol=QA) o, si no hay, los operativos.
@@ -1628,12 +1690,22 @@ def _role_scope(
     Args:
         request: Peticion HTTP.
         sources: Meses leidos, para saber que roles existen.
+        include_lab: Incluye R&D en la vista por especialidad.
 
     Returns:
         ((claves de roles, hoy), opciones para el filtro).
     """
     all_roles = list_roles(item.gse for item in sources)
     allowed = default_role_keys(all_roles)
+    allowed |= {
+        role_key(area["area"])
+        for item in sources
+        if item.gse.get("capacidadHistorica")
+        for area in item.gse.get("areas", [])
+    }
+    lab_key = role_key(LAB_ROLE)
+    if include_lab and any(role_key(name) == lab_key for name in all_roles):
+        allowed |= {lab_key}
     available = tuple(name for name in all_roles if role_key(name) in allowed)
 
     if request.GET.get("roles") == "1":
@@ -1643,14 +1715,16 @@ def _role_scope(
             if role_key(name) in allowed
         )
     else:
-        chosen = default_role_keys(available)
+        chosen = allowed
 
     options = [
         RoleOption(
             label=name,
             key=role_key(name),
             checked=role_key(name) in chosen,
-            display=display_role(name),
+            display=LAB_LABEL
+            if include_lab and role_key(name) == lab_key
+            else display_role(name),
         )
         for name in available
     ]

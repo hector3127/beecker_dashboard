@@ -1,0 +1,24 @@
+<p class="specialty-quarter-note">Cada trimestre suma las horas y la capacidad de sus meses disponibles. HC y Libre son promedios mensuales. * Trimestre parcial. — Sin datos.</p>
+<div class="specialty-scroll" role="region" aria-label="Facturabilidad trimestral por especialidad" tabindex="0">
+  <table id="specialty-summary" class="specialty-quarter-table">
+    <colgroup><col class="specialty-role-col"></colgroup>
+    {% for q in specialty_quarters %}<colgroup span="9"></colgroup>{% endfor %}
+    <thead>
+      <tr><th scope="col" rowspan="2">Especialidad</th>
+        {% for q in specialty_quarters %}<th scope="colgroup" colspan="9" class="specialty-quarter-start">{{ q.label }}{% if q.partial %}*{% endif %}</th>{% endfor %}
+      </tr>
+      <tr>{% for q in specialty_quarters %}
+        <th scope="col" class="specialty-quarter-start">Capacidad</th><th scope="col">HC T</th><th scope="col">Hrs fijo</th><th scope="col">% fijo</th><th scope="col">HC fijo</th><th scope="col">Hrs variable</th><th scope="col">% variable</th><th scope="col">HC variable</th><th scope="col">Libre</th>
+      {% endfor %}</tr>
+    </thead>
+    <tbody>
+      {% for r in quarterly_specialties %}<tr data-specialty="{{ r.name|lower }}">
+        <th scope="row"><b>{{ r.name }}</b></th>
+        {% for q in r.quarters %}{% include 'partials/billability_specialty_quarter_cells.html' with metric=q headcount=q.headcount only %}{% endfor %}
+      </tr>{% empty %}<tr><td colspan="37">Sin datos del año seleccionado.</td></tr>{% endfor %}
+    </tbody>
+    <tfoot><tr><th scope="row">Total</th>
+      {% for q in specialty_quarters %}{% include 'partials/billability_specialty_quarter_cells.html' with metric=q.total headcount=q.headcount only %}{% endfor %}
+    </tr></tfoot>
+  </table>
+</div>

@@ -540,6 +540,8 @@ class SpecialtyRow:
     variable_hours: float
     variable_percent: float | None
     free_fte: int
+    fixed_hc: int = 0
+    variable_hc: int = 0
 
 
 @dataclass(frozen=True, slots=True)
