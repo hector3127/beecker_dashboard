@@ -108,7 +108,10 @@ def person_month_hours(month: str, today: date | None = None) -> float:
 
 def role_key(role: str) -> str:
     """Clave normalizada de un rol; vacio se toma como "Sin rol"."""
-    return normalize_capacity_text(role or NO_ROLE)
+    key = normalize_capacity_text(role or NO_ROLE)
+    if key == "tt cr":
+        return "qa"
+    return "lab ia" if key == "r d" else key
 
 
 def list_roles(months: Iterable[Mapping[str, Any]]) -> tuple[str, ...]:
@@ -567,7 +570,11 @@ def _areas(
 
         name = _text(item.get("area"))
 
-        if role_key(name) == "roc" and not gse.get("capacidadHistorica"):
+        if (
+            role_key(name) == "roc"
+            and (roles is None or "roc" not in roles)
+            and not gse.get("capacidadHistorica")
+        ):
             continue
 
         if roles is not None and role_key(name) not in roles:
@@ -607,7 +614,8 @@ def _detail_rows(
 
         role = _text(item.get("area"))
 
-        if role_key(role) == "roc":
+        is_roc = role_key(role) == "roc"
+        if is_roc and (roles is None or "roc" not in roles):
             continue
 
         service = normalize_service(item.get("servicio"))
@@ -646,6 +654,7 @@ def _detail_rows(
                 and (
                     not gse.get("serviciosFacturables")
                     or service in gse["serviciosFacturables"]
+                    or (is_roc and service.startswith("ROC"))
                     or include_historical_variable
                 ),
                 "hours": _number(item.get("horas")),

@@ -70,6 +70,11 @@ def _project_burn(project: dict[str, Any]) -> dict[str, Any]:
             date.fromisoformat(project["start"]),
             date.fromisoformat(project["end"]),
         ),
+        **(
+            {"authoritative_range": True}
+            if project.get("source") == "Azure DevOps"
+            else {}
+        ),
     )
     burn = (
         calculate_exact_burn(entries, canonical_cr_id(project["id"]))
@@ -282,7 +287,7 @@ def _prepare_operations() -> dict[str, Any]:
 def operations_snapshot_key() -> str:
     """Clave del ultimo resumen ejecutivo preparado del dia."""
     return (
-        "portal:executive-operations:snapshot:v3:"
+        "portal:executive-operations:snapshot:v4:"
         + timezone.localdate().isoformat()
         + cache_suffix()
     )

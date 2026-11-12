@@ -203,6 +203,12 @@ def test_a_block_that_did_not_arrive_is_reported(client, monkeypatch):
 # ---------- Facturabilidad ----------
 
 
+@pytest.fixture
+def without_published_billing(monkeypatch):
+    monkeypatch.setattr(views, "published_months", lambda *_: {})
+
+
+@pytest.mark.usefixtures("without_published_billing")
 def test_billing_summary_contract(client, monkeypatch):
     monkeypatch.setattr(
         views, "load_year_sources", lambda month: [MonthSources(month=month)]
@@ -218,6 +224,7 @@ def test_billing_summary_contract(client, monkeypatch):
     assert {"month", "label", "global_percent"} <= set(data["months"][0])
 
 
+@pytest.mark.usefixtures("without_published_billing")
 def test_billing_is_cached_and_refreshed_on_demand(client, monkeypatch):
     calls = []
 
@@ -234,6 +241,7 @@ def test_billing_is_cached_and_refreshed_on_demand(client, monkeypatch):
     assert len(calls) == 2
 
 
+@pytest.mark.usefixtures("without_published_billing")
 def test_partial_billing_is_reported_and_never_cached(client, monkeypatch):
     monkeypatch.setattr(
         views,
@@ -246,8 +254,7 @@ def test_partial_billing_is_reported_and_never_cached(client, monkeypatch):
     assert data["partial"] is True and "Sin conexion" in data["errors"][0]
     assert (
         cache.get(
-            "portal:ops:summary-data:v2:"
-            + views.last_closed_month(views.timezone.localdate())
+            views._operations_summary_key()
         )
         is None
     )

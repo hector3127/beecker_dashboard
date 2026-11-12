@@ -6,28 +6,34 @@ from typing import Any
 from django.core.cache import cache
 from django.utils import timezone
 
-from apps.ejecutivo.services.ixb_rules import (
-    HISTORY_START_COLUMNS,
-    read_history_date,
-    read_history_status,
-)
+from apps.datastore.models import EvaExtraction, EvaScopeSnapshot
 from apps.ejecutivo.services.mpb_values import parse_mpb_number
 from apps.portal.services.executive_period import bounds, cache_suffix, current
-from apps.portal.services.kpi_sources import (
-    load_kpi_sources,
-    operational_period,
-    value,
-)
+from apps.portal.services.kpi_sources import load_kpi_sources
 from core.sheets.factory import build_sheet_repository
-from core.sheets.project_year import mpb_previous_year_ids
 from core.sheets.protocols import SheetReader
+
+
+def azure_scopes():
+    """Read the last published Azure inventory, including closed scopes."""
+    run = (
+        EvaExtraction.objects.filter(
+            published=True, metrics__kind="summary_inventory"
+        )
+        .order_by("-pk")
+        .first()
+    )
+    if run is not None:
+        yield from EvaScopeSnapshot.objects.filter(
+            source__extraction=run
+        ).values_list("row", flat=True)
 
 
 def population(reader: SheetReader | None = None) -> list[dict[str, Any]]:
     """Incluye proyectos que tuvieron actividad en 2026, aun si ya cerraron."""
     today = timezone.localdate()
     cache_key = (
-        "portal:executive-operations:population:v3:"
+        "portal:executive-operations:population:v4:"
         + today.isoformat()
         + cache_suffix()
     )
@@ -36,7 +42,7 @@ def population(reader: SheetReader | None = None) -> list[dict[str, Any]]:
         return cached
     reader = reader or build_sheet_repository()
     selected_start, selected_end = bounds()
-    sources = load_kpi_sources(reader, today)
+    sources = load_kpi_sources(reader, today, include_history=False)
     projects: dict[str, dict[str, Any]] = {}
 
     def add(
@@ -90,42 +96,24 @@ def population(reader: SheetReader | None = None) -> list[dict[str, Any]]:
             "MPB",
         )
 
-    for pid, rows in sources.events.items():
-        meta = sources.metadata[pid.casefold()]
-        service = str(value(meta, "Service", "Servicio")).upper().strip()
+    for row in azure_scopes():
+        fields = row.get("fields") or {}
+        service = str(fields.get("service") or "").strip().upper()
         if service not in {"IXB", "RAAS", "SAAS"}:
             continue
-        starts = [
-            day
-            for row in rows
-            if read_history_status(row) == "DISCOVERY OP"
-            and (day := read_history_date(row, HISTORY_START_COLUMNS))
-        ]
-        if not starts:
-            starts = [
-                day
-                for row in rows
-                if read_history_status(row)
-                in {"DISCOVERY", "DEVELOPMENT", "DEPLOYMENT"}
-                and (day := read_history_date(row, HISTORY_START_COLUMNS))
-            ]
-        if not starts:
+        pid = str(row.get("project_id") or "").strip()
+        start = row.get("iteration_start")
+        finish = row.get("iteration_finish")
+        if not pid or not start:
             continue
-        period = operational_period(rows, pid, min(starts))
-        if period.active and period.start:
-            add(
-                pid,
-                service,
-                parse_mpb_number(value(meta, "Budget_Hrs")),
-                period.start.date(),
-                period.finish.date() if period.finish else today,
-                "Historico_Proyectos A:J",
-            )
-    excluded = (
-        mpb_previous_year_ids(reader, selected_start.year)
-        if selected_start.year == selected_end.year
-        else set()
-    )
-    result = [p for pid, p in projects.items() if pid not in excluded]
+        add(
+            pid,
+            service,
+            parse_mpb_number(row.get("budget")),
+            date.fromisoformat(start),
+            date.fromisoformat(finish) if finish else None,
+            "Azure DevOps",
+        )
+    result = list(projects.values())
     cache.set(cache_key, result, 300)
     return result

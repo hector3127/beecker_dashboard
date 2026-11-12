@@ -533,15 +533,15 @@ class SpecialtyRow:
     """Facturabilidad de una especialidad (ROL de Bandas/rol)."""
 
     name: str
-    headcount: int
+    headcount: float
     capacity: float
     fixed_hours: float
     fixed_percent: float | None
     variable_hours: float
     variable_percent: float | None
-    free_fte: int
-    fixed_hc: int = 0
-    variable_hc: int = 0
+    free_fte: float
+    fixed_hc: float = 0
+    variable_hc: float = 0
 
 
 @dataclass(frozen=True, slots=True)

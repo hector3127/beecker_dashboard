@@ -1,8 +1,10 @@
 """Correcciones mensuales de capacidad; conserva las horas Clockify."""
 
+from datetime import date
 from typing import Any
 
 from apps.gse.services.cells import norm
+from apps.portal.services.holidays import count_business_days
 
 # Correcciones de personas confirmadas por Héctor, 11/11/2026.
 PERMANENT = {
@@ -34,15 +36,36 @@ SEPTEMBER = {
 }
 
 
+OCTOBER = {
+    norm("Jhoan Ahumada Rivera"): {
+        "capacidad_horas": count_business_days("2026-10", date(2026, 10, 19))
+        * 8,
+    },
+    norm("Nicolas Alejandro Espitia Delgado"): {"capacidad_horas": 168},
+    norm("Sofia Katherin Jojoa Unigarro"): {"capacidad_horas": 168},
+    norm("Heidy Cabieles Martinez"): {"capacidad_horas": 0},
+    norm("Diego Ovadid Acevedo Cruz"): {"capacidad_horas": 0},
+}
+
+
 def apply_capacity_adjustments(
     people: list[dict[str, Any]], month: str
 ) -> list[dict[str, Any]]:
     """Combina exclusiones permanentes y ajustes del mes, sobre Bandas/rol."""
-    adjustments = {"2026-08": AUGUST, "2026-09": SEPTEMBER}.get(month, {})
+    adjustments = {
+        "2026-08": AUGUST,
+        "2026-09": SEPTEMBER,
+        "2026-10": OCTOBER,
+    }.get(month, {})
+    permanent = {
+        name: value
+        for name, value in PERMANENT.items()
+        if month != "2026-10" or name != norm("Enrique Yael Badillo Gutierrez")
+    }
     return [
         {
             **person,
-            **PERMANENT.get(norm(person["nombre"]), {}),
+            **permanent.get(norm(person["nombre"]), {}),
             **adjustments.get(norm(person["nombre"]), {}),
         }
         for person in people

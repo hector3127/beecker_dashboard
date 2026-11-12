@@ -189,6 +189,8 @@ class ClockifyTimeEntryLoader:
         internal_id: str,
         custom_range: tuple[date, date] | None = None,
         full_span: bool = False,
+        *,
+        authoritative_range: bool = False,
     ) -> list[TimeEntry]:
         """
         Descarga las horas de un solo proyecto.
@@ -200,6 +202,7 @@ class ClockifyTimeEntryLoader:
             custom_range: Inicio y fin; si no se da, se usa el rango del
                 proyecto (MPB o Historico_Proyectos).
             full_span: Con filas repetidas en MPB, abarca todas.
+            authoritative_range: Usa el rango explícito para un CR compartido.
 
         Returns:
             Los registros del proyecto en el rango.
@@ -221,7 +224,12 @@ class ClockifyTimeEntryLoader:
                 "Rango solicitado",
             )
 
-        plan = self._plan_report(internal_id, date_range, self._load_lookups())
+        if authoritative_range and custom_range is not None:
+            plan = plan_report(internal_id, date_range, self._load_lookups())
+        else:
+            plan = self._plan_report(
+                internal_id, date_range, self._load_lookups()
+            )
 
         if force_sources.get():
             entries, _ = self._download_report(

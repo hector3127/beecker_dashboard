@@ -58,13 +58,33 @@ from apps.portal.services.facturability import (
     display_role,
     list_roles,
     merge_specialties,
+    person_month_hours,
     role_key,
     team_averages,
+)
+from apps.portal.services.facturability_closes import (
+    GENERAL,
+    LAB_KEYS,
+    LAB_START,
+    QUARTER_HOURS,
+    SPECIALTY,
+    aggregate_specialties,
+    general_metric,
+    parse_specialty_range,
+    published_months,
+    specialty_rows,
+    specialty_selected,
+    specialty_total,
+    specialty_zero_lab,
+)
+from apps.portal.services.facturability_comparison import (
+    aer_registered_comparison,
 )
 from apps.portal.services.facturability_loader import (
     MonthSources,
     load_month_sources,
     peek_month_sources,
+    year_months,
 )
 from apps.portal.services.facturability_loader import (
     load_year_sources as load_year_sources,
@@ -86,9 +106,9 @@ from apps.portal.services.operations_summary import (
     last_closed_month,
 )
 from apps.portal.services.period_filter import (
+    KIND_QUARTER,
     KIND_YEAR,
     MONTHS_PER_QUARTER,
-    QUARTERS_PER_YEAR,
     build_picker,
     parse_period,
 )
@@ -218,7 +238,7 @@ def _operativa_is_fresh(request: Any) -> bool:
 
 def _operations_summary_key() -> str:
     """Identifica el resumen por su ultimo mes cerrado."""
-    return "portal:ops:summary-data:v2:" + last_closed_month(
+    return "portal:ops:summary-data:v3:" + last_closed_month(
         timezone.localdate()
     )
 
@@ -1394,12 +1414,18 @@ def _period(request: HttpRequest) -> Period:
     )
 
 
-def _period_context(request: HttpRequest, period: Period) -> dict[str, object]:
+def _period_context(
+    request: HttpRequest, period: Period, *, omit: tuple[str, ...] = ()
+) -> dict[str, object]:
     """Selector de periodo y datos para conservarlo al cambiar de pestana."""
     picker = build_picker(
         period,
         timezone.localdate(),
-        {key: request.GET.getlist(key) for key in request.GET},
+        {
+            key: request.GET.getlist(key)
+            for key in request.GET
+            if key not in omit
+        },
     )
 
     return {"period": period, "picker": picker}
@@ -1422,10 +1448,20 @@ def _facturability_context(month: str, tab: str) -> dict[str, object]:
 
 def facturabilidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
     """Facturabilidad de enero al mes elegido, por mes y del periodo."""
-    sources = load_year_sources(period.end_month)
+    keys = year_months(period.end_month)
+    published = (
+        published_months(GENERAL, keys)
+        if request.GET.get("roles") != "1"
+        else {}
+    )
+    sources = (
+        [load_month_sources(key) for key in keys if key not in published]
+        if published
+        else load_year_sources(period.end_month)
+    )
     scope, role_options = _role_scope(request, sources)
-    months = [
-        build_month_facturability(
+    live = {
+        item.month: build_month_facturability(
             item.month,
             item.gse,
             item.error,
@@ -1434,7 +1470,17 @@ def facturabilidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
             else _role_scope(request, [item])[0],
         )
         for item in sources
-    ]
+    }
+    months = (
+        [
+            general_metric(key, published[key])
+            if key in published
+            else live[key]
+            for key in keys
+        ]
+        if published
+        else list(live.values())
+    )
     selected = combine_months(
         [item for item in months if item.month in period.months],
         period.label,
@@ -1442,6 +1488,10 @@ def facturabilidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
     )
     return {
         "months": months,
+        "published_months": list(published),
+        "aer_comparison": aer_registered_comparison()
+        if period.year == 2026
+        else None,
         "selected": selected,
         "first": months[0],
         "in_period": period.months,
@@ -1459,70 +1509,230 @@ def facturabilidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
 
 
 def especialidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
-    """Facturabilidad del periodo por especialidad."""
-    loaded = [load_month_sources(item) for item in period.months]
-    scope, role_options = _role_scope(request, loaded, include_lab=True)
-    per_month = [
-        tuple(
-            replace(row, name=LAB_LABEL)
-            if role_key(row.name) == role_key(LAB_ROLE)
-            else row
-            for row in build_specialties(item.gse, item.month, scope)
-        )
-        for item in loaded
+    """Cierres por especialidad, comparación mensual y acumulados."""
+    today = timezone.localdate()
+    params = request.GET
+    range_params = {
+        "desde": params.get("especialidad_desde", params.get("desde", "")),
+        "hasta": params.get("especialidad_hasta", params.get("hasta", "")),
+    }
+    comparison = parse_specialty_range(range_params, today)
+    if len(comparison) > 24:
+        comparison = []
+    base_params = params.copy()
+    for name in ("desde", "hasta", "especialidad_desde", "especialidad_hasta"):
+        base_params.pop(name, None)
+    keys = comparison or list(period.months)
+    chart_keys = keys
+    if not comparison and len(keys) == 1 and params.get("roles") != "1":
+        chart_keys = year_months(keys[0])
+    saved = published_months(SPECIALTY, chart_keys)
+    published = {key: saved[key] for key in keys if key in saved}
+    loaded = {
+        key: load_month_sources(key) for key in keys if key not in published
+    }
+    historical_roles = [
+        MonthSources(key, {"areas": [{"area": row["name"]} for row in rows]})
+        for key, rows in published.items()
     ]
-    months = [
-        build_month_facturability(item.month, item.gse, item.error, scope)
-        for item in loaded
-    ]
-    specialties = merge_specialties(per_month)
-    selected = combine_months(months, period.label, period.label)
-    quarters = []
-    quarter_rows = []
-    if period.kind == KIND_YEAR:
-        for index in range(QUARTERS_PER_YEAR):
-            first = index * MONTHS_PER_QUARTER
-            last = first + MONTHS_PER_QUARTER
-            valid = [
-                i
-                for i in range(first, min(last, len(months)))
-                if not months[i].error
-            ]
-            label = f"Q{index + 1}"
-            rows = merge_specialties([per_month[i] for i in valid])
-            quarter_rows.append({row.name: row for row in rows})
-            quarters.append(
-                {
-                    "label": label,
-                    "partial": 0 < len(valid) < MONTHS_PER_QUARTER,
-                    "headcount": sum(row.headcount for row in rows),
-                    "total": combine_months(
-                        [months[i] for i in valid], label, label
+    scope, role_options = _role_scope(
+        request,
+        [*loaded.values(), *historical_roles],
+        include_lab=True,
+        include_roc=True,
+    )
+    show_roc = "roc" in scope[0]
+    roc_sources = {
+        key: load_month_sources(key)
+        for key, rows in published.items()
+        if show_roc and not any(role_key(row["name"]) == "roc" for row in rows)
+    }
+    monthly = {}
+    for key in keys:
+        if key in published:
+            rows = specialty_rows(key, published[key], scope[0])
+            if key in roc_sources and not roc_sources[key].error:
+                rows += tuple(
+                    row
+                    for row in build_specialties(
+                        roc_sources[key].gse,
+                        key,
+                        (frozenset({"roc"}), scope[1]),
                     )
-                    if valid
-                    else None,
+                    if role_key(row.name) == "roc"
+                )
+            monthly[key] = rows
+            continue
+        item = loaded[key]
+        roles = scope[0] - LAB_KEYS if key >= LAB_START else scope[0]
+        rows = tuple(
+            replace(row, name=LAB_LABEL)
+            if role_key(row.name) in LAB_KEYS
+            else row
+            for row in build_specialties(item.gse, key, (roles, scope[1]))
+            if params.get("roles") != "1" or role_key(row.name) in roles
+        )
+        if key >= LAB_START and scope[0] & LAB_KEYS and not item.error:
+            rows += (specialty_zero_lab(),)
+        monthly[key] = rows
+
+    valid = {key for key in keys if key in published or not loaded[key].error}
+    period_keys = [
+        key
+        for key in keys
+        if key in valid
+        and (
+            comparison
+            or period.kind not in (KIND_YEAR, KIND_QUARTER)
+            or not published
+            or key in published
+        )
+    ]
+    period_rows = [monthly[key] for key in period_keys]
+    label = (
+        f"{comparison[0]} a {comparison[-1]}" if comparison else period.label
+    )
+    specialties = merge_specialties(period_rows)
+    if (
+        not comparison
+        and period.kind == KIND_QUARTER
+        and len(period_keys) == MONTHS_PER_QUARTER
+    ):
+        divisor = QUARTER_HOURS.get(period_keys[0]) or sum(
+            person_month_hours(key) for key in period_keys
+        )
+        specialties = aggregate_specialties(period_rows, divisor)
+    live_metrics = [
+        build_month_facturability(
+            key,
+            loaded[key].gse,
+            loaded[key].error,
+            (scope[0] - LAB_KEYS if key >= LAB_START else scope[0], scope[1]),
+        )
+        for key in period_keys
+        if key not in published
+    ]
+    selected = combine_months(live_metrics, label, label)
+    if params.get("roles") == "1" or any(
+        key in published for key in period_keys
+    ):
+        selected = specialty_selected(period_keys, monthly, label)
+    if comparison and len(period_keys) > 1:
+        divisor = sum(person_month_hours(key) for key in period_keys)
+        if divisor:
+            specialties = aggregate_specialties(period_rows, divisor)
+            total = specialty_total(specialties, divisor)
+            selected = replace(
+                selected, variable_hc=total.variable_hc, free_fte=total.free_fte
+            )
+
+    group_keys = []
+    if comparison:
+        group_keys = [
+            (f"{build_month_facturability(key, {}).label} {key[:4]}", [key])
+            for key in comparison
+        ]
+    elif period.kind == KIND_YEAR or period.kind == KIND_QUARTER:
+        group_keys = [
+            (f"Q{(int(keys_in_group[0][5:]) - 1) // 3 + 1}", keys_in_group)
+            for index in range(0, len(period.months), MONTHS_PER_QUARTER)
+            if (
+                keys_in_group := period.months[
+                    index : index + MONTHS_PER_QUARTER
+                ]
+            )
+        ]
+
+    groups = []
+    grouped_rows = []
+    for label, group in group_keys:
+        available = [
+            key
+            for key in group
+            if key in (valid if comparison else period_keys)
+        ]
+        divisor = sum(person_month_hours(key) for key in available)
+        if not comparison and len(available) == MONTHS_PER_QUARTER:
+            divisor = QUARTER_HOURS.get(available[0], divisor)
+        rows = [monthly[key] for key in available]
+        metrics = (
+            aggregate_specialties(rows, divisor)
+            if rows and not comparison
+            else next(iter(rows), ())
+        )
+        total = specialty_total(metrics, divisor) if metrics else None
+        groups.append(
+            {
+                "label": label,
+                "partial": not comparison
+                and 0 < len(available) < MONTHS_PER_QUARTER,
+                "headcount": total.headcount if total else 0,
+                "total": total,
+            }
+        )
+        grouped_rows.append({row.name: row for row in metrics})
+
+    names = dict.fromkeys(name for group in grouped_rows for name in group)
+    chart_months = []
+    for key in chart_keys:
+        rows = monthly.get(key) if key in valid else ()
+        if key not in monthly and key in saved:
+            rows = specialty_rows(key, saved[key], scope[0])
+        if rows:
+            month = build_month_facturability(key, {})
+            total = specialty_total(rows, month.person_hours)
+            roles = {
+                row.name: row.free_fte
+                if key in saved
+                else specialty_total((row,), month.person_hours).free_fte
+                for row in rows
+            }
+            chart_months.append(
+                {
+                    "month": key,
+                    "label": month.short_label,
+                    "fixed": total.fixed_hc,
+                    "variable": total.variable_hc,
+                    "free": sum(roles.values()),
+                    "roles": roles,
                 }
             )
     return {
         "selected": selected,
         "specialties": specialties,
-        "specialty_quarters": quarters,
+        "specialty_quarters": groups,
         "quarterly_specialties": [
             {
-                "name": row.name,
-                "quarters": [group.get(row.name) for group in quarter_rows],
+                "name": name,
+                "quarters": [group.get(name) for group in grouped_rows],
             }
-            for row in specialties
-        ]
-        if quarters
-        else [],
+            for name in names
+        ],
+        "specialty_chart_months": chart_months,
         "headcount": sum(row.headcount for row in specialties),
         "dev_free": next(
-            (row.free_fte for row in specialties if "dev" in row.name.lower()),
+            (
+                row.free_fte
+                for row in specialties
+                if role_key(row.name) == "dev"
+            ),
             None,
         ),
-        "error": " · ".join(item.error for item in loaded if item.error),
+        "error": " · ".join(
+            item.error
+            for item in (*loaded.values(), *roc_sources.values())
+            if item.error
+        ),
         "role_options": role_options,
+        "comparison_from": comparison[0]
+        if comparison
+        else period.months[max(0, len(period.months) - 3)],
+        "comparison_to": comparison[-1] if comparison else period.end_month,
+        "comparison_active": bool(comparison),
+        "picker_active_kind": "rango" if comparison else period.kind,
+        "comparison_invalid": not comparison and any(range_params.values()),
+        "comparison_latest": timezone.localdate().isoformat()[:7],
+        "comparison_reset": "?" + base_params.urlencode(),
     }
 
 
@@ -1611,7 +1821,13 @@ def facturabilidad_especialidad(request: HttpRequest) -> HttpResponse:
 
     period = _period(request)
     context = _facturability_context(period.end_month, "especialidad")
-    context.update(_period_context(request, period))
+    context.update(
+        _period_context(
+            request,
+            period,
+            omit=("desde", "hasta", "especialidad_desde", "especialidad_hasta"),
+        )
+    )
     context.update(especialidad_data(request, period))
 
     return render_page(request, "pages/billability_specialty.html", context)
@@ -1674,7 +1890,6 @@ def inversion(request: HttpRequest) -> HttpResponse:
     return render_page(request, "pages/investment.html", context)
 
 
-LAB_ROLE = "R&D"
 LAB_LABEL = "Lab IA"
 
 
@@ -1683,6 +1898,7 @@ def _role_scope(
     sources: list[MonthSources],
     *,
     include_lab: bool = False,
+    include_roc: bool = False,
 ) -> tuple[tuple[frozenset[str], None], list[RoleOption]]:
     """
     Roles elegidos (?roles=1&rol=DEV&rol=QA) o, si no hay, los operativos.
@@ -1691,6 +1907,7 @@ def _role_scope(
         request: Peticion HTTP.
         sources: Meses leidos, para saber que roles existen.
         include_lab: Incluye R&D en la vista por especialidad.
+        include_roc: Ofrece ROC como selección opcional.
 
     Returns:
         ((claves de roles, hoy), opciones para el filtro).
@@ -1703,9 +1920,12 @@ def _role_scope(
         if item.gse.get("capacidadHistorica")
         for area in item.gse.get("areas", [])
     }
-    lab_key = role_key(LAB_ROLE)
-    if include_lab and any(role_key(name) == lab_key for name in all_roles):
-        allowed |= {lab_key}
+    if include_lab:
+        allowed |= {role_key(name) for name in all_roles} & LAB_KEYS
+    if include_roc:
+        allowed |= {"roc"}
+        if not any(role_key(name) == "roc" for name in all_roles):
+            all_roles = (*all_roles, "ROC")
     available = tuple(name for name in all_roles if role_key(name) in allowed)
 
     if request.GET.get("roles") == "1":
@@ -1715,7 +1935,7 @@ def _role_scope(
             if role_key(name) in allowed
         )
     else:
-        chosen = allowed
+        chosen = allowed - {"roc"} if include_roc else allowed
 
     options = [
         RoleOption(
@@ -1723,7 +1943,7 @@ def _role_scope(
             key=role_key(name),
             checked=role_key(name) in chosen,
             display=LAB_LABEL
-            if include_lab and role_key(name) == lab_key
+            if include_lab and role_key(name) in LAB_KEYS
             else display_role(name),
         )
         for name in available
@@ -1735,9 +1955,7 @@ def _role_scope(
 def operations_summary_data(refresh: bool = False) -> Any:
     """Facturabilidad global de enero al ultimo mes cerrado.
 
-    Lee GSE y Recursos; por eso se guarda aparte y solo se vuelve a leer
-    cuando el corte caduca o se pide actualizar. Un resumen parcial no se
-    guarda para no fijar un error.
+    Usa los cierres de Facturabilidad y consulta GSE para meses sin cierre.
     """
     today = timezone.localdate()
     month = last_closed_month(today)
@@ -1745,7 +1963,13 @@ def operations_summary_data(refresh: bool = False) -> Any:
     cached = cache.get(key)
     if cached is not None and cache.get(key + ":fresh") and not refresh:
         return cached
-    sources = load_year_sources(month)
+    keys = year_months(month)
+    published = published_months(GENERAL, keys)
+    sources = (
+        [load_month_sources(key) for key in keys if key not in published]
+        if published
+        else load_year_sources(month)
+    )
     roles = default_role_keys(list_roles(item.gse for item in sources))
     months = [
         build_month_facturability(
@@ -1753,10 +1977,15 @@ def operations_summary_data(refresh: bool = False) -> Any:
         )
         for item in sources
     ]
+    if published:
+        months.extend(
+            general_metric(key, metrics) for key, metrics in published.items()
+        )
+        months.sort(key=lambda metric: metric.month)
     summary = build_operations_summary(
         months, month_closed=month != str(today.strftime("%Y-%m"))
     )
-    if sources and not summary.errors:
+    if months and not summary.errors:
         cache.set(key, summary, 86400)
         cache.set(key + ":fresh", True, _OPS_FRESH_SECONDS)
     return summary

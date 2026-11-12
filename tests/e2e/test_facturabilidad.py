@@ -47,7 +47,7 @@ def test_period_roles_tabs_and_return(portal, facturability, screen):
     assert portal.locator("main").count() == 1
     assert portal.locator("main style, main script").count() == 0
     expect(portal.locator(".tabs .on")).to_be_visible()
-    portal.locator(".rf summary").click()
+    portal.locator(".mf .rf summary").click()
     for checkbox in portal.locator('input[name="rol"]').all():
         checkbox.uncheck()
     portal.locator('input[name="rol"][value="QA"]').check()
@@ -79,9 +79,9 @@ def test_period_roles_tabs_and_return(portal, facturability, screen):
     portal.locator('.pfp button[data-k="mes"]').click()
     portal.locator('.pfk[data-k="mes"] .pfr:not([hidden]) a').first.click()
     expect(portal.locator(".pf summary small")).to_have_text("Mes")
-    portal.locator(".rf summary").click()
+    portal.locator(".mf .rf summary").click()
     portal.get_by_role("link", name="Solo operativas", exact=True).click()
-    expect(portal.locator(".rf summary")).to_contain_text("solo operativas")
+    expect(portal.locator(".mf .rf summary")).to_contain_text("solo operativas")
     assert "mes=" in portal.locator(".tabs a").first.get_attribute("href")
     portal.locator(".tabs a").filter(
         has_text="Facturabilidad por recurso"
@@ -361,3 +361,41 @@ def test_saved_previous_link_keeps_month_roles_and_current_module(
     if screen == "recurso/":
         expect(portal.locator("table")).to_contain_text("Eva")
         expect(portal.locator("table")).not_to_contain_text("Ana")
+
+
+def test_specialty_range_fits_three_months_and_shows_deficit(
+    portal, facturability, monkeypatch
+):
+    gse = facturable_gse(("Ana", "DEV", "AER", 220))
+    monkeypatch.setattr(
+        "apps.portal.views.load_month_sources",
+        lambda month: MonthSources(month=month, gse=gse),
+    )
+    portal.set_viewport_size({"width": 1450, "height": 1000})
+    portal.goto(portal.base + BASE + "especialidad/?mes=2026-03")
+    portal.get_by_label("Cambiar periodo").click()
+    portal.get_by_role("button", name="Rango de meses").click()
+    portal.get_by_label("Desde", exact=True).fill("2026-01")
+    portal.get_by_label("Hasta", exact=True).fill("2026-03")
+    portal.get_by_role("button", name="Consultar meses").click()
+    expect(
+        portal.locator("#specialty-summary th[scope=colgroup]")
+    ).to_have_text(["Enero 2026", "Febrero 2026", "Marzo 2026"])
+    assert portal.locator(".specialty-scroll").evaluate(
+        "element => element.scrollWidth <= element.clientWidth"
+    )
+    deficit = portal.locator("#specialty-availability-chart .is-deficit")
+    expect(deficit).to_have_count(3)
+    assert deficit.first.evaluate(
+        """bar => {
+            const plot = bar.closest('.specialty-chart-plot');
+            const zero = plot.querySelector('.specialty-chart-zero');
+            return bar.getBoundingClientRect().top
+                >= zero.getBoundingClientRect().top - 1;
+        }"""
+    )
+    portal.get_by_label("Cambiar periodo").click()
+    portal.get_by_role("link", name="Quitar comparación").click()
+    expect(
+        portal.locator("#specialty-summary th[scope=colgroup]")
+    ).to_have_count(0)

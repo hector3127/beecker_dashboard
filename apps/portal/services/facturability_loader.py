@@ -8,7 +8,9 @@ from django.conf import settings
 from django.core.cache import cache
 from django.utils import timezone
 
+from apps.gse.constants import BILLABLE
 from apps.gse.services.base_store import build_base_store, build_connection
+from apps.gse.services.cells import norm
 from apps.gse.services.clockify_month import MonthReportLoader
 from apps.gse.services.month_report import GseContext, get_month
 from apps.portal.constants import (
@@ -47,17 +49,20 @@ class MonthSources:
 def facturable_services(month: str) -> list[str]:
     """Servicios del histórico GSE; SaaS deja de contar en septiembre 2026."""
     services = ["AER", "TYM", "IXB", "RAAS"]
+    if month >= "2026-10":
+        services.append("OTROS")
     if month <= "2026-08":
         services.append("SAAS")
     return services
 
 
-def read_gse_month(month: str) -> dict[str, Any]:
+def read_gse_month(month: str, *, from_store: bool = False) -> dict[str, Any]:
     """
     Lee un mes de GSE desde Clockify sin escribir en Sheets.
 
     Args:
         month: Mes valido YYYY-MM.
+        from_store: Lee las horas sincronizadas en la base local.
 
     Returns:
         El resultado de gseObtenerMes o {"ok": False, "error"}.
@@ -78,10 +83,16 @@ def read_gse_month(month: str) -> dict[str, Any]:
             (store, connection, cache),
             persist=None,
         )
+
+        def local_hours(key, _force, user_ids):
+            from apps.datastore.services.stored_base import read_hour_records
+
+            return read_hour_records(key, user_ids)
+
         context = GseContext(
             reader,
             store,
-            loader,
+            local_hours if from_store else loader,
             use_clockify_billable=True,
             all_project_hours_billable=month <= "2026-09",
         )
@@ -93,11 +104,50 @@ def read_gse_month(month: str) -> dict[str, Any]:
         return result
     result["serviciosFacturables"] = facturable_services(month)
     try:
-        return attach_month_roster(
+        result = attach_month_roster(
             {**result, "capacidadInicial": True}, reader, month
         )
+        if (
+            month == "2026-10"
+            and result.get("plantilla")
+            and isinstance(result.get("detalle"), list)
+        ):
+            _apply_october_aer_adjustments(result)
+        return result
     except DashboardError as error:
         return {"ok": False, "mes": month, "error": describe_error(error)}
+
+
+def _apply_october_aer_adjustments(result):
+    """Aplica los ajustes de AER del reporte de referencia de octubre."""
+    detail = result["detalle"]
+    people = {norm(person["nombre"]): person for person in result["plantilla"]}
+    for name, amount, target in (
+        ("Kenhya Madrigal Lara", 86, False),
+        ("Victor Santiago Ruiz", 176, True),
+    ):
+        person = people.get(norm(name))
+        if person is None:
+            continue
+        if target:
+            amount -= sum(
+                row["horas"]
+                for row in detail
+                if norm(row["recurso"]) == norm(name)
+                and row["servicio"].upper() == "AER"
+                and BILLABLE in row["categorias"]
+            )
+        if amount:
+            detail.append(
+                {
+                    "recurso": person["nombre"],
+                    "area": person["rol"],
+                    "servicio": "AER",
+                    "horas": amount,
+                    "categorias": [BILLABLE],
+                    "proyecto": "Ajuste aprobado de octubre",
+                }
+            )
 
 
 def load_month_sources(month: str) -> MonthSources:

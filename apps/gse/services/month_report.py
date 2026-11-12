@@ -400,10 +400,28 @@ def add_record(
         )
     category, kind = classify(match, categories)
     service = (match.entry.service if match else "") or NOT_AVAILABLE
-    if use_clockify_billable and record.project.strip().upper().startswith(
-        "AER."
-    ):
-        service = "AER"
+    if use_clockify_billable:
+        clockify_project = record.project.strip().upper()
+        if clockify_project.startswith("AER."):
+            service = "AER"
+        elif record.day[:7] >= "2026-10":
+            if {clockify_project, project.strip().upper()} & {
+                "TYM.GNP.001",
+                "TYM.NYB.009",
+                "TYM.AAU.001",
+                "TYM.CCO.002",
+            }:
+                service = "TYM"
+            elif norm(record.project) in {
+                "continuous improvement training",
+                "vacaciones",
+                "no laborable feriado",
+                "innovacion y desarrollo",
+                "pre ventas",
+                "administrative activities",
+                "mandatory training",
+            }:
+                service = "Otros"
     key = (
         norm(person.name),
         norm(project),

@@ -535,3 +535,24 @@ class ClockifyTimeEntry(models.Model):
                 name="clockify_entry_duration_not_negative",
             ),
         ]
+
+
+class FacturabilityClose(models.Model):
+    """Version publicada de un cierre mensual de Facturabilidad."""
+
+    month = models.DateField()
+    view = models.CharField(max_length=16)
+    revision = models.PositiveIntegerField(default=1)
+    metrics = models.JSONField()
+    source = models.CharField(max_length=255)
+    published_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Cada versión conserva su identidad de mes y vista."""
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=("month", "view", "revision"),
+                name="facturability_close_revision_unique",
+            )
+        ]

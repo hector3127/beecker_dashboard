@@ -24,12 +24,24 @@ def isolated_cache():
     cache.clear()
 
 
-def test_annual_operations_uses_a_to_i_and_budget_j_including_closed_cr(
+def test_annual_operations_uses_azure_budget_including_closed_cr(
     monkeypatch,
 ):
     r = reader()
-    r.sheets["Historico_Proyectos"][0][9] = "Budget  (Hrs)"
-    r.sheets["Historico_Proyectos"][1][9] = 400
+    del r.sheets["Historico_Proyectos"]
+    monkeypatch.setattr(
+        population,
+        "azure_scopes",
+        lambda: [
+            {
+                "project_id": "IXB.001_CR",
+                "fields": {"service": "IxB"},
+                "iteration_start": "2026-01-01",
+                "iteration_finish": "2026-03-15",
+                "budget": "400",
+            }
+        ],
+    )
     monkeypatch.setattr(population.timezone, "localdate", lambda: TODAY)
     projects = {p["id"]: p for p in population.population(r)}
     assert set(projects) == {"AER.001", "IXB.001_CR"}

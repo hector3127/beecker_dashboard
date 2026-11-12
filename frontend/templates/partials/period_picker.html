@@ -1,10 +1,22 @@
-<details class="pf" id="period-filter"><summary aria-label="Cambiar periodo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B25C9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>{{ picker.label }}</span><small>{{ picker.kind_label }}</small></summary>
-<div class="pfm"><ul class="pfp"><li><button type="button" data-k="mes"{% if picker.kind == "mes" %} class="on"{% endif %}>Mes</button></li><li><button type="button" data-k="trimestre"{% if picker.kind == "trimestre" %} class="on"{% endif %}>Trimestre</button></li><li><button type="button" data-k="anio"{% if picker.kind == "anio" %} class="on"{% endif %}>Año</button></li></ul>
+{% with active_kind=picker_active_kind|default:picker.kind %}
+<details class="pf" id="period-filter"><summary aria-label="Cambiar periodo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B25C9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>{% if active_kind == "rango" %}{{ comparison_from }} a {{ comparison_to }}{% else %}{{ picker.label }}{% endif %}</span><small>{% if active_kind == "rango" %}Rango de meses{% else %}{{ picker.kind_label }}{% endif %}</small></summary>
+<div class="pfm"><ul class="pfp"><li><button type="button" data-k="mes"{% if active_kind == "mes" %} class="on"{% endif %}>Mes</button></li><li><button type="button" data-k="trimestre"{% if active_kind == "trimestre" %} class="on"{% endif %}>Trimestre</button></li><li><button type="button" data-k="anio"{% if active_kind == "anio" %} class="on"{% endif %}>Año</button></li>{% if show_month_range %}<li><button type="button" data-k="rango"{% if active_kind == "rango" %} class="on"{% endif %}>Rango de meses</button></li>{% endif %}</ul>
 <div class="pfc">
-<div class="pfk" data-k="mes"{% if picker.kind != "mes" %} hidden{% endif %}><div class="pfy">{% for item in picker.by_year %}<button type="button" data-y="{{ item.year }}"{% if item.active %} class="on"{% endif %}>{{ item.year }}</button>{% endfor %}</div>
+<div class="pfk" data-k="mes"{% if active_kind != "mes" %} hidden{% endif %}><div class="pfy">{% for item in picker.by_year %}<button type="button" data-y="{{ item.year }}"{% if item.active %} class="on"{% endif %}>{{ item.year }}</button>{% endfor %}</div>
 {% for item in picker.by_year %}<div class="pfr" data-y="{{ item.year }}"{% if not item.active %} hidden{% endif %}><div>{% for link in item.months %}{% if link.disabled %}<span>{{ link.label }}</span>{% else %}<a{% if link.active %} class="on"{% endif %} href="{{ link.href }}">{{ link.label }}</a>{% endif %}{% endfor %}</div></div>{% endfor %}</div>
-<div class="pfk" data-k="trimestre"{% if picker.kind != "trimestre" %} hidden{% endif %}><div class="pfy">{% for item in picker.by_year %}<button type="button" data-y="{{ item.year }}"{% if item.active %} class="on"{% endif %}>{{ item.year }}</button>{% endfor %}</div>
+<div class="pfk" data-k="trimestre"{% if active_kind != "trimestre" %} hidden{% endif %}><div class="pfy">{% for item in picker.by_year %}<button type="button" data-y="{{ item.year }}"{% if item.active %} class="on"{% endif %}>{{ item.year }}</button>{% endfor %}</div>
 {% for item in picker.by_year %}<div class="pfr" data-y="{{ item.year }}"{% if not item.active %} hidden{% endif %}><div>{% for link in item.quarters %}{% if link.disabled %}<span>{{ link.label }}</span>{% else %}<a{% if link.active %} class="on"{% endif %} href="{{ link.href }}">{{ link.label }}</a>{% endif %}{% endfor %}</div></div>{% endfor %}</div>
-<div class="pfk" data-k="anio"{% if picker.kind != "anio" %} hidden{% endif %}><div class="pfr"><div>{% for link in picker.years %}<a{% if link.active %} class="on"{% endif %} href="{{ link.href }}">{{ link.label }}</a>{% endfor %}</div></div></div>
+<div class="pfk" data-k="anio"{% if active_kind != "anio" %} hidden{% endif %}><div class="pfr"><div>{% for link in picker.years %}<a{% if link.active %} class="on"{% endif %} href="{{ link.href }}">{{ link.label }}</a>{% endfor %}</div></div></div>
+{% if show_month_range %}
+<div class="pfk" data-k="rango"{% if active_kind != "rango" %} hidden{% endif %}>
+  <fieldset class="specialty-range" data-period-fields{% if active_kind != "rango" %} disabled{% endif %}>
+    <label>Desde <input type="month" name="especialidad_desde" min="2025-12" max="{{ comparison_latest }}" value="{{ comparison_from }}" required></label>
+    <label>Hasta <input type="month" name="especialidad_hasta" min="2025-12" max="{{ comparison_latest }}" value="{{ comparison_to }}" required></label>
+    <button type="submit">Consultar meses</button>
+    {% if comparison_active %}<a href="{{ comparison_reset }}">Quitar comparación</a>{% endif %}
+  </fieldset>
+</div>
+{% endif %}
 </div></div></details>
 {% for key, value in picker.hidden %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endfor %}
+{% endwith %}

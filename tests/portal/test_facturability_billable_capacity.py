@@ -163,7 +163,7 @@ def test_correcciones_septiembre_no_se_aplican_a_agosto():
     assert people[0]["capacidad_horas"] == 72
 
 
-def test_exclusiones_de_capacidad_son_permanentes():
+def test_exclusiones_permanentes_con_revision_confirmada_en_octubre():
     from apps.portal.services.capacity_adjustments import (
         apply_capacity_adjustments,
     )
@@ -176,9 +176,12 @@ def test_exclusiones_de_capacidad_son_permanentes():
             "Luis Enrique Garcia Rivera",
         ]
     ]
-    for month in ["2025-12", "2026-01", "2026-08", "2026-09", "2026-10"]:
+    for month in ["2025-12", "2026-01", "2026-08", "2026-09", "2026-11"]:
         result = apply_capacity_adjustments(people, month)
         assert sum(p["capacidad_horas"] for p in result) == 0
+
+    result = apply_capacity_adjustments(people, "2026-10")
+    assert [person["capacidad_horas"] for person in result] == [0, 168, 0]
     assert all(p["capacidad_horas"] == 168 for p in people)
 
 

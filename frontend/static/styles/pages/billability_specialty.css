@@ -74,8 +74,38 @@ body.specialty-page{background:radial-gradient(ellipse at 70% 0,#faf8ff,#f2f3ff)
 .specialty-page #specialty-summary.specialty-quarter-table .specialty-role-col{width:120px}
 .specialty-page #specialty-summary.specialty-quarter-table :is(th[rowspan],th[scope=row]){position:sticky;left:0;z-index:1;width:auto;min-width:100px;padding-left:12px}
 .specialty-page #specialty-summary.specialty-quarter-table .specialty-quarter-start{border-left:2px solid #9069cd}
+@media(min-width:780px){
+  .specialty-page #specialty-summary.specialty-three-months{table-layout:fixed;width:100%}
+  .specialty-page #specialty-summary.specialty-three-months .specialty-role-col{width:70px}
+  .specialty-page #specialty-summary.specialty-three-months :is(th,td){padding:5px 2px;font-size:clamp(8px,1vw,11px);line-height:1.2}
+  .specialty-page #specialty-summary.specialty-three-months :is(th[rowspan],th[scope=row]){width:auto;min-width:0;padding-left:5px;overflow-wrap:anywhere}
+  .specialty-page #specialty-summary.specialty-three-months thead th{white-space:normal}
+  .specialty-page #specialty-summary.specialty-three-months tbody b{gap:4px}
+  .specialty-page #specialty-summary.specialty-three-months tbody b:before{width:6px;height:6px}
+  .specialty-page #specialty-summary.specialty-three-months .specialty-free{margin:0;padding:2px 0}
+}
 .specialty-quarter-note{color:#65528b;font-size:12px;margin:0 0 10px}
 .specialty-page #specialty-summary tr[data-specialty="lab ia"]{--specialty-dot:#7345d1}
 .specialty-page .note{font-size:12px;line-height:1.65;color:#8173ad;margin-top:16px}
 @media(max-width:1100px){.specialty-page .kp{grid-template-columns:repeat(2,minmax(0,1fr))}.specialty-page .kp .kc{min-height:140px}.specialty-card-decoration{right:20px}}
 @media(max-width:600px){.specialty-page .kp{grid-template-columns:1fr;gap:10px}.specialty-page .kp .kc{min-height:126px;padding:18px}.specialty-page .card{padding:15px}.specialty-heading{gap:11px}.specialty-heading .specialty-icon{width:42px;height:44px}.specialty-heading .specialty-icon svg{width:25px;height:25px}.specialty-page .specialty-heading h2{font-size:17px}.specialty-page .specialty-heading .hs{font-size:11px}}
+.specialty-page .specialty-range{display:grid;gap:10px;margin:0;padding:0;border:0;min-width:0}
+.specialty-page .specialty-range label{display:grid;gap:5px}
+.specialty-page .specialty-range input,.specialty-page .specialty-range button{font:inherit;padding:8px 12px;border:1px solid #ded5fa;border-radius:8px;background:#fff;color:#3b246c}
+.specialty-page .specialty-range button{background:#6026df;color:#fff;cursor:pointer}
+.specialty-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.specialty-charts .card{min-width:0}
+.specialty-chart-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:12px 0;color:#53447a;font-size:11px}
+.specialty-chart-legend span{display:inline-flex;align-items:center;gap:5px}
+.specialty-chart-legend i{width:9px;height:9px;border-radius:2px}
+.specialty-chart-unit{font-size:11px;color:#675982}
+.specialty-chart-scroll{overflow-x:auto;padding:14px 8px 27px 30px}
+.specialty-chart-plot{height:180px;position:relative}
+.specialty-chart-grid,.specialty-chart-zero{position:absolute;left:0;right:0;border-top:1px solid #eae4f7}
+.specialty-chart-zero{border-color:#9e90b6}
+.specialty-chart-grid span,.specialty-chart-zero span{position:absolute;right:100%;padding-right:6px;transform:translateY(-50%);font-size:10px;color:#675982}
+.specialty-chart-bars{position:absolute;inset:0;display:flex;justify-content:space-around}
+.specialty-chart-bar{position:relative;width:68%;max-width:43px;flex:1 1 0;margin:0 4px}
+.specialty-chart-segment{position:absolute;left:0;right:0}
+.specialty-chart-month{position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:10px;padding-top:5px;color:#675982;white-space:nowrap}
+@media(max-width:850px){.specialty-charts{grid-template-columns:1fr}}

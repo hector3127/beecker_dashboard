@@ -66,7 +66,10 @@ export function bindPeriodPicker(details) {
     if (button.dataset.k) {
       details.querySelectorAll('.pfp button').forEach((b) => b.classList.toggle('on', b === button));
       details.querySelectorAll('.pfk').forEach((pane) => {
-        /** @type {HTMLElement} */ (pane).hidden = /** @type {HTMLElement} */ (pane).dataset.k !== button.dataset.k;
+        const panel = /** @type {HTMLElement} */ (pane);
+        panel.hidden = panel.dataset.k !== button.dataset.k;
+        const fields = panel.querySelector('fieldset[data-period-fields]');
+        if (fields instanceof HTMLFieldSetElement) fields.disabled = panel.hidden;
       });
     } else if (button.dataset.y) {
       details.querySelectorAll('.pfy button').forEach((b) => b.classList.toggle('on', /** @type {HTMLElement} */ (b).dataset.y === button.dataset.y));

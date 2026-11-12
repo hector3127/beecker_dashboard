@@ -861,16 +861,17 @@ def test_facturability_role_filter(client, monkeypatch):
         ("Ana", "DEV", "AER", 40),
         ("Dan", "DM", "AER", 60),
         ("Eva", "R&D", "AER", 80),
+        ("Rosa", "ROC", "ROC", 32),
     )
     monkeypatch.setattr(
         "apps.portal.views.load_month_sources",
         lambda month: MonthSources(month=month, gse=gse),
     )
 
-    default = client.get("/operativa/facturabilidad/especialidad/")
+    default = client.get("/operativa/facturabilidad/especialidad/?mes=2026-07")
     chosen = client.get(
         "/operativa/facturabilidad/especialidad/",
-        {"roles": "1", "rol": ["DEV", "DM", "R&D"]},
+        {"mes": "2026-07", "roles": "1", "rol": ["DEV", "DM", "R&D"]},
     )
 
     assert [row.name for row in default.context["specialties"]] == [
@@ -878,13 +879,69 @@ def test_facturability_role_filter(client, monkeypatch):
         "Lab IA",
     ]
     assert default.context["selected"].fixed_hours == 120
+    assert default.context["selected"].variable_hours == 0
+    roc_option = next(
+        option
+        for option in default.context["role_options"]
+        if option.key == "roc"
+    )
+    assert not roc_option.checked
     assert "Áreas mostradas" in default.content.decode()
     assert [row.name for row in chosen.context["specialties"]] == [
         "Dev",
         "Lab IA",
     ]
     assert chosen.context["selected"].fixed_hours == 120
-    assert [r.label for r in chosen.context["role_options"]] == ["DEV", "R&D"]
+    assert [r.label for r in chosen.context["role_options"]] == [
+        "DEV",
+        "R&D",
+        "ROC",
+    ]
+    with_roc = client.get(
+        "/operativa/facturabilidad/especialidad/",
+        {"mes": "2026-07", "roles": "1", "rol": ["DEV", "ROC"]},
+    )
+    roc = next(
+        row for row in with_roc.context["specialties"] if row.name == "ROC"
+    )
+    assert roc.headcount == 1
+    assert roc.capacity > 0
+    assert roc.variable_hours == 32
+    assert with_roc.context["selected"].variable_hours == 32
+
+    august = client.get("/operativa/facturabilidad/especialidad/?mes=2026-08")
+    assert august.context["selected"].fixed_hours == 40
+    lab = next(
+        row for row in august.context["specialties"] if row.name == "Lab IA"
+    )
+    assert lab.capacity == lab.headcount == lab.fixed_hours == lab.free_fte == 0
+
+
+def test_specialty_roc_excludes_historical_lab_hours(client, monkeypatch):
+    gse = facturable_gse(
+        ("Rosa", "ROC", "ROC", 32),
+        ("Mariana Gonzalez Bejar", "R&D", "IXB", 60),
+    )
+    monkeypatch.setattr(
+        "apps.portal.views.load_month_sources",
+        lambda month: MonthSources(month=month, gse={**gse, "mes": month}),
+    )
+    response = client.get(
+        "/operativa/facturabilidad/especialidad/",
+        {
+            "mes": "2026-07",
+            "roles": "1",
+            "rol": "ROC",
+            "especialidad_desde": "2026-01",
+            "especialidad_hasta": "2026-02",
+        },
+    )
+    assert [row.name for row in response.context["specialties"]] == ["ROC"]
+    assert response.context["selected"].variable_hours == 64
+    assert all(
+        set(month["roles"]) == {"ROC"}
+        for month in response.context["specialty_chart_months"]
+    )
 
 
 def test_facturability_period_year_quarter_and_month(client, monkeypatch):

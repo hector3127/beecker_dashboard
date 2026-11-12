@@ -182,7 +182,9 @@ class KpiSources:
         return result
 
 
-def load_kpi_sources(reader: SheetReader, today: date) -> KpiSources:
+def load_kpi_sources(
+    reader: SheetReader, today: date, *, include_history: bool = True
+) -> KpiSources:
     """Lee AER/T&M de MPB y otros servicios del historico sin usar Proyectos."""
     mpb_values = reader.read_values("MPB")
     header = find_mpb_header(mpb_values)
@@ -216,6 +218,8 @@ def load_kpi_sources(reader: SheetReader, today: date) -> KpiSources:
             )
         )
         managers[pid] = to_text(cell("manager")).strip()
+    if not include_history:
+        return KpiSources(dict(mpb), {}, {}, managers, today)
     history_values = [
         list(row[:10]) for row in reader.read_values("Historico_Proyectos")
     ]

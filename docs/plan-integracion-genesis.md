@@ -1064,3 +1064,25 @@ de Facturabilidad muestra las personas sin capacidad del periodo elegido.
 Las horas de proyectos se siguen leyendo de Clockify. Julio conserva las
 8,186 h del detalle. Las marcas azules del Excel señalan nombres y no fechas,
 por lo que falta confirmar el mes efectivo de salida de esos casos.
+
+### Cierres de Facturabilidad general y por especialidad (12/11/2026)
+
+La vista general lee enero–septiembre de 2026 del bloque Resumen 2026
+de «2. Capacity & Demand». La vista por especialidad lee diciembre de
+2025–septiembre de 2026 de «Indicadores PPT C-suite». Ambas consultan
+octubre desde el cierre conciliado de Clockify y Bandas/rol. Las versiones
+publicadas se conservan en `FacturabilityClose`.
+
+Para recuperar el histórico en una base nueva, aplica las migraciones y
+ejecuta `python manage.py import_facturability_closes "<ruta al Excel GSE>"`.
+Para publicar un nuevo mes, confirma la cobertura de ambas fuentes tras
+el fin de mes y ejecuta
+`python manage.py publish_facturability_close AAAA-MM --fuentes-completas`.
+La publicación comprueba el mes, la sincronización de Clockify y la
+plantilla. Una corrección confirmada se publica con `--revision "motivo"`.
+Puedes añadir `--csv "<ruta.csv>"` para exportar el desglose al conciliar.
+
+Por especialidad, QA agrupa TT & CR. Lab IA aporta cero desde agosto de
+2026. Los divisores completos de Q1, Q2 y Q3 de 2026 son 488, 488 y 480
+horas. La comparación AER de septiembre y octubre usa los registros
+Billable de Clockify con prefijo AER. y se muestra junto al resumen general.
