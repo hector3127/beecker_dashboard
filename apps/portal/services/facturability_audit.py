@@ -13,6 +13,10 @@ from apps.portal.services.facturability import (
     person_month_hours,
     role_key,
 )
+from apps.portal.services.facturability_corrections import (
+    corrected_source,
+    project_key,
+)
 from apps.portal.services.facturability_loader import read_gse_month
 
 
@@ -31,7 +35,7 @@ def audit_month(month: str, roles: frozenset[str]) -> dict[str, Any]:
             "ok": False,
             "error": gse.get("error") or "Fuente no disponible.",
         }
-    result = summarize(gse, roles)
+    result = summarize(corrected_source(gse, month), roles)
     close = (
         FacturabilityClose.objects.filter(month=day, view="general")
         .order_by("-revision")
@@ -52,14 +56,17 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
     """Agrupa las horas ya clasificadas por GSE; no recalcula indicadores."""
     people: dict[str, dict[str, Any]] = {}
     roster = gse.get("plantilla") or []
+    capacity_changes = gse.get("cambiosCapacidad") or {}
     for person in roster:
         role = str(person.get("rol") or "Sin rol")
         if role_key(role) not in roles:
             continue
         name = str(person.get("nombre") or "")
-        people[normalize_capacity_text(name)] = {
+        key = normalize_capacity_text(name)
+        people[key] = {
             "name": name,
             "role": role,
+            "capacity_changes": capacity_changes.get(key, []),
             "estimated": person.get(
                 "capacidad_horas",
                 person_month_hours(gse["mes"]) if gse.get("mes") else None,
@@ -71,8 +78,8 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
             "counted_services": defaultdict(float),
             "counted_hours": 0.0,
         }
-    projects: dict[tuple[str, str, str, str], float] = defaultdict(float)
-    excluded = []
+    projects: dict[tuple[str, str, str, str, tuple], float] = defaultdict(float)
+    excluded = {}
     for item in gse.get("detalle") or []:
         if normalize_capacity_text(item.get("proyecto")) == "comida":
             continue
@@ -107,21 +114,28 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
         classified = _detail_rows({**gse, "detalle": [item]}, roles)
         counted = bool(classified and classified[0]["billable"])
         if counted:
-            projects[(key, project, service, kind)] += hours
+            projects[
+                (key, project, service, kind, tuple(project_key(item)))
+            ] += hours
             person["counted_services"][service] += hours
             person["counted_hours"] += hours
         else:
-            excluded.append(
+            target = project_key(item)
+            row = excluded.setdefault(
+                tuple(target),
                 {
                     "name": name,
+                    "role": role,
                     "project": project,
                     "service": service,
-                    "hours": hours,
+                    "hours": 0.0,
+                    "target": target,
                     "reason": "Servicio fuera del indicador"
                     if BILLABLE in (item.get("categorias") or [])
                     else "Registro no facturable",
-                }
+                },
             )
+            row["hours"] += hours
         if adjustment:
             person["adjustment"] += hours
         else:
@@ -134,11 +148,13 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
             (
                 row
                 for row in people.values()
-                if (row["estimated"] or 0) != 0 or row["counted_hours"] != 0
+                if (row["estimated"] or 0) != 0
+                or row["counted_hours"] != 0
+                or row.get("capacity_changes")
             ),
             key=lambda row: row["name"],
         ),
-        "excluded": excluded,
+        "excluded": list(excluded.values()),
         "warnings": gse.get("avisos") or [],
         "unmatched": gse.get("sinArea") or [],
         "projects": [
@@ -148,8 +164,11 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
                 "project": project,
                 "service": service,
                 "kind": kind,
+                "target": target,
                 "hours": hours,
             }
-            for (key, project, service, kind), hours in sorted(projects.items())
+            for (key, project, service, kind, target), hours in sorted(
+                projects.items()
+            )
         ],
     }

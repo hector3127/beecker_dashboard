@@ -133,6 +133,97 @@ class FacturabilityAuditView(OperationsScreen):
             else frozenset({"dev", "qa", "arq", "ba", "sm"})
         )
         data = audit_month(month, roles)
+        data["can_edit"] = capability_permission(
+            "edit_operations", whole_portfolio=True
+        )().has_permission(request, self)
         if request.query_params.get("roles") == "1":
             data["published_summary"] = None
         return self.body(data)
+
+
+class FacturabilityCorrectionView(OperationsScreen):
+    """Guarda una corrección del desglose mensual."""
+
+    permission_classes = [
+        *OperationsScreen.permission_classes,
+        capability_permission("edit_operations", whole_portfolio=True),
+    ]
+
+    def post(self, request: Request) -> Response:
+        """Valida el cambio, guarda la revisión e invalida los resúmenes."""
+        from datetime import date
+
+        from django.core.cache import cache
+        from rest_framework import serializers
+        from rest_framework.exceptions import ValidationError
+
+        from apps.portal.constants import FACTURABILITY_CACHE_PREFIX
+        from apps.portal.services.facturability_corrections import (
+            save_correction,
+        )
+
+        class Correction(serializers.Serializer):
+            month = serializers.RegexField(r"^20[0-9]{2}-(0[1-9]|1[0-2])$")
+            kind = serializers.ChoiceField(choices=("capacity", "project"))
+            action = serializers.ChoiceField(
+                choices=("save", "delete", "reset")
+            )
+            person = serializers.CharField(max_length=255)
+            role = serializers.CharField(max_length=80, required=False)
+            project = serializers.CharField(max_length=255, required=False)
+            service = serializers.CharField(max_length=80, required=False)
+            billable = serializers.BooleanField(required=False)
+            hours = serializers.DecimalField(
+                max_digits=9, decimal_places=4, min_value=0, required=False
+            )
+            target = serializers.ListField(
+                required=False, min_length=5, max_length=5
+            )
+
+        serializer = Correction(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        change = dict(serializer.validated_data)
+        month = change.pop("month")
+        target = change.get("target")
+        if target and (
+            not all(isinstance(x, str) for x in target[:4])
+            or not isinstance(target[4], bool)
+        ):
+            raise ValidationError("Identificador de registro inválido.")
+        if change["kind"] == "capacity":
+            if change["action"] != "reset" and (
+                change["action"] != "save" or "hours" not in change
+            ):
+                raise ValidationError("Indica las horas estimadas.")
+        elif change["action"] == "reset":
+            raise ValidationError("Solo se puede restablecer la capacidad.")
+        elif change["action"] == "delete":
+            if not target:
+                raise ValidationError(
+                    "Selecciona el registro que deseas eliminar."
+                )
+        elif (
+            not {"role", "project", "service", "billable", "hours"}
+            <= change.keys()
+        ):
+            raise ValidationError("Completa los datos del registro.")
+        if "hours" in change:
+            change["hours"] = float(change["hours"])
+        try:
+            save_correction(
+                date.fromisoformat(month + "-01"),
+                change,
+                request.user.get_username()
+                if request.user.is_authenticated
+                else "",
+            )
+        except ValueError as error:
+            raise ValidationError(str(error)) from error
+        cache.delete_many(
+            [
+                FACTURABILITY_CACHE_PREFIX + month,
+                views._operations_summary_key(),
+                views._operations_summary_key() + ":fresh",
+            ]
+        )
+        return self.body({"ok": True})

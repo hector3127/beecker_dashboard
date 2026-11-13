@@ -556,3 +556,12 @@ class FacturabilityClose(models.Model):
                 name="facturability_close_revision_unique",
             )
         ]
+
+
+class FacturabilityCorrection(models.Model):
+    """Cambio manual aplicado al detalle mensual de facturabilidad."""
+
+    month = models.DateField(db_index=True)
+    payload = models.JSONField()
+    author = models.CharField(max_length=150, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)

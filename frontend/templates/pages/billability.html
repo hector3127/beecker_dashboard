@@ -61,15 +61,5 @@
 {% if no_roster %}<p class="note">Bandas/rol no trae banda para: {{ no_roster }}. En esos meses la capacidad usa a las personas con horas en GSE, porque no se conoce la plantilla vigente.</p>{% endif %}
 <p class="note">Los cierres publicados conservan las cifras de GSE. Para el detalle disponible, hasta septiembre de 2026 se cuentan las horas del proyecto según su servicio; desde octubre se usa la marca Billable de Clockify. El trabajo fijo corresponde a AER. % fijo = horas fijas ÷ capacidad; % variable = horas variables ÷ capacidad restante; global = horas facturables ÷ capacidad. FTE libre expresa el saldo de horas como personas equivalentes.</p>
 
-{% if aer_comparison %}<section class="card">
-  <h2>AER · Horas registradas en Clockify</h2>
-  <p>Mismo conjunto de {{ aer_comparison.projects }} proyectos con prefijo AER. y registros marcados Billable en ambos meses.</p>
-  <dl class="bill-aer-months">
-    {% for hours in aer_comparison.hours %}
-    <div><dt>{% if forloop.first %}Septiembre{% else %}Octubre{% endif %} 2026</dt>
-    <dd>{% if hours is not None %}{{ hours|floatformat:"2g" }} h{% else %}Pendiente{% endif %}</dd></div>
-    {% endfor %}
-  </dl>
-</section>{% endif %}
 {% endblock %}
 {% block scripts %}{{ audit_months|json_script:"specialty-audit-months" }}<script type="module" src="{% static 'app/scripts/pages/billability/main.js' %}"></script>{% endblock %}

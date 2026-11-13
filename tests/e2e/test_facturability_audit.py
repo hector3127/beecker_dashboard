@@ -18,6 +18,7 @@ def test_audit_tabs_search_and_escape(portal):
             json={
                 "data": {
                     "ok": True,
+                    "can_edit": True,
                     "published_summary": {
                         "capacity": 6456,
                         "fixed_hours": 4673.4,
@@ -49,6 +50,7 @@ def test_audit_tabs_search_and_escape(portal):
                             "estimated": 176,
                             "registered": 999,
                             "counted_hours": 84,
+                            "capacity_changes": [{"before": 168, "after": 176}],
                             "counted_services": {"AER": 84},
                             "adjustment": 0,
                             "services": {"AER": 84},
@@ -82,9 +84,26 @@ def test_audit_tabs_search_and_escape(portal):
     assert "params" not in query
     dialog = portal.get_by_role("dialog")
     expect(dialog).to_be_visible()
-    expect(dialog.locator(".audit-reconciliation")).to_contain_text("6,456.00")
-    expect(dialog.locator(".audit-reconciliation")).to_contain_text("4,673.40")
+    overview = dialog.get_by_role(
+        "button", name="Resumen y fuentes", exact=True
+    )
+    expect(overview).to_be_enabled()
+    expect(dialog.locator(".audit-overview")).not_to_be_visible()
+    overview.click()
+    expect(dialog.locator(".audit-overview")).to_be_visible()
+    expect(dialog.locator("div.audit-reconciliation")).to_contain_text(
+        "6,456.00"
+    )
+    expect(dialog.locator("div.audit-reconciliation")).to_contain_text(
+        "4,673.40"
+    )
+    dialog.get_by_role("button", name="Cerrar resumen").click()
+    expect(dialog.locator(".audit-overview")).not_to_be_visible()
     expect(dialog.get_by_role("cell", name="Ana", exact=True)).to_be_visible()
+    expect(dialog.get_by_role("cell", name="168.00 → 176.00 h")).to_be_visible()
+    expect(
+        dialog.get_by_role("cell", name="Sin cambios manuales")
+    ).to_be_visible()
     expect(dialog.locator(".audit-scroll tfoot")).to_contain_text("176.00")
     expect(dialog.locator(".audit-scroll tfoot")).to_contain_text("104.00")
     expect(
@@ -112,6 +131,45 @@ def test_audit_tabs_search_and_escape(portal):
     expect(dialog.locator(".audit-scroll tfoot")).not_to_contain_text("84.00")
     dialog.get_by_role("button", name="Limpiar filtros").click()
     expect(dialog.locator(".audit-scroll tfoot")).to_contain_text("84.00")
+    dialog.get_by_role("tab", name="Por persona").click()
+    ana = dialog.get_by_role("row").filter(has_text="Ana")
+    ana.get_by_role("button", name="Editar capacidad").click()
+    form = dialog.get_by_role("group", name="Editar capacidad estimada")
+    form.get_by_label("Horas").fill("168")
+    endpoint = "**/api/v1/screens/facturabilidad/correcciones/"
+    portal.route(
+        endpoint, lambda route: route.fulfill(json={"data": {"ok": True}})
+    )
+    with portal.expect_request(endpoint) as correction:
+        form.get_by_role("button", name="Guardar").click()
+    assert correction.value.post_data_json == {
+        "month": "2026-02",
+        "kind": "capacity",
+        "action": "save",
+        "person": "Ana",
+        "hours": "168",
+    }
+    expect(form).not_to_be_visible()
+    ana.get_by_role("button", name="Editar capacidad").click()
+    restore = form.get_by_role("button", name="Restablecer capacidad")
+    expect(form.get_by_text("Capacidad original: 168.00 h")).to_be_visible()
+    portal.once("dialog", lambda confirmation: confirmation.accept())
+    with portal.expect_request(endpoint) as correction:
+        restore.click()
+    assert correction.value.post_data_json == {
+        "month": "2026-02",
+        "kind": "capacity",
+        "action": "reset",
+        "person": "Ana",
+    }
+    expect(form).not_to_be_visible()
+    portal.set_viewport_size({"width": 390, "height": 740})
+    expect(dialog.get_by_role("button", name="Cerrar modal")).to_be_visible()
+    assert (
+        dialog.evaluate("(node) => node.getBoundingClientRect().width") <= 390
+    )
+    scroll = dialog.get_by_role("region", name="Tabla del desglose")
+    assert scroll.evaluate("(node) => node.scrollWidth > node.clientWidth")
     portal.keyboard.press("Escape")
     expect(dialog).not_to_be_visible()
-    expect(trigger).to_be_focused()
+    expect(trigger).to_be_visible()

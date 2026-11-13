@@ -138,3 +138,117 @@ def test_audit_uses_summary_service_scope_and_includes_adjustments():
     assert person["counted_hours"] == 289
     assert sum(row["hours"] for row in audit["projects"]) == 289
     assert len(audit["excluded"]) == 4
+
+
+@pytest.mark.django_db
+def test_manual_changes_revise_published_totals(client, monkeypatch):
+    from datetime import date
+    from unittest.mock import Mock
+
+    from apps.datastore.models import (
+        FacturabilityClose,
+        FacturabilityCorrection,
+    )
+    from apps.portal.services import facturability_corrections as corrections
+
+    month = date(2026, 10, 1)
+    raw = {
+        "ok": True,
+        "mes": "2026-10",
+        "capacidadInicial": True,
+        "plantilla": [{"nombre": "Ana", "rol": "DEV", "capacidad_horas": 176}],
+        "detalle": [],
+    }
+    sync = Mock()
+    locked = sync.objects.select_for_update.return_value
+    locked.filter.return_value.first.return_value = True
+    monkeypatch.setattr(corrections, "ClockifyMonthSync", sync)
+    monkeypatch.setattr(
+        "apps.portal.services.facturability_loader.read_gse_month",
+        lambda *args, **kwargs: raw,
+    )
+    close = FacturabilityClose.objects.filter(month=month, view="general")
+    original = close.latest("revision")
+    url = "/api/v1/screens/facturabilidad/correcciones/"
+
+    def post(**data):
+        response = client.post(
+            url,
+            {"month": "2026-10", "person": "Ana", **data},
+            content_type="application/json",
+        )
+        assert response.status_code == 200, response.content
+
+    post(kind="capacity", action="save", hours=168)
+    saved = FacturabilityCorrection.objects.get(month=month)
+    assert saved.payload["previous_hours"] == 176
+    corrected = corrections.corrected_source(
+        {**raw, "plantilla": [{**raw["plantilla"][0], "capacidad_horas": 160}]},
+        "2026-10",
+    )
+    person = summarize(corrected, frozenset({"dev"}))["people"][0]
+    assert person["estimated"] == 168
+    assert person["capacity_changes"] == [{"before": 176, "after": 168}]
+    post(
+        kind="project",
+        action="save",
+        role="DEV",
+        project="AER.TEST",
+        service="AER",
+        hours=12,
+        billable=True,
+    )
+    revised = close.latest("revision").metrics
+    assert revised["capacity"] == original.metrics["capacity"] - 8
+    assert revised["fixed_hours"] == original.metrics["fixed_hours"] + 12
+    target = ["ana", "AER.TEST", "AER", "dev", True]
+    post(
+        kind="project",
+        action="save",
+        role="DEV",
+        project="AER.TEST",
+        service="AER",
+        hours=20,
+        billable=True,
+        target=target,
+    )
+    assert (
+        close.latest("revision").metrics["fixed_hours"]
+        == original.metrics["fixed_hours"] + 20
+    )
+    post(kind="project", action="delete", target=target)
+    assert (
+        close.latest("revision").metrics["fixed_hours"]
+        == original.metrics["fixed_hours"]
+    )
+    assert FacturabilityCorrection.objects.filter(month=month).count() == 4
+    assert close.get(pk=original.pk).metrics == original.metrics
+
+    # A second edit still restores the original, even if the source changed.
+    post(kind="capacity", action="save", hours=152)
+    raw["plantilla"][0]["capacidad_horas"] = 160
+    post(kind="capacity", action="reset")
+    restored = close.latest("revision").metrics
+    assert restored["capacity"] == original.metrics["capacity"]
+    assert restored["fixed_hours"] == original.metrics["fixed_hours"]
+    person = summarize(
+        corrections.corrected_source(raw, "2026-10"), frozenset({"dev"})
+    )["people"][0]
+    assert person["estimated"] == 176
+    assert person["capacity_changes"][-1] == {
+        "before": 152,
+        "after": 176,
+        "reset": True,
+    }
+    response = client.post(
+        url,
+        {
+            "month": "2026-10",
+            "person": "Ana",
+            "kind": "capacity",
+            "action": "reset",
+        },
+        content_type="application/json",
+    )
+    assert response.status_code == 400
+    assert FacturabilityCorrection.objects.filter(month=month).count() == 6

@@ -166,7 +166,18 @@ def load_month_sources(month: str) -> MonthSources:
     if isinstance(cached, MonthSources):
         return cached
 
-    gse = read_gse_month(month)
+    from apps.datastore.models import FacturabilityCorrection
+    from apps.datastore.services.stored_base import month_start
+    from apps.portal.services.facturability_corrections import corrected_source
+
+    corrected = FacturabilityCorrection.objects.filter(
+        month=month_start(month)
+    ).exists()
+    gse = (
+        read_gse_month(month, from_store=corrected)
+        if corrected
+        else read_gse_month(month)
+    )
 
     if gse.get("ok") is not True:
         error = f"GSE: {gse.get('error') or 'sin datos'}"
@@ -174,6 +185,8 @@ def load_month_sources(month: str) -> MonthSources:
 
         return MonthSources(month=month, error=error)
 
+    if corrected:
+        gse = corrected_source(gse, month)
     people = gse.get("plantilla")
     if isinstance(people, list):
         gse = apply_roster(gse, people)
