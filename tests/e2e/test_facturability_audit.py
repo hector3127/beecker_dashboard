@@ -1,5 +1,7 @@
 """Consulta de las dos hojas del desglose en el navegador."""
 
+from urllib.parse import parse_qs, urlparse
+
 import pytest
 from playwright.sync_api import expect
 
@@ -48,7 +50,13 @@ def test_audit_tabs_search_and_escape(portal):
     trigger = portal.get_by_role(
         "button", name="Consultar personas y proyectos"
     )
-    trigger.click()
+    with portal.expect_request(
+        "**/api/v1/screens/facturabilidad/desglose/**"
+    ) as pending:
+        trigger.click()
+    query = parse_qs(urlparse(pending.value.url).query)
+    assert query["mes"] == ["2026-02"]
+    assert "params" not in query
     dialog = portal.get_by_role("dialog")
     expect(dialog).to_be_visible()
     expect(dialog.get_by_role("cell", name="Ana", exact=True)).to_be_visible()

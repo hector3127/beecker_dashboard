@@ -74,9 +74,9 @@ export function bindAudit() {
     source.textContent = '';
     const params = new URLSearchParams(location.search);
     try {
-      const response = await apiGet('screens/facturabilidad/desglose/', {params: {
+      const response = await apiGet('screens/facturabilidad/desglose/', {
         mes: month.value, roles: params.get('roles'), rol: params.getAll('rol'),
-      }});
+      });
       if (current !== sequence) return;
       if (!response.data.ok) throw new Error(response.data.error);
       data = response.data;

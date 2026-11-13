@@ -1179,3 +1179,7 @@ identifica su revisión y fecha de sincronización, y avisa nombres sin vínculo
 No reconstruye un desglose histórico de personas desde un cierre agregado.
 Tres pruebas backend, una de navegador y Ruff de archivos propios aprobados.
 Solo Dashboard local; pendiente trasladar a Genesis. Sin push.
+
+Corrección del modal: apiGet recibe los parámetros directamente como segundo
+argumento. La prueba de navegador valida mes en la URL para impedir
+params=[object Object] y el error 400.
