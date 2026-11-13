@@ -8,6 +8,7 @@ from apps.capacidad.services.capacity_text import normalize_capacity_text
 from apps.datastore.models import ClockifyMonthSync, FacturabilityClose
 from apps.gse.constants import BILLABLE
 from apps.portal.services.facturability import (
+    _detail_rows,
     normalize_service,
     person_month_hours,
     role_key,
@@ -67,8 +68,11 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
             "adjustment": 0.0,
             "services": defaultdict(float),
             "billable_services": defaultdict(float),
+            "counted_services": defaultdict(float),
+            "counted_hours": 0.0,
         }
     projects: dict[tuple[str, str, str, str], float] = defaultdict(float)
+    excluded = []
     for item in gse.get("detalle") or []:
         if normalize_capacity_text(item.get("proyecto")) == "comida":
             continue
@@ -87,6 +91,8 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
                 "adjustment": 0.0,
                 "services": defaultdict(float),
                 "billable_services": defaultdict(float),
+                "counted_services": defaultdict(float),
+                "counted_hours": 0.0,
             },
         )
         project = str(item.get("proyecto") or "Sin proyecto")
@@ -98,7 +104,24 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
         hours = float(item.get("horas") or 0)
         adjustment = project == "Ajuste aprobado de octubre"
         kind = "Ajuste aprobado" if adjustment else "Horas registradas"
-        projects[(key, project, service, kind)] += hours
+        classified = _detail_rows({**gse, "detalle": [item]}, roles)
+        counted = bool(classified and classified[0]["billable"])
+        if counted:
+            projects[(key, project, service, kind)] += hours
+            person["counted_services"][service] += hours
+            person["counted_hours"] += hours
+        else:
+            excluded.append(
+                {
+                    "name": name,
+                    "project": project,
+                    "service": service,
+                    "hours": hours,
+                    "reason": "Servicio fuera del indicador"
+                    if BILLABLE in (item.get("categorias") or [])
+                    else "Registro no facturable",
+                }
+            )
         if adjustment:
             person["adjustment"] += hours
         else:
@@ -107,7 +130,15 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
             if BILLABLE in (item.get("categorias") or []):
                 person["billable_services"][service] += hours
     return {
-        "people": sorted(people.values(), key=lambda row: row["name"]),
+        "people": sorted(
+            (
+                row
+                for row in people.values()
+                if (row["estimated"] or 0) != 0 or row["counted_hours"] != 0
+            ),
+            key=lambda row: row["name"],
+        ),
+        "excluded": excluded,
         "warnings": gse.get("avisos") or [],
         "unmatched": gse.get("sinArea") or [],
         "projects": [

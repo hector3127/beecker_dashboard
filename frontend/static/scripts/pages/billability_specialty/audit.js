@@ -35,7 +35,7 @@ export function bindAudit() {
   const retry = el('button', {type: 'button', text: 'Volver a consultar', onclick: load});
   const dialog = el('dialog', {class: 'specialty-audit', 'aria-labelledby': 'audit-title'},
     el('header', {}, title, el('button', {type: 'button', text: 'Cerrar ×', onclick: close})),
-    el('p', {text: 'Consulta de solo lectura. Horas facturables y no facturables, sin Comida. Los ajustes aprobados se identifican por separado. Se ocultan las filas con todas las horas en cero; — indica capacidad no disponible.'}),
+    el('p', {text: 'Consulta de solo lectura. Solo horas facturables incluidas por las reglas del resumen, sin Comida ni servicios excluidos. Los ajustes aprobados ya están incluidos en AER y en las horas consideradas; su columna es informativa y no debe sumarse otra vez. Se ocultan las filas con todas las horas en cero; — indica capacidad no disponible.'}),
     el('div', {class: 'audit-controls'}, el('label', {}, 'Mes ', month), search, el('button', {type: 'button', text: 'Limpiar filtros', onclick: () => {search.value = ''; filters[active].clear(); render();}}), retry),
     source, reconciliation, status, el('div', {role: 'tablist', 'aria-label': 'Desglose de horas'}, ...tabs), panel,
     el('footer', {}, el('span', {text: 'Esc para cerrar · Modifica los registros en su fuente de origen.'}), el('button', {type: 'button', text: 'Cerrar', onclick: close})),
@@ -63,7 +63,7 @@ export function bindAudit() {
     if (data.published_summary) {
       const published = data.published_summary;
       const estimates = data.people.reduce((sum, row) => sum + (row.estimated || 0), 0);
-      const aer = data.people.reduce((sum, row) => sum + ((row.billable_services || row.services).AER || 0) + row.adjustment, 0);
+      const aer = data.people.reduce((sum, row) => sum + ((row.counted_services || row.billable_services || row.services).AER || 0) + (row.counted_services ? 0 : row.adjustment), 0);
       const reference = [
         ['Capacidad estimada', published.capacity, estimates],
         ['AER facturable + ajustes aprobados', published.fixed_hours, aer],
@@ -78,10 +78,10 @@ export function bindAudit() {
     const normalize = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     const query = normalize(search.value);
     const labels = active ? ['Persona', 'Rol', 'Proyecto en GSE', 'Servicio asociado', 'Origen', 'Horas registradas / ajuste'] :
-      ['Persona', 'Rol', 'Estimadas (h)', 'Registradas (h)', 'AER facturable (h)', 'IXB facturable (h)', 'RaaS facturable (h)', 'SaaS facturable (h)', 'T&M facturable (h)', 'Otros facturables (h)', 'Ajustes aprobados (h)'];
+      ['Persona', 'Rol', 'Estimadas (h)', 'Facturables consideradas (h)', 'AER facturable (h)', 'IXB facturable (h)', 'RaaS facturable (h)', 'SaaS facturable (h)', 'T&M facturable (h)', 'Otros facturables (h)', 'Ajustes incluidos (h)'];
     const values = row => active ? [row.name, row.role, row.project, row.service, row.kind, row.hours] :
-      [row.name, row.role, row.estimated, row.registered, ...['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].map(key => (row.billable_services || row.services)[key] || 0),
-        Object.entries(row.billable_services || row.services).reduce((sum, [key, value]) => sum + (['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].includes(key) ? 0 : value), 0), row.adjustment];
+      [row.name, row.role, row.estimated, row.counted_hours ?? row.registered, ...['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].map(key => (row.counted_services || row.billable_services || row.services)[key] || 0),
+        Object.entries(row.counted_services || row.billable_services || row.services).reduce((sum, [key, value]) => sum + (['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].includes(key) ? 0 : value), 0), row.adjustment];
     const numericFrom = active ? 5 : 2;
     const display = (value, index) => index >= numericFrom ? hours(value) : value;
     const all = (active ? data.projects : data.people).map(values)

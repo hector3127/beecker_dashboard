@@ -18,6 +18,7 @@ def test_person_and_projects_balance_without_food_or_adjustments():
                 "proyecto": "AER.A",
                 "servicio": "AER",
                 "horas": 10.125,
+                "categorias": ["Facturable"],
             },
             {
                 "recurso": "Ana",
@@ -25,6 +26,7 @@ def test_person_and_projects_balance_without_food_or_adjustments():
                 "proyecto": "AER.A",
                 "servicio": "AER",
                 "horas": 2,
+                "categorias": ["Facturable"],
             },
             {
                 "recurso": "Ana",
@@ -39,6 +41,7 @@ def test_person_and_projects_balance_without_food_or_adjustments():
                 "proyecto": "Ajuste aprobado de octubre",
                 "servicio": "AER",
                 "horas": 86,
+                "categorias": ["Facturable"],
             },
             {
                 "recurso": "ROC",
@@ -92,3 +95,46 @@ def test_missing_download_is_pending_without_calling_sources(monkeypatch):
     result = facturability_audit.audit_month("2099-01", frozenset({"dev"}))
     assert not result["ok"]
     assert "descarga" in result["error"]
+
+
+def test_audit_uses_summary_service_scope_and_includes_adjustments():
+    from apps.portal.services.facturability import build_month_facturability
+    from apps.portal.services.facturability_loader import facturable_services
+
+    detail = [
+        {
+            "recurso": "Ana",
+            "area": "DEV",
+            "proyecto": project,
+            "servicio": service,
+            "horas": hours,
+            "categorias": ["Facturable"],
+        }
+        for project, service, hours in (
+            ("AER.A", "AER", 100),
+            ("Ajuste aprobado de octubre", "AER", 86),
+            ("IXB.A", "IxB", 20),
+            ("ROC.A", "ROC", 164),
+            ("RAAS.SAC.001", "ROC RaaS", 12),
+            ("SaaS.A", "SaaS", 0.5),
+            ("Proyecto sin servicio", "NA", 40),
+            ("Pre ventas", "Otros", 83),
+        )
+    ]
+    gse = {
+        "mes": "2026-10",
+        "detalle": detail,
+        "serviciosFacturables": facturable_services("2026-10"),
+        "plantilla": [{"nombre": "Ana", "rol": "DEV", "capacidad_horas": 176}],
+    }
+    scope = frozenset({"dev"})
+    audit = summarize(gse, scope)
+    summary = build_month_facturability("2026-10", gse, scope=(scope, None))
+    person = audit["people"][0]
+    assert person["counted_services"]["AER"] == summary.fixed_hours == 186
+    assert (
+        person["counted_hours"] == summary.fixed_hours + summary.variable_hours
+    )
+    assert person["counted_hours"] == 289
+    assert sum(row["hours"] for row in audit["projects"]) == 289
+    assert len(audit["excluded"]) == 4
