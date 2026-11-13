@@ -1183,3 +1183,5 @@ Solo Dashboard local; pendiente trasladar a Genesis. Sin push.
 Corrección del modal: apiGet recibe los parámetros directamente como segundo
 argumento. La prueba de navegador valida mes en la URL para impedir
 params=[object Object] y el error 400.
+
+El modal incorpora filtros por columna en ambas pestañas, limpieza de filtros y total filtrado fijo al pie. Sumas sin redondeo intermedio; presentación a dos decimales y aviso cuando faltan capacidades. Prueba de navegador de filtros y totales aprobada.

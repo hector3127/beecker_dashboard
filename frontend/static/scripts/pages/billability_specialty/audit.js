@@ -1,7 +1,7 @@
 import { apiGet } from '#app/data/api-client.js';
 import { el } from '#app/lib/dom.js';
 
-const format = new Intl.NumberFormat('es-MX', {maximumFractionDigits: 2});
+const format = new Intl.NumberFormat('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 const hours = value => value == null ? '—' : format.format(value);
 
 export function bindAudit() {
@@ -11,6 +11,7 @@ export function bindAudit() {
   let data = null;
   let active = 0;
   let sequence = 0;
+  const filters = [new Map(), new Map()];
   const title = el('h2', {id: 'audit-title', text: 'Personas y proyectos · Facturabilidad'});
   const month = el('select', {'aria-label': 'Mes del desglose'}, ...months.map(key => el('option', {value: key, text: key})));
   month.value = months.at(-1) || '';
@@ -34,7 +35,7 @@ export function bindAudit() {
   const dialog = el('dialog', {class: 'specialty-audit', 'aria-labelledby': 'audit-title'},
     el('header', {}, title, el('button', {type: 'button', text: 'Cerrar ×', onclick: close})),
     el('p', {text: 'Consulta de solo lectura. Horas facturables y no facturables, sin Comida. Los ajustes aprobados se identifican por separado. Se incluyen personas con capacidad cero para revisar sus registros; — indica capacidad no disponible.'}),
-    el('div', {class: 'audit-controls'}, el('label', {}, 'Mes ', month), search, retry),
+    el('div', {class: 'audit-controls'}, el('label', {}, 'Mes ', month), search, el('button', {type: 'button', text: 'Limpiar filtros', onclick: () => {search.value = ''; filters[active].clear(); render();}}), retry),
     source, status, el('div', {role: 'tablist', 'aria-label': 'Desglose de horas'}, ...tabs), panel,
     el('footer', {}, el('span', {text: 'Esc para cerrar · Modifica los registros en su fuente de origen.'}), el('button', {type: 'button', text: 'Cerrar', onclick: close})),
   );
@@ -52,22 +53,49 @@ export function bindAudit() {
     panel.setAttribute('aria-labelledby', `audit-tab-${active}`);
     table.replaceChildren();
     if (!data) return;
-    const query = search.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-    const rows = (active ? data.projects : data.people).filter(row =>
-      Object.values(row).join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(query));
+    const normalize = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const query = normalize(search.value);
     const labels = active ? ['Persona', 'Rol', 'Proyecto en GSE', 'Servicio asociado', 'Origen', 'Horas registradas / ajuste'] :
       ['Persona', 'Rol', 'Estimadas (h)', 'Registradas (h)', 'AER (h)', 'IXB (h)', 'RaaS (h)', 'SaaS (h)', 'T&M (h)', 'Otros (h)', 'Ajustes aprobados (h)'];
-    const values = row => active ? [row.name, row.role, row.project, row.service, row.kind, hours(row.hours)] :
-      [row.name, row.role, hours(row.estimated), hours(row.registered), ...['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].map(key => hours(row.services[key] || 0)),
-        hours(Object.entries(row.services).reduce((sum, [key, value]) => sum + (['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].includes(key) ? 0 : value), 0)), hours(row.adjustment)];
-    const body = el('tbody', {}, ...rows.map(row => el('tr', {}, ...values(row).map(value => el('td', {text: value})))));
+    const values = row => active ? [row.name, row.role, row.project, row.service, row.kind, row.hours] :
+      [row.name, row.role, row.estimated, row.registered, ...['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].map(key => row.services[key] || 0),
+        Object.entries(row.services).reduce((sum, [key, value]) => sum + (['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].includes(key) ? 0 : value), 0), row.adjustment];
+    const numericFrom = active ? 5 : 2;
+    const display = (value, index) => index >= numericFrom ? hours(value) : value;
+    const all = (active ? data.projects : data.people).map(values);
+    const rows = all.filter(row => row.some(value => normalize(value).includes(query)) &&
+      [...filters[active]].every(([index, value]) => String(row[index] ?? '—') === value));
+    const headings = labels.map((text, index) => {
+      const options = [...new Set(all.map(row => String(row[index] ?? '—')))];
+      options.sort((a, b) => index >= numericFrom && a !== '—' && b !== '—' ? Number(a) - Number(b) : a.localeCompare(b, 'es'));
+      const select = el('select', {'aria-label': `Filtrar ${text}`, onchange: event => {
+        if (event.target.value) filters[active].set(index, event.target.value);
+        else filters[active].delete(index);
+        render();
+      }}, el('option', {value: '', text: 'Todos'}), ...options.map(value => el('option', {
+        value, text: index >= numericFrom && value !== '—' ? hours(Number(value)) : value,
+      })));
+      select.value = filters[active].get(index) || '';
+      return el('th', {scope: 'col'}, el('span', {text}), select);
+    });
+    const body = el('tbody', {}, ...rows.map(row => el('tr', {}, ...row.map((value, index) => el('td', {text: display(value, index)})))));
     if (!rows.length) body.append(el('tr', {}, el('td', {colspan: labels.length, text: 'Sin coincidencias para este mes, áreas y búsqueda.'})));
-    table.append(el('table', {}, el('thead', {}, el('tr', {}, ...labels.map(text => el('th', {scope: 'col', text})))), body));
-    status.textContent = `${rows.length} ${active ? 'registros agrupados por proyecto y servicio' : 'personas'} · ${month.value}`;
+    const totals = labels.map((_, index) => {
+      if (index === 0) return el('th', {scope: 'row', text: 'Total filtrado'});
+      if (index < numericFrom) return el('td');
+      const known = rows.map(row => row[index]).filter(value => typeof value === 'number');
+      const total = known.reduce((sum, value) => sum + value, 0);
+      return el('td', {text: known.length ? hours(total) : '—', title: known.length < rows.length ? 'Suma de valores disponibles; hay datos pendientes.' : 'Suma de las filas filtradas'});
+    });
+    table.append(el('table', {}, el('thead', {}, el('tr', {}, ...headings)), body,
+      el('tfoot', {}, el('tr', {}, ...totals))));
+    status.textContent = `${rows.length} de ${all.length} ${active ? 'registros agrupados por proyecto y servicio' : 'personas'} · ${month.value} · Totales de las filas visibles`;
+
   }
 
   async function load() {
     const current = ++sequence;
+    filters.forEach(filter => filter.clear());
     data = null; render();
     status.textContent = 'Cargando desglose…';
     panel.setAttribute('aria-busy', 'true');

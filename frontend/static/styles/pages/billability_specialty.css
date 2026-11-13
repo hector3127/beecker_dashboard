@@ -130,3 +130,7 @@ body.specialty-page{background:radial-gradient(ellipse at 70% 0,#faf8ff,#f2f3ff)
 @media(max-width:600px) {.specialty-audit {padding:14px}.specialty-audit h2 {font-size:18px}.audit-controls input {max-width:100%;box-sizing:border-box}}
 
 body:has(.specialty-audit[open]) {overflow:hidden}
+
+.specialty-audit th select {display:block;max-width:200px;width:100%;min-width:80px;margin-top:6px;padding:5px;font-size:12px}
+.specialty-audit tfoot th,.specialty-audit tfoot td {position:sticky;bottom:0;background:#e9dffb;font-weight:700;border-top:2px solid #9c76ef;z-index:2}
+.specialty-audit tfoot th {text-align:left}
