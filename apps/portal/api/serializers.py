@@ -270,6 +270,7 @@ def operativa_screen(
             "health": _health(summary.health),
         },
         "service_distribution": context.get("service_distribution"),
+        "health_alerts": context.get("health_alerts", []),
         "portfolio_total": context.get("portfolio_total"),
         "health_states": [
             {

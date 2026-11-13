@@ -856,3 +856,7 @@ body.executive-page .page { max-width: none; padding: 0; }
 
 /* Apertura desde el encabezado, sin indicador adicional +/−. */
 .executive-page .indicator-glossary>summary::after{content:none;display:none}
+
+/* Business Overview: un único rango de fechas. */
+.executive-picker #executive-period-form{width:min(820px,calc(100vw - 32px));grid-template-columns:minmax(0,1fr)}
+.executive-picker .picker-main>.picker-selected{border:0;padding:0;margin-bottom:18px}

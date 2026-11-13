@@ -1086,3 +1086,41 @@ Por especialidad, QA agrupa TT & CR. Lab IA aporta cero desde agosto de
 2026. Los divisores completos de Q1, Q2 y Q3 de 2026 son 488, 488 y 480
 horas. La comparación AER de septiembre y octubre usa los registros
 Billable de Clockify con prefijo AER. y se muestra junto al resumen general.
+
+
+### Traspaso: paridad local y Genesis — 12/11/2026, segunda revisión
+
+Se portaron el calendario Desde–Hasta, ETC y avance sobre capacidad, los motivos de salud
+con modal En riesgo/Críticos, la consulta de cierres publicados, trimestre/rango por especialidad
+y ROC opcional desactivado inicialmente, sin incorporar R&D al elegir solo ROC.
+
+Los históricos aprobados ahora están en `dashboard_management/data/approved_history.json`.
+`instalar_historicos_dm` y el paso `historicos` de sincronización instalan únicamente meses
+faltantes de Facturabilidad, KPI DM y capacidad de referencia. No necesitan el Excel y no
+sobrescriben meses existentes. La migración 0009 aplica la revisión aprobada de octubre.
+Este registro sustituye el pendiente anterior sobre consulta trimestral y migración 0007.
+
+Se respaldó SQLite antes de importar los grupos de Management del dashboard local. Las 26
+tablas importadas coinciden fila por fila por SHA-256 normalizado: 540,132 registros Clockify,
+228,086 work items y 782,304 revisiones Azure, entre otras. Los 21 cierres vigentes de
+Facturabilidad coinciden por contenido; octubre general: capacidad 6,456 h y 92.20%.
+Se conservaron las revisiones existentes del destino, sin sustituir usuarios, sesiones, ai_hub o Lin.
+Evidencia local: `C:/beecker_dashboard/tmp/genesis-data-parity-20261112.json` y
+`C:/beecker_dashboard/tmp/genesis-close-parity-20261112.json`.
+
+Validación: suite completa `uv run pytest dashboard_management/tests -q --no-cov` exit 0;
+8 pruebas de paridad/históricos/ROC y 15 de filtros/calendario/modal/tablas aprobadas.
+`ruff check . ../scripts` y eslint completos pasan; mypy de los cuatro archivos propios
+verificados pasa. OpenAPI regenerado y `generar-openapi.sh --check` pasa, igual que
+`check_docs_commands.py`. Compilación Vite y tres comprobaciones de rutas SPA pasan.
+
+Límites del gate: no existe make en Windows; pnpm gate se detiene por formato de 166 archivos
+preexistentes, sin reformatear el repositorio. pnpm verify pasa rutas pero su asignación POSIX
+de variable falla en Windows; compilación equivalente con variable PowerShell pasa.
+Mypy global reporta diez errores en cuatro archivos (incluye señales POSIX en ai_hub y código
+anterior de Management). La corrida frontend completa inicial dio 432 aprobadas/32 fallidas;
+se corrigieron los casos del calendario/filtros de este cambio, pero no se declara esa suite
+global verde. Verify backend dio 489 aprobadas, dos omitidas y cuatro fallidas en ai_hub:
+una de llamadas y tres de reproducibilidad OpenAPI (lectura de subprocess en Windows).
+La revisión visual quedó bloqueada por la política de acceso del navegador. No se modificó
+ai_hub/Lin ni se hizo push o despliegue.

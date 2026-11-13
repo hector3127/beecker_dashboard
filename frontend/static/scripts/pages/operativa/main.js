@@ -192,6 +192,7 @@ function applyBlock(block, data) {
     Object.assign(view, {
       summary: data.summary,
       service_distribution: data.service_distribution,
+      health_alerts: data.health_alerts,
       portfolio_total: data.portfolio_total,
       health_states: data.health_states,
       consumption_pending: data.consumption_pending,

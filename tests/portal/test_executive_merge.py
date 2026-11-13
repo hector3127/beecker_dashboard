@@ -61,6 +61,15 @@ def test_operations_preserves_exact_cr_id_dates_and_cached_consumption(
         "end": "2026-01-31",
     }
     monkeypatch.setattr(operations, "population", lambda: [project])
+    monkeypatch.setattr(
+        operations,
+        "global_facturability",
+        lambda: {
+            "facturability_capacity": 100,
+            "capacity_months": ["2026-01"],
+            "facturability_partial": False,
+        },
+    )
     loader = Mock()
     loader.load_project.return_value = [
         TimeEntry(

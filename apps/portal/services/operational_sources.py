@@ -103,6 +103,25 @@ def eva_projects(ixb: Any, aer: Any) -> Any:
             if days is None or (days <= 30 and few_hours)
             else "A tiempo"
         )
+        reasons = []
+        if over_hours:
+            reasons.append(
+                f"Consumo de {p.burn:g} h superior "
+                f"al presupuesto de {p.budget:g} h."
+            )
+        if days is not None and days < 0:
+            reasons.append(f"Fecha de fin vencida hace {abs(days)} días.")
+        if health == "En Riesgo":
+            if days is None:
+                reasons.append(
+                    "Sin fecha de fin confirmada; no se puede validar el plazo."
+                )
+            else:
+                reasons.append(
+                    f"Quedan {days} días para finalizar "
+                    f"y solo {p.budget - p.burn:g} h "
+                    f"de {p.budget:g} h de presupuesto (10% o menos)."
+                )
         result.append(
             ProjectView(
                 p.project_id,
@@ -118,6 +137,7 @@ def eva_projects(ixb: Any, aer: Any) -> Any:
                 p.budget,
                 p.burn or 0,
                 p.etc or 0,
+                " ".join(reasons),
             )
         )
     return result

@@ -33,7 +33,7 @@ TERMINAL = {
 def burn_key(project: dict[str, Any]) -> str:
     """Cache por ID exacto y periodo de ejecucion."""
     return (
-        "portal:executive-operations:burn:v3:"
+        "portal:executive-operations:burn:v4:"
         + cache_suffix()
         + hashlib.sha256(
             str(
@@ -85,11 +85,13 @@ def _project_burn(project: dict[str, Any]) -> dict[str, Any]:
     )
     metric_entries = {}
     for e in entries:
+        entry_date = e.entry_date or e.started_at
         identity = e.entry_id or str(
             (e.resource_name, e.started_at, e.duration_hours, e.task_name)
         )
         metric_entries[identity] = {
             "hours": e.duration_hours,
+            "month": entry_date.strftime("%Y-%m") if entry_date else None,
             "billable": e.is_billable,
             "operational": "operational" in investment_categories(e.tags),
         }
@@ -115,6 +117,11 @@ def global_facturability(prepare: bool = False) -> dict[str, Any]:
         default_role_keys,
         list_roles,
     )
+    from apps.portal.services.facturability_closes import (
+        GENERAL,
+        general_metric,
+        published_months,
+    )
     from apps.portal.services.facturability_loader import (
         load_month_sources,
         peek_month_sources,
@@ -134,16 +141,19 @@ def global_facturability(prepare: bool = False) -> dict[str, Any]:
         if first <= cutoff
         else []
     )
-    sources = [
-        (load_month_sources(m) if prepare else peek_month_sources(m))
+    published = published_months(GENERAL, months)
+    sources = {
+        m: (load_month_sources(m) if prepare else peek_month_sources(m))
         for m in months
-    ]
+        if m not in published
+    }
     roles = default_role_keys(
-        list_roles(item.gse for item in sources if item is not None)
+        list_roles(item.gse for item in sources.values() if item is not None)
     )
     capacity = billable = 0.0
     pending = []
-    for month, item in zip(months, sources, strict=True):
+    covered = []
+    for month in months:
         # GSE aggregates a whole month; never show an exact daily slice.
         if (month == first.strftime("%Y-%m") and first.day != 1) or (
             month == cutoff.strftime("%Y-%m")
@@ -152,14 +162,19 @@ def global_facturability(prepare: bool = False) -> dict[str, Any]:
         ):
             pending.append(month)
             continue
-        if item is None or item.error or not item.gse:
+        item = sources.get(month)
+        if month in published:
+            metric = general_metric(month, published[month])
+        elif item is None or item.error or not item.gse:
             pending.append(month)
             continue
-        metric = build_month_facturability(
-            month, item.gse, item.error, (roles, cutoff)
-        )
+        else:
+            metric = build_month_facturability(
+                month, item.gse, item.error, (roles, cutoff)
+            )
         capacity += metric.capacity
         billable += metric.fixed_hours + metric.variable_hours
+        covered.append(month)
     return {
         "facturability": round(billable / capacity * 100, 2)
         if capacity
@@ -171,6 +186,7 @@ def global_facturability(prepare: bool = False) -> dict[str, Any]:
         "facturability_partial": bool(pending or last > today),
         "facturability_billable_hours": round(billable, 2),
         "facturability_capacity": round(capacity, 2),
+        "capacity_months": covered,
     }
 
 
@@ -179,7 +195,6 @@ def operations_summary() -> dict[str, Any]:
     projects = population()
     budget = 0
     burn = 0
-    paired_budget = 0
     pending: list[str] = []
     known = 0
     missing_budget = 0
@@ -201,19 +216,20 @@ def operations_summary() -> dict[str, Any]:
             metric_entries.update(consumption.get("metric_entries", {}))
         if consumption is not None and planned is not None:
             known += 1
-            paired_budget += planned
             burn += consumption["burn"]
     total_hours = sum(e["hours"] for e in metric_entries.values())
     billable_hours = sum(
         e["hours"] for e in metric_entries.values() if e["billable"]
     )
-    months = max(
-        1,
-        (bounds()[1].year - bounds()[0].year) * 12
-        + bounds()[1].month
-        - bounds()[0].month
-        + 1,
+    facturability = global_facturability()
+    capacity = facturability["facturability_capacity"]
+    covered = set(facturability["capacity_months"])
+    consumption_hours = sum(
+        entry["hours"]
+        for entry in metric_entries.values()
+        if entry["month"] in covered
     )
+    comparable = capacity > 0 and consumption_projects > 0 and not pending
     result = {
         "facturability": round(billable_hours / total_hours * 100, 2)
         if total_hours and not pending
@@ -226,16 +242,16 @@ def operations_summary() -> dict[str, Any]:
         )
         if metric_entries and not pending
         else None,
-        "fte": round((paired_budget - burn) / months / 360, 2)
-        if known and not pending
-        else None,
-        "fte_months": months,
+        "capacity_consumption_hours": round(consumption_hours, 2),
+        "capacity_partial": (
+            facturability["facturability_partial"] or bool(pending)
+        ),
         "budget": round(budget, 2),
         "burn": round(burn, 2),
-        "advance": round(burn / paired_budget * 100, 2)
-        if paired_budget
+        "advance": round(consumption_hours / capacity * 100, 2)
+        if comparable
         else None,
-        "etc": round(paired_budget - burn, 2) if known else None,
+        "etc": round(capacity - consumption_hours, 2) if comparable else None,
         "projects": len(projects),
         "known_projects": known,
         "pending_ids": pending,
@@ -245,7 +261,7 @@ def operations_summary() -> dict[str, Any]:
         "partial": bool(pending or missing_budget),
         "year": bounds()[0].year,
     }
-    result.update(global_facturability())
+    result.update(facturability)
     if not result["partial"]:
         cache.set(operations_snapshot_key(), result, 86400)
         cache.set(operations_snapshot_key() + ":fresh", True, 300)
@@ -287,7 +303,7 @@ def _prepare_operations() -> dict[str, Any]:
 def operations_snapshot_key() -> str:
     """Clave del ultimo resumen ejecutivo preparado del dia."""
     return (
-        "portal:executive-operations:snapshot:v4:"
+        "portal:executive-operations:snapshot:v5:"
         + timezone.localdate().isoformat()
         + cache_suffix()
     )

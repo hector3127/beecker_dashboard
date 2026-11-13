@@ -114,9 +114,9 @@ function operations(model, set) {
   const partial = ops.partial !== false;
   const some = (/** @type {unknown} */ v) => v !== null && v !== undefined;
   set('executive-ops-cut', known ? (partial ? 'Corte parcial' : 'Corte completo') : 'Consultando');
-  set('executive-ops-etc', some(ops.etc) ? `${whole(ops.etc)} h${partial ? '*' : ''}` : PENDING);
-  set('executive-ops-advance', some(ops.advance) ? pct(ops.advance) + (partial ? '*' : '') : PENDING);
-  set('executive-ops-fte', some(ops.fte) ? `${Number(ops.fte).toLocaleString('en-US', { maximumFractionDigits: 2 })} FTE equivalentes` : 'FTE pendiente de corte completo');
+  set('executive-ops-etc', some(ops.etc) ? `${whole(ops.etc)} h${ops.capacity_partial ? '*' : ''}` : PENDING);
+  set('executive-ops-advance', some(ops.advance) ? pct(ops.advance) + (ops.capacity_partial ? '*' : '') : PENDING);
+  set('executive-ops-fte', ops.facturability_capacity > 0 ? `${whole(ops.facturability_capacity)} h de capacidad` : 'Capacidad pendiente');
   set('executive-ops-facturability', some(ops.facturability) ? `${Number(ops.facturability).toLocaleString('en-US', { maximumFractionDigits: 0 })}%${ops.facturability_partial ? '*' : ''}` : PENDING);
   set('executive-ops-facturability-month', ops.facturability_period ? (ops.facturability_partial ? 'Parcial · ' : '') + ops.facturability_period : '');
   set('executive-ops-investment', some(ops.investment_operational) ? `${whole(ops.investment_operational)} h` : PENDING);

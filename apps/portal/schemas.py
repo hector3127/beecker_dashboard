@@ -25,6 +25,7 @@ class ProjectView:
     budget_hours: float
     burn_hours: float
     etc_hours: float
+    health_reason: str = ""
 
 
 @dataclass(frozen=True, slots=True)

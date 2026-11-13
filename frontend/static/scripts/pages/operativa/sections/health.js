@@ -2,6 +2,7 @@
 // Salud del portafolio: dona y tabla con el mismo desglose.
 import { DONUT, donutArcs } from '#app/lib/charts.js';
 import { el, svg } from '#app/lib/dom.js';
+import { showPendingDialog } from '#app/ui/pending-dialog.js';
 
 const NO_VALUE = '—';
 
@@ -78,7 +79,18 @@ export function renderHealth(root, view) {
                 el(
                   'th',
                   { scope: 'row' },
-                  el('span', { class: 'ops-health-state' }, el('i', { class: `state-dot ${s.state}`, 'aria-hidden': 'true' }), s.label),
+                  ['at_risk', 'critical'].includes(s.state) ? el('button', {
+                    type: 'button', class: 'ops-health-state ops-health-trigger',
+                    disabled: hidden, 'aria-haspopup': 'dialog',
+                    onclick: (event) => showPendingDialog({
+                      title: s.state === 'at_risk' ? 'Proyectos en riesgo' : 'Proyectos críticos',
+                      description: s.count ? 'Proyectos de la cartera seleccionada y el motivo de su clasificación.' : 'No hay proyectos en este estado para los filtros seleccionados.',
+                      columns: ['Proyecto', 'Servicio', 'Por qué'],
+                      rows: (view.health_alerts || []).filter(item => item.state === (s.state === 'at_risk' ? 'En Riesgo' : 'Crítica')).map(item => [`${item.project_id} · ${item.name}`, item.service, item.reason]),
+                      trigger: event.currentTarget,
+                    }),
+                  }, el('i', { class: `state-dot ${s.state}`, 'aria-hidden': 'true' }), s.label)
+                    : el('span', { class: 'ops-health-state' }, el('i', { class: `state-dot ${s.state}`, 'aria-hidden': 'true' }), s.label),
                 ),
                 el('td', { text: count(s.count) }),
                 el('td', { text: hidden ? NO_VALUE : `${s.percent}%` }),

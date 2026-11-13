@@ -208,7 +208,7 @@ def _operativa_key(request: Any) -> str:
         # Cada alcance tiene su propio corte: nunca se comparte con otro.
         filters += "|" + scope.signature()
     return (
-        "portal:operativa:snapshot:v15:"
+        "portal:operativa:snapshot:v16:"
         + timezone.localdate().isoformat()
         + ":"
         + hashlib.sha256(filters.encode()).hexdigest()
@@ -465,6 +465,10 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
         El contexto con los indicadores y los Delivery Managers.
     """
     from apps.portal.schemas import EvaCard
+    from apps.portal.services.portfolio_summary import (
+        health_alerts,
+        service_distribution,
+    )
 
     block = request.GET.get("bloque", "")
     saved = _operativa_snapshot(request)
@@ -517,6 +521,9 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
                 request.GET.get("cuenta", ""),
             )
             context["managers"] = summarize_delivery_managers(population)
+            context["service_distribution"] = service_distribution(population)
+            context["health_alerts"] = health_alerts(population)
+            context["portfolio_total"] = len(population)
             context["summary"] = summarize_portfolio(population)
             context["health"] = context["summary"].health
             context["donut"] = build_donut_segments(context["health"])
@@ -551,6 +558,9 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
                 "eva1_card",
                 "eva2_card",
                 "consumption_pending",
+                "health_alerts",
+                "service_distribution",
+                "portfolio_total",
             ),
         }[block]
         cache.set(
@@ -581,7 +591,6 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
         selected_service,
         selected_client,
     )
-    from apps.portal.services.portfolio_summary import service_distribution
 
     summary = summarize_portfolio(projects)
     context = _base_context(load)
@@ -590,6 +599,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
             "active": "operativa",
             "summary": summary,
             "service_distribution": service_distribution(projects),
+            "health_alerts": health_alerts(projects),
             "portfolio_total": len(projects),
             "health": summary.health,
             "donut": build_donut_segments(summary.health),
@@ -642,6 +652,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
             {
                 "summary": enriched,
                 "service_distribution": service_distribution(projects),
+                "health_alerts": health_alerts(projects),
                 "portfolio_total": len(projects),
                 "health": enriched.health,
                 "donut": build_donut_segments(enriched.health),
@@ -661,6 +672,9 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
                     "health",
                     "donut",
                     "eva3_card",
+                    "health_alerts",
+                    "service_distribution",
+                    "portfolio_total",
                 )
                 if key in saved
             }

@@ -15,24 +15,54 @@ def test_operations_weighted_totals_and_negative_etc():
         {"id": "P1", "budget": 100, "start": "2026-01-01", "end": "2026-09-01"},
         {"id": "P2", "budget": 900, "start": "2025-01-01", "end": "2026-09-01"},
     ]
-    cache.set(burn_key(projects[0]), {"burn": 150})
-    cache.set(burn_key(projects[1]), {"burn": 900})
-    with patch(
-        "apps.portal.services.executive_operations.population",
-        return_value=projects,
+    for project, hours in zip(projects, (150, 900), strict=True):
+        cache.set(
+            burn_key(project),
+            {
+                "burn": hours,
+                "metric_entries": {
+                    project["id"]: {
+                        "hours": hours,
+                        "month": "2026-08",
+                        "billable": True,
+                        "operational": False,
+                    },
+                    "uncovered": {
+                        "hours": 20,
+                        "month": "2026-09",
+                        "billable": True,
+                        "operational": False,
+                    },
+                },
+            },
+        )
+    with (
+        patch(
+            "apps.portal.services.executive_operations.population",
+            return_value=projects,
+        ),
+        patch(
+            "apps.portal.services.executive_operations.global_facturability",
+            return_value={
+                "facturability_capacity": 800,
+                "capacity_months": ["2026-08"],
+                "facturability_partial": True,
+            },
+        ),
     ):
         result = operations_summary()
         assert (
             result["budget"] == 1000
-            and result["advance"] == 105
-            and result["etc"] == -50
+            and result["advance"] == 131.25
+            and result["etc"] == -250
         )
+        assert result["capacity_partial"]
         assert not result["partial"]
         cache.delete(burn_key(projects[1]))
         result = operations_summary()
         assert (
-            result["advance"] == 150
-            and result["etc"] == -50
+            result["advance"] is None
+            and result["etc"] is None
             and result["partial"]
         )
         assert result["pending_ids"] == ["P2"]

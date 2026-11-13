@@ -70,8 +70,8 @@ CONCEPTS = [
     ),
     (
         "ETC",
-        "Presupuesto de horas − horas consumidas de los proyectos del rango con ambas medidas. Un ETC negativo señala sobreconsumo. No se publica un total como completo si faltan proyectos o presupuestos.",
-        "Población operativa + Clockify",
+        "Capacidad del equipo menos horas registradas en Clockify para los proyectos del corte, en los meses con capacidad disponible. Un ETC negativo indica que el consumo superó la capacidad.",
+        "Facturabilidad · capacidad del equipo + Clockify",
     ),
     (
         "FTE equivalente",
@@ -80,8 +80,8 @@ CONCEPTS = [
     ),
     (
         "Avance en horas",
-        "100 × consumo ÷ presupuesto; es avance de consumo presupuestal, no porcentaje de entregables terminados. Presentación sin decimales.",
-        "Población operativa",
+        "100 × horas consumidas ÷ capacidad del equipo para los mismos meses. Mide el uso de la capacidad.",
+        "Facturabilidad · capacidad del equipo + Clockify",
     ),
     (
         "Facturabilidad global",
@@ -155,12 +155,12 @@ GLOSSARY: tuple[tuple[str, tuple[tuple[str, str, str], ...]], ...] = (
             (
                 "ETC · horas restantes",
                 "ETC",
-                "Presupuesto de horas menos consumo registrado.",
+                "Capacidad del equipo menos consumo registrado.",
             ),
             (
                 "Avance en horas",
                 "Avance en horas",
-                "Porcentaje del presupuesto consumido; no representa entregables terminados.",
+                "Porcentaje de la capacidad del equipo que se consumió.",
             ),
             (
                 "Facturabilidad",

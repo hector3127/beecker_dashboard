@@ -65,14 +65,14 @@ export const PRESENTATION = {
     "blue",
     "Tarifa por hora de la banda del recurso",
   ],
-  ETC: [3, "clock", "purple", "Presupuesto de horas − horas consumidas"],
+  ETC: [3, "clock", "purple", "Capacidad del equipo − horas consumidas"],
   "FTE equivalente": [
     4,
     "calendar",
     "purple",
     "ETC ÷ meses calendario del rango ÷ 360",
   ],
-  "Avance en horas": [3, "chart", "pink", "100 × consumo ÷ presupuesto"],
+  "Avance en horas": [3, "chart", "pink", "100 × consumo ÷ capacidad"],
   "Facturabilidad global": [
     4,
     "chart",
