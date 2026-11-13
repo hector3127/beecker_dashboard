@@ -1154,3 +1154,13 @@ que faltaba en el equipo. La corrida amplia de las tres pantallas se interrumpi�
 no se presenta como suite completa aprobada. Ruff de los archivos integrados
 pasa; Ruff global conserva dos avisos de longitud previos en kpis_dm.py y
 test_kpi_rango_mensual.py, fuera de esta unión.
+
+
+### Detalle emergente de críticos — 13/11/2026
+
+Críticos comparte el detalle emergente de En riesgo, con enlace a cada proyecto
+y motivo. Se muestra con mouse y foco del teclado. Azure/Clockify conservan las
+mismas reglas de clasificación; se exponen los motivos de vencimiento y exceso
+de presupuesto que ya determinaban Crítica. Caché de Operativa y versión JS
+renovadas para no servir motivos anteriores. Cuatro pruebas backend y una de
+navegador aprobadas. Trabajo local en codex/hector, sin push.

@@ -226,7 +226,7 @@ def _operativa_key(request: Any) -> str:
         # Cada alcance tiene su propio corte: nunca se comparte con otro.
         filters += "|" + scope.signature()
     return (
-        "portal:operativa:snapshot:v22:"
+        "portal:operativa:snapshot:v23:"
         + timezone.localdate().isoformat()
         + ":"
         + hashlib.sha256(filters.encode()).hexdigest()

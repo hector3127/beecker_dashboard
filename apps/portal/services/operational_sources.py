@@ -119,7 +119,23 @@ def eva_projects(ixb: Any, aer: Any) -> Any:
                 p.burn or 0,
                 p.etc or 0,
                 health_reason=(
-                    "Falta fecha de fin o renovación."
+                    " ".join(
+                        (
+                            ["Consumo superior al presupuesto en horas."]
+                            if over_hours
+                            else []
+                        )
+                        + (
+                            [
+                                "Fecha de fin o renovación vencida "
+                                f"hace {-days} días."
+                            ]
+                            if days is not None and days < 0
+                            else []
+                        )
+                    )
+                    if health == "Crítica"
+                    else "Falta fecha de fin o renovación."
                     if health == "En Riesgo" and days is None
                     else (
                         f"Quedan {days} días y como máximo "

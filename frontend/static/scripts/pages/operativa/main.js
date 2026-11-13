@@ -237,17 +237,21 @@ byId('ops-project-clear').addEventListener('click', () => applyProjects([]));
 function renderProjectInsights() {
   const projectLink = p => el('a', {href: `/proyectos/${encodeURIComponent(p.id)}/`, text: `${p.id} · ${p.name}`});
   const projects = view.project_details ?? [];
-  const risk = projects.filter(p => p.health === 'En Riesgo' || p.health === 'En riesgo' || p.health === 'at_risk');
   const investment = Object.entries(view.investment_projects ?? {})
     .filter(([, hours]) => hours.operational || hours.commercial);
-  const label = regions.health.querySelector('.ops-health-state:has(.state-dot.at_risk)');
-  if (label) {
+  for (const [state, title, values, empty] of [
+    ['at_risk', 'Proyectos en riesgo', ['En Riesgo', 'En riesgo', 'at_risk'], 'riesgo'],
+    ['critical', 'Proyectos críticos', ['Crítica', 'Crítico', 'Críticos', 'critical'], 'críticos'],
+  ]) {
+    const rows = projects.filter(p => values.includes(p.health));
+    const label = regions.health.querySelector(`.ops-health-state:has(.state-dot.${state})`);
+    if (!label) continue;
     const trigger = el('button', {type: 'button', class: 'ops-risk-trigger'}, ...label.childNodes);
     label.classList.add('ops-risk-anchor');
     label.replaceChildren(trigger, el('div', {class: 'ops-risk-popup'},
-      el('strong', {text: 'Proyectos en riesgo (' + risk.length + ')'}),
-      ...(risk.length ? risk.map(p => el('p', {}, projectLink(p), ' · ' + p.reason))
-        : [el('p', {text: view.summary.health.at_risk ? 'Detalle de riesgo pendiente de consulta.' : 'Sin proyectos en riesgo para estos filtros.'})])));
+      el('strong', {text: `${title} (${rows.length})`}),
+      ...(rows.length ? rows.map(p => el('p', {}, projectLink(p), ' · ' + (p.reason || 'Motivo pendiente de consulta.')))
+        : [el('p', {text: view.summary.health[state] ? `Detalle de proyectos en ${empty} pendiente de consulta.` : `Sin proyectos en ${empty} para estos filtros.`})])));
   }
   for (const [kind, tag] of [['operational', 'INV_OPERATIVA'], ['commercial', 'INV_COMERCIAL']]) {
     const card = byId('ops-investment-' + kind);
