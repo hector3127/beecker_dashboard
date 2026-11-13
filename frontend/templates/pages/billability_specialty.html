@@ -17,6 +17,7 @@
 <div class="tabs"><a href="{% url 'portal:facturabilidad' %}{{ picker.query }}">Facturabilidad</a><a class="on" href="{% url 'portal:facturabilidad_especialidad' %}{{ picker.query }}">Facturabilidad por especialidad</a><a href="{% url 'portal:facturabilidad_recurso' %}{{ picker.query }}">Facturabilidad por recurso</a><a href="{% url 'portal:kpis_dm' %}{{ picker.query }}">KPIs de Delivery Managers</a><a href="{% url 'portal:facturabilidad_area' %}{{ picker.query }}">Facturabilidad por área</a></div>
 
 <form method="get" class="mf bii-e3dd54">{% include 'partials/period_picker.html' with show_month_range=True %}<span class="bii-d77876">Cierres mensuales publicados de GSE y Clockify.</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div>{% if request.GET.roles == "1" %}<input type="hidden" name="roles" value="1">{% endif %}<div class="rfb"><button type="submit"{% if request.GET.roles != "1" %} name="roles" value="1"{% endif %}>Aplicar</button><a href="{{ picker.reset_href }}">Solo operativas</a></div></details>{% endif %}</form>
+<p><button type="button" id="specialty-audit-open" aria-haspopup="dialog">Consultar personas y proyectos</button></p>
 {% if comparison_invalid %}<p class="err" role="alert">Selecciona un rango válido. Desde debe ser anterior o igual a Hasta.</p>{% endif %}
 <section class="kp">
 <div class="kc">{% include "partials/billability_specialty_icon.html" with kind="team" %}<div class="specialty-kpi-copy"><div class="kl">HC total</div><div class="kv">{{ headcount|floatformat:"0" }}</div><div class="ke">Plantilla del periodo</div></div><span class="specialty-card-decoration" aria-hidden="true">{% include "partials/billability_specialty_icon.html" with kind="team" %}</span></div>
@@ -48,4 +49,4 @@
 <p class="note">TT &amp; CR se presenta como QA. Desde agosto de 2026, Lab IA aporta cero a los indicadores de Operaciones.</p>
 
 {% endblock %}
-{% block scripts %}{{ specialty_chart_months|json_script:"specialty-chart-data" }}<script type="module" src="{% static 'app/scripts/pages/billability_specialty/main.js' %}"></script>{% endblock %}
+{% block scripts %}{{ audit_months|json_script:"specialty-audit-months" }}{{ specialty_chart_months|json_script:"specialty-chart-data" }}<script type="module" src="{% static 'app/scripts/pages/billability_specialty/main.js' %}"></script>{% endblock %}

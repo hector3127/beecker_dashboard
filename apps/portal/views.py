@@ -1766,6 +1766,7 @@ def especialidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
             for name in names
         ],
         "specialty_chart_months": chart_months,
+        "audit_months": keys,
         "headcount": sum(row.headcount for row in specialties),
         "dev_free": next(
             (

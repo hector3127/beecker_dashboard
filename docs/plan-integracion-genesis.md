@@ -1164,3 +1164,18 @@ mismas reglas de clasificación; se exponen los motivos de vencimiento y exceso
 de presupuesto que ya determinaban Crítica. Caché de Operativa y versión JS
 renovadas para no servir motivos anteriores. Cuatro pruebas backend y una de
 navegador aprobadas. Trabajo local en codex/hector, sin push.
+
+
+### Consulta de personas y proyectos de Facturabilidad — 13/11/2026
+
+En especialidad, «Consultar personas y proyectos» abre dos pestañas siguiendo
+las hojas del reporte de octubre: persona/rol/capacidad/horas por servicio y
+detalle por persona/proyecto/servicio. Permite elegir un mes del periodo y
+buscar. API con permiso view_operations y alcance completo. Lee el detalle
+local de Clockify mediante el clasificador GSE y Bandas/rol; no modifica datos
+ni cierres. Excluye Comida y separa los ajustes aprobados de las horas
+registradas. Advierte que el detalle actual puede diferir del cierre publicado,
+identifica su revisión y fecha de sincronización, y avisa nombres sin vínculo.
+No reconstruye un desglose histórico de personas desde un cierre agregado.
+Tres pruebas backend, una de navegador y Ruff de archivos propios aprobados.
+Solo Dashboard local; pendiente trasladar a Genesis. Sin push.

@@ -109,3 +109,24 @@ body.specialty-page{background:radial-gradient(ellipse at 70% 0,#faf8ff,#f2f3ff)
 .specialty-chart-segment{position:absolute;left:0;right:0}
 .specialty-chart-month{position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:10px;padding-top:5px;color:#675982;white-space:nowrap}
 @media(max-width:850px){.specialty-charts{grid-template-columns:1fr}}
+
+/* Consulta de registros: dos hojas del reporte, sin edición de cierres. */
+.specialty-audit {width:min(1280px,94vw);max-height:90vh;box-sizing:border-box;border:1px solid #b9a6f5;border-radius:18px;padding:24px;color:#201657;background:#fff;overflow:auto}
+.specialty-audit::backdrop {background:rgb(26 17 65 / 48%)}
+.specialty-audit header,.specialty-audit footer,.audit-controls {display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.specialty-audit h2 {margin:0;font-size:22px}
+.specialty-audit button,.specialty-audit input,.specialty-audit select,#specialty-audit-open {font:inherit;border:1px solid #c9bbef;border-radius:8px;padding:9px 12px;background:#fff;color:#4b25c9}
+.specialty-audit button,#specialty-audit-open {cursor:pointer}
+.specialty-audit [role=tablist] {display:flex;gap:8px;margin:16px 0}
+.specialty-audit [aria-selected=true] {background:#6230db;color:#fff}
+.specialty-audit .audit-source {padding:12px;background:#f6f2ff;border-left:3px solid #8050e8;font-size:13px}
+.specialty-audit .audit-scroll {max-height:50vh;overflow:auto;border:1px solid #e2d9fa;border-radius:8px}
+.specialty-audit table {border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}
+.specialty-audit th {position:sticky;top:0;background:#f2ebff;z-index:1}
+.specialty-audit th,.specialty-audit td {padding:10px;text-align:left;border-bottom:1px solid #eee7fb}
+.specialty-audit tbody tr:nth-child(even) {background:#fcfaff}
+.specialty-audit footer {margin-top:18px;font-size:12px}
+.specialty-audit :focus-visible {outline:3px solid #9c76ef;outline-offset:2px}
+@media(max-width:600px) {.specialty-audit {padding:14px}.specialty-audit h2 {font-size:18px}.audit-controls input {max-width:100%;box-sizing:border-box}}
+
+body:has(.specialty-audit[open]) {overflow:hidden}

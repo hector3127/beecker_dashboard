@@ -32,6 +32,7 @@ from apps.portal.api.operations import (
     CapacityScreenView,
     Eva3ScreenView,
     EvaScreenView,
+    FacturabilityAuditView,
     FacturabilityResourceView,
     FacturabilityScreenView,
     FacturabilitySpecialtyView,
@@ -431,6 +432,11 @@ urlpatterns = [
         "screens/facturabilidad/",
         FacturabilityScreenView.as_view(),
         name="facturabilidad",
+    ),
+    path(
+        "screens/facturabilidad/desglose/",
+        FacturabilityAuditView.as_view(),
+        name="facturabilidad_desglose",
     ),
     path(
         "screens/facturabilidad/especialidad/",

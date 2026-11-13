@@ -102,3 +102,34 @@ class FacturabilityResourceView(FacturabilityScreenView):
     """Facturabilidad de cada persona."""
 
     kind = "recurso"
+
+
+class FacturabilityAuditView(OperationsScreen):
+    """Consulta de personas y proyectos del mes, sin guardar cambios."""
+
+    def get(self, request: Request) -> Response:
+        """Valida el mes y aplica las áreas elegidas por el usuario."""
+        from datetime import date
+
+        from rest_framework.exceptions import ValidationError
+
+        from apps.portal.services.facturability import role_key
+        from apps.portal.services.facturability_audit import audit_month
+
+        month = request.query_params.get("mes", "")
+        try:
+            day = date.fromisoformat(f"{month}-01")
+            if len(month) != 7 or not 2000 <= day.year <= 2100:
+                raise ValueError
+        except ValueError as error:
+            raise ValidationError(
+                "Selecciona un mes válido (AAAA-MM)."
+            ) from error
+        roles = (
+            frozenset(
+                role_key(value) for value in request.query_params.getlist("rol")
+            )
+            if request.query_params.get("roles") == "1"
+            else frozenset({"dev", "qa", "arq", "ba", "sm", "lab ia"})
+        )
+        return self.body(audit_month(month, roles))
