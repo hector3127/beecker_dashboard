@@ -8,7 +8,6 @@ from django.test import RequestFactory
 
 from apps.portal import views
 from apps.portal.schemas import ProjectView
-from apps.portal.services.portfolio_summary import health_alerts
 
 
 def test_cached_refresh_saves_health_detail_with_summary():
@@ -46,8 +45,8 @@ def test_cached_refresh_saves_health_detail_with_summary():
     ):
         result = views.operativa_block_context(request)
     assert result["summary"].health.at_risk == 1
-    assert result["health_alerts"] == health_alerts([project])
+    assert result["project_details"] == [project]
     saved = views._operativa_snapshot(request)
-    assert saved["health_alerts"][0]["project_id"] == project.project_id
-    assert saved["summary"].health.at_risk == len(saved["health_alerts"])
+    assert saved["project_details"][0].project_id == project.project_id
+    assert saved["summary"].health.at_risk == len(saved["project_details"])
     cache.clear()

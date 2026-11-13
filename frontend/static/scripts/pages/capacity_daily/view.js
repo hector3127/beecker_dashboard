@@ -39,14 +39,14 @@ function matrix(data, st, paint) {
   const rows = selectedRows(data, st);
   const pages = Math.max(1, Math.ceil(rows.length / st.size));
   st.page = Math.min(st.page, pages);
-  const limit = data.diasHabiles * st.jornada;
-  const total = new Map(data.personas.map((/** @type {any} */ p) => [p.nombre, p.total]));
+  const capacity = p => (p?.capacidadHoras ?? data.diasHabiles * data.jornada) * st.jornada / data.jornada;
+  const total = new Map(data.personas.map((/** @type {any} */ p) => [p.nombre, p]));
   const headings = ['Recurso', 'ID Clockify', 'Rol', 'Banda', 'Delivery Manager', 'ID Proyecto', 'Proyecto', 'Inicio', 'Fin', 'Concepto', 'Facturable', 'Cargabilidad', 'Capacidad disponible', 'Total mes'];
   const header = el('tr', {}, ...headings.map((text) => el('th', { text })),
     ...data.dias.map((/** @type {string} */ d) => el('th', { class: 'ci-day-head' + (isWeekend(d) ? ' weekend' : ''), text: date(d) })));
   const body = el('tbody');
   for (const r of rows.slice((st.page - 1) * st.size, st.page * st.size)) {
-    const over = total.get(r.nombre) > limit;
+    const over = total.get(r.nombre)?.total > capacity(total.get(r.nombre));
     body.append(el('tr', {},
       el('td', {}, personButton(r.nombre, st, paint)),
       el('td', { class: 'ci-id', text: r.clockifyId || 'Sin ID en Bandas/rol' }),
@@ -80,8 +80,9 @@ function matrix(data, st, paint) {
 /** @param {any} data @param {any} st @param {() => void} paint */
 function people(data, st, paint) {
   const grid = el('div', { class: 'ci-resource-grid' });
-  const limit = data.diasHabiles * st.jornada;
+  const capacity = p => (p?.capacidadHoras ?? data.diasHabiles * data.jornada) * st.jornada / data.jornada;
   for (const p of selectedPeople(data, st)) {
+    const limit = capacity(p);
     const over = p.total > limit;
     const fill = el('i', { class: over ? 'over' : '' });
     fill.style.width = Math.min(100, limit ? (p.total / limit) * 100 : 0) + '%';
@@ -103,7 +104,7 @@ export function render(box, st, paint) {
   const ind = indicators(data, st.jornada);
   const stats = [
     ['Personas vigentes', ind.people, `${ind.withHours} con horas registradas`],
-    ['Capacidad base', fmt(ind.base) + ' h', `${ind.people} personas × ${data.diasHabiles} días × ${st.jornada} h`],
+    ['Capacidad base', fmt(ind.base) + ' h', 'Suma de capacidad por persona'],
     ['Horas registradas', fmt(ind.registered) + ' h', `${fmt(ind.billable)} h facturables`],
     ['Saldo disponible', fmt(ind.balance) + ' h', ind.balance < 0 ? 'Se superó la capacidad' : 'Capacidad base − horas registradas'],
     ['Utilización', ind.utilization == null ? '—' : fmt(ind.utilization) + '%', `${ind.over} persona(s) sobre jornada`],
@@ -125,5 +126,5 @@ export function render(box, st, paint) {
     box.lastElementChild?.replaceWith(section);
   }
   box.append(el('div', { class: 'ci-info' }, el('b', { text: 'Cálculo:' }),
-    ' personas de Bandas/rol con rol Dev, QA, ROC, Arq, BA o SM y banda vigente en el mes (sin banda, Baja ni NA). Horas: todo Clockify de esas personas, facturable o no y también en fines de semana, excepto Comida. Capacidad base = personas × días hábiles (sin festivos de México) × jornada. Delivery Manager y nombre del proyecto salen del inventario Summary, con respaldo de MPB, Proyectos e Histórico.'));
+    ' personas de Bandas/rol con rol Dev, QA, ROC, Arq, BA o SM y banda vigente en el mes (sin banda, Baja ni NA). Horas: todo Clockify de esas personas, facturable o no, de lunes a viernes sin festivos de México, excepto Comida. Capacidad base = suma de las horas disponibles por persona. Delivery Manager y nombre del proyecto salen del inventario Summary, con respaldo de MPB, Proyectos e Histórico.'));
 }

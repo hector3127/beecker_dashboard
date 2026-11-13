@@ -299,19 +299,3 @@ def service_distribution(
         {"service": name, "count": count, "percent": percent_of(count, total)}
         for name, count in sorted(counts.items())
     ]
-
-
-def health_alerts(projects: Sequence[ProjectView]) -> list[dict[str, str]]:
-    """Detalle de los proyectos activos incluidos en el conteo de salud."""
-    return [
-        {
-            "project_id": p.project_id,
-            "name": p.name,
-            "service": p.service,
-            "state": p.health,
-            "reason": p.health_reason
-            or "Motivo pendiente de confirmar en la fuente.",
-        }
-        for p in select_in_progress(projects)
-        if p.health in (HEALTH_AT_RISK, HEALTH_CRITICAL)
-    ]

@@ -1,7 +1,7 @@
 {% extends "layouts/app.html" %}
 {% load static %}
 {% block title %}Operativa{% endblock %}
-{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/operativa.css' %}?v=20261101-capacity-month">{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/operativa.css' %}?v=20261112-capacity-audit">{% endblock %}
 {% block freshness %}<span>Indicadores operativos</span>{% endblock %}
 {% block content %}
 <div class="ops" id="ops-dashboard"
@@ -19,6 +19,12 @@
 <form class="ops-filters" method="get" action="{% url 'portal:operativa' %}">
 <label class="ops-filter"><svg class="ops-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 20v-3c0-5 12-5 12 0v3m2-15a3 3 0 0 1 0 6m1 4c3 0 4 2 4 5"/></svg><span>Servicio</span><select id="ops-service" name="servicio" aria-label="Filtrar portafolio por servicio"><option value="">Todos los servicios</option></select></label>
 <label class="ops-filter"><svg class="ops-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h2m2 0h2m-6 4h2m2 0h2m-6 4h2m2 0h2m-5 6v-3h4v3"/></svg><span>Cuenta</span><select id="ops-client" name="cuenta" aria-label="Abrir detalle de cuenta"><option value="">Todas las cuentas</option></select></label>
+<details class="ops-project-picker"><summary><svg class="ops-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="ops-project-label">Proyectos</span><span id="ops-project-selection">Todos los proyectos</span></summary>
+<div class="ops-project-panel">
+<label class="ops-project-search-label" for="ops-project-search">Buscar proyecto</label><input id="ops-project-search" type="search" placeholder="Escribe el ID o nombre del proyecto…">
+<div id="ops-project-options"></div>
+<div class="ops-project-actions"><span id="ops-project-count" aria-live="polite"></span><button id="ops-project-clear" type="button">Mostrar todos</button><button id="ops-project-apply" type="button">Aplicar</button></div>
+</div></details>
 </form>
 </header>
 
@@ -64,4 +70,4 @@
 </section>
 </div>
 {% endblock %}
-{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/operativa/main.js' %}?v=20261101-capacity-month"></script>{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/operativa/main.js' %}?v=20261112-capacity-audit"></script>{% endblock %}

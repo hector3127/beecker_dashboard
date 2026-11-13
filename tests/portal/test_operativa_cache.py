@@ -94,7 +94,7 @@ def test_capacity_restores_without_base_or_external_reads():
     cache.clear()
     month = timezone.localdate().strftime("%Y-%m")
     capacity = {"month": month, "available": 2400, "loading": False}
-    cache.set("portal:ops:capacity:v7", capacity)
+    cache.set("portal:ops:capacity:v12", capacity)
     request = RequestFactory().get("/operativa/")
     request.user = SimpleNamespace(is_authenticated=True)
     with patch.object(

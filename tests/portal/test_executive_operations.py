@@ -42,10 +42,12 @@ def test_operations_weighted_totals_and_negative_etc():
             return_value=projects,
         ),
         patch(
-            "apps.portal.services.executive_operations.global_facturability",
+            "apps.portal.services.executive_operations.installed_capacity_metrics",
             return_value={
                 "facturability_capacity": 800,
-                "capacity_months": ["2026-08"],
+                "facturability_consumed_hours": 1050,
+                "facturability": 131.25,
+                "facturability_pending_months": [],
                 "facturability_partial": True,
             },
         ),
@@ -56,13 +58,12 @@ def test_operations_weighted_totals_and_negative_etc():
             and result["advance"] == 131.25
             and result["etc"] == -250
         )
-        assert result["capacity_partial"]
         assert not result["partial"]
         cache.delete(burn_key(projects[1]))
         result = operations_summary()
         assert (
-            result["advance"] is None
-            and result["etc"] is None
+            result["advance"] == 131.25
+            and result["etc"] == -250
             and result["partial"]
         )
         assert result["pending_ids"] == ["P2"]

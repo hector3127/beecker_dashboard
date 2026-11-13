@@ -16,16 +16,16 @@ from apps.gse.services.roster import find_band_column, read_roster_sheet
 from apps.portal.constants import OPERATIONAL_ROLES
 from apps.portal.services.eva_azure_source import BUSINESS_ID
 from apps.portal.services.facturability import person_month_hours
-from apps.portal.services.roster import attach_month_roster
+from apps.portal.services.roster import attach_month_roster, departure_estimates
 from core.exceptions import DashboardError
 from core.sheets import sheet_names
 from core.sheets.factory import build_sheet_repository
 from core.utils.text import get_flexible_value
 
 
-def operations_roster(month: str) -> list[dict[str, Any]]:
+def operations_roster(month: str, reader=None) -> list[dict[str, Any]]:
     """Solo roles operativos vigentes en la banda del mes, con o sin horas."""
-    reader = build_sheet_repository()
+    reader = reader if reader is not None else build_sheet_repository()
     sheet = read_roster_sheet(reader, "Bandas/rol requiere Nombre y ROL.")
     band_col = find_band_column(sheet.headers, int(month[5:7]), month[:4])
     if band_col < 0:
@@ -102,7 +102,19 @@ def operations_roster(month: str) -> list[dict[str, Any]]:
                     ),
                 }
             )
-    return people
+    confirmed = {"sheila guadalupe campos pantaleon", "lidio gonzalez gabriel"}
+    cuts = (
+        departure_estimates(sheet, month, confirmed)
+        if month == "2026-10"
+        else {}
+    )
+    for person in people:
+        key = norm(person["name"])
+        if key in cuts:
+            person["capacity_hours"] = cuts[key]
+    return [
+        person for person in people if norm(person["band"]) not in {"p", "r"}
+    ]
 
 
 def roster_match(

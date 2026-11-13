@@ -60,6 +60,13 @@ def ready(portal):
     expect(portal.locator("#ops-refresh-button")).to_be_enabled(timeout=SLOW)
 
 
+def choose_filter(portal, control, name):
+    """Usa el selector desplegable visible de Operativa."""
+    picker = portal.locator(f"label:has(#{control}) + details")
+    picker.locator("summary").click()
+    picker.get_by_role("button", name=name, exact=True).click()
+
+
 def test_structure_has_the_sections_in_order_and_one_main(portal, datos):
     portal.goto(portal.base + PAGE)
     ready(portal)
@@ -78,10 +85,8 @@ def test_structure_has_the_sections_in_order_and_one_main(portal, datos):
         "Capacidad del equipo",
     ]
     assert portal.locator("#ops-metrics .ops-metric").count() == 5
-    expect(
-        portal.get_by_label("Filtrar portafolio por servicio")
-    ).to_be_visible()
-    expect(portal.get_by_label("Abrir detalle de cuenta")).to_be_visible()
+    expect(portal.locator("label:has(#ops-service) + details")).to_be_visible()
+    expect(portal.locator("label:has(#ops-client) + details")).to_be_visible()
 
 
 def test_first_paint_shows_the_saved_cut_then_refreshes_by_blocks(
@@ -113,7 +118,7 @@ def test_service_filter_updates_indicators_url_and_history(portal, datos):
     service = portal.get_by_label("Filtrar portafolio por servicio")
     assert "T&M" in service.locator("option").all_inner_texts()
 
-    service.select_option("T&M")
+    choose_filter(portal, "ops-service", "T&M")
     ready(portal)
 
     assert "servicio=T%26M" in portal.url
@@ -155,7 +160,7 @@ def test_choosing_an_account_opens_its_detail_with_the_name(portal, datos):
     portal.goto(portal.base + PAGE)
     ready(portal)
 
-    portal.get_by_label("Abrir detalle de cuenta").select_option("Clinica Sur")
+    choose_filter(portal, "ops-client", "Clinica Sur")
 
     portal.wait_for_url(
         re.compile(r"/cuenta/clinica-sur/\?nombre=Clinica(%20|\+)Sur")
@@ -370,7 +375,7 @@ def test_page_has_no_errors_or_csp_violations(portal, datos, billing, settings):
 
     portal.goto(portal.base + PAGE)
     ready(portal)
-    portal.get_by_label("Filtrar portafolio por servicio").select_option("T&M")
+    choose_filter(portal, "ops-service", "T&M")
     ready(portal)
 
     assert problems == []

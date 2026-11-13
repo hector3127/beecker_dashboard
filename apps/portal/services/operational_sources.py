@@ -103,25 +103,6 @@ def eva_projects(ixb: Any, aer: Any) -> Any:
             if days is None or (days <= 30 and few_hours)
             else "A tiempo"
         )
-        reasons = []
-        if over_hours:
-            reasons.append(
-                f"Consumo de {p.burn:g} h superior "
-                f"al presupuesto de {p.budget:g} h."
-            )
-        if days is not None and days < 0:
-            reasons.append(f"Fecha de fin vencida hace {abs(days)} días.")
-        if health == "En Riesgo":
-            if days is None:
-                reasons.append(
-                    "Sin fecha de fin confirmada; no se puede validar el plazo."
-                )
-            else:
-                reasons.append(
-                    f"Quedan {days} días para finalizar "
-                    f"y solo {p.budget - p.burn:g} h "
-                    f"de {p.budget:g} h de presupuesto (10% o menos)."
-                )
         result.append(
             ProjectView(
                 p.project_id,
@@ -137,7 +118,16 @@ def eva_projects(ixb: Any, aer: Any) -> Any:
                 p.budget,
                 p.burn or 0,
                 p.etc or 0,
-                " ".join(reasons),
+                health_reason=(
+                    "Falta fecha de fin o renovación."
+                    if health == "En Riesgo" and days is None
+                    else (
+                        f"Quedan {days} días y como máximo "
+                        "el 10% del presupuesto en horas."
+                    )
+                    if health == "En Riesgo"
+                    else ""
+                ),
             )
         )
     return result
@@ -381,12 +371,19 @@ def tagged_investment(
     return result
 
 
-def legacy_capacity(month: Any) -> Any:
+def team_capacity_cache_key(month: str) -> str:
+    """Clave compartida del resumen de capacidad instalado por mes."""
+    return "portal:team-capacity:v8:" + month
+
+
+def legacy_capacity(month: Any, *, cached_only: bool = False) -> Any:
     """Capacidad del equipo: Bandas/rol + Clockify (sin la hoja Recursos)."""
-    key = "portal:team-capacity:v3:" + month
+    key = team_capacity_cache_key(month)
     cached = cache.get(key)
     if cached is not None:
         return cached
+    if cached_only:
+        return None
     try:
         team = build_team_capacity(build_sheet_repository(), month)
     except DashboardError as error:

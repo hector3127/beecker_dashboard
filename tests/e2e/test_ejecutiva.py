@@ -317,12 +317,18 @@ def test_period_picker_applies_a_range_and_validates_it(portal, served):
     portal.goto(portal.base + PAGE)
     portal.locator("#executive-date-picker summary").click()
     form = portal.locator("#executive-period-form")
-    expect(form.locator("[data-quick], [data-tab], #picker-year, #picker-quarter")).to_have_count(0)
+    expect(
+        form.locator("[data-quick], [data-tab], #picker-year, #picker-quarter")
+    ).to_have_count(0)
     expect(portal.locator("#picker-preview")).not_to_be_empty()
     form.locator("#picker-month-left [data-date]:not(.outside)").nth(9).click()
-    expect(portal.locator("#executive-date-picker")).to_have_attribute("open", "")
+    expect(portal.locator("#executive-date-picker")).to_have_attribute(
+        "open", ""
+    )
     form.locator("#picker-month-left [data-date]:not(.outside)").nth(19).click()
-    expect(portal.locator("#executive-date-picker")).to_have_attribute("open", "")
+    expect(portal.locator("#executive-date-picker")).to_have_attribute(
+        "open", ""
+    )
     expect(form.get_by_role("button", name="Aplicar periodo")).to_be_visible()
 
     form.locator('input[name="desde"]').fill("2026-03-10")

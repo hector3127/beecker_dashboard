@@ -63,10 +63,12 @@ def test_operations_preserves_exact_cr_id_dates_and_cached_consumption(
     monkeypatch.setattr(operations, "population", lambda: [project])
     monkeypatch.setattr(
         operations,
-        "global_facturability",
+        "installed_capacity_metrics",
         lambda: {
             "facturability_capacity": 100,
-            "capacity_months": ["2026-01"],
+            "facturability_consumed_hours": 20,
+            "facturability": 20,
+            "facturability_pending_months": [],
             "facturability_partial": False,
         },
     )

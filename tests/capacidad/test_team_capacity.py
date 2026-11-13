@@ -46,11 +46,11 @@ def team(monkeypatch):
         run=run,
     )
     table = sheet(
-        ["Ana Perez", "Dev", "u-ana", "B2", "B2"],
-        ["Luis Soto", "QA", "", "B1", "B1"],
+        ["Adolfo Cesar Vidal Espino", "Dev", "u-ana", "B2", "B2"],
+        ["Sofia Katherin Jojoa Unigarro", "QA", "", "B1", "B1"],
         ["Eva Ruiz", "Dev", "u-eva", "B1", "BAJA"],
         ["Raul Mena", "Ventas", "u-raul", "B1", "B1"],
-        ["Zoe Diaz", "SM", "u-zoe", "B3", "B3"],
+        ["Christian Javier Samano Leon", "SM", "u-zoe", "B3", "B3"],
         ["Nora Paz", "BA", "u-nora", "B1", "NA"],
         ["Ivo Sanz", "Arq", "u-ivo", "B1", ""],
     )
@@ -76,15 +76,33 @@ def team(monkeypatch):
             )
 
     monkeypatch.setattr(service, "ProjectInfo", Info)
+    from apps.gse.services.catalog import Catalog
+
+    monkeypatch.setattr(
+        "apps.gse.services.catalog.load_catalog", lambda _: Catalog()
+    )
+    monkeypatch.setattr(
+        "apps.portal.services.capacity_roster.operations_roster",
+        lambda month, reader: [
+            {
+                "name": person["nombre"],
+                "role": person["rol"],
+                "band": person["banda"],
+                "clockify_id": person["clockifyId"],
+                "capacity_hours": 176,
+            }
+            for person in service.read_team(reader, month)
+        ],
+    )
 
 
 def test_only_operational_roles_with_a_valid_band_are_included(team):
     people = service.read_team(object(), MONTH)
 
     assert [p["nombre"] for p in people] == [
-        "Ana Perez",
-        "Luis Soto",
-        "Zoe Diaz",
+        "Adolfo Cesar Vidal Espino",
+        "Sofia Katherin Jojoa Unigarro",
+        "Christian Javier Samano Leon",
     ]
 
 
@@ -100,7 +118,13 @@ def test_matches_by_id_then_by_name_and_excludes_lunch(team):
         pid=service.LUNCH_PROJECT_ID,
     )
     entry(
-        3, "x", "Luis Soto", "NYB.001", 1800, date(2026, 10, 3), billable=False
+        3,
+        "x",
+        "Sofia Katherin Jojoa Unigarro",
+        "NYB.001",
+        1800,
+        date(2026, 10, 6),
+        billable=False,
     )
     entry(4, "u-raul", "Raul Mena", "AER.001", 3600, date(2026, 10, 6))
 
@@ -112,13 +136,17 @@ def test_matches_by_id_then_by_name_and_excludes_lunch(team):
     assert data["resumen"]["registradas"] == 2.5
 
 
-def test_weekend_hours_count_and_rows_carry_project_and_manager(team):
+def test_weekends_are_excluded_and_weekdays_keep_project_and_manager(team):
     entry(1, "u-ana", "Ana", "AER.001", 3600, date(2026, 10, 3))  # sabado
 
+    entry(2, "u-ana", "Ana", "AER.001", 7200, date(2026, 10, 5))
     data = service.build_team_capacity(object(), MONTH)
-    row = next(r for r in data["filas"] if r["nombre"] == "Ana Perez")
+    row = next(
+        r for r in data["filas"] if r["nombre"] == "Adolfo Cesar Vidal Espino"
+    )
 
-    assert row["daily"] == {"2026-10-03": 1.0}
+    assert row["daily"] == {"2026-10-05": 2.0}
+    assert data["resumen"]["registradas"] == 2.0
     assert (row["dm"], row["proyecto"]) == ("Dora DM", "Proyecto AER.001")
     assert len(data["dias"]) == 31
 
@@ -133,7 +161,7 @@ def test_concept_and_rules_follow_azure_ids_then_clockify_names(team):
     rows = {
         r["idProyecto"]: r
         for r in service.build_team_capacity(object(), MONTH)["filas"]
-        if r["nombre"] == "Ana Perez"
+        if r["nombre"] == "Adolfo Cesar Vidal Espino"
     }
 
     assert rows["AER.001"]["concepto"] == "Proyecto"
@@ -155,7 +183,7 @@ def test_project_dates_fall_back_to_the_rows_first_and_last_record(team):
     rows = {
         r["idProyecto"]: r
         for r in service.build_team_capacity(object(), MONTH)["filas"]
-        if r["nombre"] == "Ana Perez"
+        if r["nombre"] == "Adolfo Cesar Vidal Espino"
     }
 
     assert (rows["AER.001"]["inicio"], rows["AER.001"]["fin"]) == (
@@ -170,7 +198,11 @@ def test_project_dates_fall_back_to_the_rows_first_and_last_record(team):
 
 def test_people_without_records_appear_with_zero_hours(team):
     data = service.build_team_capacity(object(), MONTH)
-    zoe = [r for r in data["filas"] if r["nombre"] == "Zoe Diaz"]
+    zoe = [
+        r
+        for r in data["filas"]
+        if r["nombre"] == "Christian Javier Samano Leon"
+    ]
 
     assert len(zoe) == 1 and zoe[0]["total"] == 0 and zoe[0]["idProyecto"] == ""
     assert data["resumen"]["personas"] == 3
@@ -193,9 +225,9 @@ def test_indicators_use_people_days_and_workday(team):
 def test_missing_month_uses_last_band_and_preserves_leavers(team):
     people = service.read_team(object(), "2026-11")
     assert [p["nombre"] for p in people] == [
-        "Ana Perez",
-        "Luis Soto",
-        "Zoe Diaz",
+        "Adolfo Cesar Vidal Espino",
+        "Sofia Katherin Jojoa Unigarro",
+        "Christian Javier Samano Leon",
     ]
     assert people[0]["banda"] == "B2"
 

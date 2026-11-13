@@ -22,7 +22,8 @@ tiene el estado, las tareas pendientes y el registro de traspaso.
 2. **No activar `ACCESS_ENFORCED`** sin accesos configurados.
 3. **Horas por mes** (`cuenta/<slug>/horas/`) se conserva: filtros de fechas y
    proyectos, CSV, permisos y regreso a la cuenta.
-4. Commits pequeños **directo en `main`** (un solo desarrollador, sin ramas).
+4. Trabajo compartido en **`codex/hector`** y **`codex/christian`**. Integrar
+   en `main` con autorización del usuario y conservar ambos historiales.
    **No hacer push** salvo petición expresa del usuario.
 5. Nunca subir `.env`, `key.json`, `db.sqlite3`, `logos.json` ni credenciales.
 6. No tocar cambios locales ajenos: `tools/migracion/*`, `shots_tmp/`,

@@ -1,3 +1,37 @@
+import { apiGet } from '#app/data/api-client.js';
+
+function openMonthlyDetail(month) {
+  const body = el('div', {class: 'ops-month-detail-body', text: 'Cargando registros…'});
+  const close = el('button', {type: 'button', class: 'ops-button', text: 'Cerrar'});
+  const dialog = el('dialog', {class: 'ops-month-detail', 'aria-label': 'Detalle mensual de horas'},
+    el('header', {}, el('h2', {text: 'Detalle de horas · ' + month}), close), body);
+  const controller = new AbortController();
+  close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => { controller.abort(); dialog.remove(); });
+  document.body.append(dialog);
+  dialog.showModal();
+  apiGet('screens/capacidad/diaria/', {mes: month}, {signal: controller.signal}).then(({data}) => {
+    if (!data.ok) throw new Error(data.error);
+    const search = el('input', {type: 'search', placeholder: 'Buscar persona, proyecto o servicio', 'aria-label': 'Buscar en el detalle'});
+    const rows = (data.detalleMensual ?? []).map(row => el('tr', {},
+      ...[row.persona, row.proyecto || 'Sin proyecto', row.servicio,
+        row.facturable ? 'Facturable' : 'No facturable', formatNumber(row.horas, 2) + ' h']
+        .map(text => el('td', {text}))));
+    const empty = el('p', {text: 'Sin registros para esta consulta.'});
+    const filter = () => {
+      const query = search.value.trim().toLocaleLowerCase();
+      for (const row of rows) row.hidden = !row.textContent.toLocaleLowerCase().includes(query);
+      empty.hidden = rows.some(row => !row.hidden);
+    };
+    search.addEventListener('input', filter);
+    body.replaceChildren(search, el('table', {},
+      el('thead', {}, el('tr', {}, ...['Persona', 'Proyecto', 'Servicio', 'Tipo de hora', 'Horas']
+        .map(text => el('th', {scope: 'col', text})))),
+      el('tbody', {}, ...rows)), empty);
+    filter();
+  }).catch(error => { if (!controller.signal.aborted) body.textContent = error.message; });
+}
+
 // @ts-check
 // view: operativa/sections/capacity. Original data, ordering and interactions are preserved.
 import { el } from "#app/lib/dom.js";
@@ -61,6 +95,11 @@ export function renderCapacity(root, capacity) {
     );
     if (period) period.textContent = "Acceso limitado";
     return;
+  }
+  if (/^\d{4}-\d{2}$/.test(capacity.month || '')) {
+    const button = el('button', {type: 'button', class: 'ops-button', text: 'Ver horas por persona'});
+    button.addEventListener('click', () => openMonthlyDetail(capacity.month));
+    details?.append(button);
   }
   if (period) {
     const valid = /^\d{4}-\d{2}$/.test(capacity.month || "");
@@ -137,9 +176,9 @@ export function renderCapacity(root, capacity) {
     },
     el("i"),
   );
-  meter.firstElementChild.style.width = `${actualPercent}%`;
+  meter.firstElementChild.style.width = `${Math.min(100, actualPercent)}%`;
   const baseText =
-    `Capacidad base del mes: ${hours(capacity.base, 0)} (${capacity.people ?? "—"} personas × ${capacity.days ?? "—"} días × 8 h). ${capacity.over ?? "—"} personas sobre jornada.`;
+    `Capacidad base del mes: ${hours(capacity.base, 0)} (suma de horas disponibles por persona). ${capacity.over ?? "—"} personas sobre jornada.`;
   const center = el(
     "div",
     { class: "capacity-usage" },
@@ -219,7 +258,7 @@ export function renderCapacity(root, capacity) {
     detail(
       "Capacidad base del mes",
       capacity.base,
-      `${capacity.people ?? "—"} personas × ${capacity.days ?? "—"} días × 8 h`,
+      "Suma de la capacidad del mes por persona",
       "target",
     ),
   );

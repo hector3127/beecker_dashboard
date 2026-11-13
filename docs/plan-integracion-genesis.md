@@ -1124,3 +1124,33 @@ global verde. Verify backend dio 489 aprobadas, dos omitidas y cuatro fallidas e
 una de llamadas y tres de reproducibilidad OpenAPI (lectura de subprocess en Windows).
 La revisión visual quedó bloqueada por la política de acceso del navegador. No se modificó
 ai_hub/Lin ni se hizo push o despliegue.
+
+
+### Unión de ramas de Héctor y Christian — 13/11/2026
+
+El usuario pidió unir ambas ramas, publicar main y dejar codex/hector y
+codex/christian en la misma revisión. Se conserva Christian en Capacidad del
+equipo, Operativa y Business Overview; Héctor conserva el calendario Desde–Hasta,
+los históricos instalables por sync_datastore y la documentación correspondiente.
+La capacidad instalada y ETC/avance del resumen usan las métricas de capacidad
+del equipo de Christian. Facturabilidad conserva sus vistas y cierres.
+
+Se corrigieron errores de integración sin sustituir las reglas de Christian:
+reader sin definir en project_metadata, pérdida de project_details/distribución
+al refrescar EVA3 con caché y compatibilidad del modelo de capacidad con respuestas
+sin jornada explícita. La lista de roles especiales coincide por evaluación con
+la rama original de Christian. Las pruebas sintéticas se adaptaron a la nueva
+plantilla y a la exclusión de fines de semana.
+
+Validación inicial: 143 pruebas focalizadas backend y 474 frontend aprobadas;
+Ruff de archivos integrados sin errores. El merge no incluye outputs, SQLite,
+.env, key.json ni credenciales. Genesis no se modifica en esta unión.
+
+
+Pruebas de navegador de integración: 12 aprobadas (rango de fechas, filtro de
+servicio y navegación atrás, salud del portafolio y toda Capacidad diaria,
+incluyendo anchos 1450/900/390 y CSP). Se instaló Chromium headless de Playwright
+que faltaba en el equipo. La corrida amplia de las tres pantallas se interrumpió;
+no se presenta como suite completa aprobada. Ruff de los archivos integrados
+pasa; Ruff global conserva dos avisos de longitud previos en kpis_dm.py y
+test_kpi_rango_mensual.py, fuera de esta unión.

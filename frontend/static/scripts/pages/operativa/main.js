@@ -9,7 +9,7 @@ import { el } from '#app/lib/dom.js';
 import { formatDateTime } from '#app/lib/format.js';
 import { slugify } from '#app/lib/slug.js';
 import { renderBilling } from './sections/billing.js';
-import { renderCapacity } from './sections/capacity.js';
+import { renderCapacity } from './sections/capacity.js?v=capacity-audit';
 import { renderEva } from './sections/eva.js';
 import { renderHealth } from './sections/health.js';
 import { renderManagers } from './sections/managers.js';
@@ -74,7 +74,11 @@ let refreshing = false;
 /** @type {Set<AbortController>} */
 const controllers = new Set();
 
-const filters = () => ({ servicio: readParams().get('servicio') || '', cuenta: readParams().get('cuenta') || '' });
+const filters = () => ({
+  servicio: readParams().get('servicio') || '',
+  cuenta: readParams().get('cuenta') || '',
+  proyectos: readParams().get('proyectos') || '',
+});
 
 function abortAll() {
   controllers.forEach((controller) => controller.abort());
@@ -135,6 +139,135 @@ function renderFilters() {
   const { service, client } = view.filters;
   fillSelect(regions.service, view.options.services, service, 'Todos los servicios');
   fillSelect(regions.client, view.options.clients, client, 'Todas las cuentas');
+  renderSinglePickers();
+  renderProjectOptions();
+}
+
+const projectPicker = document.querySelector('.ops-project-picker');
+const projectOptions = byId('ops-project-options');
+const projectSearch = byId('ops-project-search');
+
+const singlePickers = [regions.service, regions.client].map(select => {
+  const label = select.parentElement;
+  const panel = el('div', {class: 'ops-project-panel ops-single-options'});
+  const value = el('span', {class: 'ops-single-value'});
+  const picker = el('details', {class: 'ops-project-picker'},
+    el('summary', {}, label.querySelector('svg').cloneNode(true),
+      el('span', {class: 'ops-project-label', text: label.querySelector('span').textContent}), value),
+    panel);
+  label.hidden = true;
+  label.after(picker);
+  return {select, picker, panel, value};
+});
+
+const filterPickers = [...singlePickers.map(item => item.picker), projectPicker];
+for (const picker of filterPickers) {
+  picker.querySelector('summary').addEventListener('click', () => {
+    for (const other of filterPickers) if (other !== picker) other.open = false;
+  });
+}
+document.addEventListener('pointerdown', event => {
+  for (const picker of filterPickers) if (!picker.contains(event.target)) picker.open = false;
+});
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+  for (const picker of filterPickers) {
+    if (!picker.open) continue;
+    picker.open = false;
+    picker.querySelector('summary').focus();
+  }
+});
+
+function renderSinglePickers() {
+  for (const {select, picker, panel, value} of singlePickers) {
+    value.textContent = select.selectedOptions[0]?.textContent ?? '';
+    panel.replaceChildren(...Array.from(select.options, option => {
+      const button = el('button', {type: 'button', text: option.textContent,
+        'aria-pressed': String(option.selected)});
+      button.addEventListener('click', () => {
+        picker.open = false;
+        picker.querySelector('summary').focus();
+        if (select.value === option.value) return;
+        select.value = option.value;
+        select.dispatchEvent(new Event('change'));
+      });
+      return button;
+    }));
+  }
+}
+
+
+
+function renderProjectOptions() {
+  const selected = new Set(filters().proyectos.toLowerCase().split(','));
+  byId('ops-project-selection').textContent = filters().proyectos
+    ? `${selected.size} seleccionados` : 'Todos los proyectos';
+  projectOptions.replaceChildren(...(view?.options.projects ?? []).map(([id, name]) =>
+    el('label', {}, el('input', {type: 'checkbox', value: id, checked: selected.has(id.toLowerCase())}), el('span', {}, el('strong', {text: id}), ` · ${name}`))));
+  if (!projectOptions.children.length) projectOptions.append(el('p', {text: view?.loading ? 'Cargando proyectos…' : 'Sin proyectos para estos filtros.'}));
+  projectSearch.dispatchEvent(new Event('input'));
+  updateProjectCount();
+}
+
+function updateProjectCount() {
+  const count = projectOptions.querySelectorAll('input:checked').length;
+  byId('ops-project-count').textContent = count === 1 ? '1 proyecto seleccionado' : count + ' proyectos seleccionados';
+}
+projectOptions.addEventListener('change', updateProjectCount);
+
+projectPicker.addEventListener('toggle', () => {
+  if (projectPicker.open) {
+    projectSearch.value = '';
+    renderProjectOptions();
+  }
+});
+projectSearch.addEventListener('input', () => {
+  const query = projectSearch.value.trim().toLowerCase();
+  for (const label of projectOptions.children) label.hidden = !label.textContent.toLowerCase().includes(query);
+});
+function applyProjects(ids) {
+  projectPicker.open = false;
+  writeParams({proyectos: ids.join(',') || null}, {push: true});
+  start();
+}
+byId('ops-project-apply').addEventListener('click', () =>
+  applyProjects([...projectOptions.querySelectorAll('input:checked')].map(input => input.value)));
+byId('ops-project-clear').addEventListener('click', () => applyProjects([]));
+
+function renderProjectInsights() {
+  const projectLink = p => el('a', {href: `/proyectos/${encodeURIComponent(p.id)}/`, text: `${p.id} · ${p.name}`});
+  const projects = view.project_details ?? [];
+  const risk = projects.filter(p => p.health === 'En Riesgo' || p.health === 'En riesgo' || p.health === 'at_risk');
+  const investment = Object.entries(view.investment_projects ?? {})
+    .filter(([, hours]) => hours.operational || hours.commercial);
+  const label = regions.health.querySelector('.ops-health-state:has(.state-dot.at_risk)');
+  if (label) {
+    const trigger = el('button', {type: 'button', class: 'ops-risk-trigger'}, ...label.childNodes);
+    label.classList.add('ops-risk-anchor');
+    label.replaceChildren(trigger, el('div', {class: 'ops-risk-popup'},
+      el('strong', {text: 'Proyectos en riesgo (' + risk.length + ')'}),
+      ...(risk.length ? risk.map(p => el('p', {}, projectLink(p), ' · ' + p.reason))
+        : [el('p', {text: view.summary.health.at_risk ? 'Detalle de riesgo pendiente de consulta.' : 'Sin proyectos en riesgo para estos filtros.'})])));
+  }
+  for (const [kind, tag] of [['operational', 'INV_OPERATIVA'], ['commercial', 'INV_COMERCIAL']]) {
+    const card = byId('ops-investment-' + kind);
+    const rows = investment.filter(([, hours]) => hours[kind] > 0)
+      .sort((a, b) => b[1][kind] - a[1][kind]);
+    const heading = card.querySelector('.ops-metric-head');
+    const trigger = el('button', {type: 'button', class: 'ops-risk-trigger'}, ...heading.childNodes);
+    heading.replaceChildren(trigger);
+    card.classList.add('ops-risk-anchor');
+    card.append(el('div', {class: 'ops-risk-popup ops-investment-popup'},
+      el('span', {class: 'ops-investment-clock', 'aria-hidden': 'true', text: '◷'}),
+      el('div', {class: 'ops-investment-content'},
+        el('strong', {text: tag + ' · Horas por proyecto'}),
+        el('div', {class: 'ops-investment-rows'},
+          ...(view.investment.complete && rows.length
+            ? rows.map(([id, hours]) => el('div', {class: 'ops-investment-row'},
+              projectLink(projects.find(p => p.id === id) ?? {id, name: id}),
+              el('b', {text: Number(hours[kind].toFixed(2)) + ' h'})))
+            : [el('p', {text: view.investment.complete ? 'Sin horas con esta etiqueta para los filtros seleccionados.' : 'Detalle pendiente de consulta.'})])))));
+  }
 }
 
 function renderAll() {
@@ -143,6 +276,7 @@ function renderAll() {
   regions.cut.textContent = view.loaded_at ? `Corte calculado al ${formatDateTime(view.loaded_at, ', ')}` : '';
   renderMetrics(regions.metrics, view);
   renderHealth(regions.health, view);
+  renderProjectInsights();
   renderManagers(regions.managers, view, urls);
   renderEva(regions.eva, view, urls);
   capacityMonth.disabled = view.restricted;
@@ -180,6 +314,7 @@ function applyBlock(block, data) {
   if (block === 'capacidad') view.capacity = capacityState(view.capacity, data.capacity, view.restricted);
   if (block === 'inversion') {
     view.investment = data.investment;
+    view.investment_projects = data.investment_projects;
     for (const manager of view.managers) manager.investment = bySlug.get(manager.slug)?.investment ?? manager.investment;
   }
   if (block === 'eva3') {
@@ -192,9 +327,9 @@ function applyBlock(block, data) {
     Object.assign(view, {
       summary: data.summary,
       service_distribution: data.service_distribution,
-      health_alerts: data.health_alerts,
       portfolio_total: data.portfolio_total,
       health_states: data.health_states,
+      project_details: data.project_details,
       consumption_pending: data.consumption_pending,
       has_projects: data.has_projects,
     });
@@ -351,7 +486,7 @@ async function start() {
 regions.refresh.addEventListener('click', () => refresh(true));
 
 regions.service.addEventListener('change', () => {
-  writeParams({ servicio: regions.service.value || null }, { push: true });
+  writeParams({ servicio: regions.service.value || null, proyectos: null }, { push: true });
   start();
 });
 
