@@ -35,14 +35,18 @@ export function bindAudit() {
   const retry = el('button', {type: 'button', text: 'Volver a consultar', onclick: load});
   const dialog = el('dialog', {class: 'specialty-audit', 'aria-labelledby': 'audit-title'},
     el('header', {}, title, el('button', {type: 'button', text: 'Cerrar ×', onclick: close})),
-    el('p', {text: 'Consulta de solo lectura. Horas facturables y no facturables, sin Comida. Los ajustes aprobados se identifican por separado. Se incluyen personas con capacidad cero para revisar sus registros; — indica capacidad no disponible.'}),
+    el('p', {text: 'Consulta de solo lectura. Horas facturables y no facturables, sin Comida. Los ajustes aprobados se identifican por separado. Se ocultan las filas con todas las horas en cero; — indica capacidad no disponible.'}),
     el('div', {class: 'audit-controls'}, el('label', {}, 'Mes ', month), search, el('button', {type: 'button', text: 'Limpiar filtros', onclick: () => {search.value = ''; filters[active].clear(); render();}}), retry),
     source, reconciliation, status, el('div', {role: 'tablist', 'aria-label': 'Desglose de horas'}, ...tabs), panel,
     el('footer', {}, el('span', {text: 'Esc para cerrar · Modifica los registros en su fuente de origen.'}), el('button', {type: 'button', text: 'Cerrar', onclick: close})),
   );
   document.body.append(dialog);
   dialog.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {event.preventDefault(); event.stopPropagation(); close();}
+    if (event.key === 'Escape') {
+      const popup = dialog.querySelector('.audit-filter-menu:popover-open');
+      event.preventDefault(); event.stopPropagation();
+      if (popup) popup.hidePopover(); else close();
+    }
   }, true);
   dialog.addEventListener('close', () => {sequence++; trigger.focus();});
   trigger.addEventListener('click', () => {dialog.showModal(); load();});
@@ -52,6 +56,7 @@ export function bindAudit() {
   function render() {
     tabs.forEach((tab, index) => {tab.setAttribute('aria-selected', String(active === index)); tab.tabIndex = active === index ? 0 : -1;});
     panel.setAttribute('aria-labelledby', `audit-tab-${active}`);
+    dialog.querySelectorAll('.audit-filter-menu').forEach(menu => menu.remove());
     table.replaceChildren();
     reconciliation.replaceChildren();
     if (!data) return;
@@ -79,21 +84,59 @@ export function bindAudit() {
         Object.entries(row.billable_services || row.services).reduce((sum, [key, value]) => sum + (['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].includes(key) ? 0 : value), 0), row.adjustment];
     const numericFrom = active ? 5 : 2;
     const display = (value, index) => index >= numericFrom ? hours(value) : value;
-    const all = (active ? data.projects : data.people).map(values);
+    const all = (active ? data.projects : data.people).map(values)
+      .filter(row => row.slice(numericFrom).some(value => typeof value === 'number' && value !== 0));
     const rows = all.filter(row => row.some(value => normalize(value).includes(query)) &&
-      [...filters[active]].every(([index, value]) => String(row[index] ?? '—') === value));
+      [...filters[active]].every(([index, selected]) => selected.has(String(row[index] ?? '—'))));
     const headings = labels.map((text, index) => {
       const options = [...new Set(all.map(row => String(row[index] ?? '—')))];
       options.sort((a, b) => index >= numericFrom && a !== '—' && b !== '—' ? Number(a) - Number(b) : a.localeCompare(b, 'es'));
-      const select = el('select', {'aria-label': `Filtrar ${text}`, onchange: event => {
-        if (event.target.value) filters[active].set(index, event.target.value);
-        else filters[active].delete(index);
-        render();
-      }}, el('option', {value: '', text: 'Todos'}), ...options.map(value => el('option', {
-        value, text: index >= numericFrom && value !== '—' ? hours(Number(value)) : value,
-      })));
-      select.value = filters[active].get(index) || '';
-      return el('th', {scope: 'col'}, el('span', {text}), select);
+      const selected = filters[active].get(index);
+      const draft = new Set(selected || options);
+      const button = el('button', {type: 'button', class: 'audit-filter-trigger',
+        'aria-label': `Filtrar ${text}`, 'aria-expanded': 'false',
+        text: `${selected ? `${selected.size} seleccionados` : 'Todos'} ▾`});
+      const optionList = el('div', {class: 'audit-filter-options'});
+      const find = el('input', {type: 'search', placeholder: 'Buscar valor…', 'aria-label': `Buscar valores de ${text}`});
+      const allCheckbox = el('input', {type: 'checkbox', 'aria-label': 'Seleccionar todos los valores visibles'});
+      const update = () => {
+        const visible = options.filter(value => normalize(value).includes(normalize(find.value)) ||
+          normalize(display(index >= numericFrom && value !== '—' ? Number(value) : value, index)).includes(normalize(find.value)));
+        allCheckbox.checked = visible.length > 0 && visible.every(value => draft.has(value));
+        allCheckbox.indeterminate = visible.some(value => draft.has(value)) && !allCheckbox.checked;
+        optionList.replaceChildren(...visible.map(value => el('label', {}, el('input', {
+          type: 'checkbox', checked: draft.has(value), value,
+          onchange: event => {if (event.target.checked) draft.add(value); else draft.delete(value); update();},
+        }), el('span', {text: index >= numericFrom && value !== '—' ? hours(Number(value)) : value}))));
+        if (!visible.length) optionList.append(el('p', {text: 'Sin coincidencias.'}));
+      };
+      find.addEventListener('input', update);
+      allCheckbox.addEventListener('change', () => {
+        const checked = allCheckbox.checked;
+        optionList.querySelectorAll('input').forEach(input => {if (checked) draft.add(input.value); else draft.delete(input.value);});
+        update();
+      });
+      const menu = el('div', {class: 'audit-filter-menu', popover: 'auto', role: 'group', 'aria-label': `Filtro de ${text}`},
+        el('strong', {text}), find, el('label', {}, allCheckbox, 'Seleccionar todo'), optionList,
+        el('div', {class: 'audit-filter-actions'},
+          el('button', {type: 'button', text: 'Aceptar', onclick: () => {
+            if (draft.size === options.length) filters[active].delete(index);
+            else filters[active].set(index, new Set(draft));
+            menu.hidePopover(); render();
+            table.querySelectorAll('.audit-filter-trigger')[index]?.focus();
+          }}),
+          el('button', {type: 'button', text: 'Cancelar', onclick: () => {menu.hidePopover(); button.focus();}})));
+      dialog.append(menu);
+      menu.addEventListener('toggle', event => button.setAttribute('aria-expanded', String(event.newState === 'open')));
+      button.addEventListener('click', () => {
+        draft.clear(); (filters[active].get(index) || options).forEach(value => draft.add(value));
+        find.value = ''; update();
+        const rect = button.getBoundingClientRect();
+        menu.style.left = `${Math.max(8, Math.min(rect.left, innerWidth - 296))}px`;
+        menu.style.top = `${Math.max(8, Math.min(rect.bottom + 4, innerHeight - 400))}px`;
+        menu.showPopover(); find.focus();
+      });
+      return el('th', {scope: 'col'}, el('span', {text}), button);
     });
     const body = el('tbody', {}, ...rows.map(row => el('tr', {}, ...row.map((value, index) => el('td', {text: display(value, index)})))));
     if (!rows.length) body.append(el('tr', {}, el('td', {colspan: labels.length, text: 'Sin coincidencias para este mes, áreas y búsqueda.'})));

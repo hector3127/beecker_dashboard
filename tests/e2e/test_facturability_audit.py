@@ -28,13 +28,29 @@ def test_audit_tabs_search_and_escape(portal):
                     "synced_at": "2026-11-13T12:00:00Z",
                     "people": [
                         {
+                            "name": "Eva",
+                            "role": "QA",
+                            "estimated": 0,
+                            "registered": 20,
+                            "adjustment": 0,
+                            "services": {"AER": 20},
+                        },
+                        {
+                            "name": "Todo cero",
+                            "role": "DEV",
+                            "estimated": 0,
+                            "registered": 0,
+                            "adjustment": 0,
+                            "services": {},
+                        },
+                        {
                             "name": "Ana",
                             "role": "DEV",
                             "estimated": 176,
                             "registered": 84,
                             "adjustment": 0,
                             "services": {"AER": 84},
-                        }
+                        },
                     ],
                     "projects": [
                         {
@@ -68,9 +84,25 @@ def test_audit_tabs_search_and_escape(portal):
     expect(dialog.locator(".audit-reconciliation")).to_contain_text("4,673.40")
     expect(dialog.get_by_role("cell", name="Ana", exact=True)).to_be_visible()
     expect(dialog.locator(".audit-scroll tfoot")).to_contain_text("176.00")
+    expect(dialog.locator(".audit-scroll tfoot")).to_contain_text("104.00")
+    expect(
+        dialog.get_by_role("cell", name="Todo cero", exact=True)
+    ).to_have_count(0)
+    expect(dialog.get_by_role("cell", name="Eva", exact=True)).to_be_visible()
+    dialog.get_by_role("button", name="Filtrar Rol", exact=True).click()
+    popup = dialog.get_by_role("group", name="Filtro de Rol", exact=True)
+    popup.get_by_role(
+        "checkbox", name="Seleccionar todos los valores visibles"
+    ).uncheck()
+    popup.get_by_role("checkbox", name="DEV", exact=True).check()
+    popup.get_by_role("button", name="Aceptar").click()
     expect(dialog.locator(".audit-scroll tfoot")).to_contain_text("84.00")
-    dialog.get_by_label("Filtrar Rol", exact=True).select_option("DEV")
-    expect(dialog.locator(".audit-scroll tfoot")).to_contain_text("84.00")
+    expect(dialog.get_by_role("cell", name="Eva", exact=True)).to_have_count(0)
+    dialog.get_by_role("button", name="Filtrar Rol", exact=True).click()
+    popup.get_by_role("checkbox", name="QA", exact=True).check()
+    popup.get_by_role("button", name="Aceptar").click()
+    expect(dialog.get_by_role("cell", name="Eva", exact=True)).to_be_visible()
+    expect(dialog.locator(".audit-scroll tfoot")).to_contain_text("104.00")
     dialog.get_by_role("tab", name="Detalle por proyecto").click()
     expect(dialog.get_by_role("cell", name="AER.A", exact=True)).to_be_visible()
     dialog.get_by_role("searchbox").fill("inexistente")

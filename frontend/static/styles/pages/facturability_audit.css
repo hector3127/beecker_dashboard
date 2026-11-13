@@ -25,3 +25,12 @@ body:has(.specialty-audit[open]) {overflow:hidden}
 
 .audit-reconciliation {overflow-x:auto;padding:12px;border:1px solid #e2d9fa;border-radius:8px;margin-bottom:12px}
 .audit-reconciliation h3 {margin:0}
+
+.specialty-audit .audit-filter-trigger {display:block;width:100%;margin-top:6px;font-size:12px;padding:5px;text-align:left}
+.audit-filter-menu {position:fixed;inset:auto;margin:0;box-sizing:border-box;width:280px;max-width:calc(100vw - 16px);max-height:calc(100vh - 16px);overflow:auto;padding:12px;border:1px solid #b9a6f5;border-radius:10px;background:#fff;color:#201657;box-shadow:0 8px 28px #20165733;font-size:13px}
+.audit-filter-menu strong,.audit-filter-menu > input {display:block;width:100%;box-sizing:border-box;margin-bottom:8px}
+.audit-filter-menu label {display:flex;align-items:center;gap:8px;padding:5px 0;text-align:left;font-weight:400}
+.audit-filter-menu input[type=checkbox] {width:16px;height:16px;flex-shrink:0;accent-color:#6230db}
+.audit-filter-options {max-height:210px;overflow:auto;margin:8px 0;border-block:1px solid #e2d9fa}
+.audit-filter-options span {white-space:normal;overflow-wrap:anywhere}
+.audit-filter-actions {display:flex;justify-content:flex-end;gap:8px}
