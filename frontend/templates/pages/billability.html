@@ -2,7 +2,7 @@
 {% load static  %}
 {% block title %}Facturabilidad{% endblock %}
 {% block body_class %}ds billability-page{% endblock %}
-{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
+{% block head %}<link rel="stylesheet" href="{% static 'app/styles/pages/facturability_audit.css' %}"><link rel="stylesheet" href="{% static 'app/styles/pages/portal-controls.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/portal-loading.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/legacy-base.css' %}">
 <link rel="stylesheet" href="{% static 'app/styles/pages/ds.css' %}">
@@ -19,6 +19,7 @@
 <form method="get" class="mf bii-e3dd54">{% include 'partials/period_picker.html' %}<span class="bii-d77876">Cierres publicados de GSE y Clockify. El filtro de áreas consulta el detalle disponible.</span>{% if role_options %}<details class="rf"><summary>Áreas mostradas{% if request.GET.roles != "1" %} · solo operativas{% endif %}</summary><div class="rfl">{% for r in role_options %}<label><input type="checkbox" name="rol" value="{{ r.label }}"{% if r.checked %} checked{% endif %}> {{ r.display }}</label>{% endfor %}</div><input type="hidden" name="roles" value="1"><div class="rfb"><button type="submit">Aplicar</button><a href="{{ picker.reset_href }}">Solo operativas</a></div></details>{% endif %}</form>
 {% if errors %}<div class="err">Meses sin datos completos: {% for m in errors %}{{ m.label }} ({{ m.error }}){% if not forloop.last %}; {% endif %}{% endfor %}</div>{% endif %}
 
+<p><button type="button" id="specialty-audit-open" aria-haspopup="dialog">Consultar personas y proyectos</button></p>
 <details class="capacity-exclusions">
   <summary>Personas excluidas</summary>
   <p>Personas sin capacidad en los meses seleccionados.</p>
@@ -71,4 +72,4 @@
   </dl>
 </section>{% endif %}
 {% endblock %}
-{% block scripts %}<script type="module" src="{% static 'app/scripts/pages/billability/main.js' %}"></script>{% endblock %}
+{% block scripts %}{{ audit_months|json_script:"specialty-audit-months" }}<script type="module" src="{% static 'app/scripts/pages/billability/main.js' %}"></script>{% endblock %}

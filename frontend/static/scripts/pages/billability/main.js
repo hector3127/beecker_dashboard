@@ -1,3 +1,4 @@
+import { bindAudit } from '../billability_specialty/audit.js';
 import { mountReference } from "./reference.js";
 // @ts-check
 import { bindPeriodPicker } from '#app/ui/period-picker.js';
@@ -15,3 +16,5 @@ document.querySelectorAll('[data-height]').forEach(element => {
 });
 
 mountReference();
+
+bindAudit();

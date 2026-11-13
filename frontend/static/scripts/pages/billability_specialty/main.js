@@ -1,4 +1,3 @@
-import { bindAudit } from './audit.js';
 // @ts-check
 import { bindPeriodPicker } from '#app/ui/period-picker.js';
 import { el } from '#app/lib/dom.js';
@@ -76,4 +75,3 @@ stackedChart('specialty-availability-chart',
   roles.map((name, index) => ({key: name, label: name, color: colors[index % colors.length]})),
   (month, key) => month.roles[key] ?? 0);
 
-bindAudit();

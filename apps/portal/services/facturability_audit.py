@@ -6,6 +6,7 @@ from typing import Any
 
 from apps.capacidad.services.capacity_text import normalize_capacity_text
 from apps.datastore.models import ClockifyMonthSync, FacturabilityClose
+from apps.gse.constants import BILLABLE
 from apps.portal.services.facturability import (
     normalize_service,
     person_month_hours,
@@ -31,7 +32,7 @@ def audit_month(month: str, roles: frozenset[str]) -> dict[str, Any]:
         }
     result = summarize(gse, roles)
     close = (
-        FacturabilityClose.objects.filter(month=day, view="especialidad")
+        FacturabilityClose.objects.filter(month=day, view="general")
         .order_by("-revision")
         .first()
     )
@@ -41,6 +42,7 @@ def audit_month(month: str, roles: frozenset[str]) -> dict[str, Any]:
         synced_at=sync.synced_at.isoformat(),
         published_source=close.source if close else None,
         published_revision=close.revision if close else None,
+        published_summary=close.metrics if close else None,
     )
     return result
 
@@ -64,6 +66,7 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
             "registered": 0.0,
             "adjustment": 0.0,
             "services": defaultdict(float),
+            "billable_services": defaultdict(float),
         }
     projects: dict[tuple[str, str, str, str], float] = defaultdict(float)
     for item in gse.get("detalle") or []:
@@ -83,6 +86,7 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
                 "registered": 0.0,
                 "adjustment": 0.0,
                 "services": defaultdict(float),
+                "billable_services": defaultdict(float),
             },
         )
         project = str(item.get("proyecto") or "Sin proyecto")
@@ -100,6 +104,8 @@ def summarize(gse: dict[str, Any], roles: frozenset[str]) -> dict[str, Any]:
         else:
             person["registered"] += hours
             person["services"][service] += hours
+            if BILLABLE in (item.get("categorias") or []):
+                person["billable_services"][service] += hours
     return {
         "people": sorted(people.values(), key=lambda row: row["name"]),
         "warnings": gse.get("avisos") or [],

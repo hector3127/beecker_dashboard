@@ -1545,6 +1545,7 @@ def facturabilidad_data(request: HttpRequest, period: Period) -> dict[str, Any]:
     )
     return {
         "months": months,
+        "audit_months": keys,
         "published_months": list(published),
         "aer_comparison": aer_registered_comparison()
         if period.year == 2026

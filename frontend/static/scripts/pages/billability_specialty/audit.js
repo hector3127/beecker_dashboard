@@ -18,6 +18,7 @@ export function bindAudit() {
   const search = el('input', {type: 'search', placeholder: 'Buscar persona, rol o proyecto', 'aria-label': 'Buscar en el desglose'});
   const status = el('p', {role: 'status', 'aria-live': 'polite'});
   const source = el('p', {class: 'audit-source'});
+  const reconciliation = el('div', {class: 'audit-reconciliation'});
   const table = el('div', {class: 'audit-scroll', tabindex: '0'});
   const panel = el('section', {id: 'audit-panel', role: 'tabpanel', 'aria-labelledby': 'audit-tab-0'}, table);
   const tabs = ['Por persona', 'Detalle por proyecto'].map((text, index) => el('button', {
@@ -36,7 +37,7 @@ export function bindAudit() {
     el('header', {}, title, el('button', {type: 'button', text: 'Cerrar ×', onclick: close})),
     el('p', {text: 'Consulta de solo lectura. Horas facturables y no facturables, sin Comida. Los ajustes aprobados se identifican por separado. Se incluyen personas con capacidad cero para revisar sus registros; — indica capacidad no disponible.'}),
     el('div', {class: 'audit-controls'}, el('label', {}, 'Mes ', month), search, el('button', {type: 'button', text: 'Limpiar filtros', onclick: () => {search.value = ''; filters[active].clear(); render();}}), retry),
-    source, status, el('div', {role: 'tablist', 'aria-label': 'Desglose de horas'}, ...tabs), panel,
+    source, reconciliation, status, el('div', {role: 'tablist', 'aria-label': 'Desglose de horas'}, ...tabs), panel,
     el('footer', {}, el('span', {text: 'Esc para cerrar · Modifica los registros en su fuente de origen.'}), el('button', {type: 'button', text: 'Cerrar', onclick: close})),
   );
   document.body.append(dialog);
@@ -52,14 +53,30 @@ export function bindAudit() {
     tabs.forEach((tab, index) => {tab.setAttribute('aria-selected', String(active === index)); tab.tabIndex = active === index ? 0 : -1;});
     panel.setAttribute('aria-labelledby', `audit-tab-${active}`);
     table.replaceChildren();
+    reconciliation.replaceChildren();
     if (!data) return;
+    if (data.published_summary) {
+      const published = data.published_summary;
+      const estimates = data.people.reduce((sum, row) => sum + (row.estimated || 0), 0);
+      const aer = data.people.reduce((sum, row) => sum + ((row.billable_services || row.services).AER || 0) + row.adjustment, 0);
+      const reference = [
+        ['Capacidad estimada', published.capacity, estimates],
+        ['AER facturable + ajustes aprobados', published.fixed_hours, aer],
+      ];
+      reconciliation.append(el('h3', {text: 'Referencia del resumen publicado'}),
+        el('p', {text: `Capacidad: ${hours(published.capacity)} h · AER: ${hours(published.fixed_hours)} h · Variables: ${hours(published.variable_hours)} h · Libres: ${hours(published.free_hours)} h · Global: ${hours(published.global_percent)}%`}),
+        el('table', {}, el('thead', {}, el('tr', {}, ...['Concepto', 'Resumen publicado', 'Detalle actual', 'Diferencia por conciliar'].map(text => el('th', {text})))),
+          el('tbody', {}, ...reference.map(([label, approved, current]) => el('tr', {},
+            ...[label, hours(approved), hours(current), hours(approved - current)].map(text => el('td', {text})))))),
+        el('p', {text: 'Estos totales son los del resumen. El cierre solo conserva cifras agregadas: el desglose actual no acredita el reparto histórico por persona. Esta comparación usa todas las filas del mes y áreas, independientemente de los filtros de la tabla.'}));
+    }
     const normalize = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     const query = normalize(search.value);
     const labels = active ? ['Persona', 'Rol', 'Proyecto en GSE', 'Servicio asociado', 'Origen', 'Horas registradas / ajuste'] :
-      ['Persona', 'Rol', 'Estimadas (h)', 'Registradas (h)', 'AER (h)', 'IXB (h)', 'RaaS (h)', 'SaaS (h)', 'T&M (h)', 'Otros (h)', 'Ajustes aprobados (h)'];
+      ['Persona', 'Rol', 'Estimadas (h)', 'Registradas (h)', 'AER facturable (h)', 'IXB facturable (h)', 'RaaS facturable (h)', 'SaaS facturable (h)', 'T&M facturable (h)', 'Otros facturables (h)', 'Ajustes aprobados (h)'];
     const values = row => active ? [row.name, row.role, row.project, row.service, row.kind, row.hours] :
-      [row.name, row.role, row.estimated, row.registered, ...['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].map(key => row.services[key] || 0),
-        Object.entries(row.services).reduce((sum, [key, value]) => sum + (['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].includes(key) ? 0 : value), 0), row.adjustment];
+      [row.name, row.role, row.estimated, row.registered, ...['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].map(key => (row.billable_services || row.services)[key] || 0),
+        Object.entries(row.billable_services || row.services).reduce((sum, [key, value]) => sum + (['AER', 'IXB', 'RAAS', 'SAAS', 'TYM'].includes(key) ? 0 : value), 0), row.adjustment];
     const numericFrom = active ? 5 : 2;
     const display = (value, index) => index >= numericFrom ? hours(value) : value;
     const all = (active ? data.projects : data.people).map(values);
@@ -109,7 +126,7 @@ export function bindAudit() {
       if (!response.data.ok) throw new Error(response.data.error);
       data = response.data;
       source.textContent = `Base Clockify sincronizada: ${new Date(data.synced_at).toLocaleString('es-MX')}. ` +
-        (data.published_revision ? `Existe cierre publicado (revisión ${data.published_revision}: ${data.published_source}). Este desglose consulta los registros actuales y puede diferir del cierre; no lo modifica.` : 'Mes sin cierre publicado por especialidad.');
+        (data.published_revision ? `Existe cierre publicado (revisión ${data.published_revision}: ${data.published_source}). Este desglose consulta los registros actuales y puede diferir del cierre; no lo modifica.` : 'Mes sin cierre general publicado.');
       if (data.unmatched?.length) source.textContent += ` Personas sin coincidencia en Bandas/rol: ${data.unmatched.join(', ')}.`;
       render();
     } catch (error) {

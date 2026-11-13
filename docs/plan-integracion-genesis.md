@@ -1185,3 +1185,5 @@ argumento. La prueba de navegador valida mes en la URL para impedir
 params=[object Object] y el error 400.
 
 El modal incorpora filtros por columna en ambas pestañas, limpieza de filtros y total filtrado fijo al pie. Sumas sin redondeo intermedio; presentación a dos decimales y aviso cuando faltan capacidades. Prueba de navegador de filtros y totales aprobada.
+
+Corrección de ubicación: el botón vive exclusivamente en Facturabilidad general. Comparación lee FacturabilityClose general, misma revisión del resumen, y muestra capacidad/AER/variables/libres/global publicados. El detalle actual separa servicios facturables de horas registradas totales y señala diferencia por conciliar; no se inventa el reparto individual de un cierre que solo guarda agregados. Filtros personalizados de áreas no muestran referencia publicada global. Tres pruebas backend y una de navegador aprobadas.

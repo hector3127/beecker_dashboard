@@ -130,6 +130,9 @@ class FacturabilityAuditView(OperationsScreen):
                 role_key(value) for value in request.query_params.getlist("rol")
             )
             if request.query_params.get("roles") == "1"
-            else frozenset({"dev", "qa", "arq", "ba", "sm", "lab ia"})
+            else frozenset({"dev", "qa", "arq", "ba", "sm"})
         )
-        return self.body(audit_month(month, roles))
+        data = audit_month(month, roles)
+        if request.query_params.get("roles") == "1":
+            data["published_summary"] = None
+        return self.body(data)
