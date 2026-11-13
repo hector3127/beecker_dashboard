@@ -37,10 +37,19 @@ Otros: sync_datastore --desde AAAA-MM [--hasta AAAA-MM]  (carga inicial)
        sync_datastore --sin-verificar                     (sin comparar totales)
 """
 
-STEPS = ("hojas", "azure", "clockify", "lecturas", "catalogos", "eva")
+STEPS = (
+    "historicos",
+    "hojas",
+    "azure",
+    "clockify",
+    "lecturas",
+    "catalogos",
+    "eva",
+)
 # Despues de este tiempo un candado se considera abandonado (el proceso
 # murio). Clockify admite la carga inicial, que tarda cerca de una hora.
 LOCK_SECONDS = {
+    "historicos": 15 * 60,
     "eva": 2 * 60 * 60,
     "hojas": 15 * 60,
     "azure": 30 * 60,
@@ -160,6 +169,7 @@ class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any) -> None:
         """Corre los pasos elegidos, cada uno con su candado."""
         runners = {
+            "historicos": self.sync_approved_history,
             "hojas": lambda: self.sync_sheets(),
             "azure": lambda: self.sync_azure_projects(),
             "clockify": lambda: self.sync_clockify(options),
@@ -181,6 +191,16 @@ class Command(BaseCommand):
                 failures.extend(runners[step]())
         if failures:
             raise CommandError("\n".join(failures))
+
+    def sync_approved_history(self) -> list[str]:
+        """Instala cierres aprobados sin Excel y sin sobrescribir meses."""
+        from apps.datastore.services.approved_history import (
+            install_approved_history,
+        )
+
+        counts = install_approved_history()
+        self.stdout.write(f"Históricos aprobados: {counts}")
+        return []
 
     def sync_eva(self) -> list[str]:
         """Publish a provider-native EVA cut, independent of Sheets failures."""

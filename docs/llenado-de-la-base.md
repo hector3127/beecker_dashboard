@@ -8,6 +8,37 @@ en la rama `main`) y los conteos salen de la base local del 2026-10-20.
 Para programar las ejecuciones ver [ejecucion-programada.md](ejecucion-programada.md);
 para su destino en Genesis, [plan-integracion-genesis.md](plan-integracion-genesis.md).
 
+
+## Instalación con históricos aprobados (12/11/2026)
+
+Después de configurar `.env` y `key.json`, ejecutar:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py sync_datastore --desde 2024-08
+```
+
+El comando completo comienza por `historicos`: instala los cierres publicados
+ de Facturabilidad, los diez meses cerrados de KPI DM y la capacidad de referencia
+ por persona de enero a septiembre de 2026 desde
+`apps/datastore/data/approved_history.json`. No necesita el Excel original.
+Después sincroniza las fuentes actuales. No contiene credenciales ni horas crudas
+ de Clockify; esas horas se descargan con las conexiones autorizadas.
+
+Si un mes/vista de Facturabilidad, un periodo KPI o un mes de capacidad ya existe,
+se conserva completo. No publica revisiones sobre datos existentes. Las revisiones
+aprobadas posteriores requieren una actualización explícita del conjunto inicial
+o su migración correspondiente. Repetir el comando no duplica registros.
+
+Para instalar únicamente los históricos sin consultar servicios externos:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py sync_datastore --pasos historicos
+```
+
+`--pasos` selecciona exactamente los pasos indicados; incluir `historicos` si se
+utiliza una selección manual. El comando normal sin `--pasos` sí lo incluye.
+
 ---
 
 ## 1. Resumen en una tabla
