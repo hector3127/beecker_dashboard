@@ -33,7 +33,7 @@ def population(reader: SheetReader | None = None) -> list[dict[str, Any]]:
     """Incluye proyectos que tuvieron actividad en 2026, aun si ya cerraron."""
     today = timezone.localdate()
     cache_key = (
-        "portal:executive-operations:population:v4:"
+        "portal:executive-operations:population:v5:"
         + today.isoformat()
         + cache_suffix()
     )
@@ -62,7 +62,7 @@ def population(reader: SheetReader | None = None) -> list[dict[str, Any]]:
         ):
             return
         if current():
-            start, end = max(start, selected_start), min(end, selected_end)
+            end = min(end, selected_end)
         projects[pid.casefold()] = {
             "id": pid,
             "service": service,

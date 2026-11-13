@@ -118,6 +118,13 @@ def eva_projects(ixb: Any, aer: Any) -> Any:
                 p.budget,
                 p.burn or 0,
                 p.etc or 0,
+                health_reason=(
+                    "Falta fecha de fin o renovación."
+                    if health == "En Riesgo" and days is None
+                    else f"Quedan {days} días y como máximo el 10% del presupuesto en horas."
+                    if health == "En Riesgo"
+                    else ""
+                ),
             )
         )
     return result
@@ -361,12 +368,18 @@ def tagged_investment(
     return result
 
 
-def legacy_capacity(month: Any) -> Any:
+def team_capacity_cache_key(month: str) -> str:
+    return 'portal:team-capacity:v8:' + month
+
+
+def legacy_capacity(month: Any, *, cached_only: bool = False) -> Any:
     """Capacidad del equipo: Bandas/rol + Clockify (sin la hoja Recursos)."""
-    key = "portal:team-capacity:v3:" + month
+    key = team_capacity_cache_key(month)
     cached = cache.get(key)
     if cached is not None:
         return cached
+    if cached_only:
+        return None
     try:
         team = build_team_capacity(build_sheet_repository(), month)
     except DashboardError as error:

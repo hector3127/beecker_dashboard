@@ -253,7 +253,26 @@ def operativa_screen(
         "options": {
             "services": list(context.get("services", ())),
             "clients": list(context.get("clients", ())),
+            "projects": list(context.get("project_options", ())),
         },
+        "project_details": [
+            {
+                "id": project.project_id,
+                "name": project.name,
+                "service": project.service,
+                "health": project.health,
+                "budget": project.budget_hours,
+                "burn": project.burn_hours,
+                "progress": project.progress_percent,
+                "delay": project.delay_days,
+                "risk": project.risk_level,
+                "reason": project.health_reason,
+            }
+            for project in context.get("project_details", ())
+        ],
+        "investment_projects": (
+            investment.get("by_project", {}) if investment else {}
+        ),
         "loaded_at": _stamp(context.get("loaded_at")),
         "loading": bool(context.get("loading")),
         "consumption_pending": bool(context.get("consumption_pending")),
@@ -361,6 +380,8 @@ def _margin_project(project: dict[str, Any]) -> dict[str, Any]:
         "margin": project["margin"],
         "partial": project["partial"],
         "shared": project["shared"],
+        "scope_months": project.get("scope_months", []),
+        "overlap_months": project.get("overlap_months", []),
         "issues": project["issues"],
     }
 
@@ -494,6 +515,8 @@ def account_consumption(result: dict[str, Any]) -> dict[str, Any]:
 def account_finance(account: dict[str, Any] | None) -> dict[str, Any]:
     """Facturacion, margen y cobranza de la cuenta; null sin registros."""
     keys = (
+        "investment_cost",
+        "margin_without_investment",
         "revenue",
         "margin",
         "cost",

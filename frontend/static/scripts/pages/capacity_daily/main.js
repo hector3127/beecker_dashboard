@@ -3,7 +3,7 @@
 import { apiGet } from '#app/data/api-client.js';
 import { el } from '#app/lib/dom.js';
 import { csv, options, selectedRows } from './model.js';
-import { icon, render } from './view.js';
+import { icon, render } from './view.js?v=business-days';
 
 /** @param {string} id */
 const byId = (id) => /** @type {HTMLElement} */ (document.getElementById(id));

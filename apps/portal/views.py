@@ -201,14 +201,24 @@ def actualizacion_ejecutiva(request: HttpRequest) -> HttpResponse:
     return response
 
 
+def _ops_project_ids(request):
+    return {value.strip().casefold() for value in request.GET.get("proyectos", "").split(",") if value.strip()}
+
+
+def _ops_select_projects(request, projects):
+    selected = _ops_project_ids(request)
+    return [p for p in projects if not selected or p.project_id.casefold() in selected]
+
+
 def _operativa_key(request: Any) -> str:
     filters = "|".join(request.GET.get(k, "") for k in ("servicio", "cuenta"))
+    filters += "|" + ",".join(sorted(_ops_project_ids(request)))
     scope = scope_for(request)
     if not scope.unrestricted:
         # Cada alcance tiene su propio corte: nunca se comparte con otro.
         filters += "|" + scope.signature()
     return (
-        "portal:operativa:snapshot:v15:"
+        "portal:operativa:snapshot:v22:"
         + timezone.localdate().isoformat()
         + ":"
         + hashlib.sha256(filters.encode()).hexdigest()
@@ -246,7 +256,7 @@ def _operations_summary_key() -> str:
 def _scope_operativa_investment(request: Any, context: dict[str, Any]) -> None:
     """Limit displayed investment to the projects in the filtered portfolio."""
     if scope_for(request).unrestricted and not any(
-        request.GET.get(key, "").strip() for key in ("servicio", "cuenta")
+        request.GET.get(key, "").strip() for key in ("servicio", "cuenta", "proyectos")
     ):
         return
     investment = context.get("investment")
@@ -263,7 +273,7 @@ def _scope_operativa_investment(request: Any, context: dict[str, Any]) -> None:
             request.GET.get("servicio", "").strip(),
             request.GET.get("cuenta", "").strip(),
         )
-        project_ids = {p.project_id for p in selected}
+        project_ids = {p.project_id for p in _ops_select_projects(request, selected)}
     else:
         project_ids = {
             pid
@@ -328,7 +338,7 @@ def _cached_capacity(previous: Any = None) -> dict[str, Any]:
     """Recupera el mes actual sin consultar fuentes ni recalcular."""
     month = timezone.localdate().strftime("%Y-%m")
     candidates = [
-        cache.get("portal:ops:capacity:v7"),
+        cache.get("portal:ops:capacity:v12"),
         cache.get("portal:team-capacity:v3:" + month),
         previous,
     ]
@@ -492,9 +502,16 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
 
         context = dict(saved)
         if block == "inversion":
-            context["investment"] = _operativa_investment(
-                None, load_eva1(enrich=False)
-            )
+            cached_investment = cache.get("portal:ops:investment:v6")
+            if request.GET.get("actualizar") == "1" or not (
+                cached_investment and cached_investment.get("complete")
+            ):
+                cached_investment = _operativa_investment(
+                    None, load_eva1(enrich=False)
+                )
+                if cached_investment.get("complete"):
+                    cache.set("portal:ops:investment:v6", cached_investment, 86400)
+            context["investment"] = cached_investment
         elif block == "capacidad":
             context["capacity_live"] = legacy_capacity(
                 timezone.localdate().strftime("%Y-%m")
@@ -516,6 +533,8 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
                 request.GET.get("servicio", ""),
                 request.GET.get("cuenta", ""),
             )
+            population = _ops_select_projects(request, population)
+            context["project_details"] = population
             context["managers"] = summarize_delivery_managers(population)
             context["summary"] = summarize_portfolio(population)
             context["health"] = context["summary"].health
@@ -537,7 +556,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
         if block == "inversion":
             cache.set("portal:ops:investment:v6", context["investment"], 86400)
         elif block == "capacidad":
-            cache.set("portal:ops:capacity:v7", context["capacity_live"], 86400)
+            cache.set("portal:ops:capacity:v12", context["capacity_live"], 86400)
         _scope_operativa_investment(request, context)
         changed = {
             "inversion": ("investment",),
@@ -581,6 +600,8 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
         selected_service,
         selected_client,
     )
+    project_options = [(p.project_id, p.name) for p in projects]
+    projects = _ops_select_projects(request, projects)
     from apps.portal.services.portfolio_summary import service_distribution
 
     summary = summarize_portfolio(projects)
@@ -598,6 +619,9 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
             "clients": _account_options(request, list_clients(eva_population)),
             "selected_service": selected_service,
             "selected_client": selected_client,
+            "project_options": project_options,
+            "project_details": projects,
+            "selected_projects": sorted(_ops_project_ids(request)),
             "has_projects": bool(projects),
             "eva1_card": EvaCard(
                 available=not ixb.error,
@@ -622,13 +646,15 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
 
     block = request.GET.get("bloque", "")
     if block == "inversion":
-        context["investment"] = _operativa_investment(ixb, aer)
-        cache.set("portal:ops:investment:v6", context["investment"], 86400)
+        if request.GET.get("actualizar") == "1" or not context["investment"].get("complete"):
+            context["investment"] = _operativa_investment(ixb, aer)
+            if context["investment"].get("complete"):
+                cache.set("portal:ops:investment:v6", context["investment"], 86400)
     elif block == "capacidad":
         context["capacity_live"] = legacy_capacity(
             timezone.localdate().strftime("%Y-%m")
         )
-        cache.set("portal:ops:capacity:v7", context["capacity_live"], 86400)
+        cache.set("portal:ops:capacity:v12", context["capacity_live"], 86400)
     elif block == "eva3":
         aer = load_eva1()
         context["eva3_card"] = build_eva1_card(aer)
@@ -637,10 +663,12 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
             selected_service,
             selected_client,
         )
+        projects = _ops_select_projects(request, projects)
         enriched = summarize_portfolio(projects)
         context.update(
             {
                 "summary": enriched,
+                "project_details": projects,
                 "service_distribution": service_distribution(projects),
                 "portfolio_total": len(projects),
                 "health": enriched.health,
@@ -657,6 +685,7 @@ def operativa_block_context(request: Any) -> dict[str, Any]:
                 key: saved[key]
                 for key in (
                     "managers",
+                    "project_details",
                     "summary",
                     "health",
                     "donut",

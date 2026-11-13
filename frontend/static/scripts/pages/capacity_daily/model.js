@@ -34,13 +34,13 @@ export const isWeekend = (iso) => {
  */
 export function indicators(data, workday) {
   const people = data.personas || [];
-  const perPerson = data.diasHabiles * workday;
-  const base = people.length * perPerson;
+  const perPerson = p => (p.capacidadHoras ?? data.diasHabiles * data.jornada) * workday / data.jornada;
+  const base = people.reduce((sum, person) => sum + perPerson(person), 0);
   const registered = people.reduce((/** @type {number} */ n, /** @type {any} */ p) => n + p.total, 0);
   return {
     people: people.length,
     withHours: people.filter((/** @type {any} */ p) => p.total > 0).length,
-    over: people.filter((/** @type {any} */ p) => p.total > perPerson).length,
+    over: people.filter((/** @type {any} */ p) => p.total > perPerson(p)).length,
     base,
     registered,
     billable: people.reduce((/** @type {number} */ n, /** @type {any} */ p) => n + p.facturables, 0),
