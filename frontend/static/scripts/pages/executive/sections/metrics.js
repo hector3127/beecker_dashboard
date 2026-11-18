@@ -2,6 +2,7 @@
 // Cifras de Financiera, Operaciones y Comercial, con el corte ya preparado.
 // Un dato que aun no se prepara muestra «Cargando dato…»; uno que llego vacio
 // dice «Pendiente», nunca cero.
+import { costCoverage, verifiedCostBlockers } from './financial_model.js';
 import { renderCardVisuals } from './card_visuals.js';
 import { el } from '#app/lib/dom.js';
 import { formatCompact } from '#app/lib/format.js';
@@ -45,7 +46,7 @@ export function finishLoading(loading) {
     if (id === 'monthly-profit-state' && target) {
       target.textContent = 'No disponible';
       const chart = node('monthly-profit-chart');
-      if (chart) chart.textContent = 'No se pudo preparar la rentabilidad mensual. Pulsa Actualizar datos para reintentar.';
+      if (chart) chart.textContent = 'No se pudo preparar la rentabilidad mensual. Intenta consultar el periodo de nuevo.';
     }
     if (target?.classList.contains('metric-loading')) {
       target.classList.remove('metric-loading');
@@ -83,25 +84,32 @@ function setter(loading) {
 function financial(model, set) {
   const { revenue = {}, costs = {} } = { revenue: model.revenue || {}, costs: model.costs || {} };
   set('executive-revenue', formatCompact(revenue.invoiced));
-  set('executive-revenue-source', 'Facturado: Invoiced + Collected, incluidos sus estados Factoring. Fecha disponible: DataRevenue G. Pendiente de validar el calendario de facturación con Florencia. Confirmed se conserva como revenue contratado y no se suma a facturación.');
+  set('executive-revenue-source', 'Importe de los registros facturados o cobrados del periodo, incluidos los de factoraje. Los ingresos confirmados se muestran por separado como ingresos contratados.');
   set('executive-collections', pct(revenue.collections_percent));
-  set('executive-collections-note', 'Cobranza = Collected (incluido factoring) ÷ (Invoiced + Collected, incluido factoring), del periodo seleccionado según DataRevenue G. No mide cobros de facturas de otros periodos; pendiente validar fechas de cobro y factura.');
+  set('executive-collected', formatCompact(revenue.collected));
+  set('executive-contracted', formatCompact(revenue.total));
+  set('executive-collections-note', 'Importe cobrado, incluido factoraje, como porcentaje de la facturación del mismo periodo y corte.');
   const income = Number(revenue.invoiced);
   const hasInvoice = revenue.invoiced !== null && revenue.invoiced !== undefined;
   const hasCosts = costs.cost !== null && costs.cost !== undefined && (costs.complete || (costs.projects || []).some((/** @type {any} */ p) => p.cost !== null && p.cost !== undefined) || Number(costs.deduplicated_entries) > 0);
+  set('executive-gross-profit', hasCosts && hasInvoice ? formatCompact(income - Number(costs.cost)) + (costs.complete ? '' : '*') : PENDING);
   set('executive-margin', hasCosts && hasInvoice && income > 0 ? pct(((income - Number(costs.cost)) / income) * 100) + (costs.complete ? '' : '*') : PENDING);
-  set('executive-margin-note', hasCosts ? (costs.complete ? 'Costos completos · base de facturación pendiente de validar' : `* Parcial con costos disponibles: ${formatCompact(costs.cost)}.`) : 'Sin costos consultados para calcular el margen');
-  const blockers = (costs.projects || []).filter((/** @type {any} */ p) => !p.complete);
+  set('executive-margin-note', hasCosts ? (costs.complete ? 'Costos completos del periodo' : `* Parcial con costos disponibles: ${formatCompact(costs.cost)}.`) : 'Sin costos consultados para calcular el margen');
+  const coverage = costCoverage(costs.projects || []);
+  set('executive-cost-coverage', costs.projects ? `${coverage.complete} completos · ${coverage.partial} parciales · ${coverage.missing} sin costo disponible · ${coverage.total} proyectos incluidos${coverage.future ? ` · ${coverage.future} futuros fuera del cálculo de costos` : ''}` : PENDING);
+  const blockers = verifiedCostBlockers(costs.projects || [], model.loadedAt);
   const button = /** @type {HTMLButtonElement | null} */ (node('executive-cost-blockers'));
   if (button) {
     button.hidden = !blockers.length;
-    button.textContent = `${blockers.length} costos pendientes`;
+    button.textContent = blockers.length
+      ? `${blockers.length} ${blockers.length === 1 ? 'proyecto con costos' : 'proyectos con costos'} por revisar`
+      : '';
     button.onclick = () =>
       showPendingDialog({
-        title: 'Pendientes de costos',
+        title: 'Proyectos con costos por revisar',
         description: 'El margen es parcial mientras falten vínculos, fechas o tarifas. Los costos disponibles ya están incluidos en el cálculo.',
         columns: ['Proyecto', 'Costo disponible', 'Qué falta revisar'],
-        rows: blockers.map((/** @type {any} */ p) => [p.id, formatCompact(p.cost), p.error || `Falta banda o tarifa${p.missing_people?.length ? `: ${p.missing_people.join(', ')}` : ''}`]),
+        rows: blockers.map((/** @type {any} */ p) => [p.id, formatCompact(p.cost), p.error || (p.cost === null || p.cost === undefined ? 'Costo no disponible; revisar la consulta del proyecto.' : `Falta banda o tarifa${p.missing_people?.length ? `: ${p.missing_people.join(', ')}` : ''}`)]),
         trigger: button,
       });
   }
@@ -114,9 +122,9 @@ function operations(model, set) {
   const partial = ops.partial !== false;
   const some = (/** @type {unknown} */ v) => v !== null && v !== undefined;
   set('executive-ops-cut', known ? (partial ? 'Corte parcial' : 'Corte completo') : 'Consultando');
-  set('executive-ops-etc', some(ops.etc) ? `${whole(ops.etc)} h${ops.capacity_partial ? '*' : ''}` : PENDING);
+  set('executive-ops-etc', some(ops.capacity_consumed_hours) ? `${whole(ops.capacity_consumed_hours)} h${ops.capacity_partial ? '*' : ''}` : PENDING);
   set('executive-ops-advance', some(ops.advance) ? pct(ops.advance) + (ops.capacity_partial ? '*' : '') : PENDING);
-  set('executive-ops-fte', ops.facturability_capacity > 0 ? `${whole(ops.facturability_capacity)} h de capacidad` : 'Capacidad pendiente');
+  set('executive-ops-fte', ops.capacity_base > 0 ? `${whole(ops.capacity_base)} h de capacidad` : 'Capacidad pendiente');
   set('executive-ops-facturability', some(ops.facturability) ? `${Number(ops.facturability).toLocaleString('en-US', { maximumFractionDigits: 0 })}%${ops.facturability_partial ? '*' : ''}` : PENDING);
   set('executive-ops-facturability-month', ops.facturability_period ? (ops.facturability_partial ? 'Parcial · ' : '') + ops.facturability_period : '');
   set('executive-ops-investment', some(ops.investment_operational) ? `${whole(ops.investment_operational)} h` : PENDING);
@@ -153,7 +161,7 @@ function commercial(model, set) {
   set('commercial-delivery', formatCompact(data.delivery));
   set('commercial-delivery-note', data.delivery_note || 'Pendiente de corte');
   const delivery = node('commercial-delivery');
-  if (delivery) delivery.title = data.delivery_note || 'Revenue futuro Confirmed por fecha de Finanzas';
+  if (delivery) delivery.title = data.delivery_note || 'Ingresos confirmados futuros según la fecha registrada en Finanzas';
   set('commercial-open', formatCompact(data.open));
   set('commercial-open-note', data.open_note || 'Pendiente de corte');
   const open = node('commercial-open');

@@ -2,7 +2,12 @@ from apps.portal.services.revenue_costs import project_ids
 from tests.fakes import InMemorySheetRepository
 
 
-def test_explicit_revenue_of_the_year_keeps_projects_with_old_mpb_dates():
+def test_explicit_revenue_of_the_year_keeps_projects_with_old_mpb_dates(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "apps.portal.services.cost_project_inventory.azure_scopes", list
+    )
     reader = InMemorySheetRepository(
         {
             "MPB": [

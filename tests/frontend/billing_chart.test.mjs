@@ -32,7 +32,7 @@ test('a month without data says there is nothing to compare', () => {
 
 test('the label tells if the month is the latest, closed or running, or a selection', () => {
   assert.equal(describeMonth(month(), context).label, 'Septiembre 2026 · último mes cerrado');
-  assert.equal(describeMonth(month(), { ...context, monthClosed: false }).label, 'Septiembre 2026 · mes en curso');
+  assert.equal(describeMonth(month(), { ...context, monthClosed: false }).label, 'Septiembre 2026 · mes en curso · parcial');
   assert.equal(describeMonth(month({ month: '2026-03', month_label: 'Marzo 2026' }), context).label, 'Marzo 2026 · mes seleccionado');
 });
 

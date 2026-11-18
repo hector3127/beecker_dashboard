@@ -77,6 +77,10 @@ def test_project_costs_do_not_duplicate_variant_hours(monkeypatch):
     )
     ids = ["AMK.008", "AMK.008_S4"]
     context = SimpleNamespace(
+        azure_ranges=[
+            {"project_id": pid, "start": "2026-01-01", "finish": "2026-12-31"}
+            for pid in ids
+        ],
         reader=InMemorySheetRepository({"DataRevenue": [[]]}),
         ids=ids,
         allowed_ids={p.casefold() for p in ids},
@@ -109,6 +113,13 @@ def test_base_revenue_covers_sprints_and_general_without_allocating_income(
         revenue_costs, "build_clockify_loader", lambda reader: loader
     )
     context = SimpleNamespace(
+        azure_ranges=[
+            {
+                "project_id": "CCO.002",
+                "start": "2026-01-01",
+                "finish": "2026-12-31",
+            }
+        ],
         reader=InMemorySheetRepository({"DataRevenue": [[]]}),
         ids=["CCO.002"],
         allowed_ids={"cco.002"},
@@ -142,6 +153,13 @@ def test_sprint_separator_variants_load_pure_id_and_keep_only_s1(
         revenue_costs, "build_clockify_loader", lambda reader: loader
     )
     context = SimpleNamespace(
+        azure_ranges=[
+            {
+                "project_id": "MCC.015_S1",
+                "start": "2026-01-01",
+                "finish": "2026-12-31",
+            }
+        ],
         reader=InMemorySheetRepository({"DataRevenue": [[]]}),
         ids=[pid],
         allowed_ids={pid.casefold()},
@@ -178,6 +196,10 @@ def test_cr_tasks_have_own_groups_and_registered_cr_is_excluded_from_base(
         }
     )
     ctx = SimpleNamespace(
+        azure_ranges=[
+            {"project_id": pid, "start": "2026-01-01", "finish": "2026-12-31"}
+            for pid in ["MCC.015", "MCC.015_CR2"]
+        ],
         reader=reader,
         ids=["MCC.015", "MCC.015_CR2"],
         allowed_ids={"mcc.015", "mcc.015_cr2"},

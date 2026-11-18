@@ -7,7 +7,7 @@
  <div class="executive-glossary-grid">
   {% for group in glossary %}
   <section class="indicator-group indicator-group-{{ forloop.counter }}">
-   <div class="indicator-group-heading"><span class="indicator-group-icon">{% include 'partials/indicator_glossary_icon.html' with name=group.name %}</span><div><h2>{{ group.name }}</h2><p>{% if group.name == 'Financiera' %}Indicadores de ingresos, costos y rentabilidad.{% elif group.name == 'Operaciones' %}Indicadores de ejecución, capacidad y recursos.{% else %}Indicadores de oportunidades y ventas.{% endif %}</p></div></div>
+   <div class="indicator-group-heading"><span class="indicator-group-icon">{% include 'partials/indicator_glossary_icon.html' with name=group.name %}</span><div><h2>{{ group.name }}</h2><p>{% if group.name == 'Finanzas' %}Indicadores de ingresos, costos y rentabilidad.{% elif group.name == 'Operaciones' %}Indicadores de ejecución, capacidad y recursos.{% else %}Indicadores de oportunidades y ventas.{% endif %}</p></div></div>
    <dl>{% for item in group.terms %}<div class="indicator-definition"><dt><span class="indicator-term-icon indicator-icon-{{ forloop.counter }}">{% include 'partials/indicator_glossary_icon.html' with name=item.concept %}</span>{{ item.term }}</dt><dd>{{ item.summary }}</dd></div>{% endfor %}</dl>
   </section>
   {% endfor %}

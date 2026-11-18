@@ -128,7 +128,7 @@ def test_sold_cost_rate_column_is_removed(portal, datos):
     expect(
         portal.locator("th", has_text="Tarifa de costo vendida")
     ).to_have_count(0)
-    expect(portal.locator("th", has_text="Revenue operado")).to_be_visible()
+    expect(portal.locator("th", has_text="Ingresos operados")).to_be_visible()
     table = portal.locator("#margins-content table").first
     expect(table).not_to_contain_text("G · por validar")
     expect(table).not_to_contain_text("Por validar con Florencia")
@@ -151,8 +151,8 @@ def test_glossary_explains_every_column_and_opens_on_demand(
 
     glossary.locator("summary").click()
     for term in [
-        "Bookings",
-        "Revenue operado",
+        "Ingresos contratados",
+        "Ingresos operados",
         "Facturado",
         "Cobrado",
         "Costos",
@@ -393,7 +393,8 @@ def test_method_cards_keep_the_current_rules_and_fold(portal, datos, width):
     expect(method.get_by_role("heading", name="Qué incluye")).to_be_visible()
     expect(method.locator(".method-scope")).to_contain_text("se excluyen")
     expect(method.locator(".method-margins")).to_contain_text(
-        "(revenue del periodo − costos) ÷ revenue del periodo"
+        "(ingresos contratados del periodo − costos) ÷ "
+        "ingresos contratados del periodo"
     )
     expect(method.locator(".method-deviation")).to_contain_text(
         "Margen real − margen vendido"

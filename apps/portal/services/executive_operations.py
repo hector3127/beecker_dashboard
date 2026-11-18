@@ -309,6 +309,8 @@ def operations_summary() -> dict[str, Any]:
     result.update(
         advance=capacity_metrics["facturability"] if available else None,
         etc=round(base - consumed, 2) if available else None,
+        capacity_base=base if available else None,
+        capacity_consumed_hours=consumed if available else None,
         fte=None,
     )
     result.update(global_facturability())
@@ -354,7 +356,7 @@ def _prepare_operations() -> dict[str, Any]:
 def operations_snapshot_key() -> str:
     """Clave del ultimo resumen ejecutivo preparado del dia."""
     return (
-        "portal:executive-operations:snapshot:v8:"
+        "portal:executive-operations:snapshot:v12:"
         + timezone.localdate().isoformat()
         + cache_suffix()
     )

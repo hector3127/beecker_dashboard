@@ -76,6 +76,65 @@ function normalizeCaptureColors(doc) {
   });
 }
 
+/** @param {Document} doc @param {HTMLElement | null} clone */
+function prepareCaptureContent(doc, clone) {
+  if (!clone) return;
+  clone.querySelectorAll('[hidden], dialog, [data-html2canvas-ignore]').forEach(node => node.remove());
+  clone.querySelectorAll('details').forEach(details => {
+    if (details.open && !details.matches('.executive-picker, .monthly-panel-info, .ranking-help, [data-capture-collapse]')) return;
+    details.open = false;
+    for (const child of [...details.childNodes]) {
+      if (child.nodeType !== 1 || /** @type {Element} */ (child).tagName !== 'SUMMARY') child.remove();
+    }
+  });
+  if (!doc.defaultView) return;
+  clone.querySelectorAll('svg').forEach(root => {
+    const size = root.getBoundingClientRect();
+    if (size.width) root.setAttribute('width', String(size.width));
+    if (size.height) root.setAttribute('height', String(size.height));
+    for (const node of [root, ...root.querySelectorAll('*')]) {
+      const computed = doc.defaultView.getComputedStyle(node);
+      for (const attribute of ['color', 'fill', 'stroke', 'stop-color', 'stop-opacity', 'fill-opacity', 'stroke-opacity', 'opacity', 'stroke-width']) {
+        const value = computed.getPropertyValue(attribute);
+        if (!value) continue;
+        if (value.includes('url(')) {
+          const fragment = value.match(/#([^"')]+)["']?\)/);
+          if (fragment) node.setAttribute(attribute, `url(#${fragment[1]})`);
+        } else node.setAttribute(attribute, value);
+      }
+    }
+  });
+}
+
+/** @param {Document} doc @param {HTMLElement | null} clone */
+async function rasterizeCaptureIcons(doc, clone) {
+  if (!clone || !doc.defaultView) return;
+  const icons = clone.querySelectorAll('svg.metric-visual, svg.metric-gauge, svg.executive-card-art');
+  await Promise.all([...icons].map(async icon => {
+    const bounds = icon.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return;
+    const standalone = /** @type {SVGElement} */ (icon.cloneNode(true));
+    for (const node of [standalone, ...standalone.querySelectorAll('*')]) node.removeAttribute('style');
+    const source = new XMLSerializer().serializeToString(standalone);
+    const bitmap = new Image();
+    await new Promise((resolve, reject) => {
+      bitmap.onload = resolve;
+      bitmap.onerror = () => reject(new Error('No se pudo preparar un icono para la captura.'));
+      bitmap.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(source)}`;
+    });
+    const canvas = doc.createElement('canvas');
+    for (const attribute of icon.attributes) {
+      if (attribute.name !== 'style') canvas.setAttribute(attribute.name, attribute.value);
+    }
+    canvas.width = Math.ceil(bounds.width * 2);
+    canvas.height = Math.ceil(bounds.height * 2);
+    const context = canvas.getContext('2d');
+    if (!context) throw new Error('No se pudo preparar la captura.');
+    context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    icon.replaceWith(canvas);
+  }));
+}
+
 /**
  * Agrega el boton de captura y su mensaje de estado.
  * @param {object} options
@@ -112,15 +171,18 @@ export function mountPageCapture({ host, target, name, libraryUrl }) {
         windowWidth: window.innerWidth,
         scrollX: 0,
         scrollY: 0,
-        onclone: (/** @type {Document} */ doc) => {
+        onclone: async (/** @type {Document} */ doc) => {
           const clone = /** @type {HTMLElement} */ (doc.getElementById(target.id));
-          clone?.querySelectorAll('[hidden], dialog:not([open])').forEach((node) => node.remove());
+          prepareCaptureContent(doc, clone);
           const style = doc.createElement('style');
+          const nonce = /** @type {HTMLScriptElement | null} */ (document.querySelector('script[nonce]'))?.nonce;
+          if (nonce) style.nonce = nonce;
           style.textContent =
             '*{animation:none!important;transition:none!important;caret-color:transparent!important}' +
             '[data-html2canvas-ignore]{display:none!important}';
           doc.head.appendChild(style);
           normalizeCaptureColors(doc);
+          await rasterizeCaptureIcons(doc, clone);
         },
       });
       if (!canvas.width || !canvas.height) throw new Error('La captura está vacía. Vuelve a intentarlo.');
@@ -154,10 +216,10 @@ export function captureName(path, title) {
 }
 
 // Both the modular layout and the remaining previous views use this entry.
-if (typeof document !== 'undefined') {
+if (typeof document !== 'undefined' && !document.querySelector('[data-page-capture="off"]')) {
   const entry = /** @type {HTMLScriptElement | null} */ (document.querySelector('script[data-auto-page-capture]'));
   const target = document.getElementById('main-content');
-  let host = document.getElementById('ops-actions') || document.querySelector('.top .fresh');
+  let host = document.getElementById('executive-capture-actions') || document.getElementById('ops-actions') || document.querySelector('.top .fresh');
   // Some previous screens intentionally hide their freshness block.
   if (entry && target && (!host || !host.getClientRects().length)) {
     const header = document.querySelector('header.top');

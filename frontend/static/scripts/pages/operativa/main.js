@@ -28,9 +28,8 @@ const urls = {
 };
 const regions = {
   alerts: byId('ops-alerts'),
-  cut: byId('ops-cut'),
+  cut: byId('portal-freshness-text'),
   status: byId('ops-refresh-status'),
-  refresh: /** @type {HTMLButtonElement} */ (byId('ops-refresh-button')),
   metrics: byId('ops-metrics'),
   health: byId('ops-health'),
   managers: byId('ops-managers'),
@@ -103,13 +102,7 @@ async function get(path, params, filtered = true) {
 /** @param {string} text */
 const status = (text) => {
   regions.status.textContent = text;
-  regions.refresh.title = text;
 };
-/** @param {boolean} value */
-function busy(value) {
-  regions.refresh.disabled = value;
-  regions.refresh.textContent = value ? 'Actualizando…' : 'Actualizar datos';
-}
 
 // ---------- Pintar ----------
 
@@ -277,7 +270,7 @@ function renderProjectInsights() {
 function renderAll() {
   renderAlerts();
   renderFilters();
-  regions.cut.textContent = view.loaded_at ? `Corte calculado al ${formatDateTime(view.loaded_at, ', ')}` : '';
+  regions.cut.textContent = view.loaded_at ? `Datos al ${formatDateTime(view.loaded_at, ', ')}` : 'Sin fecha de actualización';
   renderMetrics(regions.metrics, view);
   renderHealth(regions.health, view);
   renderProjectInsights();
@@ -363,7 +356,6 @@ async function refreshPortfolio(failures, force, mine) {
     if (mine !== run) return;
     mergeBase(base.data);
     renderAll();
-    busy(true);
     if (base.data.source_errors.length) failures.push('fuentes del portafolio');
     status('Proyectos y estados disponibles. Actualizando consumo, inversión y capacidad…');
     const needed = force ? null : view.pending_blocks;
@@ -421,7 +413,6 @@ async function refresh(force = false) {
   if (refreshing) return;
   refreshing = true;
   const mine = run;
-  busy(true);
   status('Actualizando indicadores. Puedes seguir consultando el corte disponible…');
   /** @type {string[]} */
   const failures = [];
@@ -440,7 +431,6 @@ async function refresh(force = false) {
   } finally {
     if (mine === run) {
       refreshing = false;
-      busy(false);
     }
   }
 }
@@ -451,7 +441,6 @@ async function start() {
   const mine = run;
   refreshing = false;
   billing = { restricted: false, data: null, failed: false };
-  busy(true);
   status('Calculando indicadores…');
   try {
     const answer = await get('screens/operativa/', {});
@@ -463,7 +452,6 @@ async function start() {
     if (capacitySelection) loadCapacityMonth();
   } catch (error) {
     if (mine !== run) return;
-    busy(false);
     status('');
     regions.alerts.replaceChildren(
       el(
@@ -477,7 +465,6 @@ async function start() {
   }
   if (view.async) await refresh(false);
   else {
-    busy(false);
     status('');
     if (!view.restricted && !view.billing_fresh) {
       refreshBilling(false).catch(() => status('No se pudo completar facturabilidad. Consulta el detalle.'));
@@ -486,8 +473,6 @@ async function start() {
 }
 
 // ---------- Eventos ----------
-
-regions.refresh.addEventListener('click', () => refresh(true));
 
 regions.service.addEventListener('change', () => {
   writeParams({ servicio: regions.service.value || null, proyectos: null }, { push: true });

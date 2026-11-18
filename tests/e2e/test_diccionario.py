@@ -15,7 +15,7 @@ def test_lists_every_concept_with_the_reference_layout(portal, query):
     portal.goto(portal.base + PAGE + query)
 
     expect(
-        portal.get_by_role("heading", name="Diccionario de datos")
+        portal.get_by_role("heading", name="Glosario de indicadores")
     ).to_be_visible()
     assert portal.locator("main").count() == 1
     expect(portal.locator("#dictionary-count")).to_have_text(
@@ -23,10 +23,10 @@ def test_lists_every_concept_with_the_reference_layout(portal, query):
     )
     assert portal.locator("[data-dictionary-entry]").count() == len(CONCEPTS)
     expect(portal.locator("#dictionary-updated")).to_have_text(
-        "Definiciones al 22/10/2026"
+        "Definiciones al 17/11/2026"
     )
     expect(
-        portal.get_by_role("link", name="Regresar a Business Overview")
+        portal.get_by_role("link", name="Volver al resumen ejecutivo")
     ).to_have_attribute("href", "/")
 
 
@@ -76,15 +76,15 @@ def test_reference_layout_preserves_every_original_definition(portal):
     expect(portal.locator("#dictionary-count")).to_have_text(
         f"{len(CONCEPTS)} conceptos"
     )
-    expect(portal.locator(".dictionary-table thead th")).to_have_count(4)
-    for index, (name, definition, source) in enumerate(CONCEPTS):
+    expect(portal.locator(".dictionary-table thead th")).to_have_count(3)
+    for index, (name, definition, _source) in enumerate(CONCEPTS):
         row = portal.locator("[data-dictionary-entry]").nth(index)
         expect(row.locator(".dictionary-concept")).to_have_text(name)
-        lead = row.locator("td").nth(0).locator("p").inner_text()
-        notes = row.locator(".dictionary-notes").inner_text()
-        combined = lead + (" " + notes if notes != "—" else "")
-        assert " ".join(combined.split()) == " ".join(definition.split())
-        expect(row.locator(".dictionary-source-badge")).to_have_text(source)
+        expect(row.locator("td").nth(0)).to_have_text(definition)
+        expect(row.locator("td").nth(1)).not_to_be_empty()
+    expect(
+        portal.locator(".dictionary-source-badge, .dictionary-notes")
+    ).to_have_count(0)
 
 
 def test_categories_search_order_and_reset_work_together(portal, enforced_csp):
@@ -92,16 +92,14 @@ def test_categories_search_order_and_reset_work_together(portal, enforced_csp):
     expect(portal.locator("#dictionary-count")).to_have_text(
         f"{len(CONCEPTS)} conceptos"
     )
-    portal.get_by_role("button", name="Costos y márgenes", exact=True).click()
-    expect(portal.locator("#dictionary-category")).to_have_value(
-        "Costos y márgenes"
-    )
+    portal.get_by_role("button", name="Financieros", exact=True).click()
+    expect(portal.locator("#dictionary-category")).to_have_value("Financieros")
     portal.fill("#dictionary-search", "tarifa")
     visible = portal.locator("[data-dictionary-entry]:visible")
     assert 0 < visible.count() < len(CONCEPTS)
     for row in visible.all():
-        expect(row).to_have_attribute("data-category", "Costos y márgenes")
-    heading = portal.get_by_role("columnheader", name="Concepto")
+        expect(row).to_have_attribute("data-category", "Financieros")
+    heading = portal.get_by_role("columnheader", name="Indicador")
     heading.get_by_role("button").click()
     expect(heading).to_have_attribute("aria-sort", "ascending")
     heading.get_by_role("button").click()
@@ -109,11 +107,9 @@ def test_categories_search_order_and_reset_work_together(portal, enforced_csp):
     assert "orden=name" in portal.url and "sentido=desc" in portal.url
     portal.reload()
     expect(portal.locator("#dictionary-search")).to_have_value("tarifa")
-    expect(portal.locator("#dictionary-category")).to_have_value(
-        "Costos y márgenes"
-    )
+    expect(portal.locator("#dictionary-category")).to_have_value("Financieros")
     expect(
-        portal.get_by_role("columnheader", name="Concepto")
+        portal.get_by_role("columnheader", name="Indicador")
     ).to_have_attribute("aria-sort", "descending")
     portal.click("#dictionary-clear")
     expect(portal.locator("#dictionary-search")).to_have_value("")
@@ -140,9 +136,9 @@ def test_dictionary_reference_design_is_responsive(portal, width, enforced_csp):
     assert portal.evaluate(
         "document.documentElement.scrollWidth <= window.innerWidth"
     )
-    portal.select_option("#dictionary-category", "Recursos")
+    portal.select_option("#dictionary-category", "Operativos")
     expect(
-        portal.get_by_role("button", name="Recursos", exact=True)
+        portal.get_by_role("button", name="Operativos", exact=True)
     ).to_have_attribute("aria-pressed", "true")
     portal.click("#dictionary-clear")
     output = Path("tmp/design/dictionary-reference")

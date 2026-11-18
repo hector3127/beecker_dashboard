@@ -63,7 +63,7 @@ export function renderDetail(data) {
   if (bySprint) {
     out.push(
       el('h4', { text: `Consumo por sprint / CR / tareas (${sprints.length} sprints / CR)` }),
-      el('p', { text: 'El revenue corresponde al proyecto completo; no se suma ni se reparte entre los sprints.' }),
+      el('p', { text: 'Los ingresos contratados corresponden al proyecto completo; no se suma ni se reparte entre los sprints.' }),
       el(
         'table',
         { class: 'people-table sprint-table' },

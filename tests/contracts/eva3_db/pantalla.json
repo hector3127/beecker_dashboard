@@ -2,7 +2,7 @@
   "closed_burn": {
     "AER.FOX.001": 16.5,
     "AER.HOT.001": {
-      "error": "No se encontro una coincidencia unica para AER.HOT.001 en Clockify. Vinculalo en la hoja Clockify_Vinculos."
+      "error": "No se encontro una coincidencia unica para AER.HOT.001 en Clockify. Revisa el ID del proyecto en la hoja DataRevenue."
     },
     "TYM.GOL.001": 118.5
   },

@@ -51,6 +51,10 @@ def test_operations_weighted_totals_and_negative_etc():
                 "facturability_partial": True,
             },
         ),
+        patch(
+            "apps.portal.services.executive_operations.global_facturability",
+            return_value={"facturability_capacity": 400},
+        ),
     ):
         result = operations_summary()
         assert (
@@ -59,6 +63,8 @@ def test_operations_weighted_totals_and_negative_etc():
             and result["etc"] == -250
         )
         assert not result["partial"]
+        assert result["capacity_base"] == 800
+        assert result["facturability_capacity"] == 400
         cache.delete(burn_key(projects[1]))
         result = operations_summary()
         assert (

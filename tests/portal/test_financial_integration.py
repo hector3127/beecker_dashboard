@@ -15,6 +15,7 @@ from apps.portal.services import (
     revenue,
     revenue_costs,
 )
+from apps.portal.services.executive_period import applied, parse
 from apps.portal.services.portfolio_loader import PortfolioLoad
 from core.time_entries.models import TimeEntry
 from tests.clockify.test_cr_shared_project import client, entry, sheets
@@ -34,6 +35,25 @@ def revenue_row(
 def isolated_cache(monkeypatch):
     cache.clear()
     monkeypatch.setattr(revenue_costs.timezone, "localdate", lambda: TODAY)
+    monkeypatch.setattr(
+        "apps.portal.services.cost_project_inventory.azure_scopes", list
+    )
+    monkeypatch.setattr(
+        revenue_costs,
+        "azure_scopes",
+        lambda: [
+            {
+                "project_id": "AIN.002_CR",
+                "start": "2026-03-10",
+                "finish": "2026-03-20",
+            },
+            {
+                "project_id": "CCO.001_CR",
+                "start": "2026-03-10",
+                "finish": "2026-03-20",
+            },
+        ],
+    )
     yield
     cache.clear()
 
@@ -80,12 +100,13 @@ def test_revenue_collections_and_invalid_rows_are_handled(monkeypatch):
 
 
 @pytest.mark.parametrize("pid", ["AIN.002 CR", "CCO.001 | CR"])
-def test_financial_costs_use_existing_cr_history_and_task_rules(
+def test_financial_costs_use_filter_dates_and_existing_cr_task_rules(
     monkeypatch, pid
 ):
     reader = repository([revenue_row(pid=pid)])
     base = pid.split()[0]
     history = sheets(pid)
+    history.pop("Historico_Proyectos")
     history = {
         name: [
             [
@@ -109,13 +130,22 @@ def test_financial_costs_use_existing_cr_history_and_task_rules(
     monkeypatch.setattr(
         revenue_costs, "build_clockify_loader", lambda repo: loader
     )
-    result = revenue_costs.calculate_project_cost(pid)
-    assert result["cost"] == 10
-    assert result["hours"] == 1
-    assert result["complete"] is True
-    assert result["people"][0]["band_month"] == "septiembre 2026"
-    assert cache.get(revenue_costs.key(pid))["entries"] == {"correct": 10}
-    revenue_costs.calculate_project_cost(pid)
+    period = parse(
+        {"periodo": "rango", "desde": "2026-03-01", "hasta": "2026-03-31"}
+    )
+    with applied(period):
+        result = revenue_costs.calculate_project_cost(pid)
+        assert result["cost"] == 20
+        assert result["hours"] == 2
+        assert result["complete"] is True
+        assert result["scope_start"] == "2026-03-01"
+        assert result["scope_end"] == "2026-03-31"
+        assert result["people"][0]["band_month"] == "septiembre 2026"
+        assert cache.get(revenue_costs.key(pid))["entries"] == {
+            "correct": 10,
+            "outside": 10,
+        }
+        revenue_costs.calculate_project_cost(pid)
     assert len(api.report_calls) == 1
 
 
@@ -123,7 +153,7 @@ def test_missing_rate_is_partial_and_duplicate_hours_count_once(monkeypatch):
     reader = repository()
     records = [
         TimeEntry(
-            "e1", "AIN.002 CR", "Unknown", datetime(2026, 9, 1), 2, False, 0
+            "e1", "AIN.002 CR", "Unknown", datetime(2026, 3, 15), 2, False, 0
         )
     ]
     loader = Mock()

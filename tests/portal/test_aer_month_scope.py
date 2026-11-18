@@ -1,5 +1,6 @@
 from datetime import date, datetime
 
+from apps.portal.services.executive_period import applied, parse
 from apps.portal.services.revenue_costs import (
     partition_aer_months,
     resolve_cost_scope,
@@ -81,4 +82,11 @@ def test_future_month_is_not_an_error_or_unconsulted_project(monkeypatch):
         and result["pending"] == 0
         and result["consulted"] == 0
     )
+    assert result["projects"][0]["status"] == "future"
+
+    december = parse({"periodo": "mes", "anio": "2026", "mes": "12"})
+    with applied(december):
+        result = revenue_costs.cost_summary(ids=["IXB.001"])
+    assert result["future"] == 1
+    assert result["pending"] == 0
     assert result["projects"][0]["status"] == "future"

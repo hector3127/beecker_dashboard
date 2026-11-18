@@ -916,7 +916,7 @@
               "id": "AER.BET.003.12",
               "included_ids": [],
               "issues": [
-                "Costo pendiente: No se encontro una coincidencia unica para AER.BET.003 en Clockify. Vinculalo en la hoja Clockify_Vinculos."
+                "Costo pendiente: No se encontro una coincidencia unica para AER.BET.003 en Clockify. Revisa el ID del proyecto en la hoja DataRevenue."
               ],
               "margin": null,
               "partial": true,
@@ -1888,7 +1888,7 @@
       "task_details_complete": true
     },
     "AER.BET.003.12": {
-      "error": "No se encontro una coincidencia unica para AER.BET.003 en Clockify. Vinculalo en la hoja Clockify_Vinculos."
+      "error": "No se encontro una coincidencia unica para AER.BET.003 en Clockify. Revisa el ID del proyecto en la hoja DataRevenue."
     },
     "IXB.FOX.001": {
       "clockify_id": "IXB.FOX.001",

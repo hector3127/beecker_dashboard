@@ -1191,3 +1191,40 @@ Corrección de ubicación: el botón vive exclusivamente en Facturabilidad gener
 Modal de Facturabilidad: oculta únicamente filas con todas sus horas en cero (conserva capacidad positiva aunque no haya consumo). Filtros por columna con buscador, selección múltiple, seleccionar todo visible y Aceptar/Cancelar. Selecciones independientes por pestaña; totales siguen filas filtradas. Prueba de navegador de selección simple/múltiple y filas cero aprobada.
 
 Conciliación del modal octubre: reutiliza _detail_rows del cálculo general para elegibilidad de servicios y Billable. Solo muestra horas consideradas, no consumo ajeno al indicador. AER incorpora los ajustes aprobados; columna de ajustes informativa sin doble suma. Excluye Diego (164 h ROC.NSC.001 + 12 h RAAS.SAC.001 clasificado ROC RaaS). Verificado contra base local: 38 personas, capacidad 6456, AER 4673.4, TYM 514.75, IXB 166.5666667, RaaS 514.7833333, SaaS 0, Otros 83; total facturable 5952.5. No se modifican reglas del resumen ni cierres. Cuatro pruebas backend y una de navegador aprobadas.
+
+
+### 17/11/2026 · Revisión de Dirección en Dashboard Management local
+
+Por indicación expresa de Héctor, esta revisión se aplica primero al local,
+rama codex/hector. Genesis queda fuera de este bloque. Se simplifican el
+glosario y el resumen ejecutivo, se unifican nombres/unidades de Finanzas,
+Comercial y capacidad, y se explicita la cobertura de costos sin modificar
+sus importes ni cierres. Se retiran los controles de actualización manual y
+captura del resumen; se conserva la espera de preparación del periodo.
+
+Detalle, criterios, pendientes de fuente y verificaciones en
+[Revisión de Finanzas del 17/11](revision-finanzas-2026-11-17.md).
+95 pruebas backend, 475 Node y 71 de navegador en sus respectivos alcances;
+Ruff de archivos Python editados aprobado. No se afirma suite global.
+La auditoría de solo lectura encuentra 15 registros monetarios de 2026 sin
+proyecto concreto en la copia del 09/11: requieren validación contable, no
+una asignación automática de costos. Sin push, despliegue ni cambios de base.
+
+17/11/2026: por petición de Héctor se retiran los tres botones de información
+de las tarjetas de Finanzas, Operaciones y Comercial del Resumen ejecutivo.
+Se conserva el enlace al Glosario de indicadores.
+
+17/11/2026 · Moneda, ilustraciones y exportación PNG: Importes en USD junto
+al título de Finanzas y Comercial; K/M/B debajo de las tres tarjetas. Nuevos
+iconos decorativos de ventas, ingresos futuros y oportunidades, y porcentaje
+para margen. Por petición posterior del usuario se recupera Descargar
+captura al final del resumen. La copia exportada elimina filtros/ayudas
+flotantes y conserva los iconos y barras, sin cambiar datos ni abrir controles
+en la página. Se comprueban también píxeles reales de los iconos del PNG.
+47 pruebas de navegador (resumen y exportador compartido, incluidos PNG reales
+en 1450/390 px con CSP) y 475 Node aprobadas. Sin push ni cambios de base.
+
+17/11/2026: encabezados de las tres tarjetas con iconos centrados, medidas
+uniformes y espacio reservado para las ilustraciones. Avisos de Operaciones
+bajo su descripción para evitar cruces. Margen bruto usa una calculadora
+decorativa en lugar del círculo de porcentaje. Se conserva el cálculo.

@@ -60,7 +60,8 @@ body.dictionary-page .page{max-width:none;padding:0}
 .dictionary-page-content,.dictionary-page-content *{box-sizing:border-box}
 .dictionary-page-content{max-width:1440px;padding:18px 24px 36px}
 .dictionary-topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
-.dictionary-page .portal-back{margin:0;font-size:11px;min-height:34px;padding:7px 12px;border-radius:9px}
+body.dictionary-page .dictionary-topbar .portal-back{margin:0;font-size:11px;min-height:30px;padding:4px 9px;border-radius:7px;gap:6px}
+body.dictionary-page .dictionary-topbar .portal-back svg{width:14px;height:14px;flex:none}
 .dictionary-updated{margin:0;font-size:10px;color:#8475a9}
 .dictionary-heading{justify-content:flex-start;align-items:center;gap:14px;margin-bottom:16px}
 .dictionary-heading h1{font-size:29px;margin:0 0 3px;font-weight:700}
@@ -86,13 +87,13 @@ body.dictionary-page .page{max-width:none;padding:0}
 .dictionary-table{font-size:11px;line-height:1.6;table-layout:fixed}
 .dictionary-table th,.dictionary-table td{padding:11px 12px;border-bottom:1px solid #eee9fa;overflow-wrap:anywhere}
 .dictionary-table thead th{padding:0;background:#f1ecfc;font-size:11px;color:#29205f}
-.dictionary-table thead th:nth-child(1){width:21%}.dictionary-table thead th:nth-child(2){width:36%}.dictionary-table thead th:nth-child(3){width:21%}.dictionary-table thead th:nth-child(4){width:22%}
+.dictionary-table thead th:nth-child(1){width:24%}.dictionary-table thead th:nth-child(2){width:42%}.dictionary-table thead th:nth-child(3){width:34%}
 .dictionary-table thead th:first-child{border-radius:9px 0 0 0}.dictionary-table thead th:last-child{border-radius:0 9px 0 0}
 .dictionary-table thead button{display:flex;align-items:center;gap:8px;padding:10px 12px;border:0;background:transparent;color:inherit;font:inherit;font-weight:700;cursor:pointer;width:100%;text-align:left;min-height:36px}
 .dictionary-sort-mark{color:#9366ff;font-size:14px}
-.dictionary-table tbody th,.dictionary-table tbody td{background:#ffffff96;vertical-align:middle;font-size:11px!important;color:#736397}
+.dictionary-table tbody th,.dictionary-table tbody td{background:#ffffff96;vertical-align:middle;font-size:13px!important;color:#443b5f}
 .dictionary-table tbody tr:nth-child(even)>*{background:#faf8ff}
-.dictionary-concept{display:flex;align-items:center;gap:12px;color:#22144f;font-size:11px;line-height:1.5}
+.dictionary-concept{display:flex;align-items:center;gap:12px;color:#22144f;font-size:13px;line-height:1.5}
 .dictionary-entry-icon,.dictionary-source-icon{display:grid;place-items:center;flex:none;width:34px;height:36px;border-radius:10px;background:#eee7ff;color:#6b38e1}
 .dictionary-entry-icon svg{width:22px;height:22px}
 .dictionary-entry-icon.green,.dictionary-source-icon.green{background:#dff8ed;color:#00aa7b}
@@ -101,7 +102,7 @@ body.dictionary-page .page{max-width:none;padding:0}
 .dictionary-entry-icon.amber,.dictionary-source-icon.amber{background:#fff4dc;color:#dc9200}
 .dictionary-entry-icon.orange,.dictionary-source-icon.orange{background:#ffecdf;color:#ed6c27}
 .dictionary-table p{margin:0}
-.dictionary-formula{display:inline-block;margin-top:5px;padding:3px 6px;border-radius:5px;background:#f0ecfb;color:#8b78b1;font-size:9px;line-height:1.6;white-space:normal;font-family:ui-monospace,Consolas,monospace}
+.dictionary-formula{display:inline-block;margin-top:5px;padding:3px 6px;border-radius:5px;background:#f0ecfb;color:#443b5f;font-size:12px;line-height:1.6;white-space:normal;font-family:inherit}
 .dictionary-source-content{display:flex;align-items:center;gap:6px}
 .dictionary-source-icon{width:25px;height:28px;border-radius:7px}.dictionary-source-icon svg{width:17px;height:17px}
 .dictionary-source-badge{display:inline-block;border:1px solid #ece5fc;border-radius:5px;padding:4px 6px;background:#f6f3ff;color:#6946b5;font-size:10px;line-height:1.5}
@@ -121,5 +122,5 @@ body.dictionary-page .page{max-width:none;padding:0}
 .dictionary-table tbody th,.dictionary-table tbody td{padding:0;background:transparent!important}
 .dictionary-table td+td{margin-top:10px}.dictionary-table tbody th{margin-bottom:12px}
 .dictionary-concept{font-size:13px;gap:10px}.dictionary-table td[data-label]::before{color:#604b8a;font-size:10px;margin-bottom:3px}
-.dictionary-source-content{flex-wrap:nowrap}.dictionary-formula{font-size:10px}.dictionary-table thead{display:none}
+.dictionary-source-content{flex-wrap:nowrap}.dictionary-formula{font-size:12px}.dictionary-table thead{display:none}
 }

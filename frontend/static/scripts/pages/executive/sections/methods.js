@@ -1,7 +1,7 @@
 // @ts-check
 // Fuentes y calculo de cada indicador, en un panel que no cambia la altura de las tarjetas.
 
-const LABELS = /** @type {Record<string, string>} */ ({ financial: 'Financiera', operations: 'Operaciones', commercial: 'Comercial' });
+const LABELS = /** @type {Record<string, string>} */ ({ financial: 'Finanzas', operations: 'Operaciones', commercial: 'Comercial' });
 
 export function mountMethods() {
   const drawer = /** @type {HTMLDialogElement | null} */ (document.getElementById('executive-method-dialog'));

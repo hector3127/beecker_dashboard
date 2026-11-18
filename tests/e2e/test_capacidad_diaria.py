@@ -159,16 +159,16 @@ def test_missing_delivery_manager_is_stated_and_idle_people_listed(
     ready(portal)
 
     first = portal.locator(".ci-table tbody tr").first.locator("td")
-    expect(first.nth(4)).to_have_text("-")  # sin DM confirmado
-    expect(first.nth(7)).to_have_text("15/09/2026")
-    expect(first.nth(8)).to_have_text("31/12/2026")
-    expect(first.nth(9)).to_have_text("Proyecto")
-    expect(first.nth(10)).to_have_text("Facturable")
-    expect(first.nth(11)).to_have_text("Cargable")
-    expect(first.nth(12)).to_have_text("Afecta Capacidad")
+    expect(first.nth(3)).to_have_text("-")  # sin DM confirmado
+    expect(first.nth(6)).to_have_text("15/09/2026")
+    expect(first.nth(7)).to_have_text("31/12/2026")
+    expect(first.nth(8)).to_have_text("Proyecto")
+    expect(first.nth(9)).to_have_text("Facturable")
+    expect(first.nth(10)).to_have_text("Cargable")
+    expect(first.nth(11)).to_have_text("Afecta Capacidad")
     expect(
         portal.get_by_role("columnheader", name="ID Clockify", exact=True)
-    ).to_be_visible()
+    ).to_have_count(0)
     expect(portal.locator(".ci-table tbody tr").nth(1)).to_contain_text(
         "Sin registros en el mes"
     )

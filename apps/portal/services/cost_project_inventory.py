@@ -11,6 +11,7 @@ from apps.ejecutivo.services.aer_tym_summary import (
     resolve_columns,
 )
 from apps.portal.services.executive_period import bounds
+from apps.portal.services.financial_azure_dates import azure_scopes, scope_dates
 from core.sheets.protocols import SheetReader
 from core.utils.dates import to_datetime
 from core.utils.text import normalize_name
@@ -116,48 +117,19 @@ def inventory(reader: SheetReader) -> dict[str, dict[str, Any]]:
                     cell(row, cols["start"]),
                     cell(row, cols["end"]),
                 )
-    if reader.sheet_exists("Historico_Proyectos"):
-        events = defaultdict(list)
-        for row in history_rows[1:]:
-            if normalize_name(str(cell(row, 3) or "")) not in {
-                "ixb",
-                "raas",
-                "saas",
-            }:
-                continue
-            pid = str(cell(row, 2) or "").strip()
-            if pid:
-                events[pid.casefold()].append(row)
-        for key, rows in events.items():
-            if key in found:
-                continue
-            raw_starts = [
-                to_datetime(cell(r, 7))
-                for r in rows
-                if not str(cell(r, 6)).strip().lower().endswith(" est")
-            ]
-            starts = [x for x in raw_starts if x]
-            raw_ends = [
-                to_datetime(cell(r, 8)) or to_datetime(cell(r, 7))
-                for r in rows
-                if str(cell(r, 6)).strip().lower()
-                in {
-                    "completed",
-                    "completado",
-                    "finalizado",
-                    "cancelled",
-                    "cancelado",
-                }
-            ]
-            ends = [x for x in raw_ends if x]
-            if starts:
-                history_ids.add(key)
-                add(
-                    cell(rows[0], 2),
-                    cell(rows[0], 1),
-                    min(starts),
-                    max(ends) if ends else today,
-                )
+    for row in azure_scopes():
+        fields = row.get("fields", {})
+        if normalize_name(fields.get("service", "")) not in {
+            "ixb",
+            "raas",
+            "saas",
+        }:
+            continue
+        pid = row["project_id"]
+        dates = scope_dates(row)
+        if dates is not None and pid.casefold() not in found:
+            history_ids.add(pid.casefold())
+            add(pid, fields.get("client"), *dates)
     from core.sheets.project_year import mpb_previous_year_ids
 
     excluded = (

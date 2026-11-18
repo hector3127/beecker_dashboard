@@ -77,7 +77,7 @@ function statePill(p) {
 
 /** @param {any} p */
 function projectRow(p) {
-  const margin = el('td', { class: 'cost-number', title: p.margin_provisional ? 'Margen provisional: costos incompletos' : 'Margen = (revenue − costo) ÷ revenue', text: p.future ? '—' : marginText(p) });
+  const margin = el('td', { class: 'cost-number', title: p.margin_provisional ? 'Margen provisional: costos incompletos' : 'Margen = (ingresos contratados − costo) ÷ ingresos contratados', text: p.future ? '—' : marginText(p) });
   margin.style.fontWeight = '700';
   margin.style.color = marginColor(p);
   return [
@@ -156,17 +156,20 @@ function render() {
 
 /** El resumen global con el corte actual. @param {any} data */
 function summary(data) {
-  const consulted = data.consulted ?? rows.length - data.pending - (data.future || 0);
+  const eligible = data.projects.filter((/** @type {any} */ project) => !project.future).length;
+  const consulted = data.consulted ?? eligible - data.pending;
+  const consultedPercent = eligible ? consulted / eligible * 100 : 0;
+  const pendingPercent = eligible ? data.pending / eligible * 100 : 0;
   byId('cost-summary-label').textContent = data.complete ? 'Costo global' : 'Costo parcial calculado';
   byId('cost-total').textContent = money(data.cost);
-  byId('cost-consulted').textContent = `${consulted} de ${rows.length}`;
+  byId('cost-consulted').textContent = `${consulted} de ${eligible}`;
   byId('cost-pending').textContent = data.pending;
   byId('cost-entries').textContent = fmt(data.deduplicated_entries);
-  byId('cost-consulted-percent').textContent = `${rows.length ? (consulted / rows.length * 100).toFixed(1) : '0.0'}% del total`;
-  byId('cost-progress').value = rows.length ? Math.min(100, Math.max(0, consulted / rows.length * 100)) : 0;
-  byId('cost-pending-percent').textContent = `${rows.length ? (data.pending / rows.length * 100).toFixed(1) : '0.0'}% del total`;
+  byId('cost-consulted-percent').textContent = `${consultedPercent.toFixed(1)}% del total`;
+  byId('cost-progress').value = Math.min(100, Math.max(0, consultedPercent));
+  byId('cost-pending-percent').textContent = `${pendingPercent.toFixed(1)}% del total`;
   byId('cost-band-month').textContent = data.band_month ? `Bandas al ${data.band_month}` : '';
-  return consulted;
+  return { consulted, eligible };
 }
 
 /** @param {boolean} [force] */
@@ -194,9 +197,9 @@ async function refresh(force = false) {
         }
       }, 5000);
     }
-    const consulted = summary(data);
+    const { consulted, eligible } = summary(data);
     byId('cost-updated').textContent = `Hoy, ${new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' })}`;
-    byId('cost-note').textContent = `${consulted} de ${rows.length} proyectos consultados · ${data.pending} pendientes · banda ${data.band_month} · ${data.deduplicated_entries} registros unicos`;
+    byId('cost-note').textContent = `${consulted} de ${eligible} proyectos consultados · ${data.pending} pendientes · banda ${data.band_month} · ${data.deduplicated_entries} registros unicos`;
     render();
   } catch (error) {
     byId('cost-total').textContent = error instanceof Error ? error.message : 'No se pudo consultar';
@@ -220,7 +223,7 @@ function updateRow(row, data) {
   revenue.textContent = p.revenue === null || p.revenue === undefined ? 'Sin datos' : money(p.revenue);
   margin.textContent = marginText({ ...p, margin_provisional: !p.complete });
   margin.style.color = marginColor(p);
-  margin.title = p.complete ? 'Margen = (revenue − costo) ÷ revenue' : 'Margen provisional: costos incompletos';
+  margin.title = p.complete ? 'Margen = (ingresos contratados − costo) ÷ ingresos contratados' : 'Margen provisional: costos incompletos';
   state.replaceChildren(...statePill(p));
 
 }
@@ -261,9 +264,8 @@ body.addEventListener('click', async (event) => {
     if (!prepared) {
       try {
         const all = await get('costs/summary/');
-        const consulted = all.projects.length - all.pending;
-        summary({ ...all, consulted });
-        byId('cost-note').textContent = `${consulted} de ${all.projects.length} proyectos consultados · ${all.pending} pendientes · Incluye los costos parciales disponibles.`;
+        const { consulted, eligible } = summary(all);
+        byId('cost-note').textContent = `${consulted} de ${eligible} proyectos consultados · ${all.pending} pendientes · Incluye los costos parciales disponibles.`;
       } catch (_) {
         byId('cost-note').textContent = 'Detalle actualizado. No se pudo actualizar el total; pulsa Actualizar resumen.';
       }
@@ -303,7 +305,7 @@ byId('cost-export').addEventListener('click', () => {
     return '"'+text.replaceAll('"','""')+'"';
   };
   const records = filteredRows().map(p => [p.id,p.name || '',p.future ? '' : p.hours,p.future ? '' : p.cost,p.revenue,p.margin,p.gross_profit,p.future ? 'Futuro' : p.cost == null ? 'Sin consultar / error' : p.complete ? 'Calculado' : 'Costo parcial',bandsFor(p).join(', ')]);
-  const csv = [['Project ID','Proyecto','Horas','Costo (USD)','Revenue (USD)','Margen bruto (%)','Utilidad bruta (USD)','Estado','Bandas'],...records].map(row=>row.map(quote).join(',')).join('\r\n');
+  const csv = [['Project ID','Proyecto','Horas','Costo (USD)','Ingresos contratados (USD)','Margen bruto (%)','Utilidad bruta (USD)','Estado','Bandas'],...records].map(row=>row.map(quote).join(',')).join('\r\n');
   const href = URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));
   const link = el('a',{href,download:`detalle-costos-${new Date().toLocaleDateString('en-CA')}.csv`});
   document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(href),1000);

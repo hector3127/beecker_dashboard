@@ -61,19 +61,16 @@ class GlossaryView(APIView):
     def get(self, request: Request) -> Response:
         """Una sola fuente: el diccionario; el glosario cita sus conceptos."""
         from apps.portal.services.data_dictionary import (
-            CONCEPTS,
             DEFINITIONS_DATE,
             glossary_groups,
+            indicator_concepts,
         )
 
         return Response(
             {
                 "data": {
                     "groups": glossary_groups(),
-                    "concepts": [
-                        {"name": n, "definition": d, "source": s}
-                        for n, d, s in CONCEPTS
-                    ],
+                    "concepts": indicator_concepts(),
                 },
                 "meta": {"definitions_date": DEFINITIONS_DATE},
             }

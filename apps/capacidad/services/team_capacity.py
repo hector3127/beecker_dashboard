@@ -306,6 +306,8 @@ def build_team_capacity(
         ),
     }
     if month in {"2026-10", "2026-11"}:
+        if month == "2026-11":
+            october_november_roles["hector israel heredia cruz"] = "Dev"
         team = [
             {**person, "rol": october_november_roles[key]}
             for person in team

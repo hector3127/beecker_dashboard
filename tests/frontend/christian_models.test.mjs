@@ -40,14 +40,16 @@ test("report CSV keeps formula protection, quotes and missing values", () => {
   assert.equal(csvCell(null), '""');
   assert.equal(csvCell(0), '"0"');
 });
-test("dictionary presentation retains every sentence and the original category", () => {
+test("dictionary presentation keeps definition and calculation separate", () => {
   const value = presentation({
-    name: "Importes",
-    definition: "Primera. Segunda. Tercera.",
+    name: "Margen bruto",
+    definition: "Utilidad bruta como porcentaje de facturación. Segunda frase.",
+    category: "Financieros",
+    calculation: "Utilidad bruta ÷ facturación × 100.",
   });
-  assert.equal(value.category, "Finanzas");
-  assert.equal(value.definition, "Primera. Segunda.");
-  assert.equal(value.notes, "Tercera.");
+  assert.equal(value.category, "Financieros");
+  assert.equal(value.definition, "Utilidad bruta como porcentaje de facturación. Segunda frase.");
+  assert.equal(value.formula, "Utilidad bruta ÷ facturación × 100.");
 });
 test("extracted models have no DOM, view or transport dependencies", () => {
   const names = [

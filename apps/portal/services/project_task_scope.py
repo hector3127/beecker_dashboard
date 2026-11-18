@@ -22,7 +22,13 @@ def task_tokens(name: Any) -> Any:
 
 
 def scope_entries(
-    pid: Any, ids: Any, entries: Any, loader: Any, lookup: Any
+    pid: Any,
+    ids: Any,
+    entries: Any,
+    loader: Any,
+    lookup: Any,
+    *,
+    load_child: Any = None,
 ) -> Any:
     """Partition task variants before aggregating financial costs."""
     selected = financial_variant(pid)
@@ -78,7 +84,7 @@ def scope_entries(
             ):
                 claimed_taskless.update(
                     e.entry_id
-                    for e in loader.load_project(candidate)
+                    for e in (load_child or loader.load_project)(candidate)
                     if not e.task_id and not e.task_name.strip()
                 )
     return [

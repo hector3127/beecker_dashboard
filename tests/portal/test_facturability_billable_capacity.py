@@ -176,12 +176,13 @@ def test_exclusiones_permanentes_con_revision_confirmada_en_octubre():
             "Luis Enrique Garcia Rivera",
         ]
     ]
-    for month in ["2025-12", "2026-01", "2026-08", "2026-09", "2026-11"]:
+    for month in ["2025-12", "2026-01", "2026-08", "2026-09"]:
         result = apply_capacity_adjustments(people, month)
         assert sum(p["capacidad_horas"] for p in result) == 0
 
-    result = apply_capacity_adjustments(people, "2026-10")
-    assert [person["capacidad_horas"] for person in result] == [0, 168, 0]
+    for month in ["2026-10", "2026-11", "2027-01"]:
+        result = apply_capacity_adjustments(people, month)
+        assert [person["capacidad_horas"] for person in result] == [0, 168, 0]
     assert all(p["capacidad_horas"] == 168 for p in people)
 
 

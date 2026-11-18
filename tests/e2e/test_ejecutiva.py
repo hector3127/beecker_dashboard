@@ -36,6 +36,7 @@ FIGURES = {
         "partial": False,
         "projects": 10,
         "etc": 36890,
+        "capacity_consumed_hours": 36890,
         "advance": 40.58,
         "fte": 34.16,
         "facturability": 75.2,
@@ -127,7 +128,7 @@ def test_the_prepared_cut_fills_every_card_without_extra_queries(
     )
     expect(portal.locator("#executive-ops-etc")).to_have_text("36,890 h")
     expect(portal.locator("#executive-ops-advance")).to_have_text("41%")
-    expect(portal.locator("#executive-ops-cut")).to_have_text("Corte completo")
+    expect(portal.locator("#executive-ops-cut")).to_have_count(0)
     expect(portal.locator("#commercial-won")).to_have_text("1.49M")
     expect(portal.locator("#commercial-delivery-note")).to_contain_text("Poly")
     expect(portal.locator("#portal-freshness-text")).to_have_text(
@@ -135,16 +136,14 @@ def test_the_prepared_cut_fills_every_card_without_extra_queries(
     )
     assert portal.locator("main").count() == 1
     expect(portal.locator("#monthly-profit-chart svg")).to_be_visible()
-    expect(portal.locator("#executive-cut-status")).to_contain_text(
-        "Última consulta"
-    )
+    expect(portal.locator("#executive-cut-status")).to_have_text("")
 
 
 def test_pending_lists_open_in_a_dialog_and_return_focus(portal, served):
     portal.goto(portal.base + PAGE)
 
     blockers = portal.locator("#executive-cost-blockers")
-    expect(blockers).to_have_text("1 costos pendientes")
+    expect(blockers).to_have_text("1 proyecto con costos por revisar")
     blockers.click()
     dialog = portal.locator("dialog.portal-pending-dialog")
     expect(dialog).to_be_visible()
@@ -162,23 +161,24 @@ def test_pending_lists_open_in_a_dialog_and_return_focus(portal, served):
     )
 
 
-def test_method_drawer_explains_each_card(portal, served):
+def test_cards_have_no_information_buttons_and_keep_the_glossary(
+    portal, served
+):
     portal.goto(portal.base + PAGE)
-    portal.locator('[data-method="operations"]').click()
-    drawer = portal.locator("#executive-method-dialog")
-    expect(drawer).to_be_visible()
-    expect(portal.locator("#method-context")).to_have_text("Operaciones")
-    expect(portal.locator('[data-method-panel="operations"]')).to_be_visible()
-    expect(portal.locator('[data-method-panel="financial"]')).to_be_hidden()
-    portal.locator("[data-method-close]").first.click()
-    expect(drawer).to_be_hidden()
+    expect(
+        portal.locator(".executive-cards .executive-info-button")
+    ).to_have_count(0)
+    expect(portal.locator(".executive-cards [data-method]")).to_have_count(0)
+    expect(
+        portal.get_by_role("link", name="Glosario de indicadores")
+    ).to_be_visible()
+    expect(portal.locator("#executive-method-dialog")).to_be_hidden()
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
 def test_ranking_compares_every_account_and_keeps_the_choice_in_the_url(
     portal, served, width
 ):
-    from pathlib import Path
 
     portal.set_viewport_size({"width": width, "height": 1000})
     portal.goto(portal.base + PAGE)
@@ -275,42 +275,22 @@ def test_a_failed_preparation_removes_the_skeleton_and_keeps_valid_data(
     )
 
 
-def test_update_button_prepares_a_new_cut_and_reloads_to_show_it(portal, datos):
-    loads = []
-    meta = {"loaded_at": "2026-10-22T10:00:00-06:00", "blocks": {}}
-
-    def screen(route):
-        loads.append(route.request.url)
-        reply(route, FIGURES, meta)
-
-    portal.route(SCREEN, screen)
-    portal.route(SCREEN_BARE, screen)
-    portal.route(
-        REFRESH,
-        lambda r: reply(
-            r,
-            {
-                "state": "ready",
-                "partial": False,
-                "blocks": {
-                    "financial": True,
-                    "commercial": True,
-                    "operations": True,
-                },
-            },
-        ),
+def test_prepared_cut_requires_no_manual_refresh_or_extra_requests(
+    portal, served
+):
+    requests = []
+    portal.on(
+        "request",
+        lambda request: requests.append((request.method, request.url)),
     )
     portal.goto(portal.base + PAGE)
     expect(portal.locator("#executive-revenue")).to_have_text("1.89M")
-    assert len(loads) == 1
-
-    portal.locator("#executive-prepare").click()
-
-    portal.wait_for_function(
-        "window.performance.getEntriesByType('navigation').length > 0"
-    )
-    portal.wait_for_timeout(1500)
-    assert len(loads) > 1  # la pagina se recargo con el corte nuevo
+    expect(portal.locator("#executive-prepare")).to_have_count(0)
+    assert not [
+        request
+        for request in requests
+        if "/executive/actualizar/" in request[1]
+    ]
 
 
 def test_period_picker_applies_a_range_and_validates_it(portal, served):
@@ -344,31 +324,22 @@ def test_period_picker_applies_a_range_and_validates_it(portal, served):
     assert "periodo=rango" in portal.url and "vista=custom" in portal.url
 
 
-def test_capture_button_and_the_way_to_the_dictionary(portal, served):
+def test_one_glossary_link_and_no_broken_capture_control(portal, served):
     portal.goto(portal.base + PAGE)
-
     expect(
-        portal.get_by_role("button", name="↓ Descargar captura")
+        portal.locator(
+            ".executive-report-actions #executive-capture-actions .capture-button"
+        )
     ).to_be_visible()
-    with portal.expect_download(timeout=60000) as result:
-        portal.get_by_role("button", name="↓ Descargar captura").click()
-    assert re.fullmatch(
-        r"business-overview-\d{4}-\d{2}-\d{2}\.png",
-        result.value.suggested_filename,
-    )
-    expect(portal.locator(".capture-status")).to_have_text(
-        "Captura descargada."
-    )
+    expect(portal.locator("header.top .capture-button")).to_have_count(0)
     expect(
         portal.get_by_role("link", name="Glosario de indicadores")
     ).to_have_attribute("href", "/diccionario-datos/")
-    portal.locator(".executive-glossary summary").click()
-    expect(portal.locator(".executive-glossary-grid")).to_be_visible()
+    expect(portal.locator(".executive-glossary")).to_have_count(0)
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
 def test_agreements_are_part_of_the_page(portal, served, width):
-    from pathlib import Path
 
     item = {
         "id": 101,
@@ -499,7 +470,6 @@ def test_amounts_sent_as_decimal_text_are_not_shown_as_pending(portal, served):
 def test_soft_card_design_keeps_values_actions_and_mobile_layout(
     portal, served, width
 ):
-    from pathlib import Path
 
     portal.set_viewport_size({"width": width, "height": 1000})
     portal.goto(portal.base + PAGE)
@@ -530,10 +500,7 @@ def test_soft_card_design_keeps_values_actions_and_mobile_layout(
         )
         assert card.evaluate("e => e.scrollWidth <= e.clientWidth + 1")
         expect(card.locator(".executive-detail-link")).to_be_visible()
-    portal.locator('[data-method="financial"]').click()
-    expect(portal.locator("#executive-method-dialog")).to_be_visible()
-    portal.keyboard.press("Escape")
-    portal.locator('[data-method="financial"]').evaluate("e => e.blur()")
+    expect(cards.locator(".executive-info-button")).to_have_count(0)
     output = Path("tmp/design/executive-cards")
     output.mkdir(parents=True, exist_ok=True)
     cards.screenshot(path=str(output / f"cards-{width}.png"))
@@ -543,7 +510,6 @@ def test_soft_card_design_keeps_values_actions_and_mobile_layout(
 def test_monthly_reference_design_preserves_financial_measures(
     portal, served, width
 ):
-    from pathlib import Path
 
     figures = json.loads(json.dumps(FIGURES))
     revenues = [
@@ -618,45 +584,22 @@ def test_monthly_reference_design_preserves_financial_measures(
 
 
 @pytest.mark.parametrize("width", [1450, 900, 390])
-def test_indicator_glossary_reference_preserves_definitions(
+def test_indicator_glossary_is_available_without_repeating_the_definitions(
     portal, served, width
 ):
-    from pathlib import Path
-
-    from apps.portal.services.data_dictionary import glossary_groups
-
     portal.set_viewport_size({"width": width, "height": 1000})
     portal.goto(portal.base + PAGE)
-    glossary = portal.locator(".indicator-glossary")
-    expect(glossary).to_be_visible()
-    expect(glossary.locator(".indicator-group").first).to_be_hidden()
-    glossary.locator("summary").click()
-    expect(glossary.locator(".indicator-group")).to_have_count(3)
-    expect(glossary.locator(".indicator-definition")).to_have_count(10)
-    for index, group in enumerate(glossary_groups()):
-        section = glossary.locator(".indicator-group").nth(index)
-        expect(section.locator("h2")).to_have_text(group["name"])
-        for item_index, item in enumerate(group["terms"]):
-            expect(section.locator("dt").nth(item_index)).to_have_text(
-                item["term"]
-            )
-            expect(section.locator("dd").nth(item_index)).to_have_text(
-                item["summary"]
-            )
-    expect(glossary.locator("footer a")).to_have_attribute(
-        "href", "/diccionario-datos/"
+    expect(
+        portal.get_by_role("link", name="Glosario de indicadores")
+    ).to_be_visible()
+    expect(portal.locator(".indicator-glossary")).to_have_count(0)
+    assert portal.evaluate(
+        "document.documentElement.scrollWidth <= window.innerWidth"
     )
-    assert glossary.evaluate("e => e.scrollWidth <= e.clientWidth + 1")
-    output = Path("tmp/design/overview-glossary")
-    output.mkdir(parents=True, exist_ok=True)
-    glossary.screenshot(path=str(output / f"glossary-{width}.png"))
-    glossary.locator("summary").click()
-    expect(glossary.locator(".indicator-group").first).to_be_hidden()
 
 
 def test_ranking_uses_account_logo_without_date_titles(portal, served):
     from io import BytesIO
-    from pathlib import Path
 
     from PIL import Image
 
@@ -693,88 +636,166 @@ def test_ranking_uses_account_logo_without_date_titles(portal, served):
     )
 
 
-def test_failed_update_stops_polling_and_can_retry_with_csp(
-    portal, datos, enforced_csp, settings
+def test_failed_preparation_keeps_figures_without_a_manual_refresh_control(
+    portal, datos, enforced_csp
 ):
-    reference = Path(__file__).resolve().parents[1] / "reference"
-    settings.ROOT_URLCONF = "config.urls"
-    settings.TEMPLATES = [
-        {
-            **engine,
-            "DIRS": [
-                directory
-                for directory in engine["DIRS"]
-                if Path(directory).resolve() != reference / "templates"
-            ],
-        }
-        for engine in settings.TEMPLATES
-    ]
-    settings.STATICFILES_DIRS = [
-        entry
-        for entry in settings.STATICFILES_DIRS
-        if Path(
-            entry[1] if isinstance(entry, (tuple, list)) else entry
-        ).resolve()
-        != reference / "static"
-    ]
-    state = {"failed": True}
-    meta = {"loaded_at": "2026-10-22T10:00:00-06:00", "blocks": {}}
-    portal.route(SCREEN, lambda r: reply(r, FIGURES, meta))
-    portal.route(SCREEN_BARE, lambda r: reply(r, FIGURES, meta))
+    partial = {**FIGURES, "commercial": None}
+    portal.route(
+        SCREEN,
+        lambda r: reply(r, partial, {"loaded_at": "2026-10-22T10:00:00-06:00"}),
+    )
+    portal.route(
+        SCREEN_BARE,
+        lambda r: reply(r, partial, {"loaded_at": "2026-10-22T10:00:00-06:00"}),
+    )
+    requests = []
 
     def refresh(route):
-        reply(
-            route,
-            {
-                "state": "queued"
-                if route.request.method == "POST"
-                else "failed"
-                if state["failed"]
-                else "ready",
-                "blocks": {
-                    "financial": True,
-                    "commercial": True,
-                    "operations": True,
-                },
-            },
-        )
+        requests.append(route.request.method)
+        reply(route, {"state": "failed", "blocks": {}})
 
     portal.route(REFRESH, refresh)
-    portal.add_init_script("""
-        window.__cutIntervals = [];
-        window.__cutReads = [];
-        const interval = window.setInterval;
-        window.setInterval = (callback, delay, ...args) => {
-            if (delay === 5000) window.__cutIntervals.push(delay);
-            return interval(callback, delay, ...args);
-        };
-        const request = window.fetch;
-        window.fetch = (url, options) => {
-            if (String(url).includes('/screens/executive/actualizar/')) {
-                window.__cutReads.push({
-                    method: options.method, cache: options.cache
-                });
-            }
-            return request(url, options);
-        };
-    """)
-    portal.goto(portal.base + "/?periodo=mes&anio=2026&mes=9")
-    expect(portal.locator("#executive-revenue")).to_have_text("1.89M")
-    before = portal.url
-    portal.locator("#executive-prepare").click()
+    portal.goto(portal.base + PAGE)
     expect(portal.locator("#executive-cut-status")).to_have_text(
         "No se pudo completar. Se conserva el corte mostrado."
     )
-    expect(portal.locator("#executive-prepare")).to_be_enabled()
-    assert portal.evaluate("window.__cutIntervals") == []
-    reads = portal.evaluate("window.__cutReads")
-    assert [read["method"] for read in reads] == ["POST", "GET"]
-    assert reads[1]["cache"] == "no-store"
-    assert portal.url == before
     expect(portal.locator("#executive-revenue")).to_have_text("1.89M")
+    expect(portal.locator("#executive-prepare")).to_have_count(0)
+    assert requests == ["GET"]
 
-    state["failed"] = False
-    with portal.expect_navigation():
-        portal.locator("#executive-prepare").click()
+
+def test_finance_detail_reconciles_and_capacity_excess_has_clear_label(
+    portal, served, enforced_csp
+):
+    figures = json.loads(json.dumps(FIGURES))
+    figures["finance"]["revenue"].update(collected=1290000, total=2397644.14)
+    figures["operations"]["etc"] = -500
+    figures["operations"]["capacity_consumed_hours"] = 6500
+    portal.route(
+        SCREEN_BARE,
+        lambda r: reply(r, figures, {"loaded_at": "2026-10-22T10:00:00-06:00"}),
+    )
+    portal.goto(portal.base + PAGE)
+    expect(portal.locator("#executive-ops-balance-label")).to_have_text(
+        "Capacidad consumida (h)"
+    )
+    expect(portal.locator("#executive-ops-etc")).to_have_text("6,500 h")
+    expect(portal.locator("#executive-method-dialog")).to_be_hidden()
+    expect(portal.locator("#executive-collected")).to_have_text("1.29M")
+    expect(portal.locator("#executive-contracted")).to_have_text("2.39M")
+    expect(portal.locator("#executive-gross-profit")).to_have_text("1.39M*")
+    expect(portal.locator("#executive-cost-coverage")).to_contain_text(
+        "1 completos · 0 parciales · 1 sin costo disponible · "
+        "2 proyectos incluidos"
+    )
+    folder = Path("tmp/design/revision-finanzas")
+    folder.mkdir(parents=True, exist_ok=True)
+    portal.screenshot(path=str(folder / "resumen.png"))
+    ids = portal.locator("[id]").evaluate_all(
+        "nodes => nodes.map(node => node.id)"
+    )
+    assert len(ids) == len(set(ids))
+
+
+@pytest.mark.parametrize("width", [1450, 390])
+def test_png_export_preserves_icons_and_excludes_calendar_and_help(
+    portal, served, enforced_csp, width
+):
+    from PIL import Image
+
+    from tests.e2e.conftest import watch
+
+    problems = watch(portal)
+    portal.set_viewport_size({"width": width, "height": 1000})
+    portal.goto(portal.base + PAGE)
     expect(portal.locator("#executive-revenue")).to_have_text("1.89M")
-    assert portal.url == before
+    expect(portal.locator(".executive-currency-label")).to_have_text(
+        ["Importes en USD", "Importes en USD"]
+    )
+    portal.locator("#executive-date-picker summary").click()
+    portal.keyboard.press("Escape")
+    portal.locator(".monthly-panel-info summary").click()
+    portal.locator(".ranking-help summary").click()
+    portal.add_script_tag(
+        url=portal.base + "/static/app/vendor/html2canvas-1.4.1.min.js"
+    )
+    portal.evaluate("""() => {
+      const capture = window.html2canvas;
+      window.html2canvas = (target, options) => capture(target, {...options,
+        async onclone(doc) {
+          await options.onclone(doc);
+          window.iconPixels = [...doc.querySelectorAll(
+            '.executive-metric-art')].map(icon => ({
+              tag: icon.tagName, width: icon.width, height: icon.height,
+              box: [icon.getBoundingClientRect().x,
+                icon.getBoundingClientRect().y,
+                icon.getBoundingClientRect().width,
+                icon.getBoundingClientRect().height],
+              colored: [...icon.getContext('2d').getImageData(
+                0, 0, icon.width, icon.height).data]
+                .filter((value, index) => index % 4 === 3 && value > 0).length,
+          }));
+          const origin = doc.getElementById(target.id)
+            .getBoundingClientRect();
+          window.captureOrigin = [origin.x, origin.y, origin.width];
+          window.captureProof = {
+            calendar: doc.querySelectorAll(
+              '#executive-date-picker form').length,
+            help: doc.querySelectorAll(
+              '.monthly-panel-info > div, .ranking-help > p').length,
+            icons: doc.querySelectorAll('.executive-metric-art').length,
+            unresolved: [...doc.querySelectorAll('.executive-cards svg *')]
+              .some(node => ['fill', 'stroke', 'stop-color'].some(name =>
+                ['var(', 'currentColor'].some(token =>
+                  (node.getAttribute(name) || '').includes(token)))),
+          };
+        }
+      });
+    }""")
+    folder = Path("tmp/design/executive-export")
+    folder.mkdir(parents=True, exist_ok=True)
+    with portal.expect_download(timeout=60000) as download:
+        portal.locator("#executive-capture-actions .capture-button").click()
+    path = folder / f"resumen-{width}.png"
+    download.value.save_as(path)
+    icons = portal.evaluate("window.iconPixels")
+    assert len(icons) == 5
+    assert all(icon["colored"] > 100 for icon in icons)
+    assert portal.evaluate("window.captureProof") == {
+        "calendar": 0,
+        "help": 0,
+        "icons": 5,
+        "unresolved": False,
+    }
+    with Image.open(path) as image:
+        assert image.width >= width
+        assert image.height > image.width
+        origin_x, origin_y, content_width = portal.evaluate(
+            "window.captureOrigin"
+        )
+        scale = image.width / content_width
+        for icon in icons:
+            x, y, box_width, box_height = icon["box"]
+            crop = image.crop(
+                (
+                    round((x - origin_x) * scale),
+                    round((y - origin_y) * scale),
+                    round((x - origin_x + box_width) * scale),
+                    round((y - origin_y + box_height) * scale),
+                )
+            ).convert("RGB")
+            assert (
+                sum(
+                    max(pixel) - min(pixel) > 12 and min(pixel) < 242
+                    for pixel in crop.getdata()
+                )
+                > 100
+            )
+    expect(portal.locator("#executive-date-picker")).not_to_have_attribute(
+        "open", ""
+    )
+    expect(portal.locator("#executive-revenue")).to_have_text("1.89M")
+    expect(
+        portal.locator("#executive-capture-actions .capture-status")
+    ).to_have_text("Captura descargada.")
+    assert problems == []

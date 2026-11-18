@@ -1,3 +1,4 @@
+import pytest
 from django.core.cache import cache
 
 from apps.portal.services.account_profitability import account_profitability
@@ -5,6 +6,16 @@ from apps.portal.services.project_profitability import add_project_revenue
 from apps.portal.services.revenue_costs import key, project_ids
 from tests.fakes import InMemorySheetRepository
 from tests.portal.test_kpi_sources import MPB
+
+
+@pytest.fixture(autouse=True)
+def azure_inventory(monkeypatch):
+    scopes = []
+    monkeypatch.setattr(
+        "apps.portal.services.cost_project_inventory.azure_scopes",
+        lambda: scopes,
+    )
+    return scopes
 
 
 def test_unbilled_project_reduces_account_margin_without_adding_revenue():
@@ -231,9 +242,23 @@ def test_only_variants_registered_in_revenue_are_separated():
     cache.clear()
 
 
-def test_historical_inventory_uses_only_a_to_i_and_selected_period():
+def test_azure_inventory_uses_selected_period_and_project_account(
+    azure_inventory,
+):
     from apps.portal.services import executive_period as period
 
+    azure_inventory.extend(
+        {
+            "project_id": pid,
+            "fields": {"service": "IXB", "client": "Acme"},
+            "start": start,
+            "finish": end,
+        }
+        for pid, start, end in [
+            ("P1", "2026-05-01", "2026-06-15"),
+            ("OLD", "2025-01-01", "2025-06-15"),
+        ]
+    )
     r = InMemorySheetRepository(
         {
             "DataRevenue": [[]],

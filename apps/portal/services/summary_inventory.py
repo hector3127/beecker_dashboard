@@ -26,6 +26,7 @@ from apps.portal.services.summary_iterations import (
     calendar_fields,
     iteration_blocks,
 )
+from core.data_cache import bump_revision
 from core.exceptions import DashboardError
 from core.utils.parallel import map_in_parallel
 
@@ -287,6 +288,7 @@ def extract_summaries(
                 ),
             }
             run.save()
+            bump_revision()
         return run
     except Exception as error:
         run.finished_at = timezone.now()

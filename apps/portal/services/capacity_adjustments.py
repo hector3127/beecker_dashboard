@@ -9,7 +9,6 @@ from apps.portal.services.holidays import count_business_days
 # Correcciones de personas confirmadas por Héctor, 11/11/2026.
 PERMANENT = {
     norm("Claudia Ximena Mazon Vera"): {"capacidad_horas": 0},
-    norm("Enrique Yael Badillo Gutierrez"): {"capacidad_horas": 0},
     norm("Luis Enrique Garcia Rivera"): {"capacidad_horas": 0},
     norm("Jhoan Ahumada Rivera"): {"rol": "DEV"},
     norm("Johan Ortiz Hernandez"): {"rol": "DEV"},
@@ -57,11 +56,12 @@ def apply_capacity_adjustments(
         "2026-09": SEPTEMBER,
         "2026-10": OCTOBER,
     }.get(month, {})
-    permanent = {
-        name: value
-        for name, value in PERMANENT.items()
-        if month != "2026-10" or name != norm("Enrique Yael Badillo Gutierrez")
-    }
+    permanent = PERMANENT
+    if month < "2026-10":
+        permanent = {
+            **PERMANENT,
+            norm("Enrique Yael Badillo Gutierrez"): {"capacidad_horas": 0},
+        }
     return [
         {
             **person,

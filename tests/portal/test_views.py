@@ -825,6 +825,7 @@ def test_investment_requires_login_when_configured(client, settings):
 
 
 def test_operations_summary_data(monkeypatch):
+    monkeypatch.setattr(views, "published_months", lambda *_: {})
     gse = facturable_gse(("Ana", "DEV", "AER", 134.4))
     monkeypatch.setattr(
         "apps.portal.views.load_year_sources",

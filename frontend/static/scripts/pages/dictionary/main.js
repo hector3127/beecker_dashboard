@@ -22,31 +22,25 @@ function render(concepts) {
       el('th', { scope:'row' }, el('div', { class:'dictionary-concept' },
         el('span', { class:`dictionary-entry-icon ${view.tone}` }, dictionaryIcon(view.icon)),
         el('span', {text:concept.name}))),
-      el('td', { 'data-label':'Definición y cálculo' },
-        el('p', {text:view.definition}),
-        ...(view.formula ? [el('code', {class:'dictionary-formula',text:view.formula})] : [])),
-      el('td', { 'data-label':'Fuente / validación', class:'dictionary-source' },
-        el('div', {class:'dictionary-source-content'},
-          el('span', {class:`dictionary-source-icon ${/pendiente/i.test(concept.source) ? 'amber' : view.tone}`}, dictionaryIcon(view.icon)),
-          el('span', {class:'dictionary-source-badge',text:concept.source}))),
-      el('td', { 'data-label':'Ejemplo / Notas',class:'dictionary-notes',text:view.notes || '—' }));
-    return {row,index,category:view.category,text:plain(`${concept.name} ${concept.definition} ${concept.source}`),
-      name:concept.name,definition:concept.definition,source:concept.source,notes:view.notes};
+      el('td', { 'data-label':'Qué mide' }, el('p', {text:view.definition})),
+      el('td', { 'data-label':'Cálculo' }, el('p', {class:'dictionary-formula',text:view.formula})));
+    return {row,index,category:view.category,text:plain(`${concept.name} ${view.definition} ${view.formula}`),
+      name:concept.name,definition:view.definition,calculation:view.formula};
   });
   let sortKey = '';
   let direction = 'asc';
-  const keys = ['name','definition','source','notes'];
-  const labels = ['Concepto','Definición y cálculo','Fuente / validación','Ejemplo / Notas'];
+  const keys = ['name','definition','calculation'];
+  const labels = ['Indicador','Qué mide','Cálculo'];
   const headers = keys.map((key, index) => el('th', { scope:'col','aria-sort':'none' },
     el('button', {type:'button','data-dictionary-sort':key}, labels[index],
       el('span', {'aria-hidden':'true',class:'dictionary-sort-mark',text:'↕'}))));
   const empty = el('tr', {id:'dictionary-empty',hidden:true},
-    el('td', {colspan:4}, el('strong', {text:'No encontramos coincidencias.'}),
+    el('td', {colspan:3}, el('strong', {text:'No encontramos coincidencias.'}),
       el('span', {text:'Prueba con otro concepto o limpia los filtros para ver todas las definiciones.'})));
   const body = el('tbody', {}, ...rows.map(r => r.row), empty);
   content.removeAttribute('aria-busy');
   content.replaceChildren(el('table', {class:'dictionary-table'},
-    el('caption', {class:'portal-sr-only',text:'Conceptos, definición y cálculo, fuente y notas de los indicadores del dashboard.'}),
+    el('caption', {class:'portal-sr-only',text:'Indicadores, definición y cálculo del dashboard.'}),
     el('thead', {}, el('tr', {}, ...headers)), body));
   category.replaceChildren(el('option', {value:'',text:'Todas las categorías'}),
     ...CATEGORIES.map(text => el('option', {value:text,text})));

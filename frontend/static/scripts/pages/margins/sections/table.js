@@ -59,7 +59,7 @@ function linkedProject(p, account) {
 /** @param {any} o @param {number} index */
 function panel(o, index) {
   const title = el('h3', {}, el('span', { class: 'link-symbol', 'aria-hidden': 'true', text: '↗' }), `${o.name} · IDs ligados${o.partial ? ' · Parcial*' : ''}`);
-  const heads = ['Project ID', 'Horas', 'Costo', 'Revenue del periodo', 'Margen bruto (% / importe)', 'Estado / error'];
+  const heads = ['Project ID', 'Horas', 'Costo', 'Ingresos contratados del periodo', 'Margen bruto (% / importe)', 'Estado / error'];
   return el(
     'tr',
     { id: `opportunity-panel-${index}`, class: 'opportunity-panel-row', hidden: true },
@@ -104,7 +104,7 @@ function row(o, index) {
     ),
     number(
       o.bookings !== null ? formatMoney(o.bookings) : PENDING,
-      el('small', { text: `Revenue del periodo: ${formatMoney(o.period_revenue)}` }),
+      el('small', { text: `Ingresos contratados del periodo: ${formatMoney(o.period_revenue)}` }),
     ),
     number(formatMoney(o.operated_revenue)),
     number(formatMoney(o.invoiced)),
@@ -130,7 +130,7 @@ function row(o, index) {
  * @returns {HTMLElement}
  */
 export function renderResults(opportunities, accounts = []) {
-  const heads = ['Cuenta / oportunidad', 'Bookings', 'Revenue operado', 'Facturado', 'Cobrado', 'Costos', 'Margen vendido', 'Margen real', 'Desviación (pp)', 'Detalle'];
+  const heads = ['Cuenta / oportunidad', 'Ingresos contratados', 'Ingresos operados', 'Facturado', 'Cobrado', 'Costos', 'Margen vendido', 'Margen real', 'Desviación (pp)', 'Detalle'];
   const rows = opportunities.map((o, i) => row(o, i + 1));
   // Los totales vienen del mismo corte del servidor, con costos deduplicados.
   const groups = new Map();

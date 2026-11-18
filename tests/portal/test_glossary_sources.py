@@ -5,11 +5,21 @@ se renombra o desaparece, esta prueba lo avisa antes de que el glosario
 quede huerfano.
 """
 
+import pytest
+
 from apps.portal.services.data_dictionary import (
     CONCEPTS,
     GLOSSARY,
     glossary_groups,
 )
+
+
+@pytest.fixture(autouse=True)
+def no_background_refresh(monkeypatch):
+    monkeypatch.setattr(
+        "apps.portal.services.executive_refresh.request_refresh",
+        lambda **kwargs: None,
+    )
 
 
 def test_every_term_points_to_an_existing_concept():
@@ -29,7 +39,7 @@ def test_groups_come_in_the_published_order_without_empty_terms():
     groups = glossary_groups()
 
     assert [g["name"] for g in groups] == [
-        "Financiera",
+        "Finanzas",
         "Operaciones",
         "Comercial",
     ]
@@ -38,22 +48,20 @@ def test_groups_come_in_the_published_order_without_empty_terms():
             assert item["summary"].strip()
 
 
-def test_the_executive_page_draws_the_glossary_from_that_data(client):
+def test_executive_links_to_one_glossary_without_repeated_inline_glossaries(
+    client,
+):
     html = client.get("/").content.decode()
-
-    for _group, terms in GLOSSARY:
-        for term, _concept, summary in terms:
-            assert f"{term}</dt><dd>{summary}</dd>" in html
-
-
-def test_pending_items_are_never_described_as_zero(client):
-    assert "no equivale a cero" in client.get("/").content.decode()
+    assert "Glosario de indicadores" in html
+    assert 'href="/diccionario-datos/"' in html
+    assert 'class="executive-glossary' not in html
+    assert 'id="executive-prepare"' not in html
 
 
 def test_the_glossary_api_serves_concepts_and_groups(client):
     body = client.get("/api/v1/reference/glossary/").json()
 
-    assert body["meta"]["definitions_date"] == "2026-10-22"
+    assert body["meta"]["definitions_date"] == "2026-11-17"
     names = {c["name"] for c in body["data"]["concepts"]}
     assert len(body["data"]["concepts"]) == len(CONCEPTS)
     for group in body["data"]["groups"]:

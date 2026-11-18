@@ -2,13 +2,6 @@ const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
-const path = require("node:path");
-const previous = JSON.parse(
-  fs.readFileSync(
-    path.join(__dirname, "frozen/cached_page_previous.json"),
-    "utf8",
-  ),
-);
 const source = fs.readFileSync(
   "frontend/static/scripts/pages/executive/sections/cut.js",
   "utf8",
@@ -116,123 +109,56 @@ function harness(states, { model = full, postFailures = 0 } = {}) {
   };
 }
 const settle = () => new Promise((resolve) => setImmediate(resolve));
-test("refresh prepares the new cut without resetting the visible page or filters", async () => {
-  const h = harness([
-    { state: "running", blocks },
-    { state: "ready", blocks },
-  ]);
-  const before = plain(h.model),
-    href = h.location.href;
-  assert.equal(h.requests.length, 0, "a loaded page does not refresh itself");
-  await h.control.onclick();
-  assert.equal(h.reloads(), previous.genericReady.reloadsBefore);
-  assert.equal(h.control.disabled, true);
-  assert.equal(h.timers.size, 1);
-  assert.deepEqual(h.model, before);
-  assert.equal(h.location.href, href);
-  await h.tick();
-  assert.equal(h.reloads(), previous.genericReady.reloadsAfter);
-  assert.equal(h.location.href, href);
-  assert.deepEqual(h.model, before);
+test("prepared data keeps the visible page and filters without refresh writes", async () => {
+  const h = harness([]);
+  const before = plain(h.model), href = h.location.href;
+  await settle();
+  assert.equal(h.requests.length, 0);
+  assert.equal(h.control.onclick, undefined);
+  assert.equal(h.reloads(), 0);
   assert.equal(h.timers.size, 0);
-});
-test("failed source refresh keeps the old cut and offers a retry", async () => {
-  const h = harness([
-    { state: "failed", blocks },
-    { state: "ready", blocks },
-  ]);
-  const before = plain(h.model);
-  await h.control.onclick();
-  assert.equal(h.reloads(), previous.genericFailure.reloads);
-  assert.equal(h.control.disabled, false);
-  assert.match(h.status.textContent, /Se conserva el corte/);
-  assert.equal(h.timers.size, 0, "a failed refresh must not restart polling");
   assert.deepEqual(h.model, before);
-  await h.control.onclick();
-  assert.equal(h.reloads(), 1);
-  const offline = harness([{ state: "ready", blocks }], { postFailures: 1 });
-  await offline.control.onclick();
-  assert.equal(offline.reloads(), 0);
-  assert.equal(offline.control.disabled, false);
-  assert.equal(offline.timers.size, 0);
-  assert.match(offline.status.textContent, /No se pudo iniciar/);
-  await offline.control.onclick();
-  assert.equal(offline.reloads(), 1);
+  assert.equal(h.location.href, href);
 });
-test("executive refresh polls a light status endpoint and retains dates and CSRF", async () => {
-  const h = harness([
-    { state: "running", blocks },
-    { state: "ready", blocks },
-  ]);
-  await h.control.onclick();
+test("missing blocks poll with dates and reload once the prepared cut is ready", async () => {
+  const h = harness([{state:"running",blocks:{...blocks,commercial:false}}, {state:"ready",blocks}], {model:{...full,commercial:null}});
+  const href = h.location.href;
+  await settle();
   assert.equal(h.reloads(), 0);
   await h.tick();
-  assert.deepEqual(
-    h.requests.map((x) => x.options.method),
-    previous.poll.methods,
-  );
-  for (const { url, options } of h.requests) {
+  assert.deepEqual(h.requests.map(x => x.options.method), ["GET","GET"]);
+  for (const {url,options} of h.requests) {
     const target = new URL(url);
-    assert.equal(target.pathname, "/api/v1/screens/executive/actualizar/");
-    assert.equal(target.searchParams.get("periodo"), "mes");
-    assert.equal(target.searchParams.get("anio"), "2026");
-    assert.equal(target.searchParams.get("mes"), "9");
-    assert.equal(options.credentials, "same-origin");
+    assert.equal(target.pathname,"/api/v1/screens/executive/actualizar/");
+    assert.equal(target.searchParams.get("periodo"),"mes");
+    assert.equal(target.searchParams.get("mes"),"9");
+    assert.equal(options.credentials,"same-origin");
+    assert.equal(options.cache,"no-store");
   }
-  assert.equal(
-    h.requests[0].options.headers["X-CSRFToken"],
-    previous.poll.csrf,
-  );
-  for (const request of h.requests.slice(1))
-    assert.equal(request.options.cache, previous.poll.cache);
-  assert.equal(h.reloads(), 1);
-  assert.equal(h.timers.size, 0);
+  assert.equal(h.reloads(),1);
+  assert.equal(h.timers.size,0);
+  assert.equal(h.location.href,href);
 });
-test("executive partial and failed refreshes do not claim a complete cut", async () => {
-  const partial = harness(
-    [
-      {
-        state: "ready",
-        partial: true,
-        blocks: { ...blocks, operations: false },
-      },
-    ],
-    { model: { ...full, operations: { projects: null } } },
-  );
-  await settle();
-  assert.equal(partial.reloads(), previous.partial.reloads);
-  assert.match(partial.status.textContent, /pendientes identificados/);
-  assert.equal(partial.control.textContent, "Ver corte preparado");
-  assert.equal(partial.timers.size, 0);
-  await partial.control.onclick();
-  assert.equal(partial.reloads(), 1);
-  const failed = harness(
-    [{ state: "failed", blocks: { ...blocks, operations: false } }],
-    { model: { ...full, operations: { projects: null } } },
-  );
-  await settle();
-  assert.equal(failed.reloads(), previous.failure.reloads);
-  assert.match(failed.status.textContent, /Se conserva el corte/);
-  assert.equal(failed.control.disabled, false);
-  assert.equal(failed.timers.size, 0);
-  const financial = harness([
-    { state: "ready", partial: true, blocks: { ...blocks, financial: false } },
-  ]);
-  await financial.control.onclick();
-  assert.equal(financial.reloads(), 0);
-  assert.match(
-    financial.status.textContent,
-    /no se mostrarán cifras inventadas/,
-  );
-  assert.equal(financial.control.disabled, false);
-  assert.equal(financial.timers.size, 0);
-  const network = harness([Error("offline")]);
-  await network.control.onclick();
-  assert.equal(network.reloads(), 0);
-  assert.match(network.status.textContent, /Se conserva el corte/);
-  assert.equal(network.timers.size, 0);
+test("failed preparation or network stops polling and preserves existing data", async () => {
+  for (const state of [{state:"failed",blocks:{}}, Error("offline")]) {
+    const h = harness([state], {model:{...full,commercial:null}});
+    const before = plain(h.model);
+    await settle();
+    assert.equal(h.reloads(),0);
+    assert.match(h.status.textContent,/Se conserva el corte/);
+    assert.equal(h.timers.size,0);
+    assert.deepEqual(h.model,before);
+    assert.equal(h.requests[0].options.method,"GET");
+  }
 });
-
+test("partial cuts preserve pending coverage instead of claiming completeness", async () => {
+  const h = harness([{state:"ready",partial:true,blocks:{...blocks,operations:false}}], {model:{...full,operations:{projects:null}}});
+  await settle();
+  assert.equal(h.reloads(),0);
+  assert.match(h.status.textContent,/datos pendientes/);
+  assert.equal(h.timers.size,0);
+  assert.equal(h.finished(),1);
+});
 
 test("idle and busy refreshes stop polling and offer retry", async () => {
   for (const state of ["idle", "busy"]) {
@@ -240,7 +166,7 @@ test("idle and busy refreshes stop polling and offer retry", async () => {
     await settle();
     assert.equal(page.timers.size, 0);
     assert.equal(page.control.disabled, false);
-    assert.match(page.status.textContent, /Actualizar datos/);
+    assert.match(page.status.textContent, /periodo de nuevo/);
   }
 });
 
@@ -256,5 +182,5 @@ test("failed monthly preparation removes the consulting state", () => {
   vm.runInContext(metrics, context);
   context.finishLoading(new Set(["monthly-profit-state"]));
   assert.equal(nodes.get("monthly-profit-state").textContent, "No disponible");
-  assert.match(nodes.get("monthly-profit-chart").textContent, /Actualizar datos/);
+  assert.match(nodes.get("monthly-profit-chart").textContent, /periodo de nuevo/);
 });

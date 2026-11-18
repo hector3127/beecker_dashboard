@@ -1,206 +1,301 @@
-"""Conceptos ejecutivos y validaciones de negocio."""
+"""Definiciones y cálculos aprobados para los indicadores de Dirección."""
 
-# ruff: noqa: E501
-
-CONCEPTS = [
-    (
-        "Periodo",
-        "Rango inclusivo Desde–Hasta; se aplica a facturación, costos, consumo y booking. El título muestra las fechas exactas.",
-        "Calendario ejecutivo",
-    ),
-    (
-        "Importes",
-        "Dólares estadounidenses. K = miles, M = millones, B = mil millones (convención estadounidense). Miles sin decimales; millones y mil millones con hasta dos decimales de escala. Truncado solo de presentación; cálculos con precisión original. Ejemplo: 1,897,644.14 → 1.89M.",
-        "Financiero y Comercial",
-    ),
+# (indicador, definición, categoría, cálculo)
+INDICATORS = [
     (
         "Facturación",
-        "Invoiced + Invoiced Factoring + Collected + Collected Factoring, según DataRevenue G/H. Confirmed queda fuera. Las fechas y el corte contable requieren validación con Florencia.",
-        "Pendiente de validación contable",
+        (
+            "Importe de los registros facturados o cobrados del periodo, "
+            "incluidos los de factoraje."
+        ),
+        "Financieros",
+        "Suma de importes facturados y cobrados, incluido factoraje.",
     ),
     (
-        "Revenue contratado",
-        "Confirmed + los estados facturados y cobrados. No equivale a facturación ni al booking comercial. Se conserva en la auditoría de proyectos.",
-        "DataRevenue",
+        "Importe cobrado",
+        (
+            "Importe de los registros con estado cobrado, incluidos los "
+            "de factoraje."
+        ),
+        "Financieros",
+        "Suma de importes cobrados del periodo, incluido factoraje.",
     ),
     (
-        "Booking / ventas cerradas",
-        "Suma de oportunidades ganadas del rango, convertidas a dólares según el tipo de cambio disponible. No es facturación.",
-        "Backlog_Proyectos",
+        "Porcentaje de cobranza",
+        "Importe cobrado como porcentaje de la facturación del mismo corte.",
+        "Financieros",
+        "Importe cobrado ÷ facturación × 100. Sin facturación: no disponible.",
     ),
     (
-        "Cobranza",
-        "100 × Collected (incluido factoring) ÷ (Invoiced + Collected, incluido factoring). Se usa la fecha disponible de DataRevenue G. Sin denominador se muestra Pendiente. No es una conciliación bancaria ni un cohort de facturas hasta validar fechas con Florencia.",
-        "DataRevenue · validación pendiente",
+        "Ingresos contratados",
+        (
+            "Importe de los registros confirmados, facturados o cobrados. "
+            "Se consulta en el detalle financiero o de proyectos."
+        ),
+        "Financieros",
+        (
+            "Suma de importes confirmados, facturados y cobrados, "
+            "incluido factoraje."
+        ),
     ),
     (
-        "Costos",
-        "Horas del periodo × tarifa de banda; deduplicación por ID de registro Clockify. Falta de bandas o tarifas implica costos incompletos.",
-        "Clockify + Bandas/rol + Master rates",
+        "Ingresos confirmados futuros",
+        (
+            "Importe confirmado con fecha posterior al corte y dentro del "
+            "periodo seleccionado."
+        ),
+        "Financieros",
+        (
+            "Suma de importes confirmados cuya fecha es posterior al "
+            "corte y está entre Desde y Hasta."
+        ),
+    ),
+    (
+        "Costo de horas registradas",
+        (
+            "Costo de las horas registradas en el periodo, calculado con "
+            "la tarifa interna de cada banda."
+        ),
+        "Financieros",
+        "Suma de horas de cada registro único × tarifa interna de su banda.",
     ),
     (
         "Utilidad bruta",
-        "Facturación del periodo − costos del periodo. Un proyecto sin facturación conserva sus costos y reduce la utilidad de su cuenta.",
-        "Cálculo financiero",
+        (
+            "Facturación del periodo menos costos del periodo, expresada "
+            "en dinero."
+        ),
+        "Financieros",
+        "Facturación − costos del periodo.",
     ),
     (
         "Margen bruto",
-        "100 × utilidad bruta ÷ facturación. No se calcula porcentaje con facturación cero ; con costos incompletos se muestra un margen parcial con asterisco y pendientes.",
-        "Cálculo financiero",
+        "Utilidad bruta como porcentaje de la facturación del periodo.",
+        "Financieros",
+        "Utilidad bruta ÷ facturación × 100. Sin facturación: no disponible.",
     ),
     (
-        "Rentabilidad mensual",
-        "Facturación agrupada por mes de la fecha disponible, frente a costos por fecha de cada registro. No se atribuye la facturación total del proyecto a cada mes.",
-        "Facturación mensual pendiente con Florencia",
+        "Cobertura de costos",
+        (
+            "Proyectos con costos completos, parciales o faltantes, sobre "
+            "el total incluido en el cálculo."
+        ),
+        "Financieros",
+        (
+            "Cantidad de proyectos por estado de cobertura ÷ total de "
+            "proyectos incluidos × 100."
+        ),
     ),
     (
-        "Comparación de cuentas",
-        "En Business Overview se elige facturación, utilidad bruta o margen bruto, sin ponderación 70/30. Se comparan todas las cuentas del corte con dato para ese indicador, se separan en mitad superior e inferior y se muestran hasta 5 por grupo. La búsqueda limita las cuentas comparadas; cada encabezado permite invertir el orden dentro del grupo. Un porcentaje no aplicable no equivale a cero. * indica costos y márgenes parciales. Los nombres de los grupos representan posiciones relativas, no una evaluación integral de salud.",
-        "Corte financiero del periodo · base contable pendiente",
+        "Margen vendido",
+        "Porcentaje de margen registrado al vender la oportunidad.",
+        "Financieros",
+        (
+            "Margen registrado en la venta. Si existen valores "
+            "contradictorios: pendiente de validación."
+        ),
     ),
     (
-        "Tarifa de costo vendida (costing rate)",
-        "Tarifa de costo considerada al vender una oportunidad. Su fuente, unidad y regla de asignación están pendientes de validación con Florencia. Se muestra Pendiente; no se deduce de revenue dividido entre horas ni se sustituye por la tarifa interna de banda.",
-        "Pendiente de fuente y validación con Florencia",
+        "Margen real por oportunidad",
+        (
+            "Porcentaje que queda tras restar los costos disponibles a "
+            "los ingresos considerados para la oportunidad, incluidos los "
+            "confirmados."
+        ),
+        "Financieros",
+        (
+            "(Ingresos de la oportunidad − costos disponibles) ÷ ingresos "
+            "de la oportunidad × 100."
+        ),
     ),
     (
-        "Tarifa interna de banda",
-        "Tarifa de costo por hora asociada a la banda del recurso en Master rates. Se utiliza junto con las horas registradas para calcular los costos disponibles. No equivale a la tarifa de costo con la que se vendió una oportunidad.",
-        "Bandas/rol + Master rates",
+        "Desviación de margen",
+        "Margen real menos margen vendido, en puntos porcentuales.",
+        "Financieros",
+        "Margen real − margen vendido (pp).",
     ),
     (
-        "ETC",
-        "Capacidad del equipo menos horas registradas en Clockify para los proyectos del corte, en los meses con capacidad disponible. Un ETC negativo indica que el consumo superó la capacidad.",
-        "Facturabilidad · capacidad del equipo + Clockify",
+        "Ventas ganadas (booking)",
+        (
+            "Importe en USD de las oportunidades ganadas en el periodo "
+            "seleccionado."
+        ),
+        "Comerciales",
+        "Suma de importes en USD de oportunidades ganadas en el periodo.",
     ),
     (
-        "FTE equivalente",
-        "ETC ÷ número de meses calendario del rango ÷ 360. Mes: ETC/360; trimestre: ETC/3/360. Base 360 solicitada por Dirección; no es un calendario laboral estándar.",
-        "Conversión operativa de referencia",
+        "Importe de oportunidades abiertas",
+        (
+            "Importe en USD de las oportunidades abiertas cuya fecha "
+            "prevista de cierre cae dentro del periodo seleccionado. Cada "
+            "oportunidad se cuenta una vez."
+        ),
+        "Comerciales",
+        (
+            "Suma de importes en USD de oportunidades abiertas únicas con "
+            "cierre previsto en el periodo."
+        ),
     ),
     (
-        "Avance en horas",
-        "100 × horas consumidas ÷ capacidad del equipo para los mismos meses. Mide el uso de la capacidad.",
-        "Facturabilidad · capacidad del equipo + Clockify",
+        "Número de oportunidades abiertas",
+        "Cantidad de oportunidades abiertas que cumplen los filtros del corte.",
+        "Comerciales",
+        "Conteo de oportunidades abiertas únicas incluidas en el corte.",
     ),
     (
-        "Facturabilidad global",
-        "100 × horas facturables ÷ capacidad del equipo. Misma fuente GSE, plantilla y especialidades que Facturabilidad en Operativa; rango seleccionado, sumando horas y capacidad de los meses disponibles hasta la fecha de corte; no es un promedio de porcentajes. * indica cobertura parcial.",
-        "Clockify · corte preparado",
+        "Cuentas con oportunidades abiertas",
+        (
+            "Cantidad de cuentas distintas con al menos una oportunidad "
+            "abierta en el corte."
+        ),
+        "Comerciales",
+        "Conteo de cuentas distintas de las oportunidades abiertas del corte.",
     ),
     (
-        "Inversión operativa",
-        "Suma de horas con etiqueta INV_OPERATIVA del rango, sin duplicar registros. Se presenta en horas enteras.",
-        "Clockify",
+        "Tarifa de costo estimada en la venta",
+        (
+            "Tarifa de costo considerada al vender la oportunidad. "
+            "Pendiente de validación hasta confirmar fuente, unidad y "
+            "asignación."
+        ),
+        "Comerciales",
+        "Pendiente de validación.",
     ),
     (
-        "Trabajo por entregar",
-        "Regla vigente: suma de importes Confirmed de DataRevenue H con fecha G futura respecto al día del corte y dentro del periodo seleccionado. Es revenue futuro previsto; no equivale a tareas pendientes ni a facturación. Si falta el corte se muestra Pendiente.",
-        "DataRevenue G/H · regla del corte comercial",
+        "Capacidad del equipo",
+        "Horas disponibles del equipo para el periodo consultado.",
+        "Operativos",
+        (
+            "Suma de la capacidad de las personas elegibles durante su "
+            "periodo activo: FTE × días laborables × 8 horas."
+        ),
     ),
     (
-        "Previas al cierre",
-        "Regla vigente: importe en USD de oportunidades abiertas únicas de Backlog_Proyectos con fecha de cierre dentro del periodo seleccionado. No representa ventas ganadas ni facturación; la cifra se consulta con el alcance del corte comercial.",
-        "Backlog_Proyectos · oportunidades abiertas únicas",
+        "Horas registradas",
+        (
+            "Horas capturadas en Clockify para los proyectos incluidos en "
+            "el corte."
+        ),
+        "Operativos",
+        "Suma de horas de registros únicos del periodo, sin Comida.",
     ),
     (
-        "Decisiones y seguimiento",
-        "Acuerdos capturados de Dirección o Consejo con cuenta, fecha de sesión, compromiso y estado. No se alimenta automáticamente con alertas técnicas ni nombres de BM/DM. Registros antiguos sin sesión se identifican para clasificación.",
-        "Registro local de acuerdos",
+        "Horas facturables",
+        "Horas clasificadas como facturables según la regla de Operaciones.",
+        "Operativos",
+        "Suma de horas que cumplen la regla de facturabilidad del periodo.",
     ),
     (
-        "Corte fijo",
-        "La página abre datos preparados sin llamadas individuales a Clockify. La actualización ocurre en segundo plano; la primera carga y cada actualización solicitada se muestran una sola vez al terminar la preparación. No hay cifras provisionales que cambien en pantalla.",
-        "Caché por rango",
+        "Saldo de capacidad (h)",
+        (
+            "Capacidad del equipo menos horas registradas. Si el saldo es "
+            "negativo, la tarjeta muestra Exceso sobre capacidad."
+        ),
+        "Operativos",
+        "Capacidad del equipo − horas registradas.",
+    ),
+    (
+        "Consumo de capacidad (%)",
+        "Horas registradas como porcentaje de la capacidad del equipo.",
+        "Operativos",
+        "Horas registradas ÷ capacidad del equipo × 100.",
+    ),
+    (
+        "Facturabilidad (%)",
+        (
+            "Horas facturables como porcentaje de la capacidad del "
+            "equipo. Resumen ejecutivo y Operativa usan esta definición e "
+            "indican el alcance de cada vista."
+        ),
+        "Operativos",
+        "Horas facturables ÷ capacidad del equipo × 100.",
+    ),
+    (
+        "Horas de inversión operativa",
+        "Horas registradas con la etiqueta de inversión operativa.",
+        "Operativos",
+        "Suma de horas de registros únicos con la etiqueta INV_OPERATIVA.",
     ),
 ]
 
-CONCEPTS.append(
-    (
-        "Margen vendido vs. real por oportunidad",
-        "Cruce por DataRevenue B/C, reuniendo todos sus Project IDs de E. Margen vendido = I; margen real = 100 × (revenue de H − costos disponibles) / revenue. Incluye los estados de Finanzas, incluso Confirmed, separado de facturación. Desviación = real − vendido en pp. Solo en esta comparativa se excluyen licencias, SaaS y especializados. Costos parciales marcados con *. IDs compartidos entre oportunidades requieren asignación validada; no se duplica su costo. No se elige un margen arbitrario cuando I presenta valores distintos.",
-        "DataRevenue C/E/G/H/I · Clockify · tarifas internas de banda",
-    )
-)
+SOURCES = {
+    "Financieros": "DataRevenue + Clockify + Bandas/rol + Master rates",
+    "Comerciales": "Backlog_Proyectos",
+    "Operativos": "Clockify + Bandas/rol + cierres publicados",
+}
+SOURCE_OVERRIDES = {
+    "Tarifa de costo estimada en la venta": "Pendiente de validación",
+    "Ingresos confirmados futuros": "DataRevenue",
+    "Facturación": "DataRevenue",
+    "Importe cobrado": "DataRevenue",
+    "Porcentaje de cobranza": "DataRevenue",
+    "Ingresos contratados": "DataRevenue",
+    "Capacidad del equipo": "Bandas/rol + calendario laboral",
+}
+CONCEPTS = [
+    (name, definition, SOURCE_OVERRIDES.get(name, SOURCES[category]))
+    for name, definition, category, _ in INDICATORS
+]
+DEFINITIONS_DATE = "2026-11-17"
 
-
-# Glosario corto de Business Overview. Cada termino nombra el concepto de
-# CONCEPTS que lo define; su resumen vive aqui, junto a la definicion larga,
-# para que las dos se cambien en el mismo lugar.
-# (termino, concepto en CONCEPTS, resumen)
-GLOSSARY: tuple[tuple[str, tuple[tuple[str, str, str], ...]], ...] = (
+GLOSSARY = (
     (
-        "Financiera",
-        (
-            (
-                "Facturación",
-                "Facturación",
-                "Importe facturado y cobrado del periodo; excluye Confirmed.",
-            ),
-            (
-                "Utilidad y margen bruto",
-                "Utilidad bruta",
-                "La utilidad es facturación menos costos. El margen expresa esa utilidad como porcentaje de la facturación.",
-            ),
-            (
-                "Cobranza",
-                "Cobranza",
-                "Proporción cobrada según los estados disponibles de Finanzas; fechas pendientes de validación.",
-            ),
+        "Finanzas",
+        tuple(
+            (name, name, definition)
+            for name, definition, category, _ in INDICATORS
+            if category == "Financieros"
+            and name
+            in {"Facturación", "Margen bruto", "Porcentaje de cobranza"}
         ),
     ),
     (
         "Operaciones",
-        (
-            (
-                "ETC · horas restantes",
-                "ETC",
-                "Capacidad del equipo menos consumo registrado.",
-            ),
-            (
-                "Avance en horas",
-                "Avance en horas",
-                "Porcentaje de la capacidad del equipo que se consumió.",
-            ),
-            (
-                "Facturabilidad",
-                "Facturabilidad global",
-                "Horas facturables respecto a la capacidad del equipo.",
-            ),
-            (
-                "Inversión operativa",
-                "Inversión operativa",
-                "Horas registradas con la etiqueta de inversión operativa.",
-            ),
+        tuple(
+            (name, name, definition)
+            for name, definition, category, _ in INDICATORS
+            if category == "Operativos"
+            and name
+            in {
+                "Saldo de capacidad (h)",
+                "Consumo de capacidad (%)",
+                "Facturabilidad (%)",
+                "Horas de inversión operativa",
+            }
         ),
     ),
     (
         "Comercial",
-        (
-            (
-                "Ventas cerradas · booking",
-                "Booking / ventas cerradas",
-                "Valor de oportunidades ganadas; es diferente de la facturación.",
-            ),
-            (
-                "Trabajo por entregar",
-                "Trabajo por entregar",
-                "Revenue futuro Confirmed, según el corte y las fechas disponibles de Finanzas.",
-            ),
-            (
-                "Previas al cierre",
-                "Previas al cierre",
-                "Valor de oportunidades abiertas dentro del alcance del corte comercial.",
-            ),
+        tuple(
+            (name, name, definition)
+            for name, definition, _, _ in INDICATORS
+            if name
+            in {
+                "Ventas ganadas (booking)",
+                "Ingresos confirmados futuros",
+                "Importe de oportunidades abiertas",
+            }
         ),
     ),
 )
 
-DEFINITIONS_DATE = "2026-10-22"
+
+def indicator_concepts() -> list[dict[str, str]]:
+    """Entrega definición y cálculo por separado para el glosario."""
+    return [
+        {
+            "name": name,
+            "definition": definition,
+            "category": category,
+            "calculation": calculation,
+            "source": SOURCE_OVERRIDES.get(name, SOURCES[category]),
+        }
+        for name, definition, category, calculation in INDICATORS
+    ]
 
 
 def glossary_groups() -> list[dict[str, object]]:
-    """Grupos del glosario con el concepto que define cada termino."""
+    """Agrupa los indicadores de las tres tarjetas ejecutivas."""
     return [
         {
             "name": group,

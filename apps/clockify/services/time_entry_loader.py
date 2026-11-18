@@ -900,7 +900,7 @@ def plan_report(
         raise ClockifyProjectError(
             f"No se encontro una coincidencia unica para {internal_id} "
             "en Clockify. "
-            f"Vinculalo en la hoja {SHEET_PROJECT_LINKS}.",
+            "Revisa el ID del proyecto en la hoja DataRevenue.",
         )
 
     return ReportPlan(

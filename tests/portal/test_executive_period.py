@@ -60,6 +60,9 @@ def test_period_bounds(query, start, end):
 
 
 def test_income_rankings_months_and_cache_use_exact_dates(monkeypatch):
+    monkeypatch.setattr(
+        "apps.portal.services.cost_project_inventory.azure_scopes", list
+    )
     cache.clear()
     r = reader()
     monkeypatch.setattr(revenue, "build_sheet_repository", lambda: r)
@@ -124,6 +127,9 @@ def test_project_cost_query_clips_clockify_dates(monkeypatch):
         revenue_costs, "build_clockify_loader", lambda r: loader
     )
     context = SimpleNamespace(
+        azure_ranges=[
+            {"project_id": "A", "start": "2026-04-12", "finish": "2026-12-31"}
+        ],
         reader=reader(),
         ids=["A"],
         allowed_ids={"a"},
@@ -134,7 +140,9 @@ def test_project_cost_query_clips_clockify_dates(monkeypatch):
     try:
         result = revenue_costs.calculate_project_cost("A", context)
         loader.load_project.assert_called_once_with(
-            "A", (date(2026, 4, 10), date(2026, 4, 15))
+            "A",
+            (date(2026, 4, 10), date(2026, 4, 15)),
+            authoritative_range=True,
         )
         assert result["hours"] == 0 and result["complete"]
     finally:

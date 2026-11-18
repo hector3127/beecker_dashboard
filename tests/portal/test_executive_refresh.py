@@ -101,7 +101,7 @@ def test_refreshing_saved_page_does_not_wait_for_external_calls(
     request = RequestFactory().get("/", {"actualizar": "1"})
     response = views.ejecutiva(request)
     assert response.status_code == 200
-    assert b'data-endpoint="/ejecutiva/actualizacion/"' in response.content
+    assert b'id="executive-prepare"' not in response.content
     assert b"pages/executive/main.js" in response.content
     isolated.submit.assert_called_once()
 

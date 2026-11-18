@@ -63,7 +63,7 @@
     }
   },
   "IXB.SUS.001": {
-    "error": "No se encontro una coincidencia unica para IXB.SUS.001 en Clockify. Vinculalo en la hoja Clockify_Vinculos."
+    "error": "No se encontro una coincidencia unica para IXB.SUS.001 en Clockify. Revisa el ID del proyecto en la hoja DataRevenue."
   },
   "RAAS.GAM.001": {
     "burn": 8.5,

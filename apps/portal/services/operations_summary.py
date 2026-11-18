@@ -8,8 +8,7 @@ from apps.portal.schemas import ChartBar, MonthFacturability, OperationsSummary
 from apps.portal.services.capacity import format_month
 
 """BKD.120.026 - Resumen de Operations
-Toma la facturabilidad de enero al ultimo mes cerrado (el mes en curso
-todavia no tiene todas sus horas) y la compara con la meta de 70%.
+Toma la facturabilidad de enero al mes elegido y la compara con la meta de 70%.
 """
 
 CHART_LEFT = 14.0

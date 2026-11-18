@@ -107,6 +107,7 @@ def test_secondary_pages_report_a_non_200_response(monkeypatch):
 def test_summary_cache_skips_calculation_and_manual_refresh_rebuilds(
     monkeypatch,
 ):
+    monkeypatch.setattr(views, "published_months", lambda *_: {})
     cache.clear()
     calls = []
 
@@ -116,6 +117,8 @@ def test_summary_cache_skips_calculation_and_manual_refresh_rebuilds(
 
     monkeypatch.setattr(views, "load_year_sources", sources)
     first = views.operations_summary_data()
+    assert first.selected.month == views.timezone.localdate().strftime("%Y-%m")
+    assert not first.month_closed
     assert views.operations_summary_data() == first
     assert len(calls) == 1
     views.operations_summary_data(refresh=True)
@@ -124,6 +127,7 @@ def test_summary_cache_skips_calculation_and_manual_refresh_rebuilds(
 
 
 def test_partial_summary_preserves_previous_valid_cut(monkeypatch):
+    monkeypatch.setattr(views, "published_months", lambda *_: {})
     cache.clear()
     key = views._operations_summary_key()
     cache.set(key, "previous-cut")

@@ -39,7 +39,7 @@ export function describeMonth(month, { target, latestMonth, monthClosed }) {
       gap === null
         ? 'Sin datos para comparar con la meta'
         : `${gap >= 0 ? '↑' : '↓'} ${Math.abs(gap).toLocaleString('es-MX', { maximumFractionDigits: 1 })} puntos ${gap >= 0 ? 'arriba' : 'abajo'} de la meta`,
-    label: `${month.month_label} · ${latest ? (monthClosed ? 'último mes cerrado' : 'mes en curso') : 'mes seleccionado'}`,
+    label: `${month.month_label} · ${latest ? (monthClosed ? 'último mes cerrado' : 'mes en curso · parcial') : 'mes seleccionado'}`,
   };
 }
 

@@ -10,7 +10,7 @@ from core.utils.text import normalize_name
 
 def metadata_key(account: Any) -> Any:
     """Llave del corte de ingresos por cuenta, periodo y version de costos."""
-    return "portal:cost-audit:revenue:v4:" + key(
+    return "portal:cost-audit:revenue:v5:" + key(
         "audit:" + normalize_name(account or "")
     )
 

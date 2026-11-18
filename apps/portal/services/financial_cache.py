@@ -17,6 +17,7 @@ from apps.portal.services.revenue import load_revenue
 from apps.portal.services.revenue_costs import (
     calculate_project_cost,
     cost_summary,
+    empty_aer_projects,
     future_project_month,
     key,
     prepare_cost_context,
@@ -34,7 +35,7 @@ _WARM_LOCK = threading.Lock()
 def snapshot_key() -> str:
     """Separa el corte financiero de los otros bloques y de otros dias."""
     return (
-        "portal:financial:snapshot:v15:"
+        "portal:financial:snapshot:v20:"
         + timezone.localdate().isoformat()
         + cache_suffix()
     )
@@ -82,10 +83,11 @@ def _prepare_financial() -> dict[str, Any]:
         revenue = load_revenue()
         reader = build_sheet_repository()
         ids = project_ids(reader)
+        empty_aer = empty_aer_projects()
 
         # Do not re-read/parse rosters and rates for already prepared costs.
         def needs_preparation(pid: Any) -> Any:
-            if future_project_month(pid):
+            if future_project_month(pid) or pid.casefold() in empty_aer:
                 return False
             saved = cache.get(key(pid))
             return (

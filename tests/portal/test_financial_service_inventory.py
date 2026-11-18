@@ -1,9 +1,35 @@
+import pytest
+
 from apps.portal.services.cost_project_inventory import inventory
 from tests.fakes import InMemorySheetRepository
 from tests.portal.test_kpi_sources import MPB
 
 
-def test_financial_inventory_uses_service_specific_sources():
+@pytest.fixture(autouse=True)
+def azure_inventory(monkeypatch):
+    scopes = [
+        {
+            "project_id": pid,
+            "fields": {"service": service, "client": client},
+            "start": "2026-01-01",
+            "finish": "2026-12-31",
+        }
+        for pid, service, client in [
+            ("CCO.002_S1", "IXB", "OXXO"),
+            ("RAAS.1", "RaaS", "OXXO"),
+            ("SAAS.1", "SaaS", "OXXO"),
+            ("MCC.014_CR2", "RaaS", "Heineken"),
+        ]
+    ]
+    monkeypatch.setattr(
+        "apps.portal.services.cost_project_inventory.azure_scopes",
+        lambda: scopes,
+    )
+    return scopes
+
+
+def test_financial_inventory_uses_service_specific_sources(azure_inventory):
+    azure_inventory.pop()
     reader = InMemorySheetRepository(
         {
             "DataRevenue": [
@@ -105,7 +131,8 @@ def test_financial_inventory_uses_service_specific_sources():
     )
 
 
-def test_unregistered_cr_is_grouped_under_pure_id():
+def test_unregistered_cr_is_grouped_under_pure_id(azure_inventory):
+    del azure_inventory[:3]
     reader = InMemorySheetRepository(
         {
             "DataRevenue": [

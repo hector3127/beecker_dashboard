@@ -389,7 +389,7 @@ def tagged_investment(
 
 def team_capacity_cache_key(month: str) -> str:
     """Clave compartida del resumen de capacidad instalado por mes."""
-    return "portal:team-capacity:v8:" + month
+    return "portal:team-capacity:v10:" + month
 
 
 def legacy_capacity(month: Any, *, cached_only: bool = False) -> Any:

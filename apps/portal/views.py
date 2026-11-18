@@ -103,7 +103,6 @@ from apps.portal.services.manager_detail import (
 )
 from apps.portal.services.operations_summary import (
     build_operations_summary,
-    last_closed_month,
 )
 from apps.portal.services.period_filter import (
     KIND_QUARTER,
@@ -255,10 +254,8 @@ def _operativa_is_fresh(request: Any) -> bool:
 
 
 def _operations_summary_key() -> str:
-    """Identifica el resumen por su ultimo mes cerrado."""
-    return "portal:ops:summary-data:v3:" + last_closed_month(
-        timezone.localdate()
-    )
+    """Identifica el resumen por el mes en curso."""
+    return "portal:ops:summary-data:v4:" + timezone.localdate().strftime("%Y-%m")
 
 
 def _scope_operativa_investment(request: Any, context: dict[str, Any]) -> None:
@@ -810,7 +807,7 @@ _DM_SECONDS = 300
 def _dm_key(slug: str, stage: str, scope: AccessScope | None = None) -> str:
     # Cada alcance limitado tiene su propio corte: nunca se comparte con otro.
     extra = ":" + scope.signature() if scope and not scope.unrestricted else ""
-    return "portal:delivery_manager:v3:" + slug + extra + ":" + stage
+    return "portal:delivery_manager:v4:" + slug + extra + ":" + stage
 
 
 class ManagerUnavailableError(Exception):
@@ -821,7 +818,7 @@ def _dm_base(slug: str, scope: AccessScope) -> dict[str, Any]:
     """Paso 1: proyectos y estados del Delivery Manager (sin Clockify)."""
     from apps.portal.services.operational_sources import eva_projects
 
-    ixb, aer = load_eva2(), load_eva1()
+    ixb, aer = load_eva2(current=True), load_eva1()
     load = PortfolioLoad(
         projects=eva_projects(ixb, aer),
         loaded_at=timezone.localtime(),
@@ -2012,12 +2009,12 @@ def _role_scope(
 
 
 def operations_summary_data(refresh: bool = False) -> Any:
-    """Facturabilidad global de enero al ultimo mes cerrado.
+    """Facturabilidad global de enero al mes en curso.
 
     Usa los cierres de Facturabilidad y consulta GSE para meses sin cierre.
     """
     today = timezone.localdate()
-    month = last_closed_month(today)
+    month = today.strftime("%Y-%m")
     key = _operations_summary_key()
     cached = cache.get(key)
     if cached is not None and cache.get(key + ":fresh") and not refresh:
@@ -2041,9 +2038,7 @@ def operations_summary_data(refresh: bool = False) -> Any:
             general_metric(key, metrics) for key, metrics in published.items()
         )
         months.sort(key=lambda metric: metric.month)
-    summary = build_operations_summary(
-        months, month_closed=month != str(today.strftime("%Y-%m"))
-    )
+    summary = build_operations_summary(months, month_closed=month in published)
     if months and not summary.errors:
         cache.set(key, summary, 86400)
         cache.set(key + ":fresh", True, _OPS_FRESH_SECONDS)
@@ -2259,7 +2254,7 @@ def costos_detalle(request: HttpRequest) -> HttpResponse:
 
     account = request.GET.get("nombre", "").strip()
     back = account_back_url(account)
-    navigation = return_context(request, back, account or "Business Overview")
+    navigation = return_context(request, back, account or "Resumen ejecutivo")
     return render_page(
         request,
         "pages/costs.html",

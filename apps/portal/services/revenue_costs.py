@@ -5,6 +5,7 @@ import hashlib
 import re
 from dataclasses import dataclass
 from datetime import date
+from functools import cached_property
 from typing import Any
 
 from django.core.cache import cache
@@ -13,6 +14,11 @@ from django.utils import timezone
 from apps.clockify.provider import build_clockify_loader
 from apps.gse.services.roster import find_band_column, read_roster_sheet
 from apps.portal.services.executive_period import bounds, cache_suffix, current
+from apps.portal.services.financial_azure_dates import (
+    azure_scopes,
+    project_key,
+    uses_sheet_dates,
+)
 from core.sheets.factory import build_sheet_repository
 from core.sheets.project_year import mpb_previous_year_ids
 from core.sheets.protocols import SheetReader
@@ -20,6 +26,12 @@ from core.time_entries.resource_rates import normalize_band, read_rate_by_band
 from core.utils.dates import to_datetime
 from core.utils.source_refresh import force_sources
 from core.utils.text import normalize_name
+
+PERSON_COSTING_RATES = {
+    normalize_name("Alberto Carlos Rodriguez Veloz"): 25.01,
+    normalize_name("Brandon Daniel Sotelo Moreno"): 20.83,
+    normalize_name("Jose Patricio Ochoa Garza"): 27.51,
+}
 
 
 @dataclass(frozen=True)
@@ -32,6 +44,11 @@ class CostContext:
     today: date
     rates: dict[str, float]
     bands: dict[str, tuple[Any, str]]
+
+    @cached_property
+    def azure_ranges(self) -> list[dict[str, Any]]:
+        """Share the published Azure cut across project cost calculations."""
+        return azure_scopes()
 
 
 def prepare_cost_context(
@@ -123,9 +140,9 @@ def key(pid: Any) -> Any:
     """Identifica el costo por proyecto y mes de la banda vigente."""
     return (
         (
-            "portal:revenue-cost:2026:aer-month-v1:"
+            "portal:revenue-cost:2026:aer-month-v2:"
             if pid.strip().upper().startswith("AER.")
-            else "portal:revenue-cost:2026:v9:"
+            else "portal:revenue-cost:2026:v12:"
         )
         + timezone.localdate().strftime("%Y-%m")
         + ":"
@@ -270,11 +287,34 @@ def calculate_project_cost(pid: Any, context: Any = None) -> Any:
         if month and selected_start.year != selected_end.year:
             start, end = selected_start, selected_end
         start, end = max(start, selected_start), min(end, selected_end, today)
+    sheet_dates = uses_sheet_dates(pid, reader)
     loader = build_clockify_loader(reader)
-    entries = loader.load_project(lookup, (start, end)) if start <= end else []
+
+    def load_child(child: str) -> Any:
+        if sheet_dates:
+            return loader.load_project(child, (start, end))
+        return loader.load_project(
+            child, (start, end), authoritative_range=True
+        )
+
+    entries = []
+    if start <= end:
+        if sheet_dates:
+            entries = loader.load_project(lookup, (start, end))
+        else:
+            entries = loader.load_project(
+                lookup, (start, end), authoritative_range=True
+            )
     from apps.portal.services.project_task_scope import scope_entries
 
-    entries = scope_entries(pid, ids, entries, loader, lookup)
+    entries = scope_entries(
+        pid,
+        ids,
+        entries,
+        loader,
+        lookup,
+        load_child=None if sheet_dates else load_child,
+    )
     # A CR absent from DataRevenue belongs to its pure ID; the loader normally
     # excludes CR records from the base, so load these children explicitly.
     from apps.portal.services.project_task_scope import financial_variant
@@ -285,20 +325,31 @@ def calculate_project_cost(pid: Any, context: Any = None) -> Any:
         if len(r) > 4
     }
     aliases = set()
-    if reader.sheet_exists("Historico_Proyectos"):
-        for row in reader.read_values("Historico_Proyectos")[1:]:
-            child = str(row[2] or "").strip() if len(row) > 2 else ""
-            parsed = financial_variant(child)
-            if (
-                parsed
-                and parsed[0] == pid.strip().casefold()
-                and parsed[1].startswith("CR")
-                and child.casefold() not in registered
-            ):
-                aliases.add(child)
+    if sheet_dates and reader.sheet_exists("Historico_Proyectos"):
+        candidates = [
+            str(row[2] or "").strip()
+            for row in reader.read_values("Historico_Proyectos")[1:]
+            if len(row) > 2
+        ]
+    elif sheet_dates:
+        candidates = []
+    else:
+        registered = {project_key(value) for value in registered}
+        candidates = [row["project_id"] for row in context.azure_ranges]
+    for child in candidates:
+        parsed = financial_variant(child)
+        identity = child.casefold() if sheet_dates else project_key(child)
+        if (
+            parsed
+            and parsed[0] == pid.strip().casefold()
+            and parsed[1].startswith("CR")
+            and identity not in registered
+        ):
+            aliases.add(child)
     entries = list(entries)
-    for child in sorted(aliases):
-        entries.extend(loader.load_project(child, (start, end)))
+    if start <= end:
+        for child in sorted(aliases):
+            entries.extend(load_child(child))
     entries = partition_aer_months(pid, ids, entries, start, end)
     # Resolve names for the audit even when the base ID includes all sprints.
     task_details_complete = True
@@ -355,11 +406,11 @@ def calculate_project_cost(pid: Any, context: Any = None) -> Any:
         if not entry.entry_id or entry.entry_id in seen:
             continue
         seen.add(entry.entry_id)
-        band, band_month = bands.get(
-            normalize_name(entry.resource_name), ("", "")
-        )
-        rate = rates.get(normalize_band(band)) if band else None
         person_key = normalize_name(entry.resource_name)
+        band, band_month = bands.get(person_key, ("", ""))
+        rate = PERSON_COSTING_RATES.get(person_key)
+        if rate is None:
+            rate = rates.get(normalize_band(band)) if band else None
         person = people.setdefault(
             person_key,
             {
@@ -474,14 +525,18 @@ def calculate_project_cost(pid: Any, context: Any = None) -> Any:
 
 
 def future_project_month(pid: Any, today: Any = None) -> Any:
-    """Monthly IDs are future only when their whole scope is future."""
+    """Skip costs when the whole applicable period has yet to start."""
     today = today or timezone.localdate()
+    first, last = bounds()
+    current_month = today.replace(day=1)
+    if first.replace(day=1) > current_month:
+        return True
+
     match = re.fullmatch(
         r"(?:AER|ROC)\.[A-Z0-9]+\.\d{3}\.(0[1-9]|1[0-2])", pid.strip(), re.I
     )
     if not match:
         return False
-    first, last = bounds()
     month = int(match.group(1))
     occurrences = [
         date(year, month, 1)
@@ -489,9 +544,70 @@ def future_project_month(pid: Any, today: Any = None) -> Any:
         if date(year, month, calendar.monthrange(year, month)[1]) >= first
         and date(year, month, 1) <= last
     ]
-    return bool(occurrences) and min(occurrences).replace(
-        day=1
-    ) > today.replace(day=1)
+    return bool(occurrences) and min(occurrences) > current_month
+
+
+def empty_aer_projects() -> set[str]:
+    """Confirm empty AER projects using the synchronized Clockify range."""
+    from django.conf import settings
+
+    from apps.datastore.models import ClockifyTimeEntry, SheetSnapshot
+    from apps.datastore.services.clockify_catalog import read_projects
+    from apps.datastore.services.clockify_store import store_state
+
+    if force_sources.get() or not settings.CLOCKIFY_STORE_ENABLED:
+        return set()
+    start, end = bounds()
+    end = min(end, timezone.localdate())
+    if end < start:
+        return set()
+    _, synced = store_state()
+    for index in range(
+        start.year * 12 + start.month - 1, end.year * 12 + end.month
+    ):
+        if date(index // 12, index % 12 + 1, 1) not in synced:
+            return set()
+    projects = read_projects(settings.CLOCKIFY_WORKSPACE_ID) or []
+    ids_by_name = {}
+    duplicates = set()
+    for project in projects:
+        name = project.name.strip().casefold()
+        if re.fullmatch(r"aer\.[a-z0-9]+\.\d{3}", name):
+            if name in ids_by_name:
+                duplicates.add(name)
+            ids_by_name[name] = project.project_id
+    links = (
+        SheetSnapshot.objects.filter(name="Clockify_Vinculos")
+        .values_list("rows", flat=True)
+        .first()
+        or []
+    )
+    linked = {
+        match.group().casefold()
+        for row in links
+        for value in row
+        if (
+            match := re.match(
+                r"AER\.[A-Z0-9]+\.\d{3}", str(value).strip(), re.I
+            )
+        )
+    }
+    recorded = set()
+    rows = (
+        ClockifyTimeEntry.objects.filter(
+            entry_date__range=(start, end), duration_seconds__gt=0
+        )
+        .values_list("project_id", "project_name")
+        .distinct()
+    )
+    names_by_id = {project_id: name for name, project_id in ids_by_name.items()}
+    for project_id, name in rows:
+        if project_id in names_by_id:
+            recorded.add(names_by_id[project_id])
+        match = re.match(r"AER\.[A-Z0-9]+\.\d{3}", name.strip(), re.I)
+        if match:
+            recorded.add(match.group().casefold())
+    return set(ids_by_name) - duplicates - linked - recorded
 
 
 def cost_summary(ids: Any = None, account: Any = None) -> Any:
@@ -502,6 +618,7 @@ def cost_summary(ids: Any = None, account: Any = None) -> Any:
     pending = 0
     complete = True
     future = 0
+    verified_empty_aer = None
     for pid in ids:
         if future_project_month(pid):
             future += 1
@@ -517,6 +634,16 @@ def cost_summary(ids: Any = None, account: Any = None) -> Any:
             )
             continue
         result = cached_project_cost(pid)
+        if result is None and re.fullmatch(r"AER\.[A-Z0-9]+\.\d{3}", pid, re.I):
+            if verified_empty_aer is None:
+                verified_empty_aer = empty_aer_projects()
+            if pid.casefold() in verified_empty_aer:
+                result = {
+                    "entries": {},
+                    "cost": 0,
+                    "hours": 0,
+                    "complete": True,
+                }
         if result:
             entries.update(result["entries"])
             complete = complete and result["complete"]
